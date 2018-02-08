@@ -10,6 +10,30 @@ _tipo = typeOf _unit;
 _skill = if (_tipo in sdkTier1) then {(skillFIA * 0.2)} else {if (_tipo in sdkTier2) then {0.1 + (skillFIA * 0.2)} else {0.1 + (skillFIA * 0.2)}};
 if (not((uniform _unit) in uniformsSDK)) then {[_unit] call reDress};
 
+// check if armored vests are unlocked in the arsenal and select the best one
+// check if radio is available
+_hasRadio       = false;
+_bestVest       = -1;
+_armoredVests   = ["V_TacVest_gen_F", "V_PlateCarrier1_tna_F", "V_PlateCarrier2_tna_F", "V_PlateCarrierSpec_tna_F"];
+_vestsToSearch  = (count _armoredVests) -1;
+
+{
+	if ((not _hasRadio) && ("ItemRadio" isEqualTo (_x select 0))) then {_hasRadio = true};
+	if (_bestVest < _vestsToSearch) then {
+		for [{_i=(_bestVest+1)}, {_i<_vestsToSearch}, {_i=_i+1}] do {
+			_vest = _armoredVests select _i;
+			if (_vest isEqualTo (_x select 0)) then {_bestVest = _i};
+		};
+	};
+} forEach unlockedItems;
+
+// use the best vest
+if (_bestVest > -1) then {
+	removeVest _unit;
+	_unit addVest (_armoredVests select _bestVest);
+};
+
+
 if ((!isMultiplayer) and (leader _unit == stavros)) then {_skill = _skill + 0.1};
 _unit setSkill _skill;
 if (_tipo in SDKSniper) then
@@ -131,7 +155,7 @@ _reload = _skill;
 //_emptyUniform = false;
 _skillSet = 0;
 */
-if (not("ItemRadio" in unlockedItems)) then
+if (not _hasRadio) then {
 	{
 	if ((_unit != leader _unit) and (_tipo != staticCrewBuenos)) then {_unit unlinkItem "ItemRadio"};
 	};

@@ -517,6 +517,7 @@ while {(_waves != 0)} do
 
 						if (count _landPos > 0) then
 							*/
+						//here! magic!!!
 						_landPos = [_posDestino, 200, 350, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
 						if !(_landPos isEqualTo [0,0,0]) then
 							{

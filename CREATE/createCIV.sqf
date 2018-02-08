@@ -146,7 +146,10 @@ if ([_marcador,false] call fogCheck > 0.2) then
 			//_p1 = getPos (_roads select _cuenta);
 			_p1 = _roads select _cuenta;
 			_road = (_p1 nearRoads 5) select 0;
-			if (!isNil "_road") then
+
+			// avoid explosions by not creating cars near other cars
+			_nearVehicles = nearestObjects [_p1, ["Car", "Truck"], 5];
+			if ((!isNil "_road") && (0 == (count _nearVehicles))) then
 				{
 				_grupoP = createGroup civilian;
 				_gruposPatrol = _gruposPatrol + [_grupoP];
@@ -176,6 +179,7 @@ if ([_marcador,false] call fogCheck > 0.2) then
 				_civ moveInDriver _veh;
 				_grupoP addVehicle _veh;
 				_grupoP setBehaviour "CARELESS";
+				_grupoP setSpeedMode "LIMITED";
 				_posDestino = selectRandom (carreteras getVariable (_patrolCiudades select _cuentaPatrol));
 				_wp = _grupoP addWaypoint [_posDestino,0];
 				_wp setWaypointType "MOVE";

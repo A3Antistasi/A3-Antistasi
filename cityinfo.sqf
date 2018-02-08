@@ -119,6 +119,8 @@ while {visibleMap} do
 			if (not(_sitio in mrkSDK)) then
 				{
 				if (_sitio in mrkNATO) then {_texto = "NATO Grand Outpost"} else {_texto = "CSAT Grand Outpost"};
+				_busy = if (dateToNumber date > server getVariable _sitio) then {false} else {true};
+				if (!_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
 				_garrison = count (garrison getVariable _sitio);
 				if (_garrison >= 16) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 8) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}

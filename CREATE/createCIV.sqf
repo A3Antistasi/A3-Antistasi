@@ -54,7 +54,7 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _numCiv)} do
 		_pos = [];
 		while {true} do
 			{
-			_pos = [_posicion, round (random _area), random 360] call BIS_Fnc_relPos;
+			_pos = _posicion getPos [round (random _area), random 360];
 			if (!surfaceIsWater _pos) exitWith {};
 			};
 		_tipociv = selectRandom arrayCivs;
@@ -67,25 +67,28 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _numCiv)} do
 			_road = (_p1 nearRoads 5) select 0;
 			if (!isNil "_road") then
 				{
-				_roadcon = roadsConnectedto (_road);
-				//_roadcon = roadsConnectedto (_roads select _cuenta);
-				//_p1 = getPos (_roads select _cuenta);
-				_p2 = getPos (_roadcon select 0);
-				_dirveh = [_p1,_p2] call BIS_fnc_DirTo;
-				_pos = [_p1, 3, _dirveh + 90] call BIS_Fnc_relPos;
-				_tipoveh = arrayCivVeh call BIS_Fnc_selectRandom;
-				/*
-				_mrk = createmarker [format ["%1", count vehicles], _p1];
-			    _mrk setMarkerSize [5, 5];
-			    _mrk setMarkerShape "RECTANGLE";
-			    _mrk setMarkerBrush "SOLID";
-			    _mrk setMarkerColor colorBuenos;
-			    //_mrk setMarkerText _nombre;
-			    */
-				_veh = _tipoveh createVehicle _pos;
-				_veh setDir _dirveh;
-				_vehiculos pushBack _veh;
-				_nul = [_veh] spawn civVEHinit;
+				if (count (nearestObjects [_p1, ["Car", "Truck"], 5]) == 0) then
+					{
+					_roadcon = roadsConnectedto (_road);
+					//_roadcon = roadsConnectedto (_roads select _cuenta);
+					//_p1 = getPos (_roads select _cuenta);
+					_p2 = getPos (_roadcon select 0);
+					_dirveh = [_p1,_p2] call BIS_fnc_DirTo;
+					_pos = [_p1, 3, _dirveh + 90] call BIS_Fnc_relPos;
+					_tipoveh = arrayCivVeh call BIS_Fnc_selectRandom;
+					/*
+					_mrk = createmarker [format ["%1", count vehicles], _p1];
+				    _mrk setMarkerSize [5, 5];
+				    _mrk setMarkerShape "RECTANGLE";
+				    _mrk setMarkerBrush "SOLID";
+				    _mrk setMarkerColor colorBuenos;
+				    //_mrk setMarkerText _nombre;
+				    */
+					_veh = _tipoveh createVehicle _pos;
+					_veh setDir _dirveh;
+					_vehiculos pushBack _veh;
+					_nul = [_veh] spawn civVEHinit;
+					};
 				};
 			//};
 		sleep 0.5;
@@ -148,45 +151,48 @@ if ([_marcador,false] call fogCheck > 0.2) then
 			_road = (_p1 nearRoads 5) select 0;
 			if (!isNil "_road") then
 				{
-				_grupoP = createGroup civilian;
-				_gruposPatrol = _gruposPatrol + [_grupoP];
-				_roadcon = roadsConnectedto _road;
-				//_p1 = getPos (_roads select _cuenta);
-				_p2 = getPos (_roadcon select 0);
-				_dirveh = [_p1,_p2] call BIS_fnc_DirTo;
-				_tipoveh = arrayCivVeh call BIS_Fnc_selectRandom;
-				_veh = _tipoveh createVehicle _p1;
-				_veh setDir _dirveh;
-				_veh addEventHandler ["HandleDamage",{if (((_this select 1) find "wheel" != -1) and (_this select 4=="") and (!isPlayer driver (_this select 0))) then {0;} else {(_this select 2);};}];
-				_veh addEventHandler ["HandleDamage",
+				if (count (nearestObjects [_p1, ["Car", "Truck"], 5]) == 0) then
 					{
-					_veh = _this select 0;
-					if (side(_this select 3) == buenos) then
+					_grupoP = createGroup civilian;
+					_gruposPatrol = _gruposPatrol + [_grupoP];
+					_roadcon = roadsConnectedto _road;
+					//_p1 = getPos (_roads select _cuenta);
+					_p2 = getPos (_roadcon select 0);
+					_dirveh = [_p1,_p2] call BIS_fnc_DirTo;
+					_tipoveh = arrayCivVeh call BIS_Fnc_selectRandom;
+					_veh = _tipoveh createVehicle _p1;
+					_veh setDir _dirveh;
+					_veh addEventHandler ["HandleDamage",{if (((_this select 1) find "wheel" != -1) and (_this select 4=="") and (!isPlayer driver (_this select 0))) then {0;} else {(_this select 2);};}];
+					_veh addEventHandler ["HandleDamage",
 						{
-						_condu = driver _veh;
-						if (side _condu == civilian) then {_condu leaveVehicle _veh};
-						};
-					}
-					];
-				_vehPatrol = _vehPatrol + [_veh];
-				_tipociv = selectRandom arrayCivs;
-				_civ = _grupoP createUnit [_tipociv, _p1, [],0, "NONE"];
-				_nul = [_civ] spawn CIVinit;
-				_civsPatrol = _civsPatrol + [_civ];
-				_civ moveInDriver _veh;
-				_grupoP addVehicle _veh;
-				_grupoP setBehaviour "CARELESS";
-				_posDestino = selectRandom (carreteras getVariable (_patrolCiudades select _cuentaPatrol));
-				_wp = _grupoP addWaypoint [_posDestino,0];
-				_wp setWaypointType "MOVE";
-				_wp setWaypointSpeed "FULL";
-				_wp setWaypointTimeout [30, 45, 60];
-				_wp = _grupoP addWaypoint [_posicion,1];
-				_wp setWaypointType "MOVE";
-				_wp setWaypointTimeout [30, 45, 60];
-				_wp1 = _grupoP addWaypoint [_posicion,2];
-				_wp1 setWaypointType "CYCLE";
-				_wp1 synchronizeWaypoint [_wp];
+						_veh = _this select 0;
+						if (side(_this select 3) == buenos) then
+							{
+							_condu = driver _veh;
+							if (side _condu == civilian) then {_condu leaveVehicle _veh};
+							};
+						}
+						];
+					_vehPatrol = _vehPatrol + [_veh];
+					_tipociv = selectRandom arrayCivs;
+					_civ = _grupoP createUnit [_tipociv, _p1, [],0, "NONE"];
+					_nul = [_civ] spawn CIVinit;
+					_civsPatrol = _civsPatrol + [_civ];
+					_civ moveInDriver _veh;
+					_grupoP addVehicle _veh;
+					_grupoP setBehaviour "CARELESS";
+					_posDestino = selectRandom (carreteras getVariable (_patrolCiudades select _cuentaPatrol));
+					_wp = _grupoP addWaypoint [_posDestino,0];
+					_wp setWaypointType "MOVE";
+					_wp setWaypointSpeed "FULL";
+					_wp setWaypointTimeout [30, 45, 60];
+					_wp = _grupoP addWaypoint [_posicion,1];
+					_wp setWaypointType "MOVE";
+					_wp setWaypointTimeout [30, 45, 60];
+					_wp1 = _grupoP addWaypoint [_posicion,2];
+					_wp1 setWaypointType "CYCLE";
+					_wp1 synchronizeWaypoint [_wp];
+					};
 				};
 			if (_cuenta < (count _roads)) then {_cuenta = _cuenta + 1} else {_cuenta = 0};
 			_cuentaPatrol = _cuentaPatrol + 1;

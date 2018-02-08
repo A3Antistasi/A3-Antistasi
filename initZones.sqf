@@ -174,6 +174,7 @@ else
                         _garrison append (FIASquad);
                         };
                     garrison setVariable [_x,_garrison,true];
+                    server setVariable [_x,0,true];
                     }
                 else
                     {
@@ -184,6 +185,7 @@ else
                         _garrison append (selectRandom gruposCSATSquad);
                         };
                     garrison setVariable [_x,_garrison,true];
+                    server setVariable [_x,0,true];
                     };
                 _nul = [_x] call crearControles;
                 }

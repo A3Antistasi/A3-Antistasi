@@ -76,6 +76,7 @@ if (_x select 1 >= minItems) then
 if (_check) then
 	{
 	 publicVariable "unlockedItems";
+	 if (!haveRadio) then {if ("ItemRadio" in unlockedItems) then {haveRadio = true; publicVariable "haveRadio"}};
 	_check = false;
 	};
 {
@@ -98,7 +99,7 @@ if (_check) then
 	_check = false;
 	};
 
-if (not("NVGoggles" in unlockedItems)) then
+if (!haveNV) then
 	{
 	_cuenta = 0;
 	{
@@ -107,6 +108,7 @@ if (not("NVGoggles" in unlockedItems)) then
 	if (_cuenta >= minItems) then
 		{
 		unlockedItems = unlockedItems + NVGoggles;
+		haveNV = true; publicVariable "haveNV";
 		publicVariable "unlockedItems";
 		_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> "NVGoggles" >> "displayName")];
 		{

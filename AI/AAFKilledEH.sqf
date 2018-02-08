@@ -85,9 +85,10 @@ else
 		};
 	};
 _marcador = _muerto getVariable "marcador";
+if (isNil _marcador) then {_marcador = _muerto getVariable "origen"};
 if (!isNil "_marcador") then
 	{
-	[typeOf _muerto,_lado,_marcador,-1] spawn garrisonUpdate;
+	if (_marcador != "") then {[typeOf _muerto,_lado,_marcador,-1] spawn garrisonUpdate};
 	[_marcador,_lado] spawn zoneCheck;
 	};
 

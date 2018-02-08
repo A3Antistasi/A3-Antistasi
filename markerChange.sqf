@@ -108,6 +108,7 @@ if (_marcador in aeropuertos) then
 	};
 if (_marcador in puestos) then
 	{
+	if !(_winner == buenos) then {server setVariable [_marcador,dateToNumber date,true]};
 	["TaskSucceeded", ["", "Outpost Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Outpost Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
 	["TaskUpdated",["",format ["%1 lost an Outpost",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];

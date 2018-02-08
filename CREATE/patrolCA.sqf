@@ -63,7 +63,7 @@ if (!_inWaves) then
 		if (_typeOfAttack == "Normal") then
 			{
 			_puestos = if (_lado == malos) then {puestos - mrkSDK - mrkCSAT} else {puestos - mrkSDK - mrkNATO};
-			_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < 2500) and (spawner getVariable _x == 2)});
+			_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < 2500) and (spawner getVariable _x == 2) and (dateToNumber date > server getVariable _x)});
 			};
 		_sitio = [(recursos + fabricas + aeropuertos + puestos + puertos),_marcador] call BIS_fnc_nearestPosition;
 		_aeropuertos = _aeropuertos select {({_x == _sitio} count (killZones getVariable _x)) < 3};
@@ -199,7 +199,7 @@ if (_base != "") then
 	{
 	_aeropuerto = "";
 
-	//if (!_inWaves) then {[_base,10] call addTimeForIdle};
+	if (!_inWaves) then {[_base,10] call addTimeForIdle};
 	_indice = aeropuertos find _base;
 	_spawnPoint = objNull;
 	_pos = [];
@@ -305,7 +305,7 @@ if (_base != "") then
 					};
 				};
 			_grupo = [_posorigen,_lado,_tipogrupo] call spawnGroup;
-			{_x assignAsCargo _veh;_x moveInCargo _veh; [_x] call NATOinit;_soldados pushBack _x} forEach units _grupo;
+			{_x assignAsCargo _veh;_x moveInCargo _veh; [_x] call NATOinit;_soldados pushBack _x; _x setVariable ["origen",_base]} forEach units _grupo;
 			if (not(_tipoVeh in vehTrucks)) then
 				{
 				_grupos pushBack _grupo;
@@ -396,7 +396,7 @@ if (_base != "") then
 	};
 if (_aeropuerto != "") then
 	{
-	//if (!_inWaves) then {[_aeropuerto,10] call addTimeForIdle};
+	if (!_inWaves) then {[_aeropuerto,10] call addTimeForIdle};
 	_vehPool = [];
 	_cuenta = 1;
 	_tipoVeh = "";
@@ -503,7 +503,7 @@ if (_aeropuerto != "") then
 					};
 				};
 			_grupo = [_posorigen,_lado,_tipogrupo] call BIS_Fnc_spawnGroup;
-			{_x assignAsCargo _veh;_x moveInCargo _veh; [_x] call NATOinit;_soldados pushBack _x} forEach units _grupo;
+			{_x assignAsCargo _veh;_x moveInCargo _veh; [_x] call NATOinit;_soldados pushBack _x;_x setVariable ["origen",_aeropuerto]} forEach units _grupo;
 			_grupos pushBack _grupo;
 			_landpos = [];
 			_proceder = true;

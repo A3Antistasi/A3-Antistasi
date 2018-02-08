@@ -220,10 +220,32 @@ _prestigeBLUFOR = _prestigeBLUFOR + [_datos select 3];
 ["prestigeOPFOR", _prestigeOPFOR] call fn_SaveStat;
 ["prestigeBLUFOR", _prestigeBLUFOR] call fn_SaveStat;
 
-_marcadores = (marcadores select {_x in mrkSDK}) - puestosFIA - controles;
+_marcadores = marcadores - puestosFIA - controles;
 _garrison = [];
 {
+	/*
+if (!(_x in forcedSpawn)) then
+	{
+	if (_x in mrkSDK) then
+		{
+		_garrison pushBack [_x,garrison getVariable [_x,[]]];
+		}
+	else
+		{
+		_tmpGarr = garrison getVariable [_x,[]];
+		_ret = [];
+		while {count _tmpGarr > 0} do
+			{
+			_tipo = _tmpGarr select 0;
+			_ret pushBack [_tipo, {_x == _tipo} count _tmpGarr];
+			_tmpGarr = _tmpGarr - [_tipo];
+			};
+		_garrison pushBack [_x,_ret];
+		};
+	};
+*/
 if (!(_x in forcedSpawn)) then {_garrison pushBack [_x,garrison getVariable [_x,[]]]};
+
 } forEach _marcadores;
 
 ["garrison",_garrison] call fn_SaveStat;

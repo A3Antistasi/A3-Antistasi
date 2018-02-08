@@ -4,7 +4,7 @@
 //You do not have enough balls to make any modification and after making a Bug report because something is wrong. You don't wanna be there. Believe me.
 //Not commented lines cannot be changed.
 //Don't touch them.
-antistasiVersion = "v 0.9.9";
+antistasiVersion = "v 0.10.0";
 
 servidoresOficiales = ["Antistasi Official EU","Antistasi Official EU - TEST","Antistasi:Warlords Official","Warlords of the Pacific - Official"];//this is for author's fine tune the official servers. If I get you including your server in this variable, I will create a special variable for your server. Understand?
 
@@ -121,7 +121,7 @@ if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hayRHS = true};
 if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hayRHS = true};
 if ("rhs_weap_m92" in arifles) then {activeGREF = true; hayRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
 
-allItems = [];
+//allItems = [];
 humo = ["SmokeShell","SmokeShellRed","SmokeShellGreen","SmokeShellBlue","SmokeShellYellow","SmokeShellPurple","SmokeShellOrange"];
 titanLaunchers = if (!hayRHS) then {["launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_ghex_F","launch_O_Titan_F","launch_B_Titan_tna_F"]} else {[]};
 antitanqueAAF = if (!hayRHS) then {["launch_I_Titan_F","launch_I_Titan_short_F"]} else {[]};//possible Titan weapons that spawn in  ammoboxes
@@ -272,6 +272,8 @@ markersChanging = [];
 staticsToSave = [];
 napalmCurrent = false;
 tierWar = 1;
+haveRadio = false;
+haveNV = false;
 //minimoFPS = if (isDedicated) then {15} else {25};//initial FPS minimum.
 
 //chungos = ["Tactical Coop","[GER] AntiStasi Tanoa by Opas Musterknaben | ACE3 | Taskforce","[REI] Regio Esercito Italiano PvP/TvT - TS:136.243.175.26", "GER|Public Coop|Takticsh|TS 31.172.86.185 for Joining", "[UNA] 24/7 HARDCORE - CooP - LOW PING","Numbian's Coop Server", "Antistasi Tanoa"];
@@ -311,6 +313,7 @@ hayACEMedical = false;
 if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
     {
     hayTFAR = true;
+    haveRadio = true;
     unlockedItems = unlockedItems + ["tf_microdagr","tf_anprc148jem"];//making this items Arsenal available.["tf_anprc152"]
     tf_no_auto_long_range_radio = true; publicVariable "tf_no_auto_long_range_radio";//set to false and players will start with LR radio, uncomment the last line of so.
 	//tf_give_personal_radio_to_regular_soldier = false;
@@ -348,10 +351,11 @@ hayACRE = false;
 if (isClass(configFile >> "cfgPatches" >> "acre_main")) then
 	{
 	hayACRE = true;
+	haveRadio = true;
 	unlockedItems = unlockedItems + ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"];
 	};
 
-allItems = allItems + itemsAAF + opticasAAF + _vests + cascos + NVGoggles;
+//allItems = allItems + itemsAAF + opticasAAF + _vests + cascos + NVGoggles;
 
 if (worldName == "Tanoa") then
 	{
@@ -384,6 +388,8 @@ publicVariable "bombRuns";
 publicVariable "chopForest";
 publicVariable "napalmCurrent";
 publicVariable "tierWar";
+publicVariable "haveRadio";
+publicVariable "haveNV";
 //publicVariable "minimoFPS";
 
 if (isMultiplayer) then {[[petros,"hint","Variables Init Completed"],"commsMP"] call BIS_fnc_MP;};

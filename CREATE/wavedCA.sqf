@@ -150,7 +150,7 @@ while {(_waves != 0)} do
 				{
 				_tipogrupo = [_tipoVeh,_lado] call cargoSeats;
 				_grupo = [_posorigen,_lado, _tipogrupo] call spawnGroup;
-				{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;_soldadosTotal pushBack _x;[_x] call NATOinit} forEach units _grupo;
+				{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;_soldadosTotal pushBack _x;[_x] call NATOinit; _x setVariable ["origen",_mrkOrigen]} forEach units _grupo;
 				if (not(_tipoVeh in vehTrucks)) then
 					{
 					_grupo setVariable ["mrkAttack",_mrkDestino];
@@ -316,7 +316,7 @@ while {(_waves != 0)} do
 					else
 						{
 						_grupo = [_posorigen,_lado, _tipogrupo] call BIS_Fnc_spawnGroup;
-						{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;_soldadosTotal pushBack _x;[_x] call NATOinit} forEach units _grupo;
+						{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;_soldadosTotal pushBack _x;[_x] call NATOinit; _x setVariable ["origen",_mrkOrigen]} forEach units _grupo;
 						if (_tipoVeh in vehAPCs) then
 							{
 							_grupos pushBack _grupo;
@@ -482,7 +482,7 @@ while {(_waves != 0)} do
 				_tipogrupo = [_tipoVeh,_lado] call cargoSeats;
 				_grupo = [_posSuelo,_lado, _tipoGrupo] call spawnGroup;
 				_grupos pushBack _grupo;
-				{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;_soldadosTotal pushBack _x;[_x] call NATOinit} forEach units _grupo;
+				{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;_soldadosTotal pushBack _x;[_x] call NATOinit; _x setVariable ["origen",_mrkOrigen]} forEach units _grupo;
 				if (/*(_mrkDestino in aeropuertos) or*/ !(_veh isKindOf "Helicopter")) then
 					{
 					{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;

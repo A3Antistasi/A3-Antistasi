@@ -517,8 +517,9 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - ACE: Added a few items.
 - ACE: Solved ACE BUG, NOT MINE so medical items werent appearing in the proper section.
 
-0.9.9 06/02/2017 ALPHA
+0.10.0 08/02/2017 ALPHA
 
+- IMPORTANT: Enemy QRF and major attacks affect garrison in departure zone. Hold an attack and decimate outpost / airport garrison.
 - NV is unlockable again.
 - When AI is supressing, they will receive vocal orders which player will be able to hear.
 - AutoRearm now allows AI to pick vests from corpses if they find a better one.
@@ -526,3 +527,8 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - IMPORTANT: We should see much more helis landing, instead of paradroping soldiers.
 - Transport helis gun crews should be more aggressive.
 - Garrison mortars now get deleted when removed garrisons.
+- Less civ car spawning explosions.
+- Outposts can have "busy" status.
+- Enemy garrison status gets persistent saved (very tacky way, some more sphisticated is under study).
+- Corrected bug in unlcocked assets for AI dress.
+- Map Info now shows if Outposts are Idle or Busy.

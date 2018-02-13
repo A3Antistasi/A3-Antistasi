@@ -10,19 +10,66 @@ jnl_vehicleHardpoints = [
     	[1,		[-0.04,-1.7,-0.72],		[1,2,3,4]]		//cargo node
     ]],
 
-    //Boxer truck
+    //Civi and FIA green truck
     ["\A3\soft_f_gamma\van_01\Van_01_transport_F.p3d", [
     	[0,		[0,-1.60422,-0.63],			[2,3,4,5,6,7,8,9]],
     	[1,		[0,-1.06937,-0.63],			[2,3,4,5]],
-    	[1,		[0,-2.61185,-0.63],			[6,7,8,9]]
+    	[1,		[0,-2.61185,-0.63],			[6,7,8,9,10,11]]
     ]],
 
-    //Zamak
+	//Motorboat civilian
+    	["\A3\boat_f_gamma\Boat_Civil_01\Boat_Civil_01_F", [
+    	[1,		[0,-1.697,-0.874],	[]]
+    ]],
+
+    //AAF Zamak open
     ["\A3\soft_f_beta\Truck_02\Truck_02_transport_F", [
     	[0,		[-0.000671387,-1.31882,-0.81],	[2,3,4,5,6,7,8,9,10,11,12,13]],
     	[1,		[0,0,-0.81],					[2,3,4,5,6,7,8]],
 		[1,		[0,-2.1,-0.81],					[9,10,11,12,13]]
     ]],
+
+	//AAF Zamak closed STEF 27/10
+	["\A3\soft_f_beta\Truck_02\Truck_02_covered_F.p3d", [
+	    [1,		[0,0,-0.81],					[2,3,4,5,6,7,8]],
+		[1,		[0,-2.1,-0.81],					[9,10,11,12,13]]
+	]],
+
+     //AFRF Zamak open
+    ["rhsafrf\addons\rhs_kamaz\rhs_kamaz5350", [
+    	[0,		[-0.000671387,-1.31882,-0.81],	[2,3,4,5,6,7,8,9,10,11,12,13]],
+    	[1,		[0,0,-0.81],					[2,3,4,5,6,7,8]],
+		[1,		[0,-2.1,-0.81],					[9,10,11,12,13]]
+    ]],
+
+
+	//NATO HEMTT open
+	["\A3\soft_f_beta\Truck_01\Truck_01_transport_F.p3d",[
+		[1,	[0.0300293,-0.0808449,0.283923],	[1,16,8,9]],
+		[1,	[0.0256348,-2.99881,0.315941],		[3,4,10,11]],
+		[1,	[0.0249023,-1.56604,0.30022],		[5,6,12,13]]
+	]],
+
+	//NATO HEMTT closed
+	["\A3\soft_f_beta\Truck_01\Truck_01_transport_F.p3d",[
+		[1,	[0.0300293,-0.0808449,0.283923],	[1,16,8,9]],
+		[1,	[0.0256348,-2.99881,0.315941],		[3,4,10,11]],
+		[1,	[0.0249023,-1.56604,0.30022],		[5,6,12,13]]
+	]],
+
+	//CSAT Tempest open
+	["\A3\Soft_F_EPC\Truck_03\Truck_03_transport_F.p3d",[
+		[1,	[0.0541992,-0.788692,0.41213],		[1,7,6,9]],
+		[1,	[0.0561523,-2.33265,0.423543],		[2,3,8,12]],
+		[1,	[0.0625,-3.89461,0.435087],			[4,5,11,10]]
+	]],
+
+	//CSAT Tempest closed
+	["\A3\Soft_F_EPC\Truck_03\Truck_03_covered_F.p3d",[
+		[1,	[0.0541992,-0.788692,0.41213],		[1,7,6,9]],
+		[1,	[0.0561523,-2.33265,0.423543],		[2,3,8,12]],
+		[1,	[0.0625,-3.89461,0.435087],			[4,5,11,10]]
+	]],
 
     //RHS Gaz-66 truck
     ["\rhsafrf\addons\rhs_gaz66\rhs_gaz66.p3d", [
@@ -31,6 +78,7 @@ jnl_vehicleHardpoints = [
     	[1,		[0,-1.73634,-0.610707],		[]]
     ]],
 
+
     //RHS Ural-4320 truck
     ["\rhsafrf\addons\rhs_a2port_car\Ural\Ural_open2.p3d", [
     	[0,		[0,-1.36476,-0.19277],	[]], //Weapon
@@ -38,12 +86,11 @@ jnl_vehicleHardpoints = [
     	[1,		[0,-1.78506,-0.19277],	[]]
     ]],
 
-    //RHS another Ural truck, closed
-    ["\rhsafrf\addons\rhs_a2port_car\Ural\Ural.p3d", [
+    //RHS Ural closed with seats VV
+    ["\vsmafrf\addons\rhs_a2port_car\Ural\Ural.p3d", [
     	[1,		[0,-0.207184,-0.19277],	[]], //Cargo
     	[1,		[0,-1.78506,-0.19277],	[]]
     ]],
-
 
     //Speedboat minigun
     ["\A3\Boat_F\Boat_Armed_01\Boat_Armed_01_minigun_F.p3d", [
@@ -58,7 +105,13 @@ jnl_vehicleHardpoints = [
     //Civilian transport boat
     ["\A3\Boat_F_Exp\Boat_Transport_02\Boat_Transport_02_F.p3d", [
     	[1, [0,1.233,-0.72029],			[]]
-    ]]
+    ]],
+
+    //Tanoa boat
+	["\A3\Boat_F_Exp\Boat_Transport_02\Boat_Transport_02_F.p3d",[
+		[1,[-0.0615234,0.492443,0.322869],[5,6,2]]
+	]]
+
 ];
 
 //lock seats when cargo is added
@@ -166,6 +219,10 @@ jnl_attachmentOffset = [
 
 	//medium size crate												//location				//rotation				//type 	//discription
 	["A3\Weapons_F\Ammoboxes\AmmoVeh_F",							[0,0,0.85],				[1,0,0],				1],		//Vehicle ammo create
+	["\A3\Props_F_Orange\Humanitarian\Supplies\PaperBox_01_open_boxes_F.p3d", [0,0,0.85],	[1,0,0],				1], 	//Stef test supplybox
+	["\A3\Structures_F_Heli\Items\Luggage\PlasticCase_01_medium_F.p3d", [0,0,0.85],			[1,0,0],				1], 	//Stef test Devin crate1
+	["\A3\Weapons_F\Ammoboxes\Proxy_UsBasicAmmoBox.p3d",			[0,0,0.85],				[1,0,0],				1], 	//Stef test Devin crate2
+	["\A3\Weapons_F\Ammoboxes\Proxy_UsBasicExplosives.p3d",			[0,0,0.85],				[1,0,0],				1], 	//Stef test Devin crate3
 	["\A3\Weapons_F\Ammoboxes\Supplydrop.p3d",						[0, 0, 0.95],			[1,0,0],				1],		//Ammodrop crate
 	["\A3\Soft_F\Quadbike_01\Quadbike_01_F.p3d",					[0, 0, 1.4],			[0,1,0],				1]		//Quadbike
 ];

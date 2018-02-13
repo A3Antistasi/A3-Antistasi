@@ -52,6 +52,7 @@ soporteStaticSDKB3 = "I_Mortar_01_support_F";
 civCar = "C_Offroad_02_unarmed_F";
 civTruck = "C_Van_01_transport_F";
 civHeli = "C_Heli_Light_01_civil_F";
+civBoat = "C_Boat_Transport_02_F";
 
 sniperRifle = "srifle_DMR_06_camo_F";
 lamparasSDK = ["acc_flashlight"];

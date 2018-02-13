@@ -2131,7 +2131,7 @@ class HQ_button_offroad: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
-	action = "closeDialog 0;nul = execVM ""\REINF\buyBoat.sqf"";";
+	action = "closeDialog 0;nul = execVM ""REINF\buyBoat.sqf"";";
 };
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END

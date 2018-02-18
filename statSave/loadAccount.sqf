@@ -218,7 +218,7 @@ _aiSkillLimit = ({_x in mrkSDK} count (aeropuertos + puestos + recursos + puerto
 if (_aiSkillLimit < 2) then {_aiSkillLimit = 2};
 if (_aiSkillLimit != aiSkillLimit) then {aiSkillLimit = _aiSkillLimit; publicVariable "aiSkillLimit"};
 */
-tierWar = 1 + (floor (((2.5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count mrkSDK)) + (5*({_x in puertos} count mrkSDK)) + (10*({_x in aeropuertos} count mrkSDK)))/10));
+tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count mrkSDK)) + (10*({_x in puertos} count mrkSDK)) + (20*({_x in aeropuertos} count mrkSDK)))/10));
 if (tierWar > 10) then {tierWar = 10};
 publicVariable "tierWar";
 /*

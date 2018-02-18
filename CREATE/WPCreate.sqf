@@ -1,7 +1,7 @@
 private ["_mrkOrigen","_mrkDestino","_grupo","_posOrigen","_posDestino","_finalArray","_arr2","_final","_isCentral","_roadsCentral","_useCentral"];
 
 _mrkOrigen = _this select 0;
-_posOrigen = getMarkerPos _mrkOrigen;
+_posOrigen = if (_mrkOrigen isEqualType "") then {getMarkerPos _mrkOrigen} else {_mrkOrigen};
 _mrkDestino = _this select 1;
 _posDestino = if (_mrkDestino isEqualType "") then {getMarkerPos _mrkDestino} else {_mrkDestino};
 _grupo = _this select 2;

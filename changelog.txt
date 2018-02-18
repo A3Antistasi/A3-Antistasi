@@ -482,7 +482,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Unconscious units in vehicles should disembark.
 - Refugees, traitors etc. shouldnt spawn in some blacklisted buildings (containers)
 
-0.9.5 21/01/2017 ALPHA
+0.9.5 21/01/2018 ALPHA
 
 - Traitor mission guards type depend on War Level.
 - Corrected BIG bug in AI recruiting and weapon check.
@@ -493,7 +493,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - When a human tries to revive, FA kits of the healed unit are takin in count.
 - SHortened a lot distances for AI to decide to send a LAND QRF
 
-0.9.6 25/01/2017 ALPHA
+0.9.6 25/01/2018 ALPHA
 
 - IMPORTANT: Small QRFs may be launched from nearby outposts.
 - IMPORTANT: Removed FPS limiter feature, as it was inconsistent and unreliable. Instead of that, Commanders will be able to set the aproximated max amount of AI he wants in the map. Careful with that, use it wisely.
@@ -504,11 +504,11 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Unconscious enemies should die easier.
 - Civilian cars shouldnt kill your teammates.
 
-0.9.7 25/01/2017 ALPHA
+0.9.7 25/01/2018 ALPHA
 
 - HOTFIX: Jeroen Arsenal now working as host MP.
 
-0.9.8 25/01/2017 ALPHA
+0.9.8 25/01/2018 ALPHA
 
 - More usage of predefined positions on airports, so they become more challenging.
 - More reliable enemy dead because of bleadout effects.
@@ -517,7 +517,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - ACE: Added a few items.
 - ACE: Solved ACE BUG, NOT MINE so medical items werent appearing in the proper section.
 
-0.10.0 08/02/2017 ALPHA
+0.10.0 08/02/2018 ALPHA
 
 - IMPORTANT: Enemy QRF and major attacks affect garrison in departure zone. Hold an attack and decimate outpost / airport garrison.
 - NV is unlockable again.
@@ -532,3 +532,33 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Enemy garrison status gets persistent saved (very tacky way, some more sphisticated is under study).
 - Corrected bug in unlcocked assets for AI dress.
 - Map Info now shows if Outposts are Idle or Busy.
+
+0.10.1 11/02/2018 ALPHA
+
+- Enabled AI control on mortar squads.
+- No more NATO assaults on cities until some War Level is reached.
+- Truck troops wont disembark on main roads far away from their destination.
+- Corrected small bug on airbase / outpost garrison change when an attack is sent.
+- Increased ACE integration: city support and QRFs related to AI kills will be included.
+
+0.10.1 HOTFIX 11/02/2018 ALPHA
+
+- Changes on attack waypoints werent applied by a mistake.
+
+0.10.2 13/02/2018 ALPHA
+
+- Major improvements on departure, drills, waypoints and procedures on AI attacks.
+- Reverted no NATO attack on cities on early game.
+- Cars and Trucks driven by AI will tend to stick on roads much more often.
+- Surrendered troops ammoboxes shouldnt explode / burn.
+
+0.10.3 14/02/2018 ALPHA
+
+- Civ convoy trucks should behave as before.
+- Troop transports number of units will depend on War Level
+- NEW FEATURE: Player will be able to assign to garrison squadmates and HC controlled squads.
+- Added TONS of tooltips in the custom menus.
+- Longer times to recover idle status for bases and outposts.
+- Doubled War Level gains on conquests.
+- AT men wont spawn with AA if AA unlocked.
+- Increased convoh cohesion.

@@ -15,6 +15,14 @@ else
 [_muerto] spawn postmortem;
 _grupo = group _muerto;
 _lado = _muerto getVariable ["lado",sideUnknown];
+if (hayACE) then
+	{
+	if ((isNull _killer) || (_killer == _muerto)) then
+		{
+		_killer = _muerto getVariable ["ace_medical_lastDamageSource", _killer];
+		};
+	};
+
 if ((side _killer == buenos) or (side _killer == civilian)) then
 	{
 	if (isPlayer _killer) then
@@ -85,7 +93,7 @@ else
 		};
 	};
 _marcador = _muerto getVariable "marcador";
-if (isNil _marcador) then {_marcador = _muerto getVariable "origen"};
+if (isNil "_marcador") then {_marcador = _muerto getVariable "origen"};
 if (!isNil "_marcador") then
 	{
 	if (_marcador != "") then {[typeOf _muerto,_lado,_marcador,-1] spawn garrisonUpdate};

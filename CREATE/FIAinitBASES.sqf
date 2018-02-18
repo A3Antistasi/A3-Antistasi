@@ -76,7 +76,7 @@ else
 			{
 			if (_tipo in SDKATman) then
 				{
-				_rlauncher = selectRandom ((rlaunchers + mlaunchers) select {_x in unlockedWeapons});
+				_rlauncher = selectRandom ((rlaunchers + mlaunchers) select {(_x in unlockedWeapons) and (getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)});
 				if (_rlauncher != secondaryWeapon _unit) then
 					{
 					_magazines = getArray (configFile / "CfgWeapons" / (secondaryWeapon _unit) / "magazines");

@@ -233,6 +233,7 @@ _vehicle=[_pos,markerDir _spawnPoint,_tipoVeh, _grupo] call bis_fnc_spawnvehicle
 _vehLead = _vehicle select 0;
 _vehLead allowDamage false;
 [_vehLead,"Convoy Lead"] spawn inmuneConvoy;
+_vehLead forceFollowRoad true;
 _vehCrew = _vehicle select 1;
 {[_x] call NATOinit;_x allowDamage false} forEach _vehCrew;
 //_grupoVeh = _vehicle select 2;
@@ -370,7 +371,7 @@ _wp0 setWaypointBehaviour "SAFE";
 _grupo setBehaviour "SAFE";
 _wp0 setWaypointFormation "COLUMN";
 _vehObj limitSpeed 50;
-if (_tipoConvoy == "Armor") then {_vehObj lock 3;};
+if (_tipoConvoy == "Armor") then {_vehObj lock 3};// else {_vehObj forceFollowRoad true};
 if (_tipoConvoy == "Prisoners") then
 	{
 	_grpPOW = createGroup buenos;
@@ -462,6 +463,17 @@ else
 		};
 	};
 
+_grupoLead = _grupos select 0;
+
+{
+_grupo = _x;
+for "_i" from 0 to (count (waypoints _grupo) - 1) do
+	{
+	_wp1 = (waypoints _grupo) select _i;
+	_wp2 = (waypoints _grupoLead) select _i;
+	_wp1 synchronizeWaypoint _wp2;
+	};
+} forEach _grupos - [_grupoLead];
 sleep 30;
 {_x allowDamage true} forEach _vehiculos;
 {_x allowDamage true} forEach _soldados;

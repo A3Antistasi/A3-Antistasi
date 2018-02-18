@@ -30,6 +30,7 @@ _unit disableAI "ANIM";
 _unit setSkill 0;
 _unit setUnitPos "UP";
 _caja = "Box_IND_Wps_F" createVehicle position _unit;
+_caja allowDamage false;
 clearMagazineCargoGlobal _caja;
 clearWeaponCargoGlobal _caja;
 clearItemCargoGlobal _caja;

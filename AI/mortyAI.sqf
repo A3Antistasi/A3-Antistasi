@@ -19,7 +19,7 @@ while {(alive _morty) and (alive _mortero) and (canMove _camion)} do
 	deleteVehicle _mortero;
 	//_mortero attachTo [_camion,[0,-1.5,0.2]];
 	//_mortero setDir (getDir _camion + 180);
-
+	sleep 20;
 	waitUntil {sleep 10; ((unitReady _camionero) or (!canMove _camion) or (!alive _camionero) and (speed _camion == 0)) or (not((alive _morty) and (alive _mortero)))};
 
 	moveOut _morty;

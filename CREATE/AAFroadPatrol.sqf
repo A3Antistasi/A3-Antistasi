@@ -132,6 +132,8 @@ if (_tipoCoche in vehCSATLightUnarmed) then
 	//[_veh] spawn smokeCover;
 	};
 
+if (_tipoPatrol == "LAND") then {_veh forceFollowRoad true};
+
 while {alive _veh} do
 	{
 	_destino = selectRandom _arraydestinos;

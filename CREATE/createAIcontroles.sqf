@@ -127,7 +127,7 @@ else
 			_cfg = NATOSpecOp;
 			_lado = malos;
 			};
-		_grupo = [_posicion,_lado, _cfg] call BIS_Fnc_spawnGroup;
+		_grupo = [_posicion,_lado, _cfg] call spawnGroup;
 		_nul = [leader _grupo, _marcador, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 		sleep 1;
 		{_soldados pushBack _x} forEach units _grupo;

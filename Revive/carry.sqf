@@ -1,3 +1,4 @@
+private ["_llevador","_llevado","_timeOut","_action"];
 _llevado = _this select 0;
 _llevador = _this select 1;
 
@@ -20,6 +21,7 @@ waitUntil {sleep 0.5; (!alive _llevado) or (!alive _llevador) or (lifestate _lle
 _llevador removeAction _action;
 if (count attachedObjects _llevador == 0) then {detach _llevado};
 _llevador playMove "amovpknlmstpsraswrfldnon";
+sleep 2;
 _llevado playMoveNow "";
 if (lifeState _llevado == "INCAPACITATED") then
 	{

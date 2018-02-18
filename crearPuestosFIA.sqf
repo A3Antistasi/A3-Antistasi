@@ -70,6 +70,7 @@ _camion = _tipoVeh createVehicle _pos;
 _grupo addVehicle _camion;
 {[_x] call FIAinit} forEach units _grupo;
 leader _grupo setBehaviour "SAFE";
+(units _grupo) orderGetIn true;
 Stavros hcSetGroup [_grupo];
 
 waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) or (dateToNumber date > _fechalimnum)};

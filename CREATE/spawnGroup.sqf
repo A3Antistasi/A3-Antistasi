@@ -20,7 +20,7 @@ else
 _cuentaRangos = (count _rangos - 1);
 for "_i" from 0 to (_cuenta - 1) do
 	{
-	if ((_i == 0) or /*(diag_fps > minimoFPS)*/(_allUnits < maxUnits) or _override) then
+	if ((_i == 0) or ((_allUnits + _i) < maxUnits) or _override) then
 		{
 		_unit = _grupo createUnit [(_tipos select _i), _posicion, [], 0, "NONE"];
 		_allUnits = _allUnits + 1;

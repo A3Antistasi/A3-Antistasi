@@ -64,8 +64,10 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _numCiv)} do
 		if (_cuenta < _numVeh) then
 			{
 			_p1 = _roads select _cuenta;
-			_road = (_p1 nearRoads 5) select 0;
-			if (!isNil "_road") then
+			//_road = (_p1 nearRoads 5) select 0;
+			_road = roadAt _p1;
+			//if (!isNil "_road") then
+			if (!isNull _road) then
 				{
 				if (count (nearestObjects [_p1, ["Car", "Truck"], 5]) == 0) then
 					{
@@ -148,8 +150,10 @@ if ([_marcador,false] call fogCheck > 0.2) then
 			{
 			//_p1 = getPos (_roads select _cuenta);
 			_p1 = _roads select _cuenta;
-			_road = (_p1 nearRoads 5) select 0;
-			if (!isNil "_road") then
+			//_road = (_p1 nearRoads 5) select 0;
+			_road = roadAt _p1;
+			if (!isNull _road) then
+			//if (!isNil "_road") then
 				{
 				if (count (nearestObjects [_p1, ["Car", "Truck"], 5]) == 0) then
 					{
@@ -173,6 +177,7 @@ if ([_marcador,false] call fogCheck > 0.2) then
 							};
 						}
 						];
+					_veh forceFollowRoad true;
 					_vehPatrol = _vehPatrol + [_veh];
 					_tipociv = selectRandom arrayCivs;
 					_civ = _grupoP createUnit [_tipociv, _p1, [],0, "NONE"];

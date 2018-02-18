@@ -45,6 +45,7 @@ class HQ_button_load: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Take 100 € from SDK pool and add it to your personnal account. It will damage your position among the SDK in the commander career";
 	action = "if (isMultiPlayer) then {if (player == Stavros) then {nul=call stavrosSteal} else {hint ""Only Player Commander has access to this function""}} else {hint ""This function is MP only""};";
 };
 class HQ_button_savegame: RscButton
@@ -55,6 +56,7 @@ class HQ_button_savegame: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Add or remove units to SDK garrisons";
 	action = "closeDialog 0;if (player == Stavros) then {nul=CreateDialog ""garrison_menu""} else {hint ""Only Player Commander has access to this function""};";
 };
 class HQ_button_moveHQ: RscButton
@@ -65,6 +67,7 @@ class HQ_button_moveHQ: RscButton
 	y = 0.514003 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Maru will join your group. Ammobox must be empty. To rebuild, select the Build action near Maru";
 	action = "closeDialog 0;if (player == Stavros) then {nul = [] spawn moveHQ;} else {hint ""Only Player Commander has access to this function""};";
 };
 class HQ_button_recruitUnit: RscButton
@@ -75,6 +78,7 @@ class HQ_button_recruitUnit: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Displays which server members are currently playing";
 	action = "if (player == Stavros) then {if (isMultiplayer) then {nul = [] call membersList} else {hint ""This function is MP only""}} else {hint ""Only Player Commander has access to this function""};";
 };
 class HQ_button_recruitSquad: RscButton
@@ -107,7 +111,7 @@ class HQ_button_skill: RscButton
 	y = 0.612025 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
-	tooltip = "";
+	tooltip = "Check SDK garage";
 	action = "closeDialog 0;nul = [false] spawn garage";
 };
 ////////////////////////////////////////////////////////
@@ -536,6 +540,7 @@ class HQ_button_civplus: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Set the percentage of the real population will spawn on each city. Affects game performance";
 	action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""civ_config""} else {hint ""Only Player Commander has access to this function""};";
 };
 class HQ_button_civless: RscButton
@@ -546,6 +551,7 @@ class HQ_button_civless: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Select this option if you don't want to become commander even when you have enough rank and rights";
 	action = "closedialog 0; if (isMultiplayer) then {execVM ""orgPlayers\commResign.sqf""} else {hint ""This feature is MP Only""};";
 };
 class HQ_button_music: RscButton
@@ -556,6 +562,7 @@ class HQ_button_music: RscButton
 	y = 0.514003 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Disables situational music";
 	action = "closedialog 0; if (musicON) then {musicON = false; hint ""Music turned OFF"";} else {musicON = true; nul = execVM ""musica.sqf""; hint ""Music turned ON""};";
 };
 class HQ_button_garbageclean: RscButton
@@ -566,6 +573,7 @@ class HQ_button_garbageclean: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Cleans several things in game. Use with caution as it freezes the mission";
 	action = "closedialog 0;if (player == Stavros) then {[] remoteExec [""garbageCleaner"",2]} else {hint ""Only Player Commander has access to this function""};";
 };
 class HQ_button_loadgame: RscButton
@@ -576,6 +584,7 @@ class HQ_button_loadgame: RscButton
 	y = 0.514003 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Deprecated as this issue does not happen anymore";
 	action = "closeDialog 0;[] execVM ""reinitY.sqf"";statistics= [] execVM ""statistics.sqf"";";
 };
 class HQ_button_savegame: RscButton
@@ -586,6 +595,7 @@ class HQ_button_savegame: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Use this option to save your current game. It does save the most important data in a ""Grand Theft Auto"" way. This opnion allows good MP save and independent saves of any version update. Vanilla saves are disabled because of lack of several features";
 	action = "closeDialog 0;if (player == Stavros) then {[""statSave\saveLoop.sqf"",""BIS_fnc_execVM""] call BIS_fnc_MP} else {_nul = [] execVM ""statSave\saveLoop.sqf""; hintC ""Personal Stats Saved""};";
 };
 class HQ_button_fpsplus: RscButton
@@ -596,6 +606,7 @@ class HQ_button_fpsplus: RscButton
 	y = 0.612025 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Sets how much local and simulated AI can spawn in the map. Affects performance and AI ""intelligence"". Use with caution. This is not an exact number as vehicles and squad leaders will allways spawn";
 	action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""fps_limiter""} else {hint ""Only Player Commander has access to this function""};";
 };
 
@@ -607,6 +618,7 @@ class HQ_button_AA: RscButton
 	y = 0.612025 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Affects performance. Please use this with caution. Set it to lower distances if you feel Antistasi is running bad";
 	action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""spawn_config""} else {hint ""Only Player Commander has access to this function""};";
 };
 ////////////////////////////////////////////////////////
@@ -652,6 +664,7 @@ class HQ_button_Gsquad: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Loads the pervious persistent Save session made byt the commander";
 	action = "closeDialog 0;if ((player == Stavros) and (isNil ""placementDone"")) then {[""statSave\loadAccount.sqf"",""BIS_fnc_execVM""] call BIS_fnc_MP; placementDone = true; publicVariable ""placementDone""} else {nul = [] execVM ""statSave\loadAccount.sqf"";};";
 };
 class HQ_button_Gstatic: RscButton
@@ -662,6 +675,7 @@ class HQ_button_Gstatic: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Starts a new game";
 	action = "closeDialog 0;if ((player == stavros) and (isNil ""placementDone"")) then {_nul = [] spawn placementselection};";
 };
 /*
@@ -718,6 +732,7 @@ class HQ_button_Gsquad: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "It will enable a competition to be commander. The highest ranked ingame player will become commander. Commander may be switched on the fly";
 	action = "switchCom = true; publicVariable ""switchCom""; hint ""Switch Commander Enabled\n\nGame will auto assign Commander position to the highest ranked player"";";
 };
 class HQ_button_Gstatic: RscButton
@@ -728,6 +743,7 @@ class HQ_button_Gstatic: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Commander role will be stable and will only switch on disconnection or by resignation to the highest ranked player";
 	action = "switchCom = false; publicVariable ""switchCom""; hint ""Switch Commander Disabled\n\nGame will only assign Commander position upon Commander disconnection"";";
 };
 
@@ -794,6 +810,7 @@ class HQ_button_mortar: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "AI will deploy mines on desired objectives, using current arsenal mine count";
 	action = "closeDialog 0;_nul = createDialog ""minebuild_menu"";";
 };
 class HQ_button_MG: RscButton
@@ -814,6 +831,7 @@ class HQ_button_AT: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Establish a new watchpost or roadblock depending on the type of terrain you select";
 	action = "closeDialog 0; [""create""] spawn puestoDialog";
 };
 class HQ_button_AA: RscButton
@@ -991,6 +1009,7 @@ class HQ_button_AS: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Teleport your squad or a HC selected squad to a friendly zone depending on several factors";
 	action = "closeDialog 0;nul = [] execVM ""fastTravelRadio.sqf"";";
 };
 class HQ_button_CONV: RscButton
@@ -1001,6 +1020,7 @@ class HQ_button_CONV: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Become Undercover if you match the requirements. Enemy AI won't attack you until they discover you";
 	action = "closeDialog 0;nul = [] spawn undercover";
 };
 class HQ_button_DES: RscButton
@@ -1011,6 +1031,7 @@ class HQ_button_DES: RscButton
 	y = 0.514003 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Several actions related to the vehicle you are looking at";
 	action = "closeDialog 0; nul = createDialog ""vehicle_manager"";";
 };
 class HQ_button_LOG: RscButton
@@ -1021,6 +1042,7 @@ class HQ_button_LOG: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Ask for Air Support (uses Airstrike points)";
 	action = "closeDialog 0;if (player == Stavros) then {_nul = createDialog ""carpet_bombing""} else {hint ""Only Player Commander has access to this function""};";
 };
 class HQ_button_RES: RscButton
@@ -1031,6 +1053,7 @@ class HQ_button_RES: RscButton
 	y = 0.514003 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Build minefields / watchposts / roadblocks or remove them";
 	action = "closeDialog 0;if (player == Stavros) then {nul=CreateDialog ""build_menu""} else {hint ""Only Player Commander has access to this function""};";
 };
 class HQ_button_vehicle: RscButton
@@ -1041,6 +1064,7 @@ class HQ_button_vehicle: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Recruit new squads and manage them with the HC Module (CTRL + SPACE)";
 	action = "closeDialog 0;if (player == Stavros) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
 };
 class HQ_button_fpsplus: RscButton
@@ -1051,6 +1075,7 @@ class HQ_button_fpsplus: RscButton
 	y = 0.612025 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Several AI options";
 	action = "if (player == leader group player) then {closeDialog 0;nul = createDialog ""AI_management""} else {hint ""Only group leaders may access to this option""};";
 };
 
@@ -1062,6 +1087,7 @@ class HQ_button_AA: RscButton
 	y = 0.612025 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Look at some player and interact with him";
 	action = "closeDialog 0;if (isMultiPlayer) then {nul = createDialog ""player_money""} else {hint ""MP Only Menu""};";
 };
 ////////////////////////////////////////////////////////
@@ -1116,6 +1142,7 @@ class HQ_button_Gsquad: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Select unit types and add them to the selected garrison";
 	action = "closeDialog 0;[""add""] spawn garrisonDialog";
 };
 class HQ_button_Gstatic: RscButton
@@ -1126,6 +1153,7 @@ class HQ_button_Gstatic: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Remove the whole garrison of a selected zone";
 	action = "closeDialog 0;[""rem""] spawn garrisonDialog";
 };
 ////////////////////////////////////////////////////////
@@ -1497,6 +1525,7 @@ class HQ_button_mortar: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Look at some vehicle and assign it to the selected squad for it's use";
 	action = "closeDialog 0;[] call addSquadVeh;";
 };
 class HQ_button_MG: RscButton
@@ -1507,6 +1536,7 @@ class HQ_button_MG: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "If the selected squad is using some vehicle, know remotely it's status";
 	action = "[""stats""] call vehStats;";
 };
 class HQ_button_AT: RscButton
@@ -1517,6 +1547,7 @@ class HQ_button_AT: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Force squad to mount or dismount their assigned vehicle";
 	action = "[""mount""] call vehStats";
 };
 class HQ_button_AA: RscButton
@@ -1527,6 +1558,7 @@ class HQ_button_AA: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Use this option on AT / AA mounted squads. The truck driver will try to point his truck's back to any detected enemy";
 	action = "closeDialog 0; [] spawn staticAutoT";
 };
 ////////////////////////////////////////////////////////
@@ -1643,6 +1675,7 @@ class HQ_button_mortar: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Use this option to add the player which you are currently looking to the member's list";
 	action = "if (isMultiplayer) then {closeDialog 0;nul = [""add""] call memberAdd;} else {hint ""This function is MP only""};";
 };
 class HQ_button_MG: RscButton
@@ -1653,6 +1686,7 @@ class HQ_button_MG: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Use this option to remove the player which you are currently looking to the member's list";
 	action = "if (isMultiplayer) then {closeDialog 0;nul = [""remove""] call memberAdd;} else {hint ""This function is MP only""};";
 };
 class HQ_button_AT: RscButton
@@ -1673,6 +1707,7 @@ class HQ_button_AA: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "It will increase your prestige among SDK faction";
 	action = "[] call donateMoney;";
 };
 ////////////////////////////////////////////////////////
@@ -1791,6 +1826,7 @@ class HQ_button_Gsquad: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Add to garage / sell the vehicle you are currently looking at";
 	action = "closeDialog 0;nul = createDialog ""garage_sell"";";
 };
 class HQ_button_Gstatic: RscButton
@@ -1801,6 +1837,7 @@ class HQ_button_Gstatic: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Options related to vehicle management in HC controlled squads";
 	action = "closeDialog 0; if (player == Stavros) then {nul = createDialog ""squad_manager""} else {hint ""Only Player Commander has access to this function""};";
 };
 
@@ -1812,6 +1849,7 @@ class HQ_button_Gremove: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Gain Airstrike points giving this vehicle to the SDK Air pool";
 	action = "closeDialog 0;nul = [] call addBombRun";
 };
 class HQ_button_unlock: RscButton
@@ -1822,6 +1860,7 @@ class HQ_button_unlock: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Allow other groups to mount this vehicle";
 	action = "closeDialog 0;[] call unlockVehicle";
 };
 
@@ -2026,6 +2065,7 @@ class HQ_button_Gsquad: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Civilian vehicles will allow you to travel in Undercover mode, while you stay close to roads and not entering bases, outposts and roadblocks";
 	action = "closeDialog 0;nul=[] execVM ""Dialogs\buy_vehicle_civ.sqf"";";
 };
 class HQ_button_Gstatic: RscButton
@@ -2036,6 +2076,7 @@ class HQ_button_Gstatic: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Wide variety of available SDK vehicles";
 	action = "closeDialog 0; nul=[] execVM ""Dialogs\buy_vehicle.sqf"";";
 };
 /*
@@ -2342,6 +2383,7 @@ class HQ_button_Gsquad: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "Take personal control of the selected squad member or HC squad leader and be able to perform any kind of actions for 60 seconds. Control state will be cancelled if the player or the controlled unit receives any kind of damage";
 	action = "closeDialog 0; if ((count groupselectedUnits player > 0) and (count hcSelected player > 0)) exitWith {hint ""You must select from HC or Squad Bars, not both""}; if (count groupselectedUnits player == 1) then {nul = [groupselectedUnits player] execVM ""REINF\controlunit.sqf""}; if (count hcSelected player == 1) then {nul = [hcSelected player] execVM ""REINF\controlHCsquad.sqf"";};";
 };
 class HQ_button_Gstatic: RscButton
@@ -2352,6 +2394,7 @@ class HQ_button_Gstatic: RscButton
 	y = 0.317959 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "AI will search for better weapons, vests, helmets etc. If they are in a vehicle, they will just store what they scavenge in the vehicle. If not, they will equip them";
 	action = "closeDialog 0; if (count groupselectedUnits player == 0) then {nul = (units group player) spawn rearmCall} else {nul = (groupselectedUnits player) spawn rearmCall};";
 };
 
@@ -2364,6 +2407,7 @@ class HQ_button_Gremove: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
+	tooltip = "AI squad mates will heal proactively each other";
 	action = "if (autoHeal) then {autoHeal = false; hint ""Auto Healing disabled"";} else {autoHeal = true; hint ""Auto Heal enabled""; nul = [] spawn autoHealFnc}";
 };
 class dismiss_units: RscButton
@@ -2375,7 +2419,9 @@ class dismiss_units: RscButton
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
-	action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\dismissPlayerGroup.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\dismissSquad.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
+	tooltip = "Use this option to dismiss or garrison squadmates and HC squads";
+	action = "closeDialog 0; createDialog ""dismiss_menu"";";
+	//action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\dismissPlayerGroup.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\dismissSquad.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
 };
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END
@@ -2854,6 +2900,74 @@ class HQ_button_Gstatic: RscButton
 	h = 0.0560125 * safezoneH;
 	action = "closeDialog 0;[] spawn NATOFT";
 };
+////////////////////////////////////////////////////////
+// GUI EDITOR OUTPUT END
+////////////////////////////////////////////////////////
+	};
+};
+
+class dismiss_menu
+{
+	idd=100;
+	movingenable=false;
+
+	class controls
+	{
+////////////////////////////////////////////////////////
+// GUI EDITOR OUTPUT START (by Alber, v1.063, #Ledyti)
+////////////////////////////////////////////////////////
+class HQ_box: BOX
+{
+	idc = -1;
+	text = ""; //--- ToDo: Localize;
+	x = 0.244979 * safezoneW + safezoneX;
+	y = 0.223941 * safezoneH + safezoneY;
+	w = 0.445038 * safezoneW;
+	h = 0.20 * safezoneH;//30
+};
+class HQ_frame: RscFrame
+{
+	idc = -1;
+	text = "Dismiss Options"; //--- ToDo: Localize;
+	x = 0.254979 * safezoneW + safezoneX;
+	y = 0.233941 * safezoneH + safezoneY;
+	w = 0.425038 * safezoneW;
+	h = 0.18 * safezoneH;//28
+};
+class HQ_button_Gsquad: RscButton
+{
+	idc = -1;
+	text = "Dismiss Units / Squad"; //--- ToDo: Localize;
+	x = 0.272481 * safezoneW + safezoneX;
+	y = 0.317959 * safezoneH + safezoneY;
+	w = 0.175015 * safezoneW;
+	h = 0.0560125 * safezoneH;
+	tooltip = "Dimiss selected units or squads, recovering it's cost to the proper resource pool";
+	action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\dismissPlayerGroup.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\dismissSquad.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
+};
+class HQ_button_Gstatic: RscButton
+{
+	idc = -1;
+	text = "Garrison Units / Squads"; //--- ToDo: Localize;
+	x = 0.482498 * safezoneW + safezoneX;
+	y = 0.317959 * safezoneH + safezoneY;
+	w = 0.175015 * safezoneW;
+	h = 0.0560125 * safezoneH;
+	tooltip = "Adds selected units or squads to a map selected garrison";
+	action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\addToGarrison.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\addToGarrison.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
+};
+/*
+class HQ_button_Gremove: RscButton
+{
+	idc = -1;
+	text = "Remove Garrison Squads"; //--- ToDo: Localize;
+	x = 0.37749 * safezoneW + safezoneX;
+	y = 0.415981 * safezoneH + safezoneY;
+	w = 0.175015 * safezoneW;
+	h = 0.0560125 * safezoneH;
+	action = "nul = [] call removeGarrison";
+};
+*/
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END
 ////////////////////////////////////////////////////////

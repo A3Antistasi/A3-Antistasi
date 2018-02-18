@@ -58,7 +58,7 @@ for "_i" from 1 to 3 do
 		{
 		{_x setBehaviour "CARELESS";} forEach units _grupoheli;
 		_tipoGrupo = [_tipoVeh,muyMalos] call cargoSeats;
-		_grupo = [_posorigen, muyMalos, _tipoGrupo] call BIS_Fnc_spawnGroup;
+		_grupo = [_posOrigen, muyMalos, _tipoGrupo] call spawnGroup;
 		{_x assignAsCargo _heli;_x moveInCargo _heli; _soldados pushBack _x; [_x] call NATOinit; _x setVariable ["origen",_mrkOrigen]} forEach units _grupo;
 		_grupos pushBack _grupo;
 		[_heli,"CSAT Air Transport"] spawn inmuneConvoy;

@@ -45,6 +45,7 @@ if (_central distance getMarkerPos _ciudad < ([_ciudad] call sizeMarker) * 1.5) 
 */
 bombRuns = bombRuns - 1;
 publicVariable "bombRuns";
+[] call statistics;
 
 _mrkDest = createMarkerLocal [format ["BRFin%1",random 1000], _pos2];
 _mrkDest setMarkerShapeLocal "ICON";

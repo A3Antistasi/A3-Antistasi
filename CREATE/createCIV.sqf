@@ -177,7 +177,7 @@ if ([_marcador,false] call fogCheck > 0.2) then
 							};
 						}
 						];
-					_veh forceFollowRoad true;
+					//_veh forceFollowRoad true;
 					_vehPatrol = _vehPatrol + [_veh];
 					_tipociv = selectRandom arrayCivs;
 					_civ = _grupoP createUnit [_tipociv, _p1, [],0, "NONE"];

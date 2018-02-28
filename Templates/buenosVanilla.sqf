@@ -16,9 +16,9 @@ SDKGL = ["I_C_Soldier_Bandit_6_F","I_C_Soldier_Para_6_F"];
 SDKMil = ["I_C_Soldier_Bandit_7_F","I_C_Soldier_Para_1_F"];
 SDKSL = ["I_C_Soldier_Bandit_4_F","I_C_Soldier_Para_2_F"];
 SDKEng = ["I_G_engineer_F","I_G_engineer_F"];
-sdkTier1 = SDKMil + [staticCrewBuenos];
-sdkTier2 = SDKMedic + SDKMG + SDKExp + SDKGL + SDKEng;
-sdkTier3 = SDKATman + SDKSL + SDKSniper;
+sdkTier1 = SDKMil + [staticCrewBuenos] + SDKMG + SDKGL + SDKATman;
+sdkTier2 = SDKMedic + SDKExp + SDKEng;
+sdkTier3 = SDKSL + SDKSniper;
 soldadosSDK = sdkTier1 + sdkTier2 + sdkTier3;
 
 vehSDKBike = "I_G_Quadbike_01_F";

@@ -2,6 +2,7 @@ _resourcesFIA = server getVariable "resourcesFIA";
 if (_resourcesFIA < 100) exitWith {hint "FIA has not enough resources to grab"};
 [100] call resourcesPlayer;
 server setvariable ["resourcesFIA",_resourcesFIA - 100, true];
+[] remoteExec ["statistics",stavros];
 [-2,stavros] call playerScoreAdd;
 ["scorePlayer", player getVariable "score"] call fn_SaveStat;
 

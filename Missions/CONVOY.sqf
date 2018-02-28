@@ -27,8 +27,10 @@ if (_dificil) then
 		_casas = _casas - [_casa];
 		};
 	_grpContacto = createGroup civilian;
-	_contacto = _grpContacto createUnit [selectRandom arrayCivs, selectRandom _posCasa, [], 0, "NONE"];
+	_pos = selectRandom _posCasa;
+	_contacto = _grpContacto createUnit [selectRandom arrayCivs, _pos, [], 0, "NONE"];
 	_contacto allowDamage false;
+	_contacto setPos _pos;
 	_contacto setVariable ["statusAct",false,true];
 	_contacto forceSpeed 0;
 	_contacto setUnitPos "UP";
@@ -233,7 +235,7 @@ _vehicle=[_pos,markerDir _spawnPoint,_tipoVeh, _grupo] call bis_fnc_spawnvehicle
 _vehLead = _vehicle select 0;
 _vehLead allowDamage false;
 [_vehLead,"Convoy Lead"] spawn inmuneConvoy;
-_vehLead forceFollowRoad true;
+//_vehLead forceFollowRoad true;
 _vehCrew = _vehicle select 1;
 {[_x] call NATOinit;_x allowDamage false} forEach _vehCrew;
 //_grupoVeh = _vehicle select 2;
@@ -276,8 +278,8 @@ if (!_esFIA) then
 for "_i" from 1 to _cuenta do
 	{
 	sleep 5;
-	_grupo = createGroup _lado;
-	_grupos pushBack _grupo;
+	//_grupo = createGroup _lado;
+	//_grupos pushBack _grupo;
 	_tipoVehEsc = selectRandom _vehPool;
 	if (not([_tipoVehEsc] call vehAvailable)) then
 		{
@@ -304,6 +306,7 @@ for "_i" from 1 to _cuenta do
 	_soldados = _soldados + _vehCrew;
 	_vehiculos pushBack _veh;
 	[_veh] call AIVEHinit;
+	/*
 	if ((_base == "airport") or (_base == "airport_2")) then {[_base,_posDestino,_grupo] call WPCreate};
 	_wp0 = _grupo addWaypoint [_posdestino, count waypoints _grupo];
 	_wp0 = (waypoints _grupo) select 0;
@@ -312,13 +315,15 @@ for "_i" from 1 to _cuenta do
 	_grupo setBehaviour "SAFE";
 	_wp0 setWaypointFormation "COLUMN";
 	_veh limitSpeed 50;
+	*/
+	if (_i == 1) then {_veh setConvoySeparation 60} else {_veh setConvoySeparation 20};
 	if (!_esFIA) then
 		{
 		if (not(_tipoVehEsc in vehTanks)) then
 			{
 			_tipogrupo = [_tipoVehEsc,_lado] call cargoSeats;
 			_grupoEsc = [_posbase,_lado, _tipogrupo] call spawnGroup;
-			{[_x] call NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] join _grupo} forEach units _grupoEsc;
+			{[_x] call NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
 			deleteGroup _grupoEsc;
 			};
 		}
@@ -332,7 +337,7 @@ for "_i" from 1 to _cuenta do
 				_tipoGrupo = selectRandom gruposFIAMid;
 				};
 			_grupoEsc = [_posbase,_lado, _tipogrupo] call spawnGroup;
-			{[_x] call NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] join _grupo} forEach units _grupoEsc;
+			{[_x] call NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
 			deleteGroup _grupoEsc;
 			};
 		};
@@ -350,8 +355,8 @@ while {_timeOut < 60} do
 	sleep 1;
 	};
 if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
-_grupo = createGroup _lado;
-_grupos pushBack _grupo;
+//_grupo = createGroup _lado;
+//_grupos pushBack _grupo;
 _vehicle=[_pos, markerDir _spawnPoint,_tipoVehObj, _grupo] call bis_fnc_spawnvehicle;
 _vehObj = _vehicle select 0;
 _vehObj allowDamage false;
@@ -363,6 +368,7 @@ _soldados = _soldados + _vehCrew;
 //_grupos pushBack _grupoVeh;
 _vehiculos pushBack _vehObj;
 [_vehObj] call AIVEHinit;
+/*
 if ((_base == "airport") or (_base == "airport_2")) then {[_base,_posDestino,_grupo] call WPCreate};
 _wp0 = _grupo addWaypoint [_posdestino, count waypoints _grupo];
 _wp0 = (waypoints _grupo) select 0;
@@ -371,6 +377,8 @@ _wp0 setWaypointBehaviour "SAFE";
 _grupo setBehaviour "SAFE";
 _wp0 setWaypointFormation "COLUMN";
 _vehObj limitSpeed 50;
+*/
+_vehObj setConvoySeparation 50;
 if (_tipoConvoy == "Armor") then {_vehObj lock 3};// else {_vehObj forceFollowRoad true};
 if (_tipoConvoy == "Prisoners") then
 	{
@@ -396,7 +404,7 @@ if (_tipoConvoy == "Refuerzos") then
 	{
 	_tipogrupo = [_tipoVehObj,_lado] call cargoSeats;
 	_grupoEsc = [_posbase,_lado,_tipogrupo] call spawnGroup;
-	{[_x] call NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] join _grupo;_refuerzos pushBack _x} forEach units _grupoEsc;
+	{[_x] call NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo;_refuerzos pushBack _x} forEach units _grupoEsc;
 	deleteGroup _grupoEsc;
 	};
 if ((_tipoConvoy == "Money") or (_tipoConvoy == "Supplies")) then {reportedVehs pushBack _vehObj; publicVariable "reportedVehs"};
@@ -419,8 +427,8 @@ while {_timeOut < 60} do
 	sleep 1;
 	};
 if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
-_grupo = createGroup _lado;
-_grupos pushBack _grupo;
+//_grupo = createGroup _lado;
+//_grupos pushBack _grupo;
 _vehicle=[_pos,markerDir _spawnPoint,_tipoVehEsc, _grupo] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 _veh allowDamage false;
@@ -430,6 +438,7 @@ _vehCrew = _vehicle select 1;
 _soldados = _soldados + _vehCrew;
 _vehiculos pushBack _veh;
 [_veh] call AIVEHinit;
+/*
 if ((_base == "airport") or (_base == "airport_2")) then {[_base,_posDestino,_grupo] call WPCreate};
 _wp0 = _grupo addWaypoint [_posdestino, count waypoints _grupo];
 _wp0 = (waypoints _grupo) select 0;
@@ -438,13 +447,15 @@ _wp0 setWaypointBehaviour "SAFE";
 _grupo setBehaviour "SAFE";
 _wp0 setWaypointFormation "COLUMN";
 _veh limitSpeed 50;
+*/
+_veh setConvoySeparation 20;
 if (!_esFIA) then
 	{
 	if (not(_tipoVehEsc in vehTanks)) then
 		{
 		_tipogrupo = [_tipoVehEsc,_lado] call cargoSeats;
 		_grupoEsc = [_posbase,_lado, _tipogrupo] call spawnGroup;
-		{[_x] call NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] join _grupo} forEach units _grupoEsc;
+		{[_x] call NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
 		deleteGroup _grupoEsc;
 		};
 	}
@@ -458,26 +469,29 @@ else
 			_tipoGrupo = selectRandom gruposFIAMid;
 			};
 		_grupoEsc = [_posbase,_lado,_tipogrupo] call spawnGroup;
-		{[_x] call NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] join _grupo} forEach units _grupoEsc;
+		{[_x] call NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
 		deleteGroup _grupoEsc;
 		};
 	};
-
+/*
 _grupoLead = _grupos select 0;
-
-{
-_grupo = _x;
-for "_i" from 0 to (count (waypoints _grupo) - 1) do
+_cuentaWP = 4;
+for "_i" from 0 to (count (waypoints _grupoLead) - 1) do
 	{
-	_wp1 = (waypoints _grupo) select _i;
-	_wp2 = (waypoints _grupoLead) select _i;
-	_wp1 synchronizeWaypoint _wp2;
-	};
-} forEach _grupos - [_grupoLead];
+	_wp1 = waypoints _grupoLead select _i;
+	_arrWp = [];
+	{
+	//_arrWp pushBack (waypoints _x select _i);
+	_arrWP pushBack [_x,_i];
+	[_x,_i] setWaypointCompletionRadius _cuentaWP;
+	} forEach (_grupos - [_grupoLead]);
+	_wp1 synchronizeWaypoint _arrWP;
+	_cuentaWp = _cuentaWP + 5;
+	};*/
 sleep 30;
 {_x allowDamage true} forEach _vehiculos;
-{_x allowDamage true} forEach _soldados;
-
+{_x allowDamage true; if (vehicle _x == _x) then {deleteVehicle _x}} forEach _soldados;
+/*
 [_vehObj,_vehiculos,_posDestino] spawn
 	{
 	private ["_vehObj","_vehiculos","_posDestino","_condu","_veh","_grupo","_wp0"];
@@ -531,12 +545,12 @@ sleep 30;
 		sleep 5;
 		};
 	};
-
+*/
 _bonus = if (_dificil) then {2} else {1};
 
 if (_tipoConvoy == "Municion") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 100) or (not alive _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])};
+	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])};
 	if ((_vehObj distance _posdestino < 100) or (dateToNumber date >_fechafinNum)) then
 		{
 		_taskState = "FAILED";
@@ -569,7 +583,7 @@ if (_tipoConvoy == "Municion") then
 
 if (_tipoConvoy == "Armor") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 100) or (not alive _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])};
+	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])};
 	if ((_vehObj distance _posdestino < 100) or (dateToNumber date > _fechafinNum)) then
 		{
 		_taskState = "FAILED";
@@ -600,7 +614,7 @@ if (_tipoConvoy == "Armor") then
 
 if (_tipoConvoy == "Prisoners") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 100) or (not alive driver _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false]) or ({alive _x} count _POWs == 0)};
+	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (not alive driver _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false]) or ({alive _x} count _POWs == 0)};
 	if ((_vehObj distance _posdestino < 100) or ({alive _x} count _POWs == 0) or (dateToNumber date > _fechafinNum)) then
 		{
 		_taskState = "FAILED";
@@ -645,7 +659,7 @@ if (_tipoConvoy == "Prisoners") then
 
 if (_tipoConvoy == "Refuerzos") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 100) or ({(!alive _x) or (captive _x)} count _refuerzos == count _refuerzos)};
+	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or ({(!alive _x) or (captive _x)} count _refuerzos == count _refuerzos)};
 	if ({(!alive _x) or (captive _x)} count _refuerzos == count _refuerzos) then
 		{
 		_taskState = "SUCCEEDED";
@@ -678,7 +692,7 @@ if (_tipoConvoy == "Refuerzos") then
 
 if (_tipoConvoy == "Money") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 100) or (not alive _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])};
+	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])};
 	if ((dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 100) or (not alive _vehObj)) then
 		{
 		_taskState = "FAILED";
@@ -712,7 +726,7 @@ if (_tipoConvoy == "Money") then
 			{
 			_taskState = "SUCCEEDED";
 			_taskState1 = "FAILED";
-			[10*_bonus,-20*_bonus,_destino] remoteExec ["citySupportChange",2];
+			[10*_bonus,-20*_bonus,_posdestino] remoteExec ["citySupportChange",2];
 			[3,0] remoteExec ["prestige",2];
 			[0,5000*_bonus] remoteExec ["resourcesFIA",2];
 			[-120*_bonus] remoteExec ["timingCA",2];
@@ -729,7 +743,7 @@ if (_tipoConvoy == "Money") then
 
 if (_tipoConvoy == "Supplies") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 100) or (not alive _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])};
+	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])};
 	if (not alive _vehObj) then
 		{
 		[getPosASL _vehObj,_lado] spawn patrolCA;
@@ -741,7 +755,7 @@ if (_tipoConvoy == "Supplies") then
 		_killZones = _killZones + [_destino,_destino];
 		killZones setVariable [_base,_killZones,true];
 		};
-	if ((dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 100) or (driver _vehObj getVariable ["GREENFORSpawn",false])) then
+	if ((dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (driver _vehObj getVariable ["GREENFORSpawn",false])) then
 		{
 		if (driver _vehObj getVariable ["GREENFORSpawn",false]) then
 			{

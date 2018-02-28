@@ -21,6 +21,7 @@ if (isMultiplayer) exitWith
 			{
 			_texto = format ["<br/><br/><br/><br/><br/><br/>Money +%1 €",_puntos*10];
 			[petros,"income",_texto] remoteExec ["commsMP",_jugador];
+			//[] remoteExec ["statistics",_jugador];
 			};
 		};
 	_puntos = _puntos + _puntosJ;

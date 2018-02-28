@@ -21,6 +21,24 @@ if (_tipo == "delete") exitWith
 	[] remoteExec ["mineSweep",HCattack];
 	};
 
+#include "\A3\Ui_f\hpp\defineResinclDesign.inc"
+
+_pool = jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOPUT;
+_cantidad = 0;
+_cantidadMax = 40;
+_tipoM =APERSMineMag;
+if (_tipo == "ATMine") then
+	{
+	_cantidadMax = 20;
+	_tipoM = ATMineMag;
+	};
+
+{
+if (_x select 0 == _tipoM) exitWith {_cantidad = _x select 1}
+} forEach _pool;
+
+if (_cantidad < 5) exitWith {hint "You need at least 5 mines of this type to build a Minefield"};
+
 openMap true;
 posicionTel = [];
 hint "Click on the position you wish to build the minefield.";
@@ -33,21 +51,6 @@ onMapSingleClick "";
 if (!visibleMap) exitWith {};
 
 _posicionTel = posicionTel;
-
-_cantidadMax = 40;
-_cantidad = 0;
-
-if (_tipo == "ATMine") then
-	{
-	_cantidadMax = 20;
-	_cantidad = {_x == ATMineMag} count (magazineCargo caja);
-	};
-if (_tipo == "APERSMine") then
-	{
-	_cantidad = {_x == APERSMineMag} count (magazineCargo caja);
-	};
-
-if (_cantidad < 5) exitWith {hint "You need at least 5 mines of this type to build a Minefield"};
 
 if (_cantidad > _cantidadMax) then
 	{

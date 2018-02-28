@@ -354,7 +354,7 @@ if (_base != "") then
 				//{[_x] joinSilent _grupoVeh} forEach units _grupo;
 				(units _grupo) joinSilent _grupoVeh;
 				deleteGroup _grupo;
-				_veh forceFollowRoad true;
+				//_veh forceFollowRoad true;
 
 				_grupoVeh selectLeader (units _grupoVeh select 1);
 				if ((_base == "airport") or (_base == "airport_2")) then {[_base,_landPos,_grupoVeh] call WPCreate};

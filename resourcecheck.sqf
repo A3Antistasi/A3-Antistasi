@@ -92,6 +92,7 @@ while {true} do
 				[_ciudad,_base] remoteExec ["CONVOY",HCattack];
 				};
 			};
+		[] call tierCheck;
 		};
 	if ((_prestigeNATO > _prestigeSDK) and (_ciudad in mrkSDK)) then
 		{
@@ -105,6 +106,7 @@ while {true} do
 		_mrkD setMarkerColor colorMalos;
 		garrison setVariable [_ciudad,[],true];
 		sleep 5;
+		[] call tierCheck;
 		};
 	} forEach ciudades;
 	if (_popCSAT > (_popTotal / 3)) then {["destroyedCities",false,true] remoteExec ["BIS_fnc_endMission"]};
@@ -138,6 +140,8 @@ while {true} do
 	server setVariable ["hr",_hrAddBLUFOR,true];
 	server setVariable ["resourcesFIA",_recAddSDK,true];
 	bombRuns = bombRuns + (({_x in mrkSDK} count aeropuertos) * 0.25);
+	[petros,"taxRep",_texto] remoteExec ["commsMP",[buenos,civilian]];
+	//[] remoteExec ["statistics",[buenos,civilian]];
 	if (isMultiplayer) then {[] spawn assignStavros};
 	if ((!bigAttackInProgress) and (random 100 < 50)) then {[] call missionRequestAUTO};
 	[] remoteExec ["reinforcementsAI",hcAttack];

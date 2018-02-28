@@ -5,4 +5,5 @@ if (_tierWar != tierWar) then
 	tierWar = _tierWar;
 	publicVariable "tierWar";
 	[petros,"tier",""] remoteExec ["commsMP",[buenos,civilian]];
+	//[] remoteExec ["statistics",[buenos,civilian]];
 	};

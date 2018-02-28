@@ -175,8 +175,8 @@ if ((side player == buenos) or (side player == civilian)) then
 			}
 		];
 	[true] execVM "reinitY.sqf";
-	statistics= [] execVM "statistics.sqf";
-	_nul = [player] execVM "OrgPlayers\unitTraits.sqf";
+	[player] execVM "OrgPlayers\unitTraits.sqf";
+	[] call statistics;
 	}
 else
 	{

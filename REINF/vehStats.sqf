@@ -3,11 +3,11 @@ if (count hcSelected player != 1) exitWith {hint "You must select one group on t
 private ["_grupo","_veh","_texto"];
 
 _grupo = (hcSelected player select 0);
-
+/*
 _esStatic = false;
-{if (vehicle _x isKindOf "StaticWeapon") then {_esStatic = true}} forEach units _grupo;
+{if (vehicle _x isKindOf "StaticWeapon") exitWith {_esStatic = true}} forEach units _grupo;
 if (_esStatic) exitWith {hint "Static Weapon squad vehicles cannot be managed"};
-
+*/
 _veh = objNull;
 
 {

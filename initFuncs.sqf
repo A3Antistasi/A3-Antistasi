@@ -3,6 +3,7 @@
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
 //fpsCheck = compile preProcessFileLineNumbers "fpsCheck.sqf";
+construir = compile preProcessFileLineNumbers "REINF\construir.sqf";
 isBuildingPosition = compile preProcessFileLineNumbers "AI\Buildings\isBuildingPosition.sqf";
 groupDespawner= compile preProcessFileLineNumbers "CREATE\groupDespawner.sqf";
 patrolReinf= compile preProcessFileLineNumbers "CREATE\patrolReinf.sqf";
@@ -183,7 +184,7 @@ fastrope = compile preProcessFileLineNumbers "AI\fastrope.sqf";
 airdrop = compile preProcessFileLineNumbers "AI\airdrop.sqf";
 airstrike = compile preProcessFileLineNumbers "AI\airstrike.sqf";
 artilleria = compile preProcessFileLineNumbers "AI\artilleria.sqf";
-dismountFIA = compile preProcessFileLineNumbers "AI\dismountFIA.sqf";
+//dismountFIA = compile preProcessFileLineNumbers "AI\dismountFIA.sqf";
 powerReorg = compile preProcessFileLineNumbers "powerReorg.sqf";
 apagon = compile preProcessFileLineNumbers "apagon.sqf";
 sizeMarker = compile preProcessFileLineNumbers "sizeMarker.sqf";

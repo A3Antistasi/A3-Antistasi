@@ -40,3 +40,4 @@ if (isNull _oldUnit) then
 	{
 	[_oldUnit,[group _oldUnit]] remoteExec ["hcSetGroup",_oldUnit];
 	};
+[] remoteExec ["statistics",[buenos,civilian]];

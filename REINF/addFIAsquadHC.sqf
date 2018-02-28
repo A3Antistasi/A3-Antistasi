@@ -56,7 +56,16 @@ else
 	{
 	_coste = _coste + (2*(server getVariable (SDKMil select 0))) + ([_tipogrupo] call vehiclePrice);
 	_costeHR = 2;
-	if (_tipoGrupo == SDKMortar) then {_coste = _coste + ([vehSDKBike] call vehiclePrice)} else {_coste = _coste + ([vehSDKTruck] call vehiclePrice)};
+	//if (_tipoGrupo == SDKMortar) then {_coste = _coste + ([vehSDKBike] call vehiclePrice)} else {_coste = _coste + ([vehSDKTruck] call vehiclePrice)};
+	if ((_tipoGrupo == SDKMortar) or (_tipoGrupo == SDKMGStatic)) then
+		{
+		_esInf = true;
+		_formato = [staticCrewBuenos,staticCrewBuenos];
+		}
+	else
+		{
+		_coste = _coste + ([vehSDKTruck] call vehiclePrice)
+		};
 	};
 
 if (_hr < _costeHR) then {_exit = true;hint format ["You do not have enough HR for this request (%1 required)",_costeHR]};
@@ -79,56 +88,49 @@ _road = _roads select 0;
 
 if (_esinf) then
 	{
-	//_camion = _tipoveh createVehicle _pos;
 	_pos = [(getMarkerPos "respawn_guerrila"), 30, random 360] call BIS_Fnc_relPos;
-	_grupo = [_pos, buenos, _formato,true] call spawnGroup;
-	if (_tipogrupo isEqualTo gruposSDKSquad) then {_format = "Squd-"};
-	if (_tipogrupo isEqualTo gruposSDKmid) then {_format = "Tm-"};
-	if (_tipogrupo isEqualTo gruposSDKAT) then {_format = "AT-"};
-	if (_tipogrupo isEqualTo gruposSDKSniper) then {_format = "Snpr-"};
-	if (_tipogrupo isEqualTo gruposSDKSentry) then {_format = "Stry-"};
+	if (_tipoGrupo isEqualType []) then
+		{
+		_grupo = [_pos, buenos, _formato,true] call spawnGroup;
+		if (_tipogrupo isEqualTo gruposSDKSquad) then {_format = "Squd-"};
+		if (_tipogrupo isEqualTo gruposSDKmid) then {_format = "Tm-"};
+		if (_tipogrupo isEqualTo gruposSDKAT) then {_format = "AT-"};
+		if (_tipogrupo isEqualTo gruposSDKSniper) then {_format = "Snpr-"};
+		if (_tipogrupo isEqualTo gruposSDKSentry) then {_format = "Stry-"};
+		}
+	else
+		{
+		_grupo = [_pos, buenos, _formato,true] call spawnGroup;
+		_grupo setVariable ["staticAutoT",false,true];
+		if (_tipogrupo == SDKMortar) then {_format = "Mort-"};
+		if (_tipoGrupo == SDKMGStatic) then {_format = "MG-"};
+		[_grupo,_tipoGrupo] spawn MortyAI;
+		};
 	_format = format ["%1%2",_format,{side (leader _x) == buenos} count allGroups];
 	_grupo setGroupId [_format];
-	//_nul = [_grupo] spawn dismountFIA;
-	//_grupo addVehicle _camion;
 	}
 else
 	{
 	_pos = position _road findEmptyPosition [1,30,vehSDKTruck];
-	_vehicle = if ((_tipoGrupo ==staticAABuenos) and (activeGREF)) then {[_pos, 0,"rhsgref_ins_g_ural_Zu23", buenos] call bis_fnc_spawnvehicle} else {if (_tipoGrupo == SDKMortar) then {[_pos, 0,vehSDKBike, buenos] call bis_fnc_spawnvehicle} else {[_pos, 0,vehSDKTruck, buenos] call bis_fnc_spawnvehicle}};
+	_vehicle = if ((_tipoGrupo ==staticAABuenos) and (activeGREF)) then {[_pos, 0,"rhsgref_ins_g_ural_Zu23", buenos] call bis_fnc_spawnvehicle} else {[_pos, 0,vehSDKTruck, buenos] call bis_fnc_spawnvehicle};
 	_camion = _vehicle select 0;
 	_grupo = _vehicle select 2;
 	//_mortero attachTo [_camion,[0,-1.5,0.2]];
 	//_mortero setDir (getDir _camion + 180);
-	_grupo setVariable ["staticAutoT",false,true];
-	if (_tipogrupo == SDKMortar) then
+
+	if ((!activeGREF) or (_tipogrupo == staticATBuenos)) then
 		{
 		_pos = _pos findEmptyPosition [1,30,SDKMortar];
 		_morty = _grupo createUnit [staticCrewBuenos, _pos, [],0, "NONE"];
 		_mortero = _tipogrupo createVehicle _pos;
 		_nul = [_mortero] call AIVEHinit;
+		_mortero attachTo [_camion,[0,-1.5,0.2]];
+		_mortero setDir (getDir _camion + 180);
 		_morty moveInGunner _mortero;
-		[_morty,_camion,_mortero] spawn mortyAI;
-		_grupo setGroupId [format ["Mort-%1",{side (leader _x) == buenos} count allGroups]];
-		//artyFIA synchronizeObjectsAdd [_morty];
-		//_morty synchronizeObjectsAdd [artyFIA];
-		//[player, apoyo, artyFIA] call BIS_fnc_addSupportLink;
-		}
-	else
-		{
-		if ((!activeGREF) or (_tipogrupo == staticATBuenos)) then
-			{
-			_pos = _pos findEmptyPosition [1,30,SDKMortar];
-			_morty = _grupo createUnit [staticCrewBuenos, _pos, [],0, "NONE"];
-			_mortero = _tipogrupo createVehicle _pos;
-			_nul = [_mortero] call AIVEHinit;
-			_mortero attachTo [_camion,[0,-1.5,0.2]];
-			_mortero setDir (getDir _camion + 180);
-			_morty moveInGunner _mortero;
-			};
-		if (_tipogrupo == staticATBuenos) then {_grupo setGroupId [format ["M.AT-%1",{side (leader _x) == buenos} count allGroups]]};
-		if (_tipogrupo == staticAABuenos) then {_grupo setGroupId [format ["M.AA-%1",{side (leader _x) == buenos} count allGroups]]};
 		};
+	if (_tipogrupo == staticATBuenos) then {_grupo setGroupId [format ["M.AT-%1",{side (leader _x) == buenos} count allGroups]]};
+	if (_tipogrupo == staticAABuenos) then {_grupo setGroupId [format ["M.AA-%1",{side (leader _x) == buenos} count allGroups]]};
+
 	driver _camion action ["engineOn", vehicle driver _camion];
 	_nul = [_camion] call AIVEHinit;
 	};

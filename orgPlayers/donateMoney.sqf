@@ -20,3 +20,5 @@ _money = player getVariable "dinero";
 _dinero = _target getVariable "dinero";
 _target setVariable ["dinero",_dinero + 100, true];
 hint format ["You have donated 100 € to %1", name _target];
+[] remoteExec ["statistics",_target];
+[] call statistics;

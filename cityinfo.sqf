@@ -142,6 +142,17 @@ while {visibleMap} do
 				_texto = format ["SDK Seaport%1",[_sitio] call garrisonInfo];
 				};
 			};
+		if (_sitio in puestosFIA) then
+			{
+			if (isOnRoad (getMarkerPos _sitio)) then
+				{
+				_texto = format ["SDK Roadblock%1",[_sitio] call garrisonInfo];
+				}
+			else
+				{
+				_texto = "SDK Watchpost";
+				};
+			};
 		hint format ["%1",_texto];
 		};
 	posicionTel = [];

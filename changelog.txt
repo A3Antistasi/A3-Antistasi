@@ -554,11 +554,44 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 
 0.10.3 14/02/2018 ALPHA
 
+- NEW FEATURE: Player will be able to assign to garrison squadmates and HC controlled squads.
+- Increased A LOT, A REAL LOT convoy cohesion. Convoy experience is much better right now. Ai behaviour improved too.
 - Civ convoy trucks should behave as before.
 - Troop transports number of units will depend on War Level
-- NEW FEATURE: Player will be able to assign to garrison squadmates and HC controlled squads.
-- Added TONS of tooltips in the custom menus.
+- Added lots of tooltips in the custom menus.
 - Longer times to recover idle status for bases and outposts.
 - Doubled War Level gains on conquests.
 - AT men wont spawn with AA if AA unlocked.
-- Increased convoh cohesion.
+- Big increase of distance to consider a convoy reached.
+- Corrected small bug in money convoys when destination was not a city.
+
+0.10.4 20/02/2018 ALPHA
+
+- New Feature: Replaced Sentry squads with MG static squads. Managed by HC module, they will mount an MG when they reach their destination.
+- New feature: SDK Roadblocks can be managed as garrisons, have cache of units and get persistent saved.
+- New feature: hiring an specialist without having it's weapon unlocked will make spawn the class with proper skills, but with one unlocked rifle.
+- Disabled the remove outpost button as remove garrison options does the trick.
+- Fixed some wheeled vehicles pathfinding which were broken.
+- War Level gets updated on city joning / leaving SDK
+- More civvies spawn as default.
+- Removed XLA compatibility as it is useless now.
+- Mines shouldnt be unlockable.
+- Solved some exploits on save + arsenal.
+- Idle / busy status on outposts is now saved.
+- Integrated minefield building system with Jeroen Arsenal.
+- Reworked mortar squads and arty option, now you can combine more than one mortar squads for better effetc. Mortar squad are just another squad, when they reach their destination, they will assemble their mortar and the commander can issue orders.
+- At last: Ammo missions show exactly where is the truck.
+- Brute coded Informer and Traitor spawning to avoid some bug.
+- Lower cost for ARs, GLs and AT soldiers. Higher for Militia.
+
+
+0.11.0 25/02/2018 ALPHA
+
+- NEW FEATURE: Construct things. At last! Requires an engineer in your squad (or being player engineer). Trench classnames depend on the surroundings (urban, forest, field) and bunkers can be built for a price and in controlled zones. Bunkers wont despawn.
+- Added a few checks to avoid AI get stuck in the carry animation.
+- Moved the "Building Options" from Y menu to "Manage Garrisons" HQ Flag Option.
+- Solved bug on persistent save.
+
+Roadmap (in Spanish):
+barco civil
+Jeroen Logistics

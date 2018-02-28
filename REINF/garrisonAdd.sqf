@@ -1,4 +1,4 @@
-private ["_hr","_resourcesFIA","_tipo","_coste","_marcador","_garrison","_posicion","_unit","_grupo","_veh","_pos","_salir"];
+private ["_hr","_resourcesFIA","_tipo","_coste","_marcador","_garrison","_posicion","_unit","_grupo","_veh","_pos"];
 
 _hr = server getVariable "hr";
 
@@ -9,7 +9,7 @@ _resourcesFIA = server getVariable "resourcesFIA";
 _tipo = _this select 0;
 
 _coste = 0;
-_salir = false;
+
 if (_tipo isEqualType "") then
 	{
 	_coste = server getVariable _tipo;
@@ -24,6 +24,9 @@ else
 if (_coste > _resourcesFIA) exitWith {hint format ["You do not have enough money for this kind of unit (%1 € needed)",_coste]};
 
 _marcador = posicionGarr;
+
+if ((_tipo == staticCrewBuenos) and (_marcador in puestosFIA)) exitWith {hint "You cannot add mortars to a Roadblock garrison"};
+
 _posicion = getMarkerPos _marcador;
 
 if (surfaceIsWater _posicion) exitWith {hint "This Garrison is still updating, please try again in a few seconds"};
@@ -38,7 +41,7 @@ _garrison = [];
 _garrison = _garrison + (garrison getVariable [_marcador,[]]);
 _garrison pushBack _tipo;
 garrison setVariable [_marcador,_garrison,true];
-[_marcador] call mrkUpdate;
+//[_marcador] call mrkUpdate;
 hint format ["Soldier recruited.%1",[_marcador] call garrisonInfo];
 
 if (spawner getVariable _marcador != 2) then

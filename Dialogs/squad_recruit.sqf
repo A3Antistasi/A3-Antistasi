@@ -41,10 +41,10 @@ if (str (_display) != "no display") then
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 108;
-	_coste = 0;
-	_costeHR = 0;
+	_coste = (2*(server getVariable staticCrewBuenos));
+	_costeHR = 2;
 	//_unidades = [SDKGL,SDKRifleman];
-	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach gruposSDKSentry;
+	_coste = _coste + ([SDKMGStatic] call vehiclePrice);
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 
@@ -63,6 +63,6 @@ if (str (_display) != "no display") then
 	_ChildControl = _display displayCtrl 111;
 	_coste = (2*(server getVariable staticCrewBuenos));
 	_costeHR = 2;
-	_coste = _coste + ([vehSDKBike] call vehiclePrice) + ([SDKMortar] call vehiclePrice);
+	_coste = _coste + ([SDKMortar] call vehiclePrice);
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 };

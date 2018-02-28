@@ -7,43 +7,52 @@ _posicion = getMarkerPos _marcador;
 
 _escarretera = false;
 if (isOnRoad _posicion) then {_escarretera = true};
-_formato = [];
+
 if (_escarretera) then
 	{
 	_tam = 1;
-
+	_garrison = garrison getVariable _marcador;
+	_veh = objNull;
+	if (isNil "_garrison") then
+		{
+		_garrison = [staticCrewBuenos];
+		{
+		if (random 20 <= skillFIA) then {_garrison pushBack (_x select 1)} else {_garrison pushBack (_x select 0)};
+		} forEach gruposSDKAT;
+		garrison setVariable [_marcador,_garrison,true];
+		};
 	while {true} do
 		{
 		_road = _posicion nearRoads _tam;
 		if (count _road > 0) exitWith {};
 		_tam = _tam + 5;
 		};
-
-	_roadcon = roadsConnectedto (_road select 0);
-	_dirveh = [_road select 0, _roadcon select 0] call BIS_fnc_DirTo;
-	_veh = vehSDKLightArmed createVehicle getPos (_road select 0);
-	_veh setDir _dirveh + 90;
-	_veh lock 3;
-	_nul = [_veh] call AIVEHinit;
-	sleep 1;
-	{
-	if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
-	} forEach gruposSDKAT;
-	_grupo = [_posicion, buenos, _formato] call spawnGroup;
-	_unit = _grupo createUnit [staticCrewBuenos, _posicion, [], 0, "NONE"];
-	_unit moveInGunner _veh;
+	if (staticCrewBuenos in _garrison) then
+		{
+		_roadcon = roadsConnectedto (_road select 0);
+		_dirveh = [_road select 0, _roadcon select 0] call BIS_fnc_DirTo;
+		_veh = vehSDKLightArmed createVehicle getPos (_road select 0);
+		_veh setDir _dirveh + 90;
+		_veh lock 3;
+		_nul = [_veh] call AIVEHinit;
+		sleep 1;
+		};
+	_grupo = [_posicion, buenos, _garrison] call spawnGroup;
+	//_unit = _grupo createUnit [staticCrewBuenos, _posicion, [], 0, "NONE"];
+	//_unit moveInGunner _veh;
+	{[_x,_marcador] spawn FIAinitBases; if (typeOf _x == staticCrewBuenos) then {_x moveInGunner _veh}} forEach units _grupo;
 	}
 else
 	{
+	_formato = [];
 	{
 	if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
 	} forEach gruposSDKSniper;
 	_grupo = [_posicion, buenos, _formato] call spawnGroup;
 	_grupo setBehaviour "STEALTH";
 	_grupo setCombatMode "GREEN";
+	{[_x,_marcador] spawn FIAinitBases;} forEach units _grupo;
 	};
-
-{[_x] spawn FIAinitBases;} forEach units _grupo;
 
 waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({alive _x} count units _grupo == 0) or (not(_marcador in puestosFIA))};
 
@@ -67,6 +76,6 @@ if ({alive _x} count units _grupo == 0) then
 
 waitUntil {sleep 1; (spawner getVariable _marcador == 2) or (not(_marcador in puestosFIA))};
 
-if (_escarretera) then {deleteVehicle _veh};
+if (_escarretera) then {if (!isNull _veh) then {deleteVehicle _veh}};
 {deleteVehicle _x} forEach units _grupo;
 deleteGroup _grupo;

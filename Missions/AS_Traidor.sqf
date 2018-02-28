@@ -23,12 +23,14 @@ if (_dificil) then
 	while {count _posCasa == 0} do
 		{
 		_casa = selectRandom _casas;
-		_posCasa = [_casa] call BIS_fnc_buildingPositions;
+		_posCasa = _casa buildingPos -1;
 		_casas = _casas - [_casa];
 		};
 	_grpContacto = createGroup civilian;
-	_contacto = _grpContacto createUnit [selectRandom arrayCivs, selectRandom _posCasa, [], 0, "NONE"];
+	_pos = selectRandom _posCasa;
+	_contacto = _grpContacto createUnit [selectRandom arrayCivs, _pos, [], 0, "NONE"];
 	_contacto allowDamage false;
+	_contacto setPos _pos;
 	_contacto setVariable ["statusAct",false,true];
 	_contacto forceSpeed 0;
 	_contacto setUnitPos "UP";
@@ -98,7 +100,7 @@ _casa = _casas select 0;
 while {count _poscasa < 3} do
 	{
 	_casa = _casas call BIS_Fnc_selectRandom;
-	_poscasa = [_casa] call BIS_fnc_buildingPositions;
+	_poscasa = _casa buildingPos -1;
 	if (count _poscasa < 3) then {_casas = _casas - [_casa]};
 	};
 
@@ -118,6 +120,7 @@ _posBase = getMarkerPos _base;
 
 _traidor = _grptraidor createUnit [NATOOfficer2, _postraidor, [], 0, "NONE"];
 _traidor allowDamage false;
+_traidor setPos _posTraidor;
 _sol1 = _grptraidor createUnit [NATOBodyG, _posSol1, [], 0, "NONE"];
 _sol2 = _grptraidor createUnit [NATOBodyG, _posSol2, [], 0, "NONE"];
 _grptraidor selectLeader _traidor;

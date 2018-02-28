@@ -29,8 +29,10 @@ if (_dificil) then
 		_casas = _casas - [_casa];
 		};
 	_grpContacto = createGroup civilian;
-	_contacto = _grpContacto createUnit [selectRandom arrayCivs, selectRandom _posCasa, [], 0, "NONE"];
+	_pos = selectRandom _posCasa;
+	_contacto = _grpContacto createUnit [selectRandom arrayCivs, _pos, [], 0, "NONE"];
 	_contacto allowDamage false;
+	_contacto setPos _pos;
 	_contacto setVariable ["statusAct",false,true];
 	_contacto forceSpeed 0;
 	_contacto setUnitPos "UP";
@@ -95,36 +97,38 @@ _fechalim = [date select 0, date select 1, date select 2, date select 3, (date s
 _fechalimnum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call localizar;
+_tipoVeh = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
+_size = [_marcador] call sizeMarker;
 
-_tsk = ["LOG",[buenos,civilian],[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"CREATED",5,true,true,"rearm"] call BIS_fnc_setTask;
+_roads = [];
+_tam = _size;
+_road = objNull;
+while {isNull _road} do
+	{
+	_roads = _posicion nearRoads _tam;
+	if (count _roads > 0) then
+		{
+		{
+		if ((surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")) exitWith {_road = _x};
+		} forEach _roads;
+		};
+	_tam = _tam + 50;
+	};
+//_road = _roads select 0;
+_pos = position _road;
+_pos = _pos findEmptyPosition [1,60,_tipoVeh];
+if (count _pos == 0) then {_pos = position _road};
+
+_tsk = ["LOG",[buenos,civilian],[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_pos,"CREATED",5,true,true,"rearm"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 _camionCreado = false;
 
-waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (spawner getVariable _marcador != 2)};
+waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or ((spawner getVariable _marcador != 2) and !(_marcador in mrkSDK))};
 _bonus = if (_dificil) then {2} else {1};
-if (spawner getVariable _marcador != 2) then
+if ((spawner getVariable _marcador != 2) and !(_marcador in mrkSDK)) then
 	{
-	sleep 10;
-	_size = [_marcador] call sizeMarker;
-	_tipoVeh = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
-	_roads = [];
-	_tam = _size;
-	_road = objNull;
-	while {isNull _road} do
-		{
-		_roads = _posicion nearRoads _tam;
-		if (count _roads > 0) then
-			{
-			{
-			if ((surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")) exitWith {_road = _x};
-			} forEach _roads;
-			};
-		_tam = _tam + 50;
-		};
-	//_road = _roads select 0;
-	_pos = position _road;
-	_pos = _pos findEmptyPosition [1,60,_tipoVeh];
-	if (count _pos == 0) then {_pos = position _road};
+	//sleep 10;
+
 	_camion = _tipoVeh createVehicle _pos;
 	_camion setDir (getDir _road);
 	_camionCreado = true;

@@ -11,7 +11,7 @@ skillFIA = skillFIA + 1;
 hint format ["Syndikat Skill Level has been Upgraded\nCurrent level is %1",skillFIA];
 publicVariable "skillFIA";
 server setVariable ["resourcesFIA",_resourcesFIA,true];
-
+[] call statistics;
 {
 _coste = server getVariable _x;
 _coste = round (_coste + (_coste * (skillFIA/280)));

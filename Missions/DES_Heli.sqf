@@ -29,8 +29,10 @@ if (_dificil) then
 		_casas = _casas - [_casa];
 		};
 	_grpContacto = createGroup civilian;
-	_contacto = _grpContacto createUnit [selectRandom arrayCivs, selectRandom _posCasa, [], 0, "NONE"];
+	_pos = selectRandom _posCasa;
+	_contacto = _grpContacto createUnit [selectRandom arrayCivs, _pos, [], 0, "NONE"];
 	_contacto allowDamage false;
+	_contacto setPos _pos;
 	_contacto setVariable ["statusAct",false,true];
 	_contacto forceSpeed 0;
 	_contacto setUnitPos "UP";

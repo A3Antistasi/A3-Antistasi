@@ -119,7 +119,7 @@ if (_tipoCoche in vehNATOLightUnarmed) then
 	{
 	sleep 1;
 	_grupo = [_posbase, _lado, gruposNATOSentry] call spawnGroup;
-	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] join _grupoveh; [_x] call NATOinit} forEach units _grupo;
+	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _grupoveh; [_x] call NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
 	//[_veh] spawn smokeCover;
 	};
@@ -127,12 +127,12 @@ if (_tipoCoche in vehCSATLightUnarmed) then
 	{
 	sleep 1;
 	_grupo = [_posbase, _lado, gruposCSATSentry] call spawnGroup;
-	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] join _grupoveh; [_x] call NATOinit} forEach units _grupo;
+	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _grupoveh; [_x] call NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
 	//[_veh] spawn smokeCover;
 	};
 
-if (_tipoPatrol == "LAND") then {_veh forceFollowRoad true};
+//if (_tipoPatrol == "LAND") then {_veh forceFollowRoad true};
 
 while {alive _veh} do
 	{

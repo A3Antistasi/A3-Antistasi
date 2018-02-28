@@ -58,7 +58,7 @@ if (!isDedicated) then
 	["fecha", date] call fn_SaveStat;
 	["skillFIA", skillFIA] call fn_SaveStat;
 	["destroyedCities", destroyedCities] call fn_SaveStat;
-	["distanciaSPWN", distRef] call fn_SaveStat;
+	["distanciaSPWN", distanciaSPWN] call fn_SaveStat;
 	["civPerc", civPerc] call fn_SaveStat;
 	["chopForest", chopForest] call fn_SaveStat;
 	["maxUnits", maxUnits] call fn_SaveStat;
@@ -79,7 +79,8 @@ _armas = [];
 _municion = [];
 _items = [];
 _mochis = [];*/
-_vehInGarage = vehInGarage;
+_vehInGarage = [];
+_vehInGarage = _vehInGarage + vehInGarage;
 {
 _amigo = _x;
 if (_amigo getVariable ["GREENFORSpawn",false]) then
@@ -172,41 +173,36 @@ _arrayEst = [];
 {
 _veh = _x;
 _tipoVeh = typeOf _veh;
-if ((_veh in staticsToSave) and (alive _veh) and (not(surfaceIsWater position _veh)) and (isTouchingGround _veh) and (not (isNull _veh))) then
-	{
-	_posVeh = getPos _veh;
-	_dirVeh = getDir _veh;
-	_arrayEst = _arrayEst + [[_tipoVeh,_posVeh,_dirVeh]];
-	};
-if (_veh distance getMarkerPos "respawn_guerrila" < 50) then
+if ((_veh distance getMarkerPos "respawn_guerrila" < 50) and !(_veh in staticsToSave)) then
 	{
 	if (((not (_veh isKindOf "StaticWeapon")) and (not (_veh isKindOf "ReammoBox")) and (not (_veh isKindOf "FlagCarrier")) and (not(_veh isKindOf "Building"))) and (not (_tipoVeh == "C_Van_01_box_F")) and (count attachedObjects _veh == 0) and (alive _veh) and ({(alive _x) and (!isPlayer _x)} count crew _veh == 0) and (not(_tipoVeh == "WeaponHolderSimulated"))) then
 		{
 		_posVeh = getPos _veh;
 		_dirVeh = getDir _veh;
-		_arrayEst = _arrayEst + [[_tipoVeh,_posVeh,_dirVeh]];
-		/*_armas = _armas + weaponCargo _veh;
-		_municion = _municion + magazineCargo _veh;
-		_items = _items + itemCargo _veh;
-		if (count backpackCargo _veh > 0) then
-			{
-			{
-			_mochis pushBack (_x call BIS_fnc_basicBackpack);
-			} forEach backpackCargo _veh;
-			};*/
+		_arrayEst pushBack [_tipoVeh,_posVeh,_dirVeh];
 		};
 	};
 } forEach vehicles - [caja,bandera,fuego,cajaveh,mapa];
 
+{
+_posicion = position _x;
+if ((alive _x) and !(surfaceIsWater _posicion) and (isTouchingGround _x) and !(isNull _x)) then
+	{
+	_cercano = [mrkSDK,_posicion] call BIS_fnc_nearestPosition;
+	if (_posicion inArea _cercano) then
+		{
+		_arrayEst pushBack [typeOf _x,getPos _x,getDir _x]
+		};
+	};
+} forEach staticsToSave;
+
 ["estaticas", _arrayEst] call fn_SaveStat;
 [] call arsenalManage;
-["jna_dataList", jna_dataList] call fn_SaveStat;
-/*
-["armas", _armas] call fn_SaveStat;
-["municion", _municion] call fn_SaveStat;
-["items", _items] call fn_SaveStat;
-["mochis", _mochis] call fn_SaveStat;
-*/
+
+_jna_dataList = [];
+_jna_dataList = _jna_dataList + jna_dataList;
+["jna_dataList", _jna_dataList] call fn_SaveStat;
+
 _prestigeOPFOR = [];
 _prestigeBLUFOR = [];
 
@@ -286,7 +282,7 @@ _arraypuestosFIA = [];
 
 {
 _pospuesto = getMarkerPos _x;
-_arraypuestosFIA = _arraypuestosFIA + [_pospuesto];
+_arraypuestosFIA pushBack [_pospuesto,garrison getVariable [_x,[]]];
 } forEach puestosFIA;
 
 ["puestosFIA", _arraypuestosFIA] call fn_SaveStat;
@@ -311,7 +307,7 @@ if (!isDedicated) then
 _datos = [];
 {
 _datos pushBack [_x,server getVariable _x];
-} forEach aeropuertos;
+} forEach aeropuertos + puestos;
 
 ["idlebases",_datos] call fn_SaveStat;
 

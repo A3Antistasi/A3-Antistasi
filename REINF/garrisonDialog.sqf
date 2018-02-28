@@ -23,55 +23,46 @@ if (getMarkerPos _cercano distance _posicionTel > 40) exitWith {hint "You must c
 
 if (not(_cercano in mrkSDK)) exitWith {hint "That zone does not belong to Syndikat"; _nul=CreateDialog "garrison_menu";};
 
-if ((_cercano in puestosFIA) /*or (_cercano in ciudades)*/ or (_cercano in controles)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
-
-_garrison = garrison getVariable [_cercano,[]];
+//if (((_cercano in puestosFIA) and !(isOnRoad _posicion)) /*or (_cercano in ciudades)*/ or (_cercano in controles)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
+_puestoFIA = if (_cercano in puestosFIA) then {true} else {false};
+_wPost = if (_puestoFIA and !(isOnRoad getMarkerPos _cercano)) then {true} else {false};
+_garrison = if (! _wpost) then {garrison getVariable [_cercano,[]]} else {SDKSniper};
 
 if (_tipo == "rem") then
 	{
-	if (count _garrison == 0) exitWith {hint "The place has no garrisoned troops to remove"; _nul=CreateDialog "garrison_menu";};
+	if ((count _garrison == 0) and !(_cercano in puestosFIA)) exitWith {hint "The place has no garrisoned troops to remove"; _nul=CreateDialog "garrison_menu";};
 	_coste = 0;
 	_hr = 0;
-	if (spawner getVariable _cercano != 2) then
+	if ({(alive _x) and (!captive _x) and ((side _x == malos) or (side _x == muyMalos)) and (_x distance _posicion < 500)} count allUnits > 0) then
 		{
-		if ({(alive _x) and (!captive _x) and ((side _x == malos) or (side _x == muyMalos)) and (_x distance _posicion < 500)} count allUnits > 0) then
-			{
-			hint "You cannot remove garrisons while there are enemies nearby";
-			_nul=CreateDialog "garrison_menu"
-			}
-		else
-			{
-			{
-			if (side _x == buenos) then
-				{
-				if (_x getVariable ["marcador",""] == _cercano) then
-					{
-					if (alive _x) then
-						{
-						if (typeOf _x == staticCrewBuenos) then {_coste = _coste + ([SDKMortar] call vehiclePrice)};
-						_hr = _hr + 1;
-						_coste = _coste + (server getVariable (typeOf _x));
-						if (typeOf (vehicle _x) == SDKMortar) then {deleteVehicle vehicle _x};
-						deleteVehicle _x;
-						};
-					};
-				};
-			} forEach allUnits;
-			};
+		hint "You cannot remove garrisons while there are enemies nearby";
+		_nul=CreateDialog "garrison_menu";
 		}
 	else
 		{
 		{
-		if (_x == staticCrewBuenos) then {_coste = _coste + ([SDKMortar] call vehiclePrice)};
+		if (_x == staticCrewBuenos) then {if (_puestoFIA) then {_coste = _coste + ([vehSDKLightArmed] call vehiclePrice)} else {_coste = _coste + ([SDKMortar] call vehiclePrice)}};
 		_hr = _hr + 1;
 		_coste = _coste + (server getVariable _x);
 		} forEach _garrison;
+		[_hr,_coste] remoteExec ["resourcesFIA",2];
+		if (_puestoFIA) then
+			{
+			garrison setVariable [_cercano,nil,true];
+			puestosFIA = puestosFIA - [_cercano]; publicVariable "puestosFIA";
+			mrkSDK = mrkSDK - [_cercano]; publicVariable "mrkSDK";
+			marcadores = marcadores - [_cercano]; publicVariable "marcadores";
+			deleteMarker _cercano;
+			}
+		else
+			{
+			garrison setVariable [_cercano,[],true];
+			//[_cercano] call mrkUpdate;
+			[_marcador] remoteExec ["tempMoveMrk",2];
+			};
+		hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
+		_nul=CreateDialog "garrison_menu";
 		};
-	[_hr,_coste] remoteExec ["resourcesFIA",2];
-	garrison setVariable [_cercano,[],true];
-	[_cercano] call mrkUpdate;
-	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
-	_nul=CreateDialog "garrison_menu";
 	}
 else
 	{

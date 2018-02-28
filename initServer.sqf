@@ -83,7 +83,7 @@ caja call jn_fnc_arsenal_init;
 private _index = _x call jn_fnc_arsenal_itemType;
 [_index,_x,-1] call jn_fnc_arsenal_addItem;
 }foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);
-["buttonInvToJNA"] call jn_fnc_arsenal;
+//["buttonInvToJNA"] call jn_fnc_arsenal;
 
 diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"commsMP"] call BIS_fnc_MP;

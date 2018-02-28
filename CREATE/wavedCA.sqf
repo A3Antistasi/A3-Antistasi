@@ -194,7 +194,7 @@ while {(_waves != 0)} do
 					(units _grupo) joinSilent _grupoVeh;
 					deleteGroup _grupo;
 					_grupoVeh setVariable ["mrkAttack",_mrkDestino];
-					_veh forceFollowRoad true;
+					//_veh forceFollowRoad true;
 					/*
 					for "_i" from 1 to 8 do
 						{

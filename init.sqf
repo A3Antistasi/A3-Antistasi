@@ -45,7 +45,7 @@ if(isServer) then
     private _index = _x call jn_fnc_arsenal_itemType;
     [_index,_x,-1] call jn_fnc_arsenal_addItem;
     }foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);
-    ["buttonInvToJNA"] call jn_fnc_arsenal;
+    //["buttonInvToJNA"] call jn_fnc_arsenal;
 
     _serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
     if(isNil "_serverHasID") then

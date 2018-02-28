@@ -26,6 +26,7 @@ if (_tipo == "income") then
 	//[_texto,0.8,0.5,5,0,0,2] spawn bis_fnc_dynamicText;
 	[_texto, [safeZoneX + (0.8 * safeZoneW), (0.2 * safeZoneW)], 0.5, 5, 0, 0, 2] spawn bis_fnc_dynamicText;
 	incomeRep = false;
+	[] call statistics;
 	};
 
 if (_tipo == "countdown") then
@@ -43,6 +44,7 @@ if (_tipo == "taxRep") then
 	[_texto, [safeZoneX + (0.8 * safeZoneW), (0.2 * safeZoneW)], 0.5, 5, 0, 0, 2] spawn bis_fnc_dynamicText;
 	sleep 10;
 	incomeRep = false;
+	[] call statistics;
 	};
 if (_tipo == "tier") then
 	{
@@ -54,4 +56,5 @@ if (_tipo == "tier") then
 	_texto = format ["War Level Changed<br/><br/>Current Level: %1",tierWar];
 	[_texto, [safeZoneX + (0.8 * safeZoneW), (0.2 * safeZoneW)], 0.5, 5, 0, 0, 2] spawn bis_fnc_dynamicText;
 	incomeRep = false;
+	[] call statistics;
 	};

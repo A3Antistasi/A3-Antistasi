@@ -34,4 +34,8 @@ else
 	if (_hr != 0) then {_texto = format ["<t size='0.6' color='#C1C0BB'>SDK Resources.<br/> <t size='0.5' color='#C1C0BB'><br/>HR: %3%1",_hr,_resourcesFIA,_hrSim]} else {if (_resourcesFIA != 5) then {_texto = format ["<t size='0.6' color='#C1C0BB'>SDK Resources.<br/> <t size='0.5' color='#C1C0BB'><br/>Money: %4%2 €",_hr,_resourcesFIA,_hrSim,_resourcesFIASim]}};
 	};
 
-if (_texto != "") then {[petros,"income",_texto] remoteExec ["commsMP",stavros]};
+if (_texto != "") then
+	{
+	[petros,"income",_texto] remoteExec ["commsMP",stavros];
+	//[] remoteExec ["statistics",[buenos,civilian]];
+	};

@@ -125,10 +125,14 @@ if (_medico != _unit) then
 					}
 				else
 					{
-					_unit playMoveNow "";
-					_unit setUnconscious false;
-					waitUntil {sleep 0.1; lifeState _unit != "INCAPACITATED"};
-					_unit setUnconscious true;
+					if ((alive _medico) and !(lifestate _medico == "INCAPACITATED")) then {_medico playMoveNow ""};
+					if ((alive _unit) and (lifestate _unit == "INCAPACITATED")) then
+						{
+						_unit playMoveNow "";
+						_unit setUnconscious false;
+						waitUntil {sleep 0.1; lifeState _unit != "INCAPACITATED"};
+						_unit setUnconscious true;
+						};
 					};
 				if (_isPlayer) then {_unit setVariable ["llevado",false,true]};
 				}

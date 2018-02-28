@@ -14,123 +14,104 @@ if ((!isMultiplayer) and (leader _unit == stavros)) then {_skill = _skill + 0.1}
 _unit setSkill _skill;
 if (_tipo in SDKSniper) then
 	{
-	removeAllWeapons _unit;
-	[_unit, sniperRifle, 8, 0] call BIS_fnc_addWeapon;
-	_unit addPrimaryWeaponItem "optic_KHS_old";
+	if (count unlockedSN > 0) then
+		{
+		_magazines = getArray (configFile / "CfgWeapons" / (primaryWeapon _unit) / "magazines");
+		{_unit removeMagazines _x} forEach _magazines;
+		_unit removeWeaponGlobal (primaryWeapon _unit);
+		[_unit, selectRandom unlockedSN, 8, 0] call BIS_fnc_addWeapon;
+		if (count unlockedOptics > 0) then
+			{
+			_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
+			_posibles = unlockedOptics select {_x in _compatibles};
+			if (count _posibles > 0) then {_unit addPrimaryWeaponItem (_posibles select 0)};
+			};
+		}
+	else
+		{
+		[_unit,unlockedRifles] call randomRifle;
+		};
 	}
 else
 	{
 	if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]};
-	if (_tipo in SDKMil) then
+	if ((_tipo in SDKMil) or (_tipo == staticCrewBuenos)) then
 		{
-		_rifleFinal = unlockedRifles call BIS_fnc_selectRandom;
-		if (_rifleFinal != primaryWeapon _unit) then
+		[_unit,unlockedRifles] call randomRifle;
+		if ((loadAbs _unit < 340) and (_tipo in SDKMil)) then
 			{
-			_magazines = getArray (configFile / "CfgWeapons" / (primaryWeapon _unit) / "magazines");
-			{_unit removeMagazines _x} forEach _magazines;
-			/*
-			_mag = _magazines select 0;
-			for "_i" from 1 to ({_x == _mag} count magazines _unit) do
+			if ((random 20 < skillFIA) and (count unlockedAA > 0)) then
 				{
-				_unit removeMagazine _mag;
-				};
-			*/
-			_unit removeWeaponGlobal (primaryWeapon _unit);
-			[_unit, _rifleFinal, 6, 0] call BIS_fnc_addWeapon;
-			if (loadAbs _unit < 340) then
-				{
-				if ((random 20 < skillFIA) and ({_x in titanLaunchers} count unlockedWeapons > 0)) then
-					{
-					_unit addbackpack "B_AssaultPack_blk";
-					[_unit, "launch_I_Titan_F", 2, 0] call BIS_fnc_addWeapon;
-					removeBackpack _unit;
-					};
+				_unit addbackpack (unlockedBackpacks select 0);
+				[_unit, selectRandom unlockedAA, 2, 0] call BIS_fnc_addWeapon;
+				//removeBackpack _unit;
 				};
 			};
 		}
 	else
 		{
-		if ((activeGREF) and (!(_tipo in SDKMG))) then
+		if (_tipo in SDKMG) then
 			{
-			_rifleFinal = unlockedRifles call BIS_fnc_selectRandom;
-			if (_rifleFinal != primaryWeapon _unit) then
+			if (count unlockedMG > 0) then
 				{
-				_magazines = getArray (configFile / "CfgWeapons" / (primaryWeapon _unit) / "magazines");
-				{_unit removeMagazines _x} forEach _magazines;
-				_unit removeWeaponGlobal (primaryWeapon _unit);
-				[_unit, _rifleFinal, 6, 0] call BIS_fnc_addWeapon;
-				if (loadAbs _unit < 340) then
-					{
-					if ((random 20 < skillFIA) and ({_x in titanLaunchers} count unlockedWeapons > 0)) then
-						{
-						_unit addbackpack "B_AssaultPack_blk";
-						[_unit, "launch_I_Titan_F", 2, 0] call BIS_fnc_addWeapon;
-						removeBackpack _unit;
-						};
-					};
-				};
-			};
-		if (_tipo in SDKExp) then
-			{
-			/*_unit setUnitTrait ["engineer",true];*/ _unit setUnitTrait ["explosiveSpecialist",true];
-			}
-		else
-			{
-			if ((_tipo in SDKMG) and (activeGREF)) then
-				{
-				_magazines = getArray (configFile / "CfgWeapons" / (primaryWeapon _unit) / "magazines");
-				{_unit removeMagazines _x} forEach _magazines;
-				_unit removeWeaponGlobal (primaryWeapon _unit);
-				[_unit, "rhs_weap_pkm", 6, 0] call BIS_fnc_addWeapon;
+				[_unit,unlockedMG] call randomRifle;
 				}
 			else
 				{
-				if (_tipo in SDKMedic) then
+				[_unit,unlockedRifles] call randomRifle;
+				};
+			}
+		else
+			{
+			if (_tipo in SDKGL) then
+				{
+				if (count unlockedGL > 0) then
 					{
-					_unit setUnitTrait ["medic",true]
+					[_unit,unlockedGL] call randomRifle;
 					}
 				else
 					{
-					if (_tipo in SDKATman) then
+					[_unit,unlockedRifles] call randomRifle;
+					};
+				}
+			else
+				{
+				[_unit,unlockedRifles] call randomRifle;
+				if (_tipo in SDKExp) then
+					{
+					_unit setUnitTrait ["explosiveSpecialist",true];
+					}
+				else
+					{
+					if (_tipo in SDKMedic) then
 						{
-						_rlauncher = selectRandom ((rlaunchers + mlaunchers) select {(_x in unlockedWeapons) and (getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)});
-						if (_rlauncher != secondaryWeapon _unit) then
+						_unit setUnitTrait ["medic",true]
+						}
+					else
+						{
+						if (_tipo in SDKATman) then
 							{
-							_magazines = getArray (configFile / "CfgWeapons" / (secondaryWeapon _unit) / "magazines");
-							{_unit removeMagazines _x} forEach _magazines;
-							_unit removeWeaponGlobal (secondaryWeapon _unit);
-							[_unit, _rlauncher, 4, 0] call BIS_fnc_addWeapon;
+							_rlauncher = selectRandom unlockedAT;
+							if (_rlauncher != secondaryWeapon _unit) then
+								{
+								_magazines = getArray (configFile / "CfgWeapons" / (secondaryWeapon _unit) / "magazines");
+								{_unit removeMagazines _x} forEach _magazines;
+								_unit removeWeaponGlobal (secondaryWeapon _unit);
+								[_unit, _rlauncher, 4, 0] call BIS_fnc_addWeapon;
+								};
 							};
 						};
 					};
 				};
 			};
 		};
-	if (count unlockedOptics > 0) then
-		{
-		_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
-		_posibles = unlockedOptics select {_x in _compatibles};
-		_unit addPrimaryWeaponItem (selectRandom _posibles);
-		};
 	};
+
 _unit setUnitTrait ["camouflageCoef",0.8];
 _unit setUnitTrait ["audibleCoef",0.8];
 
 _unit selectWeapon (primaryWeapon _unit);
-/*
-_aiming = _skill;
-_spotD = _skill;
-_spotT = _skill;
-_cour = _skill;
-_comm = _skill;
-_aimingSh = _skill;
-_aimingSp = _skill;
-_reload = _skill;
 
-
-//_emptyUniform = false;
-_skillSet = 0;
-*/
 if (!haveRadio) then
 	{
 	if ((_unit != leader _unit) and (_tipo != staticCrewBuenos)) then {_unit unlinkItem "ItemRadio"};

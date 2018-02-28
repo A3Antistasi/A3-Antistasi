@@ -20,7 +20,7 @@ if !(_posicionTel inArea _cercano) exitWith {hint "You must click near a marked 
 
 if (not(_cercano in mrkSDK)) exitWith {hint "That zone does not belong to Syndikat"};
 
-if ((_cercano in puestosFIA) /*or (_cercano in ciudades)*/ or (_cercano in controles)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
+if ((_cercano in puestosFIA) and !(isOnRoad getMarkerPos _cercano)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
 
 _cosa = _this select 0;
 

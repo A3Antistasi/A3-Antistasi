@@ -4,7 +4,7 @@
 //You do not have enough balls to make any modification and after making a Bug report because something is wrong. You don't wanna be there. Believe me.
 //Not commented lines cannot be changed.
 //Don't touch them.
-antistasiVersion = "v 0.10.3";
+antistasiVersion = "v 0.11.0";
 
 servidoresOficiales = ["Antistasi Official EU","Antistasi Official EU - TEST","Antistasi:Warlords Official","Warlords of the Pacific - Official"];//this is for author's fine tune the official servers. If I get you including your server in this variable, I will create a special variable for your server. Understand?
 
@@ -14,9 +14,8 @@ cleantime = 900;//time to delete dead bodies, vehicles etc..
 distanciaSPWN = 1000;//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
 distanciaSPWN1 = 1300;
 distanciaSPWN2 = 500;
-distRef = 1000;
 musicON = true;
-civPerc = 0.05;//initial % civ spawn rate
+civPerc = 0.10;//initial % civ spawn rate
 posHQ = getMarkerPos "respawn_guerrila";
 autoHeal = false;
 //allowPlayerRecruit = true;
@@ -196,7 +195,7 @@ injuredSounds =
 missionPath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
 
 ladridos = ["Music\dog_bark01.wss", "Music\dog_bark02.wss", "Music\dog_bark03.wss", "Music\dog_bark04.wss", "Music\dog_bark05.wss","Music\dog_maul01.wss","Music\dog_yelp01.wss","Music\dog_yelp02.wss","Music\dog_yelp03.wss"];
-
+/*
 if !(isnil "XLA_fnc_addVirtualItemCargo") then
 	{
 	activeXLA = true;
@@ -213,6 +212,7 @@ else
 	addVirtualWeaponCargo = BIS_fnc_addVirtualWeaponCargo;
 	addVirtualBackpackCargo = BIS_fnc_addVirtualBackpackCargo;
 	};
+*/
 UPSMON_Bld_remove = ["Bridge_PathLod_base_F","Land_Slum_House03_F","Land_Bridge_01_PathLod_F","Land_Bridge_Asphalt_PathLod_F","Land_Bridge_Concrete_PathLod_F","Land_Bridge_HighWay_PathLod_F","Land_Bridge_01_F","Land_Bridge_Asphalt_F","Land_Bridge_Concrete_F","Land_Bridge_HighWay_F","Land_Canal_Wall_Stairs_F","warehouse_02_f","cliff_wall_tall_f","cliff_wall_round_f","containerline_02_f","containerline_01_f","warehouse_01_f","quayconcrete_01_20m_f","airstripplatform_01_f","airport_02_terminal_f","cliff_wall_long_f","shop_town_05_f"];
 
 if (!isServer and hasInterface) exitWith {};
@@ -237,7 +237,7 @@ garrisonIsChanging = false;
 //Pricing values for soldiers, vehicles
 if (!isServer) exitWith {};
 
-{server setVariable [_x,50,true]} forEach sdkTier1;
+{server setVariable [_x,75,true]} forEach sdkTier1;
 {server setVariable [_x,100,true]} forEach  sdkTier2;
 {server setVariable [_x,150,true]} forEach sdkTier3;
 {timer setVariable [_x,0,true]} forEach (vehAttack + vehNATOAttackHelis + [vehNATOPlane,vehNATOPlaneAA,vehCSATPlane,vehCSATPlaneAA] + vehCSATAttackHelis + vehAA + vehMRLS);
@@ -288,6 +288,7 @@ if (!activeGREF) then
 	unlockedMagazines = ["9Rnd_45ACP_Mag","30Rnd_9x21_Mag","30Rnd_762x39_Mag_F","MiniGrenade","1Rnd_HE_Grenade_shell","RPG7_F","30Rnd_545x39_Mag_F","30Rnd_9x21_Mag_SMG_02","10Rnd_9x21_Mag","200Rnd_556x45_Box_F","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
 	initialRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];
 	unlockedItems pushBack "V_Chestrig_khk";
+	unlockedAT = ["launch_RPG7_F"];
     }
 else
     {
@@ -296,11 +297,16 @@ else
     unlockedMagazines = ["rhs_30Rnd_762x39mm","rhs_mag_9x18_12_57N181S","rhs_rpg7_PG7VL_mag","rhsgref_5Rnd_762x54_m38","rhsgref_5Rnd_792x57_kar98k","rhs_mag_rgd5","rhs_mag_9x19mm_7n21_20","rhsgref_20rnd_765x17_vz61"];
     initialRifles = ["rhs_weap_akms","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_savz61"];
     unlockedItems = unlockedItems + ["rhs_acc_2dpZenit","rhs_6sh46"];
+    unlockedAT = ["rhs_weap_rpg7"];
     };
 
 unlockedBackpacks = ["B_FieldPack_oli"];//Initial Arsenal available backpacks
 //lockedMochis = lockedMochis - unlockedBackpacks;
 unlockedOptics = [];
+unlockedMG = [];
+unlockedGL = [];
+unlockedSN = [];
+unlockedAA = [];
 garageIsUsed = false;
 vehInGarage = [];
 destroyedBuildings = []; publicVariable "destroyedBuildings";
@@ -390,6 +396,10 @@ publicVariable "napalmCurrent";
 publicVariable "tierWar";
 publicVariable "haveRadio";
 publicVariable "haveNV";
-//publicVariable "minimoFPS";
+publicVariable "unlockedMG";
+publicVariable "unlockedGL";
+publicVariable "unlockedSN";
+publicVariable "unlockedAT";
+publicVariable "unlockedAA";
 
 if (isMultiplayer) then {[[petros,"hint","Variables Init Completed"],"commsMP"] call BIS_fnc_MP;};

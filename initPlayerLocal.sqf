@@ -490,7 +490,6 @@ if (hayTFAR or hayACE or hayRHS or hayACRE) then
 	};
 waituntil {!isnull (finddisplay 46)};
 gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",teclas];
-statistics = [] execVM "statistics.sqf";
 //removeAllActions caja;
 
 if ((!isServer) and (isMultiplayer)) then {caja call jn_fnc_arsenal_init};
@@ -499,3 +498,8 @@ caja addAction ["Transfer Vehicle cargo to Ammobox", "[] call vaciar"];
 caja addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == stavros)"];
 
 _nul = [player] execVM "OrgPlayers\unitTraits.sqf";
+disableSerialization;
+//1 cutRsc ["H8erHUD","PLAIN",0,false];
+_layer = ["estadisticas"] call bis_fnc_rscLayer;
+_layer cutRsc ["H8erHUD","PLAIN",0,false];
+[] call statistics;

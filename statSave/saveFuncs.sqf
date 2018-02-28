@@ -39,11 +39,11 @@ fn_SetStat =
 	if(_varName in specialVarLoads) then
 	{
 		if(_varName == 'cuentaCA') then {cuentaCA = _varValue; publicVariable "cuentaCA"};
-		if(_varName == 'miembros') then {miembros = _varValue; publicVariable "miembros"};
-		if(_varName == 'smallCAmrk') then {smallCAmrk = _varValue};
-		if(_varName == 'mrkNATO') then {mrkNATO = _varValue;};
-		if(_varName == 'mrkCSAT') then {mrkCSAT = _varValue;};
-		if(_varName == 'mrkSDK') then {mrkSDK = _varValue;};
+		if(_varName == 'miembros') then {miembros = +_varValue; publicVariable "miembros"};
+		if(_varName == 'smallCAmrk') then {smallCAmrk = +_varValue};
+		if(_varName == 'mrkNATO') then {mrkNATO = +_varValue;};
+		if(_varName == 'mrkCSAT') then {mrkCSAT = +_varValue;};
+		if(_varName == 'mrkSDK') then {mrkSDK = +_varValue;};
 		if(_varName == 'controlesSDK') then
 			{
 			{
@@ -60,8 +60,8 @@ fn_SetStat =
 		if(_varName == 'hat') then {removeHeadGear player; player addHeadGear _varValue;};
 		if(_varName == 'scorePlayer') then {player setVariable ["score",_varValue,true];};
 		if(_varName == 'rankPlayer') then {player setRank _varValue; player setVariable ["rango",_varValue,true]};
-		if(_varName == 'personalGarage') then {personalGarage = _varValue};
-		if(_varName == 'jna_dataList') then {jna_dataList = _varValue};
+		if(_varName == 'personalGarage') then {personalGarage = +_varValue};
+		if(_varName == 'jna_dataList') then {jna_dataList = +_varValue};
 			/*
 		if(_varName == 'unlockedWeapons') then
 			{
@@ -104,7 +104,7 @@ fn_SetStat =
 			forceWeatherChange
 			};
 		if(_varName == 'resourcesFIA') then {server setVariable ["resourcesFIA",_varValue,true]};
-		if(_varName == 'destroyedCities') then {destroyedCities = _varValue; publicVariable "destroyedCities"};
+		if(_varName == 'destroyedCities') then {destroyedCities = +_varValue; publicVariable "destroyedCities"};
 		if(_varName == 'skillFIA') then
 			{
 			skillFIA = _varValue; publicVariable "skillFIA";
@@ -117,10 +117,10 @@ fn_SetStat =
 			server setVariable [_x,_coste,true];
 			} forEach soldadosSDK;
 			};
-		if(_varName == 'distanciaSPWN') then {distRef = _varValue; publicVariable "distRef"; distanciaSPWN = _varValue; distanciaSPWN1 = distanciaSPWN * 1.3; distanciaSPWN2 = distanciaSPWN /2; publicVariable "distanciaSPWN";publicVariable "distanciaSPWN1";publicVariable "distanciaSPWN2"};
+		if(_varName == 'distanciaSPWN') then {distanciaSPWN = _varValue; distanciaSPWN1 = distanciaSPWN * 1.3; distanciaSPWN2 = distanciaSPWN /2; publicVariable "distanciaSPWN";publicVariable "distanciaSPWN1";publicVariable "distanciaSPWN2"};
 		if(_varName == 'civPerc') then {civPerc = _varValue; publicVariable "civPerc"};
 		if(_varName == 'maxUnits') then {maxUnits=_varValue; publicVariable "maxUnits"};
-		if(_varName == 'vehInGarage') then {vehInGarage=_varValue; publicVariable "vehInGarage"};
+		if(_varName == 'vehInGarage') then {vehInGarage= +_varValue; publicVariable "vehInGarage"};
 		if(_varName == 'minas') then
 			{
 			for "_i" from 0 to (count _varvalue) - 1 do
@@ -161,21 +161,51 @@ fn_SetStat =
 			};
 		if(_varName == 'puestosFIA') then
 			{
-			{
-			_mrk = createMarker [format ["FIApost%1", random 1000], _x];
-			_mrk setMarkerShape "ICON";
-			_mrk setMarkerType "loc_bunker";
-			_mrk setMarkerColor colorBuenos;
-			if (isOnRoad _x) then {_mrk setMarkerText "SDK Roadblock"} else {_mrk setMarkerText "SDK Watchpost"};
-			spawner setVariable [_mrk,2,true];
-			puestosFIA pushBack _mrk;
-			} forEach _varvalue;
+			if (count (_varValue select 0) == 2) then
+				{
+				{
+				_posicion = _x select 0;
+				_garrison = _x select 1;
+				_mrk = createMarker [format ["FIApost%1", random 1000], _posicion];
+				_mrk setMarkerShape "ICON";
+				_mrk setMarkerType "loc_bunker";
+				_mrk setMarkerColor colorBuenos;
+				if (isOnRoad _posicion) then {_mrk setMarkerText "SDK Roadblock"} else {_mrk setMarkerText "SDK Watchpost"};
+				spawner setVariable [_mrk,2,true];
+				if (count _garrison > 0) then {garrison setVariable [_mrk,_garrison,true]};
+				puestosFIA pushBack _mrk;
+				} forEach _varvalue;
+				}
+			else
+				{
+				{
+				_mrk = createMarker [format ["FIApost%1", random 1000], _x];
+				_mrk setMarkerShape "ICON";
+				_mrk setMarkerType "loc_bunker";
+				_mrk setMarkerColor colorBuenos;
+				if (isOnRoad _x) then
+					{
+					_mrk setMarkerText "SDK Roadblock";
+					}
+				else
+					{
+					_mrk setMarkerText "SDK Watchpost";
+					};
+				spawner setVariable [_mrk,2,true];
+				puestosFIA pushBack _mrk;
+				_garrison = [staticCrewBuenos];
+				{
+				if (random 20 <= skillFIA) then {_garrison pushBack (_x select 1)} else {_garrison pushBack (_x select 0)};
+				} forEach gruposSDKAT;
+				garrison setVariable [_mrk,_garrison,true];
+				} forEach _varvalue;
+				};
 			//mrkSDK = mrkSDK + puestosFIA;
 			};
 
 		if(_varName == 'antenas') then
 			{
-			antenasmuertas = _varvalue;
+			antenasmuertas = +_varvalue;
 			for "_i" from 0 to (count _varvalue - 1) do
 			    {
 			    _posAnt = _varvalue select _i;

@@ -6,7 +6,7 @@ if ((!alive _unit) or (isPlayer _unit) or (player != leader group player) or (ca
 if (lifestate _unit == "INCAPACITATED") exitWith {};
 _ayudando = _unit getVariable "ayudando";
 if (!(isNil "_ayudando")) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
-_rearming = _unit getVariable "rearming";
+_rearming = _unit getVariable ["rearming",false];
 if (_rearming) exitWith {_unit groupChat "I am currently rearming. Cancelling."; _unit setVariable ["rearming",false]};
 
 _unit setVariable ["rearming",true];

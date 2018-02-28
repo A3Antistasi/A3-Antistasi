@@ -1,39 +1,37 @@
-private ["_morty","_camion","_mortero","_pos"];
+private ["_morty0","_mortero","_pos","_tipo","_b0","_b1","_morty1"];
 
-_morty = _this select 0;
-_camion = _this select 1;
-_mortero = _this select 2;
-
-_camionero = driver _camion;
-_grupo = group _morty;
-_grupo addVehicle _camion;
-
-while {(alive _morty) and (alive _mortero) and (canMove _camion)} do
+_grupo = _this select 0;
+_morty0 = units _grupo select 0;
+_morty1 = units _grupo select 1;
+_tipo = _this select 1;
+_b0 = MortStaticSDKB;
+_b1 = soporteStaticSDKB3;
+if (_tipo == SDKMGStatic) then
 	{
-	waitUntil {sleep 1; (!unitReady _camionero) or (not((alive _morty) and (alive _mortero)))};
-
-	moveOut _morty;
-	_morty assignAsCargo _camion;
-	_morty addBackpackGlobal MortStaticSDKB;
-	_camionero addBackpackGlobal soporteStaticSDKB3;
-	deleteVehicle _mortero;
-	//_mortero attachTo [_camion,[0,-1.5,0.2]];
-	//_mortero setDir (getDir _camion + 180);
-	sleep 20;
-	waitUntil {sleep 10; ((unitReady _camionero) or (!canMove _camion) or (!alive _camionero) and (speed _camion == 0)) or (not((alive _morty) and (alive _mortero)))};
-
-	moveOut _morty;
-	//_mortero allowDamage false;
-	//detach _mortero;
-	_pos = position _camion findEmptyPosition [1,30,SDKMortar];
-	_mortero = SDKMortar createVehicle _pos;
-	removeBackpackGlobal _morty;
-	removeBackpackGlobal _camionero;
+	_b0 = MGStaticSDKB;
+	_b1 = soporteStaticSDKB2;
+	};
+while {(alive _morty0) and (alive _morty1)} do
+	{
+	waitUntil {sleep 1; {((unitReady _x) and (alive _x))} count units _grupo == count units _grupo};
+	_pos = position _morty0 findEmptyPosition [1,30,_tipo];
+	_mortero = _tipo createVehicle _pos;
+	removeBackpackGlobal _morty0;
+	removeBackpackGlobal _morty1;
 	_grupo addVehicle _mortero;
-	_morty assignAsGunner _mortero;
+	_morty1 assignAsGunner _mortero;
+	[_morty1] orderGetIn true;
+	[_morty1] allowGetIn true;
 	_nul = [_mortero] call AIVEHinit;
-	//_morty moveInGunner _mortero;
-	//_mortero setPos _pos;
 
-	//_mortero allowDamage true;
+	waitUntil {sleep 1; ({!(alive _x) or (lifestate _x == "INCAPACITATED")} count units _grupo != 0) or !(unitReady _morty0)};
+
+	if (({(alive _x) AND (lifestate _x != "INCAPACITATED")} count units _grupo == count units _grupo) and !(unitReady _morty0)) then
+		{
+		_morty0 addBackpackGlobal _b0;
+		_morty1 addBackpackGlobal _b1;
+		unassignVehicle _morty1;
+		moveOut _morty1;
+		deleteVehicle _mortero;
+		};
 	};

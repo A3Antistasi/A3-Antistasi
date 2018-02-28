@@ -82,18 +82,69 @@ unlockedBackpacks = [];
 unlockedMagazines = [];
 unlockedOptics = [];
 unlockedItems = [];
+unlockedRifles = [];
+unlockedMG = [];
+unlockedGL = [];
+unlockedSN = [];
+unlockedAA = [];
+unlockedAT = [];
 
 {unlockedWeapons pushBack (_x select 0)} forEach (((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_PRIMARYWEAPON) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_HANDGUN) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOTHROW) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOPUT) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_SECONDARYWEAPON)) select {_x select 1 == -1}); publicVariable "unlockedWeapons";
 {unlockedBackpacks pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_BACKPACK) select {_x select 1 == -1}); publicVariable "unlockedBackpacks";
 {unlockedMagazines pushBack (_x select 0)} forEach (((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOMAG) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL)) select {_x select 1 == -1}); publicVariable "unlockedMagazines";
-{unlockedOptics pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMOPTIC) select {_x select 1 == -1}); publicVariable "unlockedOptics";
+{unlockedOptics pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMOPTIC) select {_x select 1 == -1});
+unlockedOptics = [unlockedOptics,[],{getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "mass")},"DESCEND"] call BIS_fnc_sortBy;
+publicVariable "unlockedOptics";
 {unlockedItems pushBack (_x select 0)} forEach ((((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_HEADGEAR) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_VEST) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GOGGLES) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_MAP) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GPS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_RADIO) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_COMPASS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_WATCH) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMACC) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMMUZZLE) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMBIPOD) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_BINOCULARS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_NVGS)) select {_x select 1 == -1}));
 unlockedItems = unlockedItems + unlockedOptics; publicVariable "unlockedItems";
 
 
 //unlockedRifles = unlockedweapons -  hguns -  mlaunchers - rlaunchers - ["Binocular","Laserdesignator","Rangefinder"] - srifles - mguns; publicVariable "unlockedRifles";
-unlockedRifles = unlockedweapons select {_x in arifles}; publicVariable "unlockedRifles";
+//unlockedRifles = unlockedweapons select {_x in arifles}; publicVariable "unlockedRifles";
 
+{
+_arma = _x;
+if (_arma in arifles) then
+	{
+	unlockedRifles pushBack _arma;
+	if (count (getArray (configfile >> "CfgWeapons" >> _arma >> "muzzles")) == 2) then
+		{
+		unlockedGL pushBack _arma;
+		};
+	}
+else
+	{
+	if (_arma in mguns) then
+		{
+		unlockedMG pushBack _arma;
+		}
+	else
+		{
+		if (_arma in srifles) then
+			{
+			unlockedSN pushBack _arma;
+			}
+		else
+			{
+			if (_arma in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
+				{
+				unlockedAT pushBack _arma;
+				}
+			else
+				{
+				if (_arma in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _arma};
+				};
+			};
+		};
+	};
+} forEach unlockedWeapons;
+
+publicVariable "unlockedRifles";
+publicVariable "unlockedMG";
+publicVariable "unlockedSN";
+publicVariable "unlockedGL";
+publicVariable "unlockedAT";
+publicVariable "unlockedAA";
 if ("NVGoggles" in unlockedItems) then {haveNV = true; publicVariable "haveNV"};
 if (!haveRadio) then {if ("ItemRadio" in unlockedItems) then {haveRadio = true; publicVariable "haveRadio"}};
 _marcadores = mrkSDK + mrkNATO + mrkCSAT;
@@ -211,22 +262,16 @@ else
 	if (("ItemRadio" in unlockedItems) and (!hayTFAR) and (!hayACRE)) then {player linkItem "ItemRadio"};
 	};
 
-//[] call arsenalManage;
-
-/*
-_aiSkillLimit = ({_x in mrkSDK} count (aeropuertos + puestos + recursos + puertos));
-if (_aiSkillLimit < 2) then {_aiSkillLimit = 2};
-if (_aiSkillLimit != aiSkillLimit) then {aiSkillLimit = _aiSkillLimit; publicVariable "aiSkillLimit"};
-*/
 tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count mrkSDK)) + (10*({_x in puertos} count mrkSDK)) + (20*({_x in aeropuertos} count mrkSDK)))/10));
 if (tierWar > 10) then {tierWar = 10};
 publicVariable "tierWar";
-/*
-waitUntil {!(isNil "arsenalInit")};
-{
-private _index = _x call jn_fnc_arsenal_itemType;
-[_index,_x,-1] call jn_fnc_arsenal_addItem;
-}foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);*/
+
+clearMagazineCargoGlobal caja;
+clearWeaponCargoGlobal caja;
+clearItemCargoGlobal caja;
+clearBackpackCargoGlobal caja;
+
+[] remoteExec ["statistics",[buenos,civilian]];
 [[petros,"hintCS","Persistent Savegame Loaded"],"commsMP"] call BIS_fnc_MP;
 diag_log "Antistasi: Server sided Persistent Load done";
 
@@ -234,5 +279,3 @@ sleep 25;
 ["tasks"] call fn_LoadStat;
 
 petros allowdamage true;
-//END
-//hint "Stats loaded";

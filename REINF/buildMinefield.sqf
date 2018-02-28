@@ -17,6 +17,7 @@ if (_tipo == "APERSMine") then
 	_tipoMuni = APERSMineMag;
 	};
 
+/*
 _magazines = getMagazineCargo caja;
 _typeMagazines = _magazines select 0;
 _cantMagazines = _magazines select 1;
@@ -43,6 +44,12 @@ for "_i" from 0 to (count _typeMagazines) - 1 do
 	{
 	caja addMagazineCargoGlobal [_typeMagazines select _i,_newCantMagazines select _i];
 	};
+*/
+
+#include "\A3\Ui_f\hpp\defineResinclDesign.inc"
+
+_index = _tipoMuni call jn_fnc_arsenal_itemType;
+[_index,_tipoMuni,_cantidad] call jn_fnc_arsenal_removeItem;
 
 _mrk = createMarker [format ["Minefield%1", random 1000], _posicionTel];
 _mrk setMarkerShape "ELLIPSE";

@@ -15,6 +15,8 @@ if (_natoT < 0) then {_natoT = 0};
 if (_natoT > 100) then {_natoT = 100};
 if (_csatT < 0) then {_csatT = 0};
 if (_csatT > 100) then {_csatT = 100};
+if (_natoT > 20*tierWar) then {_natoT = 20*tierWar};
+if (_csatT > 20*tierWar) then {_csatT = 20*tierWar};
 
 
 if (_nato != 0) then {prestigeNATO = _natoT; publicVariable "prestigeNATO"};

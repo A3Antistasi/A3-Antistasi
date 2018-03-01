@@ -107,8 +107,7 @@ else
 	_texto = format ["A %1 is disturbing our operations in the area. Go there and capture it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4];
 	_taskName = "Take the Outpost";
 	};
-[[buenos,civilian],"CON",[_texto,_taskName,_marcador],_posicion,false,0,true,"Target",true] call BIS_fnc_taskCreate;
-//_tsk = ["CON",[buenos,civilian],[_texto,_taskName,_marcador],_posicion,"CREATED",5,true,true,"Target"] call BIS_fnc_setTask;
+if (!_dificil) then {[[buenos,civilian],"CON",[_texto,_taskName,_marcador],_posicion,false,0,true,"Target",true] call BIS_fnc_taskCreate} else {_tsk = ["CON",[buenos,civilian],[_texto,_taskName,_marcador],_posicion,"CREATED",5,true,true,"Target"] call BIS_fnc_setTask};
 misiones pushBack _tsk; publicVariable "misiones";
 
 waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (_marcador in mrkSDK)};

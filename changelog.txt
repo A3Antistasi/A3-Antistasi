@@ -596,7 +596,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Parked civ cars wont never spawn in players nose.
 - NATO Repair trucks should spawn in better places.
 - Changes on taks structure to avoid JIP issues (we pray).
-
+- Solved bug which spawned tons of static weapons when the AI gunner was unconscious.
 Roadmap (in Spanish):
 barco civil
 Jeroen Logistics

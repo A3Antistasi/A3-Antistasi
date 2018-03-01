@@ -209,8 +209,8 @@ if (_tipoConvoy == "Supplies") then
 	_taskIcon = "heal";
 	_tipoVehObj = "C_Van_01_box_F";
 	};
-[[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
-//_tsk = ["CONVOY",[buenos,civilian],[_texto,_taskTitle,_destino],_posdestino,_taskState,5,true,true,_taskIcon] call BIS_fnc_setTask;
+
+if (!_dificil) then {[[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate} else {_tsk = ["CONVOY",[buenos,civilian],[_texto,_taskTitle,_destino],_posdestino,_taskState,5,true,true,_taskIcon] call BIS_fnc_setTask};
 misiones pushBack _tsk; publicVariable "misiones";
 [[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,false,0,true,"run",true] call BIS_fnc_taskCreate;
 //_tsk1 = ["CONVOY1",[_lado],[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,_taskState1,5,true,true,"run"] call BIS_fnc_setTask;

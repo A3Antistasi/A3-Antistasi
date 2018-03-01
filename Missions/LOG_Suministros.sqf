@@ -96,8 +96,7 @@ _fechalimnum = dateToNumber _fechalim;
 _nombredest = [_marcador] call localizar;
 _taskDescription = format ["%1 population is in need of supplies. We may improve our relationship with that city if we are the ones who provide them. I reserved a transport truck with supplies near our HQ. Drive the transport truck to %1 city center. Hold it there for 2 minutes and it's done. Do this before %2:%3. You may allways sell those supplies here, that money can be welcome. Just sell the truck and job is done",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4];
 
-[[buenos,civilian],"LOG",[_taskDescription,"City Supplies",_marcador],_posicion,false,0,true,"Heal",true] call BIS_fnc_taskCreate;
-//_tsk = ["LOG",[buenos,civilian],[_taskDescription,"City Supplies",_marcador],_posicion,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
+if (!_dificil) then {[[buenos,civilian],"LOG",[_taskDescription,"City Supplies",_marcador],_posicion,false,0,true,"Heal",true] call BIS_fnc_taskCreate} else {_tsk = ["LOG",[buenos,civilian],[_taskDescription,"City Supplies",_marcador],_posicion,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask};
 misiones pushBack _tsk; publicVariable "misiones";
 
 _pos = [];

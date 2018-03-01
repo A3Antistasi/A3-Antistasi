@@ -164,7 +164,7 @@ else
 		  	AGLToASL positionCameraToWorld [0,0,1000],
 		  	player,veh
 		 	];
-		 	if ((count _ins == 0) or !((_ins select 0 select 0) inArea cercano)/*or (!(isNull (_ins select 0 select 2)) and !(isNull (_ins select 0 select 3)))*/ or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf veh])== 0))exitWith {veh setPosASL [0,0,0]};
+		 	if ((count _ins == 0) or !((_ins select 0 select 0) inArea cercano) or (isOnRoad ASLToAGL (_ins select 0 select 0))/*or (!(isNull (_ins select 0 select 2)) and !(isNull (_ins select 0 select 3)))*/ or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf veh])== 0))exitWith {veh setPosASL [0,0,0]};
 		 	veh setPosASL (_ins select 0 select 0);
 		 	veh setVectorUp (_ins select 0 select 1);
 		 	veh setDir (getDir player)

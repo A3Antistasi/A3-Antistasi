@@ -245,6 +245,7 @@ if (!isServer) exitWith {};
 server setVariable [civCar,200,true];//200
 server setVariable [civTruck,600,true];//600
 server setVariable [civHeli,5000,true];//5000
+server setVariable [civBoat,200,true];//200
 //server setVariable [vehSDKHeli,12000,true];//12000
 server setVariable [vehSDKBike,50,true];//50
 server setVariable [vehSDKLightUnarmed,200,true];//200

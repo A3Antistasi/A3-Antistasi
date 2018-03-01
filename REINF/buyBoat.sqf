@@ -2,12 +2,12 @@ private ["_chequeo","_pos","_veh","_newPos","_coste"];
 
 _chequeo = false;
 {
-	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 500) and (not(captive _x))) then {_chequeo = true};
+	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 100) and (not(captive _x))) then {_chequeo = true};
 } forEach allUnits;
 
 if (_chequeo) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
 
-_coste = server getVariable vehSDKBoat;
+_coste = server getVariable civBoat;
 
 if (server getVariable "resourcesFIA" < _coste) exitWith {hint format ["You need %1 € to buy a boat",_coste]};
 
@@ -30,7 +30,7 @@ while {true} do
 	_ang = _ang + 31;
 	};
 
-_veh = vehSDKBoat createVehicle _pos;
+_veh = civBoat createVehicle _pos;
 
 [_veh] call AIVEHinit;
 player reveal _veh;

@@ -2158,13 +2158,23 @@ class HQ_button_Gstatic: RscButton
 };
 class HQ_button_Gremove: RscButton
 {
-	idc = 106;
+	idc = 109;
 	text = "Helicopter"; //--- ToDo: Localize;
-	x = 0.37749 * safezoneW + safezoneX;
+	x = 0.482498 * safezoneW + safezoneX;
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
 	action = "closeDialog 0;nul = [civHeli] call addFIAveh;";
+};
+class HQ_button_offroad: RscButton
+{
+	idc = 105;
+	text = "Boat"; //--- ToDo: Localize;
+	x = 0.272481 * safezoneW + safezoneX;
+	y = 0.415981 * safezoneH + safezoneY;
+	w = 0.175015 * safezoneW;
+	h = 0.0560125 * safezoneH;
+	action = "closeDialog 0;nul = execVM ""REINF\buyBoat.sqf"";";
 };
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END
@@ -3159,7 +3169,7 @@ class HQ_button_Gremove: RscButton
 
 class RscTitles
 	{
-	class Default 
+	class Default
        {
        idd = -1;
        fadein = 0;
@@ -3177,7 +3187,7 @@ class RscTitles
         fadeout      =  0;
         name = "H8erHUD";
 		onLoad = "with uiNameSpace do { H8erHUD = _this select 0 }";
-		class controls 
+		class controls
         	{
 		    class structuredText
             	{
@@ -3205,7 +3215,7 @@ class RscTitles
 						shadowColor = "#000000";
 						underline = false;
 						size = "4";//4
-						}; 
+						};
             	};
 			};
 		};

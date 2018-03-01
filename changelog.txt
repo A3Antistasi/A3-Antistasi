@@ -595,6 +595,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Removed infinite loop for statistics. This author owes the whole community several billions of GHzs :)
 - Parked civ cars wont never spawn in players nose.
 - NATO Repair trucks should spawn in better places.
+- Changes on taks structure to avoid JIP issues (we pray).
 
 Roadmap (in Spanish):
 barco civil

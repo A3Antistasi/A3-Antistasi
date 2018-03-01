@@ -4,7 +4,7 @@ private _ingeniero = objNull;
 
 {if (_x getUnitTrait "engineer") exitWith {_ingeniero = _x}} forEach units group player;
 
-if (isNull _ingeniero) exitWith {hint "Your squad needs engineer an engineer to be able to construct"};
+if (isNull _ingeniero) exitWith {hint "Your squad needs an engineer to be able to construct"};
 if ((player != _ingeniero) and (isPlayer _ingeniero)) exitWith {hint "There is a human player engineer in your squad, ask him to construct whatever you need"};
 if ((player != leader player) and (_ingeniero != player)) exitWith {hint "Only squad leaders can ask engineers to construct something"};
 if (!(alive _ingeniero) or (lifeState _ingeniero == "INCAPACITATED")) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
@@ -81,7 +81,7 @@ switch _tipo do
 		};
 	};
 
-if ((_tipo == "RB") and !(isOnRoad _posicion)) exitWith {hint "Please select this option on a road segment"};
+//if ((_tipo == "RB") and !(isOnRoad _posicion)) exitWith {hint "Please select this option on a road segment"};
 
 private _salir = false;
 private _texto = "";
@@ -96,20 +96,116 @@ if ((_tipo == "SB") or (_tipo == "CB")) then
 		}
 	else
 		{
-		_cercano = [mrkSDK,_posicion] call BIS_fnc_nearestPosition;
-		if (!(_posicion inArea _cercano)) then
+		cercano = [mrkSDK,_posicion] call BIS_fnc_nearestPosition;
+		if (!(_posicion inArea cercano)) then
 			{
 			_salir = true;
 			_texto = "You cannot build a bunker outside a controlled zone";
+			cercano = nil;
 			};
 		};
 	};
 
 if (_salir) exitWith {hint format ["%1",_texto]};
-private _isPlayer = if (player == _ingeniero) then {true} else {false};
-private _timeOut = time + 30;
+hint "Select a place to build the required asset and press SPACE to start the construction.\n\nHit ESC to exit";
+veh = _clase createVehicleLocal [0,0,0];
+posicionado = 0;
 
-if (!_isPlayer) then {_ingeniero doMove _posicion} else {_tiempo = _tiempo / 2};
+_displayEH = (findDisplay 46) displayAddEventHandler ["KeyDown",
+		{
+		_handled = false;
+		if (_this select 1 == 1) then
+			{
+			posicionado = 1;
+			_handled = true;
+			}
+		else
+			{
+			if (_this select 1 == 57) then
+				{
+				if (getPosASL veh isEqualTo [0,0,0]) then
+					{
+					hint "You have selected a wrong place. Please note:\n\nRoadblocks have to be built in road segments.\n\nBunkers have to be built in garrison zones";
+					}
+				else
+					{
+					posicionado = 2;
+					};
+				};
+			};
+		_handled;
+		}];
+
+_HDEH = player addEventHandler ["HandleDamage",{posicionado = 1}];
+
+if (_tipo == "RB") then
+	{
+	onEachFrame
+		{
+		_ins = lineIntersectsSurfaces [
+	  	AGLToASL positionCameraToWorld [0,0,0],
+	  	AGLToASL positionCameraToWorld [0,0,1000],
+	  	player,veh
+	 	];
+	 	if ((count _ins == 0) or (!isOnRoad ASLToAGL (_ins select 0 select 0)) /*or (!(isNull (_ins select 0 select 2)) and !(isNull (_ins select 0 select 3)))*/ or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf veh])== 0))exitWith {veh setPosASL [0,0,0]};
+	 	veh setPosASL (_ins select 0 select 0);
+	 	veh setVectorUp (_ins select 0 select 1);
+	 	veh setDir (getDir player)
+		};
+	}
+else
+	{
+	if ((_tipo == "SB") or (_tipo == "CB")) then
+		{
+		onEachFrame
+			{
+			_ins = lineIntersectsSurfaces [
+		  	AGLToASL positionCameraToWorld [0,0,0],
+		  	AGLToASL positionCameraToWorld [0,0,1000],
+		  	player,veh
+		 	];
+		 	if ((count _ins == 0) or !((_ins select 0 select 0) inArea cercano)/*or (!(isNull (_ins select 0 select 2)) and !(isNull (_ins select 0 select 3)))*/ or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf veh])== 0))exitWith {veh setPosASL [0,0,0]};
+		 	veh setPosASL (_ins select 0 select 0);
+		 	veh setVectorUp (_ins select 0 select 1);
+		 	veh setDir (getDir player)
+			};
+		}
+	else
+		{
+		onEachFrame
+			{
+			_ins = lineIntersectsSurfaces [
+		  	AGLToASL positionCameraToWorld [0,0,0],
+		  	AGLToASL positionCameraToWorld [0,0,1000],
+		  	player,veh
+		 	];
+		 	if ((count _ins == 0) /*or (!(isNull (_ins select 0 select 2)) and !(isNull (_ins select 0 select 3)))*/ or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf veh])== 0))exitWith {veh setPosASL [0,0,0]};
+		 	veh setPosASL (_ins select 0 select 0);
+		 	veh setVectorUp (_ins select 0 select 1);
+		 	veh setDir (getDir player)
+			};
+		};
+	};
+
+private _timeOut = time + 60;
+waitUntil {(posicionado > 0) or (time > _timeOut)};
+
+onEachFrame {};
+(findDisplay 46) displayRemoveEventHandler ["KeyDown", _displayEH];
+player removeEventHandler ["HandleDamage",_HDEH];
+
+//_posicion = getPosASL veh;
+_posicion = position veh;
+_dir = getDir veh;
+deleteVehicle veh;
+veh = nil;
+cercano = nil;
+if (posicionado <= 1) exitWith {hint "Construction cancelled"; posicionado = nil};
+posicionado = nil;
+private _isPlayer = if (player == _ingeniero) then {true} else {false};
+_timeOut = time + 30;
+
+if (!_isPlayer) then {_ingeniero doMove ASLToAGL _posicion} else {_tiempo = _tiempo / 2};
 
 waitUntil {sleep 1;(time > _timeOut) or (_ingeniero distance _posicion < 3)};
 

@@ -40,8 +40,8 @@ if (_dificil) then
 	_tiempolim = 15;//120
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 	_fechalimnum = dateToNumber _fechalim;
-
-	_tsk = ["CONVOY",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"CREATED",5,true,true,"talk"] call BIS_fnc_setTask;
+	[[buenos,civilian],"CONVOY",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
+	//_tsk = ["CONVOY",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"CREATED",5,true,true,"talk"] call BIS_fnc_setTask;
 	misiones pushBack _tsk; publicVariable "misiones";
 
 	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
@@ -209,9 +209,11 @@ if (_tipoConvoy == "Supplies") then
 	_taskIcon = "heal";
 	_tipoVehObj = "C_Van_01_box_F";
 	};
-_tsk = ["CONVOY",[buenos,civilian],[_texto,_taskTitle,_destino],_posdestino,_taskState,5,true,true,_taskIcon] call BIS_fnc_setTask;
+[[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
+//_tsk = ["CONVOY",[buenos,civilian],[_texto,_taskTitle,_destino],_posdestino,_taskState,5,true,true,_taskIcon] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
-_tsk1 = ["CONVOY1",[_lado],[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,_taskState1,5,true,true,"run"] call BIS_fnc_setTask;
+[[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,false,0,true,"run",true] call BIS_fnc_taskCreate;
+//_tsk1 = ["CONVOY1",[_lado],[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,_taskState1,5,true,true,"run"] call BIS_fnc_setTask;
 sleep (_tiempolim * 60);
 
 _indice = aeropuertos find _base;

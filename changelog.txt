@@ -591,6 +591,10 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Added a few checks to avoid AI get stuck in the carry animation.
 - Moved the "Building Options" from Y menu to "Manage Garrisons" HQ Flag Option.
 - Solved bug on persistent save.
+- Removed eternal loop on situational music script.
+- Removed infinite loop for statistics. This author owes the whole community several billions of GHzs :)
+- Parked civ cars wont never spawn in players nose.
+- NATO Repair trucks should spawn in better places.
 
 Roadmap (in Spanish):
 barco civil

@@ -161,6 +161,7 @@ while {alive _veh} do
 	_Vwp0 setWaypointBehaviour "SAFE";
 	_Vwp0 setWaypointSpeed "LIMITED";
 	_veh setFuel 1;
+	/*
 	while {true} do
 		{
 		sleep 20;
@@ -181,7 +182,8 @@ while {alive _veh} do
 		} forEach (driver _veh nearTargets distanciaSPWN);
 		if ((_veh distance _posdestino < _distancia) or ({alive _x} count _soldados == 0) or ({fleeing _x} count _soldados == {alive _x} count _soldados) or (!canMove _veh)) exitWith {};
 		};
-
+	*/
+	waitUntil {sleep 60; (_veh distance _posdestino < _distancia) or ({alive _x} count _soldados == 0) or ({(fleeing _x) or (captive _x)} count _soldados >= {alive _x} count _soldados) or (!canMove _veh)};
 	if (({alive _x} count _soldados == 0) or ({fleeing _x} count _soldados == {alive _x} count _soldados) or (!canMove _veh)) exitWith {};
 	if (_tipoPatrol == "AIR") then
 		{

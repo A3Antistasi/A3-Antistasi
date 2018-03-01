@@ -58,8 +58,8 @@ _mrk setMarkerType "hd_warning";
 _mrk setMarkerColor "ColorRed";
 _mrk setMarkerBrush "DiagGrid";
 _mrk setMarkerText _texto;
-
-_tsk = ["Mines",[buenos,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"map"] call BIS_fnc_setTask;
+[[buenos,civilian],"Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,false,0,true,"map",true] call BIS_fnc_taskCreate;
+//_tsk = ["Mines",[buenos,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"map"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 _grupo = createGroup buenos;
@@ -69,6 +69,7 @@ sleep 1;
 _unit = _grupo createUnit [(SDKExp select 0), (getMarkerPos "respawn_guerrila"), [], 0, "NONE"];
 _grupo setGroupId ["MineF"];
 
+/*
 _tam = 10;
 while {true} do
 	{
@@ -77,6 +78,21 @@ while {true} do
 	_tam = _tam + 10;
 	};
 _road = _roads select 0;
+*/
+_roads = [];
+_tam = 10;
+_road = objNull;
+while {isNull _road} do
+	{
+	_roads = _posicion nearRoads _tam;
+	if (count _roads > 0) then
+		{
+		{
+		if ((surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")) exitWith {_road = _x};
+		} forEach _roads;
+		};
+	_tam = _tam + 50;
+	};
 _pos = position _road findEmptyPosition [1,30,vehSDKTruck];
 
 _camion = vehSDKTruck createVehicle _pos;

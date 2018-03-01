@@ -69,7 +69,7 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _numCiv)} do
 			//if (!isNil "_road") then
 			if (!isNull _road) then
 				{
-				if (count (nearestObjects [_p1, ["Car", "Truck"], 5]) == 0) then
+				if ((count (nearestObjects [_p1, ["Car", "Truck"], 5]) == 0) and !([50,1,_road,"GREENFORSpawn"] call distanceUnits)) then
 					{
 					_roadcon = roadsConnectedto (_road);
 					//_roadcon = roadsConnectedto (_roads select _cuenta);
@@ -77,7 +77,7 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _numCiv)} do
 					_p2 = getPos (_roadcon select 0);
 					_dirveh = [_p1,_p2] call BIS_fnc_DirTo;
 					_pos = [_p1, 3, _dirveh + 90] call BIS_Fnc_relPos;
-					_tipoveh = arrayCivVeh call BIS_Fnc_selectRandom;
+					_tipoveh = selectRandom arrayCivVeh;
 					/*
 					_mrk = createmarker [format ["%1", count vehicles], _p1];
 				    _mrk setMarkerSize [5, 5];

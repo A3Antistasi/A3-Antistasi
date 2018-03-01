@@ -13,7 +13,8 @@ _vehiculos = [];
 _civiles = [];
 
 _nombredest = [_mrkDestino,muyMalos] call localizar;
-_tsk = ["AtaqueAAF",[buenos,civilian,malos],[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
+[[buenos,civilian,malos],"AtaqueAAF",[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
+//_tsk = ["AtaqueAAF",[buenos,civilian,malos],[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 //Ataque de artillería
 _nul = [_mrkOrigen,_mrkDestino] spawn artilleria;

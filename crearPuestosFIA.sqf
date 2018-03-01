@@ -25,8 +25,8 @@ _mrk setMarkerShape "ICON";
 
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
 _fechalimnum = dateToNumber _fechalim;
-
-_tsk = ["PuestosFIA",[buenos,civilian],["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
+[[buenos,civilian],"PuestosFIA",["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
+//_tsk = ["PuestosFIA",[buenos,civilian],["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
 misiones pushBackUnique _tsk; publicVariable "misiones";
 _formato = [];
 {
@@ -34,7 +34,7 @@ if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato
 } forEach _tipoGrupo;
 _grupo = [getMarkerPos "respawn_guerrila", buenos, _formato] call spawnGroup;
 _grupo setGroupId ["Post"];
-
+/*
 _tam = 10;
 while {true} do
 	{
@@ -43,6 +43,21 @@ while {true} do
 	if (count _roads > 0) exitWith {};
 	};
 _road = _roads select 0;
+*/
+_roads = [];
+_tam = 10;
+_road = objNull;
+while {isNull _road} do
+	{
+	_roads = _posicion nearRoads _tam;
+	if (count _roads > 0) then
+		{
+		{
+		if ((surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")) exitWith {_road = _x};
+		} forEach _roads;
+		};
+	_tam = _tam + 50;
+	};
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 _camion = _tipoVeh createVehicle _pos;
 //_nul = [_grupo] spawn dismountFIA;

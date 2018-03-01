@@ -563,7 +563,7 @@ class HQ_button_music: RscButton
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
 	tooltip = "Disables situational music";
-	action = "closedialog 0; if (musicON) then {musicON = false; hint ""Music turned OFF"";} else {musicON = true; nul = execVM ""musica.sqf""; hint ""Music turned ON""};";
+	action = "closedialog 0; if (musicON) then {musicON = false; hint ""Music turned OFF""} else {musicON = true; hint ""Music turned ON""}; nul = execVM ""musica.sqf"";";
 };
 class HQ_button_garbageclean: RscButton
 {

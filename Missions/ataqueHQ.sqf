@@ -14,8 +14,8 @@ if (count _aeropuertos == 0) exitWith {};
 _aeropuerto = [_aeropuertos,_posicion] call BIS_fnc_nearestPosition;
 _posOrigen = getMarkerPos _aeropuerto;
 _lado = if (_aeropuerto in mrkNATO) then {malos} else {muyMalos};
-
-_tsk = ["DEF_HQ",[buenos,civilian],["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Maru","respawn_guerrila"],_posicion,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;
+[[buenos,civilian],"DEF_HQ",["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Maru","respawn_guerrila"],_posicion,true,10,true,"Defend",true] call BIS_fnc_taskCreate;
+//_tsk = ["DEF_HQ",[buenos,civilian],["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Maru","respawn_guerrila"],_posicion,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 _tsk1 = ["DEF_HQ1",[_lado],["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader Maru. Help the SpecOp team","Kill Maru","respawn_guerrila"],_posicion,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
 _tiposVeh = if (_lado == malos) then {vehNATOAttackHelis} else {vehCSATAttackHelis};

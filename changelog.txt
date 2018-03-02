@@ -588,6 +588,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 0.11.0 25/02/2018 ALPHA
 
 - NEW FEATURE: Construct things. At last! Requires an engineer in your squad (or being player engineer). Trench classnames depend on the surroundings (urban, forest, field) and bunkers can be built for a price and in controlled zones. Bunkers wont despawn.
+- Players can buy civilian boats in HQ.
 - Added a few checks to avoid AI get stuck in the carry animation.
 - Moved the "Building Options" from Y menu to "Manage Garrisons" HQ Flag Option.
 - Solved bug on persistent save.
@@ -597,6 +598,4 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - NATO Repair trucks should spawn in better places.
 - Changes on taks structure to avoid JIP issues (we pray).
 - Solved bug which spawned tons of static weapons when the AI gunner was unconscious.
-Roadmap (in Spanish):
-barco civil
-Jeroen Logistics
+- Purchased boats will spawn in the closest possible shore point.

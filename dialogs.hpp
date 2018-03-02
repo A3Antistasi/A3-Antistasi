@@ -2160,12 +2160,24 @@ class HQ_button_Gremove: RscButton
 {
 	idc = 106;
 	text = "Helicopter"; //--- ToDo: Localize;
-	x = 0.37749 * safezoneW + safezoneX;
+	//x = 0.37749 * safezoneW + safezoneX;
+	x = 0.482498 * safezoneW + safezoneX;
 	y = 0.415981 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
 	action = "closeDialog 0;nul = [civHeli] call addFIAveh;";
 };
+class HQ_button_offroad: RscButton  
+{  
+	idc = 107;  
+ 	text = "Boat"; //--- ToDo: Localize;  
+	x = 0.272481 * safezoneW + safezoneX;  
+ 	y = 0.415981 * safezoneH + safezoneY;  
+ 	w = 0.175015 * safezoneW;  
+ 	h = 0.0560125 * safezoneH;  
+ 	action = "closeDialog 0;[civBoat] call buyBoat;";  
+ };  
+
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END
 ////////////////////////////////////////////////////////

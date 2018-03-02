@@ -3,6 +3,7 @@
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
 //fpsCheck = compile preProcessFileLineNumbers "fpsCheck.sqf";
+buyBoat = compile preProcessFileLineNumbers "REINF\buyBoat.sqf";
 construir = compile preProcessFileLineNumbers "REINF\construir.sqf";
 isBuildingPosition = compile preProcessFileLineNumbers "AI\Buildings\isBuildingPosition.sqf";
 groupDespawner= compile preProcessFileLineNumbers "CREATE\groupDespawner.sqf";

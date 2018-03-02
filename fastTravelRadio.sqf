@@ -25,13 +25,13 @@ if (_chequeo) exitWith {};
 
 if (_chequeo) exitWith {Hint "You cannot Fast Travel with enemies near the group"};
 
-{if ((vehicle _x!= _x) and ((isNull (driver vehicle _x)) or (!canMove vehicle _x))) then
+{if ((vehicle _x!= _x) and ((isNull (driver vehicle _x)) or (!canMove vehicle _x) or (vehicle _x isKindOf "Boat"))) then
 	{
 	if (not(vehicle _x isKindOf "StaticWeapon")) then {_chequeo = true};
 	}
 } forEach units _grupo;
 
-if (_chequeo) exitWith {Hint "You cannot Fast Travel if you don't have a driver in all your vehicles or your vehicles are damage and cannot move"};
+if (_chequeo) exitWith {Hint "You cannot Fast Travel if you don't have a driver in all your vehicles or your vehicles are damaged and cannot move or your group is in a boat"};
 
 posicionTel = [];
 

@@ -313,7 +313,7 @@ fn_SetStat =
 				_dirVeh = _varvalue select _i select 2;
 				_veh = createVehicle [_tipoVeh,_posVeh,[],0,"NONE"];
 				_veh setDir _dirVeh;
-				if (_veh isKindOf "StaticWeapon") then
+				if ((_veh isKindOf "StaticWeapon") or (_veh isKindOf "Building")) then
 					{
 					staticsToSave pushBack _veh;
 					};

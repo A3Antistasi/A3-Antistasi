@@ -14,4 +14,6 @@ if (str (_display) != "no display") then
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €",[civTruck] call vehiclePrice];
 	_ChildControl = _display displayCtrl 106;
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €",[civHeli] call vehiclePrice];
+	_ChildControl = _display displayCtrl 107;
+	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. Requires to be near shoreline",[vehSDKBoat] call vehiclePrice];
 };

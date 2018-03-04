@@ -44,7 +44,7 @@ if (_dificil) then
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
 	//_tsk = ["LOG",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"CREATED",5,true,true,"talk"] call BIS_fnc_setTask;
-	misiones pushBack _tsk; publicVariable "misiones";
+	//misiones pushBack _tsk; publicVariable "misiones";
 
 	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
 	if (dateToNumber date > _fechalimnum) then
@@ -87,7 +87,7 @@ if (_salir) exitWith {};
 if (_dificil) then
 	{
 	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !(_tsk in misiones)};
+	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
 	};
 
 _posicion = getMarkerPos _marcador;
@@ -120,7 +120,7 @@ _pos = _pos findEmptyPosition [1,60,_tipoVeh];
 if (count _pos == 0) then {_pos = position _road};
 
 if (!_dificil) then {[[buenos,civilian],"LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_pos,false,0,true,"rearm",true] call BIS_fnc_taskCreate} else {_tsk = ["LOG",[buenos,civilian],[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_pos,"CREATED",5,true,true,"rearm"] call BIS_fnc_setTask};
-misiones pushBack _tsk; publicVariable "misiones";
+//misiones pushBack _tsk; publicVariable "misiones";
 _camionCreado = false;
 
 waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or ((spawner getVariable _marcador != 2) and !(_marcador in mrkSDK))};

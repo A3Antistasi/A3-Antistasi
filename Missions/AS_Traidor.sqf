@@ -7,6 +7,7 @@ _salir = false;
 _contacto = objNull;
 _grpContacto = grpNull;
 _tsk = "";
+_tsk1 = "";
 if (_dificil) then
 	{
 	_posHQ = getMarkerPos "respawn_guerrila";
@@ -42,7 +43,7 @@ if (_dificil) then
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"AS",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
 	//_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"CREATED",5,true,true,"talk"] call BIS_fnc_setTask;
-	misiones pushBack _tsk; publicVariable "misiones";
+	//misiones pushBack _tsk; publicVariable "misiones";
 
 	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
 	if (dateToNumber date > _fechalimnum) then
@@ -85,7 +86,7 @@ if (_salir) exitWith {};
 if (_dificil) then
 	{
 	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !(_tsk in misiones)};
+	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
 	};
 _posicion = getMarkerPos _marcador;
 
@@ -131,7 +132,7 @@ if (!_dificil) then {[[buenos,civilian],"AS",[format ["A traitor has scheduled a
 [[malos],"AS1",[format ["We arranged a meeting in %1 with a SDK contact who may have vital information about Syndikat Headquarters position. Protect him until %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Protect Contact",_marcador],getPos _casa,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 
 //_tsk1 = ["AS1",[malos],[format ["We arranged a meeting in %1 with a SDK contact who may have vital information about Syndikat Headquarters position. Protect him until %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Protect Contact",_marcador],getPos _casa,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+//misiones pushBack _tsk; publicVariable "misiones";
 
 {_nul = [_x,""] call NATOinit; _x allowFleeing 0} forEach units _grptraidor;
 _posVeh = [];
@@ -260,7 +261,7 @@ else
 		{
 		if (isPlayer Stavros) then
 			{
-			if (!("DEF_HQ" in misiones)) then
+			if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
 				{
 				[malos] remoteExec ["ataqueHQ",HCattack];
 				};

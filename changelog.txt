@@ -599,3 +599,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Changes on taks structure to avoid JIP issues (we pray).
 - Solved bug which spawned tons of static weapons when the AI gunner was unconscious.
 - Purchased boats will spawn in the closest possible shore point.
+- Limited Aggro levels according to War Level.
+- POWs wont have rifles on liberation.
+- Removed small bug on garrison window.
+- Halved distance checks to select a base as attack departure.

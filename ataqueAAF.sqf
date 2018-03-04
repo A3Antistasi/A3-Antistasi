@@ -5,7 +5,7 @@ _objetivos = [];
 _marcadores = [];
 _cuentaFacil = 0;
 
-_aeropuertos = (aeropuertos - mrkSDK) select {(dateToNumber date > server getVariable _x) and ((spawner getVariable _x != 0))};
+_aeropuertos = (aeropuertos - mrkSDK) select {(dateToNumber date > server getVariable _x) and ([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) /*(spawner getVariable _x != 0)*/};
 if (tierWar < 3) then {_aeropuertos = _aeropuertos - mrkCSAT};
 _objetivos = marcadores - controles - puestosFIA - ["Synd_HQ","airport_1","airport_4"] - destroyedCities;
 if (tierWar < 3) then {_objetivos = _objetivos - ciudades};
@@ -290,7 +290,7 @@ if (_waves == 1) then
 	{[_x select 0,_x select 1] remoteExec ["patrolCA",HCattack]} forEach _faciles;
 	};
 
-if ((not("CONVOY" in misiones)) and (_waves == 1)) then
+if ((not(["CONVOY"] call BIS_fnc_taskExists)) and (_waves == 1)) then
 	{
 	if ((count _objetivoFinal == 0) and (count _faciles < 2)) then
 		{

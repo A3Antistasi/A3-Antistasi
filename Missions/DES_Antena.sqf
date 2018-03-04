@@ -45,7 +45,7 @@ if (_dificil) then
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"DES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
 	//_tsk = ["DES",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"CREATED",5,true,true,"talk"] call BIS_fnc_setTask;
-	misiones pushBack _tsk; publicVariable "misiones";
+	//misiones pushBack _tsk; publicVariable "misiones";
 
 	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
 	if (dateToNumber date > _fechalimnum) then
@@ -88,7 +88,7 @@ if (_salir) exitWith {};
 if (_dificil) then
 	{
 	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !(_tsk in misiones)};
+	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
 	};
 
 _nombredest = [_marcador] call localizar;
@@ -104,7 +104,7 @@ _mrkfin setMarkerShape "ICON";
 //_mrkfin setMarkerColor "ColorRed";
 //_mrkfin setMarkerText "Destroy Radio Tower";
 if (!_dificil) then {[[buenos,civilian],"DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt NATO Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,false,0,true,"Destroy",true] call BIS_fnc_taskCreate} else {_tsk = ["DES",[buenos,civilian],[format ["We need to destroy or take a Radio Tower in %1. This will interrupt NATO Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask};
-misiones pushBack _tsk; publicVariable "misiones";
+//misiones pushBack _tsk; publicVariable "misiones";
 
 waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (not alive _antena) or (not(_marcador in mrkNATO))};
 

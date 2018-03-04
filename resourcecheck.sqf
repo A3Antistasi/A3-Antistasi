@@ -84,7 +84,7 @@ while {true} do
 		garrison setVariable [_ciudad,[],true];
 		sleep 5;
 		{_nul = [_ciudad,_x] spawn deleteControles} forEach controles;
-		if ((!("CONVOY" in misiones)) and (!bigAttackInProgress)) then
+		if ((!(["CONVOY"] call BIS_fnc_taskExists)) and (!bigAttackInProgress)) then
 			{
 			_base = [_ciudad] call findBasesForConvoy;
 			if (_base != "") then
@@ -171,7 +171,7 @@ while {true} do
 			};
 		};
 	sleep 3;
-	if ((count antenasMuertas > 0) and (not("REP" in misiones))) then
+	if ((count antenasMuertas > 0) and (not(["REP"] call BIS_fnc_taskExists))) then
 		{
 		_posibles = [];
 		{

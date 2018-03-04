@@ -291,12 +291,12 @@ if (!isDedicated) then
 	{
 	_tipos = [];
 	{
-	if (_x in misiones) then
+	if ([_x] call BIS_fnc_taskExists) then
 		{
 		_state = [_x] call BIS_fnc_taskState;
 		if (_state == "CREATED") then
 			{
-			_tipos = _tipos + [_x];
+			_tipos pushBackUnique _x;
 			};
 		};
 	} forEach ["AS","CON","DES","LOG","RES","CONVOY","DEF_HQ","AtaqueAAF"];

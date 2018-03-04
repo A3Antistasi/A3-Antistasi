@@ -60,7 +60,7 @@ _mrk setMarkerBrush "DiagGrid";
 _mrk setMarkerText _texto;
 [[buenos,civilian],"Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,false,0,true,"map",true] call BIS_fnc_taskCreate;
 //_tsk = ["Mines",[buenos,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"map"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+//misiones pushBack _tsk; publicVariable "misiones";
 
 _grupo = createGroup buenos;
 

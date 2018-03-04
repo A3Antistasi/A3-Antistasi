@@ -105,7 +105,7 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < 4)} do
 	sleep 1;
 	if ((random 10 < 2.5) and (not(_tipogrupo in sniperGroups))) then
 		{
-		_perro = _grupo createUnit ["Fin_random_F",_pos,[],0,"FORM"];
+		_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
 		[_perro] spawn guardDog;
 		sleep 1;
 		};

@@ -44,7 +44,7 @@ diag_log format ["Antistasi: Side attacker: %1. Side defender (false, the other 
 _nombreDest = [_mrkDestino] call localizar;
 
 _tsk = ["AtaqueAAF",_ladosTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
-misiones pushbackUnique "AtaqueAAF"; publicVariable "misiones";
+//misiones pushbackUnique "AtaqueAAF"; publicVariable "misiones";
 _tsk1 = ["AtaqueAAF1",_ladosTsk1,[format ["We are attacking %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Attack"] call BIS_fnc_setTask;
 
 _tiempo = time + 3600;

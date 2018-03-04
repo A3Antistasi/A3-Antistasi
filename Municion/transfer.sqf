@@ -69,7 +69,7 @@ if (_cuenta > 0) then
 	{
 	if (_caja == caja) then
 		{
-		if ("DEF_HQ" in misiones) then {_cuenta = round (_cuenta / 10)} else {_cuenta = round (_cuenta / 100)};
+		if (["DEF_HQ"] call BIS_fnc_taskExists) then {_cuenta = round (_cuenta / 10)} else {_cuenta = round (_cuenta / 100)};
 		}
 	else
 		{

@@ -12,7 +12,7 @@ _exists = false;
 _silencio = false;
 if (count _this > 1) then {_silencio = true};
 
-if (_tipo in misiones) exitWith {if (!_silencio) then {[petros,"globalChat","I already gave you a mission of this type"] remoteExec ["commsMP",stavros]}};
+if ([_tipo] call BIS_fnc_taskExists) exitWith {if (!_silencio) then {[petros,"globalChat","I already gave you a mission of this type"] remoteExec ["commsMP",stavros]}};
 
 if (_tipo == "AS") then
 	{

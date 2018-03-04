@@ -76,7 +76,7 @@ else
 				}
 			else
 				{
-				[_unit,unlockedRifles] call randomRifle;
+				if (_tipo != SDKUnarmed) then {[_unit,unlockedRifles] call randomRifle};
 				if (_tipo in SDKExp) then
 					{
 					_unit setUnitTrait ["explosiveSpecialist",true];

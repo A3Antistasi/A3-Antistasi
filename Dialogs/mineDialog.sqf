@@ -1,6 +1,6 @@
 private ["_tipo","_coste","_posicionTel","_cantidad","_cantidadMax"];
 
-if ("Mines" in misiones) exitWith {hint "We can only deploy one minefield at a time."};
+if (["Mines"] call BIS_fnc_taskExists) exitWith {hint "We can only deploy one minefield at a time."};
 
 if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
 

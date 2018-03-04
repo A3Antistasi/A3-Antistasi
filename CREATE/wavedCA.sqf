@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_posorigen","_tipogrupo","_nombreorig","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiculos","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_grupoheli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_grupoVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_grupouav","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkdestino","_posdestino","_prestigeCSAT","_mrkOrigen","_aeropuerto","_nombredest","_tiempo","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_cuenta"];
+private ["_posorigen","_tipogrupo","_nombreorig","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiculos","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_grupoheli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_grupoVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_grupouav","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkdestino","_posdestino","_prestigeCSAT","_mrkOrigen","_aeropuerto","_nombredest","_tiempo","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_cuenta","_tsk1"];
 
 bigAttackInProgress = true;
 publicVariable "bigAttackInProgress";
@@ -11,7 +11,8 @@ _waves = _this select 2;
 if (_waves <= 0) then {_waves = -1};
 _size = [_mrkDestino] call sizeMarker;
 diag_log format ["Antistasi: Waved attack from %1 to %2. Waves: %3",_mrkOrigen,_mrkDestino,_waves];
-
+_tsk = "";
+_tsk1 = "";
 _posDestino = getMarkerPos _mrkDestino;
 _posOrigen = getMarkerPos _mrkOrigen;
 
@@ -66,7 +67,7 @@ _nombreDest = [_mrkDestino] call localizar;
 [_ladosTsk,"AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 [_ladosTsk1,"AtaqueAAF1",[format ["We are attacking %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,false,0,true,"Attack",true] call BIS_fnc_taskCreate;
 //_tsk = ["AtaqueAAF",_ladosTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
-misiones pushbackUnique "AtaqueAAF"; publicVariable "misiones";
+//misiones pushbackUnique "AtaqueAAF"; publicVariable "misiones";
 //_tsk1 = ["AtaqueAAF1",_ladosTsk1,[format ["We are attacking %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Attack"] call BIS_fnc_setTask;
 
 _tiempo = time + 3600;

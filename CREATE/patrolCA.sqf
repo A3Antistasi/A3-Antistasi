@@ -53,7 +53,7 @@ _posDestino = if (!_esMarcador) then {_marcador} else {getMarkerPos _marcador};
 if (!_inWaves) then
 	{
 	_aeropuertos = if (_lado == malos) then {aeropuertos - mrkSDK - mrkCSAT} else {aeropuertos - mrkSDK - mrkNATO};
-	_aeropuertos = _aeropuertos select 	{(getMarkerPos _x distance _posDestino < 15000) and (spawner getVariable _x == 2) and (dateToNumber date > server getVariable _x)};
+	_aeropuertos = _aeropuertos select 	{(getMarkerPos _x distance _posDestino < 15000) and  ([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits)/*(spawner getVariable _x == 2)*/ and (dateToNumber date > server getVariable _x)};
 	if (_esMarcador) then
 		{
 		_aeropuertos = _aeropuertos select {({_x == _marcador} count (killZones getVariable _x)) < 3};
@@ -63,7 +63,7 @@ if (!_inWaves) then
 		if (_typeOfAttack == "Normal") then
 			{
 			_puestos = if (_lado == malos) then {puestos - mrkSDK - mrkCSAT} else {puestos - mrkSDK - mrkNATO};
-			_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < 2500) and (spawner getVariable _x == 2) and (dateToNumber date > server getVariable _x)});
+			_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < 2500)  and ([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits)/*and (spawner getVariable _x == 2)*/ and (dateToNumber date > server getVariable _x)});
 			};
 		_sitio = [(recursos + fabricas + aeropuertos + puestos + puertos),_marcador] call BIS_fnc_nearestPosition;
 		_aeropuertos = _aeropuertos select {({_x == _sitio} count (killZones getVariable _x)) < 3};

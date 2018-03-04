@@ -12,7 +12,7 @@ _nombredest = [_marcador] call localizar;
 
 [[buenos,civilian],"REP",[format ["NATO is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Tower Rebuild Disrupt",_marcador],_posicion,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
 //_tsk = ["REP",[buenos,civilian],[format ["NATO is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Tower Rebuild Disrupt",_marcador],_posicion,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+//misiones pushBack _tsk; publicVariable "misiones";
 _camionCreado = false;
 
 waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (spawner getVariable _marcador != 2)};

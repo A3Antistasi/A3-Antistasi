@@ -43,7 +43,7 @@ if (_dificil) then
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"AS",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
 	//_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"CREATED",5,true,true,"talk"] call BIS_fnc_setTask;
-	misiones pushBack _tsk; publicVariable "misiones";
+	//misiones pushBack _tsk; publicVariable "misiones";
 
 	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
 	if (dateToNumber date > _fechalimnum) then
@@ -86,7 +86,7 @@ if (_salir) exitWith {};
 if (_dificil) then
 	{
 	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !(_tsk in misiones)};
+	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
 	};
 
 _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
@@ -99,7 +99,7 @@ _fechalimnum = dateToNumber _fechalim;
 _nombredest = [_marcador] call localizar;
 _nombreBando = if (_lado == malos) then {"NATO"} else {"CSAT"};
 if (!_dificil) then {[[buenos,civilian],"AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate} else {_tsk = ["AS",[buenos,civilian],[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask};
-misiones pushBack _tsk; publicVariable "misiones";
+//misiones pushBack _tsk; publicVariable "misiones";
 _grp = createGroup _lado;
 
 _tipo = if (_lado == malos) then {NATOOfficer} else {CSATOfficer};

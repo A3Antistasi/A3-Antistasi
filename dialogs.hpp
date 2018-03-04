@@ -1202,7 +1202,7 @@ class HQ_button_back: RscButton
 	y = 0.251941 * safezoneH + safezoneY;
 	w = 0.06 * safezoneW;//0.175015
 	h = 0.05 * safezoneH;
-	action = "closeDialog 0;_nul = createDialog ""garrison_menu"";";
+	action = "closeDialog 0;_nul = createDialog ""build_menu"";";
 };
 class HQ_button_rifleman: RscButton
 {

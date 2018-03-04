@@ -12,7 +12,7 @@ _escarretera = isOnRoad _posicionTel;
 _texto = "SDK Observation Post";
 _tipogrupo = gruposSDKSniper;
 _tipoVeh = vehSDKBike;
-
+private _tsk = "";
 if (_escarretera) then
 	{
 	_texto = "SDK Roadblock";
@@ -27,7 +27,7 @@ _fechalim = [date select 0, date select 1, date select 2, date select 3, (date s
 _fechalimnum = dateToNumber _fechalim;
 [[buenos,civilian],"PuestosFIA",["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
 //_tsk = ["PuestosFIA",[buenos,civilian],["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
-misiones pushBackUnique _tsk; publicVariable "misiones";
+//misiones pushBackUnique _tsk; publicVariable "misiones";
 _formato = [];
 {
 if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
@@ -49,7 +49,7 @@ _tam = 10;
 _road = objNull;
 while {isNull _road} do
 	{
-	_roads = _posicion nearRoads _tam;
+	_roads = posHQ nearRoads _tam;
 	if (count _roads > 0) then
 		{
 		{

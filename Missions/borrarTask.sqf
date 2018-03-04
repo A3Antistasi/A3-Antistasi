@@ -2,12 +2,12 @@ private ["_tiempo","_tsk"];
 
 _tiempo = _this select 0;
 _tsk = _this select 1;
-
+if (isNil "_tsk") exitWith {};
 if (_tiempo > 0) then {sleep ((_tiempo/2) + random _tiempo)};
 
 _nul = [_tsk] call BIS_fnc_deleteTask;
-misiones = misiones - [_tsk];
-publicVariable "misiones";
+//misiones = misiones - [_tsk];
+//publicVariable "misiones";
 /*
 _nul = [_tsk] call BIS_fnc_deleteTask;
 sleep 10;

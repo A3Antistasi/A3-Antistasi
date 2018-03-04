@@ -161,7 +161,7 @@ else
 							{if ((side _x == malos) or (side _x == muyMalos)) then {_x reveal [_mortero,4]}} forEach allUnits;
 							if (_mortero distance posHQ < 300) then
 								{
-								if (!("DEF_HQ" in misiones)) then
+								if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
 									{
 									_lider = leader (gunner _mortero);
 									if (!isPlayer _lider) then

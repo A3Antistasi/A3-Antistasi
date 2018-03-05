@@ -82,12 +82,12 @@ if (_dificil) then
 		};
 	};
 if (_salir) exitWith {};
-/*
+
 if (_dificil) then
 	{
 	[0,"RES"] spawn borrarTask;
 	waitUntil {sleep 1; !(["RES"] call BIS_fnc_taskExists)};
-	};*/
+	};
 _posicion = getMarkerPos _marcador;
 
 _POWs = [];
@@ -116,7 +116,7 @@ _fechalimnum = dateToNumber _fechalim;
 _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
 _texto = if (_lado == malos) then {format ["A group of smugglers have been arrested in %1 and they are about to be sent to prison. Go there and free them in order to make them join our cause. Do this before %2:%3",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4]} else {format ["A group of SDK supportes are hidden in %1 awaiting for evacuation. We have to find them before CSAT does it. If not, there will be a certain death for them. Bring them back to HQ",_nombredest]};
 _posTsk = if (_lado == malos) then {(position _casa) getPos [random 100, random 360]} else {position _casa};
-
+/*
 if (!_dificil) then
 	{
 	[[buenos,civilian],"RES",[_texto,"Refugees Evac",_nombredest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
@@ -124,9 +124,9 @@ if (!_dificil) then
 else
 	{
 	["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"CREATED","run"] call taskUpdate;
-	};
+	};*/
 //misiones pushBack _tsk; publicVariable "misiones";
-
+[[buenos,civilian],"RES",[_texto,"Refugees Evac",_nombredest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
 _grupoPOW = createGroup buenos;
 for "_i" from 1 to (count _poscasa) - 1 do
 	{

@@ -54,7 +54,7 @@ else
 			{
 			_jugadores = true;
 			[_unit,"heal"] remoteExec ["flagaction",0,_unit];
-			[_unit,true] remoteExec ["setCaptive"];
+			if (_unit != petros) then {[_unit,true] remoteExec ["setCaptive"]};
 			};
 		};
 	};

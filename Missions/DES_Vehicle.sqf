@@ -83,12 +83,12 @@ if (_dificil) then
 		};
 	};
 if (_salir) exitWith {};
-/*
+
 if (_dificil) then
 	{
 	[0,"DES"] spawn borrarTask;
 	waitUntil {sleep 1; !(["DES"] call BIS_fnc_taskExists)};
-	};*/
+	};
 _posicion = getMarkerPos _marcador;
 _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
 _tiempolim = if (_dificil) then {30} else {120};
@@ -97,6 +97,7 @@ _fechalimnum = dateToNumber _fechalim;
 _nombredest = [_marcador] call localizar;
 
 _tipoVeh = if (_lado == malos) then {vehNATOAA} else {vehCSATAA};
+/*
 if (!_dificil) then
 	{
 	[[buenos,civilian],"DES",[format ["We know an enemy armor (%4) is stationed in %1. It is a good chance to destroy or steal it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,false,0,true,"Destroy",true] call BIS_fnc_taskCreate
@@ -104,8 +105,9 @@ if (!_dificil) then
 else
 	{
 	["DES",[format ["We know an enemy armor (%4) is stationed in %1. It is a good chance to destroy or steal it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,"CREATED","Destroy"] call taskUpdate
-	};
+	};*/
 //misiones pushBack _tsk; publicVariable "misiones";
+[[buenos,civilian],"DES",[format ["We know an enemy armor (%4) is stationed in %1. It is a good chance to destroy or steal it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
 _camionCreado = false;
 
 waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (spawner getVariable _marcador == 0)};

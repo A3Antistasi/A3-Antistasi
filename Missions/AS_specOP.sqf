@@ -84,13 +84,13 @@ if (_dificil) then
 		};
 	};
 if (_salir) exitWith {};
-/*
+
 if (_dificil) then
 	{
 	[0,"AS"] spawn borrarTask;
 	waitUntil {sleep 1; !(["AS"] call BIS_fnc_taskExists)};
 	};
-*/
+
 _posicion = getMarkerPos _marcador;
 _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
 _tiempolim = if (_dificil) then {60} else {120};
@@ -99,6 +99,7 @@ _fechalimnum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call localizar;
 _nombreBando = if (_lado == malos) then {"NATO"} else {"CSAT"};
+/*
 if (!_dificil) then
 	{
 	[[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate
@@ -108,6 +109,8 @@ else
 	["AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,"CREATED","Kill"] call taskUpdate;
 //misiones pushBack _tsk; publicVariable "misiones"
 	};
+*/
+[[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
 
 waitUntil  {sleep 5; (dateToNumber date > _fechalimnum) or (_marcador in mrkSDK)};
 

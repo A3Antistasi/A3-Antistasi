@@ -82,12 +82,12 @@ if (_dificil) then
 		};
 	};
 if (_salir) exitWith {};
-/*
+
 if (_dificil) then
 	{
 	[0,"LOG"] spawn borrarTask;
 	waitUntil {sleep 1; !(["LOG"] call BIS_fnc_taskExists)};
-	};*/
+	};
 _posicion = getMarkerPos _marcador;
 
 _tiempolim = if (_dificil) then {30} else {60};
@@ -95,7 +95,7 @@ _fechalim = [date select 0, date select 1, date select 2, date select 3, (date s
 _fechalimnum = dateToNumber _fechalim;
 _nombredest = [_marcador] call localizar;
 _taskDescription = format ["%1 population is in need of supplies. We may improve our relationship with that city if we are the ones who provide them. I reserved a transport truck with supplies near our HQ. Drive the transport truck to %1 city center. Hold it there for 2 minutes and it's done. Do this before %2:%3. You may allways sell those supplies here, that money can be welcome. Just sell the truck and job is done",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4];
-
+/*
 if (!_dificil) then
 	{
 	[[buenos,civilian],"LOG",[_taskDescription,"City Supplies",_marcador],_posicion,false,0,true,"Heal",true] call BIS_fnc_taskCreate;
@@ -103,9 +103,9 @@ if (!_dificil) then
 else
 	{
 	["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"CREATED","Heal"] call taskUpdate;
-	};
+	};*/
 //misiones pushBack _tsk; publicVariable "misiones";
-
+[[buenos,civilian],"LOG",[_taskDescription,"City Supplies",_marcador],_posicion,false,0,true,"Heal",true] call BIS_fnc_taskCreate;
 _pos = [];
 
 if (!_dificil) then

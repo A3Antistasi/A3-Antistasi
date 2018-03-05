@@ -82,31 +82,22 @@ if (_salir) exitWith
 		[1200,"CONVOY"] spawn borrarTask;
 		};
 	};
-/*
+
 if (_dificil) then
 	{
 	[0,"CONVOY"] spawn borrarTask;
 	waitUntil {sleep 1; !(["CONVOY"] call BIS_fnc_taskExists)};
 	};
-*/
+
 _esFIA = false;
 _lado = if (_base in mrkNATO) then {malos} else {muyMalos};
 //_cfg = "";
 if (_lado == malos) then
 	{
-	if ((random 10 < tierWar) or (_dificil)) then
+	if ((random 10 >= tierWar) and !(_dificil)) then
 		{
-		//_cfg = cfgNATOInf;
-		}
-	else
-		{
-		//_cfg = cfgFIAInf;
 		_esFIA = true;
 		};
-	}
-else
-	{
-	//_cfg = cfgCSATInf;
 	};
 
 _posbase = getMarkerPos _base;
@@ -163,56 +154,54 @@ _taskTitle = "";
 _taskIcon = "";
 _taskState1 = "CREATED";
 
-if (_tipoConvoy == "Municion") then
+switch (_tipoConvoy) do
 	{
-	_texto = format ["A convoy from %1 is about to depart at %2:%3. It will provide ammunition to %4. Try to intercept it. Steal or destroy that truck before it reaches it's destination.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
-	_taskTitle = "Ammo Convoy";
-	_taskIcon = "rearm";
-	_tipoVehObj = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
+	case "Municion":
+		{
+		_texto = format ["A convoy from %1 is about to depart at %2:%3. It will provide ammunition to %4. Try to intercept it. Steal or destroy that truck before it reaches it's destination.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
+		_taskTitle = "Ammo Convoy";
+		_taskIcon = "rearm";
+		_tipoVehObj = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
+		};
+	case "Armor":
+		{
+		_texto = format ["A convoy from %1 is about to depart at %2:%3. It will reinforce %4 with armored vehicles. Try to intercept it. Steal or destroy that thing before it reaches it's destination.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
+		_taskTitle = "Armored Convoy";
+		_taskIcon = "Destroy";
+		_tipoVehObj = if (_lado == malos) then {vehNATOAA} else {vehCSATAA};
+		};
+	case "Prisoners":
+		{
+		_texto = format ["A group os POW's is being transported from %1 to %4, and it's about to depart at %2:%3. Try to intercept it. Kill or capture the truck driver to make them join you and bring them to HQ. Alive if possible.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
+		_taskTitle = "Prisoner Convoy";
+		_taskIcon = "run";
+		_tipoVehObj = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+		};
+	case "Refuerzos":
+		{
+		_texto = format ["Reinforcements are being sent from %1 to %4 in a convoy, and it's about to depart at %2:%3. Try to intercept and kill all the troops and vehicle objective.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
+		_taskTitle = "Reinforcements Convoy";
+		_taskIcon = "run";
+		_tipoVehObj = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+		};
+	case "Money":
+		{
+		_texto = format ["A truck plenty of money is being moved from %1 to %4, and it's about to depart at %2:%3. Steal that truck and bring it to HQ. Those funds will be very welcome.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
+		_taskTitle = "Money Convoy";
+		_taskIcon = "move";
+		_tipoVehObj = "C_Van_01_box_F";
+		};
+	case "Supplies":
+		{
+		_texto = format ["A truck with medical supplies destination %4 it's about to depart at %2:%3 from %1. Steal that truck bring it to %4 and let people in there know it is SDK who's giving those supplies.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
+		_taskTitle = "Supply Convoy";
+		_taskIcon = "heal";
+		_tipoVehObj = "C_Van_01_box_F";
+		};
 	};
-
-if (_tipoConvoy == "Armor") then
-	{
-	_texto = format ["A convoy from %1 is about to depart at %2:%3. It will reinforce %4 with armored vehicles. Try to intercept it. Steal or destroy that thing before it reaches it's destination.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
-	_taskTitle = "Armored Convoy";
-	_taskIcon = "Destroy";
-	_tipoVehObj = if (_lado == malos) then {vehNATOAA} else {vehCSATAA};
-	};
-
-if (_tipoConvoy == "Prisoners") then
-	{
-	_texto = format ["A group os POW's is being transported from %1 to %4, and it's about to depart at %2:%3. Try to intercept it. Kill or capture the truck driver to make them join you and bring them to HQ. Alive if possible.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
-	_taskTitle = "Prisoner Convoy";
-	_taskIcon = "run";
-	_tipoVehObj = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
-	};
-
-if (_tipoConvoy == "Refuerzos") then
-	{
-	_texto = format ["Reinforcements are being sent from %1 to %4 in a convoy, and it's about to depart at %2:%3. Try to intercept and kill all the troops and vehicle objective.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
-	_taskTitle = "Reinforcements Convoy";
-	_taskIcon = "run";
-	_tipoVehObj = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
-	};
-
-if (_tipoConvoy == "Money") then
-	{
-	_texto = format ["A truck plenty of money is being moved from %1 to %4, and it's about to depart at %2:%3. Steal that truck and bring it to HQ. Those funds will be very welcome.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
-	_taskTitle = "Money Convoy";
-	_taskIcon = "move";
-	_tipoVehObj = "C_Van_01_box_F";
-	};
-
-if (_tipoConvoy == "Supplies") then
-	{
-	_texto = format ["A truck with medical supplies destination %4 it's about to depart at %2:%3 from %1. Steal that truck bring it to %4 and let people in there know it is SDK who's giving those supplies.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
-	_taskTitle = "Supply Convoy";
-	_taskIcon = "heal";
-	_tipoVehObj = "C_Van_01_box_F";
-	};
-
-if (!_dificil) then {[[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate} else {["CONVOY",[_texto,_taskTitle,_destino],_posdestino,_taskState,_taskIcon] call taskUpdate};
+//if (!_dificil) then {[[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate} else {["CONVOY",[_texto,_taskTitle,_destino],_posdestino,_taskState,_taskIcon] call taskUpdate};
 //misiones pushBack _tsk; publicVariable "misiones";
+[[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
 [[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,false,0,true,"run",true] call BIS_fnc_taskCreate;
 //_tsk1 = ["CONVOY1",[_lado],[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,_taskState1,5,true,true,"run"] call BIS_fnc_setTask;
 sleep (_tiempolim * 60);

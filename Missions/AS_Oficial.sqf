@@ -83,13 +83,13 @@ if (_dificil) then
 		};
 	};
 if (_salir) exitWith {};
-/*
+
 if (_dificil) then
 	{
 	[0,"AS"] spawn borrarTask;
 	waitUntil {sleep 1; !(["AS"] call BIS_fnc_taskExists)};
 	};
-*/
+
 _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
 _posicion = getMarkerPos _marcador;
 
@@ -99,6 +99,7 @@ _fechalimnum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call localizar;
 _nombreBando = if (_lado == malos) then {"NATO"} else {"CSAT"};
+/*
 if (!_dificil) then
 	{
 	[[buenos,civilian],"AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate
@@ -107,8 +108,10 @@ else
 	{
 	//["AS", "CREATED",true] spawn BIS_fnc_taskSetState;
 	["AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,"CREATED","Kill"] call taskUpdate;
-	};
+	};*/
 //misiones pushBack _tsk; publicVariable "misiones";
+[[buenos,civilian],"AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
+
 _grp = createGroup _lado;
 
 _tipo = if (_lado == malos) then {NATOOfficer} else {CSATOfficer};

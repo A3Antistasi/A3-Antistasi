@@ -84,12 +84,12 @@ if (_dificil) then
 		};
 	};
 if (_salir) exitWith {};
-/*
+
 if (_dificil) then
 	{
 	[0,"DES"] spawn borrarTask;
 	waitUntil {sleep 1; !(["DES"] call BIS_fnc_taskExists)};
-	};*/
+	};
 _posicion = getMarkerPos _marcador;
 _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
 _posHQ = getMarkerPos "respawn_guerrila";
@@ -129,7 +129,7 @@ _mrkfin setMarkerShape "ICON";
 //_mrkfin setMarkerText "Destroy Downed Chopper";
 
 _nombrebase = [_marcador] call localizar;
-
+/*
 if (!_dificil) then
 	{
 	[[buenos,civilian],"DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,false,0,true,"Destroy",true] call BIS_fnc_taskCreate
@@ -137,8 +137,9 @@ if (!_dificil) then
 else
 	{
 	["DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"CREATED","Destroy"] call taskUpdate;
-	};
+	};*/
 //misiones pushBack _tsk; publicVariable "misiones";
+[[buenos,civilian],"DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
 [[buenos,civilian],"DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 //_tsk1 = ["DES1",[_lado],[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;
 _vehiculos = [];

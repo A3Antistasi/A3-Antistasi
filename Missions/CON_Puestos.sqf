@@ -82,13 +82,13 @@ if (_dificil) then
 		};
 	};
 if (_salir) exitWith {};
-/*
+
 if (_dificil) then
 	{
 	[0,"CON"] spawn borrarTask;
 	waitUntil {sleep 1; !(["CON"] call BIS_fnc_taskExists)};
 	};
-*/
+
 _posicion = getMarkerPos _marcador;
 _tiempolim = if (_dificil) then {30} else {90};//120
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
@@ -107,8 +107,10 @@ else
 	_texto = format ["A %1 is disturbing our operations in the area. Go there and capture it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4];
 	_taskName = "Take the Outpost";
 	};
-if (!_dificil) then {[[buenos,civilian],"CON",[_texto,_taskName,_marcador],_posicion,false,0,true,"Target",true] call BIS_fnc_taskCreate} else {["CON",[_texto,_taskName,_marcador],_posicion,"CREATED","Attack"] call taskUpdate};
+//if (!_dificil) then {[[buenos,civilian],"CON",[_texto,_taskName,_marcador],_posicion,false,0,true,"Target",true] call BIS_fnc_taskCreate} else {["CON",[_texto,_taskName,_marcador],_posicion,"CREATED","Attack"] call taskUpdate};
 //misiones pushBack _tsk; publicVariable "misiones";
+
+[[buenos,civilian],"CON",[_texto,_taskName,_marcador],_posicion,false,0,true,"Target",true] call BIS_fnc_taskCreate;
 
 waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (_marcador in mrkSDK)};
 

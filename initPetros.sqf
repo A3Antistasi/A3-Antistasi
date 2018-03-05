@@ -85,11 +85,14 @@ petros addMPEventHandler ["mpkilled",
                     if (_cosa in unlockedOptics) then {unlockedOptics = unlockedOptics - [_cosa]; publicVariable "unlockedOptics"};
                     };
                 publicVariable "unlockedItems";
-                */
                 clearMagazineCargoGlobal caja;
                 clearWeaponCargoGlobal caja;
                 clearItemCargoGlobal caja;
                 clearBackpackCargoGlobal caja;
+                */
+                _hrT = server getVariable "hr";
+                _resourcesFIAT = server getVariable "resourcesFIA";
+                [-1*(round(_hrT*0.9)),-1*(round(_resourcesFIAT*0.9))] remoteExec ["resourcesFIA",2];
                 waitUntil {sleep 6; isPlayer stavros};
                 [] remoteExec ["placementSelection",stavros];
                };

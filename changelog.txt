@@ -607,3 +607,4 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Increased chance of enemies spawning with NV when it is unlocked.
 - Raised a bit convoy speed.
 - Solved the "unconscious train" bug on vanilla revive.
+- Heavy economic (only) penalties on Maru's death.

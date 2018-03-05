@@ -116,9 +116,10 @@ if (!haveRadio) then
 	{
 	if ((_unit != leader _unit) and (_tipo != staticCrewBuenos)) then {_unit unlinkItem "ItemRadio"};
 	};
+
 if ({if (_x in humo) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom humo,2]};
 
-if (sunOrMoon < 1) then
+if ((sunOrMoon < 1) and (_tipo != SDKUnarmed)) then
 	{
 	if (haveNV) then
 		{

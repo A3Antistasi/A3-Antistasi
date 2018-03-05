@@ -360,7 +360,7 @@ while {(_waves != 0)} do
 							_Vwp2 = _grupo addWaypoint [_landPos, 0];
 							_Vwp2 setWaypointType "GETOUT";
 							_grupo setVariable ["mrkAttack",_mrkDestino];
-							_Vwp0 synchronizeWaypoint [_Vwp2];
+							_Vwp synchronizeWaypoint [_Vwp2];
 							_Vwp3 = _grupo addWaypoint [_posdestino, 1];
 							_Vwp3 setWaypointType "MOVE";
 							_Vwp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];

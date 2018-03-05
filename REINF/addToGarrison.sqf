@@ -59,7 +59,7 @@ if (isNull _grupo) then
 else
 	{
 	hint format ["Adding %1 squad to garrison", groupID _grupo];
-	player hcRemoveGroup _grupo;
+	stavros hcRemoveGroup _grupo;
 	};
 
 _garrison = [];

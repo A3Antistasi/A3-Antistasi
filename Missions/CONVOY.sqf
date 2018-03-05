@@ -9,6 +9,7 @@ _contacto = objNull;
 _grpContacto = grpNull;
 _tsk = "";
 _tsk1 = "";
+_fechalimnum = 0;
 if (_dificil) then
 	{
 	_posHQ = getMarkerPos "respawn_guerrila";

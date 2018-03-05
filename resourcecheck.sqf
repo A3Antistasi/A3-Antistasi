@@ -159,7 +159,7 @@ while {true} do
 		};
 	} forEach vehicles;
 	cuentaCA = cuentaCA - 600;
-	if (cuentaCA < 0) then {cuentaCA == 0};
+	if (cuentaCA < 0) then {cuentaCA = 0};
 	publicVariable "cuentaCA";
 	if ((cuentaCA == 0)/* and (diag_fps > minimoFPS)*/) then
 		{

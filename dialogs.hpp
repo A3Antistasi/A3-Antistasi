@@ -1645,10 +1645,10 @@ class HQ_box: BOX
 {
 	idc = -1;
 	text = ""; //--- ToDo: Localize;
-	x = 0.254979 * safezoneW + safezoneX;
-	y = 0.233941 * safezoneH + safezoneY;
-	w = 0.425038 * safezoneW;
-	h = 0.462103 * safezoneH;
+	x = 0.244979 * safezoneW + safezoneX;
+	y = 0.223941 * safezoneH + safezoneY;
+	w = 0.445038 * safezoneW;
+	h = 0.30 * safezoneH;
 };
 class HQ_frame: RscFrame
 {
@@ -1712,19 +1712,6 @@ class HQ_button_AA: RscButton
 	tooltip = "It will increase your prestige among SDK faction";
 	action = "[] call donateMoney;";
 };
-
-class HQ_button_RESI: RscButton !!!
-{
-	idc = -1;
-	text = "Resign Commander"; //--- ToDo: Localize;
-	x = 0.482498 * safezoneW + safezoneX;
-	y = 0.514003 * safezoneH + safezoneY;
-	w = 0.175015 * safezoneW;
-	h = 0.0560125 * safezoneH;
-	tooltip = "Select this option if you don't want to become commander even when you have enough rank and rights";
-	action = "closedialog 0; if (isMultiplayer) then {execVM ""orgPlayers\commResign.sqf""} else {hint ""This feature is MP Only""};";
-};
-
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END
 ////////////////////////////////////////////////////////
@@ -2180,16 +2167,16 @@ class HQ_button_Gremove: RscButton
 	h = 0.0560125 * safezoneH;
 	action = "closeDialog 0;nul = [civHeli] call addFIAveh;";
 };
-class HQ_button_offroad: RscButton
-{
-	idc = 107;
- 	text = "Boat"; //--- ToDo: Localize;
-	x = 0.272481 * safezoneW + safezoneX;
- 	y = 0.415981 * safezoneH + safezoneY;
- 	w = 0.175015 * safezoneW;
- 	h = 0.0560125 * safezoneH;
- 	action = "closeDialog 0;[civBoat] call buyBoat;";
- };
+class HQ_button_offroad: RscButton  
+{  
+	idc = 107;  
+ 	text = "Boat"; //--- ToDo: Localize;  
+	x = 0.272481 * safezoneW + safezoneX;  
+ 	y = 0.415981 * safezoneH + safezoneY;  
+ 	w = 0.175015 * safezoneW;  
+ 	h = 0.0560125 * safezoneH;  
+ 	action = "closeDialog 0;[civBoat] call buyBoat;";  
+ };  
 
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END
@@ -3184,7 +3171,7 @@ class HQ_button_Gremove: RscButton
 
 class RscTitles
 	{
-	class Default
+	class Default 
        {
        idd = -1;
        fadein = 0;
@@ -3202,7 +3189,7 @@ class RscTitles
         fadeout      =  0;
         name = "H8erHUD";
 		onLoad = "with uiNameSpace do { H8erHUD = _this select 0 }";
-		class controls
+		class controls 
         	{
 		    class structuredText
             	{
@@ -3230,7 +3217,7 @@ class RscTitles
 						shadowColor = "#000000";
 						underline = false;
 						size = "4";//4
-						};
+						}; 
             	};
 			};
 		};

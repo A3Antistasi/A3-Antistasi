@@ -70,20 +70,20 @@ waitUntil {sleep 1;({not (captive _x)} count _soldados < {captive _x} count _sol
 
 if (!alive petros) then
 	{
-	_tsk = ["DEF_HQ",[buenos,civilian],["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Maru","respawn_guerrila"],_posicion,"FAILED",5,true,true,"Defend"] call BIS_fnc_setTask;
-	_tsk1 = ["DEF_HQ1",[_lado],["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader Maru. Help the SpecOp team","Kill Maru","respawn_guerrila"],_posicion,"SUCCEEDED",5,true,true,"Attack"] call BIS_fnc_setTask;
+	["DEF_HQ",["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Maru","respawn_guerrila"],_posicion,"FAILED"] call taskUpdate;
+	["DEF_HQ1",["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader Maru. Help the SpecOp team","Kill Maru","respawn_guerrila"],_posicion,"SUCCEEDED"] call taskUpdate;
 	}
 else
 	{
 	if (_posicion distance getMarkerPos "respawn_guerrila" > 999) then
 		{
-		_tsk = ["DEF_HQ",[buenos,civilian],["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Maru","respawn_guerrila"],_posicion,"SUCCEEDED",5,true,true,"Defend"] call BIS_fnc_setTask;
-		_tsk1 = ["DEF_HQ1",[_lado],["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader Maru. Help the SpecOp team","Kill Maru","respawn_guerrila"],_posicion,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
+		["DEF_HQ",["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Maru","respawn_guerrila"],_posicion,"SUCCEEDED"] call taskUpdate;
+		["DEF_HQ1",[_lado],["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader Maru. Help the SpecOp team","Kill Maru","respawn_guerrila"],_posicion,"FAILED"] call taskUpdate;
 		}
 	else
 		{
-		_tsk = ["DEF_HQ",[buenos,civilian],["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Maru","respawn_guerrila"],_posicion,"SUCCEEDED",5,true,true,"Defend"] call BIS_fnc_setTask;
-		_tsk1 = ["DEF_HQ1",[_lado],["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader Maru. Help the SpecOp team","Kill Maru","respawn_guerrila"],_posicion,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
+		["DEF_HQ",["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Maru","respawn_guerrila"],_posicion,"SUCCEEDED"] call taskUpdate;
+		["DEF_HQ1",["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader Maru. Help the SpecOp team","Kill Maru","respawn_guerrila"],_posicion,"FAILED"] call taskUpdate;
 		[0,3] remoteExec ["prestige",2];
 		[0,300] remoteExec ["resourcesFIA",2];
 		//[-5,5,_posicion] remoteExec ["citySupportChange",2];
@@ -91,9 +91,9 @@ else
 		};
 	};
 
-_nul = [1200,_tsk] spawn borrarTask;
+_nul = [1200,"DEF_HQ"] spawn borrarTask;
 sleep 60;
-_nul = [0,_tsk1] spawn borrarTask;
+_nul = [0,"DEF_HQ1"] spawn borrarTask;
 
 {
 _veh = _x;

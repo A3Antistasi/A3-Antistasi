@@ -5,7 +5,7 @@ if (_resourcesFIA < 5000) exitWith {hint "You do not have enough money to rebuil
 
 _destroyedCities = destroyedCities - ciudades;
 
-openMap true;
+if (!visibleMap) then {openMap true};
 posicionTel = [];
 hint "Click on the zone you want to rebuild.";
 

@@ -73,22 +73,22 @@ if (_dificil) then
 		{
 		if (_contacto getVariable "statusAct") then
 			{
-			[0,_tsk] spawn borrarTask;
+			[0,"DES"] spawn borrarTask;
 			}
 		else
 			{
-			_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED",5,true,true,"talk"] call BIS_fnc_setTask;
-			[1200,_tsk] spawn borrarTask;
+			_tsk = ["DES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED","talk"] call taskUpdate;
+			[1200,"DES"] spawn borrarTask;
 			};
 		};
 	};
 if (_salir) exitWith {};
-
+/*
 if (_dificil) then
 	{
-	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
-	};
+	[0,"DES"] spawn borrarTask;
+	waitUntil {sleep 1; !(["DES"] call BIS_fnc_taskExists)};
+	};*/
 _posicion = getMarkerPos _marcador;
 _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
 _tiempolim = if (_dificil) then {30} else {120};
@@ -97,7 +97,14 @@ _fechalimnum = dateToNumber _fechalim;
 _nombredest = [_marcador] call localizar;
 
 _tipoVeh = if (_lado == malos) then {vehNATOAA} else {vehCSATAA};
-if (!_dificil) then {[[buenos,civilian],"DES",[format ["We know an enemy armor (%4) is stationed in %1. It is a good chance to destroy or steal it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,false,0,true,"Destroy",true] call BIS_fnc_taskCreate} else {_tsk = ["DES",[buenos,civilian],[format ["We know an enemy armor (%4) is stationed in %1. It is a good chance to destroy or steal it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask};
+if (!_dificil) then
+	{
+	[[buenos,civilian],"DES",[format ["We know an enemy armor (%4) is stationed in %1. It is a good chance to destroy or steal it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,false,0,true,"Destroy",true] call BIS_fnc_taskCreate
+	}
+else
+	{
+	["DES",[format ["We know an enemy armor (%4) is stationed in %1. It is a good chance to destroy or steal it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,"CREATED","Destroy"] call taskUpdate
+	};
 //misiones pushBack _tsk; publicVariable "misiones";
 _camionCreado = false;
 
@@ -141,7 +148,7 @@ if (spawner getVariable _marcador == 0) then
 
 	if ((not alive _veh) or ({_x getVariable ["GREENFORSpawn",false]} count crew _veh > 0)) then
 		{
-		_tsk = ["DES",[buenos,civilian],[format ["We know an enemy armor (%4) is stationed in a %1. It is a good chance to steal or destroy it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+		["DES",[format ["We know an enemy armor (%4) is stationed in a %1. It is a good chance to steal or destroy it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,"SUCCEEDED","Destroy"] call taskUpdate;
 		if ({_x getVariable ["GREENFORSpawn",false]} count crew _veh > 0) then
 			{
 			["TaskFailed", ["", format ["AA Stolen in %1",_nombreDest]]] remoteExec ["BIS_fnc_showNotification",_lado];
@@ -155,14 +162,14 @@ if (spawner getVariable _marcador == 0) then
 	}
 else
 	{
-	_tsk = ["DES",[buenos,civilian],[format ["We know an enemy armor (%4) is stationed in a %1. It is a good chance to steal or destroy it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+	["DES",[format ["We know an enemy armor (%4) is stationed in a %1. It is a good chance to steal or destroy it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,"FAILED","Destroy"] call taskUpdate;
 	[-5*_bonus,-100*_bonus] remoteExec ["resourcesFIA",2];
 	[5*_bonus,0,_posicion] remoteExec ["citySupportChange",2];
 	[-600*_bonus] remoteExec ["timingCA",2];
 	[-10*_bonus,stavros] call playerScoreAdd;
 	};
 
-_nul = [1200,_tsk] spawn borrarTask;
+_nul = [1200,"DES"] spawn borrarTask;
 
 waitUntil {sleep 1; (spawner getVariable _marcador == 2)};
 

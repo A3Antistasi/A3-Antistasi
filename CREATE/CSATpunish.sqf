@@ -168,7 +168,8 @@ waitUntil {sleep 5; (({not (captive _x)} count _soldados) < ({captive _x} count 
 if ((({not (captive _x)} count _soldados) < ({captive _x} count _soldados)) or ({alive _x} count _soldados < round (_solMax / 3)) or (time > _tiempo)) then
 	{
 	{_x doMove [0,0,0]} forEach _soldados;
-	_tsk = ["AtaqueAAF",[buenos,civilian,malos],[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
+	//["AtaqueAAF", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
+	["AtaqueAAF",[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED"] call taskUpdate;
 	if ({(side _x == buenos) and (_x distance _posDestino < _size * 2)} count allUnits >= {(side _x == malos) and (_x distance _posDestino < _size * 2)} count allUnits) then
 		{
 		if (_mrkDestino in mrkNATO) then {[-15,15,_posdestino] remoteExec ["citySupportChange",2]} else {[-5,15,_posdestino] remoteExec ["citySupportChange",2]};
@@ -185,7 +186,8 @@ if ((({not (captive _x)} count _soldados) < ({captive _x} count _soldados)) or (
 	}
 else
 	{
-	_tsk = ["AtaqueAAF",[buenos,civilian,malos],[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
+	["AtaqueAAF",[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call taskUpdate;
+	//["AtaqueAAF", "FAILED",true] spawn BIS_fnc_taskSetState;
 	[-20,-20,_posdestino] remoteExec ["citySupportChange",2];
 	{[-10,-10,_x] remoteExec ["citySupportChange",2]} forEach ciudades;
 	destroyedCities = destroyedCities + [_mrkDestino];
@@ -200,7 +202,7 @@ else
 
 sleep 15;
 
-_nul = [0,_tsk] spawn borrarTask;
+_nul = [0,"AtaqueAAF"] spawn borrarTask;
 [7200] remoteExec ["timingCA",2];
 {
 _veh = _x;

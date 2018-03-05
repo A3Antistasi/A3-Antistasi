@@ -20,7 +20,7 @@ _popFIA = round _popFIA;
 _popAAF = round _popAAF;
 hint format ["Tanoa\n\nTotal pop: %1\nSyndikat Support: %2\nNATO SUpport: %3 \n\nMurdered Pop: %4\n\nClick on the zone",_pop, _popFIA, _popAAF, _popCSAT];
 
-openMap true;
+if (!visibleMap) then {openMap true};
 
 onMapSingleClick "posicionTel = _pos;";
 

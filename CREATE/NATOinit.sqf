@@ -125,7 +125,7 @@ if (sunOrMoon < 1) then
 			{
 			if (_hmd != "") then
 				{
-				if ((random 10 > tierWar) and (!haveNV)) then
+				if ((random 5 > tierWar) and (!haveNV)) then
 					{
 					_unit unassignItem _hmd;
 					_unit removeItem _hmd;
@@ -162,7 +162,7 @@ if (sunOrMoon < 1) then
 		if (count _arr > 0) then
 			{
 			_hmd = _arr select 0;
-			if ((random 10 > tierWar) and (!haveNV)) then
+			if ((random 5 > tierWar) and (!haveNV)) then
 				{
 				_unit removeItem _hmd;
 				}

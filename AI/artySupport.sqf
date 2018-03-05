@@ -88,7 +88,7 @@ posicionTel = [];
 
 hint "Select the position on map where to perform the Artillery strike";
 
-openMap true;
+if (!visibleMap) then {openMap true};
 onMapSingleClick "posicionTel = _pos;";
 
 waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
@@ -126,7 +126,7 @@ if (_tipoArty == "BARRAGE") then
 
 	hint "Select the position to finish the barrage";
 
-	openMap true;
+	if (!visibleMap) then {openMap true};
 	onMapSingleClick "posicionTel = _pos;";
 
 	waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};

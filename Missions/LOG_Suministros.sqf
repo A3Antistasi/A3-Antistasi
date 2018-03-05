@@ -72,22 +72,22 @@ if (_dificil) then
 		{
 		if (_contacto getVariable "statusAct") then
 			{
-			[0,_tsk] spawn borrarTask;
+			[0,"LOG"] spawn borrarTask;
 			}
 		else
 			{
-			_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED",5,true,true,"talk"] call BIS_fnc_setTask;
-			[1200,_tsk] spawn borrarTask;
+			["LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED","talk"] call taskUpdate;
+			[1200,"LOG"] spawn borrarTask;
 			};
 		};
 	};
 if (_salir) exitWith {};
-
+/*
 if (_dificil) then
 	{
-	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
-	};
+	[0,"LOG"] spawn borrarTask;
+	waitUntil {sleep 1; !(["LOG"] call BIS_fnc_taskExists)};
+	};*/
 _posicion = getMarkerPos _marcador;
 
 _tiempolim = if (_dificil) then {30} else {60};
@@ -96,7 +96,14 @@ _fechalimnum = dateToNumber _fechalim;
 _nombredest = [_marcador] call localizar;
 _taskDescription = format ["%1 population is in need of supplies. We may improve our relationship with that city if we are the ones who provide them. I reserved a transport truck with supplies near our HQ. Drive the transport truck to %1 city center. Hold it there for 2 minutes and it's done. Do this before %2:%3. You may allways sell those supplies here, that money can be welcome. Just sell the truck and job is done",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4];
 
-if (!_dificil) then {[[buenos,civilian],"LOG",[_taskDescription,"City Supplies",_marcador],_posicion,false,0,true,"Heal",true] call BIS_fnc_taskCreate} else {_tsk = ["LOG",[buenos,civilian],[_taskDescription,"City Supplies",_marcador],_posicion,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask};
+if (!_dificil) then
+	{
+	[[buenos,civilian],"LOG",[_taskDescription,"City Supplies",_marcador],_posicion,false,0,true,"Heal",true] call BIS_fnc_taskCreate;
+	}
+else
+	{
+	["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"CREATED","Heal"] call taskUpdate;
+	};
 //misiones pushBack _tsk; publicVariable "misiones";
 
 _pos = [];
@@ -159,7 +166,7 @@ waitUntil {sleep 1; (not alive _camion) or (dateToNumber date > _fechalimnum) or
 _bonus = if (_dificil) then {2} else {1};
 if ((not alive _camion) or (dateToNumber date > _fechalimnum)) then
 	{
-	_tsk = ["LOG",[buenos,civilian],[_taskDescription,"City Supplies",_marcador],_posicion,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+	["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"FAILED","Heal"] call taskUpdate;
 	[5*_bonus,-5*_bonus,_posicion] remoteExec ["citySupportChange",2];
 	[-10*_bonus,stavros] call playerScoreAdd;
 	}
@@ -201,7 +208,7 @@ else
 		if ((alive _camion) and (dateToNumber date < _fechalimnum)) then
 			{
 			[petros,"hint","Supplies Delivered"] remoteExec ["commsMP",[buenos,civilian]];
-			_tsk = ["LOG",[buenos,civilian],[_taskDescription,"City Supplies",_marcador],_posicion,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
+			["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"SUCCEEDED","Heal"] call taskUpdate;
 			{if (_x distance _posicion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
 			[5*_bonus,stavros] call playerScoreAdd;
 			if (!isMultiplayer) then {_bonus = _bonus + ((20-skillFIA)*0.1)};
@@ -210,7 +217,7 @@ else
 			}
 		else
 			{
-			_tsk = ["LOG",[buenos,civilian],[_taskDescription,"City Supplies",_marcador],_posicion,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+			["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"FAILED","Heal"] call taskUpdate;
 			[5*_bonus,-5*_bonus,_posicion] remoteExec ["citySupportChange",2];
 			[-10*_bonus,stavros] call playerScoreAdd;
 			};
@@ -221,6 +228,6 @@ _camion setFuel 0;
 //sleep (600 + random 1200);
 
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
-_nul = [1200,_tsk] spawn borrarTask;
+_nul = [1200,"LOG"] spawn borrarTask;
 waitUntil {sleep 1; (not([distanciaSPWN,1,_camion,"GREENFORSpawn"] call distanceUnits)) or (_camion distance (getMarkerPos "respawn_guerrila") < 60)};
 deleteVehicle _camion;

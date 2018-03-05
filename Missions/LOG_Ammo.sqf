@@ -73,23 +73,23 @@ if (_dificil) then
 		{
 		if (_contacto getVariable "statusAct") then
 			{
-			[0,_tsk] spawn borrarTask;
+			[0,"LOG"] spawn borrarTask;
 			}
 		else
 			{
-			_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED",5,true,true,"talk"] call BIS_fnc_setTask;
-			[1200,_tsk] spawn borrarTask;
+			["LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED","talk"] call taskUpdate;
+			[1200,"LOG"] spawn borrarTask;
 			};
 		};
 	};
 if (_salir) exitWith {};
-
+/*
 if (_dificil) then
 	{
-	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
+	[0,"LOG"] spawn borrarTask;
+	waitUntil {sleep 1; !(["LOG"] call BIS_fnc_taskExists)};
 	};
-
+*/
 _posicion = getMarkerPos _marcador;
 _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
 _tiempolim = if (_dificil) then {30} else {60};
@@ -119,7 +119,14 @@ _pos = position _road;
 _pos = _pos findEmptyPosition [1,60,_tipoVeh];
 if (count _pos == 0) then {_pos = position _road};
 
-if (!_dificil) then {[[buenos,civilian],"LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_pos,false,0,true,"rearm",true] call BIS_fnc_taskCreate} else {_tsk = ["LOG",[buenos,civilian],[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_pos,"CREATED",5,true,true,"rearm"] call BIS_fnc_setTask};
+if (!_dificil) then
+	{
+	[[buenos,civilian],"LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_pos,false,0,true,"rearm",true] call BIS_fnc_taskCreate;
+	}
+else
+	{
+	["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_pos,"CREATED","rearm"] call taskUpdate;
+	};
 //misiones pushBack _tsk; publicVariable "misiones";
 _camionCreado = false;
 
@@ -164,7 +171,7 @@ if ((spawner getVariable _marcador != 2) and !(_marcador in mrkSDK)) then
 
 	if (dateToNumber date > _fechalimnum) then
 		{
-		_tsk = ["LOG",[buenos,civilian],[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED",5,true,true,"rearm"] call BIS_fnc_setTask;
+		["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED","rearm"] call taskUpdate;
 		[-1200*_bonus] remoteExec ["timingCA",2];
 		[-10*_bonus,stavros] call playerScoreAdd;
 		};
@@ -175,7 +182,7 @@ if ((spawner getVariable _marcador != 2) and !(_marcador in mrkSDK)) then
 			["TaskFailed", ["", format ["Ammotruck Stolen in an %1",_nombreDest]]] remoteExec ["BIS_fnc_showNotification",_lado];
 			};
 		[getPosASL _camion,_lado] spawn patrolCA;
-		_tsk = ["LOG",[buenos,civilian],[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"SUCCEEDED",5,true,true,"rearm"] call BIS_fnc_setTask;
+		["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"SUCCEEDED","rearm"] call taskUpdate;
 		[0,300*_bonus] remoteExec ["resourcesFIA",2];
 		[1200*_bonus] remoteExec ["timingCA",2];
 		{if (_x distance _camion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
@@ -184,12 +191,12 @@ if ((spawner getVariable _marcador != 2) and !(_marcador in mrkSDK)) then
 	}
 else
 	{
-	_tsk = ["LOG",[buenos,civilian],[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED",5,true,true,"rearm"] call BIS_fnc_setTask;
+	["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED","rearm"] call taskUpdate;
 	[-1200*_bonus] remoteExec ["timingCA",2];
 	[-10*_bonus,stavros] call playerScoreAdd;
 	};
 
-_nul = [1200,_tsk] spawn borrarTask;
+_nul = [1200,"LOG"] spawn borrarTask;
 if (_camionCreado) then
 	{
 	{deleteVehicle _x} forEach units _grupo;

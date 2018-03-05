@@ -11,7 +11,7 @@ if (_chequeo) exitWith {Hint "You cannot Fast Travel if you don't have a driver 
 posicionTel = [];
 
 hint "Click on the zone you want to travel";
-openMap true;
+if (!visibleMap) then {openMap true};
 onMapSingleClick "posicionTel = _pos;";
 
 waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};

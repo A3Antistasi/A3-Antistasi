@@ -74,21 +74,21 @@ if (_salir) exitWith
 	{
 	if (_contacto getVariable "statusAct") then
 		{
-		[0,_tsk] spawn borrarTask
+		[0,"CONVOY"] spawn borrarTask
 		}
 	else
 		{
-		_tsk = ["CONVOY",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED",5,true,true,"talk"] call BIS_fnc_setTask;
-		[1200,_tsk] spawn borrarTask;
+		["CONVOY",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED"] call taskUpdate;
+		[1200,"CONVOY"] spawn borrarTask;
 		};
 	};
-
+/*
 if (_dificil) then
 	{
-	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
+	[0,"CONVOY"] spawn borrarTask;
+	waitUntil {sleep 1; !(["CONVOY"] call BIS_fnc_taskExists)};
 	};
-
+*/
 _esFIA = false;
 _lado = if (_base in mrkNATO) then {malos} else {muyMalos};
 //_cfg = "";
@@ -211,7 +211,7 @@ if (_tipoConvoy == "Supplies") then
 	_tipoVehObj = "C_Van_01_box_F";
 	};
 
-if (!_dificil) then {[[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate} else {_tsk = ["CONVOY",[buenos,civilian],[_texto,_taskTitle,_destino],_posdestino,_taskState,5,true,true,_taskIcon] call BIS_fnc_setTask};
+if (!_dificil) then {[[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate} else {["CONVOY",[_texto,_taskTitle,_destino],_posdestino,_taskState,_taskIcon] call taskUpdate};
 //misiones pushBack _tsk; publicVariable "misiones";
 [[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,false,0,true,"run",true] call BIS_fnc_taskCreate;
 //_tsk1 = ["CONVOY1",[_lado],[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,_taskState1,5,true,true,"run"] call BIS_fnc_setTask;
@@ -253,7 +253,7 @@ _wp0 setWaypointType "MOVE";
 _wp0 setWaypointBehaviour "SAFE";
 _grupo setBehaviour "SAFE";
 _wp0 setWaypointFormation "COLUMN";
-_vehLead limitSpeed 50;
+_vehLead limitSpeed 75;
 
 
 _cuenta = 1;
@@ -794,8 +794,8 @@ if (_tipoConvoy == "Supplies") then
 	publicVariable "reportedVehs";
 	};
 
-_tsk = ["CONVOY",[buenos,civilian],[_texto,_taskTitle,_destino],_posdestino,_taskState,5,true,true,_taskIcon] call BIS_fnc_setTask;
-_tsk1 = ["CONVOY1",[_lado],[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,_taskState1,5,true,true,"run"] call BIS_fnc_setTask;
+["CONVOY",[_texto,_taskTitle,_destino],_posdestino,_taskState] call taskUpdate;
+["CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,_taskState1] call taskUpdate;
 _wp0 = _grupo addWaypoint [_posbase, 0];
 _wp0 setWaypointType "MOVE";
 _wp0 setWaypointBehaviour "SAFE";
@@ -809,8 +809,8 @@ if (_tipoConvoy == "Prisoners") then
 	} forEach _POWs;
 	};
 
-_nul = [600,_tsk] spawn borrarTask;
-_nul = [0,_tsk1] spawn borrarTask;
+_nul = [600,"CONVOY"] spawn borrarTask;
+_nul = [0,"CONVOY1"] spawn borrarTask;
 {
 if (!([distanciaSPWN,1,_x,"GREENFORSpawn"] call distanceUnits)) then {deleteVehicle _x}
 } forEach _vehiculos;

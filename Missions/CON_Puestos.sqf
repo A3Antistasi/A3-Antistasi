@@ -72,23 +72,23 @@ if (_dificil) then
 		{
 		if (_contacto getVariable "statusAct") then
 			{
-			[0,_tsk] spawn borrarTask;
+			[0,"CON"] spawn borrarTask;
 			}
 		else
 			{
-			_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED",5,true,true,"talk"] call BIS_fnc_setTask;
-			[1200,_tsk] spawn borrarTask;
+			["CON",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED"] call taskUpdate;
+			[1200,"CON"] spawn borrarTask;
 			};
 		};
 	};
 if (_salir) exitWith {};
-
+/*
 if (_dificil) then
 	{
-	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
+	[0,"CON"] spawn borrarTask;
+	waitUntil {sleep 1; !(["CON"] call BIS_fnc_taskExists)};
 	};
-
+*/
 _posicion = getMarkerPos _marcador;
 _tiempolim = if (_dificil) then {30} else {90};//120
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
@@ -107,14 +107,14 @@ else
 	_texto = format ["A %1 is disturbing our operations in the area. Go there and capture it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4];
 	_taskName = "Take the Outpost";
 	};
-if (!_dificil) then {[[buenos,civilian],"CON",[_texto,_taskName,_marcador],_posicion,false,0,true,"Target",true] call BIS_fnc_taskCreate} else {_tsk = ["CON",[buenos,civilian],[_texto,_taskName,_marcador],_posicion,"CREATED",5,true,true,"Target"] call BIS_fnc_setTask};
+if (!_dificil) then {[[buenos,civilian],"CON",[_texto,_taskName,_marcador],_posicion,false,0,true,"Target",true] call BIS_fnc_taskCreate} else {["CON",[_texto,_taskName,_marcador],_posicion,"CREATED","Attack"] call taskUpdate};
 //misiones pushBack _tsk; publicVariable "misiones";
 
 waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (_marcador in mrkSDK)};
 
 if (dateToNumber date > _fechalimnum) then
 	{
-	_tsk = ["CON",[buenos,civilian],[_texto,_taskName,_marcador],_posicion,"FAILED",5,true,true,"Target"] call BIS_fnc_setTask;
+	["CON",[_texto,_taskName,_marcador],_posicion,"FAILED"] call taskUpdate;
 	if (_dificil) then
 		{
 		[10,0,_posicion] remoteExec ["citySupportChange",2];
@@ -131,7 +131,7 @@ if (dateToNumber date > _fechalimnum) then
 else
 	{
 	sleep 10;
-	_tsk = ["CON",[buenos,civilian],[_texto,_taskName,_marcador],_posicion,"SUCCEEDED",5,true,true,"Target"] call BIS_fnc_setTask;
+	["CON",[_texto,_taskName,_marcador],_posicion,"SUCCEEDED"] call taskUpdate;
 	if (_dificil) then
 		{
 		[0,400] remoteExec ["resourcesFIA",2];
@@ -153,4 +153,4 @@ else
 //sleep (600 + random 1200);
 
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
-_nul = [1200,_tsk] spawn borrarTask;
+_nul = [1200,"CON"] spawn borrarTask;

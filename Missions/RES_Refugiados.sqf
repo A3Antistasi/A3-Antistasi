@@ -72,22 +72,22 @@ if (_dificil) then
 		{
 		if (_contacto getVariable "statusAct") then
 			{
-			[0,_tsk] spawn borrarTask;
+			[0,"RES"] spawn borrarTask;
 			}
 		else
 			{
-			_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED",5,true,true,"talk"] call BIS_fnc_setTask;
-			[1200,_tsk] spawn borrarTask;
+			["RES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED","talk"] call taskUpdate;
+			[1200,"RES"] spawn borrarTask;
 			};
 		};
 	};
 if (_salir) exitWith {};
-
+/*
 if (_dificil) then
 	{
-	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
-	};
+	[0,"RES"] spawn borrarTask;
+	waitUntil {sleep 1; !(["RES"] call BIS_fnc_taskExists)};
+	};*/
 _posicion = getMarkerPos _marcador;
 
 _POWs = [];
@@ -117,7 +117,14 @@ _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
 _texto = if (_lado == malos) then {format ["A group of smugglers have been arrested in %1 and they are about to be sent to prison. Go there and free them in order to make them join our cause. Do this before %2:%3",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4]} else {format ["A group of SDK supportes are hidden in %1 awaiting for evacuation. We have to find them before CSAT does it. If not, there will be a certain death for them. Bring them back to HQ",_nombredest]};
 _posTsk = if (_lado == malos) then {(position _casa) getPos [random 100, random 360]} else {position _casa};
 
-if (!_dificil) then {[[buenos,civilian],"RES",[_texto,"Refugees Evac",_nombredest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate} else {_tsk = ["RES",[buenos,civilian],[_texto,"Refugees Evac",_nombredest],_posTsk,"CREATED",5,true,true,"run"] call BIS_fnc_setTask};
+if (!_dificil) then
+	{
+	[[buenos,civilian],"RES",[_texto,"Refugees Evac",_nombredest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
+	}
+else
+	{
+	["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"CREATED","run"] call taskUpdate;
+	};
 //misiones pushBack _tsk; publicVariable "misiones";
 
 _grupoPOW = createGroup buenos;
@@ -227,7 +234,7 @@ if (_lado == malos) then
 	if ({(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 50)} count _POWs > 0) then
 		{
 		sleep 5;
-		_tsk = ["RES",[buenos,civilian],[_texto,"Refugees Evac",_nombredest],_posTsk,"SUCCEEDED",5,true,true,"run"] call BIS_fnc_setTask;
+		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"SUCCEEDED","run"] call taskUpdate;
 		_cuenta = {(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 150)} count _POWs;
 		_hr = _cuenta;
 		_resourcesFIA = 100 * _cuenta;
@@ -239,7 +246,7 @@ if (_lado == malos) then
 		}
 	else
 		{
-		_tsk = ["RES",[buenos,civilian],[_texto,"Refugees Evac",_nombredest],_posTsk,"FAILED",5,true,true,"run"] call BIS_fnc_setTask;
+		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"FAILED","run"] call taskUpdate;
 		[-10*_bonus,stavros] call playerScoreAdd;
 		};
 	}
@@ -248,12 +255,12 @@ else
 	waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 50)} count _POWs > 0)};
 	if ({alive _x} count _POWs == 0) then
 		{
-		_tsk = ["RES",[buenos,civilian],[_texto,"Refugees Evac",_nombredest],_posTsk,"FAILED",5,true,true,"run"] call BIS_fnc_setTask;
+		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"FAILED","run"] call taskUpdate;
 		[-10*_bonus,stavros] call playerScoreAdd;
 		}
 	else
 		{
-		_tsk = ["RES",[buenos,civilian],[_texto,"Refugees Evac",_nombredest],_posTsk,"SUCCEEDED",5,true,true,"run"] call BIS_fnc_setTask;
+		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"SUCCEEDED","run"] call taskUpdate;
 		_cuenta = {(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 150)} count _POWs;
 		_hr = _cuenta;
 		_resourcesFIA = 100 * _cuenta;
@@ -306,6 +313,6 @@ if (_lado == malos) then
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
 //deleteMarker _mrkfin;
 
-_nul = [1200,_tsk] spawn borrarTask;
+_nul = [1200,"RES"] spawn borrarTask;
 
 

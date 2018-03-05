@@ -19,7 +19,7 @@ _action = _llevador addAction [format ["Release %1",name _llevado], {{detach _x}
 waitUntil {sleep 0.5; (!alive _llevado) or (!alive _llevador) or (lifestate _llevador == "INCAPACITATED") or (lifeState _llevado != "INCAPACITATED") or ({!isNull _x} count attachedObjects _llevador == 0) or (time > _timeOut)};
 
 _llevador removeAction _action;
-if (count attachedObjects _llevador == 0) then {detach _llevado};
+if (count attachedObjects _llevador != 0) then {detach _llevado};
 _llevador playMove "amovpknlmstpsraswrfldnon";
 sleep 2;
 _llevado playMoveNow "";

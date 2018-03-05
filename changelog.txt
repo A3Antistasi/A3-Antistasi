@@ -603,3 +603,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - POWs wont have rifles on liberation.
 - Removed small bug on garrison window.
 - Halved distance checks to select a base as attack departure.
+- Map position wont be reset when re-selecting options.
+- Increased chance of enemies spawning with NV when it is unlocked.
+- Raised a bit convoy speed.
+- Solved the "unconscious train" bug on vanilla revive.

@@ -58,7 +58,7 @@ if (spawner getVariable _marcador != 2) then
 
 	if (not alive _veh) then
 		{
-		_tsk = ["REP",[buenos,civilian],[format ["NATO is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Tower Rebuild Disrupt",_marcador],_posicion,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+		["REP",[format ["NATO is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Tower Rebuild Disrupt",_marcador],_posicion,"SUCCEEDED","Destroy"] call taskUpdate;
 		[2,0] remoteExec ["prestige",2];
 		[1200] remoteExec ["timingCA",2];
 		{if (_x distance _veh < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
@@ -69,7 +69,7 @@ if (dateToNumber date > _fechalimnum) then
 	{
 	if (_marcador in mrkSDK) then
 		{
-		_tsk = ["REP",[buenos,civilian],[format ["NATO is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Tower Rebuild Disrupt",_marcador],_posicion,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+		["REP",[format ["NATO is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Tower Rebuild Disrupt",_marcador],_posicion,"SUCCEEDED","Destroy"] call taskUpdate;
 		[2,0] remoteExec ["prestige",2];
 		[1200] remoteExec ["timingCA",2];
 		{if (_x distance _veh < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
@@ -77,7 +77,7 @@ if (dateToNumber date > _fechalimnum) then
 		}
 	else
 		{
-		_tsk = ["REP",[buenos,civilian],[format ["NATO is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Tower Rebuild Disrupt",_marcador],_posicion,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+		["REP",[format ["NATO is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Tower Rebuild Disrupt",_marcador],_posicion,"FAILED","Destroy"] call taskUpdate;
 		//[5,0,_posicion] remoteExec ["citySupportChange",2];
 		[-600] remoteExec ["timingCA",2];
 		[-10,stavros] call playerScoreAdd;
@@ -108,7 +108,7 @@ if (dateToNumber date > _fechalimnum) then
 		];
 	};
 
-_nul = [0,_tsk] spawn borrarTask;
+_nul = [0,"REP"] spawn borrarTask;
 
 waitUntil {sleep 1; (spawner getVariable _marcador == 2)};
 

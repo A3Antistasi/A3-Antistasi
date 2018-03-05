@@ -676,7 +676,8 @@ while {(_waves != 0)} do
 			{
 			sleep 60;
 			["TaskSucceeded", ["", "Attack Destination Updated"]] remoteExec ["BIS_fnc_showNotification",buenos];
-			_tsk = ["AtaqueAAF",buenos,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
+			//["AtaqueAAF",getMarkerPos _mrkDestino] call BIS_fnc_taskSetDestination;
+			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED"] call taskUpdate;
 			};
 		};
 
@@ -691,8 +692,10 @@ while {(_waves != 0)} do
 			{
 			_waves = 0;
 			if (not(_mrkDestino in mrkNATO)) then {["BLUFORSpawn",_mrkDestino] remoteExec ["markerChange",2]};
-			_tsk = ["AtaqueAAF",_ladosTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
-			_tsk1 = ["AtaqueAAF1",_ladosTsk1,[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"SUCEEDED",10,true,true,"Attack"] call BIS_fnc_setTask;
+			//["AtaqueAAF", "FAILED",true] spawn BIS_fnc_taskSetState;
+			//["AtaqueAAF1", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
+			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"FAILED"] call taskUpdate;
+			["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"SUCEEDED"] call taskUpdate;
 			if (_mrkDestino in ciudades) then
 				{
 				[0,-100,_mrkDestino] remoteExec ["citySupportChange",2];
@@ -721,8 +724,10 @@ while {(_waves != 0)} do
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
 				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
-				_tsk = ["AtaqueAAF",_ladosTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
-				_tsk1 = ["AtaqueAAF1",_ladosTsk1,[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED",10,true,true,"Attack"] call BIS_fnc_setTask;
+				//["AtaqueAAF", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
+				//["AtaqueAAF1", "FAILED",true] spawn BIS_fnc_taskSetState;
+				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call taskUpdate;
+				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call taskUpdate;
 				};
 			};
 		}
@@ -733,8 +738,10 @@ while {(_waves != 0)} do
 			{
 			_waves = 0;
 			if (not(_mrkDestino in mrkCSAT)) then {["OPFORSpawn",_mrkDestino] remoteExec ["markerChange",2]};
-			_tsk = ["AtaqueAAF",_ladosTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
-			_tsk1 = ["AtaqueAAF1",_ladosTsk1,[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED",10,true,true,"Attack"] call BIS_fnc_setTask;
+			//["AtaqueAAF", "FAILED",true] spawn BIS_fnc_taskSetState;
+			//["AtaqueAAF1", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
+			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"FAILED"] call taskUpdate;
+			["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED"] call taskUpdate;
 			};
 		sleep 10;
 		if (!(_mrkDestino in mrkCSAT)) then
@@ -751,8 +758,10 @@ while {(_waves != 0)} do
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
 				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
-				_tsk = ["AtaqueAAF",_ladosTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
-				_tsk1 = ["AtaqueAAF1",_ladosTsk1,[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED",10,true,true,"Attack"] call BIS_fnc_setTask;
+				//["AtaqueAAF", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
+				//["AtaqueAAF1", "FAILED",true] spawn BIS_fnc_taskSetState;
+				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call taskUpdate;
+				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call taskUpdate;
 				};
 			};
 		};
@@ -777,8 +786,8 @@ if (_esSDK) then
 	};
 diag_log "Antistasi: Reached end of winning conditions. Starting despawn";
 sleep 30;
-_nul = [0,_tsk] spawn borrarTask;
-_nul = [0,_tsk1] spawn borrarTask;
+_nul = [0,"AtaqueAAF"] spawn borrarTask;
+_nul = [0,"AtaqueAAF1"] spawn borrarTask;
 
 [_mrkOrigen,60] call addTimeForIdle;
 bigAttackInProgress = false; publicVariable "bigAttackInProgress";

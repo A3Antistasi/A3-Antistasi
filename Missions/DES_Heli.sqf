@@ -74,22 +74,22 @@ if (_dificil) then
 		{
 		if (_contacto getVariable "statusAct") then
 			{
-			[0,_tsk] spawn borrarTask;
+			[0,"DES"] spawn borrarTask;
 			}
 		else
 			{
-			_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED",5,true,true,"talk"] call BIS_fnc_setTask;
-			[1200,_tsk] spawn borrarTask;
+			["DES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED"] call taskUpdate;
+			[1200,"DES"] spawn borrarTask;
 			};
 		};
 	};
 if (_salir) exitWith {};
-
+/*
 if (_dificil) then
 	{
-	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
-	};
+	[0,"DES"] spawn borrarTask;
+	waitUntil {sleep 1; !(["DES"] call BIS_fnc_taskExists)};
+	};*/
 _posicion = getMarkerPos _marcador;
 _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
 _posHQ = getMarkerPos "respawn_guerrila";
@@ -130,7 +130,14 @@ _mrkfin setMarkerShape "ICON";
 
 _nombrebase = [_marcador] call localizar;
 
-if (!_dificil) then {[[buenos,civilian],"DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,false,0,true,"Destroy",true] call BIS_fnc_taskCreate} else {_tsk = ["DES",[buenos,civilian],[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask};
+if (!_dificil) then
+	{
+	[[buenos,civilian],"DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,false,0,true,"Destroy",true] call BIS_fnc_taskCreate
+	}
+else
+	{
+	["DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"CREATED","Destroy"] call taskUpdate;
+	};
 //misiones pushBack _tsk; publicVariable "misiones";
 [[buenos,civilian],"DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 //_tsk1 = ["DES1",[_lado],[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;
@@ -236,19 +243,19 @@ _bonus = if (_dificil) then {2} else {1};
 
 if (not alive _heli) then
 	{
-	_tsk = ["DES",[buenos,civilian],[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+	["DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"SUCCEEDED","Destroy"] call taskUpdate;
 	[0,300*_bonus] remoteExec ["resourcesFIA",2];
 	if (typeOf _heli in vehCSATAir) then {[0,3] remoteExec ["prestige",2]} else {[3,0] remoteExec ["prestige",2]};
 	//[-3,3,_posicion] remoteExec ["citySupportChange",2];
 	[1800*_bonus] remoteExec ["timingCA",2];
 	{if (_x distance _heli < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
 	[5*_bonus,stavros] call playerScoreAdd;
-	_tsk1 = ["DES1",[_lado],[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,"FAILED",5,true,true,"Defend"] call BIS_fnc_setTask;
+	["DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,"FAILED","Defend"] call taskUpdate;
 	}
 else
 	{
-	_tsk = ["DES",[buenos,civilian],[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
-	_tsk1 = ["DES1",[_lado],[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,"SUCCEEDED",5,true,true,"Defend"] call BIS_fnc_setTask;
+	["DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"FAILED","Destroy"] call taskUpdate;
+	["DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,"SUCCEEDED","Defend"] call taskUpdate;
 	//[3,0,_posicion] remoteExec ["citySupportChange",2];
 	[-600*_bonus] remoteExec ["timingCA",2];
 	[-10*_bonus,stavros] call playerScoreAdd;
@@ -261,8 +268,8 @@ if (!isNull _humo) then
 	deleteVehicle _humo;
 	};
 
-_nul = [1200,_tsk] spawn borrarTask;
-_nul = [0,_tsk1] spawn borrarTask;
+_nul = [1200,"DES"] spawn borrarTask;
+_nul = [0,"DES1"] spawn borrarTask;
 deleteMarker _mrkfin;
 {
 waitUntil {sleep 1;(!([distanciaSPWN,1,_x,"GREENFORSpawn"] call distanceUnits))};

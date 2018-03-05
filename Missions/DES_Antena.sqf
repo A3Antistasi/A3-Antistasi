@@ -74,23 +74,23 @@ if (_dificil) then
 		{
 		if (_contacto getVariable "statusAct") then
 			{
-			[0,_tsk] spawn borrarTask;
+			[0,"DES"] spawn borrarTask;
 			}
 		else
 			{
-			_tsk = ["DES",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED",5,true,true,"talk"] call BIS_fnc_setTask;
-			[1200,_tsk] spawn borrarTask;
+			["DES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED"] call taskUpdate;
+			[1200,"DES"] spawn borrarTask;
 			};
 		};
 	};
 if (_salir) exitWith {};
-
+/*
 if (_dificil) then
 	{
-	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
+	[0,"DES"] spawn borrarTask;
+	waitUntil {sleep 1; !(["DES"] call BIS_fnc_taskExists)};
 	};
-
+*/
 _nombredest = [_marcador] call localizar;
 _posicion = getPos _antena;
 
@@ -103,7 +103,14 @@ _mrkfin setMarkerShape "ICON";
 //_mrkfin setMarkerType "hd_destroy";
 //_mrkfin setMarkerColor "ColorRed";
 //_mrkfin setMarkerText "Destroy Radio Tower";
-if (!_dificil) then {[[buenos,civilian],"DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt NATO Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,false,0,true,"Destroy",true] call BIS_fnc_taskCreate} else {_tsk = ["DES",[buenos,civilian],[format ["We need to destroy or take a Radio Tower in %1. This will interrupt NATO Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask};
+if (!_dificil) then
+	{
+	[[buenos,civilian],"DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt NATO Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,false,0,true,"Destroy",true] call BIS_fnc_taskCreate
+	}
+else
+	{
+	["DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt NATO Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,"CREATED","Destroy"] call taskUpdate
+	};
 //misiones pushBack _tsk; publicVariable "misiones";
 
 waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (not alive _antena) or (not(_marcador in mrkNATO))};
@@ -112,7 +119,7 @@ _bonus = if (_dificil) then {2} else {1};
 
 if (dateToNumber date > _fechalimnum) then
 	{
-	_tsk = ["DES",[buenos,civilian],[format ["We need to destroy or take a Radio Tower in %1. This will interrupt NATO Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+	["DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt NATO Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,"FAILED","Destroy"] call taskUpdate;
 	//[5,0,_posicion] remoteExec ["citySupportChange",2];
 	[-10*_bonus,stavros] call playerScoreAdd;
 	[-3,0] remoteExec ["prestige",2]
@@ -120,7 +127,7 @@ if (dateToNumber date > _fechalimnum) then
 else
 	{
 	sleep 15;
-	_tsk = ["DES",[buenos,civilian],[format ["We need to destroy or take a Radio Tower in %1. This will interrupt NATO Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+	["DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt NATO Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,"SUCCEEDED","Destroy"] call taskUpdate;
 	//[-5,0,_posicion] remoteExec ["citySupportChange",2];
 	[5,-5] remoteExec ["prestige",2];
 	[600*_bonus] remoteExec ["timingCA",2];
@@ -131,4 +138,4 @@ else
 
 deleteMarker _mrkfin;
 
-_nul = [1200,_tsk] spawn borrarTask;
+_nul = [1200,"DES"] spawn borrarTask;

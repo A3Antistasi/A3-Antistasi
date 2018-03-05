@@ -5,7 +5,7 @@ if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventor
 
 _tipo = _this select 0;
 
-openMap true;
+if (!visibleMap) then {openMap true};
 posicionTel = [];
 if (_tipo != "delete") then {hint "Click on the position you wish to build the Observation Post or Roadblock. \n Remember: to build Roadblocks you must click exactly on a road map section"} else {hint "Click on the Observation Post or Roadblock to delete."};
 

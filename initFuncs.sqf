@@ -57,6 +57,7 @@ distanceUnits = compile preProcessFileLineNumbers "distanceUnits.sqf";
 munitionTransfer = compile preProcessFileLineNumbers "Municion\munitionTransfer.sqf";
 fn_location = compile preProcessFileLineNumbers "fn_location.sqf";
 borrarTask = compile preProcessFileLineNumbers "Missions\borrarTask.sqf";
+taskUpdate = compile preProcessFileLineNumbers "Missions\taskUpdate.sqf";
 undercover = compile preProcessFileLineNumbers "undercover.sqf";
 puertasLand = compile preProcessFileLineNumbers "AI\puertasLand.sqf";
 AAthreatEval = compile preProcessFileLineNumbers "AI\AAthreatEval.sqf";

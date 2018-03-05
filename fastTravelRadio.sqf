@@ -37,7 +37,7 @@ posicionTel = [];
 
 if (_esHC) then {hcShowBar false};
 hint "Click on the zone you want to travel";
-openMap true;
+if (!visibleMap) then {openMap true};
 onMapSingleClick "posicionTel = _pos;";
 
 waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};

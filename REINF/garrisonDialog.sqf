@@ -3,7 +3,7 @@ _tipo = _this select 0;
 
 if (_tipo == "add") then {hint "Select a zone to add garrisoned troops"} else {hint "Select a zone to remove it's Garrison"};
 
-openMap true;
+if (!visibleMap) then {openMap true};
 posicionTel = [];
 
 onMapSingleClick "posicionTel = _pos;";
@@ -58,10 +58,10 @@ if (_tipo == "rem") then
 			{
 			garrison setVariable [_cercano,[],true];
 			//[_cercano] call mrkUpdate;
-			[_marcador] remoteExec ["tempMoveMrk",2];
+			[_cercano] remoteExec ["tempMoveMrk",2];
 			};
 		hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
-		_nul=CreateDialog "garrison_menu";
+		_nul=CreateDialog "build_menu";
 		};
 	}
 else

@@ -8,7 +8,7 @@ posicionTel = [];
 
 hint "Select the spot from which the plane will start to drop the bombs";
 
-openMap true;
+if (!visibleMap) then {openMap true};
 onMapSingleClick "posicionTel = _pos;";
 
 waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};

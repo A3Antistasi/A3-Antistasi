@@ -1,5 +1,5 @@
 private ["_posicionTel","_cercano","_cosa","_grupo","_unidades","_salir"];
-openMap true;
+if (!visibleMap) then {openMap true};
 posicionTel = [];
 _cosa = _this select 0;
 

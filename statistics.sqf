@@ -7,7 +7,7 @@ if (isNull (uiNameSpace getVariable "H8erHUD")) exitWith {};
 _display = uiNameSpace getVariable "H8erHUD";
 _setText = _display displayCtrl 1001;
 _setText ctrlSetBackgroundColor [0,0,0,0];
-
+_nombreC = "None";
 if (!isMultiplayer) then
 	{
 	_texto = format ["<t size='0.55'>" + "HR: %1 | SDK Money: %2 € | Airstrikes: %5 | NATO Aggr: %3 | CSAT Aggr: %4 | War Level: %6 | Undercover Mode:", server getVariable "hr", server getVariable "resourcesFIA",floor prestigeNATO,floor prestigeCSAT,floor bombRuns,tierWar];
@@ -16,7 +16,7 @@ else
 	{
 	if (player != stavros) then
 		{
-		if (isPlayer stavros) then {_nombreC = name stavros} else {_nombreC = "NONE"};
+		if (isPlayer stavros) then {_nombreC = name stavros} else {_nombreC = "None"};
 		_texto = format ["<t size='0.55'>" + "Commander: %3 | Rank: %2 | HR: %1 | Your Money: %4 € | NATO Aggr: %5 | CSAT Aggr: %6 | War Level: %7 | Undercover Mode:", server getVariable "hr", rank player, _nombreC, player getVariable "dinero",floor prestigeNATO, floor prestigeCSAT,tierWar];
 		}
 	else

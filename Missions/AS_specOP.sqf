@@ -73,23 +73,24 @@ if (_dificil) then
 		{
 		if (_contacto getVariable "statusAct") then
 			{
-			[0,_tsk] spawn borrarTask;
+			[0,"AS"] spawn borrarTask;
 			}
 		else
 			{
-			_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED",5,true,true,"talk"] call BIS_fnc_setTask;
-			[1200,_tsk] spawn borrarTask;
+			//["AS", "FAILED",true] spawn BIS_fnc_taskSetState;
+			["AS",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED"] call taskUpdate;
+			[1200,"AS"] spawn borrarTask;
 			};
 		};
 	};
 if (_salir) exitWith {};
-
+/*
 if (_dificil) then
 	{
-	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
+	[0,"AS"] spawn borrarTask;
+	waitUntil {sleep 1; !(["AS"] call BIS_fnc_taskExists)};
 	};
-
+*/
 _posicion = getMarkerPos _marcador;
 _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
 _tiempolim = if (_dificil) then {60} else {120};
@@ -98,14 +99,21 @@ _fechalimnum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call localizar;
 _nombreBando = if (_lado == malos) then {"NATO"} else {"CSAT"};
-if (!_dificil) then {[[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate} else {_tsk = ["AS",[buenos,civilian],[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
-//misiones pushBack _tsk; publicVariable "misiones"};
+if (!_dificil) then
+	{
+	[[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate
+	}
+else
+	{
+	["AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,"CREATED","Kill"] call taskUpdate;
+//misiones pushBack _tsk; publicVariable "misiones"
+	};
 
 waitUntil  {sleep 5; (dateToNumber date > _fechalimnum) or (_marcador in mrkSDK)};
 
 if (dateToNumber date > _fechalimnum) then
 	{
-	_tsk = ["AS",[buenos,civilian],[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	["AS",[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,"FAILED"] call taskUpdate;
 	if (_dificil) then
 		{
 		[10,0,_posicion] remoteExec ["citySupportChange",2];
@@ -121,7 +129,7 @@ if (dateToNumber date > _fechalimnum) then
 	}
 else
 	{
-	_tsk = ["AS",[buenos,civilian],[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	["AS",[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,"SUCCEEDED"] call taskUpdate;
 	if (_dificil) then
 		{
 		[0,400] remoteExec ["resourcesFIA",2];
@@ -142,7 +150,7 @@ else
 	["TaskFailed", ["", format ["SpecOp Team decimated at a %1",_nombredest]]] remoteExec ["BIS_fnc_showNotification",_lado];
 	};
 
-_nul = [1200,_tsk] spawn borrarTask;
+_nul = [1200,"AS"] spawn borrarTask;
 /*
 {
 waitUntil {sleep 1; !([distanciaSPWN,1,_x,"GREENFORSpawn"] call distanceUnits)};

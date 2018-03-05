@@ -73,23 +73,23 @@ if (_dificil) then
 		{
 		if (_contacto getVariable "statusAct") then
 			{
-			[0,_tsk] spawn borrarTask;
+			[0,"LOG"] spawn borrarTask;
 			}
 		else
 			{
-			_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED",5,true,true,"talk"] call BIS_fnc_setTask;
-			[1200,_tsk] spawn borrarTask;
+			["LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED","talk"] call taskUpdate;
+			[1200,"LOG"] spawn borrarTask;
 			};
 		};
 	};
 if (_salir) exitWith {};
-
+/*
 if (_dificil) then
 	{
-	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
+	[0,"LOG"] spawn borrarTask;
+	waitUntil {sleep 1; !(["LOG"] call BIS_fnc_taskExists)};
 	};
-
+*/
 _posicion = getPosASL _banco;
 
 _posbase = getMarkerPos "respawn_guerrila";
@@ -122,7 +122,14 @@ _camion addEventHandler ["GetIn",
 	}];
 
 [_camion,"Mission Vehicle"] spawn inmuneConvoy;
-if (!_dificil) then {[[buenos,civilian],"LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,false,0,true,"Interact",true] call BIS_fnc_taskCreate} else {_tsk = ["LOG",[buenos,civilian],[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"CREATED",5,true,true,"Interact"] call BIS_fnc_setTask};
+if (!_dificil) then
+	{
+	[[buenos,civilian],"LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,false,0,true,"Interact",true] call BIS_fnc_taskCreate
+	}
+else
+	{
+	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"CREATED","Interact"] call taskUpdate;
+	};
 //misiones pushBack _tsk; publicVariable "misiones";
 _mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], _posicion];
 _mrk setMarkerShapeLocal "RECTANGLE";
@@ -149,7 +156,7 @@ waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (!alive _camion) or (_
 _bonus = if (_dificil) then {2} else {1};
 if ((dateToNumber date > _fechalimnum) or (!alive _camion)) then
 	{
-	_tsk = ["LOG",[buenos,civilian],[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED",5,true,true,"Interact"] call BIS_fnc_setTask;
+	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call taskUpdate;
 	[-1800*_bonus] remoteExec ["timingCA",2];
 	[-10*_bonus,stavros] call playerScoreAdd;
 	}
@@ -197,7 +204,7 @@ else
 waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (!alive _camion) or (_camion distance _posbase < 50)};
 if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) then
 	{
-	_tsk = ["LOG",[buenos,civilian],[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"SUCCEEDED",5,true,true,"Interact"] call BIS_fnc_setTask;
+	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"SUCCEEDED","Interact"] call taskUpdate;
 	[0,5000*_bonus] remoteExec ["resourcesFIA",2];
 	[10*_bonus,0] remoteExec ["prestige",2];
 	[1800*_bonus] remoteExec ["timingCA",2];
@@ -206,7 +213,7 @@ if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) the
 	};
 if (!alive _camion) then
 	{
-	_tsk = ["LOG",[buenos,civilian],[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED",5,true,true,"Interact"] call BIS_fnc_setTask;
+	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call taskUpdate;
 	[1800*_bonus] remoteExec ["timingCA",2];
 	[-10*_bonus,stavros] call playerScoreAdd;
 	};
@@ -216,7 +223,7 @@ waitUntil {sleep 1; speed _camion == 0};
 [_camion] call vaciar;
 deleteVehicle _camion;
 
-_nul = [1200,_tsk] spawn borrarTask;
+_nul = [1200,"LOG"] spawn borrarTask;
 
 waitUntil {sleep 1; !([distanciaSPWN,1,_posicion,"GREENFORSpawn"] call distanceUnits)};
 

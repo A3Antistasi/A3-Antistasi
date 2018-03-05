@@ -72,23 +72,24 @@ if (_dificil) then
 		{
 		if (_contacto getVariable "statusAct") then
 			{
-			[0,_tsk] spawn borrarTask;
+			[0,"AS"] spawn borrarTask;
 			}
 		else
 			{
-			_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED",5,true,true,"talk"] call BIS_fnc_setTask;
-			[1200,_tsk] spawn borrarTask;
+			//["AS", "FAILED",true] spawn BIS_fnc_taskSetState;
+			["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED"] call taskUpdate;
+			[1200,"AS"] spawn borrarTask;
 			};
 		};
 	};
 if (_salir) exitWith {};
-
+/*
 if (_dificil) then
 	{
-	[0,_tsk] spawn borrarTask;
-	waitUntil {sleep 1; !([_tsk] call BIS_fnc_taskExists)};
+	[0,"AS"] spawn borrarTask;
+	waitUntil {sleep 1; !(["AS"] call BIS_fnc_taskExists)};
 	};
-
+*/
 _lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
 _posicion = getMarkerPos _marcador;
 
@@ -98,7 +99,15 @@ _fechalimnum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call localizar;
 _nombreBando = if (_lado == malos) then {"NATO"} else {"CSAT"};
-if (!_dificil) then {[[buenos,civilian],"AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate} else {_tsk = ["AS",[buenos,civilian],[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask};
+if (!_dificil) then
+	{
+	[[buenos,civilian],"AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate
+	}
+else
+	{
+	//["AS", "CREATED",true] spawn BIS_fnc_taskSetState;
+	["AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,"CREATED","Kill"] call taskUpdate;
+	};
 //misiones pushBack _tsk; publicVariable "misiones";
 _grp = createGroup _lado;
 
@@ -124,7 +133,8 @@ waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (not alive _oficial)};
 
 if (not alive _oficial) then
 	{
-	_tsk = ["AS",[buenos,civilian],[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	//["AS", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
+	["AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,"SUCCEEDED"] call taskUpdate;
 	if (_dificil) then
 		{
 		[0,600] remoteExec ["resourcesFIA",2];
@@ -145,7 +155,8 @@ if (not alive _oficial) then
 	}
 else
 	{
-	_tsk = ["AS",[buenos,civilian],[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	//["AS", "FAILED",true] spawn BIS_fnc_taskSetState;
+	["AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,"FAILED"] call taskUpdate;
 	if (_dificil) then
 		{
 		[-1200] remoteExec ["timingCA",2];
@@ -165,6 +176,6 @@ deleteGroup _grp;
 
 //sleep (600 + random 1200);
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
-_nul = [1200,_tsk] spawn borrarTask;
+_nul = [1200,"AS"] spawn borrarTask;
 
 

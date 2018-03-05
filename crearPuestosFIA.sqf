@@ -88,7 +88,8 @@ if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) the
 	marcadores = marcadores + [_mrk];
 	publicVariable "marcadores";
 	spawner setVariable [_mrk,2,true];
-	_tsk = ["PuestosFIA",[buenos,civilian],["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,"SUCCEEDED",5,true,true,"Move"] call BIS_fnc_setTask;
+	["PuestosFIA",["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,"SUCCEEDED"] call taskUpdate;
+	//["PuestosFIA", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
 	_nul = [-5,5,_posiciontel] remoteExec ["citySupportChange",2];
 	_mrk setMarkerType "loc_bunker";
 	_mrk setMarkerColor colorBuenos;
@@ -104,7 +105,8 @@ if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) the
 	}
 else
 	{
-	_tsk = ["PuestosFIA",[buenos,civilian],["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,"FAILED",5,true,true,"Move"] call BIS_fnc_setTask;
+	["PuestosFIA",["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,"FAILED"] call taskUpdate;
+	//["PuestosFIA", "FAILED",true] spawn BIS_fnc_taskSetState;
 	sleep 3;
 	deleteMarker _mrk;
 	};
@@ -115,7 +117,7 @@ deleteVehicle _camion;
 deleteGroup _grupo;
 sleep 15;
 
-_nul = [0,_tsk] spawn borrarTask;
+_nul = [0,"PuestosFIA"] spawn borrarTask;
 
 
 

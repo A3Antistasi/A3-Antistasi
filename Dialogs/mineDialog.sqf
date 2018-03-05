@@ -39,7 +39,7 @@ if (_x select 0 == _tipoM) exitWith {_cantidad = _x select 1}
 
 if (_cantidad < 5) exitWith {hint "You need at least 5 mines of this type to build a Minefield"};
 
-openMap true;
+if (!visibleMap) then {openMap true};
 posicionTel = [];
 hint "Click on the position you wish to build the minefield.";
 

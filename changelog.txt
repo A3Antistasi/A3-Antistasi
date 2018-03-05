@@ -608,3 +608,4 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Raised a bit convoy speed.
 - Solved the "unconscious train" bug on vanilla revive.
 - Heavy economic (only) penalties on Maru's death.
+- HC groups get removed from the HC bar when they are assigned to a garrison.

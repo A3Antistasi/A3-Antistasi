@@ -59,6 +59,7 @@ if (isNull _grupo) then
 else
 	{
 	hint format ["Adding %1 squad to garrison", groupID _grupo];
+	player hcRemoveGroup _grupo;
 	};
 
 _garrison = [];
@@ -71,6 +72,7 @@ _noBorrar = false;
 
 if (spawner getVariable _cercano != 2) then
 	{
+
 	{deleteWaypoint _x} forEach waypoints _grupo;
 	_wp = _grupo addWaypoint [(getMarkerPos _cercano), 0];
 	_wp setWaypointType "MOVE";

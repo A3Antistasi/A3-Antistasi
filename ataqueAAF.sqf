@@ -6,7 +6,7 @@ _marcadores = [];
 _cuentaFacil = 0;
 
 _aeropuertos = (aeropuertos - mrkSDK) select {(dateToNumber date > server getVariable _x) and !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) /*(spawner getVariable _x != 0)*/};
-if (tierWar < 3) then {_aeropuertos = _aeropuertos - mrkCSAT};
+if ((tierWar < 3) and ({_x in mrkCSAT} count _aeropuertos < 2)) then {_aeropuertos = _aeropuertos - mrkCSAT};
 _objetivos = marcadores - controles - puestosFIA - ["Synd_HQ","airport_1","airport_4"] - destroyedCities;
 if (tierWar < 3) then {_objetivos = _objetivos - ciudades};
 _objetivosFinal = [];

@@ -19,9 +19,9 @@ posicionGarr = "";
 _cercano = [marcadores,_posicionTel] call BIS_fnc_nearestPosition;
 _posicion = getMarkerPos _cercano;
 
-if (getMarkerPos _cercano distance _posicionTel > 40) exitWith {hint "You must click near a marked zone"; _nul=CreateDialog "garrison_menu";};
+if (getMarkerPos _cercano distance _posicionTel > 40) exitWith {hint "You must click near a marked zone"; _nul=CreateDialog "build_menu";};
 
-if (not(_cercano in mrkSDK)) exitWith {hint "That zone does not belong to Syndikat"; _nul=CreateDialog "garrison_menu";};
+if (not(_cercano in mrkSDK)) exitWith {hint "That zone does not belong to Syndikat"; _nul=CreateDialog "build_menu";};
 
 //if (((_cercano in puestosFIA) and !(isOnRoad _posicion)) /*or (_cercano in ciudades)*/ or (_cercano in controles)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
 _puestoFIA = if (_cercano in puestosFIA) then {true} else {false};
@@ -30,13 +30,13 @@ _garrison = if (! _wpost) then {garrison getVariable [_cercano,[]]} else {SDKSni
 
 if (_tipo == "rem") then
 	{
-	if ((count _garrison == 0) and !(_cercano in puestosFIA)) exitWith {hint "The place has no garrisoned troops to remove"; _nul=CreateDialog "garrison_menu";};
+	if ((count _garrison == 0) and !(_cercano in puestosFIA)) exitWith {hint "The place has no garrisoned troops to remove"; _nul=CreateDialog "build_menu";};
 	_coste = 0;
 	_hr = 0;
 	if ({(alive _x) and (!captive _x) and ((side _x == malos) or (side _x == muyMalos)) and (_x distance _posicion < 500)} count allUnits > 0) then
 		{
 		hint "You cannot remove garrisons while there are enemies nearby";
-		_nul=CreateDialog "garrison_menu";
+		_nul=CreateDialog "build_menu";
 		}
 	else
 		{
@@ -68,7 +68,7 @@ else
 	{
 	if (spawner getVariable _cercano != 2) then
 		{
-		if ({(alive _x) and (!captive _x) and ((side _x == malos) or (side _x == muyMalos)) and (_x distance _posicion < 500)} count allUnits > 0) exitWith {hint "You cannot add soldiers to this garrison while there are enemies nearby"; _nul=CreateDialog "garrison_menu"};
+		if ({(alive _x) and (!captive _x) and ((side _x == malos) or (side _x == muyMalos)) and (_x distance _posicion < 500)} count allUnits > 0) exitWith {hint "You cannot add soldiers to this garrison while there are enemies nearby"; _nul=CreateDialog "build_menu"};
 		};
 	posicionGarr = _cercano;
 	publicVariable "posicionGarr";

@@ -53,8 +53,9 @@ else
 			};
 		};
 	};
-[_veh] call AIVEHinit;
 if ((_tipoVeh == SDKMortar) or (_tipoVeh == staticATBuenos) or (_tipoVeh == staticAABuenos) or (_tipoVeh == SDKMGStatic)) then {staticsToSave pushBackUnique _veh; publicVariable "staticsToSave"};
-hint "Vehicle Purchased";
+[_veh] call AIVEHinit;
+
+//hint "Vehicle Purchased";
 player reveal _veh;
 petros directSay "SentGenBaseUnlockVehicle";

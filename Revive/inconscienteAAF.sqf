@@ -1,5 +1,6 @@
 private ["_unit","_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_ayudado","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
+_injurer = _this select 1;
 //if (_unit getVariable "inconsciente") exitWith {};
 //if (damage _unit < 0.9) exitWith {};
 //if (!local _unit) exitWith {};
@@ -17,6 +18,55 @@ if ({if ((isPlayer _x) and (_x distance _unit < distanciaSPWN2)) exitWith {1}} c
 	};
 
 _unit setFatigue 1;
+_grupo = group _unit;
+[_grupo,_injurer] spawn
+	{
+	private ["_grupo","_killer"];
+	_grupo = _this select 0;
+	_killer = _this select 1;
+	{
+	if (alive _x) then
+		{
+		if (fleeing _x) then
+			{
+			if !(_x getVariable ["surrendered",false]) then
+				{
+				if (lifeState _x != "INCAPACITATED") then
+					{
+					_enemy = _x findNearestEnemy _x;
+					if (!isNull _enemy) then
+						{
+						if ((_x distance _enemy < 50) and (vehicle _x == _x)) then
+							{
+							[_x] spawn surrenderAction;
+							}
+						else
+							{
+							if (_x == leader group _x) then
+								{
+								if (vehicle _killer == _killer) then
+									{
+									[getPosASL _enemy,side _x,"Normal"] remoteExec ["patrolCA",HCattack]
+									}
+								else
+									{
+									if (vehicle _killer isKindOf "Air") then {[getPosASL _enemy,side _x,"Air"] remoteExec ["patrolCA",HCattack]} else {if (vehicle _killer isKindOf "Tank") then {[getPosASL _enemy,side _x,"Tank"] remoteExec ["patrolCA",HCattack]} else {[getPosASL _enemy,side _x,"Normal"] remoteExec ["patrolCA",HCattack]}};
+									};
+								};
+							if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x] spawn cubrirConHumo};
+							};
+						};
+					};
+				};
+			}
+		else
+			{
+			//_x allowFleeing (0.5-(_x skill "courage") + (0.2*({(_x getVariable ["surrendered",false]) or (!alive _x)} count (units group _x))));
+			if (random 1 < 0.5) then {_x allowFleeing (0.5 -(_x skill "courage") + (({(!alive _x) or (_x getVariable ["surrendered",false]) or (lifeState _x == "INCAPACITATED")} count units _grupo)/(count units _grupo)))};
+			};
+		};
+	} forEach units _grupo;
+	};
 
 while {(time < _bleedOut) and (damage _unit > 0.25) and (alive _unit) /*and (lifeState _unit == "INCAPACITATED")*/} do
 	{
@@ -36,7 +86,6 @@ if (_unit getVariable ["fatalWound",false]) then {_unit setVariable ["fatalWound
 
 if (time > _bleedOut) exitWith
 	{
-	_injurer = _this select 1;
 	_lado = _unit getVariable ["lado",sideUnknown];
 
 	if (isPlayer _injurer) then
@@ -59,56 +108,8 @@ if (time > _bleedOut) exitWith
 		[0,1,getPos _unit] remoteExec ["citySupportChange",2];
 		[0,0.25] remoteExec ["prestige",2];
 		};
-	_grupo = group _unit;
+
 	_unit setDamage 1;
-	[_grupo,_injurer] spawn
-		{
-		private ["_grupo","_killer"];
-		_grupo = _this select 0;
-		_killer = _this select 1;
-		{
-		if (alive _x) then
-			{
-			if (fleeing _x) then
-				{
-				if !(_x getVariable ["surrendered",false]) then
-					{
-					if (lifeState _x != "INCAPACITATED") then
-						{
-						_enemy = _x findNearestEnemy _x;
-						if (!isNull _enemy) then
-							{
-							if ((_x distance _enemy < 50) and (vehicle _x == _x)) then
-								{
-								[_x] spawn surrenderAction;
-								}
-							else
-								{
-								if (_x == leader group _x) then
-									{
-									if (vehicle _killer == _killer) then
-										{
-										[getPosASL _enemy,side _x,"Normal"] remoteExec ["patrolCA",HCattack]
-										}
-									else
-										{
-										if (vehicle _killer isKindOf "Air") then {[getPosASL _enemy,side _x,"Air"] remoteExec ["patrolCA",HCattack]} else {if (vehicle _killer isKindOf "Tank") then {[getPosASL _enemy,side _x,"Tank"] remoteExec ["patrolCA",HCattack]} else {[getPosASL _enemy,side _x,"Normal"] remoteExec ["patrolCA",HCattack]}};
-										};
-									};
-								if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x] spawn cubrirConHumo};
-								};
-							};
-						};
-					};
-				}
-			else
-				{
-				//_x allowFleeing (0.5-(_x skill "courage") + (0.2*({(_x getVariable ["surrendered",false]) or (!alive _x)} count (units group _x))));
-				if (random 1 < 0.5) then {_x allowFleeing (0.5 -(_x skill "courage") + (({(!alive _x) or (_x getVariable ["surrendered",false]) OR (lifeState _x == "INCAPACITATED")} count units _grupo)/(count units _grupo)))};
-				};
-			};
-		} forEach units _grupo;
-		};
 	};
 
 if (alive _unit) then

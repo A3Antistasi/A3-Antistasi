@@ -58,7 +58,7 @@ _unit addEventHandler ["FIRED",
 	}
 	];
 
-_aeropuertos = aeropuertos + puestos + (controles select {isOnRoad getMarkerPos _x});
+_aeropuertos = aeropuertos + puestos;// + (controles select {isOnRoad getMarkerPos _x});
 while {(captive _lider) and (captive _unit)} do
 	{
 	sleep 1;

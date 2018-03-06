@@ -32,6 +32,7 @@ if (_medico != _unit) then
 	_smoked = [_medico,_unit,_enemy] call cubrirConHumo;
 	_medico stop false;
 	_timeOut = time + 60;
+	sleep 5;
 	_medico doMove getPosATL _unit;
 	while {true} do
 		{
@@ -54,7 +55,7 @@ if (_medico != _unit) then
 				_medico setUnitPos "MIDDLE";
 				_medico playAction "grabDrag";
 				sleep 0.1;
-				waitUntil { ((AnimationState _medico) == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") || ((AnimationState _medico) == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2")};
+				waitUntil { ((animationState _medico) == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") || ((animationState _medico) == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2")};
 				_unit switchMove "AinjPpneMrunSnonWnonDb";
 				_medico disableAI "ANIM";
 				//_medico playMoveNow "AcinPknlMstpSrasWrflDnon";
@@ -125,7 +126,7 @@ if (_medico != _unit) then
 					}
 				else
 					{
-					if ((alive _medico) and !(lifestate _medico == "INCAPACITATED")) then {_medico playMoveNow ""};
+					if ((alive _medico) and !(lifestate _medico == "INCAPACITATED")) then {_medico switchMove ""};
 					if ((alive _unit) and (lifestate _unit == "INCAPACITATED")) then
 						{
 						_unit playMoveNow "";
@@ -153,6 +154,7 @@ if (_medico != _unit) then
 					if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};
 					};
 				};
+			if ((animationState _medico == "amovpknlmstpsraswrfldnon") or (animationState _medico == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") or (animationState _medico == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2")) then {_medico switchMove ""};
 			}
 		else
 			{

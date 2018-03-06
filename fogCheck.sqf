@@ -24,16 +24,6 @@ else
 	if (_cosa0 isEqualType "") then
 		{
 		_pos0 = ATLToASL (getMarkerPos _cosa0);
-		/*
-		_pos0 = alturas getVariable _cosa0;
-		if (isNil "_pos0") then
-			{
-			_pad = "Land_HelipadEmpty_F" createVehicleLocal (getMarkerPos _cosa0);
-			_pos0 = getPosASL _pad;
-			alturas setVariable [_cosa0,_pos0,true];
-			deleteVehicle _pad;
-			};
-		*/
 		}
 	else
 		{

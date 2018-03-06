@@ -1,4 +1,181 @@
-class HQ_menu {
+//Game start
+class first_load 		{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.20 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Load previous session?"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.18 * safezoneH;//28
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "YES"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Loads the pervious persistent Save session made byt the commander";
+			action = "closeDialog 0;if ((player == Stavros) and (isNil ""placementDone"")) then {[""statSave\loadAccount.sqf"",""BIS_fnc_execVM""] call BIS_fnc_MP; placementDone = true; publicVariable ""placementDone""} else {nul = [] execVM ""statSave\loadAccount.sqf"";};";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "NO"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Starts a new game";
+			action = "closeDialog 0;if ((player == stavros) and (isNil ""placementDone"")) then {_nul = [] spawn placementselection};";
+		};
+		/*
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "Remove Garrison Squads"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [] call removeGarrison";
+		};
+		*/
+	};
+};
+class init_menu 		{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.30 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Enable Switch Commander?"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.28 * safezoneH;//28
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "YES"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "It will enable a competition to be commander. The highest ranked ingame player will become commander. Commander may be switched on the fly";
+			action = "switchCom = true; publicVariable ""switchCom""; hint ""Switch Commander Enabled\n\nGame will auto assign Commander position to the highest ranked player"";";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "NO"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Commander role will be stable and will only switch on disconnection or by resignation to the highest ranked player";
+			action = "switchCom = false; publicVariable ""switchCom""; hint ""Switch Commander Disabled\n\nGame will only assign Commander position upon Commander disconnection"";";
+		};
+
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "Done"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "if (!isNil ""switchCom"") then {closedialog 0; nul = [] execVM ""Dialogs\membersMenu.sqf"";} else {hint ""Select an option first""};";
+		};
+	};
+};
+class members_menu 		{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.30 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Enable Server Membership?"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.28 * safezoneH;//28
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "YES"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "miembros = []; {miembros pushBack (getPlayerUID _x)} forEach playableUnits; publicVariable ""miembros""; hint ""Server Membership Enabled.\n\nAll the present players have been added to the Member's List.\n\nNon-members cannot use the HQ Ammobox and cannot be commanders, even with Switch Commander enabled.\n\nIf you load a session with this feature disabled, it will change to disabled.\n\nUse this option for Open Server Environments"";";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "NO"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "miembros = []; publicVariable ""miembros""; hint ""Server Membership Disabled.\n\nAnyone can use the HQ Ammobox and become Commander (if Switch Commander is enabled).\n\nIf you load a session with this feature enabled, it will become enabled.\n\nUse this option for Private Server environments."";";
+		};
+
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "Done"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "if (!isNil ""miembros"") then {closedialog 0; nul = [] execVM ""Dialogs\firstLoad.sqf"";} else {hint ""Select an option first""};";
+		};
+	};
+};
+
+//FLAG
+class HQ_menu 			{
 	//8 slots
 	idd=100;
 	movingenable=false;
@@ -113,8 +290,281 @@ class HQ_menu {
 		};
 	};
 };
+class build_menu  			{
+	idd=-1;
+	movingenable=false;
 
-class unit_recruit {
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.30 * safezoneH;
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Building & Garrison Options"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.28 * safezoneH;
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0;_nul = createDialog ""HQ_menu"";";
+		};
+		class HQ_button_mortar: RscButton
+		{
+			idc = -1;
+			text = "Minefield Options"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "AI will deploy or remove mines on desired objectives, using current arsenal mine count";
+			action = "closeDialog 0;_nul = createDialog ""minebuild_menu"";";
+		};
+		class HQ_button_MG: RscButton
+		{
+			idc = -1;
+			text = "Add Garrison"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			//action = "closeDialog 0; [""delete""] spawn mineDialog;";
+			tooltip = "Add units to an existing garrison";
+			action = "closeDialog 0; [""add""] spawn garrisonDialog";
+		};
+		class HQ_button_AT: RscButton
+		{
+			idc = -1;
+			text = "O.Post - Roadblock"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Establish a new watchpost or roadblock depending on the type of terrain you select";
+			action = "closeDialog 0; [""create""] spawn puestoDialog";
+		};
+		class HQ_button_AA: RscButton
+		{
+			idc = -1;
+			text = "Remove Garrison"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			//action = "closeDialog 0; [""delete""] spawn puestoDialog";
+			tooltip = "Remove whole garrisons or posts";
+			action = "closeDialog 0; [""rem""] spawn garrisonDialog";
+		};
+	};
+};
+class garrison_recruit 			{
+	idd=100;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = 101;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.492103 * safezoneH;
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = 102;
+			text = "Garrison Recruitment Options"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.462103 * safezoneH;
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = 103;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0;_nul = createDialog ""build_menu"";";
+		};
+		class HQ_button_rifleman: RscButton
+		{
+			idc = 104;
+			text = "Recruit Militiaman"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [SDKMil] call garrisonAdd";
+		};
+		class HQ_button_autorifleman: RscButton
+		{
+			idc = 105;
+			text = "Recruit Autorifleman"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [SDKMG] call garrisonAdd";
+		};
+		class HQ_button_medic: RscButton
+		{
+			idc = 126;
+			text = "Recruit Medic"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [SDKMedic] call garrisonAdd";
+		};
+		class HQ_button_engineer: RscButton
+		{
+			idc = 107;
+			text = "Recruit Squad Leader"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [SDKSL] call garrisonAdd";
+		};
+		class HQ_button_explosive: RscButton
+		{
+			idc = 108;
+			text = "Recruit Mortar"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [staticCrewBuenos] call garrisonAdd";
+		};
+		class HQ_button_grenadier: RscButton
+		{
+			idc = 109;
+			text = "Recruit Grenadier"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [SDKGL] call garrisonAdd";
+		};
+		class HQ_button_marksman: RscButton
+		{
+			idc = 110;
+			text = "Recruit Marksman"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [SDKSniper] call garrisonAdd";
+		};
+
+		class HQ_button_AT: RscButton
+		{
+			idc = 111;
+			text = "Recruit AT"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [SDKATman] call garrisonAdd";
+		};
+	};
+};
+class minebuild_menu 			{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.30 * safezoneH;
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Build Minefield"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.28 * safezoneH;
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0;_nul = createDialog ""build_menu"";";
+		};
+		class HQ_button_mortar: RscButton
+		{
+			idc = -1;
+			text = "APERS Mines"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;[""APERSMine""] spawn mineDialog";
+		};
+		class HQ_button_MG: RscButton
+		{
+			idc = -1;
+			text = "Remove Minefield"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Spawn an AI Engineer which will clear any mine in it's surroundings";
+			action = "closeDialog 0; [""delete""] spawn mineDialog;";
+		};
+		class HQ_button_AT: RscButton
+		{
+			idc = -1;
+			text = "AT Mines"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0; [""ATMine""] spawn mineDialog";
+		};
+		/*
+		class HQ_button_AA: RscButton
+		{
+			idc = -1;
+			text = "O.Post-Roadblock Delete"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0; [""delete""] spawn puestoDialog";
+		};*/
+	};
+};
+class unit_recruit 		{
 	idd= 100;
 	movingenable=false;
 	class controls {
@@ -229,124 +679,77 @@ class unit_recruit {
 		};
 	};
 };
-
-class squad_recruit {
-	idd=100;
+class vehicle_option 	{
+	idd=-1;
 	movingenable=false;
 
 	class controls {
+
 		class HQ_box: BOX
 		{
-			idc = 101;
+			idc = -1;
 			text = ""; //--- ToDo: Localize;
 			x = 0.244979 * safezoneW + safezoneX;
 			y = 0.223941 * safezoneH + safezoneY;
 			w = 0.445038 * safezoneW;
-			h = 0.492103 * safezoneH;
+			h = 0.20 * safezoneH;//30
 		};
 		class HQ_frame: RscFrame
 		{
-			idc = 102;
-			text = "Squad Recruitment Options"; //--- ToDo: Localize;
+			idc = -1;
+			text = "Buy Vehicle"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
-			h = 0.462103 * safezoneH;
+			h = 0.18 * safezoneH;//28
 		};
 		class HQ_button_back: RscButton
 		{
-			idc = 103;
+			idc = -1;
 			text = "Back"; //--- ToDo: Localize;
 			x = 0.61 * safezoneW + safezoneX;
 			y = 0.251941 * safezoneH + safezoneY;
 			w = 0.06 * safezoneW;//0.175015
 			h = 0.05 * safezoneH;
-			action = "closeDialog 0; _nul = createDialog ""radio_comm"";";
+			action = "closeDialog 0";
 		};
-		class HQ_button_infsquad: RscButton
+		class HQ_button_Gsquad: RscButton
 		{
-			idc = 104;
-			text = "Recruit Inf. Squad"; //--- ToDo: Localize;
+			idc = -1;
+			text = "Civilian Vehicle"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKSquad] spawn addFIAsquadHC";
+			tooltip = "Civilian vehicles will allow you to travel in Undercover mode, while you stay close to roads and not entering bases, outposts and roadblocks";
+			action = "closeDialog 0;nul=[] execVM ""Dialogs\buy_vehicle_civ.sqf"";";
 		};
-		class HQ_button_infteam: RscButton
+		class HQ_button_Gstatic: RscButton
 		{
-			idc = 105;
-			text = "Recruit Inf. Team"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKmid] spawn addFIAsquadHC";
-		};
-		class HQ_button_ATteam: RscButton
-		{
-			idc = 106;
-			text = "Recruit AT Team"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.514003 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKAT] spawn addFIAsquadHC";
-		};
-		class HQ_button_sniperTeam: RscButton
-		{
-			idc = 107;
-			text = "Recruit Sniper Team"; //--- ToDo: Localize;
+			idc = -1;
+			text = "Military Vehicle"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKSniper] spawn addFIAsquadHC";
+			tooltip = "Wide variety of available SDK vehicles";
+			action = "closeDialog 0; nul=[] execVM ""Dialogs\buy_vehicle.sqf"";";
 		};
-		class HQ_button_infsquadM: RscButton
+		/*
+		class HQ_button_Gremove: RscButton
 		{
-			idc = 108;
-			text = "Recruit MG Team"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.514003 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [SDKMGStatic] spawn addFIAsquadHC";
-		};
-		class HQ_button_infteamM: RscButton
-		{
-			idc = 109;
-			text = "Recruit AT Truck"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
+			idc = -1;
+			text = "Remove Garrison Squads"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticATBuenos] spawn addFIAsquadHC";
+			action = "nul = [] call removeGarrison";
 		};
-		class HQ_button_ATteamM: RscButton
-		{
-			idc = 110;
-			text = "Recruit AA Truck"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.612025 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticAABuenos] spawn addFIAsquadHC";
-		};
-
-		class HQ_button_mortar: RscButton
-		{
-			idc = 111;
-			text = "Recruit Mortar Team"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.612025 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [SDKMortar] spawn addFIAsquadHC";
-		};
+		*/
 	};
 };
-class buy_vehicle {
+class buy_vehicle 			{
 	idd=100;
 	movingenable=false;
 
@@ -462,7 +865,85 @@ class buy_vehicle {
 		};
 	};
 };
-class game_options {
+class civ_vehicle 			{
+	idd=100;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.30 * safezoneH;
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Buy Civilian Vehicle"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.28 * safezoneH;
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0; nul = createDialog ""vehicle_option"";";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = 104;
+			text = "Offroad"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [civCar] call addFIAveh;";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = 105;
+			text = "Truck"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [civTruck] call addFIAveh;";
+		};
+		class HQ_button_Gremove: RscButton
+		{
+			idc = 106;
+			text = "Helicopter"; //--- ToDo: Localize;
+			//x = 0.37749 * safezoneW + safezoneX;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [civHeli] call addFIAveh;";
+		};
+		class HQ_button_offroad: RscButton
+		{
+			idc = 107;
+		 	text = "Boat"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+		 	y = 0.415981 * safezoneH + safezoneY;
+		 	w = 0.175015 * safezoneW;
+		 	h = 0.0560125 * safezoneH;
+		 	action = "closeDialog 0;[civBoat] call buyBoat;";
+		 };
+	};
+};
+
+//Map
+class game_options 		{
 	idd=-1;
 	movingenable=false;
 
@@ -587,8 +1068,63 @@ class game_options {
 		};
 	};
 };
+class fps_limiter 			{
+	idd=-1;
+	movingenable=false;
 
-class first_load {
+	class controls {
+
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.20 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "AI Limiter"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.18 * safezoneH;//28
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0;_nul = createDialog ""game_options"";";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "+10 AI Limit"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "if (player == Stavros) then {if (maxUnits < 200) then {maxUnits = maxUnits + 10; publicVariable ""maxUnits""; hint format [""AI Limit has been set at %1"",maxUnits]} else {hint ""AI Limit cannot be raised from 200""}} else {hint ""Only Player Commander has access to this function""};";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "-10 AI Limit"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "if (player == Stavros) then {if (maxUnits > 80) then {maxUnits = maxUnits - 10; publicVariable ""maxUnits""; hint format [""AI Limit has been set at %1"",maxUnits]} else {hint ""AI Limit cannot be less than 80""}} else {hint ""Only Player Commander has access to this function""};";
+		};
+	};
+};
+class spawn_config 			{
 	idd=-1;
 	movingenable=false;
 
@@ -605,131 +1141,11 @@ class first_load {
 		class HQ_frame: RscFrame
 		{
 			idc = -1;
-			text = "Load previous session?"; //--- ToDo: Localize;
+			text = "Spawn Distance Config"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
 			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "YES"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Loads the pervious persistent Save session made byt the commander";
-			action = "closeDialog 0;if ((player == Stavros) and (isNil ""placementDone"")) then {[""statSave\loadAccount.sqf"",""BIS_fnc_execVM""] call BIS_fnc_MP; placementDone = true; publicVariable ""placementDone""} else {nul = [] execVM ""statSave\loadAccount.sqf"";};";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "NO"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Starts a new game";
-			action = "closeDialog 0;if ((player == stavros) and (isNil ""placementDone"")) then {_nul = [] spawn placementselection};";
-		};
-		/*
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "Remove Garrison Squads"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [] call removeGarrison";
-		};
-		*/
-	};
-};
-
-class init_menu {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.30 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Enable Switch Commander?"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.28 * safezoneH;//28
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "YES"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "It will enable a competition to be commander. The highest ranked ingame player will become commander. Commander may be switched on the fly";
-			action = "switchCom = true; publicVariable ""switchCom""; hint ""Switch Commander Enabled\n\nGame will auto assign Commander position to the highest ranked player"";";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "NO"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Commander role will be stable and will only switch on disconnection or by resignation to the highest ranked player";
-			action = "switchCom = false; publicVariable ""switchCom""; hint ""Switch Commander Disabled\n\nGame will only assign Commander position upon Commander disconnection"";";
-		};
-
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "Done"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "if (!isNil ""switchCom"") then {closedialog 0; nul = [] execVM ""Dialogs\membersMenu.sqf"";} else {hint ""Select an option first""};";
-		};
-	};
-};
-
-class build_menu {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.30 * safezoneH;
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Building & Garrison Options"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.28 * safezoneH;
 		};
 		class HQ_button_back: RscButton
 		{
@@ -739,58 +1155,88 @@ class build_menu {
 			y = 0.251941 * safezoneH + safezoneY;
 			w = 0.06 * safezoneW;//0.175015
 			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""HQ_menu"";";
+			action = "closeDialog 0;_nul = createDialog ""game_options"";";
 		};
-		class HQ_button_mortar: RscButton
+		class HQ_button_Gsquad: RscButton
 		{
 			idc = -1;
-			text = "Minefield Options"; //--- ToDo: Localize;
+			text = "+100 Spawn Dist."; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "AI will deploy or remove mines on desired objectives, using current arsenal mine count";
-			action = "closeDialog 0;_nul = createDialog ""minebuild_menu"";";
+			action = "if (player == Stavros) then {if (distanciaSPWN < 2000) then {distanciaSPWN = distanciaSPWN + 100; distanciaSPWN1 = distanciaSPwN * 1.3; distanciaSPWN2 = distanciaSPWN /2; publicVariable ""distanciaSPWN"";publicVariable ""distanciaSPWN1"";publicVariable ""distanciaSPWN2""}; hint format [""Spawn Distance Set to %1 meters. Be careful, this may affect game performance"",distanciaSPWN]} else {hint ""Only Player Commander has access to this function""};";
 		};
-		class HQ_button_MG: RscButton
+		class HQ_button_Gstatic: RscButton
 		{
 			idc = -1;
-			text = "Add Garrison"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			//action = "closeDialog 0; [""delete""] spawn mineDialog;";
-			tooltip = "Add units to an existing garrison";
-			action = "closeDialog 0; [""add""] spawn garrisonDialog";
-		};
-		class HQ_button_AT: RscButton
-		{
-			idc = -1;
-			text = "O.Post - Roadblock"; //--- ToDo: Localize;
+			text = "-100 Spawn Dist."; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Establish a new watchpost or roadblock depending on the type of terrain you select";
-			action = "closeDialog 0; [""create""] spawn puestoDialog";
+			action = "if (player == Stavros) then {if (distanciaSPWN > 600) then {distanciaSPWN = distanciaSPWN - 100; if (distanciaSPWN < 600) then {distanciaSPWN = 600}; distanciaSPWN1 = distanciaSPwN * 1.3; distanciaSPWN2 = distanciaSPWN /2; if (distanciaSPWN < 600) then {distanciaSPWN = 600};publicVariable ""distanciaSPWN"";publicVariable ""distanciaSPWN1"";publicVariable ""distanciaSPWN2"";}; hint format [""Spawn Distance Set to %1 meters"",distanciaSPWN]} else {hint ""Only Player Commander has access to this function""};";
 		};
-		class HQ_button_AA: RscButton
+	};
+};
+class civ_config 			{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
 		{
 			idc = -1;
-			text = "Remove Garrison"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.20 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Civ Presence Config"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.18 * safezoneH;//28
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0;_nul = createDialog ""game_options"";";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "+1% Civ Spawn."; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			//action = "closeDialog 0; [""delete""] spawn puestoDialog";
-			tooltip = "Remove whole garrisons or posts";
-			action = "closeDialog 0; [""rem""] spawn garrisonDialog";
+			action = "if (player == Stavros) then {if (civPerc < 1) then {civPerc = civPerc + 0.01; if (civPerc > 1) then {civPerc = 1}; publicVariable ""civPerc"";}; hint format [""Civilian Percentage Set to %1 percent"",civPerc * 100]} else {hint ""Only Player Commander has access to this function""};";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "-1% Civ Spawn."; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "if (player == Stavros) then {if (civPerc > 0) then {civPerc = civPerc - 0.01; if (civPerc < 0) then {civPerc = 0};publicVariable ""civPerc"";}; hint format [""Civilian Percentage Set to %1 percent"",civPerc * 100]} else {hint ""Only Player Commander has access to this function""};";
 		};
 	};
 };
 
-class mission_menu {
+//Solomon Maru
+class mission_menu 		{
 	idd=-1;
 	movingenable=false;
 
@@ -895,7 +1341,10 @@ class mission_menu {
 		};
 	};
 };
-class radio_comm {
+
+
+//Y menu
+class radio_comm 		{
 	idd=-1;
 	movingenable=false;
 
@@ -1020,619 +1469,7 @@ class radio_comm {
 			};
 	};
 };
-/*
-class garrison_menu {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Garrison Menu"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""HQ_menu"";";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "Recruit Garrison"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Select unit types and add them to the selected garrison";
-			action = "closeDialog 0;[""add""] spawn garrisonDialog";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "Remove Garrison"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Remove the whole garrison of a selected zone";
-			action = "closeDialog 0;[""rem""] spawn garrisonDialog";
-		};
-	};
-};
-*/
-class garrison_recruit {
-	idd=100;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = 101;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.492103 * safezoneH;
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = 102;
-			text = "Garrison Recruitment Options"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.462103 * safezoneH;
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = 103;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""build_menu"";";
-		};
-		class HQ_button_rifleman: RscButton
-		{
-			idc = 104;
-			text = "Recruit Militiaman"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMil] call garrisonAdd";
-		};
-		class HQ_button_autorifleman: RscButton
-		{
-			idc = 105;
-			text = "Recruit Autorifleman"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMG] call garrisonAdd";
-		};
-		class HQ_button_medic: RscButton
-		{
-			idc = 126;
-			text = "Recruit Medic"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.514003 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMedic] call garrisonAdd";
-		};
-		class HQ_button_engineer: RscButton
-		{
-			idc = 107;
-			text = "Recruit Squad Leader"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKSL] call garrisonAdd";
-		};
-		class HQ_button_explosive: RscButton
-		{
-			idc = 108;
-			text = "Recruit Mortar"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.514003 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [staticCrewBuenos] call garrisonAdd";
-		};
-		class HQ_button_grenadier: RscButton
-		{
-			idc = 109;
-			text = "Recruit Grenadier"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKGL] call garrisonAdd";
-		};
-		class HQ_button_marksman: RscButton
-		{
-			idc = 110;
-			text = "Recruit Marksman"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.612025 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKSniper] call garrisonAdd";
-		};
-
-		class HQ_button_AT: RscButton
-		{
-			idc = 111;
-			text = "Recruit AT"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.612025 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKATman] call garrisonAdd";
-		};
-	};
-};
-
-class fps_limiter {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "AI Limiter"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""game_options"";";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "+10 AI Limit"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (maxUnits < 200) then {maxUnits = maxUnits + 10; publicVariable ""maxUnits""; hint format [""AI Limit has been set at %1"",maxUnits]} else {hint ""AI Limit cannot be raised from 200""}} else {hint ""Only Player Commander has access to this function""};";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "-10 AI Limit"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (maxUnits > 80) then {maxUnits = maxUnits - 10; publicVariable ""maxUnits""; hint format [""AI Limit has been set at %1"",maxUnits]} else {hint ""AI Limit cannot be less than 80""}} else {hint ""Only Player Commander has access to this function""};";
-		};
-	};
-};
-class spawn_config {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Spawn Distance Config"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""game_options"";";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "+100 Spawn Dist."; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (distanciaSPWN < 2000) then {distanciaSPWN = distanciaSPWN + 100; distanciaSPWN1 = distanciaSPwN * 1.3; distanciaSPWN2 = distanciaSPWN /2; publicVariable ""distanciaSPWN"";publicVariable ""distanciaSPWN1"";publicVariable ""distanciaSPWN2""}; hint format [""Spawn Distance Set to %1 meters. Be careful, this may affect game performance"",distanciaSPWN]} else {hint ""Only Player Commander has access to this function""};";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "-100 Spawn Dist."; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (distanciaSPWN > 600) then {distanciaSPWN = distanciaSPWN - 100; if (distanciaSPWN < 600) then {distanciaSPWN = 600}; distanciaSPWN1 = distanciaSPwN * 1.3; distanciaSPWN2 = distanciaSPWN /2; if (distanciaSPWN < 600) then {distanciaSPWN = 600};publicVariable ""distanciaSPWN"";publicVariable ""distanciaSPWN1"";publicVariable ""distanciaSPWN2"";}; hint format [""Spawn Distance Set to %1 meters"",distanciaSPWN]} else {hint ""Only Player Commander has access to this function""};";
-		};
-	};
-};
-
-class civ_config {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Civ Presence Config"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""game_options"";";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "+1% Civ Spawn."; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (civPerc < 1) then {civPerc = civPerc + 0.01; if (civPerc > 1) then {civPerc = 1}; publicVariable ""civPerc"";}; hint format [""Civilian Percentage Set to %1 percent"",civPerc * 100]} else {hint ""Only Player Commander has access to this function""};";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "-1% Civ Spawn."; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (civPerc > 0) then {civPerc = civPerc - 0.01; if (civPerc < 0) then {civPerc = 0};publicVariable ""civPerc"";}; hint format [""Civilian Percentage Set to %1 percent"",civPerc * 100]} else {hint ""Only Player Commander has access to this function""};";
-		};
-	};
-};
-
-class squad_manager {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.30 * safezoneH;
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "HC Squad Otions"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.28 * safezoneH;
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""radio_comm"";";
-		};
-		class HQ_button_mortar: RscButton
-		{
-			idc = -1;
-			text = "Squad Add Vehicle"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Look at some vehicle and assign it to the selected squad for it's use";
-			action = "closeDialog 0;[] call addSquadVeh;";
-		};
-		class HQ_button_MG: RscButton
-		{
-			idc = -1;
-			text = "Squad Vehicle Stats"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "If the selected squad is using some vehicle, know remotely it's status";
-			action = "[""stats""] call vehStats;";
-		};
-		class HQ_button_AT: RscButton
-		{
-			idc = -1;
-			text = "Mount / Dismount"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Force squad to mount or dismount their assigned vehicle";
-			action = "[""mount""] call vehStats";
-		};
-		class HQ_button_AA: RscButton
-		{
-			idc = -1;
-			text = "Static Autotarget"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Use this option on AT / AA mounted squads. The truck driver will try to point his truck's back to any detected enemy";
-			action = "closeDialog 0; [] spawn staticAutoT";
-		};
-	};
-};
-class veh_query {
-	idd=100;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = 101;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = 102;
-			text = "Add Vehicle to Squad?"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = 103;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;vehQuery = nil; if (player == Stavros) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = 104;
-			text = "YES"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; vehQuery = true";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = 105;
-			text = "NO"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; vehQuery = nil";
-		};
-	};
-};
-class player_money {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.30 * safezoneH;
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Player and Money Interaction"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.28 * safezoneH;
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""radio_comm"";";
-		};
-		class HQ_button_mortar: RscButton
-		{
-			idc = -1;
-			text = "Add Server Member"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Use this option to add the player which you are currently looking to the member's list";
-			action = "if (isMultiplayer) then {closeDialog 0;nul = [""add""] call memberAdd;} else {hint ""This function is MP only""};";
-		};
-		class HQ_button_MG: RscButton
-		{
-			idc = -1;
-			text = "Remove Server Member"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Use this option to remove the player which you are currently looking to the member's list";
-			action = "if (isMultiplayer) then {closeDialog 0;nul = [""remove""] call memberAdd;} else {hint ""This function is MP only""};";
-		};
-		class HQ_button_AT: RscButton
-		{
-			idc = -1;
-			text = "Donate 100 € to player"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "[true] call donateMoney;";
-		};
-		class HQ_button_AA: RscButton
-		{
-			idc = -1;
-			text = "Donate 100 € to SDK"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "It will increase your prestige among SDK faction";
-			action = "[] call donateMoney;";
-		};
-	};
-};
-class members_menu {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.30 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Enable Server Membership?"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.28 * safezoneH;//28
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "YES"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "miembros = []; {miembros pushBack (getPlayerUID _x)} forEach playableUnits; publicVariable ""miembros""; hint ""Server Membership Enabled.\n\nAll the present players have been added to the Member's List.\n\nNon-members cannot use the HQ Ammobox and cannot be commanders, even with Switch Commander enabled.\n\nIf you load a session with this feature disabled, it will change to disabled.\n\nUse this option for Open Server Environments"";";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "NO"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "miembros = []; publicVariable ""miembros""; hint ""Server Membership Disabled.\n\nAnyone can use the HQ Ammobox and become Commander (if Switch Commander is enabled).\n\nIf you load a session with this feature enabled, it will become enabled.\n\nUse this option for Private Server environments."";";
-		};
-
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "Done"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "if (!isNil ""miembros"") then {closedialog 0; nul = [] execVM ""Dialogs\firstLoad.sqf"";} else {hint ""Select an option first""};";
-		};
-	};
-};
-class vehicle_manager {
+class vehicle_manager 		{
 	idd=-1;
 	movingenable=false;
 
@@ -1712,215 +1549,63 @@ class vehicle_manager {
 		};
 	};
 };
-class garage_sell {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Sell or Garage Vehicle"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""vehicle_manager"";";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "Garage Vehicle"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if (player != stavros) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "Sell Vehicle"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; if (player == stavros) then {nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
-		};
-		/*
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "Remove Garrison Squads"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [] call removeGarrison";
-		};
-		*/
-	};
-};
-class garage_check {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Personal or SDK Garage?"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""garage_sell"";";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "Personal Garage"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [false] call garageVehicle;";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "SDK Garage"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; nul = [true] call garageVehicle;";
-		};
-		/*
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "Remove Garrison Squads"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [] call removeGarrison";
-		};
-		*/
-	};
-};
-
-class vehicle_option {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Buy Vehicle"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "Civilian Vehicle"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Civilian vehicles will allow you to travel in Undercover mode, while you stay close to roads and not entering bases, outposts and roadblocks";
-			action = "closeDialog 0;nul=[] execVM ""Dialogs\buy_vehicle_civ.sqf"";";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "Military Vehicle"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Wide variety of available SDK vehicles";
-			action = "closeDialog 0; nul=[] execVM ""Dialogs\buy_vehicle.sqf"";";
-		};
-		/*
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "Remove Garrison Squads"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [] call removeGarrison";
-		};
-		*/
-	};
-};
-
-class civ_vehicle {
+class veh_query 				{
 	idd=100;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = 101;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.20 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = 102;
+			text = "Add Vehicle to Squad?"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.18 * safezoneH;//28
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = 103;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0;vehQuery = nil; if (player == Stavros) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = 104;
+			text = "YES"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0; vehQuery = true";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = 105;
+			text = "NO"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0; vehQuery = nil";
+		};
+	};
+};
+class squad_manager 			{
+	idd=-1;
 	movingenable=false;
 
 	class controls {
@@ -1936,7 +1621,7 @@ class civ_vehicle {
 		class HQ_frame: RscFrame
 		{
 			idc = -1;
-			text = "Buy Civilian Vehicle"; //--- ToDo: Localize;
+			text = "HC Squad Otions"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
@@ -1950,202 +1635,55 @@ class civ_vehicle {
 			y = 0.251941 * safezoneH + safezoneY;
 			w = 0.06 * safezoneW;//0.175015
 			h = 0.05 * safezoneH;
-			action = "closeDialog 0; nul = createDialog ""vehicle_option"";";
+			action = "closeDialog 0;_nul = createDialog ""radio_comm"";";
 		};
-		class HQ_button_Gsquad: RscButton
+		class HQ_button_mortar: RscButton
 		{
-			idc = 104;
-			text = "Offroad"; //--- ToDo: Localize;
+			idc = -1;
+			text = "Squad Add Vehicle"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civCar] call addFIAveh;";
+			tooltip = "Look at some vehicle and assign it to the selected squad for it's use";
+			action = "closeDialog 0;[] call addSquadVeh;";
 		};
-		class HQ_button_Gstatic: RscButton
+		class HQ_button_MG: RscButton
 		{
-			idc = 105;
-			text = "Truck"; //--- ToDo: Localize;
+			idc = -1;
+			text = "Squad Vehicle Stats"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "If the selected squad is using some vehicle, know remotely it's status";
+			action = "[""stats""] call vehStats;";
+		};
+		class HQ_button_AT: RscButton
+		{
+			idc = -1;
+			text = "Mount / Dismount"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civTruck] call addFIAveh;";
+			tooltip = "Force squad to mount or dismount their assigned vehicle";
+			action = "[""mount""] call vehStats";
 		};
-		class HQ_button_Gremove: RscButton
+		class HQ_button_AA: RscButton
 		{
-			idc = 106;
-			text = "Helicopter"; //--- ToDo: Localize;
-			//x = 0.37749 * safezoneW + safezoneX;
+			idc = -1;
+			text = "Static Autotarget"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civHeli] call addFIAveh;";
-		};
-		class HQ_button_offroad: RscButton
-		{
-			idc = 107;
-		 	text = "Boat"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-		 	y = 0.415981 * safezoneH + safezoneY;
-		 	w = 0.175015 * safezoneW;
-		 	h = 0.0560125 * safezoneH;
-		 	action = "closeDialog 0;[civBoat] call buyBoat;";
-		 };
-	};
-};
-class carpet_bombing {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.30 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Carpet Bombing Strike"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.28 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0; nul = createDialog ""radio_comm"";";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "HE Bombs"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Cost: 1 point";
-			action = "closeDialog 0;[""HE""] spawn NATObomb;";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "Carpet Bombing"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Cost: 1 point";
-			action = "closeDialog 0;[""CARPET""] spawn NATObomb;";
-		};
-
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "NAPALM Bomb"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Cost: 1 point";
-			action = "closeDialog 0;[""NAPALM""] spawn NATObomb;";
+			tooltip = "Use this option on AT / AA mounted squads. The truck driver will try to point his truck's back to any detected enemy";
+			action = "closeDialog 0; [] spawn staticAutoT";
 		};
 	};
 };
-
-class tu_madre {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.30 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Carpet Bombing Strike"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.28 * safezoneH;//28
-		};
-		class HQ_button_back: RscListBox
-		{
-			idc = -1;
-			//text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 35) * 1.2)";
-			colorText[] = {1,1,1,1}; // Text and frame color
-			colorDisabled[] = {1,1,1,0.5}; // Disabled text color
-			colorSelect[] = {1,1,1,1}; // Text selection color
-			colorSelect2[] = {1,1,1,1}; // Text selection color (oscillates between this and colorSelect)
-			colorShadow[] = {0,0,0,0.5}; // Text shadow color (used only when shadow is 1)
-			pictureColor[] = {1,1,1,1}; // Picture color
-			pictureColorSelect[] = {1,1,1,1}; // Selected picture color
-			pictureColorDisabled[] = {0,1,0,1}; // Disabled picture color
-
-
-			//action = "closeDialog 0; nul = createDialog ""NATO_Options"";";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "HE Bombs"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Cost: 10 points";
-			action = "closeDialog 0;[""HE""] spawn NATObomb;";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "Carpet Bombing"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Cost: 10 points";
-			action = "closeDialog 0;[""CARPET""] spawn NATObomb;";
-		};
-
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "NAPALM Bomb"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Cost: 10 points";
-			action = "closeDialog 0;[""NAPALM""] spawn NATObomb;";
-		};
-	};
-};
-class AI_management {
+class AI_management 		{
 	idd=-1;
 	movingenable=false;
 
@@ -2226,6 +1764,753 @@ class AI_management {
 			action = "closeDialog 0; createDialog ""dismiss_menu"";";
 			//action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\dismissPlayerGroup.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\dismissSquad.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
 		};
+	};
+};
+class dismiss_menu 				{
+	idd=100;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.20 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Dismiss Options"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.18 * safezoneH;//28
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "Dismiss Units / Squad"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Dimiss selected units or squads, recovering it's cost to the proper resource pool";
+			action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\dismissPlayerGroup.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\dismissSquad.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "Garrison Units / Squads"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Adds selected units or squads to a map selected garrison";
+			action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\addToGarrison.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\addToGarrison.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
+		};
+		/*
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "Remove Garrison Squads"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [] call removeGarrison";
+		};
+		*/
+	};
+};
+class construction_menu 	{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.30 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Construction Menu"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.28 * safezoneH;//28
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0;_nul = createDialog ""radio_comm"";";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "Small Trench"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Make a quick small trench for one man";
+			action = "closeDialog 0;nul = [""ST""] spawn construir;";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "Medium Trench"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "A mid sized trench with capabilities for more than one soldier";
+			action = "closeDialog 0; nul = [""MT""] spawn construir;";
+		};
+
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "Vehicle obstacles"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Build some obstacles for vehicles";
+			action = "closeDialog 0;nul = [""RB""] spawn construir;";
+		};
+		class HQ_button_unlock: RscButton
+		{
+			idc = -1;
+			text = "Bunker Options"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Need to be built in garrison controlled zones and cost money";
+			action = "closeDialog 0;nul = createDialog ""bunker_menu""";
+		};
+	};
+};
+class bunker_menu 				{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.20 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Select Bunker Type"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.18 * safezoneH;//28
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "Sandbag Bunker"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Requires to be in a garrisoned zone. It will be permanent";
+			action = "closeDialog 0;nul = [""SB""] spawn construir;";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "Concrete Bunker"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Requires to be in a garrisoned zone. It will be permanent";
+			action = "closeDialog 0;nul = [""CB""] spawn construir;";
+		};
+		/*
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "Remove Garrison Squads"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [] call removeGarrison";
+		};
+		*/
+	};
+};
+class squad_recruit 			{
+	idd=100;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = 101;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.492103 * safezoneH;
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = 102;
+			text = "Squad Recruitment Options"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.462103 * safezoneH;
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = 103;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0; _nul = createDialog ""radio_comm"";";
+		};
+		class HQ_button_infsquad: RscButton
+		{
+			idc = 104;
+			text = "Recruit Inf. Squad"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [gruposSDKSquad] spawn addFIAsquadHC";
+		};
+		class HQ_button_infteam: RscButton
+		{
+			idc = 105;
+			text = "Recruit Inf. Team"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [gruposSDKmid] spawn addFIAsquadHC";
+		};
+		class HQ_button_ATteam: RscButton
+		{
+			idc = 106;
+			text = "Recruit AT Team"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [gruposSDKAT] spawn addFIAsquadHC";
+		};
+		class HQ_button_sniperTeam: RscButton
+		{
+			idc = 107;
+			text = "Recruit Sniper Team"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [gruposSDKSniper] spawn addFIAsquadHC";
+		};
+		class HQ_button_infsquadM: RscButton
+		{
+			idc = 108;
+			text = "Recruit MG Team"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [SDKMGStatic] spawn addFIAsquadHC";
+		};
+		class HQ_button_infteamM: RscButton
+		{
+			idc = 109;
+			text = "Recruit AT Truck"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [staticATBuenos] spawn addFIAsquadHC";
+		};
+		class HQ_button_ATteamM: RscButton
+		{
+			idc = 110;
+			text = "Recruit AA Truck"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [staticAABuenos] spawn addFIAsquadHC";
+		};
+
+		class HQ_button_mortar: RscButton
+		{
+			idc = 111;
+			text = "Recruit Mortar Team"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [SDKMortar] spawn addFIAsquadHC";
+		};
+	};
+};
+class player_money 			{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.30 * safezoneH;
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Player and Money Interaction"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.28 * safezoneH;
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0;_nul = createDialog ""radio_comm"";";
+		};
+		class HQ_button_mortar: RscButton
+		{
+			idc = -1;
+			text = "Add Server Member"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Use this option to add the player which you are currently looking to the member's list";
+			action = "if (isMultiplayer) then {closeDialog 0;nul = [""add""] call memberAdd;} else {hint ""This function is MP only""};";
+		};
+		class HQ_button_MG: RscButton
+		{
+			idc = -1;
+			text = "Remove Server Member"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Use this option to remove the player which you are currently looking to the member's list";
+			action = "if (isMultiplayer) then {closeDialog 0;nul = [""remove""] call memberAdd;} else {hint ""This function is MP only""};";
+		};
+		class HQ_button_AT: RscButton
+		{
+			idc = -1;
+			text = "Donate 100 € to player"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "[true] call donateMoney;";
+		};
+		class HQ_button_AA: RscButton
+		{
+			idc = -1;
+			text = "Donate 100 € to SDK"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "It will increase your prestige among SDK faction";
+			action = "[] call donateMoney;";
+		};
+	};
+};
+class garage_sell 			{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.20 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Sell or Garage Vehicle"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.18 * safezoneH;//28
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0;_nul = createDialog ""vehicle_manager"";";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "Garage Vehicle"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;if (player != stavros) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "Sell Vehicle"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0; if (player == stavros) then {nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
+		};
+		/*
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "Remove Garrison Squads"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [] call removeGarrison";
+		};
+		*/
+	};
+};
+class garage_check 				{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.20 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Personal or SDK Garage?"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.18 * safezoneH;//28
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0;_nul = createDialog ""garage_sell"";";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "Personal Garage"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [false] call garageVehicle;";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "SDK Garage"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0; nul = [true] call garageVehicle;";
+		};
+		/*
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "Remove Garrison Squads"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [] call removeGarrison";
+		};
+		*/
+	};
+};
+class tu_madre 				{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.30 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Carpet Bombing Strike"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.28 * safezoneH;//28
+		};
+		class HQ_button_back: RscListBox
+		{
+			idc = -1;
+			//text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 35) * 1.2)";
+			colorText[] = {1,1,1,1}; // Text and frame color
+			colorDisabled[] = {1,1,1,0.5}; // Disabled text color
+			colorSelect[] = {1,1,1,1}; // Text selection color
+			colorSelect2[] = {1,1,1,1}; // Text selection color (oscillates between this and colorSelect)
+			colorShadow[] = {0,0,0,0.5}; // Text shadow color (used only when shadow is 1)
+			pictureColor[] = {1,1,1,1}; // Picture color
+			pictureColorSelect[] = {1,1,1,1}; // Selected picture color
+			pictureColorDisabled[] = {0,1,0,1}; // Disabled picture color
+
+
+			//action = "closeDialog 0; nul = createDialog ""NATO_Options"";";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "HE Bombs"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Cost: 10 points";
+			action = "closeDialog 0;[""HE""] spawn NATObomb;";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "Carpet Bombing"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Cost: 10 points";
+			action = "closeDialog 0;[""CARPET""] spawn NATObomb;";
+		};
+
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "NAPALM Bomb"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Cost: 10 points";
+			action = "closeDialog 0;[""NAPALM""] spawn NATObomb;";
+		};
+	};
+};
+class carpet_bombing 		{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.30 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Carpet Bombing Strike"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.28 * safezoneH;//28
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0; nul = createDialog ""radio_comm"";";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "HE Bombs"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Cost: 1 point";
+			action = "closeDialog 0;[""HE""] spawn NATObomb;";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "Carpet Bombing"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Cost: 1 point";
+			action = "closeDialog 0;[""CARPET""] spawn NATObomb;";
+		};
+
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "NAPALM Bomb"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Cost: 1 point";
+			action = "closeDialog 0;[""NAPALM""] spawn NATObomb;";
+		};
+	};
+};
+
+
+//Mortar shift+Y
+class mortar_type {
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.20 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Select Mortar Ammo"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.18 * safezoneH;//28
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "HE"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;tipoMuni = SDKMortarHEMag;";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "Smoke"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0; tipoMuni = SDKMortarSmokeMag;";
+		};
+		/*
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "Remove Garrison Squads"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "nul = [] call removeGarrison";
+		};
+		*/
 	};
 };
 class rounds_number {
@@ -2412,6 +2697,65 @@ class strike_type {
 	};
 };
 
+//NATO
+class NATO_player {
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.20 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "SpecOp Menu"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.18 * safezoneH;//28
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "Quadbike"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;[] call NATOQuadbike";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "Fast Travel"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;[] spawn NATOFT";
+		};
+	};
+};
+
+
+//Undefined
 class mbt_type {
 	idd=-1;
 	movingenable=false;
@@ -2478,8 +2822,9 @@ class mbt_type {
 		};
 	};
 };
-
-class mortar_type {
+//OLD
+/*
+class garrison_menu {
 	idd=-1;
 	movingenable=false;
 
@@ -2496,7 +2841,7 @@ class mortar_type {
 		class HQ_frame: RscFrame
 		{
 			idc = -1;
-			text = "Select Mortar Ammo"; //--- ToDo: Localize;
+			text = "Garrison Menu"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
@@ -2510,379 +2855,33 @@ class mortar_type {
 			y = 0.251941 * safezoneH + safezoneY;
 			w = 0.06 * safezoneW;//0.175015
 			h = 0.05 * safezoneH;
-			action = "closeDialog 0";
+			action = "closeDialog 0;_nul = createDialog ""HQ_menu"";";
 		};
 		class HQ_button_Gsquad: RscButton
 		{
 			idc = -1;
-			text = "HE"; //--- ToDo: Localize;
+			text = "Recruit Garrison"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;tipoMuni = SDKMortarHEMag;";
+			tooltip = "Select unit types and add them to the selected garrison";
+			action = "closeDialog 0;[""add""] spawn garrisonDialog";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
 			idc = -1;
-			text = "Smoke"; //--- ToDo: Localize;
+			text = "Remove Garrison"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; tipoMuni = SDKMortarSmokeMag;";
-		};
-		/*
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "Remove Garrison Squads"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [] call removeGarrison";
-		};
-		*/
-	};
-};
-
-class minebuild_menu {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.30 * safezoneH;
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Build Minefield"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.28 * safezoneH;
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""build_menu"";";
-		};
-		class HQ_button_mortar: RscButton
-		{
-			idc = -1;
-			text = "APERS Mines"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;[""APERSMine""] spawn mineDialog";
-		};
-		class HQ_button_MG: RscButton
-		{
-			idc = -1;
-			text = "Remove Minefield"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Spawn an AI Engineer which will clear any mine in it's surroundings";
-			action = "closeDialog 0; [""delete""] spawn mineDialog;";
-		};
-		class HQ_button_AT: RscButton
-		{
-			idc = -1;
-			text = "AT Mines"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; [""ATMine""] spawn mineDialog";
-		};
-		/*
-		class HQ_button_AA: RscButton
-		{
-			idc = -1;
-			text = "O.Post-Roadblock Delete"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; [""delete""] spawn puestoDialog";
-		};*/
-	};
-};
-
-
-class NATO_player {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "SpecOp Menu"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "Quadbike"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;[] call NATOQuadbike";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "Fast Travel"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;[] spawn NATOFT";
+			tooltip = "Remove the whole garrison of a selected zone";
+			action = "closeDialog 0;[""rem""] spawn garrisonDialog";
 		};
 	};
 };
-
-class dismiss_menu {
-	idd=100;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Dismiss Options"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "Dismiss Units / Squad"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Dimiss selected units or squads, recovering it's cost to the proper resource pool";
-			action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\dismissPlayerGroup.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\dismissSquad.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "Garrison Units / Squads"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Adds selected units or squads to a map selected garrison";
-			action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\addToGarrison.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\addToGarrison.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
-		};
-		/*
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "Remove Garrison Squads"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [] call removeGarrison";
-		};
-		*/
-	};
-};
-
-class construction_menu {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.30 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Construction Menu"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.28 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""radio_comm"";";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "Small Trench"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Make a quick small trench for one man";
-			action = "closeDialog 0;nul = [""ST""] spawn construir;";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "Medium Trench"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "A mid sized trench with capabilities for more than one soldier";
-			action = "closeDialog 0; nul = [""MT""] spawn construir;";
-		};
-
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "Vehicle obstacles"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Build some obstacles for vehicles";
-			action = "closeDialog 0;nul = [""RB""] spawn construir;";
-		};
-		class HQ_button_unlock: RscButton
-		{
-			idc = -1;
-			text = "Bunker Options"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Need to be built in garrison controlled zones and cost money";
-			action = "closeDialog 0;nul = createDialog ""bunker_menu""";
-		};
-	};
-};
-
-class bunker_menu {
-	idd=-1;
-	movingenable=false;
-
-	class controls {
-
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Select Bunker Type"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "Sandbag Bunker"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Requires to be in a garrisoned zone. It will be permanent";
-			action = "closeDialog 0;nul = [""SB""] spawn construir;";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "Concrete Bunker"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Requires to be in a garrisoned zone. It will be permanent";
-			action = "closeDialog 0;nul = [""CB""] spawn construir;";
-		};
-		/*
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "Remove Garrison Squads"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			action = "nul = [] call removeGarrison";
-		};
-		*/
-	};
-};
+*/
 
 class RscTitles {
 	class Default {

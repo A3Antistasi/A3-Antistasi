@@ -139,12 +139,13 @@ if (_winner == buenos) then
 	[] call tierCheck;
 	if (!isNull _bandera) then
 		{
-		[_bandera,"remove"] remoteExec ["flagaction",0,_bandera];
+		//[_bandera,"remove"] remoteExec ["flagaction",0,_bandera];
+		[_bandera,"SDKFlag"] remoteExec ["flagaction",0,_bandera];
 		[_bandera,"\A3\Data_F_exp\Flags\Flag_Synd_CO.paa"] remoteExec ["setFlagTexture",HCgarrisons];
 		sleep 2;
-		[_bandera,"unit"] remoteExec ["flagaction",[buenos,civilian],_bandera];
-		[_bandera,"vehicle"] remoteExec ["flagaction",[buenos,civilian],_bandera];
-		[_bandera,"garage"] remoteExec ["flagaction",[buenos,civilian],_bandera];
+		//[_bandera,"unit"] remoteExec ["flagaction",[buenos,civilian],_bandera];
+		//[_bandera,"vehicle"] remoteExec ["flagaction",[buenos,civilian],_bandera];
+		//[_bandera,"garage"] remoteExec ["flagaction",[buenos,civilian],_bandera];
 		if (_marcador in puertos) then {[_bandera,"seaport"] remoteExec ["flagaction",[buenos,civilian],_bandera]};
 		};
 	waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({((_x getVariable ["BLUFORSpawn",false]) or (_x getVariable ["OPFORSpawn",false])) and (not(vehicle _x isKindOf "Air")) and (alive _x) and (!captive _x) and (!fleeing _x) and (_x distance _posicion <= _size)} count allUnits > 3*({(alive _x) and (!captive _x) and (!fleeing _x) and (side _x == buenos) and (_x distance _posicion <= _size)} count allUnits))};

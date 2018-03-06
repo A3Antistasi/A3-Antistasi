@@ -129,65 +129,62 @@ else
 	else
 		{
 		if (_veh isKindOf "StaticWeapon") then
-			{
+			{;
 			if ((not (_veh in staticsToSave)) and (side gunner _veh != buenos)) then
 				{
 				if (activeGREF and ((_tipo == staticATBuenos) or (_tipo == staticAABuenos))) then {[_veh,"moveS"] remoteExec ["flagaction",[buenos,civilian],_veh]} else {[_veh,"steal"] remoteExec ["flagaction",[buenos,civilian],_veh]};
-				}
-			else
+				};
+			if (_tipo == SDKMortar) then
 				{
-				if (_tipo == SDKMortar) then
+				if (!isNull gunner _veh) then
 					{
-					if (!isNull gunner _veh) then
+					[_veh,"steal"] remoteExec ["flagaction",[buenos,civilian],_veh];
+					};
+				_veh addEventHandler ["Fired",
+					{
+					_mortero = _this select 0;
+					_datos = _mortero getVariable ["detection",[position _mortero,0]];
+					_posicion = position _mortero;
+					_chance = _datos select 1;
+					if ((_posicion distance (_datos select 0)) < 300) then
 						{
-						[_veh,"steal"] remoteExec ["flagaction",[buenos,civilian],_veh];
+						_chance = _chance + 3;
+						}
+					else
+						{
+						_chance = 0;
 						};
-					_veh addEventHandler ["Fired",
+					if (random 100 < _chance) then
 						{
-						_mortero = _this select 0;
-						_datos = _mortero getVariable ["detection",[[0,0,0],0]];
-						_posicion = position _mortero;
-						_chance = _datos select 1;
-						if ((_posicion distance (_datos select 0)) < 300) then
+						{if ((side _x == malos) or (side _x == muyMalos)) then {_x reveal [_mortero,4]}} forEach allUnits;
+						if (_mortero distance posHQ < 300) then
 							{
-							_chance = _chance + 3;
+							if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
+								{
+								_lider = leader (gunner _mortero);
+								if (!isPlayer _lider) then
+									{
+									[] remoteExec ["ataqueHQ",HCattack];
+									}
+								else
+									{
+									if ([_lider] call isMember) then {[] remoteExec ["ataqueHQ",HCattack]};
+									};
+								};
 							}
 						else
 							{
-							_chance = 0;
-							};
-						if (random 100 < _chance) then
-							{
-							{if ((side _x == malos) or (side _x == muyMalos)) then {_x reveal [_mortero,4]}} forEach allUnits;
-							if (_mortero distance posHQ < 300) then
+							_bases = (aeropuertos - mrkSDK) select {(getMarkerPos _x distance _posDestino < 15000) and ((spawner getVariable _x != 0)) and (dateToNumber date > server getVariable _x)};
+							if (count _bases > 0) then
 								{
-								if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
-									{
-									_lider = leader (gunner _mortero);
-									if (!isPlayer _lider) then
-										{
-										[] remoteExec ["ataqueHQ",HCattack];
-										}
-									else
-										{
-										if ([_lider] call isMember) then {[] remoteExec ["ataqueHQ",HCattack]};
-										};
-									};
-								}
-							else
-								{
-								_bases = (aeropuertos - mrkSDK) select {(getMarkerPos _x distance _posDestino < 15000) and ((spawner getVariable _x != 0)) and (dateToNumber date > server getVariable _x)};
-								if (count _bases > 0) then
-									{
-									_base = [_bases,_posicion] call BIS_fnc_nearestPosition;
-									_lado = if (_base in mrkNATO) then {malos} else {muyMalos};
-									[getPosASL _mortero,_lado,"Normal"] remoteExec ["patrolCA",HCattack];
-									};
+								_base = [_bases,_posicion] call BIS_fnc_nearestPosition;
+								_lado = if (_base in mrkNATO) then {malos} else {muyMalos};
+								[getPosASL _mortero,_lado,"Normal"] remoteExec ["patrolCA",HCattack];
 								};
 							};
-						_mortero setVariable ["detection",[_posicion,_chance]];
-						}];
-					};
+						};
+					_mortero setVariable ["detection",[_posicion,_chance]];
+					}];
 				};
 			}
 		else

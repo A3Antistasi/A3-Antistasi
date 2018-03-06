@@ -63,7 +63,7 @@ if (_player == leader group _player) then
 	{
 	{if ((!isplayer _x) and (local _x) and (_x getVariable ["owner",_x] == _player)) then {[_x] spawn undercoverAI}} forEach units group _player;
 	};
-
+_estaEnControl = false;
 while {_cambiar == ""} do
 	{
 	sleep 1;
@@ -129,10 +129,32 @@ while {_cambiar == ""} do
 			if ((_tipo != civHeli) and (!(_tipo in civBoats))) then
 				{
 				_base = [_aeropuertos,_player] call BIS_fnc_nearestPosition;
-				_size = [_base] call sizeMarker;
-				if ((_player distance getMarkerPos _base < _size) and ((_base in mrkNATO) or (_base in mrkCSAT))) then
+				//_size = [_base] call sizeMarker;
+				if ((_player inArea _base) and ((_base in mrkNATO) or (_base in mrkCSAT))) then
 					{
-					_cambiar = "Distancia";
+					if (!(_base in controles)) then
+						{
+						_cambiar = "Distancia"
+						}
+					else
+						{
+						if !(_estaEnControl) then
+							{
+							_aggro = if (_base in mrkNATO) then {prestigeNATO} else {prestigeCSAT};
+							if (random 100 < _aggro) then
+								{
+								_cambiar = "Control";
+								}
+							else
+								{
+								_estaEnControl = true;
+								};
+							};
+						};
+					}
+				else
+					{
+					_estaEnControl = false;
 					};
 				}
 			else
@@ -212,6 +234,12 @@ switch _cambiar do
 	case "NoFly":
 		{
 		hint "You have got too close to an enemy Airbase no-fly zone";
+		//_compromised = _player getVariable "compromised";
+		reportedVehs pushBackUnique (vehicle _player); publicVariable "reportedVehs";
+		};
+	case "Control":
+		{
+		hint "The Roadblock Garrison has recognised you";
 		//_compromised = _player getVariable "compromised";
 		reportedVehs pushBackUnique (vehicle _player); publicVariable "reportedVehs";
 		};

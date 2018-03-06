@@ -609,3 +609,10 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Solved the "unconscious train" bug on vanilla revive.
 - Heavy economic (only) penalties on Maru's death.
 - HC groups get removed from the HC bar when they are assigned to a garrison.
+
+0.11.1 06/03/2018 ALPHA
+
+- Optimised a bit actions appearing on flags upon capture.
+- Chances of surrender appear when an enemy becomes unconscious and not only when killed or bleadout.
+- IMPORTANT: Undercoverlose on roadblocks is affected by aggro. With low level, the soldiers wont recognise you and will allow you to pass.
+- Fixed bug that prevented QRF on mortar fire abuse.

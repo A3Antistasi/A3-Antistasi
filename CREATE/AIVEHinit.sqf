@@ -127,9 +127,9 @@ else
 			};
 		}
 	else
-		{hint "1";
+		{
 		if (_veh isKindOf "StaticWeapon") then
-			{hint "2";
+			{;
 			if ((not (_veh in staticsToSave)) and (side gunner _veh != buenos)) then
 				{
 				if (activeGREF and ((_tipo == staticATBuenos) or (_tipo == staticAABuenos))) then {[_veh,"moveS"] remoteExec ["flagaction",[buenos,civilian],_veh]} else {[_veh,"steal"] remoteExec ["flagaction",[buenos,civilian],_veh]};
@@ -143,7 +143,7 @@ else
 				_veh addEventHandler ["Fired",
 					{
 					_mortero = _this select 0;
-					_datos = _mortero getVariable ["detection",[position _mortero,0]]; hint format ["%1",_datos];
+					_datos = _mortero getVariable ["detection",[position _mortero,0]];
 					_posicion = position _mortero;
 					_chance = _datos select 1;
 					if ((_posicion distance (_datos select 0)) < 300) then

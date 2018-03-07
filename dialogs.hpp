@@ -1348,7 +1348,7 @@ class radio_comm 		{
 
 	class controls {
 
-		class HQ_box: BOX	// Box 8 elements
+		class 8slots_box: BOX
 		{
 			idc = -1;
 			text = ""; //--- ToDo: Localize;
@@ -1357,7 +1357,7 @@ class radio_comm 		{
 			w = 0.445038 * safezoneW;
 			h = 0.492103 * safezoneH;
 		};
-		class HQ_frame: RscFrame // Frame 8 elements
+		class 8slots_frame: RscFrame
 			{
 				idc = -1;
 				text = "Battle Options"; //--- ToDo: Localize;
@@ -1366,17 +1366,17 @@ class radio_comm 		{
 				w = 0.425038 * safezoneW;
 				h = 0.462103 * safezoneH;
 			};
-		class HQ_button_back: RscButton		//Back 8 elements
+		class 8slots_Back: RscButton
 			{
 				idc = -1;
 				text = "Back"; //--- ToDo: Localize;
 				x = 0.61 * safezoneW + safezoneX;
 				y = 0.251941 * safezoneH + safezoneY;
-				w = 0.06 * safezoneW;//0.175015
+				w = 0.06 * safezoneW;
 				h = 0.05 * safezoneH;
 				action = "closeDialog 0";
 			};
-		class HQ_button_AS: RscButton	//Button L1
+		class 8slots_L1: RscButton
 			{
 				idc = -1;
 				text = "Fast Travel"; //--- ToDo: Localize;
@@ -1387,7 +1387,18 @@ class radio_comm 		{
 				tooltip = "Teleport your squad or a HC selected squad to a friendly zone depending on several factors";
 				action = "closeDialog 0;nul = [] execVM ""fastTravelRadio.sqf"";";
 			};
-		class HQ_button_CONV: RscButton		//Button L2
+		class 8slots_R1: RscButton
+					{
+						idc = -1;
+						text = "Air Support"; //--- ToDo: Localize;
+						x = 0.482498 * safezoneW + safezoneX;
+						y = 0.317959 * safezoneH + safezoneY;
+						w = 0.175015 * safezoneW;
+						h = 0.0560125 * safezoneH;
+						tooltip = "Ask for Air Support (uses Airstrike points)";
+						action = "closeDialog 0;if (player == Stavros) then {_nul = createDialog ""carpet_bombing""} else {hint ""Only Player Commander has access to this function""};";
+					};
+		class 8slots_L2: RscButton
 			{
 				idc = -1;
 				text = "Undercover ON"; //--- ToDo: Localize;
@@ -1398,40 +1409,7 @@ class radio_comm 		{
 				tooltip = "Become Undercover if you match the requirements. Enemy AI won't attack you until they discover you";
 				action = "closeDialog 0;nul = [] spawn undercover";
 			};
-		class HQ_button_DES: RscButton	//Button L3
-			{
-				idc = -1;
-				text = "Vehicle Manager"; //--- ToDo: Localize;
-				x = 0.272481 * safezoneW + safezoneX;
-				y = 0.514003 * safezoneH + safezoneY;
-				w = 0.175015 * safezoneW;
-				h = 0.0560125 * safezoneH;
-				tooltip = "Several actions related to the vehicle you are looking at";
-				action = "closeDialog 0; nul = createDialog ""vehicle_manager"";";
-			};
-		class HQ_button_LOG: RscButton	// Button R1
-			{
-				idc = -1;
-				text = "Air Support"; //--- ToDo: Localize;
-				x = 0.482498 * safezoneW + safezoneX;
-				y = 0.317959 * safezoneH + safezoneY;
-				w = 0.175015 * safezoneW;
-				h = 0.0560125 * safezoneH;
-				tooltip = "Ask for Air Support (uses Airstrike points)";
-				action = "closeDialog 0;if (player == Stavros) then {_nul = createDialog ""carpet_bombing""} else {hint ""Only Player Commander has access to this function""};";
-			};
-		class HQ_button_RES: RscButton	// Button R3
-			{
-				idc = -1;
-				text = "Construct Here"; //--- ToDo: Localize;
-				x = 0.482498 * safezoneW + safezoneX;
-				y = 0.514003 * safezoneH + safezoneY;
-				w = 0.175015 * safezoneW;
-				h = 0.0560125 * safezoneH;
-				tooltip = "Construct in the spot where you are a selected building facing this direction";
-				action = "closeDialog 0;_nul = createDialog ""construction_menu"";";
-			};
-		class HQ_button_vehicle: RscButton	// Button R2
+		class 8slots_R2: RscButton
 			{
 				idc = -1;
 				text = "Recruit Squad"; //--- ToDo: Localize;
@@ -1442,7 +1420,31 @@ class radio_comm 		{
 				tooltip = "Recruit new squads and manage them with the HC Module (CTRL + SPACE)";
 				action = "closeDialog 0;if (player == Stavros) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
 			};
-		class HQ_button_fpsplus: RscButton	//Button L4
+		class 8slots_L3: RscButton
+			{
+				idc = -1;
+				text = "Vehicle Manager"; //--- ToDo: Localize;
+				x = 0.272481 * safezoneW + safezoneX;
+				y = 0.514003 * safezoneH + safezoneY;
+				w = 0.175015 * safezoneW;
+				h = 0.0560125 * safezoneH;
+				tooltip = "Several actions related to the vehicle you are looking at";
+				action = "closeDialog 0; nul = createDialog ""vehicle_manager"";";
+			};
+
+		class 8slots_R3: RscButton
+			{
+				idc = -1;
+				text = "Construct Here"; //--- ToDo: Localize;
+				x = 0.482498 * safezoneW + safezoneX;
+				y = 0.514003 * safezoneH + safezoneY;
+				w = 0.175015 * safezoneW;
+				h = 0.0560125 * safezoneH;
+				tooltip = "Construct in the spot where you are a selected building facing this direction";
+				action = "closeDialog 0;_nul = createDialog ""construction_menu"";";
+			};
+
+		class 8slots_L4: RscButton
 			{
 				idc = -1;
 				text = "AI Management"; //--- ToDo: Localize;
@@ -1454,7 +1456,7 @@ class radio_comm 		{
 				action = "if (player == leader group player) then {closeDialog 0;nul = createDialog ""AI_management""} else {hint ""Only group leaders may access to this option""};";
 			};
 
-		class HQ_button_AA: RscButton	// Button R4
+		class 8slots_R4: RscButton
 			{
 				idc = -1;
 				text = "Player and Money"; //--- ToDo: Localize;

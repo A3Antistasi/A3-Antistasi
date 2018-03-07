@@ -1348,122 +1348,122 @@ class radio_comm 		{
 	class controls {
 		//Menu Structure
 		class 8slots_box: BOX
-			{
-				idc = -1;
-				text = ""; //--- ToDo: Localize;
-				x = 0.244979 * safezoneW + safezoneX;
-				y = 0.223941 * safezoneH + safezoneY;
-				w = 0.445038 * safezoneW;
-				h = 0.492103 * safezoneH;
-			};
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.492103 * safezoneH;
+		};
 		class 8slots_frame: RscFrame
-			{
-				idc = -1;
-				text = "Battle Options"; //--- ToDo: Localize;
-				x = 0.254979 * safezoneW + safezoneX;
-				y = 0.233941 * safezoneH + safezoneY;
-				w = 0.425038 * safezoneW;
-				h = 0.462103 * safezoneH;
-			};
+		{
+			idc = -1;
+			text = "Battle Options"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.462103 * safezoneH;
+		};
 		class 8slots_Back: RscButton
-			{
-				idc = -1;
-				text = "Back"; //--- ToDo: Localize;
-				x = 0.61 * safezoneW + safezoneX;
-				y = 0.251941 * safezoneH + safezoneY;
-				w = 0.06 * safezoneW;
-				h = 0.05 * safezoneH;
-				action = "closeDialog 0";
-			};
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0";
+		};
 		//Action Buttons
 		class 8slots_L1: RscButton
-			{
-				idc = -1;
-				text = "Fast Travel"; //--- ToDo: Localize;
-				x = 0.272481 * safezoneW + safezoneX;
-				y = 0.317959 * safezoneH + safezoneY;
-				w = 0.175015 * safezoneW;
-				h = 0.0560125 * safezoneH;
-				tooltip = "Teleport your squad or a HC selected squad to a friendly zone depending on several factors";
-				action = "closeDialog 0;nul = [] execVM ""fastTravelRadio.sqf"";";
-			};
+		{
+			idc = -1;
+			text = "Fast Travel"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Teleport your squad or a HC selected squad to a friendly zone depending on several factors";
+			action = "closeDialog 0;nul = [] execVM ""fastTravelRadio.sqf"";";
+		};
 		class 8slots_R1: RscButton
-			{
-				idc = -1;
-				text = "Air Support"; //--- ToDo: Localize;
-				x = 0.482498 * safezoneW + safezoneX;
-				y = 0.317959 * safezoneH + safezoneY;
-				w = 0.175015 * safezoneW;
-				h = 0.0560125 * safezoneH;
-				tooltip = "Ask for Air Support (uses Airstrike points)";
-				action = "closeDialog 0;if (player == Stavros) then {_nul = createDialog ""carpet_bombing""} else {hint ""Only Player Commander has access to this function""};";
-			};
+		{
+			idc = -1;
+			text = "Player and Money"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Look at some player and interact with him";
+			action = "closeDialog 0;if (isMultiPlayer) then {nul = createDialog ""player_money""} else {hint ""MP Only Menu""};";
+		};
 		class 8slots_L2: RscButton
-			{
-				idc = -1;
-				text = "Undercover ON"; //--- ToDo: Localize;
-				x = 0.272481 * safezoneW + safezoneX;
-				y = 0.415981 * safezoneH + safezoneY;
-				w = 0.175015 * safezoneW;
-				h = 0.0560125 * safezoneH;
-				tooltip = "Become Undercover if you match the requirements. Enemy AI won't attack you until they discover you";
-				action = "closeDialog 0;nul = [] spawn undercover";
-			};
+		{
+			idc = -1;
+			text = "Undercover ON"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Become Undercover if you match the requirements. Enemy AI won't attack you until they discover you";
+			action = "closeDialog 0;nul = [] spawn undercover";
+		};
 		class 8slots_R2: RscButton
-			{
-				idc = -1;
-				text = "Recruit Squad"; //--- ToDo: Localize;
-				x = 0.482498 * safezoneW + safezoneX;
-				y = 0.415981 * safezoneH + safezoneY;
-				w = 0.175015 * safezoneW;
-				h = 0.0560125 * safezoneH;
-				tooltip = "Recruit new squads and manage them with the HC Module (CTRL + SPACE)";
-				action = "closeDialog 0;if (player == Stavros) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
-			};
+		{
+			idc = -1;
+			text = "Recruit Squad"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Recruit new squads and manage them with the HC Module (CTRL + SPACE)";
+			action = "closeDialog 0;if (player == Stavros) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
+		};
 		class 8slots_L3: RscButton
-			{
-				idc = -1;
-				text = "Vehicle Manager"; //--- ToDo: Localize;
-				x = 0.272481 * safezoneW + safezoneX;
-				y = 0.514003 * safezoneH + safezoneY;
-				w = 0.175015 * safezoneW;
-				h = 0.0560125 * safezoneH;
-				tooltip = "Several actions related to the vehicle you are looking at";
-				action = "closeDialog 0; nul = createDialog ""vehicle_manager"";";
-			};
+		{
+			idc = -1;
+			text = "Garage Vehicle"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Vehicle or Static gun you're looking at will be garaged, interact with Flag to retrive";
+			action = "closeDialog 0;if (player != stavros) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
+		};
 		class 8slots_R3: RscButton
-			{
-				idc = -1;
-				text = "Construct Here"; //--- ToDo: Localize;
-				x = 0.482498 * safezoneW + safezoneX;
-				y = 0.514003 * safezoneH + safezoneY;
-				w = 0.175015 * safezoneW;
-				h = 0.0560125 * safezoneH;
-				tooltip = "Construct in the spot where you are a selected building facing this direction";
-				action = "closeDialog 0;_nul = createDialog ""construction_menu"";";
-			};
+		{
+			idc = -1;
+			text = "Construct Here"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Construct in the spot where you are a selected building facing this direction";
+			action = "closeDialog 0;_nul = createDialog ""construction_menu"";";
+		};
 		class 8slots_L4: RscButton
-			{
-				idc = -1;
-				text = "AI Management"; //--- ToDo: Localize;
-				x = 0.272481 * safezoneW + safezoneX;
-				y = 0.612025 * safezoneH + safezoneY;
-				w = 0.175015 * safezoneW;
-				h = 0.0560125 * safezoneH;
-				tooltip = "Several AI options";
-				action = "if (player == leader group player) then {closeDialog 0;nul = createDialog ""AI_management""} else {hint ""Only group leaders may access to this option""};";
-			};
+		{
+			idc = -1;
+			text = "AI Management"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Several AI options";
+			action = "if (player == leader group player) then {closeDialog 0;nul = createDialog ""AI_management""} else {hint ""Only group leaders may access to this option""};";
+		};
 		class 8slots_R4: RscButton
-			{
-				idc = -1;
-				text = "Player and Money"; //--- ToDo: Localize;
-				x = 0.482498 * safezoneW + safezoneX;
-				y = 0.612025 * safezoneH + safezoneY;
-				w = 0.175015 * safezoneW;
-				h = 0.0560125 * safezoneH;
-				tooltip = "Look at some player and interact with him";
-				action = "closeDialog 0;if (isMultiPlayer) then {nul = createDialog ""player_money""} else {hint ""MP Only Menu""};";
-			};
+		{
+			idc = -1;
+			text = "Commander"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Open commander options";
+			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""commander_comm""} else {hint ""Only Player Commander has access to this function""};";
+		};
 	};
 };
 class vehicle_manager 		{
@@ -1683,37 +1683,38 @@ class squad_manager 			{
 class AI_management 		{
 	idd=-1;
 	movingenable=false;
-
 	class controls {
-		class HQ_box: BOX
+		//Menu Structure
+		class 8slots_box: BOX
 		{
 			idc = -1;
 			text = ""; //--- ToDo: Localize;
 			x = 0.244979 * safezoneW + safezoneX;
 			y = 0.223941 * safezoneH + safezoneY;
 			w = 0.445038 * safezoneW;
-			h = 0.30 * safezoneH;//30
+			h = 0.492103 * safezoneH;
 		};
-		class HQ_frame: RscFrame
+		class 8slots_frame: RscFrame
 		{
 			idc = -1;
-			text = "AI Management"; //--- ToDo: Localize;
+			text = "Battle Options"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
-			h = 0.28 * safezoneH;//28
+			h = 0.462103 * safezoneH;
 		};
-		class HQ_button_back: RscButton
+		class 8slots_Back: RscButton
 		{
 			idc = -1;
 			text = "Back"; //--- ToDo: Localize;
 			x = 0.61 * safezoneW + safezoneX;
 			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
+			w = 0.06 * safezoneW;
 			h = 0.05 * safezoneH;
 			action = "closeDialog 0;nul = createDialog ""radio_comm"";";
 		};
-		class HQ_button_Gsquad: RscButton
+		//Action Buttons
+		class 8slots_L1: RscButton
 		{
 			idc = -1;
 			text = "Temp. AI Control"; //--- ToDo: Localize;
@@ -1722,9 +1723,9 @@ class AI_management 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Take personal control of the selected squad member or HC squad leader and be able to perform any kind of actions for 60 seconds. Control state will be cancelled if the player or the controlled unit receives any kind of damage";
-			action = "closeDialog 0; if ((count groupselectedUnits player > 0) and (count hcSelected player > 0)) exitWith {hint ""You must select from HC or Squad Bars, not both""}; if (count groupselectedUnits player == 1) then {nul = [groupselectedUnits player] execVM ""REINF\controlunit.sqf""}; if (count hcSelected player == 1) then {nul = [hcSelected player] execVM ""REINF\controlHCsquad.sqf"";};";
+		action = "closeDialog 0; if ((count groupselectedUnits player > 0) and (count hcSelected player > 0)) exitWith {hint ""You must select from HC or Squad Bars, not both""}; if (count groupselectedUnits player == 1) then {nul = [groupselectedUnits player] execVM ""REINF\controlunit.sqf""}; if (count hcSelected player == 1) then {nul = [hcSelected player] execVM ""REINF\controlHCsquad.sqf"";};";
 		};
-		class HQ_button_Gstatic: RscButton
+		class 8slots_R1: RscButton
 		{
 			idc = -1;
 			text = "Auto Rearm \ Loot"; //--- ToDo: Localize;
@@ -1735,12 +1736,10 @@ class AI_management 		{
 			tooltip = "AI will search for better weapons, vests, helmets etc. If they are in a vehicle, they will just store what they scavenge in the vehicle. If not, they will equip them";
 			action = "closeDialog 0; if (count groupselectedUnits player == 0) then {nul = (units group player) spawn rearmCall} else {nul = (groupselectedUnits player) spawn rearmCall};";
 		};
-
-		class HQ_button_Gremove: RscButton
+		class 8slots_L2: RscButton
 		{
 			idc = -1;
 			text = "Auto Heal"; //--- ToDo: Localize;
-			//x = 0.37749 * safezoneW + safezoneX;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -1748,21 +1747,190 @@ class AI_management 		{
 			tooltip = "AI squad mates will heal proactively each other";
 			action = "if (autoHeal) then {autoHeal = false; hint ""Auto Healing disabled"";} else {autoHeal = true; hint ""Auto Heal enabled""; nul = [] spawn autoHealFnc}";
 		};
-		class dismiss_units: RscButton
+		class 8slots_R2: RscButton
 		{
 			idc = -1;
-			text = "Dismiss Units/Squads"; //--- ToDo: Localize;
-			//x = 0.37749 * safezoneW + safezoneX;
+			text = "Squad Vehicle Stats"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Use this option to dismiss or garrison squadmates and HC squads";
-			action = "closeDialog 0; createDialog ""dismiss_menu"";";
-			//action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\dismissPlayerGroup.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\dismissSquad.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
+			tooltip = "If the selected squad is using some vehicle, know remotely it's status";
+			action = "[""stats""] call vehStats;";
+		};
+		class 8slots_L3: RscButton
+		{
+			idc = -1;
+			text = "Garrison Units / Squads"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Adds selected units or squads to a map selected garrison";
+			action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\addToGarrison.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\addToGarrison.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
+		};
+		class 8slots_R3: RscButton
+		{
+			idc = -1;
+			text = "Squad Add Vehicle"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Look at some vehicle and assign it to the selected squad for it's use";
+			action = "closeDialog 0;[] call addSquadVeh;";
+		};
+		class 8slots_L4: RscButton
+		{
+			idc = -1;
+			text = "Dismiss Units / Squad"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Dimiss selected units or squads, recovering it's cost to the proper resource pool";
+			action = "closeDialog 0;if (count groupselectedUnits player > 0) then {nul = [groupselectedUnits player] execVM ""REINF\dismissPlayerGroup.sqf""} else {if (count (hcSelected player) > 0) then {nul = [hcSelected player] execVM ""REINF\dismissSquad.sqf""}}; if ((count groupselectedUnits player == 0) and (count hcSelected player == 0)) then {hint ""No units or squads selected""}";
+		};
+		class 8slots_R4: RscButton
+		{
+			idc = -1;
+			text = "Mount / Dismount"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Force squad to mount or dismount their assigned vehicle";
+			action = "[""mount""] call vehStats";
 		};
 	};
 };
+
+class commander_comm 		{
+	idd=-1;
+	movingenable=false;
+	class controls {
+		//Menu Structure
+		class 8slots_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.492103 * safezoneH;
+		};
+		class 8slots_frame: RscFrame
+		{
+			idc = -1;
+			text = "Commander Battle Options"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.462103 * safezoneH;
+		};
+		class 8slots_Back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0;nul = createDialog ""radio_comm"";";
+		};
+		//Action Buttons
+		class 8slots_L1: RscButton
+		{
+			idc = -1;
+			text = "Recruit Squad"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Recruit new squads and manage them with the HC Module (CTRL + SPACE)";
+			action = "closeDialog 0;if (player == Stavros) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
+		};
+		class 8slots_R1: RscButton
+		{
+			idc = -1;
+			text = "Air Support"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Ask for Air Support (uses Airstrike points)";
+			action = "closeDialog 0;if (player == Stavros) then {_nul = createDialog ""carpet_bombing""} else {hint ""Only Player Commander has access to this function""};";
+		};
+		class 8slots_L2: RscButton
+		{
+			idc = -1;
+			text = "O.Post - Roadblock"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Establish a new watchpost or roadblock depending on the type of terrain you select";
+			action = "closeDialog 0; [""create""] spawn puestoDialog";
+		};
+		class 8slots_R2: RscButton
+		{
+			idc = -1;
+			text = "Garbage Clean"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Cleans several things in game. Use with caution as it freezes the mission";
+			action = "closedialog 0;if (player == Stavros) then {[] remoteExec [""garbageCleaner"",2]} else {hint ""Only Player Commander has access to this function""};";
+		};
+		class 8slots_L3: RscButton
+		{
+			idc = -1;
+			text = "O.Post-Roadblock Delete"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Remove selected observation post or roadblock, money will be refunded";
+			action = "closeDialog 0; [""delete""] spawn puestoDialog";
+		};
+		class 8slots_R3: RscButton
+		{
+			idc = -1;
+			text = "Garage Vehicle in SDK"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Look at a vehicle and garage it into SDK garage (shared among commanders)";
+			action = "closeDialog 0; nul = [true] call garageVehicle;";
+		};
+		class 8slots_L4: RscButton
+		{
+			idc = -1;
+			text = "O.Post-Roadblock Move"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "WiP tell to selected location to move, they become under HighCommand bar (ctrl+space) control";
+			action = "";
+		};
+		class 8slots_R4: RscButton
+		{
+			idc = -1;
+			text = "Resign Comm.Career"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Select this option if you don't want to become commander even when you have enough rank and rights";
+			action = "closedialog 0; if (isMultiplayer) then {execVM ""orgPlayers\commResign.sqf""} else {hint ""This feature is MP Only""};";
+		};
+	};
+};
+
+
 class dismiss_menu 				{
 	idd=100;
 	movingenable=false;

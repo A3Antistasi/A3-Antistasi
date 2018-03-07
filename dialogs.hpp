@@ -57,7 +57,7 @@ class first_load 		{
 		};
 		*/
 	};
-};
+}; 										//slots 2
 class init_menu 		{
 	idd=-1;
 	movingenable=false;
@@ -116,7 +116,7 @@ class init_menu 		{
 			action = "if (!isNil ""switchCom"") then {closedialog 0; nul = [] execVM ""Dialogs\membersMenu.sqf"";} else {hint ""Select an option first""};";
 		};
 	};
-};
+}; 										//slots 2+1
 class members_menu 		{
 	idd=-1;
 	movingenable=false;
@@ -176,7 +176,6 @@ class members_menu 		{
 
 //FLAG
 class HQ_menu 			{
-	//8 slots
 	idd=100;
 	movingenable=false;
 
@@ -289,7 +288,7 @@ class HQ_menu 			{
 			action = "closeDialog 0;nul = [false] spawn garage";
 		};
 	};
-};
+}; 										//slots: 8
 class build_menu  			{
 	idd=-1;
 	movingenable=false;
@@ -342,7 +341,6 @@ class build_menu  			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			//action = "closeDialog 0; [""delete""] spawn mineDialog;";
 			tooltip = "Add units to an existing garrison";
 			action = "closeDialog 0; [""add""] spawn garrisonDialog";
 		};
@@ -370,7 +368,7 @@ class build_menu  			{
 			action = "closeDialog 0; [""rem""] spawn garrisonDialog";
 		};
 	};
-};
+}; 										//slots 4
 class garrison_recruit 			{
 	idd=100;
 	movingenable=false;
@@ -1340,7 +1338,7 @@ class mission_menu 		{
 			action = "closeDialog 0;";
 		};
 	};
-};
+}; 										//slots: 6+1
 
 
 //Y menu

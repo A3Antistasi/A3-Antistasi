@@ -12,7 +12,7 @@
 
 ---
 
-**Delete theese line after compiling the section below**, 
+**Delete theese lines after compiling the section above**, 
 
 Make short title, and possibly use [bug] [question] [suggestion] before for better identification
 

@@ -294,6 +294,7 @@ class build_menu  			{
 	movingenable=false;
 
 	class controls {
+		//Structure
 		class HQ_box: BOX
 		{
 			idc = -1;
@@ -322,7 +323,8 @@ class build_menu  			{
 			h = 0.05 * safezoneH;
 			action = "closeDialog 0;_nul = createDialog ""HQ_menu"";";
 		};
-		class HQ_button_mortar: RscButton
+		//Action Buttons
+		class 4slots_L1: RscButton
 		{
 			idc = -1;
 			text = "Minefield Options"; //--- ToDo: Localize;
@@ -333,18 +335,7 @@ class build_menu  			{
 			tooltip = "AI will deploy or remove mines on desired objectives, using current arsenal mine count";
 			action = "closeDialog 0;_nul = createDialog ""minebuild_menu"";";
 		};
-		class HQ_button_MG: RscButton
-		{
-			idc = -1;
-			text = "Add Garrison"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Add units to an existing garrison";
-			action = "closeDialog 0; [""add""] spawn garrisonDialog";
-		};
-		class HQ_button_AT: RscButton
+		class 4slots_R1: RscButton
 		{
 			idc = -1;
 			text = "O.Post - Roadblock"; //--- ToDo: Localize;
@@ -355,7 +346,18 @@ class build_menu  			{
 			tooltip = "Establish a new watchpost or roadblock depending on the type of terrain you select";
 			action = "closeDialog 0; [""create""] spawn puestoDialog";
 		};
-		class HQ_button_AA: RscButton
+		class 4slots_L2: RscButton
+		{
+			idc = -1;
+			text = "Add Garrison"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Add units to an existing garrison";
+			action = "closeDialog 0; [""add""] spawn garrisonDialog";
+		};
+		class 4slots_R2: RscButton
 		{
 			idc = -1;
 			text = "Remove Garrison"; //--- ToDo: Localize;
@@ -1804,7 +1806,6 @@ class AI_management 		{
 		};
 	};
 };
-
 class commander_comm 		{
 	idd=-1;
 	movingenable=false;
@@ -1926,6 +1927,75 @@ class commander_comm 		{
 			h = 0.0560125 * safezoneH;
 			tooltip = "Select this option if you don't want to become commander even when you have enough rank and rights";
 			action = "closedialog 0; if (isMultiplayer) then {execVM ""orgPlayers\commResign.sqf""} else {hint ""This feature is MP Only""};";
+		};
+	};
+};
+class carpet_bombing 			{
+	idd=-1;
+	movingenable=false;
+
+	class controls {
+		class HQ_box: BOX
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.244979 * safezoneW + safezoneX;
+			y = 0.223941 * safezoneH + safezoneY;
+			w = 0.445038 * safezoneW;
+			h = 0.30 * safezoneH;//30
+		};
+		class HQ_frame: RscFrame
+		{
+			idc = -1;
+			text = "Carpet Bombing Strike"; //--- ToDo: Localize;
+			x = 0.254979 * safezoneW + safezoneX;
+			y = 0.233941 * safezoneH + safezoneY;
+			w = 0.425038 * safezoneW;
+			h = 0.28 * safezoneH;//28
+		};
+		class HQ_button_back: RscButton
+		{
+			idc = -1;
+			text = "Back"; //--- ToDo: Localize;
+			x = 0.61 * safezoneW + safezoneX;
+			y = 0.251941 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;//0.175015
+			h = 0.05 * safezoneH;
+			action = "closeDialog 0; nul = createDialog ""radio_comm"";";
+		};
+		class HQ_button_Gsquad: RscButton
+		{
+			idc = -1;
+			text = "HE Bombs"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Cost: 1 point";
+			action = "closeDialog 0;[""HE""] spawn NATObomb;";
+		};
+		class HQ_button_Gstatic: RscButton
+		{
+			idc = -1;
+			text = "Carpet Bombing"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.317959 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Cost: 1 point";
+			action = "closeDialog 0;[""CARPET""] spawn NATObomb;";
+		};
+
+		class HQ_button_Gremove: RscButton
+		{
+			idc = -1;
+			text = "NAPALM Bomb"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Cost: 1 point";
+			action = "closeDialog 0;[""NAPALM""] spawn NATObomb;";
 		};
 	};
 };
@@ -2539,75 +2609,7 @@ class tu_madre 				{
 		};
 	};
 };
-class carpet_bombing 		{
-	idd=-1;
-	movingenable=false;
 
-	class controls {
-		class HQ_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.30 * safezoneH;//30
-		};
-		class HQ_frame: RscFrame
-		{
-			idc = -1;
-			text = "Carpet Bombing Strike"; //--- ToDo: Localize;
-			x = 0.254979 * safezoneW + safezoneX;
-			y = 0.233941 * safezoneH + safezoneY;
-			w = 0.425038 * safezoneW;
-			h = 0.28 * safezoneH;//28
-		};
-		class HQ_button_back: RscButton
-		{
-			idc = -1;
-			text = "Back"; //--- ToDo: Localize;
-			x = 0.61 * safezoneW + safezoneX;
-			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
-			h = 0.05 * safezoneH;
-			action = "closeDialog 0; nul = createDialog ""radio_comm"";";
-		};
-		class HQ_button_Gsquad: RscButton
-		{
-			idc = -1;
-			text = "HE Bombs"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Cost: 1 point";
-			action = "closeDialog 0;[""HE""] spawn NATObomb;";
-		};
-		class HQ_button_Gstatic: RscButton
-		{
-			idc = -1;
-			text = "Carpet Bombing"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Cost: 1 point";
-			action = "closeDialog 0;[""CARPET""] spawn NATObomb;";
-		};
-
-		class HQ_button_Gremove: RscButton
-		{
-			idc = -1;
-			text = "NAPALM Bomb"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Cost: 1 point";
-			action = "closeDialog 0;[""NAPALM""] spawn NATObomb;";
-		};
-	};
-};
 
 
 //Mortar shift+Y

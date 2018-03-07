@@ -143,7 +143,7 @@ class RscButton
 access = 0;
     type = CT_BUTTON;
     text = "";
-    colorText[] = {0,0.871,0.769,1};
+    colorText[] = {0.73,0,0,1};
     colorDisabled[] = {0.4,0.4,0.4,0};
     colorBackground[] =  {0.247,0.243,0.243,1};
     colorBackgroundDisabled[] = {0,0.0,0};
@@ -169,7 +169,7 @@ access = 0;
     offsetPressedY = 0.002;
     borderSize = 0;
     onMouseEnter = "(_this select 0) ctrlSetTextColor [1,0.969,0,1]";
-    onMouseExit = "(_this select 0) ctrlSetTextColor [0,0.871,0.769,1]";
+    onMouseExit = "(_this select 0) ctrlSetTextColor [0.73,0,0,1]";
 };
 
 class RscFrame

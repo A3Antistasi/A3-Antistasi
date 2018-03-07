@@ -1,7 +1,3 @@
-**Copypaste this template**, in italic are mandatory fields, aside there are suggested answer, compile with your data.
-
-Make short title, and possibly use [bug] [question] [suggestion] before for better identification
-
 ---
 *Version:* 0.11.1.
 
@@ -17,6 +13,11 @@ Make short title, and possibly use [bug] [question] [suggestion] before for bett
 
 ---
 
+**Delete theese line after compiling the section below**, 
+
+Make short title, and possibly use [bug] [question] [suggestion] before for better identification
+
 To find an .rpt "C:\Users\User\AppData\Local\Arma 3\Arma3_x64_2018-03-06_16-36-36.rpt" (type %appdata% in windows searchbar and press enter, go up by one level and you'll find \Local\Arma3)
 
 To permalink or link code just browse in github the file you want, click on the numer of the line to make it yellow and click on the dots on the left, select what you need, paste here.
+

@@ -1345,18 +1345,17 @@ class mission_menu 		{
 class radio_comm 		{
 	idd=-1;
 	movingenable=false;
-
 	class controls {
-
+		//Menu Structure
 		class 8slots_box: BOX
-		{
-			idc = -1;
-			text = ""; //--- ToDo: Localize;
-			x = 0.244979 * safezoneW + safezoneX;
-			y = 0.223941 * safezoneH + safezoneY;
-			w = 0.445038 * safezoneW;
-			h = 0.492103 * safezoneH;
-		};
+			{
+				idc = -1;
+				text = ""; //--- ToDo: Localize;
+				x = 0.244979 * safezoneW + safezoneX;
+				y = 0.223941 * safezoneH + safezoneY;
+				w = 0.445038 * safezoneW;
+				h = 0.492103 * safezoneH;
+			};
 		class 8slots_frame: RscFrame
 			{
 				idc = -1;
@@ -1376,6 +1375,7 @@ class radio_comm 		{
 				h = 0.05 * safezoneH;
 				action = "closeDialog 0";
 			};
+		//Action Buttons
 		class 8slots_L1: RscButton
 			{
 				idc = -1;
@@ -1388,16 +1388,16 @@ class radio_comm 		{
 				action = "closeDialog 0;nul = [] execVM ""fastTravelRadio.sqf"";";
 			};
 		class 8slots_R1: RscButton
-					{
-						idc = -1;
-						text = "Air Support"; //--- ToDo: Localize;
-						x = 0.482498 * safezoneW + safezoneX;
-						y = 0.317959 * safezoneH + safezoneY;
-						w = 0.175015 * safezoneW;
-						h = 0.0560125 * safezoneH;
-						tooltip = "Ask for Air Support (uses Airstrike points)";
-						action = "closeDialog 0;if (player == Stavros) then {_nul = createDialog ""carpet_bombing""} else {hint ""Only Player Commander has access to this function""};";
-					};
+			{
+				idc = -1;
+				text = "Air Support"; //--- ToDo: Localize;
+				x = 0.482498 * safezoneW + safezoneX;
+				y = 0.317959 * safezoneH + safezoneY;
+				w = 0.175015 * safezoneW;
+				h = 0.0560125 * safezoneH;
+				tooltip = "Ask for Air Support (uses Airstrike points)";
+				action = "closeDialog 0;if (player == Stavros) then {_nul = createDialog ""carpet_bombing""} else {hint ""Only Player Commander has access to this function""};";
+			};
 		class 8slots_L2: RscButton
 			{
 				idc = -1;
@@ -1431,7 +1431,6 @@ class radio_comm 		{
 				tooltip = "Several actions related to the vehicle you are looking at";
 				action = "closeDialog 0; nul = createDialog ""vehicle_manager"";";
 			};
-
 		class 8slots_R3: RscButton
 			{
 				idc = -1;
@@ -1443,7 +1442,6 @@ class radio_comm 		{
 				tooltip = "Construct in the spot where you are a selected building facing this direction";
 				action = "closeDialog 0;_nul = createDialog ""construction_menu"";";
 			};
-
 		class 8slots_L4: RscButton
 			{
 				idc = -1;
@@ -1455,7 +1453,6 @@ class radio_comm 		{
 				tooltip = "Several AI options";
 				action = "if (player == leader group player) then {closeDialog 0;nul = createDialog ""AI_management""} else {hint ""Only group leaders may access to this option""};";
 			};
-
 		class 8slots_R4: RscButton
 			{
 				idc = -1;

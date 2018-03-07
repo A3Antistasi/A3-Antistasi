@@ -1909,24 +1909,24 @@ class commander_comm 		{
 		class 8slots_L4: RscButton
 		{
 			idc = -1;
-			text = "O.Post-Roadblock Move"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.612025 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "WiP tell to selected location to move, they become under HighCommand bar (ctrl+space) control";
-			action = "";
-		};
-		class 8slots_R4: RscButton
-		{
-			idc = -1;
 			text = "Resign Comm.Career"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
+			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Select this option if you don't want to become commander even when you have enough rank and rights";
 			action = "closedialog 0; if (isMultiplayer) then {execVM ""orgPlayers\commResign.sqf""} else {hint ""This feature is MP Only""};";
+		};
+		class 8slots_R4: RscButton
+		{
+			idc = -1;
+			text = "Sell Vehicle"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Look at a vehicle and sell it for money";
+			action = "closeDialog 0; if (player == stavros) then {nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
 		};
 	};
 };
@@ -1985,17 +1985,27 @@ class carpet_bombing 			{
 			tooltip = "Cost: 1 point";
 			action = "closeDialog 0;[""CARPET""] spawn NATObomb;";
 		};
-
-		class HQ_button_Gremove: RscButton
+		class 4slots_L2: RscButton
 		{
 			idc = -1;
 			text = "NAPALM Bomb"; //--- ToDo: Localize;
-			x = 0.37749 * safezoneW + safezoneX;
+			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cost: 1 point";
 			action = "closeDialog 0;[""NAPALM""] spawn NATObomb;";
+		};
+		class 4slots_R2: RscButton
+		{
+			idc = -1;
+			text = "Add to Air Support"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Gain Airstrike points giving this aircraft to the SDK Air pool";
+			action = "closeDialog 0;nul = [] call addBombRun";
 		};
 	};
 };

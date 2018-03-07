@@ -1414,13 +1414,13 @@ class radio_comm 		{
 		class 8slots_R2: RscButton
 		{
 			idc = -1;
-			text = "Recruit Squad"; //--- ToDo: Localize;
+			text = "Construct Here"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Recruit new squads and manage them with the HC Module (CTRL + SPACE)";
-			action = "closeDialog 0;if (player == Stavros) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
+			tooltip = "Construct in the spot where you are a selected building facing this direction";
+			action = "closeDialog 0;_nul = createDialog ""construction_menu"";";
 		};
 		class 8slots_L3: RscButton
 		{
@@ -1436,13 +1436,13 @@ class radio_comm 		{
 		class 8slots_R3: RscButton
 		{
 			idc = -1;
-			text = "Construct Here"; //--- ToDo: Localize;
+			text = "Unlock Vehicle"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Construct in the spot where you are a selected building facing this direction";
-			action = "closeDialog 0;_nul = createDialog ""construction_menu"";";
+			tooltip = "Allow other groups to mount this vehicle";
+			action = "closeDialog 0;[] call unlockVehicle";
 		};
 		class 8slots_L4: RscButton
 		{

@@ -944,12 +944,11 @@ class civ_vehicle 			{
 
 //Map
 class game_options 		{
-	idd=-1;
+		idd=-1;
 	movingenable=false;
-
 	class controls {
-
-		class HQ_box: BOX
+		//Menu Structure
+		class 8slots_box: BOX
 		{
 			idc = -1;
 			text = ""; //--- ToDo: Localize;
@@ -958,29 +957,30 @@ class game_options 		{
 			w = 0.445038 * safezoneW;
 			h = 0.492103 * safezoneH;
 		};
-		class HQ_frame: RscFrame
+		class 8slots_frame: RscFrame
 		{
 			idc = -1;
-			text = "Game Options"; //--- ToDo: Localize;
+			text = "Battle Options"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
 			h = 0.462103 * safezoneH;
 		};
-		class HQ_button_back: RscButton
+		class 8slots_Back: RscButton
 		{
 			idc = -1;
 			text = "Back"; //--- ToDo: Localize;
 			x = 0.61 * safezoneW + safezoneX;
 			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
+			w = 0.06 * safezoneW;
 			h = 0.05 * safezoneH;
 			action = "closeDialog 0";
 		};
-		class HQ_button_civplus: RscButton
+		//Action Buttons
+		class 8slots_L1: RscButton
 		{
 			idc = -1;
-			text = "Civ Config"; //--- ToDo: Localize;
+			text = "Civ %"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -988,86 +988,99 @@ class game_options 		{
 			tooltip = "Set the percentage of the real population will spawn on each city. Affects game performance";
 			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""civ_config""} else {hint ""Only Player Commander has access to this function""};";
 		};
-		class HQ_button_civless: RscButton
+		class 8slots_R1: RscButton
 		{
 			idc = -1;
-			text = "Resign Comm.Career"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Select this option if you don't want to become commander even when you have enough rank and rights";
-			action = "closedialog 0; if (isMultiplayer) then {execVM ""orgPlayers\commResign.sqf""} else {hint ""This feature is MP Only""};";
-		};
-		class HQ_button_music: RscButton
-		{
-			idc = -1;
-			text = "Music ON/OFF"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.514003 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Disables situational music";
-			action = "closedialog 0; if (musicON) then {musicON = false; hint ""Music turned OFF""} else {musicON = true; hint ""Music turned ON""}; nul = execVM ""musica.sqf"";";
-		};
-		class HQ_button_garbageclean: RscButton
-		{
-			idc = -1;
-			text = "Garbage Clean"; //--- ToDo: Localize;
+			text = "Spawn Distance"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Cleans several things in game. Use with caution as it freezes the mission";
-			action = "closedialog 0;if (player == Stavros) then {[] remoteExec [""garbageCleaner"",2]} else {hint ""Only Player Commander has access to this function""};";
-		};
-		class HQ_button_loadgame: RscButton
-		{
-			idc = -1;
-			text = "Reinit UI \ Radio"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.514003 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Deprecated as this issue does not happen anymore";
-			action = "closeDialog 0;[] execVM ""reinitY.sqf"";statistics= [] execVM ""statistics.sqf"";";
-		};
-		class HQ_button_savegame: RscButton
-		{
-			idc = -1;
-			text = "Persistent Save"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.415981 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Use this option to save your current game. It does save the most important data in a ""Grand Theft Auto"" way. This opnion allows good MP save and independent saves of any version update. Vanilla saves are disabled because of lack of several features";
-			action = "closeDialog 0;if (player == Stavros) then {[""statSave\saveLoop.sqf"",""BIS_fnc_execVM""] call BIS_fnc_MP} else {_nul = [] execVM ""statSave\saveLoop.sqf""; hintC ""Personal Stats Saved""};";
-		};
-		class HQ_button_fpsplus: RscButton
-		{
-			idc = -1;
-			text = "AI Limiter"; //--- ToDo: Localize;
-			x = 0.272481 * safezoneW + safezoneX;
-			y = 0.612025 * safezoneH + safezoneY;
-			w = 0.175015 * safezoneW;
-			h = 0.0560125 * safezoneH;
-			tooltip = "Sets how much local and simulated AI can spawn in the map. Affects performance and AI ""intelligence"". Use with caution. This is not an exact number as vehicles and squad leaders will allways spawn";
-			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""fps_limiter""} else {hint ""Only Player Commander has access to this function""};";
-		};
-
-		class HQ_button_AA: RscButton
-		{
-			idc = -1;
-			text = "Spawn Dist. Config"; //--- ToDo: Localize;
-			x = 0.482498 * safezoneW + safezoneX;
-			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Affects performance. Please use this with caution. Set it to lower distances if you feel Antistasi is running bad";
 			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""spawn_config""} else {hint ""Only Player Commander has access to this function""};";
 		};
+		class 8slots_L2: RscButton
+		{
+			idc = -1;
+			text = "AI Limiter"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Sets how much local and simulated AI can spawn in the map. Affects performance and AI ""intelligence"". Use with caution. This is not an exact number as vehicles and squad leaders will allways spawn";
+			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""fps_limiter""} else {hint ""Only Player Commander has access to this function""};";
+		};
+		class 8slots_R2: RscButton
+		{
+			idc = -1;
+			text = "Music ON/OFF"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Disables/Enable situational music";
+			action = "closedialog 0; if (musicON) then {musicON = false; hint ""Music turned OFF""} else {musicON = true; hint ""Music turned ON""}; nul = execVM ""musica.sqf"";";
+		};
+		/*
+		class 8slots_L3: RscButton
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "";
+			action = "";
+		};
+		class 8slots_R3: RscButton
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.514003 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "";
+			action = "";
+		};
+
+		class 8slots_L4: RscButton
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "";
+			action = "";
+		};
+		class 8slots_R4: RscButton
+		{
+			idc = -1;
+			text = ""; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "";
+			action = "";
+		};
+		*/
+		class 8slots_M4: RscButton
+		{
+			idc = -1;
+			text = "Persistent Save"; //--- ToDo: Localize;
+			x = 0.37749 * safezoneW + safezoneX;
+			y = 0.612025 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			tooltip = "Use this option to save your current game. It does save the most important data in a ""Grand Theft Auto"" way. This opnion allows good MP save and independent saves of any version update. Vanilla saves are disabled because of lack of several features";
+			action = "closeDialog 0;if (player == Stavros) then {[""statSave\saveLoop.sqf"",""BIS_fnc_execVM""] call BIS_fnc_MP} else {_nul = [] execVM ""statSave\saveLoop.sqf""; hintC ""Personal Stats Saved""};";
+		};
 	};
-};
+};										//slots 6+1
 class fps_limiter 			{
 	idd=-1;
 	movingenable=false;
@@ -1467,7 +1480,7 @@ class radio_comm 		{
 			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""commander_comm""} else {hint ""Only Player Commander has access to this function""};";
 		};
 	};
-};
+}; 										// slots: 8
 class vehicle_manager 		{
 	idd=-1;
 	movingenable=false;

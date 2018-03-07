@@ -1,4 +1,3 @@
----
 *Version:* 0.11.1.
 
 *Mods:* CBA, TFAR

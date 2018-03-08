@@ -205,7 +205,15 @@ posicionado = nil;
 private _isPlayer = if (player == _ingeniero) then {true} else {false};
 _timeOut = time + 30;
 
-if (!_isPlayer) then {_ingeniero doMove ASLToAGL _posicion} else {_tiempo = _tiempo / 2};
+if (!_isPlayer) then
+	{
+	_ingeniero doMove ASLToAGL _posicion
+	}
+else
+	{
+	_tiempo = _tiempo / 2;
+	hint "Walk to the position which you selected to build";
+	};
 
 waitUntil {sleep 1;(time > _timeOut) or (_ingeniero distance _posicion < 3)};
 

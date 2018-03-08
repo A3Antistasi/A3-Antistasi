@@ -63,14 +63,6 @@ if (_tipo == "CON") then
 	if (count _sitios > 0) then
 		{
 		_posibles = _sitios select {(getMarkerPos _x distance _posbase < distanciaMiss)};
-		/*
-		for "_i" from 0 to ((count _sitios) - 1) do
-			{
-			_sitio = _sitios select _i;
-			_pos = getMarkerPos _sitio;
-			if ((_pos distance _posbase < 4000) and (_sitio in mrkNATO)) then {_posibles = _posibles + [_sitio]};
-			};
-		*/
 		};
 	if (count _posibles == 0) then
 		{
@@ -104,7 +96,7 @@ if (_tipo == "DES") then
 				else
 					{
 					_cercano = [marcadores, getPos _sitio] call BIS_fnc_nearestPosition;
-					if (_cercano in mrkNATO) then {_posibles pushBack _sitio};
+					if (lados getVariable [_cercano,sideUnknown] == malos) then {_posibles pushBack _sitio};
 					};
 				};
 			};
@@ -226,9 +218,9 @@ if (_tipo == "CONVOY") then
 				_base = [_sitio] call findBasesForConvoy;
 				if ((_pos distance _posbase < (distanciaMiss*1.5)) and (_base !="")) then
 					{
-					if ((_sitio in ciudades) and (_sitio in mrkSDK)) then
+					if ((_sitio in ciudades) and (lados getVariable [_sitio,sideUnknown] == buenos)) then
 						{
-						if (_base in mrkNATO) then
+						if (lados getVariable [_base,sideUnknown] == malos) then
 							{
 							_datos = server getVariable _sitio;
 							_prestigeOPFOR = _datos select 2;
@@ -241,7 +233,7 @@ if (_tipo == "CONVOY") then
 						}
 					else
 						{
-						if (((_sitio in mrkNATO) and (_base in mrkNATO)) or ((_sitio in mrkCSAT) and (_base in mrkCSAT))) then {_posibles pushBack _sitio};
+						if (((lados getVariable [_sitio,sideUnknown] == malos) and (lados getVariable [_base,sideUnknown] == malos)) or ((lados getVariable [_sitio,sideUnknown] == muyMalos) and (lados getVariable [_base,sideUnknown] == muyMalos))) then {_posibles pushBack _sitio};
 						};
 					};
 				};

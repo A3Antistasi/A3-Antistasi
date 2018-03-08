@@ -172,7 +172,7 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 	_marcador = _muerto getVariable "marcador";
 	if (!isNil "_marcador") then
 		{
-		if (_marcador in mrkSDK) then
+		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
 			_garrison = [];
 			_garrison = _garrison + (garrison getVariable [_marcador,[]]);

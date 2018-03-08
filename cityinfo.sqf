@@ -58,24 +58,24 @@ while {visibleMap} do
 			else
 				{
 				_puesto = [marcadores,_ant1] call BIS_fnc_NearestPosition;
-				if (_sitio in mrkSDK) then
+				if (lados getVariable [_sitio,sideUnknown] == buenos) then
 					{
-					if (_puesto in mrkSDK) then {_result = "SDK"} else {if (_puesto in mrkCSAT) then {_result = "NONE"}};
+					if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = "SDK"} else {if (lados getVariable [_puesto,sideUnknown] == muyMalos) then {_result = "NONE"}};
 					}
 				else
 					{
-					if (_puesto in mrkSDK) then {_result = "SDK"} else {if (_puesto in mrkCSAT) then {_result = "NONE"}};
+					if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = "SDK"} else {if (lados getVariable [_puesto,sideUnknown] == muyMalos) then {_result = "NONE"}};
 					};
 				};
 			_texto = format ["%1\nInfluence: %2",_texto,_result];
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
-			if (_sitio in mrkSDK) then {_texto = format ["%1\n%2",_texto,[_sitio] call garrisonInfo]};
+			if (lados getVariable [_sitio,sideUnknown] == buenos) then {_texto = format ["%1\n%2",_texto,[_sitio] call garrisonInfo]};
 			};
 		if (_sitio in aeropuertos) then
 			{
-			if (not(_sitio in mrkSDK)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
-				if (_sitio in mrkNATO) then {_texto = "NATO Airport"} else {_texto = "CSAT Airport"};
+				if (lados getVariable [_sitio,sideUnknown] == malos) then {_texto = "NATO Airport"} else {_texto = "CSAT Airport"};
 				_busy = if (dateToNumber date > server getVariable _sitio) then {false} else {true};
 				if (!_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
 				_garrison = count (garrison getVariable _sitio);
@@ -88,9 +88,9 @@ while {visibleMap} do
 			};
 		if (_sitio in recursos) then
 			{
-			if (not(_sitio in mrkSDK)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
-				if (_sitio in mrkNATO) then {_texto = "NATO Resources"} else {_texto = "CSAT Resources"};
+				if (lados getVariable [_sitio,sideUnknown] == malos) then {_texto = "NATO Resources"} else {_texto = "CSAT Resources"};
 				_garrison = count (garrison getVariable _sitio);
 				if (_garrison >= 30) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 10) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}
@@ -102,9 +102,9 @@ while {visibleMap} do
 			};
 		if (_sitio in fabricas) then
 			{
-			if (not(_sitio in mrkSDK)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
-				if (_sitio in mrkNATO) then {_texto = "NATO Factory"} else {_texto = "CSAT Factory"};
+				if (lados getVariable [_sitio,sideUnknown] == malos) then {_texto = "NATO Factory"} else {_texto = "CSAT Factory"};
 				_garrison = count (garrison getVariable _sitio);
 				if (_garrison >= 16) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 8) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}
@@ -116,9 +116,9 @@ while {visibleMap} do
 			};
 		if (_sitio in puestos) then
 			{
-			if (not(_sitio in mrkSDK)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
-				if (_sitio in mrkNATO) then {_texto = "NATO Grand Outpost"} else {_texto = "CSAT Grand Outpost"};
+				if (lados getVariable [_sitio,sideUnknown] == malos) then {_texto = "NATO Grand Outpost"} else {_texto = "CSAT Grand Outpost"};
 				_busy = if (dateToNumber date > server getVariable _sitio) then {false} else {true};
 				if (!_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
 				_garrison = count (garrison getVariable _sitio);
@@ -131,9 +131,9 @@ while {visibleMap} do
 			};
 		if (_sitio in puertos) then
 			{
-			if (not(_sitio in mrkSDK)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
-				if (_sitio in mrkNATO) then {_texto = "NATO Seaport"} else {_texto = "CSAT Seaport"};
+				if (lados getVariable [_sitio,sideUnknown] == malos) then {_texto = "NATO Seaport"} else {_texto = "CSAT Seaport"};
 				_garrison = count (garrison getVariable _sitio);
 				if (_garrison >= 20) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 8) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}

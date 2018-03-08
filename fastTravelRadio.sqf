@@ -49,7 +49,7 @@ if (count _posicionTel > 0) then
 	{
 	_base = [_marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
 
-	if ((_base in mrkNATO) or (_base in mrkCSAT)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
+	if ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == muyMalos)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
 	//if (_base in puestosFIA) exitWith {hint "You cannot Fast Travel to roadblocks and watchposts"; openMap [false,false]};
 

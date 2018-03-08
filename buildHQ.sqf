@@ -30,8 +30,8 @@ else
 	bandera hideObject false;
 	};
 fuego inflame true;
-["respawn_guerrila",1] remoteExec ["setMarkerAlphaLocal",buenos];
-["respawn_guerrila",1] remoteExec ["setMarkerAlphaLocal",civilian];
+["respawn_guerrila",1] remoteExec ["setMarkerAlphaLocal",buenos,true];
+["respawn_guerrila",1] remoteExec ["setMarkerAlphaLocal",civilian,true];
 _pos = [getPos petros, 3, getDir petros] call BIS_Fnc_relPos;
 fuego setPos _pos;
 _rnd = getdir Petros;

@@ -53,7 +53,7 @@ if (_dificil) then
 		}
 	else
 		{
-		if ((_destino in mrkSDK) or (_base in mrkSDK) or ((_base in mrkNATO) and (not (_destino in mrkNATO))) or ((_base in mrkCSAT) and (not (_destino in mrkCSAT)))) then
+		if ((lados getVariable [_destino,sideUnknown] == buenos) or (lados getVariable [_base,sideUnknown] == buenos) or ((lados getVariable [_base,sideUnknown] == malos) and (not (lados getVariable [_destino,sideUnknown] == malos))) or ((lados getVariable [_base,sideUnknown] == muyMalos) and (not (lados getVariable [_destino,sideUnknown] == muyMalos)))) then
 			{
 			_salir = true;
 			{
@@ -91,7 +91,7 @@ if (_dificil) then
 	};
 
 _esFIA = false;
-_lado = if (_base in mrkNATO) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {muyMalos};
 //_cfg = "";
 if (_lado == malos) then
 	{
@@ -131,7 +131,7 @@ else
 	{
 	if (_destino in ciudades) then
 		{
-		if (_destino in mrkNATO) then {_tiposConvoy = ["Supplies"]} else {_tiposConvoy = ["Supplies"]}
+		if (lados getVariable [_destino,sideUnknown] == malos) then {_tiposConvoy = ["Supplies"]} else {_tiposConvoy = ["Supplies"]}
 		}
 	else
 		{
@@ -671,7 +671,7 @@ if (_tipoConvoy == "Refuerzos") then
 		_cuenta = {alive _x} count _refuerzos;
 		if (_cuenta > 8) then {_taskState1 = "SUCCEEDED"} else {_taskState = "FAILED"};
 		[-10*_bonus,stavros] call playerScoreAdd;
-		if (!_destino in mrkSDK) then
+		if (lados getVariable [_destino,sideUnknown] != buenos) then
 			{
 			_tipos = [];
 			{_tipos pushBack (typeOf _x)} forEach (_refuerzos select {alive _x});

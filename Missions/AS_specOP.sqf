@@ -53,7 +53,7 @@ if (_dificil) then
 		_marcadores = mrkSDK select {getMarkerPos _x distance getMarkerPos _marcador < distanciaSPWN};
 		_marcadores = _marcadores - ["Synd_HQ"] - puestosFIA;
 		_frontera = if (count _marcadores > 0) then {true} else {false};
-		if ((_marcador in mrkSDK) or (!_frontera)) then
+		if ((lados getVariable [_marcador,sideUnknown] == buenos) or (!_frontera)) then
 			{
 			_salir = true;
 			{
@@ -92,7 +92,7 @@ if (_dificil) then
 	};
 
 _posicion = getMarkerPos _marcador;
-_lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _tiempolim = if (_dificil) then {60} else {120};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
@@ -112,7 +112,7 @@ else
 */
 [[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
 
-waitUntil  {sleep 5; (dateToNumber date > _fechalimnum) or (_marcador in mrkSDK)};
+waitUntil  {sleep 5; (dateToNumber date > _fechalimnum) or (lados getVariable [_marcador,sideUnknown] == buenos)};
 
 if (dateToNumber date > _fechalimnum) then
 	{

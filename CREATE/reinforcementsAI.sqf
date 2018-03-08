@@ -6,7 +6,7 @@ _aeropuerto = _x;
 _numero = 8;
 _numGarr = [_aeropuerto] call garrisonSize;
 _numReal = count (garrison getVariable _aeropuerto);
-_lado = if (_aeropuerto in mrkNATO) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_aeropuerto,sideUnknown] == malos) then {malos} else {muyMalos};
 if (_numReal + 4 <= _numGarr) then
 	{
 	if (_numReal + 8 <= _numGarr) then

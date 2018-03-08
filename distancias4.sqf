@@ -53,7 +53,7 @@ _marcador = _x;
 
 _posicionMRK = getMarkerPos (_marcador);
 
-if (_marcador in mrkNATO) then
+if (lados getVariable [_marcador,sideUnknown] == malos) then
 	{
 	if (spawner getVariable _marcador != 0) then
 		{
@@ -120,7 +120,7 @@ if (_marcador in mrkNATO) then
 	}
 else
 	{
-	if (_marcador in mrkSDK) then
+	if (lados getVariable [_marcador,sideUnknown] == buenos) then
 		{
 		if (spawner getVariable _marcador != 0) then
 			{

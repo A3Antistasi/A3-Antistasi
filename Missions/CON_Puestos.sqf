@@ -52,7 +52,7 @@ if (_dificil) then
 		}
 	else
 		{
-		if (_marcador in mrkSDK) then
+		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
 			_salir = true;
 			{
@@ -112,7 +112,7 @@ else
 
 [[buenos,civilian],"CON",[_texto,_taskName,_marcador],_posicion,false,0,true,"Target",true] call BIS_fnc_taskCreate;
 
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (_marcador in mrkSDK)};
+waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (lados getVariable [_marcador,sideUnknown] == buenos)};
 
 if (dateToNumber date > _fechalimnum) then
 	{

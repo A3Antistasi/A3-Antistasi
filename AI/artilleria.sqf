@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith{};
 private ["_mrkOrigen","_pos","_lado","_cuenta","_mrkDestino","_veh","_posOrigen","_ladoMalos","_posDestino","_tipoVeh","_tipoMuni","_size","_vehicle","_vehCrew","_grupoVeh","_rondas","_objetivo","_objetivos","_tiempo"];
 
 _mrkOrigen = _this select 0;
-_lado = if (_mrkOrigen in mrkNATO) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_mrkOrigen,sideUnknown] == malos) then {malos} else {muyMalos};
 _posOrigen = getMarkerPos _mrkOrigen;
 _mrkDestino = _this select 1;
 _ladoMalos = if (_lado == malos) then {muyMalos} else {malos};

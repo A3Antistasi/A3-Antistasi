@@ -37,7 +37,7 @@ if (count _posicionTel > 0) then
 
 	_base = [marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
 
-	if ((_base in mrkSDK) or (_base in _mrkENY)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
+	if ((lados getVariable [_base,sideUnknown] == buenos) or (_base in _mrkENY)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
 	if ((!(_base in aeropuertos)) and (!(_base in puertos)) and (!(_base in puestos))) exitWith {hint "You can Fast Travel only to Airbases, Outposts and Seaports"; openMap [false,false]};
 

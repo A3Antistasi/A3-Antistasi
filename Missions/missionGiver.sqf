@@ -21,11 +21,11 @@ _contacto setVariable ["statusAct",true,true];
 
 if (random 100 < 10) then
 	{
-	_bases = aeropuertos select {(not(_x in mrkSDK)) and (getMarkerPos _x distance _contacto < 15000)};
+	_bases = aeropuertos select {(not(lados getVariable [_x,sideUnknown] == buenos)) and (getMarkerPos _x distance _contacto < 15000)};
 	if (count _bases >0) then
 		{
 		_base = [_bases,_contacto] call BIS_fnc_NearestPosition;
-		_lado = if (_base in mrkNATO) then {malos} else {muyMalos};
+		_lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {muyMalos};
 		[getPosASL _contacto,_lado] remoteExec ["patrolCA",HCattack];
 		};
 	sleep cleantime;

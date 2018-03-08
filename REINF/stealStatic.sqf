@@ -13,7 +13,7 @@ if (activeGREF and ((typeOf _estatica == staticATBuenos) or (typeOf _estatica ==
 
 _cercano = [marcadores,_estatica] call BIS_fnc_nearestPosition;
 
-if (not(_cercano in mrkSDK)) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
+if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
 
 _estatica setOwner (owner _jugador);
 

@@ -52,7 +52,7 @@ if (_dificil) then
 		}
 	else
 		{
-		if (_marcador in mrkSDK) then
+		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
 			_salir = true;
 			{
@@ -113,7 +113,7 @@ _nombredest = [_marcador] call localizar;
 _tiempolim = if (_dificil) then {30} else {60};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
-_lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _texto = if (_lado == malos) then {format ["A group of smugglers have been arrested in %1 and they are about to be sent to prison. Go there and free them in order to make them join our cause. Do this before %2:%3",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4]} else {format ["A group of SDK supportes are hidden in %1 awaiting for evacuation. We have to find them before CSAT does it. If not, there will be a certain death for them. Bring them back to HQ",_nombredest]};
 _posTsk = if (_lado == malos) then {(position _casa) getPos [random 100, random 360]} else {position _casa};
 /*
@@ -163,7 +163,7 @@ if (_lado == muyMalos) then
 		if (_dificil) then {sleep 300} else {sleep 300 + (random 1800)};
 		if (["RES"] call BIS_fnc_taskExists) then
 			{
-			_aeropuertos = aeropuertos select {(_x in mrkCSAT) and (dateToNumber date > server getVariable _x) and (not(spawner getVariable [_x,false]))};
+			_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == muyMalos) and (dateToNumber date > server getVariable _x) and (not(spawner getVariable [_x,false]))};
 			_aeropuerto = [_aeropuertos, position casa] call BIS_fnc_nearestPosition;
 			[getPosASL _casa,_aeropuerto] remoteExec ["patrolCA",HCattack];
 			};

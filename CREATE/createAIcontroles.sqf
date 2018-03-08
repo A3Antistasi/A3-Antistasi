@@ -3,8 +3,8 @@ if (!isServer and hasInterface) exitWith{};
 private ["_pos","_roadscon","_veh","_roads","_conquistado","_dirVeh","_marcador","_posicion","_vehiculos","_soldados","_tam","_bunker","_grupoE","_unit","_tipogrupo","_grupo","_tiempolim","_fechalim","_fechalimnum","_base","_perro","_lado","_cfg","_esFIA","_salir","_esControl","_tam","_tipoVeh","_tipoUnit","_marcadores","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_tiempolim","_fechalim","_fechalimNum","_size","_base","_mina","_loser"];
 
 _marcador = _this select 0;
-if (_marcador in mrkSDK) exitWith {};
-if ((!(_marcador in mrkNATO)) and (!(_marcador in mrkCSAT))) exitWith {};
+if (lados getVariable [_marcador,sideUnknown] == buenos) exitWith {};
+if ((!(lados getVariable [_marcador,sideUnknown] == malos)) and (!(lados getVariable [_marcador,sideUnknown] == muyMalos))) exitWith {};
 _vehiculos = [];
 _soldados = [];
 _pilotos = [];
@@ -20,7 +20,7 @@ _esControl = if (isOnRoad _posicion) then {true} else {false};
 
 if (_esControl) then
 	{
-	if (_marcador in mrkNATO) then
+	if (lados getVariable [_marcador,sideUnknown] == malos) then
 		{
 		if ((random 10 < tierWar) and (!([_marcador] call isFrontline))) then
 			{
@@ -122,7 +122,7 @@ else
 	if (_frontera) then
 		{
 		_cfg = CSATSpecOp;
-		if (_marcador in mrkNATO) then
+		if (lados getVariable [_marcador,sideUnknown] == malos) then
 			{
 			_cfg = NATOSpecOp;
 			_lado = malos;
@@ -195,7 +195,7 @@ if (spawner getVariable _marcador != 2) then
 		["TaskSucceeded", ["", "Roadblock Destroyed"]] remoteExec ["BIS_fnc_showNotification",_winner];
 		["TaskFailed", ["", "Roadblock Lost"]] remoteExec ["BIS_fnc_showNotification",_lado];
 		};
-	if (_marcador in mrkNATO) then
+	if (lados getVariable [_marcador,sideUnknown] == malos) then
 		{
 		mrkNATO = mrkNATO - [_marcador];
 		publicVariable "mrkNATO";
@@ -204,11 +204,13 @@ if (spawner getVariable _marcador != 2) then
 			mrkCSAT pushBackUnique _marcador;
 			publicVariable "mrkCSAT";
 			_nul = [-5,0,_posicion] remoteExec ["citySupportChange",2];
+			lados setVariable [_marcador,muyMalos,true];
 			}
 		else
 			{
 			mrkSDK pushBack _marcador;
 			publicVariable "mrkSDK";
+			lados setVariable [_marcador,buenos,true];
 			};
 		}
 	else
@@ -220,12 +222,14 @@ if (spawner getVariable _marcador != 2) then
 			{
 			mrkNATO pushBackUnique _marcador;
 			publicVariable "mrkNATO";
+			lados setVariable [_marcador,malos,true];
 			_nul = [5,0,_posicion] remoteExec ["citySupportChange",2];
 			}
 		else
 			{
 			mrkSDK pushBack _marcador;
 			publicVariable "mrkSDK";
+			lados setVariable [_marcador,buenos,true];
 			_nul = [0,5,_posicion] remoteExec ["citySupportChange",2];
 			};
 		};
@@ -263,13 +267,15 @@ if (_conquistado) then
 			{
 			mrkNATO pushBackUnique _marcador;
 			publicVariable "mrkNATO";
+			lados setVariable [_marcador,malos,true];
 			}
 		else
 			{
-			if (_base in mrkCSAT) then
+			if (lados getVariable [_base,sideUnknown] == muyMalos) then
 				{
 				mrkCSAT pushBackUnique _marcador;
 				publicVariable "mrkCSAT";
+				lados setVariable [_marcador,muyMalos,true];
 				};
 			};
 		}

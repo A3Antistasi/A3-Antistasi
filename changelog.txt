@@ -612,7 +612,13 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 
 0.11.1 06/03/2018 ALPHA
 
+- IMPORTANT: Undercover lose on roadblocks is affected by aggro. With low level, the soldiers wont recognise you and will allow you to pass.
 - Optimised a bit actions appearing on flags upon capture.
 - Chances of surrender appear when an enemy becomes unconscious and not only when killed or bleadout.
-- IMPORTANT: Undercoverlose on roadblocks is affected by aggro. With low level, the soldiers wont recognise you and will allow you to pass.
 - Fixed bug that prevented QRF on mortar fire abuse.
+- Imported from Altis the garbage cleaner (much faster)
+- Improved a lot performance in zone ownership checks.
+- Solved bug on SDK flags and JIP.
+- Solved marker visibility on JIP and build HQ option.
+- Corrected some small UPSMon bug.
+- AI will be more aggressive when attacking and assaulting garrisons.

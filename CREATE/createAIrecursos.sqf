@@ -18,7 +18,7 @@ _frontera = [_marcador] call isFrontline;
 _lado = muyMalos;
 
 _esFIA = false;
-if (_marcador in mrkNATO) then
+if (lados getVariable [_marcador,sideUnknown] == malos) then
 	{
 	_lado = malos;
 	if ((random 10 >= tierWar) and !([_marcador] call isFrontline)) then

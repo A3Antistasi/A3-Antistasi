@@ -62,6 +62,7 @@ if ({alive _x} count units _grupo == 0) then
 	puestosFIA = puestosFIA - [_marcador]; publicVariable "puestosFIA";
 	mrkSDK = mrkSDK - [_marcador]; publicVariable "mrkSDK";
 	marcadores = marcadores - [_marcador]; publicVariable "marcadores";
+	lados setVariable [_marcador,nil,true];
 	_nul = [5,-5,_posicion] remoteExec ["citySupportChange",2];
 	deleteMarker _marcador;
 	if (_escarretera) then

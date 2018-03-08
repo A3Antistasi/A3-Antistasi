@@ -74,8 +74,9 @@ if (visiblemap) then
 		{
 		if (getMarkerPos _x distance _posicionTel < distanciaSPWN) then
 			{
-			if (_x in mrkCSAT) then {mrkCSAT = mrkCSAT - [_x]} else {mrkNATO = mrkNATO - [_x]};
+			if (lados getVariable [_x,sideUnknown] == muyMalos) then {mrkCSAT = mrkCSAT - [_x]} else {mrkNATO = mrkNATO - [_x]};
 			mrkSDK pushBack _x;
+			lados setVariable [_x,buenos,true];
 			};
 		} forEach controles;
 		publicVariable "mrkNATO";
@@ -89,8 +90,9 @@ if (visiblemap) then
 		{
 		if (getMarkerPos _x distance _posicionTel < distanciaSPWN) then
 			{
-			if (_x in mrkCSAT) then {mrkCSAT = mrkCSAT - [_x]} else {mrkNATO = mrkNATO - [_x]};
+			if (lados getVariable [_x,sideUnknown] == muyMalos) then {mrkCSAT = mrkCSAT - [_x]} else {mrkNATO = mrkNATO - [_x]};
 			mrkSDK pushBackUnique _x;
+			lados setVariable [_x,buenos,true];
 			};
 		} forEach _controles;
 		publicVariable "mrkNATO";

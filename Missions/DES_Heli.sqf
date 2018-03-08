@@ -54,7 +54,7 @@ if (_dificil) then
 		}
 	else
 		{
-		if (_marcador in mrkSDK) then
+		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
 			_salir = true;
 			{
@@ -91,7 +91,7 @@ if (_dificil) then
 	waitUntil {sleep 1; !(["DES"] call BIS_fnc_taskExists)};
 	};
 _posicion = getMarkerPos _marcador;
-_lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _posHQ = getMarkerPos "respawn_guerrila";
 
 _tiempolim = 120;

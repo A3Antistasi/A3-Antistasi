@@ -18,9 +18,9 @@ if (_power == _marcador) then
 	else
 		{
 		//_powered = _datos select 4;
-		if (_marcador in mrkSDK) then
+		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
-			if (_ciudad in mrkSDK) then
+			if (lados getVariable [_ciudad,sideUnknown] == buenos) then
 				{
 				//hint format ["You achieved to bring power to %1, more people there supports our cause",_ciudad];
 				//[-10,10,_pos] remoteExec ["citySupportChange",2];
@@ -36,7 +36,7 @@ if (_power == _marcador) then
 			}
 		else
 			{
-			if (_ciudad in mrkSDK) then
+			if (lados getVariable [_ciudad,sideUnknown] == buenos) then
 				{
 				//hint format ["AAF has cut off power to %1, less people there supports our cause",_ciudad];
 				//[0,-10,_pos] remoteExec ["citySupportChange",2];
@@ -64,9 +64,9 @@ if (_power == _marcador) then
 		}
 	else
 		{
-		if (_marcador in mrkSDK) then
+		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
-			if (_sitio in mrkNATO) then
+			if (lados getVariable [_sitio,sideUnknown] == malos) then
 				{
 				//_ciudad = [ciudades,_pos] call BIS_fnc_nearestPosition;
 				//hint format ["You cutted off power to AAF resources near %1. They will be less productive from now",_ciudad];
@@ -75,7 +75,7 @@ if (_power == _marcador) then
 			}
 		else
 			{
-			if (_sitio in mrkSDK) then
+			if (lados getVariable [_sitio,sideUnknown] == buenos) then
 				{
 				//_ciudad = [ciudades,_pos] call BIS_fnc_nearestPosition;
 				//hint format ["AAF cutted off power supply to our resources near %1. They will be less productive from now",_ciudad];

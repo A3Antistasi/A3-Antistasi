@@ -81,11 +81,11 @@ if (alive _veh) then
    	sleep 0.5;
   	} forEach units _grupo;
 	};
-if (_marcador isEqualType "") then
+/*if (_marcador isEqualType "") then
    {
    _grupo setVariable ["mrkAttack",_marcador];
    [leader _grupo, _marcador, "SPAWNED","NOVEH2","NOFOLLOW","NOWP3"] execVM "scripts\UPSMON.sqf";
-   };
+   };*/
 _wp4 = _grupo addWaypoint [_posicion, 0];
 _wp4 setWaypointType "MOVE";
 _wp4 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];

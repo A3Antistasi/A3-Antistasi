@@ -18,8 +18,8 @@ _modo = _this select 3;
 
 waitUntil {sleep 0.2;!garrisonIsChanging};
 garrisonIsChanging = true;
-if ((_lado == malos) and (!(_marcador in mrkNATO))) exitWith {garrisonIsChanging = false};
-if ((_lado == muyMalos) and (!(_marcador in mrkCSAT))) exitWith {garrisonIsChanging = false};
+if ((_lado == malos) and (!(lados getVariable [_marcador,sideUnknown] == malos))) exitWith {garrisonIsChanging = false};
+if ((_lado == muyMalos) and (!(lados getVariable [_marcador,sideUnknown] == muyMalos))) exitWith {garrisonIsChanging = false};
 _garrison = [];
 _garrison = _garrison + (garrison getVariable [_marcador,[]]);
 if (_modo == -1) then

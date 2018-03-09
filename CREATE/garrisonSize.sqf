@@ -24,7 +24,7 @@ else
 		}
 	else
 		{
-		_nveh = if (_marcador in mrkNATO) then {round (_size/70)} else {round (_size/50)};
+		_nveh = if (lados getVariable [_marcador,sideUnknown] == malos) then {round (_size/70)} else {round (_size/50)};
 		};
 	if (_frontera) then {_nveh = _nveh + 1};
 	};

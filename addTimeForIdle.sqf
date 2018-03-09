@@ -13,7 +13,7 @@ if (!_esMarcador) then
 		}
 	else
 		{
-		if ({_x in mrkCSAT} count aeropuertos == 1) then {_time = 0};
+		if ({lados getVariable [_x,sideUnknown] == muyMalos} count aeropuertos == 1) then {_time = 0};
 		};
 	};
 _fechaArr = numberToDate [2035,_fechaNum];

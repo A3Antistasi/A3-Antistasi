@@ -6,7 +6,7 @@ _marcadores = [];
 _cuentaFacil = 0;
 
 _aeropuertos = (aeropuertos - mrkSDK) select {(dateToNumber date > server getVariable _x) and !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) /*(spawner getVariable _x != 0)*/};
-if ((tierWar < 3) and ({_x in mrkCSAT} count _aeropuertos < 2)) then {_aeropuertos = _aeropuertos - mrkCSAT};
+if ((tierWar < 3) and ({lados getVariable [_x,sideUnknown] == muyMalos} count _aeropuertos < 2)) then {_aeropuertos = _aeropuertos - mrkCSAT};
 _objetivos = marcadores - controles - puestosFIA - ["Synd_HQ","airport_1","airport_4"] - destroyedCities;
 if (tierWar < 3) then {_objetivos = _objetivos - ciudades};
 _objetivosFinal = [];
@@ -26,7 +26,7 @@ _posBase = getMarkerPos _base;
 _killZones = killZones getVariable _base;
 _tmpObjetivos = [];
 _baseNATO = true;
-if (_base in mrkNATO) then {_tmpObjetivos = _objetivos - mrkNATO} else {_baseNATO = false; _tmpObjetivos = _objetivos - mrkCSAT};
+if (lados getVariable [_base,sideUnknown] == malos) then {_tmpObjetivos = _objetivos - mrkNATO} else {_baseNATO = false; _tmpObjetivos = _objetivos - mrkCSAT};
 _tmpObjetivos = _tmpObjetivos select {getMarkerPos _x distance2D _posBase < 10000};
 _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 	{
@@ -37,7 +37,7 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 	_isTheSameIsland = [_x,_base] call isTheSameIsland;
 	if ([_x,true] call fogCheck >= 0.3) then
 		{
-		if (_x in mrkSDK) then
+		if (lados getVariable [_x,sideUnknown] == buenos) then
 			{
 			_esSDK = true;
 			_valor = if (_baseNATO) then {prestigeNATO} else {prestigeCSAT};
@@ -82,7 +82,7 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 		_times = 1;
 		if (_baseNATO) then
 			{
-			if ({_x in mrkNATO} count aeropuertos == 1) then {_times = 2};
+			if ({lados getVariable [_x,sideUnknown] == malos} count aeropuertos == 1) then {_times = 2};
 			if (!_esCiudad) then
 				{
 				if ((_x in puestos) or (_x in puertos)) then
@@ -114,7 +114,7 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 			if (_times > 0) then
 				{
 				_aeropCercano = [aeropuertos,_posSitio] call bis_fnc_nearestPosition;
-				if ((_aeropCercano in mrkCSAT) and (_x != _aeropCercano)) then {_times = 0};
+				if ((lados getVariable [_aeropCercano,sideUnknown] == muyMalos) and (_x != _aeropCercano)) then {_times = 0};
 				};
 			}
 		else
@@ -165,7 +165,7 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 			if (_times > 0) then
 				{
 				_aeropCercano = [aeropuertos,_posSitio] call bis_fnc_nearestPosition;
-				if ((_aeropCercano in mrkNATO) and (_x != _aeropCercano)) then {_times = 0};
+				if ((lados getVariable [_aeropCercano,sideUnknown] == malos) and (_x != _aeropCercano)) then {_times = 0};
 				};
 			};
 		if (_times > 0) then
@@ -246,18 +246,18 @@ if ((count _objetivosFinal > 0) and (count _faciles < 3)) then
 	///aquí decidimos las oleadas
 	if (_waves == 1) then
 		{
-		if (_destino in mrkSDK) then
+		if (lados getVariable [_destino,sideUnknown] == buenos) then
 			{
 			_waves = (round (random tierWar));
 			if (_waves == 0) then {_waves = 1};
 			}
 		else
 			{
-			if (_origen in mrkCSAT) then
+			if (lados getVariable [_origen,sideUnknown] == muyMalos) then
 				{
 				if (_destino in aeropuertos) then
 					{
-					if ({_x in mrkCSAT} count aeropuertos == 1) then {_waves = 0} else {_waves = 1 + round (random 2)};
+					if ({lados getVariable [_x,sideUnknown] == muyMalos} count aeropuertos == 1) then {_waves = 0} else {_waves = 1 + round (random 2)};
 					}
 				else
 					{
@@ -282,7 +282,7 @@ if ((count _objetivosFinal > 0) and (count _faciles < 3)) then
 		}
 	else
 		{
-		if (_origen in mrkNATO) then {[_destino,_origen,_waves] remoteExec ["wavedCA",HCattack]} else {[_destino,_origen] remoteExec ["CSATpunish",HCattack]};
+		if (lados getVariable [_origen,sideUnknown] == malos) then {[_destino,_origen,_waves] remoteExec ["wavedCA",HCattack]} else {[_destino,_origen] remoteExec ["CSATpunish",HCattack]};
 		};
 	};
 

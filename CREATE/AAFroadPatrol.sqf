@@ -17,7 +17,7 @@ _base = selectRandom _arrayAeropuertos;
 _tipoCoche = "";
 _lado = malos;
 _tipoPatrol = "LAND";
-if (_base in mrkNATO) then
+if (lados getVariable [_base,sideUnknown] == malos) then
 	{
 	if (_base in puertos) then
 		{

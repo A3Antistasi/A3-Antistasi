@@ -65,7 +65,7 @@ while {(captive _lider) and (captive _unit)} do
 	if ((vehicle _unit != _unit) and (not((typeOf vehicle _unit) in arrayCivVeh))) exitWith {};
 	_base = [_aeropuertos,player] call BIS_fnc_nearestPosition;
 	_size = [_base] call sizeMarker;
-	if ((_unit distance getMarkerPos _base < _size) and (not(_base in mrkSDK))) exitWith {[_unit,false] remoteExec ["setCaptive"]};
+	if ((_unit distance getMarkerPos _base < _size) and (not(lados getVariable [_base,sideUnknown] == buenos))) exitWith {[_unit,false] remoteExec ["setCaptive"]};
 	if ((primaryWeapon _unit != "") or (secondaryWeapon _unit != "") or (handgunWeapon _unit != "")) exitWith {};
 	};
 

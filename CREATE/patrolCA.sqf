@@ -12,7 +12,7 @@ if ([_marcador,false] call fogCheck < 0.3) exitWith {diag_log format ["Antistasi
 if (_aeropuerto isEqualType "") then
 	{
 	_inWaves = true;
-	if (_aeropuerto in mrkCSAT) then {_lado = muyMalos};
+	if (lados getVariable [_aeropuerto,sideUnknown] == muyMalos) then {_lado = muyMalos};
 	_posOrigen = getMarkerPos _aeropuerto;
 	}
 else
@@ -170,7 +170,7 @@ _esSDK = false;
 if (_esMarcador) then
 	{
 	smallCAmrk pushBackUnique _marcador; publicVariable "smallCAmrk";
-	if (_marcador in mrkSDK) then
+	if (lados getVariable [_marcador,sideUnknown] == buenos) then
 		{
 		_esSDK = true;
 		_nombreDest = [_marcador] call localizar;
@@ -337,12 +337,12 @@ if (_base != "") then
 				_Vwp2 setWaypointType "GETOUT";
 				_Vwp0 synchronizeWaypoint [_Vwp2];
 				_Vwp3 = _grupo addWaypoint [_posDestino, count (wayPoints _grupo)];
-				_Vwp3 setWaypointType "MOVE";
+				_Vwp3 setWaypointType "MOVE";/*
 				if (_esMarcador) then
 					{
 					_grupo setVariable ["mrkAttack",_marcador];
 					_Vwp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
-					};
+					};*/
 				//_Vwp3 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 				//_Vwp3 = _grupo addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 				//_Vwp3 setWaypointType "SAD";
@@ -369,8 +369,8 @@ if (_base != "") then
 				_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 				if (_esMarcador) then
 					{
-					_grupoVeh setVariable ["mrkAttack",_marcador];
-					_Vwp1 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
+					//_grupoVeh setVariable ["mrkAttack",_marcador];
+					//_Vwp1 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 					if ((count (garrison getVariable _marcador)) < 4) then
 						{
 						_Vwp1 setWaypointType "MOVE";
@@ -545,7 +545,7 @@ if (_aeropuerto != "") then
 						if (((count(garrison getVariable [_marcador,[]])) < 10) and (_tipoVeh in vehFastRope)) then
 							{
 							_proceder = false;
-							_grupo setVariable ["mrkAttack",_marcador];
+							//_grupo setVariable ["mrkAttack",_marcador];
 							[_veh,_grupo,_posDestino,_posOrigen,_grupoVeh] spawn fastrope;
 							};
 						};
@@ -579,7 +579,7 @@ if (_aeropuerto != "") then
 					_wp3 setWaypointType "GETOUT";
 					_wp0 synchronizeWaypoint [_wp3];
 					_wp4 = _grupo addWaypoint [_posDestino, 1];
-					_wp4 setWaypointType "MOVE";
+					_wp4 setWaypointType "MOVE";/*
 					if (_esMarcador) then
 						{
 						_grupo setVariable ["mrkAttack",_marcador];
@@ -588,7 +588,7 @@ if (_aeropuerto != "") then
 					else
 						{
 						_wp4 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
-						};
+						};*/
 					//_wp4 = _grupo addWaypoint [_posDestino, 1];
 					//_wp4 setWaypointType "SAD";
 					_wp2 = _grupoVeh addWaypoint [_posOrigen, 1];
@@ -599,11 +599,11 @@ if (_aeropuerto != "") then
 				else
 					{
 					if (_tipoVeh in vehFastRope) then
-						{
+						{/*
 						if (_esMarcador) then
 							{
 							_grupo setVariable ["mrkAttack",_marcador];
-							};
+							};*/
 						[_veh,_grupo,_pos,_posOrigen,_grupoVeh] spawn fastrope;
 						}
 					else
@@ -626,17 +626,17 @@ if (_esMarcador) then
 	_size = [_marcador] call sizeMarker;
 	if (_lado == malos) then
 		{
-		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= 3*({(!captive _x) and (alive _x) and (lifeState _x != "INCAPACITATED")} count _soldados))/* or ({alive _x} count _soldados < _solMax) */or (time > _tiempo) or (_marcador in mrkNATO) or (({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits))};
-		if  ((({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits)) and (not(_marcador in mrkNATO))) then
+		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= 3*({(!captive _x) and (alive _x) and (lifeState _x != "INCAPACITATED")} count _soldados))/* or ({alive _x} count _soldados < _solMax) */or (time > _tiempo) or (lados getVariable [_marcador,sideUnknown] == malos) or (({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits))};
+		if  ((({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits)) and (not(lados getVariable [_marcador,sideUnknown] == malos))) then
 			{
 			["BLUFORSpawn",_marcador] remoteExec ["markerChange",2];
 			diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to retake %3 succesful. Retaken.",_aeropuerto,_base,_marcador];
 			};
 		sleep 10;
-		if (!(_marcador in mrkNATO)) then
+		if (!(lados getVariable [_marcador,sideUnknown] == malos)) then
 			{
 			{_x doMove _posorigen} forEach _soldados;
-			if (_aeropuerto in mrkNATO) then
+			if (lados getVariable [_aeropuerto,sideUnknown] == malos) then
 				{
 				_killZones = killZones getVariable _aeropuerto;
 				_killZones = _killZones + [_marcador,_marcador];
@@ -647,17 +647,17 @@ if (_esMarcador) then
 		}
 	else
 		{
-		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= 3*({(!captive _x) and (alive _x) and (lifeState _x != "INCAPACITATED")} count _soldados)) /*or ({alive _x} count _soldados < _solMax) */or (time > _tiempo) or (_marcador in mrkCSAT) or (({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits))};
-		if  ((({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits)) and (not(_marcador in mrkCSAT))) then
+		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= 3*({(!captive _x) and (alive _x) and (lifeState _x != "INCAPACITATED")} count _soldados)) /*or ({alive _x} count _soldados < _solMax) */or (time > _tiempo) or (lados getVariable [_marcador,sideUnknown] == muyMalos) or (({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits))};
+		if  ((({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits)) and (not(lados getVariable [_marcador,sideUnknown] == muyMalos))) then
 			{
 			["OPFORSpawn",_marcador] remoteExec ["markerChange",2];
 			diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to retake %3 succesful. Retaken.",_aeropuerto,_base,_marcador];
 			};
 		sleep 10;
-		if (!(_marcador in mrkCSAT)) then
+		if (!(lados getVariable [_marcador,sideUnknown] == muyMalos)) then
 			{
 			{_x doMove _posorigen} forEach _soldados;
-			if (_aeropuerto in mrkCSAT) then
+			if (lados getVariable [_aeropuerto,sideUnknown] == muyMalos) then
 				{
 				_killZones = killZones getVariable _aeropuerto;
 				_killZones = _killZones + [_marcador,_marcador];

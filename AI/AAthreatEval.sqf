@@ -12,11 +12,11 @@ if (_marcador isEqualType []) then {_esMarcador = false; _posicion = _marcador} 
 _esFIA = true;
 if (_esMarcador) then
 	{
-	if (not (_marcador in mrkSDK)) then
+	if (not (lados getVariable [_marcador,sideUnknown] == buenos)) then
 		{
 		_esFIA = false;
 		{
-		_marcadores = if (_marcador in mrkNATO) then {controles + puestos + aeropuertos - mrkSDK - mrkNATO} else {controles + puestos + aeropuertos - mrkSDK - mrkCSAT};
+		_marcadores = if (lados getVariable [_marcador,sideUnknown] == malos) then {controles + puestos + aeropuertos - mrkSDK - mrkNATO} else {controles + puestos + aeropuertos - mrkSDK - mrkCSAT};
 		if (getMarkerPos _x distance _posicion < (distanciaSPWN*1.5)) then
 			{
 			if (_x in aeropuertos) then {_threat = _threat + 3} else {_threat = _threat + 1};

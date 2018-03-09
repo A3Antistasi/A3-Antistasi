@@ -30,7 +30,7 @@ _ladosTsk = [buenos,civilian,muyMalos];
 _ladosTsk1 = [malos];
 _nombreEny = "NATO";
 //_config = cfgNATOInf;
-if (_mrkOrigen in mrkCSAT) then
+if (lados getVariable [_mrkOrigen,sideUnknown] == muyMalos) then
 	{
 	_lado = muymalos;
 	_nombreEny = "CSAT";
@@ -38,7 +38,7 @@ if (_mrkOrigen in mrkCSAT) then
 	_ladosTsk = [buenos,civilian,malos];
 	_ladosTsk1 = [muyMalos];
 	};
-_esSDK = if (_mrkDestino in mrkSDK) then {true} else {false};
+_esSDK = if (lados getVariable [_mrkDestino,sideUnknown] == buenos) then {true} else {false};
 _SDKShown = false;
 if (_esSDK) then
 	{
@@ -170,7 +170,7 @@ while {(_waves != 0)} do
 				} forEach units _grupo;
 				if (not(_tipoVeh in vehTrucks)) then
 					{
-					_grupo setVariable ["mrkAttack",_mrkDestino];
+					//_grupo setVariable ["mrkAttack",_mrkDestino];
 					_grupos pushBack _grupo;
 					if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_landPos,_grupoVeh] call WPCreate};
 					_Vwp0 = (wayPoints _grupoVeh) select 0;
@@ -187,8 +187,8 @@ while {(_waves != 0)} do
 					_Vwp2 setWaypointType "GETOUT";
 					_Vwp0 synchronizeWaypoint [_Vwp2];
 					_Vwp3 = _grupo addWaypoint [_posDestino, count (wayPoints _grupo)];
-					_Vwp3 setWaypointType "MOVE";
-					_Vwp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
+					_Vwp3 setWaypointType "SAD";
+					//_Vwp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 					_veh allowCrewInImmobile true;
 					[_veh,"APC"] spawn inmuneConvoy;
 					}
@@ -196,7 +196,7 @@ while {(_waves != 0)} do
 					{
 					(units _grupo) joinSilent _grupoVeh;
 					deleteGroup _grupo;
-					_grupoVeh setVariable ["mrkAttack",_mrkDestino];
+					//_grupoVeh setVariable ["mrkAttack",_mrkDestino];
 					//_veh forceFollowRoad true;
 					/*
 					for "_i" from 1 to 8 do
@@ -217,8 +217,8 @@ while {(_waves != 0)} do
 					_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
 					_Vwp0 setWaypointType "GETOUT";
 					_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
-					_Vwp1 setWaypointType "MOVE";
-					_Vwp1 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
+					_Vwp1 setWaypointType "SAD";
+					//_Vwp1 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 					/*
 					_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 					_Vwp1 setWaypointType "MOVE";
@@ -261,14 +261,14 @@ while {(_waves != 0)} do
 			{
 			if (_lado == malos) then
 				{
-				if ({_x in mrkNATO} count puertos > 1) then
+				if ({lados getVariable [_x,sideUnknown] == malos} count puertos > 1) then
 					{
 					_esMar = true;
 					};
 				}
 			else
 				{
-				if ({_x in mrkCSAT} count puertos > 1) then
+				if ({lados getVariable [_x,sideUnknown] == muyMalos} count puertos > 1) then
 					{
 					_esMar = true;
 					};
@@ -359,11 +359,11 @@ while {(_waves != 0)} do
 							_Vwp1 setWaypointBehaviour "COMBAT";
 							_Vwp2 = _grupo addWaypoint [_landPos, 0];
 							_Vwp2 setWaypointType "GETOUT";
-							_grupo setVariable ["mrkAttack",_mrkDestino];
+							//_grupo setVariable ["mrkAttack",_mrkDestino];
 							_Vwp synchronizeWaypoint [_Vwp2];
 							_Vwp3 = _grupo addWaypoint [_posdestino, 1];
-							_Vwp3 setWaypointType "MOVE";
-							_Vwp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
+							_Vwp3 setWaypointType "SAD";
+							//_Vwp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 							/*_Vwp3 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 							_Vwp3 = _grupo addWaypoint [_posdestino, 1];
 							_Vwp3 setWaypointType "SAD";
@@ -379,14 +379,14 @@ while {(_waves != 0)} do
 							_Vwp setWaypointBehaviour "SAFE";
 							_Vwp setWaypointSpeed "FULL";
 							_Vwp setWaypointType "GETOUT";
-							_grupoVeh setVariable ["mrkAttack",_mrkDestino];
+							//_grupoVeh setVariable ["mrkAttack",_mrkDestino];
 							//_Vwp0 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 							//_Vwp0 setWaypointSpeed "FULL";
 							_Vwp1 = _grupoVeh addWaypoint [_posDestino, 1];
-							_Vwp1 setWaypointType "MOVE";
+							_Vwp1 setWaypointType "SAD";
 							//_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 							_Vwp1 setWaypointBehaviour "COMBAT";
-							_Vwp1 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
+							//_Vwp1 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 							//_Vwp1 = _grupoVeh addWaypoint [_posDestino, 1];
 							//_Vwp1 setWaypointType "SAD";
 							[_veh,"Boat"] spawn inmuneConvoy;
@@ -565,13 +565,13 @@ while {(_waves != 0)} do
 							_wp0 setWaypointBehaviour "CARELESS";
 							_wp3 = _grupo addWaypoint [_landpos, 0];
 							_wp3 setWaypointType "GETOUT";
-							_grupo setVariable ["mrkAttack",_mrkDestino];
+							//_grupo setVariable ["mrkAttack",_mrkDestino];
 							//_wp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 							_wp0 synchronizeWaypoint [_wp3];
 							_wp4 = _grupo addWaypoint [_posDestino, 1];
-							_wp4 setWaypointType "MOVE";
+							_wp4 setWaypointType "SAD";
 							//_wp4 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
-							_wp4 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
+							//_wp4 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 							_wp4 = _grupo addWaypoint [_posDestino, 1];
 							//_wp4 setWaypointType "SAD";
 							_wp2 = _grupoVeh addWaypoint [_posOrigen, 1];
@@ -584,7 +584,7 @@ while {(_waves != 0)} do
 							{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _grupoVeh;
 							if ((_tipoVeh in vehFastRope) and ((count(garrison getVariable _mrkDestino)) < 10)) then
 								{
-								_grupo setVariable ["mrkAttack",_mrkDestino];
+								//_grupo setVariable ["mrkAttack",_mrkDestino];
 								[_veh,_grupo,_posDestino,_posOrigen,_grupoVeh] spawn fastrope;
 								}
 							else
@@ -644,7 +644,7 @@ while {(_waves != 0)} do
 			if (([_plane] call vehAvailable) and (_firstWave)) then
 				{
 				sleep 60;
-				_rnd = if (_mrkDestino in aeropuertos) then {if ({_x in mrkCSAT} count aeropuertos == 1) then {8} else {round random 4}} else {round random 2};
+				_rnd = if (_mrkDestino in aeropuertos) then {if ({lados getVariable [_x,sideUnknown] == muyMalos} count aeropuertos == 1) then {8} else {round random 4}} else {round random 2};
 				for "_i" from 0 to _rnd do
 					{
 					diag_log "Antistasi: Airstrike Spawned";
@@ -687,11 +687,11 @@ while {(_waves != 0)} do
 	diag_log format ["Antistasi: Reached end of spawning attack, wave %1",_waves];
 	if (_lado == malos) then
 		{
-		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= _solMax) /*or ({alive _x} count _soldados < _solMax) */or (time > _tiempo) or (_mrkDestino in mrkNATO) or (({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits))};
-		if  ((({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits)) or (_mrkDestino in mrkNATO)) then
+		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= _solMax) /*or ({alive _x} count _soldados < _solMax) */or (time > _tiempo) or (lados getVariable [_mrkDestino,sideUnknown] == malos) or (({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits))};
+		if  ((({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits)) or (lados getVariable [_mrkDestino,sideUnknown] == malos)) then
 			{
 			_waves = 0;
-			if (not(_mrkDestino in mrkNATO)) then {["BLUFORSpawn",_mrkDestino] remoteExec ["markerChange",2]};
+			if (not(lados getVariable [_mrkDestino,sideUnknown] == malos)) then {["BLUFORSpawn",_mrkDestino] remoteExec ["markerChange",2]};
 			//["AtaqueAAF", "FAILED",true] spawn BIS_fnc_taskSetState;
 			//["AtaqueAAF1", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
 			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"FAILED"] call taskUpdate;
@@ -702,6 +702,7 @@ while {(_waves != 0)} do
 				["TaskFailed", ["", format ["%1 joined NATO",[_mrkDestino, false] call fn_location]]] remoteExec ["BIS_fnc_showNotification",buenos];
 				mrkNATO = mrkNATO + [_mrkDestino];
 				mrkSDK = mrkSDK - [_mrkDestino];
+				lados setVariable [_mrkDestino,malos,true];
 				publicVariable "mrkNATO";
 				publicVariable "mrkSDK";
 				_nul = [-5,0] remoteExec ["prestige",2];
@@ -711,16 +712,16 @@ while {(_waves != 0)} do
 				};
 			};
 		sleep 10;
-		if (!(_mrkDestino in mrkNATO)) then
+		if (!(lados getVariable [_mrkDestino,sideUnknown] == malos)) then
 			{
 			_tiempo = time + 3600;
-			if (_mrkOrigen in mrkNATO) then
+			if (lados getVariable [_mrkOrigen,sideUnknown] == malos) then
 				{
 				_killZones = killZones getVariable _mrkOrigen;
 				_killZones append [_mrkDestino,_mrkDestino,_mrkDestino];
 				killZones setVariable [_mrkOrigen,_killZones,true];
 				};
-			if ((_waves == 0) or (!(_mrkOrigen in mrkNATO))) then
+			if ((_waves == 0) or (!(lados getVariable [_mrkOrigen,sideUnknown] == malos))) then
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
 				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
@@ -733,22 +734,22 @@ while {(_waves != 0)} do
 		}
 	else
 		{
-		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= _solMax)/* or ({alive _x} count _soldados < _solMax)*/ or (time > _tiempo) or (_mrkDestino in mrkCSAT) or (({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits))};
-		if  ((({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits)) or (_mrkDestino in mrkCSAT))  then
+		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= _solMax)/* or ({alive _x} count _soldados < _solMax)*/ or (time > _tiempo) or (lados getVariable [_mrkDestino,sideUnknown] == muyMalos) or (({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits))};
+		if  ((({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits)) or (lados getVariable [_mrkDestino,sideUnknown] == muyMalos))  then
 			{
 			_waves = 0;
-			if (not(_mrkDestino in mrkCSAT)) then {["OPFORSpawn",_mrkDestino] remoteExec ["markerChange",2]};
+			if (not(lados getVariable [_mrkDestino,sideUnknown] == muyMalos)) then {["OPFORSpawn",_mrkDestino] remoteExec ["markerChange",2]};
 			//["AtaqueAAF", "FAILED",true] spawn BIS_fnc_taskSetState;
 			//["AtaqueAAF1", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
 			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"FAILED"] call taskUpdate;
 			["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED"] call taskUpdate;
 			};
 		sleep 10;
-		if (!(_mrkDestino in mrkCSAT)) then
+		if (!(lados getVariable [_mrkDestino,sideUnknown] == muyMalos)) then
 			{
 			_tiempo = time + 3600;
 			diag_log format ["Antistasi debug wavedCA: Wave number %1 on wavedCA lost",_waves];
-			if (_mrkOrigen in mrkCSAT) then
+			if (lados getVariable [_mrkOrigen,sideUnknown] == muyMalos) then
 				{
 				_killZones = killZones getVariable _mrkOrigen;
 				_killZones append [_mrkDestino,_mrkDestino,_mrkDestino];
@@ -774,7 +775,7 @@ while {(_waves != 0)} do
 //_tsk = ["AtaqueAAF",_ladosTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],"AAF Attack",_mrkOrigen],getMarkerPos _mrkOrigen,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
 if (_esSDK) then
 	{
-	if (!(_mrkDestino in mrkSDK)) then
+	if (!(lados getVariable [_mrkDestino,sideUnknown] == buenos)) then
 		{
 		[-10,stavros] call playerScoreAdd;
 		}

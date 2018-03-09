@@ -54,7 +54,7 @@ if (_dificil) then
 		}
 	else
 		{
-		if (_marcador in mrkSDK) then
+		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
 			_salir = true;
 			{
@@ -116,7 +116,7 @@ else
 
 [[buenos,civilian],"DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt NATO Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
 
-waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (not alive _antena) or (not(_marcador in mrkNATO))};
+waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (not alive _antena) or (not(lados getVariable [_marcador,sideUnknown] == malos))};
 
 _bonus = if (_dificil) then {2} else {1};
 

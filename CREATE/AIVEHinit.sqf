@@ -178,7 +178,7 @@ else
 							if (count _bases > 0) then
 								{
 								_base = [_bases,_posicion] call BIS_fnc_nearestPosition;
-								_lado = if (_base in mrkNATO) then {malos} else {muyMalos};
+								_lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {muyMalos};
 								[getPosASL _mortero,_lado,"Normal"] remoteExec ["patrolCA",HCattack];
 								};
 							};

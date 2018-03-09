@@ -4,7 +4,7 @@ _marcador = _this select 0;
 _isfrontier = false;
 //_mrkENY = [];
 //if (_marcador in mrkNATO) then {_mrkENY = aeropuertos + puestos - mrkNATO} else {_mrkENY = aeropuertos + puestos - mrkCSAT};
-_mrkENY = if (_marcador in mrkNATO) then {mrkSDK + mrkCSAT - recursos - controles - fabricas - puestosFIA - ["Synd_HQ"]} else {mrkSDK + mrkNATO - recursos - controles - fabricas - puestosFIA - ["Synd_HQ"]};
+_mrkENY = if (lados getVariable [_marcador,sideUnknown] == buenos) then {mrkSDK + mrkCSAT - recursos - controles - fabricas - puestosFIA - ["Synd_HQ"]} else {mrkSDK + mrkNATO - recursos - controles - fabricas - puestosFIA - ["Synd_HQ"]};
 if (count _mrkENY > 0) then
 	{
 	_posicion = getMarkerPos _marcador;

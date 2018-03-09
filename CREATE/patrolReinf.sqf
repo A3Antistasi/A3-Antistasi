@@ -53,7 +53,7 @@ _x addEventHandler ["Killed",
 		reinfPatrols = reinfPatrols - 1;
 		_origen = _grupo getVariable "origen";
 		_destino = _grupo getVariable "reinfMarker";
-		if (((_origen in mrkNATO) and (_destino in mrkNATO)) or ((_origen in mrkCSAT) and (_destino in mrkCSAT))) then
+		if (((lados getVariable [_origen,sideUnknown] == malos) and (lados getVariable [_destino,sideUnknown] == malos)) or ((lados getVariable [_origen,sideUnknown] == muyMalos) and (lados getVariable [_destino,sideUnknown] == muyMalos))) then
 			{
 			_killzones = killZones getVariable _origen;
 			_killzones pushBack _destino;

@@ -24,7 +24,7 @@ if ((!(_marcador in ciudades)) and (spawner getVariable _marcador != 2)) then
 if (isNil "_bandera") then {_bandera = objNull};
 //[_bandera,"remove"] remoteExec ["flagaction",0,_bandera];
 
-if (_marcador in mrkSDK) then
+if (lados getVariable [_marcador,sideUnknown] == buenos) then
 	{
 	_looser = buenos;
 	mrkSDK = mrkSDK - [_marcador];
@@ -34,7 +34,7 @@ if (_marcador in mrkSDK) then
 	}
 else
 	{
-	if (_marcador in mrkNATO) then
+	if (lados getVariable [_marcador,sideUnknown] == malos) then
 		{
 		_looser = malos;
 		mrkNATO = mrkNATO - [_marcador];
@@ -54,6 +54,7 @@ if (_winner == "GREENFORSpawn") then
 	{
 	mrkSDK pushBackUnique _marcador;
 	publicVariable "mrkSDK";
+	lados setVariable [_marcador,buenos,true];
 	_winner = buenos;
 	[_marcador,_looser] remoteExec ["patrolCA",HCattack];
 	//sleep 15;
@@ -68,12 +69,14 @@ else
 		{
 		mrkNATO pushBackUnique _marcador;
 		publicVariable "mrkNATO";
+		lados setVariable [_marcador,malos,true];
 		_winner = malos;
 		}
 	else
 		{
 		mrkCSAT pushBackUnique _marcador;
 		publicVariable "mrkCSAT";
+		lados setVariable [_marcador,muyMalos,true];
 		_winner = muyMalos;
 		};
 	[_soldados,_winner,_marcador,0] spawn garrisonUpdate;
@@ -177,6 +180,6 @@ else
 if ((_winner != buenos) and (_marcador in aeropuertos) and (_looser != buenos)) then
 	{
 	_cercanos = (puertos + puestos + recursos - mrkSDK) select {(getMarkerPos _x) distance _posicion < distanciaSPWN};
-	if (_looser == malos) then  {_cercanos = _cercanos select {_x in mrkNATO}; _winner = "OPFORSpawn"} else {_cercanos = _cercanos select {_x in mrkCSAT}; _winner = "BLUFORSpawn"};
+	if (_looser == malos) then  {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == malos}; _winner = "OPFORSpawn"} else {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == muyMalos}; _winner = "BLUFORSpawn"};
 	{[_winner,_x] spawn markerChange; sleep 5} forEach _cercanos;
 	};

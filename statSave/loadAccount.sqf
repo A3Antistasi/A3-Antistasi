@@ -171,54 +171,12 @@ if !(_x in mrkSDK) then
 if ((not(_x in mrkNATO)) and (not(_x in mrkSDK)) and (_x != "Synd_HQ") and (not(_x in mrkCSAT))) then {mrkNATO pushBack _x};
 } forEach marcadores;
 
+{if (lados getVariable [_x,sideUnknown] != buenos) then {lados setVariable [_x,buenos,true]}} forEach mrkSDK;
+{if (lados getVariable [_x,sideUnknown] != malos) then {lados setVariable [_x,malos,true]}} forEach mrkNATO;
+{if (lados getVariable [_x,sideUnknown] != muyMalos) then {lados setVariable [_x,muyMalos,true]}} forEach mrkCSAT;
+
 _marcadores = _marcadores + controles;
-/*
-{
 
-if (_x in mrkSDK) then
-	{
-	private ["_mrkD"];
-	if (_x != "Synd_HQ") then
-		{
-		_mrkD = format ["Dum%1",_x];
-		_mrkD setMarkerColor colorBuenos;
-		};
-	if (_x in aeropuertos) then
-		{
-		_mrkD setMarkerText format ["SDK Airport: %1",count (garrison getVariable _x)];
-		_mrkD setMarkerType "flag_FIA";
-	    };
-	if (_x in puestos) then
-		{
-		_mrkD setMarkerText format ["SDK Outpost: %1",count (garrison getVariable _x)];
-		};
-	if (_x in ciudades) then
-		{
-		if (_x in destroyedCities) then {[_x] call destroyCity};
-		};
-	if ((_x in recursos) or (_x in fabricas)) then
-		{
-		if (_x in recursos) then {_mrkD setMarkerText format ["Resource: %1",count (garrison getVariable _x)]} else {_mrkD setMarkerText format ["Factory: %1",count (garrison getVariable _x)]};
-		if (_x in destroyedCities) then {[_x] call destroyCity};
-		};
-	if (_x in puertos) then
-		{
-		_mrkD setMarkerText format ["Sea Port: %1",count (garrison getVariable _x)];
-		};
-	if (_x in power) then
-		{
-		_mrkD setMarkerText format ["Power Plant: %1",count (garrison getVariable _x)];
-		if (_x in destroyedCities) then {[_x] call destroyCity};
-		};
-	};
-
-if (_x in mrkNATO) then
-	{
-	if (_x in destroyedCities) then {[_x] call destroyCity};
-	};
-
-} forEach _marcadores;
-*/
 {[_x] call mrkUpdate} forEach _marcadores;
 
 {if (_x in destroyedCities) then {[_x] call destroyCity}} forEach ciudades;

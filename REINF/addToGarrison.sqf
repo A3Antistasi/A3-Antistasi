@@ -18,7 +18,7 @@ _cercano = [marcadores,_posicionTel] call BIS_fnc_nearestPosition;
 
 if !(_posicionTel inArea _cercano) exitWith {hint "You must click near a marked zone"};
 
-if (not(_cercano in mrkSDK)) exitWith {hint "That zone does not belong to Syndikat"};
+if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint "That zone does not belong to Syndikat"};
 
 if ((_cercano in puestosFIA) and !(isOnRoad getMarkerPos _cercano)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
 
@@ -84,7 +84,7 @@ if (spawner getVariable _cercano != 2) then
 		_marcador = _muerto getVariable "marcador";
 		if (!isNil "_marcador") then
 			{
-			if (_marcador in mrkSDK) then
+			if (lados getVariable [_marcador,sideUnknown] == buenos) then
 				{
 				_garrison = [];
 				_garrison = _garrison + (garrison getVariable [_marcador,[]]);
@@ -103,8 +103,8 @@ if (spawner getVariable _cercano != 2) then
 		}];
 	} forEach _unidades;
 
-	waitUntil {sleep 1; (spawner getVariable _cercano == 2 or !(_cercano in mrkSDK))};
-	if (!(_cercano in mrkSDK)) then {_noBorrar = true};
+	waitUntil {sleep 1; (spawner getVariable _cercano == 2 or !(lados getVariable [_cercano,sideUnknown] == buenos))};
+	if (!(lados getVariable [_cercano,sideUnknown] == buenos)) then {_noBorrar = true};
 	};
 
 if (!_noBorrar) then

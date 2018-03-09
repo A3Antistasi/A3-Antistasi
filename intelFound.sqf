@@ -9,7 +9,7 @@ if (count _this == 1) then
 	if (_marcador isEqualType "") then
 		{
 		if (_marcador in aeropuertos) then {_chance = 30} else {_chance = 15};
-		if (_marcador in mrkCSAT) then {_lado = muyMalos};
+		if (lados getVariable [_marcador,sideUnknown] == muyMalos) then {_lado = muyMalos};
 		}
 	else
 		{

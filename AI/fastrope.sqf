@@ -80,7 +80,7 @@ _veh flyInHeight 150;
 _wp2 = _grupo addWaypoint [_posicion, 0];
 _wp2 setWaypointType "MOVE";
 //_wp2 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
-if (_grupo getVariable ["mrkAttack",""] != "") then {_wp2 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"]};
+//if (_grupo getVariable ["mrkAttack",""] != "") then {_wp2 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"]};
 _wp2 = _grupo addWaypoint [_posicion, 1];
 _wp2 setWaypointType "SAD";
 _wp3 = _heli addWaypoint [_posorigen, 1];

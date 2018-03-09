@@ -104,7 +104,7 @@ while {(_size > 0)} do
 	_size = _size - 1;
 	};
 
-waitUntil {sleep 1;((not(_marcador in smallCAmrk)) or (_marcador in mrkNATO) or (_marcador in mrkCSAT))};
+waitUntil {sleep 1;((not(_marcador in smallCAmrk)) or (lados getVariable [_marcador,sideUnknown] == malos) or (lados getVariable [_marcador,sideUnknown] == muyMalos))};
 /*
 {_vehiculo = _x;
 waitUntil {sleep 1; {_x distance _vehiculo < distanciaSPWN} count (allPlayers - hcArray) == 0};

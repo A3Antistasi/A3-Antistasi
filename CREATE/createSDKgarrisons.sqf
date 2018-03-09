@@ -22,7 +22,7 @@ if (_marcador != "Synd_HQ") then
 		_veh = createVehicle [SDKFlag, _posicion, [],0, "CAN_COLLIDE"];
 		_veh allowDamage false;
 		_vehiculos pushBack _veh;
-		[_veh,"SDKFlag"] remoteExec ["flagaction",0,_bandera];
+		[_veh,"SDKFlag"] remoteExec ["flagaction",0,_veh];
 		//[_veh,"unit"] remoteExec ["flagaction",[buenos,civilian],_veh];
 		//[_veh,"vehicle"] remoteExec ["flagaction",[buenos,civilian],_veh];
 		//[_veh,"garage"] remoteExec ["flagaction",[buenos,civilian],_veh];

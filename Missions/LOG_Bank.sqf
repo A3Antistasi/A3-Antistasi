@@ -53,7 +53,7 @@ if (_dificil) then
 		}
 	else
 		{
-		if (_marcador in mrkSDK) then
+		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
 			_salir = true;
 			{

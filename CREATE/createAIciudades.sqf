@@ -26,7 +26,7 @@ if (_marcador in destroyedCities) then
 	}
 else
 	{
-	if (_marcador in mrkNATO) then
+	if (lados getVariable [_marcador,sideUnknown] == malos) then
 		{
 		_num = round (_num * (_prestigeOPFOR + _prestigeBLUFOR)/100);
 		_frontera = [_marcador] call isFrontline;

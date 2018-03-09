@@ -49,7 +49,7 @@ if (_fallo) exitWith {false};
 for "_i" from 1 to 60 do
 	{
 	_mina = createMine ["APERSMine",_pos,[],100];
-	if (_marcador in mrkNATO) then {malos revealMine _mina} else {muyMalos revealMine _mina};
+	if (lados getVariable [_marcador,sideUnknown] == malos) then {malos revealMine _mina} else {muyMalos revealMine _mina};
 	};
 
 //[-4000] remoteExec ["resourcesAAF",2];

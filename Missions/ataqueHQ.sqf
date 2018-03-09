@@ -13,7 +13,7 @@ _aeropuertos = aeropuertos select {(not(_x in mrkSDK)) and (spawner getVariable 
 if (count _aeropuertos == 0) exitWith {};
 _aeropuerto = [_aeropuertos,_posicion] call BIS_fnc_nearestPosition;
 _posOrigen = getMarkerPos _aeropuerto;
-_lado = if (_aeropuerto in mrkNATO) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_aeropuerto,sideUnknown] == malos) then {malos} else {muyMalos};
 _tsk1 = "";
 _tsk = "";
 [[buenos,civilian],"DEF_HQ",["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Maru","respawn_guerrila"],_posicion,true,10,true,"Defend",true] call BIS_fnc_taskCreate;

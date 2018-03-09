@@ -53,7 +53,7 @@ if (_dificil) then
 		}
 	else
 		{
-		if (_marcador in mrkSDK) then
+		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
 			_salir = true;
 			{
@@ -91,7 +91,7 @@ if (_dificil) then
 	};
 
 _posicion = getMarkerPos _marcador;
-_lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _tiempolim = if (_dificil) then {30} else {60};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
@@ -131,9 +131,9 @@ else
 [[buenos,civilian],"LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_pos,false,0,true,"rearm",true] call BIS_fnc_taskCreate;
 _camionCreado = false;
 
-waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or ((spawner getVariable _marcador != 2) and !(_marcador in mrkSDK))};
+waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,sideUnknown] == buenos))};
 _bonus = if (_dificil) then {2} else {1};
-if ((spawner getVariable _marcador != 2) and !(_marcador in mrkSDK)) then
+if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,sideUnknown] == buenos)) then
 	{
 	//sleep 10;
 

@@ -11,12 +11,12 @@ if (_ant1 distance _posicion > _ant2 distance _posicion) exitWith {false};
 
 _puesto = [marcadores,_ant1] call BIS_fnc_NearestPosition;
 
-if (_marcador in mrkSDK) then
+if (lados getVariable [_marcador,sideUnknown] == buenos) then
 	{
-	if (_puesto in mrkSDK) then {_result = true};
+	if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = true};
 	}
 else
 	{
-	if (_puesto in mrkNATO) then {_result = true};
+	if (lados getVariable [_puesto,sideUnknown] == malos) then {_result = true};
 	};
 _result

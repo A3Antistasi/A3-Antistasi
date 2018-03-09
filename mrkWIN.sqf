@@ -8,7 +8,7 @@ if ((player != _jugador) and (!isServer)) exitWith {};
 
 _pos = getPos _bandera;
 _marcador = [marcadores,_pos] call BIS_fnc_nearestPosition;
-if (_marcador in mrkSDK) exitWith {};
+if (lados getVariable [_marcador,sideUnknown] == buenos) exitWith {};
 _posicion = getMarkerPos _marcador;
 _size = [_marcador] call sizeMarker;
 
@@ -42,6 +42,6 @@ if (isPlayer _x) then
 	}
 } forEach ([_size,0,_posicion,"GREENFORSpawn"] call distanceUnits);
 
-_lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 ["GREENFORSpawn",_marcador] call markerChange;
 [_marcador,_lado] remoteExec ["patrolCA",HCattack];

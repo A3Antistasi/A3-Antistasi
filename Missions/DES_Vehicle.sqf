@@ -53,7 +53,7 @@ if (_dificil) then
 		}
 	else
 		{
-		if (_marcador in mrkSDK) then
+		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
 			_salir = true;
 			{
@@ -90,7 +90,7 @@ if (_dificil) then
 	waitUntil {sleep 1; !(["DES"] call BIS_fnc_taskExists)};
 	};
 _posicion = getMarkerPos _marcador;
-_lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _tiempolim = if (_dificil) then {30} else {120};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;

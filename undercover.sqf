@@ -53,7 +53,7 @@ if ({((side _x== muyMalos) or (side _x== malos)) and (((_x knowsAbout _player > 
 
 _base = [_aeropuertos,_player] call BIS_fnc_nearestPosition;
 _size = [_base] call sizeMarker;
-if ((_player distance getMarkerPos _base < _size*2) and (not(_base in mrkSDK))) exitWith {hint "You cannot become Undercover near Airports, Outposts or Roadblocks"};
+if ((_player distance getMarkerPos _base < _size*2) and (not(lados getVariable [_base,sideUnknown] == buenos))) exitWith {hint "You cannot become Undercover near Airports, Outposts or Roadblocks"};
 
 ["Undercover ON",0,0,4,0,0,4] spawn bis_fnc_dynamicText;
 
@@ -163,7 +163,7 @@ while {_cambiar == ""} do
 					{
 					_base = [_aeropuertos1,_player] call BIS_fnc_nearestPosition;
 					_size = [_base] call sizeMarker;
-					if ((_player distance2d getMarkerPos _base < _size*3) and ((_base in mrkNATO) or (_base in mrkCSAT))) then
+					if ((_player distance2d getMarkerPos _base < _size*3) and ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == muyMalos))) then
 						{
 						_cambiar = "NoFly";
 						};

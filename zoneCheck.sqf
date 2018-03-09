@@ -9,7 +9,7 @@ _salir = true;
 _enemy1 = "";
 _enemy2 = "";
 
-if ((_lado == buenos) and (_marcador in mrkSDK)) then
+if ((_lado == buenos) and (lados getVariable [_marcador,sideUnknown] == buenos)) then
 	{
 	_salir = false;
 	_enemy1 = "OPFORSpawn";
@@ -17,7 +17,7 @@ if ((_lado == buenos) and (_marcador in mrkSDK)) then
 	}
 else
 	{
-	if ((_lado == malos) and (_marcador in mrkNATO)) then
+	if ((_lado == malos) and (lados getVariable [_marcador,sideUnknown] == malos)) then
 		{
 		_salir = false;
 		_enemy1 = "OPFORSpawn";
@@ -25,7 +25,7 @@ else
 		}
 	else
 		{
-		if ((_lado == muyMalos) and (_marcador in mrkCSAT)) then
+		if ((_lado == muyMalos) and (lados getVariable [_marcador,sideUnknown] == muyMalos)) then
 			{
 			_salir = false;
 			_enemy1 = "BLUFORSpawn";
@@ -51,10 +51,10 @@ if ({(_x getVariable [_enemy1,false]) and (not(vehicle _x isKindOf "Air")) and (
 
 if (_winner == "GREENFORSpawn") then
 	{
-	waitUntil {sleep 1; _marcador in mrkSDK};
+	waitUntil {sleep 1; lados getVariable [_marcador,sideUnknown] == buenos};
 	}
 else
 	{
-	if (_winner == "BLUFORSpawn") then {waitUntil {sleep 1;(_marcador in mrkNATO)}} else {waitUntil {sleep 1;(_marcador in mrkCSAT)}};
+	if (_winner == "BLUFORSpawn") then {waitUntil {sleep 1;(lados getVariable [_marcador,sideUnknown] == malos)}} else {waitUntil {sleep 1;(lados getVariable [_marcador,sideUnknown] == muyMalos)}};
 	};
 zoneCheckInProgress = false;

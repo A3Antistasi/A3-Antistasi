@@ -37,7 +37,7 @@ if (isNil "_coste") then
 else
 	{
 	//_coste = _coste + (_coste * ({_x in mrkNATO} count puertos));
-	_coste = round (_coste - (_coste * (0.1 * ({_x in mrkSDK} count puertos))));
+	_coste = round (_coste - (_coste * (0.1 * ({lados getVariable [_x,sideUnknown] == buenos} count puertos))));
 	};
 
 _coste

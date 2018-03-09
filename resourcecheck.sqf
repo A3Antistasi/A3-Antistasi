@@ -43,7 +43,7 @@ while {true} do
 		{
 		_recAddCiudadSDK = ((_numciv * _multiplicandorec*(_prestigeSDK / 100))/3);
 		_hrAddCiudad = (_numciv * (_prestigeSDK / 20000));
-		if (_ciudad in mrkSDK) then
+		if (lados getVariable [_ciudad,sideUnknown] == buenos) then
 			{
 			if (_power) then
 				{
@@ -71,13 +71,14 @@ while {true} do
 	_recAddSDK = _recAddSDK + _recAddCiudadSDK;
 	_hrAddBLUFOR = _hrAddBLUFOR + _hrAddCiudad;
 	// revuelta civil!!
-	if ((_prestigeNATO < _prestigeSDK) and (_ciudad in mrkNATO)) then
+	if ((_prestigeNATO < _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == malos)) then
 		{
 		["TaskSucceeded", ["", format ["%1 joined SDK",[_ciudad, false] call fn_location]]] remoteExec ["BIS_fnc_showNotification",buenos];
 		mrkNATO = mrkNATO - [_ciudad];
-		mrkSDK = mrkSDK + [_ciudad];
+		mrkSDK pushBackUnique _ciudad;
 		publicVariable "mrkNATO";
 		publicVariable "mrkSDK";
+		lados setVariable [_ciudad,buenos,true];
 		_nul = [5,0] remoteExec ["prestige",2];
 		_mrkD = format ["Dum%1",_ciudad];
 		_mrkD setMarkerColor colorBuenos;
@@ -101,6 +102,7 @@ while {true} do
 		mrkSDK = mrkSDK - [_ciudad];
 		publicVariable "mrkNATO";
 		publicVariable "mrkSDK";
+		lados setVariable [_ciudad,malos,true];
 		_nul = [-5,0] remoteExec ["prestige",2];
 		_mrkD = format ["Dum%1",_ciudad];
 		_mrkD setMarkerColor colorMalos;
@@ -110,10 +112,10 @@ while {true} do
 		};
 	} forEach ciudades;
 	if (_popCSAT > (_popTotal / 3)) then {["destroyedCities",false,true] remoteExec ["BIS_fnc_endMission"]};
-	if ((_popFIA > _popAAF) and ({_x in mrkSDK} count aeropuertos == count aeropuertos)) then {["end1",true,true,true,true] remoteExec ["BIS_fnc_endMission",0]};
+	if ((_popFIA > _popAAF) and ({lados getVariable [_x,sideUnknown] == buenos} count aeropuertos == count aeropuertos)) then {["end1",true,true,true,true] remoteExec ["BIS_fnc_endMission",0]};
 	{
 	_fabrica = _x;
-	if (_fabrica in mrkSDK) then
+	if (lados getVariable [_fabrica,sideUnknown] == buenos) then
 		{
 		if (not(_fabrica in destroyedCities)) then {_bonusFIA = _bonusFIA + 0.25};
 		};
@@ -121,7 +123,7 @@ while {true} do
 
 	{
 	_recurso = _x;
-	if (_recurso in mrkSDK) then
+	if (lados getVariable [_recurso,sideUnknown] == buenos) then
 		{
 		if (not(_recurso in destroyedCities)) then {_recAddSDK = _recAddSDK + (300 * _bonusFIA)};
 		};
@@ -139,17 +141,12 @@ while {true} do
 	_recAddSDK = _recAddSDK + (server getVariable "resourcesFIA");
 	server setVariable ["hr",_hrAddBLUFOR,true];
 	server setVariable ["resourcesFIA",_recAddSDK,true];
-	bombRuns = bombRuns + (({_x in mrkSDK} count aeropuertos) * 0.25);
+	bombRuns = bombRuns + (({lados getVariable [_x,sideUnknown] == buenos} count aeropuertos) * 0.25);
 	[petros,"taxRep",_texto] remoteExec ["commsMP",[buenos,civilian]];
 	//[] remoteExec ["statistics",[buenos,civilian]];
 	if (isMultiplayer) then {[] spawn assignStavros};
 	if ((!bigAttackInProgress) and (random 100 < 50)) then {[] call missionRequestAUTO};
 	[] remoteExec ["reinforcementsAI",hcAttack];
-	/*
-	_aiSkillLimit = ({_x in mrkSDK} count (aeropuertos + puestos + recursos + puertos));
-	if (_aiSkillLimit < 2) then {_aiSkillLimit = 2};
-	if (_aiSkillLimit != aiSkillLimit) then {aiSkillLimit = _aiSkillLimit; publicVariable "aiSkillLimit"};
-	*/
 	{
 	_veh = _x;
 	if ((_veh isKindOf "StaticWeapon") and ({isPlayer _x} count crew _veh == 0) and (alive _veh)) then
@@ -176,7 +173,7 @@ while {true} do
 		_posibles = [];
 		{
 		_marcador = [marcadores, _x] call BIS_fnc_nearestPosition;
-		if ((_marcador in mrkNATO) and (spawner getVariable _marcador == 2)) exitWith
+		if ((lados getVariable [_marcador,sideUnknown] == malos) and (spawner getVariable _marcador == 2)) exitWith
 			{
 			_posibles pushBack [_marcador,_x];
 			};
@@ -192,7 +189,7 @@ while {true} do
 		_cambiado = false;
 		{
 		_chance = 5;
-		if ((_x in recursos) and (_x in mrkCSAT)) then {_chace = 20};
+		if ((_x in recursos) and (lados getVariable [_x,sideUnknown] == muyMalos)) then {_chace = 20};
 		if (random 100 < _chance) then
 			{
 			_cambiado = true;

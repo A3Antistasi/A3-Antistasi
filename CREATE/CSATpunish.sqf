@@ -15,10 +15,10 @@ _civiles = [];
 _nombredest = [_mrkDestino,muyMalos] call localizar;
 [[buenos,civilian,malos],"AtaqueAAF",[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 //_tsk = ["AtaqueAAF",[buenos,civilian,malos],[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+//misiones pushBack _tsk; publicVariable "misiones";
 //Ataque de artillería
 _nul = [_mrkOrigen,_mrkDestino] spawn artilleria;
-_lado = if (_mrkDestino in mrkNATO) then {malos} else {buenos};
+_lado = if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {malos} else {buenos};
 _tiempo = time + 3600;
 
 for "_i" from 1 to 3 do
@@ -122,7 +122,7 @@ _datos = server getVariable _mrkDestino;
 _numCiv = _datos select 0;
 _numCiv = round (_numCiv /10);
 
-if (_mrkDestino in mrkNATO) then {[_posDestino,malos] remoteExec ["patrolCA",HCattack]};
+if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[_posDestino,malos] remoteExec ["patrolCA",HCattack]};
 
 if (_numCiv < 8) then {_numCiv = 8};
 
@@ -172,7 +172,7 @@ if ((({not (captive _x)} count _soldados) < ({captive _x} count _soldados)) or (
 	["AtaqueAAF",[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED"] call taskUpdate;
 	if ({(side _x == buenos) and (_x distance _posDestino < _size * 2)} count allUnits >= {(side _x == malos) and (_x distance _posDestino < _size * 2)} count allUnits) then
 		{
-		if (_mrkDestino in mrkNATO) then {[-15,15,_posdestino] remoteExec ["citySupportChange",2]} else {[-5,15,_posdestino] remoteExec ["citySupportChange",2]};
+		if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[-15,15,_posdestino] remoteExec ["citySupportChange",2]} else {[-5,15,_posdestino] remoteExec ["citySupportChange",2]};
 		[-5,0] remoteExec ["prestige",2];
 		{[-10,10,_x] remoteExec ["citySupportChange",2]} forEach ciudades;
 		{if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_posdestino,"GREENFORSpawn"] call distanceUnits);
@@ -180,7 +180,7 @@ if ((({not (captive _x)} count _soldados) < ({captive _x} count _soldados)) or (
 		}
 	else
 		{
-		if (_mrkDestino in mrkNATO) then {[15,-5,_posdestino] remoteExec ["citySupportChange",2]} else {[15,-15,_posdestino] remoteExec ["citySupportChange",2]};
+		if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[15,-5,_posdestino] remoteExec ["citySupportChange",2]} else {[15,-15,_posdestino] remoteExec ["citySupportChange",2]};
 		{[10,-10,_x] remoteExec ["citySupportChange",2]} forEach ciudades;
 		};
 	}

@@ -18,7 +18,7 @@ _busy = if (dateToNumber date > server getVariable _marcador) then {false} else 
 _nVeh = round (_size/60);
 
 _lado = malos;
-if (_marcador in mrkCSAT) then
+if (lados getVariable [_marcador,sideUnknown] == muyMalos) then
 	{
 	_lado = muyMalos;
 	};

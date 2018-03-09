@@ -52,7 +52,7 @@ if (_dificil) then
 		}
 	else
 		{
-		if (_marcador in mrkSDK) exitWith
+		if (lados getVariable [_marcador,sideUnknown] == buenos) exitWith
 			{
 			_salir = true;
 			{
@@ -90,7 +90,7 @@ if (_dificil) then
 	waitUntil {sleep 1; !(["AS"] call BIS_fnc_taskExists)};
 	};
 
-_lado = if (_marcador in mrkNATO) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _posicion = getMarkerPos _marcador;
 
 _tiempolim = if (_dificil) then {15} else {30};//120

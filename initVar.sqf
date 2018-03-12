@@ -4,7 +4,9 @@
 //You do not have enough balls to make any modification and after making a Bug report because something is wrong. You don't wanna be there. Believe me.
 //Not commented lines cannot be changed.
 //Don't touch them.
-antistasiVersion = "v 0.11.1";
+
+antistasiVersion = "v 0.11.1A";
+
 
 servidoresOficiales = ["Antistasi Official EU","Antistasi Official EU - TEST","Antistasi:Warlords Official","Warlords of the Pacific - Official"];//this is for author's fine tune the official servers. If I get you including your server in this variable, I will create a special variable for your server. Understand?
 
@@ -279,6 +281,8 @@ haveNV = false;
 //chungos = ["Tactical Coop","[GER] AntiStasi Tanoa by Opas Musterknaben | ACE3 | Taskforce","[REI] Regio Esercito Italiano PvP/TvT - TS:136.243.175.26", "GER|Public Coop|Takticsh|TS 31.172.86.185 for Joining", "[UNA] 24/7 HARDCORE - CooP - LOW PING","Numbian's Coop Server", "Antistasi Tanoa"];
 unlockedItems = ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit","H_Booniehat_khk","H_Booniehat_oli","H_Booniehat_grn","H_Booniehat_dirty","H_Cap_oli","H_Cap_blk","H_MilCap_rucamo","H_MilCap_gry","H_BandMask_blk","H_Bandanna_khk","H_Bandanna_gry","H_Bandanna_camo","H_Shemag_khk","H_Shemag_tan","H_Shemag_olive","H_ShemagOpen_tan","H_Beret_grn","H_Beret_grn_SF","H_Watchcap_camo","H_TurbanO_blk","H_Hat_camo","H_Hat_tan","H_Beret_blk","H_Beret_red","H_Beret_02","H_Watchcap_khk","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_lowprofile","G_Balaclava_oli","G_Bandanna_beast","G_Tactical_Black","G_Aviator","G_Shades_Black","acc_flashlight","I_UavTerminal"] + uniformsSDK + civUniforms;//Initial Arsenal available items
 
+
+
 //The following are the initial weapons and mags unlocked and available in the Arsenal, vanilla or RHS
 
 if (!activeGREF) then
@@ -332,27 +336,83 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
     //unlockedBackpacks pushBack "tf_rt1523g_sage";//uncomment this if you are adding LR radios for players
     };
 //ACE detection and ACE item availability in Arsenal
-if (!isNil "ace_common_fnc_isModLoaded") then
-	{
-	unlockedItems = unlockedItems + ["ACE_EarPlugs","ACE_RangeCard","ACE_Clacker","ACE_M26_Clacker","ACE_DeadManSwitch","ACE_DefusalKit","ACE_MapTools","ACE_Flashlight_MX991","ACE_Sandbag_empty","ACE_wirecutter","ACE_SpraypaintBlue","ACE_SpraypaintGreen","ACE_SpraypaintRed","ACE_SpraypaintBlack","ACE_RangeTable_82mm","ACE_SpareBarrel","ACE_EntrenchingTool","ACE_Cellphone","ACE_ConcertinaWireCoil","ACE_CableTie","ACE_SpottingScope","ACE_Tripod","ACE_Chemlight_HiWhite","ACE_Chemlight_HiRed"];
+	aceItems = [
+		"ACE_EarPlugs",
+		"ACE_RangeCard",
+		"ACE_Clacker",
+		"ACE_M26_Clacker",
+		"ACE_DeadManSwitch",
+		"ACE_DefusalKit",
+		"ACE_MapTools",
+		"ACE_Flashlight_MX991",
+		"ACE_Sandbag_empty",
+		"ACE_wirecutter",
+		"ACE_RangeTable_82mm",
+		"ACE_EntrenchingTool",
+		"ACE_Cellphone",
+		"ACE_ConcertinaWireCoil",
+		"ACE_CableTie",
+		"ACE_SpottingScope",
+		"ACE_Tripod",
+		"ACE_Chemlight_HiWhite",
+		"ACE_Chemlight_HiRed",
+		"ACE_Kestrel4500",
+		"ACE_ATragMX",
+		"ACE_acc_pointer_green"
+	];
+
+	aceBasicMedItems = [
+		"ACE_fieldDressing",
+		"ACE_bloodIV_500",
+		"ACE_bloodIV",
+		"ACE_epinephrine",
+		"ACE_morphine",
+		"ACE_bodyBag"
+	];
+
+	aceAdvMedItems = [
+		"ACE_elasticBandage",
+		"ACE_quikclot",
+		"ACE_bloodIV_250",
+		"ACE_packingBandage",
+		"ACE_personalAidKit",
+		"ACE_plasmaIV",
+		"ACE_plasmaIV_500",
+		"ACE_plasmaIV_250",
+		"ACE_salineIV",
+		"ACE_salineIV_500",
+		"ACE_salineIV_250",
+		"ACE_surgicalKit",
+		"ACE_tourniquet",
+		"ACE_adenosine",
+		"ACE_atropine"
+	];
+
+
+if (!isNil "ace_common_fnc_isModLoaded") then {
+	unlockedItems = unlockedItems + aceItems;
 	unlockedBackpacks pushBackUnique "ACE_TacticalLadder_Pack";
 	unlockedWeapons pushBackUnique "ACE_VMH3";
 	itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX"];
 	armasNATO = armasNATO + ["ACE_M84"];
 	hayACE = true;
-	if (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak")) then
-		{
+	if (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak")) then {
 		hayACEhearing = true;
-		};
-	if (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3")) then
-		{
-		if (ace_medical_level != 0) then
-			{
+	};
+	if (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3")) then {
+		if (ace_medical_level == 1) then {
 			hayACEMedical = true;
-			unlockedItems = unlockedItems + ["ACE_atropine","ACE_fieldDressing","ACE_quikclot","ACE_bloodIV_250","ACE_epinephrine","ACE_morphine","ACE_personalAidKit","ACE_plasmaIV_250","ACE_salineIV_250","ACE_tourniquet","ACE_elasticBandage","ACE_packingBandage"];
-			};
+			unlockedItems = unlockedItems + aceBasicMedItems;
 		};
 	};
+
+	if (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3")) then {
+		if (ace_medical_level == 2) then {
+			hayACEMedical = true;
+			unlockedItems = unlockedItems + aceBasicMedItems + aceAdvMedItems;
+		};
+	};
+};
 hayACRE = false;
 if (isClass(configFile >> "cfgPatches" >> "acre_main")) then
 	{

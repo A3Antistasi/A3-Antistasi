@@ -85,16 +85,6 @@ private _index = _x call jn_fnc_arsenal_itemType;
 }foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);
 //["buttonInvToJNA"] call jn_fnc_arsenal;
 
-if(hayACE) then {
-    cajaveh addItemCargoGlobal ["ACE_EarPlugs",50];
-    cajaveh addItemCargoGlobal ["ACE_Flashlight_MX991",50];
-    cajaveh addItemCargoGlobal ["ACE_MapTools",50];
-    cajaveh addItemCargoGlobal ["ACE_HandFlare_White",50];
-    cajaveh addItemCargoGlobal ["ACE_HandFlare_Red",50];
-    cajaveh addItemCargoGlobal ["ACE_M26_Clacker",50];
-    cajaveh addItemCargoGlobal ["ACE_DefusalKit",50];
-    cajaveh addItemCargoGlobal ["ACE_RangeTable_82mm",50];
-};
 
 
 diag_log "Antistasi MP Server. Arsenal config finished";

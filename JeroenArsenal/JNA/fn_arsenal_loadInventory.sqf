@@ -82,9 +82,7 @@ _inventory = [];
 	if(_loaded)then{
 		_item = _x select 0;
 		_amount = _x select 1;
-		_index = [_item,[
-			IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL
-		]] call jn_fnc_arsenal_itemType;
+		_index = _item call jn_fnc_arsenal_itemType;
 		//no need to remove because uniform, vest and backpack get replaced.
 		[_arrayPlaced,_index,_item,_amount]call _addToArray;
 	};
@@ -95,27 +93,8 @@ _assignedItems_old = assignedItems player + [headgear player] + [goggles player]
 {
 	_item = _x;
 	_amount = 1;
-	_index = [_item,[
-		IDC_RSCDISPLAYARSENAL_TAB_HEADGEAR,
-		IDC_RSCDISPLAYARSENAL_TAB_GOGGLES,
-		IDC_RSCDISPLAYARSENAL_TAB_NVGS,
-		IDC_RSCDISPLAYARSENAL_TAB_BINOCULARS,\
-		IDC_RSCDISPLAYARSENAL_TAB_MAP,
-		IDC_RSCDISPLAYARSENAL_TAB_GPS,
-		IDC_RSCDISPLAYARSENAL_TAB_RADIO,
-		IDC_RSCDISPLAYARSENAL_TAB_COMPASS,
-		IDC_RSCDISPLAYARSENAL_TAB_WATCH
-	]] call jn_fnc_arsenal_itemType;
+	_index = _item call jn_fnc_arsenal_itemType;
 	player unlinkItem _item;
-
-	//TFAR fix
-	if(_index == -1)then{
-		_radioName = getText(configfile >> "CfgWeapons" >> _item >> "tf_parent");
-		if!(_radioName isEqualTo "")then{
-			_item =_radioName;
-			_index = IDC_RSCDISPLAYARSENAL_TAB_RADIO;
-		};
-	};
 
 	[_arrayPlaced,_index,_item,_amount]call _addToArray;
 } forEach _assignedItems_old - [""];
@@ -125,12 +104,7 @@ _attachments = primaryWeaponItems player + secondaryWeaponItems player + handgun
 {
 	_item = _x;
 	_amount = 1;
-	_index = [_item,[
-		IDC_RSCDISPLAYARSENAL_TAB_ITEMOPTIC,
-		IDC_RSCDISPLAYARSENAL_TAB_ITEMACC,
-		IDC_RSCDISPLAYARSENAL_TAB_ITEMMUZZLE,
-		IDC_RSCDISPLAYARSENAL_TAB_ITEMBIPOD
-	]] call jn_fnc_arsenal_itemType;
+	_index = _item call jn_fnc_arsenal_itemType;
 	[_arrayPlaced,_index,_item,_amount]call _addToArray;
 } forEach _attachments;
 
@@ -190,31 +164,18 @@ _assignedItems = ((_inventory select 9) + [_inventory select 3] + [_inventory se
 {
 	_item = _x;
 	_amount = 1;
-	_index = [_item,[
-		IDC_RSCDISPLAYARSENAL_TAB_HEADGEAR,
-		IDC_RSCDISPLAYARSENAL_TAB_GOGGLES,
-		IDC_RSCDISPLAYARSENAL_TAB_NVGS,
-		IDC_RSCDISPLAYARSENAL_TAB_BINOCULARS,\
-		IDC_RSCDISPLAYARSENAL_TAB_MAP,
-		IDC_RSCDISPLAYARSENAL_TAB_GPS,
-		IDC_RSCDISPLAYARSENAL_TAB_RADIO,
-		IDC_RSCDISPLAYARSENAL_TAB_COMPASS,
-		IDC_RSCDISPLAYARSENAL_TAB_WATCH
-	]] call jn_fnc_arsenal_itemType;
-
-	//TFAR fix
-	if(_index == -1)then{
-		_radioName = getText(configfile >> "CfgWeapons" >> _item >> "tf_parent");
-		if!(_radioName isEqualTo "")then{
-			_item =_radioName;
-			_index = IDC_RSCDISPLAYARSENAL_TAB_RADIO;
-		};
-	};
-
+	_index = _item call jn_fnc_arsenal_itemType;
 
 	if(_index == -1) then {
 		_arrayMissing = [_arrayMissing,[_item,_amount]] call jn_fnc_arsenal_addToArray;
 	} else {
+
+		//TFAR fix
+		private _radioName = getText(configfile >> "CfgWeapons" >> _item >> "tf_parent");
+		if!(_radioName isEqualTo "")then{
+			_item =_radioName;
+		};
+
 		call {
 			if ([_itemCounts select _index, _item] call jn_fnc_arsenal_itemCount == -1) exitWith {
 				player linkItem _item;
@@ -229,7 +190,6 @@ _assignedItems = ((_inventory select 9) + [_inventory select 3] + [_inventory se
 		};
 
 	};
-
 } forEach _assignedItems - [""];
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// weapons and attachments
@@ -290,12 +250,7 @@ _weapons = [_inventory select 6,_inventory select 7,_inventory select 8];
 			if!(_itemAcc isEqualTo "")then{
 				_amountAcc = 1;
 
-				_indexAcc = [_itemAcc,[
-					IDC_RSCDISPLAYARSENAL_TAB_ITEMOPTIC,
-					IDC_RSCDISPLAYARSENAL_TAB_ITEMACC,
-					IDC_RSCDISPLAYARSENAL_TAB_ITEMMUZZLE,
-					IDC_RSCDISPLAYARSENAL_TAB_ITEMBIPOD
-				]] call jn_fnc_arsenal_itemType;
+				_indexAcc = _itemAcc call jn_fnc_arsenal_itemType;
 
 				call {
 					diag_log "_itemCounts";
@@ -338,6 +293,9 @@ _backpackItems = _inventory select 2 select 1;
 
 //add containers
 _containers = [_uniform,_vest,_backpack];
+private _invCallArray = [{removeUniform player;player forceAddUniform _uniform;},//todo remove
+                      {removeVest player;player addVest _vest;},
+                      {removeBackpackGlobal player;player addBackpack _backpack;}];
 {
 	_item = _x;
 	if!(_item isEqualTo "")then{
@@ -350,29 +308,17 @@ _containers = [_uniform,_vest,_backpack];
 
 		call {
 			if ([_itemCounts select _index, _item] call jn_fnc_arsenal_itemCount == -1) exitWith {
-				call ([
-					{player forceAddUniform _uniform;},//todo remove
-					{player addVest _vest;},
-					{player addBackpack _backpack;}
-				] select _foreachindex);
+				call (_invCallArray select _foreachindex);
 			};
 
 			if ([_availableItems select _index, _item] call jn_fnc_arsenal_itemCount > 0) then {
-				call ([
-					{player forceAddUniform _uniform;},//todo remove
-					{player addVest _vest;},
-					{player addBackpack _backpack;}
-				] select _foreachindex);
+				call (_invCallArray select _foreachindex);
 				[_arrayTaken,_index,_item,_amount] call _addToArray;
 				[_availableItems,_index,_item,_amount] call _removeFromArray;
 			} else {
 				_oldItem = [_uniform_old,_vest_old,_backpack_old] select _foreachindex;
 				if !(_oldItem isEqualTo "") then {
-					call ([
-						{player forceAddUniform _uniform_old;}, //todo remove
-						{player addVest _vest_old;},
-						{player addBackpack _backpack_old;}
-					] select _foreachindex);
+					call (_invCallArray select _foreachindex);
 					_arrayReplaced = [_arrayReplaced,[_item,_oldItem]] call jn_fnc_arsenal_addToArray;
 					[_arrayTaken,_index,_oldItem,1] call _addToArray;
 				} else {

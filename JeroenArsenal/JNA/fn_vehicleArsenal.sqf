@@ -657,7 +657,8 @@ switch _mode do {
 
 						jnva_loadout set [_index,[jnva_loadout select _index,[_item,_count]] call jn_fnc_arsenal_addToArray];
 						jnva_loadout_mass = _mass;
-						[_index, _item, _count] remoteExecCall ["jn_fnc_arsenal_removeItem"];
+						//[_index, _item, _count] remoteExecCall ["jn_fnc_arsenal_removeItem"];
+						[_index, _item, _count] call jn_fnc_arsenal_removeItem; //Sparker: why execute it on all clients?
 					};
 				};
 
@@ -676,7 +677,8 @@ switch _mode do {
 					jnva_loadout set [_index,[jnva_loadout select _index,[_item,_count]] call jn_fnc_arsenal_removeFromArray];
 					_mass = ["getMassItem",[_item,_count,_index]] call jn_fnc_vehicleArsenal;
 					jnva_loadout_mass = jnva_loadout_mass - _mass;
-					[_index, _item, _count] remoteExecCall ["jn_fnc_arsenal_addItem"];
+					//[_index, _item, _count] remoteExecCall ["jn_fnc_arsenal_addItem"];
+					[_index, _item, _count] call jn_fnc_arsenal_addItem; //Sparker: why execute it on all clients?
 				};
 			};
 		};

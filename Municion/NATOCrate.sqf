@@ -3,7 +3,6 @@
 private ["_crate","_cosa","_num","_magazines"];
 
 _crate = _this select 0;
-_crate call jn_fnc_logistics_addAction;
 
 clearMagazineCargoGlobal _crate;
 clearWeaponCargoGlobal _crate;

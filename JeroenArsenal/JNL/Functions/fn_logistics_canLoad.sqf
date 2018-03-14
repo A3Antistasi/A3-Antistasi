@@ -10,9 +10,10 @@
 
 	Returns:
 	INTEGER node number where object can be loaded on to
-	or -1 if a other type was already loaded
+	or -1 if another type was already loaded
 	or -2 if there was no more space
 	or -3 if this vehicle can't have any cargo at all
+	or -4 if cargo space is occupied (by a passenger)
 */
 
 params[ ["_vehicle",objNull,[objNull]], ["_object",objNull,[objNull]] ];
@@ -40,7 +41,7 @@ private _nodesLoaded = 0;
 if(_typeLoaded != _typeObject && _typeLoaded != -1)exitWith{-1};
 
 
-//available nodes
+//==== Get available nodes ====
 private _nodeTotal = 0;
 {
 	private _type = _x select 0;
@@ -51,7 +52,33 @@ private _nodeTotal = 0;
 if(_nodeTotal == 0)exitWith{-3};
 
 //there is some node free
-if(_nodesLoaded < _nodeTotal)exitWith{_nodesLoaded};
+if(_nodesLoaded < _nodeTotal) then
+{
+	//==== Check if cargo space is occupied by passengers ====
+	//Get occupied cargo nodes
+	private _occupiedCargo = [];
+	{
+		//[<Object>unit,<String>role,<Number>cargoIndex,<Array>turretPath,<Boolean>personTurret]
+		_occupiedCargo pushback (_x select 2); //cargo index
+	}forEach fullCrew _vehicle;
+	//Get all seats that can be locked by cargo of this type
+	private _allCargoLockedSeats = [];
+	{
+		_allCargoLockedSeats append (_x select 1);
+	} forEach ([_vehicle, _typeObject] call jn_fnc_logistics_getNodes);
 
-//node type is correct but no nodes where free
--2;
+	//Cargo space is occupied by passengers
+	if (count (_allCargoLockedSeats arrayintersect _occupiedCargo) > 0) then
+	{
+		-4
+	}
+	else //Cargo space is not occupied by passengers and there is some free node
+	{
+		_nodesLoaded
+	}
+}
+else
+{
+	//node type is correct but no nodes were free
+	-2;
+};

@@ -37,6 +37,7 @@ if (!isMultiPlayer) then
 
 waitUntil {(!isNil "saveFuncsLoaded") and (!isNil "serverInitDone")};
 
+call jn_fnc_logistics_init;
 caja call jn_fnc_arsenal_init;
 
 if(isServer) then

@@ -90,4 +90,5 @@ if(isServer) then
     waitUntil {!(isNil "placementDone")};
     distancias = [] spawn distancias4;
     resourcecheck = [] execVM "resourcecheck.sqf";
+    [] execVM "Scripts\fn_advancedTowingInit.sqf";
     };

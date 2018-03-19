@@ -40,7 +40,7 @@ class CfgTaskEnhancements
     };
 
 class CfgFunctions {
-    //#include "Functions\functionList.hpp"
+    #include "Functions\functionList.hpp"
     #include "JeroenArsenal\functions.hpp"
 };
 class Header

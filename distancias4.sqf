@@ -67,7 +67,7 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 					if (({if (_x distance2D _posicionMRK < distanciaSPWN) exitWith {1}} count _greenfor > 0) or ({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN2)) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createAIciudades",HCGarrisons]};
 					if (not(_marcador in destroyedCities)) then
 						{
-						if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createCIV",HCciviles]};
+						if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createCIV",call AS_fnc_getNextWorker]};
 						};
 					}
 				else
@@ -134,7 +134,7 @@ else
 						//[_marcador] remoteExec ["createAIciudades",HCGarrisons];
 						if (not(_marcador in destroyedCities)) then
 							{
-							if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createCIV",HCciviles]};
+							if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createCIV",call AS_fnc_getNextWorker]};
 							};
 						};
 					if (_marcador in puestosFIA) then {[_marcador] remoteExec ["createFIApuestos2",HCGarrisons]} else {if (not(_marcador in controles)) then {[_marcador] remoteExec ["createSDKGarrisons",HCGarrisons]}};

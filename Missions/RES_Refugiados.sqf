@@ -240,7 +240,7 @@ if (_lado == malos) then
 		_resourcesFIA = 100 * _cuenta;
 		[_hr,_resourcesFIA*_bonus] remoteExec ["resourcesFIA",2];
 		[3,0] remoteExec ["prestige",2];
-		{if (_x distance getMarkerPos "respawn_guerrila" < 500) then {[_cuenta*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+		{if (_x distance getMarkerPos "respawn_guerrila" < 500) then {[_cuenta*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[round (_cuenta*_bonus/2),stavros] call playerScoreAdd;
 		{[_x] join _grupoPOW; [_x] orderGetin false} forEach _POWs;
 		}
@@ -265,7 +265,7 @@ else
 		_hr = _cuenta;
 		_resourcesFIA = 100 * _cuenta;
 		[_hr,_resourcesFIA*_bonus] remoteExec ["resourcesFIA",2];
-		{if (_x distance getMarkerPos "respawn_guerrila" < 500) then {[_cuenta*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+		{if (_x distance getMarkerPos "respawn_guerrila" < 500) then {[_cuenta*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[round (_cuenta*_bonus/2),stavros] call playerScoreAdd;
 		{[_x] join _grupoPOW; [_x] orderGetin false} forEach _POWs;
 		};

@@ -148,7 +148,7 @@ else
 _camion = "C_Van_01_box_F" createVehicle _pos;
 _camion allowDamage false;
 [_camion] call AIVEHinit;
-{_x reveal _camion} forEach (allPlayers - hcArray);
+{_x reveal _camion} forEach (allPlayers - (entities "HeadlessClient_F"));
 _camion setVariable ["destino",_nombredest,true];
 _camion addEventHandler ["GetIn",
 	{
@@ -209,7 +209,7 @@ else
 			{
 			[petros,"hint","Supplies Delivered"] remoteExec ["commsMP",[buenos,civilian]];
 			["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"SUCCEEDED","Heal"] call taskUpdate;
-			{if (_x distance _posicion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+			{if (_x distance _posicion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 			[5*_bonus,stavros] call playerScoreAdd;
 			if (!isMultiplayer) then {_bonus = _bonus + ((20-skillFIA)*0.1)};
 			[-1*(20-skillFIA),15*_bonus,_marcador] remoteExec ["citySupportChange",2];

@@ -51,7 +51,7 @@ while {alive _veh} do
 			{
 			if (not(_veh isKindOf "Ship")) then
 				{
-				if ({_x distance _newPos < 500} count (allPlayers - hcArray) == 0) then
+				if ({_x distance _newPos < 500} count (allPlayers - (entities "HeadlessClient_F")) == 0) then
 					{
 					_road = [_newPos,100] call BIS_fnc_nearestRoad;
 					if (!isNull _road) then

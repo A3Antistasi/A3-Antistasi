@@ -165,7 +165,7 @@ if (_lado == muyMalos) then
 			{
 			_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == muyMalos) and (dateToNumber date > server getVariable _x) and (not(spawner getVariable [_x,false]))};
 			_aeropuerto = [_aeropuertos, position casa] call BIS_fnc_nearestPosition;
-			[getPosASL _casa,_aeropuerto] remoteExec ["patrolCA",HCattack];
+			[getPosASL _casa,_aeropuerto] remoteExec ["patrolCA",call AS_fnc_getNextWorker];
 			};
 		};
 	}

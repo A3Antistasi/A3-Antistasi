@@ -165,7 +165,7 @@ if ((dateToNumber date > _fechalimnum) or (!alive _camion)) then
 else
 	{
 	_cuenta = 120*_bonus;//120
-	[_posicion,malos] remoteExec ["patrolCA",HCattack];
+	[_posicion,malos] remoteExec ["patrolCA",call AS_fnc_getNextWorker];
 	[10*_bonus,-20*_bonus,_marcador] remoteExec ["citySupportChange",2];
 	["TaskFailed", ["", format ["Bank of %1 being assaulted",_nombredest]]] remoteExec ["BIS_fnc_showNotification",malos];
 	{_amigo = _x;

@@ -56,9 +56,9 @@ if (_winner == "GREENFORSpawn") then
 	publicVariable "mrkSDK";
 	lados setVariable [_marcador,buenos,true];
 	_winner = buenos;
-	[_marcador,_looser] remoteExec ["patrolCA",HCattack];
+	[_marcador,_looser] remoteExec ["patrolCA",call AS_fnc_getNextWorker];
 	//sleep 15;
-	[_marcador] remoteExec ["autoGarrison",HCattack];
+	[_marcador] remoteExec ["autoGarrison",call AS_fnc_getNextWorker];
 	}
 else
 	{

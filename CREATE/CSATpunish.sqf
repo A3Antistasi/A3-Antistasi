@@ -122,7 +122,7 @@ _datos = server getVariable _mrkDestino;
 _numCiv = _datos select 0;
 _numCiv = round (_numCiv /10);
 
-if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[_posDestino,malos] remoteExec ["patrolCA",HCattack]};
+if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[_posDestino,malos] remoteExec ["patrolCA",call AS_fnc_getNextWorker]};
 
 if (_numCiv < 8) then {_numCiv = 8};
 

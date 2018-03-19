@@ -173,7 +173,7 @@ if ((not alive _camion) or (dateToNumber date > _fechalimnum)) then
 else
 	{
 	_cuenta = 120*_bonus;//120
-	[_posicion,malos] remoteExec ["patrolCA",HCattack];
+	[_posicion,malos] remoteExec ["patrolCA",call AS_fnc_getNextWorker];
 	["TaskFailed", ["", format ["SDK deploying supplies in %1",_nombredest]]] remoteExec ["BIS_fnc_showNotification",malos];
 	{_amigo = _x;
 	if (captive _amigo) then

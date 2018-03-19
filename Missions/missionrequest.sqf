@@ -54,7 +54,7 @@ if (_tipo == "AS") then
 	else
 		{
 		_sitio = selectRandom _posibles;
-		if (_sitio in aeropuertos) then {[_sitio] remoteExec ["AS_Oficial",HCgarrisons]} else {if (_sitio in ciudades) then {[_sitio] remoteExec ["AS_Traidor",HCgarrisons]} else {[_sitio] remoteExec ["AS_SpecOP",HCgarrisons]}};
+		if (_sitio in aeropuertos) then {[_sitio] remoteExec ["AS_Oficial",call AS_fnc_getNextWorker]} else {if (_sitio in ciudades) then {[_sitio] remoteExec ["AS_Traidor",call AS_fnc_getNextWorker]} else {[_sitio] remoteExec ["AS_SpecOP",call AS_fnc_getNextWorker]}};
 		};
 	};
 if (_tipo == "CON") then
@@ -75,7 +75,7 @@ if (_tipo == "CON") then
 	else
 		{
 		_sitio = selectRandom _posibles;
-		[_sitio] remoteExec ["CON_Puestos",HCgarrisons];
+		[_sitio] remoteExec ["CON_Puestos",call AS_fnc_getNextWorker];
 		};
 	};
 if (_tipo == "DES") then
@@ -112,8 +112,8 @@ if (_tipo == "DES") then
 	else
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in aeropuertos) then {if (random 10 < 8) then {[_sitio] remoteExec ["DES_Vehicle",HCgarrisons]} else {[_sitio] remoteExec ["DES_Heli",HCgarrisons]}};
-		if (_sitio in antenas) then {[_sitio] remoteExec ["DES_antena",HCgarrisons]}
+		if (_sitio in aeropuertos) then {if (random 10 < 8) then {[_sitio] remoteExec ["DES_Vehicle",call AS_fnc_getNextWorker]} else {[_sitio] remoteExec ["DES_Heli",call AS_fnc_getNextWorker]}};
+		if (_sitio in antenas) then {[_sitio] remoteExec ["DES_antena",call AS_fnc_getNextWorker]}
 		};
 	};
 if (_tipo == "LOG") then
@@ -172,9 +172,9 @@ if (_tipo == "LOG") then
 	else
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in ciudades) then {[_sitio] remoteExec ["LOG_Suministros",HCgarrisons]};
-		if (_sitio in puestos) then {[_sitio] remoteExec ["LOG_Ammo",HCgarrisons]};
-		if (_sitio in bancos) then {[_sitio] remoteExec ["LOG_Bank",HCgarrisons]};
+		if (_sitio in ciudades) then {[_sitio] remoteExec ["LOG_Suministros",call AS_fnc_getNextWorker]};
+		if (_sitio in puestos) then {[_sitio] remoteExec ["LOG_Ammo",call AS_fnc_getNextWorker]};
+		if (_sitio in bancos) then {[_sitio] remoteExec ["LOG_Bank",call AS_fnc_getNextWorker]};
 		};
 	};
 if (_tipo == "RES") then
@@ -201,7 +201,7 @@ if (_tipo == "RES") then
 	else
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in ciudades) then {[_sitio] remoteExec ["RES_Refugiados",HCgarrisons]} else {[_sitio] remoteExec ["RES_Prisioneros",HCgarrisons]};
+		if (_sitio in ciudades) then {[_sitio] remoteExec ["RES_Refugiados",call AS_fnc_getNextWorker]} else {[_sitio] remoteExec ["RES_Prisioneros",call AS_fnc_getNextWorker]};
 		};
 	};
 if (_tipo == "CONVOY") then
@@ -250,7 +250,7 @@ if (_tipo == "CONVOY") then
 			{
 			_sitio = _posibles call BIS_fnc_selectRandom;
 			_base = [_sitio] call findBasesForConvoy;
-			[_sitio,_base] remoteExec ["CONVOY",HCgarrisons];
+			[_sitio,_base] remoteExec ["CONVOY",call AS_fnc_getNextWorker];
 			};
 		}
 	else

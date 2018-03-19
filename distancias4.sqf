@@ -64,7 +64,7 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 				spawner setVariable [_marcador,0,true];
 				if (_marcador in ciudades) then
 					{
-					if (({if (_x distance2D _posicionMRK < distanciaSPWN) exitWith {1}} count _greenfor > 0) or ({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN2)) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createAIciudades",HCGarrisons]};
+					if (({if (_x distance2D _posicionMRK < distanciaSPWN) exitWith {1}} count _greenfor > 0) or ({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN2)) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createAIciudades",call AS_fnc_getNextWorker]};
 					if (not(_marcador in destroyedCities)) then
 						{
 						if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createCIV",call AS_fnc_getNextWorker]};
@@ -72,10 +72,10 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 					}
 				else
 					{
-					if (_marcador in controles) then {[_marcador] remoteExec ["createAIcontroles",HCGarrisons]} else {
-					if (_marcador in aeropuertos) then {[_marcador] remoteExec ["createAIaerop",HCGarrisons]} else {
-					if (((_marcador in recursos) or (_marcador in fabricas))) then {[_marcador] remoteExec ["createAIrecursos",HCGarrisons]} else {
-					if ((_marcador in puestos) or (_marcador in puertos)) then {[_marcador] remoteExec ["createAIpuestos",HCGarrisons]};};};};
+					if (_marcador in controles) then {[_marcador] remoteExec ["createAIcontroles",call AS_fnc_getNextWorker]} else {
+					if (_marcador in aeropuertos) then {[_marcador] remoteExec ["createAIaerop",call AS_fnc_getNextWorker]} else {
+					if (((_marcador in recursos) or (_marcador in fabricas))) then {[_marcador] remoteExec ["createAIrecursos",call AS_fnc_getNextWorker]} else {
+					if ((_marcador in puestos) or (_marcador in puertos)) then {[_marcador] remoteExec ["createAIpuestos",call AS_fnc_getNextWorker]};};};};
 					};
 				};
 			}
@@ -131,13 +131,13 @@ else
 					spawner setVariable [_marcador,0,true];
 					if (_marcador in ciudades) then
 						{
-						//[_marcador] remoteExec ["createAIciudades",HCGarrisons];
+						//[_marcador] remoteExec ["createAIciudades",call AS_fnc_getNextWorker];
 						if (not(_marcador in destroyedCities)) then
 							{
 							if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createCIV",call AS_fnc_getNextWorker]};
 							};
 						};
-					if (_marcador in puestosFIA) then {[_marcador] remoteExec ["createFIApuestos2",HCGarrisons]} else {if (not(_marcador in controles)) then {[_marcador] remoteExec ["createSDKGarrisons",HCGarrisons]}};
+					if (_marcador in puestosFIA) then {[_marcador] remoteExec ["createFIApuestos2",call AS_fnc_getNextWorker]} else {if (not(_marcador in controles)) then {[_marcador] remoteExec ["createSDKGarrisons",call AS_fnc_getNextWorker]}};
 					};
 				}
 			else
@@ -188,10 +188,10 @@ else
 				if (({if (_x distance2D _posicionMRK < distanciaSPWN) exitWith {1}} count _greenfor > 0) or ({if ((_x distance2D _posicionMRK < distanciaSPWN2) and (isPlayer _x)) exitWith {1}} count _opfor > 0) or ({if (_x distance2D _posicionMRK < distanciaSPWN2) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then
 					{
 					spawner setVariable [_marcador,0,true];
-					if (_marcador in controles) then {[_marcador] remoteExec ["createAIcontroles",HCGarrisons]} else {
-					if (_marcador in aeropuertos) then {[_marcador] remoteExec ["createAIaerop",HCGarrisons]} else {
-					if (((_marcador in recursos) or (_marcador in fabricas))) then {[_marcador] remoteExec ["createAIrecursos",HCGarrisons]} else {
-					if ((_marcador in puestos) or (_marcador in puertos)) then {[_marcador] remoteExec ["createAIpuestos",HCGarrisons]};};};};
+					if (_marcador in controles) then {[_marcador] remoteExec ["createAIcontroles",call AS_fnc_getNextWorker]} else {
+					if (_marcador in aeropuertos) then {[_marcador] remoteExec ["createAIaerop",call AS_fnc_getNextWorker]} else {
+					if (((_marcador in recursos) or (_marcador in fabricas))) then {[_marcador] remoteExec ["createAIrecursos",call AS_fnc_getNextWorker]} else {
+					if ((_marcador in puestos) or (_marcador in puertos)) then {[_marcador] remoteExec ["createAIpuestos",call AS_fnc_getNextWorker]};};};};
 					};
 				}
 			else

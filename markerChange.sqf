@@ -144,7 +144,7 @@ if (_winner == buenos) then
 		{
 		//[_bandera,"remove"] remoteExec ["flagaction",0,_bandera];
 		[_bandera,"SDKFlag"] remoteExec ["flagaction",0,_bandera];
-		[_bandera,"\A3\Data_F_exp\Flags\Flag_Synd_CO.paa"] remoteExec ["setFlagTexture",HCgarrisons];
+		[_bandera,"\A3\Data_F_exp\Flags\Flag_Synd_CO.paa"] remoteExec ["setFlagTexture",call AS_fnc_getNextWorker];
 		sleep 2;
 		//[_bandera,"unit"] remoteExec ["flagaction",[buenos,civilian],_bandera];
 		//[_bandera,"vehicle"] remoteExec ["flagaction",[buenos,civilian],_bandera];
@@ -169,11 +169,11 @@ else
 			};
 		if (_winner == malos) then
 			{
-			[_bandera,"\A3\Data_F\Flags\Flag_NATO_CO.paa"] remoteExec ["setFlagTexture",HCgarrisons];
+			[_bandera,"\A3\Data_F\Flags\Flag_NATO_CO.paa"] remoteExec ["setFlagTexture",call AS_fnc_getNextWorker];
 			}
 		else
 			{
-			[_bandera,"\A3\Data_F\Flags\Flag_CSAT_CO.paa"] remoteExec ["setFlagTexture",HCgarrisons];
+			[_bandera,"\A3\Data_F\Flags\Flag_CSAT_CO.paa"] remoteExec ["setFlagTexture",call AS_fnc_getNextWorker];
 			};
 		};
 	};

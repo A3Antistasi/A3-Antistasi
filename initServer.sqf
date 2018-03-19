@@ -1,3 +1,6 @@
+diag_log "####initServer.sqf called";
+call AS_fnc_initWorkerServer;
+
 if (!isMultiplayer) exitWith {};
 if (!(isNil "serverInitDone")) exitWith {};
 diag_log "Antistasi MP Server init";
@@ -43,6 +46,7 @@ else
     };
 publicVariable "maxPlayers";
 
+/* Disable old HC
 hcArray = [];
 
 //{if (owner _x != owner server) then {hcArray pushBack _x}} forEach entities "HeadlessClient_F";
@@ -77,6 +81,7 @@ publicVariable "HCciviles";
 publicVariable "HCgarrisons";
 publicVariable "HCattack";
 publicVariable "hcArray";
+*/
 //lockedWeapons = lockedWeapons - unlockedWeapons;
 caja call jn_fnc_arsenal_init;
 {

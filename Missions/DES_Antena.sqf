@@ -134,7 +134,7 @@ else
 	//[-5,0,_posicion] remoteExec ["citySupportChange",2];
 	[5,-5] remoteExec ["prestige",2];
 	[600*_bonus] remoteExec ["timingCA",2];
-	{if (_x distance _posicion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+	{if (_x distance _posicion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 	[5*_bonus,stavros] call playerScoreAdd;
 	[3,0] remoteExec ["prestige",2]
 	};

@@ -249,7 +249,7 @@ if (not alive _heli) then
 	if (typeOf _heli in vehCSATAir) then {[0,3] remoteExec ["prestige",2]} else {[3,0] remoteExec ["prestige",2]};
 	//[-3,3,_posicion] remoteExec ["citySupportChange",2];
 	[1800*_bonus] remoteExec ["timingCA",2];
-	{if (_x distance _heli < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+	{if (_x distance _heli < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 	[5*_bonus,stavros] call playerScoreAdd;
 	["DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,"FAILED","Defend"] call taskUpdate;
 	}

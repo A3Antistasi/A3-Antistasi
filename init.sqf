@@ -25,10 +25,6 @@ if (!isMultiPlayer) then
     [caja,unlockedWeapons,true,false] call addVirtualWeaponCargo;
     [caja,unlockedBackpacks,true,false] call addVirtualBackpackCargo;
     */
-    HCciviles = 2;
-    HCgarrisons = 2;
-    HCattack = 2;
-    hcArray = [HC1,HC2,HC3];
     serverInitDone = true;
     diag_log "Antistasi SP. serverInitDone is true. Arsenal loaded";
     _nul = [] execVM "modBlacklist.sqf";

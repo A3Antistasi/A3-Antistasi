@@ -1,4 +1,3 @@
-if (hayACE) exitWith {hint "Feature disabled with ACE Mod"};
 private ["_units","_unit"];
 
 _units = _this select 0;

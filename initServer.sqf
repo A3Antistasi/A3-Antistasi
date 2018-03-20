@@ -85,6 +85,8 @@ private _index = _x call jn_fnc_arsenal_itemType;
 }foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);
 //["buttonInvToJNA"] call jn_fnc_arsenal;
 
+
+
 diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"commsMP"] call BIS_fnc_MP;
 

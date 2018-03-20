@@ -1,4 +1,3 @@
-if (hayACE) exitWith {hint "Feature disabled with ACE Mod"};
 if (player != Stavros) exitWith {hint "Only Commander has the ability to control HC units"};
 
 _grupos = _this select 0;

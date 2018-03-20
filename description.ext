@@ -2,7 +2,7 @@
 #include "dialogs.hpp"
 
 author="Barbolani";
-OnLoadName = "Warlords of the Pacific";
+OnLoadName = "Warlords of the Pacific 0.11.2";
 OnLoadMission = "Business and War...";
 loadScreen = "pic.JPG";
 

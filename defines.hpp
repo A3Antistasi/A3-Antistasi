@@ -74,7 +74,7 @@
 
 #define SL_TEXTURES       0x10
 
-// progress bar 
+// progress bar
 #define ST_VERTICAL       0x01
 #define ST_HORIZONTAL     0
 
@@ -114,7 +114,7 @@ class RscText
     y = 0;
     h = 0;
     w = 0;
-   
+
 };
 
 class RscPicture
@@ -139,16 +139,16 @@ class RscPicture
 
 class RscButton
 {
-    
-   access = 0;
+
+access = 0;
     type = CT_BUTTON;
     text = "";
-    colorText[] = {1,1,1,.9};
+    colorText[] = {0.73,0,0,1};
     colorDisabled[] = {0.4,0.4,0.4,0};
-    colorBackground[] = {0.75,0.75,0.75,0.8};
+    colorBackground[] =  {0.247,0.243,0.243,1};
     colorBackgroundDisabled[] = {0,0.0,0};
-    colorBackgroundActive[] = {0.75,0.75,0.75,1};
-    colorFocused[] = {0.75,0.75,0.75,.5};
+    colorBackgroundActive[] = {0.247,0.243,0.243,1};
+    colorFocused[] = {0.247,0.243,0.243,1};
     colorShadow[] = {0.023529,0,0.0313725,1};
     colorBorder[] = {0.023529,0,0.0313725,1};
     soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1};
@@ -162,12 +162,14 @@ class RscButton
     h = 0.039216;
     shadow = 2;
     font = "PuristaMedium";
-    sizeEx = 0.03;//0.03921
+    sizeEx = 0.05;
     offsetX = 0.003;
     offsetY = 0.003;
     offsetPressedX = 0.002;
     offsetPressedY = 0.002;
     borderSize = 0;
+    onMouseEnter = "(_this select 0) ctrlSetTextColor [1,0.969,0,1]";
+    onMouseExit = "(_this select 0) ctrlSetTextColor [0.73,0,0,1]";
 };
 
 class RscFrame
@@ -183,7 +185,7 @@ class RscFrame
     text = "";
 };
 class BOX
-{ 
+{
    type = CT_STATIC;
     idc = -1;
     style = ST_CENTER;
@@ -191,8 +193,8 @@ class BOX
     colorText[] = {1,1,1,1};
     font = "PuristaMedium";
     sizeEx = 0.02;
-    colorBackground[] = { 0.2,0.2,0.2, 0.9 }; 
-    text = ""; 
+    colorBackground[] = { 0.2,0.2,0.2, 0.9 };
+    text = "";
 };
 /*
 class ScrollBar

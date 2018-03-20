@@ -7,7 +7,6 @@
 
 antistasiVersion = "v 0.11.2";
 
-
 servidoresOficiales = ["WotP Official USA"];//this is for author's fine tune the official servers. If I get you including your server in this variable, I will create a special variable for your server. Understand?
 
 debug = false;//debug variable, not useful for everything..

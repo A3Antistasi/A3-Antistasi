@@ -44,4 +44,4 @@ if (isPlayer _x) then
 
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 ["GREENFORSpawn",_marcador] call markerChange;
-[_marcador,_lado] remoteExec ["patrolCA",call AS_fnc_getNextWorker];
+[_marcador,_lado] remoteExec ["patrolCA",HCattack];

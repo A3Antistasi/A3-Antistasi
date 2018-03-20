@@ -1,9 +1,5 @@
 waitUntil {!isNull player};
 waitUntil {player == player};
-
-diag_log "####initPlayerLocal.sqf called";
-call AS_fnc_initWorker;
-
 player removeweaponGlobal "itemmap";
 player removeweaponGlobal "itemgps";
 if (isMultiplayer) then

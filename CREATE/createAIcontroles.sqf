@@ -233,7 +233,7 @@ if (spawner getVariable _marcador != 2) then
 			_nul = [0,5,_posicion] remoteExec ["citySupportChange",2];
 			};
 		};
-	if (_winner == buenos) then {[_posicion,_lado] remoteExec ["patrolCA",call AS_fnc_getNextWorker]};
+	if (_winner == buenos) then {[_posicion,_lado] remoteExec ["patrolCA",HCattack]};
 	};
 
 waitUntil {sleep 1;(spawner getVariable _marcador == 2)};

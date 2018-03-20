@@ -15,7 +15,7 @@ _chequeo = false;
 _posHQ = getMarkerPos "respawn_guerrila";
 {
 if (_x distance _posHQ > 100) then {_chequeo = true};
-} forEach (allPlayers - (entities "HeadlessClient_F"));
+} forEach (allPlayers - hcArray);
 
 if (_chequeo) exitWith {hint "All player must be in a 100mts radius from HQ to be able to rest"};
 

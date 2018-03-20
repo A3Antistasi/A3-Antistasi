@@ -33,7 +33,7 @@ If (_grp getvariable ["UPSMON_Grpmission",""] != "RETREAT") then
 							_grpstatus = "BLUE";
 							If (_AttackPos select 0 != 0 && _AttackPos select 1 != 0) then
 								{
-								if (side (leader _grp) != buenos) then {[_attackPos,(side(leader _grp))] remoteExec ["patrolCA",call AS_fnc_getNextWorker]};
+								if (side (leader _grp) != buenos) then {[_attackPos,(side(leader _grp))] remoteExec ["patrolCA",HCattack]};
 								};//by Barbolani so AAF UPSMon garrisons call QRF
 						};
 					};

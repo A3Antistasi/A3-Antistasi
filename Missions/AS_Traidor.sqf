@@ -271,7 +271,7 @@ else
 			{
 			if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
 				{
-				[malos] remoteExec ["ataqueHQ",call AS_fnc_getNextWorker];
+				[malos] remoteExec ["ataqueHQ",HCattack];
 				};
 			}
 		else

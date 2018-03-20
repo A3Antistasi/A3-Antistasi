@@ -127,11 +127,11 @@ if (!isNil "_marcador") then
 								{
 								if (vehicle _killer == _killer) then
 									{
-									[getPosASL _enemy,side _x,"Normal"] remoteExec ["patrolCA",call AS_fnc_getNextWorker]
+									[getPosASL _enemy,side _x,"Normal"] remoteExec ["patrolCA",HCattack]
 									}
 								else
 									{
-									if (vehicle _killer isKindOf "Air") then {[getPosASL _enemy,side _x,"Air"] remoteExec ["patrolCA",call AS_fnc_getNextWorker]} else {if (vehicle _killer isKindOf "Tank") then {[getPosASL _enemy,side _x,"Tank"] remoteExec ["patrolCA",call AS_fnc_getNextWorker]} else {[getPosASL _enemy,side _x,"Normal"] remoteExec ["patrolCA",call AS_fnc_getNextWorker]}};
+									if (vehicle _killer isKindOf "Air") then {[getPosASL _enemy,side _x,"Air"] remoteExec ["patrolCA",HCattack]} else {if (vehicle _killer isKindOf "Tank") then {[getPosASL _enemy,side _x,"Tank"] remoteExec ["patrolCA",HCattack]} else {[getPosASL _enemy,side _x,"Normal"] remoteExec ["patrolCA",HCattack]}};
 									};
 								};
 							if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x] spawn cubrirConHumo};

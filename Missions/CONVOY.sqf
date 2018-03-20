@@ -644,7 +644,7 @@ if (_tipoConvoy == "Prisoners") then
 			[0,10*_bonus,_posbase] remoteExec ["citySupportChange",2];
 			if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[-2*_cuenta,3] remoteExec ["prestige",2]};
 			{[_x] join _grppow; [_x] orderGetin false} forEach _POWs;
-			{[_cuenta,_x] call playerScoreAdd} forEach (allPlayers - (entities "HeadlessClient_F"));
+			{[_cuenta,_x] call playerScoreAdd} forEach (allPlayers - hcArray);
 			[(round (_cuenta/2))*_bonus,stavros] call playerScoreAdd;
 			};
 		};
@@ -659,7 +659,7 @@ if (_tipoConvoy == "Refuerzos") then
 		_taskState1 = "FAILED";
 		[0,10*_bonus,_posbase] remoteExec ["citySupportChange",2];
 		if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[0,3] remoteExec ["prestige",2]};
-		{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+		{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
 		[5*_bonus,stavros] call playerScoreAdd;
 		_killZones = killZones getVariable _base;
 		_killZones = _killZones + [_destino,_destino];
@@ -723,7 +723,7 @@ if (_tipoConvoy == "Money") then
 			[3,0] remoteExec ["prestige",2];
 			[0,5000*_bonus] remoteExec ["resourcesFIA",2];
 			[-120*_bonus] remoteExec ["timingCA",2];
-			{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+			{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
 			[5*_bonus,stavros] call playerScoreAdd;
 			waitUntil {sleep 1; speed _vehObj < 1};
 			[_vehObj] call vaciar;
@@ -759,7 +759,7 @@ if (_tipoConvoy == "Supplies") then
 				_taskState = "SUCCEEDED";
 				_taskState1 = "FAILED";
 				[0,15*_bonus,_destino] remoteExec ["citySupportChange",2];
-				{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+				{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
 				[5*_bonus,stavros] call playerScoreAdd;
 				}
 			else

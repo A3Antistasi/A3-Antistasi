@@ -622,3 +622,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Solved marker visibility on JIP and build HQ option.
 - Corrected some small UPSMon bug.
 - AI will be more aggressive when attacking and assaulting garrisons.
+
+0.11.2 20/03/2018 ALPHA
+
+- Re enabled NATO Y menu for ACE users.

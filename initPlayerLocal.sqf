@@ -187,13 +187,13 @@ if (side player != buenos) exitWith
 		if (_veh != moto) then {moveOut player; hint "You are only allowed to use your Quadbike"};
 		}];
 	["TaskFailed", ["", format ["%1 joined NATO SpecOps",name player]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
-	if (!hayACEhearing) then
+	waituntil {!isnull (finddisplay 46)};
+	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
-		waituntil {!isnull (finddisplay 46)};
-		gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
+		_handled = FALSE;
+		if (_this select 1 == 207) then
 			{
-			_handled = FALSE;
-			if (_this select 1 == 207) then
+			if (!hayACEhearing) then
 				{
 				if (soundVolume <= 0.5) then
 					{
@@ -205,18 +205,18 @@ if (side player != buenos) exitWith
 					0.5 fadeSound 0.1;
 					hintSilent "You've inserted your ear plugs.";
 					};
-				}
-			else
-				{
-				if (_this select 1 == 21) then
-					{
-					closedialog 0;
-					_nul = createDialog "NATO_player";
-					};
 				};
-			_handled
-			}];
-		};
+			}
+		else
+			{
+			if (_this select 1 == 21) then
+				{
+				closedialog 0;
+				_nul = createDialog "NATO_player";
+				};
+			};
+		_handled
+		}];
 	};
 
 player setVariable ["owner",player,true];

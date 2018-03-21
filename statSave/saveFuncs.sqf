@@ -29,7 +29,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","gogglesPlayer","vestPlayer","outfit","hat","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","mrkSDK","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK"];
+["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","mrkSDK","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -53,11 +53,13 @@ fn_SetStat =
 			} forEach _varValue;
 			};
 		if(_varName == 'chopForest') then {chopForest = _varValue; publicVariable "chopForest"};
-		if(_varName == 'gogglesPlayer') then {removeGoggles player; player addGoggles _varValue;};
+		//if(_varName == 'gogglesPlayer') then {removeGoggles player; player addGoggles _varValue;};
 		if(_varName == 'dinero') then {player setVariable ["dinero",_varValue,true];};
-		if(_varName == 'vestPlayer') then {removeVest player; player addVest _varValue;};
+		/*if(_varName == 'vestPlayer') then {removeVest player; player addVest _varValue;};
 		if(_varName == 'outfit') then {removeUniform player; player forceAddUniform _varValue;};
 		if(_varName == 'hat') then {removeHeadGear player; player addHeadGear _varValue;};
+			*/
+		if(_varName == 'loadoutPlayer') then {player setUnitLoadout _varValue};
 		if(_varName == 'scorePlayer') then {player setVariable ["score",_varValue,true];};
 		if(_varName == 'rankPlayer') then {player setRank _varValue; player setVariable ["rango",_varValue,true]};
 		if(_varName == 'personalGarage') then {personalGarage = +_varValue};
@@ -221,6 +223,7 @@ fn_SetStat =
 			antenasmuertas = _varvalue;
 			publicVariable "antenas";
 			};
+		/*
 		if(_varName == 'armas') then
 			{
 			clearWeaponCargoGlobal caja;
@@ -240,7 +243,7 @@ fn_SetStat =
 			{
 			clearBackpackCargoGlobal caja;
 			{caja addBackpackCargoGlobal [_x,1]} forEach _varValue;
-			};
+			};*/
 		if(_varname == 'prestigeOPFOR') then
 			{
 			for "_i" from 0 to (count ciudades) - 1 do

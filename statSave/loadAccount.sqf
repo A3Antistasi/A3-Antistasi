@@ -2,6 +2,7 @@ if (!isDedicated) then
 	{
 	if (side player == buenos) then
 		{
+		/*
 		["gogglesPlayer"] call fn_LoadStat;
 		["vestPlayer"] call fn_LoadStat;
 		["outfit"] call fn_LoadStat;
@@ -11,6 +12,8 @@ if (!isDedicated) then
 		removeBackpackGlobal player;
 		if ("ItemGPS" in (assignedItems player)) then {player unlinkItem "ItemGPS"};
 		if ((!hayTFAR) and (!hayACRE) and ("ItemRadio" in (assignedItems player)) and (not("ItemRadio" in unlockedItems))) then {player unlinkItem "ItemRadio"};
+			*/
+		["loadoutPlayer"] call fn_LoadStat;
 		player setPos getMarkerPos "respawn_guerrila";
 		if (isMultiplayer) then
 			{
@@ -193,7 +196,7 @@ publicVariable "mrkCSAT";
 ["estaticas"] call fn_LoadStat;//tiene que ser el último para que el sleep del borrado del contenido no haga que despawneen
 
 //call AAFassets;
-
+/*
 if (isMultiplayer) then
 	{
 	{
@@ -219,7 +222,8 @@ else
 	player setPos (getMarkerPos "respawn_guerrila");
 	if (("ItemRadio" in unlockedItems) and (!hayTFAR) and (!hayACRE)) then {player linkItem "ItemRadio"};
 	};
-
+*/
+if (!isMultiPlayer) then {player setPos posHQ} else {{_x setPos posHQ} forEach playableUnits};
 tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count mrkSDK)) + (10*({_x in puertos} count mrkSDK)) + (20*({_x in aeropuertos} count mrkSDK)))/10));
 if (tierWar > 10) then {tierWar = 10};
 publicVariable "tierWar";

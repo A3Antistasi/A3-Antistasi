@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 0.11.2";
+antistasiVersion = "v 0.11.2A";
 
 servidoresOficiales = ["WotP Official USA"];//this is for author's fine tune the official servers. If I get you including your server in this variable, I will create a special variable for your server. Understand?
 

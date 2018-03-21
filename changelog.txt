@@ -626,3 +626,12 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 0.11.2 20/03/2018 ALPHA
 
 - Re enabled NATO Y menu for ACE users.
+- Lots of Altis integrations thanks to Stef!
+- Total rework of menus.
+- ACRE fix for Arsenal.
+- Integrated Jeroen Logistics and changed Supply Truck Missions.
+- Fixed RHS Civ Boat error.
+- Several Arsenal and ACE improvements.
+- Integrated Towing in script version by Seth Duda. Thanks!
+- NATO no longer thinks they are in a frontline with neighbour NATO
+

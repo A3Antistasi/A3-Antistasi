@@ -8,7 +8,7 @@ class EditorData
 	toggles=513;
 	class ItemIDProvider
 	{
-		nextID=589;
+		nextID=594;
 	};
 	class MarkerIDProvider
 	{
@@ -16,11 +16,11 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=176;
+		nextID=178;
 	};
 	class Camera
 	{
-		pos[]={9181.5654,241.3719,8707.0527};
+		pos[]={9161.2822,255.62468,8697.9063};
 		dir[]={0.58299017,-0.51672423,0.62699538};
 		up[]={0.35185957,0.85614985,0.37841815};
 		aside[]={0.73233974,-8.486677e-008,-0.68094146};
@@ -417,7 +417,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="Antistasi - Warlords of the Pacific 0.11.2";
+		briefingName="Antistasi - Warlords of the Pacific";
 		overviewText="Build a  Syndikat Army from scratch and defeat NATO and CSAT forces in a persistent mission with Tanoa as AO.";
 		resistanceWest=0;
 		timeOfChanges=1800.0002;

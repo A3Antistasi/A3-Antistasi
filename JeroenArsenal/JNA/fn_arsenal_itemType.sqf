@@ -57,19 +57,20 @@ _weaponTypeCategory = _weaponType select 0;
 
 private ["_weaponTypeSpecific"];
 _weaponTypeSpecific = _weaponType select 1;
-//workaround for ACE bugs related to bis_fnc_itemType
-if (hayACEMedical) then
+//workaround for ACE/ACRE bugs related to bis_fnc_itemType
+if (_weaponTypeSpecific == "AccessoryBipod") then
 	{
-	if (_weaponTypeSpecific == "AccessoryBipod") then
+	if (hayACEMedical) then
 		{
 		if (_item in (aceBasicMedItems + aceAdvMedItems)) then {_weaponTypeSpecific = "FirstAidKit"};
 		};
-	};
-if (hayACE) then
-	{
-	if (_weaponTypeSpecific == "AccessoryBipod") then
+	if (hayACE) then
 		{
 		if (_item in aceItems) then {_weaponTypeSpecific = "FirstAidKit"};
+		};
+	if (hayACRE) then
+		{
+		if (_item in ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"]) then {_weaponTypeSpecific = "FirstAidKit"};
 		};
 	};
 INITTYPES

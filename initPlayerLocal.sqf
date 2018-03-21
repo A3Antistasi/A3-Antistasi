@@ -121,7 +121,7 @@ else
 		_control
 		}];
 	};
-
+[] execVM "CREATE\ambientCivs.sqf";
 private ["_colorbuenos", "_colormuyMalos"];
 _colorbuenos = buenos call BIS_fnc_sideColor;
 _colormuyMalos = muyMalos call BIS_fnc_sideColor;

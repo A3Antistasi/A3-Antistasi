@@ -21,7 +21,7 @@ _esFIA = false;
 if (lados getVariable [_marcador,sideUnknown] == malos) then
 	{
 	_lado = malos;
-	if ((random 10 >= tierWar) and !([_marcador] call isFrontline)) then
+	if ((random 10 <= tierWar) and !(_frontera)) then
 		{
 		_esFIA = true;
 		};
@@ -44,7 +44,7 @@ if ((spawner getVariable _marcador != 2) and _frontera) then
 			_grupo = createGroup _lado;
 			_grupos pushBack _grupo;
 			_pos = [getPos _road, 7, _dirveh + 270] call BIS_Fnc_relPos;
-			_bunker = "Land_BagBunker_Small_green_F" createVehicle _pos;
+			_bunker = "Land_BagBunker_01_small_green_F" createVehicle _pos;
 			_vehiculos pushBack _bunker;
 			_bunker setDir _dirveh;
 			_pos = getPosATL _bunker;

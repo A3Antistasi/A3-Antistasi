@@ -10,5 +10,4 @@ if (count _mrkENY > 0) then
 	_posicion = getMarkerPos _marcador;
 	{if (_posicion distance (getMarkerPos _x) < distanciaSPWN) exitWith {_isFrontier = true}} forEach _mrkENY;
 	};
-//true
 _isfrontier

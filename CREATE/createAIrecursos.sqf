@@ -44,7 +44,7 @@ if ((spawner getVariable _marcador != 2) and _frontera) then
 			_grupo = createGroup _lado;
 			_grupos pushBack _grupo;
 			_pos = [getPos _road, 7, _dirveh + 270] call BIS_Fnc_relPos;
-			_bunker = "Land_BagBunker_Small_green_F" createVehicle _pos;
+			_bunker = "Land_BagBunker_01_small_green_F" createVehicle _pos;
 			_vehiculos pushBack _bunker;
 			_bunker setDir _dirveh;
 			_pos = getPosATL _bunker;

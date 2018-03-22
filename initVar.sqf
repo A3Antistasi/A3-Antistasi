@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 0.11.2B";
+antistasiVersion = "v 0.11.2C";
 
 //servidoresOficiales = ["WotP Official USA"];
 

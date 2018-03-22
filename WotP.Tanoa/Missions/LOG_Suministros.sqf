@@ -162,7 +162,6 @@ _camion addAction ["Delivery infos",
 	"(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"
 ];
 [_camion] call AIVEHinit;
-//{_x reveal _camion} forEach (allPlayers - hcArray);
 _camion setVariable ["destino",_nombredest,true];
 
 [_camion,"Supply Box"] spawn inmuneConvoy;
@@ -178,7 +177,7 @@ if (dateToNumber date > _fechalimnum) then
 else
 	{
 	_cuenta = 120*_bonus;//120
-	[_posicion,malos] remoteExec ["patrolCA",HCattack];
+	[_posicion,malos] remoteExec ["patrolCA",call AS_fnc_getNextWorker];
 	["TaskFailed", ["", format ["SDK deploying supplies in %1",_nombredest]]] remoteExec ["BIS_fnc_showNotification",malos];
 	{_amigo = _x;
 	if (captive _amigo) then
@@ -214,7 +213,7 @@ else
 			{
 			[petros,"hint","Supplies Delivered"] remoteExec ["commsMP",[buenos,civilian]];
 			["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"SUCCEEDED","Heal"] call taskUpdate;
-			{if (_x distance _posicion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+			{if (_x distance _posicion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 			[5*_bonus,stavros] call playerScoreAdd;
 			if (!isMultiplayer) then {_bonus = _bonus + ((20-skillFIA)*0.1)};
 			[-1*(20-skillFIA),15*_bonus,_marcador] remoteExec ["citySupportChange",2];

@@ -278,17 +278,17 @@ if ((count _objetivosFinal > 0) and (count _faciles < 3)) then
 		};
 	if (not(_destino in ciudades)) then
 		{
-		[_destino,_origen,_waves] remoteExec ["wavedCA",HCattack];
+		[_destino,_origen,_waves] remoteExec ["wavedCA",call AS_fnc_getNextWorker];
 		}
 	else
 		{
-		if (lados getVariable [_origen,sideUnknown] == malos) then {[_destino,_origen,_waves] remoteExec ["wavedCA",HCattack]} else {[_destino,_origen] remoteExec ["CSATpunish",HCattack]};
+		if (lados getVariable [_origen,sideUnknown] == malos) then {[_destino,_origen,_waves] remoteExec ["wavedCA",call AS_fnc_getNextWorker]} else {[_destino,_origen] remoteExec ["CSATpunish",call AS_fnc_getNextWorker]};
 		};
 	};
 
 if (_waves == 1) then
 	{
-	{[_x select 0,_x select 1] remoteExec ["patrolCA",HCattack]} forEach _faciles;
+	{[_x select 0,_x select 1] remoteExec ["patrolCA",call AS_fnc_getNextWorker]} forEach _faciles;
 	};
 
 if ((not(["CONVOY"] call BIS_fnc_taskExists)) and (_waves == 1)) then
@@ -312,7 +312,7 @@ if ((not(["CONVOY"] call BIS_fnc_taskExists)) and (_waves == 1)) then
 		if (count _objetivos > 0) then
 			{
 			_objetivo = selectRandom _objetivos;
-			[(_objetivo select 0),(_objetivo select 1)] remoteExec ["CONVOY",HCattack];
+			[(_objetivo select 0),(_objetivo select 1)] remoteExec ["CONVOY",call AS_fnc_getNextWorker];
 			};
 		};
 	};

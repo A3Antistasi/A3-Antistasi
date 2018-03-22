@@ -91,3 +91,4 @@ if ((_unit == HC1) or (_unit == HC2) or (_unit == HC3)) then
 	{
 	["hcDown",true,true,true,true] remoteExec ["BIS_fnc_endMission"]
 	};
+//diag_log format ["Datos de handledisconnect: %1",_this];

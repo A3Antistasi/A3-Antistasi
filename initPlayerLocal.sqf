@@ -408,7 +408,7 @@ if (_isJip) then
 	else
 		{
 		hint format ["Welcome back %1", name player];
-		if (serverName in servidoresOficiales) then
+		if /*(serverName in servidoresOficiales)*/(true) then
 			{
 			if ((count playableUnits == maxPlayers) and (({[_x] call isMember} count playableUnits) < count miembros)) then
 				{

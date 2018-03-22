@@ -17,7 +17,7 @@ _nul = [] execVM "modBlacklist.sqf";
 
 stavros = objNull;
 maxPlayers = playableSlotsNumber buenos;
-if (serverName in servidoresOficiales) then
+if /*(serverName in servidoresOficiales)*/(true) then
     {
     _nul = [] execVM "serverAutosave.sqf";
     }
@@ -91,18 +91,18 @@ diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"commsMP"] call BIS_fnc_MP;
 
 addMissionEventHandler ["HandleDisconnect",{[_this select 0] call onPlayerDisconnect;false}];
-/*
-caja addEventHandler ["ContainerOpened",
+addMissionEventHandler ["PlayerDisconnected",{
+    _owner = _this select 4;
     {
-    _jugador = _this select 1;
-    if (not([_jugador] call isMember)) then
+    if ((groupOwner _x == _owner) and (side _x == civilian)) then
         {
-        _jugador setPos position petros;
-        "You are not in the Member's List of this Server.\n\nAsk the Commander in order to be allowed to access the HQ Ammobox.\n\nIn the meantime you may use the other box to store equipment and share it with others." remoteExecCall ["hint", _jugador];
+        _grupo = _x;
+        {deleteVehicle _x} forEach units _grupo;
+        _grupo spawn {sleep 15; deleteGroup _this};
         };
-    }
-];
-*/
+    } forEach allGroups;
+    }];
+
 
 serverInitDone = true; publicVariable "serverInitDone";
 diag_log "Antistasi MP Server. serverInitDone set to true.";

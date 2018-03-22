@@ -36,9 +36,11 @@ if _playAnimation then{
 		private _objectType = _nodeArray select 0;
 		private _nodeID = _nodeArray select 1;
 
+		/*
 		if(_objectType == 0)then{//if its a weapon
 			_object enableWeaponDisassembly true;
 		};
+		*/
 
 		private _bbv = (boundingBoxReal _vehicle select 0 select 1) + ((boundingCenter _vehicle) select 1);
 		private _bbo = (boundingBoxReal _object select 0 select 1) + ((boundingCenter _object) select 1);
@@ -49,15 +51,19 @@ if _playAnimation then{
 		//Set initial position
 		_object attachto [_vehicle, _locStart];
 		_object setVectorDirAndUp [_cargoOffsetAndDir select 1, [0, 0, 1]];
+		private _step = 0.1;
+
+		//lock seats
+		//Need to call the function here, because it gets data from objects attached to the vehicle
+		sleep 0.1;
+		[_vehicle] remoteExec ["jn_fnc_logistics_lockSeats",[0, -2] select isDedicated,_vehicle];
 
 		//Push it in till it's in place!
-
-		private _step = 0.1;
 		while {_locStart select 1 < _locEnd select 1}do{
-			sleep 0.1;
 			_locStart = _locStart vectorAdd [0, _step, 0];
 			_object attachto [_vehicle, _locStart];
 			_object setVectorDirAndUp [_cargoOffsetAndDir select 1, [0, 0, 1]];
+			sleep 0.1;
 		};
 
 
@@ -87,7 +93,7 @@ if(_objectType == 0) then
 
 	[_vehicle,_object] remoteExec ["jn_fnc_logistics_addActionGetinWeapon",[0, -2] select isDedicated,_vehicle];
 };
-
+[_object] spawn VEHdespawner;
 //save ACE settings to we can reset them when we unload
 _ace_dragging_canDrag = _object getVariable ["ace_dragging_canDrag",false];
 _ace_dragging_canCarry = _object getVariable ["ace_dragging_canCarry",false];
@@ -101,8 +107,5 @@ _object setvariable ["ace_cargo_canLoad_old",_ace_cargo_canLoad, true];
 _object setVariable ["ace_dragging_canDrag",false, true];
 _object setVariable ["ace_dragging_canCarry",false, true];
 _object setvariable ["ace_cargo_canLoad",false, true];
-
-//lock seats
-[_vehicle] remoteExec ["jn_fnc_logistics_lockSeats",[0, -2] select isDedicated,_vehicle];
 
 _nodeID

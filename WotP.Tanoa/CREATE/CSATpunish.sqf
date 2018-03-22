@@ -4,7 +4,7 @@ _mrkDestino = _this select 0;
 _mrkOrigen = _this select 1;
 bigAttackInProgress = true;
 publicVariable "bigAttackInProgress";
-_posdestino = getMarkerPos _mrkDestino;
+_posDestino = getMarkerPos _mrkDestino;
 _posOrigen = getMarkerPos _mrkOrigen;
 _grupos = [];
 _soldados = [];
@@ -137,7 +137,7 @@ for "_i" from 0 to _numCiv do
 		_pos = _posdestino getPos [random _size,random 360];
 		if (!surfaceIsWater _pos) exitWith {};
 		};
-	_civ = _grupoCivil createUnit [_tipoUnit,_pos, [],_size,"NONE"];
+	_civ = _grupoCivil createUnit [_tipoUnit,_pos, [],0,"NONE"];
 	_civ forceAddUniform (selectRandom civUniforms);
 	_rnd = random 100;
 	if (_rnd < 90) then

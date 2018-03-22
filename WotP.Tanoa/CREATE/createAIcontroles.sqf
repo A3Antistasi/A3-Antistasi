@@ -22,7 +22,7 @@ if (_esControl) then
 	{
 	if (lados getVariable [_marcador,sideUnknown] == malos) then
 		{
-		if ((random 10 < tierWar) and (!([_marcador] call isFrontline))) then
+		if ((random 10 <= tierWar) and (!([_marcador] call isFrontline))) then
 			{
 			_lado = malos;
 			//_cfg = cfgNATOInf;

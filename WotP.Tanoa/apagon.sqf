@@ -15,3 +15,4 @@ for "_i" from 0 to ((count lamptypes) -1) do
     _lamps = _posicion nearObjects [lamptypes select _i,_size];
     {sleep 0.3; _x setDamage _damage} forEach _lamps;
     };
+    //123

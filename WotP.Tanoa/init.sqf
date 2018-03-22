@@ -33,6 +33,7 @@ if (!isMultiPlayer) then
 
 waitUntil {(!isNil "saveFuncsLoaded") and (!isNil "serverInitDone")};
 
+call jn_fnc_logistics_init;
 caja call jn_fnc_arsenal_init;
 
 if(isServer) then
@@ -53,7 +54,8 @@ if(isServer) then
     publicVariable "serverID";
 
     waitUntil {!isNil "serverID"};
-    if (serverName in servidoresOficiales) then
+
+    if /*(serverName in servidoresOficiales)*/(true) then
         {
         ["miembros"] call fn_LoadStat;
         _nul = [] execVM "orgPlayers\mList.sqf";
@@ -82,8 +84,35 @@ if(isServer) then
         waitUntil {!isNil "stavros"};
         waitUntil {isPlayer stavros};
         };
+    /*
+    if (isMultiplayer) then
+        {
+        ["miembros"] call fn_LoadStat;
+        _nul = [] execVM "orgPlayers\mList.sqf";
+        {
+        if (([_x] call isMember) and (isNull stavros) and (side _x == buenos)) then
+            {
+            stavros = _x;
+            _x setRank "CORPORAL";
+            [_x,"CORPORAL"] remoteExec ["ranksMP"];
+            //_x setVariable ["score", 25,true];
+            };
+        } forEach playableUnits;
+        publicVariable "stavros";
+        if (isNull stavros) then
+            {
+            _nul = [] execVM "statSave\loadAccount.sqf"; switchCom = true; publicVariable "switchCom";
+            diag_log "Antistasi MP Server. Players are in, no members";
+            }
+        else
+            {
+            diag_log "Antistasi MP Server. Players are in, member detected";
+            };
+        };
+*/
     _nul = [caja] call cajaAAF;
     waitUntil {!(isNil "placementDone")};
     distancias = [] spawn distancias4;
     resourcecheck = [] execVM "resourcecheck.sqf";
+    [] execVM "Scripts\fn_advancedTowingInit.sqf";
     };

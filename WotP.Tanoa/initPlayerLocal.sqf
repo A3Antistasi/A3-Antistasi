@@ -125,7 +125,7 @@ else
 		_control
 		}];
 	};
-
+[] execVM "CREATE\ambientCivs.sqf";
 private ["_colorbuenos", "_colormuyMalos"];
 _colorbuenos = buenos call BIS_fnc_sideColor;
 _colormuyMalos = muyMalos call BIS_fnc_sideColor;
@@ -191,13 +191,13 @@ if (side player != buenos) exitWith
 		if (_veh != moto) then {moveOut player; hint "You are only allowed to use your Quadbike"};
 		}];
 	["TaskFailed", ["", format ["%1 joined NATO SpecOps",name player]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
-	if (!hayACEhearing) then
+	waituntil {!isnull (finddisplay 46)};
+	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
-		waituntil {!isnull (finddisplay 46)};
-		gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
+		_handled = FALSE;
+		if (_this select 1 == 207) then
 			{
-			_handled = FALSE;
-			if (_this select 1 == 207) then
+			if (!hayACEhearing) then
 				{
 				if (soundVolume <= 0.5) then
 					{
@@ -209,18 +209,18 @@ if (side player != buenos) exitWith
 					0.5 fadeSound 0.1;
 					hintSilent "You've inserted your ear plugs.";
 					};
-				}
-			else
-				{
-				if (_this select 1 == 21) then
-					{
-					closedialog 0;
-					_nul = createDialog "NATO_player";
-					};
 				};
-			_handled
-			}];
-		};
+			}
+		else
+			{
+			if (_this select 1 == 21) then
+				{
+				closedialog 0;
+				_nul = createDialog "NATO_player";
+				};
+			};
+		_handled
+		}];
 	};
 
 player setVariable ["owner",player,true];
@@ -351,6 +351,7 @@ player addEventHandler ["GetInMan",
 				[] spawn undercover;
 				};
 			};
+		/*
 		if (_veh isKindOf "Truck_F") then
 			{
 			if ((not (_veh isKindOf "C_Van_01_fuel_F")) and (not (_veh isKindOf "I_Truck_02_fuel_F")) and (not (_veh isKindOf "B_G_Van_01_fuel_F"))) then
@@ -358,6 +359,7 @@ player addEventHandler ["GetInMan",
 				if (_this select 1 == "driver") then {[_unit,"camion"] call flagaction};
 				};
 			};
+		*/
 		};
 	}
 	];
@@ -378,12 +380,7 @@ if (isMultiplayer) then
 	["InitializeGroup", [player,buenos,true]] call BIS_fnc_dynamicGroups;
 	personalGarage = [];
 	};
-/*caja addEventHandler ["ContainerOpened",
-	{
-	_armas = weaponCargo caja;
-	hint format ["Arsenal Unlocking Requirements\n\n\nWeapons: %1\nBackpacks: %5\nMagazines: %2\nOptics: %3\nVests: %3\nOther Items: %4\n\n\nWeapon Type Count:\n\nA. Rifles: %6\nLMGs: %7\nS.Rifles: %8\nHandguns: %9\nR. Launchers: %10\nM. Launchers: %11\n\nNV Googles: %12",minWeaps,minMags,minOptics,minItems,minPacks,{_x in arifles} count _armas,{_x in mguns} count _armas,{_x in srifles} count _armas,{_x in hguns} count _armas,{_x in rlaunchers} count _armas,{_x in mlaunchers} count _armas,{(_x == "NVGoggles") or (_x == "NVGoggles_OPFOR") or (_x == "NVGoggles_INDEP") or (_x == "NVGoggles_tna_F")} count itemCargo caja];
-	}
-    ];*/
+
 waitUntil {scriptdone _introshot};
 if (_isJip) then
 	{
@@ -412,7 +409,7 @@ if (_isJip) then
 	else
 		{
 		hint format ["Welcome back %1", name player];
-		if (serverName in servidoresOficiales) then
+		if /*(serverName in servidoresOficiales)*/(true) then
 			{
 			if ((count playableUnits == maxPlayers) and (({[_x] call isMember} count playableUnits) < count miembros)) then
 				{

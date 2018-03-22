@@ -4,10 +4,11 @@ if (!isDedicated) then
 	if (side player == buenos) then
 		{
 		savingClient = true;
-		["gogglesPlayer", goggles player] call fn_SaveStat;
-		["vestPlayer", vest player] call fn_SaveStat;
-		["outfit", uniform player] call fn_SaveStat;
-		["hat", headGear player] call fn_SaveStat;
+		["loadoutPlayer", getUnitLoadout player] call fn_SaveStat;
+		//["gogglesPlayer", goggles player] call fn_SaveStat;
+		//["vestPlayer", vest player] call fn_SaveStat;
+		//["outfit", uniform player] call fn_SaveStat;
+		//["hat", headGear player] call fn_SaveStat;
 		if (isMultiplayer) then
 			{
 			["scorePlayer", player getVariable "score"] call fn_SaveStat;
@@ -34,7 +35,8 @@ if (!isDedicated) then
 				};
 			} forEach units group player;
 			["dinero",_resfondo] call fn_SaveStat;
-			_personalGarage = personalGarage;
+			_personalGarage = [];
+			_personalGarage = _personalGarage + personalGarage;
 			["personalGarage",_personalGarage] call fn_SaveStat;
 			};
 		savingClient = false;

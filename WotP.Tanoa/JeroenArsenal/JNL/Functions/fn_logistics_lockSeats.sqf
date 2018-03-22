@@ -11,7 +11,6 @@ private _nodesLocked = [];
 } forEach attachedObjects _vehicle;
 
 private _nodes = [_vehicle,_type] call jn_fnc_logistics_getNodes;
-
 _vehicle lockCargo false;
 {
 	_lockSeats = _nodes select _x select 1;//get seats to lock

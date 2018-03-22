@@ -9,9 +9,9 @@ if (count _this > 0) then
 	}
 else
 	{
-	_camiones = nearestObjects [caja, ["LandVehicle"], 20];
+	_camiones = nearestObjects [caja, ["LandVehicle","ReammoBox_F"], 20];
 	_camiones = _camiones select {not (_x isKindOf "StaticWeapon")};
-	_camiones = _camiones - [caja];
+	_camiones = _camiones - [caja,cajaVeh];
 	if (count _camiones < 1) then {_camion = cajaVeh} else {_camion = _camiones select 0};
 	};
 

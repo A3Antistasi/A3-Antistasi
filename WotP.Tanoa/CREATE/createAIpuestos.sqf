@@ -19,7 +19,7 @@ _esFIA = false;
 if (lados getVariable [_marcador,sideUnknown] == malos) then
 	{
 	_lado = malos;
-	if ((random 10 >= tierWar) and !([_marcador] call isFrontline) and !(_marcador in forcedSpawn)) then
+	if ((random 10 >= tierWar) and !(_frontera) and !(_marcador in forcedSpawn)) then
 		{
 		_esFIA = true;
 		};
@@ -105,15 +105,14 @@ if (_lado == malos) then
 	{
 	_caja = "B_supplyCrate_F" createVehicle _posicion;
 	_nul = [_caja] call NATOcrate;
-	_vehiculos pushBack _caja;
 	}
 else
 	{
 	_caja = "O_supplyCrate_F" createVehicle _posicion;
 	_nul = [_caja] call CSATcrate;
-	_vehiculos pushBack _caja;
 	};
-
+_vehiculos pushBack _caja;
+_caja call jn_fnc_logistics_addAction;
 {_nul = [_x] call AIVEHinit;} forEach _vehiculos;
 _roads = _posicion nearRoads _size;
 

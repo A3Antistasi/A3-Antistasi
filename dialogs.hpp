@@ -980,12 +980,12 @@ class game_options 		{
 		class 8slots_L1: RscButton
 		{
 			idc = -1;
-			text = "Civ %"; //--- ToDo: Localize;
+			text = "Civ Limit"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Set the percentage of the real population will spawn on each city. Affects game performance";
+			tooltip = "Set the max number of spawned civilians. Affects game performance";
 			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""civ_config""} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class 8slots_R1: RscButton

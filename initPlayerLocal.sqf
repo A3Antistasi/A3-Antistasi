@@ -1,5 +1,6 @@
 waitUntil {!isNull player};
 waitUntil {player == player};
+#include "script_component.hpp"
 player removeweaponGlobal "itemmap";
 player removeweaponGlobal "itemgps";
 if (isMultiplayer) then

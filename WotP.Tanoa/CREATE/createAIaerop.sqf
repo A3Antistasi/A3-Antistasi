@@ -205,12 +205,14 @@ if (_lado == malos) then
 	_veh = "B_supplyCrate_F" createVehicle _posicion;
 	_nul = [_veh] call NATOcrate;
 	_vehiculos pushBack _veh;
+	_veh call jn_fnc_logistics_addAction;
 	}
 else
 	{
 	_veh = "O_supplyCrate_F" createVehicle _posicion;
 	_nul = [_veh] call CSATcrate;
 	_vehiculos pushBack _veh;
+	_veh call jn_fnc_logistics_addAction;
 	};
 
 if (!_busy) then

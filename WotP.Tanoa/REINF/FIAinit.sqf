@@ -123,7 +123,7 @@ if ((sunOrMoon < 1) and (_tipo != SDKUnarmed)) then
 	{
 	if (haveNV) then
 		{
-		_unit linkItem "NVGoggles";
+		_unit linkItem (selectRandom NVGoggles);
 		if ("acc_pointer_IR" in unlockedItems) then
 			{
 			_unit addPrimaryWeaponItem "acc_pointer_IR";

@@ -162,10 +162,10 @@ _camion addAction ["Delivery infos",
 	"(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"
 ];
 [_camion] call AIVEHinit;
-{_x reveal _camion} forEach (allPlayers - hcArray);
+//{_x reveal _camion} forEach (allPlayers - hcArray);
 _camion setVariable ["destino",_nombredest,true];
 
-[_camion,"Mission Vehicle"] spawn inmuneConvoy;
+[_camion,"Supply Box"] spawn inmuneConvoy;
 
 waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (_camion distance _posicion < 40) and (isNull attachedTo _camion)};
 _bonus = if (_dificil) then {2} else {1};

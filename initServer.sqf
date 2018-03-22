@@ -91,6 +91,17 @@ diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"commsMP"] call BIS_fnc_MP;
 
 addMissionEventHandler ["HandleDisconnect",{[_this select 0] call onPlayerDisconnect;false}];
+addMissionEventHandler ["PlayerDisconnected",{
+    _owner = _this select 4;
+    {
+    if ((groupOwner _x == _owner) and (side _x == civilian)) then
+        {
+        _grupo = _x;
+        {deleteVehicle _x} forEach units _grupo;
+        _grupo spawn {sleep 15; deleteGroup _this};
+        };
+    } forEach allGroups;
+    }];
 /*
 caja addEventHandler ["ContainerOpened",
     {

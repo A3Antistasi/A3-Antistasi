@@ -33,14 +33,14 @@ if (_x == leader _x) then {_x assignAsDriver _veh;_x moveInDriver _veh} else {_x
 [_veh] call AIVEHinit;
 [_veh,"Inf Truck."] spawn inmuneConvoy;
 //_veh forceFollowRoad true;
-_landPos = [_posDestino,_pos,true] call findSafeRoadToUnload;
-if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_landPos,_grupo] call WPCreate};
+//_landPos = [_posDestino,_pos,true] call findSafeRoadToUnload;
+if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_posDestino,_grupo] call WPCreate};
 _Vwp0 = (wayPoints _grupo) select 0;
 _Vwp0 setWaypointBehaviour "SAFE";
-_Vwp0 = (wayPoints _grupo) select ((count wayPoints _grupo) - 1);
+_Vwp0 = (wayPoints _grupo) select count (wayPoints _grupo);
 _Vwp0 setWaypointType "GETOUT";
-_Vwp0 = _grupo addWaypoint [_posDestino, count (wayPoints _grupo)];
-_Vwp0 setWaypointType "MOVE";
+//_Vwp0 = _grupo addWaypoint [_posDestino, count (wayPoints _grupo)];
+//_Vwp0 setWaypointType "MOVE";
 _grupo setVariable ["reinfMarker",_mrkDestino];
 _grupo setVariable ["origen",_mrkOrigen];
 {

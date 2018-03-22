@@ -626,6 +626,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 0.11.2 20/03/2018 ALPHA
 
 - IMPORTANT: Civ Spawn rework. Civvies everywhere! Now the Setting Civ Percentage means max amount of civilians. Plase NOTE: Civs are executed on clients in MP.
+- IMPORTANT: Added Jeroen Logistics to enemy garrison ammoboxes. No more transfers to trucks.
 - Re enabled NATO Y menu for ACE users.
 - Lots of Altis integrations thanks to Stef!
 - Total rework of menus.
@@ -638,6 +639,6 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Fixed bunkers + AT defenses, which are back.
 - Players gear is persistent saved in detail, no more "leave it in the ammobox before saving"
 - Fixed armed civ spawning in water on CSAT punishments.
-
-revisar handledisconnect
-
+- Removed all the exclusive official servers stuff to give the features to everyone.
+- Faster reinforcements.
+- Removed thermal googles of the NV unlocking scripts. SDK AI will spawn with random googles when unlocked.

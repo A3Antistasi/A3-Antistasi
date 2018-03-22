@@ -159,6 +159,7 @@ else
 if (_destino == caja) then
 	{
 	if (isMultiplayer) then {{if (_x distance caja < 10) then {[petros,"hint","Ammobox Loaded"] remoteExec ["commsMP",_x]}} forEach playableUnits} else {hint "Ammobox Loaded"};
+	if ((_origen isKindOf "ReammoBox_F") and (_origen != cajaVeh)) then {deleteVehicle _origen};
 	_updated = [] call arsenalManage;
 	if (_updated != "") then
 		{

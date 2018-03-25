@@ -6,11 +6,8 @@ _unit = _units select 0;
 
 if (_unit == Petros) exitWith {hint "You cannot control Petros";};
 //if (captive player) exitWith {hint "You cannot control AI while on Undercover"};
-if (player != leader group player) exitWith {hint "You cannot control AI if you are not the squad leader"};
 if (isPlayer _unit) exitWith {hint "You cannot control another player"};
 if (!alive _unit) exitWith {hint "You cannot control a dead unit"};
-if (lifeState _unit == "INCAPACITATED") exitWith {hint "You cannot control an unconscious unit"};
-if (captive _unit) exitWith {hint "You cannot control an Undercover unit"};
 //if ((not(typeOf _unit in soldadosSDK)) and (typeOf _unit != "b_g_survivor_F")) exitWith {hint "You cannot control a unit which does not belong to FIA"};
 if (side _unit != buenos) exitWith {hint "You cannot control a unit which does not belong to Syndikat"};
 
@@ -28,7 +25,7 @@ if (_x != vehicle _x) then
 _unit setVariable ["owner",player];
 selectPlayer _unit;
 
-_tiempo = 60;
+_tiempo = 600;
 
 _unit addAction ["Return Control to AI",{selectPlayer leader (group (_this select 0))}];
 

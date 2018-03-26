@@ -642,3 +642,13 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Removed all the exclusive official servers stuff to give the features to everyone.
 - Faster reinforcements.
 - Removed thermal googles of the NV unlocking scripts. SDK AI will spawn with random googles when unlocked.
+
+0.11.3 26/03/2018 ALPHA
+
+- Workers wont get deleted on dedicated servers without HCs.
+- Reverted some autoload features to only official servers. Autosave will be enabled in dedicated servers.
+- Bulletproofed killzone variables to avoid bugs.
+- QRFs with conquer missions wont send bombruns.
+- Smaller save file.
+- Reduced a bit number of driving civilians.
+- Garrison states on zones under attack now get saved.

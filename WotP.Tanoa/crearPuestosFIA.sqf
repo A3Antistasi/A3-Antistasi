@@ -83,9 +83,7 @@ if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) the
 		waitUntil {!(isPlayer leader _grupo)};
 		};
 	puestosFIA = puestosFIA + [_mrk]; publicVariable "puestosFIA";
-	mrkSDK = mrkSDK + [_mrk];
 	lados setVariable [_mrk,buenos,true];
-	publicVariable "mrkSDK";
 	marcadores = marcadores + [_mrk];
 	publicVariable "marcadores";
 	spawner setVariable [_mrk,2,true];

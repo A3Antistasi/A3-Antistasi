@@ -20,10 +20,10 @@ seaMarkers = ["seaPatrol","seaPatrol_1","seaPatrol_2","seaPatrol_3","seaPatrol_4
 seaSpawn = ["seaSpawn","seaSpawn_1","seaSpawn_2","seaSpawn_3","seaSpawn_4","seaSpawn_5","seaSpawn_6","seaSpawn_7","seaSpawn_8","seaSpawn_9","seaSpawn_10","seaSpawn_11","seaSpawn_12","seaSpawn_13","seaSpawn_14","seaSpawn_15","seaSpawn_16","seaSpawn_17","seaSpawn_18","seaSpawn_19","seaSpawn_20","seaSpawn_21","seaSpawn_22","seaSpawn_23","seaSpawn_24","seaSpawn_25","seaSpawn_26","seaSpawn_27","seaSpawn_28","seaSpawn_29","seaSpawn_30","seaSpawn_31","seaSpawn_32"];
 seaAttackSpawn = ["seaAttackSpawn","seaAttackSpawn_1","seaAttackSpawn_2","seaAttackSpawn_3","seaAttackSpawn_4","seaAttackSpawn_5","seaAttackSpawn_6","seaAttackSpawn_7","seaAttackSpawn_8","seaAttackSpawn_9","seaAttackSpawn_10"];
 puestosFIA = [];
-mrkSDK = ["Synd_HQ"];
+_mrkSDK = ["Synd_HQ"];
 garrison setVariable ["Synd_HQ",[],true];
-mrkNATO = [];
-mrkCSAT = ["airport_1","puerto_5","puesto_10","control_20"];//
+_mrkNATO = [];
+_mrkCSAT = ["airport_1","puerto_5","puesto_10","control_20"];//
 destroyedCities = [];
 
 marcadores = aeropuertos + recursos + fabricas + puestos + puertos + controles + ["Synd_HQ"];
@@ -217,7 +217,7 @@ else
     };
 } forEach marcadores - ciudades - controles - ["Synd_HQ"];
 
-mrkNATO = marcadores - mrkCSAT - ["Synd_HQ"];
+_mrkNATO = marcadores - _mrkCSAT - ["Synd_HQ"];
 
 _posantenas = [[6617.95,7853.57,0.200073],[7486.67,9651.9,1.52588e-005],[6005.47,10420.9,0.20298],[2437.25,7224.06,0.0264893],[4701.6,3165.23,0.0633469],[11008.8,4211.16,-0.00154114],[10114.3,11743.1,9.15527e-005],[10949.8,11517.3,0.14209],[11153.3,11435.2,0.210876],[12889.2,8578.86,0.228729],[2682.94,2592.64,-0.000686646],[2690.54,12323,0.0372467],[2965.33,13087.1,0.191544],[13775.8,10976.8,0.170441]];
 antenas = [antena];
@@ -297,9 +297,9 @@ carreteras setVariable ["airport_2",[[[11803,13051.6,0.0368805],360,"Mort"],[[11
 carreteras setVariable ["airport_3",[[[11658,3055.02,0.036881],360,"Mort"],[[11662.6,3060.14,0.0368819],0.000294881,"Mort"],[[11664.8,3049.94,0.0368805],360,"Mort"],[[11668.9,3055.64,0.0368805],2.08056e-005,"Mort"],[[11747.8,2982.95,18.1513],249.505,"MG"],[[11784.1,3132.77,0.183631],214.7,"Tank"],[[11720.3,3176.15,0.112019],215.055,"Tank"]],true];
 carreteras setVariable ["airport_4",[[[2092.87,3412.98,0.0372648],0.00414928,"Mort"],[[2091.5,3420.69,0.0369596],360,"Mort"],[[2099.93,3422.53,0.0373936],0.00215797,"Mort"],[[2100.13,3416.28,0.0394554],0.0043371,"Mort"],[[2198.24,3471.03,18.0123],0.00187816,"MG"],[[2133.01,3405.88,-0.0156536],315.528,"Tank"],[[2145.82,3416.83,-0.00544548],316.441,"Tank"],[[2163.9,3432.18,-0.0256157],318.777,"Tank"]],true];
 
-{lados setVariable [_x,buenos,true]} forEach mrkSDK;
-{lados setVariable [_x,malos,true]} forEach mrkNATO;
-{lados setVariable [_x,muyMalos,true]} forEach mrkCSAT;
+{lados setVariable [_x,buenos,true]} forEach _mrkSDK;
+{lados setVariable [_x,malos,true]} forEach _mrkNATO;
+{lados setVariable [_x,muyMalos,true]} forEach _mrkCSAT;
 //the following is the console code snippet I use to pick positions of any kind of building. You may do this for gas stations, banks, radios etc.. markerPos "Base_4" is because it's in the middle of the island, and inside the array you may find the type of building I am searching for. Paste the result in a txt and add it to the corresponding arrays.
 /*
 pepe = nearestObjects [markerPos "base_4", ["Land_Communication_F","Land_TTowerBig_1_F","Land_TTowerBig_2_F"], 16000];
@@ -308,9 +308,6 @@ pospepe = [];
 copytoclipboard str pospepe;
 */
 if (isMultiplayer) then {[[petros,"hint","Zones Init Completed"],"commsMP"] call BIS_fnc_MP};
-publicVariable "mrkNATO";
-publicVariable "mrkSDK";
-publicVariable "mrkCSAT";
 publicVariable "marcadores";
 publicVariable "ciudades";
 publicVariable "aeropuertos";

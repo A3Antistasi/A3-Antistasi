@@ -16,7 +16,8 @@ if ([_tipo] call BIS_fnc_taskExists) exitWith {if (!_silencio) then {[petros,"gl
 
 if (_tipo == "AS") then
 	{
-	_sitios = aeropuertos + ciudades + (controles select {!(isOnRoad getMarkerPos _x)}) - mrkSDK;
+	_sitios = aeropuertos + ciudades + (controles select {!(isOnRoad getMarkerPos _x)});
+	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
 		//_posibles = _sitios select {((getMarkerPos _x distance _posbase < distanciaMiss) and (not(spawner getVariable _x)))};
@@ -28,7 +29,7 @@ if (_tipo == "AS") then
 				{
 				if (_sitio in controles) then
 					{
-					_marcadores = mrkSDK select {getMarkerPos _x distance _pos < distanciaSPWN};
+					_marcadores = marcadores select {(getMarkerPos _x distance _pos < distanciaSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
 					_marcadores = _marcadores - ["Synd_HQ"];
 					_frontera = if (count _marcadores > 0) then {true} else {false};
 					if (_frontera) then
@@ -59,7 +60,8 @@ if (_tipo == "AS") then
 	};
 if (_tipo == "CON") then
 	{
-	_sitios = (controles select {isOnRoad (getMarkerPos _x)}) + puestos + recursos - mrkSDK;
+	_sitios = controles + puestos + recursos;
+	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
 		_posibles = _sitios select {(getMarkerPos _x distance _posbase < distanciaMiss)};
@@ -80,7 +82,8 @@ if (_tipo == "CON") then
 	};
 if (_tipo == "DES") then
 	{
-	_sitios = aeropuertos + antenas - mrkSDK;
+	_sitios = aeropuertos + antenas;
+	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
 		for "_i" from 0 to ((count _sitios) - 1) do
@@ -119,8 +122,8 @@ if (_tipo == "DES") then
 if (_tipo == "LOG") then
 	{
 	_sitios = puestos + ciudades;
+	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (random 100 < 20) then {_sitios = _sitios + bancos};
-	_sitios = _sitios - mrkSDK;
 	if (count _sitios > 0) then
 		{
 		for "_i" from 0 to ((count _sitios) - 1) do
@@ -157,7 +160,7 @@ if (_tipo == "LOG") then
 			if (_sitio in bancos) then
 				{
 				_ciudad = [ciudades, _pos] call BIS_fnc_nearestPosition;
-				if (_ciudad in mrkSDK) then {_posibles = _posibles - [_sitio]};
+				if (lados getVariable [_ciudad,sideUnknown] == buenos) then {_posibles = _posibles - [_sitio]};
 				};
 			};
 		};
@@ -179,8 +182,8 @@ if (_tipo == "LOG") then
 	};
 if (_tipo == "RES") then
 	{
-	//_sitios = ciudades + aeropuertos + puestos - mrkSDK;
-	_sitios = aeropuertos + puestos + ciudades - mrkSDK;
+	_sitios = aeropuertos + puestos + ciudades;
+	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
 		for "_i" from 0 to ((count _sitios) - 1) do
@@ -208,7 +211,8 @@ if (_tipo == "CONVOY") then
 	{
 	if (!bigAttackInProgress) then
 		{
-		_sitios = (aeropuertos + recursos + fabricas + puertos + ["puesto","puesto_1","puesto_3","puesto_7"] - mrkSDK) + (ciudades select {count (garrison getVariable [_x,[]]) < 10});
+		_sitios = (aeropuertos + recursos + fabricas + puertos + ["puesto","puesto_1","puesto_3","puesto_7"]) + (ciudades select {count (garrison getVariable [_x,[]]) < 10});
+		_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 		if (count _sitios > 0) then
 			{
 			for "_i" from 0 to ((count _sitios) - 1) do

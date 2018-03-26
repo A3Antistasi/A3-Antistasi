@@ -96,7 +96,8 @@ if ((_tipo == "SB") or (_tipo == "CB")) then
 		}
 	else
 		{
-		cercano = [mrkSDK,_posicion] call BIS_fnc_nearestPosition;
+		_sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
+		cercano = [_sitios,_posicion] call BIS_fnc_nearestPosition;
 		if (!(_posicion inArea cercano)) then
 			{
 			_salir = true;

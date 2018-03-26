@@ -38,7 +38,7 @@ _roads = _roads call BIS_fnc_arrayShuffle;
 
 _numVeh = round (_numVeh * (civPerc/200));
 if (_numVeh < 1) then {_numVeh = 1};
-_numCiv = round (_numCiv * (civPerc/200));
+_numCiv = round (_numCiv * (civPerc/250));
 if ((daytime < 8) or (daytime > 21)) then {_numCiv = round (_numCiv/4); _numVeh = round (_numVeh * 1.5)};
 if (_numCiv < 1) then {_numCiv = 1};
 

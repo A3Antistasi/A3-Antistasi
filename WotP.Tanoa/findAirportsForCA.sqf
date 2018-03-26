@@ -3,7 +3,7 @@ private ["_marcador","_pos","_aeropuertosAAF","_aeropuertos","_aeropuerto","_pos
 _marcador = _this select 0;
 _pos = _this select 0;
 if (typeName _marcador == typeName "") then {_pos = getMarkerPos _marcador};
-_aeropuertosAAF = aeropuertos - mrkSDK;
+_aeropuertosAAF = aeropuertos select {lados getVariable [_x,sideUnknown] != buenos};
 _aeropuertos = [];
 _aeropuerto = "";
 {

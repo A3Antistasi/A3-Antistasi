@@ -22,16 +22,14 @@ _posicionTel = posicionTel;
 if (count _posicionTel > 0) then
 	{
 	_lado = side player;
-	_mrkENY = [];
+	_mrkENY = marcadores select {lados getVariable [_x,sideUnknown] != _lado};
 	_sideENY = sideUnknown;
 	if (_lado == malos) then
 		{
-		_mrkENY = +mrkCSAT;
 		_sideENY = muyMalos;
 		}
 	else
 		{
-		_mrkENY = +mrkNATO;
 		_sideENY = malos;
 		};
 

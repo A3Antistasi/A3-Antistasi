@@ -57,10 +57,11 @@ if (_unit == stavros) then
 		};
 	if (group petros == group _unit) then {[] spawn buildHQ};
 	};
+//{if (groupOwner _x ==)} forEach allGroups select {(side _x == civilian) and (!isPlayer leader _x)};
 if ((side _unit == buenos) or (side _unit == civilian)) then
 	{
 	if ((_hr > 0) or (_recursos > 0)) then {[_hr,_recursos] spawn resourcesFIA};
-	_armas = weapons _unit;
+	/*_armas = weapons _unit;
 	_municion = magazines _unit + [currentMagazine _unit];
 	_items = (items _unit) + (primaryWeaponItems _unit);
 	if (hayTFAR) then
@@ -77,10 +78,10 @@ if ((side _unit == buenos) or (side _unit == civilian)) then
 	{caja addWeaponCargoGlobal [_x,1]} forEach _armas;
 	{caja addMagazineCargoGlobal [_x,1]} forEach _municion;
 	{caja addItemCargoGlobal [_x,1]} forEach _items;
-
+	*/
 	_pos = getPosATL _unit;
 	_wholder = nearestObjects [_pos, ["weaponHolderSimulated", "weaponHolder"], 2];
-	{deleteVehicle _x;} forEach _wholder + [_unit];
+	{deleteVehicle _x} forEach _wholder + [_unit];
 	if (alive _unit) then
 		{
 		_unit setVariable ["owner",_unit,true];

@@ -130,7 +130,7 @@ while {_cambiar == ""} do
 				{
 				_base = [_aeropuertos,_player] call BIS_fnc_nearestPosition;
 				//_size = [_base] call sizeMarker;
-				if ((_player inArea _base) and ((_base in mrkNATO) or (_base in mrkCSAT))) then
+				if ((_player inArea _base) and (lados getVariable [_base,sideUnknown] != buenos)) then
 					{
 					if (!(_base in controles)) then
 						{
@@ -140,7 +140,7 @@ while {_cambiar == ""} do
 						{
 						if !(_estaEnControl) then
 							{
-							_aggro = if (_base in mrkNATO) then {prestigeNATO} else {prestigeCSAT};
+							_aggro = if (lados getVariable [_base,sideUnknown] == malos) then {prestigeNATO} else {prestigeCSAT};
 							if (random 100 < _aggro) then
 								{
 								_cambiar = "Control";

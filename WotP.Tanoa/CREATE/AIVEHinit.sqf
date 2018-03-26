@@ -174,11 +174,11 @@ else
 							}
 						else
 							{
-							_bases = (aeropuertos - mrkSDK) select {(getMarkerPos _x distance _posDestino < 15000) and ((spawner getVariable _x != 0)) and (dateToNumber date > server getVariable _x)};
+							_bases = aeropuertos select {(getMarkerPos _x distance _posDestino < 15000) and ((spawner getVariable _x != 0)) and (dateToNumber date > server getVariable _x) and (lados getVariable [_x,sideUnknown] != buenos)};
 							if (count _bases > 0) then
 								{
 								_base = [_bases,_posicion] call BIS_fnc_nearestPosition;
-								_lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {muyMalos};
+								_lado = lados getVariable [_base,sideUnknown];
 								[getPosASL _mortero,_lado,"Normal"] remoteExec ["patrolCA",HCattack];
 								};
 							};

@@ -19,7 +19,7 @@ hintC_arr_EH = findDisplay 72 displayAddEventHandler ["unload",
 	}];
 
 private ["_posicionTel","_marcador","_marcadores"];
-_marcadores = mrkNATO + mrkCSAT;
+_marcadores = marcadores select {lados getVariable [_x,sideUnknown] != buenos};
 _posicionTel = [];
 if (isNil "placementDone") then
 	{
@@ -74,14 +74,9 @@ if (visiblemap) then
 		{
 		if (getMarkerPos _x distance _posicionTel < distanciaSPWN) then
 			{
-			if (lados getVariable [_x,sideUnknown] == muyMalos) then {mrkCSAT = mrkCSAT - [_x]} else {mrkNATO = mrkNATO - [_x]};
-			mrkSDK pushBack _x;
 			lados setVariable [_x,buenos,true];
 			};
 		} forEach controles;
-		publicVariable "mrkNATO";
-		publicVariable "mrkSDK";
-		publicVariable "mrkCSAT";
 		petros setPos _posicionTel;
 		}
 	else
@@ -90,14 +85,9 @@ if (visiblemap) then
 		{
 		if (getMarkerPos _x distance _posicionTel < distanciaSPWN) then
 			{
-			if (lados getVariable [_x,sideUnknown] == muyMalos) then {mrkCSAT = mrkCSAT - [_x]} else {mrkNATO = mrkNATO - [_x]};
-			mrkSDK pushBackUnique _x;
 			lados setVariable [_x,buenos,true];
 			};
 		} forEach _controles;
-		publicVariable "mrkNATO";
-		publicVariable "mrkSDK";
-		publicVariable "mrkCSAT";
 		_viejo = petros;
 		grupoPetros = createGroup buenos;
 		publicVariable "grupoPetros";

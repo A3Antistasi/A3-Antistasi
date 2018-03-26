@@ -1,12 +1,12 @@
 private ["_aeropuertos","_reinfPlaces","_aeropuerto","_numero","_numGarr","_numReal","_lado","_posibles","_cuenta","_sitio","_posicion"];
-_aeropuertos = aeropuertos select {!(_x in mrkSDK) and (spawner getVariable _x == 2)};
+_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] != buenos) and (spawner getVariable _x == 2)};
 _reinfPlaces = [];
 {
 _aeropuerto = _x;
 _numero = 8;
 _numGarr = [_aeropuerto] call garrisonSize;
 _numReal = count (garrison getVariable _aeropuerto);
-_lado = if (lados getVariable [_aeropuerto,sideUnknown] == malos) then {malos} else {muyMalos};
+_lado = lados getVariable [_aeropuerto,sideUnknown];
 if (_numReal + 4 <= _numGarr) then
 	{
 	if (_numReal + 8 <= _numGarr) then
@@ -22,8 +22,7 @@ if (_numReal + 4 <= _numGarr) then
 	};
 if ((_numero >= 4) and (reinfPatrols <= 4)) then
 	{
-	_posibles = recursos + fabricas + puestos + puertos - mrkSDK - _reinfPlaces - (killZones getVariable _aeropuerto);
-	if (_lado == malos) then {_posibles = _posibles arrayIntersect mrkNATO} else {_posibles = _posibles arrayIntersect mrkCSAT};
+	_posibles = (recursos + fabricas + puestos + puertos - _reinfPlaces - (killZones getVariable [_aeropuerto,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
 	_posicion = getMarkerPos _aeropuerto;
 	_posibles = _posibles select {((getMarkerPos _x distance2D _posicion) < 5000)};
 	if (count _posibles > 0) then

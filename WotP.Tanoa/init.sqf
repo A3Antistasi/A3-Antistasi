@@ -59,7 +59,7 @@ if(isServer) then
 
     waitUntil {!isNil "serverID"};
 
-    if /*(serverName in servidoresOficiales)*/(true) then
+    if (serverName in servidoresOficiales) then
         {
         ["miembros"] call fn_LoadStat;
         _nul = [] execVM "orgPlayers\mList.sqf";

@@ -9,7 +9,7 @@ _soldados = [];
 
 if ({(_x distance _posicion < 500) and (typeOf _x == staticAABuenos)} count staticsToSave > 4) exitWith {};
 
-_aeropuertos = aeropuertos select {(not(_x in mrkSDK)) and (spawner getVariable _x == 2)};
+_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] != buenos) and (spawner getVariable _x == 2)};
 if (count _aeropuertos == 0) exitWith {};
 _aeropuerto = [_aeropuertos,_posicion] call BIS_fnc_nearestPosition;
 _posOrigen = getMarkerPos _aeropuerto;

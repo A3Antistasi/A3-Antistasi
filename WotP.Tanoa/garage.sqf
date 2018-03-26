@@ -12,7 +12,7 @@ _chequeo = false;
 if (_chequeo) exitWith {Hint "You cannot manage the Garage with enemies nearby"};
 vehInGarageShow = [];
 _hayAire = false;
-_aeropuertos = aeropuertos select {_x in mrkSDK and (player distance getMarkerPos _x < 100)};
+_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == buenos) and (player distance getMarkerPos _x < 100)};
 if (count _aeropuertos > 0) then {_hayAire = true};
 _hayMar = false;
 garagePos = [];

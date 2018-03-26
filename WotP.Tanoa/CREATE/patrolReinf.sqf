@@ -55,7 +55,7 @@ _x addEventHandler ["Killed",
 		_destino = _grupo getVariable "reinfMarker";
 		if (((lados getVariable [_origen,sideUnknown] == malos) and (lados getVariable [_destino,sideUnknown] == malos)) or ((lados getVariable [_origen,sideUnknown] == muyMalos) and (lados getVariable [_destino,sideUnknown] == muyMalos))) then
 			{
-			_killzones = killZones getVariable _origen;
+			_killzones = killZones getVariable [_origen,[]];
 			_killzones pushBack _destino;
 			killZones setVariable [_origen,_killzones,true];
 			}

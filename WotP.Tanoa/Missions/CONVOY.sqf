@@ -69,20 +69,21 @@ if (_dificil) then
 		deleteVehicle _contacto;
 		deleteGroup _grpContacto;
 		};
-	};
-
-if (_salir) exitWith
-	{
-	if (_contacto getVariable "statusAct") then
+	if (_salir) then
 		{
-		[0,"CONVOY"] spawn borrarTask
-		}
-	else
-		{
-		["CONVOY",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED"] call taskUpdate;
-		[1200,"CONVOY"] spawn borrarTask;
+		if (_contacto getVariable "statusAct") then
+			{
+			[0,"CONVOY"] spawn borrarTask
+			}
+		else
+			{
+			["CONVOY",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED"] call taskUpdate;
+			[1200,"CONVOY"] spawn borrarTask;
+			};
 		};
 	};
+
+if (_salir) exitWith {};
 
 if (_dificil) then
 	{
@@ -567,7 +568,7 @@ if (_tipoConvoy == "Municion") then
 		if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[0,3] remoteExec ["prestige",2]};
 		if (!alive _vehObj) then
 			{
-			_killZones = killZones getVariable _base;
+			_killZones = killZones getVariable [_base,[]];
 			_killZones = _killZones + [_destino,_destino];
 			killZones setVariable [_base,_killZones,true];
 			};
@@ -598,7 +599,7 @@ if (_tipoConvoy == "Armor") then
 		if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[0,3] remoteExec ["prestige",2]};
 		if (!alive _vehObj) then
 			{
-			_killZones = killZones getVariable _base;
+			_killZones = killZones getVariable [_base,[]];
 			_killZones = _killZones + [_destino,_destino];
 			killZones setVariable [_base,_killZones,true];
 			};
@@ -629,7 +630,7 @@ if (_tipoConvoy == "Prisoners") then
 			_cuenta = 2 * (count _POWs);
 			//[0,- _cuenta, _posdestino] remoteExec ["citySupportChange",2];
 			[-10*_bonus,stavros] call playerScoreAdd;
-			_killZones = killZones getVariable _base;
+			_killZones = killZones getVariable [_base,[]];
 			_killZones = _killZones + [_destino,_destino];
 			killZones setVariable [_base,_killZones,true];
 			}
@@ -661,7 +662,7 @@ if (_tipoConvoy == "Refuerzos") then
 		if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[0,3] remoteExec ["prestige",2]};
 		{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
 		[5*_bonus,stavros] call playerScoreAdd;
-		_killZones = killZones getVariable _base;
+		_killZones = killZones getVariable [_base,[]];
 		_killZones = _killZones + [_destino,_destino];
 		killZones setVariable [_base,_killZones,true];
 		}
@@ -700,7 +701,7 @@ if (_tipoConvoy == "Money") then
 			[getPosASL _vehObj,_lado] spawn patrolCA;
 			[1200*_bonus] remoteExec ["timingCA",2];
 			_taskState1 = "FAILED";
-			_killZones = killZones getVariable _base;
+			_killZones = killZones getVariable [_base,[]];
 			_killZones = _killZones + [_destino,_destino];
 			killZones setVariable [_base,_killZones,true];
 			};
@@ -744,7 +745,7 @@ if (_tipoConvoy == "Supplies") then
 		_taskState1 = "FAILED";
 		[3,0] remoteExec ["prestige",2];
 		[-10*_bonus,stavros] call playerScoreAdd;
-		_killZones = killZones getVariable _base;
+		_killZones = killZones getVariable [_base,[]];
 		_killZones = _killZones + [_destino,_destino];
 		killZones setVariable [_base,_killZones,true];
 		};

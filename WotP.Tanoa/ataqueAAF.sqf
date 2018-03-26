@@ -5,8 +5,8 @@ _objetivos = [];
 _marcadores = [];
 _cuentaFacil = 0;
 
-_aeropuertos = (aeropuertos - mrkSDK) select {(dateToNumber date > server getVariable _x) and !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) /*(spawner getVariable _x != 0)*/};
-if ((tierWar < 3) and ({lados getVariable [_x,sideUnknown] == muyMalos} count _aeropuertos < 2)) then {_aeropuertos = _aeropuertos - mrkCSAT};
+_aeropuertos = aeropuertos select {(dateToNumber date > server getVariable _x) and !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) and (lados getVariable [_x,sideUnknown] != buenos)};
+if ((tierWar < 3) and ({lados getVariable [_x,sideUnknown] == muyMalos} count _aeropuertos < 2)) then {_aeropuertos = _aeropuertos select {(lados getVariable [_x,sideUnknown] == malos)}};
 _objetivos = marcadores - controles - puestosFIA - ["Synd_HQ","airport_1","airport_4"] - destroyedCities;
 if (tierWar < 3) then {_objetivos = _objetivos - ciudades};
 _objetivosFinal = [];
@@ -14,19 +14,18 @@ _basesFinal = [];
 _cuentasFinal = [];
 _objetivoFinal = [];
 _faciles = [];
-_puertoCSAT = if ({_x in puertos} count mrkCSAT >0) then {true} else {false};
-_puertoNATO = if ({_x in puertos} count mrkNATO >0) then {true} else {false};
+_puertoCSAT = if ({(lados getVariable [_x,sideUnknown] == muyMalos)} count puertos >0) then {true} else {false};
+_puertoNATO = if ({(lados getVariable [_x,sideUnknown] == malos)} count puertos >0) then {true} else {false};
 _waves = 1;
-//_aeropuertos = if (_waves == 1) then {(aeropuertos - mrkSDK) select {(dateToNumber date > server getVariable _x) and ((spawner getVariable _x != 0))}} else {(aeropuertos - mrkSDK - mrkNATO) select {(dateToNumber date > server getVariable _x) and (spawner getVariable _x != 0)}};
-//_foggy = if (fog > 0.18) then {true} else {false};
-//_foggy = false;
+
 {
 _base = _x;
 _posBase = getMarkerPos _base;
-_killZones = killZones getVariable _base;
+_killZones = killZones getVariable [_base,[]];
 _tmpObjetivos = [];
 _baseNATO = true;
-if (lados getVariable [_base,sideUnknown] == malos) then {_tmpObjetivos = _objetivos - mrkNATO} else {_baseNATO = false; _tmpObjetivos = _objetivos - mrkCSAT};
+if (lados getVariable [_base,sideUnknown] == malos) then {_tmpObjetivos = _objetivos select {lados getVariable [_x,sideUnknown] != malos}} else {_baseNATO = false; _tmpObjetivos = _objetivos select {lados getVariable [_x,sideUnknown] != muyMalos}};
+
 _tmpObjetivos = _tmpObjetivos select {getMarkerPos _x distance2D _posBase < 10000};
 _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 	{
@@ -308,7 +307,7 @@ if ((not(["CONVOY"] call BIS_fnc_taskExists)) and (_waves == 1)) then
 				if (count (garrison getVariable [_x,[]]) == 0) then {_objetivos pushBack [_x,_base]};
 				};
 			};
-		} forEach (ciudades - mrkNATO);
+		} forEach (ciudades select {lados getVariable [_x,sideUnknown] == buenos});
 		if (count _objetivos > 0) then
 			{
 			_objetivo = selectRandom _objetivos;

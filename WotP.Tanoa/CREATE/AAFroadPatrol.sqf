@@ -9,7 +9,7 @@ _roads = [];
 //_tipos = ["I_MRAP_03_F","I_MRAP_03_hmg_F","I_MRAP_03_gmg_F","I_Heli_light_03_unarmed_F","I_Boat_Armed_01_minigun_F"];
 _tipos = vehNATOLight + [vehNATOPatrolHeli,vehNATOBoat];
 
-_arrayAeropuertos = (puertos + aeropuertos - mrkSDK) select {(getMarkerPos _x distance getMarkerPos "respawn_guerrila" < 3000) and ((spawner getVariable _x != 0))};
+_arrayAeropuertos = (puertos + aeropuertos) select {(getMarkerPos _x distance getMarkerPos "respawn_guerrila" < 3000) and ((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)};
 
 if (count _arrayAeropuertos == 0) exitWith {};
 
@@ -57,7 +57,7 @@ _posbase = getMarkerPos _base;
 
 if (_tipoPatrol == "AIR") then
 	{
-	if (_lado == malos) then {_arrayDestinos = mrkNATO} else {_arrayDestinos = mrkCSAT};
+	_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
 	_distancia = 200;
 	}
 else
@@ -69,7 +69,8 @@ else
 		}
 	else
 		{
-		if (_lado == malos) then {_arraydestinos = [mrkNATO] call patrolDestinos} else {_arraydestinos = [mrkCSAT] call patrolDestinos};
+		_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
+		_arraydestinos = [_arrayDestinos] call patrolDestinos;
 		_distancia = 50;
 		};
 	};
@@ -187,7 +188,7 @@ while {alive _veh} do
 	if (({alive _x} count _soldados == 0) or ({fleeing _x} count _soldados == {alive _x} count _soldados) or (!canMove _veh)) exitWith {};
 	if (_tipoPatrol == "AIR") then
 		{
-		if (_lado == malos) then {_arrayDestinos = mrkNATO} else {_arrayDestinos = mrkCSAT};
+		_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
 		}
 	else
 		{
@@ -197,7 +198,8 @@ while {alive _veh} do
 			}
 		else
 			{
-			if (_lado == malos) then {_arraydestinos = [mrkNATO] call patrolDestinos} else {_arraydestinos = [mrkCSAT] call patrolDestinos};
+			_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
+			_arraydestinos = [_arraydestinos] call patrolDestinos;
 			};
 		};
 	};

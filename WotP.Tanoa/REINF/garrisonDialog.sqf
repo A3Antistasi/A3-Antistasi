@@ -50,7 +50,6 @@ if (_tipo == "rem") then
 			{
 			garrison setVariable [_cercano,nil,true];
 			puestosFIA = puestosFIA - [_cercano]; publicVariable "puestosFIA";
-			mrkSDK = mrkSDK - [_cercano]; publicVariable "mrkSDK";
 			marcadores = marcadores - [_cercano]; publicVariable "marcadores";
 			deleteMarker _cercano;
 			lados setVariable [_cercano,nil,true];

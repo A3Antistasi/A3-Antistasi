@@ -2,7 +2,7 @@ if (!isServer) exitWith{};
 
 debugperf = false;
 
-private ["_tiempo","_marcadores","_mrkNATO","_mrkSDK","_marcador","_posicionMRK"];
+private ["_tiempo","_marcadores","_marcador","_posicionMRK"];
 
 _tiempo = time;
 

@@ -115,7 +115,7 @@ _nombredest = [_marcador] call localizar;
 
 _grptraidor = createGroup malos;
 
-_arrayaeropuertos = aeropuertos - mrkSDK - mrkCSAT;
+_arrayaeropuertos = aeropuertos select {lados getVariable [_x,sideUnknown] == malos};
 _base = [_arrayaeropuertos, _posicion] call BIS_Fnc_nearestPosition;
 _posBase = getMarkerPos _base;
 

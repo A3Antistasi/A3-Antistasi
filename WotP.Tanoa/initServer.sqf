@@ -17,11 +17,7 @@ _nul = [] execVM "modBlacklist.sqf";
 
 stavros = objNull;
 maxPlayers = playableSlotsNumber buenos;
-if /*(serverName in servidoresOficiales)*/(true) then
-    {
-    _nul = [] execVM "serverAutosave.sqf";
-    }
-else
+if !(serverName in servidoresOficiales) then
     {
     if (isNil "comandante") then {comandante = (playableUnits select 0)};
     if (isNull comandante) then {comandante = (playableUnits select 0)};
@@ -91,7 +87,7 @@ diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"commsMP"] call BIS_fnc_MP;
 
 addMissionEventHandler ["HandleDisconnect",{[_this select 0] call onPlayerDisconnect;false}];
-addMissionEventHandler ["PlayerDisconnected",{
+/*addMissionEventHandler ["PlayerDisconnected",{
     _owner = _this select 4;
     {
     if ((groupOwner _x == _owner) and (side _x == civilian)) then
@@ -102,7 +98,7 @@ addMissionEventHandler ["PlayerDisconnected",{
         };
     } forEach allGroups;
     }];
-
+*/
 
 serverInitDone = true; publicVariable "serverInitDone";
 diag_log "Antistasi MP Server. serverInitDone set to true.";

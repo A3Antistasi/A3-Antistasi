@@ -44,12 +44,11 @@ if (_posroad distance _pos > 400) then
                         if (not debug) then {_mrk setMarkerAlpha 0};
                         if (lados getVariable [_marcador,sideUnknown] == malos) then
                                 {
-                                mrkNATO pushBack _nombre;
                                 lados setVariable [_nombre,malos,true];
                                 }
                         else
                                 {
-                                if (lados getVariable [_marcador,sideUnknown] == muyMalos) then {mrkCSAT pushBack _nombre; lados setVariable [_nombre,muyMalos,true]} else {mrkSDK pushBack _nombre; lados setVariable [_nombre,buenos,true]};
+                                if (lados getVariable [_marcador,sideUnknown] == muyMalos) then {lados setVariable [_nombre,muyMalos,true]} else {lados setVariable [_nombre,buenos,true]};
                                 };
                         controles pushBackUnique _nombre;
                         marcadores pushBackUnique _nombre;

@@ -51,9 +51,9 @@ if (!isDedicated) then
 	["smallCAmrk", smallCAmrk] call fn_SaveStat;
 	["miembros", miembros] call fn_SaveStat;
 	["antenas", antenasmuertas] call fn_SaveStat;
-	["mrkNATO", mrkNATO - controles] call fn_SaveStat;
-	["mrkSDK", mrkSDK - puestosFIA - controles] call fn_SaveStat;
-	["mrkCSAT", mrkCSAT - controles] call fn_SaveStat;
+	//["mrkNATO", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == malos}] call fn_SaveStat;
+	["mrkSDK", (marcadores - controles - puestosFIA) select {lados getVariable [_x,sideUnknown] == buenos}] call fn_SaveStat;
+	["mrkCSAT", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == muyMalos}] call fn_SaveStat;
 	["posHQ", getMarkerPos "respawn_guerrila"] call fn_Savestat;
 	["prestigeNATO", prestigeNATO] call fn_SaveStat;
 	["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
@@ -186,11 +186,12 @@ if ((_veh distance getMarkerPos "respawn_guerrila" < 50) and !(_veh in staticsTo
 	};
 } forEach vehicles - [caja,bandera,fuego,cajaveh,mapa];
 
+_sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 {
 _posicion = position _x;
 if ((alive _x) and !(surfaceIsWater _posicion) and (isTouchingGround _x) and !(isNull _x)) then
 	{
-	_cercano = [mrkSDK,_posicion] call BIS_fnc_nearestPosition;
+	_cercano = [_sitios,_posicion] call BIS_fnc_nearestPosition;
 	if (_posicion inArea _cercano) then
 		{
 		_arrayEst pushBack [typeOf _x,getPos _x,getDir _x]
@@ -221,29 +222,7 @@ _prestigeBLUFOR = _prestigeBLUFOR + [_datos select 3];
 _marcadores = marcadores - puestosFIA - controles;
 _garrison = [];
 {
-	/*
-if (!(_x in forcedSpawn)) then
-	{
-	if (_x in mrkSDK) then
-		{
-		_garrison pushBack [_x,garrison getVariable [_x,[]]];
-		}
-	else
-		{
-		_tmpGarr = garrison getVariable [_x,[]];
-		_ret = [];
-		while {count _tmpGarr > 0} do
-			{
-			_tipo = _tmpGarr select 0;
-			_ret pushBack [_tipo, {_x == _tipo} count _tmpGarr];
-			_tmpGarr = _tmpGarr - [_tipo];
-			};
-		_garrison pushBack [_x,_ret];
-		};
-	};
-*/
-if (!(_x in forcedSpawn)) then {_garrison pushBack [_x,garrison getVariable [_x,[]]]};
-
+_garrison pushBack [_x,garrison getVariable [_x,[]]];
 } forEach _marcadores;
 
 ["garrison",_garrison] call fn_SaveStat;
@@ -322,12 +301,12 @@ _datos pushBack [_x,timer getVariable _x];
 
 _datos = [];
 {
-_datos pushBack [_x,killZones getVariable _x];
+_datos pushBack [_x,killZones getVariable [_x,[]]];
 } forEach aeropuertos + puestos;
 
 ["killZones",_datos] call fn_SaveStat;
 
-_controles = controles select {(_x in mrkSDK) and (controles find _x < 51)};
+_controles = controles select {(lados getVariable [_x,sideUnknown] == buenos) and (controles find _x < 51)};
 ["controlesSDK",_controles] call fn_SaveStat;
 
 savingServer = false;

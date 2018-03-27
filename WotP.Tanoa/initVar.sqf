@@ -6,7 +6,7 @@
 //Don't touch them.
 
 
-antistasiVersion = "v 0.11.3A";
+antistasiVersion = "v 0.11.3B";
 
 
 servidoresOficiales = ["WotP Official USA"];

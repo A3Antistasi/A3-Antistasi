@@ -82,8 +82,8 @@ if (_tipo == "CON") then
 	};
 if (_tipo == "DES") then
 	{
-	_sitios = aeropuertos + antenas;
-	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
+	_sitios = aeropuertos select {lados getVariable [_x,sideUnknown] != buenos};
+	_sitios = _sitios + antenas;
 	if (count _sitios > 0) then
 		{
 		for "_i" from 0 to ((count _sitios) - 1) do

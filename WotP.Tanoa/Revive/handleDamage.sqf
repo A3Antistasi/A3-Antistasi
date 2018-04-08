@@ -110,7 +110,7 @@ else
 		_dam = 0.9;
 		if (_part == "head") then
 			{
-			if ((headgear _unit) in cascos) then
+			if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 0) then
 				{
 				removeHeadgear _unit;
 				}

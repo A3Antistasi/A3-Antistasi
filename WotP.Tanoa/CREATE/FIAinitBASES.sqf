@@ -46,6 +46,11 @@ if (_tipo in SDKSniper) then
 else
 	{
 	if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]};
+	if (random 40 < skillFIA) then
+		{
+		removeHeadgear _unit;
+		_unit addHeadgear (selectRandom cascos);
+		};
 	if (_tipo in SDKMil) then
 		{
 		[_unit,unlockedRifles] call randomRifle;

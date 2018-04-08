@@ -19,7 +19,7 @@ while {true} do
 		_aborrar = [];
 		{
 		_civ = _x;
-		if (!(alive _civ) or ({_civ distance _x <= 300} count (allPlayers - hcArray) == 0)) then
+		if (!(alive _civ) or ({_civ distance _x <= 300} count (allPlayers - (entities "HeadlessClient_F")) == 0)) then
 			{
 			_grupo = group _x;
 			_aborrar pushBack _x;
@@ -41,7 +41,7 @@ while {true} do
 			if ({_x distance player < 300} count _allCivs <= _numCasas) then
 				{
 				_casa = selectRandom _casas;
-				if ({_x distance _casa < 20} count (allPlayers - hcArray) == 0) then
+				if ({_x distance _casa < 20} count (allPlayers - (entities "HeadlessClient_F")) == 0) then
 					{
 					if (isNull _grupo) then
 						{

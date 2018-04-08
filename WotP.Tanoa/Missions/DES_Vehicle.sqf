@@ -158,7 +158,7 @@ if (spawner getVariable _marcador == 0) then
 		[0,300*_bonus] remoteExec ["resourcesFIA",2];
 		if (_lado == muyMalos) then {[0,3] remoteExec ["prestige",2]; [0,10*_bonus,_posicion] remoteExec ["citySupportChange",2]} else {[3,0] remoteExec ["prestige",2];[0,5*_bonus,_posicion] remoteExec ["citySupportChange",2]};
 		[1200*_bonus] remoteExec ["timingCA",2];
-		{if (_x distance _veh < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+		{if (_x distance _veh < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[5*_bonus,stavros] call playerScoreAdd;
 		};
 	}

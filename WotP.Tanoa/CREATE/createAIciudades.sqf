@@ -84,7 +84,7 @@ waitUntil {sleep 1;((spawner getVariable _marcador == 2)) or ({alive _x} count _
 
 if ((({alive _x} count _soldados == 0) or ({fleeing _x} count _soldados == {alive _x} count _soldados)) and (_esAAF)) then
 	{
-	[_posicion,malos] remoteExec ["patrolCA",HCattack];
+	[[_posicion,malos],"patrolCA"] remoteExec ["scheduler",2];
 	};
 
 waitUntil {sleep 1;(spawner getVariable _marcador == 2)};

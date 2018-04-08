@@ -960,7 +960,7 @@ class game_options 		{
 		class 8slots_frame: RscFrame
 		{
 			idc = -1;
-			text = "Battle Options"; //--- ToDo: Localize;
+			text = "Game Options"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;

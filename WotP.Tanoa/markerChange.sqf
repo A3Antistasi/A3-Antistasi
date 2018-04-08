@@ -48,9 +48,9 @@ if (_winner == "GREENFORSpawn") then
 	{
 	lados setVariable [_marcador,buenos,true];
 	_winner = buenos;
-	[_marcador,_looser] remoteExec ["patrolCA",HCattack];
+	[[_marcador,_looser],"patrolCA"] call scheduler;
 	//sleep 15;
-	[_marcador] remoteExec ["autoGarrison",HCattack];
+	[[_marcador],"autoGarrison"] call scheduler;
 	}
 else
 	{
@@ -133,7 +133,7 @@ if (_winner == buenos) then
 		{
 		//[_bandera,"remove"] remoteExec ["flagaction",0,_bandera];
 		[_bandera,"SDKFlag"] remoteExec ["flagaction",0,_bandera];
-		[_bandera,"\A3\Data_F_exp\Flags\Flag_Synd_CO.paa"] remoteExec ["setFlagTexture",HCgarrisons];
+		[_bandera,"\A3\Data_F_exp\Flags\Flag_Synd_CO.paa"] remoteExec ["setFlagTexture",_bandera];
 		sleep 2;
 		//[_bandera,"unit"] remoteExec ["flagaction",[buenos,civilian],_bandera];
 		//[_bandera,"vehicle"] remoteExec ["flagaction",[buenos,civilian],_bandera];
@@ -158,11 +158,11 @@ else
 			};
 		if (_winner == malos) then
 			{
-			[_bandera,"\A3\Data_F\Flags\Flag_NATO_CO.paa"] remoteExec ["setFlagTexture",HCgarrisons];
+			[_bandera,"\A3\Data_F\Flags\Flag_NATO_CO.paa"] remoteExec ["setFlagTexture",_bandera];
 			}
 		else
 			{
-			[_bandera,"\A3\Data_F\Flags\Flag_CSAT_CO.paa"] remoteExec ["setFlagTexture",HCgarrisons];
+			[_bandera,"\A3\Data_F\Flags\Flag_CSAT_CO.paa"] remoteExec ["setFlagTexture",_bandera];
 			};
 		};
 	};

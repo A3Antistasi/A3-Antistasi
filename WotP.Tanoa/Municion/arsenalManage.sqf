@@ -87,7 +87,7 @@ if (_x select 1 >= minPacks) then
 	_mochi = _x select 0;
 	_index = _mochi  call jn_fnc_arsenal_itemType;
 	[_index,_mochi,-1] call jn_fnc_arsenal_addItem;
-	_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgVehicles" >> _lockedMochi >> "displayName")];
+	_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgVehicles" >> _mochi >> "displayName")];
 	unlockedBackpacks pushBack _mochi;
 	publicVariable "unlockedBackpacks";
 	};

@@ -41,46 +41,12 @@ publicVariable "maxPlayers";
 
 hcArray = [];
 
-//{if (owner _x != owner server) then {hcArray pushBack _x}} forEach entities "HeadlessClient_F";
 
-if (!isNil "HC1") then {hcArray pushBack HC1};
-if (!isNil "HC2") then {hcArray pushBack HC2};
-if (!isNil "HC3") then {hcArray pushBack HC3};
-
-HCciviles = 2;
-HCgarrisons = 2;
-HCattack = 2;
-if (count hcArray > 0) then
-    {
-    HCciviles = 2;
-    HCgarrisons = hcArray select 0;
-    HCattack = 2;
-    diag_log "Antistasi MP Server. Headless Client 1 detected";
-    if (count hcArray > 1) then
-        {
-        HCciviles = hcArray select 1;
-        HCattack = hcArray select 1;
-        diag_log "Antistasi MP Server. Headless Client 2 detected";
-        if (count hcArray > 2) then
-            {
-            HCciviles = hcArray select 2;
-            diag_log "Antistasi MP Server. Headless Client 3 detected";
-            };
-        };
-    };
-//[] remoteExec ["fpsCheck",HCGarrisons];
-publicVariable "HCciviles";
-publicVariable "HCgarrisons";
-publicVariable "HCattack";
-publicVariable "hcArray";
-//lockedWeapons = lockedWeapons - unlockedWeapons;
 caja call jn_fnc_arsenal_init;
 {
 private _index = _x call jn_fnc_arsenal_itemType;
 [_index,_x,-1] call jn_fnc_arsenal_addItem;
 }foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);
-//["buttonInvToJNA"] call jn_fnc_arsenal;
-
 
 
 diag_log "Antistasi MP Server. Arsenal config finished";

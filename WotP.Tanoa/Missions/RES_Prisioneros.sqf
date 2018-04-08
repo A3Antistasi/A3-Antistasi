@@ -212,7 +212,7 @@ else
 	[_hr,_resourcesFIA] remoteExec ["resourcesFIA",2];
 	[0,10*_bonus,_posicion] remoteExec ["citySupportChange",2];
 	//[_cuenta,0] remoteExec ["prestige",2];
-	{if (_x distance getMarkerPos "respawn_guerrila" < 500) then {[_cuenta,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+	{if (_x distance getMarkerPos "respawn_guerrila" < 500) then {[_cuenta,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 	[round (_cuenta*_bonus/2),stavros] call playerScoreAdd;
 	{[_x] join _grpPOW; [_x] orderGetin false} forEach _POWs;
 	};

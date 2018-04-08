@@ -16,11 +16,11 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=186;
+		nextID=191;
 	};
 	class Camera
 	{
-		pos[]={9161.2822,255.62468,8697.9063};
+		pos[]={9189.7666,232.85573,8707.2881};
 		dir[]={0.58299017,-0.51672423,0.62699538};
 		up[]={0.35185957,0.85614985,0.37841815};
 		aside[]={0.73233974,-8.486677e-008,-0.68094146};
@@ -572,7 +572,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				init="this allowDamage false;mapa addAction [""Game Options"", {hint format [""Warlords of the Pacific\n\nVersion: %1"",antistasiVersion]; nul=CreateDialog ""game_options"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];mapa addAction [""Map Info"", {nul = [] execVM ""cityinfo.sqf"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];mapa addAction [""Move this asset"", ""moveHQObject.sqf"",nil,0,false,true,"""",""(_this == stavros)""];";
+				init="this allowDamage false;mapa addAction [""Game Options"", {hint format [""Warlords of the Pacific\n\nVersion: %1"",antistasiVersion]; nul=CreateDialog ""game_options"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];mapa addAction [""Map Info"", {nul = [] execVM ""cityinfo.sqf"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];mapa addAction [""Move this asset"", ""moveHQObject.sqf"",nil,0,false,true,"""",""(_this == stavros)""]; if (isMultiplayer) then {mapa addAction [""AI Load Info"", ""[] remoteExec [""""AILoadInfo"""",2]"",nil,0,false,true,"""",""(_this == stavros)""]};";
 				name="mapa";
 			};
 			id=7;

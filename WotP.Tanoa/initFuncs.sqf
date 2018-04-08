@@ -3,6 +3,9 @@
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
 //fpsCheck = compile preProcessFileLineNumbers "fpsCheck.sqf";
+AILoadInfo = compile preProcessFileLineNumbers "AILoadInfo.sqf";
+scheduler = compile preProcessFileLineNumbers "scheduler.sqf";
+addHC = compile preProcessFileLineNumbers "addHC.sqf";
 buyBoat = compile preProcessFileLineNumbers "REINF\buyBoat.sqf";
 construir = compile preProcessFileLineNumbers "REINF\construir.sqf";
 isBuildingPosition = compile preProcessFileLineNumbers "AI\Buildings\isBuildingPosition.sqf";

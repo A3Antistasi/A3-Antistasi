@@ -50,8 +50,8 @@ if (_dificil) then
 		}
 	else
 		{
-		_marcadores = mrkSDK select {getMarkerPos _x distance getMarkerPos _marcador < distanciaSPWN};
-		_marcadores = _marcadores - ["Synd_HQ"] - puestosFIA;
+		_marcadores = (marcadores - puestosFIA) select {(getMarkerPos _x distance getMarkerPos _marcador < distanciaSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
+		_marcadores = _marcadores - ["Synd_HQ"];
 		_frontera = if (count _marcadores > 0) then {true} else {false};
 		if ((lados getVariable [_marcador,sideUnknown] == buenos) or (!_frontera)) then
 			{

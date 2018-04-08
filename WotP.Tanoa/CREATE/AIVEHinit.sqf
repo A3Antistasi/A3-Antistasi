@@ -164,22 +164,22 @@ else
 								_lider = leader (gunner _mortero);
 								if (!isPlayer _lider) then
 									{
-									[] remoteExec ["ataqueHQ",HCattack];
+									[[],"ataqueHQ"] remoteExec ["scheduler",2];
 									}
 								else
 									{
-									if ([_lider] call isMember) then {[] remoteExec ["ataqueHQ",HCattack]};
+									if ([_lider] call isMember) then {[[],"ataqueHQ"] remoteExec ["scheduler",2]};
 									};
 								};
 							}
 						else
 							{
-							_bases = (aeropuertos - mrkSDK) select {(getMarkerPos _x distance _posDestino < 15000) and ((spawner getVariable _x != 0)) and (dateToNumber date > server getVariable _x)};
+							_bases = aeropuertos select {(getMarkerPos _x distance _posDestino < 15000) and ((spawner getVariable _x != 0)) and (dateToNumber date > server getVariable _x) and (lados getVariable [_x,sideUnknown] != buenos)};
 							if (count _bases > 0) then
 								{
 								_base = [_bases,_posicion] call BIS_fnc_nearestPosition;
-								_lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {muyMalos};
-								[getPosASL _mortero,_lado,"Normal"] remoteExec ["patrolCA",HCattack];
+								_lado = lados getVariable [_base,sideUnknown];
+								[[getPosASL _mortero,_lado,"Normal"],"patrolCA"] remoteExec ["scheduler",2];
 								};
 							};
 						};

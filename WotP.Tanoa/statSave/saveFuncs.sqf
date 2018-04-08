@@ -29,7 +29,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","mrkSDK","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer"];
+["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -41,15 +41,13 @@ fn_SetStat =
 		if(_varName == 'cuentaCA') then {cuentaCA = _varValue; publicVariable "cuentaCA"};
 		if(_varName == 'miembros') then {miembros = +_varValue; publicVariable "miembros"};
 		if(_varName == 'smallCAmrk') then {smallCAmrk = +_varValue};
-		if(_varName == 'mrkNATO') then {mrkNATO = +_varValue;};
-		if(_varName == 'mrkCSAT') then {mrkCSAT = +_varValue;};
-		if(_varName == 'mrkSDK') then {mrkSDK = +_varValue;};
+		if(_varName == 'mrkNATO') then {{lados setVariable [_x,malos,true]} forEach _varValue;};
+		if(_varName == 'mrkCSAT') then {{lados setVariable [_x,muyMalos,true]} forEach _varValue;};
+		if(_varName == 'mrkSDK') then {{lados setVariable [_x,buenos,true]} forEach _varValue;};
 		if(_varName == 'controlesSDK') then
 			{
 			{
-			mrkSDK pushBackUnique _x;
-			mrkNATO = mrkNATO - [_x];
-			mrkCSAT = mrkCSAT - [_x];
+			lados setVariable [_x,buenos,true]
 			} forEach _varValue;
 			};
 		if(_varName == 'chopForest') then {chopForest = _varValue; publicVariable "chopForest"};
@@ -202,7 +200,6 @@ fn_SetStat =
 				garrison setVariable [_mrk,_garrison,true];
 				} forEach _varvalue;
 				};
-			//mrkSDK = mrkSDK + puestosFIA;
 			};
 
 		if(_varName == 'antenas') then
@@ -294,9 +291,7 @@ fn_SetStat =
 			{
 			{if (getMarkerPos _x distance _varvalue < 1000) then
 				{
-				mrkNATO = mrkNATO - [_x];
-				mrkCSAT = mrkCSAT - [_x];
-				mrkSDK = mrkSDK + [_x];
+				lados setVariable [_x,buenos,true];
 				};
 			} forEach controles;
 			"respawn_guerrila" setMarkerPos _varValue;

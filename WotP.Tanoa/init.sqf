@@ -24,11 +24,11 @@ if (!isMultiPlayer) then
     [caja,unlockedMagazines,true,false] call addVirtualMagazineCargo;
     [caja,unlockedWeapons,true,false] call addVirtualWeaponCargo;
     [caja,unlockedBackpacks,true,false] call addVirtualBackpackCargo;
-    */
+
     HCciviles = 2;
     HCgarrisons = 2;
-    HCattack = 2;
-    hcArray = [HC1,HC2,HC3];
+    HCattack = 2;*/
+    hcArray = [];
     serverInitDone = true;
     diag_log "Antistasi SP. serverInitDone is true. Arsenal loaded";
     _nul = [] execVM "modBlacklist.sqf";
@@ -59,7 +59,7 @@ if(isServer) then
 
     waitUntil {!isNil "serverID"};
 
-    if /*(serverName in servidoresOficiales)*/(true) then
+    if (serverName in servidoresOficiales) then
         {
         ["miembros"] call fn_LoadStat;
         _nul = [] execVM "orgPlayers\mList.sqf";

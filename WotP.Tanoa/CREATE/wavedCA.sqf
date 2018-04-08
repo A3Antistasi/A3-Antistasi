@@ -46,16 +46,6 @@ if (_esSDK) then
 	}
 else
 	{
-	/*
-	if (_lado == malos) then
-		{
-		_forced = (controles + puestos + aeropuertos) select {(_x in mrkCSAT) and (getMarkerPos _x distance _posDestino < distanciaSPWN)};
-		}
-	else
-		{
-		_forced = (controles + puestos + aeropuertos) select {(_x in mrkNATO) and (getMarkerPos _x distance _posDestino < distanciaSPWN)};
-		};
-	*/
 	if (not(_mrkDestino in _forced)) then {_forced pushBack _mrkDestino};
 	};
 
@@ -700,11 +690,7 @@ while {(_waves != 0)} do
 				{
 				[0,-100,_mrkDestino] remoteExec ["citySupportChange",2];
 				["TaskFailed", ["", format ["%1 joined NATO",[_mrkDestino, false] call fn_location]]] remoteExec ["BIS_fnc_showNotification",buenos];
-				mrkNATO = mrkNATO + [_mrkDestino];
-				mrkSDK = mrkSDK - [_mrkDestino];
 				lados setVariable [_mrkDestino,malos,true];
-				publicVariable "mrkNATO";
-				publicVariable "mrkSDK";
 				_nul = [-5,0] remoteExec ["prestige",2];
 				_mrkD = format ["Dum%1",_mrkDestino];
 				_mrkD setMarkerColor colorMalos;
@@ -717,7 +703,7 @@ while {(_waves != 0)} do
 			_tiempo = time + 3600;
 			if (lados getVariable [_mrkOrigen,sideUnknown] == malos) then
 				{
-				_killZones = killZones getVariable _mrkOrigen;
+				_killZones = killZones getVariable [_mrkOrigen,[]];
 				_killZones append [_mrkDestino,_mrkDestino,_mrkDestino];
 				killZones setVariable [_mrkOrigen,_killZones,true];
 				};
@@ -751,11 +737,11 @@ while {(_waves != 0)} do
 			diag_log format ["Antistasi debug wavedCA: Wave number %1 on wavedCA lost",_waves];
 			if (lados getVariable [_mrkOrigen,sideUnknown] == muyMalos) then
 				{
-				_killZones = killZones getVariable _mrkOrigen;
+				_killZones = killZones getVariable [_mrkOrigen,[]];
 				_killZones append [_mrkDestino,_mrkDestino,_mrkDestino];
 				killZones setVariable [_mrkOrigen,_killZones,true];
 				};
-			if ((_waves == 0) or (!(_mrkOrigen in mrkCSAT))) then
+			if ((_waves == 0) or (lados getVariable [_mrkOrigen,sideUnknown] != muyMalos)) then
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
 				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
@@ -798,15 +784,15 @@ forcedSpawn = forcedSpawn - [_mrkDestino]; publicVariable "forcedSpawn";
 
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - HCArray)) == 0)) then {deleteVehicle _x};
+if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
 } forEach _vehiculos;
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - HCArray)) == 0)) then {deleteVehicle _x; _soldadosTotal = _soldadosTotal - [_x]};
+if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldadosTotal = _soldadosTotal - [_x]};
 } forEach _soldadosTotal;
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - HCArray)) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
+if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
 } forEach _pilotos;
 
 if (count _soldadosTotal > 0) then
@@ -816,7 +802,7 @@ if (count _soldadosTotal > 0) then
 		{
 		private ["_veh"];
 		_veh = _this select 0;
-		waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - HCArray)) == 0)};
+		waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 		deleteVehicle _veh;
 		};
 	} forEach _soldadosTotal;
@@ -829,7 +815,7 @@ if (count _pilotos > 0) then
 		{
 		private ["_veh"];
 		_veh = _this select 0;
-		waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - HCArray)) == 0)};
+		waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 		deleteVehicle _veh;
 		};
 	} forEach _pilotos;

@@ -26,7 +26,7 @@ if (vehicle _player != _player) then
 	}
 else
 	{
-	if ((primaryWeapon _player != "") or (secondaryWeapon _player != "") or (handgunWeapon _player != "") or (vest _player != "") or (headgear _player in cascos) or (hmd _player != "") or (not(uniform _player in civUniforms))) then
+	if ((primaryWeapon _player != "") or (secondaryWeapon _player != "") or (handgunWeapon _player != "") or (vest _player != "") or (getNumber (configfile >> "CfgWeapons" >> headgear _player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2) or (hmd _player != "") or (not(uniform _player in civUniforms))) then
 		{
 		hint "You cannot become Undercover while showing:\n\nAny weapon in hand\nWearing Vest\nWearing Helmet\nWearing NV Googles\nWearing a Mil Uniform";
 		_cambiar = "Init";
@@ -115,7 +115,7 @@ while {_cambiar == ""} do
 			}
 		else
 			{
-			if ((primaryWeapon _player != "") or (secondaryWeapon _player != "") or (handgunWeapon _player != "") or (vest _player != "") or (headgear _player in cascos) or (hmd _player != "") or (not(uniform _player in civUniforms))) then
+			if ((primaryWeapon _player != "") or (secondaryWeapon _player != "") or (handgunWeapon _player != "") or (vest _player != "") or (getNumber (configfile >> "CfgWeapons" >> headgear _player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2) or (hmd _player != "") or (not(uniform _player in civUniforms))) then
 				{
 				if ({((side _x== muyMalos) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_cambiar = "Vestido2"} else {_cambiar = "Vestido"};
 				};
@@ -130,7 +130,7 @@ while {_cambiar == ""} do
 				{
 				_base = [_aeropuertos,_player] call BIS_fnc_nearestPosition;
 				//_size = [_base] call sizeMarker;
-				if ((_player inArea _base) and ((_base in mrkNATO) or (_base in mrkCSAT))) then
+				if ((_player inArea _base) and (lados getVariable [_base,sideUnknown] != buenos)) then
 					{
 					if (!(_base in controles)) then
 						{
@@ -140,7 +140,7 @@ while {_cambiar == ""} do
 						{
 						if !(_estaEnControl) then
 							{
-							_aggro = if (_base in mrkNATO) then {prestigeNATO} else {prestigeCSAT};
+							_aggro = if (lados getVariable [_base,sideUnknown] == malos) then {prestigeNATO} else {prestigeCSAT};
 							if (random 100 < _aggro) then
 								{
 								_cambiar = "Control";

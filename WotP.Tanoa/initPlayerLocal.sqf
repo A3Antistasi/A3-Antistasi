@@ -12,7 +12,7 @@ if (isMultiplayer) then
 		call compile preprocessFileLineNumbers "initFuncs.sqf";
 		};
 	};
-if (!hasInterface) exitWith {};
+if (!hasInterface) exitWith {[clientOwner] remoteExec ["addHC",2]};
 _isJip = _this select 1;
 
 if (isMultiplayer) then {waitUntil {!isNil "initVar"}; diag_log format ["Antistasi MP Client. initVar is public. Version %1",antistasiVersion];};
@@ -405,7 +405,7 @@ if (_isJip) then
 	else
 		{
 		hint format ["Welcome back %1", name player];
-		if /*(serverName in servidoresOficiales)*/(true) then
+		if (serverName in servidoresOficiales) then
 			{
 			if ((count playableUnits == maxPlayers) and (({[_x] call isMember} count playableUnits) < count miembros)) then
 				{
@@ -469,8 +469,12 @@ if (hayRHS) then
 	{
 	_texto = _texto + ["RHS Detected\n\nAntistasi detects RHS in the server config.\nDepending on the modules will have the following effects.\n\nAFRF: Replaces CSAT by a mix of russian units\n\nUSAF: Replaces NATO by a mix of US units\n\nGREF: Recruited AI will count with RHS as basic weapons, replaces FIA with Chdk units. Adds some civilian trucks"];
 	};
+if (hayFFAA) then
+	{
+	_texto = _texto + ["FFAA Detected\n\nAntistasi detects FFAA in the server config.\nFIA Faction will be replaced by Spanish Armed Forces"];
+	};
 
-if (hayTFAR or hayACE or hayRHS or hayACRE) then
+if (hayTFAR or hayACE or hayRHS or hayACRE or hayFFAA) then
 	{
 	[_texto] spawn
 		{

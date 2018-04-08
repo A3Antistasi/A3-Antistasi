@@ -642,3 +642,26 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Removed all the exclusive official servers stuff to give the features to everyone.
 - Faster reinforcements.
 - Removed thermal googles of the NV unlocking scripts. SDK AI will spawn with random googles when unlocked.
+
+0.11.3 26/03/2018 ALPHA
+
+- Workers wont get deleted on dedicated servers without HCs.
+- Reverted some autoload features to only official servers. Autosave will be enabled in dedicated servers.
+- Bulletproofed killzone variables to avoid bugs.
+- QRFs with conquer missions wont send bombruns.
+- Smaller save file.
+- Reduced a bit number of driving civilians.
+- Garrison states on zones under attack now get saved.
+
+0.12.0 05/04/2018 ALPHA
+
+- IMPORTANT: Added dynamic headless client resource assignation. Antistasi will try to balance the AI load on HC platforms so the idle-est one will spawn AI.
+- FFAA: Added FFAA mod compatibility. Spanish soldiers will replace FIA units.
+- Corrected: No more conquest missions in forests.
+- Improved helmet detection no matter the mod you use and affecting undercover (if it has some armor, you will lose undercover status).
+- SDK AI will spawn with random helmets under certain skill levels.
+- Corrected bug in reinforcements script.
+- Corrected bug in Destroy mission request.
+- Scripted some timeout to avoid some vehicle smoke parties.
+- Reenabled QRF when players are far from original bases.
+- Paperboxes and some ACE stuff wont get persistent saved when near HQ

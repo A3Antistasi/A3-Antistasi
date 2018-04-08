@@ -4,6 +4,7 @@ if (isMultiplayer) then {waitUntil {!isNil "switchCom"}};
 
 private ["_texto"];
 scriptName "resourcecheck";
+_cuentaSave = 3600;
 while {true} do
 	{
 	sleep 600;//600
@@ -74,10 +75,6 @@ while {true} do
 	if ((_prestigeNATO < _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == malos)) then
 		{
 		["TaskSucceeded", ["", format ["%1 joined SDK",[_ciudad, false] call fn_location]]] remoteExec ["BIS_fnc_showNotification",buenos];
-		mrkNATO = mrkNATO - [_ciudad];
-		mrkSDK pushBackUnique _ciudad;
-		publicVariable "mrkNATO";
-		publicVariable "mrkSDK";
 		lados setVariable [_ciudad,buenos,true];
 		_nul = [5,0] remoteExec ["prestige",2];
 		_mrkD = format ["Dum%1",_ciudad];
@@ -90,18 +87,14 @@ while {true} do
 			_base = [_ciudad] call findBasesForConvoy;
 			if (_base != "") then
 				{
-				[_ciudad,_base] remoteExec ["CONVOY",HCattack];
+				[[_ciudad,_base],"CONVOY"] call scheduler;
 				};
 			};
 		[] call tierCheck;
 		};
-	if ((_prestigeNATO > _prestigeSDK) and (_ciudad in mrkSDK)) then
+	if ((_prestigeNATO > _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == buenos)) then
 		{
 		["TaskFailed", ["", format ["%1 joined NATO",[_ciudad, false] call fn_location]]] remoteExec ["BIS_fnc_showNotification",buenos];
-		mrkNATO = mrkNATO + [_ciudad];
-		mrkSDK = mrkSDK - [_ciudad];
-		publicVariable "mrkNATO";
-		publicVariable "mrkSDK";
 		lados setVariable [_ciudad,malos,true];
 		_nul = [-5,0] remoteExec ["prestige",2];
 		_mrkD = format ["Dum%1",_ciudad];
@@ -146,7 +139,7 @@ while {true} do
 	//[] remoteExec ["statistics",[buenos,civilian]];
 	if (isMultiplayer) then {[] spawn assignStavros};
 	if ((!bigAttackInProgress) and (random 100 < 50)) then {[] call missionRequestAUTO};
-	[] remoteExec ["reinforcementsAI",hcAttack];
+	[[],"reinforcementsAI"] call scheduler;
 	{
 	_veh = _x;
 	if ((_veh isKindOf "StaticWeapon") and ({isPlayer _x} count crew _veh == 0) and (alive _veh)) then
@@ -181,7 +174,7 @@ while {true} do
 		if (count _posibles > 0) then
 			{
 			_posible = selectRandom _posibles;
-			[_posible select 0,_posible select 1] remoteExec ["REP_Antena",HCattack];
+			[[_posible select 0,_posible select 1],"REP_Antena"] call scheduler;
 			};
 		}
 	else
@@ -197,8 +190,39 @@ while {true} do
 			["TaskSucceeded", ["", format ["%1 Rebuilt",_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 			sleep 2;
 			};
-		} forEach (destroyedCities - ciudades - mrkSDK);
+		} forEach (destroyedCities - ciudades) select {lados getVariable [_x,sideUnknown] != buenos};
 		if (_cambiado) then {publicVariable "destroyedCities"};
 		};
+	if (isDedicated) then
+		{
+		{
+		if (side _x == civilian) then
+			{
+			_var = _x getVariable "statusAct";
+			if (isNil "_var") then
+				{
+				if (local _x) then
+					{
+					if (typeOf _x != "C_man_w_worker_F") then
+						{
+						if (vehicle _x == _x) then
+							{
+							_grupo = group _x;
+							deleteVehicle _x;
+							if ({alive _x} count units _grupo == 0) then {deleteGroup _grupo};
+							};
+						};
+					};
+				};
+			};
+		} forEach allUnits;
+		_cuentaSave = _cuentaSave - 600;
+		if (_cuentaSave <= 0) then
+			{
+			_cuentaSave = 3600;
+			_nul = [] execVM "statSave\saveLoop.sqf";
+			};
+		};
+
 	sleep 4;
 	};

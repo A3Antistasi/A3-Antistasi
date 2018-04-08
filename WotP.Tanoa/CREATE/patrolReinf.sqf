@@ -37,7 +37,7 @@ if (_x == leader _x) then {_x assignAsDriver _veh;_x moveInDriver _veh} else {_x
 if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_posDestino,_grupo] call WPCreate};
 _Vwp0 = (wayPoints _grupo) select 0;
 _Vwp0 setWaypointBehaviour "SAFE";
-_Vwp0 = (wayPoints _grupo) select count (wayPoints _grupo);
+_Vwp0 = (wayPoints _grupo) select (count (wayPoints _grupo) - 1);
 _Vwp0 setWaypointType "GETOUT";
 //_Vwp0 = _grupo addWaypoint [_posDestino, count (wayPoints _grupo)];
 //_Vwp0 setWaypointType "MOVE";
@@ -55,7 +55,7 @@ _x addEventHandler ["Killed",
 		_destino = _grupo getVariable "reinfMarker";
 		if (((lados getVariable [_origen,sideUnknown] == malos) and (lados getVariable [_destino,sideUnknown] == malos)) or ((lados getVariable [_origen,sideUnknown] == muyMalos) and (lados getVariable [_destino,sideUnknown] == muyMalos))) then
 			{
-			_killzones = killZones getVariable _origen;
+			_killzones = killZones getVariable [_origen,[]];
 			_killzones pushBack _destino;
 			killZones setVariable [_origen,_killzones,true];
 			}

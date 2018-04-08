@@ -8,7 +8,8 @@ if (!(isNull attachedTo _cosa)) exitWith {hint "The asset you want to move is be
 if (vehicle _jugador != _jugador) exitWith {hint "You cannot move HQ assets while in a vehicle"};
 
 if ({!(isNull _x)} count (attachedObjects _jugador) != 0) exitWith {hint "You have other things attached, you cannot move this"};
-_marcador = [mrkSDK,_jugador] call BIS_fnc_nearestPosition;
+_sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
+_marcador = [_sitios,_jugador] call BIS_fnc_nearestPosition;
 _size = [_marcador] call sizeMarker;
 _posicion = getMarkerPos _marcador;
 if (_jugador distance2D _posicion > _size) exitWith {hint "This asset needs to be closer to it relative zone center to be able to be moved"};

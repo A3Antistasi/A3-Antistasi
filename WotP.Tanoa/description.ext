@@ -2,7 +2,7 @@
 #include "dialogs.hpp"
 
 author="Barbolani";
-OnLoadName = "Warlords of the Pacific 0.11.2";
+OnLoadName = "Warlords of the Pacific (Alpha)";
 OnLoadMission = "Business and War...";
 loadScreen = "pic.JPG";
 
@@ -13,7 +13,7 @@ allowFunctionsLog = 1;
 enableDebugConsole = 1;
 
 respawn = "BASE";
-respawnDelay = 30;
+respawnDelay = 15;
 respawnVehicleDelay = 120;
 respawnDialog = 1;
 aiKills = 0;

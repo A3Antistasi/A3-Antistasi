@@ -3,6 +3,9 @@
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
 //fpsCheck = compile preProcessFileLineNumbers "fpsCheck.sqf";
+AILoadInfo = compile preProcessFileLineNumbers "AILoadInfo.sqf";
+scheduler = compile preProcessFileLineNumbers "scheduler.sqf";
+addHC = compile preProcessFileLineNumbers "addHC.sqf";
 buyBoat = compile preProcessFileLineNumbers "REINF\buyBoat.sqf";
 construir = compile preProcessFileLineNumbers "REINF\construir.sqf";
 isBuildingPosition = compile preProcessFileLineNumbers "AI\Buildings\isBuildingPosition.sqf";
@@ -60,7 +63,7 @@ borrarTask = compile preProcessFileLineNumbers "Missions\borrarTask.sqf";
 taskUpdate = compile preProcessFileLineNumbers "Missions\taskUpdate.sqf";
 undercover = compile preProcessFileLineNumbers "undercover.sqf";
 puertasLand = compile preProcessFileLineNumbers "AI\puertasLand.sqf";
-AAthreatEval = compile preProcessFileLineNumbers "AI\AAthreatEval.sqf";
+//AAthreatEval = compile preProcessFileLineNumbers "AI\AAthreatEval.sqf";
 mortyAI = compile preProcessFileLineNumbers "AI\mortyAI.sqf";
 surrenderAction = compile preProcessFileLineNumbers "AI\surrenderAction.sqf";
 guardDog = compile preProcessFileLineNumbers "AI\guardDog.sqf";

@@ -18,7 +18,7 @@ if ((server getVariable "resourcesFIA" < _coste) or (server getVariable "hr" < _
 if (_tipo == "delete") exitWith
 	{
 	hint "Explosive Specialists is available on your High Command bar.\n\nSend him anywhere on the map and he will deactivate and load in his truck any mine he may find.\n\nReturning back to HQ will unload the mines he stored in his vehicle";
-	[] remoteExec ["mineSweep",HCattack];
+	[[],"mineSweep"] remoteExec ["scheduler",2];
 	};
 
 #include "\A3\Ui_f\hpp\defineResinclDesign.inc"
@@ -57,4 +57,4 @@ if (_cantidad > _cantidadMax) then
 	_cantidad = _cantidadMax;
 	};
 
-[_tipo,_posicionTel,_cantidad] remoteExec ["buildMinefield",HCattack];
+[[_tipo,_posicionTel,_cantidad],"buildMinefield"] remoteExec ["scheduler",2];

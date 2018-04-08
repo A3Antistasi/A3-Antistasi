@@ -116,7 +116,7 @@ if (_esControl) then
 	}
 else
 	{
-	_marcadores = mrkSDK select {getMarkerPos _x distance _posicion < distanciaSPWN};
+	_marcadores = marcadores select {(getMarkerPos _x distance _posicion < distanciaSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
 	_marcadores = _marcadores - ["Synd_HQ"] - puestosFIA;
 	_frontera = if (count _marcadores > 0) then {true} else {false};
 	if (_frontera) then
@@ -197,43 +197,31 @@ if (spawner getVariable _marcador != 2) then
 		};
 	if (lados getVariable [_marcador,sideUnknown] == malos) then
 		{
-		mrkNATO = mrkNATO - [_marcador];
-		publicVariable "mrkNATO";
 		if (_winner == muyMalos) then
 			{
-			mrkCSAT pushBackUnique _marcador;
-			publicVariable "mrkCSAT";
 			_nul = [-5,0,_posicion] remoteExec ["citySupportChange",2];
 			lados setVariable [_marcador,muyMalos,true];
 			}
 		else
 			{
-			mrkSDK pushBack _marcador;
-			publicVariable "mrkSDK";
 			lados setVariable [_marcador,buenos,true];
 			};
 		}
 	else
 		{
-		mrkCSAT = mrkCSAT - [_marcador];
-		publicVariable "mrkCSAT";
 		_loser = muyMalos;
 		if (_winner == malos) then
 			{
-			mrkNATO pushBackUnique _marcador;
-			publicVariable "mrkNATO";
 			lados setVariable [_marcador,malos,true];
 			_nul = [5,0,_posicion] remoteExec ["citySupportChange",2];
 			}
 		else
 			{
-			mrkSDK pushBack _marcador;
-			publicVariable "mrkSDK";
 			lados setVariable [_marcador,buenos,true];
 			_nul = [0,5,_posicion] remoteExec ["citySupportChange",2];
 			};
 		};
-	if (_winner == buenos) then {[_posicion,_lado] remoteExec ["patrolCA",HCattack]};
+	if (_winner == buenos) then {[[_posicion,_lado],"patrolCA"] remoteExec ["scheduler",2]};
 	};
 
 waitUntil {sleep 1;(spawner getVariable _marcador == 2)};
@@ -263,18 +251,14 @@ if (_conquistado) then
 		_fechalimnum = dateToNumber _fechalim;
 		waitUntil {sleep 60;(dateToNumber date > _fechalimnum)};
 		_base = [(marcadores - controles),_posicion] call BIS_fnc_nearestPosition;
-		if (_base in mrkNATO) then
+		if (lados getVariable [_base,sideUnknown] == malos) then
 			{
-			mrkNATO pushBackUnique _marcador;
-			publicVariable "mrkNATO";
 			lados setVariable [_marcador,malos,true];
 			}
 		else
 			{
 			if (lados getVariable [_base,sideUnknown] == muyMalos) then
 				{
-				mrkCSAT pushBackUnique _marcador;
-				publicVariable "mrkCSAT";
 				lados setVariable [_marcador,muyMalos,true];
 				};
 			};

@@ -39,8 +39,8 @@ statsLoaded = 0; publicVariable "statsLoaded";
 petros allowdamage false;
 
 ["puestosFIA"] call fn_LoadStat; publicVariable "puestosFIA";
-["mrkSDK"] call fn_LoadStat; mrkSDK = mrkSDK + puestosFIA; publicVariable "mrkSDK"; if (isMultiplayer) then {sleep 5};
-["mrkNATO"] call fn_LoadStat;
+["mrkSDK"] call fn_LoadStat; if (isMultiplayer) then {sleep 5};
+//["mrkNATO"] call fn_LoadStat;
 ["mrkCSAT"] call fn_LoadStat;
 ["destroyedCities"] call fn_LoadStat;
 ["minas"] call fn_LoadStat;
@@ -150,81 +150,37 @@ publicVariable "unlockedAT";
 publicVariable "unlockedAA";
 if ("NVGoggles" in unlockedItems) then {haveNV = true; publicVariable "haveNV"};
 if (!haveRadio) then {if ("ItemRadio" in unlockedItems) then {haveRadio = true; publicVariable "haveRadio"}};
-_marcadores = mrkSDK + mrkNATO + mrkCSAT;
 
 {
-if !(_x in mrkSDK) then
+if (lados getVariable [_x,sideUnknown] != buenos) then
 	{
 	_posicion = getMarkerPos _x;
-	_cercano = [_marcadores,_posicion] call BIS_fnc_nearestPosition;
-	if (_cercano in mrkSDK) then
-		{
-		if (_x in mrkNATO) then {mrkNATO = mrkNATO - [_x]};
-		if (_x in mrkCSAT) then {mrkCSAT = mrkCSAT - [_x]};
-		mrkSDK pushBackUnique _x;
-		}
-	else
-		{
-		if (_cercano in mrkNATO) then {mrkNATO pushBackUnique _x} else {mrkCSAT pushBackUnique _x};
-		};
+	_cercano = [(marcadores - controles - puestosFIA),_posicion] call BIS_fnc_nearestPosition;
+	_lado = lados getVariable [_cercano,sideUnknown];
+	lados setVariable [_x,_lado,true];
 	};
 } forEach controles;
 
+
 {
-if ((not(_x in mrkNATO)) and (not(_x in mrkSDK)) and (_x != "Synd_HQ") and (not(_x in mrkCSAT))) then {mrkNATO pushBack _x};
+if (lados getVariable [_x,sideUnknown] == sideUnknown) then
+	{
+	lados setVariable [_x,malos,true];
+	};
 } forEach marcadores;
 
-{if (lados getVariable [_x,sideUnknown] != buenos) then {lados setVariable [_x,buenos,true]}} forEach mrkSDK;
-{if (lados getVariable [_x,sideUnknown] != malos) then {lados setVariable [_x,malos,true]}} forEach mrkNATO;
-{if (lados getVariable [_x,sideUnknown] != muyMalos) then {lados setVariable [_x,muyMalos,true]}} forEach mrkCSAT;
-
-_marcadores = _marcadores + controles;
-
-{[_x] call mrkUpdate} forEach _marcadores;
+{[_x] call mrkUpdate} forEach (marcadores - controles);
 
 {if (_x in destroyedCities) then {[_x] call destroyCity}} forEach ciudades;
 
-{if (not (_x in _marcadores)) then {if (_x != "Synd_HQ") then {_marcadores pushBack _x; mrkNATO pushback _x} else {mrkNATO = mrkNATO - ["Synd_HQ"]; if (not("Synd_HQ" in mrkSDK)) then {mrkSDK = mrkSDK + ["Synd_HQ"]}}}} forEach marcadores;//por si actualizo zonas.
-
-marcadores = _marcadores;
-publicVariable "marcadores";
-publicVariable "mrkNATO";
-publicVariable "mrkSDK";
-publicVariable "mrkCSAT";
 ["chopForest"] call fn_LoadStat;
 ["posHQ"] call fn_LoadStat;
 ["estaticas"] call fn_LoadStat;//tiene que ser el último para que el sleep del borrado del contenido no haga que despawneen
 
-//call AAFassets;
-/*
-if (isMultiplayer) then
-	{
-	{
-	_jugador = _x;
-	if (side _jugador == buenos) then
-		{
-		if ([_jugador] call isMember) then
-			{
-			{_jugador removeMagazine _x} forEach magazines _jugador;
-			{_jugador removeWeaponGlobal _x} forEach weapons _jugador;
-			removeBackpackGlobal _jugador;
-			};
-		_jugador setPos (getMarkerPos "respawn_guerrila");
-		if (("ItemRadio" in unlockedItems) and (!hayTFAR)) then {_jugador linkItem "ItemRadio"};
-		}
-	} forEach playableUnits;
-	}
-else
-	{
-	{player removeMagazine _x} forEach magazines player;
-	{player removeWeaponGlobal _x} forEach weapons player;
-	removeBackpackGlobal player;
-	player setPos (getMarkerPos "respawn_guerrila");
-	if (("ItemRadio" in unlockedItems) and (!hayTFAR) and (!hayACRE)) then {player linkItem "ItemRadio"};
-	};
-*/
+
 if (!isMultiPlayer) then {player setPos posHQ} else {{_x setPos posHQ} forEach playableUnits};
-tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count mrkSDK)) + (10*({_x in puertos} count mrkSDK)) + (20*({_x in aeropuertos} count mrkSDK)))/10));
+_sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
+tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in aeropuertos} count _sitios)))/10));
 if (tierWar > 10) then {tierWar = 10};
 publicVariable "tierWar";
 

@@ -17,11 +17,7 @@ _nul = [] execVM "modBlacklist.sqf";
 
 stavros = objNull;
 maxPlayers = playableSlotsNumber buenos;
-if /*(serverName in servidoresOficiales)*/(true) then
-    {
-    _nul = [] execVM "serverAutosave.sqf";
-    }
-else
+if !(serverName in servidoresOficiales) then
     {
     if (isNil "comandante") then {comandante = (playableUnits select 0)};
     if (isNull comandante) then {comandante = (playableUnits select 0)};
@@ -45,53 +41,19 @@ publicVariable "maxPlayers";
 
 hcArray = [];
 
-//{if (owner _x != owner server) then {hcArray pushBack _x}} forEach entities "HeadlessClient_F";
 
-if (!isNil "HC1") then {hcArray pushBack HC1};
-if (!isNil "HC2") then {hcArray pushBack HC2};
-if (!isNil "HC3") then {hcArray pushBack HC3};
-
-HCciviles = 2;
-HCgarrisons = 2;
-HCattack = 2;
-if (count hcArray > 0) then
-    {
-    HCciviles = 2;
-    HCgarrisons = hcArray select 0;
-    HCattack = 2;
-    diag_log "Antistasi MP Server. Headless Client 1 detected";
-    if (count hcArray > 1) then
-        {
-        HCciviles = hcArray select 1;
-        HCattack = hcArray select 1;
-        diag_log "Antistasi MP Server. Headless Client 2 detected";
-        if (count hcArray > 2) then
-            {
-            HCciviles = hcArray select 2;
-            diag_log "Antistasi MP Server. Headless Client 3 detected";
-            };
-        };
-    };
-//[] remoteExec ["fpsCheck",HCGarrisons];
-publicVariable "HCciviles";
-publicVariable "HCgarrisons";
-publicVariable "HCattack";
-publicVariable "hcArray";
-//lockedWeapons = lockedWeapons - unlockedWeapons;
 caja call jn_fnc_arsenal_init;
 {
 private _index = _x call jn_fnc_arsenal_itemType;
 [_index,_x,-1] call jn_fnc_arsenal_addItem;
 }foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);
-//["buttonInvToJNA"] call jn_fnc_arsenal;
-
 
 
 diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"commsMP"] call BIS_fnc_MP;
 
 addMissionEventHandler ["HandleDisconnect",{[_this select 0] call onPlayerDisconnect;false}];
-addMissionEventHandler ["PlayerDisconnected",{
+/*addMissionEventHandler ["PlayerDisconnected",{
     _owner = _this select 4;
     {
     if ((groupOwner _x == _owner) and (side _x == civilian)) then
@@ -102,7 +64,7 @@ addMissionEventHandler ["PlayerDisconnected",{
         };
     } forEach allGroups;
     }];
-
+*/
 
 serverInitDone = true; publicVariable "serverInitDone";
 diag_log "Antistasi MP Server. serverInitDone set to true.";

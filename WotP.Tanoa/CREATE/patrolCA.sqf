@@ -52,21 +52,21 @@ _posDestino = if (!_esMarcador) then {_marcador} else {getMarkerPos _marcador};
 
 if (!_inWaves) then
 	{
-	_aeropuertos = if (_lado == malos) then {aeropuertos - mrkSDK - mrkCSAT} else {aeropuertos - mrkSDK - mrkNATO};
-	_aeropuertos = _aeropuertos select 	{(getMarkerPos _x distance _posDestino < 15000) and  ([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits)/*(spawner getVariable _x == 2)*/ and (dateToNumber date > server getVariable _x)};
+	_aeropuertos = aeropuertos select {lados getVariable [_x,sideUnknown] == _lado};
+	_aeropuertos = _aeropuertos select 	{(getMarkerPos _x distance _posDestino < 15000) and  !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits)/*(spawner getVariable _x == 2)*/ and (dateToNumber date > server getVariable _x)};
 	if (_esMarcador) then
 		{
-		_aeropuertos = _aeropuertos select {({_x == _marcador} count (killZones getVariable _x)) < 3};
+		_aeropuertos = _aeropuertos select {({_x == _marcador} count (killZones getVariable [_x,[]])) < 3};
 		}
 	else
 		{
 		if (_typeOfAttack == "Normal") then
 			{
-			_puestos = if (_lado == malos) then {puestos - mrkSDK - mrkCSAT} else {puestos - mrkSDK - mrkNATO};
+			_puestos = puestos select {lados getVariable [_x,sideUnknown] == _lado};
 			_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < 2500)  and ([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits)/*and (spawner getVariable _x == 2)*/ and (dateToNumber date > server getVariable _x)});
 			};
 		_sitio = [(recursos + fabricas + aeropuertos + puestos + puertos),_marcador] call BIS_fnc_nearestPosition;
-		_aeropuertos = _aeropuertos select {({_x == _sitio} count (killZones getVariable _x)) < 3};
+		_aeropuertos = _aeropuertos select {({_x == _sitio} count (killZones getVariable [_x,[]])) < 3};
 		};
 	if (count _aeropuertos == 0) then
 		{
@@ -96,7 +96,7 @@ if (_exit) exitWith {diag_log format ["Antistasi PatrolCA: CA cancelled because 
 */
 _enemigos = if (_lado == malos) then {allUnits select {_x distance _posDestino < distanciaSPWN2 and (side _x != _lado) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _posDestino < distanciaSPWN2 and (side _x != _lado) and (alive _x)}};
 
-if ((_base == "") or (!_esMarcador) and (_typeOfAttack != "Air")) then
+if ((_base == "") and (!_esMarcador) and (_typeOfAttack != "Air")) then
 	{
 	_plane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
 	if ([_plane] call vehAvailable) then
@@ -638,7 +638,7 @@ if (_esMarcador) then
 			{_x doMove _posorigen} forEach _soldados;
 			if (lados getVariable [_aeropuerto,sideUnknown] == malos) then
 				{
-				_killZones = killZones getVariable _aeropuerto;
+				_killZones = killZones getVariable [_aeropuerto,[]];
 				_killZones = _killZones + [_marcador,_marcador];
 				killZones setVariable [_aeropuerto,_killZones,true];
 				};
@@ -659,7 +659,7 @@ if (_esMarcador) then
 			{_x doMove _posorigen} forEach _soldados;
 			if (lados getVariable [_aeropuerto,sideUnknown] == muyMalos) then
 				{
-				_killZones = killZones getVariable _aeropuerto;
+				_killZones = killZones getVariable [_aeropuerto,[]];
 				_killZones = _killZones + [_marcador,_marcador];
 				killZones setVariable [_aeropuerto,_killZones,true];
 				};
@@ -678,7 +678,7 @@ else
 		{
 		_marcadores = recursos + fabricas + aeropuertos + puestos + puertos select {getMarkerPos _x distance _posDestino < distanciaSPWN};
 		_sitio = if (_base != "") then {_base} else {_aeropuerto};
-		_killZones = killZones getVariable _sitio;
+		_killZones = killZones getVariable [_sitio,[]];
 		_killZones append _marcadores;
 		killZones setVariable [_sitio,_killZones,true];
 		diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to %3 failed",_aeropuerto,_base,_marcador];
@@ -692,11 +692,11 @@ if (_marcador in forcedSpawn) then {forcedSpawn = forcedSpawn - [_marcador]; pub
 
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - HCArray)) == 0)) then {deleteVehicle _x};
+if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
 } forEach _vehiculos;
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - HCArray)) == 0)) then {deleteVehicle _x; _soldados = _soldados - [_x]};
+if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldados = _soldados - [_x]};
 } forEach _soldados;
 
 if (count _soldados > 0) then
@@ -706,7 +706,7 @@ if (count _soldados > 0) then
 		{
 		private ["_veh"];
 		_veh = _this select 0;
-		waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - HCArray)) == 0)};
+		waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 		deleteVehicle _veh;
 		};
 	} forEach _soldados;

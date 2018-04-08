@@ -109,7 +109,7 @@ _mrkfin setMarkerShape "ICON";
 _pos = (getMarkerPos "respawn_guerrila") findEmptyPosition [1,50,"C_Van_01_box_F"];
 
 _camion = "C_Van_01_box_F" createVehicle _pos;
-{_x reveal _camion} forEach (allPlayers - hcArray);
+{_x reveal _camion} forEach (allPlayers - (entities "HeadlessClient_F"));
 [_camion] call AIVEHinit;
 _camion setVariable ["destino",_nombredest,true];
 _camion addEventHandler ["GetIn",
@@ -165,7 +165,7 @@ if ((dateToNumber date > _fechalimnum) or (!alive _camion)) then
 else
 	{
 	_cuenta = 120*_bonus;//120
-	[_posicion,malos] remoteExec ["patrolCA",HCattack];
+	[[_posicion,malos],"patrolCA"] remoteExec ["scheduler",2];
 	[10*_bonus,-20*_bonus,_marcador] remoteExec ["citySupportChange",2];
 	["TaskFailed", ["", format ["Bank of %1 being assaulted",_nombredest]]] remoteExec ["BIS_fnc_showNotification",malos];
 	{_amigo = _x;
@@ -210,7 +210,7 @@ if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) the
 	[0,5000*_bonus] remoteExec ["resourcesFIA",2];
 	[10*_bonus,0] remoteExec ["prestige",2];
 	[1800*_bonus] remoteExec ["timingCA",2];
-	{if (_x distance _camion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+	{if (_x distance _camion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 	[5*_bonus,stavros] call playerScoreAdd;
 	};
 if (!alive _camion) then

@@ -5,9 +5,9 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 0.11.2";
+antistasiVersion = "v 0.12.0";
 
-//servidoresOficiales = ["WotP Official USA"];
+servidoresOficiales = ["WotP Official USA"];
 
 debug = false;//debug variable, not useful for everything..
 
@@ -60,6 +60,8 @@ mguns = [];
 hguns = [];
 mlaunchers = [];
 rlaunchers = [];
+cascos = [];
+//vests = [];
 
 hayRHS = false;
 
@@ -89,6 +91,14 @@ _allLaunchers = "
     { getNumber ( _x >> ""type"" ) isEqualTo 4 } } )
 " configClasses ( configFile >> "cfgWeapons" );
 
+_allItems = "
+    ( getNumber ( _x >> ""scope"" ) isEqualTo 2
+    &&
+    { getText ( _x >> ""simulation"" ) isEqualTo ""Weapon""
+    &&
+    { getNumber ( _x >> ""type"" ) isEqualTo 131072 } } )
+" configClasses ( configFile >> "cfgWeapons" );
+
 primaryMagazines = [];
 _yaMetidos = [];
 {
@@ -109,16 +119,22 @@ if (not(_nombre in _yaMetidos)) then
 		case "Handgun": {hguns pushBack _nombre};
 		case "MissileLauncher": {mlaunchers pushBack _nombre};
 		case "RocketLauncher": {rlaunchers pushBack _nombre};
+		case "Headgear": {cascos pushBack _nombre};
+		//case "Vest": {vests pushBack _nombre};
 		};
 
 	};
-} forEach _allPrimaryWeapons + _allHandGuns + _allLaunchers;
+} forEach _allPrimaryWeapons + _allHandGuns + _allLaunchers + _allItems;
 
+cascos = cascos select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2};
+//vests = vests select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor") > 5};
 activeAFRF = false;
 activeUSAF = false;
 activeGREF = false;
+hayFFAA = false;
 
 if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hayRHS = true};
+if ("ffaa_armas_hkg36k_normal" in arifles) then {hayFFAA = true};
 if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hayRHS = true};
 if ("rhs_weap_m92" in arifles) then {activeGREF = true; hayRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
 
@@ -131,7 +147,7 @@ minasAAF = if (!hayRHS) then {["SLAMDirectionalMine_Wire_Mag","SatchelCharge_Rem
 itemsAAF = if (!hayRHS) then {["FirstAidKit","Medikit","MineDetector","NVGoggles","ToolKit","muzzle_snds_H","muzzle_snds_L","muzzle_snds_M","muzzle_snds_B","muzzle_snds_H_MG","muzzle_snds_acp","bipod_03_F_oli","muzzle_snds_338_green","muzzle_snds_93mmg_tan","Rangefinder","Laserdesignator","ItemGPS","acc_pointer_IR","ItemRadio"]} else {["FirstAidKit","Medikit","MineDetector","ToolKit","ItemGPS","acc_pointer_IR","ItemRadio"]};//possible items that spawn in AAF ammoboxes
 NVGoggles = ["NVGoggles_OPFOR","NVGoggles_INDEP","O_NVGoggles_hex_F","O_NVGoggles_urb_F","O_NVGoggles_ghex_F","NVGoggles_tna_F"/*,"NVGogglesB_blk_F","NVGogglesB_grn_F"/*,"NVGogglesB_gry_F"*/,"NVGoggles"];
 opticasAAF = if (!hayRHS) then {["optic_Arco","optic_Hamr","optic_Aco","optic_ACO_grn","optic_Aco_smg","optic_ACO_grn_smg","optic_Holosight","optic_Holosight_smg","optic_SOS","optic_MRCO","optic_NVS","optic_Nightstalker","optic_tws","optic_tws_mg","optic_DMS","optic_Yorris","optic_MRD","optic_LRPS","optic_AMS","optic_AMS_khk","optic_AMS_snd","optic_KHS_blk","optic_KHS_hex","optic_KHS_old","optic_KHS_tan","optic_Arco_blk_F","optic_Arco_ghex_F","optic_DMS_ghex_F","optic_Hamr_khk_F","optic_ERCO_blk_F","optic_ERCO_khk_F","optic_ERCO_snd_F","optic_SOS_khk_F","optic_LRPS_tna_F","optic_LRPS_ghex_F","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg_blk_F"]} else {[]};
-cascos = ["H_HelmetB","H_HelmetB_camo","H_HelmetB_light","H_HelmetSpecB","H_HelmetSpecB_paint1","H_HelmetSpecB_paint2","H_HelmetSpecB_blk","H_HelmetSpecB_snakeskin","H_HelmetSpecB_sand","H_HelmetIA","H_HelmetB_grass","H_HelmetB_snakeskin","H_HelmetB_desert","H_HelmetB_black","H_HelmetB_sand","H_HelmetCrew_B","H_HelmetCrew_O","H_HelmetCrew_I","H_PilotHelmetFighter_B","H_PilotHelmetFighter_O","H_PilotHelmetFighter_I","H_PilotHelmetHeli_B","H_PilotHelmetHeli_O","H_PilotHelmetHeli_I","H_CrewHelmetHeli_B","H_CrewHelmetHeli_O","H_CrewHelmetHeli_I","H_HelmetO_ocamo","H_HelmetLeaderO_ocamo","H_HelmetB_light_grass","H_HelmetB_light_snakeskin","H_HelmetB_light_desert","H_HelmetB_light_black","H_HelmetB_light_sand","H_HelmetO_oucamo","H_HelmetLeaderO_oucamo","H_HelmetSpecO_ocamo","H_HelmetSpecO_blk","H_RacingHelmet_1_F","H_RacingHelmet_2_F","H_RacingHelmet_3_F","H_RacingHelmet_4_F","H_RacingHelmet_1_black_F","H_RacingHelmet_1_blue_F","H_RacingHelmet_1_green_F","H_RacingHelmet_1_red_F","H_RacingHelmet_1_white_F","H_RacingHelmet_1_yellow_F","H_RacingHelmet_1_orange_F","H_Helmet_Skate","H_HelmetB_TI_tna_F","H_HelmetO_ViperSP_hex_F","H_HelmetO_ViperSP_ghex_F","H_HelmetB_tna_F","H_HelmetB_Enh_tna_F","H_HelmetB_Light_tna_F","H_HelmetSpecO_ghex_F","H_HelmetLeaderO_ghex_F","H_HelmetO_ghex_F","H_HelmetCrew_O_ghex_F","H_HelmetB_paint","H_HelmetB_plain_mcamo","H_HelmetB_plain_blk","H_HelmetIA_net","H_HelmetIA_camo"];
+//cascos = ["H_HelmetB","H_HelmetB_camo","H_HelmetB_light","H_HelmetSpecB","H_HelmetSpecB_paint1","H_HelmetSpecB_paint2","H_HelmetSpecB_blk","H_HelmetSpecB_snakeskin","H_HelmetSpecB_sand","H_HelmetIA","H_HelmetB_grass","H_HelmetB_snakeskin","H_HelmetB_desert","H_HelmetB_black","H_HelmetB_sand","H_HelmetCrew_B","H_HelmetCrew_O","H_HelmetCrew_I","H_PilotHelmetFighter_B","H_PilotHelmetFighter_O","H_PilotHelmetFighter_I","H_PilotHelmetHeli_B","H_PilotHelmetHeli_O","H_PilotHelmetHeli_I","H_CrewHelmetHeli_B","H_CrewHelmetHeli_O","H_CrewHelmetHeli_I","H_HelmetO_ocamo","H_HelmetLeaderO_ocamo","H_HelmetB_light_grass","H_HelmetB_light_snakeskin","H_HelmetB_light_desert","H_HelmetB_light_black","H_HelmetB_light_sand","H_HelmetO_oucamo","H_HelmetLeaderO_oucamo","H_HelmetSpecO_ocamo","H_HelmetSpecO_blk","H_RacingHelmet_1_F","H_RacingHelmet_2_F","H_RacingHelmet_3_F","H_RacingHelmet_4_F","H_RacingHelmet_1_black_F","H_RacingHelmet_1_blue_F","H_RacingHelmet_1_green_F","H_RacingHelmet_1_red_F","H_RacingHelmet_1_white_F","H_RacingHelmet_1_yellow_F","H_RacingHelmet_1_orange_F","H_Helmet_Skate","H_HelmetB_TI_tna_F","H_HelmetO_ViperSP_hex_F","H_HelmetO_ViperSP_ghex_F","H_HelmetB_tna_F","H_HelmetB_Enh_tna_F","H_HelmetB_Light_tna_F","H_HelmetSpecO_ghex_F","H_HelmetLeaderO_ghex_F","H_HelmetO_ghex_F","H_HelmetCrew_O_ghex_F","H_HelmetB_paint","H_HelmetB_plain_mcamo","H_HelmetB_plain_blk","H_HelmetIA_net","H_HelmetIA_camo"];
 
 
 arrayCivVeh =["C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_01_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_fuel_F","C_Van_01_transport_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_02_unarmed_F"];//possible civ vehicles. Add any mod classnames you wish here
@@ -140,6 +156,8 @@ if (!activeUSAF) then {call compile preProcessFileLineNumbers "Templates\malosVa
 if (!activeAFRF) then {call compile preProcessFileLineNumbers "Templates\muyMalosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\muyMalosRHSAFRF.sqf"};
 
 if (!activeGREF) then {call compile preProcessFileLineNumbers "Templates\buenosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\buenosRHSGREF.sqf"};
+
+if (hayFFAA) then {call compile preProcessFileLineNumbers "Templates\malosFFAA.sqf"};
 
 vehNormal = vehNATONormal + vehCSATNormal + [vehFIATruck,vehSDKTruck,vehSDKLightArmed,vehSDKBike,vehSDKRepair];
 vehBoats = [vehNATOBoat,vehCSATBoat,vehSDKBoat];
@@ -166,7 +184,7 @@ lamptypes = ["Lamps_Base_F", "PowerLines_base_F","Land_LampDecor_F","Land_LampHa
 arrayids = ["Anthis","Costa","Dimitirou","Elias","Gekas","Kouris","Leventis","Markos","Nikas","Nicolo","Panas","Rosi","Samaras","Thanos","Vega"];
 if (isMultiplayer) then {arrayids = arrayids + ["protagonista"]};
 
-_vests = ["V_Rangemaster_belt","V_BandollierB_khk","V_BandollierB_cbr","V_BandollierB_rgr","V_BandollierB_blk","V_BandollierB_oli","V_PlateCarrier1_rgr","V_PlateCarrier2_rgr","V_PlateCarrier2_blk","V_PlateCarrierGL_rgr","V_PlateCarrierGL_blk","V_PlateCarrierGL_mtp","V_PlateCarrier1_blk","V_PlateCarrierSpec_rgr","V_PlateCarrierSpec_blk","V_PlateCarrierSpec_mtp","V_Chestrig_khk","V_Chestrig_rgr","V_Chestrig_blk","V_Chestrig_oli","V_TacVest_khk","V_TacVest_brn","V_TacVest_oli","V_TacVest_blk","V_TacVest_camo","V_TacVest_blk_POLICE","V_TacVestIR_blk","V_HarnessO_brn","V_HarnessOGL_brn","V_HarnessO_gry","V_HarnessOGL_gry","V_PlateCarrierIA1_dgtl","V_PlateCarrierIA2_dgtl","V_PlateCarrierIAGL_dgtl","V_PlateCarrierIAGL_oli","V_RebreatherB","V_RebreatherIR","V_RebreatherIA","V_PlateCarrier_Kerry","V_PlateCarrierL_CTRG","V_PlateCarrierH_CTRG","V_I_G_resistanceLeader_F","V_Press_F","V_TacChestrig_grn_F","V_TacChestrig_oli_F","V_TacChestrig_cbr_F","V_PlateCarrier1_tna_F","V_PlateCarrier2_tna_F","V_PlateCarrierSpec_tna_F","V_PlateCarrierGL_tna_F","V_HarnessO_ghex_F","V_HarnessOGL_ghex_F","V_BandollierB_ghex_F","V_TacVest_gen_F","V_PlateCarrier1_rgr_noflag_F","V_PlateCarrier2_rgr_noflag_F","V_HarnessOSpec_brn","V_HarnessOSpec_gry","V_PlateCarrier3_rgr","V_PlateCarrier3_rgr","V_TacVestCamo_khk","G_I_Diving"];
+//_vests = ["V_Rangemaster_belt","V_BandollierB_khk","V_BandollierB_cbr","V_BandollierB_rgr","V_BandollierB_blk","V_BandollierB_oli","V_PlateCarrier1_rgr","V_PlateCarrier2_rgr","V_PlateCarrier2_blk","V_PlateCarrierGL_rgr","V_PlateCarrierGL_blk","V_PlateCarrierGL_mtp","V_PlateCarrier1_blk","V_PlateCarrierSpec_rgr","V_PlateCarrierSpec_blk","V_PlateCarrierSpec_mtp","V_Chestrig_khk","V_Chestrig_rgr","V_Chestrig_blk","V_Chestrig_oli","V_TacVest_khk","V_TacVest_brn","V_TacVest_oli","V_TacVest_blk","V_TacVest_camo","V_TacVest_blk_POLICE","V_TacVestIR_blk","V_HarnessO_brn","V_HarnessOGL_brn","V_HarnessO_gry","V_HarnessOGL_gry","V_PlateCarrierIA1_dgtl","V_PlateCarrierIA2_dgtl","V_PlateCarrierIAGL_dgtl","V_PlateCarrierIAGL_oli","V_RebreatherB","V_RebreatherIR","V_RebreatherIA","V_PlateCarrier_Kerry","V_PlateCarrierL_CTRG","V_PlateCarrierH_CTRG","V_I_G_resistanceLeader_F","V_Press_F","V_TacChestrig_grn_F","V_TacChestrig_oli_F","V_TacChestrig_cbr_F","V_PlateCarrier1_tna_F","V_PlateCarrier2_tna_F","V_PlateCarrierSpec_tna_F","V_PlateCarrierGL_tna_F","V_HarnessO_ghex_F","V_HarnessOGL_ghex_F","V_BandollierB_ghex_F","V_TacVest_gen_F","V_PlateCarrier1_rgr_noflag_F","V_PlateCarrier2_rgr_noflag_F","V_HarnessOSpec_brn","V_HarnessOSpec_gry","V_PlateCarrier3_rgr","V_PlateCarrier3_rgr","V_TacVestCamo_khk","G_I_Diving"];
 civUniforms = ["U_C_Poloshirt_blue","U_C_Poloshirt_burgundy","U_C_Poloshirt_stripped","U_C_Poloshirt_tricolour","U_C_Poloshirt_salmon","U_C_Poloshirt_redwhite","U_C_Commoner1_1","U_C_Commoner1_2","U_C_Commoner1_3","U_Rangemaster","U_NikosBody","U_C_Poor_1","U_C_Poor_2","U_C_WorkerCoveralls","U_C_Poor_shorts_1","U_C_Commoner_shorts","U_C_ShirtSurfer_shorts","U_C_TeeSurfer_shorts_1","U_C_TeeSurfer_shorts_2","U_C_Man_casual_5_F","U_C_Man_casual_4_F","U_C_Man_casual_6_F","U_C_man_sport_3_F","U_C_man_sport_2_F","U_C_man_sport_1_F","U_C_Man_casual_2_F","U_C_Man_casual_1_F","U_C_Man_casual_3_F","U_Marshal"];
 banditUniforms = ["U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_5_F"];
 uniformsSDK = banditUniforms + ["U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Camo_F","U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_5_F","U_I_C_Soldier_Para_4_F"];

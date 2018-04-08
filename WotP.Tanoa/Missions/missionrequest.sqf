@@ -55,12 +55,12 @@ if (_tipo == "AS") then
 	else
 		{
 		_sitio = selectRandom _posibles;
-		if (_sitio in aeropuertos) then {[_sitio] remoteExec ["AS_Oficial",HCgarrisons]} else {if (_sitio in ciudades) then {[_sitio] remoteExec ["AS_Traidor",HCgarrisons]} else {[_sitio] remoteExec ["AS_SpecOP",HCgarrisons]}};
+		if (_sitio in aeropuertos) then {[[_sitio],"AS_Oficial"] remoteExec ["scheduler",2]} else {if (_sitio in ciudades) then {[[_sitio],"AS_Traidor"] remoteExec ["scheduler",2]} else {[[_sitio],"AS_SpecOP"] remoteExec ["scheduler",2]}};
 		};
 	};
 if (_tipo == "CON") then
 	{
-	_sitios = controles + puestos + recursos;
+	_sitios = (controles select {(isOnRoad (getMarkerPos _x))})+ puestos + recursos;
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
@@ -77,13 +77,13 @@ if (_tipo == "CON") then
 	else
 		{
 		_sitio = selectRandom _posibles;
-		[_sitio] remoteExec ["CON_Puestos",HCgarrisons];
+		[[_sitio],"CON_Puestos"] remoteExec ["scheduler",2];
 		};
 	};
 if (_tipo == "DES") then
 	{
-	_sitios = aeropuertos + antenas;
-	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
+	_sitios = aeropuertos select {lados getVariable [_x,sideUnknown] != buenos};
+	_sitios = _sitios + antenas;
 	if (count _sitios > 0) then
 		{
 		for "_i" from 0 to ((count _sitios) - 1) do
@@ -115,8 +115,8 @@ if (_tipo == "DES") then
 	else
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in aeropuertos) then {if (random 10 < 8) then {[_sitio] remoteExec ["DES_Vehicle",HCgarrisons]} else {[_sitio] remoteExec ["DES_Heli",HCgarrisons]}};
-		if (_sitio in antenas) then {[_sitio] remoteExec ["DES_antena",HCgarrisons]}
+		if (_sitio in aeropuertos) then {if (random 10 < 8) then {[[_sitio],"DES_Vehicle"] remoteExec ["scheduler",2]} else {[[_sitio],"DES_Heli"] remoteExec ["scheduler",2]}};
+		if (_sitio in antenas) then {[[_sitio],"DES_antena"] remoteExec ["scheduler",2]}
 		};
 	};
 if (_tipo == "LOG") then
@@ -175,9 +175,9 @@ if (_tipo == "LOG") then
 	else
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in ciudades) then {[_sitio] remoteExec ["LOG_Suministros",HCgarrisons]};
-		if (_sitio in puestos) then {[_sitio] remoteExec ["LOG_Ammo",HCgarrisons]};
-		if (_sitio in bancos) then {[_sitio] remoteExec ["LOG_Bank",HCgarrisons]};
+		if (_sitio in ciudades) then {[[_sitio],"LOG_Suministros"] remoteExec ["scheduler",2]};
+		if (_sitio in puestos) then {[[_sitio],"LOG_Ammo"] remoteExec ["scheduler",2]};
+		if (_sitio in bancos) then {[[_sitio],"LOG_Bank"] remoteExec ["scheduler",2]};
 		};
 	};
 if (_tipo == "RES") then
@@ -204,7 +204,7 @@ if (_tipo == "RES") then
 	else
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in ciudades) then {[_sitio] remoteExec ["RES_Refugiados",HCgarrisons]} else {[_sitio] remoteExec ["RES_Prisioneros",HCgarrisons]};
+		if (_sitio in ciudades) then {[[_sitio],"RES_Refugiados"] remoteExec ["scheduler",2]} else {[[_sitio],"RES_Prisioneros"] remoteExec ["scheduler",2]};
 		};
 	};
 if (_tipo == "CONVOY") then
@@ -254,7 +254,7 @@ if (_tipo == "CONVOY") then
 			{
 			_sitio = _posibles call BIS_fnc_selectRandom;
 			_base = [_sitio] call findBasesForConvoy;
-			[_sitio,_base] remoteExec ["CONVOY",HCgarrisons];
+			[[_sitio,_base],"CONVOY"] remoteExec ["scheduler",2];
 			};
 		}
 	else

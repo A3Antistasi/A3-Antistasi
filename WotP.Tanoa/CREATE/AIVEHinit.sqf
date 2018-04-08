@@ -164,11 +164,11 @@ else
 								_lider = leader (gunner _mortero);
 								if (!isPlayer _lider) then
 									{
-									[] remoteExec ["ataqueHQ",HCattack];
+									[[],"ataqueHQ"] remoteExec ["scheduler",2];
 									}
 								else
 									{
-									if ([_lider] call isMember) then {[] remoteExec ["ataqueHQ",HCattack]};
+									if ([_lider] call isMember) then {[[],"ataqueHQ"] remoteExec ["scheduler",2]};
 									};
 								};
 							}
@@ -179,7 +179,7 @@ else
 								{
 								_base = [_bases,_posicion] call BIS_fnc_nearestPosition;
 								_lado = lados getVariable [_base,sideUnknown];
-								[getPosASL _mortero,_lado,"Normal"] remoteExec ["patrolCA",HCattack];
+								[[getPosASL _mortero,_lado,"Normal"],"patrolCA"] remoteExec ["scheduler",2];
 								};
 							};
 						};

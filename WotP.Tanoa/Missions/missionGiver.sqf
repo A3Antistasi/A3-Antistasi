@@ -26,7 +26,7 @@ if (random 100 < 10) then
 		{
 		_base = [_bases,_contacto] call BIS_fnc_NearestPosition;
 		_lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {muyMalos};
-		[getPosASL _contacto,_lado] remoteExec ["patrolCA",HCattack];
+		[[getPosASL _contacto,_lado],"patrolCA"] remoteExec ["scheduler",2];
 		};
 	sleep cleantime;
 	if (captive _llamador) then {[_llamador,false] remoteExec ["setCaptive",0]};

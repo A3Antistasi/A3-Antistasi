@@ -87,7 +87,7 @@ while {true} do
 			_base = [_ciudad] call findBasesForConvoy;
 			if (_base != "") then
 				{
-				[_ciudad,_base] remoteExec ["CONVOY",HCattack];
+				[[_ciudad,_base],"CONVOY"] call scheduler;
 				};
 			};
 		[] call tierCheck;
@@ -139,7 +139,7 @@ while {true} do
 	//[] remoteExec ["statistics",[buenos,civilian]];
 	if (isMultiplayer) then {[] spawn assignStavros};
 	if ((!bigAttackInProgress) and (random 100 < 50)) then {[] call missionRequestAUTO};
-	[] remoteExec ["reinforcementsAI",hcAttack];
+	[[],"reinforcementsAI"] call scheduler;
 	{
 	_veh = _x;
 	if ((_veh isKindOf "StaticWeapon") and ({isPlayer _x} count crew _veh == 0) and (alive _veh)) then
@@ -174,7 +174,7 @@ while {true} do
 		if (count _posibles > 0) then
 			{
 			_posible = selectRandom _posibles;
-			[_posible select 0,_posible select 1] remoteExec ["REP_Antena",HCattack];
+			[[_posible select 0,_posible select 1],"REP_Antena"] call scheduler;
 			};
 		}
 	else

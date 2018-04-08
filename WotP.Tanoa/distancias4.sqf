@@ -64,18 +64,18 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 				spawner setVariable [_marcador,0,true];
 				if (_marcador in ciudades) then
 					{
-					if (({if (_x distance2D _posicionMRK < distanciaSPWN) exitWith {1}} count _greenfor > 0) or ({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN2)) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createAIciudades",HCGarrisons]};
+					if (({if (_x distance2D _posicionMRK < distanciaSPWN) exitWith {1}} count _greenfor > 0) or ({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN2)) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"createAIciudades"] call scheduler};
 					if (not(_marcador in destroyedCities)) then
 						{
-						if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createCIV",HCciviles]};
+						if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"createCIV"] call scheduler};
 						};
 					}
 				else
 					{
-					if (_marcador in controles) then {[_marcador] remoteExec ["createAIcontroles",HCGarrisons]} else {
-					if (_marcador in aeropuertos) then {[_marcador] remoteExec ["createAIaerop",HCGarrisons]} else {
-					if (((_marcador in recursos) or (_marcador in fabricas))) then {[_marcador] remoteExec ["createAIrecursos",HCGarrisons]} else {
-					if ((_marcador in puestos) or (_marcador in puertos)) then {[_marcador] remoteExec ["createAIpuestos",HCGarrisons]};};};};
+					if (_marcador in controles) then {[[_marcador],"createAIcontroles"] call scheduler} else {
+					if (_marcador in aeropuertos) then {[[_marcador],"createAIaerop"] call scheduler} else {
+					if (((_marcador in recursos) or (_marcador in fabricas))) then {[[_marcador],"createAIrecursos"] call scheduler} else {
+					if ((_marcador in puestos) or (_marcador in puertos)) then {[[_marcador],"createAIpuestos"] call scheduler};};};};
 					};
 				};
 			}
@@ -134,10 +134,10 @@ else
 						//[_marcador] remoteExec ["createAIciudades",HCGarrisons];
 						if (not(_marcador in destroyedCities)) then
 							{
-							if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[_marcador] remoteExec ["createCIV",HCciviles]};
+							if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"createCIV"] call scheduler};
 							};
 						};
-					if (_marcador in puestosFIA) then {[_marcador] remoteExec ["createFIApuestos2",HCGarrisons]} else {if (not(_marcador in controles)) then {[_marcador] remoteExec ["createSDKGarrisons",HCGarrisons]}};
+					if (_marcador in puestosFIA) then {[[_marcador],"createFIApuestos2"] call scheduler} else {if (not(_marcador in controles)) then {[[_marcador],"createSDKGarrisons"] call scheduler}};
 					};
 				}
 			else
@@ -188,10 +188,10 @@ else
 				if (({if (_x distance2D _posicionMRK < distanciaSPWN) exitWith {1}} count _greenfor > 0) or ({if ((_x distance2D _posicionMRK < distanciaSPWN2) and (isPlayer _x)) exitWith {1}} count _opfor > 0) or ({if (_x distance2D _posicionMRK < distanciaSPWN2) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then
 					{
 					spawner setVariable [_marcador,0,true];
-					if (_marcador in controles) then {[_marcador] remoteExec ["createAIcontroles",HCGarrisons]} else {
-					if (_marcador in aeropuertos) then {[_marcador] remoteExec ["createAIaerop",HCGarrisons]} else {
-					if (((_marcador in recursos) or (_marcador in fabricas))) then {[_marcador] remoteExec ["createAIrecursos",HCGarrisons]} else {
-					if ((_marcador in puestos) or (_marcador in puertos)) then {[_marcador] remoteExec ["createAIpuestos",HCGarrisons]};};};};
+					if (_marcador in controles) then {[[_marcador],"createAIcontroles"] call scheduler} else {
+					if (_marcador in aeropuertos) then {[[_marcador],"createAIaerop"] call scheduler} else {
+					if (((_marcador in recursos) or (_marcador in fabricas))) then {[[_marcador],"createAIrecursos"] call scheduler} else {
+					if ((_marcador in puestos) or (_marcador in puertos)) then {[[_marcador],"createAIpuestos"] call scheduler};};};};
 					};
 				}
 			else

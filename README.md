@@ -7,21 +7,18 @@ A Persistent Whole Map mission, for SP or MP Coop, focused on Resistance Infantr
 
 Features: 
 
-- Foreign Politics / Civil Support System
-- Tanoa is in an All vs All war with the following factions fighting eachother: BLUFOR (NATO Pacific, Gendarmes, FIA as PMC), OPFOR (CSAT Pacific) and Syndikat.
-- MP PvP Element: Players may join a NATO SpecOp counterinsurgency squad and try to disturb Syndikat operations (WiP).
-- Around 18 possible Sidemissions which may happen everywhere. Assasination, Logistics, Destroy Assets, Rescue POWS, Conquer Missions in a wide variety on each type.
-- Possibility of Undercovered Operations, same as a Resistance soldier can do. 
-- AI Enemy Commander which reacts to your movements and manages his resources. 
-- Persistent Stat Save System: You won't loose game or server progress upon a game update. 
-- Enhaced AI Squadmate control. 
 - Playable in SP, MP, and persistent open server MP.
-- Up to 3Headless Client supported. 
-- Cooperate while compete to be the commander of your side (MP Only) 
-- Build minefields, improve bases with static weapons which AI will use. 
-- Tano and it's forests get destroyed as long as the war evolves. 
-- Integrated Mods: TFAR, ACE3. None of them mandatory. 
-- Wonderful jungles to fight in.
+- Blufor vs Greenfor vs Redfor with dynamic battles, let Blufor and Redfor fight and strike them while they're busy, don't drag too much attention or the aggressivity against SDK will increase causing heavy reactions. Be nice with their wounded instead, if healed they might think to join you!
+- AI Enemy Commander which reacts to your movements and manages his resources.
+- Around 18 possible Sidemissions: Assasination, Logistics, Destroy Assets, Rescue POWS, Conquer Missions in a wide variety on each type.
+- Possibility of Undercovered Operations, same as a Resistance soldier can do.
+- Persistent Stat Save System: You won't loose game or server progress upon a game update. 
+- Enhaced AI Squadmate control.
+- AI friendlies and enemy can drag/carry and heal injured soldiers, not working with ACE3 mod.
+- AI Garrison that use static weapon you add 
+- Forests get destroyed as long as the war evolves. 
+- Up to 3 Headless Client supported. 
+- Integrated Mods: TFAR, ACRE, RHS, FFAA. None of them mandatory. 
 
 # Known Issues:
 

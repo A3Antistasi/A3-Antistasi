@@ -37,7 +37,7 @@ if (_x == leader _x) then {_x assignAsDriver _veh;_x moveInDriver _veh} else {_x
 if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_posDestino,_grupo] call WPCreate};
 _Vwp0 = (wayPoints _grupo) select 0;
 _Vwp0 setWaypointBehaviour "SAFE";
-_Vwp0 = (wayPoints _grupo) select (count (wayPoints _grupo) - 1);
+_Vwp0 = _grupo addWaypoint [_posDestino, count (wayPoints _grupo)];
 _Vwp0 setWaypointType "GETOUT";
 //_Vwp0 = _grupo addWaypoint [_posDestino, count (wayPoints _grupo)];
 //_Vwp0 setWaypointType "MOVE";

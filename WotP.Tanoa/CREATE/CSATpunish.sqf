@@ -103,8 +103,6 @@ for "_i" from 1 to 3 do
 				}
 			else
 				{
-				{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _grupoheli;
-				{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
 				[_heli,_grupo,_mrkDestino,_mrkOrigen] spawn airdrop;
 				};
 			}

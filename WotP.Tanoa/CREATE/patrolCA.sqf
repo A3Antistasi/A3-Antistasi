@@ -608,7 +608,6 @@ if (_aeropuerto != "") then
 						}
 					else
 						{
-						{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
 						[_veh,_grupo,_marcador,_aeropuerto] spawn airdrop;
 						};
 					};

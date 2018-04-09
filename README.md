@@ -18,7 +18,7 @@ Features:
 - AI Garrison that use static weapon you add 
 - Forests get destroyed as long as the war evolves. 
 - Up to 3 Headless Client supported. 
-- Integrated Mods: TFAR, ACRE, RHS, FFAA. None of them mandatory. 
+- Integrated Mods: [TFAR](https://steamcommunity.com/sharedfiles/filedetails/?id=620019431), [ACRE](https://steamcommunity.com/sharedfiles/filedetails/?id=751965892&searchtext=acre), RHS, [FFAA](https://steamcommunity.com/sharedfiles/filedetails/?id=820994401&searchtext=FFAA), [ACE no medical](https://steamcommunity.com/sharedfiles/filedetails/?id=1316471790). None of them mandatory. 
 
 # Known Issues:
 

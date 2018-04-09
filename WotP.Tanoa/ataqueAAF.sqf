@@ -287,7 +287,7 @@ if ((count _objetivosFinal > 0) and (count _faciles < 3)) then
 
 if (_waves == 1) then
 	{
-	{[_x select 0,_x select 1] remoteExec ["patrolCA",HCattack]} forEach _faciles;
+	{[[_x select 0,_x select 1],"patrolCA"] remoteExec ["scheduler",2]} forEach _faciles;
 	};
 
 if ((not(["CONVOY"] call BIS_fnc_taskExists)) and (_waves == 1)) then

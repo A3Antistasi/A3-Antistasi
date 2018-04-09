@@ -62,6 +62,7 @@ _wp3 setWaypointType "MOVE";
 _wp3 setWaypointSpeed "NORMAL";
 _wp3 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
 
+{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
 waitUntil {sleep 1; (currentWaypoint _heli == 3) or (not alive _veh) or (!canMove _veh)};
 
 //[_veh] call puertasLand;
@@ -70,6 +71,7 @@ if (alive _veh) then
 	{
 	_veh setCollisionLight true;
 	{
+   waitUntil {sleep 0.5; !surfaceIsWater (position _x)};
    	unAssignVehicle _x;
    	_x allowDamage false;
    	moveOut _x;
@@ -78,7 +80,6 @@ if (alive _veh) then
    	//_chute setPos (getPos _x);
    	//_x moveinDriver _chute;
    	_x allowDamage true;
-   	sleep 0.5;
   	} forEach units _grupo;
 	};
 /*if (_marcador isEqualType "") then

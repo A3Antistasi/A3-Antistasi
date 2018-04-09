@@ -174,6 +174,7 @@ fn_SetStat =
 				spawner setVariable [_mrk,2,true];
 				if (count _garrison > 0) then {garrison setVariable [_mrk,_garrison,true]};
 				puestosFIA pushBack _mrk;
+				lados setVariable [_mrk,buenos,true];
 				} forEach _varvalue;
 				}
 			else

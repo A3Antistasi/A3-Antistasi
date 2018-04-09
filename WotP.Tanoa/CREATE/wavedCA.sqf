@@ -510,7 +510,6 @@ while {(_waves != 0)} do
 				} forEach units _grupo;
 				if (/*(_mrkDestino in aeropuertos) or*/ !(_veh isKindOf "Helicopter")) then
 					{
-					{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
 					[_veh,_grupo,_mrkDestino,_mrkOrigen] spawn airdrop;
 					}
 				else
@@ -579,7 +578,6 @@ while {(_waves != 0)} do
 								}
 							else
 								{
-								{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
 								[_veh,_grupo,_mrkDestino,_mrkOrigen] spawn airdrop;
 								}
 							};

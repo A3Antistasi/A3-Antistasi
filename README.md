@@ -39,8 +39,9 @@ Mission is on ALPHA STAGE. It is very unlikely but some showstopper may appear.
 
 Please rate up the mission if you like the concept. The more players we are, the better mission we will have thanks to comments, suggestions and bug reports.
 ## Multiplayer
-
-Server Direct Connect (paste it in browser adress-bar): **steam://connect/85.190.158.136:29001**
+Warlords of the Pacific Official
+Server Direct Connect (paste it in browser adress-bar): **steam://connect/85.190.167.231:2303**
+3 headlessclients connected
 
 Teamspeak adress: **antistasi.enjinvoice.com** 
 

@@ -660,8 +660,11 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Corrected: No more conquest missions in forests.
 - Improved helmet detection no matter the mod you use and affecting undercover (if it has some armor, you will lose undercover status).
 - SDK AI will spawn with random helmets under certain skill levels.
-- Corrected bug in reinforcements script.
+- Corrected bugs in reinforcements script.
 - Corrected bug in Destroy mission request.
 - Scripted some timeout to avoid some vehicle smoke parties.
 - Reenabled QRF when players are far from original bases.
 - Paperboxes and some ACE stuff wont get persistent saved when near HQ
+- Fixed SDK roadblocks / watchposts on persistent load.
+- Paratroopers shouldnt paradrop in water.
+- No more QRF paratroopers without parachute :)

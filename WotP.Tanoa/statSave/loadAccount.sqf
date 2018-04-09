@@ -170,6 +170,7 @@ if (lados getVariable [_x,sideUnknown] == sideUnknown) then
 } forEach marcadores;
 
 {[_x] call mrkUpdate} forEach (marcadores - controles);
+if (count puestosFIA > 0) then {marcadores = marcadores + puestosFIA; publicVariable "marcadores"};
 
 {if (_x in destroyedCities) then {[_x] call destroyCity}} forEach ciudades;
 

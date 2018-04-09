@@ -1,22 +1,27 @@
-waitUntil {!isNull player};
-waitUntil {player == player};
-player removeweaponGlobal "itemmap";
-player removeweaponGlobal "itemgps";
+if (hasInterface) then
+	{
+	waitUntil {!isNull player};
+	waitUntil {player == player};
+	player removeweaponGlobal "itemmap";
+	player removeweaponGlobal "itemgps";
+	};
 if (isMultiplayer) then
 	{
 	[] execVM "briefing.sqf";
 	if (!isServer) then
 		{
 		call compile preprocessFileLineNumbers "initVar.sqf";
-		if (!hasInterface) then {call compile preprocessFileLineNumbers "roadsDB.sqf"};
 		call compile preprocessFileLineNumbers "initFuncs.sqf";
+		waitUntil {!isNil "initVar"}; diag_log format ["Antistasi MP Client. initVar is public. Version %1",antistasiVersion];
 		};
 	};
-if (!hasInterface) exitWith {[clientOwner] remoteExec ["addHC",2]};
+if (!hasInterface) exitWith
+	{
+	call compile preprocessFileLineNumbers "roadsDB.sqf";
+	[clientOwner] remoteExec ["addHC",2];
+	};
+
 _isJip = _this select 1;
-
-if (isMultiplayer) then {waitUntil {!isNil "initVar"}; diag_log format ["Antistasi MP Client. initVar is public. Version %1",antistasiVersion];};
-
 if (isMultiplayer) then
 	{
 	if (side player == buenos) then {player setVariable ["elegible",true,true]};
@@ -31,35 +36,35 @@ if (isMultiplayer) then
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
 
     player addEventHandler ["InventoryOpened",
-	{
-	_control = false;
-	_jugador = _this select 0;
-	if (captive _jugador) then
 		{
-		_contenedor = _this select 1;
-		if ((_contenedor isKindOf "Man") and (!alive _contenedor)) then
+		_control = false;
+		_jugador = _this select 0;
+		if (captive _jugador) then
 			{
-			if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
+			_contenedor = _this select 1;
+			if ((_contenedor isKindOf "Man") and (!alive _contenedor)) then
 				{
-				[_jugador,false] remoteExec ["setCaptive"];
-				}
-			else
-				{
-				_ciudad = [ciudades,_jugador] call BIS_fnc_nearestPosition;
-				_size = [_ciudad] call sizeMarker;
-				_datos = server getVariable _ciudad;
-				if (random 100 < _datos select 2) then
+				if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
 					{
-					if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
+					[_jugador,false] remoteExec ["setCaptive"];
+					}
+				else
+					{
+					_ciudad = [ciudades,_jugador] call BIS_fnc_nearestPosition;
+					_size = [_ciudad] call sizeMarker;
+					_datos = server getVariable _ciudad;
+					if (random 100 < _datos select 2) then
 						{
-						[_jugador,false] remoteExec ["setCaptive"];
+						if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
+							{
+							[_jugador,false] remoteExec ["setCaptive"];
+							};
 						};
 					};
 				};
 			};
-		};
-	_control
-	}];
+		_control
+		}];
 	if (side player == buenos) then
 		{
 		player addEventHandler ["Fired",

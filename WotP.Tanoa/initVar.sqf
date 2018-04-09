@@ -5,9 +5,9 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 0.12.0";
+antistasiVersion = "v 0.12.0A";
 
-servidoresOficiales = ["Warlords of the Pacific Official"];
+servidoresOficiales = ["WotP Official USA"];
 
 debug = false;//debug variable, not useful for everything..
 
@@ -188,7 +188,6 @@ if (isMultiplayer) then {arrayids = arrayids + ["protagonista"]};
 civUniforms = ["U_C_Poloshirt_blue","U_C_Poloshirt_burgundy","U_C_Poloshirt_stripped","U_C_Poloshirt_tricolour","U_C_Poloshirt_salmon","U_C_Poloshirt_redwhite","U_C_Commoner1_1","U_C_Commoner1_2","U_C_Commoner1_3","U_Rangemaster","U_NikosBody","U_C_Poor_1","U_C_Poor_2","U_C_WorkerCoveralls","U_C_Poor_shorts_1","U_C_Commoner_shorts","U_C_ShirtSurfer_shorts","U_C_TeeSurfer_shorts_1","U_C_TeeSurfer_shorts_2","U_C_Man_casual_5_F","U_C_Man_casual_4_F","U_C_Man_casual_6_F","U_C_man_sport_3_F","U_C_man_sport_2_F","U_C_man_sport_1_F","U_C_Man_casual_2_F","U_C_Man_casual_1_F","U_C_Man_casual_3_F","U_Marshal"];
 banditUniforms = ["U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_5_F"];
 uniformsSDK = banditUniforms + ["U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Camo_F","U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_5_F","U_I_C_Soldier_Para_4_F"];
-
 
 //All weapons, MOD ones included, will be added to this arrays, but it's useless without integration, as if those weapons don't spawn, players won't be able to collect them, and after, unlock them in the arsenal.
 

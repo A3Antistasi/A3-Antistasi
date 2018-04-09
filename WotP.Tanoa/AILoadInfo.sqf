@@ -4,7 +4,7 @@ _texto = "";
 
 for "_i" from 0 to (count hcArray) - 1 do
 	{
-	_texto = format ["%1,\n\nHC %2 AI\n\n",_texto, _i];
+	_texto = format ["%1HC %2 AI\n\n",_texto, _i];
 	_west = 0;
 	_east = 0;
 	_indep = 0;
@@ -24,6 +24,6 @@ for "_i" from 0 to (count hcArray) - 1 do
 			};
 		};
 	} forEach allUnits select {alive _x};
-	_texto = format ["%1SDK: %2\nWest:%3\nEast:%4\nCiv:%5\nTOTAL:%6",_texto,_indep,_west,_east,_civ,_total];
+	_texto = format ["%1SDK: %2\nWest:%3\nEast:%4\nCiv:%5\nTOTAL:%6\n\n",_texto,_indep,_west,_east,_civ,_total];
 	};
 [petros,"hint",_texto] remoteExec ["commsMP",stavros];

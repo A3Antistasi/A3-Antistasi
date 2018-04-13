@@ -15,7 +15,9 @@ if (_tipo isEqualType []) then
 _lado = _this select 1;
 _marcador = _this select 2;
 _modo = _this select 3;
-
+_exit = false;
+{if (isNil _x) exitWith {_exit = true}} forEach ["_tipo","_lado","_marcador","_modo"];
+if (_exit) exitWith {diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_marcador,_modo]};
 waitUntil {sleep 0.2;!garrisonIsChanging};
 garrisonIsChanging = true;
 if ((_lado == malos) and (!(lados getVariable [_marcador,sideUnknown] == malos))) exitWith {garrisonIsChanging = false};

@@ -413,6 +413,7 @@ while {(_waves != 0)} do
 		sleep 5;
 
 		_vehPool = if (_lado == malos) then {vehNATOAir select {[_x] call vehAvailable}} else {vehCSATAir select {[_x] call vehAvailable}};
+		if !(_mrkDestino in aeropuertos) then {_vehPool = _vehPool - [vehNATOPlane,vehCSATPlane]};
 		if (_esSDK) then
 			{
 			_rnd = random 100;

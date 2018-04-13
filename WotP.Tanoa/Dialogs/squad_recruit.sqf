@@ -51,7 +51,7 @@ if (str (_display) != "no display") then
 	_ChildControl = _display displayCtrl 109;
 	_coste = (2*(server getVariable staticCrewBuenos));
 	_costeHR = 2;
-	_coste = _coste + ([vehSDKTruck] call vehiclePrice) + ([staticATBuenos] call vehiclePrice);
+	_coste = _coste + ([vehSDKAT] call vehiclePrice);
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 110;

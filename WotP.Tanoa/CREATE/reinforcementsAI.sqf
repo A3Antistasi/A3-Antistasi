@@ -1,5 +1,6 @@
 private ["_aeropuertos","_reinfPlaces","_aeropuerto","_numero","_numGarr","_numReal","_lado","_posibles","_cuenta","_sitio","_posicion"];
 _aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] != buenos) and (spawner getVariable _x == 2)};
+if (count _aeropuertos == 0) exitWith {};
 _reinfPlaces = [];
 {
 _aeropuerto = _x;

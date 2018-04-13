@@ -2,7 +2,7 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot bu
 
 _chequeo = false;
 {
-	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 500) and (not(captive _x))) then {_chequeo = true};
+	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 300) and (not(captive _x))) then {_chequeo = true};
 } forEach allUnits;
 
 if (_chequeo) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
@@ -53,6 +53,8 @@ else
 			};
 		};
 	};
+if (_veh isKindOf "Car") then {_veh setPlateNumber format ["%1",name player]};
+
 if ((_tipoVeh == SDKMortar) or (_tipoVeh == staticATBuenos) or (_tipoVeh == staticAABuenos) or (_tipoVeh == SDKMGStatic)) then {staticsToSave pushBackUnique _veh; publicVariable "staticsToSave"};
 [_veh] call AIVEHinit;
 

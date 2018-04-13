@@ -18,7 +18,7 @@ Features:
 - AI Garrison that use static weapon you add 
 - Forests get destroyed as long as the war evolves. 
 - Up to 3 Headless Client supported. 
-- Integrated Mods: TFAR, ACRE, RHS, FFAA. None of them mandatory. 
+- Integrated Mods: [TFAR](https://steamcommunity.com/sharedfiles/filedetails/?id=620019431), [ACRE](https://steamcommunity.com/sharedfiles/filedetails/?id=751965892&searchtext=acre), RHS, [FFAA](https://steamcommunity.com/sharedfiles/filedetails/?id=820994401&searchtext=FFAA), [ACE no medical](https://steamcommunity.com/sharedfiles/filedetails/?id=1316471790). None of them mandatory. 
 
 # Known Issues:
 
@@ -39,8 +39,9 @@ Mission is on ALPHA STAGE. It is very unlikely but some showstopper may appear.
 
 Please rate up the mission if you like the concept. The more players we are, the better mission we will have thanks to comments, suggestions and bug reports.
 ## Multiplayer
-
-Server Direct Connect (paste it in browser adress-bar): **steam://connect/85.190.158.136:29001**
+Warlords of the Pacific Official
+Server Direct Connect (paste it in browser adress-bar): **steam://connect/85.190.167.231:2303**
+3 headlessclients connected
 
 Teamspeak adress: **antistasi.enjinvoice.com** 
 

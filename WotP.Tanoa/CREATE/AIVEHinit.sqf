@@ -129,7 +129,8 @@ else
 	else
 		{
 		if (_veh isKindOf "StaticWeapon") then
-			{;
+			{
+			_veh setCenterOfMass [(getCenterOfMass _veh) vectorAdd [0, 0, -1], 0];
 			if ((not (_veh in staticsToSave)) and (side gunner _veh != buenos)) then
 				{
 				if (activeGREF and ((_tipo == staticATBuenos) or (_tipo == staticAABuenos))) then {[_veh,"moveS"] remoteExec ["flagaction",[buenos,civilian],_veh]} else {[_veh,"steal"] remoteExec ["flagaction",[buenos,civilian],_veh]};

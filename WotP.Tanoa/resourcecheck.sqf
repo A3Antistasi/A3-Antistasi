@@ -52,7 +52,7 @@ while {true} do
 				}
 			else
 				{
-				[0,-1,_ciudad] spawn citySupportChange;
+				if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[1,-1,_ciudad] spawn citySupportChange} else {[0,-1,_ciudad] spawn citySupportChange};
 				};
 			}
 		else
@@ -65,7 +65,7 @@ while {true} do
 				}
 			else
 				{
-				[-1,0,_ciudad] spawn citySupportChange
+				if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[-1,1,_ciudad] spawn citySupportChange} else {[-1,0,_ciudad] spawn citySupportChange};
 				};
 			};
 		};

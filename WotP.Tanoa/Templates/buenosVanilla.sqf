@@ -22,7 +22,8 @@ sdkTier3 = SDKSL + SDKSniper;
 soldadosSDK = sdkTier1 + sdkTier2 + sdkTier3;
 
 vehSDKBike = "I_G_Quadbike_01_F";
-vehSDKLightArmed = "I_G_Offroad_01_armed_F";
+vehSDKLightArmed = "I_C_Offroad_02_LMG_F";
+vehSDKAT = "I_C_Offroad_02_AT_F";
 vehSDKLightUnarmed = "I_C_Offroad_02_unarmed_F";
 vehSDKTruck = "I_C_Van_01_Transport_F";
 //vehSDKHeli = "I_C_Heli_Light_01_civil_F";

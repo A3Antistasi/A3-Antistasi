@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 0.12.0";
+antistasiVersion = "v 0.12.1";
 
 servidoresOficiales = ["WotP Official USA"];
 
@@ -150,7 +150,7 @@ opticasAAF = if (!hayRHS) then {["optic_Arco","optic_Hamr","optic_Aco","optic_AC
 //cascos = ["H_HelmetB","H_HelmetB_camo","H_HelmetB_light","H_HelmetSpecB","H_HelmetSpecB_paint1","H_HelmetSpecB_paint2","H_HelmetSpecB_blk","H_HelmetSpecB_snakeskin","H_HelmetSpecB_sand","H_HelmetIA","H_HelmetB_grass","H_HelmetB_snakeskin","H_HelmetB_desert","H_HelmetB_black","H_HelmetB_sand","H_HelmetCrew_B","H_HelmetCrew_O","H_HelmetCrew_I","H_PilotHelmetFighter_B","H_PilotHelmetFighter_O","H_PilotHelmetFighter_I","H_PilotHelmetHeli_B","H_PilotHelmetHeli_O","H_PilotHelmetHeli_I","H_CrewHelmetHeli_B","H_CrewHelmetHeli_O","H_CrewHelmetHeli_I","H_HelmetO_ocamo","H_HelmetLeaderO_ocamo","H_HelmetB_light_grass","H_HelmetB_light_snakeskin","H_HelmetB_light_desert","H_HelmetB_light_black","H_HelmetB_light_sand","H_HelmetO_oucamo","H_HelmetLeaderO_oucamo","H_HelmetSpecO_ocamo","H_HelmetSpecO_blk","H_RacingHelmet_1_F","H_RacingHelmet_2_F","H_RacingHelmet_3_F","H_RacingHelmet_4_F","H_RacingHelmet_1_black_F","H_RacingHelmet_1_blue_F","H_RacingHelmet_1_green_F","H_RacingHelmet_1_red_F","H_RacingHelmet_1_white_F","H_RacingHelmet_1_yellow_F","H_RacingHelmet_1_orange_F","H_Helmet_Skate","H_HelmetB_TI_tna_F","H_HelmetO_ViperSP_hex_F","H_HelmetO_ViperSP_ghex_F","H_HelmetB_tna_F","H_HelmetB_Enh_tna_F","H_HelmetB_Light_tna_F","H_HelmetSpecO_ghex_F","H_HelmetLeaderO_ghex_F","H_HelmetO_ghex_F","H_HelmetCrew_O_ghex_F","H_HelmetB_paint","H_HelmetB_plain_mcamo","H_HelmetB_plain_blk","H_HelmetIA_net","H_HelmetIA_camo"];
 
 
-arrayCivVeh =["C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_01_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_fuel_F","C_Van_01_transport_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_02_unarmed_F"];//possible civ vehicles. Add any mod classnames you wish here
+arrayCivVeh =["C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_01_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_fuel_F","C_Van_01_transport_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_02_unarmed_F","I_C_Van_02_transport_F"];//possible civ vehicles. Add any mod classnames you wish here
 squadLeaders = [];
 if (!activeUSAF) then {call compile preProcessFileLineNumbers "Templates\malosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\malosRHSUSAF.sqf"};
 if (!activeAFRF) then {call compile preProcessFileLineNumbers "Templates\muyMalosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\muyMalosRHSAFRF.sqf"};
@@ -269,7 +269,7 @@ server setVariable [civBoat,200,true];//200
 server setVariable [vehSDKBike,50,true];//50
 server setVariable [vehSDKLightUnarmed,200,true];//200
 server setVariable [vehSDKTruck,300,true];//300
-server setVariable [vehSDKLightArmed,700,true];//700
+{server setVariable [_x,700,true]} forEach [vehSDKLightArmed,vehSDKAT];
 {server setVariable [_x,400,true]} forEach [SDKMGStatic,vehSDKBoat,vehSDKRepair];//400
 {server setVariable [_x,800,true]} forEach [SDKMortar,staticATBuenos,staticAABuenos];//800
 server setVariable ["hr",8,true];//initial HR value

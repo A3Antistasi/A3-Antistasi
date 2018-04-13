@@ -6,7 +6,7 @@ if (_pool and (not([player] call isMember))) exitWith {hint "You cannot access t
 if (player != player getVariable "owner") exitWith {hint "You cannot access the Garage while you are controlling AI"};
 _chequeo = false;
 {
-	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 500) and (not(captive _x))) then {_chequeo = true};
+	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 300) and (not(captive _x))) then {_chequeo = true};
 } forEach allUnits;
 
 if (_chequeo) exitWith {Hint "You cannot manage the Garage with enemies nearby"};
@@ -146,6 +146,7 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 			else
 				{
 				[garageVeh] call AIVEHinit;
+				if (garageVeh isKindOf "Car") then {garageVeh setPlateNumber format ["%1",name player]};
 				["<t size='0.6'>Vehicle retrieved from Garage",0,0,3,0,0,4] spawn bis_fnc_dynamicText;
 				_pool = false;
 				if (vehInGarageShow isEqualTo vehInGarage) then {_pool = true};

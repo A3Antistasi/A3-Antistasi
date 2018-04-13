@@ -410,7 +410,7 @@ if (_aeropuerto != "") then
 	_vehPool = [];
 	_cuenta = 1;
 	_tipoVeh = "";
-	_vehPool = if (_lado == malos) then {vehNATOAir select {[_x] call vehAvailable}} else {vehCSATAir select {[_x] call vehAvailable}};
+	_vehPool = if (_lado == malos) then {(vehNATOAir - [vehNATOPlane]) select {[_x] call vehAvailable}} else {(vehCSATAir - [vehCSATPlane]) select {[_x] call vehAvailable}};
 	if (_esMarcador) then {_cuenta = 2};
 	for "_i" from 1 to _cuenta do
 		{

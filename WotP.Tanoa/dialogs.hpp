@@ -2309,12 +2309,12 @@ class squad_recruit 			{
 		class HQ_button_infteamM: RscButton
 		{
 			idc = 109;
-			text = "Recruit AT Truck"; //--- ToDo: Localize;
+			text = "Recruit AT Car"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticATBuenos] spawn addFIAsquadHC";
+			action = "closeDialog 0;nul = [vehSDKAT] spawn addFIAsquadHC";
 		};
 		class HQ_button_ATteamM: RscButton
 		{

@@ -656,6 +656,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 0.12.0 05/04/2018 ALPHA
 
 - IMPORTANT: Added dynamic headless client resource assignation. Antistasi will try to balance the AI load on HC platforms so the idle-est one will spawn AI.
+- IMPORTANT: Added unlimited Headless Client support, default mission has 3 HCs but you may just edit the mission and add as many HCs as you have.
 - FFAA: Added FFAA mod compatibility. Spanish soldiers will replace FIA units.
 - Corrected: No more conquest missions in forests.
 - Improved helmet detection no matter the mod you use and affecting undercover (if it has some armor, you will lose undercover status).
@@ -668,3 +669,14 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Fixed SDK roadblocks / watchposts on persistent load.
 - Paratroopers shouldnt paradrop in water.
 - No more QRF paratroopers without parachute :)
+
+0.12.1 12/04/2018 ALPHA
+
+- Added new Tanks DLC SDK Armed cars (AT and LMG).
+- Purchased vehicles will have players name in the plate.
+- Bulletproofed garrison update scripts to avoid fatal errors.
+- STatic weapons shouldnt spawn fallen, thanks to Sparker.
+- CAS Planes wont spawn on QRF and some major attacks (yes for bomb runs).
+- Better spawn points for SDK vehicle squads.
+- Reduced a bit distance checks for garage, player recruit and vehicle purchase.
+- Added LoW DLC civ van as possible spawn.

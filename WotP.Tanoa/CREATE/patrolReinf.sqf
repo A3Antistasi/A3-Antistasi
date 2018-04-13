@@ -62,4 +62,4 @@ _x addEventHandler ["Killed",
 		};
 	}];
 } forEach units _grupo;
-_Vwp0 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable ""reinfMarker"",0] spawn garrisonUpdate;[group this] spawn groupDespawner; reinfPatrols = reinfPatrols - 1"];
+_Vwp0 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] spawn garrisonUpdate;[group this] spawn groupDespawner; reinfPatrols = reinfPatrols - 1"];

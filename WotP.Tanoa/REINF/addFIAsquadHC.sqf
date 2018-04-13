@@ -99,7 +99,7 @@ while {isNull _road} do
 		if ((surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")) exitWith {_road = _x};
 		} forEach _roads;
 		};
-	_tam = _tam + 50;
+	_tam = _tam + 10;
 	};
 if (_esinf) then
 	{
@@ -127,13 +127,20 @@ if (_esinf) then
 else
 	{
 	_pos = position _road findEmptyPosition [1,30,vehSDKTruck];
-	_vehicle = if ((_tipoGrupo ==staticAABuenos) and (activeGREF)) then {[_pos, 0,"rhsgref_ins_g_ural_Zu23", buenos] call bis_fnc_spawnvehicle} else {[_pos, 0,vehSDKTruck, buenos] call bis_fnc_spawnvehicle};
+	_vehicle = if (_tipoGrupo == staticAABuenos) then
+		{
+		if (activeGREF) then {[_pos, 0,"rhsgref_ins_g_ural_Zu23", buenos] call bis_fnc_spawnvehicle} else {[_pos, 0,vehSDKTruck, buenos] call bis_fnc_spawnvehicle};
+		}
+	else
+		{
+		[_pos, 0,_tipoGrupo, buenos] call bis_fnc_spawnvehicle
+		};
 	_camion = _vehicle select 0;
 	_grupo = _vehicle select 2;
 	//_mortero attachTo [_camion,[0,-1.5,0.2]];
 	//_mortero setDir (getDir _camion + 180);
 
-	if ((!activeGREF) or (_tipogrupo == staticATBuenos)) then
+	if ((!activeGREF) and (_tipogrupo == staticAABuenos)) then
 		{
 		_pos = _pos findEmptyPosition [1,30,SDKMortar];
 		_morty = _grupo createUnit [staticCrewBuenos, _pos, [],0, "NONE"];
@@ -143,7 +150,7 @@ else
 		_mortero setDir (getDir _camion + 180);
 		_morty moveInGunner _mortero;
 		};
-	if (_tipogrupo == staticATBuenos) then {_grupo setGroupId [format ["M.AT-%1",{side (leader _x) == buenos} count allGroups]]};
+	if (_tipogrupo == vehSDKAT) then {_grupo setGroupId [format ["M.AT-%1",{side (leader _x) == buenos} count allGroups]]};
 	if (_tipogrupo == staticAABuenos) then {_grupo setGroupId [format ["M.AA-%1",{side (leader _x) == buenos} count allGroups]]};
 
 	driver _camion action ["engineOn", vehicle driver _camion];

@@ -23,6 +23,7 @@ soldadosSDK = sdkTier1 + sdkTier2 + sdkTier3;
 
 vehSDKBike = "I_G_Quadbike_01_F";
 vehSDKLightArmed = "rhsgref_ins_g_uaz_dshkm_chdkz";
+vehSDKAT = "I_C_Offroad_02_AT_F";
 vehSDKLightUnarmed = "rhsgref_cdf_reg_uaz_open";
 vehSDKTruck = "rhsgref_nat_ural_open";
 //vehSDKHeli = "rhsgref_ins_g_Mi8amt";

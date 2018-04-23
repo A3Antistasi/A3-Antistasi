@@ -181,7 +181,7 @@
 - Some chance AI rebuilds a resource on each tick.
 - Replaced our mean old campfire by a modern camp lamp, which you can turn on and off.
 - Lights off when a city or it's nearby RT are destroyed.
-- Severe tweak of AI skills, as SDK was supposed to be equal than NATO/CSAT. 
+- Severe tweak of AI skills, as SDK was supposed to be equal than NATO/CSAT.
 - Corrected Interrogate script bug.
 - Corrected server init bug which made initialisation 2 minutes longer in MP
 - Disabled introshot as it is causing some issues.
@@ -401,7 +401,7 @@
 - Spawn distance parameters correctly updated on persistent save.
 
 0.8.2 08/06/2017 ALPHA
-- IMPORTANT: Made the whole spawning process on groups fps dependant. Groups will spawn with a minimum of one unit. 
+- IMPORTANT: Made the whole spawning process on groups fps dependant. Groups will spawn with a minimum of one unit.
 - RHS GREF: Added some default grenades, SMGs and vest. Players lose their vanilla vest on connection.
 - TFAR: Default greenfor radio unlocked.
 - XLA Fixed Arsenal: Integrated & Recommended
@@ -468,7 +468,7 @@
 
 - Hotfixed some garrisons not spawning.
 - While BIS does not fix HC Bar squad order options, squads will spawn in Aware stance.
-cambiar a inArea el undercover y revisar a qué bando van los controles conquistados
+cambiar a inArea el undercover y revisar a qu? bando van los controles conquistados
 
 0.9.4 22/08/2017 ALPHA
 - NEW FEATURE: Added JAS. The finest Inventory system around the scene, built in by Jeroen Not (Thanks!!!) for Antistasi and one of the things makes Antistasi special :)
@@ -623,7 +623,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Corrected some small UPSMon bug.
 - AI will be more aggressive when attacking and assaulting garrisons.
 
-0.11.2 20/03/2018 ALPHA
+0.11.2A 20/03/2018 ALPHA
 
 - IMPORTANT: Civ Spawn rework. Civvies everywhere! Now the Setting Civ Percentage means max amount of civilians. Plase NOTE: Civs are executed on clients in MP.
 - IMPORTANT: Added Jeroen Logistics to enemy garrison ammoboxes. No more transfers to trucks.

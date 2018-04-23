@@ -66,7 +66,7 @@ for "_i" from 0 to (round random 2) do
 	sleep 10;
 	};
 
-waitUntil {sleep 1;({not (captive _x)} count _soldados < {captive _x} count _soldados) or ({alive _x} count _soldados < {fleeing _x} count _soldados) or ({alive _x} count _soldados == 0) or (_posicion distance getMarkerPos "respawn_guerrila" > 999) or (!alive petros)};
+waitUntil {sleep 1;({[_x] call canFight} count _soldados < {!([_x] call canFight)} count _soldados) or (_posicion distance getMarkerPos "respawn_guerrila" > 999) or (!alive petros)};
 
 if (!alive petros) then
 	{

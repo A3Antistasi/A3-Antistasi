@@ -38,14 +38,14 @@ if (_salir) exitWith {zoneCheckInProgress = false};
 _salir = true;
 _size = [_marcador] call sizeMarker;
 _posicion = getMarkerPos _marcador;
-if ({((_x getVariable [_enemy1,false]) or (_x getVariable [_enemy2,false])) and (not(vehicle _x isKindOf "Air")) and (alive _x) and (!captive _x) and (!fleeing _x) and (_x distance _posicion <= _size) and (lifeState _x != "INCAPACITATED")} count allUnits > 3*({(alive _x) and (!captive _x) and (!fleeing _x) and (_x getVariable ["marcador",""] == _marcador) and (_x isKindOf "Man") and (lifeState _x != "INCAPACITATED")} count allUnits)) then
+if ({((_x getVariable [_enemy1,false]) or (_x getVariable [_enemy2,false])) and ([_x,_marcador] call canConquer)} count allUnits > 3*({([_x] call canConquer) and (_x getVariable ["marcador",""] == _marcador)} count allUnits)) then
 	{
 	_salir = false;
 	};
 if (_salir) exitWith {zoneCheckInProgress = false};
 
 _winner = _enemy1;
-if ({(_x getVariable [_enemy1,false]) and (not(vehicle _x isKindOf "Air")) and (alive _x) and (!captive _x) and (!fleeing _x) and (_x distance _posicion <= _size)} count allUnits <= {(_x getVariable [_enemy2,false]) and (not(vehicle _x isKindOf "Air")) and (alive _x) and (!captive _x) and (!fleeing _x) and (_x distance _posicion <= _size)} count allUnits) then {_winner = _enemy2};
+if ({(_x getVariable [_enemy1,false]) and ([_x,_marcador] call canConquer)} count allUnits <= {(_x getVariable [_enemy2,false]) and ([_x,_marcador] call canConquer)} count allUnits) then {_winner = _enemy2};
 
 [_winner,_marcador] remoteExec ["markerChange",2];
 

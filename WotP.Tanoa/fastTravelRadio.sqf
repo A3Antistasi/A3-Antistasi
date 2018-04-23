@@ -19,7 +19,7 @@ _chequeo = false;
 //_distancia = 500 - (([_jefe,false] call fogCheck) * 450);
 _distancia = 500;
 {_enemigo = _x;
-{if (((side _enemigo == muyMalos) or (side _enemigo == malos)) and (_enemigo distance _x < _distancia) and (not(captive _enemigo))) exitWith {_chequeo = true}} forEach units _grupo;
+{if (((side _enemigo == muyMalos) or (side _enemigo == malos)) and (_enemigo distance _x < _distancia) and ([_x] call canFight)) exitWith {_chequeo = true}} forEach units _grupo;
 if (_chequeo) exitWith {};
 } forEach allUnits;
 

@@ -621,12 +621,11 @@ if (_aeropuerto != "") then
 if (_esMarcador) then
 	{
 	_tiempo = time + 3600;
-	_solMax = round ((count _soldados)/3);
 	_size = [_marcador] call sizeMarker;
 	if (_lado == malos) then
 		{
-		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= 3*({(!captive _x) and (alive _x) and (lifeState _x != "INCAPACITATED")} count _soldados))/* or ({alive _x} count _soldados < _solMax) */or (time > _tiempo) or (lados getVariable [_marcador,sideUnknown] == malos) or (({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits))};
-		if  ((({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits)) and (not(lados getVariable [_marcador,sideUnknown] == malos))) then
+		waitUntil {sleep 5; (({!([_x] call canFight)} count _soldados) >= 3*({([_x] call canFight)} count _soldados)) or (time > _tiempo) or (lados getVariable [_marcador,sideUnknown] == malos) or (({[_x,_marcador] call canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_marcador] call canConquer)} count allUnits))};
+		if  ((({[_x,_marcador] call canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_marcador] call canConquer)} count allUnits)) and (not(lados getVariable [_marcador,sideUnknown] == malos))) then
 			{
 			["BLUFORSpawn",_marcador] remoteExec ["markerChange",2];
 			diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to retake %3 succesful. Retaken.",_aeropuerto,_base,_marcador];
@@ -646,8 +645,8 @@ if (_esMarcador) then
 		}
 	else
 		{
-		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= 3*({(!captive _x) and (alive _x) and (lifeState _x != "INCAPACITATED")} count _soldados)) /*or ({alive _x} count _soldados < _solMax) */or (time > _tiempo) or (lados getVariable [_marcador,sideUnknown] == muyMalos) or (({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits))};
-		if  ((({(alive _x) and (!captive _x) and (_x distance _posDestino <= _size)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and (_x distance _posDestino <= _size)} count allUnits)) and (not(lados getVariable [_marcador,sideUnknown] == muyMalos))) then
+		waitUntil {sleep 5; (({!([_x] call canFight)} count _soldados) >= 3*({([_x] call canFight)} count _soldados))or (time > _tiempo) or (lados getVariable [_marcador,sideUnknown] == muyMalos) or (({[_x,_marcador] call canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_marcador] call canConquer)} count allUnits))};
+		if  ((({[_x,_marcador] call canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_marcador] call canConquer)} count allUnits)) and (not(lados getVariable [_marcador,sideUnknown] == muyMalos))) then
 			{
 			["OPFORSpawn",_marcador] remoteExec ["markerChange",2];
 			diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to retake %3 succesful. Retaken.",_aeropuerto,_base,_marcador];
@@ -672,8 +671,8 @@ if (_esMarcador) then
 else
 	{
 	_ladoENY = if (_lado == malos) then {"OPFORSpawn"} else {"BLUFORSpawn"};
-	if (_typeOfAttack != "Air") then {waitUntil {sleep 1; (!([distanciaSPWN1,1,_posDestino,"GREENFORSpawn"] call distanceUnits) and !([distanciaSPWN1,1,_posDestino,_ladoENY] call distanceUnits)) or (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= 3*({(!captive _x) and (alive _x) and (lifeState _x != "INCAPACITATED")} count _soldados))}} else {waitUntil {sleep 1; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= 3*({(!captive _x) and (alive _x) and (lifeState _x != "INCAPACITATED")} count _soldados))}};
-	if (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= 3*({(!captive _x) and (alive _x) and (lifeState _x != "INCAPACITATED")} count _soldados)) then
+	if (_typeOfAttack != "Air") then {waitUntil {sleep 1; (!([distanciaSPWN1,1,_posDestino,"GREENFORSpawn"] call distanceUnits) and !([distanciaSPWN1,1,_posDestino,_ladoENY] call distanceUnits)) or (({!([_x] call canFight)} count _soldados) >= 3*({([_x] call canFight)} count _soldados))}} else {waitUntil {sleep 1; (({!([_x] call canFight)} count _soldados) >= 3*({([_x] call canFight)} count _soldados))}};
+	if (({!([_x] call canFight)} count _soldados) >= 3*({([_x] call canFight)} count _soldados)) then
 		{
 		_marcadores = recursos + fabricas + aeropuertos + puestos + puertos select {getMarkerPos _x distance _posDestino < distanciaSPWN};
 		_sitio = if (_base != "") then {_base} else {_aeropuerto};

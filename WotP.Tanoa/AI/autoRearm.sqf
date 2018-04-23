@@ -2,8 +2,8 @@ private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hayCaja","_dista
 
 _unit = _this select 0;
 
-if ((!alive _unit) or (isPlayer _unit) or (player != leader group player) or (captive _unit)) exitWith {};
-if (lifestate _unit == "INCAPACITATED") exitWith {};
+if ((isPlayer _unit) or (player != leader group player)) exitWith {};
+if !([_unit] call canFight) exitWith {};
 _ayudando = _unit getVariable "ayudando";
 if (!(isNil "_ayudando")) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
 _rearming = _unit getVariable ["rearming",false];

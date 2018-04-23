@@ -46,6 +46,7 @@ else
 		{
 		[_unit,"heal"] remoteExec ["flagaction",0,_unit];
 		[_unit,"carry"] remoteExec ["flagaction",0,_unit];
+		_unit call jn_fnc_logistics_addAction;
 		[_unit,true] remoteExec ["setCaptive"];
 		}
 	else
@@ -129,6 +130,7 @@ while {(time < _bleedOut) and (damage _unit > 0.25) and (alive _unit) and (!(_un
 			};
 		};
 	sleep 3;
+	if (_unit != vehicle _unit) then {_bleedOut = _bleedOut + 4};
 	};
 
 if (_isPlayer) then

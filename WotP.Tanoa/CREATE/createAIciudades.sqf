@@ -80,9 +80,9 @@ else
 	{[_x] spawn FIAinitBases; _soldados pushBack _x} forEach units _grp;} forEach _grupos;
 	};
 
-waitUntil {sleep 1;((spawner getVariable _marcador == 2)) or ({alive _x} count _soldados == 0) or ({fleeing _x} count _soldados == {alive _x} count _soldados)};
+waitUntil {sleep 1;((spawner getVariable _marcador == 2)) or ({[_x,_marcador] call canConquer} count _soldados == 0)};
 
-if ((({alive _x} count _soldados == 0) or ({fleeing _x} count _soldados == {alive _x} count _soldados)) and (_esAAF)) then
+if (({[_x,_marcador] call canConquer} count _soldados == 0) and (_esAAF)) then
 	{
 	[[_posicion,malos],"patrolCA"] remoteExec ["scheduler",2];
 	};

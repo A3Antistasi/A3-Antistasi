@@ -7,7 +7,7 @@ private _ingeniero = objNull;
 if (isNull _ingeniero) exitWith {hint "Your squad needs an engineer to be able to construct"};
 if ((player != _ingeniero) and (isPlayer _ingeniero)) exitWith {hint "There is a human player engineer in your squad, ask him to construct whatever you need"};
 if ((player != leader player) and (_ingeniero != player)) exitWith {hint "Only squad leaders can ask engineers to construct something"};
-if (!(alive _ingeniero) or (lifeState _ingeniero == "INCAPACITATED")) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
+if !([_ingeniero] call canFight) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
 if ((_ingeniero getVariable ["ayudando",false]) or (_ingeniero getVariable ["rearming",false]) or (_ingeniero getVariable ["constructing",false])) exitWith {hint "Your engineer is currently performing another action"};
 
 private _tipo = _this select 0;
@@ -247,7 +247,7 @@ _ingeniero playMoveNow selectRandom ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPkn
 _ingeniero addEventHandler ["AnimDone",
 	{
 	private _ingeniero = _this select 0;
-	if ((alive _ingeniero) and (lifeState _ingeniero != "INCAPACITATED") and !(_ingeniero getVariable ["ayudando",false]) and !(_ingeniero getVariable ["rearming",false]) and (_ingeniero getVariable ["constructing",false])) then
+	if (([_ingeniero] call canFight) and !(_ingeniero getVariable ["ayudando",false]) and !(_ingeniero getVariable ["rearming",false]) and (_ingeniero getVariable ["constructing",false])) then
 		{
 		_ingeniero playMoveNow selectRandom ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPknlMstpSnonWnonDnon_medic0","AinvPknlMstpSnonWnonDnon_medic1","AinvPknlMstpSnonWnonDnon_medic2"];
 		}
@@ -257,7 +257,7 @@ _ingeniero addEventHandler ["AnimDone",
 		};
 	}];
 
-waitUntil  {sleep 5; !(alive _ingeniero) or (lifeState _ingeniero == "INCAPACITATED") or (_ingeniero getVariable ["ayudando",false]) or (_ingeniero getVariable ["rearming",false]) or (_ingeniero distance _posicion > 4) or (time > _timeOut)};
+waitUntil  {sleep 5; !([_ingeniero] call canFight) or (_ingeniero getVariable ["ayudando",false]) or (_ingeniero getVariable ["rearming",false]) or (_ingeniero distance _posicion > 4) or (time > _timeOut)};
 
 _ingeniero setVariable ["constructing",false];
 if (!_isPlayer) then {{_ingeniero enableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"]};

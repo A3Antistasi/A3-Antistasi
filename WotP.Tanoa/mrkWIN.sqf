@@ -19,7 +19,7 @@ if (!isNull _jugador) then
 	if (_size > 300) then {_size = 300};
 	_arevelar = [];
 	{
-	if (((side _x == malos) or (side _x == muyMalos)) and (alive _x) and (not(fleeing _x)) and (_x distance _posicion < _size)) then {_arevelar pushBack _x};
+	if (((side _x == malos) or (side _x == muyMalos)) and ([_x,_marcador] call canConquer)) then {_arevelar pushBack _x};
 	} forEach allUnits;
 	if (player == _jugador) then
 		{

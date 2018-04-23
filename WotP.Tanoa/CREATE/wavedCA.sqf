@@ -676,8 +676,8 @@ while {(_waves != 0)} do
 	diag_log format ["Antistasi: Reached end of spawning attack, wave %1",_waves];
 	if (_lado == malos) then
 		{
-		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= _solMax) /*or ({alive _x} count _soldados < _solMax) */or (time > _tiempo) or (lados getVariable [_mrkDestino,sideUnknown] == malos) or (({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits))};
-		if  ((({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits)) or (lados getVariable [_mrkDestino,sideUnknown] == malos)) then
+		waitUntil {sleep 5; (({!([_x] call canFight)} count _soldados) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestino,sideUnknown] == malos) or (({[_x,_mrkDestino] call canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestino] call canConquer)} count allUnits))};
+		if  ((({[_x,_mrkDestino] call canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestino] call canConquer)} count allUnits)) or (lados getVariable [_mrkDestino,sideUnknown] == malos)) then
 			{
 			_waves = 0;
 			if (not(lados getVariable [_mrkDestino,sideUnknown] == malos)) then {["BLUFORSpawn",_mrkDestino] remoteExec ["markerChange",2]};
@@ -719,8 +719,8 @@ while {(_waves != 0)} do
 		}
 	else
 		{
-		waitUntil {sleep 5; (({(captive _x) or (!alive _x) or (lifeState _x == "INCAPACITATED")} count _soldados) >= _solMax)/* or ({alive _x} count _soldados < _solMax)*/ or (time > _tiempo) or (lados getVariable [_mrkDestino,sideUnknown] == muyMalos) or (({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits))};
-		if  ((({(alive _x) and (!captive _x) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count _soldados) > 3*({(alive _x) and (!captive _x) and (side _x != _lado) and (side _x != civilian) and /*(_x distance _posDestino <= _size)*/(_x inArea _mrkDestino)} count allUnits)) or (lados getVariable [_mrkDestino,sideUnknown] == muyMalos))  then
+		waitUntil {sleep 5; (({!([_x] call canFight)} count _soldados) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestino,sideUnknown] == muyMalos) or (({[_x,_mrkDestino] call canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestino] call canConquer)} count allUnits))};
+		if  ((({[_x,_mrkDestino] call canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestino] call canConquer)} count allUnits)) or (lados getVariable [_mrkDestino,sideUnknown] == muyMalos))  then
 			{
 			_waves = 0;
 			if (not(lados getVariable [_mrkDestino,sideUnknown] == muyMalos)) then {["OPFORSpawn",_mrkDestino] remoteExec ["markerChange",2]};

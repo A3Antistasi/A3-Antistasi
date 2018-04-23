@@ -147,7 +147,7 @@ else
 	};
 if (_salir) exitWith {};
 _spawnStatus = 0;
-while {(spawner getVariable _marcador != 2) and ({(alive _x) and (!fleeing _x) and (!captive _x)} count _soldados > 0)} do
+while {(spawner getVariable _marcador != 2) and ({[_x,_marcador] call canConquer} count _soldados > 0)} do
 	{
 	if ((spawner getVariable _marcador == 1) and (_spawnStatus != spawner getVariable _marcador)) then
 		{
@@ -179,7 +179,7 @@ while {(spawner getVariable _marcador != 2) and ({(alive _x) and (!fleeing _x) a
 	sleep 3;
 	};
 
-waitUntil {sleep 1;((spawner getVariable _marcador == 2))  or ({(alive _x) and (!fleeing _x) and (!captive _x)} count _soldados == 0)};
+waitUntil {sleep 1;((spawner getVariable _marcador == 2))  or ({[_x,_marcador] call canConquer} count _soldados == 0)};
 
 _conquistado = false;
 _winner = malos;

@@ -67,20 +67,3 @@ _EHkilledIdx = _unit addEventHandler ["killed",
 		};
 	}
 	];
-/*
-if (typeOf _unit == "C_man_w_worker_F") then
-	{
-	if (side _unit == civilian) then {_enemigos = ([distanciaSPWN,0,_unit,"GREENFORSpawn"] call distanceUnits)} else {_enemigos = [distanciaSPWN,0,_unit,"OPFORSpawn"] call distanceUnits};
-	waitUntil {sleep 1;(not (alive _unit)) or (fleeing _unit)};
-
-	if ((alive _unit) and ({_x distance _unit < 300} count _enemigos > 0) and (vehicle _unit == _unit)) then
-		{
-		_unit setCaptive true;
-		_unit stop true;
-		_unit disableAI "MOVE";
-		_unit disableAI "AUTOTARGET";
-		_unit disableAI "TARGET";
-		_unit setUnitPos "UP";
-		_unit playMoveNow "AmovPercMstpSnonWnonDnon_AmovPercMstpSsurWnonDnon";
-		};
-	};

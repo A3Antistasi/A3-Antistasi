@@ -1,8 +1,8 @@
 _unit = _this select 0;
 _camion = _this select 1;
 
-if ((!alive _unit) or (isPlayer _unit) or (player != leader group player) or (captive _unit)) exitWith {};
-if (lifestate _unit == "INCAPACITATED") exitWith {};
+if ((isPlayer _unit) or (player != leader group player)) exitWith {};
+if !([_unit] call canFight) exitWith {};
 _ayudando = _unit getVariable "ayudando";
 if (!(isNil "_ayudando")) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
 _rearming = _unit getVariable "rearming";
@@ -58,7 +58,7 @@ if (_Sweapon != "") then {_unit action ["DropWeapon",_camion,_Sweapon]};
 
 _continuar = true;
 
-while {_continuar and (alive _unit) and (!(lifestate _unit == "INCAPACITATED")) and (_unit getVariable "rearming") and (alive _camion) and (_bigTimeout > time)} do
+while {_continuar and ([_unit] call canFight) and (_unit getVariable "rearming") and (alive _camion) and (_bigTimeout > time)} do
 	{
 	if (isNull _target) exitWith {_continuar = false};
 	_target setVariable ["busy",true];

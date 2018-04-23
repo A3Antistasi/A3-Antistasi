@@ -3,6 +3,8 @@
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
 //fpsCheck = compile preProcessFileLineNumbers "fpsCheck.sqf";
+canConquer = compile preProcessFileLineNumbers "AI\canConquer.sqf";
+canFight = compile preProcessFileLineNumbers "AI\canFight.sqf";
 AILoadInfo = compile preProcessFileLineNumbers "AILoadInfo.sqf";
 scheduler = compile preProcessFileLineNumbers "scheduler.sqf";
 addHC = compile preProcessFileLineNumbers "addHC.sqf";

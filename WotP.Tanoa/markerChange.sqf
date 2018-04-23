@@ -140,7 +140,7 @@ if (_winner == buenos) then
 		//[_bandera,"garage"] remoteExec ["flagaction",[buenos,civilian],_bandera];
 		if (_marcador in puertos) then {[_bandera,"seaport"] remoteExec ["flagaction",[buenos,civilian],_bandera]};
 		};
-	waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({((_x getVariable ["BLUFORSpawn",false]) or (_x getVariable ["OPFORSpawn",false])) and (not(vehicle _x isKindOf "Air")) and (alive _x) and (!captive _x) and (!fleeing _x) and (_x distance _posicion <= _size)} count allUnits > 3*({(alive _x) and (!captive _x) and (!fleeing _x) and (side _x == buenos) and (_x distance _posicion <= _size)} count allUnits))};
+	waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({((_x getVariable ["BLUFORSpawn",false]) or (_x getVariable ["OPFORSpawn",false])) and ([_x,_marcador] call canConquer)} count allUnits > 3*({(side _x == buenos) and ([_x,_marcador] call canConquer)} count allUnits))};
 	if (spawner getVariable _marcador != 2) then
 		{
 		[_marcador,buenos] spawn zoneCheck;

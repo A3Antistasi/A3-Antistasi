@@ -107,45 +107,39 @@ if (!isNil "_marcador") then
 	_grupo = _this select 0;
 	_killer = _this select 1;
 	{
-	if (alive _x) then
+	if (fleeing _x) then
 		{
-		if (fleeing _x) then
+		if ([_x] call canFight) then
 			{
-			if !(_x getVariable ["surrendered",false]) then
+			_enemy = _x findNearestEnemy _x;
+			if (!isNull _enemy) then
 				{
-				if (lifeState _x != "INCAPACITATED") then
+				if ((_x distance _enemy < 50) and (vehicle _x == _x)) then
 					{
-					_enemy = _x findNearestEnemy _x;
-					if (!isNull _enemy) then
+					[_x] spawn surrenderAction;
+					}
+				else
+					{
+					if (_x == leader group _x) then
 						{
-						if ((_x distance _enemy < 50) and (vehicle _x == _x)) then
+						if (vehicle _killer == _killer) then
 							{
-							[_x] spawn surrenderAction;
+							[[getPosASL _enemy,side _x,"Normal"],"patrolCA"] remoteExec ["scheduler",2]
 							}
 						else
 							{
-							if (_x == leader group _x) then
-								{
-								if (vehicle _killer == _killer) then
-									{
-									[[getPosASL _enemy,side _x,"Normal"],"patrolCA"] remoteExec ["scheduler",2]
-									}
-								else
-									{
-									if (vehicle _killer isKindOf "Air") then {[[getPosASL _enemy,side _x,"Air"],"patrolCA"] remoteExec ["scheduler",2]} else {if (vehicle _killer isKindOf "Tank") then {[[getPosASL _enemy,side _x,"Tank"],"patrolCA"] remoteExec ["scheduler",2]} else {[[getPosASL _enemy,side _x,"Normal"],"patrolCA"] remoteExec ["scheduler",2]}};
-									};
-								};
-							if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x] spawn cubrirConHumo};
+							if (vehicle _killer isKindOf "Air") then {[[getPosASL _enemy,side _x,"Air"],"patrolCA"] remoteExec ["scheduler",2]} else {if (vehicle _killer isKindOf "Tank") then {[[getPosASL _enemy,side _x,"Tank"],"patrolCA"] remoteExec ["scheduler",2]} else {[[getPosASL _enemy,side _x,"Normal"],"patrolCA"] remoteExec ["scheduler",2]}};
 							};
 						};
+					if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x] spawn cubrirConHumo};
 					};
 				};
-			}
-		else
-			{
-			//_x allowFleeing (0.5-(_x skill "courage") + (0.2*({(_x getVariable ["surrendered",false]) or (!alive _x)} count (units group _x))));
-			if (random 1 < 0.5) then {_x allowFleeing (0.5 -(_x skill "courage") + (({(!alive _x) or (_x getVariable ["surrendered",false]) OR (lifeState _x == "INCAPACITATED")} count units _grupo)/(count units _grupo)))};
 			};
+		}
+	else
+		{
+		//_x allowFleeing (0.5-(_x skill "courage") + (0.2*({(_x getVariable ["surrendered",false]) or (!alive _x)} count (units group _x))));
+		if (random 1 < 0.5) then {_x allowFleeing (0.5 -(_x skill "courage") + (({!([_x] call canFight)} count units _grupo)/(count units _grupo)))};
 		};
 	} forEach units _grupo;
 	sleep 1 + (random 1);

@@ -680,3 +680,15 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Better spawn points for SDK vehicle squads.
 - Reduced a bit distance checks for garage, player recruit and vehicle purchase.
 - Added LoW DLC civ van as possible spawn.
+- Stronger Radio Tower effect on Civ Support on each tick.
+
+0.12.2 14/04/2018 ALPHA
+
+- NEW FEATURE: Now you may transport your wounded teammate to some truck / offroad to be healed by friendly medics or at HQ.
+- More bulletproofing of garrisonUpdate.sqf
+- Heal and Repair will affect unconscious units.
+- Mounting a vehicle while carryng a teammate wont have weird effects.
+- Being carried in a vehicle will delay the time to get bledout.
+- Simplified to DRY coding ability to fight and ability con conquer / defend, with greater performance checks.
+- NATO wont attack cities under SDK influence.
+- SDK wont gain influence when the RT is on CSAT hands.

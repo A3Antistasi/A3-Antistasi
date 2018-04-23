@@ -24,7 +24,16 @@ _posBase = getMarkerPos _base;
 _killZones = killZones getVariable [_base,[]];
 _tmpObjetivos = [];
 _baseNATO = true;
-if (lados getVariable [_base,sideUnknown] == malos) then {_tmpObjetivos = _objetivos select {lados getVariable [_x,sideUnknown] != malos}} else {_baseNATO = false; _tmpObjetivos = _objetivos select {lados getVariable [_x,sideUnknown] != muyMalos}};
+if (lados getVariable [_base,sideUnknown] == malos) then
+	{
+	_tmpObjetivos = _objetivos select {lados getVariable [_x,sideUnknown] != malos};
+	_tmpObjetivos = _tmpObjetivos - (ciudades select {!([_x] call powerCheck)});
+	}
+else
+	{
+	_baseNATO = false;
+	_tmpObjetivos = _objetivos select {lados getVariable [_x,sideUnknown] != muyMalos}
+	};
 
 _tmpObjetivos = _tmpObjetivos select {getMarkerPos _x distance2D _posBase < 10000};
 _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;

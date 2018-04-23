@@ -46,7 +46,7 @@ if (_ai) then
 	_armas = [];
 
 	{_unit = _x;
-	if ((alive _unit) and (not(lifeState _unit == "INCAPACITATED"))) then
+	if ([_unit] call canFight) then
 		{
 		_resourcesFIA = _resourcesFIA + (server getVariable (typeOf _unit));
 		_hr = _hr +1;

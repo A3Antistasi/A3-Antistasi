@@ -12,7 +12,7 @@ if ((([objNull, "VIEW"] checkVisibility [eyePos _enemy, eyePos _unit]) > 0) or (
 	{
 	if (!isPlayer _x) then
 		{
-		if ((alive _x) and ("FirstAidKit" in (items _x)) and (not (lifestate _x == "INCAPACITATED")) and (vehicle _x == _x) and (_x distance _unit < _distancia)) then
+		if (([_x] call canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < _distancia)) then
 			{
 			_medico == _unit;
 			};
@@ -28,7 +28,7 @@ else
 		{
 		if ((getNumber (configfile >> "CfgVehicles" >> (typeOf _x) >> "attendant") == 2) or (_x getUnitTrait "Medic")) then
 			{
-			if ((alive _x) and ("FirstAidKit" in (items _x)) and (not (lifestate _x == "INCAPACITATED")) and (vehicle _x == _x) and (_x distance _unit < 81)) then
+			if (([_x] call canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < 81)) then
 				{
 				_ayudando = _x getVariable "ayudando";
 				if ((isNil "_ayudando") and (!(_x getVariable ["rearming",false]))) then
@@ -48,7 +48,7 @@ else
 			{
 			if ((getNumber (configfile >> "CfgVehicles" >> (typeOf _x) >> "attendant") != 2) and !(_x getUnitTrait "Medic")) then
 				{
-				if ((alive _x) and ("FirstAidKit" in (items _x)) and (not (lifestate _x == "INCAPACITATED")) and (vehicle _x == _x) and (_x distance _unit < _distancia)) then
+				if (([_x] call canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < _distancia)) then
 					{
 					_ayudando = _x getVariable "ayudando";
 					if ((isNil "_ayudando") and (!(_x getVariable ["rearming",false]))) then
@@ -71,7 +71,7 @@ else
 		{
 		if (!isPlayer _x) then
 			{
-			if ((alive _x) and ("FirstAidKit" in (items _x)) and (not (lifestate _x == "INCAPACITATED")) and (vehicle _x == _x) and (_x distance _unit < _distancia)) then
+			if (([_x] call canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < _distancia)) then
 				{
 				_medico == _unit;
 				};

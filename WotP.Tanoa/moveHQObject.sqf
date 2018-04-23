@@ -18,7 +18,7 @@ _cosa removeAction _id;
 _cosa attachTo [_jugador,[0,2,1]];
 accion = _jugador addAction ["Drop Here", {{detach _x} forEach attachedObjects player; player removeAction accion},nil,0,false,true,"",""];
 
-waitUntil {sleep 1; (count attachedObjects _jugador == 0) or (vehicle _jugador != _jugador) or (_jugador distance2D _posicion > (_size-3)) or (!alive _jugador) or (!isPlayer _jugador) or (lifeState _jugador == "INCAPACITATED")};
+waitUntil {sleep 1; (count attachedObjects _jugador == 0) or (vehicle _jugador != _jugador) or (_jugador distance2D _posicion > (_size-3)) or !([_jugador] call canFight) or (!isPlayer _jugador)};
 
 {detach _x} forEach attachedObjects _jugador;
 player removeAction accion;

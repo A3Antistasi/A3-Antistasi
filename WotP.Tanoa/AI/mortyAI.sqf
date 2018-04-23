@@ -24,9 +24,9 @@ while {(alive _morty0) and (alive _morty1)} do
 	[_morty1] allowGetIn true;
 	_nul = [_mortero] call AIVEHinit;
 
-	waitUntil {sleep 1; ({!(alive _x)/* or (lifestate _x == "INCAPACITATED")*/} count units _grupo != 0) or !(unitReady _morty0)};
+	waitUntil {sleep 1; ({!(alive _x)} count units _grupo != 0) or !(unitReady _morty0)};
 
-	if (({(alive _x) /*AND (lifestate _x != "INCAPACITATED")*/} count units _grupo == count units _grupo) and !(unitReady _morty0)) then
+	if (({(alive _x)} count units _grupo == count units _grupo) and !(unitReady _morty0)) then
 		{
 		_morty0 addBackpackGlobal _b0;
 		_morty1 addBackpackGlobal _b1;

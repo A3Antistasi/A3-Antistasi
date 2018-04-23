@@ -11,8 +11,12 @@ if(!isnil "_loadActionID") then
 //Check if this vehicle can be loaded with JNL
 if((_object call jn_fnc_logistics_getCargoType) == -1) exitWith {};
 
+_text = "";
+
+if (_object isKindOf "Man") then {_text = format ["<img image='\A3\ui_f\data\IGUI\Cfg\Actions\arrow_up_gs.paa' />  Load %1 in Vehicle</t>",name _object]} else {_text = "<img image='\A3\ui_f\data\IGUI\Cfg\Actions\arrow_up_gs.paa' />  Load Cargo in Vehicle</t>"};
+
 _loadActionID = _object addAction [
-	"<img image='\A3\ui_f\data\IGUI\Cfg\Actions\arrow_up_gs.paa' />  Load Cargo in Vehicle</t>",
+	_text,
 	{ //Action script
 		private _cargo = _this select 0;
 		private _player = _this select 1;
@@ -69,9 +73,10 @@ _loadActionID = _object addAction [
 	nil, 1, true, false, "", "isnull attachedTo _target && vehicle player == player;", 3.5, false, ""
 ];
 
+if (_object isKindOf "Man") then {_text = format ["Load %1 in Vehicle",name _object]} else {_text = "Load Cargo in Vehicle"};
 _object setUserActionText [
 	_loadActionID,
-	"Load Cargo in Vehicle",
+	_text,
 	"<t size='2'><img image='\A3\ui_f\data\IGUI\Cfg\Actions\arrow_up_gs.paa'/></t>"
 ];
 

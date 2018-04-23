@@ -3,7 +3,7 @@ private ["_veh","_text","_mrkfin","_pos","_side","_tipo","_newPos","_road","_ami
 _veh = _this select 0;
 _text = _this select 1;
 _convoy = false;
-if ((_text == "Convoy Objective") or (_text == "Mission Vehicle")) then {_convoy = true};
+if ((_text == "Convoy Objective") or (_text == "Mission Vehicle") or (_text == "Supply Box")) then {_convoy = true};
 _side = side (driver _veh);
 _tipo = "_unknown";
 _formato = "";

@@ -36,19 +36,19 @@ if (_medico != _unit) then
 	_medico doMove getPosATL _unit;
 	while {true} do
 		{
-		if ((!alive _medico) or (!alive _unit) or (_medico distance _unit <= 3) or (_timeOut < time) or (lifestate _medico == "INCAPACITATED") or (_unit != vehicle _unit) or (_medico != vehicle _medico) or (_medico != _unit getVariable ["ayudado",objNull]) or (_unit getVariable ["llevado",false])) exitWith {};
+		if (!([_medico] call canFight) or (!alive _unit) or (_medico distance _unit <= 3) or (_timeOut < time) or (_unit != vehicle _unit) or (_medico != vehicle _medico) or (_medico != _unit getVariable ["ayudado",objNull]) or (_unit getVariable ["llevado",false])) exitWith {};
 		sleep 1;
 		if (isPlayer _unit) then
 			{
-			if ((unitReady _medico) and (alive _medico) and (_medico distance _unit > 3) and (!(lifestate _medico == "INCAPACITATED")) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false])) then {_medico setPos position _unit};
+			if ((unitReady _medico) and ([_medico] call canFight) and (_medico distance _unit > 3) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false])) then {_medico setPos position _unit};
 			};
 		};
-	if ((_unit distance _medico <= 3) and (alive _unit) and (alive _medico) and !(lifestate _medico == "INCAPACITATED") and (_medico == vehicle _medico) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false])) then
+	if ((_unit distance _medico <= 3) and (alive _unit) and ([_medico] call canFight) and (_medico == vehicle _medico) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false])) then
 		{
 		if ((lifeState _unit == "INCAPACITATED") and (!isNull _enemy) and (_timeOut >= time) and (_medico != _unit)) then
 			{
 			_cobertura = [_unit,_enemy] call cobertura;
-			{if ((alive _x) and (lifeState _x != "INCAPACITATED") and (_x distance _medico < 300) and !(_x getVariable ["ayudando",false]) and (!isPlayer _x)) then {[_x,_enemy] call fuegoSupresor}} forEach units (group _medico);
+			{if (([_x] call canFight) and (_x distance _medico < 300) and !(_x getVariable ["ayudando",false]) and (!isPlayer _x)) then {[_x,_enemy] call fuegoSupresor}} forEach units (group _medico);
 			if (count _cobertura == 3) then
 				{
 				if (_isPlayer) then {_unit setVariable ["llevado",true,true]};
@@ -99,7 +99,7 @@ if (_medico != _unit) then
 				deleteVehicle _dummy;
 				deleteGroup _dummyGrp;
 				_medico enableAI "ANIM";
-				if ((alive _unit) and (alive _medico) and !(lifestate _medico == "INCAPACITATED") and (_medico == vehicle _medico)) then
+				if ((alive _unit) and ([_medico] call canFight) and (_medico == vehicle _medico)) then
 					{
 					_medico playMove "amovpknlmstpsraswrfldnon";
 					_medico stop true;
@@ -126,7 +126,7 @@ if (_medico != _unit) then
 					}
 				else
 					{
-					if ((alive _medico) and !(lifestate _medico == "INCAPACITATED")) then {_medico switchMove ""};
+					if ([_medico] call canFight) then {_medico switchMove ""};
 					if ((alive _unit) and (lifestate _unit == "INCAPACITATED")) then
 						{
 						_unit playMoveNow "";
@@ -149,7 +149,7 @@ if (_medico != _unit) then
 				_unit dofollow leader group _unit;
 				_medico doFollow leader group _unit;
 				_curado = true;
-				if ((alive _medico) and (alive _unit) and (not((lifestate _medico == "INCAPACITATED")))) then
+				if ((alive _unit) and ([_medico] call canFight)) then
 					{
 					if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};
 					};
@@ -168,7 +168,7 @@ if (_medico != _unit) then
 			_unit dofollow leader group _unit;
 			_medico doFollow leader group _unit;
 			_curado = true;
-			if ((alive _medico) and (alive _unit) and (not((lifestate _medico == "INCAPACITATED")))) then
+			if (([_medico] call canFight) and (alive _unit)) then
 				{
 				if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};
 				};
@@ -181,7 +181,7 @@ if (_medico != _unit) then
 else
 	{
 	[_medico,_medico] call cubrirConHumo;
-	if ((alive _medico) and !(lifeState _medico == "INCAPACITATED")) then
+	if ([_medico] call canFight) then
 		{
 		_medico action ["HealSoldierSelf",_medico];
 		sleep 10;

@@ -16,7 +16,7 @@ _llevado setDir 180;
 _timeOut = time + 60;
 _action = _llevador addAction [format ["Release %1",name _llevado], {{detach _x} forEach (attachedObjects player)},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
 
-waitUntil {sleep 0.5; (!alive _llevado) or (!alive _llevador) or (lifestate _llevador == "INCAPACITATED") or (lifeState _llevado != "INCAPACITATED") or ({!isNull _x} count attachedObjects _llevador == 0) or (time > _timeOut)};
+waitUntil {sleep 0.5; (!alive _llevado) or (!alive _llevador) or (lifestate _llevador == "INCAPACITATED") or (lifeState _llevado != "INCAPACITATED") or ({!isNull _x} count attachedObjects _llevador == 0) or (time > _timeOut) or (vehicle _llevador != _llevador)};
 
 _llevador removeAction _action;
 if (count attachedObjects _llevador != 0) then {detach _llevado};

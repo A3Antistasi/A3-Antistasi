@@ -63,7 +63,7 @@ if ((_x != vehicle _x) and (driver vehicle _x == _x)) then
 	}
 else
 	{
-	if ((!(lifeState _x == "INCAPACITATED")) and (alive _x)) then
+	if ([_x] call canFight) then
 		{
 		_x setPosATL _posicion;
 		_x setVariable ["rearming",false];

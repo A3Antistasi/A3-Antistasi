@@ -7,7 +7,7 @@ _text = _this select 1;
 _enemigo = true;
 _convoy = false;
 
-if ((_text == "Convoy Objective") or (_text == "Mission Vehicle")) then {_convoy = true;};
+if ((_text == "Convoy Objective") or (_text == "Mission Vehicle") or (_text == "Supply Box")) then {_convoy = true};
 
 waitUntil {sleep 1; (not(isNull driver _veh)) or _convoy};
 

@@ -37,8 +37,7 @@ else
 	if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]};
 	if (random 40 < skillFIA) then
 		{
-		removeHeadgear _unit;
-		_unit addHeadgear (selectRandom cascos);
+		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") < 2) then {removeHeadgear _unit;_unit addHeadgear (selectRandom cascos)};
 		};
 	if ((_tipo in SDKMil) or (_tipo == staticCrewBuenos)) then
 		{

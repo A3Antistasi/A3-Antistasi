@@ -128,19 +128,8 @@ _grptraidor selectLeader _traidor;
 
 _posTsk = (position _casa) getPos [random 100, random 360];
 
-/*if (!_dificil) then
-	{
-	[[buenos,civilian],"AS",[format ["A traitor has scheduled a meeting with NATO in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and NATO presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_posTsk,false,0,true,"Kill",true] call BIS_fnc_taskCreate
-	}
-else
-	{
-	["AS",[format ["A traitor has scheduled a meeting with NATO in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and NATO presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_posTsk,"CREATED","Kill"] call taskUpdate
-	};*/
-[[buenos,civilian],"AS",[format ["A traitor has scheduled a meeting with NATO in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and NATO presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_posTsk,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
-[[malos],"AS1",[format ["We arranged a meeting in %1 with a SDK contact who may have vital information about Syndikat Headquarters position. Protect him until %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Protect Contact",_marcador],getPos _casa,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
-
-//_tsk1 = ["AS1",[malos],[format ["We arranged a meeting in %1 with a SDK contact who may have vital information about Syndikat Headquarters position. Protect him until %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Protect Contact",_marcador],getPos _casa,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;
-//misiones pushBack _tsk; publicVariable "misiones";
+[[buenos,civilian],"AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Kill the Traitor",_marcador],_posTsk,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
+[[malos],"AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameBuenos],"Protect Contact",_marcador],getPos _casa,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 
 {_nul = [_x,""] call NATOinit; _x allowFleeing 0} forEach units _grptraidor;
 _posVeh = [];
@@ -198,8 +187,6 @@ waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (not alive _traidor) o
 
 if ({_traidor knowsAbout _x > 1.4} count ([500,0,_traidor,"GREENFORSpawn"] call distanceUnits) > 0) then
 	{
-	//hint "You have been discovered. The traitor is fleeing to the nearest base. Go and kill him!";
-	//_tsk = ["AS",[buenos,civilian],[format ["A traitor has scheduled a meeting with NATO in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and NATO presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_traidor,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	{_x enableAI "MOVE"} forEach units _grptraidor;
 	_traidor assignAsDriver _veh;
 	[_traidor] orderGetin true;
@@ -215,8 +202,8 @@ waitUntil  {sleep 1; (dateToNumber date > _fechalimnum) or (not alive _traidor) 
 
 if (not alive _traidor) then
 	{
-	["AS",[format ["A traitor has scheduled a meeting with NATO in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and NATO presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_traidor,"SUCCEEDED"] call taskUpdate;
-	["AS1",[format ["We arranged a meeting in %1 with a SDK contact who may have vital information about Syndikat Headquarters position. Protect him until %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Protect Contact",_marcador],getPos _casa,"FAILED"] call taskUpdate;
+	["AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Kill the Traitor",_marcador],_traidor,"SUCCEEDED"] call taskUpdate;
+	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameBuenos],"Protect Contact",_marcador],getPos _casa,"FAILED"] call taskUpdate;
 	if (_dificil) then
 		{
 		[4,0] remoteExec ["prestige",2];
@@ -256,8 +243,8 @@ if (not alive _traidor) then
 	}
 else
 	{
-	["AS",[format ["A traitor has scheduled a meeting with NATO in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and NATO presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_traidor,"FAILED"] call taskUpdate;
-	["AS1",[format ["We arranged a meeting in %1 with a SDK contact who may have vital information about Syndikat Headquarters position. Protect him until %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Protect Contact",_marcador],getPos _casa,"SUCCEEDED"] call taskUpdate;
+	["AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Kill the Traitor",_marcador],_traidor,"FAILED"] call taskUpdate;
+	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameBuenos],"Protect Contact",_marcador],getPos _casa,"SUCCEEDED"] call taskUpdate;
 	if (_dificil) then {[-10,stavros] call playerScoreAdd} else {[-10,stavros] call playerScoreAdd};
 	if (dateToNumber date > _fechalimnum) then
 		{

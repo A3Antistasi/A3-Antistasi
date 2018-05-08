@@ -43,5 +43,4 @@ if (isPlayer _x) then
 } forEach ([_size,0,_posicion,"GREENFORSpawn"] call distanceUnits);
 
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
-["GREENFORSpawn",_marcador] call markerChange;
-[[_marcador,_lado],"patrolCA"] remoteExec ["scheduler",2];
+["GREENFORSpawn",_marcador] remoteExec ["markerChange",2];

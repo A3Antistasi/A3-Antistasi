@@ -1,5 +1,5 @@
+if (!isServer) exitWith {};
 private ["_tipo","_lado","_marcador","_modo","_garrison","_subTipo"];
-
 _tipo = _this select 0;
 if (_tipo isEqualType []) then
 	{
@@ -11,19 +11,25 @@ if (_tipo isEqualType []) then
 		} forEach _tipo;
 		_tipo = _subTipo;
 		};
+	}
+else
+	{
+	if (_tipo isEqualType objNull) then {_tipo = typeOf _tipo};
 	};
 _lado = _this select 1;
 _marcador = _this select 2;
-_modo = _this select 3;
+_modo = _this select 3;//-1 to remove 1 unbit (killed EHs etc). 1 add 1 single classname / object. 2 adds a hole array and admits classnames or objects
 _exit = false;
+//diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_marcador,_modo];
 {if (isNil _x) exitWith {_exit = true}} forEach ["_tipo","_lado","_marcador","_modo"];
 if (_exit) exitWith {diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_marcador,_modo]};
-waitUntil {sleep 0.2;!garrisonIsChanging};
+waitUntil {!garrisonIsChanging};
 {if (isNil _x) exitWith {_exit = true}} forEach ["_tipo","_lado","_marcador","_modo"];
 if (_exit) exitWith {diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_marcador,_modo]};
 garrisonIsChanging = true;
 if ((_lado == malos) and (!(lados getVariable [_marcador,sideUnknown] == malos))) exitWith {garrisonIsChanging = false};
 if ((_lado == muyMalos) and (!(lados getVariable [_marcador,sideUnknown] == muyMalos))) exitWith {garrisonIsChanging = false};
+if ((_lado == buenos) and (!(lados getVariable [_marcador,sideUnknown] == buenos))) exitWith {garrisonIsChanging = false};
 _garrison = [];
 _garrison = _garrison + (garrison getVariable [_marcador,[]]);
 if (_modo == -1) then
@@ -38,4 +44,5 @@ else
 	if (_modo == 1) then {_garrison pushBack _tipo} else {_garrison append _tipo};
 	};
 garrison setVariable [_marcador,_garrison,true];
+if (_lado == buenos) then {[_marcador] call mrkUpdate};
 garrisonIsChanging = false;

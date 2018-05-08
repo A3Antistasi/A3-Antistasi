@@ -51,6 +51,17 @@ if (alive _x) then
 			deleteVehicle _veh;
 			};
 		};
+	_mochi = backpack _x;
+	if (_mochi != "") then
+		{
+		switch (_mochi) do
+			{
+			case MortStaticSDKB: {_resourcesFIA = _resourcesFIA + ([SDKMortar] call vehiclePrice)};
+			case AAStaticSDKB: {_resourcesFIA = _resourcesFIA + ([staticAABuenos] call vehiclePrice)};
+			case MGStaticSDKB: {_resourcesFIA = _resourcesFIA + ([SDKMGStatic] call vehiclePrice)};
+			case ATStaticSDKB: {_resourcesFIA = _resourcesFIA + ([staticATBuenos] call vehiclePrice)};
+			};
+		};
 	};
 deleteVehicle _x;
 } forEach units _grupo;

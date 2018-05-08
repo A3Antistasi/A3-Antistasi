@@ -1,8 +1,10 @@
+if (!isServer) exitWith {};
+
 private ["_marcador","_lado","_salir","_enemy1","_enemy2","_winner"];
 
 _marcador = _this select 0;
 _lado = _this select 1;
-
+if ((isNil "_marcador") or (isNil "_lado")) exitWith {};
 waitUntil {!zoneCheckInProgress};
 zoneCheckInProgress = true;
 _salir = true;

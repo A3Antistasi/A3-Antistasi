@@ -11,6 +11,7 @@ NATOPilot = "rhsusf_airforce_jetpilot";
 NATOMG = "RHS_M2StaticMG_USMC_WD";
 NATOMortar = "RHS_M252_USMC_WD";
 staticATmalos = "RHS_TOW_TriPod_USMC_WD";
+staticAAmalos = "B_static_AA_F";// cambiar
 
 vehNATOLightArmed = ["rhsusf_m1025_w_s_m2","rhsusf_rg33_m2_usmc_wd"];
 vehNATOLightUnarmed = ["rhsusf_m1025_w_s","rhsusf_m998_w_s_2dr","rhsusf_m998_w_s_2dr_fulltop","rhsusf_m998_w_s_4dr"];
@@ -73,4 +74,5 @@ flagNATOmrk = "flag_USA";//ok
 squadLeaders pushBack "rhsusf_usmc_marpat_wd_squadleader";
 
 lamparaMalos = "acc_flashlight";
-
+nameMalos = "USAF";
+if (isServer) then {"NATO_carrier" setMarkerText "USMC Carrier"};

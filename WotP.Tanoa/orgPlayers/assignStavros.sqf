@@ -90,7 +90,7 @@ if ((_multiplicador > _puntMax) and (_x!=_lider)) then
 
 if (!isNull _selectable) then
 	{
-	if (_disconnected) then {_texto = format ["Player Commander disconnected or renounced. %1 is our new leader. Greet him!", name _selectable]} else {_texto = format ["%1 is no longer leader of the SDK Forces.\n\n %2 is our new leader. Greet him!", name stavros, name _selectable]};
+	if (_disconnected) then {_texto = format ["Player Commander disconnected or renounced. %1 is our new leader. Greet him!", name _selectable]} else {_texto = format ["%1 is no longer leader of the our Forces.\n\n %2 is our new leader. Greet him!", name stavros, name _selectable]};
 	[_selectable] call stavrosInit;
 	sleep 5;
 	[[petros,"hint",_texto],"commsMP"] call BIS_fnc_MP;

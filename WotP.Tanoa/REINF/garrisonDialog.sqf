@@ -60,6 +60,7 @@ if (_tipo == "rem") then
 			//[_cercano] call mrkUpdate;
 			[_cercano] remoteExec ["tempMoveMrk",2];
 			};
+		[_cercano] call mrkUpdate;
 		hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
 		_nul=CreateDialog "build_menu";
 		};

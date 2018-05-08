@@ -61,13 +61,14 @@ else
 	hint format ["Adding %1 squad to garrison", groupID _grupo];
 	stavros hcRemoveGroup _grupo;
 	};
-
+/*
 _garrison = [];
 _garrison = _garrison + (garrison getVariable [_cercano,[]]);
 {_garrison pushBack (typeOf _x)} forEach _unidades;
 garrison setVariable [_cercano,_garrison,true];
 [_cercano] call mrkUpdate;
-
+*/
+[_unidades,buenos,_cercano,0] remoteExec ["garrisonUpdate",2];
 _noBorrar = false;
 
 if (spawner getVariable _cercano != 2) then
@@ -86,6 +87,7 @@ if (spawner getVariable _cercano != 2) then
 			{
 			if (lados getVariable [_marcador,sideUnknown] == buenos) then
 				{
+				/*
 				_garrison = [];
 				_garrison = _garrison + (garrison getVariable [_marcador,[]]);
 				if (_garrison isEqualType []) then
@@ -97,6 +99,8 @@ if (spawner getVariable _cercano != 2) then
 					garrison setVariable [_marcador,_garrison,true];
 					};
 				[_marcador] call mrkUpdate;
+				*/
+				[typeOf _muerto,buenos,_marcador,-1] remoteExec ["garrisonUpdate",2];
 				_muerto setVariable [_marcador,nil,true];
 				};
 			};

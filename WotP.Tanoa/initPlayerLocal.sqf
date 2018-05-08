@@ -7,10 +7,10 @@ if (hasInterface) then
 	};
 if (isMultiplayer) then
 	{
-	[] execVM "briefing.sqf";
 	if (!isServer) then
 		{
 		call compile preprocessFileLineNumbers "initVar.sqf";
+		[] execVM "briefing.sqf";
 		call compile preprocessFileLineNumbers "initFuncs.sqf";
 		waitUntil {!isNil "initVar"}; diag_log format ["Antistasi MP Client. initVar is public. Version %1",antistasiVersion];
 		};
@@ -137,7 +137,7 @@ _x set [3, 0.33]
 _introShot =
 	[
     _posicion, // Target position
-    "Tanoa Island", // SITREP text
+    format ["%1",worldName], // SITREP text
     50, //  altitude
     50, //  radius
     90, //  degrees viewing angle
@@ -148,7 +148,7 @@ _introShot =
     ]
     ] spawn BIS_fnc_establishingShot;
 
-_titulo = ["Warlords of the Pacific","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText;
+_titulo = if (worldName == "Tanoa") then {["Warlords of the Pacific","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText} else {["Antistasi","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText};
 disableUserInput false;
 player addWeaponGlobal "itemmap";
 player addWeaponGlobal "itemgps";
@@ -191,7 +191,7 @@ if (side player != buenos) exitWith
 		_veh = _this select 2;
 		if (_veh != moto) then {moveOut player; hint "You are only allowed to use your Quadbike"};
 		}];
-	["TaskFailed", ["", format ["%1 joined NATO SpecOps",name player]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
+	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,nameMalos]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 	waituntil {!isnull (finddisplay 46)};
 	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
@@ -468,7 +468,7 @@ if ((hayTFAR) or (hayACRE)) then
 	};
 if (hayACE) then
 	{
-	_texto = _texto + ["ACE 3 Detected\n\nAntistasi detects ACE modules in the server config.\nACE items added to arsenal, ammoboxes, and NATO drops. Default AI control is disabled\nIf ACE Medical is used, default revive system will be disabled.\nIf ACE Hearing is used, default earplugs will be disabled."];
+	_texto = _texto + ["ACE 3 Detected\n\nAntistasi detects ACE modules in the server config.\nACE items added to arsenal and ammoboxes. Default AI control is disabled\nIf ACE Medical is used, default revive system will be disabled.\nIf ACE Hearing is used, default earplugs will be disabled."];
 	};
 if (hayRHS) then
 	{

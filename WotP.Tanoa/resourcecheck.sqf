@@ -5,18 +5,21 @@ if (isMultiplayer) then {waitUntil {!isNil "switchCom"}};
 private ["_texto"];
 scriptName "resourcecheck";
 _cuentaSave = 3600;
+
 while {true} do
 	{
-	sleep 600;//600
+	//sleep 600;//600
+	nextTick = time + 600;
+	waitUntil {sleep 15; time >= nextTick};
 	if (isMultiplayer) then {waitUntil {sleep 10; isPlayer stavros}};
-
+	_suppBoost = 1+ ({lados getVariable [_x,sideUnknown] == buenos} count puertos);
 	_recAddSDK = 25;//0
 	_hrAddBLUFOR = 0;//0
 	_popFIA = 0;
 	_popAAF = 0;
 	_popCSAT = 0;
 	_popTotal = 0;
-	_bonusFIA = 1;
+	_bonusFIA = 1 + (0.25*({(lados getVariable [_x,sideUnknown] == buenos) and !(_x in destroyedCities)} count fabricas));
 	{
 	_ciudad = _x;
 	_recAddCiudadSDK = 0;
@@ -43,12 +46,12 @@ while {true} do
 	else
 		{
 		_recAddCiudadSDK = ((_numciv * _multiplicandorec*(_prestigeSDK / 100))/3);
-		_hrAddCiudad = (_numciv * (_prestigeSDK / 20000));
+		_hrAddCiudad = (_numciv * (_prestigeSDK / 10000));///20000 originalmente
 		if (lados getVariable [_ciudad,sideUnknown] == buenos) then
 			{
 			if (_power) then
 				{
-				if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[-1,1,_ciudad] spawn citySupportChange};
+				if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[-1,_suppBoost,_ciudad] spawn citySupportChange};
 				}
 			else
 				{
@@ -76,7 +79,7 @@ while {true} do
 	// revuelta civil!!
 	if ((_prestigeNATO < _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == malos)) then
 		{
-		["TaskSucceeded", ["", format ["%1 joined SDK",[_ciudad, false] call fn_location]]] remoteExec ["BIS_fnc_showNotification",buenos];
+		["TaskSucceeded", ["", format ["%1 joined %2",[_ciudad, false] call fn_location,nameBuenos]]] remoteExec ["BIS_fnc_showNotification",buenos];
 		lados setVariable [_ciudad,buenos,true];
 		_nul = [5,0] remoteExec ["prestige",2];
 		_mrkD = format ["Dum%1",_ciudad];
@@ -96,7 +99,7 @@ while {true} do
 		};
 	if ((_prestigeNATO > _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == buenos)) then
 		{
-		["TaskFailed", ["", format ["%1 joined NATO",[_ciudad, false] call fn_location]]] remoteExec ["BIS_fnc_showNotification",buenos];
+		["TaskFailed", ["", format ["%1 joined %2",[_ciudad, false] call fn_location,nameMalos]]] remoteExec ["BIS_fnc_showNotification",buenos];
 		lados setVariable [_ciudad,malos,true];
 		_nul = [-5,0] remoteExec ["prestige",2];
 		_mrkD = format ["Dum%1",_ciudad];
@@ -108,6 +111,7 @@ while {true} do
 	} forEach ciudades;
 	if (_popCSAT > (_popTotal / 3)) then {["destroyedCities",false,true] remoteExec ["BIS_fnc_endMission"]};
 	if ((_popFIA > _popAAF) and ({lados getVariable [_x,sideUnknown] == buenos} count aeropuertos == count aeropuertos)) then {["end1",true,true,true,true] remoteExec ["BIS_fnc_endMission",0]};
+	/*
 	{
 	_fabrica = _x;
 	if (lados getVariable [_fabrica,sideUnknown] == buenos) then
@@ -115,7 +119,7 @@ while {true} do
 		if (not(_fabrica in destroyedCities)) then {_bonusFIA = _bonusFIA + 0.25};
 		};
 	} forEach fabricas;
-
+	*/
 	{
 	_recurso = _x;
 	if (lados getVariable [_recurso,sideUnknown] == buenos) then
@@ -209,9 +213,12 @@ while {true} do
 						{
 						if (vehicle _x == _x) then
 							{
-							_grupo = group _x;
-							deleteVehicle _x;
-							if ({alive _x} count units _grupo == 0) then {deleteGroup _grupo};
+							if (primaryWeapon _x == "") then
+								{
+								_grupo = group _x;
+								deleteVehicle _x;
+								if ({alive _x} count units _grupo == 0) then {deleteGroup _grupo};
+								};
 							};
 						};
 					};

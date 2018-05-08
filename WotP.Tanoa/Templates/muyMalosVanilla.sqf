@@ -9,7 +9,6 @@ CSATPilot = "O_T_Pilot_F";
 CSATMortar = "O_Mortar_01_F";
 CSATMG = "O_HMG_01_high_F";
 staticATmuyMalos = "O_T_static_AT_F";
-staticAAmuyMalos = "O_static_AA_F";
 
 vehCSATLightArmed = ["O_T_MRAP_02_gmg_ghex_F","O_T_MRAP_02_hmg_ghex_F","O_T_LSV_02_armed_F"];
 vehCSATLightUnarmed = ["O_T_MRAP_02_ghex_F","O_T_LSV_02_unarmed_F"];
@@ -60,5 +59,3 @@ armasCSAT = ["srifle_DMR_01_F","LMG_Zafir_F","hgun_Pistol_heavy_02_F","arifle_Ka
 municionCSAT = ["30Rnd_65x39_caseless_green","10Rnd_762x54_Mag","150Rnd_762x54_Box","6Rnd_45ACP_Cylinder","150Rnd_93x64_Mag","10Rnd_127x54_Mag","30Rnd_9x21_Mag","5Rnd_127x108_Mag","10Rnd_93x64_DMR_05_Mag"];
 flagCSATmrk = "flag_CSAT";
 squadLeaders pushBack "O_T_soldier_SL_F";
-nameMuyMalos = "CSAT";
-if (isServer) then {"CSAT_carrier" setMarkerText "CSAT Carrier"};

@@ -9,13 +9,13 @@ if (_tipo == "delete") exitWith {hint "Deprecated option. Use Remve Garrison fro
 
 _escarretera = isOnRoad _posicionTel;
 
-_texto = format ["%1 Observation Post",nameBuenos];
+_texto = "SDK Observation Post";
 _tipogrupo = gruposSDKSniper;
 _tipoVeh = vehSDKBike;
 private _tsk = "";
 if (_escarretera) then
 	{
-	_texto = format ["%1 Roadblock",nameBuenos];
+	_texto = "SDK Roadblock";
 	_tipogrupo = gruposSDKAT;
 	_tipoVeh = vehSDKTruck;
 	};
@@ -34,7 +34,30 @@ if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato
 } forEach _tipoGrupo;
 _grupo = [getMarkerPos "respawn_guerrila", buenos, _formato] call spawnGroup;
 _grupo setGroupId ["Post"];
-_road = [getMarkerPos "respawn_guerrila"] call findNearestGoodRoad;
+/*
+_tam = 10;
+while {true} do
+	{
+	_roads = getMarkerPos "respawn_guerrila" nearRoads _tam;
+	if (count _roads < 1) then {_tam = _tam + 10};
+	if (count _roads > 0) exitWith {};
+	};
+_road = _roads select 0;
+*/
+_roads = [];
+_tam = 10;
+_road = objNull;
+while {isNull _road} do
+	{
+	_roads = posHQ nearRoads _tam;
+	if (count _roads > 0) then
+		{
+		{
+		if ((surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")) exitWith {_road = _x};
+		} forEach _roads;
+		};
+	_tam = _tam + 50;
+	};
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 _camion = _tipoVeh createVehicle _pos;
 //_nul = [_grupo] spawn dismountFIA;

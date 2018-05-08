@@ -25,13 +25,14 @@ _forced = [];
 _nombredest = [_mrkDestino] call localizar;
 _nombreorig = [_mrkOrigen] call localizar;
 
-_lado = lados getVariable [_mrkOrigen,sideUnknown];
+_lado = malos;
 _ladosTsk = [buenos,civilian,muyMalos];
 _ladosTsk1 = [malos];
 _nombreEny = "NATO";
 //_config = cfgNATOInf;
-if (_lado == muyMalos) then
+if (lados getVariable [_mrkOrigen,sideUnknown] == muyMalos) then
 	{
+	_lado = muymalos;
 	_nombreEny = "CSAT";
 	//_config = cfgCSATInf;
 	_ladosTsk = [buenos,civilian,malos];
@@ -72,7 +73,16 @@ while {(_waves != 0)} do
 		_indice = aeropuertos find _mrkOrigen;
 		_spawnPoint = spawnPoints select _indice;
 		_pos = getMarkerPos _spawnPoint;
-
+		/*
+		_roads = [];
+		_tam = [_mrkOrigen] call sizeMarker;
+		while {true} do
+			{
+			_roads = _posOrigen nearRoads _tam;
+			if (count _roads < _nVeh) then {_tam = _tam + 50};
+			if (count _roads >= _nVeh) exitWith {};
+			};
+		*/
 		_vehPool = if (_lado == malos) then {vehNATOAttack} else {vehCSATAttack};
 		if (_esSDK) then
 			{
@@ -92,11 +102,8 @@ while {(_waves != 0)} do
 					};
 				};
 			};
-		_road = [_posDestino] call findNearestGoodRoad;
-		if ((position _road) distance _posDestino > 150) then {_vehPool = _vehPool - vehTanks};
 		if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 		_cuenta = 1;
-		_landPosBlacklist = [];
 		while {_cuenta <= _nVeh} do
 			{
 			_tipoVeh = selectRandom _vehPool;
@@ -131,10 +138,9 @@ while {(_waves != 0)} do
 			_soldadosTotal append _vehCrew;
 			_grupos pushBack _grupoVeh;
 			_vehiculos pushBack _veh;
-			_landPos = [_posDestino,_pos,false,_landPosBlacklist] call findSafeRoadToUnload;
+			_landPos = [_posDestino,_pos] call findSafeRoadToUnload;
 			if (not(_tipoVeh in vehTanks)) then
 				{
-				_landPosBlacklist pushBack _landPos;
 				_tipogrupo = [_tipoVeh,_lado] call cargoSeats;
 				_grupo = [_posorigen,_lado, _tipogrupo] call spawnGroup;
 				{
@@ -154,10 +160,9 @@ while {(_waves != 0)} do
 				} forEach units _grupo;
 				if (not(_tipoVeh in vehTrucks)) then
 					{
-					(units _grupo) joinSilent _grupoVeh;
-					deleteGroup _grupo;
-					//_grupos pushBack _grupo;
-					if (worldName == "Tanoa") then {if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_landPos,_grupoVeh] call WPCreate}};
+					//_grupo setVariable ["mrkAttack",_mrkDestino];
+					_grupos pushBack _grupo;
+					if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_landPos,_grupoVeh] call WPCreate};
 					_Vwp0 = (wayPoints _grupoVeh) select 0;
 					_Vwp0 setWaypointBehaviour "SAFE";
 					_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
@@ -168,19 +173,32 @@ while {(_waves != 0)} do
 					_Vwp1 setWaypointType "SAD";
 					_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 					_Vwp1 setWaypointBehaviour "COMBAT";
-					/*_Vwp2 = _grupo addWaypoint [_landPos, 0];
+					_Vwp2 = _grupo addWaypoint [_landPos, 0];
 					_Vwp2 setWaypointType "GETOUT";
 					_Vwp0 synchronizeWaypoint [_Vwp2];
 					_Vwp3 = _grupo addWaypoint [_posDestino, count (wayPoints _grupo)];
-					_Vwp3 setWaypointType "SAD";*/
+					_Vwp3 setWaypointType "SAD";
 					//_Vwp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 					_veh allowCrewInImmobile true;
-					//[_veh,"APC"] spawn inmuneConvoy;
+					[_veh,"APC"] spawn inmuneConvoy;
 					}
 				else
 					{
 					(units _grupo) joinSilent _grupoVeh;
 					deleteGroup _grupo;
+					//_grupoVeh setVariable ["mrkAttack",_mrkDestino];
+					//_veh forceFollowRoad true;
+					/*
+					for "_i" from 1 to 8 do
+						{
+						_tipoSoldado = if (_lado == malos) then {NATOGrunt} else {CSATGrunt};
+						_soldado = _grupoVeh createUnit [_tipoSoldado, _posorigen, [],0, "NONE"];
+						_soldado assignAsCargo _veh;
+						_soldado moveInCargo _veh;
+						_soldados pushBack _soldado;
+						[_soldado] call NATOinit;
+						};
+					*/
 					_grupoVeh selectLeader (units _grupoVeh select 1);
 					if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_landPos,_grupoVeh] call WPCreate};
 					_Vwp0 = (wayPoints _grupoVeh) select 0;
@@ -199,7 +217,7 @@ while {(_waves != 0)} do
 					_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 					_Vwp1 setWaypointType "SAD";
 					*/
-					//[_veh,"Inf Truck."] spawn inmuneConvoy;
+					[_veh,"Inf Truck."] spawn inmuneConvoy;
 					};
 				}
 			else
@@ -212,7 +230,7 @@ while {(_waves != 0)} do
 				_Vwp0 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 				_Vwp0 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 				_Vwp0 setWaypointType "SAD";
-				//[_veh,"Tank"] spawn inmuneConvoy;
+				[_veh,"Tank"] spawn inmuneConvoy;
 				_veh allowCrewInImmobile true;
 				};
 			sleep 15;
@@ -231,9 +249,19 @@ while {(_waves != 0)} do
 		_pos = _posDestino getPos [1000,(_i*90)];
 		if (surfaceIsWater _pos) exitWith
 			{
-			if ({lados getVariable [_x,sideUnknown] == _lado} count puertos > 1) then
+			if (_lado == malos) then
 				{
-				_esMar = true;
+				if ({lados getVariable [_x,sideUnknown] == malos} count puertos > 1) then
+					{
+					_esMar = true;
+					};
+				}
+			else
+				{
+				if ({lados getVariable [_x,sideUnknown] == muyMalos} count puertos > 1) then
+					{
+					_esMar = true;
+					};
 				};
 			};
 		};
@@ -288,7 +316,7 @@ while {(_waves != 0)} do
 						{
 						_wp0 = _grupoVeh addWaypoint [_landpos, 0];
 						_wp0 setWaypointType "SAD";
-						//[_veh,"Boat"] spawn inmuneConvoy;
+						[_veh,"Boat"] spawn inmuneConvoy;
 						}
 					else
 						{
@@ -330,7 +358,7 @@ while {(_waves != 0)} do
 							_Vwp3 = _grupo addWaypoint [_posdestino, 1];
 							_Vwp3 setWaypointType "SAD";
 							*/_veh allowCrewInImmobile true;
-							//[_veh,"APC"] spawn inmuneConvoy;
+							[_veh,"APC"] spawn inmuneConvoy;
 							}
 						else
 							{
@@ -351,7 +379,7 @@ while {(_waves != 0)} do
 							//_Vwp1 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 							//_Vwp1 = _grupoVeh addWaypoint [_posDestino, 1];
 							//_Vwp1 setWaypointType "SAD";
-							//[_veh,"Boat"] spawn inmuneConvoy;
+							[_veh,"Boat"] spawn inmuneConvoy;
 							};
 						};
 					};
@@ -369,7 +397,7 @@ while {(_waves != 0)} do
 
 		_uav = createVehicle [_tipoVeh, _posorigen, [], 0, "FLY"];
 		_vehiculos pushBack _uav;
-		//[_uav,"UAV"] spawn inmuneConvoy;
+		[_uav,"UAV"] spawn inmuneConvoy;
 		[_uav,_mrkDestino,_lado] spawn VANTinfo;
 		createVehicleCrew _uav;
 		_pilotos append (crew _uav);
@@ -458,7 +486,7 @@ while {(_waves != 0)} do
 				{
 				(units _grupoVeh) joinSilent _grupoUav;
 				deleteGroup _grupoVeh;
-				//[_veh,"Air Attack"] spawn inmuneConvoy;
+				[_veh,"Air Attack"] spawn inmuneConvoy;
 				}
 			else
 				{
@@ -660,7 +688,7 @@ while {(_waves != 0)} do
 			if (_mrkDestino in ciudades) then
 				{
 				[0,-100,_mrkDestino] remoteExec ["citySupportChange",2];
-				["TaskFailed", ["", format ["%1 joined %2",[_mrkDestino, false] call fn_location,nameMalos]]] remoteExec ["BIS_fnc_showNotification",buenos];
+				["TaskFailed", ["", format ["%1 joined NATO",[_mrkDestino, false] call fn_location]]] remoteExec ["BIS_fnc_showNotification",buenos];
 				lados setVariable [_mrkDestino,malos,true];
 				_nul = [-5,0] remoteExec ["prestige",2];
 				_mrkD = format ["Dum%1",_mrkDestino];
@@ -755,29 +783,16 @@ forcedSpawn = forcedSpawn - [_mrkDestino]; publicVariable "forcedSpawn";
 
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
-} forEach _pilotos;
-{
-_veh = _x;
 if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
 } forEach _vehiculos;
 {
 _veh = _x;
 if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldadosTotal = _soldadosTotal - [_x]};
 } forEach _soldadosTotal;
-
-if (count _pilotos > 0) then
-	{
-	{
-	[_x] spawn
-		{
-		private ["_veh"];
-		_veh = _this select 0;
-		waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
-		deleteVehicle _veh;
-		};
-	} forEach _pilotos;
-	};
+{
+_veh = _x;
+if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
+} forEach _pilotos;
 
 if (count _soldadosTotal > 0) then
 	{
@@ -792,6 +807,17 @@ if (count _soldadosTotal > 0) then
 	} forEach _soldadosTotal;
 	};
 
-
+if (count _pilotos > 0) then
+	{
+	{
+	[_x] spawn
+		{
+		private ["_veh"];
+		_veh = _this select 0;
+		waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+		deleteVehicle _veh;
+		};
+	} forEach _pilotos;
+	};
 {deleteGroup _x} forEach _grupos;
 diag_log "Antistasi: Despawn completed";

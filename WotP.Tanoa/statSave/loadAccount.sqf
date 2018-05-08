@@ -176,7 +176,6 @@ if (count puestosFIA > 0) then {marcadores = marcadores + puestosFIA; publicVari
 
 ["chopForest"] call fn_LoadStat;
 ["posHQ"] call fn_LoadStat;
-["nextTick"] call fn_LoadStat;
 ["estaticas"] call fn_LoadStat;//tiene que ser el último para que el sleep del borrado del contenido no haga que despawneen
 
 

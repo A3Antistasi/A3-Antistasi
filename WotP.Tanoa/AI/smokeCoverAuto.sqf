@@ -14,7 +14,7 @@ _veh setVariable ["smoked",time + 120];
 
 if ({"SmokeLauncher" in (_veh weaponsTurret _x)} count (allTurrets _veh) > 0) then
 	{
-	[_veh,"SmokeLauncher"] call BIS_fnc_fire;
+	_veh fire "SmokeLauncher";
 	}
 else
 	{

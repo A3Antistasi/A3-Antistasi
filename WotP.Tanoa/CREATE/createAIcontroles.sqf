@@ -221,7 +221,7 @@ if (spawner getVariable _marcador != 2) then
 			_nul = [0,5,_posicion] remoteExec ["citySupportChange",2];
 			};
 		};
-	if (_winner == buenos) then {[[_posicion,_lado,"",false],"patrolCA"] remoteExec ["scheduler",2]};
+	if (_winner == buenos) then {[[_posicion,_lado],"patrolCA"] remoteExec ["scheduler",2]};
 	};
 
 waitUntil {sleep 1;(spawner getVariable _marcador == 2)};
@@ -244,7 +244,7 @@ deleteGroup _grupo;
 if (_conquistado) then
 	{
 	_indice = controles find _marcador;
-	if (_indice > defaultControlIndex) then
+	if (_indice > 50) then
 		{
 		_tiempolim = 120;//120
 		_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
@@ -270,7 +270,7 @@ if (_conquistado) then
 			_size = [_marcador] call sizeMarker;
 			for "_i" from 1 to 60 do
 				{
-				_mina = createMine ["APERSMine",_posicion,[],_size];
+				_mina = createMine ["APERSMine",_pos,[],_size];
 				if (_loser == malos) then {malos revealMine _mina} else {muyMalos revealMine _mina};
 				};
 			};

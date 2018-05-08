@@ -2,8 +2,8 @@
 #include "dialogs.hpp"
 
 author="Barbolani";
-OnLoadName = "Antistasi Altis";
-OnLoadMission = "Be a restistance leader, be a hero";
+OnLoadName = "Warlords of the Pacific (Alpha)";
+OnLoadMission = "Business and War...";
 loadScreen = "pic.JPG";
 
 overviewText = "Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.";
@@ -101,206 +101,158 @@ class CfgIdentities
 {
     class protagonista
     {
-        name = "Stavros";
-        nameSound = "Stavrou";
-        face="GreekHead_A3_01";
+        name = "Pulu";
+        nameSound = "Warlock";
+        face="TanoanBossHead";
     glasses="None";
-    speaker="Male01GRE";
+    speaker="Male01ENGFRE";
     pitch=1.1;
     };
      class amiguete
     {
-        name = "Petros";
-        nameSound = "Petros";
-        face="GreekHead_A3_01";
-    glasses="None";
-    speaker="Male01GRE";
-    pitch=1.1;
-    };
-     class tonto
-    {
-        name = "Zorba";
-        nameSound = "";
-        face="GreekHead_A3_09";
-    glasses="None";
-    speaker="Male03GRE";
-    pitch=1.1;
+        name = "Maru";
+        nameSound = "Warlock";
+        face="TanoanBossHead";
+	glasses="None";
+	speaker="Male01ENGFRE";
+	pitch=1.1;
     };
       class Anthis
     {
         name = "Anthis";
         nameSound = "Anthis";
-        face="GreekHead_A3_02";
-    glasses="None";
-    speaker="Male01GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_01";
+	glasses="None";
+	speaker="Male02CHI";
+	pitch=1.1;
     };
       class Costa
     {
         name = "Costa";
         nameSound = "Costa";
-        face="GreekHead_A3_03";
-    glasses="None";
-    speaker="Male02GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_02";
+	glasses="None";
+	speaker="Male03CHI";
+	pitch=1.1;
     };
       class Dimitirou
     {
         name = "Dimitirou";
         nameSound = "Dimitirou";
-        face="GreekHead_A3_04";
-    glasses="None";
-    speaker="Male03GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_03";
+	glasses="None";
+	speaker="Male01FRE";
+	pitch=1.1;
     };
       class Elias
     {
         name = "Elias";
         nameSound = "Elias";
-        face="GreekHead_A3_05";
-    glasses="None";
-    speaker="Male04GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_04";
+	glasses="None";
+	speaker="Male02FRE";
+	pitch=1.1;
     };
       class Gekas
     {
         name = "Gekas";
         nameSound = "Gekas";
-        face="GreekHead_A3_06";
-    glasses="None";
-    speaker="Male01GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_05";
+	glasses="None";
+	speaker="Male03FRE";
+	pitch=1.1;
     };
       class Kouris
     {
         name = "Kouris";
         nameSound = "Kouris";
-        face="GreekHead_A3_07";
-    glasses="None";
-    speaker="Male02GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_06";
+	glasses="None";
+	speaker="Male01CHI";
+	pitch=1.1;
     };
       class Leventis
     {
         name = "Leventis";
         nameSound = "Leventis";
-        face="GreekHead_A3_08";
-    glasses="None";
-    speaker="Male03GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_07";
+	glasses="None";
+	speaker="Male02CHI";
+	pitch=1.1;
     };
       class Markos
     {
         name = "Markos";
         nameSound = "Markos";
-        face="GreekHead_A3_09";
-    glasses="None";
-    speaker="Male04GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_08";
+	glasses="None";
+	speaker="Male03CHI";
+	pitch=1.1;
     };
       class Nikas
     {
         name = "Nikas";
         nameSound = "Nikas";
-        face="WhiteHead_02";
-    glasses="None";
-    speaker="Male01GRE";
-    pitch=1.1;
+        face="CamoHead_Asian_03_F";
+	glasses="None";
+	speaker="Male03FRE";
+	pitch=1.1;
     };
       class Nicolo
     {
         name = "Nicolo";
         nameSound = "Nicolo";
-        face="WhiteHead_03";
-    glasses="None";
-    speaker="Male02GRE";
-    pitch=1.1;
+        face="CamoHead_Asian_02_F";
+	glasses="None";
+	speaker="Male02FRE";
+	pitch=1.1;
     };
       class Panas
     {
         name = "Panas";
         nameSound = "Panas";
-        face="WhiteHead_04";
-    glasses="None";
-    speaker="Male03GRE";
-    pitch=1.1;
+        face="CamoHead_Asian_01_F";
+	glasses="None";
+	speaker="Male01FRE";
+	pitch=1.1;
     };
        class Rosi
     {
         name = "Rosi";
         nameSound = "Rosi";
-        face="WhiteHead_05";
-    glasses="None";
-    speaker="Male04GRE";
-    pitch=1.1;
+        face="AsianHead_A3_01";
+	glasses="None";
+	speaker="Male01CHI";
+	pitch=1.1;
     };
        class Samaras
     {
         name = "Samaras";
         nameSound = "Samaras";
         face="WhiteHead_06";
-    glasses="None";
-    speaker="Male01GRE";
-    pitch=1.1;
+	glasses="None";
+	speaker="AsianHead_A3_02";
+	pitch=1.1;
     };
        class Thanos
     {
         name = "Thanos";
         nameSound = "Thanos";
-        face="WhiteHead_07";
-    glasses="None";
-    speaker="Male02GRE";
-    pitch=1.1;
+        face="AsianHead_A3_03";
+	glasses="None";
+	speaker="Male02ENGFRE";
+	pitch=1.1;
     };
        class Vega
     {
         name = "Vega";
         nameSound = "Vega";
-        face="WhiteHead_08";
-    glasses="None";
-    speaker="Male03GRE";
-    pitch=1.1;
-    };
-
-        class Nomad
-    {
-        name = "Nomad";
-        nameSound = "Nomad";
-        face="WhiteHead_09";
-    glasses = "None";
-    speaker = "Male04ENGB";
-    pitch = 1.0;
-    };
-
-        class Stranger
-    {
-        name = "Stranger";
-        nameSound = "Stranger";
-        face="GreekHead_A3_06";
-    glasses = "None";
-    speaker = "Male04GRE";
-    pitch = 1.0;
-    };
-
-        class Devin
-    {
-        name = "Devin";
-        face="WhiteHead_11";
-    glasses = "None";
-    speaker = "Male08ENG";
-    pitch = 1.0;
-    };
-
-            class Dusty
-    {
-        name = "Mayor Dusty";
-        face="WhiteHead_08";
-    glasses = "None";
-    speaker = "Male08ENG";
-    pitch = 1.0;
+        face="AsianHead_A3_04";
+	glasses="None";
+	speaker="Male02ENGFRE";
+	pitch=1.1;
     };
 };
-
 
 /*
 class CfgMusic
@@ -383,3 +335,9 @@ class CfgDebriefing
     };
     */
 };
+/*
+class CfgFunctions
+{
+    #include "Scripts\UPSMON\functions_library.hpp"
+};
+*/

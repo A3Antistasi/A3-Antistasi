@@ -8,7 +8,7 @@ if (count _this == 0) exitWith
 	[0,100] remoteExec ["resourcesFIA",2];
 	_puntosJ = (player getVariable "score") + 1;
 	player setVariable ["score",_puntosJ,true];
-	hint "You have donated 100 € to the cause. This will raise your status among our forces";
+	hint "You have donated 100 € to the cause. This will raise your status among SDK forces";
 	};
 _target = cursortarget;
 

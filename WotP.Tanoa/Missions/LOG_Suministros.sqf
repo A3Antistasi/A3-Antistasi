@@ -115,7 +115,22 @@ if (!_dificil) then
 else
 	{
 	_dirVeh = 0;
-	_road = [getPos _contacto] call findNearestGoodRoad;
+	_roads = [];
+	_radius = 10;
+	_road = objNull;
+	while {isNull _road} do
+		{
+		_radius = _radius + 10;
+		_roads = (getPos _contacto) nearRoads _radius;
+		if (count _roads > 0) then
+			{
+			{
+			if ((surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")) exitWith {_road = _x};
+			} forEach _roads;
+			};
+		};
+
+	_road = _roads select 0;
 	_posroad = getPos _road;
 	_roadcon = roadsConnectedto _road; if (count _roadCon == 0) then {diag_log format ["Antistasi Error: Esta carretera no tiene conexión: %1",position _road]};
 	if (count _roadCon > 0) then
@@ -163,8 +178,8 @@ if (dateToNumber date > _fechalimnum) then
 else
 	{
 	_cuenta = 120*_bonus;//120
-	[[_posicion,malos,"",false],"patrolCA"] remoteExec ["scheduler",2];
-	["TaskFailed", ["", format ["%2 deploying supplies in %1",_nombredest,nameBuenos]]] remoteExec ["BIS_fnc_showNotification",malos];
+	[[_posicion,malos],"patrolCA"] remoteExec ["scheduler",2];
+	["TaskFailed", ["", format ["SDK deploying supplies in %1",_nombredest]]] remoteExec ["BIS_fnc_showNotification",malos];
 	{_amigo = _x;
 	if (captive _amigo) then
 		{

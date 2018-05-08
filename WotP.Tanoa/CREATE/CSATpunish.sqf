@@ -13,8 +13,10 @@ _vehiculos = [];
 _civiles = [];
 
 _nombredest = [_mrkDestino,muyMalos] call localizar;
-[[buenos,civilian,malos],"AtaqueAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest,nameMuyMalos],format ["%1 Punishment",nameMuyMalos],_mrkDestino],getMarkerPos _mrkDestino,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
-
+[[buenos,civilian,malos],"AtaqueAAF",[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
+//_tsk = ["AtaqueAAF",[buenos,civilian,malos],[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
+//misiones pushBack _tsk; publicVariable "misiones";
+//Ataque de artillería
 _nul = [_mrkOrigen,_mrkDestino] spawn artilleria;
 _lado = if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {malos} else {buenos};
 _tiempo = time + 3600;
@@ -51,7 +53,7 @@ for "_i" from 1 to 3 do
 		{[_x] call NATOinit} forEach _heliCrew;
 		_wp1 = _grupoheli addWaypoint [_posdestino, 0];
 		_wp1 setWaypointType "SAD";
-		//[_heli,"Air Attack"] spawn inmuneConvoy;
+		[_heli,"Air Attack"] spawn inmuneConvoy;
 		}
 	else
 		{
@@ -60,13 +62,24 @@ for "_i" from 1 to 3 do
 		_grupo = [_posOrigen, muyMalos, _tipoGrupo] call spawnGroup;
 		{_x assignAsCargo _heli;_x moveInCargo _heli; _soldados pushBack _x; [_x] call NATOinit; _x setVariable ["origen",_mrkOrigen]} forEach units _grupo;
 		_grupos pushBack _grupo;
-		//[_heli,"CSAT Air Transport"] spawn inmuneConvoy;
+		[_heli,"CSAT Air Transport"] spawn inmuneConvoy;
 
 		if (not(_tipoVeh in vehFastRope)) then
 			{
 
 			_pos = _posDestino getPos [(random 500) + 300, random 360];
-
+			/*
+			_landPos = _pos findEmptyPosition [0,100,_tipoveh];
+			if (count _landPos > 0) then
+				{
+				_isFlatEmpty = !(_landPos isFlatEmpty  [1, -1, 0.1, 15, -1, false, objNull] isEqualTo []);
+				if (!_isFlatEmpty) then
+					{
+					_landPos = [];
+					};
+				};
+			if (count _landPos > 0) then
+				*/
 			_landPos = [_posDestino, 200, 350, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
 			if !(_landPos isEqualTo [0,0,0]) then
 				{
@@ -107,7 +120,7 @@ _datos = server getVariable _mrkDestino;
 _numCiv = _datos select 0;
 _numCiv = round (_numCiv /10);
 
-if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[[_posDestino,malos,"",false],"patrolCA"] remoteExec ["scheduler",2]};
+if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[[_posDestino,malos],"patrolCA"] remoteExec ["scheduler",2]};
 
 if (_numCiv < 8) then {_numCiv = 8};
 
@@ -154,7 +167,7 @@ if ((({not (captive _x)} count _soldados) < ({captive _x} count _soldados)) or (
 	{
 	{_x doMove [0,0,0]} forEach _soldados;
 	//["AtaqueAAF", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
-	["AtaqueAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest,nameMuyMalos],format ["%1 Punishment",nameMuyMalos],_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED"] call taskUpdate;
+	["AtaqueAAF",[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED"] call taskUpdate;
 	if ({(side _x == buenos) and (_x distance _posDestino < _size * 2)} count allUnits >= {(side _x == malos) and (_x distance _posDestino < _size * 2)} count allUnits) then
 		{
 		if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[-15,15,_posdestino] remoteExec ["citySupportChange",2]} else {[-5,15,_posdestino] remoteExec ["citySupportChange",2]};
@@ -171,7 +184,7 @@ if ((({not (captive _x)} count _soldados) < ({captive _x} count _soldados)) or (
 	}
 else
 	{
-	["AtaqueAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest,nameMuyMalos],format ["%1 Punishment",nameMuyMalos],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call taskUpdate;
+	["AtaqueAAF",[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call taskUpdate;
 	//["AtaqueAAF", "FAILED",true] spawn BIS_fnc_taskSetState;
 	[-20,-20,_posdestino] remoteExec ["citySupportChange",2];
 	{[-10,-10,_x] remoteExec ["citySupportChange",2]} forEach ciudades;

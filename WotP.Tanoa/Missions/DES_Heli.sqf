@@ -168,7 +168,7 @@ _tipoVeh = if (_lado == malos) then {selectRandom vehNATOLightUnarmed} else {sel
 _vehicle=[position _road, 0,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 [_veh] call AIVEHinit;
-//[_veh,"Escort"] spawn inmuneConvoy;
+[_veh,"Escort"] spawn inmuneConvoy;
 _vehCrew = _vehicle select 1;
 {[_x] call NATOinit} forEach _vehCrew;
 _grupoVeh = _vehicle select 2;
@@ -196,7 +196,7 @@ _tipoVeh = if (_lado == malos) then {vehNATOTrucks select 0} else {vehCSATTrucks
 _vehicleT=[position _road, 0,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
 _vehT = _vehicleT select 0;
 [_vehT] call AIVEHinit;
-//[_vehT,"Recover Truck"] spawn inmuneConvoy;
+[_vehT,"Recover Truck"] spawn inmuneConvoy;
 _vehCrewT = _vehicle select 1;
 {[_x] call NATOinit} forEach _vehCrewT;
 _grupoVehT = _vehicleT select 2;

@@ -7,7 +7,7 @@ if ((_veh isKindOf "FlagCarrier") or (_veh isKindOf "Building") or (_veh isKindO
 
 _tipo = typeOf _veh;
 
-if ((_tipo in vehNormal) or (_tipo in vehAttack) or (_tipo in vehBoats)) then
+if (((_tipo) in vehNormal) or ((_tipo) in vehAttack) or (_tipo in vehBoats)) then
 	{
 	if !(_tipo in vehAttack) then
 		{
@@ -107,7 +107,7 @@ else
 						{
 						if (_tipo in vehNATOAttackHelis) then {[-5,5,position (_veh)] remoteExec ["citySupportChange",2]};
 						};
-					[_veh,120] call addTimeForIdle;
+					[_veh,240] call addTimeForIdle;
 					}];
 				};
 			};
@@ -122,7 +122,7 @@ else
 					{
 					if ((_tipo == vehNATOPlane) or (_tipo == vehNATOPlaneAA)) then {[-8,8,position (_veh)] remoteExec ["citySupportChange",2]};
 					};
-				[_veh,30] call addTimeForIdle;
+				[_veh,120] call addTimeForIdle;
 				}];
 			};
 		}
@@ -180,7 +180,7 @@ else
 								{
 								_base = [_bases,_posicion] call BIS_fnc_nearestPosition;
 								_lado = lados getVariable [_base,sideUnknown];
-								[[getPosASL _mortero,_lado,"Normal",false],"patrolCA"] remoteExec ["scheduler",2];
+								[[getPosASL _mortero,_lado,"Normal"],"patrolCA"] remoteExec ["scheduler",2];
 								};
 							};
 						};

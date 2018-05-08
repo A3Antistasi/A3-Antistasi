@@ -195,7 +195,7 @@ switch (_tipoConvoy) do
 		};
 	case "Supplies":
 		{
-		_texto = format ["A truck with medical supplies destination %4 it's about to depart at %2:%3 from %1. Steal that truck bring it to %4 and let people in there know it is %5 who's giving those supplies.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest,nameBuenos];
+		_texto = format ["A truck with medical supplies destination %4 it's about to depart at %2:%3 from %1. Steal that truck bring it to %4 and let people in there know it is SDK who's giving those supplies.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
 		_taskTitle = "Supply Convoy";
 		_taskIcon = "heal";
 		_tipoVehObj = "C_Van_01_box_F";
@@ -228,7 +228,7 @@ if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
 _vehicle=[_pos,markerDir _spawnPoint,_tipoVeh, _grupo] call bis_fnc_spawnvehicle;
 _vehLead = _vehicle select 0;
 _vehLead allowDamage false;
-//[_vehLead,"Convoy Lead"] spawn inmuneConvoy;
+[_vehLead,"Convoy Lead"] spawn inmuneConvoy;
 //_vehLead forceFollowRoad true;
 _vehCrew = _vehicle select 1;
 {[_x] call NATOinit;_x allowDamage false} forEach _vehCrew;
@@ -294,7 +294,7 @@ for "_i" from 1 to _cuenta do
 	_vehicle=[_pos, markerDir _spawnPoint,_tipoVehEsc, _grupo] call bis_fnc_spawnvehicle;
 	_veh = _vehicle select 0;
 	_veh allowDamage false;
-	//[_veh,"Convoy Escort"] spawn inmuneConvoy;
+	[_veh,"Convoy Escort"] spawn inmuneConvoy;
 	_vehCrew = _vehicle select 1;
 	{[_x] call NATOinit;_x allowDamage false} forEach _vehCrew;
 	_soldados = _soldados + _vehCrew;
@@ -325,7 +325,7 @@ for "_i" from 1 to _cuenta do
 		{
 		if (not(_tipoVehEsc == vehFIAArmedCar)) then
 			{
-			_tipoGrupo = selectRandom gruposFIASquad;
+			_tipoGrupo = FIASquad;
 			if (_tipoVehEsc == vehFIACar) then
 				{
 				_tipoGrupo = selectRandom gruposFIAMid;
@@ -426,7 +426,7 @@ if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
 _vehicle=[_pos,markerDir _spawnPoint,_tipoVehEsc, _grupo] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 _veh allowDamage false;
-//[_veh,"Convoy Escort"] spawn inmuneConvoy;
+[_veh,"Convoy Escort"] spawn inmuneConvoy;
 _vehCrew = _vehicle select 1;
 {[_x] call NATOinit; _x allowDamage false} forEach _vehCrew;
 _soldados = _soldados + _vehCrew;
@@ -457,7 +457,7 @@ else
 	{
 	if (not(_tipoVehEsc == vehFIAArmedCar)) then
 		{
-		_tipoGrupo = selectRandom gruposFIASquad;
+		_tipoGrupo = FIASquad;
 		if (_tipoVehEsc == vehFIACar) then
 			{
 			_tipoGrupo = selectRandom gruposFIAMid;
@@ -564,7 +564,7 @@ if (_tipoConvoy == "Municion") then
 		[1800*_bonus] remoteExec ["timingCA",2];
 		{if (isPlayer _x) then {[10*_bonus,_x] call playerScoreAdd}} forEach ([500,0,_vehObj,"GREENFORSpawn"] call distanceUnits);
 		[5*_bonus,stavros] call playerScoreAdd;
-		[getPosASL _vehObj,_lado,"",false] spawn patrolCA;
+		[getPosASL _vehObj,_lado] spawn patrolCA;
 		if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[0,3] remoteExec ["prestige",2]};
 		if (!alive _vehObj) then
 			{
@@ -595,7 +595,7 @@ if (_tipoConvoy == "Armor") then
 		[1800*_bonus] remoteExec ["timingCA",2];
 		{if (isPlayer _x) then {[10*_bonus,_x] call playerScoreAdd}} forEach ([500,0,_vehObj,"GREENFORSpawn"] call distanceUnits);
 		[5*_bonus,stavros] call playerScoreAdd;
-		[getPosASL _vehObj,_lado,"",false] spawn patrolCA;
+		[getPosASL _vehObj,_lado] spawn patrolCA;
 		if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[0,3] remoteExec ["prestige",2]};
 		if (!alive _vehObj) then
 			{
@@ -620,7 +620,7 @@ if (_tipoConvoy == "Prisoners") then
 		};
 	if ((not alive driver _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])) then
 		{
-		[getPosASL _vehObj,_lado,"",false] spawn patrolCA;
+		[getPosASL _vehObj,_lado] spawn patrolCA;
 		{[_x,false] remoteExec ["setCaptive"]; _x enableAI "MOVE"; [_x] orderGetin false;} forEach _POWs;
 		waitUntil {sleep 2; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance _posHQ < 50)} count _POWs > 0) or (dateToNumber date > _fechafinNum)};
 		if (({alive _x} count _POWs == 0) or (dateToNumber date > _fechafinNum)) then
@@ -676,7 +676,9 @@ if (_tipoConvoy == "Refuerzos") then
 			{
 			_tipos = [];
 			{_tipos pushBack (typeOf _x)} forEach (_refuerzos select {alive _x});
-			[_soldados,_lado,_destino,0] remoteExec ["garrisonUpdate",2];
+			[_soldados,_lado,_destino,0] spawn garrisonUpdate;
+			//_garrison = garrison getVariable [_destino,0];
+			//garrison setVariable [_destino,_garrison - _cuenta,true];
 			};
 		if (_lado == malos) then {[(-1*(0.25*_cuenta)),0] remoteExec ["prestige",2]} else {[0,(-1*(0.25*_cuenta))] remoteExec ["prestige",2]};
 		};
@@ -696,7 +698,7 @@ if (_tipoConvoy == "Money") then
 			}
 		else
 			{
-			[getPosASL _vehObj,_lado,"",false] spawn patrolCA;
+			[getPosASL _vehObj,_lado] spawn patrolCA;
 			[1200*_bonus] remoteExec ["timingCA",2];
 			_taskState1 = "FAILED";
 			_killZones = killZones getVariable [_base,[]];
@@ -706,7 +708,7 @@ if (_tipoConvoy == "Money") then
 		};
 	if (driver _vehObj getVariable ["GREENFORSpawn",false]) then
 		{
-		[getPosASL _vehObj,_lado,"",false] spawn patrolCA;
+		[getPosASL _vehObj,_lado] spawn patrolCA;
 		waitUntil {sleep 2; (_vehObj distance _posHQ < 50) or (not alive _vehObj) or (dateToNumber date > _fechafinNum)};
 		if ((not alive _vehObj) or (dateToNumber date > _fechafinNum)) then
 			{
@@ -738,7 +740,7 @@ if (_tipoConvoy == "Supplies") then
 	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])};
 	if (not alive _vehObj) then
 		{
-		[getPosASL _vehObj,_lado,"",false] spawn patrolCA;
+		[getPosASL _vehObj,_lado] spawn patrolCA;
 		_taskState = "FAILED";
 		_taskState1 = "FAILED";
 		[3,0] remoteExec ["prestige",2];
@@ -751,7 +753,7 @@ if (_tipoConvoy == "Supplies") then
 		{
 		if (driver _vehObj getVariable ["GREENFORSpawn",false]) then
 			{
-			[getPosASL _vehObj,_lado,"",false] spawn patrolCA;
+			[getPosASL _vehObj,_lado] spawn patrolCA;
 			waitUntil {sleep 1; (_vehObj distance _posdestino < 100) or (not alive _vehObj) or (dateToNumber date > _fechafinNum)};
 			if (_vehObj distance _posdestino < 100) then
 				{

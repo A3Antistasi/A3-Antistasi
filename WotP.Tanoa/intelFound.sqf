@@ -24,55 +24,55 @@ if (random 100 < _chance) then
 	{
 	if (_lado == malos) then
 		{
-		if ([vehNATOPlane] call vehAvailable) then {_texto = format ["%1 %2 Planes Available<br/>",_texto,nameMalos]} else {_texto = format ["%1 %2 Planes Unavailable<br/>",_texto,nameMalos]}
+		if ([vehNATOPlane] call vehAvailable) then {_texto = format ["%1 NATO Planes Available<br/>",_texto]} else {_texto = format ["%1 NATO Planes Unavailable<br/>",_texto]}
 		}
 	else
 		{
-		if ([vehCSATPlane] call vehAvailable) then {_texto = format ["%1 %2 Planes Available<br/>",_texto,nameMuyMalos]} else {_texto = format ["%1 %2 Planes Unavailable<br/>",_texto,nameMuyMalos]}
+		if ([vehCSATPlane] call vehAvailable) then {_texto = format ["%1 CSAT Planes Available<br/>",_texto]} else {_texto = format ["%1 CSAT Planes Unavailable<br/>",_texto]}
 		};
 	};
 if (random 100 < _chance) then
 	{
 	if (_lado == malos) then
 		{
-		if ({[_x] call vehAvailable} count vehNATOAttackHelis > 0) then {_texto = format ["%1 %2 Attack Helis Available<br/>",_texto,nameMalos]} else {_texto = format ["%1 %2 Attack Helis Unavailable<br/>",_texto,nameMalos]}
+		if ({[_x] call vehAvailable} count vehNATOAttackHelis > 0) then {_texto = format ["%1 NATO Attack Helis Available<br/>",_texto]} else {_texto = format ["%1 NATO Attack Helis Unavailable<br/>",_texto]}
 		}
 	else
 		{
-		if ({[_x] call vehAvailable} count vehCSATAttackHelis > 0) then {_texto = format ["%1 %2 Attack Helis Available<br/>",_texto,nameMuyMalos]} else {_texto = format ["%1 %2 Attack Helis Unavailable<br/>",_texto,nameMuyMalos]}
+		if ({[_x] call vehAvailable} count vehCSATAttackHelis > 0) then {_texto = format ["%1 CSAT Attack Helis Available<br/>",_texto]} else {_texto = format ["%1 CSAT Attack Helis Unavailable<br/>",_texto]}
 		};
 	};
 if (random 100 < _chance) then
 	{
 	if (_lado == malos) then
 		{
-		if ({[_x] call vehAvailable} count vehNATOAPC > 0) then {_texto = format ["%1 %2 APCs Available<br/>",_texto,nameMalos]} else {_texto = format ["%1 %2 APCs Unavailable<br/>",_texto,nameMalos]}
+		if ({[_x] call vehAvailable} count vehNATOAPC > 0) then {_texto = format ["%1 NATO APCs Available<br/>",_texto]} else {_texto = format ["%1 NATO APCs Unavailable<br/>",_texto]}
 		}
 	else
 		{
-		if ({[_x] call vehAvailable} count vehCSATAPC > 0) then {_texto = format ["%1 %2 APCs Available<br/>",_texto,nameMuyMalos]} else {_texto = format ["%1 %2 APCs Unavailable<br/>",_texto,nameMuyMalos]}
+		if ({[_x] call vehAvailable} count vehCSATAPC > 0) then {_texto = format ["%1 CSAT APCs Available<br/>",_texto]} else {_texto = format ["%1 CSAT APCs Unavailable<br/>",_texto]}
 		};
 	};
 if (random 100 < _chance) then
 	{
 	if (_lado == malos) then
 		{
-		if ([vehNATOTank] call vehAvailable) then {_texto = format ["%1 %2 Tanks Available<br/>",_texto,nameMalos]} else {_texto = format ["%1 %2 Tanks Unavailable<br/>",_texto,nameMalos]}
+		if ([vehNATOTank] call vehAvailable) then {_texto = format ["%1 NATO Tanks Available<br/>",_texto]} else {_texto = format ["%1 NATO Tanks Unavailable<br/>",_texto]}
 		}
 	else
 		{
-		if ([vehCSATTank] call vehAvailable) then {_texto = format ["%1 %2 Tanks Available<br/>",_texto,nameMuyMalos]} else {_texto = format ["%1 %2 Tanks Unavailable<br/>",_texto,nameMuyMalos]}
+		if ([vehCSATTank] call vehAvailable) then {_texto = format ["%1 CSAT Tanks Available<br/>",_texto]} else {_texto = format ["%1 CSAT Tanks Unavailable<br/>",_texto]}
 		};
 	};
 if (random 100 < _chance) then
 	{
 	if (_lado == malos) then
 		{
-		if ([vehNATOAA] call vehAvailable) then {_texto = format ["%1 %2 AA Tanks Available<br/>",_texto,nameMalos]} else {_texto = format ["%1 %2 AA Tanks Unavailable<br/>",_texto,nameMalos]}
+		if ([vehNATOAA] call vehAvailable) then {_texto = format ["%1 NATO AA Tanks Available<br/>",_texto]} else {_texto = format ["%1 NATO AA Tanks Unavailable<br/>",_texto]}
 		}
 	else
 		{
-		if ([vehCSATAA] call vehAvailable) then {_texto = format ["%1 %2 AA Tanks Available<br/>",_texto,nameMuyMalos]} else {_texto = format ["%1 %2 AA Tanks Unavailable<br/>",_texto,nameMuyMalos]}
+		if ([vehCSATAA] call vehAvailable) then {_texto = format ["%1 CSAT AA Tanks Available<br/>",_texto]} else {_texto = format ["%1 CSAT AA Tanks Unavailable<br/>",_texto]}
 		};
 	};
 

@@ -22,7 +22,7 @@ if (hayACE) then
 		_killer = _muerto getVariable ["ace_medical_lastDamageSource", _killer];
 		};
 	};
-//if (_killer isEqualType "") then {diag_log format ["Antistasi error in AAFKilledEH, params: %1",_this]};
+
 if ((side _killer == buenos) or (side _killer == civilian)) then
 	{
 	if (isPlayer _killer) then
@@ -93,12 +93,55 @@ else
 		};
 	};
 _marcador = _muerto getVariable "marcador";
-_garrisoned = true;
-if (isNil "_marcador") then {_marcador = _muerto getVariable ["origen",""]; _garrisoned = false};
-if (_marcador != "") then
+_grrisoned = true;
+if (isNil "_marcador") then {_marcador = _muerto getVariable "origen"; _garrisoned = false};
+if (!isNil "_marcador") then
 	{
-	[typeOf _muerto,_lado,_marcador,-1] remoteExec ["garrisonUpdate",2];
-	if (_garrisoned) then {[_marcador,_lado] remoteExec ["zoneCheck",2]};
+	if (_marcador != "") then {[typeOf _muerto,_lado,_marcador,-1] spawn garrisonUpdate};
+	if (_garrisoned) then {[_marcador,_lado] spawn zoneCheck};
 	};
-[_grupo,_killer] spawn AIreactOnKill;
+
+[_grupo,_killer] spawn
+	{
+	private ["_grupo","_killer"];
+	_grupo = _this select 0;
+	_killer = _this select 1;
+	{
+	if (fleeing _x) then
+		{
+		if ([_x] call canFight) then
+			{
+			_enemy = _x findNearestEnemy _x;
+			if (!isNull _enemy) then
+				{
+				if ((_x distance _enemy < 50) and (vehicle _x == _x)) then
+					{
+					[_x] spawn surrenderAction;
+					}
+				else
+					{
+					if (_x == leader group _x) then
+						{
+						if (vehicle _killer == _killer) then
+							{
+							[[getPosASL _enemy,side _x,"Normal"],"patrolCA"] remoteExec ["scheduler",2]
+							}
+						else
+							{
+							if (vehicle _killer isKindOf "Air") then {[[getPosASL _enemy,side _x,"Air"],"patrolCA"] remoteExec ["scheduler",2]} else {if (vehicle _killer isKindOf "Tank") then {[[getPosASL _enemy,side _x,"Tank"],"patrolCA"] remoteExec ["scheduler",2]} else {[[getPosASL _enemy,side _x,"Normal"],"patrolCA"] remoteExec ["scheduler",2]}};
+							};
+						};
+					if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x] spawn cubrirConHumo};
+					};
+				};
+			};
+		}
+	else
+		{
+		//_x allowFleeing (0.5-(_x skill "courage") + (0.2*({(_x getVariable ["surrendered",false]) or (!alive _x)} count (units group _x))));
+		if (random 1 < 0.5) then {_x allowFleeing (0.5 -(_x skill "courage") + (({!([_x] call canFight)} count units _grupo)/(count units _grupo)))};
+		};
+	} forEach units _grupo;
+	sleep 1 + (random 1);
+	};
 

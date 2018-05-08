@@ -44,9 +44,9 @@ else
 	_unit stop true;
 	if (_inPlayerGroup) then
 		{
-		[_unit,"heal1"] remoteExec ["flagaction",0,_unit];
-		//[_unit,"carry"] remoteExec ["flagaction",0,_unit];
-		//_unit call jn_fnc_logistics_addAction;
+		[_unit,"heal"] remoteExec ["flagaction",0,_unit];
+		[_unit,"carry"] remoteExec ["flagaction",0,_unit];
+		_unit call jn_fnc_logistics_addAction;
 		[_unit,true] remoteExec ["setCaptive"];
 		}
 	else
@@ -56,15 +56,6 @@ else
 			_jugadores = true;
 			[_unit,"heal"] remoteExec ["flagaction",0,_unit];
 			if (_unit != petros) then {[_unit,true] remoteExec ["setCaptive"]};
-			};
-		_injurer = _this select 1;
-		if ((_injurer  == malos) or (_injurer  == muyMalos)) then
-			{
-			_marcador = _unit getVariable ["marcador",""];
-			if (_marcador != "") then
-				{
-				if (!([_marcador] call BIS_fnc_taskExists) and (lados getVariable [_marcador,sideUnknown] == buenos)) then {[_marcador,_injurer,buenos] remoteExec ["underAttack",2]};
-				};
 			};
 		};
 	};
@@ -84,8 +75,8 @@ if (_isPlayer) then
 	group _unit setCombatMode "YELLOW";
 	if (isMultiplayer) then
 		{
-		[_unit,"heal1"] remoteExec ["flagaction",0,_unit];
-		//[_unit,"carry"] remoteExec ["flagaction",0,_unit];
+		[_unit,"heal"] remoteExec ["flagaction",0,_unit];
+		[_unit,"carry"] remoteExec ["flagaction",0,_unit];
 		};
 	};
 
@@ -139,7 +130,7 @@ while {(time < _bleedOut) and (damage _unit > 0.25) and (alive _unit) and (!(_un
 			};
 		};
 	sleep 3;
-	if !(isNull attachedTo _unit) then {_bleedOut = _bleedOut + 4};
+	if (_unit != vehicle _unit) then {_bleedOut = _bleedOut + 4};
 	};
 
 if (_isPlayer) then

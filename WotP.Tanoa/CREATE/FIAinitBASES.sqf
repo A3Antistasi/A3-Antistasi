@@ -48,7 +48,8 @@ else
 	if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]};
 	if (random 40 < skillFIA) then
 		{
-		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") < 2) then {removeHeadgear _unit;_unit addHeadgear (selectRandom cascos)};
+		removeHeadgear _unit;
+		_unit addHeadgear (selectRandom cascos);
 		};
 	if (_tipo in SDKMil) then
 		{
@@ -178,7 +179,6 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 		{
 		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
-			/*
 			_garrison = [];
 			_garrison = _garrison + (garrison getVariable [_marcador,[]]);
 			if (_garrison isEqualType []) then
@@ -189,27 +189,9 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 					};
 				garrison setVariable [_marcador,_garrison,true];
 				};
-			if (!(_marcador in controles)) then {[_marcador] call mrkUpdate};*/
-			[typeOf _muerto,buenos,_marcador,-1] remoteExec ["garrisonUpdate",2];
+			if (!(_marcador in controles)) then {[_marcador] call mrkUpdate};
 			_muerto setVariable [_marcador,nil,true];
 			};
 		};
 	}];
-_revelar = false;
-if (vehicle _unit != _unit) then
-	{
-	if (_unit == gunner (vehicle _unit)) then
-		{
-		_revelar = true;
-		};
-	}
-else
-	{
-	if ((secondaryWeapon _unit) in mlaunchers) then {_revelar = true};
-	};
-if (_revelar) then
-	{
-	{
-	_unit reveal [_x,1.5];
-	} forEach allUnits select {(vehicle _x isKindOf "Air") and (_x distance _unit <= distanciaSPWN)};
-	};
+

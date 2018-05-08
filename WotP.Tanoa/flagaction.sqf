@@ -1,6 +1,6 @@
 private ["_flag","_tipo"];
 
-if (!hasInterface) exitWith {};
+if (isDedicated) exitWith {};
 
 _flag = _this select 0;
 _tipo = _this select 1;
@@ -14,16 +14,7 @@ switch _tipo do
 	case "camion": {accion = _flag addAction ["Transfer Ammobox to Truck", "Municion\transfer.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]};
 	//case "heal": {if (player != _flag) then {_flag addAction [format ["Revive %1",name _flag], "Revive\actionRevive.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]}};
 	case "heal": {if (player != _flag) then {_flag addAction [format ["Revive %1",name _flag], "Revive\actionRevive.sqf",nil,0,false,true,"",""]}};
-	case "heal1":
-		{
-		if (player != _flag) then
-			{
-			_flag addAction [format ["Revive %1",name _flag], "Revive\actionRevive.sqf",nil,0,false,true,"",""];
-			_flag addAction [format ["Carry %1",name _flag], "Revive\carry.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
-			[_flag] call jn_fnc_logistics_addActionLoad;
-			};
-		};
-	//case "carry": {if (player != _flag) then {_flag addAction [format ["Carry %1",name _flag], "Revive\carry.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]}};
+	case "carry": {if (player != _flag) then {_flag addAction [format ["Carry %1",name _flag], "Revive\carry.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]}};
 	case "moveS": {_flag addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == stavros)"]};
 	case "remove":
 		{
@@ -55,11 +46,11 @@ switch _tipo do
 		if (isMultiplayer) then
 			{
 			_flag addAction ["Personal Garage", {nul = [true] spawn garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
-			_flag addAction ["Faction Garage", {nul = [false] spawn garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
+			_flag addAction ["SDK Garage", {nul = [false] spawn garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
 			}
 		else
 			{
-			_flag addAction ["Faction Garage", {nul = [false] spawn garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]
+			_flag addAction ["SDK Garage", {nul = [false] spawn garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]
 			};
 		};
 	case "fuego":
@@ -78,11 +69,11 @@ switch _tipo do
 		if (isMultiplayer) then
 			{
 			_flag addAction ["Personal Garage", {nul = [true] spawn garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
-			_flag addAction ["Faction Garage", {nul = [false] spawn garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
+			_flag addAction ["SDK Garage", {nul = [false] spawn garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
 			}
 		else
 			{
-			_flag addAction ["Faction Garage", {nul = [false] spawn garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]
+			_flag addAction ["SDK Garage", {nul = [false] spawn garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]
 			};
 		};
 	};

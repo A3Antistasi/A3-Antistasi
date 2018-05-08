@@ -37,23 +37,15 @@ _chequeo = false;
 
 if (_chequeo) exitWith {Hint "You cannot Recruit Garrison Units with enemies near the zone"};
 _nul = [-1,-_coste] remoteExec ["resourcesFIA",2];
-/*
 _garrison = [];
 _garrison = _garrison + (garrison getVariable [_marcador,[]]);
 _garrison pushBack _tipo;
 garrison setVariable [_marcador,_garrison,true];
-//[_marcador] call mrkUpdate;*/
-_cuenta = count (garrison getVariable _marcador);
-[_tipo,buenos,_marcador,1] remoteExec ["garrisonUpdate",2];
-waitUntil {(_cuenta < count (garrison getVariable _marcador)) or (lados getVariable [_marcador,sideUnknown] != buenos)};
+//[_marcador] call mrkUpdate;
+hint format ["Soldier recruited.%1",[_marcador] call garrisonInfo];
 
-if (lados getVariable [_marcador,sideUnknown] == buenos) then
+if (spawner getVariable _marcador != 2) then
 	{
-	hint format ["Soldier recruited.%1",[_marcador] call garrisonInfo];
-
-	if (spawner getVariable _marcador != 2) then
-		{
-		[_marcador] remoteExec ["tempMoveMrk",2];
-		};
+	[_marcador] remoteExec ["tempMoveMrk",2];
 	};
 

@@ -16,6 +16,6 @@ if (_jugador getVariable ["elegible",true]) then
 	}
 else
 	{
-	hint "You are now elegible to be Commander of our forces.";
+	hint "You are now elegible to be Commander of the SDK forces.";
 	_jugador setVariable ["elegible",true,true];
 	};

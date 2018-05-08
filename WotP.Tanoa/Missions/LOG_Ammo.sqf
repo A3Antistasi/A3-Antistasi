@@ -100,7 +100,21 @@ _nombredest = [_marcador] call localizar;
 _tipoVeh = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
 _size = [_marcador] call sizeMarker;
 
-_road = [_posicion] call findNearestGoodRoad;
+_roads = [];
+_tam = _size;
+_road = objNull;
+while {isNull _road} do
+	{
+	_roads = _posicion nearRoads _tam;
+	if (count _roads > 0) then
+		{
+		{
+		if ((surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")) exitWith {_road = _x};
+		} forEach _roads;
+		};
+	_tam = _tam + 50;
+	};
+//_road = _roads select 0;
 _pos = position _road;
 _pos = _pos findEmptyPosition [1,60,_tipoVeh];
 if (count _pos == 0) then {_pos = position _road};
@@ -168,7 +182,7 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 			{
 			["TaskFailed", ["", format ["Ammotruck Stolen in an %1",_nombreDest]]] remoteExec ["BIS_fnc_showNotification",_lado];
 			};
-		[getPosASL _camion,_lado,"",false] spawn patrolCA;
+		[getPosASL _camion,_lado] spawn patrolCA;
 		["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"SUCCEEDED","rearm"] call taskUpdate;
 		[0,300*_bonus] remoteExec ["resourcesFIA",2];
 		[1200*_bonus] remoteExec ["timingCA",2];

@@ -39,7 +39,7 @@ if (count _tiposVeh > 0) then
 	[_heli] call AIVEHinit;
 	_wp1 = _grupoheli addWaypoint [_posicion, 0];
 	_wp1 setWaypointType "SAD";
-	//[_heli,"Air Attack"] spawn inmuneConvoy;
+	[_heli,"Air Attack"] spawn inmuneConvoy;
 	sleep 30;
 	};
 _tiposVeh = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
@@ -61,7 +61,7 @@ for "_i" from 0 to (round random 2) do
 	_grupo = [_posOrigen, _lado, _tipoGrupo] call spawnGroup;
 	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldados pushBack _x; [_x] call NATOinit} forEach units _grupo;
 	_grupos pushBack _grupo;
-	//[_heli,"Air Transport"] spawn inmuneConvoy;
+	[_heli,"Air Transport"] spawn inmuneConvoy;
 	[_heli,_grupo,_posicion,_posOrigen,_grupoHeli] spawn fastrope;
 	sleep 10;
 	};

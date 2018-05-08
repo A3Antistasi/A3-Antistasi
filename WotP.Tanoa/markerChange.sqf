@@ -5,9 +5,6 @@ private ["_winner","_marcador","_looser","_posicion","_other","_bandera","_bande
 _winner = _this select 0;
 _marcador = _this select 1;
 if ((_winner == "GREENFORSpawn") and (_marcador in aeropuertos) and (tierWar < 3)) exitWith {};
-if ((_winner == "GREENFORSpawn") and (lados getVariable [_marcador,sideUnknown] == buenos)) exitWith {};
-if ((_winner == "BLUFORSpawn") and (lados getVariable [_marcador,sideUnknown] == malos)) exitWith {};
-if ((_winner == "OPFORSpawn") and (lados getVariable [_marcador,sideUnknown] == muyMalos)) exitWith {};
 if (_marcador in markersChanging) exitWith {};
 markersChanging pushBackUnique _marcador;
 _posicion = getMarkerPos _marcador;
@@ -38,12 +35,12 @@ else
 	if (lados getVariable [_marcador,sideUnknown] == malos) then
 		{
 		_looser = malos;
-		_texto = format ["%1 ",nameMalos];
+		_texto = "NATO ";
 		}
 	else
 		{
 		_looser = muyMalos;
-		_texto = format ["%1 ",nameMuyMalos];
+		_texto = "CSAT ";
 		};
 	};
 garrison setVariable [_marcador,[],true];
@@ -51,13 +48,13 @@ if (_winner == "GREENFORSpawn") then
 	{
 	lados setVariable [_marcador,buenos,true];
 	_winner = buenos;
-	_super = if (_marcador in aeropuertos) then {true} else {false};
-	[[_marcador,_looser,"",_super],"patrolCA"] call scheduler;
+	[[_marcador,_looser],"patrolCA"] call scheduler;
 	//sleep 15;
 	[[_marcador],"autoGarrison"] call scheduler;
 	}
 else
 	{
+	//garrison setVariable [_marcador,0,true];
 	_soldados = [];
 	{_soldados pushBack (typeOf _x)} forEach (allUnits select {(_x distance _posicion < (_size*3)) and (_x getVariable [_winner,false]) and (vehicle _x == _x)});
 	if (_winner == "BLUFORspawn") then
@@ -70,7 +67,7 @@ else
 		lados setVariable [_marcador,muyMalos,true];
 		_winner = muyMalos;
 		};
-	[_soldados,_winner,_marcador,0] remoteExec ["garrisonUpdate",2];
+	[_soldados,_winner,_marcador,0] spawn garrisonUpdate;
 	};
 
 _nul = [_marcador] call mrkUpdate;
@@ -146,8 +143,7 @@ if (_winner == buenos) then
 	waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({((_x getVariable ["BLUFORSpawn",false]) or (_x getVariable ["OPFORSpawn",false])) and ([_x,_marcador] call canConquer)} count allUnits > 3*({(side _x == buenos) and ([_x,_marcador] call canConquer)} count allUnits))};
 	if (spawner getVariable _marcador != 2) then
 		{
-		sleep 10;
-		[_marcador,buenos] remoteExec ["zoneCheck",2];
+		[_marcador,buenos] spawn zoneCheck;
 		};
 	}
 else

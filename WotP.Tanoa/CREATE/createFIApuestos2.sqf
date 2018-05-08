@@ -13,9 +13,8 @@ if (_escarretera) then
 	_tam = 1;
 	_garrison = garrison getVariable _marcador;
 	_veh = objNull;
-
 	if (isNil "_garrison") then
-		{//this is for backward compatibility, remove after v12
+		{
 		_garrison = [staticCrewBuenos];
 		{
 		if (random 20 <= skillFIA) then {_garrison pushBack (_x select 1)} else {_garrison pushBack (_x select 0)};

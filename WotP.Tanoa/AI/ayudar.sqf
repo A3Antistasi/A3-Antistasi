@@ -81,7 +81,7 @@ if (_medico != _unit) then
 				while {true} do
 					{
 					sleep 1;
-					if (!([_medico] call canFight) or (!alive _unit) or (_medico distance _cobertura <= 2) or (_timeOut < time) or (lifestate _medico == "INCAPACITATED") or (_medico != vehicle _medico)) exitWith {};
+					if ((!alive _medico) or (!alive _unit) or (_medico distance _cobertura <= 2) or (_timeOut < time) or (lifestate _medico == "INCAPACITATED") or (_medico != vehicle _medico)) exitWith {};
 					if (_unit distance _dummy > 3) then
 						{
 						_unit attachTo [_dummy, [0,-1.1, 0.092]];

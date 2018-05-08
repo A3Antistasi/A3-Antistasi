@@ -193,7 +193,7 @@ class HQ_menu 			{
 		class HQ_frame: RscFrame
 		{
 			idc = 102;
-			text = "HQ Options - Commander Only"; //--- ToDo: Localize;
+			text = "SDK HQ Options - Commander Only"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
@@ -218,7 +218,7 @@ class HQ_menu 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Take 100 € from faction pool and add it to your personnal account. It will damage your position among the faction in the commander career";
+			tooltip = "Take 100 € from SDK pool and add it to your personnal account. It will damage your position among the SDK in the commander career";
 			action = "if (isMultiPlayer) then {if (player == Stavros) then {nul=call stavrosSteal} else {hint ""Only Player Commander has access to this function""}} else {hint ""This function is MP only""};";
 		};
 		class HQ_button_savegame: RscButton
@@ -229,7 +229,7 @@ class HQ_menu 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Add or remove units to garrisons";
+			tooltip = "Add or remove units to SDK garrisons";
 			action = "closeDialog 0;if (player == Stavros) then {nul=CreateDialog ""build_menu""} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_moveHQ: RscButton
@@ -268,7 +268,7 @@ class HQ_menu 			{
 		class HQ_button_vehicle: RscButton
 		{
 			idc = 109;	//R3
-			text = "Train AI - Skill Upgrade"; //--- ToDo: Localize;
+			text = "Train SDK - Skill Upgrade"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -284,7 +284,7 @@ class HQ_menu 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Check Faction garage";
+			tooltip = "Check SDK garage";
 			action = "closeDialog 0;nul = [false] spawn garage";
 		};
 	};
@@ -412,7 +412,7 @@ class garrison_recruit 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMil] spawn garrisonAdd";
+			action = "nul = [SDKMil] call garrisonAdd";
 		};
 		class HQ_button_autorifleman: RscButton
 		{
@@ -422,7 +422,7 @@ class garrison_recruit 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMG] spawn garrisonAdd";
+			action = "nul = [SDKMG] call garrisonAdd";
 		};
 		class HQ_button_medic: RscButton
 		{
@@ -432,7 +432,7 @@ class garrison_recruit 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMedic] spawn garrisonAdd";
+			action = "nul = [SDKMedic] call garrisonAdd";
 		};
 		class HQ_button_engineer: RscButton
 		{
@@ -442,7 +442,7 @@ class garrison_recruit 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKSL] spawn garrisonAdd";
+			action = "nul = [SDKSL] call garrisonAdd";
 		};
 		class HQ_button_explosive: RscButton
 		{
@@ -452,7 +452,7 @@ class garrison_recruit 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [staticCrewBuenos] spawn garrisonAdd";
+			action = "nul = [staticCrewBuenos] call garrisonAdd";
 		};
 		class HQ_button_grenadier: RscButton
 		{
@@ -462,7 +462,7 @@ class garrison_recruit 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKGL] spawn garrisonAdd";
+			action = "nul = [SDKGL] call garrisonAdd";
 		};
 		class HQ_button_marksman: RscButton
 		{
@@ -472,7 +472,7 @@ class garrison_recruit 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKSniper] spawn garrisonAdd";
+			action = "nul = [SDKSniper] call garrisonAdd";
 		};
 
 		class HQ_button_AT: RscButton
@@ -483,7 +483,7 @@ class garrison_recruit 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKATman] spawn garrisonAdd";
+			action = "nul = [SDKATman] call garrisonAdd";
 		};
 	};
 };										//slots: 8
@@ -732,7 +732,7 @@ class vehicle_option 	{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Wide variety of available faction vehicles";
+			tooltip = "Wide variety of available SDK vehicles";
 			action = "closeDialog 0; nul=[] execVM ""Dialogs\buy_vehicle.sqf"";";
 		};
 		/*
@@ -1545,7 +1545,7 @@ class vehicle_manager 		{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Gain Airstrike points giving this vehicle to the faction Air pool";
+			tooltip = "Gain Airstrike points giving this vehicle to the SDK Air pool";
 			action = "closeDialog 0;nul = [] call addBombRun";
 		};
 		class HQ_button_unlock: RscButton
@@ -1911,12 +1911,12 @@ class commander_comm 		{
 		class 8slots_R3: RscButton
 		{
 			idc = -1;
-			text = "Garage Vehicle in HQ"; //--- ToDo: Localize;
+			text = "Garage Vehicle in SDK"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Look at a vehicle and garage it into faction garage (shared among commanders)";
+			tooltip = "Look at a vehicle and garage it into SDK garage (shared among commanders)";
 			action = "closeDialog 0; nul = [true] call garageVehicle;";
 		};
 		class 8slots_L4: RscButton
@@ -2017,7 +2017,7 @@ class carpet_bombing 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Gain Airstrike points giving this aircraft to the faction Air pool";
+			tooltip = "Gain Airstrike points giving this aircraft to the SDK Air pool";
 			action = "closeDialog 0;nul = [] call addBombRun";
 		};
 	};
@@ -2407,12 +2407,12 @@ class player_money 			{
 		class HQ_button_AA: RscButton
 		{
 			idc = -1;
-			text = "Donate 100 € to Faction"; //--- ToDo: Localize;
+			text = "Donate 100 € to SDK"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "It will increase your prestige among your faction";
+			tooltip = "It will increase your prestige among SDK faction";
 			action = "[] call donateMoney;";
 		};
 	};
@@ -2502,7 +2502,7 @@ class garage_check 				{
 		class HQ_frame: RscFrame
 		{
 			idc = -1;
-			text = "Personal or Faction Garage?"; //--- ToDo: Localize;
+			text = "Personal or SDK Garage?"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
@@ -2531,7 +2531,7 @@ class garage_check 				{
 		class HQ_button_Gstatic: RscButton
 		{
 			idc = -1;
-			text = "Faction Garage"; //--- ToDo: Localize;
+			text = "SDK Garage"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;

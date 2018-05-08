@@ -1,5 +1,5 @@
 _handled = false;
-if (lifeState player == "INCAPACITATED") exitWith {_handled};
+if (lifeState _unit == "INCAPACITATED") exitWith {_handled};
 if (player getVariable ["owner",player] != player) exitWith {_handled};
 _key = _this select 1;
 if (_key == 21) then

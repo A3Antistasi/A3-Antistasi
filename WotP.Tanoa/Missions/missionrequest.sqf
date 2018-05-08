@@ -121,7 +121,7 @@ if (_tipo == "DES") then
 	};
 if (_tipo == "LOG") then
 	{
-	_sitios = puestos + ciudades - destroyedCities;
+	_sitios = puestos + ciudades;
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (random 100 < 20) then {_sitios = _sitios + bancos};
 	if (count _sitios > 0) then
@@ -141,12 +141,15 @@ if (_tipo == "LOG") then
 				{
 				if (_sitio in ciudades) then
 					{
-					_datos = server getVariable _sitio;
-					_prestigeOPFOR = _datos select 2;
-					_prestigeBLUFOR = _datos select 3;
-					if (_prestigeOPFOR + _prestigeBLUFOR < 90) then
+					if ([_pos,_posbase] call isTheSameIsland) then
 						{
-						_posibles pushBack _sitio;
+						_datos = server getVariable _sitio;
+						_prestigeOPFOR = _datos select 2;
+						_prestigeBLUFOR = _datos select 3;
+						if (_prestigeOPFOR + _prestigeBLUFOR < 90) then
+							{
+							_posibles pushBack _sitio;
+							};
 						};
 					}
 				else
@@ -208,7 +211,7 @@ if (_tipo == "CONVOY") then
 	{
 	if (!bigAttackInProgress) then
 		{
-		_sitios = (aeropuertos + recursos + fabricas + puertos + (puestos - blackListDest)) + (ciudades select {count (garrison getVariable [_x,[]]) < 10});
+		_sitios = (aeropuertos + recursos + fabricas + puertos + ["puesto","puesto_1","puesto_3","puesto_7"]) + (ciudades select {count (garrison getVariable [_x,[]]) < 10});
 		_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 		if (count _sitios > 0) then
 			{

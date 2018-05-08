@@ -1,9 +1,8 @@
+//if (!activeXLA) then {["AmmoboxInit",[caja,false,{true}]] call BIS_fnc_arsenal};
 
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
-findNearestGoodRoad = compile preProcessFileLineNumbers "findNearestGoodRoad.sqf";
-underAttack = compile preProcessFileLineNumbers "Missions\underAttack.sqf";
-AIreactOnKill = compile preProcessFileLineNumbers "AI\AIreactOnKill.sqf";
+//fpsCheck = compile preProcessFileLineNumbers "fpsCheck.sqf";
 canConquer = compile preProcessFileLineNumbers "AI\canConquer.sqf";
 canFight = compile preProcessFileLineNumbers "AI\canFight.sqf";
 AILoadInfo = compile preProcessFileLineNumbers "AILoadInfo.sqf";
@@ -40,6 +39,7 @@ markerChange = compile preProcessFileLineNumbers "markerChange.sqf";
 zoneCheck = compile preProcessFileLineNumbers "zoneCheck.sqf";
 tempMoveMrk = compile preProcessFileLineNumbers "tempMoveMrk.sqf";
 hasRadio = compile preProcessFileLineNumbers "AI\hasRadio.sqf";
+//accionArsenal = compile preProcessFileLineNumbers "Municion\accionArsenal.sqf";
 revealToPlayer = compile preProcessFileLineNumbers "revealToPlayer.sqf";
 mineSweep = compile preProcessFileLineNumbers "AI\mineSweep.sqf";
 powerCheck = compile preProcessFileLineNumbers "powerCheck.sqf";
@@ -108,6 +108,7 @@ garrisonInfo = compile preProcessFileLineNumbers "garrisonInfo.sqf";
 groupComposition = compile preProcessFileLineNumbers "REINF\groupComposition.sqf";
 vehiclePrice = compile preProcessFileLineNumbers "REINF\vehiclePrice.sqf";
 VANTinfo = compile preProcessFileLineNumbers "AI\VANTinfo.sqf";
+//attackDrill = compile preProcessFileLineNumbers "AI\attackDrill.sqf"; borrarlo si vemos que no lo necesitamos más
 garrisonAdd = compile preProcessFileLineNumbers "REINF\garrisonAdd.sqf";
 garrisonDialog = compile preProcessFileLineNumbers "REINF\garrisonDialog.sqf";
 isFrontline = compile preProcessFileLineNumbers "isFrontline.sqf";
@@ -130,6 +131,7 @@ stavrosInit = compile preProcessFileLineNumbers "orgPlayers\stavrosInit.sqf";
 castigo = compile preProcessFileLineNumbers "castigo.sqf";
 createFIApuestos2 = compile preProcessFileLineNumbers "CREATE\createFIApuestos2.sqf";
 crearPuestosFIA = compile preProcessFileLineNumbers "crearPuestosFIA.sqf";
+//fpsChange = compile preProcessFileLineNumbers "fpsChange.sqf";
 buildMinefield = compile preProcessFileLineNumbers "REINF\buildMinefield.sqf";
 FIAinit = compile preProcessFileLineNumbers "REINF\FIAinit.sqf";
 postmortem = compile preProcessFileLineNumbers "REINF\postmortem.sqf";
@@ -184,10 +186,12 @@ ataqueAAF = compile preProcessFileLineNumbers "ataqueAAF.sqf";
 citySupportChange = compile preProcessFileLineNumbers "citySupportChange.sqf";
 distancias4 = compile preProcessFileLineNumbers "distancias4.sqf";
 inmuneConvoy = compile preProcessFileLineNumbers "AI\inmuneConvoy.sqf";
+smokeCover = compile preProcessFileLineNumbers "AI\smokeCover.sqf";
 fastrope = compile preProcessFileLineNumbers "AI\fastrope.sqf";
 airdrop = compile preProcessFileLineNumbers "AI\airdrop.sqf";
 airstrike = compile preProcessFileLineNumbers "AI\airstrike.sqf";
 artilleria = compile preProcessFileLineNumbers "AI\artilleria.sqf";
+//dismountFIA = compile preProcessFileLineNumbers "AI\dismountFIA.sqf";
 powerReorg = compile preProcessFileLineNumbers "powerReorg.sqf";
 apagon = compile preProcessFileLineNumbers "apagon.sqf";
 sizeMarker = compile preProcessFileLineNumbers "sizeMarker.sqf";

@@ -6,4 +6,4 @@ server setvariable ["resourcesFIA",_resourcesFIA - 100, true];
 [-2,stavros] call playerScoreAdd;
 ["scorePlayer", player getVariable "score"] call fn_SaveStat;
 
-hint format ["You grabbed 100 € from the %1 Money Pool.\n\nThis will affect your prestige and status among %1 forces",nameBuenos];
+hint "You grabbed 100 € from the SDK Money Pool.\n\nThis will affect your prestige and status among SDK forces";

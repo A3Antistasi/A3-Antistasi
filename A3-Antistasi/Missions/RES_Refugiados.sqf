@@ -113,7 +113,7 @@ _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} els
 _texto = if (_lado == malos) then {format ["A group of smugglers have been arrested in %1 and they are about to be sent to prison. Go there and free them in order to make them join our cause. Do this before %2:%3",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4]} else {format ["A group of %3 supportes are hidden in %1 awaiting for evacuation. We have to find them before %2 does it. If not, there will be a certain death for them. Bring them back to HQ",_nombredest,nameMuyMalos,nameBuenos]};
 _posTsk = if (_lado == malos) then {(position _casa) getPos [random 100, random 360]} else {position _casa};
 
-[[buenos,civilian],"RES",[_texto,"Refugees Evac",_nombredest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
+[[buenos,civilian],"RES",[_texto,"Prisoners Evasion",_nombredest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
 _grupoPOW = createGroup buenos;
 for "_i" from 1 to (((count _poscasa) - 1) max 15) do
 	{
@@ -221,7 +221,7 @@ if (_lado == malos) then
 	if ({(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 50)} count _POWs > 0) then
 		{
 		sleep 5;
-		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"SUCCEEDED","run"] call taskUpdate;
+		["RES",[_texto,"Prisoners Evasion",_nombredest],_posTsk,"SUCCEEDED","run"] call taskUpdate;
 		_cuenta = {(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 150)} count _POWs;
 		_hr = _cuenta;
 		_resourcesFIA = 100 * _cuenta;
@@ -233,7 +233,7 @@ if (_lado == malos) then
 		}
 	else
 		{
-		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"FAILED","run"] call taskUpdate;
+		["RES",[_texto,"Prisoners Evasion",_nombredest],_posTsk,"FAILED","run"] call taskUpdate;
 		[-10*_bonus,stavros] call playerScoreAdd;
 		};
 	}
@@ -242,12 +242,12 @@ else
 	waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 50)} count _POWs > 0)};
 	if ({alive _x} count _POWs == 0) then
 		{
-		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"FAILED","run"] call taskUpdate;
+		["RES",[_texto,"Prisoners Evasion",_nombredest],_posTsk,"FAILED","run"] call taskUpdate;
 		[-10*_bonus,stavros] call playerScoreAdd;
 		}
 	else
 		{
-		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"SUCCEEDED","run"] call taskUpdate;
+		["RES",[_texto,"Prisoners Evasion",_nombredest],_posTsk,"SUCCEEDED","run"] call taskUpdate;
 		_cuenta = {(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 150)} count _POWs;
 		_hr = _cuenta;
 		_resourcesFIA = 100 * _cuenta;
@@ -301,5 +301,3 @@ if (_lado == malos) then
 //deleteMarker _mrkfin;
 
 _nul = [1200,"RES"] spawn borrarTask;
-
-

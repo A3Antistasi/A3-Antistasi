@@ -1,4 +1,4 @@
-private ["_unit","_veh","_lado","_tipo","_skill""_riflefinal","_magazines","_hmd","_marcador"];
+private ["_unit","_veh","_lado","_tipo","_skill""_riflefinal","_magazines","_hmd","_marcador","_revelar"];
 
 _unit = _this select 0;
 _tipo = typeOf _unit;
@@ -64,7 +64,7 @@ _unit addEventHandler ["killed", {
 */
 
 _skill = tierWar * 0.1;
-if ((faction _unit != "BLU_GEN_F") and (faction _unit != "BLU_G_F")) then
+if ((faction _unit != factionGEN) and (faction _unit != factionFIA)) then
 	{
 	if (side _unit == malos) then
 		{
@@ -211,4 +211,22 @@ else
 			_unit removeItem _hmd;
 			};
 		};
+	};
+_revelar = false;
+if (vehicle _unit != _unit) then
+	{
+	if (_unit == gunner (vehicle _unit)) then
+		{
+		_revelar = true;
+		};
+	}
+else
+	{
+	if ((secondaryWeapon _unit) in mlaunchers) then {_revelar = true};
+	};
+if (_revelar) then
+	{
+	{
+	_unit reveal [_x,1.5];
+	} forEach allUnits select {(vehicle _x isKindOf "Air") and (_x distance _unit <= distanciaSPWN)};
 	};

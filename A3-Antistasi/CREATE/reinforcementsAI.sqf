@@ -12,12 +12,12 @@ if (_numReal + 4 <= _numGarr) then
 	{
 	if (_numReal + 8 <= _numGarr) then
 		{
-		if (_lado == malos) then {[selectRandom gruposNATOSquad,_lado,_aeropuerto,0] spawn garrisonUpdate} else {[selectRandom gruposCSATSquad,_lado,_aeropuerto,0] spawn garrisonUpdate};
+		if (_lado == malos) then {[selectRandom gruposNATOSquad,_lado,_aeropuerto,0] remoteExec ["garrisonUpdate",2]} else {[selectRandom gruposCSATSquad,_lado,_aeropuerto,0] remoteExec ["garrisonUpdate",2]};
 		_numero = 0;
 		}
 	else
 		{
-		if (_lado == malos) then {[selectRandom gruposNATOmid,_lado,_aeropuerto,0] spawn garrisonUpdate} else {[selectRandom gruposCSATmid,_lado,_aeropuerto,0] spawn garrisonUpdate};
+		if (_lado == malos) then {[selectRandom gruposNATOmid,_lado,_aeropuerto,0] remoteExec ["garrisonUpdate",2]} else {[selectRandom gruposCSATmid,_lado,_aeropuerto,0] remoteExec ["garrisonUpdate",2]};
 		_numero = 4;
 		};
 	};

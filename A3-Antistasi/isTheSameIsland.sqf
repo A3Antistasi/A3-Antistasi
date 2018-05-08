@@ -1,12 +1,11 @@
-_sitio1 = _this select 0;
-_posSitio1 = _this select 0;
+if (worldName != "Tanoa") exitWith {true};
 
-if (_sitio1 isEqualType "") then {_posSitio1 = getMarkerPos _sitio1};
+_sitio1 = _this select 0;
+_posSitio1 = if (_sitio1 isEqualType "") then {getMarkerPos _sitio1} else {_this select 0};
 
 _sitio2 = _this select 1;
-_posSitio2 = _this select 1;
+_posSitio2 = if (_sitio2 isEqualType "") then {getMarkerPos _sitio2} else {_this select 1};
 
-if (_sitio2 isEqualType "") then {_posSitio2 = getMarkerPos _sitio2};
 _return = false;
 if (_posSitio1 distance getMarkerPos "isla" <= 5500) then
 	{

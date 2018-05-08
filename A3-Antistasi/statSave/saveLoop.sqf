@@ -64,6 +64,7 @@ if (!isDedicated) then
 	["civPerc", civPerc] call fn_SaveStat;
 	["chopForest", chopForest] call fn_SaveStat;
 	["maxUnits", maxUnits] call fn_SaveStat;
+	["nextTick", nextTick - time] call fn_SaveStat;
 	/*
 	["unlockedWeapons", unlockedWeapons] call fn_SaveStat;
 	["unlockedItems", unlockedItems] call fn_SaveStat;
@@ -91,16 +92,17 @@ if (_amigo getVariable ["GREENFORSpawn",false]) then
 		{
 		if ((isPlayer leader _amigo) or (group _amigo in (hcAllGroups stavros)) and (not((group _amigo) getVariable ["esNATO",false]))) then
 			{
-			if (isPlayer (leader group _amigo)) then
+			_precio = server getVariable [(typeOf _amigo),0];
+			_mochi = backpack _amigo;
+			if (_mochi != "") then
 				{
-				if (!isMultiplayer) then
+				switch (_mochi) do
 					{
-					_precio = server getVariable (typeOf _amigo);
-					if (!(isNil "_precio")) then {_resfondo = _resfondo + _precio};
+					case MortStaticSDKB: {_resfondo = _resfondo + ([SDKMortar] call vehiclePrice)};
+					case AAStaticSDKB: {_resfondo = _resfondo + ([staticAABuenos] call vehiclePrice)};
+					case MGStaticSDKB: {_resfondo = _resfondo + ([SDKMGStatic] call vehiclePrice)};
+					case ATStaticSDKB: {_resfondo = _resfondo + ([staticATBuenos] call vehiclePrice)};
 					};
-				//{if (!([_x] call BIS_fnc_baseWeapon) in unlockedWeapons) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _amigo;
-				//{if (not(_x in unlockedMagazines)) then {_municion pushBack _x}} forEach magazines _amigo;
-				//_items = _items + (items _amigo) + (primaryWeaponItems _amigo) + (assignedItems _amigo) + (secondaryWeaponItems _amigo);
 				};
 			if (vehicle _amigo != _amigo) then
 				{

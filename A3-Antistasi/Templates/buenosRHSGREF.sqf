@@ -63,19 +63,32 @@ lamparasSDK = ["rhs_acc_2dpZenit","acc_flashlight"];
 ATMineMag = "rhs_mine_tm62m_mag";
 APERSMineMag = "rhs_mine_pmn2_mag";
 
+banditUniforms = ["U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Camo_F","U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_5_F","U_I_C_Soldier_Para_4_F"];
+uniformsSDK = banditUniforms + ["U_BG_Guerilla1_1","U_BG_Guerilla2_1","U_BG_Guerilla2_2","U_BG_Guerilla2_3","U_BG_Guerilla3_1","U_BG_Guerilla3_2","U_BG_leader","U_IG_Guerilla3_2","U_OG_Guerilla2_1","U_IG_Guerilla1_1","U_I_G_Story_Protagonist_F","U_I_G_resistanceLeader_F"];//modificar con uniformes chdk
 
-FIARifleman = "rhsgref_cdf_b_ngd_rifleman_lite";
-FIAMarksman = "rhsgref_cdf_b_reg_marksman";
-vehFIAArmedCar = "rhsgref_cdf_b_reg_uaz_dshkm";
-vehFIATruck = "rhsgref_cdf_b_gaz66o";
-vehFIACar = "rhsgref_cdf_b_reg_uaz_open";
+if (hayFFAA) then
+	{
+	call compile preProcessFileLineNumbers "Templates\malosFFAA.sqf"
+	}
+else
+	{
+	FIARifleman = "rhsgref_cdf_b_ngd_rifleman_lite";
+	FIAMarksman = "rhsgref_cdf_b_reg_marksman";
+	vehFIAArmedCar = "rhsgref_cdf_b_reg_uaz_dshkm";
+	vehFIATruck = "rhsgref_cdf_b_gaz66o";
+	vehFIACar = "rhsgref_cdf_b_reg_uaz_open";
 
-gruposFIASmall = [["rhsgref_cdf_b_ngd_grenadier","rhsgref_cdf_b_ngd_rifleman_lite"],["rhsgref_cdf_b_reg_marksman","rhsgref_cdf_b_ngd_grenadier"]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
-gruposFIAMid = [["rhsgref_cdf_b_ngd_squadleader","rhsgref_cdf_b_ngd_machinegunner","rhsgref_cdf_b_ngd_grenadier_rpg","rhsgref_cdf_b_ngd_grenadier_rpg","rhsgref_cdf_b_ngd_medic"],["rhsgref_cdf_b_ngd_squadleader","rhsgref_cdf_b_ngd_machinegunner","rhsgref_cdf_b_ngd_grenadier","rhsgref_cdf_b_ngd_rifleman","rhsgref_cdf_b_ngd_medic"]];//["IRG_InfAssault","IRG_InfTeam","IRG_InfTeam_AT"];///
-FIASquad = ["rhsgref_cdf_b_ngd_squadleader","rhsgref_cdf_b_ngd_machinegunner","rhsgref_cdf_b_ngd_grenadier","rhsgref_cdf_b_ngd_grenadier","rhsgref_cdf_b_ngd_grenadier_rpg","rhsgref_cdf_b_ngd_grenadier_rpg","rhsgref_cdf_b_ngd_machinegunner","rhsgref_cdf_b_ngd_medic"];//"IRG_InfSquad";///
-
+	gruposFIASmall = [["rhsgref_cdf_b_ngd_grenadier","rhsgref_cdf_b_ngd_rifleman_lite"],["rhsgref_cdf_b_reg_marksman","rhsgref_cdf_b_ngd_grenadier"]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
+	gruposFIAMid = [["rhsgref_cdf_b_ngd_squadleader","rhsgref_cdf_b_ngd_machinegunner","rhsgref_cdf_b_ngd_grenadier_rpg","rhsgref_cdf_b_ngd_grenadier_rpg","rhsgref_cdf_b_ngd_medic"],["rhsgref_cdf_b_ngd_squadleader","rhsgref_cdf_b_ngd_machinegunner","rhsgref_cdf_b_ngd_grenadier","rhsgref_cdf_b_ngd_rifleman","rhsgref_cdf_b_ngd_medic"]];//["IRG_InfAssault","IRG_InfTeam","IRG_InfTeam_AT"];///
+	FIASquad = ["rhsgref_cdf_b_ngd_squadleader","rhsgref_cdf_b_ngd_machinegunner","rhsgref_cdf_b_ngd_grenadier","rhsgref_cdf_b_ngd_grenadier","rhsgref_cdf_b_ngd_grenadier_rpg","rhsgref_cdf_b_ngd_grenadier_rpg","rhsgref_cdf_b_ngd_machinegunner","rhsgref_cdf_b_ngd_medic"];//"IRG_InfSquad";///
+	gruposFIASquad = [FIASquad];
+	};
 
 vehPoliceCar = "B_GEN_OFFROAD_01_gen_F";
 policeOfficer = "B_GEN_Commander_F";
 policeGrunt = "B_GEN_Soldier_F";
 gruposNATOGen = [policeOfficer,policeGrunt];
+nameBuenos = if (worldName == "Tanoa") then {"SDK"} else {"FIA"};
+
+factionGEN = "BLU_GEN_F";
+factionFIA = "rhsgref_faction_chdkz_g";

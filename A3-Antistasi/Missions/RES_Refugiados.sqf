@@ -104,31 +104,18 @@ while {count _poscasa < 3} do
 	if (count _poscasa < 3) then {_casas = _casas - [_casa]};
 	};
 
-//_mrkfin = createMarker [format ["RES%1", random 100], getPos _casa];
-//_mrkfin setMarkerShape "ICON";
-//_mrkfin setMarkerType "hd_destroy";
-//_mrkfin setMarkerColor "ColorBlue";
-//_mrkfin setMarkerText "Evac Refugees";
+
 _nombredest = [_marcador] call localizar;
 _tiempolim = if (_dificil) then {30} else {60};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
-_texto = if (_lado == malos) then {format ["A group of smugglers have been arrested in %1 and they are about to be sent to prison. Go there and free them in order to make them join our cause. Do this before %2:%3",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4]} else {format ["A group of SDK supportes are hidden in %1 awaiting for evacuation. We have to find them before CSAT does it. If not, there will be a certain death for them. Bring them back to HQ",_nombredest]};
+_texto = if (_lado == malos) then {format ["A group of smugglers have been arrested in %1 and they are about to be sent to prison. Go there and free them in order to make them join our cause. Do this before %2:%3",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4]} else {format ["A group of %3 supportes are hidden in %1 awaiting for evacuation. We have to find them before %2 does it. If not, there will be a certain death for them. Bring them back to HQ",_nombredest,nameMuyMalos,nameBuenos]};
 _posTsk = if (_lado == malos) then {(position _casa) getPos [random 100, random 360]} else {position _casa};
-/*
-if (!_dificil) then
-	{
-	[[buenos,civilian],"RES",[_texto,"Refugees Evac",_nombredest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
-	}
-else
-	{
-	["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"CREATED","run"] call taskUpdate;
-	};*/
-//misiones pushBack _tsk; publicVariable "misiones";
+
 [[buenos,civilian],"RES",[_texto,"Refugees Evac",_nombredest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
 _grupoPOW = createGroup buenos;
-for "_i" from 1 to (count _poscasa) - 1 do
+for "_i" from 1 to (((count _poscasa) - 1) max 15) do
 	{
 	_unit = _grupoPOW createUnit [SDKUnarmed, _poscasa select _i, [], 0, "NONE"];
 	_unit allowdamage false;
@@ -138,7 +125,7 @@ for "_i" from 1 to (count _poscasa) - 1 do
 	_unit setBehaviour "CARELESS";
 	_unit allowFleeing 0;
 	_unit setSkill 0;
-	_POWs = _POWs + [_unit];
+	_POWs pushBack _unit;
 	[_unit,"refugiado"] remoteExec ["flagaction",[buenos,civilian],_unit];
 	if (_lado == malos) then {[_unit,true] remoteExec ["setCaptive"]};
 	[_unit] call reDress;
@@ -165,7 +152,7 @@ if (_lado == muyMalos) then
 			{
 			_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == muyMalos) and (dateToNumber date > server getVariable _x) and (not(spawner getVariable [_x,false]))};
 			_aeropuerto = [_aeropuertos, position casa] call BIS_fnc_nearestPosition;
-			[[getPosASL _casa,_aeropuerto],"patrolCA"] remoteExec ["scheduler",2];
+			[[getPosASL _casa,_aeropuerto,"",false],"patrolCA"] remoteExec ["scheduler",2];
 			};
 		};
 	}

@@ -31,7 +31,7 @@ if (_x == leader _x) then {_x assignAsDriver _veh;_x moveInDriver _veh} else {_x
 [_x] call NATOinit
 } forEach units _grupo;
 [_veh] call AIVEHinit;
-[_veh,"Inf Truck."] spawn inmuneConvoy;
+//[_veh,"Inf Truck."] spawn inmuneConvoy;
 //_veh forceFollowRoad true;
 //_landPos = [_posDestino,_pos,true] call findSafeRoadToUnload;
 if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_posDestino,_grupo] call WPCreate};
@@ -62,4 +62,4 @@ _x addEventHandler ["Killed",
 		};
 	}];
 } forEach units _grupo;
-_Vwp0 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] spawn garrisonUpdate;[group this] spawn groupDespawner; reinfPatrols = reinfPatrols - 1"];
+_Vwp0 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] remoteExec [""garrisonUpdate"",2];[group this] spawn groupDespawner; reinfPatrols = reinfPatrols - 1"];

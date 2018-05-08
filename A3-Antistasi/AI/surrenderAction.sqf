@@ -74,7 +74,7 @@ _marcador = _unit getVariable "marcador";
 if (!isNil "_marcador") then
 	{
 	_lado = _unit getVariable "lado";
-	[_marcador,_lado] spawn zoneCheck
+	[_marcador,_lado] remoteExec ["zoneCheck",2];
 	};
 
 [_unit] spawn postmortem;

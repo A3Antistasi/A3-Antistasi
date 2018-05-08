@@ -11,18 +11,13 @@ if (_veh distance getMarkerPos "respawn_guerrila" > 50) exitWith {hint "Vehicle 
 
 if ({isPlayer _x} count crew _veh > 0) exitWith {hint "In order to store vehicle, its crew must disembark."};
 
-//if (_veh isKindOf "Air") exitWith {hint "Garage cannot content Air vehicles.\n\nSorry."};
 _tipoVeh = typeOf _veh;
-
-//if ((_tipoVeh in vehNATO) or (_tipoVeh in planesNATO)) exitWith {hint "You cannot keep NATO vehicles"};
 
 if (_veh isKindOf "Man") exitWith {hint "Are you kidding?"};
 
 if (not(_veh isKindOf "AllVehicles")) exitWith {hint "The vehicle you are looking cannot be kept in our Garage"};
 
 if (_pool and (count vehInGarage >= (tierWar *3))) exitWith {hint "You cannot garage more vehicles at your current War Level"};
-
-//if (_tipoVeh == "I_Truck_02_ammo_F") exitWith {hint "Ammotrucks cannot be added to avoid exploits.\n\nSorry"};
 
 _exit = false;
 if (!_pool) then
@@ -48,7 +43,7 @@ if (_pool) then
 	{
 	vehInGarage = vehInGarage + [_tipoVeh];
 	publicVariable "vehInGarage";
-	hint "Vehicle added to SDK Garage";
+	hint format ["Vehicle added to %1 Garage",nameBuenos];
 	}
 else
 	{

@@ -69,30 +69,7 @@ sleep 1;
 _unit = _grupo createUnit [(SDKExp select 0), (getMarkerPos "respawn_guerrila"), [], 0, "NONE"];
 _grupo setGroupId ["MineF"];
 
-/*
-_tam = 10;
-while {true} do
-	{
-	_roads = getMarkerPos "respawn_guerrila" nearRoads _tam;
-	if (count _roads > 0) exitWith {};
-	_tam = _tam + 10;
-	};
-_road = _roads select 0;
-*/
-_roads = [];
-_tam = 10;
-_road = objNull;
-while {isNull _road} do
-	{
-	_roads = _posicion nearRoads _tam;
-	if (count _roads > 0) then
-		{
-		{
-		if ((surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")) exitWith {_road = _x};
-		} forEach _roads;
-		};
-	_tam = _tam + 50;
-	};
+_road = [_posicion] call findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,vehSDKTruck];
 
 _camion = vehSDKTruck createVehicle _pos;

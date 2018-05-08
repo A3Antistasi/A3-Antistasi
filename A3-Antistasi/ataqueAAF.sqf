@@ -5,9 +5,17 @@ _objetivos = [];
 _marcadores = [];
 _cuentaFacil = 0;
 
-_aeropuertos = aeropuertos select {(dateToNumber date > server getVariable _x) and !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) and (lados getVariable [_x,sideUnknown] != buenos)};
-if ((tierWar < 3) and ({lados getVariable [_x,sideUnknown] == muyMalos} count _aeropuertos < 2)) then {_aeropuertos = _aeropuertos select {(lados getVariable [_x,sideUnknown] == malos)}};
-_objetivos = marcadores - controles - puestosFIA - ["Synd_HQ","airport_1","airport_4"] - destroyedCities;
+_aeropuertos = aeropuertos select {(dateToNumber date > server getVariable [_x,0]) and !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) and (lados getVariable [_x,sideUnknown] != buenos)};
+if (tierWar < 3) then
+	{
+	_aeropuertos = _aeropuertos select {(lados getVariable [_x,sideUnknown] == malos)}
+	}
+else
+	{
+	if ({lados getVariable [_x,sideUnknown] == malos} count _aeropuertos == 0) then {_aeropuertos pushBack "NATO_carrier"};
+	if ({lados getVariable [_x,sideUnknown] == muyMalos} count _aeropuertos == 0) then {_aeropuertos pushBack "CSAT_carrier"};
+	};
+_objetivos = marcadores - controles - puestosFIA - ["Synd_HQ"] - destroyedCities;
 if (tierWar < 3) then {_objetivos = _objetivos - ciudades};
 _objetivosFinal = [];
 _basesFinal = [];
@@ -296,7 +304,7 @@ if ((count _objetivosFinal > 0) and (count _faciles < 3)) then
 
 if (_waves == 1) then
 	{
-	{[[_x select 0,_x select 1],"patrolCA"] remoteExec ["scheduler",2]} forEach _faciles;
+	{[[_x select 0,_x select 1,"",false],"patrolCA"] remoteExec ["scheduler",2]} forEach _faciles;
 	};
 
 if ((not(["CONVOY"] call BIS_fnc_taskExists)) and (_waves == 1)) then

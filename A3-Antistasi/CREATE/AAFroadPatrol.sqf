@@ -107,7 +107,7 @@ if (_tipoPatrol != "AIR") then
 _vehicle=[_posBase, 0,_tipoCoche, _lado] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 [_veh] call AIVEHinit;
-[_veh,"Patrol"] spawn inmuneConvoy;
+//[_veh,"Patrol"] spawn inmuneConvoy;
 _vehCrew = _vehicle select 1;
 {[_x] call NATOinit} forEach _vehCrew;
 _grupoVeh = _vehicle select 2;
@@ -122,7 +122,6 @@ if (_tipoCoche in vehNATOLightUnarmed) then
 	_grupo = [_posbase, _lado, gruposNATOSentry] call spawnGroup;
 	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _grupoveh; [_x] call NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
-	//[_veh] spawn smokeCover;
 	};
 if (_tipoCoche in vehCSATLightUnarmed) then
 	{
@@ -130,7 +129,6 @@ if (_tipoCoche in vehCSATLightUnarmed) then
 	_grupo = [_posbase, _lado, gruposCSATSentry] call spawnGroup;
 	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _grupoveh; [_x] call NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
-	//[_veh] spawn smokeCover;
 	};
 
 //if (_tipoPatrol == "LAND") then {_veh forceFollowRoad true};
@@ -142,19 +140,7 @@ while {alive _veh} do
 	_posDestino = getMarkerPos _destino;
 	if (_tipoPatrol == "LAND") then
 		{
-		_tam = 20;
-		_road = objNull;
-		while {isNull _road} do
-			{
-			_roads = _posDestino nearRoads _tam;
-			if (count _roads != 0) then
-				{
-				{
-				if ((surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")) exitWith {_road = _x};
-				} forEach _roads;
-				};
-			_tam = _tam + 50;
-			};
+		_road = [_posDestino] call findNearestGoodRoad;
 		_posDestino = position _road;
 		};
 	_Vwp0 = _grupoVeh addWaypoint [_posdestino, 0];

@@ -7,60 +7,27 @@ _injurer = _this select 1;
 //_unit setVariable ["inconsciente",true,true];
 _bleedOut = if (surfaceIsWater (position _unit)) then {time + 60} else {time + 300};//300
 _jugadores = false;
+_lado = _unit getVariable ["lado",sideUnknown];
+if ((side _injurer == buenos) and (_lado == malos)) then
+	{
+	_marcador = _unit getVariable ["marcador",""];
+	if (_marcador != "") then
+		{
+		if (!([_marcador] call BIS_fnc_taskExists) and (lados getVariable [_marcador,sideUnknown] == malos)) then {[_marcador,side _injurer,_lado] remoteExec ["underAttack",2]};
+		};
+	};
 
 if ({if ((isPlayer _x) and (_x distance _unit < distanciaSPWN2)) exitWith {1}} count allUnits != 0) then
 	{
 	_jugadores = true;
 	[_unit,"heal"] remoteExec ["flagaction",0,_unit];
 	[_unit,true] remoteExec ["setCaptive"];
-	_lado = _unit getVariable ["lado",sideUnknown];
 	_unit setVariable ["lado",_lado,true];
 	};
 
 _unit setFatigue 1;
 _grupo = group _unit;
-[_grupo,_injurer] spawn
-	{
-	private ["_grupo","_killer"];
-	_grupo = _this select 0;
-	_killer = _this select 1;
-	{
-	if (fleeing _x) then
-		{
-		if ([_x] call canFight) then
-			{
-			_enemy = _x findNearestEnemy _x;
-			if (!isNull _enemy) then
-				{
-				if ((_x distance _enemy < 50) and (vehicle _x == _x)) then
-					{
-					[_x] spawn surrenderAction;
-					}
-				else
-					{
-					if (_x == leader group _x) then
-						{
-						if (vehicle _killer == _killer) then
-							{
-							[[getPosASL _enemy,side _x,"Normal"],"patrolCA"] remoteExec ["scheduler",2];
-							}
-						else
-							{
-							if (vehicle _killer isKindOf "Air") then {[[getPosASL _enemy,side _x,"Air"],"patrolCA"] remoteExec ["scheduler",2]} else {if (vehicle _killer isKindOf "Tank") then {[[getPosASL _enemy,side _x,"Tank"],"patrolCA"] remoteExec ["scheduler",2]} else {[[getPosASL _enemy,side _x,"Normal"],"patrolCA"] remoteExec ["scheduler",2]}};
-							};
-						};
-					if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x] spawn cubrirConHumo};
-					};
-				};
-			};
-		}
-	else
-		{
-		//_x allowFleeing (0.5-(_x skill "courage") + (0.2*({(_x getVariable ["surrendered",false]) or (!alive _x)} count (units group _x))));
-		if (random 1 < 0.5) then {_x allowFleeing (0.5 -(_x skill "courage") + (({!([_x] call canFight)} count units _grupo)/(count units _grupo)))};
-		};
-	} forEach units _grupo;
-	};
+[_grupo,_injurer] spawn AIreactOnKill;
 
 while {(time < _bleedOut) and (damage _unit > 0.25) and (alive _unit)} do
 	{

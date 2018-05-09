@@ -1,10 +1,10 @@
-*Version:* 0.12.
+*Version:* 1.0.
 
-*Mods:* CBA, TFAR
+*Mods:* CBA, TFAR, ACE(no-medical)
 
 *Environment*: SP, MP LAN, MP host, MP dedi.
 
-*.rpt attatched?* YES 
+*.rpt attatched?* YES
 
 *have you edited the missionfile?*: No
 
@@ -14,7 +14,7 @@
 
 **Delete theese lines after compiling the section above**, 
 
-Make short title, and possibly use [bug] [question] [suggestion] before for better identification
+Make short title, and possibly use [bug] [question] before for better identification
 
 To find an .rpt "C:\Users\User\AppData\Local\Arma 3\Arma3_x64_2018-03-06_16-36-36.rpt" (type %appdata% in windows searchbar and press enter, go up by one level and you'll find \Local\Arma3)
 

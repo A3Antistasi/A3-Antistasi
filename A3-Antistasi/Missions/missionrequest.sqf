@@ -208,7 +208,7 @@ if (_tipo == "CONVOY") then
 	{
 	if (!bigAttackInProgress) then
 		{
-		_sitios = (aeropuertos + recursos + fabricas + puertos + (puestos - blackListDest)) + (ciudades select {count (garrison getVariable [_x,[]]) < 10});
+		_sitios = (aeropuertos + recursos + fabricas + puertos + puestos - blackListDest) + (ciudades select {count (garrison getVariable [_x,[]]) < 10});
 		_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 		if (count _sitios > 0) then
 			{
@@ -217,7 +217,7 @@ if (_tipo == "CONVOY") then
 				_sitio = _sitios select _i;
 				_pos = getMarkerPos _sitio;
 				_base = [_sitio] call findBasesForConvoy;
-				if ((_pos distance _posbase < (distanciaMiss*1.5)) and (_base !="")) then
+				if ((_pos distance _posbase < (distanciaMiss*2)) and (_base !="")) then
 					{
 					if ((_sitio in ciudades) and (lados getVariable [_sitio,sideUnknown] == buenos)) then
 						{
@@ -244,7 +244,7 @@ if (_tipo == "CONVOY") then
 			if (!_silencio) then
 				{
 				[petros,"globalChat","I have no Convoy missions for you. Move our HQ closer to the enemy or finish some other missions in order to have better intel"] remoteExec ["commsMP",stavros];
-				[petros,"hint","Convoy Missions require Airports or Cities closer than 4Km from your HQ, and they must have an idle friendly base in their surroundings."] remoteExec ["commsMP",stavros];
+				[petros,"hint","Convoy Missions require Airports or Cities closer than 5Km from your HQ, and they must have an idle friendly base in their surroundings."] remoteExec ["commsMP",stavros];
 				};
 			}
 		else

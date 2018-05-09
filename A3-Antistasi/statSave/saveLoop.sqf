@@ -72,6 +72,7 @@ if (!isDedicated) then
 	["unlockedBackpacks", unlockedBackpacks] call fn_SaveStat;
 	*/
 	["weather",[fogParams,rain]] call fn_SaveStat;
+	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
 
 private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_municion","_items","_mochis","_contenedores","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_marcadores","_garrison","_arrayMrkMF","_arrayPuestosFIA","_pospuesto","_tipoMina","_posMina","_detectada","_tipos","_exists","_amigo"];
 

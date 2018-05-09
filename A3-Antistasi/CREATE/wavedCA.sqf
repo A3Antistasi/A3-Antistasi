@@ -641,10 +641,9 @@ while {(_waves != 0)} do
 			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED"] call taskUpdate;
 			};
 		};
-
-	_waves = _waves -1;
-	_firstWave = false;
 	_solMax = round ((count _soldados)*0.6);
+	if (_solMax > 15) then {_waves = _waves -1};
+	_firstWave = false;
 	diag_log format ["Antistasi: Reached end of spawning attack, wave %1",_waves];
 	if (_lado == malos) then
 		{

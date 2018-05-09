@@ -124,7 +124,7 @@ if (sunOrMoon < 1) then
 	{
 	if (haveNV) then
 		{
-		_unit linkItem (selectRandom NVGoggles);
+		if (hmd _unit == "") then {_unit linkItem (selectRandom NVGoggles)};
 		if ("acc_pointer_IR" in unlockedItems) then
 			{
 			_unit addPrimaryWeaponItem "acc_pointer_IR";
@@ -134,6 +134,12 @@ if (sunOrMoon < 1) then
 		}
 	else
 		{
+		_hmd = hmd _unit;
+		if (_hmd != "") then
+			{
+			_unit unassignItem _hmd;
+			_unit removeItem _hmd;
+			};
 		_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
 		_array = lamparasSDK arrayIntersect _compatibles;
 		if (count _array > 0) then

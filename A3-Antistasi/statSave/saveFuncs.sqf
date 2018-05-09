@@ -29,7 +29,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick"];
+["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick","destroyedBuildings"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -52,48 +52,12 @@ fn_SetStat =
 			} forEach _varValue;
 			};
 		if(_varName == 'chopForest') then {chopForest = _varValue; publicVariable "chopForest"};
-		//if(_varName == 'gogglesPlayer') then {removeGoggles player; player addGoggles _varValue;};
 		if(_varName == 'dinero') then {player setVariable ["dinero",_varValue,true];};
-		/*if(_varName == 'vestPlayer') then {removeVest player; player addVest _varValue;};
-		if(_varName == 'outfit') then {removeUniform player; player forceAddUniform _varValue;};
-		if(_varName == 'hat') then {removeHeadGear player; player addHeadGear _varValue;};
-			*/
 		if(_varName == 'loadoutPlayer') then {player setUnitLoadout _varValue};
 		if(_varName == 'scorePlayer') then {player setVariable ["score",_varValue,true];};
 		if(_varName == 'rankPlayer') then {player setRank _varValue; player setVariable ["rango",_varValue,true]};
 		if(_varName == 'personalGarage') then {personalGarage = +_varValue};
 		if(_varName == 'jna_dataList') then {jna_dataList = +_varValue};
-			/*
-		if(_varName == 'unlockedWeapons') then
-			{
-			unlockedWeapons = _varvalue;
-			lockedWeapons = lockedWeapons - unlockedWeapons;
-			[caja,unlockedWeapons,true] call addVirtualWeaponCargo;
-			publicVariable "unlockedWeapons";
-			};
-		if(_varName == 'unlockedBackpacks') then
-			{
-			unlockedBackpacks = _varvalue;
-			//lockedMochis = lockedMochis - unlockedBackpacks;
-			[caja,unlockedBackpacks,true] call addVirtualBackpackCargo;
-			publicVariable "unlockedBackpacks";
-			};
-		if(_varName == 'unlockedItems') then
-			{
-			unlockedItems = _varValue;
-			publicVariable "unlockedItems";
-			[caja,unlockedItems,true] call addVirtualItemCargo;
-			{
-			if (_x in unlockedItems) then {unlockedOptics pushBack _x};
-			} forEach opticasAAF;
-			publicVariable "unlockedOptics";
-			};
-		if(_varName == 'unlockedMagazines') then
-			{
-			unlockedMagazines = _varValue;
-			[caja,unlockedMagazines,true] call addVirtualMagazineCargo;
-			publicVariable "unlockedMagazines";
-			};*/
 		if(_varName == 'prestigeNATO') then {prestigeNATO = _varValue; publicVariable "prestigeNATO"};
 		if(_varName == 'prestigeCSAT') then {prestigeCSAT = _varValue; publicVariable "prestigeCSAT"};
 		if(_varName == 'hr') then {server setVariable ["HR",_varValue,true]};
@@ -122,6 +86,7 @@ fn_SetStat =
 		if(_varName == 'civPerc') then {civPerc = _varValue; if (civPerc < 1) then {civPerc = 35}; publicVariable "civPerc"};
 		if(_varName == 'maxUnits') then {maxUnits=_varValue; publicVariable "maxUnits"};
 		if(_varName == 'vehInGarage') then {vehInGarage= +_varValue; publicVariable "vehInGarage"};
+		if(_varName == 'destroyedBuildings') then {destroyedBuildings= +_varValue; publicVariable "destroyedBuildings"};
 		if(_varName == 'minas') then
 			{
 			for "_i" from 0 to (count _varvalue) - 1 do
@@ -136,14 +101,6 @@ fn_SetStat =
 					case "APERSTripMine_Wire_Ammo": {_tipoMina = "APERSTripMine"};
 					case "ClaymoreDirectionalMine_Remote_Ammo": {_tipoMina = "Claymore_F"};
 					};
-				/*
-				if (_tipoMina == "APERSMine_Range_Ammo") then {_tipoMina = "APERSMine"};
-				if (_tipoMina == "ATMine_Range_Ammo") then {_tipoMina = "ATMine"};
-				if (_tipoMina == "APERSBoundingMine_Range_Ammo") then {_tipoMina = "APERSBoundingMine"};
-				if (_tipoMina == "SLAMDirectionalMine_Wire_Ammo") then {_tipoMina = "SLAMDirectionalMine"};
-				APERSTripMine_Wire_Ammo APERSTripMine
-				ClaymoreDirectionalMine_Remote_Ammo "Claymore_F"
-				*/
 				_posMina = _varvalue select _i select 1;
 				_mina = createMine [_tipoMina, _posMina, [], 0];
 				_detectada = _varvalue select _i select 2;
@@ -222,27 +179,6 @@ fn_SetStat =
 			antenasmuertas = _varvalue;
 			publicVariable "antenas";
 			};
-		/*
-		if(_varName == 'armas') then
-			{
-			clearWeaponCargoGlobal caja;
-			{caja addWeaponCargoGlobal [_x,1]} forEach _varValue;
-			};
-		if(_varName == 'municion') then
-			{
-			clearMagazineCargoGlobal caja;
-			{caja addMagazineCargoGlobal [_x,1]} forEach _varValue;
-			};
-		if(_varName == 'items') then
-			{
-			clearItemCargoGlobal caja;
-			{caja addItemCargoGlobal [_x,1]} forEach _varValue;
-			};
-		if(_varName == 'mochis') then
-			{
-			clearBackpackCargoGlobal caja;
-			{caja addBackpackCargoGlobal [_x,1]} forEach _varValue;
-			};*/
 		if(_varname == 'prestigeOPFOR') then
 			{
 			for "_i" from 0 to (count ciudades) - 1 do

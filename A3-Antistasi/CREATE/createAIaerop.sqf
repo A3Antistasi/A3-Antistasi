@@ -123,13 +123,16 @@ _tipoVeh = if (_lado == malos) then {NATOMortar} else {CSATMortar};
 {
 if (spawner getVariable _marcador != 2) then
 	{
-	_veh = _tipoVeh createVehicle (_x select 0);
+	_veh = _tipoVeh createVehicle [0,0,0];
+	_veh setDir (_x select 1);
+	_veh setPosATL (_x select 0);
 	_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
 	_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
 	[_unit,_marcador] call NATOinit;
 	_unit moveInGunner _veh;
 	_soldados pushBack _unit;
 	_vehiculos pushBack _veh;
+	_nul = [_veh] call AIVEHinit;
 	sleep 1;
 	};
 } forEach _posMort;
@@ -137,30 +140,24 @@ _tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
 {
 if (spawner getVariable _marcador != 2) then
 	{
-	_veh = _tipoVeh createVehicle (_x select 0);
-	_veh setPosATL (_x select 0);
+	_veh = _tipoVeh createVehicle [0,0,0];
 	_veh setDir (_x select 1);
+	_veh setPosATL (_x select 0);
+	_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+	[_unit,_marcador] call NATOinit;
+	_unit moveInGunner _veh;
+	_soldados pushBack _unit;
 	_vehiculos pushBack _veh;
 	_nul = [_veh] call AIVEHinit;
 	sleep 1;
 	};
 } forEach _posMG;
 
-/*
-while {(spawner getVariable _marcador != 2) and (_cuenta < 4)} do
-	{
-	_pos = [_posicion] call mortarPos;
-	_veh = _tipoVeh createVehicle _pos;
-	_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
-	_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-	[_unit,_marcador] call NATOinit;
-	_unit moveInGunner _veh;
-	_soldados pushBack _unit;
-	_vehiculos pushBack _veh;
-	sleep 1;
-	_cuenta = _cuenta +1;
-	};
-*/
+_ret = [_marcador,_size,_lado,_frontera] call milBuildings;
+_grupos pushBack (_ret select 0);
+_vehiculos append (_ret select 1);
+_soldados append (_ret select 2);
+
 if (!_busy) then
 	{
 	_buildings = nearestObjects [_posicion, ["Land_LandMark_F","Land_runway_edgelight"], _size / 2];

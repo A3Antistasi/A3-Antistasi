@@ -31,7 +31,6 @@ if (_esControl) then
 			{
 			_esFIA = true;
 			_lado = malos;
-			//_cfg = cfgFIAInf;
 			};
 		};
 

@@ -115,7 +115,7 @@ _posTsk = if (_lado == malos) then {(position _casa) getPos [random 100, random 
 
 [[buenos,civilian],"RES",[_texto,"Refugees Evac",_nombredest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
 _grupoPOW = createGroup buenos;
-for "_i" from 1 to (((count _poscasa) - 1) max 15) do
+for "_i" from 1 to (((count _poscasa) - 1) min 15) do
 	{
 	_unit = _grupoPOW createUnit [SDKUnarmed, _poscasa select _i, [], 0, "NONE"];
 	_unit allowdamage false;

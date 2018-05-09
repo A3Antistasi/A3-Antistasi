@@ -175,6 +175,13 @@ if (count puestosFIA > 0) then {marcadores = marcadores + puestosFIA; publicVari
 {if (_x in destroyedCities) then {[_x] call destroyCity}} forEach ciudades;
 
 ["chopForest"] call fn_LoadStat;
+["destroyedBuildings"] call fn_LoadStat;
+
+{
+_buildings = nearestObjects [_x, listMilBld, 25, true];
+(_buildings select 1) setDamage 1;
+} forEach destroyedBuildings;
+
 ["posHQ"] call fn_LoadStat;
 ["nextTick"] call fn_LoadStat;
 ["estaticas"] call fn_LoadStat;//tiene que ser el último para que el sleep del borrado del contenido no haga que despawneen

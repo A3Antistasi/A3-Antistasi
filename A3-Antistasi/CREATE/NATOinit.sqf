@@ -54,14 +54,6 @@ else
 		if (_lado == malos) then {_unit setVariable ["BLUFORSpawn",true,true]} else {_unit setVariable ["OPFORSpawn",true,true]};
 		};
 	};
-/*
-_unit addEventHandler ["killed", {
-	_muerto = _this select 0;
-	_killer = _this select 1;
-	if (side _killer == buenos) then {_nul = [0,0.25,getPos _muerto] remoteExec ["citySupportChange",2]} else {if (side _killer == muyMalos) then {_nul = [-0.25,0,getPos _muerto] remoteExec ["citySupportChange",2]}};
-	[_muerto] spawn postmortem;
-	}];
-*/
 
 _skill = tierWar * 0.1;
 if ((faction _unit != factionGEN) and (faction _unit != factionFIA)) then
@@ -84,7 +76,7 @@ if ((faction _unit != factionGEN) and (faction _unit != factionFIA)) then
 	}
 else
 	{
-	if (faction _unit == "BLU_G_F") then
+	if (faction _unit == factionFIA) then
 		{
 		_skill = _skill max 0.3;
 		}
@@ -96,12 +88,6 @@ else
 			_rifleFinal = primaryWeapon _unit;
 			_magazines = getArray (configFile / "CfgWeapons" / _rifleFinal / "magazines");
 			{_unit removeMagazines _x} forEach _magazines;
-			/*
-			for "_i" from 1 to ({_x == _mag} count magazines _unit) do
-				{
-				_unit removeMagazine _mag;
-				};
-			*/
 			_unit removeWeaponGlobal (_rifleFinal);
 			if (tierWar < 5) then {[_unit, "arifle_MX_Black_F", 6, 0] call BIS_fnc_addWeapon} else {[_unit, "arifle_AK12_F", 6, 0] call BIS_fnc_addWeapon};
 			};

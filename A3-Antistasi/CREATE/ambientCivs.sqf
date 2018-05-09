@@ -30,7 +30,7 @@ while {true} do
 		_civs = _civs - _aborrar;
 		};
 	_allCivs = allUnits select {(alive _x) and (side _x == civilian)};
-	if (count _allCivs < civPerc) then
+	if ((count _allCivs < civPerc) and ({(local _x) and (simulationEnabled _x) and (alive _x)} count allUnits < maxUnits)) then
 		{
 		if (_reset) then {_casas = (nearestTerrainObjects [player, ["House"], 300]) select {count (_x buildingPos -1) > 0}};
 		_numCasas = count _casas;

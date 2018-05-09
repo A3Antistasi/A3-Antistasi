@@ -1,3 +1,5 @@
+if (worldName == "Altis") exitWith {call compile preProcessFileLineNumbers "Templates\malosVanillaAltis.sqf"};
+
 NATOGrunt = "B_T_Soldier_F";
 NATOOfficer = "B_T_Officer_F";
 NATOOfficer2 = "B_G_officer_F";

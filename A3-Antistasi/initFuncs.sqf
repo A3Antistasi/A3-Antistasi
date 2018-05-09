@@ -1,6 +1,7 @@
 
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
+milBuildings = compile preProcessFileLineNumbers "CREATE\milBuildings.sqf";
 findNearestGoodRoad = compile preProcessFileLineNumbers "findNearestGoodRoad.sqf";
 underAttack = compile preProcessFileLineNumbers "Missions\underAttack.sqf";
 AIreactOnKill = compile preProcessFileLineNumbers "AI\AIreactOnKill.sqf";

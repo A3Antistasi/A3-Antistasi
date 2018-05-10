@@ -1,6 +1,6 @@
 NATOGrunt = "rhsusf_usmc_marpat_wd_rifleman_light";
 NATOOfficer = "rhsusf_usmc_marpat_wd_officer";
-NATOOfficer2 = "B_G_officer_F";
+NATOOfficer2 = "rhsgref_cdf_b_reg_general";
 NATOBodyG = "rhsusf_socom_marsoc_teamleader";
 NATOCrew = "rhsusf_usmc_marpat_wd_crewman";
 NATOUnarmed = "B_G_Survivor_F";
@@ -11,7 +11,7 @@ NATOPilot = "rhsusf_airforce_jetpilot";
 NATOMG = "RHS_M2StaticMG_USMC_WD";
 NATOMortar = "RHS_M252_USMC_WD";
 staticATmalos = "RHS_TOW_TriPod_USMC_WD";
-staticAAmalos = "B_static_AA_F";// cambiar
+staticAAmalos = "RHS_Stinger_AA_pod_D";
 
 vehNATOLightArmed = ["rhsusf_m1025_w_s_m2","rhsusf_rg33_m2_usmc_wd"];
 vehNATOLightUnarmed = ["rhsusf_m1025_w_s","rhsusf_m998_w_s_2dr","rhsusf_m998_w_s_2dr_fulltop","rhsusf_m998_w_s_4dr"];
@@ -35,7 +35,7 @@ vehNATOAir = vehNATOTransportHelis + vehNATOAttackHelis + [vehNATOPlane,vehNATOP
 vehNATOUAV = "B_UAV_02_F";//ok
 vehNATOUAVSmall = "B_UAV_01_F";
 vehNATOMRLS = "rhsusf_m109_usarmy";
-vehNATOMRLSMags = "32Rnd_155mm_Mo_shells";
+vehNATOMRLSMags = "rhs_mag_155mm_m795_28";//["Sh_155mm_AMOS","rhs_mag_155mm_m795_28",<NULL-object>,B Alpha 1-1:3 (Alberto)]
 vehNATONormal = vehNATOLight + vehNATOTrucks + [vehNATOAmmoTruck, "rhsusf_M978A4_BKIT_usarmy_wd","rhsusf_m113_usarmy_medical", vehNATORepairTruck];
 vehNATOBike = "B_T_Quadbike_01_F";
 NATOFlag = "Flag_NATO_F";
@@ -49,7 +49,7 @@ gruposNATOAT = ["rhsusf_usmc_marpat_wd_teamleader","rhsusf_usmc_marpat_wd_autori
 gruposNATOmid = [["rhsusf_usmc_marpat_wd_teamleader","rhsusf_usmc_marpat_wd_autorifleman","rhsusf_usmc_marpat_wd_rifleman_m4","rhsusf_usmc_marpat_wd_riflemanat"],gruposNATOAA,gruposNATOAT];//["B_T_InfTeam","B_T_InfTeam_AA","B_T_InfTeam_AT"];///
 NATOSquad = ["rhsusf_usmc_marpat_wd_squadleader","rhsusf_usmc_marpat_wd_teamleader","rhsusf_usmc_marpat_wd_autorifleman","rhsusf_usmc_marpat_wd_rifleman_m4","rhsusf_navy_marpat_wd_medic","rhsusf_usmc_marpat_wd_autorifleman","rhsusf_usmc_marpat_wd_rifleman_m4","rhsusf_usmc_marpat_wd_marksman"];//"B_T_InfSquad";//
 NATOSpecOp = ["rhsusf_socom_marsoc_teamleader","rhsusf_socom_marsoc_teamchief","rhsusf_socom_marsoc_elementleader","rhsusf_socom_marsoc_cso","rhsusf_socom_marsoc_cso_breacher","rhsusf_socom_marsoc_cso_mechanic","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_elementleader","rhsusf_socom_marsoc_cso","rhsusf_socom_marsoc_cso_breacher","rhsusf_socom_marsoc_cso_mechanic","rhsusf_socom_marsoc_sarc"];//(configfile >> "CfgGroups" >> "West" >> "BLU_CTRG_F" >> "Infantry" >> "CTRG_InfSquad");
-gruposNATOSquad = [NATOSquad]; //[NATOSquad,"B_T_InfSquad_Weapons"];///
+gruposNATOSquad = [NATOSquad,["rhsusf_usmc_marpat_d_squadleader","rhsusf_usmc_marpat_d_machinegunner","rhsusf_usmc_marpat_d_riflemanat","rhsusf_usmc_marpat_d_riflemanat","rhsusf_usmc_marpat_d_grenadier","rhsusf_usmc_marpat_d_javelin","rhsusf_usmc_marpat_d_javelin_assistant","rhsusf_navy_sarc_d"],["rhsusf_usmc_marpat_d_squadleader","rhsusf_usmc_marpat_d_machinegunner","rhsusf_usmc_marpat_d_riflemanat","rhsusf_usmc_marpat_d_grenadier","rhsusf_usmc_marpat_d_grenadier","rhsusf_usmc_marpat_d_stinger","rhsusf_usmc_marpat_d_rifleman_light","rhsusf_navy_sarc_d_fast"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///
 
 soporteStaticNATOB = "rhs_TOW_Tripod_Bag";
 ATStaticNATOB = "rhs_Tow_Gun_Bag";

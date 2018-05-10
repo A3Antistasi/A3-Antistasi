@@ -9,7 +9,7 @@ CSATPilot = "rhs_pilot_tan";
 CSATMortar = "rhs_2b14_82mm_vmf";
 CSATMG = "rhs_KORD_high_VMF";
 staticATmuyMalos = "rhs_Kornet_9M133_2_vmf";
-staticAAmuyMalos = "O_static_AA_F";//cambiar
+staticAAmuyMalos = "RHS_ZU23_MSV";
 
 vehCSATLightArmed = ["rhsgref_BRDM2_vdv","rhsgref_BRDM2_HQ_vdv","rhsgref_BRDM2_ATGM_vdv","rhs_tigr_sts_vdv"];
 vehCSATLightUnarmed = ["rhs_tigr_vdv","rhs_uaz_vdv"];
@@ -29,7 +29,7 @@ vehCSATPatrolHeli = "rhs_ka60_c";
 vehCSATTransportHelis = ["RHS_Mi8mt_vdv","RHS_Mi8mt_vv","RHS_Mi8mt_Cargo_vv",vehCSATPatrolHeli];
 vehCSATAttackHelis = ["RHS_Mi24V_vdv","RHS_Mi8MTV3_FAB_vdv"];
 vehCSATAir = vehCSATTransportHelis + vehCSATAttackHelis + [vehCSATPlane,vehCSATPlaneAA];
-vehCSATUAV = "O_UAV_02_F";
+vehCSATUAV = "rhs_pchela1t_vvs";
 vehCSATUAVSmall = "O_UAV_01_F";
 vehCSATMRLS = "rhs_2s3_tv";
 vehCSATMRLSMags = "rhs_mag_HE_2a33";

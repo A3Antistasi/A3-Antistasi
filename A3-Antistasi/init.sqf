@@ -18,21 +18,11 @@ if (!isMultiPlayer) then
     call compile preprocessFileLineNumbers "initZones.sqf";//this is the file where you can transport Antistasi to another island
     diag_log "Antistasi SP. Zones init finished";
     [] execVM "initPetros.sqf";
-    //lockedWeapons = lockedWeapons - unlockedWeapons;
-    /*
-    [caja,unlockedItems,true,false] call addVirtualItemCargo;
-    [caja,unlockedMagazines,true,false] call addVirtualMagazineCargo;
-    [caja,unlockedWeapons,true,false] call addVirtualWeaponCargo;
-    [caja,unlockedBackpacks,true,false] call addVirtualBackpackCargo;
 
-    HCciviles = 2;
-    HCgarrisons = 2;
-    HCattack = 2;*/
     hcArray = [];
     serverInitDone = true;
     diag_log "Antistasi SP. serverInitDone is true. Arsenal loaded";
     _nul = [] execVM "modBlacklist.sqf";
-    //[] spawn fpsCheck;
     };
 
 waitUntil {(!isNil "saveFuncsLoaded") and (!isNil "serverInitDone")};

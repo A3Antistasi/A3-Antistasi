@@ -1,3 +1,5 @@
+if (worldName == "Altis") exitWith {call compile preProcessFileLineNumbers "Templates\muyMalosVanillaAltis.sqf"};
+
 CSATGrunt = "O_T_Soldier_F";
 CSATOfficer = "O_T_Officer_F";
 CSATBodyG = "O_V_Soldier_ghex_F";

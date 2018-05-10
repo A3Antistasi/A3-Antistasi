@@ -1,7 +1,7 @@
 if (!isNil "placementDone") then
 	{
 	stavros allowDamage false;
-	"Maru is Dead" hintC "Maru has been killed. You lost part of your assets and need to select a new HQ position far from the enemies.";
+	format ["%1 is Dead",name petros] hintC format ["%1 has been killed. You lost part of your assets and need to select a new HQ position far from the enemies.",name petros];
 	}
 else
 	{
@@ -94,7 +94,7 @@ if (visiblemap) then
         petros = grupoPetros createUnit [tipoPetros, _posicionTel, [], 0, "NONE"];
         grupoPetros setGroupId ["Maru","GroupColor4"];
         petros setIdentity "amiguete";
-        petros setName "Maru";
+        if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
         petros disableAI "MOVE";
         petros disableAI "AUTOTARGET";
         if (group _viejo == grupoPetros) then {[Petros,"mission"] remoteExec ["flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["flagaction",[buenos,civilian],petros]};

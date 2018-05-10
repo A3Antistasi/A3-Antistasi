@@ -14,9 +14,9 @@ if (random 100 < _chance) then
 		{
 		if (not revelar) then
 			{
-			[["TaskSucceeded", ["", "Enemy Comms Intercepted"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
+			["TaskSucceeded", ["", "Enemy Comms Intercepted"]] remoteExec ["BIS_fnc_showNotification",buenos];
 			revelar = true; publicVariable "revelar";
-			[] remoteExec ["revealToPlayer"];
+			[] remoteExec ["revealToPlayer",buenos];
 			};
 		}
 	else
@@ -30,7 +30,7 @@ else
 		{
 		if (revelar) then
 			{
-			[["TaskFailed", ["", "Enemy Comms Lost"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
+			["TaskFailed", ["", "Enemy Comms Lost"]] remoteExec ["BIS_fnc_showNotification",buenos];
 			revelar = false; publicVariable "revelar";
 			};
 		};

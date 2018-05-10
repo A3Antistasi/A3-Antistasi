@@ -116,7 +116,7 @@ petros addMPEventHandler ["mpkilled",
             publicVariable "petros";
             grupoPetros setGroupId ["Maru","GroupColor4"];
             petros setIdentity "amiguete";
-            petros setName "Maru";
+            if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
             petros disableAI "MOVE";
             petros disableAI "AUTOTARGET";
             if (group _viejo == grupoPetros) then {[Petros,"mission"]remoteExec ["flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["flagaction",[buenos,civilian],petros]};

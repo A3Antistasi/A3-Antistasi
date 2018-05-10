@@ -25,7 +25,7 @@ _tipo = typeOf _unit;
 _skill = if (_tipo in sdkTier1) then {0.1 + (skillFIA * 0.2)} else {if (_tipo in sdkTier2) then {0.2 + (skillFIA * 0.2)} else {0.3 + (skillFIA * 0.2)}};
 if ((_marcador == "Synd_HQ") and (isMultiplayer)) then {_skill = 1};
 _unit setSkill (_skill + 0.1);
-if (not((uniform _unit) in uniformsSDK)) then {[_unit] call reDress};
+if (!activeGREF) then {if (not((uniform _unit) in uniformsSDK)) then {[_unit] call reDress}};
 if (_tipo in SDKSniper) then
 	{
 	if (count unlockedSN > 0) then

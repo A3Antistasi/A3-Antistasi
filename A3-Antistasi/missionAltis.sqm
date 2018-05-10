@@ -166,7 +166,7 @@ class Mission
 			colorName="ColorOrange";
 			a=100;
 			b=100;
-			angle=227.32222;
+			angle=227.32216;
 			id=2;
 			atlOffset=-0.00027656555;
 		};
@@ -4686,7 +4686,7 @@ class Mission
 			position[]={19879.293,0,21958.814};
 			name="seaAttackSpawn_2";
 			type="mil_ambush";
-			angle=111.40704;
+			angle=111.40701;
 			id=1177;
 			atlOffset=171.26703;
 		};
@@ -4769,7 +4769,7 @@ class Mission
 			name="seaSpawn_8";
 			type="mil_objective";
 			id=1186;
-			atlOffset=5.0577831;
+			atlOffset=4.5166793;
 		};
 		class Item232
 		{

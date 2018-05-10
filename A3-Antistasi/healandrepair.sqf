@@ -4,7 +4,7 @@ _posHQ = getMarkerPos "respawn_guerrila";
 
 {if ((side _x == buenos) or (side _x == civilian) and (_x distance _posHQ < 150)) then {_x setDamage 0}} forEach allUnits;
 {
-if ((_x distance _posHQ < 150) and (alive _x)) then
+if ((_x distance _posHQ < 150) and (alive _x) and (isNull(attachedTo _x))) then
 	{
 	_x setDamage 0;
 	//_x setVehicleAmmoDef 1;

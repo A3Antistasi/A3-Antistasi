@@ -41,6 +41,7 @@ _municion = magazines _unit;
 {_caja addMagazineCargoGlobal [_x,1]} forEach _municion;
 _items = assignedItems _unit + items _unit + primaryWeaponItems _unit;
 {_caja addItemCargoGlobal [_x,1]} forEach _items;
+_caja call jn_fnc_logistics_addAction;
 removeAllWeapons _unit;
 removeAllAssignedItems _unit;
 [_unit,true] remoteExec ["setCaptive"];

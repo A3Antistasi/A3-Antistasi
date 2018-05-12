@@ -11,9 +11,10 @@ fn_SaveStat =
 
 fn_LoadStat =
 {
+	private ["_varName","_varvalue"];
 	_varName = _this select 0;
 	if (worldName == "Tanoa") then {_varValue = profileNameSpace getVariable (_varName + serverID + "WotP")} else {_varValue = profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)};
-	if(isNil "_varValue") exitWith {};
+	if(isNil "_varValue") exitWith {diag_log format ["La variable %1 no existe en el entorno %2",_varname,(_varName + serverID + "WotP")]};
 	[_varName,_varValue] call fn_SetStat;
 };
 

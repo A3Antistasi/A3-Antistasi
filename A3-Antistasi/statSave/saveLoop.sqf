@@ -309,7 +309,7 @@ _datos pushBack [_x,killZones getVariable [_x,[]]];
 
 ["killZones",_datos] call fn_SaveStat;
 
-_controles = controles select {(lados getVariable [_x,sideUnknown] == buenos) and (controles find _x < 51)};
+_controles = controles select {(lados getVariable [_x,sideUnknown] == buenos) and (controles find _x < defaultControlIndex)};
 ["controlesSDK",_controles] call fn_SaveStat;
 
 savingServer = false;

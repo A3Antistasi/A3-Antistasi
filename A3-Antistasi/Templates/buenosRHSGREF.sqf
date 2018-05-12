@@ -64,7 +64,7 @@ ATMineMag = "rhs_mine_tm62m_mag";
 APERSMineMag = "rhs_mine_pmn2_mag";
 
 banditUniforms = [];
-uniformsSDK = banditUniforms + ["rhsgref_uniform_woodland_olive","rhsgref_uniform_altis_lizard_olive","rhsgref_uniform_flecktarn","rhsgref_uniform_ERDL","rhsgref_uniform_dpm_olive","rhsgref_uniform_altis_lizard"];//modificar con uniformes chdk
+uniformsSDK = banditUniforms + ["rhsgref_uniform_woodland_olive","rhsgref_uniform_altis_lizard_olive","rhsgref_uniform_flecktarn","rhsgref_uniform_ERDL","rhsgref_uniform_dpm_olive","rhsgref_uniform_altis_lizard","rhsgref_uniform_specter"];//modificar con uniformes chdk
 
 if (hayFFAA) then
 	{

@@ -4,7 +4,7 @@ fn_SaveStat =
 	_varValue = _this select 1;
 	if (!isNil "_varValue") then
 		{
-		profileNameSpace setVariable [_varName + serverID + "WotP",_varValue];
+		if (worldName == "Tanoa") then {profileNameSpace setVariable [_varName + serverID + "WotP",_varValue]} else {profileNameSpace setVariable [_varName + serverID + "Antistasi" + worldName,_varValue]};
 		if (isDedicated) then {saveProfileNamespace};
 		};
 };
@@ -12,7 +12,7 @@ fn_SaveStat =
 fn_LoadStat =
 {
 	_varName = _this select 0;
-	_varValue = profileNameSpace getVariable (_varName + serverID + "WotP");
+	if (worldName == "Tanoa") then {_varValue = profileNameSpace getVariable (_varName + serverID + "WotP")} else {_varValue = profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)};
 	if(isNil "_varValue") exitWith {};
 	[_varName,_varValue] call fn_SetStat;
 };
@@ -29,7 +29,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick","destroyedBuildings"];
+["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -53,7 +53,17 @@ fn_SetStat =
 			};
 		if(_varName == 'chopForest') then {chopForest = _varValue; publicVariable "chopForest"};
 		if(_varName == 'dinero') then {player setVariable ["dinero",_varValue,true];};
-		if(_varName == 'loadoutPlayer') then {player setUnitLoadout _varValue};
+		if(_varName == 'loadoutPlayer') then
+			{
+			removeAllItemsWithMagazines player;
+			{player removeWeaponGlobal _x} forEach weapons player;
+			removeBackpackGlobal player;
+			removeVest player;
+			if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems player))) then {player unlinkItem "ItemGPS"};
+			if ((!hayTFAR) and (!hayACRE) and ("ItemRadio" in (assignedItems player)) and (not("ItemRadio" in unlockedItems))) then {player unlinkItem "ItemRadio"};
+			["loadoutPlayer", getUnitLoadout player] call fn_SaveStat;
+			player setUnitLoadout _varValue
+			};
 		if(_varName == 'scorePlayer') then {player setVariable ["score",_varValue,true];};
 		if(_varName == 'rankPlayer') then {player setRank _varValue; player setVariable ["rango",_varValue,true]};
 		if(_varName == 'personalGarage') then {personalGarage = +_varValue};
@@ -247,7 +257,8 @@ fn_SetStat =
 				_tipoVeh = _varvalue select _i select 0;
 				_posVeh = _varvalue select _i select 1;
 				_dirVeh = _varvalue select _i select 2;
-				_veh = createVehicle [_tipoVeh,_posVeh,[],0,"NONE"];
+				_veh = createVehicle [_tipoVeh,[0,0,0],[],0,"NONE"];
+				_veh setPos _posVeh;
 				_veh setDir _dirVeh;
 				if ((_veh isKindOf "StaticWeapon") or (_veh isKindOf "Building")) then
 					{

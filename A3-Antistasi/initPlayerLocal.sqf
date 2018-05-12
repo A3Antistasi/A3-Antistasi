@@ -352,18 +352,10 @@ player addEventHandler ["GetInMan",
 				[] spawn undercover;
 				};
 			};
-		/*
-		if (_veh isKindOf "Truck_F") then
-			{
-			if ((not (_veh isKindOf "C_Van_01_fuel_F")) and (not (_veh isKindOf "I_Truck_02_fuel_F")) and (not (_veh isKindOf "B_G_Van_01_fuel_F"))) then
-				{
-				if (_this select 1 == "driver") then {[_unit,"camion"] call flagaction};
-				};
-			};
-		*/
 		};
 	}
 	];
+	/*
 player addEventHandler ["GetOutMan",
 	{
 	_veh = _this select 2;
@@ -374,7 +366,7 @@ player addEventHandler ["GetOutMan",
 			player removeAction accion;
 			};
 		};
-	}];
+	}];*/
 if (isMultiplayer) then
 	{
 	["InitializePlayer", [player]] call BIS_fnc_dynamicGroups;//Exec on client

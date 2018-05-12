@@ -132,28 +132,44 @@ activeUSAF = false;
 activeGREF = false;
 hayFFAA = false;
 
-if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hayRHS = true};
-if ("ffaa_armas_hkg36k_normal" in arifles) then {hayFFAA = true};
-if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hayRHS = true};
-if ("rhs_weap_m92" in arifles) then {activeGREF = true; hayRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
+if !(worldName == "Staszow") then
+	{
+	if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hayRHS = true};
+	if ("ffaa_armas_hkg36k_normal" in arifles) then {hayFFAA = true};
+	if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hayRHS = true};
+	if ("rhs_weap_m92" in arifles) then {activeGREF = true; hayRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
+	hayIFA = false;
+	}
+else
+	{
+	hayIFA = true;
+	};
 
 //allItems = [];
 humo = ["SmokeShell","SmokeShellRed","SmokeShellGreen","SmokeShellBlue","SmokeShellYellow","SmokeShellPurple","SmokeShellOrange"];
-titanLaunchers = if (!hayRHS) then {["launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_ghex_F","launch_O_Titan_F","launch_B_Titan_tna_F"]} else {[]};
-antitanqueAAF = if (!hayRHS) then {["launch_I_Titan_F","launch_I_Titan_short_F"]} else {[]};//possible Titan weapons that spawn in  ammoboxes
-MantitanqueAAF = if (!hayRHS) then {["Titan_AT", "Titan_AP", "Titan_AA"]} else {[]};//possible Titan rockets that spawn in  ammoboxes
-minasAAF = if (!hayRHS) then {["SLAMDirectionalMine_Wire_Mag","SatchelCharge_Remote_Mag","ClaymoreDirectionalMine_Remote_Mag", "ATMine_Range_Mag","APERSTripMine_Wire_Mag","APERSMine_Range_Mag", "APERSBoundingMine_Range_Mag"]} else {["rhsusf_m112_mag","rhsusf_mine_m14_mag","rhs_mine_M19_mag","rhs_mine_tm62m_mag","rhs_mine_pmn2_mag"]};//possible mines that spawn in AAF ammoboxescomment "Exported from Arsenal by Alberto";
-itemsAAF = if (!hayRHS) then {["FirstAidKit","Medikit","MineDetector","NVGoggles","ToolKit","muzzle_snds_H","muzzle_snds_L","muzzle_snds_M","muzzle_snds_B","muzzle_snds_H_MG","muzzle_snds_acp","bipod_03_F_oli","muzzle_snds_338_green","muzzle_snds_93mmg_tan","Rangefinder","Laserdesignator","ItemGPS","acc_pointer_IR","ItemRadio"]} else {["FirstAidKit","Medikit","MineDetector","ToolKit","ItemGPS","acc_pointer_IR","ItemRadio"]};//possible items that spawn in AAF ammoboxes
-NVGoggles = ["NVGoggles_OPFOR","NVGoggles_INDEP","O_NVGoggles_hex_F","O_NVGoggles_urb_F","O_NVGoggles_ghex_F","NVGoggles_tna_F"/*,"NVGogglesB_blk_F","NVGogglesB_grn_F"/*,"NVGogglesB_gry_F"*/,"NVGoggles"];
-opticasAAF = if (!hayRHS) then {["optic_Arco","optic_Hamr","optic_Aco","optic_ACO_grn","optic_Aco_smg","optic_ACO_grn_smg","optic_Holosight","optic_Holosight_smg","optic_SOS","optic_MRCO","optic_NVS","optic_Nightstalker","optic_tws","optic_tws_mg","optic_DMS","optic_Yorris","optic_MRD","optic_LRPS","optic_AMS","optic_AMS_khk","optic_AMS_snd","optic_KHS_blk","optic_KHS_hex","optic_KHS_old","optic_KHS_tan","optic_Arco_blk_F","optic_Arco_ghex_F","optic_DMS_ghex_F","optic_Hamr_khk_F","optic_ERCO_blk_F","optic_ERCO_khk_F","optic_ERCO_snd_F","optic_SOS_khk_F","optic_LRPS_tna_F","optic_LRPS_ghex_F","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg_blk_F"]} else {[]};
+titanLaunchers = if ((!hayRHS) and !hayIFA) then {["launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_ghex_F","launch_O_Titan_F","launch_B_Titan_tna_F"]} else {[]};
+antitanqueAAF = if ((!hayRHS) and !hayIFA) then {["launch_I_Titan_F","launch_I_Titan_short_F"]} else {[]};//possible Titan weapons that spawn in  ammoboxes
+MantitanqueAAF = if ((!hayRHS) and !hayIFA) then {["Titan_AT", "Titan_AP", "Titan_AA"]} else {[]};//possible Titan rockets that spawn in  ammoboxes
+minasAAF = if ((!hayRHS) and !hayIFA) then {["SLAMDirectionalMine_Wire_Mag","SatchelCharge_Remote_Mag","ClaymoreDirectionalMine_Remote_Mag", "ATMine_Range_Mag","APERSTripMine_Wire_Mag","APERSMine_Range_Mag", "APERSBoundingMine_Range_Mag"]} else {if (hayRHS) then {["rhsusf_m112_mag","rhsusf_mine_m14_mag","rhs_mine_M19_mag","rhs_mine_tm62m_mag","rhs_mine_pmn2_mag"]} else {}};//possible mines that spawn in AAF ammoboxescomment "Exported from Arsenal by Alberto";
+itemsAAF = if ((!hayRHS) and !hayIFA) then {["FirstAidKit","Medikit","MineDetector","NVGoggles","ToolKit","muzzle_snds_H","muzzle_snds_L","muzzle_snds_M","muzzle_snds_B","muzzle_snds_H_MG","muzzle_snds_acp","bipod_03_F_oli","muzzle_snds_338_green","muzzle_snds_93mmg_tan","Rangefinder","Laserdesignator","ItemGPS","acc_pointer_IR","ItemRadio"]} else {if (hayRHS) then {["FirstAidKit","Medikit","MineDetector","ToolKit","ItemGPS","acc_pointer_IR","ItemRadio"]} else {["FirstAidKit","Medikit","ToolKit"]}};//possible items that spawn in AAF ammoboxes
+NVGoggles = if (!hayIFA) then {["NVGoggles_OPFOR","NVGoggles_INDEP","O_NVGoggles_hex_F","O_NVGoggles_urb_F","O_NVGoggles_ghex_F","NVGoggles_tna_F"/*,"NVGogglesB_blk_F","NVGogglesB_grn_F"/*,"NVGogglesB_gry_F"*/,"NVGoggles"]} else {[]};
+opticasAAF = if ((!hayRHS) and !hayIFA) then {["optic_Arco","optic_Hamr","optic_Aco","optic_ACO_grn","optic_Aco_smg","optic_ACO_grn_smg","optic_Holosight","optic_Holosight_smg","optic_SOS","optic_MRCO","optic_NVS","optic_Nightstalker","optic_tws","optic_tws_mg","optic_DMS","optic_Yorris","optic_MRD","optic_LRPS","optic_AMS","optic_AMS_khk","optic_AMS_snd","optic_KHS_blk","optic_KHS_hex","optic_KHS_old","optic_KHS_tan","optic_Arco_blk_F","optic_Arco_ghex_F","optic_DMS_ghex_F","optic_Hamr_khk_F","optic_ERCO_blk_F","optic_ERCO_khk_F","optic_ERCO_snd_F","optic_SOS_khk_F","optic_LRPS_tna_F","optic_LRPS_ghex_F","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg_blk_F"]} else {[]};
 
 
-arrayCivVeh =["C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_01_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_fuel_F","C_Van_01_transport_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_02_unarmed_F","I_C_Van_02_transport_F"];//possible civ vehicles. Add any mod classnames you wish here
+arrayCivVeh =["C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_01_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_fuel_F","C_Van_01_transport_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_02_unarmed_F"];//possible civ vehicles. Add any mod classnames you wish here
 squadLeaders = [];
-if (!activeUSAF) then {call compile preProcessFileLineNumbers "Templates\malosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\malosRHSUSAF.sqf"};
-if (!activeAFRF) then {call compile preProcessFileLineNumbers "Templates\muyMalosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\muyMalosRHSAFRF.sqf"};
 
-if (!activeGREF) then {call compile preProcessFileLineNumbers "Templates\buenosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\buenosRHSGREF.sqf"};
+if (!hayIFA) then
+	{
+	if (!activeUSAF) then {call compile preProcessFileLineNumbers "Templates\malosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\malosRHSUSAF.sqf"};
+	if (!activeAFRF) then {call compile preProcessFileLineNumbers "Templates\muyMalosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\muyMalosRHSAFRF.sqf"};
+
+	if (!activeGREF) then {call compile preProcessFileLineNumbers "Templates\buenosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\buenosRHSGREF.sqf"};
+	}
+else
+	{
+
+	};
 
 vehNormal = vehNATONormal + vehCSATNormal + [vehFIATruck,vehSDKTruck,vehSDKLightArmed,vehSDKBike,vehSDKRepair];
 vehBoats = [vehNATOBoat,vehCSATBoat,vehSDKBoat];
@@ -168,9 +184,9 @@ vehTanks = [vehNATOTank,vehCSATTank];
 vehTrucks = vehNATOTrucks + vehCSATTrucks + [vehSDKTruck,vehFIATruck];
 vehAA = [vehNATOAA,vehCSATAA];
 vehMRLS = [vehCSATMRLS, vehNATOMRLS];
-vehTransportAir = vehNATOTransportHelis + vehCSATTransportHelis/* + [vehSDKHeli]*/;
+vehTransportAir = vehNATOTransportHelis + vehCSATTransportHelis;
 vehFastRope = ["O_Heli_Light_02_unarmed_F","B_Heli_Transport_01_camo_F","RHS_UH60M_d","RHS_Mi8mt_vdv","RHS_Mi8mt_vv","RHS_Mi8mt_Cargo_vv"];
-sniperGroups = [gruposNATOSniper,gruposCSATSniper,"IRG_SniperTeam_M"];///[["B_T_sniper_F","B_T_spotter_F"],["B_G_Sharpshooter_F","B_G_Soldier_M_F"],["O_T_sniper_F","O_T_spotter_F"]]
+sniperGroups = [gruposNATOSniper,gruposCSATSniper,"IRG_SniperTeam_M"];
 sniperUnits = ["O_T_Soldier_M_F","O_T_Sniper_F","O_T_ghillie_tna_F","O_V_Soldier_M_ghex_F","B_CTRG_Soldier_M_tna_F","B_T_soldier_M_F","B_T_Sniper_F","B_T_ghillie_tna_F"] + SDKSniper + [FIAMarksman,NATOMarksman,CSATMarksman];
 if (hayRHS) then {sniperUnits = sniperUnits + ["rhsusf_socom_marsoc_sniper","rhs_vdv_marksman_asval"]};
 
@@ -274,12 +290,25 @@ unlockedItems = ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","To
 if (!activeGREF) then
     {
     unlockedWeapons = ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","Binocular","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];//"LMG_03_F"
-    if (worldName == "Tanoa") then {unlockedWeapons pushBack "launch_RPG7_F"} else {unlockedWeapons pushBack "launch_MRAWS_olive_rail_F"};
 	unlockedRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
-	unlockedMagazines = ["9Rnd_45ACP_Mag","30Rnd_9x21_Mag","30Rnd_762x39_Mag_F","MiniGrenade","1Rnd_HE_Grenade_shell","RPG7_F","30Rnd_545x39_Mag_F","30Rnd_9x21_Mag_SMG_02","10Rnd_9x21_Mag","200Rnd_556x45_Box_F","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
+	unlockedMagazines = ["9Rnd_45ACP_Mag","30Rnd_9x21_Mag","30Rnd_762x39_Mag_F","MiniGrenade","1Rnd_HE_Grenade_shell","30Rnd_545x39_Mag_F","30Rnd_9x21_Mag_SMG_02","10Rnd_9x21_Mag","200Rnd_556x45_Box_F","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
 	initialRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];
 	unlockedItems = unlockedItems + ["V_Chestrig_khk","V_BandollierB_cbr","V_BandollierB_rgr","U_C_HunterBody_grn"];
-	unlockedAT = ["launch_RPG7_F"];
+	if (worldName == "Tanoa") then
+		{
+		unlockedWeapons pushBack "launch_RPG7_F";
+		unlockedAT = ["launch_RPG7_F"];
+		unlockedMagazines pushBack "RPG7_F";
+		}
+	else
+		{
+		if (worldName == "Altis") then
+			{
+			unlockedWeapons pushBack "launch_MRAWS_olive_rail_F";
+			unlockedAT = ["launch_MRAWS_olive_rail_F"];
+			unlockedMagazines pushBack "MRAWS_HEAT_F";
+			};
+		};
     }
 else
     {
@@ -303,6 +332,7 @@ vehInGarage = [];
 destroyedBuildings = []; publicVariable "destroyedBuildings";
 reportedVehs = [];
 hayTFAR = false;
+hayACRE = false;
 hayACE = false;
 hayACEhearing = false;
 hayACEMedical = false;
@@ -332,12 +362,10 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
 		"ACE_DefusalKit",
 		"ACE_MapTools",
 		"ACE_Flashlight_MX991",
-		"ACE_Sandbag_empty",
 		"ACE_wirecutter",
 		"ACE_RangeTable_82mm",
 		"ACE_EntrenchingTool",
 		"ACE_Cellphone",
-		"ACE_ConcertinaWireCoil",
 		"ACE_CableTie",
 		"ACE_SpottingScope",
 		"ACE_Tripod",
@@ -402,7 +430,6 @@ if (!isNil "ace_common_fnc_isModLoaded") then {
 		};
 	};
 };
-hayACRE = false;
 if (isClass(configFile >> "cfgPatches" >> "acre_main")) then
 	{
 	hayACRE = true;

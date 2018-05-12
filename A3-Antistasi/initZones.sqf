@@ -53,7 +53,23 @@ else
             _mrk setMarkerText _name;
             controles pushBack _name;
         };
-    } foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["Hill"], worldSize/1.414]);
+        } foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["Hill"], worldSize/1.414]);
+        }
+    else
+        {
+        if (worldName == "Staszow") then
+            {
+            aeropuertos = ["airport","airport_1","airport_2"];
+            spawnPoints = ["spawnPoint","spawnPoint_1","spawnPoint_2"];
+            recursos = ["resource"];
+            fabricas = ["factory"];
+            puestos = ["puesto"];
+            puertos = [];
+            controles = ["control"];
+            seaMarkers = [];
+            seaSpawn = [];
+            seaAttackSpawn = [];
+            };
         };
     };
 
@@ -62,7 +78,24 @@ puestosFIA = [];
 _mrkSDK = ["Synd_HQ"];
 garrison setVariable ["Synd_HQ",[],true];
 _mrkNATO = [];
-_mrkCSAT = if (worldName == "Tanoa") then {["airport_1","puerto_5","puesto_10","control_20"]} else {if (worldName == "Altis") then {["airport_2","puerto_4","puesto_5","control_52","control_33"]}};//
+_mrkCSAT = [];
+
+if (worldName == "Tanoa") then
+    {
+    _mrkCSAT = ["airport_1","puerto_5","puesto_10","control_20"]
+    }
+else
+    {
+    if (worldName == "Altis") then
+        {
+        _mrkCSAT = ["airport_2","puerto_4","puesto_5","control_52","control_33"];
+        }
+    else
+        {
+        if (worldName == "Staszow") then {_mrkCSAT = ["airport"]};
+        };
+    };
+
 destroyedCities = [];
 
 marcadores = aeropuertos + recursos + fabricas + puestos + puertos + controles + ["Synd_HQ"];

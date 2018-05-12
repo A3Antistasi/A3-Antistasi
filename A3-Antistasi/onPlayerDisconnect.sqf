@@ -61,24 +61,7 @@ if (_unit == stavros) then
 if ((side _unit == buenos) or (side _unit == civilian)) then
 	{
 	if ((_hr > 0) or (_recursos > 0)) then {[_hr,_recursos] spawn resourcesFIA};
-	/*_armas = weapons _unit;
-	_municion = magazines _unit + [currentMagazine _unit];
-	_items = (items _unit) + (primaryWeaponItems _unit);
-	if (hayTFAR) then
-		{
-		_items pushBack hmd _unit;
-		if (backpack _unit != "tf_rt1523g_sage") then {caja addBackpackCargoGlobal [(backpack _unit) call BIS_fnc_basicBackpack,1];};
-		}
-	else
-		{
-		_items = _items + (assignedItems _unit);
-		caja addBackpackCargoGlobal [(backpack _unit) call BIS_fnc_basicBackpack,1];
-		};
 
-	{caja addWeaponCargoGlobal [_x,1]} forEach _armas;
-	{caja addMagazineCargoGlobal [_x,1]} forEach _municion;
-	{caja addItemCargoGlobal [_x,1]} forEach _items;
-	*/
 	_pos = getPosATL _unit;
 	_wholder = nearestObjects [_pos, ["weaponHolderSimulated", "weaponHolder"], 2];
 	{deleteVehicle _x} forEach _wholder + [_unit];

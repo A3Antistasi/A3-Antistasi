@@ -72,7 +72,7 @@ if (_x select 1 >= minWeaps) then
 	_index = _arma call jn_fnc_arsenal_itemType;
 	[_index,_arma,-1] call jn_fnc_arsenal_addItem;
 	};
-} forEach _armas;
+} forEach (_armas - mlaunchers);
 
 if (_check) then
 	{

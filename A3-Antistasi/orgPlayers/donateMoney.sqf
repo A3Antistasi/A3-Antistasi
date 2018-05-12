@@ -9,6 +9,8 @@ if (count _this == 0) exitWith
 	_puntosJ = (player getVariable "score") + 1;
 	player setVariable ["score",_puntosJ,true];
 	hint "You have donated 100 € to the cause. This will raise your status among our forces";
+	[] call statistics;
+	["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
 	};
 _target = cursortarget;
 

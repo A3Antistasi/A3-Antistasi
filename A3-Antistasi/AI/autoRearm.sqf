@@ -59,8 +59,8 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 		_unit doMove (getPosATL _target);
 		_unit groupChat "Picking a better weapon";
 		_timeOut = time + 60;
-		waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
-		if ((unitReady _unit) and (alive _unit) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
+		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
+		if ((unitReady _unit) and ([_unit] call canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
 		if (_unit distance _target < 3) then
 			{
 			_unit action ["TakeWeapon",_target,_arma];
@@ -127,8 +127,8 @@ if ((_hayCaja) and (_unit getVariable "rearming")) then
 	_unit doMove (getPosATL _target);
 	_unit groupChat "Rearming";
 	_timeOut = time + 60;
-	waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
-	if ((unitReady _unit) and (alive _unit) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
+	waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
+	if ((unitReady _unit) and ([_unit] call canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
 	if (_unit distance _target < 3) then
 		{
 		_unit action ["rearm",_target];
@@ -186,8 +186,8 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 		_unit doMove (getPosATL _target);
 		_unit groupChat "Picking a secondary weapon";
 		_timeOut = time + 60;
-		waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
-		if ((unitReady _unit) and (alive _unit) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
+		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
+		if ((unitReady _unit) and ([_unit] call canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
 		if (_unit distance _target < 3) then
 			{
 			_unit action ["TakeWeapon",_target,_arma];
@@ -255,8 +255,8 @@ if (_Sweapon != "") then
 		_unit doMove (position _target);
 		_unit groupChat "Rearming";
 		_timeOut = time + 60;
-		waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
-		if ((unitReady _unit) and (alive _unit) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
+		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
+		if ((unitReady _unit) and ([_unit] call canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
 		if (_unit distance _target < 3) then
 			{
 			if ((backpack _unit == "") and (backPack _target != "")) then
@@ -294,7 +294,7 @@ if (_Sweapon != "") then
 	sleep 3;
 	};
 _hayCaja = false;
-if ((not("ItemRadio" in assignedItems _unit)) and !hayTFAR) then
+if ((not("ItemRadio" in assignedItems _unit)) and !haveRadio) then
 	{
 	_necesita = true;
 	_hayCaja = false;
@@ -316,7 +316,7 @@ if ((not("ItemRadio" in assignedItems _unit)) and !hayTFAR) then
 		_unit doMove (getPosATL _target);
 		_unit groupChat "Picking a Radio";
 		_timeOut = time + 60;
-		waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
+		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if (_unit distance _target < 3) then
 			{
 			_unit action ["rearm",_target];
@@ -356,7 +356,7 @@ if (hmd _unit == "") then
 		_unit doMove (getPosATL _target);
 		_unit groupChat "Picking NV Googles";
 		_timeOut = time + 60;
-		waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
+		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if (_unit distance _target < 3) then
 			{
 			_unit action ["rearm",_target];
@@ -395,7 +395,7 @@ if (not(headgear _unit in cascos)) then
 		_unit doMove (getPosATL _target);
 		_unit groupChat "Picking a Helmet";
 		_timeOut = time + 60;
-		waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
+		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if (_unit distance _target < 3) then
 			{
 			_unit action ["rearm",_target];
@@ -433,7 +433,7 @@ if (not("FirstAidKit" in (items _unit))) then
 		_unit doMove (getPosATL _target);
 		_unit groupChat "Picking a First Aid Kit";
 		_timeOut = time + 60;
-		waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
+		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if (_unit distance _target < 3) then
 			{
 			_unit action ["rearm",_target];
@@ -468,7 +468,7 @@ if ((_hayCaja) and (_unit getVariable "rearming")) then
 	_unit doMove (getPosATL _target);
 	_unit groupChat "Picking a a better vest";
 	_timeOut = time + 60;
-	waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
+	waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 	if (_unit distance _target < 3) then
 		{
 		_itemsUnit = vestItems _unit;
@@ -514,7 +514,7 @@ if (backpack _unit == "") then
 		_unit doMove (getPosATL _target);
 		_unit groupChat "Picking a Backpack";
 		_timeOut = time + 60;
-		waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
+		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if (_unit distance _target < 3) then
 			{
 			_unit addBackPackGlobal ((backpack _target) call BIS_fnc_basicBackpack);

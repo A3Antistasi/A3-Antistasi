@@ -237,7 +237,7 @@ _soldados = _soldados + _vehCrew;
 //_grupos pushBack _grupoVeh;
 _vehiculos pushBack _vehLead;
 [_vehLead] call AIVEHinit;
-if ((_base == "airport") or (_base == "airport_2")) then {[_base,_posDestino,_grupo] call WPCreate};
+[_base,_posDestino,_grupo] call WPCreate;
 _wp0 = _grupo addWaypoint [_posdestino, count waypoints _grupo];
 _wp0 = (waypoints _grupo) select 0;
 _wp0 setWaypointType "MOVE";
@@ -300,16 +300,7 @@ for "_i" from 1 to _cuenta do
 	_soldados = _soldados + _vehCrew;
 	_vehiculos pushBack _veh;
 	[_veh] call AIVEHinit;
-	/*
-	if ((_base == "airport") or (_base == "airport_2")) then {[_base,_posDestino,_grupo] call WPCreate};
-	_wp0 = _grupo addWaypoint [_posdestino, count waypoints _grupo];
-	_wp0 = (waypoints _grupo) select 0;
-	_wp0 setWaypointType "MOVE";
-	_wp0 setWaypointBehaviour "SAFE";
-	_grupo setBehaviour "SAFE";
-	_wp0 setWaypointFormation "COLUMN";
-	_veh limitSpeed 50;
-	*/
+
 	if (_i == 1) then {_veh setConvoySeparation 60} else {_veh setConvoySeparation 20};
 	if (!_esFIA) then
 		{
@@ -362,16 +353,7 @@ _soldados = _soldados + _vehCrew;
 //_grupos pushBack _grupoVeh;
 _vehiculos pushBack _vehObj;
 [_vehObj] call AIVEHinit;
-/*
-if ((_base == "airport") or (_base == "airport_2")) then {[_base,_posDestino,_grupo] call WPCreate};
-_wp0 = _grupo addWaypoint [_posdestino, count waypoints _grupo];
-_wp0 = (waypoints _grupo) select 0;
-_wp0 setWaypointType "MOVE";
-_wp0 setWaypointBehaviour "SAFE";
-_grupo setBehaviour "SAFE";
-_wp0 setWaypointFormation "COLUMN";
-_vehObj limitSpeed 50;
-*/
+
 _vehObj setConvoySeparation 50;
 if (_tipoConvoy == "Armor") then {_vehObj lock 3};// else {_vehObj forceFollowRoad true};
 if (_tipoConvoy == "Prisoners") then
@@ -432,16 +414,7 @@ _vehCrew = _vehicle select 1;
 _soldados = _soldados + _vehCrew;
 _vehiculos pushBack _veh;
 [_veh] call AIVEHinit;
-/*
-if ((_base == "airport") or (_base == "airport_2")) then {[_base,_posDestino,_grupo] call WPCreate};
-_wp0 = _grupo addWaypoint [_posdestino, count waypoints _grupo];
-_wp0 = (waypoints _grupo) select 0;
-_wp0 setWaypointType "MOVE";
-_wp0 setWaypointBehaviour "SAFE";
-_grupo setBehaviour "SAFE";
-_wp0 setWaypointFormation "COLUMN";
-_veh limitSpeed 50;
-*/
+
 _veh setConvoySeparation 20;
 if (!_esFIA) then
 	{

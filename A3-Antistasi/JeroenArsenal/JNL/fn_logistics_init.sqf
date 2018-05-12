@@ -35,7 +35,7 @@ jnl_vehicleHardpoints = [
 		[1,		[0,-2.1,-0.81],					[9,10,11,12,13]]
 	]],
 
-     //AFRF Zamak open
+     //AFRF Zamak open rhs_kamaz5350_vdv
     ["rhsafrf\addons\rhs_kamaz\rhs_kamaz5350", [
     	[0,		[-0.000671387,-1.31882,-0.81],	[2,3,4,5,6,7,8,9,10,11,12,13]],
     	[1,		[0,0,-0.81],					[2,3,4,5,6,7,8]],
@@ -43,19 +43,19 @@ jnl_vehicleHardpoints = [
     ]],
 
 
-	//NATO HEMTT open
-	["\A3\soft_f_beta\Truck_01\Truck_01_transport_F.p3d",[
-		[1,	[0.0300293,-0.0808449,0.283923],	[1,16,8,9]],
-		[1,	[0.0256348,-2.99881,0.315941],		[3,4,10,11]],
-		[1,	[0.0249023,-1.56604,0.30022],		[5,6,12,13]]
-	]],
+	//NATO HEMTT open "B_Truck_01_covered_F"  seats not checked! boxes are slighlty floating, difficult to see anyway
+  ["\A3\soft_f_beta\Truck_01\Truck_01_transport_F.p3d",[
+    [1,[0.0419922,-0.222656,-0.282602],[3,4,10,11,2]],
+    [1,[0.106445,-2.16602,-0.282602],[1,16,8,9]],
+    [1,[0.129883,-4.11816,-0.282602],[5,6,12,13,15,7]]
+  ]],
 
-	//NATO HEMTT closed
-	["\A3\soft_f_beta\Truck_01\Truck_01_transport_F.p3d",[
-		[1,	[0.0300293,-0.0808449,0.283923],	[1,16,8,9]],
-		[1,	[0.0256348,-2.99881,0.315941],		[3,4,10,11]],
-		[1,	[0.0249023,-1.56604,0.30022],		[5,6,12,13]]
-	]],
+  //NATO HEMMT closed "B_Truck_01_covered_F"  seats not checked
+  ["\A3\soft_f_beta\Truck_01\Truck_01_covered_F.p3d",[
+    [1,[0.0383301,-0.224609,-0.437691],[1,16,8,9,2]],
+    [1,[0.0856934,-2.16016,-0.437691],[3,4,10,11]],
+    [1,[0.0893555,-4.10547,-0.437691],[5,6,12,13,15]]
+  ]],
 
 	//CSAT Tempest open
 	["\A3\Soft_F_EPC\Truck_03\Truck_03_transport_F.p3d",[
@@ -71,25 +71,47 @@ jnl_vehicleHardpoints = [
 		[1,	[0.0625,-3.89461,0.435087],			[4,5,11,10]]
 	]],
 
-    //RHS Gaz-66 truck
+    //RHS Gaz-66 truck  "rhs_gaz66_vdv"
     ["\rhsafrf\addons\rhs_gaz66\rhs_gaz66.p3d", [
     	[0,		[0,-0.88974,-0.610707],		[]], //Weapon node
     	[1,		[0,-0.135376,-0.610707],	[]], //Cargo node
     	[1,		[0,-1.73634,-0.610707],		[]]
     ]],
 
-
-    //RHS Ural-4320 truck
-    ["\rhsafrf\addons\rhs_a2port_car\Ural\Ural_open2.p3d", [
-    	[0,		[0,-1.36476,-0.19277],	[]], //Weapon
-    	[1,		[0,-0.207184,-0.19277],	[]], //Cargo
-    	[1,		[0,-1.78506,-0.19277],	[]]
+    //RHS truck "rhsgref_nat_ural_open"
+    ["\rhsafrf\addons\rhs_a2port_car\Ural\Ural_open.p3d",[
+        [1,         [-0.0100098,-0.335236,-0.438269],    [12,3,13,4,5,2]  ],
+        [1,         [-0.00830078,-2.19262,-0.433578],    [6,7,8,9,11,10]  ]
     ]],
 
-    //RHS Ural closed with seats VV
+    //RHS Russian Ural open truck
+    ["\rhsafrf\addons\rhs_a2port_car\Ural\Ural_open2.p3d",[
+      [1,         [-0.0100098,-0.335236,-0.438269],    [12,3,13,4,5,2]  ],
+      [1,         [-0.00830078,-2.19262,-0.433578],    [6,7,8,9,11,10]  ]
+    ]],
+
+    //RHS Ural closed with seats VV, Nationalist
     ["\vsmafrf\addons\rhs_a2port_car\Ural\Ural.p3d", [
-    	[1,		[0,-0.207184,-0.19277],	[]], //Cargo
-    	[1,		[0,-1.78506,-0.19277],	[]]
+    	[1,		[0,-0.207184,-0.19277],	[12,3,13,4,5,2]], //Cargo
+    	[1,		[0,-1.78506,-0.19277],	[6,7,8,9,11,10]]
+    ]],
+
+    //USAF Truck seats covered
+    ["\rhsusf\addons\rhsusf_fmtv\M1078A1P2",[
+    [1,[-0.0065918,0.0195313,-0.48801],[12,3,13,4,5,2]],
+    [1,[0.0373535,-1.80859,-0.433626],[6,7,8,9,11,10]]
+    ]],
+
+    //USAF Truck "rhsusf_M1078A1P2_B_WD_fmtv_usarmy" and "rhsusf_M1078A1P2_B_WD_open_fmtv_usarmy"
+    ["\rhsusf\addons\rhsusf_fmtv\M1078A1P2_B",[
+    [1,[-0.00732422,0.0195313,-0.487986],[12,3,13,4,5,2]],
+    [1,[0.0366211,-1.80859,-0.435032],[6,7,8,9,11,10]]
+    ]],
+
+    //USAF Truck "rhsusf_M1083A1P2_WD_fmtv_usarmy"
+    ["\rhsusf\addons\rhsusf_fmtv\M1083A1P2",[
+      [1,[-0.00610352,0.0175781,-0.504599], [12,3,13,4,5,2]],
+      [1,[0.0383301,-1.81055,-0.450647], [6,7,8,9,11,10]]
     ]],
 
     //Speedboat minigun

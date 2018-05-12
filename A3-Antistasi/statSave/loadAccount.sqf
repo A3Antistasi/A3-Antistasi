@@ -187,7 +187,7 @@ _buildings = nearestObjects [_x, listMilBld, 25, true];
 ["estaticas"] call fn_LoadStat;//tiene que ser el último para que el sleep del borrado del contenido no haga que despawneen
 
 
-if (!isMultiPlayer) then {player setPos posHQ} else {{_x setPos posHQ} forEach playableUnits};
+if (!isMultiPlayer) then {player setPos getMarkerPos "respawn_guerrila"} else {{_x setPos getMarkerPos "respawn_guerrila"} forEach (playableUnits select {side _x == buenos})};
 _sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in aeropuertos} count _sitios)))/10));
 if (tierWar > 10) then {tierWar = 10};

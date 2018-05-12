@@ -156,24 +156,16 @@ while {(_waves != 0)} do
 					{
 					(units _grupo) joinSilent _grupoVeh;
 					deleteGroup _grupo;
-					//_grupos pushBack _grupo;
-					if (worldName == "Tanoa") then {if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_landPos,_grupoVeh] call WPCreate}};
+					[_mrkOrigen,_landPos,_grupoVeh] call WPCreate;
 					_Vwp0 = (wayPoints _grupoVeh) select 0;
 					_Vwp0 setWaypointBehaviour "SAFE";
 					_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
 					_Vwp0 setWaypointType "TR UNLOAD";
 					_Vwp0 setWayPointCompletionRadius (10*_cuenta);
-					//_Vwp0 setWaypointStatements ["true", "[vehicle this] call smokeCoverAuto"];
 					_Vwp1 = _grupoVeh addWaypoint [_posdestino, 1];
 					_Vwp1 setWaypointType "SAD";
 					_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 					_Vwp1 setWaypointBehaviour "COMBAT";
-					/*_Vwp2 = _grupo addWaypoint [_landPos, 0];
-					_Vwp2 setWaypointType "GETOUT";
-					_Vwp0 synchronizeWaypoint [_Vwp2];
-					_Vwp3 = _grupo addWaypoint [_posDestino, count (wayPoints _grupo)];
-					_Vwp3 setWaypointType "SAD";*/
-					//_Vwp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 					_veh allowCrewInImmobile true;
 					//[_veh,"APC"] spawn inmuneConvoy;
 					}
@@ -182,29 +174,19 @@ while {(_waves != 0)} do
 					(units _grupo) joinSilent _grupoVeh;
 					deleteGroup _grupo;
 					_grupoVeh selectLeader (units _grupoVeh select 1);
-					if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_landPos,_grupoVeh] call WPCreate};
+					[_mrkOrigen,_landPos,_grupoVeh] call WPCreate;
 					_Vwp0 = (wayPoints _grupoVeh) select 0;
 					_Vwp0 setWaypointBehaviour "SAFE";
-					//_Vwp0 = (wayPoints _grupoVeh) select ((count wayPoints _grupoVeh) - 1);
 					_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
 					_Vwp0 setWaypointType "GETOUT";
 					_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 					_Vwp1 setWaypointType "SAD";
-					//_Vwp1 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
-					/*
-					_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
-					_Vwp1 setWaypointType "MOVE";
-					_Vwp1 setWaypointBehaviour "COMBAT";
-					_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
-					_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
-					_Vwp1 setWaypointType "SAD";
-					*/
 					//[_veh,"Inf Truck."] spawn inmuneConvoy;
 					};
 				}
 			else
 				{
-				if ((_mrkOrigen == "airport") or (_mrkOrigen == "airport_2")) then {[_mrkOrigen,_posDestino,_grupoVeh] call WPCreate};
+				[_mrkOrigen,_posDestino,_grupoVeh] call WPCreate;
 				_Vwp0 = (wayPoints _grupoVeh) select 0;
 				_Vwp0 setWaypointBehaviour "SAFE";
 				_Vwp0 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];

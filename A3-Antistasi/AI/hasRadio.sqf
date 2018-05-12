@@ -4,7 +4,7 @@ _unit = _this select 0;
 
 _result = false;
 
-if ((hayTFAR) or (hayACRE)) then
+if (haveRadio) then
 	{
 	_result = true;
 	}

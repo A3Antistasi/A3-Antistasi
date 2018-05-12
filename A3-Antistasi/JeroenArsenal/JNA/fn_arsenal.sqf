@@ -2412,32 +2412,36 @@ switch _mode do {
 		/////////////////////////////////////////////////////////////////////////////////
 		// unifrom
 		_itemsUnifrom = [];
-		if(activeACE)then{
+		if(hayACEmedical)then{
 
 			//ACE Basic medical system
 			if (ace_medical_level == 1) then{
-				_itemsUnifrom pushBack ["ACE_fieldDressing",10];
-				_itemsUnifrom pushBack ["ACE_morphine",6];
-				_itemsUnifrom pushBack ["ACE_epinephrine",3];
+				_itemsUnifrom pushBack ["ACE_fieldDressing",4];
+				_itemsUnifrom pushBack ["ACE_morphine",2];
+				_itemsUnifrom pushBack ["ACE_epinephrine",1];
 			};
 
 			//ACE Advanced medical system
 			if (ace_medical_level == 2) then{
-				_itemsUnifrom pushBack ["ACE_fieldDressing",4];
-				_itemsUnifrom pushBack ["ACE_elasticBandage",4];
-				_itemsUnifrom pushBack ["ACE_packingBandage",4];
-				_itemsUnifrom pushBack ["ACE_quikclot",4];
+				_itemsUnifrom pushBack ["ACE_elasticBandage",2];
+				_itemsUnifrom pushBack ["ACE_packingBandage",2];
 				_itemsUnifrom pushBack ["ACE_morphine",1];
 				_itemsUnifrom pushBack ["ACE_epinephrine",1];
 				_itemsUnifrom pushBack ["ACE_tourniquet",1];
 			};
-
-			_itemsUnifrom pushBack ["ACE_EarPlugs",1];
-			_itemsUnifrom pushBack ["ACE_MapTools",1];
-			_itemsUnifrom pushBack ["ACE_CableTie",3];
-
 		}else{
-			_itemsUnifrom pushBack ["FirstAidKit",4];
+			_itemsUnifrom pushBack ["FirstAidKit",2];
+			if(hayACE) then {
+				_itemsUnifrom pushBack ["ACE_EarPlugs",1];
+				_itemsUnifrom pushBack ["ACE_MapTools",1];
+				_itemsUnifrom pushBack ["ACE_CableTie",2];
+			};
+		};
+
+		if ((hayACE) AND (sunOrMoon <1)) then {
+			_itemsUnifrom pushback ["ACE_HandFlare_Red",1];
+			_itemsUnifrom pushback ["ACE_Chemlight_HiRed",1];
+			_itemsUnifrom pushBack ["ACE_Flashlight_MX991",1];
 		};
 		diag_log ["_itemsUnifrom1",_itemsUnifrom];
 		//check items that already exist
@@ -2465,26 +2469,50 @@ switch _mode do {
 		_itemsBackpack = [];
 
 		if(player getUnitTrait "Medic")then{
-			if(activeACE)then{
-				if (ace_medical_level == 1) then{ //ACE Basic medical system
+
+			if(hayACEmedical) then { //Medic equipment
+
+				if (ace_medical_level == 1) then{ //ACE Basic medical system for medic
 					_itemsBackpack pushBack ["ACE_fieldDressing",20];
 					_itemsBackpack pushBack ["ACE_morphine",10];
 					_itemsBackpack pushBack ["ACE_epinephrine",10];
 					_itemsBackpack pushBack ["ACE_bloodIV",6];
 				};
-				if (ace_medical_level == 2) then{ //ACE Advanced medical system
+				if (ace_medical_level == 2) then{ //ACE Advanced medical system for medic
 					_itemsBackpack pushBack ["ACE_elasticBandage",15];
 					_itemsBackpack pushBack ["ACE_packingBandage",7];
-					_itemsBackpack pushBack ["ACE_tourniquet",3];
+					_itemsBackpack pushBack ["ACE_tourniquet",5];
 					_itemsBackpack pushBack ["ACE_personalAidKit",1];
 				};
-			}else{
+			} else { //Vanilla Medikit for medic
 				_itemsBackpack pushBack ["Medikit",1];
-				_itemsBackpack pushBack ["FirstAidKit",10];
+				_itemsBackpack pushBack ["FirstAidKit",1];
 			};
-
-
+		} else {
+		 		if(hayACEmedical) then {
+					if (ace_medical_level == 1) then{ //ACE Basic medical system for soldiers
+						_itemsBackpack pushBack ["ACE_fieldDressing",10];
+						_itemsBackpack pushBack ["ACE_morphine",3];
+						_itemsBackpack pushBack ["ACE_epinephrine",2];
+					};
+					if (ace_medical_level == 2) then{ //ACE Advanced medical system for soldiers
+						_itemsBackpack pushBack ["ACE_elasticBandage",10];
+						_itemsBackpack pushBack ["ACE_tourniquet",2];
+					};
+			} else { //Vanilla FAK for soldiers
+				_itemsBackpack pushBack ["FirstAidKit",5];
+			};
 		};
+
+		if(player getUnitTrait "Engineer")then {
+					_itemsBackpack pushback ["Toolkit",1];
+					if(hayACE) then {
+						_itemsbackpack pushback ["ACE_Clacker",1];
+						_itemsbackpack pushback ["ACE_SpraypaintRed",4];
+					};
+		};
+
+
 		diag_log ["_itemsBackpack1",_itemsBackpack];
 		//check items that already exist
 		{

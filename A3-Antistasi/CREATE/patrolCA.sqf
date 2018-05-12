@@ -305,7 +305,7 @@ if (_base != "") then
 				(units _grupo) joinSilent _grupoVeh;
 				deleteGroup _grupo;
 				//_grupos pushBack _grupo;
-				if (worldName == "Tanoa") then {if ((_base == "airport") or (_base == "airport_2")) then {[_base,_landPos,_grupoVeh] call WPCreate}};
+				[_base,_landPos,_grupoVeh] call WPCreate;
 				_Vwp0 = (wayPoints _grupoVeh) select 0;
 				_Vwp0 setWaypointBehaviour "SAFE";
 				_Vwp0 = _grupoVeh addWaypoint [_landPos,count (wayPoints _grupoVeh)];
@@ -339,7 +339,7 @@ if (_base != "") then
 				//_veh forceFollowRoad true;
 
 				_grupoVeh selectLeader (units _grupoVeh select 1);
-				if ((_base == "airport") or (_base == "airport_2")) then {[_base,_landPos,_grupoVeh] call WPCreate};
+				[_base,_landPos,_grupoVeh] call WPCreate;
 				_Vwp0 = (wayPoints _grupoVeh) select 0;
 				_Vwp0 setWaypointBehaviour "SAFE";
 				/*
@@ -374,7 +374,7 @@ if (_base != "") then
 			}
 		else
 			{
-			if ((_base == "airport") or (_base == "airport_2")) then {[_base,_posDestino,_grupoVeh] call WPCreate};
+			[_base,_posDestino,_grupoVeh] call WPCreate;
 			_Vwp0 = (wayPoints _grupoVeh) select 0;
 			_Vwp0 setWaypointBehaviour "SAFE";
 			_Vwp0 = _grupoVeh addWaypoint [_posDestino, count (waypoints _grupoVeh)];

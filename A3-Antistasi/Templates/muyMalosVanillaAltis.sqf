@@ -39,7 +39,7 @@ vehCSATNormal = vehCSATLight + vehCSATTrucks + [vehCSATAmmoTruck, "O_Truck_03_fu
 vehCSATBike = "O_Quadbike_01_F";
 
 CSATFlag = "Flag_CSAT_F";
-
+CSATAmmoBox = "O_supplyCrate_F";
 gruposCSATSentry = ["O_soldier_GL_F","O_soldier_F"];
 gruposCSATSniper = ["O_sniper_F","O_spotter_F"];
 gruposCSATsmall = [gruposCSATSentry,["O_recon_M_F","O_recon_F"],gruposCSATSniper];

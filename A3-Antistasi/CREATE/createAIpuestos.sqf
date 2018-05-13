@@ -108,12 +108,12 @@ _vehiculos pushBack _bandera;
 _caja = objNull;
 if (_lado == malos) then
 	{
-	_caja = "B_supplyCrate_F" createVehicle _posicion;
+	_caja = NATOAmmoBox createVehicle _posicion;
 	_nul = [_caja] call NATOcrate;
 	}
 else
 	{
-	_caja = "O_supplyCrate_F" createVehicle _posicion;
+	_caja = CSATAmmoBox createVehicle _posicion;
 	_nul = [_caja] call CSATcrate;
 	};
 _vehiculos pushBack _caja;

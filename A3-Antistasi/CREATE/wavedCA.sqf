@@ -633,9 +633,7 @@ while {(_waves != 0)} do
 		if  ((({[_x,_mrkDestino] call canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestino] call canConquer)} count allUnits)) or (lados getVariable [_mrkDestino,sideUnknown] == malos)) then
 			{
 			_waves = 0;
-			if (not(lados getVariable [_mrkDestino,sideUnknown] == malos)) then {["BLUFORSpawn",_mrkDestino] remoteExec ["markerChange",2]};
-			//["AtaqueAAF", "FAILED",true] spawn BIS_fnc_taskSetState;
-			//["AtaqueAAF1", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
+			if ((!(lados getVariable [_mrkDestino,sideUnknown] == malos)) and !(_mrkDestino in ciudades)) then {["BLUFORSpawn",_mrkDestino] remoteExec ["markerChange",2]};
 			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"FAILED"] call taskUpdate;
 			["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"SUCEEDED"] call taskUpdate;
 			if (_mrkDestino in ciudades) then
@@ -663,8 +661,7 @@ while {(_waves != 0)} do
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
 				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
-				//["AtaqueAAF", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
-				//["AtaqueAAF1", "FAILED",true] spawn BIS_fnc_taskSetState;
+
 				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call taskUpdate;
 				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call taskUpdate;
 				};
@@ -677,8 +674,6 @@ while {(_waves != 0)} do
 			{
 			_waves = 0;
 			if (not(lados getVariable [_mrkDestino,sideUnknown] == muyMalos)) then {["OPFORSpawn",_mrkDestino] remoteExec ["markerChange",2]};
-			//["AtaqueAAF", "FAILED",true] spawn BIS_fnc_taskSetState;
-			//["AtaqueAAF1", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
 			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"FAILED"] call taskUpdate;
 			["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED"] call taskUpdate;
 			};
@@ -697,8 +692,6 @@ while {(_waves != 0)} do
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
 				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
-				//["AtaqueAAF", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
-				//["AtaqueAAF1", "FAILED",true] spawn BIS_fnc_taskSetState;
 				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call taskUpdate;
 				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call taskUpdate;
 				};

@@ -94,14 +94,32 @@ if ((side player == buenos) or (side player == civilian)) then
 
 	player addEventHandler ["InventoryOpened",
 		{
+		private ["_jugador","_contenedor","_tipo"];
 		_control = false;
-		//if !(isnull (uinamespace getvariable ["BIS_fnc_arsenal_cam",objnull])) then
-		if (_this select 1 == caja) then
+		_jugador = _this select 0;
+		if (captive _jugador) then
 			{
-			if !([_this select 0] call isMember) then
+			_contenedor = _this select 1;
+			_tipo = typeOf _contenedor;
+			if (((_contenedor isKindOf "Man") and (!alive _contenedor)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 				{
-				_control = true;
-				hint "You are not in the Member's List of this Server.\n\nAsk the Commander in order to be allowed to access the HQ Ammobox.\n\nIn the meantime you may use the other box to store equipment and share it with others.";
+				if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
+					{
+					[_jugador,false] remoteExec ["setCaptive"];
+					}
+				else
+					{
+					_ciudad = [ciudades,_jugador] call BIS_fnc_nearestPosition;
+					_size = [_ciudad] call sizeMarker;
+					_datos = server getVariable _ciudad;
+					if (random 100 < _datos select 2) then
+						{
+						if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
+							{
+							[_jugador,false] remoteExec ["setCaptive"];
+							};
+						};
+					};
 				};
 			};
 		_control

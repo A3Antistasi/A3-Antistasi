@@ -37,6 +37,7 @@ vehNATOMRLSMags = "32Rnd_155mm_Mo_shells";
 vehNATONormal = vehNATOLight + vehNATOTrucks + [vehNATOAmmoTruck, "B_Truck_01_fuel_F", "B_Truck_01_medical_F", vehNATORepairTruck,"B_APC_Tracked_01_CRV_F"];
 vehNATOBike = "B_Quadbike_01_F";
 NATOFlag = "Flag_NATO_F";
+NATOAmmobox = "B_supplyCrate_F";
 //cfgNATOInf = (configfile >> "CfgGroups" >> "West" >> "BLU_T_F" >> "Infantry");///
 gruposNATOSentry = ["B_soldier_GL_F",NATOGrunt];//"B_T_InfSentry";//
 gruposNATOSniper = ["B_sniper_F","B_spotter_F"];

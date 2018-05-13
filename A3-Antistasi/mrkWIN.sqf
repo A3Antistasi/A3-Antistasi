@@ -1,10 +1,7 @@
 private ["_bandera","_pos","_marcador","_posicion","_size","_powerpl","_arevelar"];
 
 _bandera = _this select 0;
-_jugador = objNull;
-if (count _this > 1) then {_jugador = _this select 1};
-
-if ((player != _jugador) and (!isServer)) exitWith {};
+_jugador = _this select 1;
 
 _pos = getPos _bandera;
 _marcador = [marcadores,_pos] call BIS_fnc_nearestPosition;
@@ -31,7 +28,8 @@ if (!isNull _jugador) then
 		};
 	};
 
-if (!isServer) exitWith {};
+if ((count _arevelar) < ({([_x] call canConquer) and (side _x == buenos)} count allUnits)) exitWith {hint "The enemy still outnumber us, check the map and clean the rest of the area"};
+//if (!isServer) exitWith {};
 
 {
 if (isPlayer _x) then
@@ -42,5 +40,5 @@ if (isPlayer _x) then
 	}
 } forEach ([_size,0,_posicion,"GREENFORSpawn"] call distanceUnits);
 
-_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
+//_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 ["GREENFORSpawn",_marcador] remoteExec ["markerChange",2];

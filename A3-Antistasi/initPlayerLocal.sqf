@@ -10,14 +10,18 @@ if (isMultiplayer) then
 	if (!isServer) then
 		{
 		call compile preprocessFileLineNumbers "initVar.sqf";
-		[] execVM "briefing.sqf";
 		call compile preprocessFileLineNumbers "initFuncs.sqf";
 		waitUntil {!isNil "initVar"}; diag_log format ["Antistasi MP Client. initVar is public. Version %1",antistasiVersion];
+		}
+	else
+		{
+		waitUntil {(!isNil "serverInitDone")};
 		};
+	[] execVM "briefing.sqf";
 	};
 if (!hasInterface) exitWith
 	{
-	call compile preprocessFileLineNumbers "roadsDB.sqf";
+	if (worldName == "Tanoa") then {call compile preprocessFileLineNumbers "roadsDB.sqf"} else {if (worldName == "Altis") then {call compile preprocessFileLineNumbers "roadsDBAltis.sqf"}};
 	[clientOwner] remoteExec ["addHC",2];
 	};
 
@@ -35,36 +39,6 @@ if (isMultiplayer) then
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
 
-    player addEventHandler ["InventoryOpened",
-		{
-		_control = false;
-		_jugador = _this select 0;
-		if (captive _jugador) then
-			{
-			_contenedor = _this select 1;
-			if ((_contenedor isKindOf "Man") and (!alive _contenedor)) then
-				{
-				if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
-					{
-					[_jugador,false] remoteExec ["setCaptive"];
-					}
-				else
-					{
-					_ciudad = [ciudades,_jugador] call BIS_fnc_nearestPosition;
-					_size = [_ciudad] call sizeMarker;
-					_datos = server getVariable _ciudad;
-					if (random 100 < _datos select 2) then
-						{
-						if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
-							{
-							[_jugador,false] remoteExec ["setCaptive"];
-							};
-						};
-					};
-				};
-			};
-		_control
-		}];
 	if (side player == buenos) then
 		{
 		player addEventHandler ["Fired",
@@ -95,36 +69,6 @@ else
 	player hcSetGroup [group player];
 	waitUntil {/*(scriptdone _introshot) and */(!isNil "serverInitDone")};
 	_nul = addMissionEventHandler ["Loaded", {_nul = [] execVM "statistics.sqf";_nul = [] execVM "reinitY.sqf";}];
-	player addEventHandler ["InventoryOpened",
-		{
-		_control = false;
-		_jugador = _this select 0;
-		if (captive _jugador) then
-			{
-			_contenedor = _this select 1;
-			if ((_contenedor isKindOf "Man") and (!alive _contenedor)) then
-				{
-				if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
-					{
-					[_jugador,false] remoteExec ["setCaptive"];
-					}
-				else
-					{
-					_ciudad = [ciudades,_jugador] call BIS_fnc_nearestPosition;
-					_size = [_ciudad] call sizeMarker;
-					_datos = server getVariable _ciudad;
-					if (random 100 < _datos select 2) then
-						{
-						if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
-							{
-							[_jugador,false] remoteExec ["setCaptive"];
-							};
-						};
-					};
-				};
-			};
-		_control
-		}];
 	};
 [] execVM "CREATE\ambientCivs.sqf";
 private ["_colorbuenos", "_colormuyMalos"];
@@ -267,6 +211,38 @@ player addEventHandler ["FIRED",
 		}
 	}
 	];
+player addEventHandler ["InventoryOpened",
+	{
+	private ["_jugador","_contenedor","_tipo"];
+	_control = false;
+	_jugador = _this select 0;
+	if (captive _jugador) then
+		{
+		_contenedor = _this select 1;
+		_tipo = typeOf _contenedor;
+		if (((_contenedor isKindOf "Man") and (!alive _contenedor)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
+			{
+			if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
+				{
+				[_jugador,false] remoteExec ["setCaptive"];
+				}
+			else
+				{
+				_ciudad = [ciudades,_jugador] call BIS_fnc_nearestPosition;
+				_size = [_ciudad] call sizeMarker;
+				_datos = server getVariable _ciudad;
+				if (random 100 < _datos select 2) then
+					{
+					if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
+						{
+						[_jugador,false] remoteExec ["setCaptive"];
+						};
+					};
+				};
+			};
+		};
+	_control
+	}];
 player addEventHandler ["HandleHeal",
 	{
 	_player = _this select 0;

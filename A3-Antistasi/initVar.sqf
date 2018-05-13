@@ -7,7 +7,7 @@
 
 antistasiVersion = "v 1.0.0";
 
-servidoresOficiales = ["WotP Official USA"];
+servidoresOficiales = ["Antistasi Official Altis","Antistasi Official"];
 
 debug = false;//debug variable, not useful for everything..
 

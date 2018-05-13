@@ -89,7 +89,7 @@ while {_cambiar == ""} do
 					}
 				else
 					{
-					if ((_tipo != "C_Heli_Light_01_civil_F") and (!(_tipo in civBoats))) then
+					if ((_tipo != civHeli) and (!(_tipo in civBoats))) then
 						{
 						if !(isOnRoad position _veh) then
 							{
@@ -132,23 +132,16 @@ while {_cambiar == ""} do
 				//_size = [_base] call sizeMarker;
 				if ((_player inArea _base) and (lados getVariable [_base,sideUnknown] != buenos)) then
 					{
-					if (!(_base in controles)) then
+					if !(_estaEnControl) then
 						{
-						_cambiar = "Distancia"
-						}
-					else
-						{
-						if !(_estaEnControl) then
+						_aggro = if (lados getVariable [_base,sideUnknown] == malos) then {prestigeNATO} else {prestigeCSAT};
+						if (random 100 < _aggro) then
 							{
-							_aggro = if (lados getVariable [_base,sideUnknown] == malos) then {prestigeNATO} else {prestigeCSAT};
-							if (random 100 < _aggro) then
-								{
-								_cambiar = "Control";
-								}
-							else
-								{
-								_estaEnControl = true;
-								};
+							_cambiar = "Control";
+							}
+						else
+							{
+							_estaEnControl = true;
 							};
 						};
 					}

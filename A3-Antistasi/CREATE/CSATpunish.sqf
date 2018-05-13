@@ -12,7 +12,7 @@ _pilotos = [];
 _vehiculos = [];
 _civiles = [];
 
-_nombredest = [_mrkDestino,muyMalos] call localizar;
+_nombredest = [_mrkDestino] call localizar;
 [[buenos,civilian,malos],"AtaqueAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest,nameMuyMalos],format ["%1 Punishment",nameMuyMalos],_mrkDestino],getMarkerPos _mrkDestino,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 
 _nul = [_mrkOrigen,_mrkDestino] spawn artilleria;

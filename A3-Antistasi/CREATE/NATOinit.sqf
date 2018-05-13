@@ -90,6 +90,7 @@ else
 			{_unit removeMagazines _x} forEach _magazines;
 			_unit removeWeaponGlobal (_rifleFinal);
 			if (tierWar < 5) then {[_unit, "arifle_MX_Black_F", 6, 0] call BIS_fnc_addWeapon} else {[_unit, "arifle_AK12_F", 6, 0] call BIS_fnc_addWeapon};
+			_unit selectWeapon (primaryWeapon _unit);
 			};
 		};
 	};

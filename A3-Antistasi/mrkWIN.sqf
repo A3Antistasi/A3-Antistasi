@@ -28,7 +28,7 @@ if (!isNull _jugador) then
 		};
 	};
 
-if ((count _arevelar) < ({([_x] call canConquer) and (side _x == buenos)} count allUnits)) exitWith {hint "The enemy still outnumber us, check the map and clean the rest of the area"};
+if ((count _arevelar) < ({([_x,_marcador] call canConquer) and (side _x == buenos)} count allUnits)) exitWith {hint "The enemy still outnumber us, check the map and clean the rest of the area"};
 //if (!isServer) exitWith {};
 
 {

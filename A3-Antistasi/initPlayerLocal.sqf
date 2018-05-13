@@ -331,18 +331,7 @@ player addEventHandler ["GetInMan",
 		};
 	}
 	];
-	/*
-player addEventHandler ["GetOutMan",
-	{
-	_veh = _this select 2;
-	if (_veh isKindOf "Truck_F") then
-		{
-		if ((not (_veh isKindOf "C_Van_01_fuel_F")) and (not (_veh isKindOf "I_Truck_02_fuel_F")) and (not (_veh isKindOf "B_G_Van_01_fuel_F"))) then
-			{
-			player removeAction accion;
-			};
-		};
-	}];*/
+
 if (isMultiplayer) then
 	{
 	["InitializePlayer", [player]] call BIS_fnc_dynamicGroups;//Exec on client

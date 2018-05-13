@@ -193,6 +193,7 @@ while {true} do
 			{
 			_cambiado = true;
 			destroyedCities = destroyedCities - [_x];
+			_nombre = [_x] call localizar;
 			["TaskSucceeded", ["", format ["%1 Rebuilt",_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 			sleep 2;
 			};

@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.0.0";
+antistasiVersion = "v 1.0.0rc7";
 
 servidoresOficiales = ["Antistasi Official Altis","Antistasi Official"];
 

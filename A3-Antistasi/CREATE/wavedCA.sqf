@@ -66,7 +66,7 @@ while {(_waves != 0)} do
 	_soldados = [];
 	_nVeh = 3 + (round random 1);
 
-	if (_posOrigen distance _posDestino < 5000) then
+	if (_posOrigen distance _posDestino < distanceForLandAttack) then
 		{
 		if ([_mrkDestino,true] call fogCheck < 0.3) then {_nveh = round (1.5*_nveh)};
 		_indice = aeropuertos find _mrkOrigen;
@@ -344,7 +344,7 @@ while {(_waves != 0)} do
 		};
 	if (([_mrkDestino,true] call fogCheck >= 0.3) or (_waves < 0)) then
 		{
-		if (_posOrigen distance _posDestino < 5000) then {sleep ((_posOrigen distance _posDestino)/30)};
+		if (_posOrigen distance _posDestino < distanceForLandAttack) then {sleep ((_posOrigen distance _posDestino)/30)};
 		_posSuelo = [_posOrigen select 0,_posorigen select 1,0];
 		_posOrigen set [2,300];
 		_tipoVeh = if (_lado == malos) then {vehNATOUAV} else {vehCSATUAV};

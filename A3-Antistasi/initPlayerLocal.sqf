@@ -127,6 +127,7 @@ if (side player != buenos) exitWith
 			};
 		};
 	if (side player == malos) then {player setVariable ["BLUFORSpawn",true,true]} else {player setVariable ["OPFORSpawn",true,true]};
+	if (hayACE) then {player addItemToUniform "ACE_EarPlugs"};
 	"respawn_guerrila" setMarkerAlphaLocal 0;
 	player addEventHandler ["GetInMan",
 		{

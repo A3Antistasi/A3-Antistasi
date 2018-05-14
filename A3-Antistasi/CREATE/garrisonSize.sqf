@@ -16,7 +16,7 @@ else
 	if (_marcador in puestos) then
 		{
 		_nveh = round (_size/50);
-		_buildings = nearestObjects [getMarkerPos _marcador,["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"], _size];
+		_buildings = nearestObjects [getMarkerPos _marcador,(["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"]) + listMilBld, _size];
 		if (count _buildings > 0) then
 			{
 			_nveh = _nveh + 1;
@@ -29,7 +29,7 @@ else
 	if (_frontera) then {_nveh = _nveh + 1};
 	};
 
-if (_nveh == 0) then {_nVeh = 1};
+if (_nveh < 2) then {_nVeh = 2};
 _nVeh = 8 * _nVeh;
 
 _nVeh

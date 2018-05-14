@@ -56,6 +56,7 @@ fn_SetStat =
 		if(_varName == 'dinero') then {player setVariable ["dinero",_varValue,true];};
 		if(_varName == 'loadoutPlayer') then
 			{
+			_pepe = + _varValue;
 			removeAllItemsWithMagazines player;
 			{player removeWeaponGlobal _x} forEach weapons player;
 			removeBackpackGlobal player;
@@ -63,7 +64,7 @@ fn_SetStat =
 			if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems player))) then {player unlinkItem "ItemGPS"};
 			if ((!hayTFAR) and (!hayACRE) and ("ItemRadio" in (assignedItems player)) and (not("ItemRadio" in unlockedItems))) then {player unlinkItem "ItemRadio"};
 			["loadoutPlayer", getUnitLoadout player] call fn_SaveStat;
-			player setUnitLoadout _varValue
+			player setUnitLoadout _pepe;
 			};
 		if(_varName == 'scorePlayer') then {player setVariable ["score",_varValue,true];};
 		if(_varName == 'rankPlayer') then {player setRank _varValue; player setVariable ["rango",_varValue,true]};

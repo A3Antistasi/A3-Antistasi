@@ -1,5 +1,6 @@
 _pos = _this select 0;
-
+if (isNil "_pos") exitWith {};
+if (count _pos == 0) exitWith {};
 if (isServer) then
 	{
 	if (!napalmCurrent) then {napalmCurrent = true; publicVariable "napalmCurrent"};

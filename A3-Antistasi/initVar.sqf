@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.0.0rc7";
+antistasiVersion = "v 1.0.0";
 
 servidoresOficiales = ["Antistasi Official Altis","Antistasi Official"];
 
@@ -223,6 +223,8 @@ smallCApos = [];
 bigAttackInProgress = false;
 chopForest = false;
 destroyedBuildings = [];
+distanceForAirAttack = 20000;
+distanceForLandAttack = 5000;
 
 if (worldName == "Tanoa") then
 	{

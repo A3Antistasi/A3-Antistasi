@@ -43,6 +43,7 @@ else
 	{
 	if (_modo == 1) then {_garrison pushBack _tipo} else {_garrison append _tipo};
 	};
+if (isNil "_garrison") exitWith {garrisonIsChanging = false};
 garrison setVariable [_marcador,_garrison,true];
 if (_lado == buenos) then {[_marcador] call mrkUpdate};
 garrisonIsChanging = false;

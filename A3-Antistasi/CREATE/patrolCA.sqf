@@ -54,7 +54,7 @@ _posDestino = if (!_esMarcador) then {_marcador} else {getMarkerPos _marcador};
 if (!_inWaves) then
 	{
 	_aeropuertos = aeropuertos select {lados getVariable [_x,sideUnknown] == _lado};
-	_aeropuertos = _aeropuertos select 	{(getMarkerPos _x distance _posDestino < 15000) and  !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) and (dateToNumber date > server getVariable _x)};
+	_aeropuertos = _aeropuertos select 	{(getMarkerPos _x distance _posDestino < distanceForAirAttack) and  !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) and (dateToNumber date > server getVariable _x)};
 	if (_esMarcador) then
 		{
 		_aeropuertos = _aeropuertos select {({_x == _marcador} count (killZones getVariable [_x,[]])) < 3};
@@ -66,7 +66,7 @@ if (!_inWaves) then
 			if (!_super) then
 				{
 				_puestos = puestos select {lados getVariable [_x,sideUnknown] == _lado};
-				_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < 2500)  and !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) and (dateToNumber date > server getVariable _x)});
+				_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < distanceForLandAttack)  and !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) and (dateToNumber date > server getVariable _x)});
 				};
 			};
 		if (!_super) then
@@ -88,7 +88,7 @@ if (!_inWaves) then
 
 if (_exit) exitWith {diag_log format ["Antistasi PatrolCA: CA cancelled because no available base (distance, not spawned, busy, killzone) to attack %1",_marcador]};
 
-_base = if ((_posOrigen distance _posDestino < 2500) and ([_posDestino,_posOrigen] call isTheSameIsland)) then {_aeropuerto} else {""};
+_base = if ((_posOrigen distance _posDestino < distanceForLandAttack) and ([_posDestino,_posOrigen] call isTheSameIsland)) then {_aeropuerto} else {""};
 
 if ((_base != "") and (_esMarcador)) then {if (_marcador in blackListDest) then {_base == ""}};
 

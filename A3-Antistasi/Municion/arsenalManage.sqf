@@ -22,57 +22,60 @@ _check = false;
 if (_x select 1 >= minWeaps) then
 	{
 	_arma = _x select 0;
-	_magazine = (getArray (configFile / "CfgWeapons" / _arma / "magazines") select 0);
-	if (!isNil "_magazine") then
+	if !(_arma in mlaunchers) then
 		{
-		if (not(_magazine in unlockedMagazines)) then
+		_magazine = (getArray (configFile / "CfgWeapons" / _arma / "magazines") select 0);
+		if (!isNil "_magazine") then
 			{
-			unlockedMagazines pushBack _magazine;
-			_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgMagazines" >> _magazine >> "displayName")];
-			_index = _magazine call jn_fnc_arsenal_itemType;
-			[_index,_magazine,-1] call jn_fnc_arsenal_addItem;
+			if (not(_magazine in unlockedMagazines)) then
+				{
+				unlockedMagazines pushBack _magazine;
+				_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgMagazines" >> _magazine >> "displayName")];
+				_index = _magazine call jn_fnc_arsenal_itemType;
+				[_index,_magazine,-1] call jn_fnc_arsenal_addItem;
+				};
 			};
-		};
-	unlockedWeapons pushBack _arma;
-	//lockedWeapons = lockedWeapons - [_arma];
-	if (_arma in arifles) then
-		{
-		unlockedRifles pushBack _arma; publicVariable "unlockedRifles";
-		if (count (getArray (configfile >> "CfgWeapons" >> _arma >> "muzzles")) == 2) then
+		unlockedWeapons pushBack _arma;
+		//lockedWeapons = lockedWeapons - [_arma];
+		if (_arma in arifles) then
 			{
-			unlockedGL pushBack _arma; publicVariable "unlockedGL";
-			};
-		}
-	else
-		{
-		if (_arma in mguns) then
-			{
-			unlockedMG pushBack _arma; publicVariable "unlockedMG";
+			unlockedRifles pushBack _arma; publicVariable "unlockedRifles";
+			if (count (getArray (configfile >> "CfgWeapons" >> _arma >> "muzzles")) == 2) then
+				{
+				unlockedGL pushBack _arma; publicVariable "unlockedGL";
+				};
 			}
 		else
 			{
-			if (_arma in srifles) then
+			if (_arma in mguns) then
 				{
-				unlockedSN pushBack _arma; publicVariable "unlockedSN";
+				unlockedMG pushBack _arma; publicVariable "unlockedMG";
 				}
 			else
 				{
-				if (_arma in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
+				if (_arma in srifles) then
 					{
-					unlockedAT pushBack _arma; publicVariable "unlockedAT";
+					unlockedSN pushBack _arma; publicVariable "unlockedSN";
 					}
 				else
 					{
-					if (_arma in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _arma; publicVariable "unlockedAA"};
+					if (_arma in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
+						{
+						unlockedAT pushBack _arma; publicVariable "unlockedAT";
+						}
+					else
+						{
+						if (_arma in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _arma; publicVariable "unlockedAA"};
+						};
 					};
 				};
 			};
+		_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _arma >> "displayName")];
+		_index = _arma call jn_fnc_arsenal_itemType;
+		[_index,_arma,-1] call jn_fnc_arsenal_addItem;
 		};
-	_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _arma >> "displayName")];
-	_index = _arma call jn_fnc_arsenal_itemType;
-	[_index,_arma,-1] call jn_fnc_arsenal_addItem;
 	};
-} forEach (_armas - mlaunchers);
+} forEach _armas;
 
 if (_check) then
 	{

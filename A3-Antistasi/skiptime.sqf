@@ -14,7 +14,7 @@ if (["DEF_HQ"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while yo
 _chequeo = false;
 _posHQ = getMarkerPos "respawn_guerrila";
 {
-if (_x distance _posHQ > 100) then {_chequeo = true};
+if ((_x distance _posHQ > 100) and (side _x == buenos)) then {_chequeo = true};
 } forEach (allPlayers - (entities "HeadlessClient_F"));
 
 if (_chequeo) exitWith {hint "All player must be in a 100mts radius from HQ to be able to rest"};

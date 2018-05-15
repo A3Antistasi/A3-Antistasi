@@ -458,6 +458,7 @@ else
 if (isDedicated) then {civPerc = 70; publicVariable "civPerc"};
 
 publicVariable "unlockedWeapons";
+publicVariable "initialRifles";
 publicVariable "unlockedRifles";
 publicVariable "unlockedItems";
 publicVariable "unlockedOptics";

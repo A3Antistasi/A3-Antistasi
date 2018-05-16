@@ -68,7 +68,10 @@ if (_part == "") then
 						[_unit] spawn respawn;
 						if (isPlayer _injurer) then
 							{
-							if ((_injurer != _unit) and (side _injurer == buenos) and (_unit getVariable ["GREENFORSpawn",false])) then {[_injurer,60] remoteExec ["castigo",_injurer]};
+							if ((_injurer != _unit) and (side _injurer == buenos) and (_unit getVariable ["GREENFORSpawn",false])) then
+								{
+								if !(_unit getVariable ["disfrazado",false]) then {[_injurer,60] remoteExec ["castigo",_injurer]};
+								};
 							};
 						}
 					else

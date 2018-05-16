@@ -31,6 +31,7 @@ if (_medico != _unit) then
 	_enemy = _medico findNearestEnemy _unit;
 	_smoked = [_medico,_unit,_enemy] call cubrirConHumo;
 	_medico stop false;
+	_medico forceSpeed -1;
 	_timeOut = time + 60;
 	sleep 5;
 	_medico doMove getPosATL _unit;
@@ -103,26 +104,20 @@ if (_medico != _unit) then
 					{
 					_medico playMove "amovpknlmstpsraswrfldnon";
 					_medico stop true;
-					//if (!_smoked) then {[_medico,_unit] call cubrirConHumo};
 					_unit stop true;
 					sleep 3;
-					_medico action ["HealSoldier",_unit];
+					_curado = [_unit,_medico] call actionRevive;
+					//_medico action ["HealSoldier",_unit];
 					_unit playMoveNow "";
-					/*
-					_unit setUnconscious false;
-					waitUntil {sleep 0.1; lifeState _unit != "INCAPACITATED"};
-					_unit setUnconscious true;
-					*/
+					if (_curado) then
+						{
+						if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};
+						};
 					sleep 10;
 					_medico stop false;
 					_unit stop false;
 					_unit dofollow leader group _unit;
 					_medico doFollow leader group _unit;
-					_curado = true;
-					if ((alive _medico) and (alive _unit) and (not((lifestate _medico == "INCAPACITATED")))) then
-						{
-						if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};
-						};
 					}
 				else
 					{
@@ -142,17 +137,16 @@ if (_medico != _unit) then
 				_medico stop true;
 				//if (!_smoked) then {[_medico,_unit] call cubrirConHumo};
 				_unit stop true;
-				_medico action ["HealSoldier",_unit];
+				_curado = [_unit,_medico] call actionRevive;
+				if (_curado) then
+					{
+					if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};
+					};
 				sleep 10;
 				_medico stop false;
 				_unit stop false;
 				_unit dofollow leader group _unit;
 				_medico doFollow leader group _unit;
-				_curado = true;
-				if ((alive _unit) and ([_medico] call canFight)) then
-					{
-					if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};
-					};
 				};
 			if ((animationState _medico == "amovpknlmstpsraswrfldnon") or (animationState _medico == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") or (animationState _medico == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2")) then {_medico switchMove ""};
 			}
@@ -161,17 +155,16 @@ if (_medico != _unit) then
 			_medico stop true;
 			//if (!_smoked) then {[_medico,_unit] call cubrirConHumo};
 			_unit stop true;
-			_medico action ["HealSoldier",_unit];
+			if !([_unit] call canFight) then {_curado = [_unit,_medico] call actionRevive} else {_medico action ["HealSoldier",_unit]; _curado = true};
+			if (_curado) then
+				{
+				if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};
+				};
 			sleep 10;
 			_medico stop false;
 			_unit stop false;
 			_unit dofollow leader group _unit;
 			_medico doFollow leader group _unit;
-			_curado = true;
-			if (([_medico] call canFight) and (alive _unit)) then
-				{
-				if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};
-				};
 			};
 		};
 	if (_medico == _unit getVariable ["ayudado",objNull]) then {_unit setVariable ["ayudado",objNull]};

@@ -1,6 +1,8 @@
 
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
+unitGetToCover = compile preProcessFileLineNumbers "AI\unitGetToCover.sqf";
+actionRevive = compile preProcessFileLineNumbers "Revive\actionRevive.sqf";
 ACEpvpReDress = compile preProcessFileLineNumbers "Municion\ACEpvpReDress.sqf";
 RHSdress = compile preProcessFileLineNumbers "Municion\RHSdress.sqf";
 milBuildings = compile preProcessFileLineNumbers "CREATE\milBuildings.sqf";

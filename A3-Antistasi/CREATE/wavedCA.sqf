@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_posorigen","_tipogrupo","_nombreorig","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiculos","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_grupoheli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_grupoVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_grupouav","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkdestino","_posdestino","_prestigeCSAT","_mrkOrigen","_aeropuerto","_nombredest","_tiempo","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_cuenta","_tsk1"];
+private ["_posorigen","_tipogrupo","_nombreorig","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiculos","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_grupoheli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_grupoVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_grupouav","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkdestino","_posdestino","_prestigeCSAT","_mrkOrigen","_aeropuerto","_nombredest","_tiempo","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_cuenta","_tsk1","_spawnPoint"];
 
 bigAttackInProgress = true;
 publicVariable "bigAttackInProgress";
@@ -222,10 +222,6 @@ while {(_waves != 0)} do
 
 	if ((_esMar) and (_firstWave)) then
 		{
-		//_ang = [_landpos,_posDestino] call BIS_fnc_dirTo;
-		//_ang = _ang - 180;
-		//_pos = _landPos getPos [1200,_ang];
-		//_pos = [_landPos, 800, 2000, 10, 2, 0.3, 0] call BIS_Fnc_findSafePos;
 		_pos = getMarkerPos ([seaAttackSpawn,_posDestino] call BIS_fnc_nearestPosition);
 		if (count _pos > 0) then
 			{
@@ -349,7 +345,7 @@ while {(_waves != 0)} do
 		_posOrigen set [2,300];
 		_tipoVeh = if (_lado == malos) then {vehNATOUAV} else {vehCSATUAV};
 
-		_uav = createVehicle [_tipoVeh, _posorigen, [], 0, "FLY"];
+		_uav = createVehicle [_tipoVeh, _posOrigen, [], 0, "FLY"];
 		_vehiculos pushBack _uav;
 		//[_uav,"UAV"] spawn inmuneConvoy;
 		[_uav,_mrkDestino,_lado] spawn VANTinfo;
@@ -406,27 +402,10 @@ while {(_waves != 0)} do
 		while {_cuenta <= _nVeh} do
 			{
 			_tipoVeh = selectRandom _vehPool;
-			/*if (not([_tipoVeh] call vehAvailable)) then
-				{
-				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTransportHelis} else {selectRandom vehCSATTransportHelis};
-				_vehPool = _vehPool - [_tipoVeh];
-				};*/
 			if (_cuenta == _nVeh) then
 				{
 				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTransportHelis} else {selectRandom vehCSATTransportHelis};
 				};
-			/*
-			_timeOut = 0;
-			_pos = _posorigen findEmptyPosition [0,100,_tipoveh];
-			while {_timeOut < 60} do
-				{
-				if (count _pos > 0) exitWith {};
-				_timeOut = _timeOut + 1;
-				_pos = _posorigen findEmptyPosition [0,100,_tipoveh];
-				sleep 1;
-				};
-			if (count _pos == 0) then {_pos = _posorigen};
-			*/
 			_vehicle=[_pos, _ang + 90,_tipoveh, _lado] call bis_fnc_spawnvehicle;
 			_veh = _vehicle select 0;
 			_vehCrew = _vehicle select 1;
@@ -463,79 +442,51 @@ while {(_waves != 0)} do
 					deleteVehicle _x;
 					};
 				} forEach units _grupo;
-				if (/*(_mrkDestino in aeropuertos) or*/ !(_veh isKindOf "Helicopter")) then
+				if !(_veh isKindOf "Helicopter") then
 					{
 					[_veh,_grupo,_mrkDestino,_mrkOrigen] spawn airdrop;
 					}
 				else
 					{
-					_proceder = true;
-					/*
-					if (_esSDK) then
+					_pos = _posDestino getPos [(random 500) + 300, random 360];
+					_landPos = [_posDestino, 200, 350, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
+					if !(_landPos isEqualTo [0,0,0]) then
 						{
-						if (((count(garrison getVariable _mrkDestino)) < 10) and (_tipoVeh in vehFastRope)) then
-							{
-							_proceder = false;
-							[_veh,_grupo,_posDestino,_posOrigen,_grupoVeh] spawn fastrope;
-							};
-						};
-					*/
-					if (_proceder) then
+						_landPos set [2, 0];
+						_pad = createVehicle ["Land_HelipadEmpty_F", _landpos, [], 0, "NONE"];
+						_vehiculos pushBack _pad;
+						_wp0 = _grupoVeh addWaypoint [_landpos, 0];
+						_wp0 setWaypointType "TR UNLOAD";
+						_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';[vehicle this] call smokeCoverAuto"];
+						_wp0 setWaypointBehaviour "CARELESS";
+						_wp3 = _grupo addWaypoint [_landpos, 0];
+						_wp3 setWaypointType "GETOUT";
+						//_grupo setVariable ["mrkAttack",_mrkDestino];
+						//_wp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
+						_wp0 synchronizeWaypoint [_wp3];
+						_wp4 = _grupo addWaypoint [_posDestino, 1];
+						_wp4 setWaypointType "SAD";
+						//_wp4 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
+						//_wp4 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
+						_wp4 = _grupo addWaypoint [_posDestino, 1];
+						//_wp4 setWaypointType "SAD";
+						_wp2 = _grupoVeh addWaypoint [_posOrigen, 1];
+						_wp2 setWaypointType "MOVE";
+						_wp2 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
+						[_grupoVeh,1] setWaypointBehaviour "AWARE";
+						}
+					else
 						{
-						//{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _grupoVeh;
-						_pos = _posDestino getPos [(random 500) + 300, random 360];
-						/*_landPos = _pos findEmptyPosition [0,100,_tipoveh];
-						if (count _landPos > 0) then
+						{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _grupoVeh;
+						if ((_tipoVeh in vehFastRope) and ((count(garrison getVariable _mrkDestino)) < 10)) then
 							{
-							_isFlatEmpty = !(_landPos isFlatEmpty  [1, -1, 0.1, 15, -1, false, objNull] isEqualTo []);
-							if (!_isFlatEmpty) then
-								{
-								_landPos = [];
-								};
-							};
-
-						if (count _landPos > 0) then
-							*/
-						//here! magic!!!
-						_landPos = [_posDestino, 200, 350, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
-						if !(_landPos isEqualTo [0,0,0]) then
-							{
-							_landPos set [2, 0];
-							_pad = createVehicle ["Land_HelipadEmpty_F", _landpos, [], 0, "NONE"];
-							_vehiculos pushBack _pad;
-							_wp0 = _grupoVeh addWaypoint [_landpos, 0];
-							_wp0 setWaypointType "TR UNLOAD";
-							_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';[vehicle this] call smokeCoverAuto"];
-							_wp0 setWaypointBehaviour "CARELESS";
-							_wp3 = _grupo addWaypoint [_landpos, 0];
-							_wp3 setWaypointType "GETOUT";
 							//_grupo setVariable ["mrkAttack",_mrkDestino];
-							//_wp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
-							_wp0 synchronizeWaypoint [_wp3];
-							_wp4 = _grupo addWaypoint [_posDestino, 1];
-							_wp4 setWaypointType "SAD";
-							//_wp4 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
-							//_wp4 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
-							_wp4 = _grupo addWaypoint [_posDestino, 1];
-							//_wp4 setWaypointType "SAD";
-							_wp2 = _grupoVeh addWaypoint [_posOrigen, 1];
-							_wp2 setWaypointType "MOVE";
-							_wp2 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
-							[_grupoVeh,1] setWaypointBehaviour "AWARE";
+							[_veh,_grupo,_posDestino,_posOrigen,_grupoVeh] spawn fastrope;
 							}
 						else
 							{
-							{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _grupoVeh;
-							if ((_tipoVeh in vehFastRope) and ((count(garrison getVariable _mrkDestino)) < 10)) then
-								{
-								//_grupo setVariable ["mrkAttack",_mrkDestino];
-								[_veh,_grupo,_posDestino,_posOrigen,_grupoVeh] spawn fastrope;
-								}
-							else
-								{
-								[_veh,_grupo,_mrkDestino,_mrkOrigen] spawn airdrop;
-								}
-							};
+							[_veh,_grupo,_mrkDestino,_mrkOrigen] spawn airdrop;
+							}
 						};
 					};
 				};

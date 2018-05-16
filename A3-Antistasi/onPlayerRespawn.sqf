@@ -124,6 +124,31 @@ if ((side player == buenos) or (side player == civilian)) then
 			};
 		_control
 		}];
+	player addEventHandler ["InventoryClosed",
+		{
+		_control = false;
+		_uniform = uniform player;
+		_typeSoldier = getText (configfile >> "CfgWeapons" >> _uniform >> "ItemInfo" >> "uniformClass");
+		_sideType = getNumber (configfile >> "CfgVehicles" >> _typeSoldier >> "side");
+		if ((_sideType == 1) or (_sideType == 0) and (_uniform != "")) then
+			{
+			if !(player getVariable ["disfrazado",false]) then
+				{
+				hint "You are wearing an enemy uniform, this will make the AI attack you. Beware!";
+				player setVariable ["disfrazado",true];
+				player addRating (-1*(2001 + rating player));
+				};
+			}
+		else
+			{
+			if (player getVariable ["disfrazado",false]) then
+				{
+				hint "You removed your enemy uniform";
+				player addRating (rating player * -1);
+				};
+			};
+		_control
+		}];
 	player addEventHandler ["Fired",
 			{
 			_tipo = _this select 1;

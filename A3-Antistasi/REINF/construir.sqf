@@ -213,7 +213,7 @@ if (!_isPlayer) then
 else
 	{
 	_tiempo = _tiempo / 2;
-	hint "Walk to the position which you selected to build";
+	hint "Walk to the selected position to start building";
 	};
 
 waitUntil {sleep 1;(time > _timeOut) or (_ingeniero distance _posicion < 3)};
@@ -242,14 +242,14 @@ if (!_isPlayer) then
 	};
 
 //_animation = selectRandom ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPknlMstpSnonWnonDnon_medic0","AinvPknlMstpSnonWnonDnon_medic1","AinvPknlMstpSnonWnonDnon_medic2"];
-_ingeniero playMoveNow selectRandom ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPknlMstpSnonWnonDnon_medic0","AinvPknlMstpSnonWnonDnon_medic1","AinvPknlMstpSnonWnonDnon_medic2"];
+_ingeniero playMoveNow selectRandom medicAnims;
 
 _ingeniero addEventHandler ["AnimDone",
 	{
 	private _ingeniero = _this select 0;
 	if (([_ingeniero] call canFight) and !(_ingeniero getVariable ["ayudando",false]) and !(_ingeniero getVariable ["rearming",false]) and (_ingeniero getVariable ["constructing",false])) then
 		{
-		_ingeniero playMoveNow selectRandom ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPknlMstpSnonWnonDnon_medic0","AinvPknlMstpSnonWnonDnon_medic1","AinvPknlMstpSnonWnonDnon_medic2"];
+		_ingeniero playMoveNow selectRandom medicAnims;
 		}
 	else
 		{

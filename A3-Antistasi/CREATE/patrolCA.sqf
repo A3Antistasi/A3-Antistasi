@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_marcador","_esMarcador","_exit","_radio","_base","_aeropuerto","_posDestino","_soldados","_vehiculos","_grupos","_roads","_posorigen","_tam","_tipoVeh","_vehicle","_veh","_vehCrew","_grupoVeh","_landPos","_tipoGrupo","_grupo","_soldado","_threatEval","_pos","_timeOut","_lado","_cuenta","_esMarcador","_inWaves","_posOrigen","_typeOfAttack","_cercano","_aeropuertos","_sitio","_enemigos","_plane","_amigos","_tipo","_esSDK","_weapons","_nombreDest","_vehPool","_super"];
+private ["_marcador","_esMarcador","_exit","_radio","_base","_aeropuerto","_posDestino","_soldados","_vehiculos","_grupos","_roads","_posOrigen","_tam","_tipoVeh","_vehicle","_veh","_vehCrew","_grupoVeh","_landPos","_tipoGrupo","_grupo","_soldado","_threatEval","_pos","_timeOut","_lado","_cuenta","_esMarcador","_inWaves","_posOrigen","_typeOfAttack","_cercano","_aeropuertos","_sitio","_enemigos","_plane","_amigos","_tipo","_esSDK","_weapons","_nombreDest","_vehPool","_super","_spawnPoint"];
 
 _marcador = _this select 0;
 _aeropuerto = _this select 1;

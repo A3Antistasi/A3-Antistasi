@@ -1,10 +1,19 @@
-private ["_unit","_part","_dam","_injurer"];
+private ["_unit","_part","_dam","_injurer","_grupo"];
 _dam = _this select 2;
 _injurer = _this select 3;
 if (side _injurer == buenos) then
 	{
 	_unit = _this select 0;
 	_part = _this select 1;
+	_grupo = group _unit;
+	if (time > _grupo getVariable ["movedToCover",0]) then
+		{
+		if ((behaviour _grupo != "COMBAT") and (behaviour _grupo != "STEALTH")) then
+			{
+			_grupo setVariable ["movedToCover",time + 120];
+			{[_x] call unitGetToCover} forEach units _grupo;
+			};
+		};
 	if (_part == "") then
 		{
 		if (_dam >= 1) then

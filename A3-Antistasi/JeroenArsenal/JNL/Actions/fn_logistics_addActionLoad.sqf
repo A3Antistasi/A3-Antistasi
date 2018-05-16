@@ -36,39 +36,44 @@ _loadActionID = _object addAction [
 			};
 		} forEach vehicles;
 
-
+		_exit = false;
 		if(isNull _nearestVehicle) then
 		{
 			hint 'Bring vehicle closer';
-		}
-		else
-		{
-			private _nodeID = [_nearestVehicle, _cargo] call jn_fnc_logistics_canLoad;
-			switch (_nodeID) do {
-				case -4:
-				{
-					hint 'Can not load cargo: passengers have occupied cargo space!';
-				};
-				case -3:
-				{
-					hint 'This vehicle can not carry this cargo!';
-				};
-			    case -2:
-			    {
-			    	hint 'There is no space for this cargo!'
-			    };
-			    case -1:
-			    {
-			    	hint 'Can not load this type of cargo!';
-			    };
-			    default
-			    {
-			    	//[_nearestVehicle, _cargo, true] call jn_fnc_logistics_load;
-			    	//Executing it on the server works better!
-			    	[_nearestVehicle, _cargo, true, true] remoteexec ["jn_fnc_logistics_load", 2];
-			    };
-			};
+			_exit = true;
 		};
+		if (_cargo isKindOf "Man") then
+			{
+			if (([_cargo] call canFight) or !(isNull (_cargo getVariable ["ayudado",objNull])) or !(isNull attachedTo _cargo)) then
+				{
+				hint format ["%1 is being helped or no longer needs your help",name _cargo];
+				_exit = true;
+				};
+			};
+		if (_exit) exitWith {};
+		private _nodeID = [_nearestVehicle, _cargo] call jn_fnc_logistics_canLoad;
+		switch (_nodeID) do {
+			case -4:
+			{
+				hint 'Can not load cargo: passengers have occupied cargo space!';
+			};
+			case -3:
+			{
+				hint 'This vehicle can not carry this cargo!';
+			};
+		    case -2:
+		    {
+		   	hint 'There is no space for this cargo!'
+		    };
+		    case -1:
+		    {
+		   	hint 'Can not load this type of cargo!';
+		    };
+		    default
+		    {
+		   	[_nearestVehicle, _cargo, true, true] remoteexec ["jn_fnc_logistics_load", 2];
+		    };
+			};
 	},
 	nil, 1, true, false, "", "isnull attachedTo _target && vehicle player == player;", 3.5, false, ""
 ];

@@ -18,11 +18,9 @@ if ((([objNull, "VIEW"] checkVisibility [eyePos _enemy, eyePos _unit]) > 0) or (
 			};
 		};
 	} forEach _units;
-	//hint format ["No curo: intento %1",distanciaSPWN]; distanciaSPWN = distanciaSPWN + 1;
 	}
 else
 	{
-	//if (count _this == 1) then {_units = units group _unit} else {_units = units (_this select 1)};
 	{
 	if (!isPlayer _x) then
 		{

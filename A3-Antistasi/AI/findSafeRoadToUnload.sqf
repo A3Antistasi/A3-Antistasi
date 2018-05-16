@@ -1,4 +1,4 @@
-private ["_destino","_origen","_tam","_dif","_roads","_road","_dist","_result"];
+private ["_destino","_origen","_tam","_dif","_roads","_road","_dist","_result","_safe","_blackList","_roadsTmp","_ok"];
 
 _destino = _this select 0;
 _origen = _this select 1;

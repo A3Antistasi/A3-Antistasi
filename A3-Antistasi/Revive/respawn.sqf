@@ -11,19 +11,7 @@ _unit setVariable ["respawning",true];
 //titleText ["", "BLACK IN", 0];
 if (!isNil "respawnMenu") then {(findDisplay 46) displayRemoveEventHandler ["KeyDown", respawnMenu]};
 if (isMultiplayer) exitWith
-	{/*
-	if (!isNil "deadCam") then
-		{
-		if (!isNull deadCam) then
-			{
-			deadCam camSetPos position player;
-			deadCam camCommit 1;
-			sleep 1;
-			deadCam cameraEffect ["terminate", "BACK"];
-			camDestroy deadCam;
-			};
-		};
-	*/
+	{
 	[_unit,false] remoteExec ["setCaptive"];
 	//_unit setVariable ["inconsciente",false,true];
 	_unit setVariable ["respawning",false];
@@ -38,6 +26,9 @@ _unit setVariable ["ayudando",nil];
 _unit setVariable ["fatalWound",false];
 _unit setDamage 0;
 _unit setVariable ["compromised",0];
+_unit setVariable ["disfrazado",false];
+
+if (rating _unit < 0) then {_unit addRating (rating _unit * -1)};
 _nul = [0,-1,getPos _unit] remoteExec ["citySupportChange",2];
 
 _hr = round ((server getVariable "hr") * 0.1);

@@ -2,7 +2,7 @@ private ["_chequeo","_pos","_veh","_newPos","_coste"];
 
 _chequeo = false;
 {
-	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 500) and (not(captive _x))) exitWith {_chequeo = true};
+	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 500) and ([_x] call canFight)) exitWith {_chequeo = true};
 } forEach allUnits;
 
 if (_chequeo) exitWith {Hint "You cannot buy vehicles with enemies nearby"};

@@ -5,9 +5,9 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.0.0";
+antistasiVersion = "v 1.0.1";
 
-servidoresOficiales = ["Antistasi Official Altis","Antistasi Official"];
+servidoresOficiales = ["A3-Antistasi Official EU 1","A3-Antistasi Official EU 2"];
 
 debug = false;//debug variable, not useful for everything..
 
@@ -378,7 +378,7 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
 		"ACE_acc_pointer_green",
 		"ACE_HandFlare_White",
 		"ACE_HandFlare_Red"
-	];
+	]; publicVariable "aceItems";
 
 	aceBasicMedItems = [
 		"ACE_fieldDressing",
@@ -387,7 +387,7 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
 		"ACE_epinephrine",
 		"ACE_morphine",
 		"ACE_bodyBag"
-	];
+	]; publicVariable "aceBasicMedItems";
 
 	aceAdvMedItems = [
 		"ACE_elasticBandage",
@@ -405,7 +405,7 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
 		"ACE_tourniquet",
 		"ACE_adenosine",
 		"ACE_atropine"
-	];
+	]; publicVariable "aceAdvMedItems";
 
 
 if (!isNil "ace_common_fnc_isModLoaded") then {
@@ -489,5 +489,6 @@ publicVariable "unlockedGL";
 publicVariable "unlockedSN";
 publicVariable "unlockedAT";
 publicVariable "unlockedAA";
+publicVariable "initialRifles";
 
 if (isMultiplayer) then {[[petros,"hint","Variables Init Completed"],"commsMP"] call BIS_fnc_MP;};

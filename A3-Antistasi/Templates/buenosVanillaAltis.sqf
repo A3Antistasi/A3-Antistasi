@@ -50,7 +50,7 @@ AAStaticSDKB = "I_AA_01_weapon_F";
 MortStaticSDKB = "I_Mortar_01_weapon_F";
 soporteStaticSDKB3 = "I_Mortar_01_support_F";
 
-civCar = "C_Offroad_02_unarmed_F";
+civCar = "C_Offroad_01_F";
 civTruck = "C_Van_01_transport_F";
 civHeli = "C_Heli_Light_01_civil_F";
 civBoat = "C_Boat_Transport_02_F";

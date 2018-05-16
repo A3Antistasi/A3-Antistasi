@@ -1443,7 +1443,7 @@ class radio_comm 		{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Vehicle or Static gun you're looking at will be garaged, interact with Flag to retrive";
+			tooltip = "Vehicle or Static gun you're looking at will be garaged, interact with Flag to retrieve";
 			action = "closeDialog 0;if (player != stavros) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
 		};
 		class 8slots_R3: RscButton

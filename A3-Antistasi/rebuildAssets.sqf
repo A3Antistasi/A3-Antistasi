@@ -64,11 +64,11 @@ if (count _antenaMuerta == 0) then
 else
 	{
 	hint "Radio Tower rebuilt";
-	antenasMuertas = antenasMuertas - [_antenaMuerta];
+	antenasMuertas = antenasMuertas - [_antenaMuerta]; publicVariable "antenasMuertas";
 	_antena = nearestBuilding _antenaMuerta;
 	if (isMultiplayer) then {[_antena,true] remoteExec ["hideObjectGlobal",2]} else {_antena hideObject true};
 	_antena = createVehicle ["Land_Communication_F", _antenaMuerta, [], 0, "NONE"];
-	antenas pushBack _antena;
+	antenas pushBack _antena; publicVariable "antenas";
 	{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,true] spawn apagon}} forEach ciudades;
 	_mrkfin = createMarker [format ["Ant%1", count antenas], _antenaMuerta];
 	_mrkfin setMarkerShape "ICON";

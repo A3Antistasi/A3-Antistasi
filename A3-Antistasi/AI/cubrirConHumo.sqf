@@ -1,6 +1,7 @@
 private ["_unit","_muzzle","_enemy","_return"];
 
 _unit = _this select 0;
+if !([_unit] call canFight) exitWith {};
 _ayudado = _this select 1;
 _return = false;
 if (time < _unit getVariable ["smokeUsed",time - 1]) exitWith {_return};

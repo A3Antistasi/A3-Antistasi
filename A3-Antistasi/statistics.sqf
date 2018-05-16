@@ -21,7 +21,14 @@ else
 		}
 	else
 		{
-		_texto = format ["<t size='0.55'>" + "Rank: %5 | HR: %1 | Your Money: %6 € | %11 Money: %2 € | Airstrikes: %7 | %9 Aggr: %3 | %10 Aggr: %4 | War Level: %8 | Undercover Mode:", server getVariable "hr", server getVariable "resourcesFIA", floor prestigeNATO, floor prestigeCSAT,rank player, player getVariable "dinero",floor bombRuns,tierWar,nameMalos,nameMuyMalos,nameBuenos];
+		if ([(player getVariable ["owner",player])] call isMember) then
+			{
+			_texto = format ["<t size='0.55'>" + "Rank: %5 | HR: %1 | Your Money: %6 € | %11 Money: %2 € | Airstrikes: %7 | %9 Aggr: %3 | %10 Aggr: %4 | War Level: %8 | Undercover Mode:", server getVariable "hr", server getVariable "resourcesFIA", floor prestigeNATO, floor prestigeCSAT,rank player, player getVariable "dinero",floor bombRuns,tierWar,nameMalos,nameMuyMalos,nameBuenos];
+			}
+		else
+			{
+			_texto = format ["<t size='0.55'>" + "Rank: %1 | Your Money: %2 € | %3 Money: %4 € | %5 Aggr: %6 | %7 Aggr: %8 | War Level: %7 | Undercover Mode:",rank player,player getVariable "dinero",nameBuenos,server getVariable "resourcesFIA", nameMalos, floor prestigeNATO, nameMuyMalos,floor prestigeCSAT,tierWar];
+			};
 		};
 	};
 

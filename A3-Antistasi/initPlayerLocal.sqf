@@ -126,15 +126,30 @@ if (side player != buenos) exitWith
 			if ({(side _x != buenos) and (side _x != civilian)} count playableUnits > {(side _x == buenos) or (side _x == civilian)} count playableUnits) then {["noPvP",false,1,false,false] call BIS_fnc_endMission}
 			};
 		};
-	if (side player == malos) then {player setVariable ["BLUFORSpawn",true,true]} else {player setVariable ["OPFORSpawn",true,true]};
-	if (hayACE) then {player addItemToUniform "ACE_EarPlugs"};
+	if (side player == malos) then
+		{
+		player setVariable ["BLUFORSpawn",true,true];
+		if (activeUSAF) then {[player] call RHSdress};
+		}
+	else
+		{
+		player setVariable ["OPFORSpawn",true,true]
+		};
+	if (hayACE) then {[] call ACEpvpReDress};
 	"respawn_guerrila" setMarkerAlphaLocal 0;
 	player addEventHandler ["GetInMan",
 		{
 		private ["_unit","_veh"];
 		_unit = _this select 0;
 		_veh = _this select 2;
-		if (_veh != moto) then {moveOut player; hint "You are only allowed to use your Quadbike"};
+		if (_veh != _moto) then
+			{
+			if !(typeOf _veh in vehNATONormal) then
+				{
+				moveOut player;
+				hint format ["You are only allowed to use your Quadbike or %1 non armed vehicles",nameMalos];
+				};
+			};
 		}];
 	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,nameMalos]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 	waituntil {!isnull (finddisplay 46)};
@@ -180,7 +195,7 @@ rezagados = creategroup buenos;
 player setUnitTrait ["camouflageCoef",0.8];
 player setUnitTrait ["audibleCoef",0.8];
 
-if (activeGREF) then {_nul = [player] execVM "Municion\RHSdress.sqf"};
+if (activeGREF) then {[player] call RHSdress};
 player setvariable ["compromised",0];
 player addEventHandler ["FIRED",
 	{
@@ -306,16 +321,19 @@ player addEventHandler ["GetInMan",
 	_exit = false;
 	if (isMultiplayer) then
 		{
-		_owner = _veh getVariable "duenyo";
-		if (!isNil "_owner") then
+		if !([player] call isMember) then
 			{
-			if (_owner isEqualType "") then
+			_owner = _veh getVariable "duenyo";
+			if (!isNil "_owner") then
 				{
-				if ({getPlayerUID _x == _owner} count (units group player) == 0) then
+				if (_owner isEqualType "") then
 					{
-					hint "You cannot board other player vehicle if you are not in the same group";
-					moveOut _unit;
-					_exit = true;
+					if ({getPlayerUID _x == _owner} count (units group player) == 0) then
+						{
+						hint "You cannot board other player vehicle if you are not in the same group";
+						moveOut _unit;
+						_exit = true;
+						};
 					};
 				};
 			};

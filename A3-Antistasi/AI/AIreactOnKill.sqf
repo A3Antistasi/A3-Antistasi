@@ -40,8 +40,15 @@ if (fleeing _x) then
 	}
 else
 	{
-	//_x allowFleeing (0.5-(_x skill "courage") + (0.2*({(_x getVariable ["surrendered",false]) or (!alive _x)} count (units group _x))));
-	if (random 1 < 0.5) then {if (count units _grupo > 0) then {_x allowFleeing (1 -(_x skill "courage") + (({!([_x] call canFight)} count units _grupo)/(count units _grupo)))}};
+	if ([_x] call canFight) then
+		{
+		_enemy = _x findNearestEnemy _x;
+		if (!isNull _enemy) then
+			{
+			if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x] spawn cubrirConHumo};
+			};
+		if (random 1 < 0.5) then {if (count units _grupo > 0) then {_x allowFleeing (1 -(_x skill "courage") + (({!([_x] call canFight)} count units _grupo)/(count units _grupo)))}};
+		};
 	};
 sleep 1 + (random 1);
 } forEach units _grupo;

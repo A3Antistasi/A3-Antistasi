@@ -42,7 +42,7 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 		if (_sitio != "") then
 			{
 			_reinfPlaces pushBack _sitio;
-			[_sitio,_aeropuerto,_numero,_lado] call patrolReinf;
+			[[_sitio,_aeropuerto,_numero,_lado],"patrolReinf"] call scheduler;
 			};
 		};
 	};

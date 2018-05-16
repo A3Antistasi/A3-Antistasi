@@ -273,13 +273,13 @@ if ((count _objetivosFinal > 0) and (count _faciles < 3)) then
 				{
 				if (_destino in aeropuertos) then
 					{
-					if ({lados getVariable [_x,sideUnknown] == muyMalos} count aeropuertos == 1) then {_waves = 0} else {_waves = 1 + round (random 2)};
+					_waves = 2 + round (random tierWar);
 					}
 				else
 					{
 					if (!(_destino in ciudades)) then
 						{
-						_waves = 1 + round (random ((tierWar - 3)/2));
+						_waves = 1 + round (random (tierWar)/2);
 						};
 					};
 				}
@@ -306,7 +306,7 @@ if (_waves == 1) then
 	{
 	{[[_x select 0,_x select 1,"",false],"patrolCA"] remoteExec ["scheduler",2]} forEach _faciles;
 	};
-
+/*
 if ((not(["CONVOY"] call BIS_fnc_taskExists)) and (_waves == 1)) then
 	{
 	if ((count _objetivoFinal == 0) and (count _faciles < 2)) then

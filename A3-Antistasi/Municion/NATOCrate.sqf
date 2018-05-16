@@ -80,8 +80,8 @@ else
 	{
 	if (round random 100 < 50) then
 		{
-		_crate addBackpackCargoGlobal ["B_UAV_01_backpack_F",1];
-		_crate addItemCargoGlobal ["B_UavTerminal",1];
+		_crate addBackpackCargoGlobal ["I_UAV_01_backpack_F",1];
+		_crate addItemCargoGlobal ["I_UavTerminal",1];
 		}
 	else
 		{

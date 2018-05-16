@@ -16,21 +16,22 @@ if(typeName (_this select 0) isEqualTo "SCALAR")then{//[_index, _item] and [_ind
 	{
 		private _item = _x select 0;
 		private _amount = _x select 1;
+		if (_item isEqualType "") then
+			{
+			if !(_item isEqualTo "")then{
 
-		if !(_item isEqualTo "")then{
+				if(_index == -1)exitWith{["ERROR in additemarsenal: %1", _this] call BIS_fnc_error};
+				if(_index == IDC_RSCDISPLAYARSENAL_TAB_CARGOMAG)then{_index = IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL};
 
-			if(_index == -1)exitWith{["ERROR in additemarsenal: %1", _this] call BIS_fnc_error};
-			if(_index == IDC_RSCDISPLAYARSENAL_TAB_CARGOMAG)then{_index = IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL};
+				//TFAR fix
+				private _radioName = getText(configfile >> "CfgWeapons" >> _item >> "tf_parent");
+				if!(_radioName isEqualTo "")then{_item = _radioName};
 
-			//TFAR fix
-			private _radioName = getText(configfile >> "CfgWeapons" >> _item >> "tf_parent");
-			if!(_radioName isEqualTo "")then{_item = _radioName};
-
-			//update
-			private _playersInArsenal = +(server getVariable ["jna_playersInArsenal",[]]);
-			if!(0 in _playersInArsenal)then{_playersInArsenal pushBackUnique 2;};
-			["UpdateItemAdd",[_index, _item, _amount,true]] remoteExecCall ["jn_fnc_arsenal",_playersInArsenal];
-
+				//update
+				private _playersInArsenal = +(server getVariable ["jna_playersInArsenal",[]]);
+				if!(0 in _playersInArsenal)then{_playersInArsenal pushBackUnique 2;};
+				["UpdateItemAdd",[_index, _item, _amount,true]] remoteExecCall ["jn_fnc_arsenal",_playersInArsenal];
+			};
 		};
 	} forEach _x;
 }foreach _array;

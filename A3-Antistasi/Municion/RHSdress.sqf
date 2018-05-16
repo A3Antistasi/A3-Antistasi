@@ -9,21 +9,15 @@ switch _tipo do
 	case "I_G_medic_F": {_loadout = "rhsgref_ins_g_medic"};
 	case "I_G_engineer_F": {_loadout = "rhsgref_ins_g_engineer"};
 	case "I_G_Soldier_GL_F": {_loadout = "rhsgref_nat_pmil_grenadier"};
+	case "B_recon_TL_F": {_loadout = "rhsusf_usmc_recon_marpat_d_teamleader_lite"};
+	case "B_recon_M_F": {_loadOut = "rhsusf_usmc_recon_marpat_d_marksman_lite"};
+	case "B_recon_medic_F": {_loadOut = "rhsusf_navy_sarc_d_fast"};
+	case "B_recon_LAT_F": {_loadOut = "rhsusf_usmc_recon_marpat_d_rifleman_at_lite"};
+	case "B_recon_F": {_loadOut = "rhsusf_army_ucp_grenadier"};
+	case "B_recon_JTAC_F": {_loadOut = "rhsusf_army_ucp_rifleman_m590"};
+	case "B_recon_exp_F": {_loadOut = "rhsusf_army_ucp_engineer"};
+	case "B_Patrol_Soldier_MG_F": {_loadOut = "rhsusf_usmc_recon_marpat_d_machinegunner"};
 	};
 _unit setUnitLoadout _loadout;
-/*
-//_tipo = typeOf _unit;
-//_emptyUniform = false;
-removeVest _unit;
-_unit addVest "rhs_6sh46";
-_rifleFinal = unlockedRifles call BIS_fnc_selectRandom;
-if (_rifleFinal != primaryWeapon _unit) then
-	{
-	_magazines = getArray (configFile / "CfgWeapons" / (primaryWeapon _unit) / "magazines");
-	{_unit removeMagazines _x} forEach _magazines;
-	_unit removeWeaponGlobal (primaryWeapon _unit);
-	[_unit, _rifleFinal, 6, 0] call BIS_fnc_addWeapon;
-	};
-*/
 
 _unit selectWeapon (primaryWeapon _unit);

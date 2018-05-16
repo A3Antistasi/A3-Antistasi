@@ -121,7 +121,7 @@ _mrkfin setMarkerColorLocal "ColorRed";
 
 if (_tipoArty == "BARRAGE") then
 	{
-	_mrkfin setMarkerText "Atry Barrage Begin";
+	_mrkfin setMarkerTextLocal "Atry Barrage Begin";
 	posicionTel = [];
 
 	hint "Select the position to finish the barrage";
@@ -135,7 +135,7 @@ if (_tipoArty == "BARRAGE") then
 	_posicionTel2 = posicionTel;
 	};
 
-if ((_tipoArty == "BARRAGE") and (isNil "_posicionTel2")) exitWith {deleteMarker _mrkfin};
+if ((_tipoArty == "BARRAGE") and (isNil "_posicionTel2")) exitWith {deleteMarkerLocal _mrkfin};
 
 if (_tipoArty != "BARRAGE") then
 	{
@@ -151,11 +151,11 @@ if (_tipoArty != "BARRAGE") then
 	waitUntil {!dialog or (!isNil "rondas")};
 	};
 
-if ((isNil "rondas") and (_tipoArty != "BARRAGE")) exitWith {deleteMarker _mrkfin};
+if ((isNil "rondas") and (_tipoArty != "BARRAGE")) exitWith {deleteMarkerLocal _mrkfin};
 
 if (_tipoArty != "BARRAGE") then
 	{
-	_mrkfin setMarkerText "Arty Strike";
+	_mrkfin setMarkerTextLocal "Arty Strike";
 	_rounds = rondas;
 	_roundsMax = _rounds;
 	rondas = nil;

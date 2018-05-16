@@ -199,5 +199,6 @@ if ((side player == buenos) or (side player == civilian)) then
 else
 	{
 	if (side player == malos) then {_viejo setVariable ["BLUFORSpawn",nil,true];_nuevo setVariable ["BLUFORSpawn",true,true]};
-	if (hayACE) then {player addItemToUniform "ACE_EarPlugs"};
+	if (activeUSAF) then {[player] call RHSdress};
+	if (hayACE) then {[] call ACEpvpReDress};
 	};

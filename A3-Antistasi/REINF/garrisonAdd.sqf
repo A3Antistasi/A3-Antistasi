@@ -32,7 +32,7 @@ _posicion = getMarkerPos _marcador;
 if (surfaceIsWater _posicion) exitWith {hint "This Garrison is still updating, please try again in a few seconds"};
 _chequeo = false;
 {
-	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance _posicion < 500) and (not(captive _x))) exitWith {_chequeo = true};
+	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance _posicion < 500) and ([_x] call canFight)) exitWith {_chequeo = true};
 } forEach allUnits;
 
 if (_chequeo) exitWith {Hint "You cannot Recruit Garrison Units with enemies near the zone"};

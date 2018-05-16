@@ -190,6 +190,7 @@ fn_SetStat =
 			    };
 			antenasmuertas = _varvalue;
 			publicVariable "antenas";
+			publicVariable "antenasMuertas";
 			};
 		if(_varname == 'prestigeOPFOR') then
 			{

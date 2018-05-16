@@ -34,6 +34,14 @@ if (!_pool) then
 
 if (_exit) exitWith {hint "You are not owner of this vehicle and you cannot garage it"};
 
+if (_tipoVeh isKindOf "Air") then
+	{
+	_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == buenos) and (player inArea _x)};
+	if (count _aeropuertos == 0) then {_exit = true};
+	};
+
+if (_exit) exitWith {hint format ["You cannot garage an air vehicle while you are not in an airport surroinding area which belongs to %1",nameBuenos]};
+
 if (_veh in staticsToSave) then {staticsToSave = staticsToSave - [_veh]; publicVariable "staticsToSave"};
 
 [_veh,true] call vaciar;

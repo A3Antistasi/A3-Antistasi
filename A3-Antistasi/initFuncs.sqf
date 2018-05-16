@@ -1,6 +1,8 @@
 
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
+ACEpvpReDress = compile preProcessFileLineNumbers "Municion\ACEpvpReDress.sqf";
+RHSdress = compile preProcessFileLineNumbers "Municion\RHSdress.sqf";
 milBuildings = compile preProcessFileLineNumbers "CREATE\milBuildings.sqf";
 findNearestGoodRoad = compile preProcessFileLineNumbers "findNearestGoodRoad.sqf";
 underAttack = compile preProcessFileLineNumbers "Missions\underAttack.sqf";

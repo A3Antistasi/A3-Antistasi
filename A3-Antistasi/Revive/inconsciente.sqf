@@ -11,7 +11,7 @@ _inPlayerGroup = false;
 if (isPlayer _unit) then
 	{
 	_isPlayer = true;
-	if (!isMultiplayer) then {_bleedOut = time + 120};//50
+	if (!isMultiplayer) then {_bleedOut = time + 600};//50
 	_unit spawn
 		{
 		sleep 5;
@@ -172,6 +172,7 @@ if (time > _bleedOut) exitWith
 	{
 	if (_isPlayer) then
 		{
+		/*
 		if (isNull (_unit getVariable ["ayudado",objNull])) then
 			{
 			_ayuda = [_unit] call pedirAyuda;
@@ -192,6 +193,8 @@ if (time > _bleedOut) exitWith
 			_unit setUnconscious false;
 			_unit playMoveNow "AmovPpneMstpSnonWnonDnon_healed";
 			};
+		*/
+		[_unit] call respawn
 		}
 	else
 		{

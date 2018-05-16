@@ -8,7 +8,7 @@ if (side _injurer == buenos) then
 	_grupo = group _unit;
 	if (time > _grupo getVariable ["movedToCover",0]) then
 		{
-		if ((behaviour _grupo != "COMBAT") and (behaviour _grupo != "STEALTH")) then
+		if ((behaviour leader _grupo != "COMBAT") and (behaviour leader _grupo != "STEALTH")) then
 			{
 			_grupo setVariable ["movedToCover",time + 120];
 			{[_x] call unitGetToCover} forEach units _grupo;

@@ -1,5 +1,5 @@
 private ["_unit","_medico","_timeOut","_curado","_isPlayer","_smoked","_enemy","_cobertura","_dummyGrp","_dummy"];
-_unit = _this select 0;
+_unit = _this select 0;///no usar canfight porque algunas tienen setcaptive true y te va a liar todo
 if !(isNull (_unit getVariable ["ayudado",objNull])) exitWith {};
 _medico = _this select 1;
 if (_medico getVariable ["ayudando",false]) exitWith {};
@@ -82,7 +82,7 @@ if (_medico != _unit) then
 				while {true} do
 					{
 					sleep 1;
-					if (!([_medico] call canFight) or (!alive _unit) or (_medico distance _cobertura <= 2) or (_timeOut < time) or (lifestate _medico == "INCAPACITATED") or (_medico != vehicle _medico)) exitWith {};
+					if (!([_medico] call canFight) or (!alive _unit) or (_medico distance _cobertura <= 2) or (_timeOut < time) or (_medico != vehicle _medico)) exitWith {};
 					if (_unit distance _dummy > 3) then
 						{
 						_unit attachTo [_dummy, [0,-1.1, 0.092]];
@@ -155,7 +155,7 @@ if (_medico != _unit) then
 			_medico stop true;
 			//if (!_smoked) then {[_medico,_unit] call cubrirConHumo};
 			_unit stop true;
-			if !([_unit] call canFight) then {_curado = [_unit,_medico] call actionRevive} else {_medico action ["HealSoldier",_unit]; _curado = true};
+			if (lifeState _unit == "INCAPACITATED") then {_curado = [_unit,_medico] call actionRevive} else {_medico action ["HealSoldier",_unit]; _curado = true};
 			if (_curado) then
 				{
 				if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};

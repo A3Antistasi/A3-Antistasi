@@ -93,6 +93,6 @@ player createDiaryRecord ["Diary",["Requirements",format ["%1 and %2 player slot
 player createDiaryRecord ["Diary",["Intel","You will receive notifications and tasks related to major activities or enemy intel reports."]];
 player createDiaryRecord ["Diary",["Special Keys","Press Y to Fast Travel and purchase a Quadbike for your own use. Press END to use Earplugs."]];
 player createDiaryRecord ["Diary",["Kill Maru",format ["Find the %1 Commander and kill him is the best option to damage their weaponary and assets.",nameBuenos]]];
-player createDiaryRecord ["Diary",[format ["%1 and %2 players",nameMalos,nameMuyMalos]],format ["You are a %1 or %2 player. You main task is to perform counterinsurgency actions against Faction players.",nameMalos,nameMuyMalos]];
+player createDiaryRecord ["Diary",[format ["%1 and %2 players",nameMalos,nameMuyMalos],format ["You are a %1 or %2 player. You main task is to perform counterinsurgency actions against Faction players.",nameMalos,nameMuyMalos]]];
 player createDiaryRecord ["Diary",["Welcome","Welcome to Arma 3 - Warlords of the Pacific. This mission aims to simulate guerilla combat, tactics and strategic situations. It is not a quick and easy mod, it is long term, step-by-step mission with LOTS of features and enhanced AI."]];
 };

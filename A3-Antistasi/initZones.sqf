@@ -455,3 +455,4 @@ publicVariable "mrkAntenas";
 publicVariable "bancos";
 publicVariable "seaSpawn";
 publicVariable "seaAttackSpawn";
+publicVariable "defaultControlIndex";

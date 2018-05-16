@@ -197,7 +197,7 @@ if (_base != "") then
 	{
 	_aeropuerto = "";
 
-	if ((!_inWaves) and (!_super) and (!_base in aeropuertos)) then {[_base,20] call addTimeForIdle};
+	if ((!_inWaves) and (!_super) and (!(_base in aeropuertos))) then {[_base,20] call addTimeForIdle};
 	_indice = aeropuertos find _base;
 	_spawnPoint = objNull;
 	_pos = [];
@@ -388,7 +388,7 @@ if (_base != "") then
 	};
 if (_aeropuerto != "") then
 	{
-	if ((!_inWaves) and (!_super) and (!_base in aeropuertos)) then {[_aeropuerto,20] call addTimeForIdle};
+	if ((!_inWaves) and (!_super) and (!(_base in aeropuertos))) then {[_aeropuerto,20] call addTimeForIdle};
 	_vehPool = [];
 	_cuenta = if (!_super) then {if (_esMarcador) then {2} else {1}} else {round (tierWar / 2) + 1};
 	_tipoVeh = "";

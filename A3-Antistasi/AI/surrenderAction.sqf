@@ -14,8 +14,6 @@ else
 	{
 	_nul = [1,0,getPos _unit] remoteExec ["citySupportChange",2];
 	};
-[_unit,"interrogar"] remoteExec ["flagaction",[buenos,civilian],_unit];
-[_unit,"capturar"]remoteExec ["flagaction",[buenos,civilian],_unit];
 _armas = [];
 _municion = [];
 _items = [];
@@ -77,7 +75,8 @@ if (!isNil "_marcador") then
 	_lado = _unit getVariable "lado";
 	[_marcador,_lado] remoteExec ["zoneCheck",2];
 	};
-
+[_unit,"interrogar"] remoteExec ["flagaction",[buenos,civilian],_unit];
+[_unit,"capturar"]remoteExec ["flagaction",[buenos,civilian],_unit];
 [_unit] spawn postmortem;
 [_caja] spawn postmortem;
 sleep 10;

@@ -122,6 +122,8 @@ while {(_waves != 0)} do
 				};
 			if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
 			_vehicle=[_pos, markerDir _spawnPoint,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+			//debug
+			if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en wavedCA.Origen:%1.Dets:%2",_mrkOrigen,_mrkDestino]};
 			_veh = _vehicle select 0;
 			_vehCrew = _vehicle select 1;
 			{[_x] call NATOinit} forEach _vehCrew;
@@ -253,6 +255,8 @@ while {(_waves != 0)} do
 				if (count _landPos > 0) then
 					{
 					_vehicle=[_pos, random 360,_tipoveh, _lado] call bis_fnc_spawnvehicle;
+					//debug
+					if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en wavedCA.Origen:%1.Dets:%2",_mrkOrigen,_mrkDestino]};
 					_veh = _vehicle select 0;
 					_vehCrew = _vehicle select 1;
 					_grupoVeh = _vehicle select 2;
@@ -303,11 +307,7 @@ while {(_waves != 0)} do
 							_Vwp synchronizeWaypoint [_Vwp2];
 							_Vwp3 = _grupo addWaypoint [_posdestino, 1];
 							_Vwp3 setWaypointType "SAD";
-							//_Vwp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
-							/*_Vwp3 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
-							_Vwp3 = _grupo addWaypoint [_posdestino, 1];
-							_Vwp3 setWaypointType "SAD";
-							*/_veh allowCrewInImmobile true;
+							_veh allowCrewInImmobile true;
 							//[_veh,"APC"] spawn inmuneConvoy;
 							}
 						else
@@ -319,16 +319,9 @@ while {(_waves != 0)} do
 							_Vwp setWaypointBehaviour "SAFE";
 							_Vwp setWaypointSpeed "FULL";
 							_Vwp setWaypointType "GETOUT";
-							//_grupoVeh setVariable ["mrkAttack",_mrkDestino];
-							//_Vwp0 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
-							//_Vwp0 setWaypointSpeed "FULL";
 							_Vwp1 = _grupoVeh addWaypoint [_posDestino, 1];
 							_Vwp1 setWaypointType "SAD";
-							//_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 							_Vwp1 setWaypointBehaviour "COMBAT";
-							//_Vwp1 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
-							//_Vwp1 = _grupoVeh addWaypoint [_posDestino, 1];
-							//_Vwp1 setWaypointType "SAD";
 							//[_veh,"Boat"] spawn inmuneConvoy;
 							};
 						};
@@ -407,6 +400,8 @@ while {(_waves != 0)} do
 				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTransportHelis} else {selectRandom vehCSATTransportHelis};
 				};
 			_vehicle=[_pos, _ang + 90,_tipoveh, _lado] call bis_fnc_spawnvehicle;
+			//debug
+			if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en wavedCA.Origen:%1.Dets:%2",_mrkOrigen,_mrkDestino]};
 			_veh = _vehicle select 0;
 			_vehCrew = _vehicle select 1;
 			_grupoVeh = _vehicle select 2;

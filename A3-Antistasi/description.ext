@@ -2,7 +2,7 @@
 #include "dialogs.hpp"
 
 author="Barbolani";
-OnLoadName = "Antistasi Altis 1.0.2";
+OnLoadName = "A3-Antistasi 1.0.2A Altis";
 OnLoadMission = "Be a restistance leader, be a hero";
 loadScreen = "pic.JPG";
 

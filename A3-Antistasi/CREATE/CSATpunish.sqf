@@ -37,6 +37,8 @@ for "_i" from 1 to 3 do
 		};
 	if (count _pos == 0) then {_pos = _posorigen};
 	_vehicle=[_pos, 0, _tipoveh, muyMalos] call bis_fnc_spawnvehicle;
+	//debug
+	if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en CSATpunish.Origen:%1.Dets:%2",_mrkOrigen,_mrkDestino]};
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	{[_x] call NATOinit} forEach _heliCrew;

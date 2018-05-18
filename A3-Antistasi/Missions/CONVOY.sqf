@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {};
-private ["_pos","_timeOut","_posbase","_posdestino","_soldados","_grupos","_vehiculos","_POWS","_tiempofin","_fechafin","_fechafinNum","_veh","_unit","_grupo","_lado","_cuenta","_nombredest","_vehPool"];
+private ["_pos","_timeOut","_posbase","_posdestino","_soldados","_grupos","_vehiculos","_POWS","_tiempofin","_fechafin","_fechafinNum","_veh","_unit","_grupo","_lado","_cuenta","_nombredest","_vehPool","_spawnPoint","_tipoVeh"];
 _destino = _this select 0;
 _base = _this select 1;
 

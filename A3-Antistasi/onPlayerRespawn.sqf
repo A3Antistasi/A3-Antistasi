@@ -124,6 +124,7 @@ if ((side player == buenos) or (side player == civilian)) then
 			};
 		_control
 		}];
+	/*
 	player addEventHandler ["InventoryClosed",
 		{
 		_control = false;
@@ -149,6 +150,7 @@ if ((side player == buenos) or (side player == civilian)) then
 			};
 		_control
 		}];
+		*/
 	player addEventHandler ["Fired",
 			{
 			_tipo = _this select 1;

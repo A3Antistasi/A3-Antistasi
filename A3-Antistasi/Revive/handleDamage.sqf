@@ -70,7 +70,13 @@ if (_part == "") then
 							{
 							if ((_injurer != _unit) and (side _injurer == buenos) and (_unit getVariable ["GREENFORSpawn",false])) then
 								{
-								if !(_unit getVariable ["disfrazado",false]) then {[_injurer,60] remoteExec ["castigo",_injurer]};
+								_uniform = uniform _unit;
+								_typeSoldier = getText (configfile >> "CfgWeapons" >> _uniform >> "ItemInfo" >> "uniformClass");
+								_sideType = getNumber (configfile >> "CfgVehicles" >> _typeSoldier >> "side");
+								if ((_sideType == 1) or (_sideType == 0)) then
+									{
+									[_injurer,60] remoteExec ["castigo",_injurer];
+									};
 								};
 							};
 						}
@@ -101,7 +107,8 @@ if (_part == "") then
 				}
 			else
 				{
-				if (_dam > 0.6) then {[_unit,_unit] spawn cubrirConHumo};
+				//if (_dam > 0.6) then {[_unit,_unit,_injurer] spawn cubrirConHumo};
+				if (_dam > 0.6) then {[_unit,_injurer] spawn unitGetToCover};
 				};
 			};
 		};

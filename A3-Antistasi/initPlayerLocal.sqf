@@ -9,8 +9,8 @@ if (isMultiplayer) then
 	{
 	if (!isServer) then
 		{
-		call compile preprocessFileLineNumbers "initVar.sqf";
 		call compile preprocessFileLineNumbers "initFuncs.sqf";
+		call compile preprocessFileLineNumbers "initVar.sqf";
 		waitUntil {!isNil "initVar"}; diag_log format ["Antistasi MP Client. initVar is public. Version %1",antistasiVersion];
 		}
 	else
@@ -259,6 +259,7 @@ player addEventHandler ["InventoryOpened",
 		};
 	_control
 	}];
+/*
 player addEventHandler ["InventoryClosed",
 	{
 	_control = false;
@@ -284,7 +285,7 @@ player addEventHandler ["InventoryClosed",
 		};
 	_control
 	}];
-
+*/
 player addEventHandler ["HandleHeal",
 	{
 	_player = _this select 0;

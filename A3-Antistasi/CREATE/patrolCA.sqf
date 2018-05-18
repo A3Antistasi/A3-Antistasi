@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_marcador","_esMarcador","_exit","_radio","_base","_aeropuerto","_posDestino","_soldados","_vehiculos","_grupos","_roads","_posOrigen","_tam","_tipoVeh","_vehicle","_veh","_vehCrew","_grupoVeh","_landPos","_tipoGrupo","_grupo","_soldado","_threatEval","_pos","_timeOut","_lado","_cuenta","_esMarcador","_inWaves","_posOrigen","_typeOfAttack","_cercano","_aeropuertos","_sitio","_enemigos","_plane","_amigos","_tipo","_esSDK","_weapons","_nombreDest","_vehPool","_super","_spawnPoint"];
+private ["_marcador","_esMarcador","_exit","_radio","_base","_aeropuerto","_posDestino","_soldados","_vehiculos","_grupos","_roads","_posOrigen","_tam","_tipoVeh","_vehicle","_veh","_vehCrew","_grupoVeh","_landPos","_tipoGrupo","_grupo","_soldado","_threatEval","_pos","_timeOut","_lado","_cuenta","_esMarcador","_inWaves","_typeOfAttack","_cercano","_aeropuertos","_sitio","_enemigos","_plane","_amigos","_tipo","_esSDK","_weapons","_nombreDest","_vehPool","_super","_spawnPoint","_pos1","_pos2"];
 
 _marcador = _this select 0;
 _aeropuerto = _this select 1;
@@ -257,6 +257,8 @@ if (_base != "") then
 			};
 		if (count _pos == 0) then {_pos = if (_indice == -1) then {getMarkerPos _spawnPoint} else {position _spawnPoint}};
 		_vehicle=[_pos, _dir,_tipoveh, _lado] call bis_fnc_spawnvehicle;
+		//debug
+		if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en PatrolCA.Origen:%1.Dets:%2",_base,_marcador]};
 		_veh = _vehicle select 0;
 		_vehCrew = _vehicle select 1;
 		{[_x] call NATOinit} forEach _vehCrew;
@@ -315,28 +317,13 @@ if (_base != "") then
 				_Vwp1 setWaypointType "SAD";
 				_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 				_Vwp1 setWaypointBehaviour "COMBAT";
-				/*_Vwp2 = _grupo addWaypoint [_landPos, 0];
-				_Vwp2 setWaypointType "GETOUT";
-				_Vwp0 synchronizeWaypoint [_Vwp2];
-				_Vwp3 = _grupo addWaypoint [_posDestino, count (wayPoints _grupo)];
-				_Vwp3 setWaypointType "MOVE";*//*
-				if (_esMarcador) then
-					{
-					_grupo setVariable ["mrkAttack",_marcador];
-					_Vwp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
-					};*/
-				//_Vwp3 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
-				//_Vwp3 = _grupo addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
-				//_Vwp3 setWaypointType "SAD";
 				//[_veh,"APC"] spawn inmuneConvoy;
 				_veh allowCrewInImmobile true;
 				}
 			else
 				{
-				//{[_x] joinSilent _grupoVeh} forEach units _grupo;
 				(units _grupo) joinSilent _grupoVeh;
 				deleteGroup _grupo;
-				//_veh forceFollowRoad true;
 
 				_grupoVeh selectLeader (units _grupoVeh select 1);
 				[_base,_landPos,_grupoVeh] call WPCreate;
@@ -351,8 +338,7 @@ if (_base != "") then
 				_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 				if (_esMarcador) then
 					{
-					//_grupoVeh setVariable ["mrkAttack",_marcador];
-					//_Vwp1 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
+
 					if ((count (garrison getVariable _marcador)) < 4) then
 						{
 						_Vwp1 setWaypointType "MOVE";
@@ -422,8 +408,10 @@ if (_aeropuerto != "") then
 			_ang = [_pos1, _pos2] call BIS_fnc_DirTo;
 			_pos = [_pos1, 5,_ang] call BIS_fnc_relPos;
 			};
-		if (count _pos == 0) then {_pos = _posorigen};
+		if (count _pos == 0) then {_pos = _posOrigen};
 		_vehicle=[_pos, _ang + 90,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+		//debug
+		if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en PatrolCA.Origen:%1.Dets:%2",_aeropuerto,_marcador]};
 		_veh = _vehicle select 0;
 		_vehCrew = _vehicle select 1;
 		_grupoVeh = _vehicle select 2;

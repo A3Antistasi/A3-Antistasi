@@ -2,17 +2,7 @@ if (!isDedicated) then
 	{
 	if (side player == buenos) then
 		{
-		/*
-		["gogglesPlayer"] call fn_LoadStat;
-		["vestPlayer"] call fn_LoadStat;
-		["outfit"] call fn_LoadStat;
-		["hat"] call fn_LoadStat;
-		{player removeMagazine _x} forEach magazines player;
-		{player removeWeaponGlobal _x} forEach weapons player;
-		removeBackpackGlobal player;
-		if ("ItemGPS" in (assignedItems player)) then {player unlinkItem "ItemGPS"};
-		if ((!hayTFAR) and (!hayACRE) and ("ItemRadio" in (assignedItems player)) and (not("ItemRadio" in unlockedItems))) then {player unlinkItem "ItemRadio"};
-			*/
+		waitUntil {(!isNil "serverInitDone") and (!isNil "initVar")};
 		["loadoutPlayer"] call fn_LoadStat;
 		player setPos getMarkerPos "respawn_guerrila";
 		if (isMultiplayer) then

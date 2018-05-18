@@ -19,7 +19,23 @@ if (not("FirstAidKit" in (items _curandero))) then
 	_curandero addItem "FirstAidKit";
 	_curado removeItem "FirstAidKit";
 	};
-_timer = if (_curado getVariable ["fatalWound",false]) then {time + 55 + (random 30)} else {time + 25 + (random 30)};
+_timer = if (_curado getVariable ["fatalWound",false]) then
+			{
+			time + 55 + (random 30)
+			}
+		else
+			{
+			if ((!isMultiplayer and (isPlayer _curado)) or (getNumber (configfile >> "CfgVehicles" >> (typeOf _curandero) >> "attendant") == 2) or (_curandero getUnitTrait "Medic")) then
+				{
+				10 + (random 15)
+				}
+			else
+				{
+				time + 25 + (random 30)
+				};
+			};
+
+
 _curandero setVariable ["timeToHeal",_timer];
 _curandero playMoveNow selectRandom medicAnims;
 _curandero setVariable ["animsDone",false];
@@ -45,7 +61,7 @@ _curandero addEventHandler ["AnimDone",
 		_curandero setVariable ["animsDone",true];
 		};
 	}];
-waitUntil {sleep 0.5; ((time > _timer) and (_curandero getVariable ["animsDone",true])) or !([_curandero] call canFight) or (!alive _curado) or (_curandero != vehicle _curandero) or (_curandero getVariable ["cancelRevive",false])};
+waitUntil {sleep 0.5; ((time > _timer) and (_curandero getVariable ["animsDone",true])) or !([_curandero] call canFight) or (!alive _curado) or (_curandero != vehicle _curandero) or ((alive _curado) and (lifeState _curado != "INCAPACITATED")) or (_curandero getVariable ["cancelRevive",false])};
 _curandero setVariable ["animsDone",nil];
 _curandero setVariable ["timeToHeal",nil];
 if (!_player) then
@@ -64,7 +80,7 @@ if (_curandero getVariable ["cancelRevive",false]) exitWith
 	};
 if !(alive _curado) exitWith {if (_player) then {hint format ["We lost %1",name _curado]};_healed};
 if (!([_curandero] call canFight) or (_curandero != vehicle _curandero) or (_curandero distance _curado > 3)) exitWith {if (_player) then {hint "Revive cancelled"};_healed};
-_curandero action ["HealSoldier",_curado];
+if (lifeState _curado == "INCAPACITATED") then {_curandero action ["HealSoldier",_curado]};
 waitUntil {sleep 0.5; !([_curandero] call canFight) or (!alive _curado) or (_curandero != vehicle _curandero) or ((alive _curado) and (lifeState _curado != "INCAPACITATED"))};
 if !(alive _curado) exitWith {if (_player) then {hint format ["We lost %1",name _curado]};_healed};
 if (lifeState _curado == "INCAPACITATED") exitWith {if (_player) then {hint "Revive unsuccesful"};_healed};

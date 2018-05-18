@@ -91,11 +91,5 @@ if (alive _unit) then
 			{
 			[_unit] spawn surrenderAction
 			};
-		}
-	else
-		{
-		_unit disableAI "ANIM";
-		sleep 120 + (random 120);
-		if ([_unit] call canFight) then {_unit enableAI "ANIM"};
 		};
 	};

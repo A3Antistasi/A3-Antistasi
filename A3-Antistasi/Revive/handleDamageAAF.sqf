@@ -11,7 +11,7 @@ if (side _injurer == buenos) then
 		if ((behaviour leader _grupo != "COMBAT") and (behaviour leader _grupo != "STEALTH")) then
 			{
 			_grupo setVariable ["movedToCover",time + 120];
-			{[_x] call unitGetToCover} forEach units _grupo;
+			{[_x,_injurer] call unitGetToCover} forEach units _grupo;
 			};
 		};
 	if (_part == "") then
@@ -40,7 +40,8 @@ if (side _injurer == buenos) then
 			}
 		else
 			{
-			if (_dam > 0.6) then {[_unit,_unit] spawn cubrirConHumo};
+			//if (_dam > 0.6) then {[_unit,_unit,_injurer] spawn cubrirConHumo};
+			if (_dam > 0.6) then {[_unit,_injurer] spawn unitGetToCover};
 			};
 		}
 	else

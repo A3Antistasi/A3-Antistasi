@@ -11,6 +11,7 @@ if (!isMultiPlayer) then
     _nul = [] execVM "musica.sqf";
     diag_log "Starting Antistasi SP";
     call compile preprocessFileLineNumbers "initVar.sqf";//this is the file where you can modify a few things.
+    initVar = true;
     diag_log format ["Antistasi SP. InitVar done. Version: %1",antistasiVersion];
     {if (/*(side _x == buenos) and */(_x != comandante) and (_x != Petros)) then {_grupete = group _x; deleteVehicle _x; deleteGroup _grupete}} forEach allUnits;
     call compile preprocessFileLineNumbers "initFuncs.sqf";

@@ -38,68 +38,77 @@ if (_medico != _unit) then
 	while {true} do
 		{
 		if (!([_medico] call canFight) or (!alive _unit) or (_medico distance _unit <= 3) or (_timeOut < time) or (_unit != vehicle _unit) or (_medico != vehicle _medico) or (_medico != _unit getVariable ["ayudado",objNull]) or (_unit getVariable ["llevado",false])) exitWith {};
-		sleep 1;
+		sleep 1;/*
 		if (isPlayer _unit) then
 			{
 			if ((unitReady _medico) and ([_medico] call canFight) and (_medico distance _unit > 3) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false])) then {_medico setPos position _unit};
-			};
+			};*/
 		};
 	if ((_unit distance _medico <= 3) and (alive _unit) and ([_medico] call canFight) and (_medico == vehicle _medico) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false])) then
 		{
 		if ((lifeState _unit == "INCAPACITATED") and (!isNull _enemy) and (_timeOut >= time) and (_medico != _unit)) then
 			{
 			_cobertura = [_unit,_enemy] call cobertura;
-			{if (([_x] call canFight) and (_x distance _medico < 300) and !(_x getVariable ["ayudando",false]) and (!isPlayer _x)) then {[_x,_enemy] call fuegoSupresor}} forEach units (group _medico);
+			{if (([_x] call canFight) and (_x distance _medico < 50) and !(_x getVariable ["ayudando",false]) and (!isPlayer _x)) then {[_x,_enemy] call fuegoSupresor}} forEach units (group _medico);
 			if (count _cobertura == 3) then
 				{
 				if (_isPlayer) then {_unit setVariable ["llevado",true,true]};
 				_medico setUnitPos "MIDDLE";
 				_medico playAction "grabDrag";
 				sleep 0.1;
-				waitUntil { ((animationState _medico) == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") || ((animationState _medico) == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2")};
-				_unit switchMove "AinjPpneMrunSnonWnonDb";
-				_medico disableAI "ANIM";
-				//_medico playMoveNow "AcinPknlMstpSrasWrflDnon";
-				_medico stop false;
-				_dummyGrp = createGroup civilian;
-				_dummy = _dummyGrp createUnit ["C_man_polo_1_F", [0,0,0], [], 0, "FORM"];
-				_dummy setUnitPos "MIDDLE";
-				_dummy forceWalk true;
-				if (isMultiplayer) then {[_dummy,true] remoteExec ["hideObjectGlobal",2]} else {_dummy hideObject true};
-				_dummy allowdammage false;
-				_dummy setBehaviour "CARELESS";
-				_dummy disableAI "FSM";
-			    _dummy forceSpeed 0.2;
-			    _dummy setPosATL (getPosATL _medico);
-				_medico attachTo [_dummy, [0, -0.2, 0]];
-				_medico setDir 180;
-				//_unit attachTo [_dummy, [0, 1.1, 0.092]];
-				_unit attachTo [_dummy, [0,-1.1, 0.092]];
-				_unit setDir 0;
-				_dummy doMove _cobertura;
-				[_medico] spawn {sleep 4.5; (_this select 0) playMove "AcinPknlMwlkSrasWrflDb"};
-				_timeOut = time + 30;
-				while {true} do
+				waitUntil {((animationState _medico) == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") or ((animationState _medico) == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2") or !([_medico] call canFight)};
+				if ([_medico] call canFight) then
 					{
-					sleep 1;
-					if (!([_medico] call canFight) or (!alive _unit) or (_medico distance _cobertura <= 2) or (_timeOut < time) or (_medico != vehicle _medico)) exitWith {};
-					if (_unit distance _dummy > 3) then
+					_unit switchMove "AinjPpneMrunSnonWnonDb";
+					_medico disableAI "ANIM";
+					//_medico playMoveNow "AcinPknlMstpSrasWrflDnon";
+					_medico stop false;
+					_dummyGrp = createGroup civilian;
+					_dummy = _dummyGrp createUnit ["C_man_polo_1_F", [0,0,0], [], 0, "FORM"];
+					_dummy setUnitPos "MIDDLE";
+					_dummy forceWalk true;
+					_dummy setSkill 0;
+					if (isMultiplayer) then {[_dummy,true] remoteExec ["hideObjectGlobal",2]} else {_dummy hideObject true};
+					_dummy allowdammage false;
+					_dummy setBehaviour "CARELESS";
+					_dummy disableAI "FSM";
+					_dummy disableAI "SUPPRESSION";
+				    _dummy forceSpeed 0.2;
+				    _dummy setPosATL (getPosATL _medico);
+					_medico attachTo [_dummy, [0, -0.2, 0]];
+					_medico setDir 180;
+					//_unit attachTo [_dummy, [0, 1.1, 0.092]];
+					_unit attachTo [_dummy, [0,-1.1, 0.092]];
+					_unit setDir 0;
+					_dummy doMove _cobertura;
+					[_medico] spawn {sleep 4.5; (_this select 0) playMove "AcinPknlMwlkSrasWrflDb"};
+					_timeOut = time + 30;
+					while {true} do
 						{
-						_unit attachTo [_dummy, [0,-1.1, 0.092]];
-						_unit setDir 0;
+						sleep 0.2;
+						if (!([_medico] call canFight) or (!alive _unit) or (_medico distance _cobertura <= 2) or (_timeOut < time) or (_medico != vehicle _medico)) exitWith {};
+						if (_unit distance _dummy > 3) then
+							{
+							detach _unit;
+							_unit setPos (position _dummy);
+							_unit attachTo [_dummy, [0,-1.1, 0.092]];
+							_unit setDir 0;
+							};
+						if (_medico distance _dummy > 3) then
+							{
+							detach _medico;
+							_medico setPos (position _dummy);
+							_medico attachTo [_dummy, [0, -0.2, 0]];
+							_medico setDir 180;
+							};
 						};
-					if (_medico distance _dummy > 3) then
-						{
-						_medico attachTo [_dummy, [0, -0.2, 0]];
-						_medico setDir 180;
-						};
+					detach _unit;
+					detach _medico;
+					detach _dummy;
+					deleteVehicle _dummy;
+					deleteGroup _dummyGrp;
+					_medico enableAI "ANIM";
 					};
-				detach _unit;
-				detach _medico;
-				detach _dummy;
-				deleteVehicle _dummy;
-				deleteGroup _dummyGrp;
-				_medico enableAI "ANIM";
 				if ((alive _unit) and ([_medico] call canFight) and (_medico == vehicle _medico)) then
 					{
 					_medico playMove "amovpknlmstpsraswrfldnon";

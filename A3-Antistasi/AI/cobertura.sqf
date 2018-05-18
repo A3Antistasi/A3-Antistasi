@@ -44,7 +44,7 @@ if !(_objeto isKindOf "House") then
 	{
 	_arr = _grupo getVariable ["usedForCover",[]];
 	_arr pushBack _objeto;
-	_grupo setVariable ["usedForCover",_arr];hint format ["%1",_grupo getVariable ["usedForCover",[]]];
+	_grupo setVariable ["usedForCover",_arr];
 	[_objeto,_grupo] spawn
 		{
 		sleep 60;

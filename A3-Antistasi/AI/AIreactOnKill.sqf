@@ -33,7 +33,7 @@ if (fleeing _x) then
 						if (vehicle _killer isKindOf "Air") then {[[getPosASL _enemy,side _x,"Air",_super],"patrolCA"] remoteExec ["scheduler",2]} else {if (vehicle _killer isKindOf "Tank") then {[[getPosASL _enemy,side _x,"Tank",_super],"patrolCA"] remoteExec ["scheduler",2]} else {[[getPosASL _enemy,side _x,"Normal",_super],"patrolCA"] remoteExec ["scheduler",2]}};
 						};
 					};
-				if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x] spawn cubrirConHumo};
+				if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x,_enemy] spawn cubrirConHumo};
 				};
 			};
 		};
@@ -45,7 +45,7 @@ else
 		_enemy = _x findNearestEnemy _x;
 		if (!isNull _enemy) then
 			{
-			if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x] spawn cubrirConHumo};
+			if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x,_enemy] spawn cubrirConHumo};
 			};
 		if (random 1 < 0.5) then {if (count units _grupo > 0) then {_x allowFleeing (1 -(_x skill "courage") + (({!([_x] call canFight)} count units _grupo)/(count units _grupo)))}};
 		};

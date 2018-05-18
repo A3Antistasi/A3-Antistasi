@@ -2,14 +2,14 @@ private ["_llevador","_llevado","_timeOut","_action"];
 _llevado = _this select 0;
 _llevador = _this select 1;
 
-if (_llevado getVariable ["llevado",false]) exitWith {hint "This soldier is being carried and you cannot help him"};
+//if (_llevado getVariable ["llevado",false]) exitWith {hint "This soldier is being carried and you cannot help him"};
 if (!alive _llevado) exitWith {hint format ["%1 is dead",name _llevado]};
 if (lifeState _llevado != "INCAPACITATED") exitWith {hint format ["%1 no longer needs your help",name _llevado]};
 if !(isNull attachedTo _llevado) exitWith {hint format ["%1 is being carried or transported and you cannot carry him",name _llevado]};
 
 _llevador playMoveNow "AcinPknlMstpSrasWrflDnon";
 _llevado switchMove "AinjPpneMrunSnonWnonDb";
-_llevado setVariable ["llevado",true,true];
+//_llevado setVariable ["llevado",true,true];
 _llevado setVariable ["ayudado",_llevador,true];
 [_llevado,"remove"] remoteExec ["flagaction",0,_llevado];
 _llevado attachTo [_llevador, [0,1.1,0.092]];
@@ -30,7 +30,7 @@ if (lifeState _llevado == "INCAPACITATED") then
 	waitUntil {sleep 0.1; lifeState _llevado != "INCAPACITATED"};
 	[_llevado,true] remoteExec ["setUnconscious",_llevado];
 	};
-_llevado setVariable ["llevado",false,true];
+//_llevado setVariable ["llevado",false,true];
 [_llevado,"heal1"] remoteExec ["flagaction",0,_llevado];
 sleep 5;
 _llevado setVariable ["ayudado",objNull,true];

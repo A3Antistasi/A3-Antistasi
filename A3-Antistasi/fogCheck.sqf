@@ -9,9 +9,6 @@ if (_cosa0 isEqualType []) then
 	{
 	if ((_cosa0 select 2) < 3) then
 		{
-		//_pad = "Land_HelipadEmpty_F" createVehicleLocal _cosa0;
-		//_pos0 = getPosASL _pad;
-		//deleteVehicle _pad;
 		_pos0 = ATLToASL _cosa0;
 		}
 	else

@@ -1,4 +1,4 @@
-private ["_unit","_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_ayudado","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_unit","_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_ayudado","_texto","_isPlayer","_camTarget","_saveVolumeVoice","_beh"];
 _unit = _this select 0;
 //if (_unit getVariable "inconsciente") exitWith {};
 //if (damage _unit < 0.9) exitWith {};
@@ -8,6 +8,7 @@ _bleedOut = time + 300;//300
 _isPlayer = false;
 _jugadores = false;
 _inPlayerGroup = false;
+_beh = "";
 if (isPlayer _unit) then
 	{
 	_isPlayer = true;
@@ -80,6 +81,7 @@ if (_isPlayer) then
 		player setVariable ["tf_globalVolume", 0];
 		_saveVolumeVoice = player getVariable ["tf_voiceVolume", 1.0];
 		if (random 100 < 20) then {player setVariable ["tf_voiceVolume", 0.0, true]};
+		(group player) setBehaviour _beh;
 		};
 	group _unit setCombatMode "YELLOW";
 	if (isMultiplayer) then

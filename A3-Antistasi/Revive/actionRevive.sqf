@@ -11,8 +11,8 @@ if ((not("FirstAidKit" in (items _curandero))) and (not("FirstAidKit" in (items 
 if ((not("FirstAidKit" in (items _curandero))) and !(_curandero canAdd "FirstAidKit")) exitWith {if (_player) then {hint format ["%1 has a First Aid Kit but you do not have enough space in your inventory to use it",name _curado]};_healed};
 if ((_curado getVariable ["fatalWound",false]) and ((!(getNumber (configfile >> "CfgVehicles" >> (typeOf _curandero) >> "attendant") == 2)) and !(_curandero getUnitTrait "Medic"))) exitWith {if (_player) then {hint format ["%1 is injured by a fatal wound, only a medic can revive him",name _curado]};_healed};
 if !(isNull attachedTo _curado) exitWith {if (_player) then {hint format ["%1 is being carried or transported and you cannot heal him",name _curado]};_healed};
-if (_curado getVariable ["llevado",false]) exitWith {if (_player) then {hint format ["%1 is being carried and you cannot help him",name _curado]};_healed};
-_curado setVariable ["ayudado",_curandero,true];
+//if (_curado getVariable ["llevado",false]) exitWith {if (_player) then {hint format ["%1 is being carried and you cannot help him",name _curado]};_healed};
+if (_player) then {_curado setVariable ["ayudado",_curandero,true]};
 
 if (not("FirstAidKit" in (items _curandero))) then
 	{
@@ -27,7 +27,7 @@ _timer = if (_curado getVariable ["fatalWound",false]) then
 			{
 			if ((!isMultiplayer and (isPlayer _curado)) or (getNumber (configfile >> "CfgVehicles" >> (typeOf _curandero) >> "attendant") == 2) or (_curandero getUnitTrait "Medic")) then
 				{
-				10 + (random 15)
+				time + 10 + (random 30)
 				}
 			else
 				{
@@ -39,7 +39,8 @@ _timer = if (_curado getVariable ["fatalWound",false]) then
 _curandero setVariable ["timeToHeal",_timer];
 _curandero playMoveNow selectRandom medicAnims;
 _curandero setVariable ["animsDone",false];
-
+_curado setVariable ["reviveSuccess",false];
+_curandero setVariable ["curado",_curado];
 if (!_player) then
 	{
 	{_curandero disableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"];
@@ -51,7 +52,8 @@ else
 _curandero addEventHandler ["AnimDone",
 	{
 	private _curandero = _this select 0;
-	if (([_curandero] call canFight) and (time < (_curandero getVariable ["timeToHeal",time])) and !(_curandero getVariable ["cancelRevive",false])) then
+	private _curado = _curandero getVariable ["curado",objNull];
+	if (([_curandero] call canFight) and (time < (_curandero getVariable ["timeToHeal",time])) and !(_curandero getVariable ["cancelRevive",false]) and (alive _curado) and (lifeState _curado == "INCAPACITATED") and (_curandero == vehicle _curandero)) then
 		{
 		_curandero playMoveNow selectRandom medicAnims;
 		}
@@ -59,11 +61,20 @@ _curandero addEventHandler ["AnimDone",
 		{
 		_curandero removeEventHandler ["AnimDone",_thisEventHandler];
 		_curandero setVariable ["animsDone",true];
+		if ((time >= (_curandero getVariable ["timeToHeal",time])) and ([_curandero] call canFight) and !(_curandero getVariable ["cancelRevive",false])) then
+			{
+			if (lifeState _curado == "INCAPACITATED") then
+				{
+				_curandero action ["HealSoldier",_curado];
+				_curado setVariable ["reviveSuccess",true];
+				};
+			};
 		};
 	}];
-waitUntil {sleep 0.5; ((time > _timer) and (_curandero getVariable ["animsDone",true])) or !([_curandero] call canFight) or (!alive _curado) or (_curandero != vehicle _curandero) or ((alive _curado) and (lifeState _curado != "INCAPACITATED")) or (_curandero getVariable ["cancelRevive",false])};
+waitUntil {sleep 0.5; (_curandero getVariable ["animsDone",true])};
 _curandero setVariable ["animsDone",nil];
 _curandero setVariable ["timeToHeal",nil];
+_curandero setVariable ["curado",nil];
 if (!_player) then
 	{
 	{_curandero enableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"]
@@ -80,15 +91,21 @@ if (_curandero getVariable ["cancelRevive",false]) exitWith
 	};
 if !(alive _curado) exitWith {if (_player) then {hint format ["We lost %1",name _curado]};_healed};
 if (!([_curandero] call canFight) or (_curandero != vehicle _curandero) or (_curandero distance _curado > 3)) exitWith {if (_player) then {hint "Revive cancelled"};_healed};
-if (lifeState _curado == "INCAPACITATED") then {_curandero action ["HealSoldier",_curado]};
-waitUntil {sleep 0.5; !([_curandero] call canFight) or (!alive _curado) or (_curandero != vehicle _curandero) or ((alive _curado) and (lifeState _curado != "INCAPACITATED"))};
-if !(alive _curado) exitWith {if (_player) then {hint format ["We lost %1",name _curado]};_healed};
-if (lifeState _curado == "INCAPACITATED") exitWith {if (_player) then {hint "Revive unsuccesful"};_healed};
-_lado = _curado getVariable "lado";
-if !(isNil "_lado") then
+
+if (_curado getVariable ["reviveSuccess",false]) then
 	{
-	if ((_lado != side _curandero) and ((_lado == malos) or (_lado == muyMalos))) then {_curado setVariable ["surrendered",true,true]};
+	sleep 5;
+	_lado = _curado getVariable "lado";
+	if !(isNil "_lado") then
+		{
+		if ((_lado != side _curandero) and ((_lado == malos) or (_lado == muyMalos))) then {_curado setVariable ["surrendered",true,true]};
+		};
+	_healed = true;
+	}
+else
+	{
+	if (_player) then {hint "Revive unsuccesful"};
 	};
-_healed = true;
+_curado setVariable ["reviveSuccess",nil];
 if (_player) then {_curado setVariable ["ayudado",objNull,true]};
 _healed

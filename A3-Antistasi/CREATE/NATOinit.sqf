@@ -60,7 +60,7 @@ if ((faction _unit != factionGEN) and (faction _unit != factionFIA)) then
 	{
 	if (side _unit == malos) then
 		{
-		_skill = _skill + 0.2;
+		_skill = _skill + 0.1;
 		}
 	else
 		{

@@ -1,4 +1,4 @@
-private ["_unit","_medico","_timeOut","_curado","_isPlayer","_smoked","_enemy","_cobertura","_dummyGrp","_dummy"];
+private ["_unit","_medico","_timeOut","_curado","_isPlayer","_smoked","_enemy","_cobertura","_dummyGrp","_dummy","_beh"];
 _unit = _this select 0;///no usar canfight porque algunas tienen setcaptive true y te va a liar todo
 if !(isNull (_unit getVariable ["ayudado",objNull])) exitWith {};
 _medico = _this select 1;
@@ -32,19 +32,24 @@ if (_medico != _unit) then
 	_smoked = [_medico,_unit,_enemy] call cubrirConHumo;
 	_medico stop false;
 	_medico forceSpeed -1;
+	_beh = behaviour _medico;
+	if (isPlayer _unit) then
+		{
+		_medico setBehaviour "AWARE";
+		};
 	_timeOut = time + 60;
 	sleep 5;
 	_medico doMove getPosATL _unit;
 	while {true} do
 		{
-		if (!([_medico] call canFight) or (!alive _unit) or (_medico distance _unit <= 3) or (_timeOut < time) or (_unit != vehicle _unit) or (_medico != vehicle _medico) or (_medico != _unit getVariable ["ayudado",objNull]) or (_unit getVariable ["llevado",false])) exitWith {};
+		if (!([_medico] call canFight) or (!alive _unit) or (_medico distance _unit <= 3) or (_timeOut < time) or (_unit != vehicle _unit) or (_medico != vehicle _medico) or (_medico != _unit getVariable ["ayudado",objNull]) or !(isNull attachedTo _unit)) exitWith {};
 		sleep 1;/*
 		if (isPlayer _unit) then
 			{
 			if ((unitReady _medico) and ([_medico] call canFight) and (_medico distance _unit > 3) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false])) then {_medico setPos position _unit};
 			};*/
 		};
-	if ((_unit distance _medico <= 3) and (alive _unit) and ([_medico] call canFight) and (_medico == vehicle _medico) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false])) then
+	if ((_unit distance _medico <= 3) and (alive _unit) and ([_medico] call canFight) and (_medico == vehicle _medico) and (_medico == _unit getVariable ["ayudado",objNull]) and (isNull attachedTo _unit)) then
 		{
 		if ((lifeState _unit == "INCAPACITATED") and (!isNull _enemy) and (_timeOut >= time) and (_medico != _unit)) then
 			{
@@ -52,11 +57,12 @@ if (_medico != _unit) then
 			{if (([_x] call canFight) and (_x distance _medico < 50) and !(_x getVariable ["ayudando",false]) and (!isPlayer _x)) then {[_x,_enemy] call fuegoSupresor}} forEach units (group _medico);
 			if (count _cobertura == 3) then
 				{
-				if (_isPlayer) then {_unit setVariable ["llevado",true,true]};
+				//if (_isPlayer) then {_unit setVariable ["llevado",true,true]};
 				_medico setUnitPos "MIDDLE";
 				_medico playAction "grabDrag";
 				sleep 0.1;
-				waitUntil {((animationState _medico) == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") or ((animationState _medico) == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2") or !([_medico] call canFight)};
+				_timeOut = time + 5;
+				waitUntil {((animationState _medico) == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") or ((animationState _medico) == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2") or !([_medico] call canFight) or (_timeOut < time)};
 				if ([_medico] call canFight) then
 					{
 					_unit switchMove "AinjPpneMrunSnonWnonDb";
@@ -135,11 +141,12 @@ if (_medico != _unit) then
 						{
 						_unit playMoveNow "";
 						_unit setUnconscious false;
-						waitUntil {sleep 0.1; lifeState _unit != "INCAPACITATED"};
+						_timeOut = time + 3;
+						waitUntil {(lifeState _unit != "INCAPACITATED") or (_timeOut < time)};
 						_unit setUnconscious true;
 						};
 					};
-				if (_isPlayer) then {_unit setVariable ["llevado",false,true]};
+				//if (_isPlayer) then {_unit setVariable ["llevado",false,true]};
 				}
 			else
 				{
@@ -179,6 +186,7 @@ if (_medico != _unit) then
 	if (_medico == _unit getVariable ["ayudado",objNull]) then {_unit setVariable ["ayudado",objNull]};
 	_medico setVariable ["ayudando",nil];
 	_medico setUnitPos "AUTO";
+	_medico setBehaviour _beh;
 	}
 else
 	{

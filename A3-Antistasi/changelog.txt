@@ -693,7 +693,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - NATO wont attack cities under SDK influence.
 - SDK wont gain influence when the RT is on CSAT hands.
 
-0.1.0 23/04/2018 ALPHA
+1.0.0 23/04/2018
 
 - NEW FEATURE: When a garrison is under attack, all players will receive a notification about it with relevant info. PvP too. PvP mission experience should change A LOT.
 - NEW FEATURE: As visual aid, SDK markers for SDK players display the total garrison in map
@@ -703,6 +703,8 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - IMPORTANT: Removed notification map markers on contact as they seem very unrealistic and the HC module does the trick. Only remain under certain circumstances.
 - IMPORTANT: Improved code structure to make easier ports to another islands :)
 - IMPORTANT: Titan and any kind of guided missile weapon wont be unlockable, Militia will no longer spawn with AA (at least in vanilla).
+- IMPORTANT: Undercover lose condition from roadblocks applied to airports and outposts.
+- "Take the Flag" action will require to decimate the zone.
 - Corrected bug on garrison modification when AI dies.
 - Optimised code for reaction when AI loses a teammate.
 - Higher chance for AI to surrender.
@@ -742,3 +744,58 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - RHS arty now works.
 - More complete RHS integration.
 - Removed exploit on player loadout + MP + persistent save.
+- Added JNL to surrendered units ammoboxes.
+- Gendarmes will use their primary weapon by default.
+- Re enabled control of POWs.
+- Raised a lot radius for AI decide attack from Airbases and Outposos.
+- Raised minimum garrison squads to 2.
+- ACE eraplugs for ACE PvP players.
+- Skip Time works again with PvP players present.
+
+1.0.1 14/05/2018
+
+- Player won't be able to garage an air vehicle without being near an airport.
+- PvP players will be able to "steal" unarmed vehicles from their faction airbases and outposts.
+- More intense suppressive fire use on AI.
+- AI Supressed status checks to perform some actions.
+- Fixed radio tower duplicity on headless clients.
+- Player arty markers shouldnt be visible for other factions or JIP players.
+- Altis civ car available to buy is now a non APEX car.
+- Airports wont have "busy" status if they send a QRF, yes for outposts.
+- Server members (or everyone if the feature is disabled) wont have group / locked restrictions when boarding a vehicle.
+- Changed PvP NATO Sniper by NATO MG role.
+- Non server members wont be able to know HR and Airstrikes.
+- NATO PvP players with RHS will have proper loadout.
+- Corrected bug on initialRifles variable in MP.
+- Reinforcements will be executed by HCs.
+- Fixed locality issues with ace items variables so problems in Arsenal should be solved. Those variables are required to fix ACE bugs and config fails which conflict with BIS functions.
+- Altis vanilla weapons found in anmoboxes are more basic vanilla.
+- Drone backpacks as possible loot are now greenfor to avoid friendly AI shoot at them.
+- Removed the unlimited wave when CSAT attacks and has only one airport.
+- More major attack waves depending on faction, destination and War Level.
+- Removed convoy creation when major attacks are small.
+- Reinforcements now are dispatched in helis for remote places.
+- Checks for enemy presence will ignore dead, captured, uncosncious etc. enemies.
+- ACE assets added to PvP player loadouts depending on ACE config.
+
+1.0.2 16/05/2018
+
+- IMPORTANT: Reviving takes time, depending on the injuries received.
+- Ambushed AI will react faster, trying to take cover when engaged, take deffensive positions, evaluate the situation and react.
+- Unconscious teammates wont be loaded in trucks if there is some AI or player reviving.
+- Teamkilled players disguised as enemies wont cause punishment to the killer.
+- HQ AI garrison are rambos, the top killers, Petros / MAru personnal guard.
+- Raised alot bleedout time in MP.
+- Removed feature when player bleedsout and AI don't reach him, as they seem very realiable in pathfinding.
+- Corrected small bug on PvP briefing.
+- Corrected big bug in RB / Forest patrols in MP.
+- Re enabled Land QRFs.
+- Removed tanoan civvies in Altis.
+- Time to recover from revive on enemy AI is equal to friendly AI.
+- Removed Tanoa civ car from RHS template.
+- When an AI gets severe damage but not unconscious, will try to get to cover instead of just dropping smoke.
+- MP client persistent load should be fixed.
+- Removed time to recover for enemy AI after revive.
+- Hopefully resolved some spawn in destination attack bug.
+- Reworked "being carried" and "carried" status to avoid some bugs.
+- Lowered a bit NATO skill.

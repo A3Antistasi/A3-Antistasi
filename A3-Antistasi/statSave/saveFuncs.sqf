@@ -57,13 +57,16 @@ fn_SetStat =
 		if(_varName == 'loadoutPlayer') then
 			{
 			_pepe = + _varValue;
-			removeAllItemsWithMagazines player;
-			{player removeWeaponGlobal _x} forEach weapons player;
-			removeBackpackGlobal player;
-			removeVest player;
-			if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems player))) then {player unlinkItem "ItemGPS"};
-			if ((!hayTFAR) and (!hayACRE) and ("ItemRadio" in (assignedItems player)) and (not("ItemRadio" in unlockedItems))) then {player unlinkItem "ItemRadio"};
-			["loadoutPlayer", getUnitLoadout player] call fn_SaveStat;
+			if (isMultiplayer) then
+				{
+				removeAllItemsWithMagazines player;
+				{player removeWeaponGlobal _x} forEach weapons player;
+				removeBackpackGlobal player;
+				removeVest player;
+				if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems player))) then {player unlinkItem "ItemGPS"};
+				if ((!hayTFAR) and (!hayACRE) and ("ItemRadio" in (assignedItems player)) and (not("ItemRadio" in unlockedItems))) then {player unlinkItem "ItemRadio"};
+				["loadoutPlayer", getUnitLoadout player] call fn_SaveStat;
+				};
 			player setUnitLoadout _pepe;
 			};
 		if(_varName == 'scorePlayer') then {player setVariable ["score",_varValue,true];};

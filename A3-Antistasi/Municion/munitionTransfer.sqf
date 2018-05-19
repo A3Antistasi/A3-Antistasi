@@ -1,5 +1,5 @@
 if (!isServer) exitWith {};
-private ["_subCosa","_municion","_origen","_destino"];
+private ["_subCosa","_municion"];
 _origen = _this select 0;
 _destino = _this select 1;
 
@@ -42,6 +42,19 @@ if (!isNil "_weaponsItemsCargo") then
 				{
 				if (_cosa != "") then {_items pushBack _cosa};
 				};
+			/*
+			else
+				{
+				if (typeName _cosa == typeName []) then
+					{
+					if (count _cosa > 0) then
+						{
+						_subCosa = _cosa select 0;
+						if (!isNil "_subCosa") then {_municion pushBack _subCosa; stavros sidechat format ["%1,%2",_municion,_subCosa];} else {diag_log format ["Error transfering ammo on %1",_cosa]};
+						};
+					};
+				}
+			*/
 			};
 		} forEach _weaponsItemsCargo;
 		};
@@ -70,7 +83,7 @@ _municionFinal = [];
 _municionFinalCount = [];
 if (isNil "_municion") then
 	{
-	diag_log format ["Error en transmisión de munición. Tenía esto: %1 y estos contenedores: %2, el origen era un %3 y el objeto está definido como: %4", magazineCargo _origen, everyContainer _origen,typeOf _origen,_origen];
+	diag_log format ["Error en transmisión de munición. Tenía esto: %1 y estos contenedores: %2, el origen era un %3", magazineCargo _origen, everyContainer _origen,typeOf _origen];
 	}
 else
 	{

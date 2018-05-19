@@ -5,6 +5,8 @@ private ["_marcador","_esMarcador","_exit","_radio","_base","_aeropuerto","_posD
 _marcador = _this select 0;
 _aeropuerto = _this select 1;
 _typeOfAttack = _this select 2;
+systemchat format ["STEFTEST: QRF to %1, from %2, type=%3",_marcador,_aeropuerto,_typeOfAttack];
+diag_log format ["STEFTEST: QRF to %1, from %2, type=%3",_marcador,_aeropuerto,_typeOfAttack];
 _super = if (!isMultiplayer) then {false} else {_this select 3};
 _inWaves = false;
 _lado = malos;
@@ -590,6 +592,7 @@ else
 	smallCApos = smallCApos - [_marcador];
 	};
 diag_log format ["Antistasi PatrolCA: CA on %1 finished",_marcador];
+systemchat format ["STEFTEST QRF on %1 finished",_marcador];
 
 if (_marcador in forcedSpawn) then {forcedSpawn = forcedSpawn - [_marcador]; publicVariable "forcedSpawn"};
 

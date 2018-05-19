@@ -5,6 +5,7 @@ _mrkOrigen = _this select 1;
 _numero = _this select 2;
 _lado = _this select 3;
 diag_log format ["Antistasi. PatrolReinf. Dest:%1, Orig:%2, Size:%3, Side: %4",_mrkDestino,_mrkOrigen,_numero,_lado];
+systemchat format ["STEFTEST. Reinforcements. Dest:%1, Orig:%2, Size:%3, Side: %4",_mrkDestino,_mrkOrigen,_numero,_lado];
 _posDestino = getMarkerPos _mrkDestino;
 _posOrigen = getMarkerPos _mrkOrigen;
 

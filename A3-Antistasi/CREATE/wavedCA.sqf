@@ -443,12 +443,12 @@ while {(_waves != 0)} do
 					}
 				else
 					{
-					_pos = _posDestino getPos [(random 500) + 300, random 360];
-					_landPos = [_posDestino, 200, 350, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
+					_landPos = _posDestino getPos [400, random 360];
+					_landPos = [_landPos, 0, 350, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
 					if !(_landPos isEqualTo [0,0,0]) then
 						{
 						_landPos set [2, 0];
-						_pad = createVehicle ["Land_HelipadEmpty_F", _landpos, [], 0, "NONE"];
+						_pad = createVehicle ["Land_HelipadEmpty_F", _landPos, [], 0, "NONE"];
 						_vehiculos pushBack _pad;
 						_wp0 = _grupoVeh addWaypoint [_landpos, 0];
 						_wp0 setWaypointType "TR UNLOAD";

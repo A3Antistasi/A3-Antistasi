@@ -67,9 +67,9 @@ for "_i" from 1 to 3 do
 		if (not(_tipoVeh in vehFastRope)) then
 			{
 
-			_pos = _posDestino getPos [(random 500) + 300, random 360];
+			_landPos = _posDestino getPos [(random 500) + 300, random 360];
 
-			_landPos = [_posDestino, 200, 350, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
+			_landPos = [_landPos, 200, 350, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
 			if !(_landPos isEqualTo [0,0,0]) then
 				{
 				_landPos set [2, 0];

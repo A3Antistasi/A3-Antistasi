@@ -5,10 +5,13 @@ _tsk = _this select 1;
 if (isNil "_tsk") exitWith {};
 if (_tiempo > 0) then {sleep ((_tiempo/2) + random _tiempo)};
 
+if (count misiones > 0) then
+	{
+	for "_i" from 0 to (count misiones -1) do
+		{
+		_mision = (misiones select _i) select 0;
+		if (_mision == _tsk) exitWith {misiones deleteAt _i; publicVariable "misiones"};
+		};
+	};
+
 _nul = [_tsk] call BIS_fnc_deleteTask;
-//misiones = misiones - [_tsk];
-//publicVariable "misiones";
-/*
-_nul = [_tsk] call BIS_fnc_deleteTask;
-sleep 10;
-[[_tsk,true,false],"bis_fnc_deleteTask"] call bis_fnc_mp;

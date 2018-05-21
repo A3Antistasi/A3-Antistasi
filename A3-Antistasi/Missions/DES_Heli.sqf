@@ -44,8 +44,7 @@ if (_dificil) then
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"DES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
-	//_tsk = ["DES",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"CREATED",5,true,true,"talk"] call BIS_fnc_setTask;
-	//misiones pushBack _tsk; publicVariable "misiones";
+	misiones pushBack ["DES","CREATED"]; publicVariable "misiones";
 
 	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
 	if (dateToNumber date > _fechalimnum) then
@@ -141,7 +140,7 @@ else
 //misiones pushBack _tsk; publicVariable "misiones";
 [[buenos,civilian],"DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
 [[buenos,civilian],"DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
-//_tsk1 = ["DES1",[_lado],[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;
+misiones pushBack ["DES","CREATED"]; publicVariable "misiones";
 _vehiculos = [];
 _soldados = [];
 _grupos = [];

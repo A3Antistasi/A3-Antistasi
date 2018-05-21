@@ -140,10 +140,9 @@ class Mission
 		briefingName="A3-Antistasi Altis";
 		overviewText="Build FIA Army from scratch and defeat the AAF and CSAT forces in a whole map Dynamic Mission.";
 		resistanceWest=0;
-		resistanceEast=1;
 		startWeather=0;
 		startWind=0;
-		forecastWeather=0.40257543;
+		forecastWeather=0.16536765;
 		forecastWind=0;
 		forecastWaves=0.34750906;
 		forecastLightnings=0.099999994;
@@ -6466,6 +6465,7 @@ class Mission
 					};
 					id=1425;
 					type="I_G_officer_F";
+					atlOffset=-9.5367432e-007;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -6514,6 +6514,7 @@ class Mission
 			{
 			};
 			id=1424;
+			atlOffset=-9.5367432e-007;
 		};
 		class Item282
 		{
@@ -6905,6 +6906,7 @@ class Mission
 					};
 					id=1437;
 					type="I_G_officer_F";
+					atlOffset=9.5367432e-007;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -6953,6 +6955,7 @@ class Mission
 			{
 			};
 			id=1436;
+			atlOffset=9.5367432e-007;
 		};
 		class Item288
 		{

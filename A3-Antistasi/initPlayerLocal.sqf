@@ -63,7 +63,7 @@ else
 	{
 	stavros = player;
 	grupo = group player;
-	grupo setGroupId ["Pulu","GroupColor4"];
+	if (worldName == "Tanoa") then {grupo setGroupId ["Pulu","GroupColor4"]} else {grupo setGroupId ["Stavros","GroupColor4"]};
 	player setIdentity "protagonista";
 	player setUnitRank "COLONEL";
 	player hcSetGroup [group player];
@@ -437,6 +437,21 @@ if (_isJip) then
 		{
 		_nul = [true] execVM "Dialogs\firstLoad.sqf";
 		};
+	if (count misiones > 0) then
+		{
+		{
+		_tsk = _x select 0;
+		if ([_tsk] call BIS_fnc_taskExists) then
+			{
+			_state = _x select 1;
+			if ((_tsk call BIS_fnc_taskState) != _state) then
+				{
+				_tskVar = _tsk call BIS_fnc_taskVar;
+				_tskVar setTaskState _state;
+				};
+			};
+		} forEach misiones;
+		};
 	diag_log "Antistasi MP Client. JIP client finished";
 	}
 else
@@ -507,6 +522,7 @@ caja addAction ["Transfer Vehicle cargo to Ammobox", "[] call vaciar"];
 caja addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == stavros)"];
 
 _nul = [player] execVM "OrgPlayers\unitTraits.sqf";
+
 disableSerialization;
 //1 cutRsc ["H8erHUD","PLAIN",0,false];
 _layer = ["estadisticas"] call bis_fnc_rscLayer;

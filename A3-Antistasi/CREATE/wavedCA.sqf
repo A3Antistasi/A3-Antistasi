@@ -355,8 +355,7 @@ while {(_waves != 0)} do
 		diag_log format ["Antistasi: UAV %1 spawned. Number of vehicles %2",_tipoVeh,count _vehiculos];
 		sleep 5;
 
-		_vehPool = if (_lado == malos) then {vehNATOAir select {[_x] call vehAvailable}} else {vehCSATAir select {[_x] call vehAvailable}};
-		if !(_mrkDestino in aeropuertos) then {_vehPool = _vehPool - [vehNATOPlane,vehCSATPlane]};
+		_vehPool = if (_lado == malos) then {(vehNATOAir - [vehNATOPlane,vehNATOPlaneAA]) select {[_x] call vehAvailable}} else {(vehCSATAir - [vehCSATPlane,vehCSATPlaneAA]) select {[_x] call vehAvailable}};
 		if (_esSDK) then
 			{
 			_rnd = random 100;
@@ -443,7 +442,7 @@ while {(_waves != 0)} do
 					}
 				else
 					{
-					_landPos = _posDestino getPos [400, random 360];
+					_landPos = _posDestino getPos [200, random 360];
 					_landPos = [_landPos, 0, 350, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
 					if !(_landPos isEqualTo [0,0,0]) then
 						{

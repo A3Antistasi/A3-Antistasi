@@ -23,6 +23,7 @@ for "_i" from 0 to (_cuenta - 1) do
 	if ((_i == 0) or ((_allUnits + _i) < maxUnits) or _override) then
 		{
 		_unit = _grupo createUnit [(_tipos select _i), _posicion, [], 0, "NONE"];
+		_unit allowDamage false;
 		_allUnits = _allUnits + 1;
 		if (_i <= _cuentaRangos) then
 			{
@@ -32,6 +33,7 @@ for "_i" from 0 to (_cuenta - 1) do
 		sleep 0.5;
 		};
 	};
+{_x allowDamage true} forEach (units _grupo);
 _grupo
 
 

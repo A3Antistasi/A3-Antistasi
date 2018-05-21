@@ -196,8 +196,7 @@ _roads = [];
 if (_base != "") then
 	{
 	_aeropuerto = "";
-
-	if ((!_inWaves) and (!_super) and (!(_base in aeropuertos))) then {[_base,20] call addTimeForIdle};
+	if (_base in puestos) then {[_base,60] call addTimeForIdle} else {[_base,30] call addTimeForIdle};
 	_indice = aeropuertos find _base;
 	_spawnPoint = objNull;
 	_pos = [];
@@ -364,7 +363,7 @@ if (_base != "") then
 			_Vwp0 = (wayPoints _grupoVeh) select 0;
 			_Vwp0 setWaypointBehaviour "SAFE";
 			_Vwp0 = _grupoVeh addWaypoint [_posDestino, count (waypoints _grupoVeh)];
-			[_veh,"Tank"] spawn inmuneConvoy;
+			//[_veh,"Tank"] spawn inmuneConvoy;
 			_Vwp0 setWaypointType "SAD";
 			_Vwp0 setWaypointBehaviour "AWARE";
 			_veh allowCrewInImmobile true;
@@ -374,7 +373,7 @@ if (_base != "") then
 	};
 if (_aeropuerto != "") then
 	{
-	if ((!_inWaves) and (!_super) and (!(_base in aeropuertos))) then {[_aeropuerto,20] call addTimeForIdle};
+	[_aeropuerto,20] call addTimeForIdle;
 	_vehPool = [];
 	_cuenta = if (!_super) then {if (_esMarcador) then {2} else {1}} else {round (tierWar / 2) + 1};
 	_tipoVeh = "";
@@ -389,7 +388,14 @@ if (_aeropuerto != "") then
 					}
 				else
 					{
-					if (_lado == malos) then {if ([vehNATOPlaneAA] call vehAvailable) then {vehNATOPlaneAA} else {selectRandom _vehPool}} else {if ([vehCSATPlaneAA] call vehAvailable) then {vehCSATPlaneAA} else {selectRandom _vehPool}};
+					if (_typeOfAttack == "Air") then
+						{
+						if (_lado == malos) then {if ([vehNATOPlaneAA] call vehAvailable) then {vehNATOPlaneAA} else {selectRandom _vehPool}} else {if ([vehCSATPlaneAA] call vehAvailable) then {vehCSATPlaneAA} else {selectRandom _vehPool}};
+						}
+					else
+						{
+						if (_lado == malos) then {if ([vehNATOPlane] call vehAvailable) then {vehNATOPlane} else {selectRandom _vehPool}} else {if ([vehCSATPlane] call vehAvailable) then {vehCSATPlane} else {selectRandom _vehPool}};
+						};
 					};
 				}
 			else

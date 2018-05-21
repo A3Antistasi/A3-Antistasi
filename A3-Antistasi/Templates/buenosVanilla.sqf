@@ -81,6 +81,7 @@ else
 	gruposFIAMid = [["B_G_Soldier_SL_F","B_G_Sharpshooter_F","B_G_Soldier_AR_F","B_G_Soldier_A_F"],["B_G_Soldier_TL_F","B_G_Soldier_AR_F","B_G_Soldier_GL_F","B_G_Soldier_LAT_F"],["B_G_Soldier_TL_F","B_G_Soldier_LAT_F","B_G_Soldier_LAT_F","B_G_Soldier_LAT_F"]];
 	FIASquad = ["B_G_soldier_SL_F","B_G_soldier_F","B_G_soldier_LAT_F","B_G_Soldier_M_F","B_G_soldier_TL_F","B_G_soldier_AR_F","B_G_Soldier_A_F","B_G_medic_F"];//"IRG_InfSquad";///
 	gruposFIASquad = [FIASquad,["B_G_soldier_SL_F","B_G_soldier_LAT_F","B_G_Soldier_M_F","B_G_soldier_TL_F","B_G_Soldier_A_F","B_G_medic_F","B_support_MG_F","B_support_AMG_F"]];
+	factionFIA = "BLU_G_F";
 	};
 
 vehPoliceCar = "B_GEN_OFFROAD_01_gen_F";
@@ -90,4 +91,3 @@ gruposNATOGen = [policeOfficer,policeGrunt];
 nameBuenos = if (worldName == "Tanoa") then {"SDK"} else {"FIA"};
 
 factionGEN = "BLU_GEN_F";
-factionFIA = "BLU_G_F";

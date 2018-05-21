@@ -48,6 +48,7 @@ gruposCSATAT = ["O_soldier_TL_F","O_soldier_AT_F","O_soldier_AT_F","O_soldier_AA
 gruposCSATmid = [["O_soldier_TL_F","O_soldier_AR_F","O_soldier_GL_F","O_soldier_LAT_F"],gruposCSATAA,gruposCSATAT];
 CSATSquad = ["O_soldier_SL_F","O_soldier_F","O_soldier_LAT_F","O_soldier_M_F","O_soldier_TL_F","O_soldier_AR_F","O_soldier_A_F","O_medic_F"];
 CSATSpecOp = ["O_V_Soldier_TL_hex_F","O_V_Soldier_JTAC_hex_F","O_V_Soldier_M_hex_F","O_V_Soldier_Exp_hex_F","O_V_Soldier_LAT_hex_F","O_V_Soldier_Medic_hex_F"];
+factionMachoMuyMalos = "OPF_V_F";
 gruposCSATSquad = [CSATSquad,["O_soldier_SL_F","O_soldier_AR_F","O_soldier_GL_F","O_soldier_M_F","O_soldier_AT_F","O_soldier_AAT_F","O_soldier_A_F","O_medic_F"],["O_soldier_SL_F","O_soldier_LAT_F","O_soldier_TL_F","O_soldier_AR_F","O_soldier_A_F","O_medic_F","O_Support_Mort_F","O_Support_AMort_F"],["O_soldier_SL_F","O_soldier_LAT_F","O_soldier_TL_F","O_soldier_AR_F","O_soldier_A_F","O_medic_F","O_Support_MG_F","O_Support_AMG_F"]];
 soporteStaticCSATB = "O_HMG_01_support_F";
 ATStaticCSATB = "O_AT_01_weapon_F";

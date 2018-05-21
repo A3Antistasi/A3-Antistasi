@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.0.2B";
+antistasiVersion = "v 1.0.3";
 
 servidoresOficiales = ["A3-Antistasi Official EU 1","A3-Antistasi Official EU 2"];
 
@@ -283,7 +283,7 @@ haveRadio = false;
 haveNV = false;
 zoneCheckInProgress = false;
 garrisonIsChanging = false;
-
+misiones = []; publicVariable "misiones";
 unlockedItems = ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit","H_Booniehat_khk","H_Booniehat_oli","H_Booniehat_grn","H_Booniehat_dirty","H_Cap_oli","H_Cap_blk","H_MilCap_rucamo","H_MilCap_gry","H_BandMask_blk","H_Bandanna_khk","H_Bandanna_gry","H_Bandanna_camo","H_Shemag_khk","H_Shemag_tan","H_Shemag_olive","H_ShemagOpen_tan","H_Beret_grn","H_Beret_grn_SF","H_Watchcap_camo","H_TurbanO_blk","H_Hat_camo","H_Hat_tan","H_Beret_blk","H_Beret_red","H_Watchcap_khk","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_lowprofile","G_Balaclava_oli","G_Bandanna_beast","G_Tactical_Black","G_Aviator","G_Shades_Black","acc_flashlight","I_UavTerminal"] + uniformsSDK + civUniforms;//Initial Arsenal available items
 
 
@@ -296,7 +296,7 @@ if (!activeGREF) then
 	unlockedRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
 	unlockedMagazines = ["9Rnd_45ACP_Mag","30Rnd_9x21_Mag","30Rnd_762x39_Mag_F","MiniGrenade","1Rnd_HE_Grenade_shell","30Rnd_545x39_Mag_F","30Rnd_9x21_Mag_SMG_02","10Rnd_9x21_Mag","200Rnd_556x45_Box_F","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
 	initialRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];
-	unlockedItems = unlockedItems + ["V_Chestrig_khk","V_BandollierB_cbr","V_BandollierB_rgr","U_C_HunterBody_grn"];
+	unlockedItems = unlockedItems + ["V_Chestrig_khk","V_BandollierB_cbr","V_BandollierB_rgr","U_C_HunterBody_grn","rhs_6sh92"];
 	if (worldName == "Tanoa") then
 		{
 		unlockedWeapons pushBack "launch_RPG7_F";

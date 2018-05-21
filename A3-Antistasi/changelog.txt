@@ -780,7 +780,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 
 1.0.2 16/05/2018
 
-- IMPORTANT: Reviving takes time, depending on the injuries received.
+- IMPORTANT: Reviving takes time, depending on the injuries received. Still has some glitches but gameplay improvement wotrth it.
 - Ambushed AI will react faster, trying to take cover when engaged, take deffensive positions, evaluate the situation and react.
 - Unconscious teammates wont be loaded in trucks if there is some AI or player reviving.
 - Teamkilled players disguised as enemies wont cause punishment to the killer.
@@ -799,3 +799,26 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Hopefully resolved some spawn in destination attack bug.
 - Reworked "being carried" and "carried" status to avoid some bugs.
 - Lowered a bit NATO skill.
+
+1.0.3 20/05/2018
+
+- IMPORTANT: Early stages AI skill will be lowered, as there was some wrong calculation which made training beyond 5 skill level making AI Rambos.
+- Reverted no busy status because of QRF sent in airports, outposts will require more time to recover.
+- Reduced reviving times.
+- Improved visual aspect for undercover AI.
+- AI will prioritise outposts and seaports in order to decide to reinforce a garrison.
+- Added some delay on AI heal procedures to avoid flood in case of massive damages.
+- Temp inmune AI on spawn to avoid malfunctions.
+- Killing an AI teammate wont make everyone hate you.
+- Refugees and other non ambient civilians shouldnt despawn in dedicated servers.
+- Custom assets and skillsets for faction SPECOPS / FIA substitutes also apply for mod units.
+- Added additional light vest with RHS GREF.
+- Fixed: OPFOR and GREENFOR are enemies again.
+- On major attacks, planes wont form part of the vehicle pool (apart from CAS). On minor, will depend on what's the threat (only AA cratfs were spawned before).
+- Armed cars and money vans shouldnt have broken wheels by accident now.
+- Convoys wont be send with origin and destination of different side.
+- Altis should have better weather now.
+- Right Stavros group ID in Altis.
+- Enemy does not wait to lose a jungle / forest / hill to build minefields in it.
+- PvP players will be able to Fast Travel to their respawn point.
+- Last? Attempt to fix broken BIS task functions with JiP players.

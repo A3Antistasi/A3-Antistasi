@@ -62,7 +62,7 @@ if (_medico != _unit) then
 				_medico playAction "grabDrag";
 				sleep 0.1;
 				_timeOut = time + 5;
-				waitUntil {((animationState _medico) == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") or ((animationState _medico) == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2") or !([_medico] call canFight) or (_timeOut < time)};
+				waitUntil {sleep 0.3; ((animationState _medico) == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") or ((animationState _medico) == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2") or !([_medico] call canFight) or (_timeOut < time)};
 				if ([_medico] call canFight) then
 					{
 					_unit switchMove "AinjPpneMrunSnonWnonDb";
@@ -142,7 +142,7 @@ if (_medico != _unit) then
 						_unit playMoveNow "";
 						_unit setUnconscious false;
 						_timeOut = time + 3;
-						waitUntil {(lifeState _unit != "INCAPACITATED") or (_timeOut < time)};
+						waitUntil {sleep 0.3; (lifeState _unit != "INCAPACITATED") or (_timeOut < time)};
 						_unit setUnconscious true;
 						};
 					};

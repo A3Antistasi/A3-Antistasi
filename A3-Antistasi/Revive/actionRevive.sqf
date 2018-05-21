@@ -21,17 +21,17 @@ if (not("FirstAidKit" in (items _curandero))) then
 	};
 _timer = if (_curado getVariable ["fatalWound",false]) then
 			{
-			time + 55 + (random 30)
+			time + 35 + (random 20)
 			}
 		else
 			{
 			if ((!isMultiplayer and (isPlayer _curado)) or (getNumber (configfile >> "CfgVehicles" >> (typeOf _curandero) >> "attendant") == 2) or (_curandero getUnitTrait "Medic")) then
 				{
-				time + 10 + (random 30)
+				time + 10 + (random 5)
 				}
 			else
 				{
-				time + 25 + (random 30)
+				time + 15 + (random 10)
 				};
 			};
 

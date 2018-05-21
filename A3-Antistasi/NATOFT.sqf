@@ -32,12 +32,23 @@ if (count _posicionTel > 0) then
 		{
 		_sideENY = malos;
 		};
-
-	_base = [marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
+	_marcadores = +marcadores;
+	_mrkRespawn = "";
+	if (_lado == malos) then
+		{
+		_marcadores pushBack "respawn_west";
+		_mrkRespawn = "respawn_west";
+		}
+	else
+		{
+		_marcadores pushBack "respawn_east";
+		_mrkRespawn = "respawn_east";
+		};
+	_base = [_marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
 
 	if ((lados getVariable [_base,sideUnknown] == buenos) or (_base in _mrkENY)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
-	if ((!(_base in aeropuertos)) and (!(_base in puertos)) and (!(_base in puestos))) exitWith {hint "You can Fast Travel only to Airbases, Outposts and Seaports"; openMap [false,false]};
+	if ((!(_base in aeropuertos)) and (!(_base in puertos)) and (!(_base in puestos)) and (_base != _mrkRespawn)) exitWith {hint "You can Fast Travel only to Airbases, Outposts and Seaports"; openMap [false,false]};
 
 	{
 		if (((side _x == buenos) or (side _x == _sideENY)) and (_x distance (getMarkerPos _base) < 500) and (not(captive _x))) then {_chequeo = true};

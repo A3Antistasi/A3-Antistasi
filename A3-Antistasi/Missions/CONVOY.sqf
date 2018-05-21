@@ -43,8 +43,7 @@ if (_dificil) then
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"CONVOY",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
-	//_tsk = ["CONVOY",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"CREATED",5,true,true,"talk"] call BIS_fnc_setTask;
-	//misiones pushBack _tsk; publicVariable "misiones";
+	misiones pushBack ["CONVOY","CREATED"]; publicVariable "misiones";
 
 	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
 	if (dateToNumber date > _fechalimnum) then
@@ -205,7 +204,7 @@ switch (_tipoConvoy) do
 //misiones pushBack _tsk; publicVariable "misiones";
 [[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
 [[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,false,0,true,"run",true] call BIS_fnc_taskCreate;
-//_tsk1 = ["CONVOY1",[_lado],[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,_taskState1,5,true,true,"run"] call BIS_fnc_setTask;
+misiones pushBack ["CONVOY","CREATED"]; publicVariable "misiones";
 sleep (_tiempolim * 60);
 
 _indice = aeropuertos find _base;
@@ -244,7 +243,7 @@ _wp0 setWaypointType "MOVE";
 _wp0 setWaypointBehaviour "SAFE";
 _grupo setBehaviour "SAFE";
 _wp0 setWaypointFormation "COLUMN";
-_vehLead limitSpeed 75;
+_vehLead limitSpeed 50;
 
 
 _cuenta = 1;
@@ -383,8 +382,12 @@ if (_tipoConvoy == "Refuerzos") then
 	{[_x] call NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo;_refuerzos pushBack _x} forEach units _grupoEsc;
 	deleteGroup _grupoEsc;
 	};
-if ((_tipoConvoy == "Money") or (_tipoConvoy == "Supplies")) then {reportedVehs pushBack _vehObj; publicVariable "reportedVehs"};
-
+if ((_tipoConvoy == "Money") or (_tipoConvoy == "Supplies")) then
+	{
+	reportedVehs pushBack _vehObj;
+	publicVariable "reportedVehs";
+	_vehObj addEventHandler ["HandleDamage",{if (((_this select 1) find "wheel" != -1) and ((_this select 4=="") or (side (_this select 3) != buenos)) and (!isPlayer driver (_this select 0))) then {0} else {(_this select 2)}}];
+	};
 sleep 5;
 _tipoVehEsc = selectRandom _vehPool;
 if (not([_tipoVehEsc] call vehAvailable)) then

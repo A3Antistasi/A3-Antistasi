@@ -62,6 +62,10 @@ if ((_tipo in vehNormal) or (_tipo in vehAttack) or (_tipo in vehBoats)) then
 					[_veh,480] call addTimeForIdle;
 					}];
 				_veh addEventHandler ["HandleDamage",{private ["_veh"]; _veh = _this select 0; if (!canFire _veh) then {[_veh] call smokeCoverAuto}}];
+				}
+			else
+				{
+				_veh addEventHandler ["HandleDamage",{if (((_this select 1) find "wheel" != -1) and ((_this select 4=="") or (side (_this select 3) != buenos)) and (!isPlayer driver (_this select 0))) then {0} else {(_this select 2)}}];
 				};
 			};
 		};

@@ -23,7 +23,11 @@ if (_numReal + 4 <= _numGarr) then
 	};
 if ((_numero >= 4) and (reinfPatrols <= 4)) then
 	{
-	_posibles = (recursos + fabricas + puestos + puertos - _reinfPlaces - (killZones getVariable [_aeropuerto,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
+	_posibles = (puestos + puertos - _reinfPlaces - (killZones getVariable [_aeropuerto,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
+	if (_posibles isEqualTo []) then
+		{
+		_posibles = (recursos + fabricas - _reinfPlaces - (killZones getVariable [_aeropuerto,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
+		};
 	_posicion = getMarkerPos _aeropuerto;
 	_posibles = _posibles select {((getMarkerPos _x distance2D _posicion) < distanceForAirAttack)};
 	if (count _posibles > 0) then

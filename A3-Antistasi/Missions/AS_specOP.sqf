@@ -40,6 +40,7 @@ if (_dificil) then
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"AS",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
+	misiones pushBack ["AS","CREATED"]; publicVariable "misiones";
 	//_tsk = ["AS",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"CREATED",5,true,true,"talk"] call BIS_fnc_setTask;
 	//misiones pushBack _tsk; publicVariable "misiones";
 
@@ -99,19 +100,9 @@ _fechalimnum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call localizar;
 _nombreBando = if (_lado == malos) then {"NATO"} else {"CSAT"};
-/*
-if (!_dificil) then
-	{
-	[[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate
-	}
-else
-	{
-	["AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,"CREATED","Kill"] call taskUpdate;
-//misiones pushBack _tsk; publicVariable "misiones"
-	};
-*/
-[[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
 
+[[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
+misiones pushBack ["AS","CREATED"]; publicVariable "misiones";
 waitUntil  {sleep 5; (dateToNumber date > _fechalimnum) or (lados getVariable [_marcador,sideUnknown] == buenos)};
 
 if (dateToNumber date > _fechalimnum) then

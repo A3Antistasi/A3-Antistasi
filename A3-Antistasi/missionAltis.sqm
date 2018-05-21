@@ -137,13 +137,12 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="A3-Antistasi 1.0.2B Altis";
+		briefingName="A3-Antistasi 1.0.3 Altis";
 		overviewText="Build FIA Army from scratch and defeat the AAF and CSAT forces in a whole map Dynamic Mission.";
 		resistanceWest=0;
-		resistanceEast=0;
 		startWeather=0;
 		startWind=0;
-		forecastWeather=0.050257543;
+		forecastWeather=0.16536765;
 		forecastWind=0;
 		forecastWaves=0.34750906;
 		forecastLightnings=0.099999994;

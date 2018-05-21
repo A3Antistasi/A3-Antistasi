@@ -43,9 +43,7 @@ if (_dificil) then
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
-	//_tsk = ["LOG",[buenos,civilian],[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"CREATED",5,true,true,"talk"] call BIS_fnc_setTask;
-	//misiones pushBack _tsk; publicVariable "misiones";
-
+	misiones pushBack ["LOG","CREATED"]; publicVariable "misiones";
 	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
 	if (dateToNumber date > _fechalimnum) then
 		{
@@ -122,17 +120,9 @@ _camion addEventHandler ["GetIn",
 	}];
 
 [_camion,"Mission Vehicle"] spawn inmuneConvoy;
-/*
-if (!_dificil) then
-	{
-	[[buenos,civilian],"LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,false,0,true,"Interact",true] call BIS_fnc_taskCreate
-	}
-else
-	{
-	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"CREATED","Interact"] call taskUpdate;
-	};*/
-//misiones pushBack _tsk; publicVariable "misiones";
+
 [[buenos,civilian],"LOG",[format ["We know Gendarmes are guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,false,0,true,"Interact",true] call BIS_fnc_taskCreate;
+misiones pushBack ["LOG","CREATED"]; publicVariable "misiones";
 _mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], _posicion];
 _mrk setMarkerShapeLocal "RECTANGLE";
 _mrk setMarkerSizeLocal [30,30];

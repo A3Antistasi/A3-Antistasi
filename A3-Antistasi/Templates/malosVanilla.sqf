@@ -50,7 +50,7 @@ gruposNATOmid = [["B_T_soldier_TL_F","B_T_soldier_AR_F","B_T_soldier_GL_F","B_T_
 NATOSquad = ["B_T_soldier_SL_F",NATOGrunt,"B_T_soldier_LAT_F",NATOMarksman,"B_T_soldier_TL_F","B_T_soldier_AR_F","B_T_soldier_A_F","B_T_medic_F"];//"B_T_InfSquad";//
 NATOSpecOp = ["B_CTRG_Soldier_TL_tna_F","B_CTRG_Soldier_M_tna_F","B_CTRG_Soldier_Medic_tna_F",NATOBodyG,"B_CTRG_Soldier_LAT_tna_F","B_CTRG_Soldier_JTAC_tna_F","B_CTRG_Soldier_Exp_tna_F","B_CTRG_Soldier_AR_tna_F"];//(configfile >> "CfgGroups" >> "West" >> "BLU_CTRG_F" >> "Infantry" >> "CTRG_InfSquad");
 gruposNATOSquad = [NATOSquad,["B_T_soldier_SL_F","B_T_soldier_AR_F","B_T_soldier_GL_F",NATOMarksman,"B_T_soldier_AT_F","B_T_soldier_AAT_F","B_T_soldier_A_F","B_T_medic_F"],["B_T_soldier_SL_F","B_T_soldier_LAT_F","B_T_soldier_TL_F","B_T_soldier_AR_F","B_T_soldier_A_F","B_T_medic_F","B_T_Support_Mort_F","B_support_AMort_F"],["B_T_soldier_SL_F","B_T_soldier_LAT_F","B_T_soldier_TL_F","B_T_soldier_AR_F","B_T_soldier_A_F","B_T_medic_F","B_support_MG_F","B_support_AMG_F"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///
-
+factionMachoMalos = "BLU_CTRG_F";
 squadLeaders pushBack "B_T_soldier_SL_F";
 
 soporteStaticNATOB = "B_HMG_01_support_F";

@@ -2,7 +2,7 @@
 #include "dialogs.hpp"
 
 author="Barbolani";
-OnLoadName = "A3-Antistasi 1.0.2B Altis";
+OnLoadName = "A3-Antistasi 1.0.3 Altis";
 OnLoadMission = "Be a restistance leader, be a hero";
 loadScreen = "pic.JPG";
 
@@ -115,15 +115,6 @@ class CfgIdentities
         face="GreekHead_A3_01";
     glasses="None";
     speaker="Male01GRE";
-    pitch=1.1;
-    };
-     class tonto
-    {
-        name = "Zorba";
-        nameSound = "";
-        face="GreekHead_A3_09";
-    glasses="None";
-    speaker="Male03GRE";
     pitch=1.1;
     };
       class Anthis
@@ -260,44 +251,6 @@ class CfgIdentities
     glasses="None";
     speaker="Male03GRE";
     pitch=1.1;
-    };
-
-        class Nomad
-    {
-        name = "Nomad";
-        nameSound = "Nomad";
-        face="WhiteHead_09";
-    glasses = "None";
-    speaker = "Male04ENGB";
-    pitch = 1.0;
-    };
-
-        class Stranger
-    {
-        name = "Stranger";
-        nameSound = "Stranger";
-        face="GreekHead_A3_06";
-    glasses = "None";
-    speaker = "Male04GRE";
-    pitch = 1.0;
-    };
-
-        class Devin
-    {
-        name = "Devin";
-        face="WhiteHead_11";
-    glasses = "None";
-    speaker = "Male08ENG";
-    pitch = 1.0;
-    };
-
-            class Dusty
-    {
-        name = "Mayor Dusty";
-        face="WhiteHead_08";
-    glasses = "None";
-    speaker = "Male08ENG";
-    pitch = 1.0;
     };
 };
 

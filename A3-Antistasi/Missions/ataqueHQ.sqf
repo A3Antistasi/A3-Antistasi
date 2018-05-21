@@ -18,7 +18,7 @@ _tsk1 = "";
 _tsk = "";
 [[buenos,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],"respawn_guerrila"],_posicion,true,10,true,"Defend",true] call BIS_fnc_taskCreate;
 [[_lado],"DEF_HQ1",[format ["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros],format ["Kill %1",name petros],"respawn_guerrila"],_posicion,true,10,true,"Attack",true] call BIS_fnc_taskCreate;
-
+misiones pushBack ["DEF_HQ","CREATED"]; publicVariable "misiones";
 _tiposVeh = if (_lado == malos) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
 _tiposVeh = _tiposVeh select {[_x] call vehAvailable};
 

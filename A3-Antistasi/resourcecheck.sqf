@@ -210,7 +210,7 @@ while {true} do
 				{
 				if (local _x) then
 					{
-					if (typeOf _x != "C_man_w_worker_F") then
+					if ((typeOf _x) in arrayCivs) then
 						{
 						if (vehicle _x == _x) then
 							{

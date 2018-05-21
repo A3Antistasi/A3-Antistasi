@@ -117,15 +117,6 @@ class CfgIdentities
     speaker="Male01GRE";
     pitch=1.1;
     };
-     class tonto
-    {
-        name = "Zorba";
-        nameSound = "";
-        face="GreekHead_A3_09";
-    glasses="None";
-    speaker="Male03GRE";
-    pitch=1.1;
-    };
       class Anthis
     {
         name = "Anthis";
@@ -261,44 +252,6 @@ class CfgIdentities
     speaker="Male03GRE";
     pitch=1.1;
     };
-
-        class Nomad
-    {
-        name = "Nomad";
-        nameSound = "Nomad";
-        face="WhiteHead_09";
-    glasses = "None";
-    speaker = "Male04ENGB";
-    pitch = 1.0;
-    };
-
-        class Stranger
-    {
-        name = "Stranger";
-        nameSound = "Stranger";
-        face="GreekHead_A3_06";
-    glasses = "None";
-    speaker = "Male04GRE";
-    pitch = 1.0;
-    };
-
-        class Devin
-    {
-        name = "Devin";
-        face="WhiteHead_11";
-    glasses = "None";
-    speaker = "Male08ENG";
-    pitch = 1.0;
-    };
-
-            class Dusty
-    {
-        name = "Mayor Dusty";
-        face="WhiteHead_08";
-    glasses = "None";
-    speaker = "Male08ENG";
-    pitch = 1.0;
-    };
 };
 
 
@@ -320,24 +273,24 @@ class CfgDebriefing
 	class End1
 	{
 		title = "V I C T O R Y";
-		subtitle = "Tanoa is Ours!";
-		description = "The population of Tanoa loves you!<br/>The SDK brave soldiers prooved their valour, and Barbolani, Tanoa new Prime Minister, could at last to have a nice holliday. A deserved rest in a Greek island, drinking with Petros, his war master.";
+		subtitle = "Altis is Ours!";
+		description = "The population of Altis loves you!<br/>The brave soldiers prooved their valour, and Barbolani, Altis new Prime Minister, could at last to have a nice holliday. A deserved rest in a Greek island, drinking with Petros, his war master.";
 		picture = "n_inf";
 		pictureColor[] = {0.0,0.5,0.0,1};
 	};
     class petrosDead
     {
-        title = "Maru is Dead";
-        subtitle = "Maru is Dead";
-        description = "Congratulations!: Maru is Dead. Now with Syndikat without a leader, you may think about joining them, and free Tanoa";
+        title = "Petros is Dead";
+        subtitle = "Petros is Dead";
+        description = "Congratulations!: Petros is Dead. Now with Syndikat without a leader, you may think about joining them, and free Altis";
         picture = "b_unknown";
         pictureColor[] = {0.5,0.0,0.0,1};
     };
     class destroyedCities
     {
-        title = "Tanoa is Destroyed";
-        subtitle = "Tanoa got Destroyed by CSAT";
-        description = "One third of the population in Tanoa has been murdered by CSAT.<br/>Tanoa no longer exists, nobody wants to live here.";
+        title = "Altis is Destroyed";
+        subtitle = "Altis got Destroyed by OPFOR";
+        description = "One third of the population in Tanoa has been murdered by the OPFOR.<br/>Tanoa no longer exists, nobody wants to live here.";
         picture = "b_unknown";
         pictureColor[] = {0.5,0.0,0.0,1};
     };

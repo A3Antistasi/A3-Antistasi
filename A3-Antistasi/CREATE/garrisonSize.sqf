@@ -29,7 +29,7 @@ else
 	if (_frontera) then {_nveh = _nveh + 1};
 	};
 
-if (_nveh < 2) then {_nVeh = 2};
+if (_nveh < 1) then {_nVeh = 1};
 _nVeh = 8 * _nVeh;
 
 _nVeh

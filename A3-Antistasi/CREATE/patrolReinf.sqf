@@ -43,8 +43,6 @@ if (_land) then
 		};
 	if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
 	_veh = _tipoVeh createVehicle _pos;
-	//debug
-	if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en patrolReinf.Origen:%1.Dets:%2",_mrkOrigen,_mrkDestino]};
 	_veh setDir (markerDir _spawnPoint);
 	_grupo = [_pos,_lado, _tipoGrupo] call spawnGroup;
 	_grupo addVehicle _veh;
@@ -53,7 +51,7 @@ if (_land) then
 	[_x] call NATOinit
 	} forEach units _grupo;
 	[_veh] call AIVEHinit;
-	//[_veh,"Inf Truck."] spawn inmuneConvoy;
+	[_veh,"Inf Truck."] spawn inmuneConvoy;
 	[_mrkOrigen,_posDestino,_grupo] call WPCreate;
 	_Vwp0 = (wayPoints _grupo) select 0;
 	_Vwp0 setWaypointBehaviour "SAFE";
@@ -77,8 +75,6 @@ else
 	if (count _pos == 0) then {_pos = _posorigen};
 
 	_vehicle=[_pos, _ang + 90,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
-	//debug
-	if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en patrolReinf.Origen:%1.Dets:%2",_mrkOrigen,_mrkDestino]};
 	_veh = _vehicle select 0;
 	_vehCrew = _vehicle select 1;
 	_grupoVeh = _vehicle select 2;

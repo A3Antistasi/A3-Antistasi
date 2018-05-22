@@ -101,7 +101,18 @@ fn_SetStat =
 		if(_varName == 'civPerc') then {civPerc = _varValue; if (civPerc < 1) then {civPerc = 35}; publicVariable "civPerc"};
 		if(_varName == 'maxUnits') then {maxUnits=_varValue; publicVariable "maxUnits"};
 		if(_varName == 'vehInGarage') then {vehInGarage= +_varValue; publicVariable "vehInGarage"};
-		if(_varName == 'destroyedBuildings') then {destroyedBuildings= +_varValue; publicVariable "destroyedBuildings"};
+		if(_varName == 'destroyedBuildings') then
+			{
+			destroyedBuildings= +_varValue;
+			publicVariable "destroyedBuildings";
+			{
+			_buildings = nearestObjects [_x,listMilBld,50];
+			if !(_buildings isEqualto []) then
+				{
+				(_buildings Select 0) setdamage 1;
+				};
+			} forEach destroyedBuildings;
+			};
 		if(_varName == 'minas') then
 			{
 			for "_i" from 0 to (count _varvalue) - 1 do

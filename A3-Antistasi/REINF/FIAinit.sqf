@@ -96,13 +96,16 @@ else
 						{
 						if (_tipo in SDKATman) then
 							{
-							_rlauncher = selectRandom unlockedAT;
-							if (_rlauncher != secondaryWeapon _unit) then
+							if !(unlockedAT isEqualTo []) then
 								{
-								_magazines = getArray (configFile / "CfgWeapons" / (secondaryWeapon _unit) / "magazines");
-								{_unit removeMagazines _x} forEach _magazines;
-								_unit removeWeaponGlobal (secondaryWeapon _unit);
-								[_unit, _rlauncher, 4, 0] call BIS_fnc_addWeapon;
+								_rlauncher = selectRandom unlockedAT;
+								if (_rlauncher != secondaryWeapon _unit) then
+									{
+									_magazines = getArray (configFile / "CfgWeapons" / (secondaryWeapon _unit) / "magazines");
+									{_unit removeMagazines _x} forEach _magazines;
+									_unit removeWeaponGlobal (secondaryWeapon _unit);
+									[_unit, _rlauncher, 4, 0] call BIS_fnc_addWeapon;
+									};
 								};
 							};
 						};
@@ -154,6 +157,15 @@ if ((sunOrMoon < 1) and (_tipo != SDKUnarmed)) then
 		    _unit enableGunLights _compatible;
 			};
 	    };
+	}
+else
+	{
+	_hmd = hmd _unit;
+	if (_hmd != "") then
+		{
+		_unit unassignItem _hmd;
+		_unit removeItem _hmd;
+		};
 	};
 /*
 if ((_tipo != "B_G_Soldier_M_F") and (_tipo != "B_G_Sharpshooter_F")) then {if (_aiming > 0.35) then {_aiming = 0.35}};

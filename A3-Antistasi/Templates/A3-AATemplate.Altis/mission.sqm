@@ -5,14 +5,14 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=514;
+	toggles=1538;
 	class ItemIDProvider
 	{
-		nextID=1440;
+		nextID=1486;
 	};
 	class MarkerIDProvider
 	{
-		nextID=175;
+		nextID=176;
 	};
 	class LayerIndexProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={3647.479,27.627106,10266.007};
-		dir[]={-0.7538231,-0.33263594,0.56667471};
-		up[]={-0.26589498,0.94305146,0.19988127};
-		aside[]={0.60089225,-7.2279363e-008,0.79934132};
+		pos[]={3643.2856,36.805004,10256.871};
+		dir[]={-0.56678516,-0.49717277,0.65694821};
+		up[]={-0.32477248,0.86765063,0.37643731};
+		aside[]={0.75715554,3.7165591e-008,0.65323991};
 	};
 };
 binarizationWanted=0;
@@ -156,7 +156,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=289;
+		items=332;
 		class Item0
 		{
 			dataType="Marker";
@@ -7029,6 +7029,397 @@ class Mission
 			{
 			};
 			id=1438;
+		};
+		class Item289
+		{
+			dataType="Marker";
+			position[]={10027.582,17.59524,12814.658};
+			name="road";
+			type="hd_arrow";
+			angle=227.50801;
+			id=1440;
+		};
+		class Item290
+		{
+			dataType="Marker";
+			position[]={8780.8975,35.592316,12043.754};
+			name="road_1";
+			type="hd_arrow";
+			angle=223.50822;
+			id=1441;
+		};
+		class Item291
+		{
+			dataType="Marker";
+			position[]={7336.4771,16.04541,11418.288};
+			name="road_2";
+			type="hd_arrow";
+			angle=13.069024;
+			id=1442;
+			atlOffset=3.2962132;
+		};
+		class Item292
+		{
+			dataType="Marker";
+			position[]={10432.575,14.689998,11982.5};
+			name="road_4";
+			type="hd_arrow";
+			angle=227.508;
+			id=1445;
+		};
+		class Item293
+		{
+			dataType="Marker";
+			position[]={9615.0332,12.606598,11695.909};
+			name="road_5";
+			type="hd_arrow";
+			angle=266.26797;
+			id=1446;
+			atlOffset=0.63069153;
+		};
+		class Item294
+		{
+			dataType="Marker";
+			position[]={11034.368,63.11581,12973.104};
+			name="road_3";
+			type="hd_arrow";
+			angle=41.155243;
+			id=1443;
+			atlOffset=43.662895;
+		};
+		class Item295
+		{
+			dataType="Marker";
+			position[]={11738.429,13.323238,13913.249};
+			name="road_6";
+			type="hd_arrow";
+			angle=26.564579;
+			id=1447;
+		};
+		class Item296
+		{
+			dataType="Marker";
+			position[]={13483.127,15.282019,16028.804};
+			name="road_7";
+			type="hd_arrow";
+			angle=254.67216;
+			id=1448;
+		};
+		class Item297
+		{
+			dataType="Marker";
+			position[]={12479.82,32.146729,15886.568};
+			name="road_8";
+			type="hd_arrow";
+			angle=263.33405;
+			id=1450;
+			atlOffset=12.854931;
+		};
+		class Item298
+		{
+			dataType="Marker";
+			position[]={14286.374,17.269678,18161.129};
+			name="road_9";
+			type="hd_arrow";
+			angle=333.82483;
+			id=1451;
+		};
+		class Item299
+		{
+			dataType="Marker";
+			position[]={14310.426,26.728813,19600.521};
+			name="road_10";
+			type="hd_arrow";
+			angle=14.435917;
+			id=1452;
+		};
+		class Item300
+		{
+			dataType="Marker";
+			position[]={14772.154,14.778986,17175.191};
+			name="road_11";
+			type="hd_arrow";
+			angle=53.227001;
+			id=1453;
+		};
+		class Item301
+		{
+			dataType="Marker";
+			position[]={16953.045,16.280811,17813.107};
+			name="road_12";
+			type="hd_arrow";
+			angle=64.545631;
+			id=1454;
+		};
+		class Item302
+		{
+			dataType="Marker";
+			position[]={15896.649,11.202651,16178.266};
+			name="road_13";
+			type="hd_arrow";
+			angle=120.79032;
+			id=1455;
+		};
+		class Item303
+		{
+			dataType="Marker";
+			position[]={17469.98,4.3621092,14443.852};
+			name="road_14";
+			type="hd_arrow";
+			angle=148.54735;
+			id=1456;
+		};
+		class Item304
+		{
+			dataType="Marker";
+			position[]={17045.52,15.683575,12893.139};
+			name="road_15";
+			type="hd_arrow";
+			angle=227.508;
+			id=1457;
+		};
+		class Item305
+		{
+			dataType="Marker";
+			position[]={9380.7666,47.546509,21152.375};
+			name="road_16";
+			type="hd_arrow";
+			angle=155.22456;
+			id=1458;
+		};
+		class Item306
+		{
+			dataType="Marker";
+			position[]={9718.4492,183.56577,19929.207};
+			name="road_17";
+			type="hd_arrow";
+			angle=117.23835;
+			id=1459;
+		};
+		class Item307
+		{
+			dataType="Marker";
+			position[]={9819.0234,94.69236,18539.961};
+			name="road_18";
+			type="hd_arrow";
+			angle=227.508;
+			id=1460;
+		};
+		class Item308
+		{
+			dataType="Marker";
+			position[]={7528.1772,171.76268,17280.842};
+			name="road_19";
+			type="hd_arrow";
+			angle=227.508;
+			id=1462;
+		};
+		class Item309
+		{
+			dataType="Marker";
+			position[]={6922.4834,188.9752,19240.162};
+			name="road_20";
+			type="hd_arrow";
+			angle=1.5074006;
+			id=1463;
+		};
+		class Item310
+		{
+			dataType="Marker";
+			position[]={5246.1899,230.57468,20359.127};
+			name="road_21";
+			type="hd_arrow";
+			angle=284.62128;
+			id=1464;
+		};
+		class Item311
+		{
+			dataType="Marker";
+			position[]={21951.461,14.131549,7363.1597};
+			name="road_22";
+			type="hd_arrow";
+			angle=128.61186;
+			id=1465;
+		};
+		class Item312
+		{
+			dataType="Marker";
+			position[]={21274.943,15.456692,8186.6035};
+			name="road_23";
+			type="hd_arrow";
+			angle=317.16464;
+			id=1466;
+		};
+		class Item313
+		{
+			dataType="Marker";
+			position[]={20046.328,55.846924,8865.0693};
+			name="road_24";
+			type="hd_arrow";
+			angle=290.07159;
+			id=1467;
+		};
+		class Item314
+		{
+			dataType="Marker";
+			position[]={20573.68,19.865625,10695.808};
+			name="road_25";
+			type="hd_arrow";
+			angle=354.21686;
+			id=1468;
+		};
+		class Item315
+		{
+			dataType="Marker";
+			position[]={22282.488,15.448867,18421.662};
+			name="road_26";
+			type="hd_arrow";
+			angle=227.508;
+			id=1469;
+		};
+		class Item316
+		{
+			dataType="Marker";
+			position[]={21706.1,22.576994,17678.889};
+			name="road_27";
+			type="hd_arrow";
+			angle=213.27005;
+			id=1470;
+		};
+		class Item317
+		{
+			dataType="Marker";
+			position[]={21005.709,35.480789,17676.527};
+			name="road_28";
+			type="hd_arrow";
+			angle=2.0592506;
+			id=1471;
+		};
+		class Item318
+		{
+			dataType="Marker";
+			position[]={20651.492,34.118702,18726.168};
+			name="road_29";
+			type="hd_arrow";
+			angle=353.88342;
+			id=1472;
+		};
+		class Item319
+		{
+			dataType="Marker";
+			position[]={20633.316,30.614683,16457.666};
+			name="road_30";
+			type="hd_arrow";
+			angle=227.508;
+			id=1473;
+		};
+		class Item320
+		{
+			dataType="Marker";
+			position[]={19814.211,16.058229,15687.382};
+			name="road_31";
+			type="hd_arrow";
+			angle=227.508;
+			id=1474;
+		};
+		class Item321
+		{
+			dataType="Marker";
+			position[]={23162.15,14.283377,19607.332};
+			name="road_32";
+			type="hd_arrow";
+			angle=34.257725;
+			id=1475;
+		};
+		class Item322
+		{
+			dataType="Marker";
+			position[]={22555.17,27.099434,20589.469};
+			name="road_33";
+			type="hd_arrow";
+			angle=335.03088;
+			id=1476;
+		};
+		class Item323
+		{
+			dataType="Marker";
+			position[]={23029.904,51.844334,21113.5};
+			name="road_34";
+			type="hd_arrow";
+			angle=63.785625;
+			id=1477;
+		};
+		class Item324
+		{
+			dataType="Marker";
+			position[]={24637.473,21.285206,20648.904};
+			name="road_35";
+			type="hd_arrow";
+			angle=57.619133;
+			id=1478;
+		};
+		class Item325
+		{
+			dataType="Marker";
+			position[]={25174.367,14.661154,20623.25};
+			name="road_36";
+			type="hd_arrow";
+			angle=127.6943;
+			id=1479;
+		};
+		class Item326
+		{
+			dataType="Marker";
+			position[]={25325.771,17.582952,21110.881};
+			name="road_37";
+			type="hd_arrow";
+			angle=334.7471;
+			id=1480;
+		};
+		class Item327
+		{
+			dataType="Marker";
+			position[]={24739.473,75.226112,21810.691};
+			name="road_38";
+			type="hd_arrow";
+			angle=69.393608;
+			id=1481;
+		};
+		class Item328
+		{
+			dataType="Marker";
+			position[]={26280.432,40.25845,21788.68};
+			name="road_39";
+			type="hd_arrow";
+			angle=52.545044;
+			id=1482;
+		};
+		class Item329
+		{
+			dataType="Marker";
+			position[]={26493.066,20.179955,21324.83};
+			name="road_40";
+			type="hd_arrow";
+			angle=113.11633;
+			id=1483;
+		};
+		class Item330
+		{
+			dataType="Marker";
+			position[]={27080.533,11.835176,24018.773};
+			name="road_41";
+			type="hd_arrow";
+			angle=227.508;
+			id=1484;
+		};
+		class Item331
+		{
+			dataType="Marker";
+			position[]={26716.645,23.527546,22928.643};
+			name="road_42";
+			type="hd_arrow";
+			angle=227.508;
+			id=1485;
 		};
 	};
 	class Connections

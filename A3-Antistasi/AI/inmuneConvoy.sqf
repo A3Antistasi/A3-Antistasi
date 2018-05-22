@@ -18,7 +18,7 @@ while {alive _veh} do
 	{
 	if (!(_veh getVariable ["revelado",false])) then
 		{
-		if ((buenos knowsAbout _veh > 1.4) or (!_enemigo) or revelar or _convoy) then
+		if (/*(buenos knowsAbout _veh > 1.4) or (!_enemigo) or revelar or */_convoy) then
 			{
 			//_revelado = true;
 			_veh setVariable ["revelado",true];
@@ -26,7 +26,7 @@ while {alive _veh} do
 			};
 		};
 	_pos = getPos _veh;
-	sleep 50;
+	sleep 20;
 	_newPos = getPos _veh;
 	/*
 	if (_aRevelar and revelar) then
@@ -34,7 +34,8 @@ while {alive _veh} do
 		[_veh,_text] remoteExec ["vehicleMarkers",[buenos,civilian]];
 		};
 	*/
-	if (_newPos distance _pos < 5) then
+	_condu = driver _veh;
+	if ((_newPos distance _pos < 5) and (_text != "Supply Box") and !(isNull _condu)) then
 		{
 		if (_veh isKindOf "Air") then
 			{
@@ -53,6 +54,14 @@ while {alive _veh} do
 				{
 				if ({_x distance _newPos < 500} count (allPlayers - (entities "HeadlessClient_F")) == 0) then
 					{
+					_puentes = nearestObjects [_newPos, ["Land_Bridge_01_PathLod_F","Land_Bridge_Asphalt_PathLod_F","Land_Bridge_Concrete_PathLod_F","Land_Bridge_HighWay_PathLod_F","Land_BridgeSea_01_pillar_F","Land_BridgeWooden_01_pillar_F"], 50];
+					if !(_puentes isEqualTo []) then
+						{
+						_nextWaypoint = currentWaypoint (group _condu);
+						_wpPos = waypointPosition ((waypoints (group _condu)) select _nextWaypoint);
+						_ang = [_newPos, _wpPos] call BIS_fnc_DirTo;
+						_newPos = _newPos getPos [100,_ang];
+						};
 					_road = [_newPos,100] call BIS_fnc_nearestRoad;
 					if (!isNull _road) then
 						{

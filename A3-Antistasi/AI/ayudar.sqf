@@ -32,11 +32,6 @@ if (_medico != _unit) then
 	_smoked = [_medico,_unit,_enemy] call cubrirConHumo;
 	_medico stop false;
 	_medico forceSpeed -1;
-	_beh = behaviour _medico;
-	if (isPlayer _unit) then
-		{
-		_medico setBehaviour "AWARE";
-		};
 	_timeOut = time + 60;
 	sleep 5;
 	_medico doMove getPosATL _unit;
@@ -186,7 +181,6 @@ if (_medico != _unit) then
 	if (_medico == _unit getVariable ["ayudado",objNull]) then {_unit setVariable ["ayudado",objNull]};
 	_medico setVariable ["ayudando",nil];
 	_medico setUnitPos "AUTO";
-	_medico setBehaviour _beh;
 	}
 else
 	{

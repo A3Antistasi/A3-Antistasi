@@ -169,7 +169,7 @@ while {(_waves != 0)} do
 					_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 					_Vwp1 setWaypointBehaviour "COMBAT";
 					_veh allowCrewInImmobile true;
-					//[_veh,"APC"] spawn inmuneConvoy;
+					[_veh,"APC"] spawn inmuneConvoy;
 					}
 				else
 					{
@@ -183,7 +183,7 @@ while {(_waves != 0)} do
 					_Vwp0 setWaypointType "GETOUT";
 					_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 					_Vwp1 setWaypointType "SAD";
-					//[_veh,"Inf Truck."] spawn inmuneConvoy;
+					[_veh,"Inf Truck."] spawn inmuneConvoy;
 					};
 				}
 			else
@@ -196,7 +196,7 @@ while {(_waves != 0)} do
 				_Vwp0 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 				_Vwp0 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 				_Vwp0 setWaypointType "SAD";
-				//[_veh,"Tank"] spawn inmuneConvoy;
+				[_veh,"Tank"] spawn inmuneConvoy;
 				_veh allowCrewInImmobile true;
 				};
 			sleep 15;
@@ -355,7 +355,14 @@ while {(_waves != 0)} do
 		diag_log format ["Antistasi: UAV %1 spawned. Number of vehicles %2",_tipoVeh,count _vehiculos];
 		sleep 5;
 
-		_vehPool = if (_lado == malos) then {(vehNATOAir - [vehNATOPlane,vehNATOPlaneAA]) select {[_x] call vehAvailable}} else {(vehCSATAir - [vehCSATPlane,vehCSATPlaneAA]) select {[_x] call vehAvailable}};
+		_vehPool = if (_lado == malos) then
+					{
+					if (_mrkDestino in aeropuertos) then {(vehNATOAir - [vehNATOPlaneAA]) select {[_x] call vehAvailable}} else {(vehNatoAir - vehFixedWing) select {[_x] call vehAvailable}};
+					}
+				else
+					{
+					if (_mrkDestino in aeropuertos) then {(vehCSATAir - [vehCSATPlaneAA]) select {[_x] call vehAvailable}} else {(vehCSATAir - vehFixedWing) select {[_x] call vehAvailable}};
+					};
 		if (_esSDK) then
 			{
 			_rnd = random 100;
@@ -442,8 +449,8 @@ while {(_waves != 0)} do
 					}
 				else
 					{
-					_landPos = _posDestino getPos [200, random 360];
-					_landPos = [_landPos, 0, 350, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
+					_landPos = _posDestino getPos [300, random 360];
+					_landPos = [_landPos, 0, 550, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
 					if !(_landPos isEqualTo [0,0,0]) then
 						{
 						_landPos set [2, 0];

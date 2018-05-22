@@ -1477,7 +1477,7 @@ class radio_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Open commander options";
-			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""commander_comm""} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0; nul = createDialog ""commander_comm"";";
 		};
 	};
 }; 										// slots: 8
@@ -1884,7 +1884,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Establish a new watchpost or roadblock depending on the type of terrain you select";
-			action = "closeDialog 0; [""create""] spawn puestoDialog";
+			action = "if (player == Stavros) then {closeDialog 0;[""create""] spawn puestoDialog} else {hint ""You're not the Commander!""};";
 		};
 		class 8slots_R2: RscButton
 		{
@@ -1895,7 +1895,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cleans several things in game. Use with caution as it freezes the mission";
-			action = "closedialog 0;if (player == Stavros) then {[] remoteExec [""garbageCleaner"",2]} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == Stavros) then {closedialog 0;[] remoteExec [""garbageCleaner"",2]} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class 8slots_L3: RscButton
 		{
@@ -1906,29 +1906,29 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Remove selected observation post or roadblock, money will be refunded";
-			action = "closeDialog 0; [""delete""] spawn puestoDialog";
+			action = "if (player == Stavros) then {closeDialog 0; [""delete""] spawn puestoDialog} else {hint ""You're not the Commander!""};";
 		};
 		class 8slots_R3: RscButton
 		{
 			idc = -1;
-			text = "Garage Vehicle in HQ"; //--- ToDo: Localize;
+			text = "Faction Garage"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Look at a vehicle and garage it into faction garage (shared among commanders)";
-			action = "closeDialog 0; nul = [true] call garageVehicle;";
+			action = "if (player == Stavros) then {closeDialog 0;nul = [true] call garageVehicle;} else {hint ""You're not the Commander!""};";
 		};
 		class 8slots_L4: RscButton
 		{
 			idc = -1;
-			text = "Resign Comm.Career"; //--- ToDo: Localize;
+			text = "Resign / Eligible"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Select this option if you don't want to become commander even when you have enough rank and rights";
-			action = "closedialog 0; if (isMultiplayer) then {execVM ""orgPlayers\commResign.sqf""} else {hint ""This feature is MP Only""};";
+			tooltip = "Step down from commander or toggle eligibility";
+			action = "if (isMultiplayer) then {closedialog 0;execVM ""orgPlayers\commResign.sqf""} else {hint ""This feature is MP Only""};";
 		};
 		class 8slots_R4: RscButton
 		{
@@ -1939,7 +1939,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Look at a vehicle and sell it for money";
-			action = "closeDialog 0; if (player == stavros) then {nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
+			action = "if (player == stavros) then {closeDialog 0; nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
 		};
 	};
 };

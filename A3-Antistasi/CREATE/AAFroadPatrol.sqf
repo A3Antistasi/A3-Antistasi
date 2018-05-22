@@ -107,7 +107,7 @@ if (_tipoPatrol != "AIR") then
 _vehicle=[_posBase, 0,_tipoCoche, _lado] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 [_veh] call AIVEHinit;
-//[_veh,"Patrol"] spawn inmuneConvoy;
+[_veh,"Patrol"] spawn inmuneConvoy;
 _vehCrew = _vehicle select 1;
 {[_x] call NATOinit} forEach _vehCrew;
 _grupoVeh = _vehicle select 2;

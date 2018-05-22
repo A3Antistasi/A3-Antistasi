@@ -256,8 +256,7 @@ if (_base != "") then
 			};
 		if (count _pos == 0) then {_pos = if (_indice == -1) then {getMarkerPos _spawnPoint} else {position _spawnPoint}};
 		_vehicle=[_pos, _dir,_tipoveh, _lado] call bis_fnc_spawnvehicle;
-		//debug
-		if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en PatrolCA.Origen:%1.Dets:%2",_base,_marcador]};
+
 		_veh = _vehicle select 0;
 		_vehCrew = _vehicle select 1;
 		{[_x] call NATOinit} forEach _vehCrew;
@@ -316,7 +315,7 @@ if (_base != "") then
 				_Vwp1 setWaypointType "SAD";
 				_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 				_Vwp1 setWaypointBehaviour "COMBAT";
-				//[_veh,"APC"] spawn inmuneConvoy;
+				[_veh,"APC"] spawn inmuneConvoy;
 				_veh allowCrewInImmobile true;
 				}
 			else
@@ -354,7 +353,7 @@ if (_base != "") then
 					_Vwp1 setWaypointType "SAD";
 					_Vwp1 setWaypointBehaviour "COMBAT";
 					};
-				//[_veh,"Inf Truck."] spawn inmuneConvoy;
+				[_veh,"Inf Truck."] spawn inmuneConvoy;
 				};
 			}
 		else
@@ -363,7 +362,7 @@ if (_base != "") then
 			_Vwp0 = (wayPoints _grupoVeh) select 0;
 			_Vwp0 setWaypointBehaviour "SAFE";
 			_Vwp0 = _grupoVeh addWaypoint [_posDestino, count (waypoints _grupoVeh)];
-			//[_veh,"Tank"] spawn inmuneConvoy;
+			[_veh,"Tank"] spawn inmuneConvoy;
 			_Vwp0 setWaypointType "SAD";
 			_Vwp0 setWaypointBehaviour "AWARE";
 			_veh allowCrewInImmobile true;
@@ -416,8 +415,6 @@ if (_aeropuerto != "") then
 			};
 		if (count _pos == 0) then {_pos = _posOrigen};
 		_vehicle=[_pos, _ang + 90,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
-		//debug
-		if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en PatrolCA.Origen:%1.Dets:%2",_aeropuerto,_marcador]};
 		_veh = _vehicle select 0;
 		_vehCrew = _vehicle select 1;
 		_grupoVeh = _vehicle select 2;
@@ -491,7 +488,7 @@ if (_aeropuerto != "") then
 				};
 			if (_proceder) then
 				{
-				_landPos = [_posDestino, 200, 350, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
+				_landPos = [_posDestino, 300, 550, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
 				if !(_landPos isEqualTo [0,0,0]) then
 					{
 					_landPos set [2, 0];

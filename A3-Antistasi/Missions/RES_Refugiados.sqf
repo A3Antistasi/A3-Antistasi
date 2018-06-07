@@ -127,7 +127,7 @@ for "_i" from 1 to (((count _poscasa) - 1) min 15) do
 	_unit setSkill 0;
 	_POWs pushBack _unit;
 	[_unit,"refugiado"] remoteExec ["flagaction",[buenos,civilian],_unit];
-	if (_lado == malos) then {[_unit,true] remoteExec ["setCaptive"]};
+	if (_lado == malos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 	[_unit] call reDress;
 	sleep 0.5;
 	};
@@ -150,9 +150,12 @@ if (_lado == muyMalos) then
 		if (_dificil) then {sleep 300} else {sleep 300 + (random 1800)};
 		if (["RES"] call BIS_fnc_taskExists) then
 			{
-			_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == muyMalos) and (dateToNumber date > server getVariable _x) and (not(spawner getVariable [_x,false]))};
-			_aeropuerto = [_aeropuertos, position casa] call BIS_fnc_nearestPosition;
-			[[getPosASL _casa,_aeropuerto,"",false],"patrolCA"] remoteExec ["scheduler",2];
+			_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == muyMalos) and ([_x,true] call airportCanAttack)};
+			if (count _aeropuertos > 0) then
+				{
+				_aeropuerto = [_aeropuertos, position casa] call BIS_fnc_nearestPosition;
+				[[getPosASL _casa,_aeropuerto,"",false],"patrolCA"] remoteExec ["scheduler",2];
+				};
 			};
 		};
 	}

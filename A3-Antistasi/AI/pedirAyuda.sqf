@@ -12,7 +12,7 @@ if ((([objNull, "VIEW"] checkVisibility [eyePos _enemy, eyePos _unit]) > 0) or (
 	{
 	if (!isPlayer _x) then
 		{
-		if (([_x] call canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < _distancia)) then
+		if (([_x] call canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < _distancia) and !(_x getVariable ["maniobrando",false])) then
 			{
 			_medico == _unit;
 			};
@@ -24,12 +24,12 @@ else
 	{
 	if (!isPlayer _x) then
 		{
-		if ((getNumber (configfile >> "CfgVehicles" >> (typeOf _x) >> "attendant") == 2) or (_x getUnitTrait "Medic")) then
+		if ([_x] call isMedic) then
 			{
-			if (([_x] call canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < 81)) then
+			if (([_x] call canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < 81) and !(_x getVariable ["maniobrando",false])) then
 				{
-				_ayudando = _x getVariable "ayudando";
-				if ((isNil "_ayudando") and (!(_x getVariable ["rearming",false]))) then
+				//_ayudando = _x getVariable "ayudando";
+				if (!(_x getVariable ["ayudando",false]) and (!(_x getVariable ["rearming",false]))) then
 					{
 					_medico = _x;
 					_distancia = _x distance _unit;
@@ -39,17 +39,17 @@ else
 		};
 	} forEach _units;
 
-	if (((isNull _medico) or (lifestate _unit == "INCAPACITATED")) and (!(_unit getVariable ["fatalWound",false]))) then
+	if (((isNull _medico) or (_unit getVariable ["INCAPACITATED",false])) and !([_unit] call fatalWound)) then
 		{
 		{
 		if (!isPlayer _x) then
 			{
-			if ((getNumber (configfile >> "CfgVehicles" >> (typeOf _x) >> "attendant") != 2) and !(_x getUnitTrait "Medic")) then
+			if !([_x] call isMedic) then
 				{
-				if (([_x] call canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < _distancia)) then
+				if (([_x] call canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < _distancia) and !(_x getVariable ["maniobrando",false])) then
 					{
-					_ayudando = _x getVariable "ayudando";
-					if ((isNil "_ayudando") and (!(_x getVariable ["rearming",false]))) then
+					//_ayudando = _x getVariable "ayudando";
+					if (!(_x getVariable ["ayudando",false]) and (!(_x getVariable ["rearming",false]))) then
 						{
 						_medico = _x;
 						_distancia = _x distance _unit;

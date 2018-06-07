@@ -378,7 +378,8 @@ if (_tipoConvoy == "Prisoners") then
 	for "_i" from 1 to (1+ round (random 11)) do
 		{
 		_unit = _grpPOW createUnit [SDKUnarmed, _posbase, [], 0, "NONE"];
-		[_unit,true] remoteExec ["setCaptive"];
+		[_unit,true] remoteExec ["setCaptive",0,_unit];
+		_unit setCaptive true;
 		_unit disableAI "MOVE";
 		_unit setBehaviour "CARELESS";
 		_unit allowFleeing 0;
@@ -614,7 +615,7 @@ if (_tipoConvoy == "Prisoners") then
 		{
 		_taskState = "FAILED";
 		_taskState1 = "SUCCEEDED";
-		{[_x,false] remoteExec ["setCaptive"]} forEach _POWs;
+		{[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false} forEach _POWs;
 		//_cuenta = 2 * (count _POWs);
 		//[_cuenta,0] remoteExec ["prestige",2];
 		[-10*_bonus,stavros] call playerScoreAdd;
@@ -622,7 +623,7 @@ if (_tipoConvoy == "Prisoners") then
 	if ((not alive driver _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])) then
 		{
 		[getPosASL _vehObj,_lado,"",false] spawn patrolCA;
-		{[_x,false] remoteExec ["setCaptive"]; _x enableAI "MOVE"; [_x] orderGetin false;} forEach _POWs;
+		{[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false; _x enableAI "MOVE"; [_x] orderGetin false} forEach _POWs;
 		waitUntil {sleep 2; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance _posHQ < 50)} count _POWs > 0) or (dateToNumber date > _fechafinNum)};
 		if (({alive _x} count _POWs == 0) or (dateToNumber date > _fechafinNum)) then
 			{

@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.0.4";
+antistasiVersion = "v 1.1.0";
 
 servidoresOficiales = ["A3-Antistasi Official EU 1","A3-Antistasi Official EU 2"];
 
@@ -16,22 +16,19 @@ distanciaSPWN = 1000;//initial spawn distance. Less than 1Km makes parked vehicl
 distanciaSPWN1 = 1300;
 distanciaSPWN2 = 500;
 musicON = if (isMultiplayer) then {false} else {true};
-//civPerc = 0.10;//initial % civ spawn rate
 civPerc = 35;
 posHQ = getMarkerPos "respawn_guerrila";
 autoHeal = false;
-//allowPlayerRecruit = true;
 recruitCooldown = 0;
 savingClient = false;
 incomeRep = false;
-distanciaMiss = 2500;
+//distanciaMiss = 2500;
 minMags = 20;
-minWeaps = 24;
+
 minPacks = 20;
 minItems = 20;
 minOptics = 12;
 maxUnits = 140;
-//fpsAv = 0;
 
 buenos = independent;
 malos = west;
@@ -308,7 +305,8 @@ if (!activeGREF) then
 	unlockedRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
 	unlockedMagazines = ["9Rnd_45ACP_Mag","30Rnd_9x21_Mag","30Rnd_762x39_Mag_F","MiniGrenade","1Rnd_HE_Grenade_shell","30Rnd_545x39_Mag_F","30Rnd_9x21_Mag_SMG_02","10Rnd_9x21_Mag","200Rnd_556x45_Box_F","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
 	initialRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];
-	unlockedItems = unlockedItems + ["V_Chestrig_khk","V_BandollierB_cbr","V_BandollierB_rgr","U_C_HunterBody_grn"];
+	//unlockedItems = unlockedItems + ["V_Chestrig_khk","V_BandollierB_cbr","V_BandollierB_rgr","U_C_HunterBody_grn"];
+	unlockedItems = unlockedItems + ["U_C_HunterBody_grn"];
 	if (worldName == "Tanoa") then
 		{
 		unlockedWeapons pushBack "launch_RPG7_F";
@@ -331,9 +329,15 @@ else
     unlockedRifles = ["rhs_weap_akms","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_savz61"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
     unlockedMagazines = ["rhs_30Rnd_762x39mm","rhs_mag_9x18_12_57N181S","rhs_rpg7_PG7VL_mag","rhsgref_5Rnd_762x54_m38","rhsgref_5Rnd_792x57_kar98k","rhs_mag_rgd5","rhs_mag_9x19mm_7n21_20","rhsgref_20rnd_765x17_vz61"];
     initialRifles = ["rhs_weap_akms","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_savz61"];
-    unlockedItems = unlockedItems + ["rhs_acc_2dpZenit","rhs_6sh46","rhs_6sh92"];
+    unlockedItems = unlockedItems + ["rhs_acc_2dpZenit"];
     unlockedAT = ["rhs_weap_rpg7"];
     };
+
+{
+_loadOut = getUnitLoadout (_x select 0);
+_vest = _loadOut select 4;
+if !(_vest isEqualTo []) then {unlockedItems pushBackUnique (_vest select 0)};
+} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewBuenos]];
 
 unlockedBackpacks = ["B_FieldPack_oli","B_FieldPack_blk","B_FieldPack_ocamo","B_FieldPack_oucamo","B_FieldPack_cbr"]; //Initial Arsenal available backpacks
 //lockedMochis = lockedMochis - unlockedBackpacks;

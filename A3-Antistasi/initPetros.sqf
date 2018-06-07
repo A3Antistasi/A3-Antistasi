@@ -14,19 +14,16 @@ petros addEventHandler ["HandleDamage",
 
         if (isPlayer _injurer) then
             {
-            if (side _injurer == buenos) then
-                {
-                [_injurer,60] remoteExec ["castigo",_injurer];
-                _dam = 0;
-                };
+            _dam = 0;
             };
         if ((isNull _injurer) or (_injurer == petros)) then {_dam = 0};
         if (_part == "") then
             {
             if (_dam > 1) then
                 {
-                if (!(lifeState petros == "INCAPACITATED")) then
+                if (!(petros getVariable ["INCAPACITATED",false])) then
                     {
+                    petros setVariable ["INCAPACITATED",true,true];
                     _dam = 0.9;
                     if (!isNull _injurer) then {[petros,side _injurer] spawn inconsciente} else {[petros,sideUnknown] spawn inconsciente};
                     }
@@ -54,42 +51,11 @@ petros addMPEventHandler ["mpkilled",
     _killer = _this select 1;
     if (isServer) then
         {
-        if ((side _killer == muyMalos) or (side _killer == malos)) then
+        if ((side _killer == muyMalos) or (side _killer == malos) and !(isPlayer _killer) and !(isNull _killer)) then
              {
             _nul = [] spawn
                 {
                 garrison setVariable ["Synd_HQ",[],true];
-                /*
-                for "_i" from 0 to round random 3 do
-                    {
-                    if (count unlockedWeapons > 2) then
-                        {
-                        _cosa = selectRandom unlockedWeapons;
-                        unlockedWeapons = unlockedWeapons - [_cosa];
-                        lockedWeapons = lockedWeapons + [_cosa];
-                        if (_cosa in unlockedRifles) then {unlockedRifles = unlockedRifles - [_cosa]};
-                        };
-                    };
-                publicVariable "unlockedWeapons";
-                /*
-                for "_i" from 0 to round random 8 do
-                    {
-                    _cosa = selectRandom unlockedMagazines;
-                    if (!isNil "_cosa") then {unlockedMagazines = unlockedMagazines - [_cosa]};
-                    };
-                publicVariable "unlockedMagazines";
-                for "_i" from 0 to round random 5 do
-                    {
-                    _cosa = selectRandom (unlockedItems - ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit"]);
-                    unlockedItems = unlockedItems - [_cosa];
-                    if (_cosa in unlockedOptics) then {unlockedOptics = unlockedOptics - [_cosa]; publicVariable "unlockedOptics"};
-                    };
-                publicVariable "unlockedItems";
-                clearMagazineCargoGlobal caja;
-                clearWeaponCargoGlobal caja;
-                clearItemCargoGlobal caja;
-                clearBackpackCargoGlobal caja;
-                */
                 _hrT = server getVariable "hr";
                 _resourcesFIAT = server getVariable "resourcesFIA";
                 [-1*(round(_hrT*0.9)),-1*(round(_resourcesFIAT*0.9))] remoteExec ["resourcesFIA",2];

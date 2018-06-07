@@ -77,8 +77,8 @@ while {visibleMap} do
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Airport",_nameFaction];
-				_busy = if (dateToNumber date > server getVariable _sitio) then {false} else {true};
-				if (!_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
+				_busy = [_sitio,true] call airportCanAttack;
+				if (_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
 				_garrison = count (garrison getVariable _sitio);
 				if (_garrison >= 40) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 20) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}
@@ -120,8 +120,8 @@ while {visibleMap} do
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Grand Outpost",_nameFaction];
-				_busy = if (dateToNumber date > server getVariable _sitio) then {false} else {true};
-				if (!_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
+				_busy = [_sitio,true] call airportCanAttack;
+				if (_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
 				_garrison = count (garrison getVariable _sitio);
 				if (_garrison >= 16) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 8) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}

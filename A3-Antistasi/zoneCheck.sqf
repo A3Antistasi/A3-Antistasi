@@ -38,9 +38,8 @@ else
 
 if (_salir) exitWith {zoneCheckInProgress = false};
 _salir = true;
-_size = [_marcador] call sizeMarker;
-_posicion = getMarkerPos _marcador;
-if ({((_x getVariable [_enemy1,false]) or (_x getVariable [_enemy2,false])) and ([_x,_marcador] call canConquer)} count allUnits > 3*({([_x] call canConquer) and (_x getVariable ["marcador",""] == _marcador)} count allUnits)) then
+
+if ({((_x getVariable [_enemy1,false]) or (_x getVariable [_enemy2,false])) and ([_x,_marcador] call canConquer)} count allUnits > 3*({([_x,_marcador] call canConquer) and (_x getVariable ["marcador",""] == _marcador)} count allUnits)) then
 	{
 	_salir = false;
 	};

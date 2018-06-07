@@ -1,7 +1,7 @@
 private ["_veh","_tipo"];
 
 _veh = _this select 0;
-
+if (isNil "_veh") exitWith {};
 if ((_veh isKindOf "FlagCarrier") or (_veh isKindOf "Building") or (_veh isKindOf "ReammoBox_F")) exitWith {};
 //if (_veh isKindOf "ReammoBox_F") exitWith {[_veh] call NATOcrate};
 
@@ -38,10 +38,11 @@ if ((_tipo in vehNormal) or (_tipo in vehAttack) or (_tipo in vehBoats)) then
 				if (side (_this select 1) == buenos) then
 					{
 					if (_tipo in vehNATOAPC) then {[-2,2,position (_veh)] remoteExec ["citySupportChange",2]};
-					[_veh,30] call addTimeForIdle;
 					};
+				[_veh,30] call addTimeForIdle;
+				_veh removeAllEventHandlers "HandleDamage";
 				}];
-			_veh addEventHandler ["HandleDamage",{private ["_veh"]; _veh = _this select 0; if (!canFire _veh) then {[_veh] call smokeCoverAuto};if (((_this select 1) find "wheel" != -1) and (_this select 4=="") and (!isPlayer driver (_veh))) then {0;} else {(_this select 2);}}];
+			_veh addEventHandler ["HandleDamage",{private ["_veh"]; _veh = _this select 0; if (!canFire _veh) then {[_veh] call smokeCoverAuto; _veh removeEventHandler ["HandleDamage",_thisEventHandler]};if (((_this select 1) find "wheel" != -1) and (_this select 4=="") and (!isPlayer driver (_veh))) then {0;} else {(_this select 2);}}];
 			_veh setVariable ["dentro",true];
 			_veh addEventHandler ["GetOut", {private ["_veh"];  _veh = _this select 0; if (side (_this select 2) != buenos) then {if (_veh getVariable "dentro") then {_veh setVariable ["dentro",false];[_veh] call smokeCoverAuto}}}];
 			_veh addEventHandler ["GetIn", {private ["_veh"];_veh = _this select 0; if (side (_this select 2) != buenos) then {_veh setVariable ["dentro",true]}}];
@@ -60,8 +61,9 @@ if ((_tipo in vehNormal) or (_tipo in vehAttack) or (_tipo in vehBoats)) then
 						if (_tipo == vehNATOTank) then {[-5,5,position (_veh)] remoteExec ["citySupportChange",2]};
 						};
 					[_veh,480] call addTimeForIdle;
+					_veh removeAllEventHandlers "HandleDamage";
 					}];
-				_veh addEventHandler ["HandleDamage",{private ["_veh"]; _veh = _this select 0; if (!canFire _veh) then {[_veh] call smokeCoverAuto}}];
+				_veh addEventHandler ["HandleDamage",{private ["_veh"]; _veh = _this select 0; if (!canFire _veh) then {[_veh] call smokeCoverAuto;  _veh removeEventHandler ["HandleDamage",_thisEventHandler]}}];
 				}
 			else
 				{
@@ -179,7 +181,7 @@ else
 							}
 						else
 							{
-							_bases = aeropuertos select {(getMarkerPos _x distance _posDestino < 15000) and ((spawner getVariable _x != 0)) and (dateToNumber date > server getVariable _x) and (lados getVariable [_x,sideUnknown] != buenos)};
+							_bases = aeropuertos select {(getMarkerPos _x distance _posDestino < distanceForAirAttack) and ([_x,true] call airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
 							if (count _bases > 0) then
 								{
 								_base = [_bases,_posicion] call BIS_fnc_nearestPosition;

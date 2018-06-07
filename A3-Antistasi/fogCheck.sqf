@@ -62,18 +62,4 @@ if (_dz !=0 && _fogDecay != 0) then
 private _fogAverage = _fogValue * _fogCoeff;
 private _fogViewDistance = 0.9 * _MaxViewDistance * exp (- _fogAverage * ln(_ViewDistanceDecayRate));
 0 max (1.0 - _l/_fogViewDistance)
-/*
-_param = _this select 0;
-_altitud = if (count _this > 1) then {_this select 1} else {200};
 
-_p1 = fog;
-_p2 = fogParams select 1;
-_p3 = fogParams select 2;
-
-_return = true;
-if (_p3 < _altitud) then
-	{
-	if (_p3 < 0) then {_return = false};
-	};
-if (_return) then {if (fog > _param)} then {_return = true};
-_return

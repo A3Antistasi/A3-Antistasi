@@ -29,7 +29,7 @@
 			};\
 		};\
 		_dlc\
-	}
+	};
 
 #define ADDMODICON\
 	{\
@@ -2468,7 +2468,7 @@ switch _mode do {
 		// backpack stuff
 		_itemsBackpack = [];
 
-		if(player getUnitTrait "Medic")then{
+		if([player] call isMedic)then{
 
 			if(hayACEmedical) then { //Medic equipment
 

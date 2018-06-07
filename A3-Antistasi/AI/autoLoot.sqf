@@ -3,8 +3,8 @@ _camion = _this select 1;
 
 if ((isPlayer _unit) or (player != leader group player)) exitWith {};
 if !([_unit] call canFight) exitWith {};
-_ayudando = _unit getVariable "ayudando";
-if (!(isNil "_ayudando")) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
+//_ayudando = _unit getVariable "ayudando";
+if (_unit getVariable ["ayudando",false]) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
 _rearming = _unit getVariable "rearming";
 if (_rearming) exitWith {_unit groupChat "I am currently rearming. Cancelling."; _unit setVariable ["rearming",false]};
 if (_unit == gunner _camion) exitWith {_unit groupChat "I cannot rearm right now. I'm manning this gun"};
@@ -105,24 +105,24 @@ while {_continuar and ([_unit] call canFight) and (_unit getVariable "rearming")
 			waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 			if (_unit distance _target < 3) then
 				{
-				{_unit addItemToUniform _x} forEach (uniformItems _target);
+				{if (!(_x in unlockedMagazines) and !(_x in unlockedItems)) then {_unit addItemToUniform _x}} forEach (uniformItems _target);
 				if (backPack _target != "") then
 					{
 					_unit addBackpack ((backpack _target) call BIS_fnc_basicBackpack);
-					{_unit addItemToBackpack _x} forEach backpackItems _target;
+					{if (!(_x in unlockedMagazines) and !(_x in unlockedItems)) then {_unit addItemToBackpack _x}} forEach backpackItems _target;
 					removeBackpack _target;
 					};
 				_unit addVest (vest _target);
-				{_unit addItemToVest _x} forEach vestItems _target;
+				{if (!(_x in unlockedMagazines) and !(_x in unlockedItems)) then {_unit addItemToVest _x}} forEach vestItems _target;
 				_unit action ["rearm",_target];
 				removeVest _target;
-				if ((headgear _target) in cascos) then
+				if (((headgear _target) in cascos) and !((headgear _target) in unlockedItems)) then
 					{
 					_unit addHeadgear (headGear _target);
 					removeHeadgear _target;
 					};
-				{_unit linkItem _x} forEach assignedItems _target;
-				{_target unlinkItem _x} forEach assignedItems _target;
+				{if !(_x in unlockedItems) then {_unit linkItem _x}} forEach assignedItems _target;
+				{if !(_x in unlockedItems) then {_target unlinkItem _x}} forEach assignedItems _target;
 				/*
 				_targetLoadout = getUnitLoadout _target; diag_log format ["Target: %1",_targetLoadout];
 				_currentLoadout = getUnitLoadout _unit; diag_log format ["Unit current: %1",_currentLoadout];
@@ -136,7 +136,7 @@ while {_continuar and ([_unit] call canFight) and (_unit getVariable "rearming")
 	_unit doMove (getPosATL _camion);
 	_timeOut = time + 60;
 	waitUntil {sleep 1; !([_unit] call canFight) or (!alive _camion) or (_unit distance _camion < 8) or (_timeOut < time)};
-	if ((alive _camion) and (alive _unit)) then
+	if ((alive _camion) and ([_unit] call canFight)) then
 		{
 		if (_tempPrimary != "") then
 			{

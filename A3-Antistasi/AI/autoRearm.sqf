@@ -4,8 +4,8 @@ _unit = _this select 0;
 
 if ((isPlayer _unit) or (player != leader group player)) exitWith {};
 if !([_unit] call canFight) exitWith {};
-_ayudando = _unit getVariable "ayudando";
-if (!(isNil "_ayudando")) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
+//_ayudando = _unit getVariable "ayudando";
+if (_unit getVariable ["ayudando",false]) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
 _rearming = _unit getVariable ["rearming",false];
 if (_rearming) exitWith {_unit groupChat "I am currently rearming. Cancelling."; _unit setVariable ["rearming",false]};
 

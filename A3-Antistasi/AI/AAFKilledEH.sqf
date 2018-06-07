@@ -32,7 +32,8 @@ if ((side _killer == buenos) or (side _killer == civilian)) then
 			{
 			if (_killer distance _muerto < distanciaSPWN) then
 				{
-				[_killer,false] remoteExec ["setCaptive"];
+				[_killer,false] remoteExec ["setCaptive",0,_killer];
+				_killer setCaptive false;
 				};
 			};
 		_killer addRating 1000;
@@ -47,7 +48,7 @@ if ((side _killer == buenos) or (side _killer == civilian)) then
 		if (isMultiplayer) then
 			{
 			{
-			if ((_x distance _muerto < 300) and (captive _x)) then {[_x,false] remoteExec ["setCaptive"]};
+			if ((_x distance _muerto < 300) and (captive _x)) then {[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false};
 			} forEach playableUnits;
 			}
 		else

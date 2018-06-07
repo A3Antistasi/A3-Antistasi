@@ -226,11 +226,14 @@ while {true} do
 				};
 			};
 		} forEach allUnits;
-		_cuentaSave = _cuentaSave - 600;
-		if (_cuentaSave <= 0) then
+		if (autoSave) then
 			{
-			_cuentaSave = 3600;
-			_nul = [] execVM "statSave\saveLoop.sqf";
+			_cuentaSave = _cuentaSave - 600;
+			if (_cuentaSave <= 0) then
+				{
+				_cuentaSave = 3600;
+				_nul = [] execVM "statSave\saveLoop.sqf";
+				};
 			};
 		};
 

@@ -136,7 +136,8 @@ for "_i" from 0 to _cuenta do
 	{
 	_unit = _grpPOW createUnit [SDKUnarmed, (_poscasa select _i), [], 0, "NONE"];
 	_unit allowDamage false;
-	[_unit,true] remoteExec ["setCaptive"];
+	[_unit,true] remoteExec ["setCaptive",0,_unit];
+	_unit setCaptive true;
 	_unit disableAI "MOVE";
 	_unit disableAI "AUTOTARGET";
 	_unit disableAI "TARGET";
@@ -175,7 +176,8 @@ if (dateToNumber date > _fechalimnum) then
 		{
 		if (group _x == _grpPOW) then
 			{
-			[_x,false] remoteExec ["setCaptive"];
+			[_x,false] remoteExec ["setCaptive",0,_x];
+			_x setCaptive false;
 			_x enableAI "MOVE";
 			_x doMove _posicion;
 			};
@@ -190,7 +192,7 @@ _bonus = if (_dificil) then {2} else {1};
 if ({alive _x} count _POWs == 0) then
 	{
 	["RES",[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"POW Rescue",_marcador],_posicion,"FAILED","run"] call taskUpdate;
-	{[_x,false] remoteExec ["setCaptive"]} forEach _POWs;
+	{[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false} forEach _POWs;
 	[-10*_bonus,stavros] call playerScoreAdd;
 	}
 else

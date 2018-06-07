@@ -3,7 +3,7 @@ _unit = _this select 0;
 _part = _this select 1;
 _dam = _this select 2;
 _injurer = _this select 3;
-
+/*
 if (isPlayer _unit) then
 	{
 	_owner = _unit getVariable ["owner",player];
@@ -34,7 +34,7 @@ else
 			};
 		};
 	};
-
+*/
 if (_part == "") then
 	{
 	if (_dam >= 1) then
@@ -45,14 +45,14 @@ if (_part == "") then
 			}
 		else
 			{
-			if (!(lifestate _unit == "INCAPACITATED")) then
+			if !(_unit getVariable ["INCAPACITATED",false]) then
 				{
+				_unit setVariable ["INCAPACITATED",true,true];
+				_unit setUnconscious true;
 				if (vehicle _unit != _unit) then
 					{
-					//_unit action ["getOut", vehicle _unit];
 					moveOut _unit;
 					};
-				_unit setUnconscious true;
 				_dam = 0.9;
 				if (isPlayer _unit) then {_unit allowDamage false};
 				if (!isNull _injurer) then {[_unit,side _injurer] spawn inconsciente} else {[_unit,sideUnknown] spawn inconsciente};
@@ -97,6 +97,10 @@ if (_part == "") then
 		{
 		if (_dam > 0.25) then
 			{
+			if (_unit getVariable ["ayudando",false]) then
+				{
+				_unit setVariable ["cancelRevive",true];
+				};
 			if (isPlayer (leader group _unit)) then
 				{
 				if (autoheal) then
@@ -115,18 +119,49 @@ if (_part == "") then
 	}
 else
 	{
-	if (_dam > 0.95) then
+	if (_dam >= 1) then
 		{
-		_dam = 0.9;
-		if (_part == "head") then
+		if !(_part in ["arms","hands","legs"]) then
 			{
-			if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 0) then
+			_dam = 0.9;
+			if (_part == "head") then
 				{
-				removeHeadgear _unit;
+				if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 0) then
+					{
+					removeHeadgear _unit;
+					}
+				else
+					{
+					if !(_unit getVariable ["INCAPACITATED",false]) then
+						{
+						_unit setVariable ["INCAPACITATED",true,true];
+						_unit setUnconscious true;
+						if (vehicle _unit != _unit) then
+							{
+							//_unit action ["getOut", vehicle _unit];
+							moveOut _unit;
+							};
+						if (isPlayer _unit) then {_unit allowDamage false};
+						if (!isNull _injurer) then {[_unit,side _injurer] spawn inconsciente} else {[_unit,sideUnknown] spawn inconsciente};
+						};
+					};
 				}
 			else
 				{
-				_unit setVariable ["fatalWound",true,true];
+				if (_part == "body") then
+					{
+					if !(_unit getVariable ["INCAPACITATED",false]) then
+						{
+						_unit setVariable ["INCAPACITATED",true,true];
+						_unit setUnconscious true;
+						if (vehicle _unit != _unit) then
+							{
+							moveOut _unit;
+							};
+						if (isPlayer _unit) then {_unit allowDamage false};
+						if (!isNull _injurer) then {[_unit,side _injurer] spawn inconsciente} else {[_unit,sideUnknown] spawn inconsciente};
+						};
+					};
 				};
 			};
 		};

@@ -9,6 +9,7 @@ _super = if (!isMultiplayer) then {false} else {_this select 3};
 _inWaves = false;
 _lado = malos;
 _posOrigen = [];
+_posDestino = [];
 if ([_marcador,false] call fogCheck < 0.3) exitWith {diag_log format ["Antistasi PatrolCA: Attack on %1 exit because of heavy fog",_marcador]};
 if (_aeropuerto isEqualType "") then
 	{
@@ -28,10 +29,12 @@ _exit = false;
 if (_marcador isEqualType "") then
 	{
 	_esMarcador = true;
+	_posDestino = getMarkerPos _marcador;
 	if (!_inWaves) then {if (_marcador in smallCAmrk) then {_exit = true}};
 	}
 else
 	{
+	_posDestino = _marcador;
 	_cercano = [smallCApos,_marcador] call BIS_fnc_nearestPosition;
 	if (_cercano distance _marcador < (distanciaSPWN2)) then
 		{
@@ -49,12 +52,11 @@ else
 
 if (_exit) exitWith {diag_log format ["Antistasi PatrolCA: CA cancelled because of other CA in vincity of %1",_marcador]};
 
-_posDestino = if (!_esMarcador) then {_marcador} else {getMarkerPos _marcador};
 
 if (!_inWaves) then
 	{
 	_aeropuertos = aeropuertos select {lados getVariable [_x,sideUnknown] == _lado};
-	_aeropuertos = _aeropuertos select 	{(getMarkerPos _x distance _posDestino < distanceForAirAttack) and  !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) and (dateToNumber date > server getVariable _x)};
+	_aeropuertos = _aeropuertos select 	{(getMarkerPos _x distance _posDestino < distanceForAirAttack) and ([_x,true] call airportCanAttack)};
 	if (_esMarcador) then
 		{
 		_aeropuertos = _aeropuertos select {({_x == _marcador} count (killZones getVariable [_x,[]])) < 3};
@@ -66,7 +68,7 @@ if (!_inWaves) then
 			if (!_super) then
 				{
 				_puestos = puestos select {lados getVariable [_x,sideUnknown] == _lado};
-				_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < distanceForLandAttack)  and !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) and (dateToNumber date > server getVariable _x)});
+				_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < distanceForLandAttack)  and ([_x,true] call airportCanAttack)});
 				};
 			};
 		if (!_super) then
@@ -115,14 +117,14 @@ if ((_base == "") and (!_esMarcador) and (_typeOfAttack != "Air") and (!_super))
 			if (_tipo == "HE") exitWith {};
 			} forEach _enemigos;
 			_exit = true;
-			if (!_esMarcador) then {smallCApos pushBack _marcador};
+			if (!_esMarcador) then {smallCApos pushBack _posDestino};
 			[_posDestino,_lado,_tipo] spawn airStrike;
 			if (debug) then {hint format ["Bombardeo de %1 en %2 por los %3",_tipo,_posDestino,_lado]};
 			diag_log format ["Antistasi PatrolCA: Airstrike of type %1 sent to %2",_tipo,_marcador];
 			if (!_esMarcador) then
 				{
 				sleep 120;
-				smallCApos = smallCApos - [_marcador];
+				smallCApos = smallCApos - [_posDestino];
 				};
 			diag_log format ["Antistasi PatrolCA: CA resolved on airstrike %1",_marcador]
 			};
@@ -176,12 +178,12 @@ if (_esMarcador) then
 		}
 	else
 		{
-		forcedSpawn pushBackUnique _marcador; publicVariable "forcedSpawn";
+		//forcedSpawn pushBackUnique _marcador; publicVariable "forcedSpawn";
 		};
 	}
 else
 	{
-	smallCApos pushBack _marcador;
+	smallCApos pushBack _posDestino;
 	};
 
 //if (debug) then {hint format ["Nos contraatacan desde %1 o desde el aeropuerto %2 hacia %3", _base, _aeropuerto,_marcador]; sleep 5};
@@ -302,6 +304,7 @@ if (_base != "") then
 			} forEach units _grupo;
 			if (not(_tipoVeh in vehTrucks)) then
 				{
+				{_x disableAI "MINEDETECTION"} forEach (units _grupoVeh);
 				(units _grupo) joinSilent _grupoVeh;
 				deleteGroup _grupo;
 				//_grupos pushBack _grupo;
@@ -310,6 +313,7 @@ if (_base != "") then
 				_Vwp0 setWaypointBehaviour "SAFE";
 				_Vwp0 = _grupoVeh addWaypoint [_landPos,count (wayPoints _grupoVeh)];
 				_Vwp0 setWaypointType "TR UNLOAD";
+				_Vwp0 setWaypointStatements ["true", "(group this) spawn attackDrillAI"];
 				//_Vwp0 setWaypointStatements ["true", "[vehicle this] call smokeCoverAuto"];
 				_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 				_Vwp1 setWaypointType "SAD";
@@ -323,7 +327,7 @@ if (_base != "") then
 				(units _grupo) joinSilent _grupoVeh;
 				deleteGroup _grupo;
 
-				_grupoVeh selectLeader (units _grupoVeh select 1);
+				if (count units _grupoVeh > 1) then {_grupoVeh selectLeader (units _grupoVeh select 1)};
 				[_base,_landPos,_grupoVeh] call WPCreate;
 				_Vwp0 = (wayPoints _grupoVeh) select 0;
 				_Vwp0 setWaypointBehaviour "SAFE";
@@ -333,7 +337,9 @@ if (_base != "") then
 				*/
 				_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
 				_Vwp0 setWaypointType "GETOUT";
+				_Vwp0 setWaypointStatements ["true", "(group this) spawn attackDrillAI"];
 				_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
+				_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 				if (_esMarcador) then
 					{
 
@@ -358,6 +364,7 @@ if (_base != "") then
 			}
 		else
 			{
+			{_x disableAI "MINEDETECTION"} forEach (units _grupoVeh);
 			[_base,_posDestino,_grupoVeh] call WPCreate;
 			_Vwp0 = (wayPoints _grupoVeh) select 0;
 			_Vwp0 setWaypointBehaviour "SAFE";
@@ -365,6 +372,7 @@ if (_base != "") then
 			[_veh,"Tank"] spawn inmuneConvoy;
 			_Vwp0 setWaypointType "SAD";
 			_Vwp0 setWaypointBehaviour "AWARE";
+			_Vwp0 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 			_veh allowCrewInImmobile true;
 			};
 		};
@@ -383,7 +391,15 @@ if (_aeropuerto != "") then
 				{
 				if (_typeOfAttack == "Normal") then
 					{
-					selectRandom _vehPool
+					if (_cuenta == 1) then
+						{
+						if (count (_vehPool - vehTransportAir) == 0) then {selectRandom _vehPool} else {selectRandom (_vehPool - vehTransportAir)};
+						}
+					else
+						{
+						//if (count (_vehPool - vehTransportAir) == 0) then {selectRandom _vehPool} else {selectRandom (_vehPool - vehTransportAir)};
+						selectRandom (_vehPool select {_x in vehTransportAir});
+						};
 					}
 				else
 					{
@@ -399,7 +415,7 @@ if (_aeropuerto != "") then
 				}
 			else
 				{
-				if (_esMarcador) then {selectRandom (_vehPool - vehFixedWing)} else {selectRandom _vehPool};
+				if (_esMarcador) then {selectRandom (_vehPool select {_x in vehTransportAir})} else {selectRandom _vehPool};
 				};
 
 		_pos = _posOrigen;
@@ -485,6 +501,14 @@ if (_aeropuerto != "") then
 							};
 						};
 					};
+				}
+			else
+				{
+				if !(_veh isKindOf "Helicopter") then
+					{
+					_proceder = false;
+					[_veh,_grupo,_posDestino,_aeropuerto] spawn airdrop;
+					};
 				};
 			if (_proceder) then
 				{
@@ -500,9 +524,11 @@ if (_aeropuerto != "") then
 					_wp0 setWaypointBehaviour "CARELESS";
 					_wp3 = _grupo addWaypoint [_landpos, 0];
 					_wp3 setWaypointType "GETOUT";
+					_wp3 setWaypointStatements ["true", "(group this) spawn attackDrillAI"];
 					_wp0 synchronizeWaypoint [_wp3];
 					_wp4 = _grupo addWaypoint [_posDestino, 1];
 					_wp4 setWaypointType "MOVE";
+					_wp4 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 					_wp2 = _grupoVeh addWaypoint [_posOrigen, 1];
 					_wp2 setWaypointType "MOVE";
 					_wp2 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
@@ -512,7 +538,7 @@ if (_aeropuerto != "") then
 					{
 					if (_tipoVeh in vehFastRope) then
 						{
-						[_veh,_grupo,_pos,_posOrigen,_grupoVeh] spawn fastrope;
+						[_veh,_grupo,_posDestino,_posOrigen,_grupoVeh] spawn fastrope;
 						}
 					else
 						{
@@ -571,10 +597,7 @@ if (_esMarcador) then
 				};
 			diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to retake %3 failed",_aeropuerto,_base,_marcador];
 			}
-	};
-
-	smallCAmrk = smallCAmrk - [_marcador]; publicVariable "smallCAmrk";
-	waitUntil {sleep 1; (spawner getVariable _marcador == 2)};
+		};
 	}
 else
 	{
@@ -590,11 +613,10 @@ else
 		diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to %3 failed",_aeropuerto,_base,_marcador];
 		};
 	diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to %3 despawned",_aeropuerto,_base,_marcador];
-	smallCApos = smallCApos - [_marcador];
 	};
 diag_log format ["Antistasi PatrolCA: CA on %1 finished",_marcador];
 
-if (_marcador in forcedSpawn) then {forcedSpawn = forcedSpawn - [_marcador]; publicVariable "forcedSpawn"};
+//if (_marcador in forcedSpawn) then {forcedSpawn = forcedSpawn - [_marcador]; publicVariable "forcedSpawn"};
 
 {
 _veh = _x;
@@ -619,3 +641,6 @@ if (count _soldados > 0) then
 	};
 
 {deleteGroup _x} forEach _grupos;
+
+sleep 300;
+if (_esMarcador) then {smallCAmrk = smallCAmrk - [_marcador]; publicVariable "smallCAmrk"} else {smallCApos = smallCApos - [_posDestino]};

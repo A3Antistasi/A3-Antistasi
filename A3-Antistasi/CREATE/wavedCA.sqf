@@ -122,8 +122,7 @@ while {(_waves != 0)} do
 				};
 			if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
 			_vehicle=[_pos, markerDir _spawnPoint,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
-			//debug
-			if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en wavedCA.Origen:%1.Dets:%2",_mrkOrigen,_mrkDestino]};
+
 			_veh = _vehicle select 0;
 			_vehCrew = _vehicle select 1;
 			{[_x] call NATOinit} forEach _vehCrew;
@@ -156,6 +155,7 @@ while {(_waves != 0)} do
 				} forEach units _grupo;
 				if (not(_tipoVeh in vehTrucks)) then
 					{
+					{_x disableAI "MINEDETECTION"} forEach (units _grupoVeh);
 					(units _grupo) joinSilent _grupoVeh;
 					deleteGroup _grupo;
 					[_mrkOrigen,_landPos,_grupoVeh] call WPCreate;
@@ -163,6 +163,7 @@ while {(_waves != 0)} do
 					_Vwp0 setWaypointBehaviour "SAFE";
 					_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
 					_Vwp0 setWaypointType "TR UNLOAD";
+					_Vwp0 setWaypointStatements ["true", "(group this) spawn attackDrillAI"];
 					_Vwp0 setWayPointCompletionRadius (10*_cuenta);
 					_Vwp1 = _grupoVeh addWaypoint [_posdestino, 1];
 					_Vwp1 setWaypointType "SAD";
@@ -181,6 +182,7 @@ while {(_waves != 0)} do
 					_Vwp0 setWaypointBehaviour "SAFE";
 					_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
 					_Vwp0 setWaypointType "GETOUT";
+					_Vwp0 setWaypointStatements ["true", "(group this) spawn attackDrillAI"];
 					_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 					_Vwp1 setWaypointType "SAD";
 					[_veh,"Inf Truck."] spawn inmuneConvoy;
@@ -188,6 +190,7 @@ while {(_waves != 0)} do
 				}
 			else
 				{
+				{_x disableAI "MINEDETECTION"} forEach (units _grupoVeh);
 				[_mrkOrigen,_posDestino,_grupoVeh] call WPCreate;
 				_Vwp0 = (wayPoints _grupoVeh) select 0;
 				_Vwp0 setWaypointBehaviour "SAFE";
@@ -255,8 +258,7 @@ while {(_waves != 0)} do
 				if (count _landPos > 0) then
 					{
 					_vehicle=[_pos, random 360,_tipoveh, _lado] call bis_fnc_spawnvehicle;
-					//debug
-					if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en wavedCA.Origen:%1.Dets:%2",_mrkOrigen,_mrkDestino]};
+
 					_veh = _vehicle select 0;
 					_vehCrew = _vehicle select 1;
 					_grupoVeh = _vehicle select 2;
@@ -303,6 +305,7 @@ while {(_waves != 0)} do
 							_Vwp1 setWaypointBehaviour "COMBAT";
 							_Vwp2 = _grupo addWaypoint [_landPos, 0];
 							_Vwp2 setWaypointType "GETOUT";
+							_Vwp2 setWaypointStatements ["true", "(group this) spawn attackDrillAI"];
 							//_grupo setVariable ["mrkAttack",_mrkDestino];
 							_Vwp synchronizeWaypoint [_Vwp2];
 							_Vwp3 = _grupo addWaypoint [_posdestino, 1];
@@ -319,6 +322,7 @@ while {(_waves != 0)} do
 							_Vwp setWaypointBehaviour "SAFE";
 							_Vwp setWaypointSpeed "FULL";
 							_Vwp setWaypointType "GETOUT";
+							_Vwp setWaypointStatements ["true", "(group this) spawn attackDrillAI"];
 							_Vwp1 = _grupoVeh addWaypoint [_posDestino, 1];
 							_Vwp1 setWaypointType "SAD";
 							_Vwp1 setWaypointBehaviour "COMBAT";
@@ -406,8 +410,7 @@ while {(_waves != 0)} do
 				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTransportHelis} else {selectRandom vehCSATTransportHelis};
 				};
 			_vehicle=[_pos, _ang + 90,_tipoveh, _lado] call bis_fnc_spawnvehicle;
-			//debug
-			if ((_pos distance _posOrigen) > (_pos distance _posDestino)) then {diag_log format ["Antistasi error al crear en posición incorrecta en wavedCA.Origen:%1.Dets:%2",_mrkOrigen,_mrkDestino]};
+
 			_veh = _vehicle select 0;
 			_vehCrew = _vehicle select 1;
 			_grupoVeh = _vehicle select 2;
@@ -462,6 +465,7 @@ while {(_waves != 0)} do
 						_wp0 setWaypointBehaviour "CARELESS";
 						_wp3 = _grupo addWaypoint [_landpos, 0];
 						_wp3 setWaypointType "GETOUT";
+						_wp3 setWaypointStatements ["true", "(group this) spawn attackDrillAI"];
 						//_grupo setVariable ["mrkAttack",_mrkDestino];
 						//_wp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 						_wp0 synchronizeWaypoint [_wp3];
@@ -499,7 +503,7 @@ while {(_waves != 0)} do
 	_plane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
 	if (_lado == malos) then
 		{
-		if ((not(_mrkDestino in puestos)) and (not(_mrkDestino in puertos))) then
+		if ((not(_mrkDestino in puestos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "NATO_carrier")) then
 			{
 			[_mrkOrigen,_mrkDestino] spawn artilleria;
 			diag_log "Antistasi: Arty Spawned";
@@ -532,7 +536,7 @@ while {(_waves != 0)} do
 		}
 	else
 		{
-		if ((not(_mrkDestino in recursos)) and (not(_mrkDestino in puertos))) then
+		if ((not(_mrkDestino in recursos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "CSAT_carrier")) then
 			{
 			[_mrkOrigen,_mrkDestino] spawn artilleria;
 			diag_log "Antistasi: Arty Spawned";

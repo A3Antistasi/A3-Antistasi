@@ -5,7 +5,7 @@ _unit = _this select 0;
 if (typeOf _unit == "Fin_random_F") exitWith {};
 
 _unit setVariable ["surrendered",true];
-//_unit setVariable ["lado",side _unit,true];
+
 if (side _unit == malos) then
 	{
 	_nul = [-2,0,getPos _unit] remoteExec ["citySupportChange",2];
@@ -42,7 +42,8 @@ _items = assignedItems _unit + items _unit + primaryWeaponItems _unit;
 _caja call jn_fnc_logistics_addAction;
 removeAllWeapons _unit;
 removeAllAssignedItems _unit;
-[_unit,true] remoteExec ["setCaptive"];
+[_unit,true] remoteExec ["setCaptive",0,_unit];
+_unit setCaptive true;
 sleep 1;
 if (alive _unit) then
 	{
@@ -72,7 +73,7 @@ _marcador = _unit getVariable "marcador";
 
 if (!isNil "_marcador") then
 	{
-	_lado = _unit getVariable "lado";
+	_lado = side (group _unit);
 	[_marcador,_lado] remoteExec ["zoneCheck",2];
 	};
 [_unit,"interrogar"] remoteExec ["flagaction",[buenos,civilian],_unit];

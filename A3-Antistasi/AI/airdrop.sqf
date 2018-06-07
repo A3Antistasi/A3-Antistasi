@@ -4,6 +4,7 @@ _veh = _this select 0;
 _grupo = _this select 1;
 _marcador = _this select 2;
 _origen = _this select 3;
+_reinf = if (count _this > 4) then {_this select 4} else {false};
 
 _posicion = _marcador;
 if (typeName _marcador == typeName "") then {_posicion = getMarkerPos _marcador};
@@ -76,20 +77,28 @@ if (alive _veh) then
    	_x allowDamage false;
    	moveOut _x;
    	sleep 0.35;
-   	//_chute = createVehicle ["NonSteerable_Parachute_F", (getPos _x), [], 0, "NONE"];
-   	//_chute setPos (getPos _x);
-   	//_x moveinDriver _chute;
    	_x allowDamage true;
   	} forEach units _grupo;
 	};
-/*if (_marcador isEqualType "") then
+
+
+if !(_reinf) then
    {
-   _grupo setVariable ["mrkAttack",_marcador];
-   [leader _grupo, _marcador, "SPAWNED","NOVEH2","NOFOLLOW","NOWP3"] execVM "scripts\UPSMON.sqf";
-   };*/
-_wp4 = _grupo addWaypoint [_posicion, 0];
-_wp4 setWaypointType "MOVE";
-_wp4 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
-_wp4 = _grupo addWaypoint [_posicion, 1];
-_wp4 setWaypointType "SAD";
+   _posLeader = position (leader _grupo);
+   _posLeader set [2,0];
+   _wp5 = _grupo addWaypoint [_posLeader,0];
+   _wp5 setWaypointType "MOVE";
+   _wp5 setWaypointStatements ["true", "(group this) spawn attackDrillAI"];
+   _wp4 = _grupo addWaypoint [_posicion, 1];
+   _wp4 setWaypointType "MOVE";
+   _wp4 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
+   _wp4 = _grupo addWaypoint [_posicion, 2];
+   _wp4 setWaypointType "SAD";
+   }
+else
+   {
+   _wp4 = _grupo addWaypoint [_posicion, 0];
+   _wp4 setWaypointType "MOVE";
+   _wp4 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] remoteExec [""garrisonUpdate"",2];[group this] spawn groupDespawner; reinfPatrols = reinfPatrols - 1; publicVariable ""reinfPatrols"";"];
+   };
 //[_veh] call puertasLand;

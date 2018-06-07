@@ -9,7 +9,7 @@ if (player != player getVariable ["owner",player]) exitWith {hint "Youy cannot b
 
 _chequeo = false;
 {
-	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 300) and ([_x] call canFight)) exitWith {_chequeo = true};
+	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 300) and ([_x] call canFight) and !(isPlayer _x)) exitWith {_chequeo = true};
 } forEach allUnits;
 
 if (_chequeo) exitWith {Hint "You cannot Recruit Units with enemies nearby"};

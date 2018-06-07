@@ -7,7 +7,7 @@ if (!alive _unit) exitWith {};
 
 _jugador globalChat "You imperialist! Tell me what you know!";
 _chance = 0;
-_lado = _unit getVariable "lado";
+_lado = side (group _unit);
 if (_lado == malos) then
 	{
 	_chance = 100 - prestigeNATO;

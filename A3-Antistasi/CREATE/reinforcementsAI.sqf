@@ -29,7 +29,7 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 		_posibles = (recursos + fabricas - _reinfPlaces - (killZones getVariable [_aeropuerto,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
 		};
 	_posicion = getMarkerPos _aeropuerto;
-	_posibles = _posibles select {((getMarkerPos _x distance2D _posicion) < distanceForAirAttack)};
+	_posibles = _posibles select {((getMarkerPos _x distance2D _posicion) < distanceForAirAttack) and !(_x in forcedSpawn)};
 	if (count _posibles > 0) then
 		{
 		_cuenta = 0;
@@ -45,8 +45,11 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 		} forEach _posibles;
 		if (_sitio != "") then
 			{
-			_reinfPlaces pushBack _sitio;
-			[[_sitio,_aeropuerto,_numero,_lado],"patrolReinf"] call scheduler;
+			if ({(getMarkerPos _x distance2d getMarkerPos _sitio < distanciaSPWN) and (lados getVariable [_x,sideUnknown] != _lado)} count aeropuertos == 0) then
+				{
+				_reinfPlaces pushBack _sitio;
+				[[_sitio,_aeropuerto,_numero,_lado],"patrolReinf"] call scheduler;
+				};
 			};
 		};
 	};

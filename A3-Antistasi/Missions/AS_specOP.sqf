@@ -9,34 +9,13 @@ _grpContacto = grpNull;
 _tsk = "";
 if (_dificil) then
 	{
-	_posHQ = getMarkerPos "respawn_guerrila";
-	_ciudades = ciudades select {getMarkerPos _x distance _posHQ < distanciaMiss};
-	if (count _ciudades == 0) exitWith {_dificil = false};
-	_ciudad = selectRandom _ciudades;
-
-	_tam = [_ciudad] call sizeMarker;
-	_posicion = getMarkerPos _ciudad;
-	_casas = nearestObjects [_posicion, ["house"], _tam];
-	_posCasa = [];
-	_casa = objNull;
-	while {count _posCasa == 0} do
-		{
-		_casa = selectRandom _casas;
-		_posCasa = [_casa] call BIS_fnc_buildingPositions;
-		_casas = _casas - [_casa];
-		};
-	_grpContacto = createGroup civilian;
-	_pos = selectRandom _posCasa;
-	_contacto = _grpContacto createUnit [selectRandom arrayCivs, _pos, [], 0, "NONE"];
-	_contacto allowDamage false;
-	_contacto setPos _pos;
-	_contacto setVariable ["statusAct",false,true];
-	_contacto forceSpeed 0;
-	_contacto setUnitPos "UP";
-	[_contacto,"missionGiver"] remoteExec ["flagaction",[buenos,civilian],_contacto];
+	_result = [] call spawnMissionGiver;
+	_ciudad = _result select 0;
+	if (_ciudad == "") exitWith {_dificil = false};
+	_contacto = _result select 1;
 
 	_nombredest = [_ciudad] call localizar;
-	_tiempolim = 15;//120
+	_tiempolim = 30;//120
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"AS",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;

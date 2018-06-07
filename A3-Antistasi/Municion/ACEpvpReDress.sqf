@@ -10,7 +10,7 @@ if (hayACEMedical) then
 	{
 	player removeItems "FirstAidKit";
 	player removeItem "Medikit";
-	if !(player getUnitTrait "medic") then
+	if !([player] call isMedic) then
 		{
 		{
 		_item = _x select 0;

@@ -4,8 +4,8 @@ _unit = _this select 0;
 
 if ((isPlayer _unit) or (player != leader group player)) exitWith {};
 if !([_unit] call canFight) exitWith {};
-_ayudando = _unit getVariable "ayudando";
-if (!(isNil "_ayudando")) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
+//_ayudando = _unit getVariable "ayudando";
+if (_unit getVariable ["ayudando",false]) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
 _rearming = _unit getVariable ["rearming",false];
 if (_rearming) exitWith {_unit groupChat "I am currently rearming. Cancelling."; _unit setVariable ["rearming",false]};
 
@@ -411,7 +411,9 @@ if (not(headgear _unit in cascos)) then
 		};
 	};
 _hayCaja = false;
-if (not("FirstAidKit" in (items _unit))) then
+_minFA = if ([_unit] call isMedic) then {10} else {1};
+
+if ({_x == "FirstAidKit"} count (items _unit) < _minFA) then
 	{
 	_necesita = true;
 	_hayCaja = false;
@@ -419,7 +421,7 @@ if (not("FirstAidKit" in (items _unit))) then
 	_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 	{
 	_muerto = _x;
-	if (("FirstAidKit" in uniformItems _muerto) and (_unit distance _muerto < _distancia)) then
+	if (("FirstAidKit" in items _muerto) and (_unit distance _muerto < _distancia)) then
 		{
 		_target = _muerto;
 		_hayCaja = true;
@@ -436,9 +438,13 @@ if (not("FirstAidKit" in (items _unit))) then
 		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if (_unit distance _target < 3) then
 			{
-			_unit action ["rearm",_target];
-			_unit addItem "FirstAidKit";
-			_target removeItemFromUniform "FirstAidKit";
+			while {{_x == "FirstAidKit"} count (items _unit) < _minFA} do
+				{
+				_unit action ["rearm",_target];
+				_unit addItem "FirstAidKit";
+				_target removeItem "FirstAidKit";
+				if ("FirstAidKit" in items _muerto) then {sleep 3};
+				}
 			}
 		else
 			{

@@ -10,35 +10,13 @@ _grpContacto = grpNull;
 _tsk = "";
 if (_dificil) then
 	{
-	_posHQ = getMarkerPos "respawn_guerrila";
-	_ciudades = ciudades select {getMarkerPos _x distance _posHQ < distanciaMiss};
-	_ciudades = _ciudades - [_marcador];
-	if (count _ciudades == 0) exitWith {_dificil = false};
-	_ciudad = selectRandom _ciudades;
-
-	_tam = [_ciudad] call sizeMarker;
-	_posicion = getMarkerPos _ciudad;
-	_casas = nearestObjects [_posicion, ["house"], _tam];
-	_posCasa = [];
-	_casa = objNull;
-	while {count _posCasa == 0} do
-		{
-		_casa = selectRandom _casas;
-		_posCasa = [_casa] call BIS_fnc_buildingPositions;
-		_casas = _casas - [_casa];
-		};
-	_grpContacto = createGroup civilian;
-	_pos = selectRandom _posCasa;
-	_contacto = _grpContacto createUnit [selectRandom arrayCivs, _pos, [], 0, "NONE"];
-	_contacto allowDamage false;
-	_contacto setPos _pos;
-	_contacto setVariable ["statusAct",false,true];
-	_contacto forceSpeed 0;
-	_contacto setUnitPos "UP";
-	[_contacto,"missionGiver"] remoteExec ["flagaction",[buenos,civilian],_contacto];
+	_result = [] call spawnMissionGiver;
+	_ciudad = _result select 0;
+	if (_ciudad == "") exitWith {_dificil = false};
+	_contacto = _result select 1;
 
 	_nombredest = [_ciudad] call localizar;
-	_tiempolim = 15;//120
+	_tiempolim = 30;//120
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"RES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
@@ -98,8 +76,8 @@ _poscasa = [];
 _casa = _casas select 0;
 while {count _poscasa < 3} do
 	{
-	_casa = _casas call BIS_Fnc_selectRandom;
-	_poscasa = [_casa] call BIS_fnc_buildingPositions;
+	_casa = selectRandom _casas;
+	_poscasa = _casa buildingPos -1;
 	if (count _poscasa < 3) then {_casas = _casas - [_casa]};
 	};
 
@@ -127,7 +105,7 @@ for "_i" from 1 to (((count _poscasa) - 1) min 15) do
 	_unit setSkill 0;
 	_POWs pushBack _unit;
 	[_unit,"refugiado"] remoteExec ["flagaction",[buenos,civilian],_unit];
-	if (_lado == malos) then {[_unit,true] remoteExec ["setCaptive"]};
+	if (_lado == malos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 	[_unit] call reDress;
 	sleep 0.5;
 	};
@@ -150,9 +128,12 @@ if (_lado == muyMalos) then
 		if (_dificil) then {sleep 300} else {sleep 300 + (random 1800)};
 		if (["RES"] call BIS_fnc_taskExists) then
 			{
-			_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == muyMalos) and (dateToNumber date > server getVariable _x) and (not(spawner getVariable [_x,false]))};
-			_aeropuerto = [_aeropuertos, position casa] call BIS_fnc_nearestPosition;
-			[[getPosASL _casa,_aeropuerto,"",false],"patrolCA"] remoteExec ["scheduler",2];
+			_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == muyMalos) and ([_x,true] call airportCanAttack)};
+			if (count _aeropuertos > 0) then
+				{
+				_aeropuerto = [_aeropuertos, position casa] call BIS_fnc_nearestPosition;
+				[[getPosASL _casa,_aeropuerto,"",false],"patrolCA"] remoteExec ["scheduler",2];
+				};
 			};
 		};
 	}

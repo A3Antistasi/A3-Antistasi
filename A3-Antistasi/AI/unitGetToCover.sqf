@@ -7,7 +7,7 @@ if !([_unit] call canFight) exitWith {};
 _enemy = if (count _this > 1) then {_this select 1} else {_unit findNearestEnemy _unit};
 
 if (isNull _enemy) exitWith {};
-if (_unit distance _enemy < 50) exitWith {};
+if (_unit distance _enemy < 300) exitWith {};
 if (damage _unit >= 0.6) then {[_unit,_unit,_enemy] spawn cubrirConHumo};
 _cobertura = [_unit,_enemy] call cobertura;
 
@@ -15,10 +15,10 @@ if (_cobertura isEqualTo []) exitWith {};
 
 _unit stop false;
 _unit forceSpeed -1;
-{_unit disableAI _x} forEach ["AUTOTARGET","FSM","TARGET","SUPPRESSION","AUTOCOMBAT","WEAPONAIM","COVER"];
+{_unit disableAI _x} forEach ["AUTOTARGET","FSM","TARGET","SUPPRESSION","AUTOCOMBAT","WEAPONAIM","COVER","CHECKVISIBLE"];
 _unit setUnitPos "MIDDLE";
 _unit setCombatMode "BLUE";
-_unit setBehaviour "CARELESS";
+//_unit setBehaviour "CARELESS";
 _unit doMove _cobertura;
 
 [_unit,_cobertura] spawn
@@ -34,14 +34,14 @@ _unit doMove _cobertura;
 		_unit stop true;
 		_unit forceSpeed 0;
 		_unit setCombatMode "YELLOW";
-		_unit setBehaviour "COMBAT";
+		//_unit setBehaviour "COMBAT";
 		_unit setUnitPos "AUTO";
 		_unit doWatch (_unit findNearestEnemy _unit);
 		sleep 30;
 		};
-	{_unit enableAI _x} forEach ["AUTOTARGET","FSM","TARGET","SUPPRESSION","AUTOCOMBAT","WEAPONAIM","COVER"];
+	{_unit enableAI _x} forEach ["AUTOTARGET","FSM","TARGET","SUPPRESSION","AUTOCOMBAT","WEAPONAIM","COVER","CHECKVISIBLE"];
 	_unit setCombatMode "YELLOW";
-	_unit setBehaviour "COMBAT";
+	//_unit setBehaviour "COMBAT";
 	_unit forceSpeed -1;
 	_unit stop false;
 	_unit setUnitPos "AUTO";

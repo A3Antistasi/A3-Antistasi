@@ -822,3 +822,105 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Enemy does not wait to lose a jungle / forest / hill to build minefields in it.
 - PvP players will be able to Fast Travel to their respawn point.
 - Last? Attempt to fix broken BIS task functions with JiP players.
+
+1.0.4 21/05/2018
+
+- Fixed bugs that made convoy missions not launch.
+- Convoys in Altis work much better now, not with the cohesion from Tanoa but with more chances of arrival.
+- Land forces sent from long distances too
+- Implemented a side check if vehicles are stuck on a bridge, in those cases, with no player present, the vehicle will unstuck.
+- Corrected small bug on FIA AT troops init.
+- Rework Commander dialog to allow commander rennounce.
+- Now really added additional RHS vest.
+- Increased a bit enemy distance for AI to decide get to cover instead of return fire.
+- Reduced minimum garrisons on small zones to 1.
+- Persistent save on destroyed mil buildings is back again.
+- Choppers will land in safer distances.
+- CAS Air is back on major attacks to airports.
+- Friendly AAF spawned during daytime wont have NV
+
+1.0.5 22/05/2018
+
+- IMPORTANT: Conquer QRFs can be dispatched on AI vs AI factions. Instead of only send major attacks to eachother, we may find several qrfs dispatched on the same time, taking advantage of weaker garrisons.
+- IMPORTANT: CSAT intervention now starts with WL 2.
+- IMPORTANT: Petros / Maru is now invulnerable to player fire + punishments have been removed. In case he is killed by any source which is not direct AI fire, petros will respawn without consequence.
+- Reinforcements now may reach with fastrope or paradrop.
+- Corrected wrong call on fastrope script on QRF.
+- Debugged (not solved) some error in garrison update.
+- Corrected small bug on QRF when the vehicle is a truck and only one soldier spawned.
+- Idle status of an airbase or outpost now depends on several factors and may be busy for some tasks and not for some other. Map info will report the minimum requirements.
+- PvP players wont count on the "enemy nearby" checks for recruiting etc.
+- Corrected small bug in QRF which prevented some actions.
+- AI wont decide to send reinforcements to areas under attack.
+- Ai wont pick unlocked things when looting.
+- Increased much more enemy distance for AI to decide get to cover instead of return fire.
+- Revive is far more reliable, more BIS alike. 
+- Fatal wounds now depend on body too, not only head.
+- Minor body parts can have "unlimited damage".
+- AI will cancel revive procedures if they get damage in the process.
+- Some nicer icons here & there.
+- Revive won't be possible in water.
+- All basic faction vests unlocked by default.
+- Statistics get updated on persistent load.
+- Safer fastroping positions for AI attackers.
+- Arty wont spawn in carriers.
+- Supply missions are lost when the box is lost.
+- Bulletproofed "transfer to ammobox" script to avoid some errors.
+
+1.0.6 28/05/2018
+
+- Jeroen Arsenal fix some leeks which allowed players select whatever equipment. Thanks to Jeroen
+- APCs and Tanks will pop smoke only once when damaged. Removed damage processess when killed.
+- On load, building destruction wont be smulated to avoid collateral damages and unnecesary anims.
+- Removed some missed time delay to recover enemy AI after being revived by AI.
+- Improved handle damage checks while AI is controlled.
+- Fixed: when player respawns player is flagged as unconscious.
+- Re enabled AI teleport to player when they cannot reach the player while unconscious because of AI pathfinding.
+
+1.0.7 30/05/2018
+
+- Reverted Jeroen's modification because of bugs until we find a solution.
+- No area check for undercover AI
+- Teleport AI to unconscious only in SP.
+- Road patrols may be generated in Outposts.
+- Bledout enemy AI will affect prestige etc. only if killed by Greenfor.
+- Solved when an AI is ordered with Action menu 6 to revive and gets unresponsive for revive.
+- Hopefully solved some MP animation fails.
+
+1.0.8 01/06/2018
+
+- Solved several undercover MP issues.
+- Re enabled player markers in MP.
+- Planes on QRF and reinforcements wont try to land.
+- Conquering by kills is easier.
+- Bunkers shouldnt move on persistent save.
+
+1.1.0 03/06/2018
+
+- NEW FEATURE: Major assault AI overhaul. Now AI sent on major attacks will perform the following:
+- Mortar assemble and mortar support.
+- StaticMG assemble / dissassemble.
+- More proactive and specialised backup requests of whatever (mortar, airstrikes, qrfs).
+- Flanking while supressing or covering the flankers.
+- Building assaults.
+- Fortify in buildings.
+- NEW FEATURE: MP lobby mission parameters with long waited customization settings. Default values are for open dedis in mind, can be only modified by server admin.
+- Increased variety for squad compositions with static weapons, engineers, AA / AT men etc (RHS limited to classnames).
+- Corrected bug in roadpatrols.
+- AI will prioritise available armed helis in case of a support QRF.
+- AI wont send QRFs to recap AI airports or airport surroundings.
+- Same with reinforcements.
+- Solved AI QRFs collide on spawn when several of them have been called.
+- Tanks and APC crewmen have mine detection disabled, mines should be much more useful.
+- Bulletproofed vehicle and unit init to avoid rare malfunctions.
+- Solved bug on paratroopers reinf patrol.
+- Medics wont teleport inmediately to heal players in SP and they wont do it if enemies are very close.
+- Raised default mission distance to 4Kmts
+- Reviving AI belonging to players will report why they cannot revive.
+- Removed loading screen in Arsenal to avoid crashes.
+- Armed civs on CSAT Punishments will be civilian side and CSAT will attack any civilian anyway but they wont attack players in NATO controlled zones.
+- More revive tweaks.
+- CSAT wont have piety with unconscious enemies and will kill them if possible.
+- Bleadout by NATO vs CSAT battles wont affect prestige / aggro.
+- Medics will loot FA kits up to 10, and pick all the dead body have up to that number.
+- All faction uniforms available in arsenal and automated to each mod (including tier 2 troops).

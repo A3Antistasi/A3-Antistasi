@@ -29,7 +29,7 @@
 			};\
 		};\
 		_dlc\
-	}
+	};
 
 #define ADDMODICON\
 	{\
@@ -139,7 +139,7 @@ switch _mode do {
 		["ColorTabs",[_display]] call jn_fnc_vehicleArsenal;
 
 		['showMessage',[_display,"Vehicle inventory"]] call jn_fnc_arsenal;
-		["jn_fnc_arsenal"] call BIS_fnc_endLoadingScreen;
+		//["jn_fnc_arsenal"] call BIS_fnc_endLoadingScreen;
 	};
 
 	///////////////////////////////////////////////////////////////////////////////////////////

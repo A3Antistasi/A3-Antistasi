@@ -2,8 +2,8 @@
 #include "dialogs.hpp"
 
 author="Barbolani";
-OnLoadName = "A3-Antistasi 1.0.4 Altis";
-OnLoadMission = "Be a restistance leader, be a hero";
+OnLoadName = "Warlords of the Pacific";
+OnLoadMission = "Business and War...";
 loadScreen = "pic.JPG";
 
 overviewText = "Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.";
@@ -58,202 +58,255 @@ class CfgSounds
         sound[]={"Music\fire.ogg",db+12,1.0};
         titles[]={};
     };
-    /*
-    class dog_bark01 {
-        sound[] = {"Music\dog_bark01.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_bark02 {
-        sound[] = {"Music\dog_bark02.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_bark03 {
-        sound[] = {"Music\dog_bark03.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_bark04 {
-        sound[] = {"Music\dog_bark04.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_bark05 {
-        sound[] = {"Music\dog_bark05.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_maul01 {
-        sound[] = {"Music\dog_maul01.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_yelp01 {
-        sound[] = {"Music\dog_yelp01.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_yelp02 {
-        sound[] = {"Music\dog_yelp02.wss", 0.8, 1};
-        titles[] = {};
-    };
-        class dog_yelp03 {
-        sound[] = {"Music\dog_yelp03.wss", 0.8, 1};
-        titles[] = {};
-    };
-    */
 };
+class Params
+{
+    class loadSave
+    {
+        title = "Load last Persistent Save"; // Param name visible in the list
+        values[] = {1,0}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"Yes","No"}; // Description of each selectable item
+        default = 1; // Default value; must be listed in 'values' array, otherwise 0 is used
+        // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
+    };
+    class autoSave
+    {
+        title = "Enable Autosave (every hour)"; // Param name visible in the list
+        values[] = {true,false}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"Yes","No"}; // Description of each selectable item
+        default = true; // Default value; must be listed in 'values' array, otherwise 0 is used
+        // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
+    };
+    class membership
+    {
+        title = "Enable Server Membership";
+        texts[] = {"Yes","No"};
+        values[] = {1,0};
+        default = 1;
+        //function = "BIS_fnc_paramDaytime"; // (Optional) [[Functions_Library_(Arma_3)|Function]] [[call]]ed when player joins, selected value is passed as an argument
+        //isGlobal = 1; // (Optional) 1 to execute script / function locally for every player who joins, 0 to do it only on server
+    };
+    class switchComm
+    {
+        title = "Enable Commander Swtich (highest ranked player)";
+        values[] = {1,0};
+        texts[] = {"Yes","No"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class tkPunish
+    {
+        title = "Enable Teamkill Punish";
+        values[] = {1,0};
+        texts[] = {"Yes","No"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class mRadius
+    {
+        title = "Distance from HQ for Sidemissions";
+        values[] = {4000,8000,12000};
+        // When 'texts' are missing, values will be displayed directly instead
+        default = 4000;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class allowPvP
+    {
+        title = "Allow PvP Slots";
+        values[] = {1,0};
+        texts[] = {"Yes","No"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class pMarkers
+    {
+        title = "Allow Friendly Player Markers";
+        values[] = {1,0};
+        texts[] = {"Yes","No"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class AISkill
+    {
+        title = "AI Skill";
+        values[] = {0.5,1,2};
+        texts[] = {"Easy","Normal","Hard"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class unlockItem
+    {
+        title = "Number of the same weapons required to unlock";
+        values[] = {15,25,40};
+        default = 25;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class civTraffic
+    {
+        title = "Rate of Civ Traffic";
+        values[] = {0.5,1,3};
+        texts[] = {"Low","Medium","JAM"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+};
+
 class CfgIdentities
 {
     class protagonista
     {
-        name = "Stavros";
-        nameSound = "Stavrou";
-        face="GreekHead_A3_01";
+        name = "Pulu";
+        nameSound = "Warlock";
+        face="TanoanBossHead";
     glasses="None";
-    speaker="Male01GRE";
+    speaker="Male01ENGFRE";
     pitch=1.1;
     };
      class amiguete
     {
-        name = "Petros";
-        nameSound = "Petros";
-        face="GreekHead_A3_01";
-    glasses="None";
-    speaker="Male01GRE";
-    pitch=1.1;
+        name = "Maru";
+        nameSound = "Warlock";
+        face="TanoanBossHead";
+	glasses="None";
+	speaker="Male01ENGFRE";
+	pitch=1.1;
     };
       class Anthis
     {
         name = "Anthis";
         nameSound = "Anthis";
-        face="GreekHead_A3_02";
-    glasses="None";
-    speaker="Male01GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_01";
+	glasses="None";
+	speaker="Male02CHI";
+	pitch=1.1;
     };
       class Costa
     {
         name = "Costa";
         nameSound = "Costa";
-        face="GreekHead_A3_03";
-    glasses="None";
-    speaker="Male02GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_02";
+	glasses="None";
+	speaker="Male03CHI";
+	pitch=1.1;
     };
       class Dimitirou
     {
         name = "Dimitirou";
         nameSound = "Dimitirou";
-        face="GreekHead_A3_04";
-    glasses="None";
-    speaker="Male03GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_03";
+	glasses="None";
+	speaker="Male01FRE";
+	pitch=1.1;
     };
       class Elias
     {
         name = "Elias";
         nameSound = "Elias";
-        face="GreekHead_A3_05";
-    glasses="None";
-    speaker="Male04GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_04";
+	glasses="None";
+	speaker="Male02FRE";
+	pitch=1.1;
     };
       class Gekas
     {
         name = "Gekas";
         nameSound = "Gekas";
-        face="GreekHead_A3_06";
-    glasses="None";
-    speaker="Male01GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_05";
+	glasses="None";
+	speaker="Male03FRE";
+	pitch=1.1;
     };
       class Kouris
     {
         name = "Kouris";
         nameSound = "Kouris";
-        face="GreekHead_A3_07";
-    glasses="None";
-    speaker="Male02GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_06";
+	glasses="None";
+	speaker="Male01CHI";
+	pitch=1.1;
     };
       class Leventis
     {
         name = "Leventis";
         nameSound = "Leventis";
-        face="GreekHead_A3_08";
-    glasses="None";
-    speaker="Male03GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_07";
+	glasses="None";
+	speaker="Male02CHI";
+	pitch=1.1;
     };
       class Markos
     {
         name = "Markos";
         nameSound = "Markos";
-        face="GreekHead_A3_09";
-    glasses="None";
-    speaker="Male04GRE";
-    pitch=1.1;
+        face="TanoanHead_A3_08";
+	glasses="None";
+	speaker="Male03CHI";
+	pitch=1.1;
     };
       class Nikas
     {
         name = "Nikas";
         nameSound = "Nikas";
-        face="WhiteHead_02";
-    glasses="None";
-    speaker="Male01GRE";
-    pitch=1.1;
+        face="CamoHead_Asian_03_F";
+	glasses="None";
+	speaker="Male03FRE";
+	pitch=1.1;
     };
       class Nicolo
     {
         name = "Nicolo";
         nameSound = "Nicolo";
-        face="WhiteHead_03";
-    glasses="None";
-    speaker="Male02GRE";
-    pitch=1.1;
+        face="CamoHead_Asian_02_F";
+	glasses="None";
+	speaker="Male02FRE";
+	pitch=1.1;
     };
       class Panas
     {
         name = "Panas";
         nameSound = "Panas";
-        face="WhiteHead_04";
-    glasses="None";
-    speaker="Male03GRE";
-    pitch=1.1;
+        face="CamoHead_Asian_01_F";
+	glasses="None";
+	speaker="Male01FRE";
+	pitch=1.1;
     };
        class Rosi
     {
         name = "Rosi";
         nameSound = "Rosi";
-        face="WhiteHead_05";
-    glasses="None";
-    speaker="Male04GRE";
-    pitch=1.1;
+        face="AsianHead_A3_01";
+	glasses="None";
+	speaker="Male01CHI";
+	pitch=1.1;
     };
        class Samaras
     {
         name = "Samaras";
         nameSound = "Samaras";
         face="WhiteHead_06";
-    glasses="None";
-    speaker="Male01GRE";
-    pitch=1.1;
+	glasses="None";
+	speaker="AsianHead_A3_02";
+	pitch=1.1;
     };
        class Thanos
     {
         name = "Thanos";
         nameSound = "Thanos";
-        face="WhiteHead_07";
-    glasses="None";
-    speaker="Male02GRE";
-    pitch=1.1;
+        face="AsianHead_A3_03";
+	glasses="None";
+	speaker="Male02ENGFRE";
+	pitch=1.1;
     };
        class Vega
     {
         name = "Vega";
         nameSound = "Vega";
-        face="WhiteHead_08";
-    glasses="None";
-    speaker="Male03GRE";
-    pitch=1.1;
+        face="AsianHead_A3_04";
+	glasses="None";
+	speaker="Male02ENGFRE";
+	pitch=1.1;
     };
 };
-
 
 /*
 class CfgMusic
@@ -273,24 +326,24 @@ class CfgDebriefing
 	class End1
 	{
 		title = "V I C T O R Y";
-		subtitle = "Altis is Ours!";
-		description = "The population of Altis loves you!<br/>The brave soldiers prooved their valour, and Barbolani, Altis new Prime Minister, could at last to have a nice holliday. A deserved rest in a Greek island, drinking with Petros, his war master.";
+		subtitle = "Tanoa is Ours!";
+		description = "The population of Tanoa loves you!<br/>The SDK brave soldiers prooved their valour, and Barbolani, Tanoa new Prime Minister, could at last to have a nice holliday. A deserved rest in a Greek island, drinking with Petros, his war master.";
 		picture = "n_inf";
 		pictureColor[] = {0.0,0.5,0.0,1};
 	};
     class petrosDead
     {
-        title = "Petros is Dead";
-        subtitle = "Petros is Dead";
-        description = "Congratulations!: Petros is Dead. Now with Syndikat without a leader, you may think about joining them, and free Altis";
+        title = "Maru is Dead";
+        subtitle = "Maru is Dead";
+        description = "Congratulations!: Maru is Dead. Now with Syndikat without a leader, you may think about joining them, and free Tanoa";
         picture = "b_unknown";
         pictureColor[] = {0.5,0.0,0.0,1};
     };
     class destroyedCities
     {
-        title = "Altis is Destroyed";
-        subtitle = "Altis got Destroyed by OPFOR";
-        description = "One third of the population in Tanoa has been murdered by the OPFOR.<br/>Tanoa no longer exists, nobody wants to live here.";
+        title = "Tanoa is Destroyed";
+        subtitle = "Tanoa got Destroyed by CSAT";
+        description = "One third of the population in Tanoa has been murdered by CSAT.<br/>Tanoa no longer exists, nobody wants to live here.";
         picture = "b_unknown";
         pictureColor[] = {0.5,0.0,0.0,1};
     };

@@ -14,7 +14,7 @@ else
 	};
 [_muerto] spawn postmortem;
 _grupo = group _muerto;
-_lado = _muerto getVariable ["lado",sideUnknown];
+_lado = side (group _muerto);
 if (hayACE) then
 	{
 	if ((isNull _killer) || (_killer == _muerto)) then
@@ -23,7 +23,7 @@ if (hayACE) then
 		};
 	};
 //if (_killer isEqualType "") then {diag_log format ["Antistasi error in AAFKilledEH, params: %1",_this]};
-if ((side _killer == buenos) or (side _killer == civilian)) then
+if (side (group _killer) == buenos) then
 	{
 	if (isPlayer _killer) then
 		{
@@ -32,7 +32,8 @@ if ((side _killer == buenos) or (side _killer == civilian)) then
 			{
 			if (_killer distance _muerto < distanciaSPWN) then
 				{
-				[_killer,false] remoteExec ["setCaptive"];
+				[_killer,false] remoteExec ["setCaptive",0,_killer];
+				_killer setCaptive false;
 				};
 			};
 		_killer addRating 1000;
@@ -47,7 +48,7 @@ if ((side _killer == buenos) or (side _killer == civilian)) then
 		if (isMultiplayer) then
 			{
 			{
-			if ((_x distance _muerto < 300) and (captive _x)) then {[_x,false] remoteExec ["setCaptive"]};
+			if ((_x distance _muerto < 300) and (captive _x)) then {[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false};
 			} forEach playableUnits;
 			}
 		else

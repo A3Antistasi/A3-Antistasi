@@ -10,35 +10,13 @@ _grpContacto = grpNull;
 _tsk = "";
 if (_dificil) then
 	{
-	_posHQ = getMarkerPos "respawn_guerrila";
-	_ciudades = ciudades select {getMarkerPos _x distance _posHQ < distanciaMiss};
-	_ciudades = _ciudades - [_marcador];
-	if (count _ciudades == 0) exitWith {_dificil = false};
-	_ciudad = selectRandom _ciudades;
-
-	_tam = [_ciudad] call sizeMarker;
-	_posicion = getMarkerPos _ciudad;
-	_casas = nearestObjects [_posicion, ["house"], _tam];
-	_posCasa = [];
-	_casa = objNull;
-	while {count _posCasa == 0} do
-		{
-		_casa = selectRandom _casas;
-		_posCasa = [_casa] call BIS_fnc_buildingPositions;
-		_casas = _casas - [_casa];
-		};
-	_grpContacto = createGroup civilian;
-	_pos = selectRandom _posCasa;
-	_contacto = _grpContacto createUnit [selectRandom arrayCivs, _pos, [], 0, "NONE"];
-	_contacto allowDamage false;
-	_contacto setPos _pos;
-	_contacto setVariable ["statusAct",false,true];
-	_contacto forceSpeed 0;
-	_contacto setUnitPos "UP";
-	[_contacto,"missionGiver"] remoteExec ["flagaction",[buenos,civilian],_contacto];
+	_result = [] call spawnMissionGiver;
+	_ciudad = _result select 0;
+	if (_ciudad == "") exitWith {_dificil = false};
+	_contacto = _result select 1;
 
 	_nombredest = [_ciudad] call localizar;
-	_tiempolim = 15;//120
+	_tiempolim = 30;//120
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
@@ -143,9 +121,9 @@ _camion setVariable ["destino",_nombredest,true];
 
 [_camion,"Supply Box"] spawn inmuneConvoy;
 
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (_camion distance _posicion < 40) and (isNull attachedTo _camion)};
+waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or ((_camion distance _posicion < 40) and (isNull attachedTo _camion)) or (isNull _camion)};
 _bonus = if (_dificil) then {2} else {1};
-if (dateToNumber date > _fechalimnum) then
+if ((dateToNumber date > _fechalimnum) or (isNull _camion)) then
 	{
 	["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"FAILED","Heal"] call taskUpdate;
 	[5*_bonus,-5*_bonus,_posicion] remoteExec ["citySupportChange",2];
@@ -159,7 +137,8 @@ else
 	{_amigo = _x;
 	if (captive _amigo) then
 		{
-		[_amigo,false] remoteExec ["setCaptive"];
+		[_amigo,false] remoteExec ["setCaptive",0,_amigo];
+		_amigo setCaptive false;
 		};
 	{
 	if ((side _x == malos) and (_x distance _posicion < distanciaSPWN)) then
@@ -169,9 +148,9 @@ else
 	if ((side _x == civilian) and (_x distance _posicion < 300) and (vehicle _x == _x)) then {_x doMove position _camion};
 	} forEach allUnits;
 	} forEach ([300,0,_camion,"GREENFORSpawn"] call distanceUnits);
-	while {(_cuenta > 0)/* or (_camion distance _posicion < 40)*/ and (dateToNumber date < _fechalimnum)} do
+	while {(_cuenta > 0)/* or (_camion distance _posicion < 40)*/ and (dateToNumber date < _fechalimnum) and !(isNull _camion)} do
 		{
-		while {(_cuenta > 0) and (_camion distance _posicion < 40) and !({lifeState _x == "INCAPACITATED"} count ([80,0,_camion,"GREENFORSpawn"] call distanceUnits) == count ([80,0,_camion,"GREENFORSpawn"] call distanceUnits)) and ({(side _x == malos) and (_x distance _camion < 50)} count allUnits == 0) and (dateToNumber date < _fechalimnum) and (isNull attachedTo _camion)} do
+		while {(_cuenta > 0) and (_camion distance _posicion < 40) and ({[_x] call canFight} count ([80,0,_camion,"GREENFORSpawn"] call distanceUnits) == count ([80,0,_camion,"GREENFORSpawn"] call distanceUnits)) and ({(side _x == malos) and (_x distance _camion < 50)} count allUnits == 0) and (dateToNumber date < _fechalimnum) and (isNull attachedTo _camion)} do
 			{
 			_formato = format ["%1", _cuenta];
 			{if (isPlayer _x) then {[petros,"countdown",_formato] remoteExec ["commsMP",_x]}} forEach ([80,0,_camion,"GREENFORSpawn"] call distanceUnits);
@@ -182,11 +161,11 @@ else
 			{
 			_cuenta = 120*_bonus;//120
 			if (((_camion distance _posicion > 40) or (not([80,1,_camion,"GREENFORSpawn"] call distanceUnits)) or ({(side _x == malos) and (_x distance _camion < 50)} count allUnits != 0)) and (alive _camion)) then {{[petros,"hint","Don't get the truck far from the city center, and stay close to it, and clean all BLUFOR presence in the surroundings or count will restart"] remoteExec ["commsMP",_x]} forEach ([100,0,_camion,"GREENFORSpawn"] call distanceUnits)};
-			waitUntil {sleep 1; ((_camion distance _posicion < 40) and ([80,1,_camion,"GREENFORSpawn"] call distanceUnits) and ({(side _x == malos) and (_x distance _camion < 50)} count allUnits == 0)) or (dateToNumber date > _fechalimnum)};
+			waitUntil {sleep 1; ((_camion distance _posicion < 40) and ([80,1,_camion,"GREENFORSpawn"] call distanceUnits) and ({(side _x == malos) and (_x distance _camion < 50)} count allUnits == 0)) or (dateToNumber date > _fechalimnum) or (isNull _camion)};
 			};
 		if (_cuenta < 1) exitWith {};
 		};
-		if (dateToNumber date < _fechalimnum) then
+		if ((dateToNumber date < _fechalimnum) and !(isNull _camion)) then
 			{
 			[petros,"hint","Supplies Delivered"] remoteExec ["commsMP",[buenos,civilian]];
 			["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"SUCCEEDED","Heal"] call taskUpdate;

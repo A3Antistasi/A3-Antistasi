@@ -46,7 +46,7 @@ if ({((side _x== muyMalos) or (side _x== malos)) and (((_x knowsAbout _player > 
 	if (vehicle _player != _player) then
 		{
 		{
-		if ((isPlayer _x) and (captive _x)) then {[_x,false] remoteExec ["setCaptive"]; reportedVehs pushBackUnique (vehicle _player); publicVariable "reportedVehs"}
+		if ((isPlayer _x) and (captive _x)) then {[_x,false] remoteExec ["setCaptive"]; _x setCaptive false; reportedVehs pushBackUnique (vehicle _player); publicVariable "reportedVehs"}
 		} forEach ((crew (vehicle _player)) + (assignedCargo (vehicle _player)) - [_player]);
 		};
 	};
@@ -57,7 +57,8 @@ if ((_player distance getMarkerPos _base < _size*2) and (not(lados getVariable [
 
 ["Undercover ON",0,0,4,0,0,4] spawn bis_fnc_dynamicText;
 
-[_player,true] remoteExec ["setCaptive"];
+[_player,true] remoteExec ["setCaptive",0,_player];
+_player setCaptive true;
 [] call statistics;
 if (_player == leader group _player) then
 	{
@@ -166,11 +167,11 @@ while {_cambiar == ""} do
 		};
 	};
 
-if (captive _player) then {[_player,false] remoteExec ["setCaptive"]};
+if (captive _player) then {[_player,false] remoteExec ["setCaptive"]; _player setCaptive false};
 
 if (vehicle _player != _player) then
 	{
-	{if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive"]}} forEach ((assignedCargo (vehicle _player)) + (crew (vehicle _player)) - [_player]);
+	{if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false}} forEach ((assignedCargo (vehicle _player)) + (crew (vehicle _player)) - [_player]);
 	};
 
 ["Undercover OFF",0,0,4,0,0,4] spawn bis_fnc_dynamicText;

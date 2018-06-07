@@ -1,3 +1,4 @@
+
 if (!isDedicated) then
 	{
 	if (side player == buenos) then
@@ -20,11 +21,12 @@ if (!isDedicated) then
 			{
 			diag_log "Antistasi: SP Personal player stats loaded";
 			};
+		[] call statistics;
 		};
 	};
 
 if (!isServer) exitWith {};
-statsLoaded = 0; publicVariable "statsLoaded";
+
 //ADD STATS THAT NEED TO BE LOADED HERE.
 petros allowdamage false;
 
@@ -192,7 +194,6 @@ clearBackpackCargoGlobal caja;
 [[petros,"hintCS","Persistent Savegame Loaded"],"commsMP"] call BIS_fnc_MP;
 diag_log "Antistasi: Server sided Persistent Load done";
 
-sleep 25;
 ["tasks"] call fn_LoadStat;
-
+statsLoaded = 0; publicVariable "statsLoaded";
 petros allowdamage true;

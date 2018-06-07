@@ -1,4 +1,4 @@
-private ["_unit","_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_ayudado","_texto","_isPlayer","_camTarget","_saveVolumeVoice","_beh"];
+private ["_unit","_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_ayudado","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
 //if (_unit getVariable "inconsciente") exitWith {};
 //if (damage _unit < 0.9) exitWith {};
@@ -8,7 +8,9 @@ _bleedOut = time + 300;//300
 _isPlayer = false;
 _jugadores = false;
 _inPlayerGroup = false;
-_beh = "";
+_unit setBleedingremaining 300;
+_injurer = _this select 1;
+
 if (isPlayer _unit) then
 	{
 	_isPlayer = true;
@@ -25,7 +27,7 @@ if (isPlayer _unit) then
 		_handled = false;
 		if (_this select 1 == 19) then
 			{
-			if (lifeState player == "INCAPACITATED") then
+			if (player getVariable ["INCAPACITATED",false]) then
 				{
 				(findDisplay 46) displayRemoveEventHandler ["KeyDown", respawnMenu];
 				[player] spawn respawn;
@@ -33,7 +35,8 @@ if (isPlayer _unit) then
 			};
 		_handled;
 		}];
-	if (side _unit == buenos) then {[_unit,true] remoteExec ["setCaptive"]};
+	//if (side _unit == buenos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
+	if (_injurer != muyMalos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 	openMap false;
 	{
 	if ((!isPlayer _x) and (vehicle _x != _x) and (_x distance _unit < 50)) then {unassignVehicle _x; [_x] orderGetIn false}
@@ -48,7 +51,7 @@ else
 		[_unit,"heal1"] remoteExec ["flagaction",0,_unit];
 		//[_unit,"carry"] remoteExec ["flagaction",0,_unit];
 		//_unit call jn_fnc_logistics_addAction;
-		[_unit,true] remoteExec ["setCaptive"];
+		if (_injurer != muyMalos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 		}
 	else
 		{
@@ -56,9 +59,8 @@ else
 			{
 			_jugadores = true;
 			[_unit,"heal"] remoteExec ["flagaction",0,_unit];
-			if (_unit != petros) then {[_unit,true] remoteExec ["setCaptive"]};
+			if (_unit != petros) then {if (_injurer != muyMalos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true}};
 			};
-		_injurer = _this select 1;
 		if ((_injurer  == malos) or (_injurer  == muyMalos)) then
 			{
 			_marcador = _unit getVariable ["marcador",""];
@@ -81,7 +83,6 @@ if (_isPlayer) then
 		player setVariable ["tf_globalVolume", 0];
 		_saveVolumeVoice = player getVariable ["tf_voiceVolume", 1.0];
 		if (random 100 < 20) then {player setVariable ["tf_voiceVolume", 0.0, true]};
-		(group player) setBehaviour _beh;
 		};
 	group _unit setCombatMode "YELLOW";
 	if (isMultiplayer) then
@@ -92,7 +93,7 @@ if (_isPlayer) then
 	};
 
 
-while {(time < _bleedOut) and (damage _unit > 0.25) and (alive _unit) and (!(_unit getVariable ["respawning",false]))} do
+while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (alive _unit) and (!(_unit getVariable ["respawning",false]))} do
 	{
 	if (random 10 < 1) then {playSound3D [(injuredSounds call BIS_fnc_selectRandom),_unit,false, getPosASL _unit, 1, 1, 50];};
 	if (_isPlayer) then
@@ -164,9 +165,7 @@ else
 		};
 	};
 
-if (_unit getVariable ["fatalWound",false]) then {_unit setVariable ["fatalWound",false,true]};
-
-if (captive _unit) then {[_unit,false] remoteExec ["setCaptive"]};
+if (captive _unit) then {[_unit,false] remoteExec ["setCaptive",0,_unit]; _unit setCaptive false};
 _unit setVariable ["overallDamage",damage _unit];
 if (_isPlayer and (_unit getVariable ["respawn",false])) exitWith {};
 
@@ -174,28 +173,6 @@ if (time > _bleedOut) exitWith
 	{
 	if (_isPlayer) then
 		{
-		/*
-		if (isNull (_unit getVariable ["ayudado",objNull])) then
-			{
-			_ayuda = [_unit] call pedirAyuda;
-			if (!isNull _ayuda) then
-				{
-				_unit setdamage 0.2;
-				_unit setUnconscious false;
-				_unit playMoveNow "AmovPpneMstpSnonWnonDnon_healed";
-				}
-			else
-				{
-				[_unit] call respawn
-				};
-			}
-		else
-			{
-			_unit setdamage 0.2;
-			_unit setUnconscious false;
-			_unit playMoveNow "AmovPpneMstpSnonWnonDnon_healed";
-			};
-		*/
 		[_unit] call respawn
 		}
 	else
@@ -207,10 +184,5 @@ if (alive _unit) then
 	{
 	_unit setUnconscious false;
 	_unit playMoveNow "AmovPpneMstpSnonWnonDnon_healed";
-	if (!_inPlayerGroup) then
-		{
-		_unit disableAI "ANIM";
-		sleep 120 + (random 120);
-		if ((alive _unit) and (!captive _unit) and (lifeState _unit != "INCAPACITATED")) then {_unit enableAI "ANIM"};
-		};
+	_unit setBleedingremaining 0;
 	};

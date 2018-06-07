@@ -1,10 +1,12 @@
 private ["_unit","_veh","_lado","_tipo","_skill""_riflefinal","_magazines","_hmd","_marcador","_revelar"];
 
 _unit = _this select 0;
+if (isNil "_unit") exitWith {};
+if (isNull _unit) exitWith {diag_log format ["Antistasi: Error enviando a NATOinit los parámetros:%1",_this]};
 _tipo = typeOf _unit;
 if (typeOf _unit == "Fin_random_F") exitWith {};
 _lado = side _unit;
-_unit setVariable ["lado",_lado];
+//_unit setVariable ["lado",_lado];
 _unit addEventHandler ["HandleDamage",handleDamageAAF];
 
 _unit addEventHandler ["killed",AAFKilledEH];
@@ -36,7 +38,7 @@ else
 						{
 						if ((not(_unit getVariable ["BLUFORSpawn",false])) or ((not(_unit getVariable ["OPFORSpawn",false])))) then
 							{
-							_lado = _unit getVariable "lado";
+							_lado = side (group _unit);
 							if (_lado == malos) then {_unit setVariable ["BLUFORSpawn",true,true]} else {_unit setVariable ["OPFORSpawn",true,true]};
 							//if (!simulationEnabled _unit) then {if (isMultiplayer) then {[_unit,true] remoteExec ["enableSimulationGlobal",2]} else {_unit enableSimulation true}};
 							};
@@ -55,7 +57,7 @@ else
 		};
 	};
 
-_skill = tierWar * 0.1;
+_skill = tierWar * 0.1 * skillMult;
 if ((faction _unit != factionGEN) and (faction _unit != factionFIA)) then
 	{
 	if (side _unit == malos) then

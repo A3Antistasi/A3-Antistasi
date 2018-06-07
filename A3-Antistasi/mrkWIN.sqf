@@ -37,7 +37,7 @@ if (isPlayer _x) then
 	{
 	[5,_x] remoteExec ["playerScoreAdd",_x];
 	[_marcador] remoteExec ["intelFound",_x];
-	if (captive _x) then {[_x,false] remoteExec ["setCaptive"]};
+	if (captive _x) then {[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false};
 	}
 } forEach ([_size,0,_posicion,"GREENFORSpawn"] call distanceUnits);
 

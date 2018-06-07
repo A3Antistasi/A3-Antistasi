@@ -29,7 +29,7 @@ while {true} do
 				_mrk setMarkerAlphaLocal 1;
 				_mrk setMarkerPosLocal position _jugador;
 				_mrk setMarkerDirLocal getDir _jugador;
-				if (lifeState _jugador == "INCAPACITATED") then
+				if (_jugador getVariable ["INCAPACITATED",false]) then
 					{
 					_mrk setMarkerTextLocal format ["%1 Injured",name _jugador];
 					_mrk setMarkerColorLocal "ColorRed";

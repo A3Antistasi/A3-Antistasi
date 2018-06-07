@@ -12,7 +12,7 @@ _unit setVariable ["respawning",true];
 if (!isNil "respawnMenu") then {(findDisplay 46) displayRemoveEventHandler ["KeyDown", respawnMenu]};
 if (isMultiplayer) exitWith
 	{
-	[_unit,false] remoteExec ["setCaptive"];
+	if (captive _unit) then {[_unit,false] remoteExec ["setCaptive",0,_unit]; _unit setCaptive false};
 	//_unit setVariable ["inconsciente",false,true];
 	_unit setVariable ["respawning",false];
 	//if (captive _unit) then {[_unit,false] remoteExec ["setCaptive"]};
@@ -22,11 +22,11 @@ private ["_posicion","_tam","_roads","_road","_pos"];
 _posicion = getMarkerPos "respawn_guerrila";
 if (lifeState _unit == "INCAPACITATED") then {_unit setUnconscious false};
 _unit setVariable ["ayudado",objNull];
-_unit setVariable ["ayudando",nil];
-_unit setVariable ["fatalWound",false];
+_unit setVariable ["ayudando",false];
 _unit setDamage 0;
 _unit setVariable ["compromised",0];
 _unit setVariable ["disfrazado",false];
+_unit setVariable ["INCAPACITATED",false];
 
 if (rating _unit < 0) then {_unit addRating (rating _unit * -1)};
 _nul = [0,-1,getPos _unit] remoteExec ["citySupportChange",2];

@@ -1,6 +1,23 @@
 
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
+spawnMissionGiver = compile preProcessFileLineNumbers "Missions\spawnMissionGiver.sqf";
+hideInBuilding = compile preProcessFileLineNumbers "AI\hideInBuilding.sqf";
+doFlank = compile preProcessFileLineNumbers "AI\doFlank.sqf";
+assaultBuilding = compile preProcessFileLineNumbers "AI\assaultBuilding.sqf";
+destroyBuilding = compile preProcessFileLineNumbers "AI\destroyBuilding.sqf";
+recallGroup = compile preProcessFileLineNumbers "AI\recallGroup.sqf";
+mortarSupport = compile preProcessFileLineNumbers "AI\mortarSupport.sqf";
+staticMGDrill = compile preProcessFileLineNumbers "AI\staticMGDrill.sqf";
+enemigoCercano = compile preProcessFileLineNumbers "AI\enemigoCercano.sqf";
+mortarDrill = compile preProcessFileLineNumbers "AI\mortarDrill.sqf";
+enemyList = compile preProcessFileLineNumbers "AI\enemyList.sqf";
+enemySides = compile preProcessFileLineNumbers "AI\enemySides.sqf";
+typeOfSoldier = compile preProcessFileLineNumbers "AI\typeOfSoldier.sqf";
+attackDrillAI = compile preProcessFileLineNumbers "AI\attackDrillAI.sqf";
+fatalWound = compile preProcessFileLineNumbers "Revive\fatalWound.sqf";
+isMedic = compile preProcessFileLineNumbers "Revive\isMedic.sqf";
+airportCanAttack = compile preProcessFileLineNumbers "CREATE\airportCanAttack.sqf";
 unitGetToCover = compile preProcessFileLineNumbers "AI\unitGetToCover.sqf";
 actionRevive = compile preProcessFileLineNumbers "Revive\actionRevive.sqf";
 ACEpvpReDress = compile preProcessFileLineNumbers "Municion\ACEpvpReDress.sqf";
@@ -179,9 +196,7 @@ NATOinit = compile preProcessFileLineNumbers "CREATE\NATOinit.sqf";
 CIVinit = compile preProcessFileLineNumbers "CREATE\CIVinit.sqf";
 patrolCA = compile preProcessFileLineNumbers "CREATE\patrolCA.sqf";
 wavedCA = compile preProcessFileLineNumbers "CREATE\wavedCA.sqf";
-findBasesForCA = compile preProcessFileLineNumbers "findBasesForCA.sqf";
 findBasesForConvoy = compile preProcessFileLineNumbers "findBasesForConvoy.sqf";
-findAirportsForCA = compile preProcessFileLineNumbers "findAirportsForCA.sqf";
 patrolDestinos = compile preProcessFileLineNumbers "patrolDestinos.sqf";
 ataqueAAF = compile preProcessFileLineNumbers "ataqueAAF.sqf";
 citySupportChange = compile preProcessFileLineNumbers "citySupportChange.sqf";
@@ -199,6 +214,8 @@ mrkUpdate = compile preProcessFileLineNumbers "mrkUpdate.sqf";
 moveHQ = compile preProcessFileLineNumbers "moveHQ.sqf";
 buildHQ = compile preProcessFileLineNumbers "buildHQ.sqf";
 statistics = compile preProcessFileLineNumbers "statistics.sqf";
-execVM "statSave\saveFuncs.sqf";
+call compile preProcessFileLineNumbers "statSave\saveFuncs.sqf";
+call jn_fnc_logistics_init;
+caja call jn_fnc_arsenal_init;
 
 if ((isMultiplayer) and (isServer)) then {[[petros,"hint","Functions Init Completed"],"commsMP"] call BIS_fnc_MP};

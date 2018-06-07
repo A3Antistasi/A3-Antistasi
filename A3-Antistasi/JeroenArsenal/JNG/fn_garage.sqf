@@ -95,7 +95,7 @@ switch _mode do {
 
 		//how current resources
 		//["ShowStats",[_display]] call jn_fnc_garage;
-		["jn_fnc_garage"] call bis_fnc_endLoadingScreen;
+		//["jn_fnc_garage"] call bis_fnc_endLoadingScreen;
 	};
 
 	///////////////////////////////////////////////////////////////////////////////////////////

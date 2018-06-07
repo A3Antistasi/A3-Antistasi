@@ -4,7 +4,7 @@ _jugador = _this select 1;
 [_unit,"remove"] remoteExec ["flagaction",[buenos,civilian],_unit];
 
 if (!alive _unit) exitWith {};
-_lado = _unit getVariable "lado";
+_lado = side (group _unit);
 _chance = 80;
 if (_lado == malos) then
 	{
@@ -33,7 +33,7 @@ if (round random 100 < _chance) then
 	_unit enableAI "ANIM";
 	_unit enableAI "MOVE";
 	_unit stop false;
-	_unit switchMove "";
+	[_unit,""] remoteExec ["switchMove"];
 	_unit doMove (getMarkerPos "respawn_west");
 	if (_unit getVariable ["OPFORSpawn",false]) then {_unit setVariable ["OPFORSpawn",nil,true]};
 	if (_unit getVariable ["BLUFORSpawn",false]) then {_unit setVariable ["BLUFORSpawn",nil,true]};

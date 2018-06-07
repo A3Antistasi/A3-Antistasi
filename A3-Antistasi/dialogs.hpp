@@ -57,7 +57,8 @@ class first_load 		{
 		};
 		*/
 	};
-}; 										//slots: 2
+};
+/*							//slots: 2
 class init_menu 		{
 	idd=-1;
 	movingenable=false;
@@ -116,7 +117,8 @@ class init_menu 		{
 			action = "if (!isNil ""switchCom"") then {closedialog 0; nul = [] execVM ""Dialogs\membersMenu.sqf"";} else {hint ""Select an option first""};";
 		};
 	};
-}; 										//slots: 2+1
+};
+*/									//slots: 2+1
 class members_menu 		{
 	idd=-1;
 	movingenable=false;

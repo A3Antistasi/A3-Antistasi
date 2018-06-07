@@ -35,7 +35,7 @@ if(hasInterface)then{
     _object addaction [
         localize "STR_A3_Arsenal",
         {
-            ["jn_fnc_arsenal"] call bis_fnc_startloadingscreen;
+            //["jn_fnc_arsenal"] call bis_fnc_startloadingscreen;
             //save proper ammo because BIS arsenal rearms it, and I will over write it back again
             missionNamespace setVariable ["jna_magazines_init",  [
                 magazinesAmmoCargo (uniformContainer player),

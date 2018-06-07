@@ -13,7 +13,7 @@ if (count _this == 1) then
 		}
 	else
 		{
-		_lado = (_this select 0) getVariable "lado";
+		_lado = side (group (_this select 0));
 		_chance = random 25;
 		};
 	};

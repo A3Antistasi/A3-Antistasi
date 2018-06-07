@@ -4,14 +4,14 @@ _posOrigen = if (_mrkOrigen isEqualType "") then {getMarkerPos _mrkOrigen} else 
 _mrkDestino = _this select 1;
 _posDestino = if (_mrkDestino isEqualType "") then {getMarkerPos _mrkDestino} else {_mrkDestino};
 _distance = _posOrigen distance2d _posDestino;
-diag_log format ["Antistasi: Convoy Debug. Convoy sent from %1 to %2, distance: %3",_mrkOrigen,_mrkDestino,_distance];
+//diag_log format ["Antistasi: Convoy Debug. Convoy sent from %1 to %2, distance: %3",_mrkOrigen,_mrkDestino,_distance];
 if (_distance < 1500) exitWith {diag_log format ["Antistasi: Convoy Debug. Convoy with zero WP because they are too close: %1 to %2, distance: %3",_mrkOrigen,_mrkDestino,_distance];};
 //_roadsMrk = roadsMrk + (controles select {isOnRoad (getMarkerPos _x)});
 //_roadsMrk = _roadsMrk select {((getMarkerPos _x) distance2d _posDestino < _distance) and ((getMarkerPos _x) distance2d _posOrigen < _distance)};
 _roadsMrk = roadsMrk select {((getMarkerPos _x) distance2d _posDestino < _distance) and ((getMarkerPos _x) distance2d _posOrigen < _distance)};
-if (_roadsMrk isEqualTo []) exitWith {diag_log format ["Antistasi: Convoy Debug. Convoy from %1 to %2, have this possible mid waypoints %3",_mrkOrigen,_mrkDestino,_roadsMrk];};
+if (_roadsMrk isEqualTo []) exitWith {};
 _roadsMrk = [_roadsMrk,[],{getMarkerPos _x distance2d _posOrigen},"ASCEND"] call BIS_fnc_sortBy;
-diag_log format ["Antistasi: Convoy Debug. Convoy from %1 to %2, have this possible mid waypoints %3",_mrkOrigen,_mrkDestino,_roadsMrk];
+//diag_log format ["Antistasi: Convoy Debug. Convoy from %1 to %2, have this possible mid waypoints %3",_mrkOrigen,_mrkDestino,_roadsMrk];
 _finalArray = [_roadsMrk select 0];
 _roadsMrk = _roadsMrk - _finalArray;
 while {true} do

@@ -8,7 +8,11 @@ if (isNull _viejo) exitWith {};
 waitUntil {alive player};
 
 _nul = [_viejo] spawn postmortem;
-
+if !(hayACEMedical) then
+	{
+	_viejo setVariable ["INCAPACITATED",false,true];
+	_nuevo setVariable ["INCAPACITATED",false,true];
+	};
 if ((side player == buenos) or (side player == civilian)) then
 	{
 	_owner = _viejo getVariable ["owner",_viejo];
@@ -37,7 +41,8 @@ if ((side player == buenos) or (side player == civilian)) then
 	_nuevo setVariable ["elegible",_elegible,true];
 	_nuevo setVariable ["GREENFORSpawn",true,true];
 	_viejo setVariable ["GREENFORSpawn",nil,true];
-	[_nuevo,false] remoteExec ["setCaptive"];
+	[_nuevo,false] remoteExec ["setCaptive",0,_nuevo];
+	_nuevo setCaptive false;
 	_nuevo setRank (_rango);
 	_nuevo setVariable ["rango",_rango,true];
 	_nuevo setUnitTrait ["camouflageCoef",0.8];
@@ -69,7 +74,8 @@ if ((side player == buenos) or (side player == civilian)) then
 			{
 			if ({if (((side _x == malos) or (side _x == muyMalos)) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
 				{
-				[_player,false] remoteExec ["setCaptive"];
+				[_player,false] remoteExec ["setCaptive",0,_player];
+				_player setCaptive false;
 				}
 			else
 				{
@@ -80,10 +86,11 @@ if ((side player == buenos) or (side player == civilian)) then
 					{
 					if (_player distance getMarkerPos _ciudad < _size * 1.5) then
 						{
-						[_player,false] remoteExec ["setCaptive"];
+						[_player,false] remoteExec ["setCaptive",0,_player];
+						_player setCaptive false;
 						if (vehicle _player != _player) then
 							{
-							{if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive"]}} forEach ((assignedCargo (vehicle _player)) + (crew (vehicle _player)) - [_player]);
+							{if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false}} forEach ((assignedCargo (vehicle _player)) + (crew (vehicle _player)) - [_player]);
 							};
 						};
 					};
@@ -105,7 +112,8 @@ if ((side player == buenos) or (side player == civilian)) then
 				{
 				if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
 					{
-					[_jugador,false] remoteExec ["setCaptive"];
+					[_jugador,false] remoteExec ["setCaptive",0,_jugador];
+					_jugador setCaptive false;
 					}
 				else
 					{
@@ -116,7 +124,8 @@ if ((side player == buenos) or (side player == civilian)) then
 						{
 						if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
 							{
-							[_jugador,false] remoteExec ["setCaptive"];
+							[_jugador,false] remoteExec ["setCaptive",0,_jugador];
+							_jugador setCaptive false;
 							};
 						};
 					};
@@ -151,21 +160,24 @@ if ((side player == buenos) or (side player == civilian)) then
 		_control
 		}];
 		*/
-	player addEventHandler ["Fired",
-			{
-			_tipo = _this select 1;
-			if ((_tipo == "Put") or (_tipo == "Throw")) then
+	if (tkPunish) then
+		{
+		player addEventHandler ["Fired",
 				{
-				if (player distance petros < 50) then
+				_tipo = _this select 1;
+				if ((_tipo == "Put") or (_tipo == "Throw")) then
 					{
-					deleteVehicle (_this select 6);
-					if (_tipo == "Put") then
+					if (player distance petros < 50) then
 						{
-						if (player distance petros < 10) then {[player,60] spawn castigo};
+						deleteVehicle (_this select 6);
+						if (_tipo == "Put") then
+							{
+							if (player distance petros < 10) then {[player,60] spawn castigo};
+							};
 						};
 					};
-				};
-			}];
+				}];
+		};
 	player addEventHandler ["HandleHeal",
 		{
 		_player = _this select 0;
@@ -173,7 +185,8 @@ if ((side player == buenos) or (side player == civilian)) then
 			{
 			if ({((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
 				{
-				[_player,false] remoteExec ["setCaptive"];
+				[_player,false] remoteExec ["setCaptive",0,_player];
+				_player setCaptive false;
 				}
 			else
 				{
@@ -184,7 +197,8 @@ if ((side player == buenos) or (side player == civilian)) then
 					{
 					if (_player distance getMarkerPos _ciudad < _size * 1.5) then
 						{
-						[_player,false] remoteExec ["setCaptive"];
+						[_player,false] remoteExec ["setCaptive",0,_player];
+						_player setCaptive false;
 						};
 					};
 				};

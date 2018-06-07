@@ -30,7 +30,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick"];
+["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick","firstLoad"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -39,6 +39,7 @@ fn_SetStat =
 	if(isNil '_varValue') exitWith {};
 	if(_varName in specialVarLoads) then
 	{
+		if(_varName == 'firstLoad') then {firstLoad = false; publicVariable "firstLoad"};
 		if(_varName == 'cuentaCA') then {cuentaCA = _varValue; publicVariable "cuentaCA"};
 		if(_varName == 'nextTick') then {nextTick = time + _varValue};
 		if(_varName == 'miembros') then {miembros = +_varValue; publicVariable "miembros"};
@@ -109,7 +110,7 @@ fn_SetStat =
 			_buildings = nearestObjects [_x,listMilBld,50];
 			if !(_buildings isEqualto []) then
 				{
-				(_buildings Select 0) setdamage 1;
+				(_buildings Select 0) setdamage [1,false];
 				};
 			} forEach destroyedBuildings;
 			};
@@ -160,7 +161,8 @@ fn_SetStat =
 				puestosFIA pushBack _mrk;
 				lados setVariable [_mrk,buenos,true];
 				} forEach _varvalue;
-				}
+				};
+			/*
 			else
 				{
 				{
@@ -185,7 +187,7 @@ fn_SetStat =
 				garrison setVariable [_mrk,_garrison,true];
 				} forEach _varvalue;
 				};
-			};
+			*/};
 
 		if(_varName == 'antenas') then
 			{
@@ -277,6 +279,7 @@ fn_SetStat =
 				_veh = createVehicle [_tipoVeh,[0,0,0],[],0,"NONE"];
 				_veh setPos _posVeh;
 				_veh setDir _dirVeh;
+				_veh setVectorUp surfaceNormal (position _veh);
 				if ((_veh isKindOf "StaticWeapon") or (_veh isKindOf "Building")) then
 					{
 					staticsToSave pushBack _veh;

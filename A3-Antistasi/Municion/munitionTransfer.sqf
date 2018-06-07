@@ -1,6 +1,7 @@
 if (!isServer) exitWith {};
 private ["_subCosa","_municion","_origen","_destino"];
 _origen = _this select 0;
+if (isNull _origen) exitWith {};
 _destino = _this select 1;
 
 _municion= [];

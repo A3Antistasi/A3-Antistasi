@@ -9,7 +9,7 @@ _roads = [];
 //_tipos = ["I_MRAP_03_F","I_MRAP_03_hmg_F","I_MRAP_03_gmg_F","I_Heli_light_03_unarmed_F","I_Boat_Armed_01_minigun_F"];
 _tipos = vehNATOLight + [vehNATOPatrolHeli,vehNATOBoat];
 
-_arrayAeropuertos = (puertos + aeropuertos) select {(getMarkerPos _x distance getMarkerPos "respawn_guerrila" < 3000) and ((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)};
+_arrayAeropuertos = (puertos + aeropuertos + puestos) select {(getMarkerPos _x distance getMarkerPos "respawn_guerrila" < 3000) and ((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)};
 
 if (count _arrayAeropuertos == 0) exitWith {};
 
@@ -28,7 +28,7 @@ if (lados getVariable [_base,sideUnknown] == malos) then
 		{
 		if (random 100 < prestigeNATO) then
 			{
-			_tipoCoche = selectRandom (vehNATOLight + [vehNATOPatrolHeli]);
+			_tipoCoche = if (_base in aeropuertos) then {selectRandom (vehNATOLight + [vehNATOPatrolHeli])} else {selectRandom vehNATOLight};
 			if (_tipoCoche == vehNATOPatrolHeli) then {_tipoPatrol = "AIR"};
 			}
 		else
@@ -47,7 +47,7 @@ else
 		}
 	else
 		{
-		_tipoCoche = selectRandom (vehCSATLight + [vehCSATPatrolHeli]);
+		_tipoCoche = if (_base in aeropuertos) then {selectRandom (vehCSATLight + [vehCSATPatrolHeli])} else {selectRandom vehCSATLight};
 		if (_tipoCoche == vehCSATPatrolHeli) then {_tipoPatrol = "AIR"};
 		};
 	};
@@ -88,8 +88,15 @@ if (_tipoPatrol != "AIR") then
 	else
 		{
 		_indice = aeropuertos find _base;
-		_spawnPoint = spawnPoints select _indice;
-		_posBase = getMarkerPos _spawnPoint;
+		if (_indice != -1) then
+			{
+			_spawnPoint = spawnPoints select _indice;
+			_posBase = getMarkerPos _spawnPoint;
+			}
+		else
+			{
+			_posbase = position ([_posbase] call findNearestGoodRoad);
+			};
 		/*
 		_tam = 10;
 		while {true} do
@@ -149,8 +156,8 @@ while {alive _veh} do
 	_Vwp0 setWaypointSpeed "LIMITED";
 	_veh setFuel 1;
 
-	waitUntil {sleep 60; (_veh distance _posdestino < _distancia) or ({alive _x} count _soldados == 0) or ({(fleeing _x) or (captive _x)} count _soldados >= {alive _x} count _soldados) or (!canMove _veh)};
-	if (({alive _x} count _soldados == 0) or ({fleeing _x} count _soldados == {alive _x} count _soldados) or (!canMove _veh)) exitWith {};
+	waitUntil {sleep 60; (_veh distance _posdestino < _distancia) or ({[_x] call canFight} count _soldados == 0) or (!canMove _veh)};
+	if (({[_x] call canFight} count _soldados == 0) or (!canMove _veh)) exitWith {};
 	if (_tipoPatrol == "AIR") then
 		{
 		_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};

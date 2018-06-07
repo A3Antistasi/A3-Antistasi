@@ -50,11 +50,11 @@ gruposCSATmid = [["O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_GL_F","O_T_
 CSATSquad = ["O_T_soldier_SL_F","O_T_soldier_F","O_T_soldier_LAT_F","O_T_soldier_M_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F"];///"O_T_InfSquad";///
 CSATSpecOp = ["O_V_Soldier_TL_ghex_F","O_V_Soldier_JTAC_ghex_F","O_V_Soldier_M_ghex_F","O_V_Soldier_Exp_ghex_F","O_V_Soldier_LAT_ghex_F","O_V_Soldier_Medic_ghex_F"];///(configfile >> "CfgGroups" >> "East" >> "OPF_T_F" >> "SpecOps" >> "O_T_ViperTeam");///
 factionMachoMuyMalos = "OPF_V_F";
-gruposCSATSquad = [CSATSquad,["O_T_soldier_SL_F","O_T_soldier_AR_F","O_T_soldier_GL_F","O_T_soldier_M_F","O_T_soldier_AT_F","O_T_soldier_AAT_F","O_T_soldier_A_F","O_T_medic_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_Support_Mort_F","O_T_Support_AMort_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_Support_MG_F","O_T_Support_AMG_F"]];//[CSATSquad,"O_T_InfSquad_Weapons"];///
+gruposCSATSquad = [CSATSquad,["O_T_soldier_SL_F","O_T_soldier_AR_F","O_T_soldier_GL_F","O_T_soldier_M_F","O_T_soldier_AT_F","O_T_soldier_AAT_F","O_T_soldier_A_F","O_T_medic_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_Support_Mort_F","O_T_Support_AMort_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_Support_MG_F","O_T_Support_AMG_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_soldier_AA_F","O_T_soldier_AAA_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_Engineer_F","O_T_Engineer_F"]];//[CSATSquad,"O_T_InfSquad_Weapons"];///"O_T_Engineer_F"
 
 soporteStaticCSATB = "O_HMG_01_support_F";
 ATStaticCSATB = "O_AT_01_weapon_F";
-MGStaticCSATB = "O_HMG_01_high_weapon_F";
+MGStaticCSATB = "O_HMG_01_weapon_F";
 soporteStaticCSATB2 = "O_HMG_01_support_high_F";
 AAStaticCSATB = "O_AA_01_weapon_F";
 MortStaticCSATB = "O_Mortar_01_weapon_F";

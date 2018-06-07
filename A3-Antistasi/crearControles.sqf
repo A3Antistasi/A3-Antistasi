@@ -12,14 +12,7 @@ _cuenta = 0;
 if (_cuenta > 3) exitWith {};
 
 _roads = _pos nearRoads 500;
-/*
-if (_marcador in ciudades) then
-        {
-        _datos = server getVariable _marcador;
-        _carreteras =  _datos select 2;
-        _roads = _roads - _carreteras;
-        };
-*/
+
 _roads = _roads call BIS_Fnc_arrayShuffle;
 {
 _road = _x;

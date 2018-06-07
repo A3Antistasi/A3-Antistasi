@@ -29,7 +29,7 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 		_posibles = (recursos + fabricas - _reinfPlaces - (killZones getVariable [_aeropuerto,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
 		};
 	_posicion = getMarkerPos _aeropuerto;
-	_posibles = _posibles select {((getMarkerPos _x distance2D _posicion) < distanceForAirAttack)};
+	_posibles = _posibles select {((getMarkerPos _x distance2D _posicion) < distanceForAirAttack) and !(_x in forcedSpawn)};
 	if (count _posibles > 0) then
 		{
 		_cuenta = 0;

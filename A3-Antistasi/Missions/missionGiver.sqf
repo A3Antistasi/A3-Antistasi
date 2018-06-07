@@ -29,5 +29,5 @@ if (random 100 < 10) then
 		[[getPosASL _contacto,_lado,"",false],"patrolCA"] remoteExec ["scheduler",2];
 		};
 	sleep cleantime;
-	if (captive _llamador) then {[_llamador,false] remoteExec ["setCaptive",0]};
+	if (captive _llamador) then {[_llamador,false] remoteExec ["setCaptive",0,_llamador]; _llamador setCaptive false};
 	};

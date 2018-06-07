@@ -9,7 +9,8 @@ _jugador = _this select 1;
 _jugador globalChat "You are free. Come with us!";
 if (captive _jugador) then
 	{
-	[_jugador,false] remoteExec ["setCaptive"];
+	[_jugador,false] remoteExec ["setCaptive",0,_jugador];
+	_jugador setCaptive false;
 	};
 sleep 3;
 _unit globalChat "Thank you. I owe you my life!";
@@ -19,4 +20,4 @@ _unit enableAI "TARGET";
 _unit enableAI "ANIM";
 [_unit] join group _jugador;
 [_unit] spawn FIAInit;
-if (captive _unit) then {[_unit,false] remoteExec ["setCaptive"]};
+if (captive _unit) then {[_unit,false] remoteExec ["setCaptive",0,_unit]; _unit setCaptive false};

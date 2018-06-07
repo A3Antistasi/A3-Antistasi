@@ -1,6 +1,8 @@
 private ["_unit","_veh","_lado","_tipo","_skill""_riflefinal","_magazines","_hmd","_marcador","_revelar"];
 
 _unit = _this select 0;
+if (isNil "_unit") exitWith {};
+if (isNull _unit) exitWith {diag_log format ["Antistasi: Error enviando a NATOinit los parámetros:%1",_this]};
 _tipo = typeOf _unit;
 if (typeOf _unit == "Fin_random_F") exitWith {};
 _lado = side _unit;
@@ -55,7 +57,7 @@ else
 		};
 	};
 
-_skill = tierWar * 0.1;
+_skill = tierWar * 0.1 * skillMult;
 if ((faction _unit != factionGEN) and (faction _unit != factionFIA)) then
 	{
 	if (side _unit == malos) then

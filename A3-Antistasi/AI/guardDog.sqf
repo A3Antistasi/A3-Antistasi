@@ -10,7 +10,7 @@ _perro setRank "PRIVATE";
 
 while {alive _perro} do
 	{
-	if ((_perro == leader _grupo) and (!captive _perro)) then {[_perro,true] remoteExec ["setCaptive"]};
+	if ((_perro == leader _grupo) and (!captive _perro)) then {[_perro,true] remoteExec ["setCaptive",0,_perro]; _perro setCaptive true};
 	if (isNull _spotted) then
 		{
 		sleep 10;
@@ -19,13 +19,13 @@ while {alive _perro} do
 		_spotted = _x;
 		if ((captive _spotted) and (vehicle _spotted == _spotted)) then
 			{
-			[_spotted,false] remoteExec ["setCaptive"];
+			[_spotted,false] remoteExec ["setCaptive",0,_spotted]; _spotted setCaptive false;
 			};
 		} forEach ([100,0,position _perro,"GREENFORSpawn"] call distanceUnits);
 
 		if ((random 10 < 1) and (isNull _spotted)) then
 			{
-			playSound3D [missionPath + (ladridos call BIS_fnc_selectRandom),_perro, false, getPosASL _perro, 1, 1, 100];
+			playSound3D [missionPath + (selectRandom ladridos),_perro, false, getPosASL _perro, 1, 1, 100];
 			};
 		if (_perro distance (leader _grupo) > 50) then {_perro setPos position (leader _grupo)};
 		}

@@ -1,5 +1,5 @@
-_check = false;
+if !(membershipEnabled) exitWith {true};
 _obj = (_this select 0) getVariable ["owner",_this select 0];
-if ((count miembros == 0) or ((getPlayerUID _obj) in miembros) or (!isMultiplayer)) then {_check = true};
-
-_check
+if (isNil "miembros") then {waitUntil {sleep 0.5; !(isNil "miembros")}};
+if !((getPlayerUID _obj) in miembros) exitWith {false};
+true

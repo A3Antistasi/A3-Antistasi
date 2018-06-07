@@ -161,7 +161,7 @@ else
 	{_amigo = _x;
 	if (_amigo distance _camion < 300) then
 		{
-		if ((captive _amigo) and (isPlayer _amigo)) then {[player,false] remoteExec ["setCaptive"]};
+		if ((captive _amigo) and (isPlayer _amigo)) then {[_amigo,false] remoteExec ["setCaptive",0,_amigo]; _amigo setCaptive false};
 		{if (side _x == malos) then {_x reveal [_amigo,4]};
 		} forEach allUnits;
 		};

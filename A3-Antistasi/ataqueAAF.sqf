@@ -5,8 +5,8 @@ _objetivos = [];
 _marcadores = [];
 _cuentaFacil = 0;
 
-_aeropuertos = aeropuertos select {(dateToNumber date > server getVariable [_x,0]) and !([distanciaSPWN/2,1,getMarkerPos _x,"GREENFORSpawn"] call distanceUnits) and (lados getVariable [_x,sideUnknown] != buenos)};
-if (tierWar < 3) then
+_aeropuertos = aeropuertos select {([_x,false] call airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
+if (tierWar < 2) then
 	{
 	_aeropuertos = _aeropuertos select {(lados getVariable [_x,sideUnknown] == malos)}
 	}
@@ -61,28 +61,6 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 				{
 				_proceder = false
 				}
-			else
-				{
-				if (count _faciles < 4) then
-					{
-					if (not _esCiudad) then
-						{
-						_sitio = _x;
-						if !(_sitio in _killZones) then
-							{
-							_garrison = garrison getVariable [_sitio,[]];
-							_estaticas = staticsToSave select {_x distance _posSitio < distanciaSPWN};
-							_puestos = puestosFIA select {getMarkerPos _x distance _posSitio < distanciaSPWN};
-							_cuenta = ((count _garrison) + (3*(count _puestos)) + (2*(count _estaticas)));
-							if (_cuenta <= 4) then
-								{
-								_proceder = false;
-								_faciles pushBack [_sitio,_base];
-								};
-							};
-						};
-					};
-				};
 			};
 		if (!_isTheSameIsland and (not(_x in aeropuertos))) then
 			{
@@ -92,6 +70,35 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 	else
 		{
 		_proceder = false;
+		};
+	if (_proceder) then
+		{
+		if (!_esCiudad) then
+			{
+			if !(_x in _killZones) then
+				{
+				if !(_x in _faciles) then
+					{
+					_sitio = _x;
+					if ((!(_sitio in aeropuertos)) or (_esSDK)) then
+						{
+						_ladoEny = if (_baseNATO) then {muyMalos} else {malos};
+						if ({(lados getVariable [_x,sideUnknown] == _ladoEny) and (getMarkerPos _x distance _posSitio < distanciaSPWN)} count aeropuertos == 0) then
+							{
+							_garrison = garrison getVariable [_sitio,[]];
+							_estaticas = staticsToSave select {_x distance _posSitio < distanciaSPWN};
+							_puestos = puestosFIA select {getMarkerPos _x distance _posSitio < distanciaSPWN};
+							_cuenta = ((count _garrison) + (3*(count _puestos)) + (2*(count _estaticas)));
+							if (_cuenta <= 8) then
+								{
+								_proceder = false;
+								_faciles pushBack [_sitio,_base];
+								};
+							};
+						};
+					};
+				};
+			};
 		};
 	if (_proceder) then
 		{
@@ -243,20 +250,31 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 				};
 			};
 		};
+	if (count _faciles == 4) exitWith {};
 	} forEach _tmpObjetivos;
+if (count _faciles == 4) exitWith {};
 } forEach _aeropuertos;
 
+if (count _faciles == 4) exitWith
+	{
+	{[[_x select 0,_x select 1,"",false],"patrolCA"] remoteExec ["scheduler",2];sleep 30} forEach _faciles;
+	};
 
 if ((count _objetivosFinal > 0) and (count _faciles < 3)) then
 	{
 	_arrayFinal = [];
-	{
+	/*{
 	for "_i" from 1 to _x do
 		{
 		_arrayFinal pushBack [(_objetivosFinal select _forEachIndex),(_basesFinal select _forEachIndex)];
 		};
-	} forEach _cuentasFinal;
-	_objetivoFinal = selectRandom _arrayFinal;
+	} forEach _cuentasFinal;*/
+	for "_i" from 0 to (count _objetivosFinal) - 1 do
+		{
+		_arrayFinal pushBack [_objetivosFinal select _i,_basesFinal select _i];
+		};
+	//_objetivoFinal = selectRandom _arrayFinal;
+	_objetivoFinal = _arrayFinal selectRandomWeighted _cuentasFinal;
 	_destino = _objetivoFinal select 0;
 	_origen = _objetivoFinal select 1;
 	///aquí decidimos las oleadas
@@ -305,30 +323,4 @@ if ((count _objetivosFinal > 0) and (count _faciles < 3)) then
 if (_waves == 1) then
 	{
 	{[[_x select 0,_x select 1,"",false],"patrolCA"] remoteExec ["scheduler",2]} forEach _faciles;
-	};
-/*
-if ((not(["CONVOY"] call BIS_fnc_taskExists)) and (_waves == 1)) then
-	{
-	if ((count _objetivoFinal == 0) and (count _faciles < 2)) then
-		{
-		_objetivos = [];
-		{
-		_base = [_x] call findBasesForConvoy;
-		if (_base != "") then
-			{
-			_datos = server getVariable _x;
-			_prestigeOPFOR = _datos select 2;
-			_prestigeBLUFOR = _datos select 3;
-			if (_prestigeOPFOR + _prestigeBLUFOR < 95) then
-				{
-				if (count (garrison getVariable [_x,[]]) == 0) then {_objetivos pushBack [_x,_base]};
-				};
-			};
-		} forEach (ciudades select {lados getVariable [_x,sideUnknown] == buenos});
-		if (count _objetivos > 0) then
-			{
-			_objetivo = selectRandom _objetivos;
-			[[(_objetivo select 0),(_objetivo select 1)],"CONVOY"] call scheduler;
-			};
-		};
 	};

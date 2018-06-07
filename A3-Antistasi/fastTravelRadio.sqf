@@ -105,7 +105,7 @@ if (count _posicionTel > 0) then
 				}
 			else
 				{
-				if (!(lifeState _unit == "INCAPACITATED")) then
+				if (!(_unit getVariable ["INCAPACITATED",false])) then
 					{
 					_posicion = _posicion findEmptyPosition [1,50,typeOf _unit];
 					_unit setPosATL _posicion;

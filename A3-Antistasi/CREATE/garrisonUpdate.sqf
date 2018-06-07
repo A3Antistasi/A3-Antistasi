@@ -18,6 +18,7 @@ else
 	};
 _lado = _this select 1;
 _marcador = _this select 2;
+if !(_marcador isEqualType "") exitWith {diag_log format ["Antistasi error: En garrison update hemos enviado algo que no es marcador. Params: %1",_this]};
 _modo = _this select 3;//-1 to remove 1 unbit (killed EHs etc). 1 add 1 single classname / object. 2 adds a hole array and admits classnames or objects
 _exit = false;
 //diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_marcador,_modo];

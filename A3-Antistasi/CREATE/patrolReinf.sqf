@@ -19,7 +19,7 @@ else
 	{
 	_vehPool = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
 	if (_numero > 4) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
-	_vehPool = _vehPool select {_x isKindOf "Helicopter"};
+	//_vehPool = _vehPool select {(_x isKindOf "Helicopter") and (_x in vehFastRope)};
 	_tipoVeh = selectRandom _vehPool;
 	};
 
@@ -90,30 +90,38 @@ else
 	_x moveInCargo _veh;
 	[_x] call NATOinit;
 	} forEach units _grupo;
-	_landpos = [0,0,0];
-	_maxDist = 200;
-	while {_landPos isEqualTo [0,0,0]} do
+	_landPos = if (_tipoVeh isKindOf "Helicopter") then {[_posDestino, 0, 300, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos} else {[0,0,0]};
+	if !(_landPos isEqualTo [0,0,0]) then
 		{
-		_landPos = [_posDestino, 0, _maxDist, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos;
-		_maxDist = _maxDist + 50;
+		_landPos set [2, 0];
+		_pad = createVehicle ["Land_HelipadEmpty_F", _landpos, [], 0, "NONE"];
+		_grupoVeh setVariable ["myPad",_pad];
+		_wp0 = _grupoVeh addWaypoint [_landpos, 0];
+		_wp0 setWaypointType "TR UNLOAD";
+		_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';deleteVehicle ((group this) getVariable [""myPad"",objNull])"];
+		_wp0 setWaypointBehaviour "CARELESS";
+		_wp3 = _grupo addWaypoint [_landpos, 0];
+		_wp3 setWaypointType "GETOUT";
+		_wp0 synchronizeWaypoint [_wp3];
+		_wp4 = _grupo addWaypoint [_posDestino, 1];
+		_wp4 setWaypointType "MOVE";
+		_wp4 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] remoteExec [""garrisonUpdate"",2];[group this] spawn groupDespawner; reinfPatrols = reinfPatrols - 1; publicVariable ""reinfPatrols"";"];
+		_wp2 = _grupoVeh addWaypoint [_posOrigen, 1];
+		_wp2 setWaypointType "MOVE";
+		_wp2 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
+		[_grupoVeh,1] setWaypointBehaviour "AWARE";
+		}
+	else
+		{
+		if (_tipoVeh in vehFastRope) then
+			{
+			[_veh,_grupo,_posDestino,_posOrigen,_grupoVeh,true] spawn fastrope;
+			}
+		else
+			{
+			[_veh,_grupo,_posDestino,_mrkOrigen,true] spawn airdrop;
+			};
 		};
-	_landPos set [2, 0];
-	_pad = createVehicle ["Land_HelipadEmpty_F", _landpos, [], 0, "NONE"];
-	_grupoVeh setVariable ["myPad",_pad];
-	_wp0 = _grupoVeh addWaypoint [_landpos, 0];
-	_wp0 setWaypointType "TR UNLOAD";
-	_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';deleteVehicle ((group this) getVariable [""myPad"",objNull])"];
-	_wp0 setWaypointBehaviour "CARELESS";
-	_wp3 = _grupo addWaypoint [_landpos, 0];
-	_wp3 setWaypointType "GETOUT";
-	_wp0 synchronizeWaypoint [_wp3];
-	_wp4 = _grupo addWaypoint [_posDestino, 1];
-	_wp4 setWaypointType "MOVE";
-	_wp4 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] remoteExec [""garrisonUpdate"",2];[group this] spawn groupDespawner; reinfPatrols = reinfPatrols - 1; publicVariable ""reinfPatrols"";"];
-	_wp2 = _grupoVeh addWaypoint [_posOrigen, 1];
-	_wp2 setWaypointType "MOVE";
-	_wp2 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
-	[_grupoVeh,1] setWaypointBehaviour "AWARE";
 	};
 
 reinfPatrols = reinfPatrols + 1; publicVariable "reinfPatrols";

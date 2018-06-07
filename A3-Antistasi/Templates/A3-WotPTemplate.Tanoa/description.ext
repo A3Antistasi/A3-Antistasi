@@ -58,45 +58,99 @@ class CfgSounds
         sound[]={"Music\fire.ogg",db+12,1.0};
         titles[]={};
     };
-    /*
-    class dog_bark01 {
-        sound[] = {"Music\dog_bark01.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_bark02 {
-        sound[] = {"Music\dog_bark02.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_bark03 {
-        sound[] = {"Music\dog_bark03.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_bark04 {
-        sound[] = {"Music\dog_bark04.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_bark05 {
-        sound[] = {"Music\dog_bark05.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_maul01 {
-        sound[] = {"Music\dog_maul01.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_yelp01 {
-        sound[] = {"Music\dog_yelp01.wss", 0.8, 1};
-        titles[] = {};
-    };
-    class dog_yelp02 {
-        sound[] = {"Music\dog_yelp02.wss", 0.8, 1};
-        titles[] = {};
-    };
-        class dog_yelp03 {
-        sound[] = {"Music\dog_yelp03.wss", 0.8, 1};
-        titles[] = {};
-    };
-    */
 };
+class Params
+{
+    class loadSave
+    {
+        title = "Load last Persistent Save"; // Param name visible in the list
+        values[] = {1,0}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"Yes","No"}; // Description of each selectable item
+        default = 1; // Default value; must be listed in 'values' array, otherwise 0 is used
+        // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
+    };
+    class autoSave
+    {
+        title = "Enable Autosave (every hour)"; // Param name visible in the list
+        values[] = {true,false}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"Yes","No"}; // Description of each selectable item
+        default = true; // Default value; must be listed in 'values' array, otherwise 0 is used
+        // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
+    };
+    class membership
+    {
+        title = "Enable Server Membership";
+        texts[] = {"Yes","No"};
+        values[] = {1,0};
+        default = 1;
+        //function = "BIS_fnc_paramDaytime"; // (Optional) [[Functions_Library_(Arma_3)|Function]] [[call]]ed when player joins, selected value is passed as an argument
+        //isGlobal = 1; // (Optional) 1 to execute script / function locally for every player who joins, 0 to do it only on server
+    };
+    class switchComm
+    {
+        title = "Enable Commander Swtich (highest ranked player)";
+        values[] = {1,0};
+        texts[] = {"Yes","No"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class tkPunish
+    {
+        title = "Enable Teamkill Punish";
+        values[] = {1,0};
+        texts[] = {"Yes","No"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class mRadius
+    {
+        title = "Distance from HQ for Sidemissions";
+        values[] = {2500,5000,10000};
+        // When 'texts' are missing, values will be displayed directly instead
+        default = 2500;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class allowPvP
+    {
+        title = "Allow PvP Slots";
+        values[] = {1,0};
+        texts[] = {"Yes","No"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class pMarkers
+    {
+        title = "Allow Friendly Player Markers";
+        values[] = {1,0};
+        texts[] = {"Yes","No"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class AISkill
+    {
+        title = "AI Skill";
+        values[] = {0.5,1,2};
+        texts[] = {"Easy","Normal","Hard"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class unlockItem
+    {
+        title = "Number of the same weapons required to unlock";
+        values[] = {15,25,40};
+        default = 25;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class civTraffic
+    {
+        title = "Rate of Civ Traffic";
+        values[] = {0.5,1,3};
+        texts[] = {"Low","Medium","JAM"};
+        default = 1;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+};
+
 class CfgIdentities
 {
     class protagonista

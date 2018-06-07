@@ -1,7 +1,7 @@
 /****************************************************************
 
 ****************************************************************/
-private["_unit"];	
+private["_unit"];
 
 _unit = _this select 0;
 
@@ -11,8 +11,8 @@ if (!IsNull _unit) then
 {
 	If (alive _unit) then
 	{
-		_unit switchmove "";
+		[_unit,""] remoteExec ["switchMove"];
 		_unit enableAI "MOVE";
-		_unit setvariable ["UPSMON_Civdisable",false];		
+		_unit setvariable ["UPSMON_Civdisable",false];
 	};
 };

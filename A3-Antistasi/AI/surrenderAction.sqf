@@ -42,7 +42,8 @@ _items = assignedItems _unit + items _unit + primaryWeaponItems _unit;
 _caja call jn_fnc_logistics_addAction;
 removeAllWeapons _unit;
 removeAllAssignedItems _unit;
-[_unit,true] remoteExec ["setCaptive"];
+[_unit,true] remoteExec ["setCaptive",0,_unit];
+_unit setCaptive true;
 sleep 1;
 if (alive _unit) then
 	{

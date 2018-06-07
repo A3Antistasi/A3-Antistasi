@@ -38,8 +38,8 @@ if (isMultiplayer) then
 	cutText ["Starting Mission","BLACK IN",0];
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
-
-	if (side player == buenos) then
+	//if (hayTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
+	if ((side player == buenos) and (paramsArray select 4 == 1)) then
 		{
 		player addEventHandler ["Fired",
 			{
@@ -68,7 +68,7 @@ else
 	player setUnitRank "COLONEL";
 	player hcSetGroup [group player];
 	waitUntil {/*(scriptdone _introshot) and */(!isNil "serverInitDone")};
-	_nul = addMissionEventHandler ["Loaded", {_nul = [] execVM "statistics.sqf";_nul = [] execVM "reinitY.sqf";}];
+	//_nul = addMissionEventHandler ["Loaded", {_nul = [] execVM "statistics.sqf";_nul = [] execVM "reinitY.sqf";}];
 	};
 [] execVM "CREATE\ambientCivs.sqf";
 private ["_colorbuenos", "_colormuyMalos"];
@@ -96,11 +96,14 @@ _titulo = if (worldName == "Tanoa") then {["Warlords of the Pacific","by Barbola
 disableUserInput false;
 player addWeaponGlobal "itemmap";
 player addWeaponGlobal "itemgps";
+if (isMultiplayer) then
+	{
+	if (paramsArray select 7 == 1) then {[] execVM "playerMarkers.sqf"};
+	};
 if (!hayACE) then
 	{
 	[player] execVM "Revive\initRevive.sqf";
 	tags = [] execVM "tags.sqf";
-	if ((cadetMode) and (isMultiplayer) and (side player == buenos)) then {_nul = [] execVM "playerMarkers.sqf"};
 	}
 else
 	{
@@ -111,7 +114,7 @@ else
 if (side player != buenos) exitWith
 	{
 	moto = objNull;
-	if (!_isJIP) then
+	if ((!_isJIP) or (paramsArray select 6 != 1)) then
 		{
 		["noPvP",false,1,false,false] call BIS_fnc_endMission
 		}
@@ -189,7 +192,7 @@ player setVariable ["punish",0,true];
 player setVariable ["dinero",100,true];
 player setVariable ["GREENFORSpawn",true,true];
 player setVariable ["rango",rank player,true];
-if (player!=stavros) then {player setVariable ["score", 0,true]} else {player setVariable ["score", 25,true]};
+
 rezagados = creategroup buenos;
 (group player) enableAttack false;
 player setUnitTrait ["camouflageCoef",0.8];
@@ -205,7 +208,8 @@ player addEventHandler ["FIRED",
 		//if ({((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
 		if ({if (((side _x == malos) or (side _x == muyMalos)) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
 			{
-			[_player,false] remoteExec ["setCaptive"];
+			[_player,false] remoteExec ["setCaptive",0,_player];
+			_player setCaptive false;
 			}
 		else
 			{
@@ -216,10 +220,11 @@ player addEventHandler ["FIRED",
 				{
 				if (_player distance getMarkerPos _ciudad < _size * 1.5) then
 					{
-					[_player,false] remoteExec ["setCaptive"];
+					[_player,false] remoteExec ["setCaptive",0,_player];
+					_player setCaptive false;
 					if (vehicle _player != _player) then
 						{
-						{if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive"]}} forEach ((assignedCargo (vehicle _player)) + (crew (vehicle _player)) - [player]);
+						{if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false}} forEach ((assignedCargo (vehicle _player)) + (crew (vehicle _player)) - [player]);
 						};
 					};
 				};
@@ -240,7 +245,8 @@ player addEventHandler ["InventoryOpened",
 			{
 			if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
 				{
-				[_jugador,false] remoteExec ["setCaptive"];
+				[_jugador,false] remoteExec ["setCaptive",0,_jugador];
+				_jugador setCaptive false;
 				}
 			else
 				{
@@ -251,7 +257,8 @@ player addEventHandler ["InventoryOpened",
 					{
 					if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
 						{
-						[_jugador,false] remoteExec ["setCaptive"];
+						[_jugador,false] remoteExec ["setCaptive",0,_jugador];
+						_jugador setCaptive false;
 						};
 					};
 				};
@@ -293,7 +300,8 @@ player addEventHandler ["HandleHeal",
 		{
 		if ({((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
 			{
-			[_player,false] remoteExec ["setCaptive"];
+			[_player,false] remoteExec ["setCaptive",0,_player];
+			_player setCaptive false;
 			}
 		else
 			{
@@ -304,7 +312,8 @@ player addEventHandler ["HandleHeal",
 				{
 				if (_player distance getMarkerPos _ciudad < _size * 1.5) then
 					{
-					[_player,false] remoteExec ["setCaptive"];
+					[_player,false] remoteExec ["setCaptive",0,_player];
+					_player setCaptive false;
 					};
 				};
 			};
@@ -407,12 +416,13 @@ if (_isJip) then
 		else
 			{
 			hint "Welcome Guest\n\nYou have joined this server as guest";
-			if ((count playableUnits == maxPlayers) and (({[_x] call isMember} count playableUnits) < count miembros) and (serverName in servidoresOficiales)) then {["serverFull",false,1,false,false] call BIS_fnc_endMission};
+			//if ((count playableUnits == maxPlayers) and (({[_x] call isMember} count playableUnits) < count miembros) and (serverName in servidoresOficiales)) then {["serverFull",false,1,false,false] call BIS_fnc_endMission};
 			};
 		}
 	else
 		{
 		hint format ["Welcome back %1", name player];
+		/*
 		if (serverName in servidoresOficiales) then
 			{
 			if ((count playableUnits == maxPlayers) and (({[_x] call isMember} count playableUnits) < count miembros)) then
@@ -421,14 +431,14 @@ if (_isJip) then
 				if (not([_x] call isMember)) exitWith {["serverFull",false,1,false,false] remoteExec ["BIS_fnc_endMission",_x]};
 				} forEach playableUnits;
 				};
-			};
+			};*/
 		if ({[_x] call isMember} count playableUnits == 1) then
 			{
 			[player] call stavrosInit;
 			[] remoteExec ["assignStavros",2];
 			};
 		};
-
+	/*
 	if ((player == stavros) and (isNil "placementDone") and (isMultiplayer)) then
 		{
 		_nul = [] execVM "Dialogs\initMenu.sqf";
@@ -436,7 +446,7 @@ if (_isJip) then
 	else
 		{
 		_nul = [true] execVM "Dialogs\firstLoad.sqf";
-		};
+		};*/
 	if (count misiones > 0) then
 		{
 		{
@@ -461,11 +471,16 @@ else
 		waitUntil {!isNil "stavros"};
 		if (player == stavros) then
 		    {
+		    player setVariable ["score", 25,true];
 		    if (isMultiplayer) then
 		    	{
 		    	HC_comandante synchronizeObjectsAdd [player];
 				player synchronizeObjectsAdd [HC_comandante];
-		    	_nul = [] execVM "Dialogs\initMenu.sqf";
+		    	//_nul = [] execVM "Dialogs\initMenu.sqf";
+		    	if !(loadLastSave) then
+		    		{
+		    		_nul = [] spawn placementSelection;
+		    		};
 		    	diag_log "Antistasi MP Client. Client finished";
 		    	}
 		    else
@@ -473,7 +488,11 @@ else
 		    	miembros = [];
 		    	 _nul = [] execVM "Dialogs\firstLoad.sqf";
 		    	};
-		    };
+		    }
+		else
+			{
+			player setVariable ["score", 0,true];
+			};
 		};
 	};
 waitUntil {scriptDone _titulo};

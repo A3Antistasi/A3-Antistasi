@@ -20,7 +20,8 @@ if ((typeOf _veh in arrayCivVeh) and ({_x getVariable ["GREENFORSpawn",false]} c
 		{_amigo = _x;
 		if ((captive _amigo) and (isPlayer _amigo)) then
 			{
-			[_amigo,false] remoteExec ["setCaptive"];
+			[_amigo,false] remoteExec ["setCaptive",0,_amigo];
+			_amigo setCaptive false;
 			};
 		{
 		if ((side _x == malos) and (_x distance _pos < distanciaSPWN)) then {_x reveal [_amigo,4]};

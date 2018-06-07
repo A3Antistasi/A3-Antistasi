@@ -30,7 +30,7 @@ if (isNil "_bandera") then {_bandera = objNull};
 if (lados getVariable [_marcador,sideUnknown] == buenos) then
 	{
 	_looser = buenos;
-	_texto = "Syndicat ";
+	_texto = format ["%1 ",nameBuenos];
 	[] call tierCheck;
 	}
 else
@@ -59,7 +59,7 @@ if (_winner == "GREENFORSpawn") then
 else
 	{
 	_soldados = [];
-	{_soldados pushBack (typeOf _x)} forEach (allUnits select {(_x distance _posicion < (_size*3)) and (_x getVariable [_winner,false]) and (vehicle _x == _x)});
+	{_soldados pushBack (typeOf _x)} forEach (allUnits select {(_x distance _posicion < (_size*3)) and (_x getVariable [_winner,false]) and (vehicle _x == _x) and (alive _x)});
 	if (_winner == "BLUFORspawn") then
 		{
 		lados setVariable [_marcador,malos,true];

@@ -2,8 +2,8 @@
 #include "dialogs.hpp"
 
 author="Barbolani";
-OnLoadName = "Warlords of the Pacific";
-OnLoadMission = "Business and War...";
+OnLoadName = "Antistasi Altis";
+OnLoadMission = "Be a restistance leader, be a hero";
 loadScreen = "pic.JPG";
 
 overviewText = "Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.";
@@ -59,6 +59,7 @@ class CfgSounds
         titles[]={};
     };
 };
+
 class Params
 {
     class loadSave
@@ -155,158 +156,159 @@ class CfgIdentities
 {
     class protagonista
     {
-        name = "Pulu";
-        nameSound = "Warlock";
-        face="TanoanBossHead";
+        name = "Stavros";
+        nameSound = "Stavrou";
+        face="GreekHead_A3_01";
     glasses="None";
-    speaker="Male01ENGFRE";
+    speaker="Male01GRE";
     pitch=1.1;
     };
      class amiguete
     {
-        name = "Maru";
-        nameSound = "Warlock";
-        face="TanoanBossHead";
-	glasses="None";
-	speaker="Male01ENGFRE";
-	pitch=1.1;
+        name = "Petros";
+        nameSound = "Petros";
+        face="GreekHead_A3_01";
+    glasses="None";
+    speaker="Male01GRE";
+    pitch=1.1;
     };
       class Anthis
     {
         name = "Anthis";
         nameSound = "Anthis";
-        face="TanoanHead_A3_01";
-	glasses="None";
-	speaker="Male02CHI";
-	pitch=1.1;
+        face="GreekHead_A3_02";
+    glasses="None";
+    speaker="Male01GRE";
+    pitch=1.1;
     };
       class Costa
     {
         name = "Costa";
         nameSound = "Costa";
-        face="TanoanHead_A3_02";
-	glasses="None";
-	speaker="Male03CHI";
-	pitch=1.1;
+        face="GreekHead_A3_03";
+    glasses="None";
+    speaker="Male02GRE";
+    pitch=1.1;
     };
       class Dimitirou
     {
         name = "Dimitirou";
         nameSound = "Dimitirou";
-        face="TanoanHead_A3_03";
-	glasses="None";
-	speaker="Male01FRE";
-	pitch=1.1;
+        face="GreekHead_A3_04";
+    glasses="None";
+    speaker="Male03GRE";
+    pitch=1.1;
     };
       class Elias
     {
         name = "Elias";
         nameSound = "Elias";
-        face="TanoanHead_A3_04";
-	glasses="None";
-	speaker="Male02FRE";
-	pitch=1.1;
+        face="GreekHead_A3_05";
+    glasses="None";
+    speaker="Male04GRE";
+    pitch=1.1;
     };
       class Gekas
     {
         name = "Gekas";
         nameSound = "Gekas";
-        face="TanoanHead_A3_05";
-	glasses="None";
-	speaker="Male03FRE";
-	pitch=1.1;
+        face="GreekHead_A3_06";
+    glasses="None";
+    speaker="Male01GRE";
+    pitch=1.1;
     };
       class Kouris
     {
         name = "Kouris";
         nameSound = "Kouris";
-        face="TanoanHead_A3_06";
-	glasses="None";
-	speaker="Male01CHI";
-	pitch=1.1;
+        face="GreekHead_A3_07";
+    glasses="None";
+    speaker="Male02GRE";
+    pitch=1.1;
     };
       class Leventis
     {
         name = "Leventis";
         nameSound = "Leventis";
-        face="TanoanHead_A3_07";
-	glasses="None";
-	speaker="Male02CHI";
-	pitch=1.1;
+        face="GreekHead_A3_08";
+    glasses="None";
+    speaker="Male03GRE";
+    pitch=1.1;
     };
       class Markos
     {
         name = "Markos";
         nameSound = "Markos";
-        face="TanoanHead_A3_08";
-	glasses="None";
-	speaker="Male03CHI";
-	pitch=1.1;
+        face="GreekHead_A3_09";
+    glasses="None";
+    speaker="Male04GRE";
+    pitch=1.1;
     };
       class Nikas
     {
         name = "Nikas";
         nameSound = "Nikas";
-        face="CamoHead_Asian_03_F";
-	glasses="None";
-	speaker="Male03FRE";
-	pitch=1.1;
+        face="WhiteHead_02";
+    glasses="None";
+    speaker="Male01GRE";
+    pitch=1.1;
     };
       class Nicolo
     {
         name = "Nicolo";
         nameSound = "Nicolo";
-        face="CamoHead_Asian_02_F";
-	glasses="None";
-	speaker="Male02FRE";
-	pitch=1.1;
+        face="WhiteHead_03";
+    glasses="None";
+    speaker="Male02GRE";
+    pitch=1.1;
     };
       class Panas
     {
         name = "Panas";
         nameSound = "Panas";
-        face="CamoHead_Asian_01_F";
-	glasses="None";
-	speaker="Male01FRE";
-	pitch=1.1;
+        face="WhiteHead_04";
+    glasses="None";
+    speaker="Male03GRE";
+    pitch=1.1;
     };
        class Rosi
     {
         name = "Rosi";
         nameSound = "Rosi";
-        face="AsianHead_A3_01";
-	glasses="None";
-	speaker="Male01CHI";
-	pitch=1.1;
+        face="WhiteHead_05";
+    glasses="None";
+    speaker="Male04GRE";
+    pitch=1.1;
     };
        class Samaras
     {
         name = "Samaras";
         nameSound = "Samaras";
         face="WhiteHead_06";
-	glasses="None";
-	speaker="AsianHead_A3_02";
-	pitch=1.1;
+    glasses="None";
+    speaker="Male01GRE";
+    pitch=1.1;
     };
        class Thanos
     {
         name = "Thanos";
         nameSound = "Thanos";
-        face="AsianHead_A3_03";
-	glasses="None";
-	speaker="Male02ENGFRE";
-	pitch=1.1;
+        face="WhiteHead_07";
+    glasses="None";
+    speaker="Male02GRE";
+    pitch=1.1;
     };
        class Vega
     {
         name = "Vega";
         nameSound = "Vega";
-        face="AsianHead_A3_04";
-	glasses="None";
-	speaker="Male02ENGFRE";
-	pitch=1.1;
+        face="WhiteHead_08";
+    glasses="None";
+    speaker="Male03GRE";
+    pitch=1.1;
     };
 };
+
 
 /*
 class CfgMusic
@@ -326,24 +328,24 @@ class CfgDebriefing
 	class End1
 	{
 		title = "V I C T O R Y";
-		subtitle = "Tanoa is Ours!";
-		description = "The population of Tanoa loves you!<br/>The SDK brave soldiers prooved their valour, and Barbolani, Tanoa new Prime Minister, could at last to have a nice holliday. A deserved rest in a Greek island, drinking with Petros, his war master.";
+		subtitle = "Altis is Ours!";
+		description = "The population of Altis loves you!<br/>The brave soldiers prooved their valour, and Barbolani, Altis new Prime Minister, could at last to have a nice holliday. A deserved rest in a Greek island, drinking with Petros, his war master.";
 		picture = "n_inf";
 		pictureColor[] = {0.0,0.5,0.0,1};
 	};
     class petrosDead
     {
-        title = "Maru is Dead";
-        subtitle = "Maru is Dead";
-        description = "Congratulations!: Maru is Dead. Now with Syndikat without a leader, you may think about joining them, and free Tanoa";
+        title = "Petros is Dead";
+        subtitle = "Petros is Dead";
+        description = "Congratulations!: Petros is Dead. Now with Syndikat without a leader, you may think about joining them, and free Altis";
         picture = "b_unknown";
         pictureColor[] = {0.5,0.0,0.0,1};
     };
     class destroyedCities
     {
-        title = "Tanoa is Destroyed";
-        subtitle = "Tanoa got Destroyed by CSAT";
-        description = "One third of the population in Tanoa has been murdered by CSAT.<br/>Tanoa no longer exists, nobody wants to live here.";
+        title = "Altis is Destroyed";
+        subtitle = "Altis got Destroyed by OPFOR";
+        description = "One third of the population in Tanoa has been murdered by the OPFOR.<br/>Tanoa no longer exists, nobody wants to live here.";
         picture = "b_unknown";
         pictureColor[] = {0.5,0.0,0.0,1};
     };

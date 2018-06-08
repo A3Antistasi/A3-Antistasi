@@ -19,7 +19,7 @@ if (_dificil) then
 	_tiempolim = 30;//120
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 	_fechalimnum = dateToNumber _fechalim;
-	[[buenos,civilian],"RES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
+	[[buenos,civilian],"RES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _contacto,false,0,true,"talk",true] call BIS_fnc_taskCreate;
 	misiones pushBack ["RES","CREATED"]; publicVariable "misiones";
 
 	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
@@ -34,7 +34,7 @@ if (_dificil) then
 			_salir = true;
 			{
 			if (isPlayer _x) then {[_contacto,"globalChat","My information is useless now"] remoteExec ["commsMP",_x]}
-			} forEach ([50,0,position _casa,"GREENFORSpawn"] call distanceUnits);
+			} forEach ([50,0,position _contacto,"GREENFORSpawn"] call distanceUnits);
 			};
 		};
 	[_contacto] spawn
@@ -53,7 +53,7 @@ if (_dificil) then
 			}
 		else
 			{
-			["RES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED","talk"] call taskUpdate;
+			["RES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _contacto,"FAILED","talk"] call taskUpdate;
 			[1200,"RES"] spawn borrarTask;
 			};
 		};

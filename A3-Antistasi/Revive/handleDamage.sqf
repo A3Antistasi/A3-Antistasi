@@ -3,38 +3,7 @@ _unit = _this select 0;
 _part = _this select 1;
 _dam = _this select 2;
 _injurer = _this select 3;
-/*
-if (isPlayer _unit) then
-	{
-	_owner = _unit getVariable ["owner",player];
-	if (_owner!=player) then
-		{
-		selectPlayer _owner;
-		removeAllActions _unit;
-		{[_x] joinsilent group player} forEach units group player;
-		group player selectLeader player;
-		hint "Returned to original Unit as controlled AI received damage";
-		};
-	}
-else
-	{
-	if (local _unit) then
-		{
-		_owner = _unit getVariable "owner";
-		if (!isNil "_owner") then
-			{
-			if (_owner==_unit) then
-				{
-				removeAllActions player;
-				selectPlayer _owner;
-				{[_x] joinsilent group player} forEach units group player;
-				group player selectLeader player;
-				hint "Returned to original Unit as it received damage";
-				};
-			};
-		};
-	};
-*/
+
 if (_part == "") then
 	{
 	if (_dam >= 1) then

@@ -1,6 +1,6 @@
 //el sitio de la caja es el 21
 if (!isServer and hasInterface) exitWith {};
-private ["_banco","_marcador","_dificil","_salir","_contacto","_grpContacto","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_casa","_posCasa","_nombreDest","_tiempoLim","_fechaLim","_fechaLimNum","_posBase","_pos","_camion","_cuenta","_mrkfin","_mrk","_soldados"];
+private ["_banco","_marcador","_dificil","_salir","_contacto","_grpContacto","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_posCasa","_nombreDest","_tiempoLim","_fechaLim","_fechaLimNum","_posBase","_pos","_camion","_cuenta","_mrkfin","_mrk","_soldados"];
 _banco = _this select 0;
 _marcador = [ciudades,_banco] call BIS_fnc_nearestPosition;
 
@@ -19,7 +19,7 @@ if (_dificil) then
 	_tiempolim = 30;//120
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 	_fechalimnum = dateToNumber _fechalim;
-	[[buenos,civilian],"LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,false,0,true,"talk",true] call BIS_fnc_taskCreate;
+	[[buenos,civilian],"LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _contacto,false,0,true,"talk",true] call BIS_fnc_taskCreate;
 	misiones pushBack ["LOG","CREATED"]; publicVariable "misiones";
 	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
 	if (dateToNumber date > _fechalimnum) then
@@ -33,7 +33,7 @@ if (_dificil) then
 			_salir = true;
 			{
 			if (isPlayer _x) then {[_contacto,"globalChat","My information is useless now"] remoteExec ["commsMP",_x]}
-			} forEach ([50,0,position _casa,"GREENFORSpawn"] call distanceUnits);
+			} forEach ([50,0,position _contacto,"GREENFORSpawn"] call distanceUnits);
 			};
 		};
 	[_contacto] spawn
@@ -52,7 +52,7 @@ if (_dificil) then
 			}
 		else
 			{
-			["LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _casa,"FAILED","talk"] call taskUpdate;
+			["LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _contacto,"FAILED","talk"] call taskUpdate;
 			[1200,"LOG"] spawn borrarTask;
 			};
 		};
@@ -143,6 +143,7 @@ else
 		} forEach allUnits;
 		};
 	} forEach ([distanciaSPWN,0,_posicion,"GREENFORSpawn"] call distanceUnits);
+	_exit = false;
 	while {(_cuenta > 0) or (_camion distance _posicion < 7) and (alive _camion) and (dateToNumber date < _fechalimnum)} do
 		{
 		while {(_cuenta > 0) and (_camion distance _posicion < 7) and (alive _camion)} do
@@ -163,9 +164,11 @@ else
 			if (alive _camion) then
 				{
 				{if (isPlayer _x) then {[petros,"hint","Drive the Truck back to base to finish this mission"] remoteExec ["commsMP",_x]}} forEach ([80,0,_camion,"GREENFORSpawn"] call distanceUnits);
+				_exit = true;
 				};
 			//waitUntil {sleep 1; (!alive _camion) or (_camion distance _posicion > 7) or (dateToNumber date < _fechalimnum)};
 			};
+		if (_exit) exitWith {};
 		};
 	};
 

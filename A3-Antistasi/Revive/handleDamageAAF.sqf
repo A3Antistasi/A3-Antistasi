@@ -76,7 +76,7 @@ if (side _injurer == buenos) then
 								moveOut _unit;
 								};
 							if (isPlayer _unit) then {_unit allowDamage false};
-							if (!isNull _injurer) then {[_unit,side _injurer] spawn inconsciente} else {[_unit,sideUnknown] spawn inconsciente};
+							if (!isNull _injurer) then {[_unit,side _injurer] spawn inconscienteAAF} else {[_unit,objNull] spawn inconscienteAAF};
 							};
 						};
 					}
@@ -93,7 +93,7 @@ if (side _injurer == buenos) then
 								moveOut _unit;
 								};
 							if (isPlayer _unit) then {_unit allowDamage false};
-							if (!isNull _injurer) then {[_unit,side _injurer] spawn inconsciente} else {[_unit,sideUnknown] spawn inconsciente};
+							if (!isNull _injurer) then {[_unit,side _injurer] spawn inconscienteAAF} else {[_unit,objNull] spawn inconscienteAAF};
 							};
 						};
 					};

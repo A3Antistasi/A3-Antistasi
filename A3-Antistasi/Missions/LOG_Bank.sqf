@@ -182,6 +182,9 @@ if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) the
 	[1800*_bonus] remoteExec ["timingCA",2];
 	{if (_x distance _camion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 	[5*_bonus,stavros] call playerScoreAdd;
+	waitUntil {sleep 1; speed _camion == 0};
+
+	[_camion] call vaciar;
 	};
 if (!alive _camion) then
 	{
@@ -190,9 +193,7 @@ if (!alive _camion) then
 	[-10*_bonus,stavros] call playerScoreAdd;
 	};
 
-waitUntil {sleep 1; speed _camion == 0};
 
-[_camion] call vaciar;
 deleteVehicle _camion;
 
 _nul = [1200,"LOG"] spawn borrarTask;

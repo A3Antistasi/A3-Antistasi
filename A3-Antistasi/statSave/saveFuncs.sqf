@@ -162,32 +162,7 @@ fn_SetStat =
 				lados setVariable [_mrk,buenos,true];
 				} forEach _varvalue;
 				};
-			/*
-			else
-				{
-				{
-				_mrk = createMarker [format ["FIApost%1", random 1000], _x];
-				_mrk setMarkerShape "ICON";
-				_mrk setMarkerType "loc_bunker";
-				_mrk setMarkerColor colorBuenos;
-				if (isOnRoad _x) then
-					{
-					_mrk setMarkerText format ["%1 Roadblock",nameBuenos];
-					}
-				else
-					{
-					_mrk setMarkerText format ["%1 Watchpost",nameBuenos];
-					};
-				spawner setVariable [_mrk,2,true];
-				puestosFIA pushBack _mrk;
-				_garrison = [staticCrewBuenos];
-				{
-				if (random 20 <= skillFIA) then {_garrison pushBack (_x select 1)} else {_garrison pushBack (_x select 0)};
-				} forEach gruposSDKAT;
-				garrison setVariable [_mrk,_garrison,true];
-				} forEach _varvalue;
-				};
-			*/};
+			};
 
 		if(_varName == 'antenas') then
 			{
@@ -268,6 +243,7 @@ fn_SetStat =
 				if (!isMultiplayer) then {{ _x hideObject true } foreach (nearestTerrainObjects [position petros,["tree","bush"],70])} else {{ _x hideObjectGlobal true } foreach (nearestTerrainObjects [position petros,["tree","bush"],70])};
 				};
 			[] spawn buildHQ;
+			{_x setPos _varValue} forEach (playableUnits select {side _x == buenos});
 			};
 		if(_varname == 'estaticas') then
 			{

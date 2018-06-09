@@ -48,13 +48,37 @@ civTraffic = paramsArray select 10;
 
 if (loadLastSave) then
     {
+    /*
     ["firstLoad"] call fn_LoadStat;
-    if (isNil "firstLoad") then {loadLastSave = false; publicVariable "loadLastSave"};
+    if (isNil "firstLoad") then
+        {
+        ["miembros"] call fn_LoadStat;
+        if (isNil "miembros") then
+            {
+            loadLastSave = false;
+            publicVariable "loadLastSave";
+            };
+        };
+    */
+    ["miembros"] call fn_LoadStat;
+    if (isNil "miembros") then
+        {
+        loadLastSave = false;
+        publicVariable "loadLastSave";
+        };
     };
 if (loadLastSave) then
     {
     _nul = [] execVM "statSave\loadAccount.sqf";
     waitUntil {!isNil"statsLoaded"};
+    if (membershipEnabled and (miembros isEqualTo [])) then
+        {
+        [petros,"hint","Membership is enabled but members list is empty. Current players will be added to the member list"] remoteExec ["commsMP"];
+        {
+        miembros pushBack (getPlayerUID _x);
+        } forEach playableUnits;
+        sleep 3;
+        };
     {
     if (([_x] call isMember) and (side _x == buenos)) exitWith
         {
@@ -77,6 +101,14 @@ else
 
     if (isNil "comandante") then {comandante = (playableUnits select 0)};
     if (isNull comandante) then {comandante = (playableUnits select 0)};
+    stavros = comandante;
+    publicVariable "stavros";
+    stavros setRank "CORPORAL";
+    [_x,"CORPORAL"] remoteExec ["ranksMP"];
+    if (membershipEnabled) then {miembros = [getPlayerUID _x]} else {miembros = []};
+    publicVariable "miembros";
+    };
+    /*
     {
     if (_x!=comandante) then
         {
@@ -92,7 +124,7 @@ else
         publicVariable "miembros"};
         //_x setVariable ["score", 25,true];
         };
-    } forEach (playableUnits select {side _x == buenos});
+    } forEach (playableUnits select {side _x == buenos});*/
 diag_log "Antistasi MP Server. Players are in";
 
 {

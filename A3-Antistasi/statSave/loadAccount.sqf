@@ -1,4 +1,11 @@
 //if (!isServer) exitWith {};
+if !(isMultiplayer) then
+	{
+	waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
+	["loadoutPlayer"] call fn_LoadStat;
+	diag_log "Antistasi: SP Personal player stats loaded";
+	};
+
 if (isServer) then
 	{
 	//ADD STATS THAT NEED TO BE LOADED HERE.
@@ -172,28 +179,21 @@ if (isServer) then
 	statsLoaded = 0; publicVariable "statsLoaded";
 	petros allowdamage true;
 	};
-if (!isDedicated) then
+if ((!isDedicated) and (isMultiplayer)) then
 	{
 	if (side player == buenos) then
 		{
 		waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
 		["loadoutPlayer"] call fn_LoadStat;
 		//player setPos getMarkerPos "respawn_guerrila";
-		if (isMultiplayer) then
+		if ([player] call isMember) then
 			{
-			if ([player] call isMember) then
-				{
-				["scorePlayer"] call fn_LoadStat;
-				["rankPlayer"] call fn_LoadStat;
-				};
-			["dinero"] call fn_LoadStat;
-			["personalGarage"] call fn_LoadStat;
-			diag_log "Antistasi: MP Personal player stats loaded";
-			}
-		else
-			{
-			diag_log "Antistasi: SP Personal player stats loaded";
+			["scorePlayer"] call fn_LoadStat;
+			["rankPlayer"] call fn_LoadStat;
 			};
+		["dinero"] call fn_LoadStat;
+		["personalGarage"] call fn_LoadStat;
+		diag_log "Antistasi: MP Personal player stats loaded";
 		[] call statistics;
 		};
 	};

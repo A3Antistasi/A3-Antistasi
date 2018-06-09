@@ -112,11 +112,11 @@ if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[[_posDestino,ma
 if (_numCiv < 8) then {_numCiv = 8};
 
 _size = [_mrkDestino] call sizeMarker;
-//_grupoCivil = if (_lado == buenos) then {createGroup buenos} else {createGroup malos};
+_grupoCivil = if (_lado == buenos) then {createGroup buenos} else {createGroup malos};
 _grupoCivil = createGroup civilian;
 _grupos pushBack _grupoCivil;
-[muyMalos,[civilian,0]] remoteExec ["setFriend",2];
-//_tipoUnit = if (_lado == buenos) then {SDKUnarmed} else {NATOUnarmed};
+//[muyMalos,[civilian,0]] remoteExec ["setFriend",2];
+_tipoUnit = if (_lado == buenos) then {SDKUnarmed} else {NATOUnarmed};
 for "_i" from 0 to _numCiv do
 	{
 	while {true} do
@@ -126,7 +126,7 @@ for "_i" from 0 to _numCiv do
 		};
 	_tipoUnit = selectRandom arrayCivs;
 	_civ = _grupoCivil createUnit [_tipoUnit,_pos, [],0,"NONE"];
-	//_civ forceAddUniform (selectRandom civUniforms);
+	_civ forceAddUniform (selectRandom civUniforms);
 	_rnd = random 100;
 	if (_rnd < 90) then
 		{
@@ -189,7 +189,7 @@ else
 	};
 
 sleep 15;
-[muyMalos,[civilian,1]] remoteExec ["setFriend",2];
+//[muyMalos,[civilian,1]] remoteExec ["setFriend",2];
 _nul = [0,"AtaqueAAF"] spawn borrarTask;
 [7200] remoteExec ["timingCA",2];
 {

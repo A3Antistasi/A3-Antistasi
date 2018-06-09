@@ -118,7 +118,7 @@ class init_menu 		{
 		};
 	};
 };
-*/									//slots: 2+1
+							//slots: 2+1
 class members_menu 		{
 	idd=-1;
 	movingenable=false;
@@ -175,7 +175,7 @@ class members_menu 		{
 		};
 	};
 };
-
+*/
 //FLAG
 class HQ_menu 			{
 	idd=100;

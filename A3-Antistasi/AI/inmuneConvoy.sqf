@@ -4,7 +4,6 @@ private ["_veh","_text","_pos","_side","_newPos","_road"];
 
 _veh = _this select 0;
 _text = _this select 1;
-_enemigo = true;
 _convoy = false;
 
 if ((_text == "Convoy Objective") or (_text == "Mission Vehicle") or (_text == "Supply Box")) then {_convoy = true};
@@ -18,7 +17,7 @@ while {alive _veh} do
 	{
 	if (!(_veh getVariable ["revelado",false])) then
 		{
-		if (/*(buenos knowsAbout _veh > 1.4) or (!_enemigo) or revelar or */_convoy) then
+		if ((buenos knowsAbout _veh > 1.4) or revelar or _convoy) then
 			{
 			//_revelado = true;
 			_veh setVariable ["revelado",true];
@@ -28,12 +27,12 @@ while {alive _veh} do
 	_pos = getPos _veh;
 	sleep 20;
 	_newPos = getPos _veh;
-	/*
+
 	if (_aRevelar and revelar) then
 		{
 		[_veh,_text] remoteExec ["vehicleMarkers",[buenos,civilian]];
 		};
-	*/
+
 	_condu = driver _veh;
 	if ((_newPos distance _pos < 5) and (_text != "Supply Box") and !(isNull _condu)) then
 		{

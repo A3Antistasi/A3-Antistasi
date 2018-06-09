@@ -84,7 +84,6 @@ if ((spawner getVariable _marcador != 2) and _frontera) then
 		_soldados pushBack _unit;
 		};
 	};
-
 _mrk = createMarkerLocal [format ["%1patrolarea", random 100], _posicion];
 _mrk setMarkerShapeLocal "RECTANGLE";
 _mrk setMarkerSizeLocal [(distanciaSPWN/2),(distanciaSPWN/2)];

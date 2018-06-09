@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.1.0";
+antistasiVersion = "v 1.1.1";
 
 servidoresOficiales = ["A3-Antistasi Official EU 1","A3-Antistasi Official EU 2"];
 
@@ -485,7 +485,6 @@ publicVariable "unlockedItems";
 publicVariable "unlockedOptics";
 publicVariable "unlockedBackpacks";
 publicVariable "unlockedMagazines";
-publicVariable "miembros";
 publicVariable "garageIsUsed";
 publicVariable "vehInGarage";
 publicVariable "reportedVehs";

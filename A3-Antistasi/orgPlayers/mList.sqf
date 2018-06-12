@@ -3,6 +3,7 @@ if !(isServer) exitWith {};
 {
 	miembros pushBackUnique _x;
 } forEach [
+    "76561198065403559", // John Huxley
     "76561198229230676", // Chillatopbilla
     "76561198038720428", // ETcomesback
 	"76561198068009040", // Neatpie

@@ -3,6 +3,7 @@ if !(isServer) exitWith {};
 {
 	miembros pushBackUnique _x;
 } forEach [
+    "76561198049058798", // Canas
     "76561198242611392", // H0wl0
     "76561198065403559", // John Huxley
     "76561198229230676", // Chillatopbilla

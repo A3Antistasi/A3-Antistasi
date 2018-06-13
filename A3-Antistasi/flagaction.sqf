@@ -63,6 +63,7 @@ switch _tipo do
 			if (isNil "accion") then
 				{
 				removeAllActions _flag;
+				[] call SA_Add_Player_Tow_Actions;
 				}
 			else
 				{

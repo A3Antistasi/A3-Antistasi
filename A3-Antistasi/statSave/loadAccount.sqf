@@ -4,6 +4,7 @@ if !(isMultiplayer) then
 	waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
 	["loadoutPlayer"] call fn_LoadStat;
 	diag_log "Antistasi: SP Personal player stats loaded";
+	[] call statistics;
 	};
 
 if (isServer) then
@@ -13,7 +14,6 @@ if (isServer) then
 
 	["puestosFIA"] call fn_LoadStat; publicVariable "puestosFIA";
 	["mrkSDK"] call fn_LoadStat; if (isMultiplayer) then {sleep 5};
-	//["mrkNATO"] call fn_LoadStat;
 	["mrkCSAT"] call fn_LoadStat;
 	["destroyedCities"] call fn_LoadStat;
 	["minas"] call fn_LoadStat;
@@ -21,11 +21,7 @@ if (isServer) then
 	["antenas"] call fn_LoadStat;
 	["prestigeNATO"] call fn_LoadStat;
 	["prestigeCSAT"] call fn_LoadStat;
-	["hr"] call fn_LoadStat;/*
-	["armas"] call fn_LoadStat;
-	["municion"] call fn_LoadStat;
-	["items"] call fn_LoadStat;
-	["mochis"] call fn_LoadStat;*/
+	["hr"] call fn_LoadStat;
 	["fecha"] call fn_LoadStat;
 	["weather"] call fn_LoadStat;
 	["prestigeOPFOR"] call fn_LoadStat;
@@ -36,12 +32,7 @@ if (isServer) then
 	["distanciaSPWN"] call fn_LoadStat;
 	["civPerc"] call fn_LoadStat;
 	["maxUnits"] call fn_LoadStat;
-	//["smallCAmrk"] call fn_LoadStat;
-	["miembros"] call fn_LoadStat;/*
-	["unlockedItems"] call fn_LoadStat;
-	["unlockedMagazines"] call fn_LoadStat;
-	["unlockedWeapons"] call fn_LoadStat;
-	["unlockedBackpacks"] call fn_LoadStat;*/
+	["miembros"] call fn_LoadStat;
 	["vehInGarage"] call fn_LoadStat;
 	["destroyedBuildings"] call fn_LoadStat;
 	["idlebases"] call fn_LoadStat;
@@ -149,12 +140,12 @@ if (isServer) then
 
 	["chopForest"] call fn_LoadStat;
 	["destroyedBuildings"] call fn_LoadStat;
-
+	/*
 	{
 	_buildings = nearestObjects [_x, listMilBld, 25, true];
 	(_buildings select 1) setDamage 1;
 	} forEach destroyedBuildings;
-
+	*/
 	["posHQ"] call fn_LoadStat;
 	["nextTick"] call fn_LoadStat;
 	["estaticas"] call fn_LoadStat;//tiene que ser el último para que el sleep del borrado del contenido no haga que despawneen

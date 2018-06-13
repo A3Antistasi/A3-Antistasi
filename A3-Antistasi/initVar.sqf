@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.1.1";
+antistasiVersion = "v 1.1.2";
 
 servidoresOficiales = ["A3-Antistasi Official EU 1","A3-Antistasi Official EU 2"];
 
@@ -225,7 +225,6 @@ smallCAmrk = [];
 smallCApos = [];
 bigAttackInProgress = false;
 chopForest = false;
-destroyedBuildings = [];
 distanceForAirAttack = 20000;
 distanceForLandAttack = 5000;
 
@@ -353,7 +352,7 @@ unlockedSN = [];
 unlockedAA = [];
 garageIsUsed = false;
 vehInGarage = [];
-destroyedBuildings = []; publicVariable "destroyedBuildings";
+destroyedBuildings = []; //publicVariable "destroyedBuildings";
 reportedVehs = [];
 hayTFAR = false;
 hayACRE = false;

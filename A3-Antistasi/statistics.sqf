@@ -5,6 +5,8 @@ disableSerialization;
 //waitUntil {!isNull (uiNameSpace getVariable "H8erHUD")};
 if (isNull (uiNameSpace getVariable "H8erHUD")) exitWith {};
 _display = uiNameSpace getVariable "H8erHUD";
+if (isNil "_display") exitWith {};
+waitUntil {sleep 0.1;!(isNil "stavros")};
 _setText = _display displayCtrl 1001;
 _setText ctrlSetBackgroundColor [0,0,0,0];
 _nombreC = "None";

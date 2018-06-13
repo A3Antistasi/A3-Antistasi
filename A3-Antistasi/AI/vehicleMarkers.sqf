@@ -64,11 +64,11 @@ _mrkfin setMarkerTypeLocal _tipo;
 
 _mrkfin setMarkerTextLocal _text;
 
-while {(alive _veh) and (revelar or _convoy or (buenos knowsAbout _veh > 1.4))} do
+while {(alive _veh) and !(isNull _veh) and (revelar or _convoy or (_veh getVariable ["revelado",false]))} do
 	{
 	_pos = getPos _veh;
 	_mrkfin setMarkerPosLocal _pos;
 	sleep 60;
 	};
 deleteMarkerLocal _mrkfin;
-if (alive _veh) then {_veh setVariable ["revelado",false,true]};
+//if (alive _veh) then {_veh setVariable ["revelado",false,true]};

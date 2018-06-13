@@ -1,5 +1,5 @@
 params ["_object"];
-diag_log ["addactionload"];
+//diag_log ["addactionload"];
 private _loadActionID = _object getVariable ["jnl_loadActionID",nil];
 
 //Check if action exists already

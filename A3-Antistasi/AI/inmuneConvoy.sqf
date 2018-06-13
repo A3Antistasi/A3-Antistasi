@@ -19,19 +19,19 @@ while {alive _veh} do
 		{
 		if ((buenos knowsAbout _veh > 1.4) or revelar or _convoy) then
 			{
-			//_revelado = true;
-			_veh setVariable ["revelado",true];
+			_veh setVariable ["revelado",true,true];
 			[_veh,_text] remoteExec ["vehicleMarkers",[buenos,civilian]];
+			};
+		}
+	else
+		{
+		if ((buenos knowsAbout _veh <= 1.4) and !(revelar) and !(_convoy)) then
+			{
+			_veh setVariable ["revelado",false,true];
 			};
 		};
 	_pos = getPos _veh;
-	sleep 20;
 	_newPos = getPos _veh;
-
-	if (_aRevelar and revelar) then
-		{
-		[_veh,_text] remoteExec ["vehicleMarkers",[buenos,civilian]];
-		};
 
 	_condu = driver _veh;
 	if ((_newPos distance _pos < 5) and (_text != "Supply Box") and !(isNull _condu)) then
@@ -71,4 +71,5 @@ while {alive _veh} do
 				};
 			};
 		};
+	sleep 20;
 	};

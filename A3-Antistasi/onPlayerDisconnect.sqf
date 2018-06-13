@@ -51,7 +51,7 @@ if (_unit == stavros) then
 			};
 		};
 	} forEach allGroups;
-	if (((count playableUnits > 0) and (count miembros == 0)) or ({(getPlayerUID _x) in miembros} count playableUnits > 0)) then
+	if (((count playableUnits > 0) and (!membershipEnabled)) or ({(getPlayerUID _x) in miembros} count playableUnits > 0)) then
 		{
 		[] spawn assignStavros;
 		};

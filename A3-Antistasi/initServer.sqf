@@ -60,11 +60,13 @@ if (loadLastSave) then
             };
         };
     */
+    diag_log "Antistasi: Persitent Load selected";
     ["miembros"] call fn_LoadStat;
     if (isNil "miembros") then
         {
         loadLastSave = false;
         publicVariable "loadLastSave";
+        diag_log "Antistasi: Persitent Load selected but there is no older session";
         };
     };
 if (loadLastSave) then
@@ -74,6 +76,7 @@ if (loadLastSave) then
     if (membershipEnabled and (miembros isEqualTo [])) then
         {
         [petros,"hint","Membership is enabled but members list is empty. Current players will be added to the member list"] remoteExec ["commsMP"];
+        diag_log "Antistasi: Persitent Load done but membership enabled with members array empty";
         {
         miembros pushBack (getPlayerUID _x);
         } forEach playableUnits;
@@ -94,18 +97,18 @@ else
     {
      if (serverName in servidoresOficiales) then
         {
-        ["miembros"] call fn_LoadStat;
+        //["miembros"] call fn_LoadStat;
         _nul = [] execVM "orgPlayers\mList.sqf";
         };
     stavros = objNull;
-
+    diag_log "Antistasi: New Game selected";
     if (isNil "comandante") then {comandante = (playableUnits select 0)};
     if (isNull comandante) then {comandante = (playableUnits select 0)};
     stavros = comandante;
     publicVariable "stavros";
     stavros setRank "CORPORAL";
-    [_x,"CORPORAL"] remoteExec ["ranksMP"];
-    if (membershipEnabled) then {miembros = [getPlayerUID _x]} else {miembros = []};
+    [stavros,"CORPORAL"] remoteExec ["ranksMP"];
+    if (membershipEnabled) then {miembros = [getPlayerUID stavros]} else {miembros = []};
     publicVariable "miembros";
     };
     /*
@@ -137,6 +140,17 @@ diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"commsMP"] call BIS_fnc_MP;
 
 addMissionEventHandler ["HandleDisconnect",{[_this select 0] call onPlayerDisconnect;false}];
+addMissionEventHandler ["BuildingChanged",
+        {
+        _building = _this select 0;
+        if !(_building in antenas) then
+            {
+            if (_this select 2) then
+                {
+                destroyedBuildings pushBack (getPosATL _building);
+                };
+            };
+        }];
 
 serverInitDone = true; publicVariable "serverInitDone";
 diag_log "Antistasi MP Server. serverInitDone set to true.";

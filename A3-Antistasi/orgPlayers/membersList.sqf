@@ -1,4 +1,4 @@
-if (count miembros == 0) exitWith {hint "Server Member feature is disabled"};
+if !(membershipEnabled) exitWith {hint "Server Member feature is disabled"};
 private ["_cuenta"];
 _texto = "In Game Members\n\n";
 _cuentaN = 0;
@@ -7,8 +7,8 @@ _cuentaN = 0;
 _jugador = _x getVariable ["owner",objNull];
 if (!isNull _jugador) then
 	{
-	_uid = getPlayerUID _jugador;
-	if (_uid in miembros) then {_texto = format ["%1%2\n",_texto,name _jugador]} else {_cuentaN = _cuentaN + 1};
+	//_uid = getPlayerUID _jugador;
+	if ([_jugador] call isMember) then {_texto = format ["%1%2\n",_texto,name _jugador]} else {_cuentaN = _cuentaN + 1};
 	};
 } forEach playableUnits;
 

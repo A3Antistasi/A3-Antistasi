@@ -19,6 +19,7 @@ for "_i" from 0 to (count _buildings) - 1 do
 	{
 	if (spawner getVariable _marcador == 2) exitWith {};
 	_building = _buildings select _i;
+	/*
 	if !(_building getVariable ["conEH",false]) then
 		{
 		_building setVariable ["conEH",true,true];
@@ -28,7 +29,7 @@ for "_i" from 0 to (count _buildings) - 1 do
 			publicVariable "destroyedBuildings";
 			}
 			];
-		};
+		};*/
 	_tipoB = typeOf _building;
 	if ((_tipoB == "Land_HelipadSquare_F") and (!_frontera)) then
 		{

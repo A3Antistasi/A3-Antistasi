@@ -105,13 +105,15 @@ fn_SetStat =
 		if(_varName == 'destroyedBuildings') then
 			{
 			destroyedBuildings= +_varValue;
-			publicVariable "destroyedBuildings";
+			//publicVariable "destroyedBuildings";
 			{
+			(nearestBuilding _x) setDamage [1,false];
+			/*
 			_buildings = nearestObjects [_x,listMilBld,50];
 			if !(_buildings isEqualto []) then
 				{
 				(_buildings Select 0) setdamage [1,false];
-				};
+				};*/
 			} forEach destroyedBuildings;
 			};
 		if(_varName == 'minas') then

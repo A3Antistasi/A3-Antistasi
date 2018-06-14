@@ -14,7 +14,7 @@ fn_LoadStat =
 	private ["_varName","_varvalue"];
 	_varName = _this select 0;
 	if (worldName == "Tanoa") then {_varValue = profileNameSpace getVariable (_varName + serverID + "WotP")} else {_varValue = profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)};
-	if(isNil "_varValue") exitWith {diag_log format ["La variable %1 no existe en el entorno %2",_varname,(_varName + serverID + "WotP")]};
+	if(isNil "_varValue") exitWith {diag_log format ["Antistasi: Error en Persistent Load. La variable %1 no existe en el entorno %2",_varname,(_varName + serverID + "WotP")]};
 	[_varName,_varValue] call fn_SetStat;
 };
 
@@ -30,7 +30,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick","firstLoad"];
+["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -39,7 +39,6 @@ fn_SetStat =
 	if(isNil '_varValue') exitWith {};
 	if(_varName in specialVarLoads) then
 	{
-		if(_varName == 'firstLoad') then {firstLoad = false; publicVariable "firstLoad"};
 		if(_varName == 'cuentaCA') then {cuentaCA = _varValue; publicVariable "cuentaCA"};
 		if(_varName == 'nextTick') then {nextTick = time + _varValue};
 		if(_varName == 'miembros') then {miembros = +_varValue; publicVariable "miembros"};
@@ -177,8 +176,8 @@ fn_SetStat =
 			    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn apagon}} forEach ciudades;
 			    antenas = antenas - [_antena];
 			    _antena removeAllEventHandlers "Killed";
-			    sleep 1;
-			    _antena setDamage 1;
+			    //sleep 1;
+			    _antena setDamage [1,false];
 			    deleteMarker _mrk;
 			    };
 			antenasmuertas = _varvalue;

@@ -30,8 +30,8 @@ class first_load 		{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Loads the pervious persistent Save session made byt the commander";
-			action = "closeDialog 0;if ((player == Stavros) and (isNil ""placementDone"")) then {[""statSave\loadAccount.sqf"",""BIS_fnc_execVM""] call BIS_fnc_MP; placementDone = true; publicVariable ""placementDone""} else {nul = [] execVM ""statSave\loadAccount.sqf"";};";
+			tooltip = "Loads the pervious personal session";
+			action = "closeDialog 0;nul = [] execVM ""statSave\loadAccount.sqf"";";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -42,7 +42,7 @@ class first_load 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Starts a new game";
-			action = "closeDialog 0;if ((player == stavros) and (isNil ""placementDone"")) then {_nul = [] spawn placementselection};";
+			action = "closeDialog 0;if ((player == stavros) and (isNil ""placementDone"") and !(isMultiplayer)) then {_nul = [] spawn placementselection};";
 		};
 		/*
 		class HQ_button_Gremove: RscButton

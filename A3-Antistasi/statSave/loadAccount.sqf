@@ -9,11 +9,11 @@ if !(isMultiplayer) then
 
 if (isServer) then
 	{
-	//ADD STATS THAT NEED TO BE LOADED HERE.
+	diag_log "Antistasi: Starting Persistent Load";
 	petros allowdamage false;
 
 	["puestosFIA"] call fn_LoadStat; publicVariable "puestosFIA";
-	["mrkSDK"] call fn_LoadStat; if (isMultiplayer) then {sleep 5};
+	["mrkSDK"] call fn_LoadStat; /*if (isMultiplayer) then {sleep 5}*/;
 	["mrkCSAT"] call fn_LoadStat;
 	["destroyedCities"] call fn_LoadStat;
 	["minas"] call fn_LoadStat;
@@ -163,7 +163,6 @@ if (isServer) then
 	clearBackpackCargoGlobal caja;
 
 	[] remoteExec ["statistics",[buenos,civilian]];
-	[[petros,"hintCS","Persistent Savegame Loaded"],"commsMP"] call BIS_fnc_MP;
 	diag_log "Antistasi: Server sided Persistent Load done";
 
 	["tasks"] call fn_LoadStat;

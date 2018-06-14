@@ -74,6 +74,7 @@ while {(_waves != 0)} do
 		_pos = getMarkerPos _spawnPoint;
 
 		_vehPool = if (_lado == malos) then {vehNATOAttack} else {vehCSATAttack};
+		_vehPool = _vehPool select {[_x] call vehAvailable};
 		if (_esSDK) then
 			{
 			_rnd = random 100;
@@ -100,12 +101,14 @@ while {(_waves != 0)} do
 		while {_cuenta <= _nVeh} do
 			{
 			_tipoVeh = selectRandom _vehPool;
+			/*
 			if (not([_tipoVeh] call vehAvailable)) then
 				{
 				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
 				_vehPool = _vehPool - [_tipoVeh];
 				if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 				};
+			*/
 			if ((_cuenta == _nVeh) and (_tipoVeh in vehTanks)) then
 				{
 				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
@@ -231,6 +234,7 @@ while {(_waves != 0)} do
 		if (count _pos > 0) then
 			{
 			_vehPool = if (_lado == malos) then {vehNATOBoats} else {vehCSATBoats};
+			_vehPool = _vehPool select {[_x] call vehAvailable};
 			_cuenta = 0;
 			while {_cuenta < 3} do
 				{

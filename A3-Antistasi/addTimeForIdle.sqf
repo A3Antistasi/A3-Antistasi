@@ -21,4 +21,3 @@ _fechaArr = numberToDate [2035,_fechaNum];
 _fechaArr = [_fechaArr select 0, _fechaArr select 1, _fechaArr select 2, _fechaArr select 3, (_fechaArr select 4) + _time];
 
 if (_esMarcador) then {server setVariable [_sitio,dateToNumber _fechaArr,true]} else {timer setVariable [(typeOf _sitio),dateToNumber _fechaArr,true]};
-

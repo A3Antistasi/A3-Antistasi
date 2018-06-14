@@ -35,7 +35,7 @@ _baseNATO = true;
 if (lados getVariable [_base,sideUnknown] == malos) then
 	{
 	_tmpObjetivos = _objetivos select {lados getVariable [_x,sideUnknown] != malos};
-	_tmpObjetivos = _tmpObjetivos - (ciudades select {!([_x] call powerCheck)});
+	_tmpObjetivos = _tmpObjetivos - (ciudades select {([_x] call powerCheck) == buenos});
 	}
 else
 	{
@@ -105,7 +105,7 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 		_times = 1;
 		if (_baseNATO) then
 			{
-			if ({lados getVariable [_x,sideUnknown] == malos} count aeropuertos == 1) then {_times = 2};
+			if ({lados getVariable [_x,sideUnknown] == malos} count aeropuertos <= 1) then {_times = 2};
 			if (!_esCiudad) then
 				{
 				if ((_x in puestos) or (_x in puertos)) then

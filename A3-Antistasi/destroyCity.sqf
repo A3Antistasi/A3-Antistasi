@@ -16,10 +16,6 @@ if (random 100 < 70) then
 		_x sethit [format ["dam %1",_i],1];
 		};
 	}
-else
-	{
-	_x setDamage [1,false];
-	};
 } forEach _buildings;
 
 [_marcador,false] spawn apagon;

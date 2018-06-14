@@ -108,7 +108,7 @@ if (!hayACE) then
 else
 	{
 	if (hayACEhearing) then {player addItem "ACE_EarPlugs"};
-	if (!hayACEMedical) then {[player] execVM "Revive\initRevive.sqf"}/* else {player setVariable ["inconsciente",false,true]}*/;
+	if (!hayACEMedical) then {[player] execVM "Revive\initRevive.sqf"};
 	};
 
 if (side player != buenos) exitWith
@@ -462,7 +462,9 @@ if (_isJip) then
 			};
 		} forEach misiones;
 		};
+	_nul = [] execVM "Dialogs\firstLoad.sqf";
 	diag_log "Antistasi MP Client. JIP client finished";
+	player setPos (getMarkerPos "respawn_guerrila");
 	}
 else
 	{
@@ -480,6 +482,14 @@ else
 		    	if !(loadLastSave) then
 		    		{
 		    		_nul = [] spawn placementSelection;
+		    		}
+		    	else
+		    		{
+		    		if !(isServer) then
+		    			{
+			    		 _nul = [] execVM "Dialogs\firstLoad.sqf";
+			    		 player setPos (getMarkerPos "respawn_guerrila");
+			    		};
 		    		};
 		    	diag_log "Antistasi MP Client. Client finished";
 		    	}
@@ -492,6 +502,16 @@ else
 		else
 			{
 			player setVariable ["score", 0,true];
+			_nul = [] execVM "Dialogs\firstLoad.sqf";
+			player setPos (getMarkerPos "respawn_guerrila");
+			};
+		}
+	else
+		{
+		if !(isServer) then
+			{
+			_nul = [] execVM "Dialogs\firstLoad.sqf";
+			player setPos (getMarkerPos "respawn_guerrila");
 			};
 		};
 	};

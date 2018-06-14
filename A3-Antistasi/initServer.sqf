@@ -15,6 +15,7 @@ waitUntil {!isNil "serverID"};
 
 _nul = call compile preprocessFileLineNumbers "initVar.sqf";
 initVar = true; publicVariable "initVar";
+savingServer = true;
 diag_log format ["Antistasi MP. InitVar done. Version: %1",antistasiVersion];
 _nul = call compile preprocessFileLineNumbers "initFuncs.sqf";
 diag_log "Antistasi MP Server. Funcs init finished";
@@ -45,7 +46,8 @@ distanciaMiss = paramsArray select 5;
 skillMult = paramsArray select 8;
 minWeaps = paramsArray select 9;
 civTraffic = paramsArray select 10;
-
+//waitUntil {!isNil "bis_fnc_preload_init"};
+//waitUntil {!isNil "BIS_fnc_preload_server"};
 if (loadLastSave) then
     {
     /*
@@ -65,9 +67,9 @@ if (loadLastSave) then
     if (isNil "miembros") then
         {
         loadLastSave = false;
-        publicVariable "loadLastSave";
         diag_log "Antistasi: Persitent Load selected but there is no older session";
         };
+    publicVariable "loadLastSave";
     };
 if (loadLastSave) then
     {
@@ -86,8 +88,8 @@ if (loadLastSave) then
     if (([_x] call isMember) and (side _x == buenos)) exitWith
         {
         stavros = _x;
-        _x setRank "CORPORAL";
-        [_x,"CORPORAL"] remoteExec ["ranksMP"];
+        //_x setRank "CORPORAL";
+        //[_x,"CORPORAL"] remoteExec ["ranksMP"];
         publicVariable "stavros";
         //_x setVariable ["score", 25,true];
         };
@@ -98,18 +100,32 @@ else
      if (serverName in servidoresOficiales) then
         {
         //["miembros"] call fn_LoadStat;
-        _nul = [] execVM "orgPlayers\mList.sqf";
+        call compile preprocessFileLineNumbers "orgPlayers\mList.sqf";
+        stavros = objNull;
+        {
+        if (([_x] call isMember) and (side _x == buenos)) exitWith
+            {
+            stavros = _x;
+            //_x setRank "CORPORAL";
+            //[_x,"CORPORAL"] remoteExec ["ranksMP"];
+            //_x setVariable ["score", 25,true];
+            };
+        } forEach playableUnits;
+        publicVariable "stavros";
+        }
+    else
+        {
+        stavros = objNull;
+        diag_log "Antistasi: New Game selected";
+        if (isNil "comandante") then {comandante = (playableUnits select 0)};
+        if (isNull comandante) then {comandante = (playableUnits select 0)};
+        stavros = comandante;
+        publicVariable "stavros";
+        stavros setRank "CORPORAL";
+        [stavros,"CORPORAL"] remoteExec ["ranksMP"];
+        if (membershipEnabled) then {miembros = [getPlayerUID stavros]} else {miembros = []};
+        publicVariable "miembros";
         };
-    stavros = objNull;
-    diag_log "Antistasi: New Game selected";
-    if (isNil "comandante") then {comandante = (playableUnits select 0)};
-    if (isNull comandante) then {comandante = (playableUnits select 0)};
-    stavros = comandante;
-    publicVariable "stavros";
-    stavros setRank "CORPORAL";
-    [stavros,"CORPORAL"] remoteExec ["ranksMP"];
-    if (membershipEnabled) then {miembros = [getPlayerUID stavros]} else {miembros = []};
-    publicVariable "miembros";
     };
     /*
     {
@@ -160,6 +176,6 @@ waitUntil {sleep 1;!(isNil "placementDone")};
 distancias = [] spawn distancias4;
 resourcecheck = [] execVM "resourcecheck.sqf";
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
-
+savingServer = false;
 
 //if (serverName in chungos) then {["asshole",false,true] remoteExec ["BIS_fnc_endMission"]};

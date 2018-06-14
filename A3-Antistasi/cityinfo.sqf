@@ -49,8 +49,14 @@ while {visibleMap} do
 			_power = [_sitio] call powerCheck;
 			_texto = format ["%1\n\nPop %2\n%6 Support: %3 %5\n%7 Support: %4 %5",[_sitio,false] call fn_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%",nameMalos,nameBuenos];
 			_posicion = getMarkerPos _sitio;
-			_result = format ["%1",nameMalos];
-			_ant1 = [antenas,_posicion] call BIS_fnc_nearestPosition;
+			_result = "NONE";
+			switch (_power) do
+				{
+				case buenos: {_result = format ["%1",nameBuenos]};
+				case malos: {_result = format ["%1",nameMalos]};
+				case muyMalos: {_result = format ["%1",nameMuyMalos]};
+				};
+			/*_ant1 = [antenas,_posicion] call BIS_fnc_nearestPosition;
 			_ant2 = [antenasMuertas, _posicion] call BIS_fnc_nearestPosition;
 			if (_ant1 distance _posicion > _ant2 distance _posicion) then
 				{
@@ -68,6 +74,7 @@ while {visibleMap} do
 					if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = format ["%1",nameBuenos]} else {if (lados getVariable [_puesto,sideUnknown] == muyMalos) then {_result = "NONE"}};
 					};
 				};
+			*/
 			_texto = format ["%1\nInfluence: %2",_texto,_result];
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 			if (lados getVariable [_sitio,sideUnknown] == buenos) then {_texto = format ["%1\n%2",_texto,[_sitio] call garrisonInfo]};

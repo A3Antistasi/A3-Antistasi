@@ -34,8 +34,8 @@ while {true} do
 	_popTotal = _popTotal + _numCiv;
 	_popFIA = _popFIA + (_numCiv * (_prestigeSDK / 100));
 	_popAAF = _popAAF + (_numCiv * (_prestigeNATO / 100));
-	_multiplicandorec = 1;
-	if (not _power) then {_multiplicandorec = 0.5};
+	_multiplicandorec = if (_power != buenos) then {0.5} else {1};
+	//if (not _power) then {_multiplicandorec = 0.5};
 
 	if (_ciudad in destroyedCities) then
 		{
@@ -47,6 +47,7 @@ while {true} do
 		{
 		_recAddCiudadSDK = ((_numciv * _multiplicandorec*(_prestigeSDK / 100))/3);
 		_hrAddCiudad = (_numciv * (_prestigeSDK / 10000));///20000 originalmente
+		/*
 		if (lados getVariable [_ciudad,sideUnknown] == buenos) then
 			{
 			if (_power) then
@@ -72,6 +73,18 @@ while {true} do
 				//if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[-1,0,_ciudad] spawn citySupportChange} else {[-1,0,_ciudad] spawn citySupportChange};
 				[-1,0,_ciudad] spawn citySupportChange;
 				};
+			};
+		*/
+		switch (_power) do
+			{
+			case buenos: {if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[-1,_suppBoost,_ciudad] spawn citySupportChange}};
+			case malos: {if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[1,-1,_ciudad] spawn citySupportChange}};
+			case muyMalos: {[-1,-1,_ciudad] spawn citySupportChange};
+			};
+		if (lados getVariable [_ciudad,sideUnknown] == malos) then
+			{
+			_recAddCiudadSDK = (_recAddCiudadSDK/2);
+			_hrAddCiudad = (_hrAddCiudad/2);
 			};
 		};
 	_recAddSDK = _recAddSDK + _recAddCiudadSDK;

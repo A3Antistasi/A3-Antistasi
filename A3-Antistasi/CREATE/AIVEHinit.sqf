@@ -9,6 +9,32 @@ _tipo = typeOf _veh;
 
 if ((_tipo in vehNormal) or (_tipo in vehAttack) or (_tipo in vehBoats)) then
 	{
+	_veh addEventHandler ["Killed",
+		{
+		private _veh = _this select 0;
+		private _tipo = typeOf _veh;
+		if !(_tipo in vehUnlimited) then
+			{
+			if (_tipo in vehAPCs) then
+				{
+				[_veh,60 - (tierWar * 3)] call addTimeForIdle;
+				_veh removeAllEventHandlers "HandleDamage";
+				}
+			else
+				{
+				if (_tipo in vehTanks) then
+					{
+					[_veh,480 - (tierWar * 3)] call addTimeForIdle;
+					_veh removeAllEventHandlers "HandleDamage";
+					}
+				else
+					{
+					[_veh,45 - (tierWar * 3)] call addTimeForIdle;
+					_veh removeAllEventHandlers "HandleDamage";
+					};
+				};
+			};
+		}];
 	if !(_tipo in vehAttack) then
 		{
 		if (_tipo in vehAmmoTrucks) then
@@ -39,8 +65,6 @@ if ((_tipo in vehNormal) or (_tipo in vehAttack) or (_tipo in vehBoats)) then
 					{
 					if (_tipo in vehNATOAPC) then {[-2,2,position (_veh)] remoteExec ["citySupportChange",2]};
 					};
-				[_veh,30] call addTimeForIdle;
-				_veh removeAllEventHandlers "HandleDamage";
 				}];
 			_veh addEventHandler ["HandleDamage",{private ["_veh"]; _veh = _this select 0; if (!canFire _veh) then {[_veh] call smokeCoverAuto; _veh removeEventHandler ["HandleDamage",_thisEventHandler]};if (((_this select 1) find "wheel" != -1) and (_this select 4=="") and (!isPlayer driver (_veh))) then {0;} else {(_this select 2);}}];
 			_veh setVariable ["dentro",true];
@@ -60,8 +84,6 @@ if ((_tipo in vehNormal) or (_tipo in vehAttack) or (_tipo in vehBoats)) then
 						{
 						if (_tipo == vehNATOTank) then {[-5,5,position (_veh)] remoteExec ["citySupportChange",2]};
 						};
-					[_veh,480] call addTimeForIdle;
-					_veh removeAllEventHandlers "HandleDamage";
 					}];
 				_veh addEventHandler ["HandleDamage",{private ["_veh"]; _veh = _this select 0; if (!canFire _veh) then {[_veh] call smokeCoverAuto;  _veh removeEventHandler ["HandleDamage",_thisEventHandler]}}];
 				}
@@ -79,7 +101,30 @@ else
 		_veh addEventHandler ["killed",
 			{
 			private ["_veh","_tipo"];
-			{if ((side _x == malos) or (side _x == muyMalos)) then {_x setDamage 1}} forEach (crew (_this select 0));
+			_veh = _this select 0;
+			_tipo = typeOf _veh;
+			{if ((side _x == malos) or (side _x == muyMalos)) then {_x setDamage 1}} forEach (crew _veh);
+			if !(_tipo in vehUnlimited) then
+				{
+				if (_tipo in vehTransportAir) then
+					{
+					[_veh,45 - (tierWar * 3)] call addTimeForIdle;
+					_veh removeAllEventHandlers "HandleDamage";
+					}
+				else
+					{
+					if (_veh isKindOf "Helicopter") then
+						{
+						[_veh,120 - (tierWar * 3)] call addTimeForIdle;
+						_veh removeAllEventHandlers "HandleDamage";
+						}
+					else
+						{
+						[_veh,45 - (tierWar * 3)] call addTimeForIdle;
+						_veh removeAllEventHandlers "HandleDamage";
+						};
+					};
+				};
 			}];
 		_veh addEventHandler ["GetIn",
 			{
@@ -113,7 +158,6 @@ else
 						{
 						if (_tipo in vehNATOAttackHelis) then {[-5,5,position (_veh)] remoteExec ["citySupportChange",2]};
 						};
-					[_veh,120] call addTimeForIdle;
 					}];
 				};
 			};
@@ -128,7 +172,6 @@ else
 					{
 					if ((_tipo == vehNATOPlane) or (_tipo == vehNATOPlaneAA)) then {[-8,8,position (_veh)] remoteExec ["citySupportChange",2]};
 					};
-				[_veh,30] call addTimeForIdle;
 				}];
 			};
 		}

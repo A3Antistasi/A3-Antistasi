@@ -218,4 +218,4 @@ call compile preProcessFileLineNumbers "statSave\saveFuncs.sqf";
 call jn_fnc_logistics_init;
 caja call jn_fnc_arsenal_init;
 
-if ((isMultiplayer) and (isServer)) then {[[petros,"hint","Functions Init Completed"],"commsMP"] call BIS_fnc_MP};
+diag_log "Functions Init Completed";

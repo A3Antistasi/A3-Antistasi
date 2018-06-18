@@ -487,7 +487,7 @@ else
 		    		{
 		    		if !(isServer) then
 		    			{
-			    		 _nul = [] execVM "Dialogs\firstLoad.sqf";
+			    		 _nul = [true] execVM "Dialogs\firstLoad.sqf";
 			    		 player setPos (getMarkerPos "respawn_guerrila");
 			    		};
 		    		};
@@ -502,7 +502,7 @@ else
 		else
 			{
 			player setVariable ["score", 0,true];
-			_nul = [] execVM "Dialogs\firstLoad.sqf";
+			_nul = [true] execVM "Dialogs\firstLoad.sqf";
 			player setPos (getMarkerPos "respawn_guerrila");
 			};
 		}

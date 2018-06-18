@@ -70,14 +70,13 @@ if (side (group _killer) == buenos) then
 		}
 	else
 		{
+		[-1,1,getPos _muerto] remoteExec ["citySupportChange",2];
 		if (_lado == malos) then
 			{
-			[0,0.25,getPos _muerto] remoteExec ["citySupportChange",2];
 			[0.1,0] remoteExec ["prestige",2];
 			}
 		else
 			{
-			[0,1,getPos _muerto] remoteExec ["citySupportChange",2];
 			[0,0.25] remoteExec ["prestige",2];
 			};
 		};

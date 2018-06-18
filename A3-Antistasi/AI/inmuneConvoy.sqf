@@ -31,8 +31,8 @@ while {alive _veh} do
 			};
 		};
 	_pos = getPos _veh;
+	sleep 60;
 	_newPos = getPos _veh;
-
 	_condu = driver _veh;
 	if ((_newPos distance _pos < 5) and (_text != "Supply Box") and !(isNull _condu)) then
 		{
@@ -71,5 +71,5 @@ while {alive _veh} do
 				};
 			};
 		};
-	sleep 20;
+
 	};

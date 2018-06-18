@@ -222,7 +222,7 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 					};
 				if (_esMar) then {_times = _times * 2};
 				};
-			if (_x == _cercano) then {_times = _times * 4};
+			if (_x == _cercano) then {_times = _times * 5};
 			if (_x in _killZones) then
 				{
 				_sitio = _x;

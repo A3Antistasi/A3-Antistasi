@@ -58,16 +58,15 @@ if (time >= _bleedOut) exitWith
 			_skill = skill _injurer;
 			[_injurer,_skill + 0.05] remoteExec ["setSkill",_injurer];
 			};
+		[-1,1,getPos _unit] remoteExec ["citySupportChange",2];
 		switch (_lado) do
 			{
 			case malos:
 				{
-				[0,0.25,getPos _unit] remoteExec ["citySupportChange",2];
 				[0.1,0] remoteExec ["prestige",2];
 				};
 			case muyMalos:
 				{
-				[0,1,getPos _unit] remoteExec ["citySupportChange",2];
 				[0,0.25] remoteExec ["prestige",2];
 				};
 			};

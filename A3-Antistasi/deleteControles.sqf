@@ -5,7 +5,7 @@ _control = _this select 1;
 
 _pos = getMarkerPos _control;
 
-_cercano = [marcadores,_pos] call BIS_fnc_nearestPosition;
+_cercano = [(marcadores - controles),_pos] call BIS_fnc_nearestPosition;
 
 if (_cercano == _marcador) then
 	{

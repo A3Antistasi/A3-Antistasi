@@ -52,7 +52,7 @@ if (_ai) then
 		_hr = _hr +1;
 		{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
 		{if (not(_x in unlockedMagazines)) then {_municion pushBack _x}} forEach magazines _unit;
-		_items = _items + (items _unit) + (primaryWeaponItems _unit) + (assignedItems _unit) + (secondaryWeaponItems _unit);
+		_items = _items + (items _unit) + (primaryWeaponItems _unit) + (assignedItems _unit) + (secondaryWeaponItems _unit) + [(hmd _unit),(headGear _unit),(vest _unit)];
 		};
 	deleteVehicle _x;
 	} forEach units _nuevogrp;

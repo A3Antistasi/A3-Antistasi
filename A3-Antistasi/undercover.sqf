@@ -1,7 +1,7 @@
 private ["_player"];
 if (player != player getVariable ["owner",player]) exitWith {hint "You cannot go Undercover while you are controlling AI"};
 _player = player getVariable ["owner",player];
-if (captive _player) exitWith {hint "You are in Undercover already"};
+if (captive _player) exitWith {hint "You are Undercover already"};
 
 private ["_compromised","_cambiar","_aeropuertos","_arrayCivVeh","_player","_size","_base"];
 
@@ -20,7 +20,7 @@ if (vehicle _player != _player) then
 		};
 	if (vehicle _player in reportedVehs) then
 		{
-		hint "The vehicle you are in has been reported to the enemy. Change your vehicle or renew it in the Garage to become Undercover";
+		hint "This vehicle has been reported to the enemy. Change or renew your vehicle in the Garage to go Undercover";
 		_cambiar = "Init";
 		};
 	}
@@ -28,12 +28,12 @@ else
 	{
 	if ((primaryWeapon _player != "") or (secondaryWeapon _player != "") or (handgunWeapon _player != "") or (vest _player != "") or (getNumber (configfile >> "CfgWeapons" >> headgear _player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2) or (hmd _player != "") or (not(uniform _player in civUniforms))) then
 		{
-		hint "You cannot become Undercover while showing:\n\nAny weapon in hand\nWearing Vest\nWearing Helmet\nWearing NV Googles\nWearing a Mil Uniform";
+		hint "You cannot go Undercover while:\n\nA weapon is visible\nWearing a vest\nWearing a helmet\nWearing NVGs\nWearing a mil uniform";
 		_cambiar = "Init";
 		};
 	if (dateToNumber date < _compromised) then
 		{
-		hint "You have been reported in the last 30 minutes and you cannot become Undercover";
+		hint "You have been reported in the last 30 minutes therefore you cannot go Undercover";
 		_cambiar = "Init";
 		};
 	};
@@ -42,7 +42,7 @@ if (_cambiar != "") exitWith {};
 
 if ({((side _x== muyMalos) or (side _x== malos)) and (((_x knowsAbout _player > 1.4) and (_x distance _player < 500)) or (_x distance _player < 350))} count allUnits > 0) exitWith
 	{
-	hint "You cannot become Undercover while some enemies are spotting you";
+	hint "You cannot go Undercover while enemies are spotting you";
 	if (vehicle _player != _player) then
 		{
 		{
@@ -53,7 +53,7 @@ if ({((side _x== muyMalos) or (side _x== malos)) and (((_x knowsAbout _player > 
 
 _base = [_aeropuertos,_player] call BIS_fnc_nearestPosition;
 _size = [_base] call sizeMarker;
-if ((_player distance getMarkerPos _base < _size*2) and (not(lados getVariable [_base,sideUnknown] == buenos))) exitWith {hint "You cannot become Undercover near Airports, Outposts or Roadblocks"};
+if ((_player distance getMarkerPos _base < _size*2) and (not(lados getVariable [_base,sideUnknown] == buenos))) exitWith {hint "You cannot go Undercover near Airports, Outposts or Roadblocks"};
 
 ["Undercover ON",0,0,4,0,0,4] spawn bis_fnc_dynamicText;
 
@@ -192,7 +192,7 @@ switch _cambiar do
 			_player setVariable ["compromised",(dateToNumber [date select 0, date select 1, date select 2, date select 3, (date select 4) + 30])];
 			};
 		};
-	case "VNoCivil": {hint "You entered in a non civilian vehicle"};
+	case "VNoCivil": {hint "You entered a non civilian vehicle"};
 	case "VCompromised": {hint "You entered in a reported vehicle"};
 	case "SpotBombTruck":
 		{
@@ -201,19 +201,19 @@ switch _cambiar do
 		};
 	case "Carretera":
 		{
-		hint "You went far from roads and have been spotted";
+		hint "You went too far away from any roads and have been spotted";
 		reportedVehs pushBackUnique (vehicle _player); publicVariable "reportedVehs";
 		};
-	case "Vestido": {hint "You cannot stay Undercover while showing:\n\nAny weapon in hand\nWearing Vest\nWearing Helmet\nWearing NV Googles\nWearing a Mil Uniform"};
+	case "Vestido": {hint "You cannot stay Undercover while:\n\nA weapon is visible\nWearing a vest\nWearing a helmet\nWearing NVGs\nWearing a mil uniform"};
 	case "Vestido2":
 		{
-		hint "You cannot stay Undercover while showing:\n\nAny weapon in hand\nWearing Vest\nWearing Helmet\nWearing NV Googles\nWearing a Mil Uniform.\n\nThe enemy added you to the Wanted list";
+		hint "You cannot stay Undercover while showing:\n\nA weapon is visible\nWearing a vest\nWearing a helmet\nWearing NVGs\nWearing a mil uniform\n\nThe enemy added you to their Wanted List";
 		_player setVariable ["compromised",dateToNumber [date select 0, date select 1, date select 2, date select 3, (date select 4) + 30]];
 		};
-	case "Compromised": {hint "You left your vehicle and you are still in the Wanted list"};
+	case "Compromised": {hint "You left your vehicle and you are still on the Wanted List"};
 	case "Distancia":
 		{
-		hint "You have got too close to an enemy Base, Outpost or Roadblock";
+		hint "You have gotten too close to an enemy Base, Outpost or Roadblock";
 		//_compromised = _player getVariable "compromised";
 		if (vehicle _player != _player) then
 			{
@@ -227,7 +227,7 @@ switch _cambiar do
 		};
 	case "NoFly":
 		{
-		hint "You have got too close to an enemy Airbase no-fly zone";
+		hint "You have gotten too close to an enemy Airbase no-fly zone";
 		//_compromised = _player getVariable "compromised";
 		reportedVehs pushBackUnique (vehicle _player); publicVariable "reportedVehs";
 		};

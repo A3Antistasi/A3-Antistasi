@@ -7,7 +7,7 @@ if ((side _x == malos) or (side _x == muyMalos)) then
 	if ([500,1,_x,"GREENFORSpawn"] call distanceUnits) then {_presente = true};
 	};
 } forEach allUnits;
-if (_presente) exitWith {hint "You cannot rest with enemies near our units"};
+if (_presente) exitWith {hint "You cannot rest while enemies are near our units"};
 if (["AtaqueAAF"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while the enemy is counterattacking"};
 if (["DEF_HQ"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while your HQ is under attack"};
 
@@ -17,7 +17,7 @@ _posHQ = getMarkerPos "respawn_guerrila";
 if ((_x distance _posHQ > 100) and (side _x == buenos)) then {_chequeo = true};
 } forEach (allPlayers - (entities "HeadlessClient_F"));
 
-if (_chequeo) exitWith {hint "All player must be in a 100mts radius from HQ to be able to rest"};
+if (_chequeo) exitWith {hint "All players must be in a 100m radius from HQ to be able to rest"};
 
 [[],"resourcecheckSkipTime"] call BIS_fnc_MP;
 

@@ -9,13 +9,13 @@ if (!alive _veh) exitWith {hint "You cannot add destroyed vehicles to your garag
 
 if (_veh distance getMarkerPos "respawn_guerrila" > 50) exitWith {hint "Vehicle must be closer than 50 meters to the flag"};
 
-if ({isPlayer _x} count crew _veh > 0) exitWith {hint "In order to store vehicle, its crew must disembark."};
+if ({isPlayer _x} count crew _veh > 0) exitWith {hint "In order to store a vehicle, its crew must disembark."};
 
 _tipoVeh = typeOf _veh;
 
 if (_veh isKindOf "Man") exitWith {hint "Are you kidding?"};
 
-if (not(_veh isKindOf "AllVehicles")) exitWith {hint "The vehicle you are looking cannot be kept in our Garage"};
+if (not(_veh isKindOf "AllVehicles")) exitWith {hint "The vehicle you are looking cannot be stored in our Garage"};
 
 if (_pool and (count vehInGarage >= (tierWar *3))) exitWith {hint "You cannot garage more vehicles at your current War Level"};
 
@@ -32,7 +32,7 @@ if (!_pool) then
 		};
 	};
 
-if (_exit) exitWith {hint "You are not owner of this vehicle and you cannot garage it"};
+if (_exit) exitWith {hint "You are not owner of this vehicle therefore you cannot garage it"};
 
 if (_tipoVeh isKindOf "Air") then
 	{
@@ -40,7 +40,7 @@ if (_tipoVeh isKindOf "Air") then
 	if (count _aeropuertos == 0) then {_exit = true};
 	};
 
-if (_exit) exitWith {hint format ["You cannot garage an air vehicle while you are not in an airport surroinding area which belongs to %1",nameBuenos]};
+if (_exit) exitWith {hint format ["You cannot garage an air vehicle while you are near an Aiport which belongs to %1",nameBuenos]};
 
 if (_veh in staticsToSave) then {staticsToSave = staticsToSave - [_veh]; publicVariable "staticsToSave"};
 

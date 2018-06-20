@@ -3,14 +3,14 @@ _chequeo = false;
 if (((side _enemigo == muyMalos) or (side _enemigo == buenos)) and (_enemigo distance player < 500) and (not(captive _enemigo))) exitWith {_chequeo = true};
 } forEach allUnits;
 
-if (_chequeo) exitWith {Hint "You cannot Fast Travel with enemies near you"};
+if (_chequeo) exitWith {Hint "You cannot Fast Travel while enemies are nearby"};
 
 if (vehicle player != player) then {if (!(canMove vehicle player)) then {_chequeo = true}};
-if (_chequeo) exitWith {Hint "You cannot Fast Travel if you don't have a driver in all your vehicles or your vehicles are damage and cannot move"};
+if (_chequeo) exitWith {Hint "You cannot Fast Travel if your vehicles don't have a driver or your vehicles immobile"};
 
 posicionTel = [];
 
-hint "Click on the zone you want to travel";
+hint "Click on the zone you want to travel to";
 if (!visibleMap) then {openMap true};
 onMapSingleClick "posicionTel = _pos;";
 
@@ -48,13 +48,13 @@ if (count _posicionTel > 0) then
 
 	if ((lados getVariable [_base,sideUnknown] == buenos) or (_base in _mrkENY)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
-	if ((!(_base in aeropuertos)) and (!(_base in puertos)) and (!(_base in puestos)) and (_base != _mrkRespawn)) exitWith {hint "You can Fast Travel only to Airbases, Outposts and Seaports"; openMap [false,false]};
+	if ((!(_base in aeropuertos)) and (!(_base in puertos)) and (!(_base in puestos)) and (_base != _mrkRespawn)) exitWith {hint "You can only Fast Travel to Airbases, Outposts and Seaports"; openMap [false,false]};
 
 	{
 		if (((side _x == buenos) or (side _x == _sideENY)) and (_x distance (getMarkerPos _base) < 500) and (not(captive _x))) then {_chequeo = true};
 	} forEach allUnits;
 
-	if (_chequeo) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
+	if (_chequeo) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding area"; openMap [false,false]};
 
 	if (_posicionTel distance getMarkerPos _base < 50) then
 		{
@@ -73,7 +73,7 @@ if (count _posicionTel > 0) then
 		}
 	else
 		{
-		Hint "You must click near marker under your control";
+		Hint "You must click near a marker you control";
 		};
 	};
 openMap false;

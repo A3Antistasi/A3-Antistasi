@@ -1,12 +1,12 @@
 if (!isNil "placementDone") then
 	{
 	stavros allowDamage false;
-	format ["%1 is Dead",name petros] hintC format ["%1 has been killed. You lost part of your assets and need to select a new HQ position far from the enemies.",name petros];
+	format ["%1 is Dead",name petros] hintC format ["%1 has been killed. You lost part of your assets and need to select a new HQ position far from any enemies.",name petros];
 	}
 else
 	{
 	diag_log "Antistasi: New Game selected";
-	"Initial HQ Placement Selection" hintC ["Click on the Map Position you want to start the Game.","Close the map with M to start in the default position.","Don't select areas with enemies nearby!!\n\nGame experience changes a lot on different starting positions."];
+	"Initial HQ Placement Selection" hintC ["Click on the map position you want to start the game.","Close the map with M to start in the default position.","Don't select areas with enemies nearby!\n\nGame experience changes significantly in different starting positions."];
 	};
 
 hintC_arr_EH = findDisplay 72 displayAddEventHandler ["unload",
@@ -51,7 +51,7 @@ while {true} do
 	if (not visiblemap) exitWith {};
 	_posicionTel = posicionTel;
 	_marcador = [_marcadores,_posicionTel] call BIS_fnc_nearestPosition;
-	if (getMarkerPos _marcador distance _posicionTel < 500) then {hint "Place selected is very close to enemy zones.\n\n Please select another position"};
+	if (getMarkerPos _marcador distance _posicionTel < 500) then {hint "Position selected is too close to enemy zones.\n\n Please select another position"};
 	if (surfaceIsWater _posicionTel) then {hint "Selected position cannot be in water"};
 	_enemigos = false;
 	if (!isNil "placementDone") then
@@ -63,7 +63,7 @@ while {true} do
 			};
 		} forEach allUnits;
 		};
-	if (_enemigos) then {hint "There are enemies in the surroundings of that area, please select another."};
+	if (_enemigos) then {hint "There are enemies in the surrounding area, please select another position."};
 	if ((getMarkerPos _marcador distance _posicionTel >= 500) and (!surfaceIsWater _posicionTel) and (!_enemigos)) exitWith {};
 	sleep 0.1;
 	};
@@ -105,7 +105,7 @@ if (visiblemap) then
 	"respawn_guerrila" setMarkerPos _posicionTel;
 	["respawn_guerrila",1] remoteExec ["setMarkerAlphaLocal",[buenos,civilian]];
 	["respawn_guerrila",0] remoteExec ["setMarkerAlphaLocal",[malos,muyMalos]];
-	if (isMultiplayer) then {hint "Please wait while moving HQ Assets to selected position";sleep 5};
+	if (isMultiplayer) then {hint "Please wait while HQ Assets are moved to the selected position";sleep 5};
 	_pos = [_posicionTel, 3, getDir petros] call BIS_Fnc_relPos;
 	fuego setPos _pos;
 	_rnd = getdir Petros;

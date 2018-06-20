@@ -1,4 +1,4 @@
-if (player != stavros) exitWith {hint "Only Player Commander is allowed to move HQ assets"};
+if (player != stavros) exitWith {hint "Only the Commander is allowed to move HQ assets"};
 
 _cosa = _this select 0;
 _jugador = _this select 1;
@@ -12,7 +12,7 @@ _sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 _marcador = [_sitios,_jugador] call BIS_fnc_nearestPosition;
 _size = [_marcador] call sizeMarker;
 _posicion = getMarkerPos _marcador;
-if (_jugador distance2D _posicion > _size) exitWith {hint "This asset needs to be closer to it relative zone center to be able to be moved"};
+if (_jugador distance2D _posicion > _size) exitWith {hint "This asset needs to be closer to the relative zone center to be moved"};
 
 _cosa removeAction _id;
 _cosa attachTo [_jugador,[0,2,1]];
@@ -34,4 +34,4 @@ _cosa setPosATL [getPosATL _cosa select 0,getPosATL _cosa select 1,0];
 
 if (vehicle _jugador != _jugador) exitWith {hint "You cannot move HQ assets while in a vehicle"};
 
-if  (_jugador distance2D _posicion > _size) exitWith {hint "This asset cannot be moved more far away for its zone center"};
+if  (_jugador distance2D _posicion > _size) exitWith {hint "This asset cannot be moved too far away for its zone center"};

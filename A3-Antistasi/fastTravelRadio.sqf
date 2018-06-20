@@ -4,7 +4,7 @@ _marcadores = marcadores + ["respawn_guerrila"];
 
 _esHC = false;
 
-if (count hcSelected player > 1) exitWith {hint "You can select one group only to Fast Travel"};
+if (count hcSelected player > 1) exitWith {hint "You can only select one group to Fast Travel"};
 if (count hcSelected player == 1) then {_grupo = hcSelected player select 0; _esHC = true} else {_grupo = group player};
 
 _jefe = leader _grupo;
@@ -31,7 +31,7 @@ if (_chequeo) exitWith {Hint "You cannot Fast Travel with enemies near the group
 	}
 } forEach units _grupo;
 
-if (_chequeo) exitWith {Hint "You cannot Fast Travel if you don't have a driver in all your vehicles or your vehicles are damaged and cannot move or your group is in a boat"};
+if (_chequeo) exitWith {Hint "You cannot Fast Travel if your vehicles don't have a driver, your vehicles immobile or your group is in a boat"};
 
 posicionTel = [];
 
@@ -66,7 +66,7 @@ if (count _posicionTel > 0) then
 		} forEach allUnits;
 		};
 
-	if (_chequeo) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
+	if (_chequeo) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding area"; openMap [false,false]};
 
 	if (_posicionTel distance getMarkerPos _base < 50) then
 		{
@@ -123,14 +123,14 @@ if (count _posicionTel > 0) then
 			//_unit hideObject false;
 		} forEach units _grupo;
 		if (!_esHC) then {sleep _distancia};
-		if (!_esHC) then {disableUserInput false;cutText ["You arrived to destination","BLACK IN",3]} else {hint format ["Group %1 arrived to destination",groupID _grupo]};
+		if (!_esHC) then {disableUserInput false;cutText ["You have arrived at your destination","BLACK IN",3]} else {hint format ["Group %1 has arrived at their destination",groupID _grupo]};
 		if (_forzado) then {forcedSpawn = forcedSpawn - [_base]};
 		sleep 5;
 		{_x allowDamage true} forEach units _grupo;
 		}
 	else
 		{
-		Hint "You must click near marker under your control";
+		Hint "You must click near a marker you control";
 		};
 	};
 openMap false;

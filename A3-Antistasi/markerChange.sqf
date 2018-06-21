@@ -172,7 +172,7 @@ else
 	};
 if ((_winner != buenos) and (_marcador in aeropuertos) and (_looser != buenos)) then
 	{
-	_cercanos = (puertos + puestos + recursos) select {((getMarkerPos _x) distance _posicion < distanciaSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
+	_cercanos = (puertos + puestos + recursos + fabricas) select {((getMarkerPos _x) distance _posicion < distanciaSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
 	if (_looser == malos) then  {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == malos}; _winner = "OPFORSpawn"} else {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == muyMalos}; _winner = "BLUFORSpawn"};
 	{[_winner,_x] spawn markerChange; sleep 5} forEach _cercanos;
 	};

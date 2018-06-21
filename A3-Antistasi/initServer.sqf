@@ -69,8 +69,8 @@ if (loadLastSave) then
         loadLastSave = false;
         diag_log "Antistasi: Persitent Load selected but there is no older session";
         };
-    publicVariable "loadLastSave";
     };
+publicVariable "loadLastSave";
 if (loadLastSave) then
     {
     _nul = [] execVM "statSave\loadAccount.sqf";
@@ -82,18 +82,20 @@ if (loadLastSave) then
         {
         miembros pushBack (getPlayerUID _x);
         } forEach playableUnits;
+        publicVariable "miembros";
         sleep 3;
         };
+    stavros = objNull;
     {
     if (([_x] call isMember) and (side _x == buenos)) exitWith
         {
         stavros = _x;
         //_x setRank "CORPORAL";
         //[_x,"CORPORAL"] remoteExec ["ranksMP"];
-        publicVariable "stavros";
         //_x setVariable ["score", 25,true];
         };
     } forEach playableUnits;
+    publicVariable "stavros";
     }
 else
     {
@@ -126,6 +128,7 @@ else
         if (membershipEnabled) then {miembros = [getPlayerUID stavros]} else {miembros = []};
         publicVariable "miembros";
         };
+    _nul = [caja] call cajaAAF;
     };
     /*
     {
@@ -171,7 +174,6 @@ addMissionEventHandler ["BuildingChanged",
 serverInitDone = true; publicVariable "serverInitDone";
 diag_log "Antistasi MP Server. serverInitDone set to true.";
 
-_nul = [caja] call cajaAAF;
 waitUntil {sleep 1;!(isNil "placementDone")};
 distancias = [] spawn distancias4;
 resourcecheck = [] execVM "resourcecheck.sqf";

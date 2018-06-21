@@ -58,6 +58,8 @@ _mrk setMarkerType "hd_warning";
 _mrk setMarkerColor "ColorRed";
 _mrk setMarkerBrush "DiagGrid";
 _mrk setMarkerText _texto;
+[_mrk,0] remoteExec ["setMarkerAlpha",[malos,muyMalos]];
+
 [[buenos,civilian],"Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,false,0,true,"map",true] call BIS_fnc_taskCreate;
 //_tsk = ["Mines",[buenos,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"map"] call BIS_fnc_setTask;
 //misiones pushBack _tsk; publicVariable "misiones";
@@ -69,7 +71,7 @@ sleep 1;
 _unit = _grupo createUnit [(SDKExp select 0), (getMarkerPos "respawn_guerrila"), [], 0, "NONE"];
 _grupo setGroupId ["MineF"];
 
-_road = [_posicion] call findNearestGoodRoad;
+_road = [getMarkerPos "respawn_guerrila"] call findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,vehSDKTruck];
 
 _camion = vehSDKTruck createVehicle _pos;

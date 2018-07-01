@@ -12,7 +12,7 @@ _unit = _grupo createUnit [(SDKExp select 0), getMarkerPos "respawn_guerrila", [
 _grupo setGroupId ["MineSw"];
 _minas = [];
 sleep 1;
-_road = [_posicion] call findNearestGoodRoad;
+_road = [getMarkerPos "respawn_guerrila"] call findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 
 _camion = vehSDKRepair createVehicle _pos;

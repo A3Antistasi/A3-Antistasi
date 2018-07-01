@@ -65,14 +65,37 @@ while {(_waves != 0)} do
 	{
 	_soldados = [];
 	_nVeh = 3 + (round random 1);
-
-	if (_posOrigen distance _posDestino < distanceForLandAttack) then
+	_posOrigenLand = [];
+	_pos = [];
+	_dir = 0;
+	_spawnPoint = "";
+	if !(_mrkDestino in blackListDest) then
+		{
+		if (_posOrigen distance _posDestino < distanceForLandAttack) then
+			{
+			_indice = aeropuertos find _mrkOrigen;
+			_spawnPoint = spawnPoints select _indice;
+			_pos = getMarkerPos _spawnPoint;
+			_posOrigenLand = _posOrigen;
+			_dir = markerDir _spawnPoint;
+			}
+		else
+			{
+			_puestos = puestos select {(lados getVariable [_x,sideUnknown] == _lado) and (getMarkerPos _x distance _posDestino < distanceForLandAttack)  and ([_x,false] call airportCanAttack)};
+			if !(_puestos isEqualTo []) then
+				{
+				_puesto = selectRandom _puestos;
+				_posOrigenLand = getMarkerPos _puesto;
+				[_puesto,60] call addTimeForIdle;
+				_spawnPoint = [_posOrigenLand] call findNearestGoodRoad;
+				_pos = position _spawnPoint;
+				_dir = getDir _spawnPoint;
+				};
+			};
+		};
+	if !(_pos isEqualTo []) then
 		{
 		if ([_mrkDestino,true] call fogCheck < 0.3) then {_nveh = round (1.5*_nveh)};
-		_indice = aeropuertos find _mrkOrigen;
-		_spawnPoint = spawnPoints select _indice;
-		_pos = getMarkerPos _spawnPoint;
-
 		_vehPool = if (_lado == malos) then {vehNATOAttack} else {vehCSATAttack};
 		_vehPool = _vehPool select {[_x] call vehAvailable};
 		if (_esSDK) then
@@ -124,7 +147,7 @@ while {(_waves != 0)} do
 				sleep 1;
 				};
 			if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
-			_vehicle=[_pos, markerDir _spawnPoint,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+			_vehicle=[_pos, _dir,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
 
 			_veh = _vehicle select 0;
 			_vehCrew = _vehicle select 1;
@@ -161,7 +184,7 @@ while {(_waves != 0)} do
 					{_x disableAI "MINEDETECTION"} forEach (units _grupoVeh);
 					(units _grupo) joinSilent _grupoVeh;
 					deleteGroup _grupo;
-					[_mrkOrigen,_landPos,_grupoVeh] call WPCreate;
+					[_posOrigenLand,_landPos,_grupoVeh] call WPCreate;
 					_Vwp0 = (wayPoints _grupoVeh) select 0;
 					_Vwp0 setWaypointBehaviour "SAFE";
 					_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
@@ -180,7 +203,7 @@ while {(_waves != 0)} do
 					(units _grupo) joinSilent _grupoVeh;
 					deleteGroup _grupo;
 					_grupoVeh selectLeader (units _grupoVeh select 1);
-					[_mrkOrigen,_landPos,_grupoVeh] call WPCreate;
+					[_posOrigenLand,_landPos,_grupoVeh] call WPCreate;
 					_Vwp0 = (wayPoints _grupoVeh) select 0;
 					_Vwp0 setWaypointBehaviour "SAFE";
 					_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
@@ -194,7 +217,7 @@ while {(_waves != 0)} do
 			else
 				{
 				{_x disableAI "MINEDETECTION"} forEach (units _grupoVeh);
-				[_mrkOrigen,_posDestino,_grupoVeh] call WPCreate;
+				[_posOrigenLand,_posDestino,_grupoVeh] call WPCreate;
 				_Vwp0 = (wayPoints _grupoVeh) select 0;
 				_Vwp0 setWaypointBehaviour "SAFE";
 				_Vwp0 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];

@@ -2,7 +2,7 @@ private ["_unit","_compatibles","_posibles","_rifle","_helmet","_uniform","_vest
 
 _unit = _this select 0;
 _pool = _this select 1;
-
+if (_pool isEqualTo []) exitWith {};
 _rifleFinal = selectRandom _pool;
 if (_rifleFinal == primaryWeapon _unit) exitWith {};
 

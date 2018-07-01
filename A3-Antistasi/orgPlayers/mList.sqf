@@ -1,5 +1,5 @@
 if !(isServer) exitWith {};
-
+if (isNil "miembros") then {miembros = []};
 {
 	miembros pushBackUnique _x;
 } forEach [

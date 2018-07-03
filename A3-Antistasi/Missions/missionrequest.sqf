@@ -48,8 +48,8 @@ if (_tipo == "AS") then
 		{
 		if (!_silencio) then
 			{
-			[petros,"globalChat","I have no assasination missions for you. Move our HQ closer to the enemy or finish some other assasination missions in order to have better intel"] remoteExec ["commsMP",stavros];
-			[petros,"hint","Assasination Missions require cities, Patrolled Jungles or Airports closer than 4Km from your HQ."] remoteExec ["commsMP",stavros];
+			[petros,"globalChat","I have no assassination missions for you. Move our HQ closer to the enemy or finish some other assassination missions in order to have better intel"] remoteExec ["commsMP",stavros];
+			[petros,"hint","Assassination Missions require cities, Patrolled Jungles or Airports closer than 4Km from your HQ."] remoteExec ["commsMP",stavros];
 			};
 		}
 	else

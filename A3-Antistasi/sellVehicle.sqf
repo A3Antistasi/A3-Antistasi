@@ -1,11 +1,11 @@
 private ["_veh", "_coste","_tipo"];
 _veh = cursortarget;
 
-if (isNull _veh) exitWith {hint "You are not looking to any vehicle"};
+if (isNull _veh) exitWith {hint "You are not looking at any vehicle"};
 
-if (_veh distance getMarkerPos "respawn_guerrila" > 50) exitWith {hint "Vehicle must be closer than 50 meters to the flag"};
+if (_veh distance getMarkerPos "respawn_guerrila" > 50) exitWith {hint "Vehicle must be within 50 meters of the flag"};
 
-if ({isPlayer _x} count crew _veh > 0) exitWith {hint "In order to sell, vehicle must be empty."};
+if ({isPlayer _x} count crew _veh > 0) exitWith {hint "Vehicle must be empty in order to sell"};
 
 _owner = _veh getVariable "duenyo";
 _exit = false;
@@ -17,7 +17,7 @@ if (!isNil "_owner") then
 		};
 	};
 
-if (_exit) exitWith {hint "You are not owner of this vehicle and you cannot sell it"};
+if (_exit) exitWith {hint "You do not own this vehicle therefore you cannot sell it"};
 
 _tipo = typeOf _veh;
 _coste = 0;

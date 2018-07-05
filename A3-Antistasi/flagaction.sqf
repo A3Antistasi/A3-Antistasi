@@ -10,8 +10,8 @@ switch _tipo do
 	case "take":
 		{
 		removeAllActions _flag;
-		_accion = _flag addAction ["<t>Take the Flag<t> <img image='\A3\ui_f\data\igui\cfg\actions\takeflag_ca.paa' size='1.8' shadow=2 />", {[_this select 0, _this select 1] call mrkWIN},nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4];
-		_flag setUserActionText [_accion,"Take the Flag","<t size='2'><img image='\A3\ui_f\data\igui\cfg\actions\takeflag_ca.paa'/></t>"];
+		_accion = _flag addAction ["<t>Capture the Flag<t> <img image='\A3\ui_f\data\igui\cfg\actions\takeflag_ca.paa' size='1.8' shadow=2 />", {[_this select 0, _this select 1] call mrkWIN},nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4];
+		_flag setUserActionText [_accion,"Capture the Flag","<t size='2'><img image='\A3\ui_f\data\igui\cfg\actions\takeflag_ca.paa'/></t>"];
 		};
 	case "unit": {_flag addAction ["Unit Recruitment", {nul=[] execVM "Dialogs\unit_recruit.sqf";;},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
 	case "vehicle": {_flag addAction ["Buy Vehicle", {nul = createDialog "vehicle_option";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
@@ -99,7 +99,7 @@ switch _tipo do
 		fuego addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == stavros)",4];
 		fuego addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == stavros)",4];
 		fuego addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this)",4];
-		fuego addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == stavros)",4];
+		fuego addAction ["Clear Fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == stavros)",4];
 		};
 	case "missionGiver": {_flag addAction ["<t>Mission Request</t> <img image='\A3\ui_f\data\igui\cfg\actions\talk_ca.paa' size='1.8' shadow=2 />", "Missions\missionGiver.sqf",nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};//textDefault = "<img image='\A3\ui_f\data\igui\cfg\actions\talk_ca.paa' size='1.8' shadow=2 />";
 	case "SDKFlag":

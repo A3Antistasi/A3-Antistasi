@@ -9,7 +9,7 @@ if (count _this == 0) exitWith
 	_puntosJ = (player getVariable "score") + 1;
 	player setVariable ["score",_puntosJ,true];
 	hint "You have donated 100 € to the cause. This will raise your status among our forces";
-	[] call statistics;
+	[] spawn statistics;
 	["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
 	};
 _target = cursortarget;
@@ -23,4 +23,4 @@ _dinero = _target getVariable "dinero";
 _target setVariable ["dinero",_dinero + 100, true];
 hint format ["You have donated 100 € to %1", name _target];
 [] remoteExec ["statistics",_target];
-[] call statistics;
+[] spawn statistics;

@@ -8,7 +8,7 @@ class EditorData
 	toggles=513;
 	class ItemIDProvider
 	{
-		nextID=605;
+		nextID=606;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=213;
+		nextID=272;
 	};
 	class Camera
 	{
-		pos[]={9191.5,229.93227,8712.8555};
-		dir[]={0.58299017,-0.51672423,0.62699538};
-		up[]={0.35185957,0.85614985,0.37841815};
-		aside[]={0.73233974,-8.486677e-008,-0.68094146};
+		pos[]={9190.5654,229.32072,8715.0693};
+		dir[]={0.63712049,-0.45977679,0.61862379};
+		up[]={0.3298673,0.88802987,0.32029015};
+		aside[]={0.69661868,-1.5746627e-007,-0.71744746};
 	};
 };
 binarizationWanted=0;
@@ -530,7 +530,6 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				init="this allowDamage false; cajaveh addAction [""Heal, Repair and Rearm"", ""healandrepair.sqf"",nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""]; cajaveh addAction [""Move this asset"", ""moveHQObject.sqf"",nil,0,false,true,"""",""(_this == stavros)""];";
 				name="cajaVeh";
 			};
 			id=5;
@@ -572,7 +571,6 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				init="this allowDamage false;mapa addAction [""Game Options"", {hint format [""Antistasi - %2\n\nVersion: %1"",antistasiVersion,worldName]; nul=CreateDialog ""game_options"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];mapa addAction [""Map Info"", {nul = [] execVM ""cityinfo.sqf"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];mapa addAction [""Move this asset"", ""moveHQObject.sqf"",nil,0,false,true,"""",""(_this == stavros)""]; if (isMultiplayer) then {mapa addAction [""AI Load Info"", ""[] remoteExec [""""AILoadInfo"""",2]"",nil,0,false,true,"""",""(_this == stavros)""]};";
 				name="mapa";
 			};
 			id=7;
@@ -598,7 +596,6 @@ class Mission
 					flags=7;
 					class Attributes
 					{
-						init="grupoPetros = group this; grupoPetros setGroupId [""Maru"",""GroupColor4""];this setIdentity ""amiguete""; petros setName ""Maru"";petros disableAI ""MOVE""; petros disableAI ""AUTOTARGET""; petros addAction [""Mission Request"", {nul=CreateDialog ""mission_menu"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];";
 						name="petros";
 					};
 					id=8;
@@ -606,6 +603,25 @@ class Mission
 					class CustomAttributes
 					{
 						class Attribute0
+						{
+							property="face";
+							expression="_this setface _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"STRING"
+										};
+									};
+									value="";
+								};
+							};
+						};
+						class Attribute1
 						{
 							property="pitch";
 							expression="_this setpitch _value;";
@@ -624,7 +640,7 @@ class Mission
 								};
 							};
 						};
-						nAttributes=1;
+						nAttributes=2;
 					};
 				};
 			};
@@ -868,7 +884,6 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="bandera addAction [""HQ Management"", {if (player == Stavros) then {nul=[] execVM ""Dialogs\dialogHQ.sqf"";} else {hint ""Only Commander has access to HQ Options""}},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (petros == leader group petros)""]; this allowDamage false; bandera addAction [""Unit Recruitment"", {nul=[] execVM ""Dialogs\unit_recruit.sqf"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];bandera addAction [""Buy Vehicle"", {nul = createDialog ""vehicle_option""},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""]; if (isMultiplayer) then {bandera addAction [""Personal Garage"", {nul = [true] spawn garage},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""]}; bandera addAction [""Move this asset"", ""moveHQObject.sqf"",nil,0,false,true,"""",""(_this == stavros)""];";
 				name="bandera";
 			};
 			id=175;
@@ -1304,13 +1319,12 @@ class Mission
 			class PositionInfo
 			{
 				position[]={9202.1182,220.80991,8728.042};
-				angles[]={6.261857,0,6.2219234};
+				angles[]={6.2618575,0,6.2219238};
 			};
 			side="Empty";
 			flags=4;
 			class Attributes
 			{
-				init="this allowDamage false; ";
 				name="caja";
 			};
 			id=4;
@@ -4135,7 +4149,6 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				init="this allowDamage false;fuego addAction [""Rest for 8 Hours"", ""skiptime.sqf"",nil,0,false,true,"""",""(isPlayer _this) and (side _this == buenos)""]; fuego addAction [""Clear Nearby Forest"", ""clearForest.sqf"",nil,0,false,true,"""",""(isPlayer _this) and (side _this == buenos)""]; fuego addAction [""On\Off Lamp"", ""onOffLamp.sqf"",nil,0,false,true,"""",""(isPlayer _this) and (side _this == buenos)""];  fuego addAction [""I hate the fog"", ""[10,0] remoteExec [""""setFog"""",2]"",nil,0,false,true,"""",""(_this == stavros)""];  ";
 				name="fuego";
 			};
 			id=528;

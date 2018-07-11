@@ -9,7 +9,7 @@ _roads = [];
 //_tipos = ["I_MRAP_03_F","I_MRAP_03_hmg_F","I_MRAP_03_gmg_F","I_Heli_light_03_unarmed_F","I_Boat_Armed_01_minigun_F"];
 _tipos = vehNATOLight + [vehNATOPatrolHeli,vehNATOBoat];
 
-_arrayAeropuertos = (puertos + aeropuertos + puestos) select {(getMarkerPos _x distance getMarkerPos "respawn_guerrila" < 3000) and ((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)};
+_arrayAeropuertos = (puertos + aeropuertos + puestos) select {(getMarkerPos _x distance getMarkerPos respawnBuenos < 3000) and ((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)};
 
 if (count _arrayAeropuertos == 0) exitWith {};
 

@@ -11,7 +11,7 @@ while {true} do
 	//sleep 600;//600
 	nextTick = time + 600;
 	waitUntil {sleep 15; time >= nextTick};
-	if (isMultiplayer) then {waitUntil {sleep 10; isPlayer stavros}};
+	if (isMultiplayer) then {waitUntil {sleep 10; isPlayer theBoss}};
 	_suppBoost = 1+ ({lados getVariable [_x,sideUnknown] == buenos} count puertos);
 	_recAddSDK = 25;//0
 	_hrAddBLUFOR = 0;//0
@@ -156,7 +156,7 @@ while {true} do
 	bombRuns = bombRuns + (({lados getVariable [_x,sideUnknown] == buenos} count aeropuertos) * 0.25);
 	[petros,"taxRep",_texto] remoteExec ["commsMP",[buenos,civilian]];
 	//[] remoteExec ["statistics",[buenos,civilian]];
-	if (isMultiplayer) then {[] spawn assignStavros};
+	if (isMultiplayer) then {[] spawn assigntheBoss};
 	if ((!bigAttackInProgress) and (random 100 < 50)) then {[] call missionRequestAUTO};
 	[[],"reinforcementsAI"] call scheduler;
 	{

@@ -237,7 +237,7 @@ fn_SetStat =
 				lados setVariable [_x,buenos,true];
 				};
 			} forEach controles;
-			"respawn_guerrila" setMarkerPos _varValue;
+			respawnBuenos setMarkerPos _varValue;
 			petros setPos _varvalue;
 			if (chopForest) then
 				{

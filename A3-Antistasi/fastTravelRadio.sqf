@@ -1,6 +1,6 @@
 private ["_roads","_pos","_posicion","_grupo"];
 
-_marcadores = marcadores + ["respawn_guerrila"];
+_marcadores = marcadores + [respawnBuenos];
 
 _esHC = false;
 

@@ -67,7 +67,7 @@ if (_dificil) then
 
 _posicion = getPosASL _banco;
 
-_posbase = getMarkerPos "respawn_guerrila";
+_posbase = getMarkerPos respawnBuenos;
 
 _tiempolim = if (_dificil) then {60} else {120};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
@@ -81,7 +81,7 @@ _mrkfin setMarkerShape "ICON";
 //_mrkfin setMarkerColor "ColorBlue";
 //_mrkfin setMarkerText "Bank";
 
-_pos = (getMarkerPos "respawn_guerrila") findEmptyPosition [1,50,"C_Van_01_box_F"];
+_pos = (getMarkerPos respawnBuenos) findEmptyPosition [1,50,"C_Van_01_box_F"];
 
 _camion = "C_Van_01_box_F" createVehicle _pos;
 {_x reveal _camion} forEach (allPlayers - (entities "HeadlessClient_F"));
@@ -127,7 +127,7 @@ if ((dateToNumber date > _fechalimnum) or (!alive _camion)) then
 	{
 	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call taskUpdate;
 	[-1800*_bonus] remoteExec ["timingCA",2];
-	[-10*_bonus,stavros] call playerScoreAdd;
+	[-10*_bonus,theBoss] call playerScoreAdd;
 	}
 else
 	{
@@ -181,7 +181,7 @@ if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) the
 	[10*_bonus,0] remoteExec ["prestige",2];
 	[1800*_bonus] remoteExec ["timingCA",2];
 	{if (_x distance _camion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-	[5*_bonus,stavros] call playerScoreAdd;
+	[5*_bonus,theBoss] call playerScoreAdd;
 	waitUntil {sleep 1; speed _camion == 0};
 
 	[_camion] call vaciar;
@@ -190,7 +190,7 @@ if (!alive _camion) then
 	{
 	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call taskUpdate;
 	[1800*_bonus] remoteExec ["timingCA",2];
-	[-10*_bonus,stavros] call playerScoreAdd;
+	[-10*_bonus,theBoss] call playerScoreAdd;
 	};
 
 

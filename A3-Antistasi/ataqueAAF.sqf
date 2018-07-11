@@ -6,17 +6,19 @@ _marcadores = [];
 _cuentaFacil = 0;
 
 _aeropuertos = aeropuertos select {([_x,false] call airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
+_objetivos = marcadores - controles - puestosFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedCities;
 if (tierWar < 2) then
 	{
-	_aeropuertos = _aeropuertos select {(lados getVariable [_x,sideUnknown] == malos)}
+	_aeropuertos = _aeropuertos select {(lados getVariable [_x,sideUnknown] == malos)};
+	_objetivos = _objetivos select {lados getVariable [_x,sideUnknown] == buenos};
 	}
 else
 	{
 	if ({lados getVariable [_x,sideUnknown] == malos} count _aeropuertos == 0) then {_aeropuertos pushBack "NATO_carrier"};
 	if ({lados getVariable [_x,sideUnknown] == muyMalos} count _aeropuertos == 0) then {_aeropuertos pushBack "CSAT_carrier"};
 	};
-_objetivos = marcadores - controles - puestosFIA - ["Synd_HQ"] - destroyedCities;
 if (tierWar < 3) then {_objetivos = _objetivos - ciudades};
+if (_objetivos isEqualTo []) exitWith {};
 _objetivosFinal = [];
 _basesFinal = [];
 _cuentasFinal = [];

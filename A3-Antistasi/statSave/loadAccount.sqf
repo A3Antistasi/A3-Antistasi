@@ -4,7 +4,7 @@ if !(isMultiplayer) then
 	waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
 	["loadoutPlayer"] call fn_LoadStat;
 	diag_log "Antistasi: SP Personal player stats loaded";
-	[] call statistics;
+	[] spawn statistics;
 	};
 
 if (isServer) then
@@ -151,7 +151,7 @@ if (isServer) then
 	["estaticas"] call fn_LoadStat;//tiene que ser el último para que el sleep del borrado del contenido no haga que despawneen
 
 
-	if (!isMultiPlayer) then {player setPos getMarkerPos "respawn_guerrila"} else {{_x setPos getMarkerPos "respawn_guerrila"} forEach (playableUnits select {side _x == buenos})};
+	if (!isMultiPlayer) then {player setPos getMarkerPos respawnBuenos} else {{_x setPos getMarkerPos respawnBuenos} forEach (playableUnits select {side _x == buenos})};
 	_sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 	tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in aeropuertos} count _sitios)))/10));
 	if (tierWar > 10) then {tierWar = 10};
@@ -175,7 +175,7 @@ if ((!isDedicated) and (isMultiplayer)) then
 		{
 		waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
 		["loadoutPlayer"] call fn_LoadStat;
-		//player setPos getMarkerPos "respawn_guerrila";
+		//player setPos getMarkerPos respawnBuenos;
 		if ([player] call isMember) then
 			{
 			["scorePlayer"] call fn_LoadStat;
@@ -184,6 +184,6 @@ if ((!isDedicated) and (isMultiplayer)) then
 		["dinero"] call fn_LoadStat;
 		["personalGarage"] call fn_LoadStat;
 		diag_log "Antistasi: MP Personal player stats loaded";
-		[] call statistics;
+		[] spawn statistics;
 		};
 	};

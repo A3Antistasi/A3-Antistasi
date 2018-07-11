@@ -1,6 +1,7 @@
 
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
+remoteBattle = compile preProcessFileLineNumbers "CREATE\remoteBattle.sqf";
 spawnMissionGiver = compile preProcessFileLineNumbers "Missions\spawnMissionGiver.sqf";
 hideInBuilding = compile preProcessFileLineNumbers "AI\hideInBuilding.sqf";
 doFlank = compile preProcessFileLineNumbers "AI\doFlank.sqf";
@@ -106,7 +107,7 @@ undercoverAI = compile preProcessFileLineNumbers "AI\undercoverAI.sqf";
 memberAdd = compile preProcessFileLineNumbers "OrgPlayers\memberAdd.sqf";
 membersList = compile preProcessFileLineNumbers "OrgPlayers\membersList.sqf";
 donateMoney = compile preProcessFileLineNumbers "OrgPlayers\donateMoney.sqf";
-stavrosSteal = compile preProcessFileLineNumbers "OrgPlayers\stavrosSteal.sqf";
+theBossSteal = compile preProcessFileLineNumbers "OrgPlayers\stavrosSteal.sqf";
 resourcesPlayer = compile preProcessFileLineNumbers "OrgPlayers\resourcesPlayer.sqf";
 numericRank = compile preProcessFileLineNumbers "numericRank.sqf";
 inconsciente = compile preProcessFileLineNumbers "Revive\inconsciente.sqf";
@@ -145,8 +146,8 @@ puestoDialog = compile preProcessFileLineNumbers "puestoDialog.sqf";
 mineDialog = compile preProcessFileLineNumbers "Dialogs\mineDialog.sqf";
 onPlayerDisconnect = compile preProcessFileLineNumbers "onPlayerDisconnect.sqf";
 playerScoreAdd = compile preProcessFileLineNumbers "orgPlayers\playerScoreAdd.sqf";
-assignStavros = compile preProcessFileLineNumbers "orgPlayers\assignStavros.sqf";
-stavrosInit = compile preProcessFileLineNumbers "orgPlayers\stavrosInit.sqf";
+assigntheBoss = compile preProcessFileLineNumbers "orgPlayers\assignStavros.sqf";
+theBossInit = compile preProcessFileLineNumbers "orgPlayers\stavrosInit.sqf";
 castigo = compile preProcessFileLineNumbers "castigo.sqf";
 createFIApuestos2 = compile preProcessFileLineNumbers "CREATE\createFIApuestos2.sqf";
 crearPuestosFIA = compile preProcessFileLineNumbers "crearPuestosFIA.sqf";

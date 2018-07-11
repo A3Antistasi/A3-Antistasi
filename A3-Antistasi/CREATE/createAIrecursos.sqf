@@ -85,32 +85,45 @@ _mrk setMarkerBrushLocal "DiagGrid";
 _ang = markerDir _marcador;
 _mrk setMarkerDirLocal _ang;
 if (!debug) then {_mrk setMarkerAlphaLocal 0};
-_cuenta = 0;
-
-while {(spawner getVariable _marcador != 2) and (_cuenta < 4)} do
+_garrison = garrison getVariable [_marcador,[]];
+_tam = count _garrison;
+private _patrol = true;
+if (_tam < ([_marcador] call garrisonSize)) then
 	{
-	_arrayGrupos = if (_lado == malos) then
+	_patrol = false;
+	}
+else
+	{
+	if ({if ((getMarkerPos _x inArea _mrk) and (lados getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count marcadores > 0) then {_patrol = false};
+	};
+if (_patrol) then
+	{
+	_cuenta = 0;
+	while {(spawner getVariable _marcador != 2) and (_cuenta < 4)} do
 		{
-		if (!_esFIA) then {gruposNATOsmall} else {gruposFIASmall};
-		}
-	else
-		{
-		gruposCSATsmall
-		};
-	if ([_marcador,false] call fogCheck < 0.3) then {_arrayGrupos = _arrayGrupos - sniperGroups};
-	_tipoGrupo = selectRandom _arrayGrupos;
-	_grupo = [_posicion,_lado, _tipoGrupo] call spawnGroup;
-	sleep 1;
-	if ((random 10 < 2.5) and (not(_tipogrupo in sniperGroups))) then
-		{
-		_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
-		[_perro] spawn guardDog;
+		_arrayGrupos = if (_lado == malos) then
+			{
+			if (!_esFIA) then {gruposNATOsmall} else {gruposFIASmall};
+			}
+		else
+			{
+			gruposCSATsmall
+			};
+		if ([_marcador,false] call fogCheck < 0.3) then {_arrayGrupos = _arrayGrupos - sniperGroups};
+		_tipoGrupo = selectRandom _arrayGrupos;
+		_grupo = [_posicion,_lado, _tipoGrupo] call spawnGroup;
 		sleep 1;
+		if ((random 10 < 2.5) and (not(_tipogrupo in sniperGroups))) then
+			{
+			_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
+			[_perro] spawn guardDog;
+			sleep 1;
+			};
+		_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "RANDOM","NOVEH2"] execVM "scripts\UPSMON.sqf";
+		_grupos pushBack _grupo;
+		{[_x,_marcador] call NATOinit; _soldados pushBack _x} forEach units _grupo;
+		_cuenta = _cuenta +1;
 		};
-	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "RANDOM","NOVEH2"] execVM "scripts\UPSMON.sqf";
-	_grupos pushBack _grupo;
-	{[_x,_marcador] call NATOinit; _soldados pushBack _x} forEach units _grupo;
-	_cuenta = _cuenta +1;
 	};
 
 _tipoVeh = if (_lado == malos) then {NATOFlag} else {CSATFlag};
@@ -170,8 +183,6 @@ if (count _pos > 0) then
 	sleep 1;
 	};
 
-_garrison = garrison getVariable [_marcador,[]];
-_tam = count _garrison;
 _array = [];
 _subArray = [];
 _cuenta = 0;

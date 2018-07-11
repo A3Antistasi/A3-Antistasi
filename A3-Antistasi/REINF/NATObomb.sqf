@@ -41,7 +41,7 @@ _ang = [_pos1,_pos2] call BIS_fnc_dirTo;
 
 bombRuns = bombRuns - 1;
 publicVariable "bombRuns";
-[] call statistics;
+[] spawn statistics;
 
 _mrkDest = createMarkerLocal [format ["BRFin%1",random 1000], _pos2];
 _mrkDest setMarkerShapeLocal "ICON";

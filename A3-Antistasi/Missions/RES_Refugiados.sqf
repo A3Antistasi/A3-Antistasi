@@ -198,43 +198,43 @@ _bonus = if (_dificil) then {2} else {1};
 
 if (_lado == malos) then
 	{
-	waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 50)} count _POWs > 0) or (dateToNumber date > _fechalimnum)};
-	if ({(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 50)} count _POWs > 0) then
+	waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos respawnBuenos < 50)} count _POWs > 0) or (dateToNumber date > _fechalimnum)};
+	if ({(alive _x) and (_x distance getMarkerPos respawnBuenos < 50)} count _POWs > 0) then
 		{
 		sleep 5;
 		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"SUCCEEDED","run"] call taskUpdate;
-		_cuenta = {(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 150)} count _POWs;
+		_cuenta = {(alive _x) and (_x distance getMarkerPos respawnBuenos < 150)} count _POWs;
 		_hr = _cuenta;
 		_resourcesFIA = 100 * _cuenta;
 		[_hr,_resourcesFIA*_bonus] remoteExec ["resourcesFIA",2];
 		[3,0] remoteExec ["prestige",2];
-		{if (_x distance getMarkerPos "respawn_guerrila" < 500) then {[_cuenta*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-		[round (_cuenta*_bonus/2),stavros] call playerScoreAdd;
+		{if (_x distance getMarkerPos respawnBuenos < 500) then {[_cuenta*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+		[round (_cuenta*_bonus/2),theBoss] call playerScoreAdd;
 		{[_x] join _grupoPOW; [_x] orderGetin false} forEach _POWs;
 		}
 	else
 		{
 		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"FAILED","run"] call taskUpdate;
-		[-10*_bonus,stavros] call playerScoreAdd;
+		[-10*_bonus,theBoss] call playerScoreAdd;
 		};
 	}
 else
 	{
-	waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 50)} count _POWs > 0)};
+	waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos respawnBuenos < 50)} count _POWs > 0)};
 	if ({alive _x} count _POWs == 0) then
 		{
 		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"FAILED","run"] call taskUpdate;
-		[-10*_bonus,stavros] call playerScoreAdd;
+		[-10*_bonus,theBoss] call playerScoreAdd;
 		}
 	else
 		{
 		["RES",[_texto,"Refugees Evac",_nombredest],_posTsk,"SUCCEEDED","run"] call taskUpdate;
-		_cuenta = {(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 150)} count _POWs;
+		_cuenta = {(alive _x) and (_x distance getMarkerPos respawnBuenos < 150)} count _POWs;
 		_hr = _cuenta;
 		_resourcesFIA = 100 * _cuenta;
 		[_hr,_resourcesFIA*_bonus] remoteExec ["resourcesFIA",2];
-		{if (_x distance getMarkerPos "respawn_guerrila" < 500) then {[_cuenta*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-		[round (_cuenta*_bonus/2),stavros] call playerScoreAdd;
+		{if (_x distance getMarkerPos respawnBuenos < 500) then {[_cuenta*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+		[round (_cuenta*_bonus/2),theBoss] call playerScoreAdd;
 		{[_x] join _grupoPOW; [_x] orderGetin false} forEach _POWs;
 		};
 	};
@@ -245,7 +245,7 @@ _municion = [];
 _armas = [];
 {
 _unit = _x;
-if (_unit distance getMarkerPos "respawn_guerrila" < 150) then
+if (_unit distance getMarkerPos respawnBuenos < 150) then
 	{
 	{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
 	{if (not(_x in unlockedMagazines)) then {_municion pushBack _x}} forEach magazines _unit;

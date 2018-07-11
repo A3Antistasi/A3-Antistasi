@@ -8,9 +8,9 @@ if (group petros != grupoPetros) then
 [petros,"remove"] remoteExec ["flagaction",0,petros];
 petros disableAI "MOVE";
 petros disableAI "AUTOTARGET";
-"respawn_guerrila" setMarkerPos getPos petros;
+respawnBuenos setMarkerPos getPos petros;
 "Synd_HQ" setMarkerPos getPos petros;
-posHQ = getMarkerPos "respawn_guerrila"; publicVariable "posHQ";
+posHQ = getMarkerPos respawnBuenos; publicVariable "posHQ";
 if (isMultiplayer) then
 	{
 	caja hideObjectGlobal false;
@@ -30,8 +30,8 @@ else
 	bandera hideObject false;
 	};
 //fuego inflame true;
-["respawn_guerrila",1] remoteExec ["setMarkerAlphaLocal",buenos,true];
-["respawn_guerrila",1] remoteExec ["setMarkerAlphaLocal",civilian,true];
+[respawnBuenos,1] remoteExec ["setMarkerAlphaLocal",buenos,true];
+[respawnBuenos,1] remoteExec ["setMarkerAlphaLocal",civilian,true];
 _pos = [getPos petros, 3, getDir petros] call BIS_Fnc_relPos;
 fuego setPos _pos;
 _rnd = getdir Petros;

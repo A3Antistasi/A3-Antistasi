@@ -4,7 +4,7 @@ _marcadores = _this select 0;
 
 _array = _marcadores - controles;
 
-_posHQ = getMarkerPos "respawn_guerrila";
+_posHQ = getMarkerPos respawnBuenos;
 
 for "_i" from 0 to (count _marcadores) - 1 do
 	{

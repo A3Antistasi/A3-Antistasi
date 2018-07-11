@@ -178,7 +178,7 @@ if ((not(_marcador in forcedSpawn)) and (_posicionTel distance (getMarkerPos _ma
 	};
 
 _texto = format ["Requesting fire support on Grid %1. %2 Rounds", mapGridPosition _posicionTel, round _rounds];
-[stavros,"sideChat",_texto] remoteExec ["commsMP",[buenos,civilian]];
+[theBoss,"sideChat",_texto] remoteExec ["commsMP",[buenos,civilian]];
 
 if (_tipoArty == "BARRAGE") then
 	{

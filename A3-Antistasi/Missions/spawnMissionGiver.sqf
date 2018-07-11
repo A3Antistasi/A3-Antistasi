@@ -1,4 +1,4 @@
-_posHQ = getMarkerPos "respawn_guerrila";
+_posHQ = getMarkerPos respawnBuenos;
 _ciudades = ciudades select {getMarkerPos _x distance _posHQ < distanciaMiss};
 if (count _ciudades == 0) exitWith {["",objNull]};
 _ciudad = selectRandom _ciudades;

@@ -1,3 +1,5 @@
+if (side petros == west) exitWith {call compile preProcessFileLineNumbers "Templates\malosVanillaAltisB.sqf"};
+
 NATOGrunt = "B_Soldier_F";
 NATOOfficer = "B_Officer_F";
 NATOOfficer2 = "B_G_officer_F";

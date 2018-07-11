@@ -3,11 +3,11 @@ _jugador = player getVariable ["owner",player];
 if (_jugador getVariable ["elegible",true]) then
 	{
 	_jugador setVariable ["elegible",false,true];
-	if (_jugador == stavros) then
+	if (_jugador == theBoss) then
 		{
 		hint "You resign of being Commander. Other will take the command if there is someone suitable for it.";
 		sleep 3;
-		[] remoteExec ["assignStavros",2];
+		[] remoteExec ["assigntheBoss",2];
 		}
 	else
 		{

@@ -5,7 +5,7 @@ _unit = _this select 0;
 _recursos = 0;
 _hr = 0;
 
-if (_unit == stavros) then
+if (_unit == theBoss) then
 	{
 	{
 	if (!(_x getVariable ["esNATO",false])) then
@@ -53,7 +53,7 @@ if (_unit == stavros) then
 	} forEach allGroups;
 	if (((count playableUnits > 0) and (!membershipEnabled)) or ({(getPlayerUID _x) in miembros} count playableUnits > 0)) then
 		{
-		[] spawn assignStavros;
+		[] spawn assigntheBoss;
 		};
 	if (group petros == group _unit) then {[] spawn buildHQ};
 	};

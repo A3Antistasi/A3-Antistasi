@@ -91,13 +91,13 @@ if (dateToNumber date > _fechalimnum) then
 		{
 		[10,0,_posicion] remoteExec ["citySupportChange",2];
 		[-1200] remoteExec ["timingCA",2];
-		[-20,stavros] call playerScoreAdd;
+		[-20,theBoss] call playerScoreAdd;
 		}
 	else
 		{
 		[5,0,_posicion] remoteExec ["citySupportChange",2];
 		[-600] remoteExec ["timingCA",2];
-		[-10,stavros] call playerScoreAdd;
+		[-10,theBoss] call playerScoreAdd;
 		};
 	}
 else
@@ -109,7 +109,7 @@ else
 		[0,10,_posicion] remoteExec ["citySupportChange",2];
 		[1200] remoteExec ["timingCA",2];
 		{if (isPlayer _x) then {[20,_x] call playerScoreAdd}} forEach ([500,0,_posicion,"GREENFORSpawn"] call distanceUnits);
-		[20,stavros] call playerScoreAdd;
+		[20,theBoss] call playerScoreAdd;
 		}
 	else
 		{
@@ -117,7 +117,7 @@ else
 		[0,5,_posicion] remoteExec ["citySupportChange",2];
 		[600] remoteExec ["timingCA",2];
 		{if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_posicion,"GREENFORSpawn"] call distanceUnits);
-		[10,stavros] call playerScoreAdd;
+		[10,theBoss] call playerScoreAdd;
 		};
 	if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[0,3] remoteExec ["prestige",2]};
 	["TaskFailed", ["", format ["SpecOp Team decimated at a %1",_nombredest]]] remoteExec ["BIS_fnc_showNotification",_lado];

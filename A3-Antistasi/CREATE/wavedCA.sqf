@@ -473,7 +473,7 @@ while {(_waves != 0)} do
 					deleteVehicle _x;
 					};
 				} forEach units _grupo;
-				if !(_veh isKindOf "Helicopter") then
+				if (!(_veh isKindOf "Helicopter") or (_mrkDestino in aeropuertos)) then
 					{
 					[_veh,_grupo,_mrkDestino,_mrkOrigen] spawn airdrop;
 					}
@@ -600,7 +600,6 @@ while {(_waves != 0)} do
 		_SDKShown = [true] call FIAradio;
 		if (_SDKShown) then
 			{
-			sleep 60;
 			["TaskSucceeded", ["", "Attack Destination Updated"]] remoteExec ["BIS_fnc_showNotification",buenos];
 			//["AtaqueAAF",getMarkerPos _mrkDestino] call BIS_fnc_taskSetDestination;
 			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED"] call taskUpdate;
@@ -610,6 +609,7 @@ while {(_waves != 0)} do
 	if (_solMax > 15) then {_waves = _waves -1};
 	_firstWave = false;
 	diag_log format ["Antistasi: Reached end of spawning attack, wave %1",_waves];
+	if (lados getVariable [_mrkDestino,sideUnknown] != buenos) then {_soldados spawn remoteBattle};
 	if (_lado == malos) then
 		{
 		waitUntil {sleep 5; (({!([_x] call canFight)} count _soldados) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestino,sideUnknown] == malos) or (({[_x,_mrkDestino] call canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestino] call canConquer)} count allUnits))};
@@ -691,12 +691,12 @@ if (_esSDK) then
 	{
 	if (!(lados getVariable [_mrkDestino,sideUnknown] == buenos)) then
 		{
-		[-10,stavros] call playerScoreAdd;
+		[-10,theBoss] call playerScoreAdd;
 		}
 	else
 		{
 		{if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_posdestino,"GREENFORSpawn"] call distanceUnits);
-		[5,stavros] call playerScoreAdd;
+		[5,theBoss] call playerScoreAdd;
 		};
 	};
 diag_log "Antistasi: Reached end of winning conditions. Starting despawn";

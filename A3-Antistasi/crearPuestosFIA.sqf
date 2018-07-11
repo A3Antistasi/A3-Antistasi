@@ -32,9 +32,9 @@ _formato = [];
 {
 if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
 } forEach _tipoGrupo;
-_grupo = [getMarkerPos "respawn_guerrila", buenos, _formato] call spawnGroup;
+_grupo = [getMarkerPos respawnBuenos, buenos, _formato] call spawnGroup;
 _grupo setGroupId ["Post"];
-_road = [getMarkerPos "respawn_guerrila"] call findNearestGoodRoad;
+_road = [getMarkerPos respawnBuenos] call findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 _camion = _tipoVeh createVehicle _pos;
 //_nul = [_grupo] spawn dismountFIA;
@@ -42,7 +42,7 @@ _grupo addVehicle _camion;
 {[_x] call FIAinit} forEach units _grupo;
 leader _grupo setBehaviour "SAFE";
 (units _grupo) orderGetIn true;
-Stavros hcSetGroup [_grupo];
+theBoss hcSetGroup [_grupo];
 
 waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) or (dateToNumber date > _fechalimnum)};
 
@@ -87,7 +87,7 @@ else
 	deleteMarker _mrk;
 	};
 
-stavros hcRemoveGroup _grupo;
+theBoss hcRemoveGroup _grupo;
 {deleteVehicle _x} forEach units _grupo;
 deleteVehicle _camion;
 deleteGroup _grupo;

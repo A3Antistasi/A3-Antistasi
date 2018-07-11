@@ -11,7 +11,7 @@ _tipo = typeOf _unit;
 _skill = skillFIA * 0.05 * skillMult;
 if (!activeGREF) then {if (not((uniform _unit) in uniformsSDK)) then {[_unit] call reDress}};
 
-if ((!isMultiplayer) and (leader _unit == stavros)) then {_skill = _skill + 0.1};
+if ((!isMultiplayer) and (leader _unit == theBoss)) then {_skill = _skill + 0.1};
 _unit setSkill _skill;
 if (_tipo in SDKSniper) then
 	{
@@ -90,7 +90,11 @@ else
 					{
 					if (_tipo in SDKMedic) then
 						{
-						_unit setUnitTrait ["medic",true]
+						_unit setUnitTrait ["medic",true];
+						if ({_x == "FirstAidKit"} count (items _unit) < 10) then
+							{
+							for "_i" from 1 to 10 do {_unit addItemToBackpack "FirstAidKit"};
+							};
 						}
 					else
 						{
@@ -225,7 +229,7 @@ if (player == leader _unit) then
 			if (("ItemRadio" in assignedItems _unit) and ([player] call hasRadio)) exitWith {_unit groupChat format ["This is %1, radiocheck OK",name _unit]};
 			if (unitReady _unit) then
 				{
-				if ((alive _unit) and (_unit distance (getMarkerPos "respawn_guerrila") > 50) and (_unit distance leader group _unit > 500) and ((vehicle _unit == _unit) or ((typeOf (vehicle _unit)) in arrayCivVeh))) then
+				if ((alive _unit) and (_unit distance (getMarkerPos respawnBuenos) > 50) and (_unit distance leader group _unit > 500) and ((vehicle _unit == _unit) or ((typeOf (vehicle _unit)) in arrayCivVeh))) then
 					{
 					hint format ["%1 lost communication, he will come back with you if possible", name _unit];
 					[_unit] join rezagados;
@@ -233,7 +237,7 @@ if (player == leader _unit) then
 					_unit doMove position player;
 					_tiempo = time + 900;
 					waitUntil {sleep 1;(!alive _unit) or (_unit distance player < 500) or (time > _tiempo)};
-					if ((_unit distance player >= 500) and (alive _unit)) then {_unit setPos (getMarkerPos "respawn_guerrila")};
+					if ((_unit distance player >= 500) and (alive _unit)) then {_unit setPos (getMarkerPos respawnBuenos)};
 					[_unit] join group player;
 					};
 				};

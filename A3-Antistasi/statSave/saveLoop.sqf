@@ -13,6 +13,9 @@ if (!isDedicated) then
 			{
 			["scorePlayer", player getVariable "score"] call fn_SaveStat;
 			["rankPlayer",rank player] call fn_SaveStat;
+			_personalGarage = [];
+			_personalGarage = _personalGarage + personalGarage;
+			["personalGarage",_personalGarage] call fn_SaveStat;
 			_resfondo = player getVariable "dinero";
 			{
 			_amigo = _x;
@@ -35,16 +38,13 @@ if (!isDedicated) then
 				};
 			} forEach units group player;
 			["dinero",_resfondo] call fn_SaveStat;
-			_personalGarage = [];
-			_personalGarage = _personalGarage + personalGarage;
-			["personalGarage",_personalGarage] call fn_SaveStat;
 			};
 		savingClient = false;
 		};
 	};
 
  if (!isServer) exitWith {};
- if (savingServer) exitWith {"Server data save is still in progress" remoteExecCall ["hint",stavros]};
+ if (savingServer) exitWith {"Server data save is still in progress" remoteExecCall ["hint",theBoss]};
  savingServer = true;
  private ["_garrison"];
 	["cuentaCA", cuentaCA] call fn_SaveStat;
@@ -54,7 +54,7 @@ if (!isDedicated) then
 	//["mrkNATO", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == malos}] call fn_SaveStat;
 	["mrkSDK", (marcadores - controles - puestosFIA) select {lados getVariable [_x,sideUnknown] == buenos}] call fn_SaveStat;
 	["mrkCSAT", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == muyMalos}] call fn_SaveStat;
-	["posHQ", getMarkerPos "respawn_guerrila"] call fn_Savestat;
+	["posHQ", getMarkerPos respawnBuenos] call fn_Savestat;
 	["prestigeNATO", prestigeNATO] call fn_SaveStat;
 	["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
 	["fecha", date] call fn_SaveStat;
@@ -73,10 +73,10 @@ if (!isDedicated) then
 	*/
 	["weather",[fogParams,rain]] call fn_SaveStat;
 	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
-	["firstLoad",false] call fn_SaveStat;
+	//["firstLoad",false] call fn_SaveStat;
 private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_municion","_items","_mochis","_contenedores","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_marcadores","_garrison","_arrayMrkMF","_arrayPuestosFIA","_pospuesto","_tipoMina","_posMina","_detectada","_tipos","_exists","_amigo"];
 
-_hrfondo = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["GREENFORSpawn",false]) and (group _x in (hcAllGroups stavros))} count allUnits);
+_hrfondo = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["GREENFORSpawn",false]) and (group _x in (hcAllGroups theBoss))} count allUnits);
 _resfondo = server getVariable "resourcesFIA";
 /*
 _armas = [];
@@ -91,7 +91,7 @@ if (_amigo getVariable ["GREENFORSpawn",false]) then
 	{
 	if ((alive _amigo) and (!isPlayer _amigo)) then
 		{
-		if ((isPlayer leader _amigo) or (group _amigo in (hcAllGroups stavros)) and (not((group _amigo) getVariable ["esNATO",false]))) then
+		if (((isPlayer leader _amigo) and (!isMultiplayer)) or (group _amigo in (hcAllGroups theBoss)) and (not((group _amigo) getVariable ["esNATO",false]))) then
 			{
 			_precio = server getVariable [(typeOf _amigo),0];
 			_mochi = backpack _amigo;
@@ -113,7 +113,7 @@ if (_amigo getVariable ["GREENFORSpawn",false]) then
 					{
 					if ((_veh isKindOf "StaticWeapon") or (driver _veh == _amigo)) then
 						{
-						if ((group _amigo in (hcAllGroups stavros)) or (!isMultiplayer)) then
+						if ((group _amigo in (hcAllGroups theBoss)) or (!isMultiplayer)) then
 							{
 							_resfondo = _resfondo + ([_tipoVeh] call vehiclePrice);
 							if (count attachedObjects _veh != 0) then {{_resfondo = _resfondo + ([typeOf _x] call vehiclePrice)} forEach attachedObjects _veh};
@@ -130,55 +130,12 @@ if (_amigo getVariable ["GREENFORSpawn",false]) then
 ["resourcesFIA", _resfondo] call fn_SaveStat;
 ["hr", _hrfondo] call fn_SaveStat;
 ["vehInGarage", _vehInGarage] call fn_SaveStat;
-/*
-if (count backpackCargo caja > 0) then
-	{
-	{
-	_mochis pushBack (_x call BIS_fnc_basicBackpack);
-	} forEach backPackCargo caja;
-	};
-_contenedores = everyBackpack caja;
-if (count _contenedores > 0) then
-	{
-	for "_i" from 0 to (count _contenedores - 1) do
-		{
-		_armas = _armas + weaponCargo (_contenedores select _i);
-		_municion = _municion + magazineCargo (_contenedores select _i);
-		_items = _items + itemCargo (_contenedores select _i);
-		};
-	};
 
-if (isMultiplayer) then
-	{
-	{
-	{if !([_x] call BIS_fnc_baseWeapon in unlockedWeapons) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _x;
-	_municion = _municion + magazines _x + [currentMagazine _x];
-	_items = _items + ((items _x) + (primaryWeaponItems _x)+ (assignedItems _x));
-	_mochi = (backpack _x) call BIS_fnc_basicBackpack;
-	if ((not(_mochi in unlockedBackpacks)) and (_mochi != "")) then
-		{
-		_mochis pushBack _mochi;
-		};
-	} forEach playableUnits;
-	}
-else
-	{
-	{if !([_x] call BIS_fnc_baseWeapon in unlockedWeapons) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons player;
-	_municion = _municion + magazines player + [currentMagazine player];
-	_items = _items + ((items player) + (primaryWeaponItems player)+ (assignedItems player));
-	_mochi = (backpack player) call BIS_fnc_basicBackpack;
-	if ((not(_mochi in unlockedBackpacks)) and (_mochi != "")) then
-		{
-		_mochis pushBack _mochi;
-		};
-	//_mochis pushBack ((backpack player) call BIS_fnc_basicBackpack);
-	};
-*/
 _arrayEst = [];
 {
 _veh = _x;
 _tipoVeh = typeOf _veh;
-if ((_veh distance getMarkerPos "respawn_guerrila" < 50) and !(_veh in staticsToSave) and !(_tipoVeh in ["ACE_SandbagObject","Land_PaperBox_01_open_boxes_F","Land_PaperBox_01_open_empty_F"])) then
+if ((_veh distance getMarkerPos respawnBuenos < 50) and !(_veh in staticsToSave) and !(_tipoVeh in ["ACE_SandbagObject","Land_PaperBox_01_open_boxes_F","Land_PaperBox_01_open_empty_F"])) then
 	{
 	if (((not (_veh isKindOf "StaticWeapon")) and (not (_veh isKindOf "ReammoBox")) and (not (_veh isKindOf "FlagCarrier")) and (not(_veh isKindOf "Building"))) and (not (_tipoVeh == "C_Van_01_box_F")) and (count attachedObjects _veh == 0) and (alive _veh) and ({(alive _x) and (!isPlayer _x)} count crew _veh == 0) and (not(_tipoVeh == "WeaponHolderSimulated"))) then
 		{
@@ -194,11 +151,14 @@ _sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 _posicion = position _x;
 if ((alive _x) and !(surfaceIsWater _posicion) and (isTouchingGround _x) and !(isNull _x)) then
 	{
+	_arrayEst pushBack [typeOf _x,getPos _x,getDir _x];
+	/*
 	_cercano = [_sitios,_posicion] call BIS_fnc_nearestPosition;
 	if (_posicion inArea _cercano) then
 		{
 		_arrayEst pushBack [typeOf _x,getPos _x,getDir _x]
 		};
+	*/
 	};
 } forEach staticsToSave;
 

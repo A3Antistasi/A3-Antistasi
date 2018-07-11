@@ -1,7 +1,7 @@
 
-if (player != Stavros) exitWith {hint "Only Commander Stavros has access to this function"};
+if (player != theBoss) exitWith {hint "Only our Commander has access to this function"};
 //if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
-if (markerAlpha "respawn_guerrila" == 0) exitWith {hint "You cant recruit a new squad while you are moving your HQ"};
+if (markerAlpha respawnBuenos == 0) exitWith {hint "You cant recruit a new squad while you are moving your HQ"};
 if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
 _chequeo = false;
 {
@@ -76,13 +76,13 @@ if (_exit) exitWith {};
 
 _nul = [- _costeHR, - _coste] remoteExec ["resourcesFIA",2];
 
-_pos = getMarkerPos "respawn_guerrila";
+_pos = getMarkerPos respawnBuenos;
 
 _road = [_pos] call findNearestGoodRoad;
 
 if (_esinf) then
 	{
-	_pos = [(getMarkerPos "respawn_guerrila"), 30, random 360] call BIS_Fnc_relPos;
+	_pos = [(getMarkerPos respawnBuenos), 30, random 360] call BIS_Fnc_relPos;
 	if (_tipoGrupo isEqualType []) then
 		{
 		_grupo = [_pos, buenos, _formato,true] call spawnGroup;
@@ -138,7 +138,7 @@ else
 
 {[_x] call FIAinit} forEach units _grupo;
 //leader _grupo setBehaviour "SAFE";
-Stavros hcSetGroup [_grupo];
+theBoss hcSetGroup [_grupo];
 petros directSay "SentGenReinforcementsArrived";
 hint format ["Group %1 at your command.\n\nGroups are managed from the High Command bar (Default: CTRL+SPACE)\n\nIf the group gets stuck, use the AI Control feature to make them start moving. Mounted Static teams tend to get stuck (solving this is WiP)\n\nTo assign a vehicle for this group, look at some vehicle, and use Vehicle Squad Mngmt option in Y menu", groupID _grupo];
 

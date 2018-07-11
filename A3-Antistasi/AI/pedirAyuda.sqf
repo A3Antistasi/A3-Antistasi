@@ -2,7 +2,7 @@ private ["_unit","_distancia","_hayMedico","_medico","_units","_ayudando","_pidi
 _unit = _this select 0;
 _ayudado = _unit getVariable ["ayudado",objNull];
 if (!isNull _ayudado) exitWith {};
-
+//if (!(isMultiplayer) and (isPlayer _unit) and (_unit getVariable ["INCAPACITATED",false])) then {_unit setVariable ["INCAPACITATED",false]};
 _enemy = _unit findNearestEnemy _unit;
 _distancia = 81;
 _medico = objNull;

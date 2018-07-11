@@ -129,7 +129,7 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 		{
 		["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED","rearm"] call taskUpdate;
 		[-1200*_bonus] remoteExec ["timingCA",2];
-		[-10*_bonus,stavros] call playerScoreAdd;
+		[-10*_bonus,theBoss] call playerScoreAdd;
 		};
 	if ((not alive _camion) or ({_x getVariable ["GREENFORSpawn",false]} count crew _camion > 0)) then
 		{
@@ -142,14 +142,14 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 		[0,300*_bonus] remoteExec ["resourcesFIA",2];
 		[1200*_bonus] remoteExec ["timingCA",2];
 		{if (_x distance _camion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-		[5*_bonus,stavros] call playerScoreAdd;
+		[5*_bonus,theBoss] call playerScoreAdd;
 		};
 	}
 else
 	{
 	["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED","rearm"] call taskUpdate;
 	[-1200*_bonus] remoteExec ["timingCA",2];
-	[-10*_bonus,stavros] call playerScoreAdd;
+	[-10*_bonus,theBoss] call playerScoreAdd;
 	};
 
 _nul = [1200,"LOG"] spawn borrarTask;

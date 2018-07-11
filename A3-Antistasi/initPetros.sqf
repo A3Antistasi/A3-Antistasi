@@ -59,17 +59,17 @@ petros addMPEventHandler ["mpkilled",
                 _hrT = server getVariable "hr";
                 _resourcesFIAT = server getVariable "resourcesFIA";
                 [-1*(round(_hrT*0.9)),-1*(round(_resourcesFIAT*0.9))] remoteExec ["resourcesFIA",2];
-                waitUntil {sleep 6; isPlayer stavros};
-                [] remoteExec ["placementSelection",stavros];
+                waitUntil {sleep 6; isPlayer theBoss};
+                [] remoteExec ["placementSelection",theBoss];
                };
-            if (!isPlayer stavros) then
+            if (!isPlayer theBoss) then
                 {
                 {["petrosDead",false,1,false,false] remoteExec ["BIS_fnc_endMission",_x]} forEach (playableUnits select {(side _x != buenos) and (side _x != civilian)})
                 }
             else
                 {
                 {
-                if (side _x == malos) then {_x setPos (getMarkerPos "respawn_west")};
+                if (side _x == malos) then {_x setPos (getMarkerPos respawnMalos)};
                 } forEach playableUnits;
                 };
             }

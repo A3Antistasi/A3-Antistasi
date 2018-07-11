@@ -302,7 +302,7 @@ if (_tipo == "RB") then
 
 while {alive _veh} do
 	{
-	if ((not([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits)) and (_veh distance getMarkerPos "respawn_guerrila" > 100)) then
+	if ((not([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits)) and (_veh distance getMarkerPos respawnBuenos > 100)) then
 		{
 		deleteVehicle _veh
 		};

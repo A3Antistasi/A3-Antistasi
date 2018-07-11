@@ -122,7 +122,7 @@ if (not alive _oficial) then
 		[0,600] remoteExec ["resourcesFIA",2];
 		[2400] remoteExec ["timingCA",2];
 		{if (isPlayer _x) then {[20,_x] call playerScoreAdd}} forEach ([500,0,_posicion,"GREENFORSpawn"] call distanceUnits);
-		[10,stavros] call playerScoreAdd;
+		[10,theBoss] call playerScoreAdd;
 		[_marcador,60] call addTimeForIdle;
 		}
 	else
@@ -130,7 +130,7 @@ if (not alive _oficial) then
 		[0,300] remoteExec ["resourcesFIA",2];
 		[1800] remoteExec ["timingCA",2];
 		{if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_posicion,"GREENFORSpawn"] call distanceUnits);
-		[5,stavros] call playerScoreAdd;
+		[5,theBoss] call playerScoreAdd;
 		[_marcador,30] call addTimeForIdle;
 		};
 	["TaskFailed", ["", format ["Officer killed at %1",[_nombreDest, false] call fn_location]]] remoteExec ["BIS_fnc_showNotification",_lado];
@@ -142,13 +142,13 @@ else
 	if (_dificil) then
 		{
 		[-1200] remoteExec ["timingCA",2];
-		[-20,stavros] call playerScoreAdd;
+		[-20,theBoss] call playerScoreAdd;
 		[_marcador,-60] call addTimeForIdle;
 		}
 	else
 		{
 		[-600] remoteExec ["timingCA",2];
-		[-10,stavros] call playerScoreAdd;
+		[-10,theBoss] call playerScoreAdd;
 		[_marcador,-30] call addTimeForIdle;
 		};
 	};

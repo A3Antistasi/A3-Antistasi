@@ -34,7 +34,7 @@ if (round random 100 < _chance) then
 	_unit enableAI "MOVE";
 	_unit stop false;
 	[_unit,""] remoteExec ["switchMove"];
-	_unit doMove (getMarkerPos "respawn_west");
+	_unit doMove (getMarkerPos respawnMalos);
 	if (_unit getVariable ["OPFORSpawn",false]) then {_unit setVariable ["OPFORSpawn",nil,true]};
 	if (_unit getVariable ["BLUFORSpawn",false]) then {_unit setVariable ["BLUFORSpawn",nil,true]};
 	sleep 100;

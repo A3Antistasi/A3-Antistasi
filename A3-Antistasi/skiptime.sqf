@@ -1,4 +1,4 @@
-if (player!= Stavros) exitWith {hint "Only the Commander can order to rest"};
+if (player!= theBoss) exitWith {hint "Only the Commander can order to rest"};
 _presente = false;
 
 {
@@ -12,7 +12,7 @@ if (["AtaqueAAF"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while
 if (["DEF_HQ"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while your HQ is under attack"};
 
 _chequeo = false;
-_posHQ = getMarkerPos "respawn_guerrila";
+_posHQ = getMarkerPos respawnBuenos;
 {
 if ((_x distance _posHQ > 100) and (side _x == buenos)) then {_chequeo = true};
 } forEach (allPlayers - (entities "HeadlessClient_F"));

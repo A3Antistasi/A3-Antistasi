@@ -18,7 +18,7 @@ _cercano = [marcadores,_posicionTel] call BIS_fnc_nearestPosition;
 
 if !(_posicionTel inArea _cercano) exitWith {hint "You must click near a marked zone"};
 
-if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint "That zone does not belong to Syndikat"};
+if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameBuenos]};
 
 if ((_cercano in puestosFIA) and !(isOnRoad getMarkerPos _cercano)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
 
@@ -59,7 +59,7 @@ if (isNull _grupo) then
 else
 	{
 	hint format ["Adding %1 squad to garrison", groupID _grupo];
-	stavros hcRemoveGroup _grupo;
+	theBoss hcRemoveGroup _grupo;
 	};
 /*
 _garrison = [];
@@ -157,7 +157,7 @@ else
 			}];
 		};
 	} forEach _unidades;
-	Stavros hcSetGroup [_grupo];
+	theBoss hcSetGroup [_grupo];
 	hint format ["Group %1 is back to HC control because the zone which was pointed to garrison has been lost",groupID _grupo];
 	};
 

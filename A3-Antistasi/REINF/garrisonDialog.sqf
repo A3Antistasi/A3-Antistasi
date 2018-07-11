@@ -21,7 +21,7 @@ _posicion = getMarkerPos _cercano;
 
 if (getMarkerPos _cercano distance _posicionTel > 40) exitWith {hint "You must click near a marked zone"; _nul=CreateDialog "build_menu";};
 
-if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint "That zone does not belong to Syndikat"; _nul=CreateDialog "build_menu";};
+if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameBuenos]; _nul=CreateDialog "build_menu";};
 
 //if (((_cercano in puestosFIA) and !(isOnRoad _posicion)) /*or (_cercano in ciudades)*/ or (_cercano in controles)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
 _puestoFIA = if (_cercano in puestosFIA) then {true} else {false};
@@ -43,7 +43,7 @@ if (_tipo == "rem") then
 		{
 		if (_x == staticCrewBuenos) then {if (_puestoFIA) then {_coste = _coste + ([vehSDKLightArmed] call vehiclePrice)} else {_coste = _coste + ([SDKMortar] call vehiclePrice)}};
 		_hr = _hr + 1;
-		_coste = _coste + (server getVariable _x);
+		_coste = _coste + (server getVariable [_x,0]);
 		} forEach _garrison;
 		[_hr,_coste] remoteExec ["resourcesFIA",2];
 		if (_puestoFIA) then

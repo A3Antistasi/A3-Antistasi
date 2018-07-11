@@ -1,5 +1,5 @@
-private ["_jugadores","_jugador","_mrk","_veh"];
-
+private ["_jugadores","_jugador","_mrk","_veh","_lado"];
+_lado = side group player;
 while {true} do
 	{
 	waitUntil {sleep 0.5; (visibleMap or visibleGPS) and ([player] call hasRadio)};
@@ -9,7 +9,7 @@ while {true} do
 		{
 		{
 		_jugador = _x getVariable ["owner",_x];
-		if ((not(_jugador in _jugadores)) /*and (player != _jugador)*/ and ((side _jugador == buenos) or (side _jugador == civilian))) then
+		if ((not(_jugador in _jugadores)) and ((side group _jugador == _lado))) then
 			{
 			_jugadores pushBack _jugador;
 			_mrk = createMarkerLocal [format ["%1",_jugador],position _jugador];

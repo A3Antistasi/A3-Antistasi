@@ -55,7 +55,7 @@ switch _tipo do
 			[_flag] call jn_fnc_logistics_addActionLoad;
 			};
 		};
-	case "moveS": {_flag addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == stavros)"]};
+	case "moveS": {_flag addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"]};
 	case "remove":
 		{
 		if (player == _flag) then
@@ -96,10 +96,10 @@ switch _tipo do
 		};
 	case "fuego":
 		{
-		fuego addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == stavros)",4];
-		fuego addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == stavros)",4];
+		fuego addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)",4];
+		fuego addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","(_this == theBoss)",4];
 		fuego addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this)",4];
-		fuego addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == stavros)",4];
+		fuego addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)",4];
 		};
 	case "missionGiver": {_flag addAction ["<t>Mission Request</t> <img image='\A3\ui_f\data\igui\cfg\actions\talk_ca.paa' size='1.8' shadow=2 />", "Missions\missionGiver.sqf",nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};//textDefault = "<img image='\A3\ui_f\data\igui\cfg\actions\talk_ca.paa' size='1.8' shadow=2 />";
 	case "SDKFlag":

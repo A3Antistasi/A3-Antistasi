@@ -59,7 +59,7 @@ if ((_player distance getMarkerPos _base < _size*2) and (not(lados getVariable [
 
 [_player,true] remoteExec ["setCaptive",0,_player];
 _player setCaptive true;
-[] call statistics;
+[] spawn statistics;
 if (_player == leader group _player) then
 	{
 	{if ((!isplayer _x) and (local _x) and (_x getVariable ["owner",_x] == _player)) then {[_x] spawn undercoverAI}} forEach units group _player;
@@ -175,7 +175,7 @@ if (vehicle _player != _player) then
 	};
 
 ["Undercover OFF",0,0,4,0,0,4] spawn bis_fnc_dynamicText;
-[] call statistics;
+[] spawn statistics;
 switch _cambiar do
 	{
 	case "Reported":

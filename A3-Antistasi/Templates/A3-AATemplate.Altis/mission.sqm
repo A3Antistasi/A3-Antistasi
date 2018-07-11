@@ -1398,18 +1398,16 @@ class Mission
 			class PositionInfo
 			{
 				position[]={3611.6396,16.176582,10280.448};
-				angles[]={6.2725158,0,6.2392135};
+				angles[]={6.2725215,0,6.2392201};
 			};
 			side="Empty";
 			flags=4;
 			class Attributes
 			{
-				init="this allowDamage false; cajaveh addAction [""Heal, Repair and Rearm"", ""healandrepair.sqf"",nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""]; cajaveh addAction [""Move this asset"", ""moveHQObject.sqf"",nil,0,false,true,"""",""(_this == stavros)""];";
 				name="cajaVeh";
 			};
 			id=935;
 			type="Box_East_AmmoVeh_F";
-			atlOffset=-9.5367432e-007;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1562,18 +1560,16 @@ class Mission
 			class PositionInfo
 			{
 				position[]={3610.7017,16.36245,10275.696};
-				angles[]={0.014664836,0,6.213963};
+				angles[]={0.014660765,0,6.2139654};
 			};
 			side="Empty";
 			flags=4;
 			class Attributes
 			{
-				init="this allowDamage false; ";
 				name="caja";
 			};
 			id=950;
 			type="IG_supplyCrate_F";
-			atlOffset=-9.5367432e-007;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1604,13 +1600,12 @@ class Mission
 			class PositionInfo
 			{
 				position[]={3607.2632,15.774852,10278.971};
-				angles[]={0.014664836,0,6.2232571};
+				angles[]={0.014660765,0,6.2232509};
 			};
 			side="Empty";
 			flags=4;
 			class Attributes
 			{
-				init="this allowDamage false;fuego addAction [""Rest for 8 Hours"", ""skiptime.sqf"",nil,0,false,true,"""",""(isPlayer _this) and (side _this == buenos)""]; fuego addAction [""Clear Nearby Forest"", ""clearForest.sqf"",nil,0,false,true,"""",""(isPlayer _this) and (side _this == buenos)""]; fuego addAction [""On\Off Lamp"", ""onOffLamp.sqf"",nil,0,false,true,"""",""(isPlayer _this) and (side _this == buenos)""];  fuego addAction [""I hate the fog"", ""[10,0] remoteExec [""""setFog"""",2]"",nil,0,false,true,"""",""(_this == stavros)""];  ";
 				name="fuego";
 			};
 			id=1009;
@@ -1728,13 +1723,12 @@ class Mission
 					class PositionInfo
 					{
 						position[]={3601.614,15.950262,10279.248};
-						angles[]={6.272521,2.1016905,6.2485328};
+						angles[]={6.2725215,2.1016905,6.2485409};
 					};
 					side="Independent";
 					flags=6;
 					class Attributes
 					{
-						init="grupoPetros = group this; grupoPetros setGroupId [""Petros"",""GroupColor4""];this setIdentity ""amiguete""; petros setName ""Petros"";petros disableAI ""MOVE""; petros disableAI ""AUTOTARGET""; petros addAction [""Mission Request"", {nul=CreateDialog ""mission_menu"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];";
 						name="petros";
 					};
 					id=1182;
@@ -3791,14 +3785,13 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={3604.6184,16.735775,10282.353};
-				angles[]={0.014664836,0,6.2232571};
+				position[]={3604.6182,16.735788,10282.353};
+				angles[]={0.014660765,0,6.2232509};
 			};
 			side="Empty";
 			flags=4;
 			class Attributes
 			{
-				init="this allowDamage false;mapa addAction [""Game Options"", {hint format [""Antistasi - %2\n\nVersion: %1"",antistasiVersion,worldName]; nul=CreateDialog ""game_options"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];mapa addAction [""Map Info"", {nul = [] execVM ""cityinfo.sqf"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];mapa addAction [""Move this asset"", ""moveHQObject.sqf"",nil,0,false,true,"""",""(_this == stavros)""]; if (isMultiplayer) then {mapa addAction [""AI Load Info"", ""[] remoteExec [""""AILoadInfo"""",2]"",nil,0,false,true,"""",""(_this == stavros)""]};";
 				name="mapa";
 			};
 			id=1098;
@@ -5619,18 +5612,16 @@ class Mission
 			class PositionInfo
 			{
 				position[]={3608.8811,19.602364,10284.22};
-				angles[]={6.2272439,0,6.2392135};
+				angles[]={6.2272477,0,6.2392201};
 			};
 			side="Empty";
 			flags=4;
 			class Attributes
 			{
-				init="bandera addAction [""HQ Management"", {if (player == Stavros) then {nul=[] execVM ""Dialogs\dialogHQ.sqf"";} else {hint ""Only Commander has access to HQ Options""}},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (petros == leader group petros)""]; this allowDamage false; bandera addAction [""Unit Recruitment"", {nul=[] execVM ""Dialogs\unit_recruit.sqf"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""];bandera addAction [""Buy Vehicle"", {nul = createDialog ""vehicle_option""},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""]; if (isMultiplayer) then {bandera addAction [""Personal Garage"", {nul = [true] spawn garage},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side _this == buenos)""]}; bandera addAction [""Move this asset"", ""moveHQObject.sqf"",nil,0,false,true,"""",""(_this == stavros)""];";
 				name="bandera";
 			};
 			id=1370;
 			type="Flag_Altis_F";
-			atlOffset=9.5367432e-007;
 		};
 		class Item274
 		{
@@ -7036,7 +7027,7 @@ class Mission
 			position[]={10027.582,17.59524,12814.658};
 			name="road";
 			type="hd_arrow";
-			angle=227.50801;
+			angle=227.508;
 			id=1440;
 		};
 		class Item290
@@ -7045,7 +7036,7 @@ class Mission
 			position[]={8780.8975,35.592316,12043.754};
 			name="road_1";
 			type="hd_arrow";
-			angle=223.50822;
+			angle=223.50819;
 			id=1441;
 		};
 		class Item291
@@ -7054,7 +7045,7 @@ class Mission
 			position[]={7336.4771,16.04541,11418.288};
 			name="road_2";
 			type="hd_arrow";
-			angle=13.069024;
+			angle=13.069022;
 			id=1442;
 			atlOffset=3.2962132;
 		};
@@ -7085,7 +7076,7 @@ class Mission
 			type="hd_arrow";
 			angle=41.155243;
 			id=1443;
-			atlOffset=43.662895;
+			atlOffset=43.66288;
 		};
 		class Item295
 		{
@@ -7102,7 +7093,7 @@ class Mission
 			position[]={13483.127,15.282019,16028.804};
 			name="road_7";
 			type="hd_arrow";
-			angle=254.67216;
+			angle=254.67212;
 			id=1448;
 		};
 		class Item297
@@ -7111,7 +7102,7 @@ class Mission
 			position[]={12479.82,32.146729,15886.568};
 			name="road_8";
 			type="hd_arrow";
-			angle=263.33405;
+			angle=263.33398;
 			id=1450;
 			atlOffset=12.854931;
 		};
@@ -7139,7 +7130,7 @@ class Mission
 			position[]={14772.154,14.778986,17175.191};
 			name="road_11";
 			type="hd_arrow";
-			angle=53.227001;
+			angle=53.226994;
 			id=1453;
 		};
 		class Item301
@@ -7148,7 +7139,7 @@ class Mission
 			position[]={16953.045,16.280811,17813.107};
 			name="road_12";
 			type="hd_arrow";
-			angle=64.545631;
+			angle=64.545616;
 			id=1454;
 		};
 		class Item302
@@ -7184,7 +7175,7 @@ class Mission
 			position[]={9380.7666,47.546509,21152.375};
 			name="road_16";
 			type="hd_arrow";
-			angle=155.22456;
+			angle=155.22453;
 			id=1458;
 		};
 		class Item306
@@ -7238,7 +7229,7 @@ class Mission
 			position[]={21951.461,14.131549,7363.1597};
 			name="road_22";
 			type="hd_arrow";
-			angle=128.61186;
+			angle=128.61185;
 			id=1465;
 		};
 		class Item312
@@ -7247,7 +7238,7 @@ class Mission
 			position[]={21274.943,15.456692,8186.6035};
 			name="road_23";
 			type="hd_arrow";
-			angle=317.16464;
+			angle=317.16461;
 			id=1466;
 		};
 		class Item313
@@ -7265,7 +7256,7 @@ class Mission
 			position[]={20573.68,19.865625,10695.808};
 			name="road_25";
 			type="hd_arrow";
-			angle=354.21686;
+			angle=354.21683;
 			id=1468;
 		};
 		class Item315
@@ -7283,7 +7274,7 @@ class Mission
 			position[]={21706.1,22.576994,17678.889};
 			name="road_27";
 			type="hd_arrow";
-			angle=213.27005;
+			angle=213.27002;
 			id=1470;
 		};
 		class Item317
@@ -7301,7 +7292,7 @@ class Mission
 			position[]={20651.492,34.118702,18726.168};
 			name="road_29";
 			type="hd_arrow";
-			angle=353.88342;
+			angle=353.88336;
 			id=1472;
 		};
 		class Item319
@@ -7364,7 +7355,7 @@ class Mission
 			position[]={25174.367,14.661154,20623.25};
 			name="road_36";
 			type="hd_arrow";
-			angle=127.6943;
+			angle=127.69429;
 			id=1479;
 		};
 		class Item326
@@ -7391,7 +7382,7 @@ class Mission
 			position[]={26280.432,40.25845,21788.68};
 			name="road_39";
 			type="hd_arrow";
-			angle=52.545044;
+			angle=52.545036;
 			id=1482;
 		};
 		class Item329
@@ -7400,7 +7391,7 @@ class Mission
 			position[]={26493.066,20.179955,21324.83};
 			name="road_40";
 			type="hd_arrow";
-			angle=113.11633;
+			angle=113.11632;
 			id=1483;
 		};
 		class Item330
@@ -7411,6 +7402,7 @@ class Mission
 			type="hd_arrow";
 			angle=227.508;
 			id=1484;
+			atlOffset=9.5367432e-007;
 		};
 		class Item331
 		{

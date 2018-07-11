@@ -1,15 +1,18 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_roadscon","_veh","_roads","_conquistado","_dirVeh","_marcador","_posicion","_vehiculos","_soldados","_tam","_bunker","_grupoE","_unit","_tipogrupo","_grupo","_tiempolim","_fechalim","_fechalimnum","_base","_perro","_lado","_cfg","_esFIA","_salir","_esControl","_tam","_tipoVeh","_tipoUnit","_marcadores","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_tiempolim","_fechalim","_fechalimNum","_size","_base","_mina","_loser"];
+private ["_pos","_roadscon","_veh","_roads","_conquistado","_dirVeh","_marcador","_posicion","_vehiculos","_soldados","_tam","_bunker","_grupoE","_unit","_tipogrupo","_grupo","_tiempolim","_fechalim","_fechalimnum","_base","_perro","_lado","_cfg","_esFIA","_salir","_esControl","_tam","_tipoVeh","_tipoUnit","_marcadores","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_tiempolim","_fechalim","_fechalimNum","_size","_base","_mina","_loser","_lado"];
 
 _marcador = _this select 0;
-if (lados getVariable [_marcador,sideUnknown] == buenos) exitWith {};
-if ((!(lados getVariable [_marcador,sideUnknown] == malos)) and (!(lados getVariable [_marcador,sideUnknown] == muyMalos))) exitWith {};
+_posicion = getMarkerPos _marcador;
+_lado = lados getVariable [_marcador,sideUnknown];
+
+if ((_lado == buenos) or (_lado == sideUnknown)) exitWith {};
+if ({if ((lados getVariable [_x,sideUnknown] != _lado) and (_posicion inArea _x)) exitWith {1}} count marcadores >1) exitWith {};
 _vehiculos = [];
 _soldados = [];
 _pilotos = [];
 _conquistado = false;
-_posicion = getMarkerPos _marcador;
+
 
 _lado = muyMalos;
 //_cfg = cfgCSATInf;

@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.1.4";
+antistasiVersion = "v 1.1.5";
 
 servidoresOficiales = ["A3-Antistasi Official EU 1","A3-Antistasi Official EU 2"];
 
@@ -17,7 +17,6 @@ distanciaSPWN1 = 1300;
 distanciaSPWN2 = 500;
 musicON = if (isMultiplayer) then {false} else {true};
 civPerc = 35;
-posHQ = getMarkerPos "respawn_guerrila";
 autoHeal = false;
 recruitCooldown = 0;
 savingClient = false;
@@ -30,13 +29,17 @@ minItems = 20;
 minOptics = 12;
 maxUnits = 140;
 
-buenos = independent;
-malos = west;
+buenos = side petros;
+malos = if (buenos == independent) then {west} else {independent};
 muyMalos = east;
 
-colorBuenos = "colorGUER";
-colorMalos = "colorBLUFOR";
+colorBuenos = if (buenos == independent) then {"colorGUER"} else {"colorBLUFOR"};
+colorMalos = if (buenos == independent) then {"colorBLUFOR"} else {"colorGUER"};
 colorMuyMalos = "colorOPFOR";
+
+respawnBuenos = if (buenos == independent) then {"respawn_guerrila"} else {"respawn_west"};
+respawnMalos = if (buenos == independent) then {"respawn_west"} else {"respawn_guerrila"};
+posHQ = getMarkerPos respawnBuenos;
 
 allMagazines = [];
 _cfgmagazines = configFile >> "cfgmagazines";
@@ -131,10 +134,13 @@ hayFFAA = false;
 
 if !(worldName == "Staszow") then
 	{
-	if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hayRHS = true};
-	if ("ffaa_armas_hkg36k_normal" in arifles) then {hayFFAA = true};
-	if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hayRHS = true};
-	if ("rhs_weap_m92" in arifles) then {activeGREF = true; hayRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
+	if (side petros == independent) then
+		{
+		if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hayRHS = true};
+		if ("ffaa_armas_hkg36k_normal" in arifles) then {hayFFAA = true};
+		if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hayRHS = true};
+		if ("rhs_weap_m92" in arifles) then {activeGREF = true; hayRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
+		};
 	hayIFA = false;
 	}
 else
@@ -258,7 +264,8 @@ listbld = ["Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower
 //Pricing values for soldiers, vehicles
 if (!isServer) exitWith {};
 
-{server setVariable [_x,75,true]} forEach sdkTier1;
+{server setVariable [_x,50,true]} forEach SDKMil;
+{server setVariable [_x,75,true]} forEach (sdkTier1 - SDKMil);
 {server setVariable [_x,100,true]} forEach  sdkTier2;
 {server setVariable [_x,150,true]} forEach sdkTier3;
 {timer setVariable [_x,0,true]} forEach (vehAttack + vehNATOAttackHelis + [vehNATOPlane,vehNATOPlaneAA,vehCSATPlane,vehCSATPlaneAA] + vehCSATAttackHelis + vehAA + vehMRLS);

@@ -92,7 +92,7 @@ _tipoVehEsc = "";
 _tipoVehObj = "";
 _tipogrupo = "";
 _tiposConvoy = [];
-_posHQ = getMarkerPos "respawn_guerrila";
+_posHQ = getMarkerPos respawnBuenos;
 
 _tiempofin = 120;
 _fechafin = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempofin];
@@ -506,7 +506,7 @@ if (_tipoConvoy == "Municion") then
 		_taskState = "FAILED";
 		_taskState1 = "SUCCEEDED";
 		[-1200*_bonus] remoteExec ["timingCA",2];
-		[-10*_bonus,stavros] call playerScoreAdd;
+		[-10*_bonus,theBoss] call playerScoreAdd;
 		clearMagazineCargoGlobal _vehObj;
 		clearWeaponCargoGlobal _vehObj;
 		clearItemCargoGlobal _vehObj;
@@ -519,7 +519,7 @@ if (_tipoConvoy == "Municion") then
 		[0,300*_bonus] remoteExec ["resourcesFIA",2];
 		[1800*_bonus] remoteExec ["timingCA",2];
 		{if (isPlayer _x) then {[10*_bonus,_x] call playerScoreAdd}} forEach ([500,0,_vehObj,"GREENFORSpawn"] call distanceUnits);
-		[5*_bonus,stavros] call playerScoreAdd;
+		[5*_bonus,theBoss] call playerScoreAdd;
 		[getPosASL _vehObj,_lado,"",false] spawn patrolCA;
 		if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[0,3] remoteExec ["prestige",2]};
 		if (!alive _vehObj) then
@@ -540,7 +540,7 @@ if (_tipoConvoy == "Armor") then
 		_taskState1 = "SUCCEEDED";
 		server setVariable [_destino,dateToNumber date,true];
 		[-1200*_bonus] remoteExec ["timingCA",2];
-		[-10*_bonus,stavros] call playerScoreAdd;
+		[-10*_bonus,theBoss] call playerScoreAdd;
 		}
 	else
 		{
@@ -550,7 +550,7 @@ if (_tipoConvoy == "Armor") then
 		[0,5*_bonus,_posdestino] remoteExec ["citySupportChange",2];
 		[1800*_bonus] remoteExec ["timingCA",2];
 		{if (isPlayer _x) then {[10*_bonus,_x] call playerScoreAdd}} forEach ([500,0,_vehObj,"GREENFORSpawn"] call distanceUnits);
-		[5*_bonus,stavros] call playerScoreAdd;
+		[5*_bonus,theBoss] call playerScoreAdd;
 		[getPosASL _vehObj,_lado,"",false] spawn patrolCA;
 		if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[0,3] remoteExec ["prestige",2]};
 		if (!alive _vehObj) then
@@ -572,7 +572,7 @@ if (_tipoConvoy == "Prisoners") then
 		{[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false} forEach _POWs;
 		//_cuenta = 2 * (count _POWs);
 		//[_cuenta,0] remoteExec ["prestige",2];
-		[-10*_bonus,stavros] call playerScoreAdd;
+		[-10*_bonus,theBoss] call playerScoreAdd;
 		};
 	if ((not alive driver _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])) then
 		{
@@ -585,7 +585,7 @@ if (_tipoConvoy == "Prisoners") then
 			_taskState1 = "FAILED";
 			_cuenta = 2 * (count _POWs);
 			//[0,- _cuenta, _posdestino] remoteExec ["citySupportChange",2];
-			[-10*_bonus,stavros] call playerScoreAdd;
+			[-10*_bonus,theBoss] call playerScoreAdd;
 			_killZones = killZones getVariable [_base,[]];
 			_killZones = _killZones + [_destino,_destino];
 			killZones setVariable [_base,_killZones,true];
@@ -602,7 +602,7 @@ if (_tipoConvoy == "Prisoners") then
 			if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[-2*_cuenta,3] remoteExec ["prestige",2]};
 			{[_x] join _grppow; [_x] orderGetin false} forEach _POWs;
 			{[_cuenta,_x] call playerScoreAdd} forEach (allPlayers - (entities "HeadlessClient_F"));
-			[(round (_cuenta/2))*_bonus,stavros] call playerScoreAdd;
+			[(round (_cuenta/2))*_bonus,theBoss] call playerScoreAdd;
 			};
 		};
 	};
@@ -617,7 +617,7 @@ if (_tipoConvoy == "Refuerzos") then
 		[0,10*_bonus,_posbase] remoteExec ["citySupportChange",2];
 		if (_lado == malos) then {[3,0] remoteExec ["prestige",2]} else {[0,3] remoteExec ["prestige",2]};
 		{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-		[5*_bonus,stavros] call playerScoreAdd;
+		[5*_bonus,theBoss] call playerScoreAdd;
 		_killZones = killZones getVariable [_base,[]];
 		_killZones = _killZones + [_destino,_destino];
 		killZones setVariable [_base,_killZones,true];
@@ -627,7 +627,7 @@ if (_tipoConvoy == "Refuerzos") then
 		_taskState = "FAILED";
 		_cuenta = {alive _x} count _refuerzos;
 		if (_cuenta > 8) then {_taskState1 = "SUCCEEDED"} else {_taskState = "FAILED"};
-		[-10*_bonus,stavros] call playerScoreAdd;
+		[-10*_bonus,theBoss] call playerScoreAdd;
 		if (lados getVariable [_destino,sideUnknown] != buenos) then
 			{
 			_tipos = [];
@@ -647,7 +647,7 @@ if (_tipoConvoy == "Money") then
 		if ((dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 100)) then
 			{
 			[-1200*_bonus] remoteExec ["timingCA",2];
-			[-10*_bonus,stavros] call playerScoreAdd;
+			[-10*_bonus,theBoss] call playerScoreAdd;
 			_taskState1 = "SUCCEEDED";
 			}
 		else
@@ -679,7 +679,7 @@ if (_tipoConvoy == "Money") then
 			[0,5000*_bonus] remoteExec ["resourcesFIA",2];
 			[-120*_bonus] remoteExec ["timingCA",2];
 			{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-			[5*_bonus,stavros] call playerScoreAdd;
+			[5*_bonus,theBoss] call playerScoreAdd;
 			waitUntil {sleep 1; speed _vehObj < 1};
 			[_vehObj] call vaciar;
 			deleteVehicle _vehObj;
@@ -698,7 +698,7 @@ if (_tipoConvoy == "Supplies") then
 		_taskState = "FAILED";
 		_taskState1 = "FAILED";
 		[3,0] remoteExec ["prestige",2];
-		[-10*_bonus,stavros] call playerScoreAdd;
+		[-10*_bonus,theBoss] call playerScoreAdd;
 		_killZones = killZones getVariable [_base,[]];
 		_killZones = _killZones + [_destino,_destino];
 		killZones setVariable [_base,_killZones,true];
@@ -715,7 +715,7 @@ if (_tipoConvoy == "Supplies") then
 				_taskState1 = "FAILED";
 				[0,15*_bonus,_destino] remoteExec ["citySupportChange",2];
 				{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-				[5*_bonus,stavros] call playerScoreAdd;
+				[5*_bonus,theBoss] call playerScoreAdd;
 				}
 			else
 				{
@@ -723,7 +723,7 @@ if (_tipoConvoy == "Supplies") then
 				_taskState1 = "FAILED";
 				[5*_bonus,-10*_bonus,_destino] remoteExec ["citySupportChange",2];
 				[3,0] remoteExec ["prestige",2];
-				[-10*_bonus,stavros] call playerScoreAdd;
+				[-10*_bonus,theBoss] call playerScoreAdd;
 				};
 			}
 		else
@@ -732,7 +732,7 @@ if (_tipoConvoy == "Supplies") then
 			_taskState1 = "SUCCEEDED";
 			[-3,0] remoteExec ["prestige",2];
 			[15*_bonus,0,_destino] remoteExec ["citySupportChange",2];
-			[-10*_bonus,stavros] call playerScoreAdd;
+			[-10*_bonus,theBoss] call playerScoreAdd;
 			};
 		};
 	reportedVehs = reportedVehs - [_vehObj];

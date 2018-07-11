@@ -50,18 +50,7 @@ civTraffic = paramsArray select 10;
 //waitUntil {!isNil "BIS_fnc_preload_server"};
 if (loadLastSave) then
     {
-    /*
-    ["firstLoad"] call fn_LoadStat;
-    if (isNil "firstLoad") then
-        {
-        ["miembros"] call fn_LoadStat;
-        if (isNil "miembros") then
-            {
-            loadLastSave = false;
-            publicVariable "loadLastSave";
-            };
-        };
-    */
+
     diag_log "Antistasi: Persitent Load selected";
     ["miembros"] call fn_LoadStat;
     if (isNil "miembros") then
@@ -85,17 +74,17 @@ if (loadLastSave) then
         publicVariable "miembros";
         sleep 3;
         };
-    stavros = objNull;
+    theBoss = objNull;
     {
     if (([_x] call isMember) and (side _x == buenos)) exitWith
         {
-        stavros = _x;
+        theBoss = _x;
         //_x setRank "CORPORAL";
         //[_x,"CORPORAL"] remoteExec ["ranksMP"];
         //_x setVariable ["score", 25,true];
         };
     } forEach playableUnits;
-    publicVariable "stavros";
+    publicVariable "theBoss";
     }
 else
     {
@@ -103,29 +92,29 @@ else
         {
         //["miembros"] call fn_LoadStat;
         call compile preprocessFileLineNumbers "orgPlayers\mList.sqf";
-        stavros = objNull;
+        theBoss = objNull;
         {
         if (([_x] call isMember) and (side _x == buenos)) exitWith
             {
-            stavros = _x;
+            theBoss = _x;
             //_x setRank "CORPORAL";
             //[_x,"CORPORAL"] remoteExec ["ranksMP"];
             //_x setVariable ["score", 25,true];
             };
         } forEach playableUnits;
-        publicVariable "stavros";
+        publicVariable "theBoss";
         }
     else
         {
-        stavros = objNull;
+        theBoss = objNull;
         diag_log "Antistasi: New Game selected";
         if (isNil "comandante") then {comandante = (playableUnits select 0)};
         if (isNull comandante) then {comandante = (playableUnits select 0)};
-        stavros = comandante;
-        publicVariable "stavros";
-        stavros setRank "CORPORAL";
-        [stavros,"CORPORAL"] remoteExec ["ranksMP"];
-        if (membershipEnabled) then {miembros = [getPlayerUID stavros]} else {miembros = []};
+        theBoss = comandante;
+        publicVariable "theBoss";
+        theBoss setRank "CORPORAL";
+        [theBoss,"CORPORAL"] remoteExec ["ranksMP"];
+        if (membershipEnabled) then {miembros = [getPlayerUID theBoss]} else {miembros = []};
         publicVariable "miembros";
         };
     _nul = [caja] call cajaAAF;
@@ -138,8 +127,8 @@ else
         }
     else
         {
-        stavros = _x;
-        publicVariable "stavros";
+        theBoss = _x;
+        publicVariable "theBoss";
         _x setRank "CORPORAL";
         [_x,"CORPORAL"] remoteExec ["ranksMP"];
         if (membershipEnabled) then {miembros = [getPlayerUID _x]} else {miembros = []};

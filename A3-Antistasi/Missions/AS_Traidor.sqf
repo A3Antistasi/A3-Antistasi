@@ -197,7 +197,7 @@ if (not alive _traidor) then
 			[20,_x] call playerScoreAdd;
 			};
 		} forEach ([_tam,0,_posicion,"GREENFORSpawn"] call distanceUnits);
-		[10,stavros] call playerScoreAdd;
+		[10,theBoss] call playerScoreAdd;
 		}
 	else
 		{
@@ -215,14 +215,14 @@ if (not alive _traidor) then
 			[10,_x] call playerScoreAdd;
 			};
 		} forEach ([_tam,0,_posicion,"GREENFORSpawn"] call distanceUnits);
-		[5,stavros] call playerScoreAdd;
+		[5,theBoss] call playerScoreAdd;
 		};
 	}
 else
 	{
 	["AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Kill the Traitor",_marcador],_traidor,"FAILED"] call taskUpdate;
 	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameBuenos],"Protect Contact",_marcador],getPos _casa,"SUCCEEDED"] call taskUpdate;
-	if (_dificil) then {[-10,stavros] call playerScoreAdd} else {[-10,stavros] call playerScoreAdd};
+	if (_dificil) then {[-10,theBoss] call playerScoreAdd} else {[-10,theBoss] call playerScoreAdd};
 	if (dateToNumber date > _fechalimnum) then
 		{
 		_hrT = server getVariable "hr";
@@ -231,7 +231,7 @@ else
 		}
 	else
 		{
-		if (isPlayer Stavros) then
+		if (isPlayer theBoss) then
 			{
 			if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
 				{

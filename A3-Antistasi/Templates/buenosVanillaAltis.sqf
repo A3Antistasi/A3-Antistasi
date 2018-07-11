@@ -1,3 +1,4 @@
+if (side petros == west) exitWith {call compile preProcessFileLineNumbers "Templates\buenosVanillaAltisB.sqf"};
 SDKMortar = "I_G_Mortar_01_F";
 SDKMortarHEMag = "8Rnd_82mm_Mo_shells";
 SDKMortarSmokeMag = "8Rnd_82mm_Mo_Smoke_white";

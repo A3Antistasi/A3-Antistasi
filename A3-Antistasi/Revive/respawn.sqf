@@ -19,7 +19,7 @@ if (isMultiplayer) exitWith
 	_unit setDamage 1;
 	};
 private ["_posicion","_tam","_roads","_road","_pos"];
-_posicion = getMarkerPos "respawn_guerrila";
+_posicion = getMarkerPos respawnBuenos;
 if (lifeState _unit == "INCAPACITATED") then {_unit setUnconscious false};
 _unit setVariable ["ayudado",objNull];
 _unit setVariable ["ayudando",false];

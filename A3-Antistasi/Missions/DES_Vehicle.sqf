@@ -128,7 +128,7 @@ if (spawner getVariable _marcador == 0) then
 		if (_lado == muyMalos) then {[0,3] remoteExec ["prestige",2]; [0,10*_bonus,_posicion] remoteExec ["citySupportChange",2]} else {[3,0] remoteExec ["prestige",2];[0,5*_bonus,_posicion] remoteExec ["citySupportChange",2]};
 		[1200*_bonus] remoteExec ["timingCA",2];
 		{if (_x distance _veh < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-		[5*_bonus,stavros] call playerScoreAdd;
+		[5*_bonus,theBoss] call playerScoreAdd;
 		};
 	}
 else
@@ -137,7 +137,7 @@ else
 	[-5*_bonus,-100*_bonus] remoteExec ["resourcesFIA",2];
 	[5*_bonus,0,_posicion] remoteExec ["citySupportChange",2];
 	[-600*_bonus] remoteExec ["timingCA",2];
-	[-10*_bonus,stavros] call playerScoreAdd;
+	[-10*_bonus,theBoss] call playerScoreAdd;
 	};
 
 _nul = [1200,"DES"] spawn borrarTask;

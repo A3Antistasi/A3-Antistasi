@@ -8,11 +8,11 @@ _coste = (server getVariable (SDKExp select 0)) + ([vehSDKRepair] call vehiclePr
 
 _grupo = createGroup buenos;
 
-_unit = _grupo createUnit [(SDKExp select 0), getMarkerPos "respawn_guerrila", [], 0, "NONE"];
+_unit = _grupo createUnit [(SDKExp select 0), getMarkerPos respawnBuenos, [], 0, "NONE"];
 _grupo setGroupId ["MineSw"];
 _minas = [];
 sleep 1;
-_road = [getMarkerPos "respawn_guerrila"] call findNearestGoodRoad;
+_road = [getMarkerPos respawnBuenos] call findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 
 _camion = vehSDKRepair createVehicle _pos;
@@ -22,7 +22,7 @@ _camion = vehSDKRepair createVehicle _pos;
 _grupo addVehicle _camion;
 [_unit] orderGetIn true;
 //_unit setBehaviour "SAFE";
-Stavros hcSetGroup [_grupo];
+theBoss hcSetGroup [_grupo];
 
 while {alive _unit} do
 	{
@@ -31,7 +31,7 @@ while {alive _unit} do
 		{
 		if (alive _camion) then
 			{
-			if ((count magazineCargo _camion > 0) and (_unit distance (getMarkerPos "respawn_guerrila") < 50)) then
+			if ((count magazineCargo _camion > 0) and (_unit distance (getMarkerPos respawnBuenos) < 50)) then
 				{
 				[_camion,caja] remoteExec ["munitionTransfer",2];
 				sleep 30;

@@ -54,9 +54,9 @@ if ((side player == buenos) or (side player == civilian)) then
 	//if (!hayACEMedical) then {[_nuevo] call initRevive};
 	disableUserInput false;
 	//_nuevo enableSimulation true;
-	if (_viejo == stavros) then
+	if (_viejo == theBoss) then
 		{
-		[_nuevo] call stavrosInit;
+		[_nuevo] call theBossInit;
 		};
 
 
@@ -235,7 +235,7 @@ if ((side player == buenos) or (side player == civilian)) then
 		];
 	[true] execVM "reinitY.sqf";
 	[player] execVM "OrgPlayers\unitTraits.sqf";
-	[] call statistics;
+	[] spawn statistics;
 	}
 else
 	{

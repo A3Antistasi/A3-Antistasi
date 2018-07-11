@@ -4,7 +4,7 @@ private ["_tipo","_posbase","_posibles","_sitios","_exists","_sitio","_pos","_ci
 
 _tipo = _this select 0;
 
-_posbase = getMarkerPos "respawn_guerrila";
+_posbase = getMarkerPos respawnBuenos;
 _posibles = [];
 _sitios = [];
 _exists = false;
@@ -12,7 +12,7 @@ _exists = false;
 _silencio = false;
 if (count _this > 1) then {_silencio = true};
 
-if ([_tipo] call BIS_fnc_taskExists) exitWith {if (!_silencio) then {[petros,"globalChat","I already gave you a mission of this type"] remoteExec ["commsMP",stavros]}};
+if ([_tipo] call BIS_fnc_taskExists) exitWith {if (!_silencio) then {[petros,"globalChat","I already gave you a mission of this type"] remoteExec ["commsMP",theBoss]}};
 
 if (_tipo == "AS") then
 	{
@@ -48,8 +48,8 @@ if (_tipo == "AS") then
 		{
 		if (!_silencio) then
 			{
-			[petros,"globalChat","I have no assasination missions for you. Move our HQ closer to the enemy or finish some other assasination missions in order to have better intel"] remoteExec ["commsMP",stavros];
-			[petros,"hint","Assasination Missions require cities, Patrolled Jungles or Airports closer than 4Km from your HQ."] remoteExec ["commsMP",stavros];
+			[petros,"globalChat","I have no assasination missions for you. Move our HQ closer to the enemy or finish some other assasination missions in order to have better intel"] remoteExec ["commsMP",theBoss];
+			[petros,"hint","Assasination Missions require cities, Patrolled Jungles or Airports closer than 4Km from your HQ."] remoteExec ["commsMP",theBoss];
 			};
 		}
 	else
@@ -70,8 +70,8 @@ if (_tipo == "CON") then
 		{
 		if (!_silencio) then
 			{
-			[petros,"globalChat","I have no Conquest missions for you. Move our HQ closer to the enemy or finish some other conquest missions in order to have better intel."] remoteExec ["commsMP",stavros];
-			[petros,"hint","Conquest Missions require roadblocks or outposts closer than 4Km from your HQ."] remoteExec ["commsMP",stavros];
+			[petros,"globalChat","I have no Conquest missions for you. Move our HQ closer to the enemy or finish some other conquest missions in order to have better intel."] remoteExec ["commsMP",theBoss];
+			[petros,"hint","Conquest Missions require roadblocks or outposts closer than 4Km from your HQ."] remoteExec ["commsMP",theBoss];
 			};
 		}
 	else
@@ -108,8 +108,8 @@ if (_tipo == "DES") then
 		{
 		if (!_silencio) then
 			{
-			[petros,"globalChat","I have no destroy missions for you. Move our HQ closer to the enemy or finish some other destroy missions in order to have better intel"] remoteExec ["commsMP",stavros];
-			[petros,"hint","Destroy Missions require Airbases or Radio Towers closer than 4Km from your HQ."] remoteExec ["commsMP",stavros];
+			[petros,"globalChat","I have no destroy missions for you. Move our HQ closer to the enemy or finish some other destroy missions in order to have better intel"] remoteExec ["commsMP",theBoss];
+			[petros,"hint","Destroy Missions require Airbases or Radio Towers closer than 4Km from your HQ."] remoteExec ["commsMP",theBoss];
 			};
 		}
 	else
@@ -165,8 +165,8 @@ if (_tipo == "LOG") then
 		{
 		if (!_silencio) then
 			{
-			[petros,"globalChat","I have no logistics missions for you. Move our HQ closer to the enemy or finish some other logistics missions in order to have better intel"] remoteExec ["commsMP",stavros];
-			[petros,"hint","Logistics Missions require Outposts, Cities or Banks closer than 4Km from your HQ."] remoteExec ["commsMP",stavros];
+			[petros,"globalChat","I have no logistics missions for you. Move our HQ closer to the enemy or finish some other logistics missions in order to have better intel"] remoteExec ["commsMP",theBoss];
+			[petros,"hint","Logistics Missions require Outposts, Cities or Banks closer than 4Km from your HQ."] remoteExec ["commsMP",theBoss];
 			};
 		}
 	else
@@ -194,8 +194,8 @@ if (_tipo == "RES") then
 		{
 		if (!_silencio) then
 			{
-			[petros,"globalChat","I have no rescue missions for you. Move our HQ closer to the enemy or finish some other rescue missions in order to have better intel"] remoteExec ["commsMP",stavros];
-			[petros,"hint","Rescue Missions require Cities or Airports closer than 4Km from your HQ."] remoteExec ["commsMP",stavros];
+			[petros,"globalChat","I have no rescue missions for you. Move our HQ closer to the enemy or finish some other rescue missions in order to have better intel"] remoteExec ["commsMP",theBoss];
+			[petros,"hint","Rescue Missions require Cities or Airports closer than 4Km from your HQ."] remoteExec ["commsMP",theBoss];
 			};
 		}
 	else
@@ -243,8 +243,8 @@ if (_tipo == "CONVOY") then
 			{
 			if (!_silencio) then
 				{
-				[petros,"globalChat","I have no Convoy missions for you. Move our HQ closer to the enemy or finish some other missions in order to have better intel"] remoteExec ["commsMP",stavros];
-				[petros,"hint","Convoy Missions require Airports or Cities closer than 5Km from your HQ, and they must have an idle friendly base in their surroundings."] remoteExec ["commsMP",stavros];
+				[petros,"globalChat","I have no Convoy missions for you. Move our HQ closer to the enemy or finish some other missions in order to have better intel"] remoteExec ["commsMP",theBoss];
+				[petros,"hint","Convoy Missions require Airports or Cities closer than 5Km from your HQ, and they must have an idle friendly base in their surroundings."] remoteExec ["commsMP",theBoss];
 				};
 			}
 		else
@@ -256,9 +256,9 @@ if (_tipo == "CONVOY") then
 		}
 	else
 		{
-		[petros,"globalChat","There is a big battle around, I don't think the enemy will send any convoy"] remoteExec ["commsMP",stavros];
-		[petros,"hint","Convoy Missions require a clmaed status around the island, and now it is not the proper time."] remoteExec ["commsMP",stavros];
+		[petros,"globalChat","There is a big battle around, I don't think the enemy will send any convoy"] remoteExec ["commsMP",theBoss];
+		[petros,"hint","Convoy Missions require a clmaed status around the island, and now it is not the proper time."] remoteExec ["commsMP",theBoss];
 		};
 	};
 
-if ((count _posibles > 0) and (!_silencio)) then {[petros,"globalChat","I have a mission for you"] remoteExec ["commsMP",stavros]};
+if ((count _posibles > 0) and (!_silencio)) then {[petros,"globalChat","I have a mission for you"] remoteExec ["commsMP",theBoss]};

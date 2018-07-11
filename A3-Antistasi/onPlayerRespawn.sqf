@@ -17,7 +17,7 @@ if ((side player == buenos) or (side player == civilian)) then
 	{
 	_owner = _viejo getVariable ["owner",_viejo];
 
-	if (_owner != _viejo) exitWith {hint "Died while AI Remote Control"; selectPlayer _owner; disableUserInput false; deleteVehicle _nuevo};
+	if (_owner != _viejo) exitWith {hint "Died while remote controlling AI"; selectPlayer _owner; disableUserInput false; deleteVehicle _nuevo};
 
 	_nul = [0,-1,getPos _viejo] remoteExec ["citySupportChange",2];
 

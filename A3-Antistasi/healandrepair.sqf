@@ -23,4 +23,4 @@ if ((_x distance _posHQ < 150) and (alive _x) and (isNull(attachedTo _x))) then
 	};
 } forEach vehicles;
 
-hint "All nearby units and vehicles have been healed or repaired. Near vehicles have been rearmed at full load."
+hint "Nearby units have been healed. Nearby vehicles have been repaired and rearmed."

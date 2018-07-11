@@ -9,8 +9,8 @@ if (lados getVariable [_marcador,sideUnknown] == buenos) exitWith {};
 _posicion = getMarkerPos _marcador;
 _size = [_marcador] call sizeMarker;
 
-if ((!isNull _jugador) and (captive _jugador)) exitWith {hint "You cannot Capture the Flag while in Undercover Mode"};
-if ((_marcador in aeropuertos) and (tierWar < 3)) exitWith {hint "You cannot take Airports until you reach War Level 3"};
+if ((!isNull _jugador) and (captive _jugador)) exitWith {hint "You cannot Capture the Flag while Undercover"};
+if ((_marcador in aeropuertos) and (tierWar < 3)) exitWith {hint "You cannot capture Airports until you reach War Level 3"};
 _arevelar = [];
 if (!isNull _jugador) then
 	{
@@ -29,7 +29,7 @@ if (!isNull _jugador) then
 		};
 	};
 
-if ((count _arevelar) > 2*({([_x,_marcador] call canConquer) and (side _x == buenos)} count allUnits)) exitWith {hint "The enemy still outnumber us, check the map and clean the rest of the area"};
+if ((count _arevelar) > 2*({([_x,_marcador] call canConquer) and (side _x == buenos)} count allUnits)) exitWith {hint "The enemy still outnumber us, check the map and clear the rest of the area"};
 //if (!isServer) exitWith {};
 
 {

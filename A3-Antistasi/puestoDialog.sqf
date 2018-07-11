@@ -1,7 +1,7 @@
 private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_exists","_posicionTel","_escarretera","_tipogrupo","_resourcesFIA","_hrFIA"];
 
-if (["PuestosFIA"] call BIS_fnc_taskExists) exitWith {hint "We can only deploy / delete one Post or Roadblock at a time."};
-if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
+if (["PuestosFIA"] call BIS_fnc_taskExists) exitWith {hint "We can only deploy / delete one Observation Post or Roadblock at a time."};
+if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to give orders to other squads"};
 
 _tipo = _this select 0;
 

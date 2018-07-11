@@ -16,7 +16,6 @@ if (_dificil) then
 	_ciudad = _result select 0;
 	if (_ciudad == "") exitWith {_dificil = false};
 	_contacto = _result select 1;
-
 	_nombredest = [_ciudad] call localizar;
 	_tiempolim = 30;//120
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
@@ -71,7 +70,7 @@ if (_dificil) then
 
 _esFIA = false;
 _lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {muyMalos};
-//_cfg = "";
+
 if (_lado == malos) then
 	{
 	if ((random 10 >= tierWar) and !(_dificil)) then
@@ -179,12 +178,11 @@ switch (_tipoConvoy) do
 		_tipoVehObj = "C_Van_01_box_F";
 		};
 	};
-//if (!_dificil) then {[[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate} else {["CONVOY",[_texto,_taskTitle,_destino],_posdestino,_taskState,_taskIcon] call taskUpdate};
-//misiones pushBack _tsk; publicVariable "misiones";
+
 [[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
 [[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,false,0,true,"run",true] call BIS_fnc_taskCreate;
 misiones pushBack ["CONVOY","CREATED"]; publicVariable "misiones";
-sleep (_tiempolim * 60);
+//sleep (_tiempolim * 60);
 
 _indice = aeropuertos find _base;
 _spawnPoint = spawnPoints select _indice;
@@ -206,7 +204,7 @@ if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
 _vehicle=[_pos,markerDir _spawnPoint,_tipoVeh, _grupo] call bis_fnc_spawnvehicle;
 _vehLead = _vehicle select 0;
 _vehLead allowDamage false;
-//[_vehLead,"Convoy Lead"] spawn inmuneConvoy;
+[_vehLead,"Convoy Lead"] spawn inmuneConvoy;
 //_vehLead forceFollowRoad true;
 _vehCrew = _vehicle select 1;
 {[_x] call NATOinit;_x allowDamage false} forEach _vehCrew;
@@ -215,13 +213,7 @@ _soldados = _soldados + _vehCrew;
 //_grupos pushBack _grupoVeh;
 _vehiculos pushBack _vehLead;
 [_vehLead] call AIVEHinit;
-[_base,_posDestino,_grupo] call WPCreate;
-_wp0 = _grupo addWaypoint [_posdestino, count waypoints _grupo];
-_wp0 = (waypoints _grupo) select 0;
-_wp0 setWaypointType "MOVE";
-_wp0 setWaypointBehaviour "SAFE";
-_grupo setBehaviour "SAFE";
-_wp0 setWaypointFormation "COLUMN";
+
 _vehLead limitSpeed 50;
 
 
@@ -249,9 +241,7 @@ if (!_esFIA) then
 	};
 for "_i" from 1 to _cuenta do
 	{
-	sleep 5;
-	//_grupo = createGroup _lado;
-	//_grupos pushBack _grupo;
+	sleep 2;
 	_tipoVehEsc = selectRandom _vehPool;
 	if (not([_tipoVehEsc] call vehAvailable)) then
 		{
@@ -260,25 +250,24 @@ for "_i" from 1 to _cuenta do
 		if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 		};
 	_timeOut = 0;
-	_pos = _pos findEmptyPosition [0,100,_tipoveh];
+	_pos = _pos findEmptyPosition [10,100,_tipoveh];
 	while {_timeOut < 60} do
 		{
 		if (count _pos > 0) exitWith {};
 		_timeOut = _timeOut + 1;
-		_pos = _pos findEmptyPosition [0,100,_tipoveh];
+		_pos = _pos findEmptyPosition [10,100,_tipoveh];
 		sleep 1;
 		};
 	if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
 	_vehicle=[_pos, markerDir _spawnPoint,_tipoVehEsc, _grupo] call bis_fnc_spawnvehicle;
 	_veh = _vehicle select 0;
 	_veh allowDamage false;
-	//[_veh,"Convoy Escort"] spawn inmuneConvoy;
+	[_veh,"Convoy Escort"] spawn inmuneConvoy;
 	_vehCrew = _vehicle select 1;
 	{[_x] call NATOinit;_x allowDamage false} forEach _vehCrew;
 	_soldados = _soldados + _vehCrew;
 	_vehiculos pushBack _veh;
 	[_veh] call AIVEHinit;
-
 	if (_i == 1) then {_veh setConvoySeparation 60} else {_veh setConvoySeparation 20};
 	if (!_esFIA) then
 		{
@@ -306,15 +295,15 @@ for "_i" from 1 to _cuenta do
 		};
 	};
 
-sleep 5;
+sleep 2;
 
 _timeOut = 0;
-_pos = _pos findEmptyPosition [0,100,_tipoveh];
+_pos = _pos findEmptyPosition [10,100,_tipoveh];
 while {_timeOut < 60} do
 	{
 	if (count _pos > 0) exitWith {};
 	_timeOut = _timeOut + 1;
-	_pos = _pos findEmptyPosition [0,100,_tipoveh];
+	_pos = _pos findEmptyPosition [10,100,_tipoveh];
 	sleep 1;
 	};
 if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
@@ -331,8 +320,9 @@ _soldados = _soldados + _vehCrew;
 //_grupos pushBack _grupoVeh;
 _vehiculos pushBack _vehObj;
 [_vehObj] call AIVEHinit;
-
+//_vehObj forceFollowRoad true;
 _vehObj setConvoySeparation 50;
+
 if (_tipoConvoy == "Armor") then {_vehObj lock 3};// else {_vehObj forceFollowRoad true};
 if (_tipoConvoy == "Prisoners") then
 	{
@@ -368,7 +358,8 @@ if ((_tipoConvoy == "Money") or (_tipoConvoy == "Supplies")) then
 	publicVariable "reportedVehs";
 	_vehObj addEventHandler ["HandleDamage",{if (((_this select 1) find "wheel" != -1) and ((_this select 4=="") or (side (_this select 3) != buenos)) and (!isPlayer driver (_this select 0))) then {0} else {(_this select 2)}}];
 	};
-sleep 5;
+
+sleep 2;
 _tipoVehEsc = selectRandom _vehPool;
 if (not([_tipoVehEsc] call vehAvailable)) then
 	{
@@ -377,12 +368,12 @@ if (not([_tipoVehEsc] call vehAvailable)) then
 	if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 	};
 _timeOut = 0;
-_pos = _pos findEmptyPosition [0,100,_tipoveh];
+_pos = _pos findEmptyPosition [10,100,_tipoveh];
 while {_timeOut < 60} do
 	{
 	if (count _pos > 0) exitWith {};
 	_timeOut = _timeOut + 1;
-	_pos = _pos findEmptyPosition [0,100,_tipoveh];
+	_pos = _pos findEmptyPosition [10,100,_tipoveh];
 	sleep 1;
 	};
 if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
@@ -391,14 +382,15 @@ if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
 _vehicle=[_pos,markerDir _spawnPoint,_tipoVehEsc, _grupo] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 _veh allowDamage false;
-//[_veh,"Convoy Escort"] spawn inmuneConvoy;
+[_veh,"Convoy Escort"] spawn inmuneConvoy;
 _vehCrew = _vehicle select 1;
 {[_x] call NATOinit; _x allowDamage false} forEach _vehCrew;
 _soldados = _soldados + _vehCrew;
 _vehiculos pushBack _veh;
 [_veh] call AIVEHinit;
-
+//_veh forceFollowRoad true;
 _veh setConvoySeparation 20;
+//_veh limitSpeed 50;
 if (!_esFIA) then
 	{
 	if (not(_tipoVehEsc in vehTanks)) then
@@ -423,79 +415,23 @@ else
 		deleteGroup _grupoEsc;
 		};
 	};
-/*
-_grupoLead = _grupos select 0;
-_cuentaWP = 4;
-for "_i" from 0 to (count (waypoints _grupoLead) - 1) do
+
+[_vehiculos,_soldados] spawn
 	{
-	_wp1 = waypoints _grupoLead select _i;
-	_arrWp = [];
-	{
-	//_arrWp pushBack (waypoints _x select _i);
-	_arrWP pushBack [_x,_i];
-	[_x,_i] setWaypointCompletionRadius _cuentaWP;
-	} forEach (_grupos - [_grupoLead]);
-	_wp1 synchronizeWaypoint _arrWP;
-	_cuentaWp = _cuentaWP + 5;
-	};*/
-sleep 30;
-{_x allowDamage true} forEach _vehiculos;
-{_x allowDamage true; if (vehicle _x == _x) then {deleteVehicle _x}} forEach _soldados;
-/*
-[_vehObj,_vehiculos,_posDestino] spawn
-	{
-	private ["_vehObj","_vehiculos","_posDestino","_condu","_veh","_grupo","_wp0"];
-	_vehObj = _this select 0;
-	_vehiculos = _this select 1;
-	_vehiculos = _vehiculos - [_vehObj];
-	_posDestino = _this select 2;
-	_condu = driver _vehObj;
-	_salta = false;
-	while {(alive _vehObj)} do
-		{
-		if (((!alive _condu) or (behaviour _condu == "COMBAT")) and !_salta) then
-			{
-			_salta = true;
-			for "_i" from 0 to (count _vehiculos) - 1 do
-				{
-				_veh = _vehiculos select _i;
-				_grupo = group (driver _veh);
-				 while {(count (waypoints _grupo)) > 0} do
-					 {
-					 deleteWaypoint ((waypoints _grupo) select 0);
-					 };
-				_wp0 = _grupo addWaypoint [position _vehObj, 0];
-				_wp0 setWaypointType "MOVE";
-				_wp0 setWaypointBehaviour "AWARE";
-				_grupo setBehaviour "AWARE";
-				_veh limitSpeed 150;
-				};
-			};
-		if (_salta) then
-			{
-			if ((alive _condu) and (vehicle _condu == _vehObj) and (behaviour _condu != "COMBAT")) then
-				{
-				_salta = false;
-				for "_i" from 0 to (count _vehiculos) - 1 do
-					{
-					_veh = _vehiculos select _i;
-					_grupo = group (driver _veh);
-					 while {(count (waypoints _grupo)) > 0} do
-						 {
-						 deleteWaypoint ((waypoints _grupo) select 0);
-						 };
-					_wp0 = _grupo addWaypoint [_posDestino, 0];
-					_wp0 setWaypointType "MOVE";
-					_wp0 setWaypointBehaviour "SAFE";
-					_grupo setBehaviour "SAFE";
-					_veh limitSpeed 50;
-					};
-				};
-			};
-		sleep 5;
-		};
+	sleep 30;
+	{_x allowDamage true} forEach (_this select 0);
+	{_x allowDamage true; if (vehicle _x == _x) then {deleteVehicle _x}} forEach (_this select 1);
 	};
-*/
+//{_x disableAI "AUTOCOMBAT"} forEach _soldados;
+_wp0 = _grupo addWaypoint [(position _vehLead),0];
+//_wp0 = (waypoints _grupo) select 0;
+_wp0 setWaypointType "MOVE";
+_wp0 setWaypointFormation "COLUMN";
+_wp0 setWaypointBehaviour "SAFE";
+[_base,_posDestino,_grupo] call WPCreate;
+_wp0 = _grupo addWaypoint [_posdestino, count waypoints _grupo];
+_wp0 setWaypointType "MOVE";
+
 _bonus = if (_dificil) then {2} else {1};
 
 if (_tipoConvoy == "Municion") then
@@ -577,7 +513,7 @@ if (_tipoConvoy == "Prisoners") then
 	if ((not alive driver _vehObj) or (driver _vehObj getVariable ["GREENFORSpawn",false])) then
 		{
 		[getPosASL _vehObj,_lado,"",false] spawn patrolCA;
-		{[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false;_x enableAI "MOVE"; [_x] orderGetin false} forEach _POWs;
+		{[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false; _x enableAI "MOVE"; [_x] orderGetin false} forEach _POWs;
 		waitUntil {sleep 2; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance _posHQ < 50)} count _POWs > 0) or (dateToNumber date > _fechafinNum)};
 		if (({alive _x} count _POWs == 0) or (dateToNumber date > _fechafinNum)) then
 			{

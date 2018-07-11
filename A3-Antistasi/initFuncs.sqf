@@ -160,7 +160,7 @@ autoGarrison = compile preProcessFileLineNumbers "REINF\autoGarrison.sqf";
 sellVehicle = compile preProcessFileLineNumbers "sellVehicle.sqf";
 garbageCleaner = compile preProcessFileLineNumbers "garbageCleaner.sqf";
 resourceCheckSkipTime = compile preProcessFileLineNumbers "resourcecheckSkipTime.sqf";
-CONVOY = if (worldName == "Tanoa") then {compile preProcessFileLineNumbers "Missions\CONVOY.sqf"} else {compile preProcessFileLineNumbers "Missions\CONVOYAltis.sqf"};
+CONVOY = compile preProcessFileLineNumbers "Missions\CONVOY.sqf";
 RES_Prisioneros = compile preProcessFileLineNumbers "Missions\RES_Prisioneros.sqf";
 RES_Refugiados = compile preProcessFileLineNumbers "Missions\RES_Refugiados.sqf";
 LOG_Bank = compile preProcessFileLineNumbers "Missions\LOG_Bank.sqf";

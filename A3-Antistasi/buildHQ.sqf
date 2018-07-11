@@ -1,8 +1,10 @@
 private ["_pos","_rnd"];
 _movido = false;
-if (group petros != grupoPetros) then
+if (petros != (leader group petros)) then
 	{
 	_movido = true;
+	grupoPetros = createGroup buenos;
+	publicVariable "grupoPetros";
 	[petros] join grupoPetros;
 	};
 [petros,"remove"] remoteExec ["flagaction",0,petros];

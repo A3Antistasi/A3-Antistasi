@@ -106,13 +106,8 @@ fn_SetStat =
 			destroyedBuildings= +_varValue;
 			//publicVariable "destroyedBuildings";
 			{
-			(nearestBuilding _x) setDamage [1,false];
-			/*
-			_buildings = nearestObjects [_x,listMilBld,50];
-			if !(_buildings isEqualto []) then
-				{
-				(_buildings Select 0) setdamage [1,false];
-				};*/
+			//(nearestBuilding _x) setDamage [1,false];
+			[nearestBuilding _x,[1,false]] remoteExec ["setDamage"];
 			} forEach destroyedBuildings;
 			};
 		if(_varName == 'minas') then

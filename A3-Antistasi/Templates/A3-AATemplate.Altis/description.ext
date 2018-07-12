@@ -337,7 +337,7 @@ class CfgDebriefing
     {
         title = "Petros is Dead";
         subtitle = "Petros is Dead";
-        description = "Congratulations!: Petros is Dead. Now with Syndikat without a leader, you may think about joining them, and free Altis";
+        description = "Congratulations!: Petros is Dead. Now with rebels without a leader, you may think about joining them, and free Altis";
         picture = "b_unknown";
         pictureColor[] = {0.5,0.0,0.0,1};
     };
@@ -369,7 +369,7 @@ class CfgDebriefing
     {
         title = "Slot Unavailable";
         subtitle = "This slot is unavailable";
-        description = "Sorry, but this slot is unavailable for some reson: player not member, match not initialised, lack of Syndikat commander or recent role as Syndikat.";
+        description = "Sorry, but this slot is unavailable for some reson: player not member, match not initialised, lack of rebel commander or recent role as rebel.";
         picture = "b_unknown";
         pictureColor[] = {0.0,0.5,0.0,1};
     };

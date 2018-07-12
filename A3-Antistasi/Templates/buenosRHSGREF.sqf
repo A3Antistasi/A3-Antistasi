@@ -64,7 +64,19 @@ ATMineMag = "rhs_mine_tm62m_mag";
 APERSMineMag = "rhs_mine_pmn2_mag";
 
 banditUniforms = [];
-uniformsSDK = banditUniforms + ["rhsgref_uniform_woodland_olive","rhsgref_uniform_altis_lizard_olive","rhsgref_uniform_flecktarn","rhsgref_uniform_ERDL","rhsgref_uniform_dpm_olive","rhsgref_uniform_altis_lizard","rhsgref_uniform_specter"];//modificar con uniformes chdk
+uniformsSDK = [];
+{
+_unit = _x select 0;
+_uniform = (getUnitLoadout _unit select 3) select 0;
+banditUniforms pushBackUnique _uniform;
+uniformsSDK pushBackUnique _uniform;
+if (count _x > 1) then
+	{
+	_unit = _x select 1;
+	_uniform = (getUnitLoadout _unit select 3) select 0;
+	uniformsSDK pushBackUnique _uniform;
+	};
+} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewBuenos]];
 
 if (hayFFAA) then
 	{

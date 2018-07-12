@@ -4,7 +4,14 @@ fn_SaveStat =
 	_varValue = _this select 1;
 	if (!isNil "_varValue") then
 		{
-		if (worldName == "Tanoa") then {profileNameSpace setVariable [_varName + serverID + "WotP",_varValue]} else {profileNameSpace setVariable [_varName + serverID + "Antistasi" + worldName,_varValue]};
+		if (worldName == "Tanoa") then
+			{
+			profileNameSpace setVariable [_varName + serverID + "WotP",_varValue]
+			}
+		else
+			{
+			if (side group petros == independent) then {profileNameSpace setVariable [_varName + serverID + "Antistasi" + worldName,_varValue]} else {profileNameSpace setVariable [_varName + serverID + "AntistasiB" + worldName,_varValue]};
+			};
 		if (isDedicated) then {saveProfileNamespace};
 		};
 };
@@ -13,7 +20,14 @@ fn_LoadStat =
 {
 	private ["_varName","_varvalue"];
 	_varName = _this select 0;
-	if (worldName == "Tanoa") then {_varValue = profileNameSpace getVariable (_varName + serverID + "WotP")} else {_varValue = profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)};
+	if (worldName == "Tanoa") then
+		{
+		_varValue = profileNameSpace getVariable (_varName + serverID + "WotP")
+		}
+	else
+		{
+		if (side group petros == independent) then {_varValue = profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)} else {_varValue = profileNameSpace getVariable (_varName + serverID + "AntistasiB" + worldName)};
+		};
 	if(isNil "_varValue") exitWith {diag_log format ["Antistasi: Error en Persistent Load. La variable %1 no existe en el entorno %2",_varname,(_varName + serverID + "WotP")]};
 	[_varName,_varValue] call fn_SetStat;
 };

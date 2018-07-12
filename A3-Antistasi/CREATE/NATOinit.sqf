@@ -80,11 +80,11 @@ else
 	{
 	if (faction _unit == factionFIA) then
 		{
-		_skill = _skill max 0.3;
+		_skill = _skill min 0.3;
 		}
 	else
 		{
-		_skill = _skill max 0.2;
+		_skill = _skill min 0.2;
 		if (tierWar > 1) then
 			{
 			_rifleFinal = primaryWeapon _unit;

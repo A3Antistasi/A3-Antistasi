@@ -116,17 +116,19 @@ if (side player != buenos) exitWith
 	moto = objNull;
 	if ((!_isJIP) or (paramsArray select 6 != 1)) then
 		{
-		["noPvP",false,1,false,false] call BIS_fnc_endMission
+		["noPvP",false,1,false,false] call BIS_fnc_endMission;
+		diag_log "Antistasi: PvP player kicked because he is not jipping";
 		}
 	else
 		{
 		if (not([player] call isMember)) then
 			{
-			["noPvP",false,1,false,false] call BIS_fnc_endMission
+			["noPvP",false,1,false,false] call BIS_fnc_endMission;
+			diag_log "Antistasi: PvP player kicked because he is not member";
 			}
 		else
 			{
-			if ({(side _x != buenos) and (side _x != civilian)} count playableUnits > {(side _x == buenos) or (side _x == civilian)} count playableUnits) then {["noPvP",false,1,false,false] call BIS_fnc_endMission}
+			if ({(side group _x != buenos)} count playableUnits > {(side group _x == buenos)} count playableUnits) then {["noPvP",false,1,false,false] call BIS_fnc_endMission; diag_log "Antistasi: PvP player kicked because PvP players numer is equal to non PvP";}
 			};
 		};
 	if (side player == malos) then

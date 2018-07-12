@@ -62,8 +62,20 @@ lamparasSDK = ["acc_flashlight"];
 ATMineMag = "ATMine_Range_Mag";
 APERSMineMag = "APERSMine_Range_Mag";
 
-banditUniforms = ["U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Camo_F","U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_5_F","U_I_C_Soldier_Para_4_F"];
-uniformsSDK = banditUniforms + ["U_BG_Guerilla1_1","U_BG_Guerilla2_1","U_BG_Guerilla2_2","U_BG_Guerilla2_3","U_BG_Guerilla3_1","U_BG_Guerilla3_2","U_BG_leader","U_IG_Guerilla3_2","U_OG_Guerilla2_1","U_IG_Guerilla1_1","U_I_G_Story_Protagonist_F","U_I_G_resistanceLeader_F"];
+banditUniforms = [];
+uniformsSDK = [];
+{
+_unit = _x select 0;
+_uniform = (getUnitLoadout _unit select 3) select 0;
+banditUniforms pushBackUnique _uniform;
+uniformsSDK pushBackUnique _uniform;
+if (count _x > 1) then
+	{
+	_unit = _x select 1;
+	_uniform = (getUnitLoadout _unit select 3) select 0;
+	uniformsSDK pushBackUnique _uniform;
+	};
+} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewBuenos]];
 
 if (hayFFAA) then
 	{

@@ -972,7 +972,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 
 1.1.5 06/07/2018
 
-- ALTIS BLUFOR VERSION IS OUT ON STEAM: Play against a mix of militia SDK + AAF in Altis.
+- ALTIS BLUFOR VERSION IS OUT ON STEAM: Play against a mix of militia SDK + AAF in Altis (or RHS alike config).
 - NEW FEATURE: Battle accelerator for battles very remote to players.
 - Fixed the convoys in all the islands.
 - Fixed player markers on PvP players.
@@ -993,3 +993,4 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Solved Move Assets bug.
 - Solved Stavros city bug.
 - Hopefully destroyed buildings will appear destroyed for everyone.
+- Several english mispelling errors corrected thanks to the Github supporting community.

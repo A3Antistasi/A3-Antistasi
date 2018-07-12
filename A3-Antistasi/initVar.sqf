@@ -29,7 +29,7 @@ minItems = 20;
 minOptics = 12;
 maxUnits = 140;
 
-buenos = side petros;
+buenos = side group petros;
 malos = if (buenos == independent) then {west} else {independent};
 muyMalos = east;
 
@@ -134,13 +134,10 @@ hayFFAA = false;
 
 if !(worldName == "Staszow") then
 	{
-	if (side petros == independent) then
-		{
-		if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hayRHS = true};
-		if ("ffaa_armas_hkg36k_normal" in arifles) then {hayFFAA = true};
-		if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hayRHS = true};
-		if ("rhs_weap_m92" in arifles) then {activeGREF = true; hayRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
-		};
+	if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hayRHS = true};
+	if ("ffaa_armas_hkg36k_normal" in arifles) then {hayFFAA = true};
+	if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hayRHS = true};
+	if ("rhs_weap_m92" in arifles) then {activeGREF = true; hayRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
 	hayIFA = false;
 	}
 else
@@ -164,10 +161,24 @@ squadLeaders = [];
 
 if (!hayIFA) then
 	{
-	if (!activeUSAF) then {call compile preProcessFileLineNumbers "Templates\malosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\malosRHSUSAF.sqf"};
+	if (!activeUSAF) then
+		{
+		call compile preProcessFileLineNumbers "Templates\malosVanilla.sqf";
+		}
+	else
+		{
+		if (buenos == independent) then {call compile preProcessFileLineNumbers "Templates\malosRHSUSAF.sqf"} else {call compile preProcessFileLineNumbers "Templates\buenosRHSUSAF.sqf"};
+		};
 	if (!activeAFRF) then {call compile preProcessFileLineNumbers "Templates\muyMalosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\muyMalosRHSAFRF.sqf"};
 
-	if (!activeGREF) then {call compile preProcessFileLineNumbers "Templates\buenosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\buenosRHSGREF.sqf"};
+	if (!activeGREF) then
+		{
+		call compile preProcessFileLineNumbers "Templates\buenosVanilla.sqf"
+		}
+	else
+		{
+		if (buenos == independent) then {call compile preProcessFileLineNumbers "Templates\buenosRHSGREF.sqf"} else {call compile preProcessFileLineNumbers "Templates\malosRHSGREF.sqf"};
+		};
 	}
 else
 	{

@@ -22,7 +22,7 @@ sleep 5;
 if (round random 100 < _chance) then
 	{
 	if (isMultiplayer) then {[_unit,true] remoteExec ["enableSimulationGlobal",2]} else {_unit enableSimulation true};
-	if (_lado == malos) then
+	if ((_lado == malos) and (faction _unit != factionFIA)) then
 		{
 		_unit globalChat "Okay, thank you. I owe you my life";
 		}

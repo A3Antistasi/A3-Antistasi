@@ -994,3 +994,5 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Solved Stavros city bug.
 - Hopefully destroyed buildings will appear destroyed for everyone.
 - Several english mispelling errors corrected thanks to the Github supporting community.
+- Reverted error which made tier 1 and 2 NATO have Rambo skills.
+- Tier 2 NATO (if exist) instead of lowering the aggro when releasing prisoners, they will join you like CSAT.

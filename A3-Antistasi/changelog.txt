@@ -996,3 +996,11 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Several english mispelling errors corrected thanks to the Github supporting community.
 - Reverted error which made tier 1 and 2 NATO have Rambo skills.
 - Tier 2 NATO (if exist) instead of lowering the aggro when releasing prisoners, they will join you like CSAT.
+
+1.1.6 13/07/2018
+
+- Corrected PvP looting.
+- Re added rebreathers in enemy seaport ammoboxes.
+- Rebels will allways have an update of AI attack destination on major attacks, that update will be quicker if enemy comms are intercepted.
+- Solved some locality issues with MP params for HCs.
+- MP hosters will have their personal stats loaded.

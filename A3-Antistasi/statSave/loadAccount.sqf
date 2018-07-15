@@ -1,13 +1,34 @@
-//if (!isServer) exitWith {};
+_byPassServer = if (isMultiplayer) then {if (count _this >0) then {_this select 0} else {false}} else {false};
 if !(isMultiplayer) then
 	{
 	waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
 	["loadoutPlayer"] call fn_LoadStat;
 	diag_log "Antistasi: SP Personal player stats loaded";
 	[] spawn statistics;
+	}
+else
+	{
+	if (!isDedicated) then
+		{
+		if (side player == buenos) then
+			{
+			waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
+			["loadoutPlayer"] call fn_LoadStat;
+			//player setPos getMarkerPos respawnBuenos;
+			if ([player] call isMember) then
+				{
+				["scorePlayer"] call fn_LoadStat;
+				["rankPlayer"] call fn_LoadStat;
+				};
+			["dinero"] call fn_LoadStat;
+			["personalGarage"] call fn_LoadStat;
+			diag_log "Antistasi: MP Personal player stats loaded";
+			[] spawn statistics;
+			};
+		};
 	};
 
-if (isServer) then
+if (isServer and !_byPassServer) then
 	{
 	diag_log "Antistasi: Starting Persistent Load";
 	petros allowdamage false;
@@ -168,22 +189,4 @@ if (isServer) then
 	["tasks"] call fn_LoadStat;
 	statsLoaded = 0; publicVariable "statsLoaded";
 	petros allowdamage true;
-	};
-if ((!isDedicated) and (isMultiplayer)) then
-	{
-	if (side player == buenos) then
-		{
-		waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
-		["loadoutPlayer"] call fn_LoadStat;
-		//player setPos getMarkerPos respawnBuenos;
-		if ([player] call isMember) then
-			{
-			["scorePlayer"] call fn_LoadStat;
-			["rankPlayer"] call fn_LoadStat;
-			};
-		["dinero"] call fn_LoadStat;
-		["personalGarage"] call fn_LoadStat;
-		diag_log "Antistasi: MP Personal player stats loaded";
-		[] spawn statistics;
-		};
 	};

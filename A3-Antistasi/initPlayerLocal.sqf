@@ -158,8 +158,8 @@ if (side player != buenos) exitWith
 		}];
 	player addEventHandler ["InventoryOpened",
 		{
-		_override = true;
-		if (typeOf (_this select 1) == NATOAmmoBox) then {_override = false};
+		_override = false;
+		if (typeOf (_this select 1) == NATOAmmoBox) then {_override = true};
 		_override
 		}];
 	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,nameMalos]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
@@ -510,12 +510,8 @@ else
 		    		}
 		    	else
 		    		{
-		    		if !(isServer) then
-		    			{
-			    		 _nul = [true] execVM "Dialogs\firstLoad.sqf";
-			    		 player setPos (getMarkerPos respawnBuenos);
-			    		};
-		    		};
+		    		_nul = [true] execVM "Dialogs\firstLoad.sqf";
+			    	};
 		    	diag_log "Antistasi MP Client. Client finished";
 		    	}
 		    else

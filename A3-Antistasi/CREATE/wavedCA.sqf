@@ -597,13 +597,10 @@ while {(_waves != 0)} do
 
 	if (!_SDKShown) then
 		{
-		_SDKShown = [true] call FIAradio;
-		if (_SDKShown) then
-			{
-			["TaskSucceeded", ["", "Attack Destination Updated"]] remoteExec ["BIS_fnc_showNotification",buenos];
-			//["AtaqueAAF",getMarkerPos _mrkDestino] call BIS_fnc_taskSetDestination;
-			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED"] call taskUpdate;
-			};
+		if !([true] call FIAradio) then {sleep 100};
+		_SDKShown = true;
+		["TaskSucceeded", ["", "Attack Destination Updated"]] remoteExec ["BIS_fnc_showNotification",buenos];
+		["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED"] call taskUpdate;
 		};
 	_solMax = round ((count _soldados)*0.6);
 	if (_solMax > 15) then {_waves = _waves -1};

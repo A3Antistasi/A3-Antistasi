@@ -1,4 +1,4 @@
-private ["_unit","_veh","_lado","_tipo","_skill""_riflefinal","_magazines","_hmd","_marcador","_revelar"];
+private ["_unit","_veh","_lado","_tipo","_skill","_riflefinal","_magazines","_hmd","_marcador","_revelar"];
 
 _unit = _this select 0;
 if (isNil "_unit") exitWith {};

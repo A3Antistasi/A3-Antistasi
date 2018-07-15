@@ -39,13 +39,13 @@ private _index = _x call jn_fnc_arsenal_itemType;
 
 loadLastSave = if (paramsArray select 0 == 1) then {true} else {false};
 autoSave = if (paramsArray select 1 == 1) then {true} else {false};
-membershipEnabled = if (paramsArray select 2 == 1) then {true} else {false};
+membershipEnabled = if (paramsArray select 2 == 1) then {true} else {false}; publicVariable "membershipEnabled";
 switchCom = if (paramsArray select 3 == 1) then {true} else {false};
-tkPunish = if (paramsArray select 4 == 1) then {true} else {false};
-distanciaMiss = paramsArray select 5;
-skillMult = paramsArray select 8;
+tkPunish = if (paramsArray select 4 == 1) then {true} else {false}; publicVariable "tkPunish";
+distanciaMiss = paramsArray select 5; publicVariable "distanciaMiss";
+skillMult = paramsArray select 8; publicVariable "skillMult";
 minWeaps = paramsArray select 9;
-civTraffic = paramsArray select 10;
+civTraffic = paramsArray select 10; publicVariable "civTraffic";
 //waitUntil {!isNil "bis_fnc_preload_init"};
 //waitUntil {!isNil "BIS_fnc_preload_server"};
 if (loadLastSave) then

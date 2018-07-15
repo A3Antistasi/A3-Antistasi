@@ -147,6 +147,7 @@ if ((_marcador in puertos) and (spawner getVariable _marcador!=2)) then
 	_soldados = _soldados + _vehCrew;
 	_grupos pushBack _grupoVeh;
 	_vehiculos pushBack _veh;
+	{_caja addItemCargoGlobal [_x,2]} forEach swoopShutUp;
 	sleep 1;
 	}
 else

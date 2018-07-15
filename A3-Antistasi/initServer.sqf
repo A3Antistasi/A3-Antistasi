@@ -1,7 +1,11 @@
 if (!isMultiplayer) exitWith {};
 if (!(isNil "serverInitDone")) exitWith {};
 diag_log "Antistasi MP Server init";
-
+caja allowDamage false;
+bandera allowDamage false;
+cajaVeh allowDamage false;
+fuego allowDamage false;
+mapa allowDamage false;
 _serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
 if(isNil "_serverHasID") then
     {

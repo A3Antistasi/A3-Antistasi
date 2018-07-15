@@ -71,13 +71,17 @@ if (loadLastSave) then
         {
         miembros pushBack (getPlayerUID _x);
         } forEach playableUnits;
-		
-		// Load external member list from the addon
-		if (!isNil "as_fnc_getExternalMemberListUIDs") then { {miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs); };
         
 		publicVariable "miembros";
         sleep 3;
         };
+		
+	// Load external member list from the addon
+	if (!isNil "as_fnc_getExternalMemberListUIDs") then {
+		{miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
+		publicVariable "miembros";
+	};
+		
     theBoss = objNull;
     {
     if (([_x] call isMember) and (side _x == buenos)) exitWith

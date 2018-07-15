@@ -10,13 +10,13 @@ Features:
 - AI Enemy Commander which reacts to your movements and manages his resources.
 - Around 18 possible Sidemissions: Assasination, Logistics, Destroy Assets, Rescue POWS, Conquer Missions in a wide variety on each type.
 - Possibility of Undercovered Operations, same as a Resistance soldier can do.
-- Persistent Stat Save System: You won't loose game or server progress upon a game update. 
+- Persistent Stat Save System: You won't lose game or server progress upon a game update. 
 - Enhaced AI Squadmate control.
 - AI friendlies and enemy can drag/carry and heal injured soldiers, not working with ACE3 mod.
 - AI Garrison that use static weapon you add 
 - Forests get destroyed as long as the war evolves. 
 - Up to 3 Headless Client supported. 
-- Integrated Mods: [TFAR](https://steamcommunity.com/sharedfiles/filedetails/?id=620019431), [ACRE](https://steamcommunity.com/sharedfiles/filedetails/?id=751965892&searchtext=acre), [RHS: AFRF, USAF and GREF](https://steamcommunity.com/workshop/filedetails/?id=843770737), [FFAA](https://steamcommunity.com/sharedfiles/filedetails/?id=820994401&searchtext=FFAA), [ACE](https://steamcommunity.com/sharedfiles/filedetails/?id=463939057) or, to keep the unique features of AI that would be disabled with ACE medical system: [ACE no medical](https://steamcommunity.com/sharedfiles/filedetails/?id=1316471790) . None of them mandatory. 
+- Integrated Mods: [TFAR](https://steamcommunity.com/sharedfiles/filedetails/?id=620019431), [ACRE](https://steamcommunity.com/sharedfiles/filedetails/?id=751965892&searchtext=acre), [RHS: AFRF, USAF and GREF](https://steamcommunity.com/workshop/filedetails/?id=843770737), [FFAA](https://steamcommunity.com/sharedfiles/filedetails/?id=820994401&searchtext=FFAA), [ACE](https://steamcommunity.com/sharedfiles/filedetails/?id=463939057) or, to keep the unique features of AI that would be disabled with ACE medical system: [ACE no medical](https://steamcommunity.com/sharedfiles/filedetails/?id=1316471790). None of them mandatory. 
 
 # How to setup
 
@@ -30,10 +30,10 @@ That's the example if you want play Altis, if you wanna play Tanoa then you've t
 
 # Known Issues:
 
-- The NATO PvP Option is still WiP, but definetly playable. Among other things to improve, the NATO heli taxi (Radio 0-8) uses vanilla BIS module and lack of some functionalities Antistasi needs. If in toruble, login/logout.
+- The NATO PvP Option is still WiP, but definitely playable. Among other things to improve, the NATO heli taxi (Radio 0-8) uses vanilla BIS module and lack of some functionalities Antistasi needs. If in toruble, login/logout.
 - Tanoa is a pain in the♥♥♥♥♥for AI driving on roads. They have built a lot of small tracks which AI uses badly due to the dense jungle which surrounds them. Possible solutions are WiP.
 - Mission balancing is still under study.
-- Some features have not been heavyly tested. That's why are you here :)
+- Some features have not been heavily tested. That's why are you're here :)
 
 Mission is on Beta STAGE.
 

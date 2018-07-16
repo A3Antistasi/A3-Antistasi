@@ -24,7 +24,6 @@ if (!hasInterface) exitWith
 	if (worldName == "Tanoa") then {call compile preprocessFileLineNumbers "roadsDB.sqf"} else {if (worldName == "Altis") then {call compile preprocessFileLineNumbers "roadsDBAltis.sqf"}};
 	[clientOwner] remoteExec ["addHC",2];
 	};
-
 _isJip = _this select 1;
 if (isMultiplayer) then
 	{
@@ -34,7 +33,7 @@ if (isMultiplayer) then
 	disableUserInput true;
 	cutText ["Waiting for Players and Server Init","BLACK",0];
 	diag_log "Antistasi MP Client. Waiting for serverInitDone";
-	waitUntil {(!isNil "serverInitDone")};
+	waitUntil {(!isNil "serverInitDone") and (side player != sideUnknown)};
 	cutText ["Starting Mission","BLACK IN",0];
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];

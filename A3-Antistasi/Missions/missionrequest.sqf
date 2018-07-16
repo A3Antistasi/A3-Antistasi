@@ -257,7 +257,7 @@ if (_tipo == "CONVOY") then
 	else
 		{
 		[petros,"globalChat","There is a big battle around, I don't think the enemy will send any convoy"] remoteExec ["commsMP",theBoss];
-		[petros,"hint","Convoy Missions require a clmaed status around the island, and now it is not the proper time."] remoteExec ["commsMP",theBoss];
+		[petros,"hint","Convoy Missions require a calmed status around the island, and now it is not the proper time."] remoteExec ["commsMP",theBoss];
 		};
 	};
 

@@ -63,7 +63,7 @@ switch _tipo do
 			if (isNil "accion") then
 				{
 				removeAllActions _flag;
-				[] call SA_Add_Player_Tow_Actions;
+				if (player == player getVariable ["owner",player]) then {[] call SA_Add_Player_Tow_Actions};
 				}
 			else
 				{

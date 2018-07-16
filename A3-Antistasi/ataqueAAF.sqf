@@ -24,6 +24,7 @@ _basesFinal = [];
 _cuentasFinal = [];
 _objetivoFinal = [];
 _faciles = [];
+_facilesArr = [];
 _puertoCSAT = if ({(lados getVariable [_x,sideUnknown] == muyMalos)} count puertos >0) then {true} else {false};
 _puertoNATO = if ({(lados getVariable [_x,sideUnknown] == malos)} count puertos >0) then {true} else {false};
 _waves = 1;
@@ -79,10 +80,10 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 			{
 			if !(_x in _killZones) then
 				{
-				if !(_x in _faciles) then
+				if !(_x in _facilesArr) then
 					{
 					_sitio = _x;
-					if ((!(_sitio in aeropuertos)) or (_esSDK)) then
+					if (((!(_sitio in aeropuertos)) or (_esSDK)) and !(_base in ["NATO_carrier","CSAT_carrier"])) then
 						{
 						_ladoEny = if (_baseNATO) then {muyMalos} else {malos};
 						if ({(lados getVariable [_x,sideUnknown] == _ladoEny) and (getMarkerPos _x distance _posSitio < distanciaSPWN)} count aeropuertos == 0) then
@@ -90,11 +91,12 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 							_garrison = garrison getVariable [_sitio,[]];
 							_estaticas = staticsToSave select {_x distance _posSitio < distanciaSPWN};
 							_puestos = puestosFIA select {getMarkerPos _x distance _posSitio < distanciaSPWN};
-							_cuenta = ((count _garrison) + (3*(count _puestos)) + (2*(count _estaticas)));
+							_cuenta = ((count _garrison) + (count _puestos) + (2*(count _estaticas)));
 							if (_cuenta <= 8) then
 								{
 								_proceder = false;
 								_faciles pushBack [_sitio,_base];
+								_facilesArr pushBackUnique _sitio;
 								};
 							};
 						};

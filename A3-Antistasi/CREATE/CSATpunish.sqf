@@ -112,8 +112,8 @@ if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[[_posDestino,ma
 if (_numCiv < 8) then {_numCiv = 8};
 
 _size = [_mrkDestino] call sizeMarker;
-_grupoCivil = if (_lado == buenos) then {createGroup buenos} else {createGroup malos};
-_grupoCivil = createGroup civilian;
+//_grupoCivil = if (_lado == buenos) then {createGroup buenos} else {createGroup malos};
+_grupoCivil = createGroup buenos;
 _grupos pushBack _grupoCivil;
 //[muyMalos,[civilian,0]] remoteExec ["setFriend",2];
 _tipoUnit = if (_lado == buenos) then {SDKUnarmed} else {NATOUnarmed};

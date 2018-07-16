@@ -142,6 +142,7 @@ if (_tipoCoche in vehCSATLightUnarmed) then
 
 while {alive _veh} do
 	{
+	if (count _arraydestinos < 2) exitWith {};
 	_destino = selectRandom _arraydestinos;
 	if (debug) then {player globalChat format ["Patrulla AI generada. Origen: %2 Destino %1", _destino, _base]; sleep 3};
 	_posDestino = getMarkerPos _destino;

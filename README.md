@@ -44,9 +44,9 @@ Mission is on Beta STAGE.
 
 - [Official website](http://a3antistasi.enjin.com/)
 - [Official guide](https://docs.google.com/document/d/1cCptf8Uo-mBHRhIqx1BPznECzgRqwJuj70AGjiI6KOI/edit)
-- [Official video tutorial](https://www.youtube.com/watch?v=nebLG3Jhrbk&t=663s)
+- [Official video tutorial](https://www.youtube.com/watch?v=nebLG3Jhrbk)
 - [Steam Workshop: Altis](https://steamcommunity.com/sharedfiles/filedetails/?id=378941393)
-- [Steam Workshop: Tanoa](http://steamcommunity.com/sharedfiles/filedetails/?id=750430992) releases will be there by default.
+- [Steam Workshop: Tanoa](http://steamcommunity.com/sharedfiles/filedetails/?id=750430992)
 
 Please rate up the mission if you like the concept. The more players we are, the better mission we will have thanks to comments, suggestions and bug reports.
 
@@ -54,4 +54,4 @@ Please rate up the mission if you like the concept. The more players we are, the
 Official servers are mooving a lot lately.
 Come on official website to get up to date informations.
 
-Teamspeak/TFAR is mandatory.
+Teamspeak/TFAR is mandatory on antistasi official servers.

@@ -18,7 +18,7 @@ if (_tipo == "AS") then
 	{
 	_sitios = aeropuertos + ciudades + (controles select {!(isOnRoad getMarkerPos _x)});
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
-	if (count _sitios > 0) then
+	if ((count _sitios > 0) and ({lados getVariable [_x,sideUnknown] == malos} count aeropuertos > 0)) then
 		{
 		//_posibles = _sitios select {((getMarkerPos _x distance _posbase < distanciaMiss) and (not(spawner getVariable _x)))};
 		for "_i" from 0 to ((count _sitios) - 1) do
@@ -209,7 +209,7 @@ if (_tipo == "CONVOY") then
 	if (!bigAttackInProgress) then
 		{
 		_sitios = (aeropuertos + recursos + fabricas + puertos + puestos - blackListDest) + (ciudades select {count (garrison getVariable [_x,[]]) < 10});
-		_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
+		_sitios = _sitios select {(lados getVariable [_x,sideUnknown] != buenos) and !(_x in blackListDest)};
 		if (count _sitios > 0) then
 			{
 			for "_i" from 0 to ((count _sitios) - 1) do

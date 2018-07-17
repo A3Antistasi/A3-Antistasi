@@ -1010,3 +1010,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - HQ assets will be invulnerable again.
 - Carriers wont launch coquering QRFs.
 - Corrected server flood when road patrols didnt found where to patrol.
+- Workarounded when mission init thinks the player is in the wrong side.
+- No assassination missions in case NATO does not have any airbase in the island.
+- Convoys can now depart from outposts, more convoy options!
+- Extended auto conquer of surrounding zones for battles between AI to captured outposts.

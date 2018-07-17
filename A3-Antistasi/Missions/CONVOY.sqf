@@ -182,26 +182,37 @@ switch (_tipoConvoy) do
 [[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
 [[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,false,0,true,"run",true] call BIS_fnc_taskCreate;
 misiones pushBack ["CONVOY","CREATED"]; publicVariable "misiones";
-sleep (_tiempolim * 60);
+//sleep (_tiempolim * 60);
 
-_indice = aeropuertos find _base;
-_spawnPoint = spawnPoints select _indice;
-_pos = getMarkerPos _spawnPoint;
-
+_posOrig = [];
+_dir = 0;
+if (_base in aeropuertos) then
+	{
+	_indice = aeropuertos find _base;
+	_spawnPoint = spawnPoints select _indice;
+	_posOrig = getMarkerPos _spawnPoint;
+	_dir = markerDir _spawnPoint;
+	}
+else
+	{
+	_spawnPoint = [getMarkerPos _base] call findNearestGoodRoad;
+	_posOrig = position _spawnPoint;
+	_dir = getDir _spawnPoint;
+	};
 _grupo = createGroup _lado;
 _grupos pushBack _grupo;
 _tipoVeh = if (_lado == malos) then {if (!_esFIA) then {selectRandom vehNATOLightArmed} else {vehPoliceCar}} else {selectRandom vehCSATLightArmed};
 _timeOut = 0;
-_pos = _pos findEmptyPosition [0,100,_tipoveh];
+_pos = _posOrig findEmptyPosition [0,100,_tipoveh];
 while {_timeOut < 60} do
 	{
 	if (count _pos > 0) exitWith {};
 	_timeOut = _timeOut + 1;
-	_pos = _pos findEmptyPosition [0,100,_tipoveh];
+	_pos = _posOrig findEmptyPosition [0,100,_tipoveh];
 	sleep 1;
 	};
-if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
-_vehicle=[_pos,markerDir _spawnPoint,_tipoVeh, _grupo] call bis_fnc_spawnvehicle;
+if (count _pos == 0) then {_pos = _posOrig};
+_vehicle=[_pos,_dir,_tipoVeh, _grupo] call bis_fnc_spawnvehicle;
 _vehLead = _vehicle select 0;
 _vehLead allowDamage false;
 [_vehLead,"Convoy Lead"] spawn inmuneConvoy;
@@ -250,16 +261,16 @@ for "_i" from 1 to _cuenta do
 		if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 		};
 	_timeOut = 0;
-	_pos = _pos findEmptyPosition [10,100,_tipoveh];
+	_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 	while {_timeOut < 60} do
 		{
 		if (count _pos > 0) exitWith {};
 		_timeOut = _timeOut + 1;
-		_pos = _pos findEmptyPosition [10,100,_tipoveh];
+		_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 		sleep 1;
 		};
-	if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
-	_vehicle=[_pos, markerDir _spawnPoint,_tipoVehEsc, _grupo] call bis_fnc_spawnvehicle;
+	if (count _pos == 0) then {_pos = _posOrig};
+	_vehicle=[_pos, _dir,_tipoVehEsc, _grupo] call bis_fnc_spawnvehicle;
 	_veh = _vehicle select 0;
 	_veh allowDamage false;
 	[_veh,"Convoy Escort"] spawn inmuneConvoy;
@@ -298,18 +309,18 @@ for "_i" from 1 to _cuenta do
 sleep 2;
 
 _timeOut = 0;
-_pos = _pos findEmptyPosition [10,100,_tipoveh];
+_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 while {_timeOut < 60} do
 	{
 	if (count _pos > 0) exitWith {};
 	_timeOut = _timeOut + 1;
-	_pos = _pos findEmptyPosition [10,100,_tipoveh];
+	_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 	sleep 1;
 	};
-if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
+if (count _pos == 0) then {_pos = _posOrig};
 //_grupo = createGroup _lado;
 //_grupos pushBack _grupo;
-_vehicle=[_pos, markerDir _spawnPoint,_tipoVehObj, _grupo] call bis_fnc_spawnvehicle;
+_vehicle=[_pos, _dir,_tipoVehObj, _grupo] call bis_fnc_spawnvehicle;
 _vehObj = _vehicle select 0;
 _vehObj allowDamage false;
 if (_dificil) then {[_vehObj," Convoy Objective"] spawn inmuneConvoy} else {[_vehObj,"Convoy Objective"] spawn inmuneConvoy};
@@ -368,18 +379,18 @@ if (not([_tipoVehEsc] call vehAvailable)) then
 	if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 	};
 _timeOut = 0;
-_pos = _pos findEmptyPosition [10,100,_tipoveh];
+_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 while {_timeOut < 60} do
 	{
 	if (count _pos > 0) exitWith {};
 	_timeOut = _timeOut + 1;
-	_pos = _pos findEmptyPosition [10,100,_tipoveh];
+	_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 	sleep 1;
 	};
-if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
+if (count _pos == 0) then {_pos = _posOrig};
 //_grupo = createGroup _lado;
 //_grupos pushBack _grupo;
-_vehicle=[_pos,markerDir _spawnPoint,_tipoVehEsc, _grupo] call bis_fnc_spawnvehicle;
+_vehicle=[_pos,_dir,_tipoVehEsc, _grupo] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 _veh allowDamage false;
 [_veh,"Convoy Escort"] spawn inmuneConvoy;

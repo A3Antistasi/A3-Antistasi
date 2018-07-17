@@ -420,14 +420,8 @@ else
 lados setVariable ["NATO_carrier",malos,true];
 lados setVariable ["CSAT_carrier",muyMalos,true];
 
-blackListDest = if (worldName == "Tanoa") then
-                    {
-                    ["puesto_5","puesto_8","puesto_11","puesto_13"]
-                    }
-                else
-                    {
-                    (marcadores - controles - ["Synd_HQ"] - ciudades) select {!((position ([getMarkerPos _x] call findNearestGoodRoad)) inArea _x)};
-                    };
+blackListDest = (marcadores - controles - ["Synd_HQ"] - ciudades) select {!((position ([getMarkerPos _x] call findNearestGoodRoad)) inArea _x)};
+
 publicVariable "blackListDest";
 //the following is the console code snippet I use to pick positions of any kind of building. You may do this for gas stations, banks, radios etc.. markerPos "Base_4" is because it's in the middle of the island, and inside the array you may find the type of building I am searching for. Paste the result in a txt and add it to the corresponding arrays.
 /*

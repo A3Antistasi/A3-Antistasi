@@ -3,6 +3,7 @@ private _description = _this select 1;
 private _destino = _this select 2;
 private _state = _this select 3;
 _soloDestino = true;
+if !([_variable] call BIS_fnc_taskExists) exitWith {};
 private _descriptionOld = _variable call BIS_fnc_taskDescription;
 
 if (((_descriptionOld select 1) select 0) != (_description select 1)) then

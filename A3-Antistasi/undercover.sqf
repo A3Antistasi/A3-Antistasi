@@ -189,7 +189,7 @@ switch _cambiar do
 			}
 		else
 			{
-			_player setVariable ["compromised",(dateToNumber [date select 0, date select 1, date select 2, date select 3, (date select 4) + 30])];
+			_player setVariable ["compromised",(dateToNumber [date select 0, date select 1, date select 2, date select 3, (date select 4) + (30*WorldTimeAcc)])];
 			};
 		};
 	case "VNoCivil": {hint "You entered a non civilian vehicle"};
@@ -208,7 +208,7 @@ switch _cambiar do
 	case "Vestido2":
 		{
 		hint "You cannot stay Undercover while showing:\n\nA weapon is visible\nWearing a vest\nWearing a helmet\nWearing NVGs\nWearing a mil uniform\n\nThe enemy added you to their Wanted List";
-		_player setVariable ["compromised",dateToNumber [date select 0, date select 1, date select 2, date select 3, (date select 4) + 30]];
+		_player setVariable ["compromised",dateToNumber [date select 0, date select 1, date select 2, date select 3, (date select 4) + (30*WorldTimeAcc)]];
 		};
 	case "Compromised": {hint "You left your vehicle and you are still on the Wanted List"};
 	case "Distancia":
@@ -222,7 +222,7 @@ switch _cambiar do
 			}
 		else
 			{
-			_player setVariable ["compromised",(dateToNumber [date select 0, date select 1, date select 2, date select 3, (date select 4) + 30])];
+			_player setVariable ["compromised",(dateToNumber [date select 0, date select 1, date select 2, date select 3, (date select 4) + (30*WorldTimeAcc)])];
 			};
 		};
 	case "NoFly":

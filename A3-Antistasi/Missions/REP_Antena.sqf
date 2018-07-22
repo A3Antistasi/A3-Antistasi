@@ -5,7 +5,7 @@ private ["_marcador","_posicion","_fechalim","_fechalimnum","_nombredest","_cami
 _marcador = _this select 0;
 _posicion = _this select 1;
 
-_tiempolim = 60;
+_tiempolim = (60*WorldTimeAcc);
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
 _nombredest = [_marcador] call localizar;

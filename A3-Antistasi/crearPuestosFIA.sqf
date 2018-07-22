@@ -23,7 +23,7 @@ if (_escarretera) then
 _mrk = createMarker [format ["FIAPost%1", random 1000], _posicionTel];
 _mrk setMarkerShape "ICON";
 
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
+_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + (60*WorldTimeAcc)];
 _fechalimnum = dateToNumber _fechalim;
 [[buenos,civilian],"PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_posicionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
 //_tsk = ["PuestosFIA",[buenos,civilian],["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;

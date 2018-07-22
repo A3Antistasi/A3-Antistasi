@@ -257,7 +257,7 @@ if (_conquistado) then
 	_indice = controles find _marcador;
 	if (_indice > defaultControlIndex) then
 		{
-		_tiempolim = 120;//120
+		_tiempolim = (120*WorldTimeAcc);//120
 		_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 		_fechalimnum = dateToNumber _fechalim;
 		waitUntil {sleep 60;(dateToNumber date > _fechalimnum)};

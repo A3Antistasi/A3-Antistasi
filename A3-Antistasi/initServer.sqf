@@ -26,6 +26,10 @@ diag_log "Antistasi MP Server. Funcs init finished";
 _nul = call compile preprocessFileLineNumbers "initZones.sqf";
 diag_log "Antistasi MP Server. Zones init finished";
 
+WorldTimeAcc = ["timeMultiplier",1] call BIS_fnc_getParamValue; //Time Acceleration with default value of 1 if the value can't be found (why wouldn't it tho?)
+setTimeMultiplier WorldTimeAcc; //Setting Time Acceleration
+diag_log "Antistasi MP Server. Time acceleration set";
+
 [] execVM "initPetros.sqf";
 ["Initialize"] call BIS_fnc_dynamicGroups;//Exec on Server
 waitUntil {(count playableUnits) > 0};

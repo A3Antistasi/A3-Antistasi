@@ -18,7 +18,7 @@ if (_dificil) then
 	_contacto = _result select 1;
 
 	_nombredest = [_ciudad] call localizar;
-	_tiempolim = 30;//120
+	_tiempolim = (30*WorldTimeAcc);//120
 	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 	_fechalimnum = dateToNumber _fechalim;
 	[[buenos,civilian],"DES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _contacto,false,0,true,"talk",true] call BIS_fnc_taskCreate;
@@ -71,7 +71,7 @@ if (_dificil) then
 _nombredest = [_marcador] call localizar;
 _posicion = getPos _antena;
 
-_tiempolim = if (_dificil) then {30} else {120};
+_tiempolim = if (_dificil) then {(30*WorldTimeAcc)} else {(120*WorldTimeAcc)};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
 

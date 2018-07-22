@@ -150,6 +150,12 @@ class Params
         default = 1;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+	class timeMultiplier {
+    	title = "Time Multiplier";
+    	values[] = {1,2,3,4,5,6};
+    	texts[] = {"1x","2x","3x","4x","5x","6x"};
+    	default = 1;
+    };
 };
 
 class CfgIdentities

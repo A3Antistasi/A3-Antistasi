@@ -69,6 +69,11 @@ if (loadLastSave) then
     {
     _nul = [] execVM "statSave\loadAccount.sqf";
     waitUntil {!isNil"statsLoaded"};
+    if (!isNil "as_fnc_getExternalMemberListUIDs") then
+        {
+        {miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
+        publicVariable "miembros";
+        };
     if (membershipEnabled and (miembros isEqualTo [])) then
         {
         [petros,"hint","Membership is enabled but members list is empty. Current players will be added to the member list"] remoteExec ["commsMP"];
@@ -76,17 +81,9 @@ if (loadLastSave) then
         {
         miembros pushBack (getPlayerUID _x);
         } forEach playableUnits;
-        
-		publicVariable "miembros";
+        publicVariable "miembros";
         sleep 3;
         };
-		
-	// Load external member list from the addon
-	if (!isNil "as_fnc_getExternalMemberListUIDs") then {
-		{miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
-		publicVariable "miembros";
-	};
-		
     theBoss = objNull;
     {
     if (([_x] call isMember) and (side _x == buenos)) exitWith
@@ -101,34 +98,17 @@ if (loadLastSave) then
     }
 else
     {
-     if (serverName in servidoresOficiales) then
+    theBoss = objNull;
+    if (!isNil "as_fnc_getExternalMemberListUIDs") then
         {
-        //["miembros"] call fn_LoadStat;
-        call compile preprocessFileLineNumbers "orgPlayers\mList.sqf";
-		
-		// Load external member list from the addon
-		if (!isNil "as_fnc_getExternalMemberListUIDs") then {
-			{miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
-			publicVariable "miembros"; // Must publicVariable it again
-		};
-
-		
-        theBoss = objNull;
+        {miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
+        publicVariable "miembros";
         {
-        if (([_x] call isMember) and (side _x == buenos)) exitWith
-            {
-            theBoss = _x;
-            //_x setRank "CORPORAL";
-            //[_x,"CORPORAL"] remoteExec ["ranksMP"];
-            //_x setVariable ["score", 25,true];
-            };
+        if (([_x] call isMember) and (side _x == buenos)) exitWith {theBoss = _x};
         } forEach playableUnits;
-		
-        publicVariable "theBoss";
-        }
+       }
     else
         {
-        theBoss = objNull;
         diag_log "Antistasi: New Game selected";
         if (isNil "comandante") then {comandante = (playableUnits select 0)};
         if (isNull comandante) then {comandante = (playableUnits select 0)};
@@ -137,12 +117,8 @@ else
         theBoss setRank "CORPORAL";
         [theBoss,"CORPORAL"] remoteExec ["ranksMP"];
         if (membershipEnabled) then {miembros = [getPlayerUID theBoss]} else {miembros = []};
-		
-		// Load external member list from the addon
-		if (!isNil "as_fnc_getExternalMemberListUIDs") then { {miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs); };
-		
-        publicVariable "miembros";
         };
+    publicVariable "theBoss";
     _nul = [caja] call cajaAAF;
     };
     /*

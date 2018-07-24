@@ -76,9 +76,17 @@ if (loadLastSave) then
         {
         miembros pushBack (getPlayerUID _x);
         } forEach playableUnits;
-        publicVariable "miembros";
+        
+		publicVariable "miembros";
         sleep 3;
         };
+		
+	// Load external member list from the addon
+	if (!isNil "as_fnc_getExternalMemberListUIDs") then {
+		{miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
+		publicVariable "miembros";
+	};
+		
     theBoss = objNull;
     {
     if (([_x] call isMember) and (side _x == buenos)) exitWith
@@ -97,6 +105,14 @@ else
         {
         //["miembros"] call fn_LoadStat;
         call compile preprocessFileLineNumbers "orgPlayers\mList.sqf";
+		
+		// Load external member list from the addon
+		if (!isNil "as_fnc_getExternalMemberListUIDs") then {
+			{miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
+			publicVariable "miembros"; // Must publicVariable it again
+		};
+
+		
         theBoss = objNull;
         {
         if (([_x] call isMember) and (side _x == buenos)) exitWith
@@ -107,6 +123,7 @@ else
             //_x setVariable ["score", 25,true];
             };
         } forEach playableUnits;
+		
         publicVariable "theBoss";
         }
     else
@@ -120,6 +137,10 @@ else
         theBoss setRank "CORPORAL";
         [theBoss,"CORPORAL"] remoteExec ["ranksMP"];
         if (membershipEnabled) then {miembros = [getPlayerUID theBoss]} else {miembros = []};
+		
+		// Load external member list from the addon
+		if (!isNil "as_fnc_getExternalMemberListUIDs") then { {miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs); };
+		
         publicVariable "miembros";
         };
     _nul = [caja] call cajaAAF;

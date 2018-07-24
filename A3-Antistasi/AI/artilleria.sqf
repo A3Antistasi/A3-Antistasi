@@ -31,7 +31,7 @@ if (_posDestino inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) select 0)
 		{
 		_objetivo = objNull;
 		_rondas = 1;
-		_objetivos = vehicles select {((side driver _x == _ladoMalos) or (side driver _x == buenos)) and (_x distance _posDestino <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (speed _x < 1)};
+		_objetivos = vehicles select {((side (group driver _x) == _ladoMalos) or (side (group driver _x) == buenos)) and (_x distance _posDestino <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (speed _x < 1)};
 		if (count _objetivos > 0) then
 			{
 			{
@@ -41,7 +41,7 @@ if (_posDestino inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) select 0)
 			}
 		else
 			{
-			_objetivos = allUnits select {((side _x == _ladoMalos) or (side _x == buenos)) and (_x distance _posDestino <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (_x == leader group _x)};
+			_objetivos = allUnits select {((side (group _x) == _ladoMalos) or (side (group _x) == buenos)) and (_x distance _posDestino <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (_x == leader group _x)};
 			if (count _objetivos > 0) then
 				{
 				_cuenta = 0;
@@ -50,7 +50,7 @@ if (_posDestino inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) select 0)
 				_cuentaGrupo = {(alive _x) and (!captive _x)} count units group _posible;
 				if (_cuentaGrupo > _cuenta) then
 					{
-					if ((_lado == muyMalos) or ({(side _x == civilian) and (_x distance _posible < 100)} count allUnits == 0)) then
+					if ((_lado == muyMalos) or ({(side (group _x) == civilian) and (_x distance _posible < 50)} count allUnits == 0)) then
 						{
 						_objetivo = _posible;
 						if (_cuentaGrupo > 6) then {_rondas = 2};

@@ -1,6 +1,6 @@
 waitUntil {!isNull player};
 
-if (side player == independent) then
+if (side player == buenos) then
 {
 _index =player createDiarySubject ["Tutorial","Begin Tutorial"];
 player createDiaryRecord ["Tutorial",["Undercover","In the early stages, especially when accomplishing certain missions, being undercover can be extremely helpful. Just as for real resistance fighters, your ability to disappear is something the enemy cannot counter. See Features section for a deep explanation of Undercover Mode."]];

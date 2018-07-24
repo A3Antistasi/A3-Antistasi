@@ -33,7 +33,7 @@ if (isMultiplayer) then
 	disableUserInput true;
 	cutText ["Waiting for Players and Server Init","BLACK",0];
 	diag_log "Antistasi MP Client. Waiting for serverInitDone";
-	waitUntil {(!isNil "serverInitDone") and (side player != sideUnknown)};
+	waitUntil {(!isNil "serverInitDone") and ((side player == buenos) or (side player == malos))};
 	cutText ["Starting Mission","BLACK IN",0];
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
@@ -110,7 +110,7 @@ else
 	if (!hayACEMedical) then {[player] execVM "Revive\initRevive.sqf"};
 	};
 
-if (side player != buenos) exitWith
+if (player getVariable ["pvp",false]) exitWith
 	{
 	moto = objNull;
 	if ((!_isJIP) or (paramsArray select 6 != 1)) then
@@ -127,7 +127,16 @@ if (side player != buenos) exitWith
 			}
 		else
 			{
-			if ({(side group _x != buenos)} count playableUnits > {(side group _x == buenos)} count playableUnits) then {["noPvP",false,1,false,false] call BIS_fnc_endMission; diag_log "Antistasi: PvP player kicked because PvP players numer is equal to non PvP";}
+			if ({(side group _x != buenos)} count playableUnits > {(side group _x == buenos)} count playableUnits) then
+				{
+				["noPvP",false,1,false,false] call BIS_fnc_endMission;
+				diag_log "Antistasi: PvP player kicked because PvP players number is equal to non PvP";
+				}
+			else
+				{
+				[player] remoteExec ["playerHasBeenPvPCheck",2];
+				diag_log "Antistasi: PvP player logged in, doing server side checks if the player has been rebel recently";
+				};
 			};
 		};
 	if (side player == malos) then
@@ -148,7 +157,7 @@ if (side player != buenos) exitWith
 		_veh = _this select 2;
 		if (_veh != _moto) then
 			{
-			if !(typeOf _veh in vehNATONormal) then
+			if !(typeOf _veh in vehNormal) then
 				{
 				moveOut player;
 				hint format ["You are only allowed to use your Quadbike or %1 non armed vehicles",nameMalos];
@@ -158,10 +167,12 @@ if (side player != buenos) exitWith
 	player addEventHandler ["InventoryOpened",
 		{
 		_override = false;
-		if (typeOf (_this select 1) == NATOAmmoBox) then {_override = true};
+		_caja = typeOf (_this select 1);
+		if ((_caja == NATOAmmoBox) or (_caja == CSATAmmoBox)) then {_override = true};
 		_override
 		}];
-	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,nameMalos]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
+	_nombre = if (side player == malos) then {nameMalos} else {nameMuyMalos};
+	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 	waituntil {!isnull (finddisplay 46)};
 	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
@@ -339,6 +350,9 @@ player addEventHandler ["WeaponAssembled",
 			publicVariable "staticsToSave";
 			[_veh] call AIVEHinit;
 			};
+		_marcadores = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
+		_pos = position _veh;
+		if (_marcadores findIf {_pos inArea _x} != -1) then {hint "Static weapon has been deployed for use in a nearby zone, and will be used by garrison militia if you leave it here the next time the zone spawns"};
 		}
 	else
 		{
@@ -399,6 +413,19 @@ if (isMultiplayer) then
 	["InitializePlayer", [player]] call BIS_fnc_dynamicGroups;//Exec on client
 	["InitializeGroup", [player,buenos,true]] call BIS_fnc_dynamicGroups;
 	personalGarage = [];
+	if (membershipEnabled) then
+		{
+		if !([player] call isMember) then
+			{
+			if (isServer) then
+				{
+				miembros pushBack (getPlayerUID player);
+				publicVariable "miembros";
+				};
+			_nonMembers = {(side group _x == buenos) and !([_x] call isMember)} count playableUnits;
+			if (_nonMembers >= (playableSlotsNumber buenos) - bookedSlots) then {["memberSlots",false,1,false,false] call BIS_fnc_endMission};
+			};
+		};
 	};
 
 waitUntil {scriptdone _introshot};
@@ -414,7 +441,7 @@ if (_isJip) then
 	[true] execVM "reinitY.sqf";
 	if (not([player] call isMember)) then
 		{
-		if (serverCommandAvailable "#logout") then
+		if ((serverCommandAvailable "#logout") or (isServer)) then
 			{
 			miembros pushBack (getPlayerUID player);
 			publicVariable "miembros";

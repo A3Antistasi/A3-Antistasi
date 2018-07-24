@@ -37,14 +37,17 @@ if (_part == "") then
 						[_unit] spawn respawn;
 						if (isPlayer _injurer) then
 							{
-							if ((_injurer != _unit) and (side _injurer == buenos) and (_unit getVariable ["GREENFORSpawn",false])) then
+							if (tkPunish) then
 								{
-								_uniform = uniform _unit;
-								_typeSoldier = getText (configfile >> "CfgWeapons" >> _uniform >> "ItemInfo" >> "uniformClass");
-								_sideType = getNumber (configfile >> "CfgVehicles" >> _typeSoldier >> "side");
-								if ((_sideType == 1) or (_sideType == 0)) then
+								if ((_injurer != _unit) and (side _injurer == buenos) and (_unit getVariable ["GREENFORSpawn",false])) then
 									{
-									[_injurer,60] remoteExec ["castigo",_injurer];
+									_uniform = uniform _unit;
+									_typeSoldier = getText (configfile >> "CfgWeapons" >> _uniform >> "ItemInfo" >> "uniformClass");
+									_sideType = getNumber (configfile >> "CfgVehicles" >> _typeSoldier >> "side");
+									if ((_sideType == 1) or (_sideType == 0)) then
+										{
+										[_injurer,60] remoteExec ["castigo",_injurer];
+										};
 									};
 								};
 							};

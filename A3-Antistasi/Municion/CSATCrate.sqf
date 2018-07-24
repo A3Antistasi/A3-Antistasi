@@ -80,8 +80,17 @@ else
 	{
 	if (round random 100 < 25) then
 		{
-		_crate addBackpackCargoGlobal ["I_UAV_01_backpack_F",1];
-		_crate addItemCargoGlobal ["I_UavTerminal",1];
+		if (side group petros == independent) then
+			{
+			_crate addBackpackCargoGlobal ["I_UAV_01_backpack_F",1];
+			_crate addItemCargoGlobal ["I_UavTerminal",1];
+			}
+		else
+			{
+			_crate addBackpackCargoGlobal ["B_UAV_01_backpack_F",1];
+			_crate addItemCargoGlobal ["B_UavTerminal",1];
+			comment "Exported from Arsenal by Alberto";
+			};
 		}
 	else
 		{

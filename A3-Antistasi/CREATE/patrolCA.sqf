@@ -94,14 +94,14 @@ _base = if ((_posOrigen distance _posDestino < distanceForLandAttack) and ([_pos
 
 if ((_base != "") and (_esMarcador)) then {if (_marcador in blackListDest) then {_base == ""}};
 
-_enemigos = if (_lado == malos) then {allUnits select {_x distance _posDestino < distanciaSPWN2 and (side _x != _lado) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _posDestino < distanciaSPWN2 and (side _x != _lado) and (alive _x)}};
+_enemigos = if (_lado == malos) then {allUnits select {_x distance _posDestino < distanciaSPWN2 and (side _x != _lado) and (side (group _x) != civilian) and (alive _x)}} else {allUnits select {_x distance _posDestino < distanciaSPWN2 and (side (group _x) != _lado) and (alive _x)}};
 
 if ((_base == "") and (!_esMarcador) and (_typeOfAttack != "Air") and (!_super)) then
 	{
 	_plane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
 	if ([_plane] call vehAvailable) then
 		{
-		_amigos = allUnits select {(_x distance _posDestino < 300) and (alive _x) and (side _x == _lado)};
+		_amigos = allUnits select {(_x distance _posDestino < 300) and (alive _x) and (side (group _x) == _lado)};
 		if (count _amigos == 0) then
 			{
 			_tipo = "NAPALM";
@@ -220,7 +220,7 @@ if (_base != "") then
 	_road = [_posDestino] call findNearestGoodRoad;
 	if ((position _road) distance _posDestino > 150) then {_vehPool = _vehPool - vehTanks};
 	if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
-	_cuenta = if (!_super) then {if (_esMarcador) then {2} else {1}} else {round (tierWar / 2) + 1};
+	_cuenta = if (!_super) then {if (_esMarcador) then {2} else {1}} else {round ((tierWar + difficultyCoef) / 2) + 1};
 	_landPosBlacklist = [];
 	for "_i" from 1 to _cuenta do
 		{
@@ -382,7 +382,7 @@ if (_aeropuerto != "") then
 	{
 	[_aeropuerto,20] call addTimeForIdle;
 	_vehPool = [];
-	_cuenta = if (!_super) then {if (_esMarcador) then {2} else {1}} else {round (tierWar / 2) + 1};
+	_cuenta = if (!_super) then {if (_esMarcador) then {2} else {1}} else {round ((tierWar + difficultyCoef) / 2) + 1};
 	_tipoVeh = "";
 	_vehPool = if (_lado == malos) then {(vehNATOAir - [vehNATOPlane]) select {[_x] call vehAvailable}} else {(vehCSATAir - [vehCSATPlane]) select {[_x] call vehAvailable}};
 	for "_i" from 1 to _cuenta do
@@ -642,5 +642,5 @@ if (count _soldados > 0) then
 
 {deleteGroup _x} forEach _grupos;
 
-sleep 300;
+sleep ((300 - ((tierWar + difficultyCoef) * 5)) max 0);
 if (_esMarcador) then {smallCAmrk = smallCAmrk - [_marcador]; publicVariable "smallCAmrk"} else {smallCApos = smallCApos - [_posDestino]};

@@ -44,7 +44,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick"];
+["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -54,6 +54,7 @@ fn_SetStat =
 	if(_varName in specialVarLoads) then
 	{
 		if(_varName == 'cuentaCA') then {cuentaCA = _varValue; publicVariable "cuentaCA"};
+		if(_varName == 'bombRuns') then {bombRuns = _varValue; publicVariable "bombRuns"};
 		if(_varName == 'nextTick') then {nextTick = time + _varValue};
 		if(_varName == 'miembros') then {miembros = +_varValue; publicVariable "miembros"};
 		if(_varName == 'smallCAmrk') then {smallCAmrk = +_varValue};
@@ -241,18 +242,33 @@ fn_SetStat =
 			};
 		if(_varName == 'posHQ') then
 			{
-			{if (getMarkerPos _x distance _varvalue < 1000) then
+			_posHQ = if (count _varValue >3) then {_varValue select 0} else {_varValue};
+			{if (getMarkerPos _x distance _posHQ < 1000) then
 				{
 				lados setVariable [_x,buenos,true];
 				};
 			} forEach controles;
-			respawnBuenos setMarkerPos _varValue;
-			petros setPos _varvalue;
+			respawnBuenos setMarkerPos _posHQ;
+			petros setPos _posHQ;
 			if (chopForest) then
 				{
 				if (!isMultiplayer) then {{ _x hideObject true } foreach (nearestTerrainObjects [position petros,["tree","bush"],70])} else {{ _x hideObjectGlobal true } foreach (nearestTerrainObjects [position petros,["tree","bush"],70])};
 				};
-			[] spawn buildHQ;
+			if (count _varValue == 3) then
+				{
+				[] spawn buildHQ;
+				}
+			else
+				{
+				fuego setPos (_varValue select 1);
+				caja setDir ((_varValue select 2) select 0);
+				caja setPos ((_varValue select 2) select 1);
+				mapa setDir ((_varValue select 3) select 0);
+				mapa setPos ((_varValue select 3) select 1);
+				bandera setPos (_varValue select 4);
+				cajaVeh setDir ((_varValue select 5) select 0);
+				cajaVeh setPos ((_varValue select 5) select 1);
+				};
 			{_x setPos _varValue} forEach (playableUnits select {side _x == buenos});
 			};
 		if(_varname == 'estaticas') then

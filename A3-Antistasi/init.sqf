@@ -59,6 +59,8 @@ if (!isMultiPlayer) then
                 };
             };
         }];
+    deleteMarker "respawn_east";
+    if (buenos == independent) then {deleteMarker "respawn_west"} else {deleteMarker "respawn_guerrila"};
     }
 else
     {

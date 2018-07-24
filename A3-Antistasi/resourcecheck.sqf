@@ -156,7 +156,12 @@ while {true} do
 	bombRuns = bombRuns + (({lados getVariable [_x,sideUnknown] == buenos} count aeropuertos) * 0.25);
 	[petros,"taxRep",_texto] remoteExec ["commsMP",[buenos,civilian]];
 	//[] remoteExec ["statistics",[buenos,civilian]];
-	if (isMultiplayer) then {[] spawn assigntheBoss};
+	if (isMultiplayer) then
+		{
+		[] spawn assigntheBoss;
+		difficultyCoef = floor ((({side group _x == buenos} count playableUnits) - ({side group _x != buenos} count playableUnits)) / 5);
+		publicVariable "difficultyCoef";
+		};
 	if ((!bigAttackInProgress) and (random 100 < 50)) then {[] call missionRequestAUTO};
 	[[],"reinforcementsAI"] call scheduler;
 	{

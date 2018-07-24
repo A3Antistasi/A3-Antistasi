@@ -7,7 +7,7 @@ if (isNull _veh) exitWith {hint "You are not looking at a vehicle"};
 
 if (!alive _veh) exitWith {hint "You cannot add destroyed vehicles to your garage"};
 
-if (_veh distance getMarkerPos respawnBuenos > 50) exitWith {hint "Vehicle must be closer than 50 meters to the flag"};
+if (_veh distance getMarkerPos respawnBuenos > 50) exitWith {hint "Vehicle must be closer than 50 meters to HQ"};
 
 if ({isPlayer _x} count crew _veh > 0) exitWith {hint "In order to store a vehicle, its crew must disembark."};
 

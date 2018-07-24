@@ -1,6 +1,8 @@
 _chequeo = false;
+_lado = side (group player);
+_enemyFaction = if (_lado == malos) then {muyMalos} else {malos};
 {_enemigo = _x;
-if (((side _enemigo == muyMalos) or (side _enemigo == buenos)) and (_enemigo distance player < 500) and (not(captive _enemigo))) exitWith {_chequeo = true};
+if (((side _enemigo == _enemyFaction) or (side _enemigo == buenos)) and (_enemigo distance player < 500) and (not(captive _enemigo))) exitWith {_chequeo = true};
 } forEach allUnits;
 
 if (_chequeo) exitWith {Hint "You cannot Fast Travel while enemies are nearby"};
@@ -20,18 +22,8 @@ onMapSingleClick "";
 _posicionTel = posicionTel;
 
 if (count _posicionTel > 0) then
-	{
-	_lado = side player;
+	{;
 	_mrkENY = marcadores select {lados getVariable [_x,sideUnknown] != _lado};
-	_sideENY = sideUnknown;
-	if (_lado == malos) then
-		{
-		_sideENY = muyMalos;
-		}
-	else
-		{
-		_sideENY = malos;
-		};
 	_marcadores = +marcadores;
 	_mrkRespawn = "";
 	if (_lado == malos) then
@@ -51,7 +43,7 @@ if (count _posicionTel > 0) then
 	if ((!(_base in aeropuertos)) and (!(_base in puertos)) and (!(_base in puestos)) and (_base != _mrkRespawn)) exitWith {hint "You can only Fast Travel to Airbases, Outposts and Seaports"; openMap [false,false]};
 
 	{
-		if (((side _x == buenos) or (side _x == _sideENY)) and (_x distance (getMarkerPos _base) < 500) and (not(captive _x))) then {_chequeo = true};
+		if (((side (group _x) == buenos) or (side (group _x) == _enemyFaction)) and (_x distance (getMarkerPos _base) < 500) and (not(captive _x))) then {_chequeo = true};
 	} forEach allUnits;
 
 	if (_chequeo) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding area"; openMap [false,false]};

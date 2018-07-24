@@ -58,21 +58,24 @@ if (_unit == theBoss) then
 	if (group petros == group _unit) then {[] spawn buildHQ};
 	};
 //{if (groupOwner _x ==)} forEach allGroups select {(side _x == civilian) and (!isPlayer leader _x)};
-if ((side _unit == buenos) or (side _unit == civilian)) then
+if (side group _unit == buenos) then
 	{
 	if ((_hr > 0) or (_recursos > 0)) then {[_hr,_recursos] spawn resourcesFIA};
-
+	if ([_unit] call isMember) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
+	};
+if ((owner _unit) in hcArray) then
+	{
+	["hcDown",true,true,true,true] remoteExec ["BIS_fnc_endMission"]
+	}
+else
+	{
 	_pos = getPosATL _unit;
 	_wholder = nearestObjects [_pos, ["weaponHolderSimulated", "weaponHolder"], 2];
 	{deleteVehicle _x} forEach _wholder + [_unit];
-	if (alive _unit) then
+	if !(isNull _unit) then
 		{
 		_unit setVariable ["owner",_unit,true];
 		_unit setDamage 1;
 		};
-	};
-if ((_unit == HC1) or (_unit == HC2) or (_unit == HC3)) then
-	{
-	["hcDown",true,true,true,true] remoteExec ["BIS_fnc_endMission"]
 	};
 //diag_log format ["Datos de handledisconnect: %1",_this];

@@ -1,4 +1,4 @@
-(findDisplay 46) displayRemoveEventHandler ["KeyDown", gameMenu];
+if !(isNil "gameMenu") then {(findDisplay 46) displayRemoveEventHandler ["KeyDown", gameMenu]};
 gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",teclas];
 
 if (player != theBoss) exitWith {};

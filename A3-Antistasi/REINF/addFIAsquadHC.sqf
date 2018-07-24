@@ -143,7 +143,7 @@ petros directSay "SentGenReinforcementsArrived";
 hint format ["Group %1 at your command.\n\nGroups are managed from the High Command bar (Default: CTRL+SPACE)\n\nIf the group gets stuck, use the AI Control feature to make them start moving. Mounted Static teams tend to get stuck (solving this is WiP)\n\nTo assign a vehicle for this group, look at some vehicle, and use Vehicle Squad Mngmt option in Y menu", groupID _grupo];
 
 if (!_esinf) exitWith {};
-
+_grupo spawn attackDrillAI;
 if (count _formato == 2) then
 	{
 	_tipoVeh = vehSDKBike;

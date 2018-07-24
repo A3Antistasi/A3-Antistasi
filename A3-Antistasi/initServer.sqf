@@ -50,6 +50,7 @@ distanciaMiss = paramsArray select 5; publicVariable "distanciaMiss";
 skillMult = paramsArray select 8; publicVariable "skillMult";
 minWeaps = paramsArray select 9;
 civTraffic = paramsArray select 10; publicVariable "civTraffic";
+bookedSlots = floor (((paramsArray select 11)/100) * (playableSlotsNumber buenos)); publicVariable "bookedSlots";
 //waitUntil {!isNil "bis_fnc_preload_init"};
 //waitUntil {!isNil "BIS_fnc_preload_server"};
 if (loadLastSave) then

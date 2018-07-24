@@ -997,8 +997,10 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Reverted error which made tier 1 and 2 NATO have Rambo skills.
 - Tier 2 NATO (if exist) instead of lowering the aggro when releasing prisoners, they will join you like CSAT.
 
-1.1.6 13/07/2018
+1.2.0 13/07/2018
 
+- IMPORTANT: Added enhaced AI features for the HC infantry squads (under testing).
+- IMPORTANT: Added CSAT as PvP faction.
 - Corrected PvP looting.
 - Re added rebreathers in enemy seaport ammoboxes.
 - Rebels will allways have an update of AI attack destination on major attacks, that update will be quicker if enemy comms are intercepted.
@@ -1014,3 +1016,14 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - No assassination missions in case NATO does not have any airbase in the island.
 - Convoys can now depart from outposts, more convoy options!
 - Extended auto conquer of surrounding zones for battles between AI to captured outposts.
+- Solved bug when MP player dismiss AI and has another player in the group.
+- Enemy creates now have proper UAV and terminals depending on yur Antistasi faction.
+- In vanilla MP rebels start with just SMGs and pistols, not AKs.
+- Applied a difficulty coefficient for very populated servers.
+- PvP slots wont be available for players that have been playing rebels in the last hour.
+- Added a reserved slot for members parameter to be able to book slots for members, up to 100% slots (member only session).
+- Fixed server autosave option.
+- Built a workaround for strange cases on which players were detected as PvP when they werent.
+- Doubled HC slots and increased playable slots for rebels.
+- AI won't count as civilians unconscious units while deciding to shoot arty rounds or NAPALM strikes.
+- Hopefully solved all the issues related with membership and hosted server environment.

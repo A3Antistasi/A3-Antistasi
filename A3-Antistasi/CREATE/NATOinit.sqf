@@ -57,7 +57,7 @@ else
 		};
 	};
 
-_skill = tierWar * 0.1 * skillMult;
+_skill = (tierWar + difficultyCoef) * 0.1 * skillMult;
 if ((faction _unit != factionGEN) and (faction _unit != factionFIA)) then
 	{
 	if (side _unit == malos) then

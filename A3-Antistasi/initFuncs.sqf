@@ -1,6 +1,7 @@
 
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
+playerHasBeenPvPCheck = compile preProcessFileLineNumbers "playerHasBeenPvPCheck.sqf";
 remoteBattle = compile preProcessFileLineNumbers "CREATE\remoteBattle.sqf";
 spawnMissionGiver = compile preProcessFileLineNumbers "Missions\spawnMissionGiver.sqf";
 hideInBuilding = compile preProcessFileLineNumbers "AI\hideInBuilding.sqf";

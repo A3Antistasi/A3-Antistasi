@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.1.6";
+antistasiVersion = "v 1.2.0";
 
 servidoresOficiales = ["A3-Antistasi Official EU 1","A3-Antistasi Official EU 2"];
 
@@ -154,7 +154,7 @@ minasAAF = if ((!hayRHS) and !hayIFA) then {["SLAMDirectionalMine_Wire_Mag","Sat
 itemsAAF = if ((!hayRHS) and !hayIFA) then {["FirstAidKit","Medikit","MineDetector","NVGoggles","ToolKit","muzzle_snds_H","muzzle_snds_L","muzzle_snds_M","muzzle_snds_B","muzzle_snds_H_MG","muzzle_snds_acp","bipod_03_F_oli","muzzle_snds_338_green","muzzle_snds_93mmg_tan","Rangefinder","Laserdesignator","ItemGPS","acc_pointer_IR","ItemRadio"]} else {if (hayRHS) then {["FirstAidKit","Medikit","MineDetector","ToolKit","ItemGPS","acc_pointer_IR","ItemRadio"]} else {["FirstAidKit","Medikit","ToolKit"]}};//possible items that spawn in AAF ammoboxes
 NVGoggles = if (!hayIFA) then {["NVGoggles_OPFOR","NVGoggles_INDEP","O_NVGoggles_hex_F","O_NVGoggles_urb_F","O_NVGoggles_ghex_F","NVGoggles_tna_F"/*,"NVGogglesB_blk_F","NVGogglesB_grn_F"/*,"NVGogglesB_gry_F"*/,"NVGoggles"]} else {[]};
 opticasAAF = if ((!hayRHS) and !hayIFA) then {["optic_Arco","optic_Hamr","optic_Aco","optic_ACO_grn","optic_Aco_smg","optic_ACO_grn_smg","optic_Holosight","optic_Holosight_smg","optic_SOS","optic_MRCO","optic_NVS","optic_Nightstalker","optic_tws","optic_tws_mg","optic_DMS","optic_Yorris","optic_MRD","optic_LRPS","optic_AMS","optic_AMS_khk","optic_AMS_snd","optic_KHS_blk","optic_KHS_hex","optic_KHS_old","optic_KHS_tan","optic_Arco_blk_F","optic_Arco_ghex_F","optic_DMS_ghex_F","optic_Hamr_khk_F","optic_ERCO_blk_F","optic_ERCO_khk_F","optic_ERCO_snd_F","optic_SOS_khk_F","optic_LRPS_tna_F","optic_LRPS_ghex_F","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg_blk_F"]} else {[]};
-swoopShutUp = ["V_RebreatherIA","G_Diving"];
+
 
 arrayCivVeh =["C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_01_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_fuel_F","C_Van_01_transport_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_02_unarmed_F"];//possible civ vehicles. Add any mod classnames you wish here
 squadLeaders = [];
@@ -272,6 +272,10 @@ else
 	};
 listMilBld = ["Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower_V1_No2_F","Land_Cargo_Tower_V1_No3_F","Land_Cargo_Tower_V1_No4_F","Land_Cargo_Tower_V1_No5_F","Land_Cargo_Tower_V1_No6_F","Land_Cargo_Tower_V1_No7_F","Land_Cargo_Tower_V2_F", "Land_Cargo_Tower_V3_F","Land_Cargo_HQ_V1_F","Land_Cargo_HQ_V2_F","Land_Cargo_HQ_V3_F","Land_Cargo_Patrol_V1_F","Land_Cargo_Patrol_V2_F","Land_Cargo_Patrol_V3_F","Land_HelipadSquare_F"];
 listbld = ["Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower_V1_No2_F","Land_Cargo_Tower_V1_No3_F","Land_Cargo_Tower_V1_No4_F","Land_Cargo_Tower_V1_No5_F","Land_Cargo_Tower_V1_No6_F","Land_Cargo_Tower_V1_No7_F","Land_Cargo_Tower_V2_F", "Land_Cargo_Tower_V3_F"];
+swoopShutUp = ["V_RebreatherIA","G_Diving"];
+difficultyCoef = if !(isMultiplayer) then {0} else {floor ((({side group _x == buenos} count playableUnits) - ({side group _x != buenos} count playableUnits)) / 5)};
+if (side (group petros) == west) then {swoopShutUp pushBack "U_B_Wetsuit"} else {swoopShutUp pushBack "U_I_Wetsuit"};
+
 //Pricing values for soldiers, vehicles
 if (!isServer) exitWith {};
 
@@ -315,6 +319,7 @@ haveRadio = false;
 haveNV = false;
 zoneCheckInProgress = false;
 garrisonIsChanging = false;
+playerHasBeenPvP = [];
 misiones = []; publicVariable "misiones";
 unlockedItems = ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit","H_Booniehat_khk","H_Booniehat_oli","H_Booniehat_grn","H_Booniehat_dirty","H_Cap_oli","H_Cap_blk","H_MilCap_rucamo","H_MilCap_gry","H_BandMask_blk","H_Bandanna_khk","H_Bandanna_gry","H_Bandanna_camo","H_Shemag_khk","H_Shemag_tan","H_Shemag_olive","H_ShemagOpen_tan","H_Beret_grn","H_Beret_grn_SF","H_Watchcap_camo","H_TurbanO_blk","H_Hat_camo","H_Hat_tan","H_Beret_blk","H_Beret_red","H_Watchcap_khk","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_lowprofile","G_Balaclava_oli","G_Bandanna_beast","G_Tactical_Black","G_Aviator","G_Shades_Black","acc_flashlight"] + uniformsSDK + civUniforms;//Initial Arsenal available items
 if (side group petros == independent) then {unlockedItems pushBack "I_UavTerminal"} else {unlockedItems pushBack "B_UavTerminal"};
@@ -325,27 +330,33 @@ if (side group petros == independent) then {unlockedItems pushBack "I_UavTermina
 
 if (!activeGREF) then
     {
-    unlockedWeapons = ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","Binocular","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];//"LMG_03_F"
+    unlockedWeapons = ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","Binocular","SMG_05_F","SMG_02_F"];//"LMG_03_F"
 	unlockedRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
 	unlockedMagazines = ["9Rnd_45ACP_Mag","30Rnd_9x21_Mag","30Rnd_762x39_Mag_F","MiniGrenade","1Rnd_HE_Grenade_shell","30Rnd_545x39_Mag_F","30Rnd_9x21_Mag_SMG_02","10Rnd_9x21_Mag","200Rnd_556x45_Box_F","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
 	initialRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];
 	//unlockedItems = unlockedItems + ["V_Chestrig_khk","V_BandollierB_cbr","V_BandollierB_rgr","U_C_HunterBody_grn"];
-	unlockedItems = unlockedItems + ["U_C_HunterBody_grn"];
-	if (worldName == "Tanoa") then
+	if !(isMultiplayer) then
 		{
-		unlockedWeapons pushBack "launch_RPG7_F";
-		unlockedAT = ["launch_RPG7_F"];
-		unlockedMagazines pushBack "RPG7_F";
-		}
-	else
-		{
-		if (worldName == "Altis") then
+		unlockedWeapons append ["arifle_AKM_F","arifle_AKS_F"];
+		unlockedRifles append ["arifle_AKM_F","arifle_AKS_F"];
+		initialRifles append ["arifle_AKM_F","arifle_AKS_F"];
+		if (worldName == "Tanoa") then
 			{
-			unlockedWeapons pushBack "launch_MRAWS_olive_rail_F";
-			unlockedAT = ["launch_MRAWS_olive_rail_F"];
-			unlockedMagazines pushBack "MRAWS_HEAT_F";
+			unlockedWeapons pushBack "launch_RPG7_F";
+			unlockedAT = ["launch_RPG7_F"];
+			unlockedMagazines pushBack "RPG7_F";
+			}
+		else
+			{
+			if (worldName == "Altis") then
+				{
+				unlockedWeapons pushBack "launch_MRAWS_olive_rail_F";
+				unlockedAT = ["launch_MRAWS_olive_rail_F"];
+				unlockedMagazines pushBack "MRAWS_HEAT_F";
+				};
 			};
 		};
+	unlockedItems = unlockedItems + ["U_C_HunterBody_grn"];
     }
 else
     {

@@ -5,12 +5,14 @@ if (player != leader group player) exitWith {hint "You cannot dismiss anyone if 
 private ["_units","_hr","_resourcesFIA","_unit","_nuevogrp"];
 
 _units = _this select 0;
-
+_units = _units - [player];
+_units = _units select {!(isPlayer _x)};
+if (_units isEqualTo []) exitWith {};
 player globalChat "Get out of my sight you useless scum!";
 
 _ai = false;
-
-if ({isPlayer _x} count units group player == 1) then {_ai = true; _nuevogrp = createGroup buenos};
+_nuevoGrp = createGroup buenos;
+//if ({isPlayer _x} count units group player == 1) then {_ai = true; _nuevogrp = createGroup buenos};
 
 {if (!isPlayer _x) then
 	{
@@ -31,7 +33,7 @@ if (recruitCooldown < time) then {recruitCooldown = time + 60} else {recruitCool
 
 if (_ai) then
 	{
-	_lider = leader _nuevogrp;
+	_lider = leader _nuevoGrp;
 
 	{_x domove getMarkerPos respawnBuenos} forEach units _nuevogrp;
 

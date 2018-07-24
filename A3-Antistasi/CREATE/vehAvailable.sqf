@@ -5,7 +5,7 @@ _return = true;
 _tiempo = timer getVariable _tipo;
 if (!isNil "_tiempo") then
 	{
-	if (tierWar < 3) then
+	if ((tierWar + difficultyCoef) < 3) then
 		{
 		if ((_tipo == vehNATOAA) or (_tipo == vehNATOMRLS) or (_tipo == vehNATOPlane) or (_tipo == vehNATOPlaneAA) or (_tipo == vehNATOTank)) then
 			{

@@ -34,7 +34,7 @@ sleep 100;
 if (alive _x) then
 	{
 	_hr = _hr + 1;
-	_resourcesFIA = _resourcesFIA + (server getVariable (typeOf [_x,0]));
+	_resourcesFIA = _resourcesFIA + (server getVariable [typeOf _x,0]);
 	if (!isNull (assignedVehicle _x)) then
 		{
 		_veh = assignedVehicle _x;

@@ -4,7 +4,7 @@ _objetivos = _grupo call enemyList;
 _grupo setVariable ["objetivos",_objetivos];
 _grupo setVariable ["tarea","Patrol"];
 private _lado = side _grupo;
-private _friendlies = if (_lado == malos) then {[malos,civilian]} else {[muyMalos]};
+private _friendlies = if (_lado == malos) then {[malos,civilian]} else {[_lado]};
 _morteros = [];
 _mgs = [];
 _movable = [leader _grupo];
@@ -113,7 +113,7 @@ while {true} do
 			{
 			if ({(_x call typeOfSoldier == "AAMan") or (_x call typeOfSoldier == "StaticGunner")} count _allNearFriends == 0) then
 				{
-				[[getPosASL _lider,_lado,"Air",false],"patrolCA"] remoteExec ["scheduler",2];
+				if (_lado != buenos) then {[[getPosASL _lider,_lado,"Air",false],"patrolCA"] remoteExec ["scheduler",2]};
 				};
 			//_nuevaTarea = ["Hide",_soldados - (_soldados select {(_x call typeOfSoldier == "AAMan") or (_x getVariable ["typeOfSoldier",""] == "StaticGunner")})];
 			_grupo setVariable ["tarea","Hide"];
@@ -130,7 +130,7 @@ while {true} do
 					}
 				else
 					{
-					[[getPosASL _lider,_lado,"Tank",false],"patrolCA"] remoteExec ["scheduler",2];
+					if (_lado != buenos) then {[[getPosASL _lider,_lado,"Tank",false],"patrolCA"] remoteExec ["scheduler",2]};
 					};
 				};
 			//_nuevaTarea = ["Hide",_soldados - (_soldados select {(_x getVariable ["typeOfSoldier",""] == "ATMan")})];
@@ -141,7 +141,7 @@ while {true} do
 			{
 			if !(isNull _cercano) then
 				{
-				[[getPosASL _lider,_lado,"Normal",false],"patrolCA"] remoteExec ["scheduler",2];
+				if (_lado != buenos) then {[[getPosASL _lider,_lado,"Normal",false],"patrolCA"] remoteExec ["scheduler",2]};
 				_mortero = _grupo getVariable ["morteros",objNull];
 				if (!(isNull _mortero) and ([_mortero] call canFight)) then
 					{
@@ -162,7 +162,7 @@ while {true} do
 				}
 			else
 				{
-				if (_numObjetivos > (_numSoldados * 0.8)) then
+				if (_numObjetivos > 1) then
 					{
 					_mortero = _grupo getVariable ["morteros",objNull];
 					if (!(isNull _mortero) and ([_mortero] call canFight)) then

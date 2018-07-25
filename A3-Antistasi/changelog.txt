@@ -1001,6 +1001,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 
 - IMPORTANT: Added enhaced AI features for the HC infantry squads (under testing).
 - IMPORTANT: Added CSAT as PvP faction.
+- IMPORTANT: Added more rebel squad recruitment option types.
 - Corrected PvP looting.
 - Re added rebreathers in enemy seaport ammoboxes.
 - Rebels will allways have an update of AI attack destination on major attacks, that update will be quicker if enemy comms are intercepted.
@@ -1027,3 +1028,9 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Doubled HC slots and increased playable slots for rebels.
 - AI won't count as civilians unconscious units while deciding to shoot arty rounds or NAPALM strikes.
 - Hopefully solved all the issues related with membership and hosted server environment.
+- Fixed: teamkilling option was not working when killing unonscious friendlies.
+- Added a message when a rebel player assembles a static weapon which confirms if the weapon will be used or not.
+- Bomb run number will be saved and loaded properly.
+- HQ asset position and direction is now persistent saved.
+- Bulletproofed a bit HQ flag position in case the selected position makes the flag dissapear, so the players will have a chance of repositioning the HQ in a more suitable place.
+- Cprrected rare bug on QRFs when only tanks where available to retake a zone.

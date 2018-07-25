@@ -185,6 +185,34 @@ else
 
 	};
 
+sdkTier1 = SDKMil + [staticCrewBuenos] + SDKMG + SDKGL + SDKATman;
+sdkTier2 = SDKMedic + SDKExp + SDKEng;
+sdkTier3 = SDKSL + SDKSniper;
+soldadosSDK = sdkTier1 + sdkTier2 + sdkTier3;
+vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATBuenos,staticAABuenos,vehSDKRepair];
+gruposSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
+gruposSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
+//["BanditShockTeam","ParaShockTeam"];
+gruposSDKSquad = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
+gruposSDKSquadEng = [SDKSL,SDKGL,SDKMil,SDKMG,SDKExp,SDKATman,SDKEng,SDKMedic];
+gruposSDKSquadSupp = [SDKSL,SDKGL,SDKMil,SDKMG,SDKATman,SDKMedic,[staticCrewBuenos,staticCrewBuenos],[staticCrewBuenos,staticCrewBuenos]];
+gruposSDKSniper = [SDKSniper,SDKSniper];
+gruposSDKSentry = [SDKGL,SDKMil];
+banditUniforms = [];
+uniformsSDK = [];
+{
+_unit = _x select 0;
+_uniform = (getUnitLoadout _unit select 3) select 0;
+banditUniforms pushBackUnique _uniform;
+uniformsSDK pushBackUnique _uniform;
+if (count _x > 1) then
+	{
+	_unit = _x select 1;
+	_uniform = (getUnitLoadout _unit select 3) select 0;
+	uniformsSDK pushBackUnique _uniform;
+	};
+} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewBuenos]];
+
 vehNormal = vehNATONormal + vehCSATNormal + [vehFIATruck,vehSDKTruck,vehSDKLightArmed,vehSDKBike,vehSDKRepair];
 vehBoats = [vehNATOBoat,vehCSATBoat,vehSDKBoat];
 vehAttack = vehNATOAttack + vehCSATAttack;

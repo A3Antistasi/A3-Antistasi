@@ -2266,7 +2266,7 @@ class squad_recruit 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKSquad] spawn addFIAsquadHC";
+			action = "closeDialog 0;[] execVM ""Dialogs\squadOptions.sqf"";";
 		};
 		class HQ_button_infteam: RscButton
 		{
@@ -3014,10 +3014,8 @@ class mbt_type {
 		};
 	};
 };
-//OLD
-/*
-class garrison_menu {
-	idd=-1;
+class squad_options 	{
+	idd=100;
 	movingenable=false;
 
 	class controls {
@@ -3028,16 +3026,16 @@ class garrison_menu {
 			x = 0.244979 * safezoneW + safezoneX;
 			y = 0.223941 * safezoneH + safezoneY;
 			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
+			h = 0.30 * safezoneH;//30
 		};
 		class HQ_frame: RscFrame
 		{
 			idc = -1;
-			text = "Garrison Menu"; //--- ToDo: Localize;
+			text = "Squad Options"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
+			h = 0.28 * safezoneH;//28
 		};
 		class HQ_button_back: RscButton
 		{
@@ -3047,33 +3045,52 @@ class garrison_menu {
 			y = 0.251941 * safezoneH + safezoneY;
 			w = 0.06 * safezoneW;//0.175015
 			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""HQ_menu"";";
+			action = "closeDialog 0;_nul = createDialog ""squad_recruit"";";
 		};
 		class HQ_button_Gsquad: RscButton
 		{
-			idc = -1;
-			text = "Recruit Garrison"; //--- ToDo: Localize;
+			idc = 104;
+			text = "Normal Squad"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Select unit types and add them to the selected garrison";
-			action = "closeDialog 0;[""add""] spawn garrisonDialog";
+			//tooltip = "";
+			action = "closeDialog 0;nul = [gruposSDKSquad] spawn addFIAsquadHC;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
-			idc = -1;
-			text = "Remove Garrison"; //--- ToDo: Localize;
+			idc = 105;
+			text = "Engineer Squad"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Remove the whole garrison of a selected zone";
-			action = "closeDialog 0;[""rem""] spawn garrisonDialog";
+			action = "closeDialog 0; nul = [gruposSDKSquadEng] spawn addFIAsquadHC;";
+		};
+
+		class HQ_button_Gremove: RscButton
+		{
+			idc = 106;
+			text = "MG Squad"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""MG""] spawn addFIAsquadHC;";
+		};
+		class HQ_button_unlock: RscButton
+		{
+			idc = 107;
+			text = "Mortar Squad"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""Mortar""] spawn addFIAsquadHC;";
 		};
 	};
 };
-*/
 
 class RscTitles {
 	class Default {

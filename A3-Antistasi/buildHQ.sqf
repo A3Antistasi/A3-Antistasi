@@ -37,7 +37,7 @@ else
 _pos = [getPos petros, 3, getDir petros] call BIS_Fnc_relPos;
 fuego setPos _pos;
 _rnd = getdir Petros;
-if (isMultiplayer) then {sleep 5};
+//if (isMultiplayer) then {sleep 5};
 _pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
 caja setPos _pos;
 _rnd = _rnd + 45;
@@ -46,6 +46,8 @@ mapa setPos _pos;
 mapa setDir ([fuego, mapa] call BIS_fnc_dirTo);
 _rnd = _rnd + 45;
 _pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
+_pos = _pos findEmptyPosition [0,100,(typeOf bandera)];
+if (_pos isEqualTo []) then {_pos = getPos petros};
 bandera setPos _pos;
 _rnd = _rnd + 45;
 _pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;

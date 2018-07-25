@@ -16,10 +16,6 @@ SDKGL = ["rhsgref_cdf_b_ngd_grenadier","rhsgref_cdf_b_reg_grenadier"];
 SDKMil = ["rhsgref_cdf_b_ngd_rifleman_lite","rhsgref_cdf_b_para_rifleman_lite"];
 SDKSL = ["rhsgref_cdf_b_ngd_squadleader","rhsgref_cdf_b_reg_squadleader"];
 SDKEng = ["rhsgref_cdf_b_ngd_engineer","rhsgref_cdf_b_reg_engineer"];
-sdkTier1 = SDKMil + [staticCrewBuenos] + SDKMG + SDKGL + SDKATman;
-sdkTier2 = SDKMedic + SDKExp + SDKEng;
-sdkTier3 = SDKSL + SDKSniper;
-soldadosSDK = sdkTier1 + sdkTier2 + sdkTier3;
 
 vehSDKBike = "B_G_Quadbike_01_F";
 vehSDKLightArmed = "rhsgref_cdf_b_reg_uaz_dshkm";
@@ -30,15 +26,7 @@ vehSDKTruck = "rhsgref_cdf_b_ural_open";
 vehSDKPlane = "RHS_AN2_B";
 vehSDKBoat = "B_G_Boat_Transport_01_F";
 vehSDKRepair = "rhsgref_cdf_b_ural_repair";
-vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATBuenos,staticAABuenos,vehSDKRepair];
 SDKFlag = "Flag_FIA_F";
-
-gruposSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
-gruposSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
-//["BanditShockTeam","ParaShockTeam"];
-gruposSDKSquad = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
-gruposSDKSniper = [SDKSniper,SDKSniper];
-gruposSDKSentry = [SDKGL,SDKMil];
 
 tipoPetros = "rhsgref_cdf_b_reg_general";
 
@@ -63,20 +51,6 @@ lamparasSDK = ["rhs_acc_2dpZenit","acc_flashlight"];
 ATMineMag = "rhs_mine_tm62m_mag";
 APERSMineMag = "rhs_mine_pmn2_mag";
 
-banditUniforms = [];
-uniformsSDK = [];
-{
-_unit = _x select 0;
-_uniform = (getUnitLoadout _unit select 3) select 0;
-banditUniforms pushBackUnique _uniform;
-uniformsSDK pushBackUnique _uniform;
-if (count _x > 1) then
-	{
-	_unit = _x select 1;
-	_uniform = (getUnitLoadout _unit select 3) select 0;
-	uniformsSDK pushBackUnique _uniform;
-	};
-} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewBuenos]];
 
 FIARifleman = "rhsgref_nat_pmil_rifleman_m92";
 FIAMarksman = "rhsgref_nat_pmil_hunter";

@@ -131,6 +131,14 @@ if ((_base == "") and (!_esMarcador) and (_typeOfAttack != "Air") and (!_super))
 		};
 	};
 
+if (_base != "") then
+	{
+	if (lados getVariable [_base,sideUnknown] == buenos) then {_exit = true}
+	}
+else
+	{
+	if (lados getVariable [_aeropuerto,sideUnknown] == buenos) then {_exit = true}
+	};
 if (_exit) exitWith {};
 
 if (_typeOfAttack == "") then
@@ -244,7 +252,7 @@ if (_base != "") then
 						}
 					else
 						{
-						if (_esMarcador) then {selectRandom (_vehPool - vehTanks)} else {selectRandom _vehPool};
+						if ((_esMarcador) and !((_vehPool - vehTanks) isEqualTo [])) then {selectRandom (_vehPool - vehTanks)} else {selectRandom _vehPool};
 						};
 		//_road = _roads select 0;
 		_timeOut = 0;

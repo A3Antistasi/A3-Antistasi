@@ -77,8 +77,8 @@ while {true} do
 		*/
 		switch (_power) do
 			{
-			case buenos: {if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[-1,_suppBoost,_ciudad] spawn citySupportChange}};
-			case malos: {if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[1,-1,_ciudad] spawn citySupportChange}};
+			case buenos: {[-1,_suppBoost,_ciudad] spawn citySupportChange};
+			case malos: {[1,-1,_ciudad] spawn citySupportChange};
 			case muyMalos: {[-1,-1,_ciudad] spawn citySupportChange};
 			};
 		if (lados getVariable [_ciudad,sideUnknown] == malos) then

@@ -18,10 +18,6 @@ SDKGL = ["I_C_Soldier_Bandit_6_F","I_C_Soldier_Para_6_F"];
 SDKMil = ["I_C_Soldier_Bandit_7_F","I_C_Soldier_Para_1_F"];
 SDKSL = ["I_C_Soldier_Bandit_4_F","I_C_Soldier_Para_2_F"];
 SDKEng = ["I_G_engineer_F","I_G_engineer_F"];
-sdkTier1 = SDKMil + [staticCrewBuenos] + SDKMG + SDKGL + SDKATman;
-sdkTier2 = SDKMedic + SDKExp + SDKEng;
-sdkTier3 = SDKSL + SDKSniper;
-soldadosSDK = sdkTier1 + sdkTier2 + sdkTier3;
 
 vehSDKBike = "I_G_Quadbike_01_F";
 vehSDKLightArmed = "I_C_Offroad_02_LMG_F";
@@ -32,15 +28,7 @@ vehSDKTruck = "I_C_Van_01_Transport_F";
 vehSDKPlane = "I_C_Plane_civil_01_F";
 vehSDKBoat = "I_C_Boat_Transport_01_F";
 vehSDKRepair = "B_G_Offroad_01_repair_F";
-vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATBuenos,staticAABuenos,vehSDKRepair];
 SDKFlag = "Flag_Syndikat_F";
-
-gruposSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
-gruposSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
-//["BanditShockTeam","ParaShockTeam"];
-gruposSDKSquad = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
-gruposSDKSniper = [SDKSniper,SDKSniper];
-gruposSDKSentry = [SDKGL,SDKMil];
 
 tipoPetros = "I_C_Soldier_Camo_F";
 
@@ -63,20 +51,6 @@ lamparasSDK = ["acc_flashlight"];
 ATMineMag = "ATMine_Range_Mag";
 APERSMineMag = "APERSMine_Range_Mag";
 
-banditUniforms = [];
-uniformsSDK = [];
-{
-_unit = _x select 0;
-_uniform = (getUnitLoadout _unit select 3) select 0;
-banditUniforms pushBackUnique _uniform;
-uniformsSDK pushBackUnique _uniform;
-if (count _x > 1) then
-	{
-	_unit = _x select 1;
-	_uniform = (getUnitLoadout _unit select 3) select 0;
-	uniformsSDK pushBackUnique _uniform;
-	};
-} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewBuenos]];
 if (hayFFAA) then
 	{
 	call compile preProcessFileLineNumbers "Templates\malosFFAA.sqf"

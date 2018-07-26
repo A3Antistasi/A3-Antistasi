@@ -33,7 +33,7 @@ if (isMultiplayer) then
 	disableUserInput true;
 	cutText ["Waiting for Players and Server Init","BLACK",0];
 	diag_log "Antistasi MP Client. Waiting for serverInitDone";
-	waitUntil {(!isNil "serverInitDone") and ((side player == buenos) or (side player == malos))};
+	waitUntil {(!isNil "serverInitDone")};
 	cutText ["Starting Mission","BLACK IN",0];
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];

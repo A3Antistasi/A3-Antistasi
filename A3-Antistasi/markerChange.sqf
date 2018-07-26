@@ -170,10 +170,22 @@ else
 			};
 		};
 	};
-if ((_winner != buenos) and ((_marcador in aeropuertos) or (_marcador in puestos)) and (_looser != buenos)) then
+if ((_winner != buenos) and (_looser != buenos)) then
 	{
-	_cercanos = (puertos + puestos + recursos + fabricas) select {((getMarkerPos _x) distance _posicion < distanciaSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
-	if !(_marcador in aeropuertos) then {_cercanos = _cercanos - puestos};
-	if (_looser == malos) then  {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == malos}; _winner = "OPFORSpawn"} else {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == muyMalos}; _winner = "BLUFORSpawn"};
-	{[_winner,_x] spawn markerChange; sleep 5} forEach _cercanos;
+	if (_marcador in puestos) then
+		{
+		_cercanos = (puertos + recursos + fabricas) select {((getMarkerPos _x) distance _posicion < distanciaSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
+		if (_looser == malos) then  {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == malos}; _winner = "OPFORSpawn"} else {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == muyMalos}; _winner = "BLUFORSpawn"};
+		{[_winner,_x] spawn markerChange; sleep 5} forEach _cercanos;
+		}
+	else
+		{
+		if (_marcador in aeropuertos) then
+			{
+			_cercanos = (puertos + puestos) select {((getMarkerPos _x) distance _posicion < distanciaSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
+			_cercanos append ((fabricas + recursos) select {(lados getVariable [_x,sideUnknown] != buenos) and (lados getVariable [_x,sideUnknown] != _winner) and ([aeropuertos,_x] call BIS_fnc_nearestPosition == _marcador)}); hint format ["%1",_cercanos];
+			if (_looser == malos) then  {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == malos}; _winner = "OPFORSpawn"} else {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == muyMalos}; _winner = "BLUFORSpawn"};
+			{[_winner,_x] spawn markerChange; sleep 5} forEach _cercanos;
+			};
+		};
 	};

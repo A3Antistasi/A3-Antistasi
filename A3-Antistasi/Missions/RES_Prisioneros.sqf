@@ -8,7 +8,7 @@ _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contacto = objNull;
 _grpContacto = grpNull;
-_tsk = "";
+_tsk = "";/*
 if (_dificil) then
 	{
 	_result = [] call spawnMissionGiver;
@@ -66,7 +66,7 @@ if (_dificil) then
 	[0,"RES"] spawn borrarTask;
 	waitUntil {sleep 1; !(["RES"] call BIS_fnc_taskExists)};
 	};
-
+*/
 _posicion = getMarkerPos _marcador;
 
 _POWs = [];

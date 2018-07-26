@@ -45,7 +45,8 @@ if (count _morteros == 1) then
 	_morteros append ((units _grupo) select {_x getVariable ["typeOfSoldier",""] == "StaticBase"});
 	if (count _morteros > 1) then
 		{
-		_morteros spawn mortarDrill;
+		//_morteros spawn mortarDrill;
+		_morteros spawn staticMGDrill;//no olvides borrar la otra función si esto funciona
 		}
 	else
 		{
@@ -101,6 +102,17 @@ while {true} do
 		} forEach _objetivos;
 		_lider = leader _grupo;
 		_allNearFriends = allUnits select {(_x distance _lider < (distanciaSPWN/2)) and (side _x in _friendlies) and ([_x] call canFight)};
+		{
+		_unit = _x;
+		{
+		_objetivo = _x select 4;
+		if (_lider knowsAbout _objetivo >= 1.4) then
+			{
+			_know = _unit knowsAbout _objetivo;
+			if (_know < 1.2) then {_unit reveal [_objetivo,(_know + 0.2)]};
+			};
+		} forEach _objetivos;
+		} forEach (_allNearFriends select {_x == leader _x}) - [_lider];
 		_numNearFriends = count _allNearFriends;
 		_aire = objNull;
 		_tanques = objNull;

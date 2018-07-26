@@ -71,6 +71,7 @@ if (loadLastSave) then
     waitUntil {!isNil"statsLoaded"};
     if (!isNil "as_fnc_getExternalMemberListUIDs") then
         {
+        miembros = [];
         {miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
         publicVariable "miembros";
         };
@@ -99,10 +100,10 @@ if (loadLastSave) then
 else
     {
     theBoss = objNull;
+    miembros = [];
     if (!isNil "as_fnc_getExternalMemberListUIDs") then
         {
         {miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
-        publicVariable "miembros";
         {
         if (([_x] call isMember) and (side _x == buenos)) exitWith {theBoss = _x};
         } forEach playableUnits;
@@ -113,31 +114,14 @@ else
         if (isNil "comandante") then {comandante = (playableUnits select 0)};
         if (isNull comandante) then {comandante = (playableUnits select 0)};
         theBoss = comandante;
-        publicVariable "theBoss";
         theBoss setRank "CORPORAL";
         [theBoss,"CORPORAL"] remoteExec ["ranksMP"];
         if (membershipEnabled) then {miembros = [getPlayerUID theBoss]} else {miembros = []};
         };
     publicVariable "theBoss";
+    publicVariable "miembros";
     _nul = [caja] call cajaAAF;
     };
-    /*
-    {
-    if (_x!=comandante) then
-        {
-        //_x setVariable ["score", 0,true];
-        }
-    else
-        {
-        theBoss = _x;
-        publicVariable "theBoss";
-        _x setRank "CORPORAL";
-        [_x,"CORPORAL"] remoteExec ["ranksMP"];
-        if (membershipEnabled) then {miembros = [getPlayerUID _x]} else {miembros = []};
-        publicVariable "miembros"};
-        //_x setVariable ["score", 25,true];
-        };
-    } forEach (playableUnits select {side _x == buenos});*/
 diag_log "Antistasi MP Server. Players are in";
 
 {

@@ -9,7 +9,7 @@ _contacto = objNull;
 _grpContacto = grpNull;
 _tsk = "";
 _tsk1 = "";
-_fechalimnum = 0;
+_fechalimnum = 0;/*
 if (_dificil) then
 	{
 	_result = [] call spawnMissionGiver;
@@ -67,7 +67,7 @@ if (_dificil) then
 	[0,"CONVOY"] spawn borrarTask;
 	waitUntil {sleep 1; !(["CONVOY"] call BIS_fnc_taskExists)};
 	};
-
+*/
 _esFIA = false;
 _lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {muyMalos};
 

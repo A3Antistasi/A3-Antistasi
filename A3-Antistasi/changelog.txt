@@ -1002,6 +1002,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - IMPORTANT: Added enhaced AI features for the HC infantry squads (under testing).
 - IMPORTANT: Added CSAT as PvP faction.
 - IMPORTANT: Added more rebel squad recruitment option types.
+- IMPORTANT: When AI takes an AI airbase, they will auto take all the nearby resources and factories belonging to the looser.
 - Corrected PvP looting.
 - Re added rebreathers in enemy seaport ammoboxes.
 - Rebels will allways have an update of AI attack destination on major attacks, that update will be quicker if enemy comms are intercepted.
@@ -1033,4 +1034,8 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Bomb run number will be saved and loaded properly.
 - HQ asset position and direction is now persistent saved.
 - Bulletproofed a bit HQ flag position in case the selected position makes the flag dissapear, so the players will have a chance of repositioning the HQ in a more suitable place.
-- Cprrected rare bug on QRFs when only tanks where available to retake a zone.
+- Corrected rare bug on QRFs when only tanks where available to retake a zone.
+- Players wont be able to garage AI manned vehicles.
+- Spotted vehicles marker colors should be ok now.
+- Improved infoshare between enhaced AI groups (they will know a bit more if them if some other group has spotted it).
+- Removed the "contact informer" mid step, as it seems not fun at all...

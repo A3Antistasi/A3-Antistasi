@@ -28,7 +28,7 @@ fn_LoadStat =
 		{
 		if (side group petros == independent) then {_varValue = profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)} else {_varValue = profileNameSpace getVariable (_varName + serverID + "AntistasiB" + worldName)};
 		};
-	if(isNil "_varValue") exitWith {diag_log format ["Antistasi: Error en Persistent Load. La variable %1 no existe en el entorno %2",_varname,(_varName + serverID + "WotP")]};
+	if(isNil "_varValue") exitWith {diag_log format ["Antistasi: Error en Persistent Load. La variable %1 no existe",_varname]};
 	[_varName,_varValue] call fn_SetStat;
 };
 
@@ -269,7 +269,7 @@ fn_SetStat =
 				cajaVeh setDir ((_varValue select 5) select 0);
 				cajaVeh setPos ((_varValue select 5) select 1);
 				};
-			{_x setPos _varValue} forEach (playableUnits select {side _x == buenos});
+			{_x setPos _posHQ} forEach (playableUnits select {side _x == buenos});
 			};
 		if(_varname == 'estaticas') then
 			{

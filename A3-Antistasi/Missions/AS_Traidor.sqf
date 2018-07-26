@@ -7,7 +7,7 @@ _salir = false;
 _contacto = objNull;
 _grpContacto = grpNull;
 _tsk = "";
-_tsk1 = "";
+_tsk1 = "";/*
 if (_dificil) then
 	{
 	_result = [] call spawnMissionGiver;
@@ -64,7 +64,7 @@ if (_dificil) then
 	{
 	[0,"AS"] spawn borrarTask;
 	waitUntil {sleep 1; !(["AS"] call BIS_fnc_taskExists)};
-	};
+	};*/
 _posicion = getMarkerPos _marcador;
 
 _tiempolim = if (_dificil) then {15} else {60};

@@ -95,6 +95,7 @@ if (_esinf) then
 			{
 			((units _grupo) select ((count (units _grupo)) - 2)) addBackpackGlobal soporteStaticSDKB2;
 			((units _grupo) select ((count (units _grupo)) - 1)) addBackpackGlobal MGStaticSDKB;
+			_format = "SqMG-";
 			}
 		else
 			{
@@ -102,6 +103,7 @@ if (_esinf) then
 				{
 				((units _grupo) select ((count (units _grupo)) - 2)) addBackpackGlobal soporteStaticSDKB3;
 				((units _grupo) select ((count (units _grupo)) - 1)) addBackpackGlobal MortStaticSDKB;
+				_format = "SqMort-";
 				};
 			};
 		}

@@ -207,6 +207,7 @@ else
 			[_bandera,"\A3\Data_F\Flags\Flag_CSAT_CO.paa"] remoteExec ["setFlagTexture",_bandera];
 			};
 		};
+	IF (_looser == buenos) then {[_prestigeMalos,_prestigeMuyMalos] spawn prestige};
 	};
 if ((_winner != buenos) and (_looser != buenos)) then
 	{

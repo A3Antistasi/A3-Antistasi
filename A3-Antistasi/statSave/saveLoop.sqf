@@ -150,7 +150,7 @@ if ((_veh distance getMarkerPos respawnBuenos < 50) and !(_veh in staticsToSave)
 _sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 {
 _posicion = position _x;
-if ((alive _x) and !(surfaceIsWater _posicion) and (isTouchingGround _x) and !(isNull _x)) then
+if ((alive _x) and !(surfaceIsWater _posicion) and !(isNull _x)) then
 	{
 	_arrayEst pushBack [typeOf _x,getPos _x,getDir _x];
 	/*

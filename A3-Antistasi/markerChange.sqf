@@ -207,7 +207,11 @@ else
 			[_bandera,"\A3\Data_F\Flags\Flag_CSAT_CO.paa"] remoteExec ["setFlagTexture",_bandera];
 			};
 		};
-	IF (_looser == buenos) then {[_prestigeMalos,_prestigeMuyMalos] spawn prestige};
+	if (_looser == buenos) then
+		{
+		[_prestigeMalos,_prestigeMuyMalos] spawn prestige;
+		if ((random 10 < ((tierWar + difficultyCoef)/4)) and !(["DEF_HQ"] call BIS_fnc_taskExists) and (isPlayer theBoss)) then {[[],"ataqueHQ"] remoteExec ["scheduler",2]};
+		};
 	};
 if ((_winner != buenos) and (_looser != buenos)) then
 	{

@@ -79,11 +79,11 @@ if (loadLastSave) then
         {
         [petros,"hint","Membership is enabled but members list is empty. Current players will be added to the member list"] remoteExec ["commsMP"];
         diag_log "Antistasi: Persitent Load done but membership enabled with members array empty";
+        miembros = [];
         {
         miembros pushBack (getPlayerUID _x);
         } forEach playableUnits;
         publicVariable "miembros";
-        sleep 3;
         };
     theBoss = objNull;
     {

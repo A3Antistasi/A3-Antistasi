@@ -1041,3 +1041,10 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Removed the "contact informer" mid step, as it seems not fun at all...
 - Mil buildings are not used to spawn ambient civvies.
 - Aggro implications when conquering / loosing certain territory types.
+
+1.2.1 27/07/2018
+
+- When rebels lose territory, there is a small chance depending on WL to be attacked on their HQ.
+- Corrected bug in ambient civilians.
+- Solved init bug on new dedis when the admin does not touch the parameters.
+- Solved statics not saving in MP dedi.

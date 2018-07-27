@@ -1039,3 +1039,5 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Spotted vehicles marker colors should be ok now.
 - Improved infoshare between enhaced AI groups (they will know a bit more if them if some other group has spotted it).
 - Removed the "contact informer" mid step, as it seems not fun at all...
+- Mil buildings are not used to spawn ambient civvies.
+- Aggro implications when conquering / loosing certain territory types.

@@ -15,7 +15,8 @@ _looser = sideUnknown;
 _sides = [buenos,malos,muyMalos];
 _other = "";
 _texto = "";
-
+_prestigeMalos = 0;
+_prestigeMuyMalos = 0;
 _bandera = objNull;
 _size = [_marcador] call sizeMarker;
 
@@ -80,7 +81,17 @@ if (_marcador in aeropuertos) then
 	{
 	if (_winner == buenos) then
 		{
-		[0,10,_posicion] remoteExec ["citySupportChange",2]
+		[0,10,_posicion] remoteExec ["citySupportChange",2];
+		if (_looser == malos) then
+			{
+			_prestigeMalos = 20;
+			_prestigeMuyMalos = 10;
+			}
+		else
+			{
+			_prestigeMalos = 10;
+			_prestigeMuyMalos = 20;
+			};
 		}
 	else
 		{
@@ -93,7 +104,12 @@ if (_marcador in aeropuertos) then
 		else
 			{
 			[-10,-10,_posicion] remoteExec ["citySupportChange",2]
-			}
+			};
+		if (_looser == buenos) then
+			{
+			_prestigeMalos = -10;
+			_prestigeMuyMalos = -10;
+			};
 		};
 	["TaskSucceeded", ["", "Airbase Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Airbase Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
@@ -102,7 +118,18 @@ if (_marcador in aeropuertos) then
 	};
 if (_marcador in puestos) then
 	{
-	if !(_winner == buenos) then {server setVariable [_marcador,dateToNumber date,true]};
+	if !(_winner == buenos) then
+		{
+		server setVariable [_marcador,dateToNumber date,true];
+		if (_looser == buenos) then
+			{
+			if (_winner == malos) then {_prestigeMalos = -5} else {_prestigeMuyMalos = -5};
+			};
+		}
+	else
+		{
+		if (_looser == malos) then {_prestigeMalos = 5} else {_prestigeMuyMalos = 5};
+		};
 	["TaskSucceeded", ["", "Outpost Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Outpost Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
 	["TaskUpdated",["",format ["%1 lost an Outpost",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];
@@ -110,6 +137,17 @@ if (_marcador in puestos) then
 	};
 if (_marcador in puertos) then
 	{
+	if !(_winner == buenos) then
+		{
+		if (_looser == buenos) then
+			{
+			if (_winner == malos) then {_prestigeMalos = -5} else {_prestigeMuyMalos = -5};
+			};
+		}
+	else
+		{
+		if (_looser == malos) then {_prestigeMalos = 5} else {_prestigeMuyMalos = 5};
+		};
 	["TaskSucceeded", ["", "Seaport Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Seaport Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
 	["TaskUpdated",["",format ["%1 lost a Seaport",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];
@@ -128,7 +166,6 @@ if (_marcador in recursos) then
 	};
 
 {_nul = [_marcador,_x] spawn deleteControles} forEach controles;
-markersChanging = markersChanging - [_marcador];
 if (_winner == buenos) then
 	{
 	[] call tierCheck;
@@ -143,6 +180,7 @@ if (_winner == buenos) then
 		//[_bandera,"garage"] remoteExec ["flagaction",[buenos,civilian],_bandera];
 		if (_marcador in puertos) then {[_bandera,"seaport"] remoteExec ["flagaction",[buenos,civilian],_bandera]};
 		};
+	[_prestigeMalos,_prestigeMuyMalos] spawn prestige;
 	waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({((_x getVariable ["BLUFORSpawn",false]) or (_x getVariable ["OPFORSpawn",false])) and ([_x,_marcador] call canConquer)} count allUnits > 3*({(side _x == buenos) and ([_x,_marcador] call canConquer)} count allUnits))};
 	if (spawner getVariable _marcador != 2) then
 		{
@@ -189,3 +227,4 @@ if ((_winner != buenos) and (_looser != buenos)) then
 			};
 		};
 	};
+markersChanging = markersChanging - [_marcador];

@@ -466,7 +466,7 @@ if (_isJip) then
 				} forEach playableUnits;
 				};
 			};*/
-		if ({[_x] call isMember} count playableUnits == 1) then
+		if ({([_x] call isMember) and (side (group _x) == buenos)} count playableUnits == 1) then
 			{
 			[player] call theBossInit;
 			[] remoteExec ["assigntheBoss",2];

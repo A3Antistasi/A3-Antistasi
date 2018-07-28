@@ -1048,3 +1048,11 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Corrected bug in ambient civilians.
 - Solved init bug on new dedis when the admin does not touch the parameters.
 - Solved statics not saving in MP dedi.
+
+1.2.2 28/07/2018
+
+- Re enabled Headless Clients.
+- Commander auto assign on JiP fixed when there are PvP players present.
+- Fixed "Move this Asset" and HQ garrisons on load.
+- Changed major attack AI decisions according to the new mechanic of auto conquer resources and factories when capturing an airbase. Also CSAT will prioritise more enemy outpost assault.
+- Reduced spawning requisites for a wave to be counted in major attacks.

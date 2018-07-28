@@ -250,6 +250,7 @@ fn_SetStat =
 			} forEach controles;
 			respawnBuenos setMarkerPos _posHQ;
 			petros setPos _posHQ;
+			"Synd_HQ" setMarkerPos _posHQ;
 			if (chopForest) then
 				{
 				if (!isMultiplayer) then {{ _x hideObject true } foreach (nearestTerrainObjects [position petros,["tree","bush"],70])} else {{ _x hideObjectGlobal true } foreach (nearestTerrainObjects [position petros,["tree","bush"],70])};
@@ -281,7 +282,7 @@ fn_SetStat =
 				_veh = createVehicle [_tipoVeh,[0,0,0],[],0,"NONE"];
 				_veh setPos _posVeh;
 				_veh setDir _dirVeh;
-				_veh setVectorUp surfaceNormal (position _veh);
+				_veh setVectorUp surfaceNormal (getPos _veh);
 				if ((_veh isKindOf "StaticWeapon") or (_veh isKindOf "Building")) then
 					{
 					staticsToSave pushBack _veh;

@@ -4,7 +4,8 @@ private ["_objetivos","_marcadores","_base","_objetivo","_cuenta","_aeropuerto",
 _objetivos = [];
 _marcadores = [];
 _cuentaFacil = 0;
-
+_natoIsFull = false;
+_csatIsFull = false;
 _aeropuertos = aeropuertos select {([_x,false] call airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
 _objetivos = marcadores - controles - puestosFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedCities;
 if (tierWar < 2) then
@@ -16,6 +17,8 @@ else
 	{
 	if ({lados getVariable [_x,sideUnknown] == malos} count _aeropuertos == 0) then {_aeropuertos pushBack "NATO_carrier"};
 	if ({lados getVariable [_x,sideUnknown] == muyMalos} count _aeropuertos == 0) then {_aeropuertos pushBack "CSAT_carrier"};
+	if (([vehNATOPlane] call vehAvailable) and ([vehNATOMRLS] call vehAvailable) and ([vehNATOTank] call vehAvailable)) then {_natoIsFull = true};
+	if (([vehCSATPlane] call vehAvailable) and ([vehCSATMRLS] call vehAvailable) and ([vehCSATTank] call vehAvailable)) then {_csatIsFull = true};
 	};
 if (tierWar < 3) then {_objetivos = _objetivos - ciudades};
 if (_objetivos isEqualTo []) exitWith {};
@@ -135,6 +138,10 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 							{
 							if (!_isTheSameIsland) then {_times = 5*_times} else {_times = 2*_times};
 							};
+						}
+					else
+						{
+						if ((!_esSDK) and _natoIsFull) then {_times = 0};
 						};
 					};
 				};
@@ -149,7 +156,7 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 			_times = 2;
 			if (!_esCiudad) then
 				{
-				if (_x in puertos) then
+				if ((_x in puestos) or (_x in puertos)) then
 					{
 					if (!_esSDK) then
 						{
@@ -162,31 +169,21 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 					}
 				else
 					{
-					if (_x in recursos) then
+					if (_x in aeropuertos) then
 						{
 						if (!_esSDK) then
 							{
-							if (({[_x] call vehAvailable} count vehCSATAttack > 0) or ({[_x] call vehAvailable} count vehCSATAttackHelis > 0)) then {_times = 3*_times} else {_times = 0};
+							if (([vehCSATPlane] call vehAvailable) or (!([vehNATOAA] call vehAvailable))) then {_times = 5*_times} else {_times = 0};
 							}
 						else
 							{
-							_times = 3*_times;
+							if (!_isTheSameIsland) then {_times = 5*_times} else {_times = 2*_times};
 							};
 						}
 					else
 						{
-						if (_x in aeropuertos) then
-							{
-							if (!_esSDK) then
-								{
-								if (([vehCSATPlane] call vehAvailable) or (!([vehNATOAA] call vehAvailable))) then {_times = 5*_times} else {_times = 0};
-								}
-							else
-								{
-								if (!_isTheSameIsland) then {_times = 5*_times} else {_times = 2*_times};
-								};
-							}
-						}
+						if ((!_esSDK) and _csatIsFull) then {_times = 0};
+						};
 					}
 				};
 			if (_times > 0) then

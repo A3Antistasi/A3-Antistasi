@@ -28,11 +28,11 @@ diag_log "Antistasi MP Server. Zones init finished";
 
 [] execVM "initPetros.sqf";
 ["Initialize"] call BIS_fnc_dynamicGroups;//Exec on Server
+hcArray = [];
 waitUntil {(count playableUnits) > 0};
 waitUntil {({(isPlayer _x) and (!isNull _x) and (_x == _x)} count allUnits) == (count playableUnits)};//ya estamos todos
 _nul = [] execVM "modBlacklist.sqf";
 
-hcArray = [];
 {
 private _index = _x call jn_fnc_arsenal_itemType;
 [_index,_x,-1] call jn_fnc_arsenal_addItem;

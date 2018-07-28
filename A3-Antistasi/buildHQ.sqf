@@ -11,7 +11,6 @@ if (petros != (leader group petros)) then
 petros disableAI "MOVE";
 petros disableAI "AUTOTARGET";
 respawnBuenos setMarkerPos getPos petros;
-"Synd_HQ" setMarkerPos getPos petros;
 posHQ = getMarkerPos respawnBuenos; publicVariable "posHQ";
 if (isMultiplayer) then
 	{
@@ -54,6 +53,7 @@ _pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
 cajaVeh setPos _pos;
 //if (_movido) then {_nul = [] call vaciar};
 petros setBehaviour "SAFE";
+"Synd_HQ" setMarkerPos getPos petros;
 placementDone = true; publicVariable "placementDone";
 sleep 5;
 [Petros,"mission"] remoteExec ["flagaction",[buenos,civilian],petros];

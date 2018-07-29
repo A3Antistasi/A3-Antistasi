@@ -1,7 +1,7 @@
 private ["_unit","_recursos","_hr","_armas","_municion","_items","_pos"];
 
 _unit = _this select 0;
-
+_uid = _this select 2;
 _recursos = 0;
 _hr = 0;
 
@@ -61,11 +61,31 @@ if (_unit == theBoss) then
 if (side group _unit == buenos) then
 	{
 	if ((_hr > 0) or (_recursos > 0)) then {[_hr,_recursos] spawn resourcesFIA};
-	if ([_unit] call isMember) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
+	if (membershipEnabled and pvpEnabled) then
+		{
+		if (_uid in miembros) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
+		};
+	//if ([_unit] call isMember) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
 	};
 if ((owner _unit) in hcArray) then
 	{
-	["hcDown",true,true,true,true] remoteExec ["BIS_fnc_endMission"]
+	//["hcDown",true,true,true,true] remoteExec ["BIS_fnc_endMission"]
+	_owner = owner _unit;
+	if ({owner _x == _owner} count allUnits > 0) then
+		{
+		[] spawn
+			{
+			while {true} do
+				{
+				[petros,"hint","A Headless Client has been disconnected. This will cause malfunctions. Head back to HQ for saving ASAP and ask and Admin for a restart"] remoteExec ["commsMP"];
+				sleep 30;
+				};
+			};
+		}
+	else
+		{
+		hcArray = hcArray - [_owner];
+		};
 	}
 else
 	{

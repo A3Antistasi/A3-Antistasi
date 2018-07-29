@@ -7,7 +7,9 @@ if (isNull _veh) exitWith {hint "You are not looking at a vehicle"};
 
 if (!alive _veh) exitWith {hint "You cannot add destroyed vehicles to your garage"};
 
-if (_veh distance getMarkerPos respawnBuenos > 50) exitWith {hint "Vehicle must be closer than 50 meters to HQ"};
+if (_veh distance2d getMarkerPos respawnBuenos > 50) exitWith {hint "Vehicle must be closer than 50 meters to HQ"};
+
+if (player distance2d getMarkerPos respawnBuenos > 50) exitWith {hint "You must be closer than 50 meters to HQ"};
 
 if ({alive _x} count (crew vehicle _veh) > 0) exitWith { hint "In order to store a vehicle, its crew must disembark."};
 
@@ -40,7 +42,7 @@ if (_tipoVeh isKindOf "Air") then
 	if (count _aeropuertos == 0) then {_exit = true};
 	};
 
-if (_exit) exitWith {hint format ["You cannot garage an air vehicle while you are near an Aiport which belongs to %1",nameBuenos]};
+if (_exit) exitWith {hint format ["You cannot garage an air vehicle while you are not near an Aiport which belongs to %1",nameBuenos]};
 
 if (_veh in staticsToSave) then {staticsToSave = staticsToSave - [_veh]; publicVariable "staticsToSave"};
 

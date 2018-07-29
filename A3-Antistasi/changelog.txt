@@ -1056,3 +1056,17 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Fixed "Move this Asset" and HQ garrisons on load.
 - Changed major attack AI decisions according to the new mechanic of auto conquer resources and factories when capturing an airbase. Also CSAT will prioritise more enemy outpost assault.
 - Reduced spawning requisites for a wave to be counted in major attacks.
+
+1.2.3 28/07/2018
+
+- NEW FEATURE: MP param to monitor non member distance to the closest member or HQ. After some timeout they will be teleported. This can be customizable in the MP lobby but it is activated by default. The aim of this feature is to avoid randomers in open dedis make spawn senseless zones and not be collaborative with other players.
+- Extended AutoRearm to HC squads. If they are "easy" and not fighting, they will search for better weapons, vests etc.. same as AI squadmates when ordered.
+- Fixed the detection of players that have been recently rebels and they are joining a pvp faction.
+- Players have to be in the HQ to garage vehicles (to store air vehicles, the HQ still has to be placed very close to an airbase flag).
+- Major attack task names adapted to your mods.
+- PvP player will have cars instead of quadbikes to request and spawning will be safer.
+- Solved some localization issues with city setup parameters.
+- Airstrike plane will be of proper side in Altis Greenfor version.
+- Improved stability when players add garrisons on spawned zones.
+- Small workaround for buliding HQ in MP issues.
+- Re enabled supply box spawn in high war level.

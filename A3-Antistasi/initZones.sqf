@@ -113,7 +113,7 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
     _sizeY = getNumber (configFile >> "CfgWorlds" >> worldName >> "Names" >> (text _x) >> "radiusB");
     if (_sizeX > _sizeY) then {_size = _sizeX} else {_size = _sizeY};
     _pos = getPos _x;
-    if (_size < 200) then {_size = 400};
+    if (_size < 400) then {_size = 400};
     _roads = [];
     _numCiv = 0;
     if ((worldName != "Tanoa") and (worldName != "Altis")) then//If Tanoa, data is picked from a DB in initVar.sqf, if not, is built on the fly.
@@ -134,7 +134,21 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
         {
         _roads = carreteras getVariable _nombre;
         _numCiv = server getVariable _nombre;
-        if (isNil "_numCiv") then {hint format ["A mi no me sale en %1",_nombre]};
+        if (isNil "_numCiv") then
+            {
+            diag_log format ["Antistasi: Error in initZones.sqf. A mi no me sale en %1",_nombre];
+            _numCiv = (count (nearestObjects [_pos, ["house"], _size]));
+            _roadsProv = _pos nearRoads _size;
+            //_roads = [];
+            {
+            _roadcon = roadsConnectedto _x;
+            if (count _roadcon == 2) then
+                {
+                _roads pushBack (getPosATL _x);
+                };
+            } forEach _roadsProv;
+            carreteras setVariable [_nombre,_roads];
+            };
         if (typeName _numCiv != typeName 0) then {hint format ["Datos erróneos en %1. Son del tipo %2",_nombre, typeName _numCiv]};
         //if (isNil "_roads") then {hint format ["A mi no me sale en %1",_nombre]};
         };

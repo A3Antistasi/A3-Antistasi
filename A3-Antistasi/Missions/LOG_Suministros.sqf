@@ -75,7 +75,8 @@ _taskDescription = format ["%1 population is in need of supplies. We may improve
 
 [[buenos,civilian],"LOG",[_taskDescription,"City Supplies",_marcador],_posicion,false,0,true,"Heal",true] call BIS_fnc_taskCreate;
 misiones pushBack ["LOG","CREATED"]; publicVariable "misiones";
-_pos = [];
+_pos = (getMarkerPos respawnBuenos) findEmptyPosition [1,50,"C_Van_01_box_F"];
+/*_pos = [];
 
 if (!_dificil) then
 	{
@@ -98,7 +99,7 @@ else
 		};
 	_pos = [_posroad, 3, _dirveh + 90] call BIS_Fnc_relPos;
 	};
-
+*/
 //Creating the box
 _camion = "Land_PaperBox_01_open_boxes_F" createVehicle _pos;
 _camion allowDamage false;

@@ -71,10 +71,10 @@ if (count _mgs == 1) then
 _grupo setVariable ["movable",_movable];
 _grupo setVariable ["baseOfFire",_baseOfFire];
 _grupo setVariable ["flankers",_flankers];
-
+if (side _grupo == buenos) then {_grupo setVariable ["autoRearmed",time + 300]};
 while {true} do
 	{
-	if (({alive _x} count (_grupo setVariable ["movable",[]]) == 0) or (isNull _grupo)) exitWith {};
+	if (({alive _x} count (_grupo getVariable ["movable",[]]) == 0) or (isNull _grupo)) exitWith {};
 
 	_objetivos = _grupo call enemyList;
 	_grupo setVariable ["objetivos",_objetivos];
@@ -286,7 +286,15 @@ while {true} do
 			if (_grupo getVariable ["tarea","Patrol"] == "Hide") then {_grupo call recallGroup};
 			_grupo setVariable ["tarea","Patrol"];
 			};
+		if (side _grupo == buenos) then
+			{
+			if (time >= _grupo getVariable ["autoRearm",time]) then
+				{
+				_grupo setVariable ["autoRearm",time + 120];
+				{[_x] spawn autoRearm; sleep 1} forEach ((_grupo getVariable ["movable",[]]) select {[_x] call canFight and !(_x getVariable ["maniobrando",false])});
+				};
+			};
 		};
-
+	diag_log format ["Tarea:%1.Movable:%2.Base:%3.Flankers:%4",_grupo getVariable "tarea",_grupo getVariable "movable",_grupo getVariable "baseOfFire",_grupo getVariable "flankers"];
 	sleep 30;
 	};

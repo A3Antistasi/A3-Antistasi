@@ -47,10 +47,12 @@ membershipEnabled = if (paramsArray select 2 == 1) then {true} else {false}; pub
 switchCom = if (paramsArray select 3 == 1) then {true} else {false};
 tkPunish = if (paramsArray select 4 == 1) then {true} else {false}; publicVariable "tkPunish";
 distanciaMiss = paramsArray select 5; publicVariable "distanciaMiss";
+pvpEnabled = if (paramsArray select 6 == 1) then {true} else {false};
 skillMult = paramsArray select 8; publicVariable "skillMult";
 minWeaps = paramsArray select 9;
 civTraffic = paramsArray select 10; publicVariable "civTraffic";
 bookedSlots = floor (((paramsArray select 11)/100) * (playableSlotsNumber buenos)); publicVariable "bookedSlots";
+memberDistance = paramsArray select 12; publicVariable "memberDistance";
 //waitUntil {!isNil "bis_fnc_preload_init"};
 //waitUntil {!isNil "BIS_fnc_preload_server"};
 if (loadLastSave) then
@@ -133,7 +135,7 @@ private _index = _x call jn_fnc_arsenal_itemType;
 diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"commsMP"] call BIS_fnc_MP;
 
-addMissionEventHandler ["HandleDisconnect",{[_this select 0] call onPlayerDisconnect;false}];
+addMissionEventHandler ["HandleDisconnect",{_this call onPlayerDisconnect;false}];
 addMissionEventHandler ["BuildingChanged",
         {
         _building = _this select 0;

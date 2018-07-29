@@ -1,4 +1,6 @@
 private ["_marcador","_pos","_forzado"];
+waitUntil {!movingMarker};
+movingMarker = true;
 _marcador = _this select 0;
 _pos = getMarkerPos _marcador;
 _forzado = false;
@@ -9,3 +11,4 @@ waitUntil {(spawner getVariable _marcador == 2)};
 waitUntil {{_x getVariable [_marcador,false]} count allUnits == 0};
 _marcador setMarkerPos _pos;
 if (_forzado) then {forcedSpawn pushBackUnique _marcador; publicVariable "forcedSpawn"};
+movingMarker = false;

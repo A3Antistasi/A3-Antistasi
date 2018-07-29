@@ -28,11 +28,11 @@ _nombreorig = [_mrkOrigen] call localizar;
 _lado = lados getVariable [_mrkOrigen,sideUnknown];
 _ladosTsk = [buenos,civilian,muyMalos];
 _ladosTsk1 = [malos];
-_nombreEny = "NATO";
+_nombreEny = nameMalos;
 //_config = cfgNATOInf;
 if (_lado == muyMalos) then
 	{
-	_nombreEny = "CSAT";
+	_nombreEny = nameMuyMalos;
 	//_config = cfgCSATInf;
 	_ladosTsk = [buenos,civilian,malos];
 	_ladosTsk1 = [muyMalos];

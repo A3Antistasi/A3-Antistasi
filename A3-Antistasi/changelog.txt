@@ -1069,4 +1069,16 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Airstrike plane will be of proper side in Altis Greenfor version.
 - Improved stability when players add garrisons on spawned zones.
 - Small workaround for buliding HQ in MP issues.
+- Fixed heavy bug on enhaced AI which made them maneuvre much less.
 - Re enabled supply box spawn in high war level.
+- When a headless clint disconnects, an alarm will appear constantly instead of finishing the mission.
+
+1.2.4 29/07/2018
+
+- HR of AI squadmates is properly refunded when saving.
+- Enemy small vehicle patrols wont have only rebel HQ as reference but the whole frontier in SP and player presence in MP to simulate the whole island is being patrolled.
+- Better priorisation of targets for major attacks, less random, more sense.
+- Removed debug message when AI captures an airbase.
+- Hopefully solved all the remaining HQ assets issues.
+- Fixed bug when AI tries to hide in a building.
+- Reduced a lot the max distance between departure and targets for both land and air attacks (10Kmts and 3 Kmts).

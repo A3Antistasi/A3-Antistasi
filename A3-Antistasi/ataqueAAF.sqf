@@ -8,9 +8,11 @@ _natoIsFull = false;
 _csatIsFull = false;
 _aeropuertos = aeropuertos select {([_x,false] call airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
 _objetivos = marcadores - controles - puestosFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedCities;
+//_objetivosSDK = _objetivos select {lados getVariable [_x,sideUnknown] == buenos};
 if (tierWar < 2) then
 	{
 	_aeropuertos = _aeropuertos select {(lados getVariable [_x,sideUnknown] == malos)};
+	//_objetivos = _objetivosSDK;
 	_objetivos = _objetivos select {lados getVariable [_x,sideUnknown] == buenos};
 	}
 else
@@ -21,6 +23,13 @@ else
 	if (([vehCSATPlane] call vehAvailable) and ([vehCSATMRLS] call vehAvailable) and ([vehCSATTank] call vehAvailable)) then {_csatIsFull = true};
 	};
 if (tierWar < 3) then {_objetivos = _objetivos - ciudades};
+_objetivosProv = _objetivos - aeropuertos;
+{
+_posObj = getMarkerPos _x;
+_ladoObj = lados getVariable [_x,sideUnknown];
+if (((marcadores - controles - ciudades) select {lados getVariable [_x,sideUnknown] != _ladoObj}) findIf {getMarkerPos _x distance2D _posObj < 2000} == -1) then {_objetivos = _objetivos - [_x]};
+} forEach _objetivosProv;
+
 if (_objetivos isEqualTo []) exitWith {};
 _objetivosFinal = [];
 _basesFinal = [];

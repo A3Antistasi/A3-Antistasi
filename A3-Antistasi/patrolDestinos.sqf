@@ -1,15 +1,23 @@
-private ["_marcadores","_array","_pos","_marcador"];
+private ["_marcadores","_array","_pos","_marcador","_destinos","_posicion"];
 
 _marcadores = _this select 0;
-
-_array = _marcadores - controles;
-
-_posHQ = getMarkerPos respawnBuenos;
-
-for "_i" from 0 to (count _marcadores) - 1 do
+_posicion = _this select 1;
+_array = (_marcadores - controles) select {getMarkerPos _x distance2D _posicion < distanceForLandAttack};
+_destinos = [];
+if !(isMultiplayer) then
 	{
-	_marcador = _marcadores select _i;
-	_pos = getMarkerPos _marcador;
-	if (_posHQ distance _pos > 3000) then {_array = _array - [_marcador]};
+	{
+	_destino = _x;
+	_pos = getMarkerPos _destino;
+	if (marcadores findIf {(lados getVariable [_x,sideUnknown] == buenos) and (getMarkerPos _x distance2d _pos < 2000)} != -1) then {_destinos pushBack _destino};
+	} forEach _array;
+	}
+else
+	{
+	{
+	_destino = _x;
+	_pos = getMarkerPos _destino;
+	if (playableUnits findIf {(side (group _x) == buenos) and (_x distance2d _pos < 2000)} != -1) then {_destinos pushBack _destino};
+	} forEach _array;
 	};
-_array
+_destinos

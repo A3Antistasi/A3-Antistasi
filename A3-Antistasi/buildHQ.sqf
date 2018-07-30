@@ -1,4 +1,4 @@
-private ["_pos","_rnd"];
+private ["_pos","_rnd","_posFuego"];
 _movido = false;
 if (petros != (leader group petros)) then
 	{
@@ -34,7 +34,7 @@ else
 [respawnBuenos,1] remoteExec ["setMarkerAlphaLocal",buenos,true];
 [respawnBuenos,1] remoteExec ["setMarkerAlphaLocal",civilian,true];
 _posFuego = [getPos petros, 3, getDir petros] call BIS_Fnc_relPos;
-fuego setPos _pos;
+fuego setPos _posFuego;
 _rnd = getdir Petros;
 if (isMultiplayer) then {sleep 5};
 _pos = [_posFuego, 3, _rnd] call BIS_Fnc_relPos;
@@ -45,7 +45,7 @@ mapa setPos _pos;
 mapa setDir ([fuego, mapa] call BIS_fnc_dirTo);
 _rnd = _rnd + 45;
 _pos = [_posFuego, 3, _rnd] call BIS_Fnc_relPos;
-_pos = _pos findEmptyPosition [0,100,(typeOf bandera)];
+_pos = _pos findEmptyPosition [0,50,(typeOf bandera)];
 if (_pos isEqualTo []) then {_pos = getPos petros};
 bandera setPos _pos;
 _rnd = _rnd + 45;

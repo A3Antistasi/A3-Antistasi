@@ -77,7 +77,7 @@ if (!isDedicated) then
 	//["firstLoad",false] call fn_SaveStat;
 private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_municion","_items","_mochis","_contenedores","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_marcadores","_garrison","_arrayMrkMF","_arrayPuestosFIA","_pospuesto","_tipoMina","_posMina","_detectada","_tipos","_exists","_amigo"];
 
-_hrfondo = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["GREENFORSpawn",false]) and (group _x in (hcAllGroups theBoss))} count allUnits);
+_hrfondo = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["GREENFORSpawn",false]) and ((group _x in (hcAllGroups theBoss) or (isPlayer (leader _x))))} count allUnits);
 _resfondo = server getVariable "resourcesFIA";
 /*
 _armas = [];

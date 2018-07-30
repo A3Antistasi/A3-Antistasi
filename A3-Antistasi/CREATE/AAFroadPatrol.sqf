@@ -6,14 +6,27 @@ _grupos = [];
 _base = "";
 _roads = [];
 
-//_tipos = ["I_MRAP_03_F","I_MRAP_03_hmg_F","I_MRAP_03_gmg_F","I_Heli_light_03_unarmed_F","I_Boat_Armed_01_minigun_F"];
-_tipos = vehNATOLight + [vehNATOPatrolHeli,vehNATOBoat];
+_arrayAeropuertos = (puertos + aeropuertos + puestos) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)};
+_arrayAeropuertos1 = [];
+if !(isMultiplayer) then
+	{
+	{
+	_aeropuerto = _x;
+	_pos = getMarkerPos _aeropuerto;
+	if (allUnits findIf {(_x getVariable ["GREENFORSpawn",false]) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAeropuertos1 pushBack _aeropuerto};
+	} forEach _arrayAeropuertos;
+	}
+else
+	{
+	{
+	_aeropuerto = _x;
+	_pos = getMarkerPos _aeropuerto;
+	if (playableUnits findIf {(side (group _x) == buenos) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAeropuertos1 pushBack _aeropuerto};
+	} forEach _arrayAeropuertos;
+	};
+if (_arrayAeropuertos1 isEqualTo []) exitWith {};
 
-_arrayAeropuertos = (puertos + aeropuertos + puestos) select {(getMarkerPos _x distance getMarkerPos respawnBuenos < 3000) and ((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)};
-
-if (count _arrayAeropuertos == 0) exitWith {};
-
-_base = selectRandom _arrayAeropuertos;
+_base = selectRandom _arrayAeropuertos1;
 _tipoCoche = "";
 _lado = malos;
 _tipoPatrol = "LAND";
@@ -70,7 +83,7 @@ else
 	else
 		{
 		_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
-		_arraydestinos = [_arrayDestinos] call patrolDestinos;
+		_arraydestinos = [_arrayDestinos,_posBase] call patrolDestinos;
 		_distancia = 50;
 		};
 	};
@@ -97,17 +110,6 @@ if (_tipoPatrol != "AIR") then
 			{
 			_posbase = position ([_posbase] call findNearestGoodRoad);
 			};
-		/*
-		_tam = 10;
-		while {true} do
-			{
-			_roads = _posbase nearRoads _tam;
-			if (count _roads > 0) exitWith {};
-			_tam = _tam + 10;
-			};
-		_road = _roads select 0;
-		_posbase = position _road;
-		*/
 		};
 	};
 
@@ -158,7 +160,7 @@ while {alive _veh} do
 	_veh setFuel 1;
 
 	waitUntil {sleep 60; (_veh distance _posdestino < _distancia) or ({[_x] call canFight} count _soldados == 0) or (!canMove _veh)};
-	if (({[_x] call canFight} count _soldados == 0) or (!canMove _veh)) exitWith {};
+	if !(_veh distance _posdestino < _distancia) exitWith {};
 	if (_tipoPatrol == "AIR") then
 		{
 		_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
@@ -172,20 +174,17 @@ while {alive _veh} do
 		else
 			{
 			_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
-			_arraydestinos = [_arraydestinos] call patrolDestinos;
+			_arraydestinos = [_arraydestinos,position _veh] call patrolDestinos;
 			};
 		};
 	};
 
+_enemigos = if (_lado == malos) then {"OPFORSpawn"} else {"BLUFORSpawn"};
 
-AAFpatrols = AAFpatrols - 1;
-
-_enemigos = "OPFORSpawn";
-
-if (_lado == malos) then {_enemigos = "BLUFORSpawn"};
 {_unit = _x;
 waitUntil {sleep 1;!([distanciaSPWN,1,_unit,"GREENFORSpawn"] call distanceUnits) and !([distanciaSPWN,1,_unit,_enemigos] call distanceUnits)};deleteVehicle _unit} forEach _soldados;
 
 {_veh = _x;
 if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and !([distanciaSPWN,1,_veh,_enemigos] call distanceUnits)) then {deleteVehicle _veh}} forEach _vehiculos;
 {deleteGroup _x} forEach _grupos;
+AAFpatrols = AAFpatrols - 1;

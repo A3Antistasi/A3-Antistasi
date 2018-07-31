@@ -8,7 +8,7 @@ class EditorData
 	toggles=1538;
 	class ItemIDProvider
 	{
-		nextID=1638;
+		nextID=1640;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={8420.4658,154.61513,25053.641};
-		dir[]={0.07429193,-0.59449989,0.80066264};
-		up[]={0.054926567,0.80409461,0.59195727};
-		aside[]={0.99572641,6.8401278e-008,-0.092391409};
+		pos[]={3605.9678,40.043858,10231.861};
+		dir[]={0.057827864,-0.43886495,0.89669102};
+		up[]={0.028243909,0.89855289,0.43795595};
+		aside[]={0.99792749,7.4942363e-010,-0.064356647};
 	};
 };
 binarizationWanted=0;
@@ -435,7 +435,7 @@ class Mission
 		class Item20
 		{
 			dataType="Marker";
-			position[]={3634.429,-185.97,4856.5918};
+			position[]={11722.869,-186.03819,4256.5566};
 			name="NATO_carrier";
 			type="flag_AltisColonial";
 			id=23;
@@ -3340,7 +3340,7 @@ class Mission
 			position[]={8780.8975,35.592316,12043.754};
 			name="road_1";
 			type="hd_arrow";
-			angle=223.508;
+			angle=223.50798;
 			id=1441;
 		};
 		class Item244
@@ -6927,6 +6927,7 @@ class Mission
 					};
 					id=1573;
 					type="O_T_Recon_TL_F";
+					atlOffset=-7.6293945e-006;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -7071,6 +7072,7 @@ class Mission
 					};
 					id=1579;
 					type="O_T_Recon_JTAC_F";
+					atlOffset=7.6293945e-006;
 				};
 				class Item7
 				{
@@ -7094,6 +7096,7 @@ class Mission
 			{
 			};
 			id=1572;
+			atlOffset=-7.6293945e-006;
 		};
 		class Item326
 		{

@@ -1082,3 +1082,8 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Hopefully solved all the remaining HQ assets issues.
 - Fixed bug when AI tries to hide in a building.
 - Reduced a lot the max distance between departure and targets for both land and air attacks (10Kmts and 3 Kmts).
+- Changed the position of the NATO Carrier in Altis.
+
+1.2.5 30/07/2018
+
+- Seaport boat garrisons and patrols are subject to boat availability.

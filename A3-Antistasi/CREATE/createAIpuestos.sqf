@@ -135,20 +135,23 @@ _roads = _posicion nearRoads _size;
 
 if ((_marcador in puertos) and (spawner getVariable _marcador!=2)) then
 	{
-	_mrkMar = seaSpawn select {getMarkerPos _x inArea _marcador};
 	_tipoVeh = if (_lado == malos) then {vehNATOBoat} else {vehCSATBoat};
-	_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_tipoVeh];
-	_vehicle=[_pos, 0,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
-	_veh = _vehicle select 0;
-	[_veh] call AIVEHinit;
-	_vehCrew = _vehicle select 1;
-	{[_x,_marcador] call NATOinit} forEach _vehCrew;
-	_grupoVeh = _vehicle select 2;
-	_soldados = _soldados + _vehCrew;
-	_grupos pushBack _grupoVeh;
-	_vehiculos pushBack _veh;
+	if ([_tipoVeh] call vehAvailable) then
+		{
+		_mrkMar = seaSpawn select {getMarkerPos _x inArea _marcador};
+		_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_tipoVeh];
+		_vehicle=[_pos, 0,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+		_veh = _vehicle select 0;
+		[_veh] call AIVEHinit;
+		_vehCrew = _vehicle select 1;
+		{[_x,_marcador] call NATOinit} forEach _vehCrew;
+		_grupoVeh = _vehicle select 2;
+		_soldados = _soldados + _vehCrew;
+		_grupos pushBack _grupoVeh;
+		_vehiculos pushBack _veh;
+		sleep 1;
+		};
 	{_caja addItemCargoGlobal [_x,2]} forEach swoopShutUp;
-	sleep 1;
 	}
 else
 	{

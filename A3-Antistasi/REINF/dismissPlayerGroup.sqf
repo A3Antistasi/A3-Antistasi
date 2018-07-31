@@ -8,7 +8,7 @@ _units = _this select 0;
 _units = _units - [player];
 _units = _units select {!(isPlayer _x)};
 if (_units isEqualTo []) exitWith {};
-if (_units findIf {[_x] call canFight} != -1) exitWith {hint "You cannot disband supressed, undercover or unconscious units"};
+if (_units findIf {!([_x] call canFight)} != -1) exitWith {hint "You cannot disband supressed, undercover or unconscious units"};
 player globalChat "Get out of my sight you useless scum!";
 
 _nuevoGrp = createGroup buenos;

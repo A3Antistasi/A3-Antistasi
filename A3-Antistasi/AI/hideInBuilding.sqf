@@ -30,7 +30,6 @@ _x disableAI "SUPPRESSION";
 _x disableAI "CHECKVISIBLE";
 _x disableAI "COVER";
 _x disableAI "AUTOCOMBAT";
-doStop _ingeniero;
 _x doMove _pos;
 [_x,_pos] spawn
 	{

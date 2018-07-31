@@ -8,7 +8,7 @@ class EditorData
 	toggles=1538;
 	class ItemIDProvider
 	{
-		nextID=1541;
+		nextID=1542;
 	};
 	class MarkerIDProvider
 	{
@@ -443,10 +443,11 @@ class Mission
 		class Item20
 		{
 			dataType="Marker";
-			position[]={3634.429,-185.97,4856.5918};
+			position[]={12538.913,-185.97,4160.5513};
 			name="NATO_carrier";
 			type="flag_UN";
 			id=23;
+			atlOffset=-13.617798;
 		};
 		class Item21
 		{
@@ -6457,6 +6458,7 @@ class Mission
 					};
 					id=1425;
 					type="I_G_officer_F";
+					atlOffset=-9.5367432e-007;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -6505,6 +6507,7 @@ class Mission
 			{
 			};
 			id=1424;
+			atlOffset=-9.5367432e-007;
 		};
 		class Item280
 		{
@@ -6896,6 +6899,7 @@ class Mission
 					};
 					id=1437;
 					type="I_G_officer_F";
+					atlOffset=9.5367432e-007;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -6944,6 +6948,7 @@ class Mission
 			{
 			};
 			id=1436;
+			atlOffset=9.5367432e-007;
 		};
 		class Item286
 		{
@@ -7033,7 +7038,7 @@ class Mission
 			position[]={8780.8975,35.592316,12043.754};
 			name="road_1";
 			type="hd_arrow";
-			angle=223.50813;
+			angle=223.50812;
 			id=1441;
 		};
 		class Item289
@@ -7271,7 +7276,7 @@ class Mission
 			position[]={21706.1,22.576994,17678.889};
 			name="road_27";
 			type="hd_arrow";
-			angle=213.26996;
+			angle=213.26994;
 			id=1470;
 		};
 		class Item315
@@ -7379,7 +7384,7 @@ class Mission
 			position[]={26280.432,40.25845,21788.68};
 			name="road_39";
 			type="hd_arrow";
-			angle=52.545021;
+			angle=52.545017;
 			id=1482;
 		};
 		class Item327
@@ -7388,7 +7393,7 @@ class Mission
 			position[]={26493.066,20.179955,21324.83};
 			name="road_40";
 			type="hd_arrow";
-			angle=113.11628;
+			angle=113.11627;
 			id=1483;
 		};
 		class Item328
@@ -7442,6 +7447,7 @@ class Mission
 					};
 					id=1488;
 					type="O_T_Recon_TL_F";
+					atlOffset=7.6293945e-006;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -7501,6 +7507,7 @@ class Mission
 					};
 					id=1489;
 					type="O_T_Recon_Medic_F";
+					atlOffset=-7.6293945e-006;
 				};
 				class Item2
 				{
@@ -7609,6 +7616,7 @@ class Mission
 			{
 			};
 			id=1487;
+			atlOffset=7.6293945e-006;
 		};
 		class Item332
 		{
@@ -8529,6 +8537,7 @@ class Mission
 					};
 					id=1522;
 					type="I_G_Soldier_LAT_F";
+					atlOffset=-9.5367432e-007;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -8577,6 +8586,7 @@ class Mission
 			{
 			};
 			id=1521;
+			atlOffset=-9.5367432e-007;
 		};
 		class Item346
 		{

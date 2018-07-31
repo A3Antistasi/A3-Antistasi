@@ -32,7 +32,7 @@ _lado = malos;
 _tipoPatrol = "LAND";
 if (lados getVariable [_base,sideUnknown] == malos) then
 	{
-	if (_base in puertos) then
+	if ((_base in puertos) and ([vehNATOBoat] call vehAvailable)) then
 		{
 		_tipoCoche = vehNATOBoat;
 		_tipoPatrol = "SEA";
@@ -53,7 +53,7 @@ if (lados getVariable [_base,sideUnknown] == malos) then
 else
 	{
 	_lado = muyMalos;
-	if (_base in puertos) then
+	if ((_base in puertos) and ([vehCSATBoat] call vehAvailable)) then
 		{
 		_tipoCoche = vehCSATBoat;
 		_tipoPatrol = "SEA";

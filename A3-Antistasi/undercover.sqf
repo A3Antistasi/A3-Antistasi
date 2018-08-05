@@ -136,13 +136,17 @@ while {_cambiar == ""} do
 					if !(_estaEnControl) then
 						{
 						_aggro = if (lados getVariable [_base,sideUnknown] == malos) then {prestigeNATO} else {prestigeCSAT};
-						if (random 100 < _aggro) then
-							{
-							_cambiar = "Control";
-							}
-						else
-							{
-							_estaEnControl = true;
+						if (player == theBoss) then {
+							if (random 10000 < (_aggro * _aggro)) then {
+								_cambiar = "Control";
+							} else {
+								_estaEnControl = true;
+							};
+						} else {
+							if (random 100 < _aggro) then {
+								_cambiar = "Control";
+							} else {
+								_estaEnControl = true;
 							};
 						};
 					}

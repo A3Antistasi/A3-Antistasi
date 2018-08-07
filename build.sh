@@ -14,7 +14,7 @@ do
     cp -r A3-Antistasi/* build/$variant
     rm -rf build/$variant/Templates/*/
 
-    makepbo -PN build/$variant/ build/$variant.pbo
+    makepbo -P -X none build/$variant/ build/$variant.pbo
 
     rm -rf build/$variant/
 done

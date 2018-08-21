@@ -1,11 +1,19 @@
 private ["_gunner","_ayudante"];
-
+private _esMortero = false;
 {if (_x getVariable ["typeOfSoldier",""] == "StaticGunner") then {_gunner = _x} else {_ayudante = _x}} forEach _this;
-
+{if (_x getVariable ["typeOfSoldier",""] == "StaticMortar") then {_gunner = _x;_esMortero = true} else {_ayudante = _x}} forEach _this;
 private _grupo = group _gunner;
 private _mounted = false;
 private _veh = objNull;
-private _tipoVeh = if (side _gunner == malos) then {NATOMG} else {CSATMG};
+private _lado = side _grupo;
+private _tipoVeh = 	if !(_esMortero) then
+						{
+						if (_lado == malos) then {NATOMG} else {if (_lado == muyMalos) then {CSATMG} else {SDKMGStatic}};
+						}
+					else
+						{
+						if (_lado == malos) then {NATOMortar} else {if (_lado == muyMalos) then {CSATMortar} else {SDKMortar}};
+						};
 private _mochiG = backPack _gunner;
 private _mochiA = backpack _ayudante;
 while {(alive _gunner)} do
@@ -16,17 +24,24 @@ while {(alive _gunner)} do
 	_enemigo = objNull;
 	if (!(_objetivos isEqualTo []) and (((_objetivos select 0) select 4) distance _gunner > 150))  then
 		{
-		{
-		_eny = _x select 4;
-		if !(_eny isKindOf "Tank") then
+		if !(_esMortero) then
 			{
-			if  (([objNull, "VIEW"] checkVisibility [eyePos _eny, eyePos _gunner]) > 0) then
+			{
+			_eny = _x select 4;
+			if !(_eny isKindOf "Tank") then
 				{
-				_enemigo = _eny;
+				if  (([objNull, "VIEW"] checkVisibility [eyePos _eny, eyePos _gunner]) > 0) then
+					{
+					_enemigo = _eny;
+					};
 				};
+			if !(isNull _enemigo) exitWith {};
+			} forEach _objetivos;
+			}
+		else
+			{
+			_enemigo = ((_objetivos select 0) select 4);
 			};
-		if !(isNull _enemigo) exitWith {};
-		} forEach _objetivos;
 		};
 	if !(isNull _enemigo) then
 		{
@@ -67,6 +82,7 @@ while {(alive _gunner)} do
 						_gunner moveInGunner _veh;
 						[_veh] call AIVEHinit;
 						_mounted = true;
+						if (_esMortero) then {_grupo setVariable ["morteros",_gunner]};
 						sleep 60;
 						};
 					};
@@ -88,6 +104,7 @@ while {(alive _gunner)} do
 						_ayudante addBackpackGlobal _mochiA;
 						deleteVehicle _veh;
 						_gunner call recallGroup;
+						if (_esMortero) then {_grupo setVariable ["morteros",objNull]};
 						};
 					};
 				};
@@ -108,6 +125,7 @@ while {(alive _gunner)} do
 				_ayudante addBackpackGlobal _mochiA;
 				deleteVehicle _veh;
 				_gunner call recallGroup;
+				if (_esMortero) then {_grupo setVariable ["morteros",objNull]};
 				};
 			};
 		};

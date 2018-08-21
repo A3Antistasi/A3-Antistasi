@@ -17,19 +17,19 @@ if ((_tipo in vehNormal) or (_tipo in vehAttack) or (_tipo in vehBoats)) then
 			{
 			if (_tipo in vehAPCs) then
 				{
-				[_veh,60 - (tierWar * 3)] call addTimeForIdle;
+				[_veh,60 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
 				_veh removeAllEventHandlers "HandleDamage";
 				}
 			else
 				{
 				if (_tipo in vehTanks) then
 					{
-					[_veh,480 - (tierWar * 3)] call addTimeForIdle;
+					[_veh,480 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
 					_veh removeAllEventHandlers "HandleDamage";
 					}
 				else
 					{
-					[_veh,45 - (tierWar * 3)] call addTimeForIdle;
+					[_veh,45 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
 					_veh removeAllEventHandlers "HandleDamage";
 					};
 				};
@@ -39,7 +39,7 @@ if ((_tipo in vehNormal) or (_tipo in vehAttack) or (_tipo in vehBoats)) then
 		{
 		if (_tipo in vehAmmoTrucks) then
 			{
-			if (_veh distance getMarkerPos "respawn_guerrila" > 50) then {if (_tipo == vehNatoAmmoTruck) then {_nul = [_veh] call NATOcrate} else {_nul = [_veh] call CSATcrate}};
+			if (_veh distance getMarkerPos respawnBuenos > 50) then {if (_tipo == vehNatoAmmoTruck) then {_nul = [_veh] call NATOcrate} else {_nul = [_veh] call CSATcrate}};
 			};
 		if (_veh isKindOf "Car") then
 			{
@@ -108,19 +108,19 @@ else
 				{
 				if (_tipo in vehTransportAir) then
 					{
-					[_veh,45 - (tierWar * 3)] call addTimeForIdle;
+					[_veh,45 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
 					_veh removeAllEventHandlers "HandleDamage";
 					}
 				else
 					{
 					if (_veh isKindOf "Helicopter") then
 						{
-						[_veh,120 - (tierWar * 3)] call addTimeForIdle;
+						[_veh,120 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
 						_veh removeAllEventHandlers "HandleDamage";
 						}
 					else
 						{
-						[_veh,45 - (tierWar * 3)] call addTimeForIdle;
+						[_veh,45 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
 						_veh removeAllEventHandlers "HandleDamage";
 						};
 					};
@@ -276,7 +276,7 @@ if (not(_veh in staticsToSave)) then
 			}
 			];
 		};
-	if (_veh distance getMarkerPos "respawn_guerrila" <= 50) then
+	if (_veh distance getMarkerPos respawnBuenos <= 50) then
 		{
 		clearMagazineCargoGlobal _veh;
 		clearWeaponCargoGlobal _veh;

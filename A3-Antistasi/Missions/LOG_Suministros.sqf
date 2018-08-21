@@ -7,7 +7,7 @@ _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contacto = objNull;
 _grpContacto = grpNull;
-_tsk = "";
+_tsk = "";/*
 if (_dificil) then
 	{
 	_result = [] call spawnMissionGiver;
@@ -64,7 +64,7 @@ if (_dificil) then
 	{
 	[0,"LOG"] spawn borrarTask;
 	waitUntil {sleep 1; !(["LOG"] call BIS_fnc_taskExists)};
-	};
+	};*/
 _posicion = getMarkerPos _marcador;
 
 _tiempolim = if (_dificil) then {30} else {60};
@@ -75,11 +75,12 @@ _taskDescription = format ["%1 population is in need of supplies. We may improve
 
 [[buenos,civilian],"LOG",[_taskDescription,"City Supplies",_marcador],_posicion,false,0,true,"Heal",true] call BIS_fnc_taskCreate;
 misiones pushBack ["LOG","CREATED"]; publicVariable "misiones";
-_pos = [];
+_pos = (getMarkerPos respawnBuenos) findEmptyPosition [1,50,"C_Van_01_box_F"];
+/*_pos = [];
 
 if (!_dificil) then
 	{
-	_pos = (getMarkerPos "respawn_guerrila") findEmptyPosition [1,50,"C_Van_01_box_F"];
+	_pos = (getMarkerPos respawnBuenos) findEmptyPosition [1,50,"C_Van_01_box_F"];
 	}
 else
 	{
@@ -98,7 +99,7 @@ else
 		};
 	_pos = [_posroad, 3, _dirveh + 90] call BIS_Fnc_relPos;
 	};
-
+*/
 //Creating the box
 _camion = "Land_PaperBox_01_open_boxes_F" createVehicle _pos;
 _camion allowDamage false;
@@ -127,7 +128,7 @@ if ((dateToNumber date > _fechalimnum) or (isNull _camion)) then
 	{
 	["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"FAILED","Heal"] call taskUpdate;
 	[5*_bonus,-5*_bonus,_posicion] remoteExec ["citySupportChange",2];
-	[-10*_bonus,stavros] call playerScoreAdd;
+	[-10*_bonus,theBoss] call playerScoreAdd;
 	}
 else
 	{
@@ -170,7 +171,7 @@ else
 			[petros,"hint","Supplies Delivered"] remoteExec ["commsMP",[buenos,civilian]];
 			["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"SUCCEEDED","Heal"] call taskUpdate;
 			{if (_x distance _posicion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-			[5*_bonus,stavros] call playerScoreAdd;
+			[5*_bonus,theBoss] call playerScoreAdd;
 			if (!isMultiplayer) then {_bonus = _bonus + ((20-skillFIA)*0.1)};
 			[-1*(20-skillFIA),15*_bonus,_marcador] remoteExec ["citySupportChange",2];
 			[-3,0] remoteExec ["prestige",2];
@@ -179,7 +180,7 @@ else
 			{
 			["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"FAILED","Heal"] call taskUpdate;
 			[5*_bonus,-5*_bonus,_posicion] remoteExec ["citySupportChange",2];
-			[-10*_bonus,stavros] call playerScoreAdd;
+			[-10*_bonus,theBoss] call playerScoreAdd;
 			};
 	};
 
@@ -191,6 +192,6 @@ _emptybox = "Land_PaperBox_01_open_empty_F" createVehicle _ecpos;
 
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
 _nul = [1200,"LOG"] spawn borrarTask;
-waitUntil {sleep 1; (not([distanciaSPWN,1,_camion,"GREENFORSpawn"] call distanceUnits)) or (_camion distance (getMarkerPos "respawn_guerrila") < 60)};
+waitUntil {sleep 1; (not([distanciaSPWN,1,_camion,"GREENFORSpawn"] call distanceUnits)) or (_camion distance (getMarkerPos respawnBuenos) < 60)};
 
 deleteVehicle _emptybox;

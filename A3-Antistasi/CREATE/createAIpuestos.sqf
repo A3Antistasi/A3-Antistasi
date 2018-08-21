@@ -14,12 +14,11 @@ _size = [_marcador] call sizeMarker;
 
 _frontera = [_marcador] call isFrontline;
 _lado = muyMalos;
-
 _esFIA = false;
 if (lados getVariable [_marcador,sideUnknown] == malos) then
 	{
 	_lado = malos;
-	if ((random 10 >= tierWar) and !(_frontera) and !(_marcador in forcedSpawn)) then
+	if ((random 10 >= (tierWar + difficultyCoef)) and !(_frontera) and !(_marcador in forcedSpawn)) then
 		{
 		_esFIA = true;
 		};
@@ -48,34 +47,47 @@ _mrk setMarkerBrushLocal "DiagGrid";
 _ang = markerDir _marcador;
 _mrk setMarkerDirLocal _ang;
 if (!debug) then {_mrk setMarkerAlphaLocal 0};
-_cuenta = 0;
-
-while {(spawner getVariable _marcador !=2) and (_cuenta < 4)} do
+_garrison = garrison getVariable [_marcador,[]];
+_tam = count _garrison;
+private _patrol = true;
+if (_tam < ([_marcador] call garrisonSize)) then
 	{
-	_arrayGrupos = if (_lado == malos) then
+	_patrol = false;
+	}
+else
+	{
+	if ({if ((getMarkerPos _x inArea _mrk) and (lados getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count marcadores > 0) then {_patrol = false};
+	};
+if (_patrol) then
+	{
+	_cuenta = 0;
+	while {(spawner getVariable _marcador !=2) and (_cuenta < 4)} do
 		{
-		if (!_esFIA) then {gruposNATOsmall} else {gruposFIASmall};
-		}
-	else
-		{
-		gruposCSATsmall
-		};
-	if ([_marcador,false] call fogCheck < 0.3) then {_arrayGrupos = _arrayGrupos - sniperGroups};
-	_tipoGrupo = selectRandom _arrayGrupos;
+		_arrayGrupos = if (_lado == malos) then
+			{
+			if (!_esFIA) then {gruposNATOsmall} else {gruposFIASmall};
+			}
+		else
+			{
+			gruposCSATsmall
+			};
+		if ([_marcador,false] call fogCheck < 0.3) then {_arrayGrupos = _arrayGrupos - sniperGroups};
+		_tipoGrupo = selectRandom _arrayGrupos;
 
-	_grupo = [_posicion,_lado, _tipoGrupo] call spawnGroup;
-	sleep 1;
-	if ((random 10 < 2.5) and (not(_tipogrupo in sniperGroups))) then
-		{
-		_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
-		[_perro] spawn guardDog;
+		_grupo = [_posicion,_lado, _tipoGrupo] call spawnGroup;
 		sleep 1;
+		if ((random 10 < 2.5) and (not(_tipogrupo in sniperGroups))) then
+			{
+			_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
+			[_perro] spawn guardDog;
+			sleep 1;
+			};
+		_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "RANDOM","NOVEH2"] execVM "scripts\UPSMON.sqf";
+		_grupos pushBack _grupo;
+		{[_x,_marcador] call NATOinit; _soldados pushBack _x} forEach units _grupo;
+		sleep 1;
+		_cuenta = _cuenta +1;
 		};
-	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "RANDOM","NOVEH2"] execVM "scripts\UPSMON.sqf";
-	_grupos pushBack _grupo;
-	{[_x,_marcador] call NATOinit; _soldados pushBack _x} forEach units _grupo;
-	sleep 1;
-	_cuenta = _cuenta +1;
 	};
 
 if ((_frontera) and (spawner getVariable _marcador!=2) and (_marcador in puestos)) then
@@ -123,19 +135,23 @@ _roads = _posicion nearRoads _size;
 
 if ((_marcador in puertos) and (spawner getVariable _marcador!=2)) then
 	{
-	_mrkMar = seaSpawn select {getMarkerPos _x inArea _marcador};
 	_tipoVeh = if (_lado == malos) then {vehNATOBoat} else {vehCSATBoat};
-	_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_tipoVeh];
-	_vehicle=[_pos, 0,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
-	_veh = _vehicle select 0;
-	[_veh] call AIVEHinit;
-	_vehCrew = _vehicle select 1;
-	{[_x,_marcador] call NATOinit} forEach _vehCrew;
-	_grupoVeh = _vehicle select 2;
-	_soldados = _soldados + _vehCrew;
-	_grupos pushBack _grupoVeh;
-	_vehiculos pushBack _veh;
-	sleep 1;
+	if ([_tipoVeh] call vehAvailable) then
+		{
+		_mrkMar = seaSpawn select {getMarkerPos _x inArea _marcador};
+		_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_tipoVeh];
+		_vehicle=[_pos, 0,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+		_veh = _vehicle select 0;
+		[_veh] call AIVEHinit;
+		_vehCrew = _vehicle select 1;
+		{[_x,_marcador] call NATOinit} forEach _vehCrew;
+		_grupoVeh = _vehicle select 2;
+		_soldados = _soldados + _vehCrew;
+		_grupos pushBack _grupoVeh;
+		_vehiculos pushBack _veh;
+		sleep 1;
+		};
+	{_caja addItemCargoGlobal [_x,2]} forEach swoopShutUp;
 	}
 else
 	{
@@ -234,8 +250,6 @@ if ((!isNull _antena) and (spawner getVariable _marcador!=2)) then
 		};
 	};
 
-_garrison = garrison getVariable [_marcador,[]];
-_tam = count _garrison;
 _array = [];
 _subArray = [];
 _cuenta = 0;

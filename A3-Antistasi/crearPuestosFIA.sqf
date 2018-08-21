@@ -5,7 +5,7 @@ private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_cami
 _tipo = _this select 0;
 _posicionTel = _this select 1;
 
-if (_tipo == "delete") exitWith {hint "Deprecated option. Use Remve Garrison from HQ instead"};
+if (_tipo == "delete") exitWith {hint "Deprecated option. Use Remove Garrison from HQ instead"};
 
 _escarretera = isOnRoad _posicionTel;
 
@@ -25,16 +25,16 @@ _mrk setMarkerShape "ICON";
 
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
 _fechalimnum = dateToNumber _fechalim;
-[[buenos,civilian],"PuestosFIA",["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
-//_tsk = ["PuestosFIA",[buenos,civilian],["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
+[[buenos,civilian],"PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_posicionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
+//_tsk = ["PuestosFIA",[buenos,civilian],["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
 //misiones pushBackUnique _tsk; publicVariable "misiones";
 _formato = [];
 {
 if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
 } forEach _tipoGrupo;
-_grupo = [getMarkerPos "respawn_guerrila", buenos, _formato] call spawnGroup;
+_grupo = [getMarkerPos respawnBuenos, buenos, _formato] call spawnGroup;
 _grupo setGroupId ["Post"];
-_road = [getMarkerPos "respawn_guerrila"] call findNearestGoodRoad;
+_road = [getMarkerPos respawnBuenos] call findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 _camion = _tipoVeh createVehicle _pos;
 //_nul = [_grupo] spawn dismountFIA;
@@ -42,7 +42,7 @@ _grupo addVehicle _camion;
 {[_x] call FIAinit} forEach units _grupo;
 leader _grupo setBehaviour "SAFE";
 (units _grupo) orderGetIn true;
-Stavros hcSetGroup [_grupo];
+theBoss hcSetGroup [_grupo];
 
 waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) or (dateToNumber date > _fechalimnum)};
 
@@ -64,7 +64,7 @@ if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) the
 	marcadores = marcadores + [_mrk];
 	publicVariable "marcadores";
 	spawner setVariable [_mrk,2,true];
-	["PuestosFIA",["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,"SUCCEEDED"] call taskUpdate;
+	["PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_posicionTel,"SUCCEEDED"] call taskUpdate;
 	//["PuestosFIA", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
 	_nul = [-5,5,_posiciontel] remoteExec ["citySupportChange",2];
 	_mrk setMarkerType "loc_bunker";
@@ -81,13 +81,13 @@ if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) the
 	}
 else
 	{
-	["PuestosFIA",["We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.","Post \ Roadblock Deploy",_mrk],_posicionTel,"FAILED"] call taskUpdate;
+	["PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_posicionTel,"FAILED"] call taskUpdate;
 	//["PuestosFIA", "FAILED",true] spawn BIS_fnc_taskSetState;
 	sleep 3;
 	deleteMarker _mrk;
 	};
 
-stavros hcRemoveGroup _grupo;
+theBoss hcRemoveGroup _grupo;
 {deleteVehicle _x} forEach units _grupo;
 deleteVehicle _camion;
 deleteGroup _grupo;

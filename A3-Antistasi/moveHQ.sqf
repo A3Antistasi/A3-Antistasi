@@ -1,4 +1,4 @@
-if (player != Stavros) exitWith {hint "Only Commander Stavros has access to this function"};
+if (player != theBoss) exitWith {hint "Only our Commander has access to this function"};
 
 if ((count weaponCargo caja >0) or (count magazineCargo caja >0) or (count itemCargo caja >0) or (count backpackCargo caja >0)) exitWith {hint "You must first empty your Ammobox in order to move the HQ"};
 
@@ -7,7 +7,7 @@ petros enableAI "AUTOTARGET";
 
 [petros,"remove"] remoteExec ["flagaction",0,petros];
 //removeAllActions petros;
-[petros] join stavros;
+[petros] join theBoss;
 petros setBehaviour "AWARE";
 if (isMultiplayer) then
 	{
@@ -28,8 +28,8 @@ else
 
 fuego inflame false;
 
-//"respawn_guerrila" setMarkerPos [0,0,0];
-"respawn_guerrila" setMarkerAlpha 0;
+//respawnBuenos setMarkerPos [0,0,0];
+respawnBuenos setMarkerAlpha 0;
 _garrison = garrison getVariable ["Synd_HQ", []];
 _posicion = getMarkerPos "Synd_HQ";
 if (count _garrison > 0) then

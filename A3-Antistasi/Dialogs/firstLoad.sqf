@@ -9,7 +9,7 @@ hint "W A R N I N G\n\nREAD THIS!!!\n\n\nAntistasi does NOT support vanilla save
 waitUntil {!dialog};
 //sleep 1;
 /*
-if ((!dialog) and (!visibleMap) and (isNil "statsLoaded") and (player == stavros) and (!_bypass) and (isNil "placementDone")) then
+if ((!dialog) and (!visibleMap) and (isNil "statsLoaded") and (player == theBoss) and (!_bypass) and (isNil "placementDone")) then
 	{
 	_nul = [] spawn placementSelection;
 	};

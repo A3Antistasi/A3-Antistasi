@@ -1,4 +1,4 @@
-if (player != Stavros) exitWith {hint "Only Commander has the ability to control HC units"};
+if (player != theBoss) exitWith {hint "Only Commander has the ability to control HC units"};
 
 _grupos = _this select 0;
 
@@ -51,14 +51,14 @@ _tiempo = 60;
 
 _unit addAction ["Return Control to AI",{selectPlayer (player getVariable ["owner",player])}];
 
-waitUntil {sleep 1; hint format ["Time to return control to AI: %1", _tiempo]; _tiempo = _tiempo - 1; (_tiempo < 0) or (isPlayer Stavros)};
+waitUntil {sleep 1; hint format ["Time to return control to AI: %1", _tiempo]; _tiempo = _tiempo - 1; (_tiempo < 0) or (isPlayer theBoss)};
 
 removeAllActions _unit;
 if (!isPlayer (_unit getVariable ["owner",_unit])) then {selectPlayer (_unit getVariable ["owner",_unit])};
 //_unit setVariable ["owner",nil,true];
 _unit removeEventHandler ["HandleDamage",_eh2];
 player removeEventHandler ["HandleDamage",_eh1];
-(units group stavros) joinsilent group stavros;
-group stavros selectLeader Stavros;
+(units group theBoss) joinsilent group theBoss;
+group theBoss selectLeader theBoss;
 hint "";
 

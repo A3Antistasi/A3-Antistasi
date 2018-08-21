@@ -4,7 +4,14 @@ fn_SaveStat =
 	_varValue = _this select 1;
 	if (!isNil "_varValue") then
 		{
-		if (worldName == "Tanoa") then {profileNameSpace setVariable [_varName + serverID + "WotP",_varValue]} else {profileNameSpace setVariable [_varName + serverID + "Antistasi" + worldName,_varValue]};
+		if (worldName == "Tanoa") then
+			{
+			profileNameSpace setVariable [_varName + serverID + "WotP",_varValue]
+			}
+		else
+			{
+			if (side group petros == independent) then {profileNameSpace setVariable [_varName + serverID + "Antistasi" + worldName,_varValue]} else {profileNameSpace setVariable [_varName + serverID + "AntistasiB" + worldName,_varValue]};
+			};
 		if (isDedicated) then {saveProfileNamespace};
 		};
 };
@@ -13,8 +20,15 @@ fn_LoadStat =
 {
 	private ["_varName","_varvalue"];
 	_varName = _this select 0;
-	if (worldName == "Tanoa") then {_varValue = profileNameSpace getVariable (_varName + serverID + "WotP")} else {_varValue = profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)};
-	if(isNil "_varValue") exitWith {diag_log format ["Antistasi: Error en Persistent Load. La variable %1 no existe en el entorno %2",_varname,(_varName + serverID + "WotP")]};
+	if (worldName == "Tanoa") then
+		{
+		_varValue = profileNameSpace getVariable (_varName + serverID + "WotP")
+		}
+	else
+		{
+		if (side group petros == independent) then {_varValue = profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)} else {_varValue = profileNameSpace getVariable (_varName + serverID + "AntistasiB" + worldName)};
+		};
+	if(isNil "_varValue") exitWith {diag_log format ["Antistasi: Error en Persistent Load. La variable %1 no existe",_varname]};
 	[_varName,_varValue] call fn_SetStat;
 };
 
@@ -30,7 +44,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks",/*"gogglesPlayer","vestPlayer","outfit","hat",*/"scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick"];
+["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -40,6 +54,7 @@ fn_SetStat =
 	if(_varName in specialVarLoads) then
 	{
 		if(_varName == 'cuentaCA') then {cuentaCA = _varValue; publicVariable "cuentaCA"};
+		if(_varName == 'bombRuns') then {bombRuns = _varValue; publicVariable "bombRuns"};
 		if(_varName == 'nextTick') then {nextTick = time + _varValue};
 		if(_varName == 'miembros') then {miembros = +_varValue; publicVariable "miembros"};
 		if(_varName == 'smallCAmrk') then {smallCAmrk = +_varValue};
@@ -106,13 +121,8 @@ fn_SetStat =
 			destroyedBuildings= +_varValue;
 			//publicVariable "destroyedBuildings";
 			{
-			(nearestBuilding _x) setDamage [1,false];
-			/*
-			_buildings = nearestObjects [_x,listMilBld,50];
-			if !(_buildings isEqualto []) then
-				{
-				(_buildings Select 0) setdamage [1,false];
-				};*/
+			//(nearestBuilding _x) setDamage [1,false];
+			[nearestBuilding _x,[1,false]] remoteExec ["setDamage"];
 			} forEach destroyedBuildings;
 			};
 		if(_varName == 'minas') then
@@ -232,19 +242,35 @@ fn_SetStat =
 			};
 		if(_varName == 'posHQ') then
 			{
-			{if (getMarkerPos _x distance _varvalue < 1000) then
+			_posHQ = if (count _varValue >3) then {_varValue select 0} else {_varValue};
+			{if (getMarkerPos _x distance _posHQ < 1000) then
 				{
 				lados setVariable [_x,buenos,true];
 				};
 			} forEach controles;
-			"respawn_guerrila" setMarkerPos _varValue;
-			petros setPos _varvalue;
+			respawnBuenos setMarkerPos _posHQ;
+			petros setPos _posHQ;
+			"Synd_HQ" setMarkerPos _posHQ;
 			if (chopForest) then
 				{
 				if (!isMultiplayer) then {{ _x hideObject true } foreach (nearestTerrainObjects [position petros,["tree","bush"],70])} else {{ _x hideObjectGlobal true } foreach (nearestTerrainObjects [position petros,["tree","bush"],70])};
 				};
-			[] spawn buildHQ;
-			{_x setPos _varValue} forEach (playableUnits select {side _x == buenos});
+			if (count _varValue == 3) then
+				{
+				[] spawn buildHQ;
+				}
+			else
+				{
+				fuego setPos (_varValue select 1);
+				caja setDir ((_varValue select 2) select 0);
+				caja setPos ((_varValue select 2) select 1);
+				mapa setDir ((_varValue select 3) select 0);
+				mapa setPos ((_varValue select 3) select 1);
+				bandera setPos (_varValue select 4);
+				cajaVeh setDir ((_varValue select 5) select 0);
+				cajaVeh setPos ((_varValue select 5) select 1);
+				};
+			{_x setPos _posHQ} forEach (playableUnits select {side _x == buenos});
 			};
 		if(_varname == 'estaticas') then
 			{
@@ -256,7 +282,7 @@ fn_SetStat =
 				_veh = createVehicle [_tipoVeh,[0,0,0],[],0,"NONE"];
 				_veh setPos _posVeh;
 				_veh setDir _dirVeh;
-				_veh setVectorUp surfaceNormal (position _veh);
+				_veh setVectorUp surfaceNormal (getPos _veh);
 				if ((_veh isKindOf "StaticWeapon") or (_veh isKindOf "Building")) then
 					{
 					staticsToSave pushBack _veh;

@@ -7,7 +7,7 @@ if (!isNil "_inside") exitWith {};
 
 _veh setVariable ["inDespawner",true,true];
 
-if ((typeOf _veh in arrayCivVeh) and ({_x getVariable ["GREENFORSpawn",false]} count crew _veh > 0) and (_veh distance getMarkerPos "respawn_guerrila" > 50)) then
+if ((typeOf _veh in arrayCivVeh) and ({_x getVariable ["GREENFORSpawn",false]} count crew _veh > 0) and (_veh distance getMarkerPos respawnBuenos > 50)) then
 	{
 	_pos = position _veh;
 	[0,-1,_pos] remoteExec ["citySupportChange",2];
@@ -31,7 +31,7 @@ if ((typeOf _veh in arrayCivVeh) and ({_x getVariable ["GREENFORSpawn",false]} c
 	};
 while {alive _veh} do
 	{
-	if ((not([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits)) and (not([distanciaSPWN,1,_veh,"OPFORSpawn"] call distanceUnits)) and (not([distanciaSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits)) and (not(_veh in staticsToSave)) and (_veh distance getMarkerPos "respawn_guerrila" > 100)) then
+	if ((not([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits)) and (not([distanciaSPWN,1,_veh,"OPFORSpawn"] call distanceUnits)) and (not([distanciaSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits)) and (not(_veh in staticsToSave)) and (_veh distance getMarkerPos respawnBuenos > 100)) then
 		{
 		//hint format ["%1 se lo ha cargado el despawner",_veh];
 		if (_veh in reportedVehs) then {reportedVehs = reportedVehs - [_veh]; publicVariable "reportedVehs"};

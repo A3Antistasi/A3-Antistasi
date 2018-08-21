@@ -41,7 +41,7 @@ _ang = [_pos1,_pos2] call BIS_fnc_dirTo;
 
 bombRuns = bombRuns - 1;
 publicVariable "bombRuns";
-[] call statistics;
+[] spawn statistics;
 
 _mrkDest = createMarkerLocal [format ["BRFin%1",random 1000], _pos2];
 _mrkDest setMarkerShapeLocal "ICON";
@@ -56,7 +56,7 @@ _angorig = _ang - 180;
 _origpos = [_pos1, 2500, _angorig] call BIS_fnc_relPos;
 _finpos = [_pos2, 2500, _ang] call BIS_fnc_relPos;
 
-_planefn = [_origpos, _ang, vehSDKPlane, WEST] call bis_fnc_spawnvehicle;
+_planefn = [_origpos, _ang, vehSDKPlane, buenos] call bis_fnc_spawnvehicle;
 _plane = _planefn select 0;
 _plane setPosATL [getPosATL _plane select 0, getPosATL _plane select 1, 1000];
 _plane disableAI "TARGET";

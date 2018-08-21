@@ -1,3 +1,4 @@
+if (side petros == west) exitWith {call compile preProcessFileLineNumbers "Templates\buenosVanillaAltisB.sqf"};
 SDKMortar = "I_G_Mortar_01_F";
 SDKMortarHEMag = "8Rnd_82mm_Mo_shells";
 SDKMortarSmokeMag = "8Rnd_82mm_Mo_Smoke_white";
@@ -16,10 +17,6 @@ SDKGL = ["I_G_Soldier_GL_F","I_Soldier_GL_F"];
 SDKMil = ["I_G_Soldier_lite_F","I_Soldier_lite_F"];
 SDKSL = ["I_G_Soldier_SL_F","I_Soldier_SL_F"];
 SDKEng = ["I_G_engineer_F","I_engineer_F"];
-sdkTier1 = SDKMil + [staticCrewBuenos] + SDKMG + SDKGL + SDKATman;
-sdkTier2 = SDKMedic + SDKExp + SDKEng;
-sdkTier3 = SDKSL + SDKSniper;
-soldadosSDK = sdkTier1 + sdkTier2 + sdkTier3;
 
 vehSDKBike = "I_G_Quadbike_01_F";
 vehSDKLightArmed = "I_G_Offroad_01_armed_F";
@@ -30,15 +27,7 @@ vehSDKTruck = "I_G_Van_01_transport_F";
 vehSDKPlane = "I_C_Plane_civil_01_F";
 vehSDKBoat = "I_G_Boat_Transport_01_F";
 vehSDKRepair = "I_G_Offroad_01_repair_F";
-vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATBuenos,staticAABuenos,vehSDKRepair];
 SDKFlag = "Flag_Altis_F";
-
-gruposSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
-gruposSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
-//["BanditShockTeam","ParaShockTeam"];
-gruposSDKSquad = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
-gruposSDKSniper = [SDKSniper,SDKSniper];
-gruposSDKSentry = [SDKGL,SDKMil];
 
 tipoPetros = "I_G_officer_F";
 
@@ -60,9 +49,6 @@ lamparasSDK = ["acc_flashlight"];
 
 ATMineMag = "ATMine_Range_Mag";
 APERSMineMag = "APERSMine_Range_Mag";
-
-banditUniforms = ["U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Camo_F","U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_5_F","U_I_C_Soldier_Para_4_F"];
-uniformsSDK = banditUniforms + ["U_BG_Guerilla1_1","U_BG_Guerilla2_1","U_BG_Guerilla2_2","U_BG_Guerilla2_3","U_BG_Guerilla3_1","U_BG_Guerilla3_2","U_BG_leader","U_IG_Guerilla3_2","U_OG_Guerilla2_1","U_IG_Guerilla1_1","U_I_G_Story_Protagonist_F","U_I_G_resistanceLeader_F"];
 
 if (hayFFAA) then
 	{

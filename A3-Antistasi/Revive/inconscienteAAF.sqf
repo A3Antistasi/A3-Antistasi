@@ -80,7 +80,7 @@ if (alive _unit) then
 	_unit playMoveNow "AmovPpneMstpSnonWnonDnon_healed";
 	_unit setVariable ["overallDamage",damage _unit];
 	//debug
-	diag_log format ["Antistasi: Unidad %3 revivida está rendida:%1, está cautiva: %2",_unit getVariable "surrendered",captive _unit,_unit];
+	//diag_log format ["Antistasi: Unidad %3 revivida está rendida:%1, está cautiva: %2",_unit getVariable "surrendered",captive _unit,_unit];
 	if !(_unit getVariable ["surrendered",false]) then
 		{
 		if (captive _unit) then

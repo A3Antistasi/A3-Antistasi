@@ -1,4 +1,4 @@
-private ["_unit","_veh","_lado","_tipo","_skill""_riflefinal","_magazines","_hmd","_marcador","_revelar"];
+private ["_unit","_veh","_lado","_tipo","_skill","_riflefinal","_magazines","_hmd","_marcador","_revelar"];
 
 _unit = _this select 0;
 if (isNil "_unit") exitWith {};
@@ -57,7 +57,7 @@ else
 		};
 	};
 
-_skill = tierWar * 0.1 * skillMult;
+_skill = (tierWar + difficultyCoef) * 0.1 * skillMult;
 if ((faction _unit != factionGEN) and (faction _unit != factionFIA)) then
 	{
 	if (side _unit == malos) then
@@ -80,11 +80,11 @@ else
 	{
 	if (faction _unit == factionFIA) then
 		{
-		_skill = _skill max 0.3;
+		_skill = _skill min 0.3;
 		}
 	else
 		{
-		_skill = _skill max 0.2;
+		_skill = _skill min 0.2;
 		if (tierWar > 1) then
 			{
 			_rifleFinal = primaryWeapon _unit;

@@ -1,4 +1,4 @@
-if (player != Stavros) exitWith {hint "Only Commander Stavros has access to this function"};
+if (player != theBoss) exitWith {hint "Only our Commander has access to this function"};
 
 if (skillFIA > 19) exitWith {hint "Your troops have the maximum training"};
 if ((skillFIA + 1) > (tierWar*2)) exitWith {hint "You cannot upgrade training in the current War Level"};
@@ -8,10 +8,10 @@ if (_resourcesFIA < _coste) exitWith {hint format ["You do not have enough money
 
 _resourcesFIA = _resourcesFIA - _coste;
 skillFIA = skillFIA + 1;
-hint format ["Syndikat Skill Level has been Upgraded\nCurrent level is %1",skillFIA];
+hint format ["%2 Skill Level has been Upgraded\nCurrent level is %1",skillFIA,nameBuenos];
 publicVariable "skillFIA";
 server setVariable ["resourcesFIA",_resourcesFIA,true];
-[] call statistics;
+[] spawn statistics;
 {
 _coste = server getVariable _x;
 _coste = round (_coste + (_coste * (skillFIA/280)));

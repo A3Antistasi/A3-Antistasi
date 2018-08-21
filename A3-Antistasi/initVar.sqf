@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.1.3";
+antistasiVersion = "v 1.2.5";
 
 servidoresOficiales = ["A3-Antistasi Official EU 1","A3-Antistasi Official EU 2"];
 
@@ -17,7 +17,6 @@ distanciaSPWN1 = 1300;
 distanciaSPWN2 = 500;
 musicON = if (isMultiplayer) then {false} else {true};
 civPerc = 35;
-posHQ = getMarkerPos "respawn_guerrila";
 autoHeal = false;
 recruitCooldown = 0;
 savingClient = false;
@@ -30,13 +29,17 @@ minItems = 20;
 minOptics = 12;
 maxUnits = 140;
 
-buenos = independent;
-malos = west;
+buenos = side group petros;
+malos = if (buenos == independent) then {west} else {independent};
 muyMalos = east;
 
-colorBuenos = "colorGUER";
-colorMalos = "colorBLUFOR";
+colorBuenos = if (buenos == independent) then {"colorGUER"} else {"colorBLUFOR"};
+colorMalos = if (buenos == independent) then {"colorBLUFOR"} else {"colorGUER"};
 colorMuyMalos = "colorOPFOR";
+
+respawnBuenos = if (buenos == independent) then {"respawn_guerrila"} else {"respawn_west"};
+respawnMalos = if (buenos == independent) then {"respawn_west"} else {"respawn_guerrila"};
+posHQ = getMarkerPos respawnBuenos;
 
 allMagazines = [];
 _cfgmagazines = configFile >> "cfgmagazines";
@@ -158,15 +161,57 @@ squadLeaders = [];
 
 if (!hayIFA) then
 	{
-	if (!activeUSAF) then {call compile preProcessFileLineNumbers "Templates\malosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\malosRHSUSAF.sqf"};
+	if (!activeUSAF) then
+		{
+		call compile preProcessFileLineNumbers "Templates\malosVanilla.sqf";
+		}
+	else
+		{
+		if (buenos == independent) then {call compile preProcessFileLineNumbers "Templates\malosRHSUSAF.sqf"} else {call compile preProcessFileLineNumbers "Templates\buenosRHSUSAF.sqf"};
+		};
 	if (!activeAFRF) then {call compile preProcessFileLineNumbers "Templates\muyMalosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\muyMalosRHSAFRF.sqf"};
 
-	if (!activeGREF) then {call compile preProcessFileLineNumbers "Templates\buenosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\buenosRHSGREF.sqf"};
+	if (!activeGREF) then
+		{
+		call compile preProcessFileLineNumbers "Templates\buenosVanilla.sqf"
+		}
+	else
+		{
+		if (buenos == independent) then {call compile preProcessFileLineNumbers "Templates\buenosRHSGREF.sqf"} else {call compile preProcessFileLineNumbers "Templates\malosRHSGREF.sqf"};
+		};
 	}
 else
 	{
 
 	};
+
+sdkTier1 = SDKMil + [staticCrewBuenos] + SDKMG + SDKGL + SDKATman;
+sdkTier2 = SDKMedic + SDKExp + SDKEng;
+sdkTier3 = SDKSL + SDKSniper;
+soldadosSDK = sdkTier1 + sdkTier2 + sdkTier3;
+vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATBuenos,staticAABuenos,vehSDKRepair];
+gruposSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
+gruposSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
+//["BanditShockTeam","ParaShockTeam"];
+gruposSDKSquad = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
+gruposSDKSquadEng = [SDKSL,SDKGL,SDKMil,SDKMG,SDKExp,SDKATman,SDKEng,SDKMedic];
+gruposSDKSquadSupp = [SDKSL,SDKGL,SDKMil,SDKMG,SDKATman,SDKMedic,[staticCrewBuenos,staticCrewBuenos],[staticCrewBuenos,staticCrewBuenos]];
+gruposSDKSniper = [SDKSniper,SDKSniper];
+gruposSDKSentry = [SDKGL,SDKMil];
+banditUniforms = [];
+uniformsSDK = [];
+{
+_unit = _x select 0;
+_uniform = (getUnitLoadout _unit select 3) select 0;
+banditUniforms pushBackUnique _uniform;
+uniformsSDK pushBackUnique _uniform;
+if (count _x > 1) then
+	{
+	_unit = _x select 1;
+	_uniform = (getUnitLoadout _unit select 3) select 0;
+	uniformsSDK pushBackUnique _uniform;
+	};
+} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewBuenos]];
 
 vehNormal = vehNATONormal + vehCSATNormal + [vehFIATruck,vehSDKTruck,vehSDKLightArmed,vehSDKBike,vehSDKRepair];
 vehBoats = [vehNATOBoat,vehCSATBoat,vehSDKBoat];
@@ -217,6 +262,8 @@ missionPath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
 ladridos = ["Music\dog_bark01.wss", "Music\dog_bark02.wss", "Music\dog_bark03.wss", "Music\dog_bark04.wss", "Music\dog_bark05.wss","Music\dog_maul01.wss","Music\dog_yelp01.wss","Music\dog_yelp02.wss","Music\dog_yelp03.wss"];
 
 UPSMON_Bld_remove = ["Bridge_PathLod_base_F","Land_Slum_House03_F","Land_Bridge_01_PathLod_F","Land_Bridge_Asphalt_PathLod_F","Land_Bridge_Concrete_PathLod_F","Land_Bridge_HighWay_PathLod_F","Land_Bridge_01_F","Land_Bridge_Asphalt_F","Land_Bridge_Concrete_F","Land_Bridge_HighWay_F","Land_Canal_Wall_Stairs_F","warehouse_02_f","cliff_wall_tall_f","cliff_wall_round_f","containerline_02_f","containerline_01_f","warehouse_01_f","quayconcrete_01_20m_f","airstripplatform_01_f","airport_02_terminal_f","cliff_wall_long_f","shop_town_05_f","Land_ContainerLine_01_F"];
+listMilBld = ["Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower_V1_No2_F","Land_Cargo_Tower_V1_No3_F","Land_Cargo_Tower_V1_No4_F","Land_Cargo_Tower_V1_No5_F","Land_Cargo_Tower_V1_No6_F","Land_Cargo_Tower_V1_No7_F","Land_Cargo_Tower_V2_F", "Land_Cargo_Tower_V3_F","Land_Cargo_HQ_V1_F","Land_Cargo_HQ_V2_F","Land_Cargo_HQ_V3_F","Land_Cargo_Patrol_V1_F","Land_Cargo_Patrol_V2_F","Land_Cargo_Patrol_V3_F","Land_HelipadSquare_F"];
+listbld = ["Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower_V1_No2_F","Land_Cargo_Tower_V1_No3_F","Land_Cargo_Tower_V1_No4_F","Land_Cargo_Tower_V1_No5_F","Land_Cargo_Tower_V1_No6_F","Land_Cargo_Tower_V1_No7_F","Land_Cargo_Tower_V2_F", "Land_Cargo_Tower_V3_F"];
 
 if (!isServer and hasInterface) exitWith {};
 
@@ -226,8 +273,8 @@ smallCAmrk = [];
 smallCApos = [];
 bigAttackInProgress = false;
 chopForest = false;
-distanceForAirAttack = 20000;
-distanceForLandAttack = 5000;
+distanceForAirAttack = 10000;
+distanceForLandAttack = 3000;
 
 if (worldName == "Tanoa") then
 	{
@@ -255,10 +302,15 @@ else
 	};
 listMilBld = ["Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower_V1_No2_F","Land_Cargo_Tower_V1_No3_F","Land_Cargo_Tower_V1_No4_F","Land_Cargo_Tower_V1_No5_F","Land_Cargo_Tower_V1_No6_F","Land_Cargo_Tower_V1_No7_F","Land_Cargo_Tower_V2_F", "Land_Cargo_Tower_V3_F","Land_Cargo_HQ_V1_F","Land_Cargo_HQ_V2_F","Land_Cargo_HQ_V3_F","Land_Cargo_Patrol_V1_F","Land_Cargo_Patrol_V2_F","Land_Cargo_Patrol_V3_F","Land_HelipadSquare_F"];
 listbld = ["Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower_V1_No2_F","Land_Cargo_Tower_V1_No3_F","Land_Cargo_Tower_V1_No4_F","Land_Cargo_Tower_V1_No5_F","Land_Cargo_Tower_V1_No6_F","Land_Cargo_Tower_V1_No7_F","Land_Cargo_Tower_V2_F", "Land_Cargo_Tower_V3_F"];
+swoopShutUp = ["V_RebreatherIA","G_Diving"];
+difficultyCoef = if !(isMultiplayer) then {0} else {floor ((({side group _x == buenos} count playableUnits) - ({side group _x != buenos} count playableUnits)) / 5)};
+if (side (group petros) == west) then {swoopShutUp pushBack "U_B_Wetsuit"} else {swoopShutUp pushBack "U_I_Wetsuit"};
+
 //Pricing values for soldiers, vehicles
 if (!isServer) exitWith {};
 
-{server setVariable [_x,75,true]} forEach sdkTier1;
+{server setVariable [_x,50,true]} forEach SDKMil;
+{server setVariable [_x,75,true]} forEach (sdkTier1 - SDKMil);
 {server setVariable [_x,100,true]} forEach  sdkTier2;
 {server setVariable [_x,150,true]} forEach sdkTier3;
 {timer setVariable [_x,0,true]} forEach (vehAttack + vehNATOAttackHelis + [vehNATOPlane,vehNATOPlaneAA,vehCSATPlane,vehCSATPlaneAA] + vehCSATAttackHelis + vehAA + vehMRLS);
@@ -297,8 +349,11 @@ haveRadio = false;
 haveNV = false;
 zoneCheckInProgress = false;
 garrisonIsChanging = false;
+playerHasBeenPvP = [];
 misiones = []; publicVariable "misiones";
-unlockedItems = ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit","H_Booniehat_khk","H_Booniehat_oli","H_Booniehat_grn","H_Booniehat_dirty","H_Cap_oli","H_Cap_blk","H_MilCap_rucamo","H_MilCap_gry","H_BandMask_blk","H_Bandanna_khk","H_Bandanna_gry","H_Bandanna_camo","H_Shemag_khk","H_Shemag_tan","H_Shemag_olive","H_ShemagOpen_tan","H_Beret_grn","H_Beret_grn_SF","H_Watchcap_camo","H_TurbanO_blk","H_Hat_camo","H_Hat_tan","H_Beret_blk","H_Beret_red","H_Watchcap_khk","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_lowprofile","G_Balaclava_oli","G_Bandanna_beast","G_Tactical_Black","G_Aviator","G_Shades_Black","acc_flashlight","I_UavTerminal"] + uniformsSDK + civUniforms;//Initial Arsenal available items
+movingMarker = false;
+unlockedItems = ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit","H_Booniehat_khk","H_Booniehat_oli","H_Booniehat_grn","H_Booniehat_dirty","H_Cap_oli","H_Cap_blk","H_MilCap_rucamo","H_MilCap_gry","H_BandMask_blk","H_Bandanna_khk","H_Bandanna_gry","H_Bandanna_camo","H_Shemag_khk","H_Shemag_tan","H_Shemag_olive","H_ShemagOpen_tan","H_Beret_grn","H_Beret_grn_SF","H_Watchcap_camo","H_TurbanO_blk","H_Hat_camo","H_Hat_tan","H_Beret_blk","H_Beret_red","H_Watchcap_khk","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_lowprofile","G_Balaclava_oli","G_Bandanna_beast","G_Tactical_Black","G_Aviator","G_Shades_Black","acc_flashlight"] + uniformsSDK + civUniforms;//Initial Arsenal available items
+if (side group petros == independent) then {unlockedItems pushBack "I_UavTerminal"} else {unlockedItems pushBack "B_UavTerminal"};
 
 
 
@@ -306,27 +361,33 @@ unlockedItems = ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","To
 
 if (!activeGREF) then
     {
-    unlockedWeapons = ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","Binocular","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];//"LMG_03_F"
+    unlockedWeapons = ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","Binocular","SMG_05_F","SMG_02_F"];//"LMG_03_F"
 	unlockedRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
 	unlockedMagazines = ["9Rnd_45ACP_Mag","30Rnd_9x21_Mag","30Rnd_762x39_Mag_F","MiniGrenade","1Rnd_HE_Grenade_shell","30Rnd_545x39_Mag_F","30Rnd_9x21_Mag_SMG_02","10Rnd_9x21_Mag","200Rnd_556x45_Box_F","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
 	initialRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];
 	//unlockedItems = unlockedItems + ["V_Chestrig_khk","V_BandollierB_cbr","V_BandollierB_rgr","U_C_HunterBody_grn"];
-	unlockedItems = unlockedItems + ["U_C_HunterBody_grn"];
-	if (worldName == "Tanoa") then
+	if !(isMultiplayer) then
 		{
-		unlockedWeapons pushBack "launch_RPG7_F";
-		unlockedAT = ["launch_RPG7_F"];
-		unlockedMagazines pushBack "RPG7_F";
-		}
-	else
-		{
-		if (worldName == "Altis") then
+		unlockedWeapons append ["arifle_AKM_F","arifle_AKS_F"];
+		unlockedRifles append ["arifle_AKM_F","arifle_AKS_F"];
+		initialRifles append ["arifle_AKM_F","arifle_AKS_F"];
+		if (worldName == "Tanoa") then
 			{
-			unlockedWeapons pushBack "launch_MRAWS_olive_rail_F";
-			unlockedAT = ["launch_MRAWS_olive_rail_F"];
-			unlockedMagazines pushBack "MRAWS_HEAT_F";
+			unlockedWeapons pushBack "launch_RPG7_F";
+			unlockedAT = ["launch_RPG7_F"];
+			unlockedMagazines pushBack "RPG7_F";
+			}
+		else
+			{
+			if (worldName == "Altis") then
+				{
+				unlockedWeapons pushBack "launch_MRAWS_olive_rail_F";
+				unlockedAT = ["launch_MRAWS_olive_rail_F"];
+				unlockedMagazines pushBack "MRAWS_HEAT_F";
+				};
 			};
 		};
+	unlockedItems = unlockedItems + ["U_C_HunterBody_grn"];
     }
 else
     {

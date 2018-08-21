@@ -15,7 +15,7 @@ _coste = [_tipoVeh] call vehiclePrice;
 
 if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else
 	{
-	if (player != stavros) then
+	if (player != theBoss) then
 		{
 		_resourcesFIA = player getVariable "dinero";
 		}
@@ -35,7 +35,7 @@ if (!isMultiplayer) then
 	}
 else
 	{
-	if (player != stavros) then
+	if (player != theBoss) then
 		{
 		[-1* _coste] call resourcesPlayer;
 		_veh setVariable ["duenyo",getPlayerUID player,true];
@@ -55,7 +55,8 @@ else
 	};
 if (_veh isKindOf "Car") then {_veh setPlateNumber format ["%1",name player]};
 
-if ((_tipoVeh == SDKMortar) or (_tipoVeh == staticATBuenos) or (_tipoVeh == staticAABuenos) or (_tipoVeh == SDKMGStatic)) then {staticsToSave pushBackUnique _veh; publicVariable "staticsToSave"};
+//if ((_tipoVeh == SDKMortar) or (_tipoVeh == staticATBuenos) or (_tipoVeh == staticAABuenos) or (_tipoVeh == SDKMGStatic)) then {staticsToSave pushBackUnique _veh; publicVariable "staticsToSave"};
+if (_veh isKindOf "StaticWeapon") then {staticsToSave pushBackUnique _veh; publicVariable "staticsToSave"};
 [_veh] call AIVEHinit;
 
 //hint "Vehicle Purchased";

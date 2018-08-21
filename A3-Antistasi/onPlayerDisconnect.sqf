@@ -1,11 +1,11 @@
 private ["_unit","_recursos","_hr","_armas","_municion","_items","_pos"];
 
 _unit = _this select 0;
-
+_uid = _this select 2;
 _recursos = 0;
 _hr = 0;
 
-if (_unit == stavros) then
+if (_unit == theBoss) then
 	{
 	{
 	if (!(_x getVariable ["esNATO",false])) then
@@ -53,26 +53,49 @@ if (_unit == stavros) then
 	} forEach allGroups;
 	if (((count playableUnits > 0) and (!membershipEnabled)) or ({(getPlayerUID _x) in miembros} count playableUnits > 0)) then
 		{
-		[] spawn assignStavros;
+		[] spawn assigntheBoss;
 		};
 	if (group petros == group _unit) then {[] spawn buildHQ};
 	};
 //{if (groupOwner _x ==)} forEach allGroups select {(side _x == civilian) and (!isPlayer leader _x)};
-if ((side _unit == buenos) or (side _unit == civilian)) then
+if (side group _unit == buenos) then
 	{
 	if ((_hr > 0) or (_recursos > 0)) then {[_hr,_recursos] spawn resourcesFIA};
-
+	if (membershipEnabled and pvpEnabled) then
+		{
+		if (_uid in miembros) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
+		};
+	//if ([_unit] call isMember) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
+	};
+if ((owner _unit) in hcArray) then
+	{
+	//["hcDown",true,true,true,true] remoteExec ["BIS_fnc_endMission"]
+	_owner = owner _unit;
+	if ({owner _x == _owner} count allUnits > 0) then
+		{
+		[] spawn
+			{
+			while {true} do
+				{
+				[petros,"hint","A Headless Client has been disconnected. This will cause malfunctions. Head back to HQ for saving ASAP and ask and Admin for a restart"] remoteExec ["commsMP"];
+				sleep 30;
+				};
+			};
+		}
+	else
+		{
+		hcArray = hcArray - [_owner];
+		};
+	}
+else
+	{
 	_pos = getPosATL _unit;
 	_wholder = nearestObjects [_pos, ["weaponHolderSimulated", "weaponHolder"], 2];
 	{deleteVehicle _x} forEach _wholder + [_unit];
-	if (alive _unit) then
+	if !(isNull _unit) then
 		{
 		_unit setVariable ["owner",_unit,true];
 		_unit setDamage 1;
 		};
-	};
-if ((_unit == HC1) or (_unit == HC2) or (_unit == HC3)) then
-	{
-	["hcDown",true,true,true,true] remoteExec ["BIS_fnc_endMission"]
 	};
 //diag_log format ["Datos de handledisconnect: %1",_this];

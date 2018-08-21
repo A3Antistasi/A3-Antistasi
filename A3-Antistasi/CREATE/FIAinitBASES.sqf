@@ -97,7 +97,11 @@ else
 				[_unit,unlockedRifles] call randomRifle;
 				if (_tipo in SDKMedic) then
 					{
-					_unit setUnitTrait ["medic",true]
+					_unit setUnitTrait ["medic",true];
+					if ({_x == "FirstAidKit"} count (items _unit) < 10) then
+						{
+						for "_i" from 1 to 10 do {_unit addItemToBackpack "FirstAidKit"};
+						};
 					}
 				else
 					{

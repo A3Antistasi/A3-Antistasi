@@ -38,7 +38,7 @@ else
 					_cuenta = _cargoSeats - (count _return);
 					for "_i" from 1 to _cuenta do
 						{
-						if (random 10 < tierWar) then {_return pushBack NATOGrunt};
+						if (random 10 < (tierWar + difficultyCoef)) then {_return pushBack NATOGrunt};
 						};
 					};
 				};
@@ -50,7 +50,7 @@ else
 					_cuenta = _cargoSeats - (count _return);
 					for "_i" from 1 to _cuenta do
 						{
-						if (random 10 < tierWar) then {_return pushBack CSATGrunt};
+						if (random 10 < (tierWar + difficultyCoef)) then {_return pushBack CSATGrunt};
 						};
 					};
 				};

@@ -9,7 +9,7 @@ _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contacto = objNull;
 _grpContacto = grpNull;
-_tsk = "";
+_tsk = "";/*
 if (_dificil) then
 	{
 	_result = [] call spawnMissionGiver;
@@ -67,7 +67,7 @@ if (_dificil) then
 	[0,"DES"] spawn borrarTask;
 	waitUntil {sleep 1; !(["DES"] call BIS_fnc_taskExists)};
 	};
-
+*/
 _nombredest = [_marcador] call localizar;
 _posicion = getPos _antena;
 
@@ -88,7 +88,7 @@ if (dateToNumber date > _fechalimnum) then
 	{
 	["DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt %4 Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Destroy Radio Tower",_mrkfin],_posicion,"FAILED","Destroy"] call taskUpdate;
 	//[5,0,_posicion] remoteExec ["citySupportChange",2];
-	[-10*_bonus,stavros] call playerScoreAdd;
+	[-10*_bonus,theBoss] call playerScoreAdd;
 	[-3,0] remoteExec ["prestige",2]
 	}
 else
@@ -99,7 +99,7 @@ else
 	[5,-5] remoteExec ["prestige",2];
 	[600*_bonus] remoteExec ["timingCA",2];
 	{if (_x distance _posicion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-	[5*_bonus,stavros] call playerScoreAdd;
+	[5*_bonus,theBoss] call playerScoreAdd;
 	[3,0] remoteExec ["prestige",2]
 	};
 

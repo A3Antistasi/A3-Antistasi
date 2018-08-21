@@ -47,8 +47,16 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 			{
 			if ({(getMarkerPos _x distance2d getMarkerPos _sitio < distanciaSPWN) and (lados getVariable [_x,sideUnknown] != _lado)} count aeropuertos == 0) then
 				{
-				_reinfPlaces pushBack _sitio;
-				[[_sitio,_aeropuerto,_numero,_lado],"patrolReinf"] call scheduler;
+				if ({(_x distance2D _posicion < (2*distanciaSPWN)) or (_x distance2D (getMarkerPos _sitio) < (2*distanciaSPWN))} count allPlayers == 0) then
+					{
+					_tipoGrupo = if (_lado == malos) then {if (_numero == 4) then {selectRandom gruposNATOmid} else {selectRandom gruposNATOSquad}} else {if (_numero == 4) then {selectRandom gruposCSATmid} else {selectRandom gruposCSATSquad}};
+					[_tipoGrupo,_lado,_sitio,2] remoteExec ["garrisonUpdate",2];
+					}
+				else
+					{
+					_reinfPlaces pushBack _sitio;
+					[[_sitio,_aeropuerto,_numero,_lado],"patrolReinf"] call scheduler;
+					};
 				};
 			};
 		};

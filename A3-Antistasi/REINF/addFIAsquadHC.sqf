@@ -1,7 +1,7 @@
 
-if (player != Stavros) exitWith {hint "Only Commander Stavros has access to this function"};
+if (player != theBoss) exitWith {hint "Only our Commander has access to this function"};
 //if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
-if (markerAlpha "respawn_guerrila" == 0) exitWith {hint "You cant recruit a new squad while you are moving your HQ"};
+if (markerAlpha respawnBuenos == 0) exitWith {hint "You cant recruit a new squad while you are moving your HQ"};
 if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
 _chequeo = false;
 {
@@ -30,26 +30,26 @@ _tipoVeh = "";
 _coste = 0;
 _costeHR = 0;
 _formato = [];
-_format = "";
+_format = "Squd-";
 
 _hr = server getVariable "hr";
 _resourcesFIA = server getVariable "resourcesFIA";
 
-private ["_grupo","_roads","_camion"];
-
+private ["_grupo","_roads","_camion","_conMochis"];
+_conMochis = "";
 if (_tipoGrupo isEqualType []) then
 	{
-	//_tipoGrupo = if (random 20 <= skillFIA) then {_tipoGrupo select 1} else {_tipoGrupo select 0};
-	//_formato = (cfgSDKInf >> _tipogrupo);
-	//_unidades = [_formato] call groupComposition;
 	{
 	_tipoUnidad = if (random 20 <= skillFIA) then {_x select 1} else {_x select 0};
 	_formato pushBack _tipoUnidad;
 	_coste = _coste + (server getVariable _tipoUnidad); _costeHR = _costeHR +1
 	} forEach _tipoGrupo;
-
-	//if (_costeHR > 4) then {_tipoVeh = "B_G_Van_01_transport_F"} else {_tipoVeh = "B_G_Offroad_01_F"};
-	//_coste = _coste + ([_tipoVeh] call vehiclePrice);
+	if (count _this > 1) then
+		{
+		_conMochis = _this select 1;
+		if (_conMochis == "MG") then {_coste = _coste + ([SDKMGStatic] call vehiclePrice)};
+		if (_conMochis == "Mortar") then {_coste = _coste + ([SDKMortar] call vehiclePrice)};
+		};
 	_esinf = true;
 	}
 else
@@ -76,21 +76,36 @@ if (_exit) exitWith {};
 
 _nul = [- _costeHR, - _coste] remoteExec ["resourcesFIA",2];
 
-_pos = getMarkerPos "respawn_guerrila";
+_pos = getMarkerPos respawnBuenos;
 
 _road = [_pos] call findNearestGoodRoad;
 
 if (_esinf) then
 	{
-	_pos = [(getMarkerPos "respawn_guerrila"), 30, random 360] call BIS_Fnc_relPos;
+	_pos = [(getMarkerPos respawnBuenos), 30, random 360] call BIS_Fnc_relPos;
 	if (_tipoGrupo isEqualType []) then
 		{
 		_grupo = [_pos, buenos, _formato,true] call spawnGroup;
-		if (_tipogrupo isEqualTo gruposSDKSquad) then {_format = "Squd-"};
+		//if (_tipogrupo isEqualTo gruposSDKSquad) then {_format = "Squd-"};
 		if (_tipogrupo isEqualTo gruposSDKmid) then {_format = "Tm-"};
 		if (_tipogrupo isEqualTo gruposSDKAT) then {_format = "AT-"};
 		if (_tipogrupo isEqualTo gruposSDKSniper) then {_format = "Snpr-"};
 		if (_tipogrupo isEqualTo gruposSDKSentry) then {_format = "Stry-"};
+		if (_conMochis == "MG") then
+			{
+			((units _grupo) select ((count (units _grupo)) - 2)) addBackpackGlobal soporteStaticSDKB2;
+			((units _grupo) select ((count (units _grupo)) - 1)) addBackpackGlobal MGStaticSDKB;
+			_format = "SqMG-";
+			}
+		else
+			{
+			if (_conMochis == "Mortar") then
+				{
+				((units _grupo) select ((count (units _grupo)) - 2)) addBackpackGlobal soporteStaticSDKB3;
+				((units _grupo) select ((count (units _grupo)) - 1)) addBackpackGlobal MortStaticSDKB;
+				_format = "SqMort-";
+				};
+			};
 		}
 	else
 		{
@@ -138,12 +153,12 @@ else
 
 {[_x] call FIAinit} forEach units _grupo;
 //leader _grupo setBehaviour "SAFE";
-Stavros hcSetGroup [_grupo];
+theBoss hcSetGroup [_grupo];
 petros directSay "SentGenReinforcementsArrived";
 hint format ["Group %1 at your command.\n\nGroups are managed from the High Command bar (Default: CTRL+SPACE)\n\nIf the group gets stuck, use the AI Control feature to make them start moving. Mounted Static teams tend to get stuck (solving this is WiP)\n\nTo assign a vehicle for this group, look at some vehicle, and use Vehicle Squad Mngmt option in Y menu", groupID _grupo];
 
 if (!_esinf) exitWith {};
-
+_grupo spawn attackDrillAI;
 if (count _formato == 2) then
 	{
 	_tipoVeh = vehSDKBike;

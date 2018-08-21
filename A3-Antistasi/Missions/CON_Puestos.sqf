@@ -8,7 +8,7 @@ _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contacto = objNull;
 _grpContacto = grpNull;
-_tsk = "";
+_tsk = "";/*
 if (_dificil) then
 	{
 	_result = [] call spawnMissionGiver;
@@ -66,7 +66,7 @@ if (_dificil) then
 	[0,"CON"] spawn borrarTask;
 	waitUntil {sleep 1; !(["CON"] call BIS_fnc_taskExists)};
 	};
-
+*/
 _posicion = getMarkerPos _marcador;
 _tiempolim = if (_dificil) then {30} else {90};//120
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
@@ -99,13 +99,13 @@ if (dateToNumber date > _fechalimnum) then
 		{
 		[10,0,_posicion] remoteExec ["citySupportChange",2];
 		[-1200] remoteExec ["timingCA",2];
-		[-20,stavros] call playerScoreAdd;
+		[-20,theBoss] call playerScoreAdd;
 		}
 	else
 		{
 		[5,0,_posicion] remoteExec ["citySupportChange",2];
 		[-600] remoteExec ["timingCA",2];
-		[-10,stavros] call playerScoreAdd;
+		[-10,theBoss] call playerScoreAdd;
 		};
 	}
 else
@@ -118,7 +118,7 @@ else
 		[-10,0,_posicion] remoteExec ["citySupportChange",2];
 		[1200] remoteExec ["timingCA",2];
 		{if (isPlayer _x) then {[20,_x] call playerScoreAdd}} forEach ([500,0,_posicion,"GREENFORSpawn"] call distanceUnits);
-		[20,stavros] call playerScoreAdd;
+		[20,theBoss] call playerScoreAdd;
 		}
 	else
 		{
@@ -126,7 +126,7 @@ else
 		[-5,0,_posicion] remoteExec ["citySupportChange",2];
 		[600] remoteExec ["timingCA",2];
 		{if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_posicion,"GREENFORSpawn"] call distanceUnits);
-		[10,stavros] call playerScoreAdd;
+		[10,theBoss] call playerScoreAdd;
 		};
 	};
 

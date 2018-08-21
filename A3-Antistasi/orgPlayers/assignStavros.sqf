@@ -20,7 +20,7 @@ if ([_x] call isMember) then
 	if (_x getVariable ["elegible",true]) then
 		{
 		_elegibles pushBack _x;
-		if (_x == stavros) then
+		if (_x == theBoss) then
 			{
 			_lider = _x;
 			_datos = [_lider] call numericRank;
@@ -28,7 +28,7 @@ if ([_x] call isMember) then
 			};
 		};
 	};
-} forEach (playableUnits select {(side _x == buenos) or (side _x == civilian)});
+} forEach (playableUnits select {(side (group _x) == buenos)});
 
 if (isNull _lider) then
 	{
@@ -90,8 +90,8 @@ if ((_multiplicador > _puntMax) and (_x!=_lider)) then
 
 if (!isNull _selectable) then
 	{
-	if (_disconnected) then {_texto = format ["Player Commander disconnected or renounced. %1 is our new leader. Greet him!", name _selectable]} else {_texto = format ["%1 is no longer leader of the our Forces.\n\n %2 is our new leader. Greet him!", name stavros, name _selectable]};
-	[_selectable] call stavrosInit;
+	if (_disconnected) then {_texto = format ["Player Commander disconnected or renounced. %1 is our new leader. Greet him!", name _selectable]} else {_texto = format ["%1 is no longer leader of the our Forces.\n\n %2 is our new leader. Greet him!", name theBoss, name _selectable]};
+	[_selectable] call theBossInit;
 	sleep 5;
 	[[petros,"hint",_texto],"commsMP"] call BIS_fnc_MP;
 	};

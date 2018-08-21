@@ -4,10 +4,10 @@ _veh = _this select 0;
 _text = _this select 1;
 _convoy = false;
 if ((_text == "Convoy Objective") or (_text == "Mission Vehicle") or (_text == "Supply Box")) then {_convoy = true};
-_side = side (driver _veh);
+_side = side (group (driver _veh));
 _tipo = "_unknown";
 _formato = "";
-
+_color = colorMalos;
 if (_veh isKindOf "Truck") then {_tipo = "_motor_inf"}
 	else
 		{
@@ -34,10 +34,11 @@ if (_veh isKindOf "Truck") then {_tipo = "_motor_inf"}
 			};
 		};
 
-if ((_side == buenos) or (_side == civilian) or (_side == sideUnknown)) then
+if ((_side == buenos) or (_side == sideUnknown)) then
 	{
 	_enemigo = false;
 	_formato = "n";
+	_color = colorBuenos;
 	}
 else
 	{
@@ -50,18 +51,19 @@ else
 		if (_side == muyMalos) then
 			{
 			_formato = "o";
+			_color = colorMuyMalos;
 			};
 		};
 	};
 
 _tipo = format ["%1%2",_formato,_tipo];
 
-if ((side driver _veh != buenos) and (side driver _veh != civilian) and (side driver _veh != sideUnknown)) then {["TaskSucceeded", ["", format ["%1 Spotted",_text]]] spawn BIS_fnc_showNotification};
+if ((side group (driver _veh) != buenos) and (side driver _veh != sideUnknown)) then {["TaskSucceeded", ["", format ["%1 Spotted",_text]]] spawn BIS_fnc_showNotification};
 
 _mrkfin = createMarkerLocal [format ["%2%1", random 100,_text], position _veh];
 _mrkfin setMarkerShapeLocal "ICON";
 _mrkfin setMarkerTypeLocal _tipo;
-
+_mrkfin setMarkerColorLocal _color;
 _mrkfin setMarkerTextLocal _text;
 
 while {(alive _veh) and !(isNull _veh) and (revelar or _convoy or (_veh getVariable ["revelado",false]))} do

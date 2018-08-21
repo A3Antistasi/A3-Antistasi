@@ -28,11 +28,11 @@ _nombreorig = [_mrkOrigen] call localizar;
 _lado = lados getVariable [_mrkOrigen,sideUnknown];
 _ladosTsk = [buenos,civilian,muyMalos];
 _ladosTsk1 = [malos];
-_nombreEny = "NATO";
+_nombreEny = nameMalos;
 //_config = cfgNATOInf;
 if (_lado == muyMalos) then
 	{
-	_nombreEny = "CSAT";
+	_nombreEny = nameMuyMalos;
 	//_config = cfgCSATInf;
 	_ladosTsk = [buenos,civilian,malos];
 	_ladosTsk1 = [muyMalos];
@@ -65,14 +65,37 @@ while {(_waves != 0)} do
 	{
 	_soldados = [];
 	_nVeh = 3 + (round random 1);
-
-	if (_posOrigen distance _posDestino < distanceForLandAttack) then
+	_posOrigenLand = [];
+	_pos = [];
+	_dir = 0;
+	_spawnPoint = "";
+	if !(_mrkDestino in blackListDest) then
+		{
+		if (_posOrigen distance _posDestino < distanceForLandAttack) then
+			{
+			_indice = aeropuertos find _mrkOrigen;
+			_spawnPoint = spawnPoints select _indice;
+			_pos = getMarkerPos _spawnPoint;
+			_posOrigenLand = _posOrigen;
+			_dir = markerDir _spawnPoint;
+			}
+		else
+			{
+			_puestos = puestos select {(lados getVariable [_x,sideUnknown] == _lado) and (getMarkerPos _x distance _posDestino < distanceForLandAttack)  and ([_x,false] call airportCanAttack)};
+			if !(_puestos isEqualTo []) then
+				{
+				_puesto = selectRandom _puestos;
+				_posOrigenLand = getMarkerPos _puesto;
+				[_puesto,60] call addTimeForIdle;
+				_spawnPoint = [_posOrigenLand] call findNearestGoodRoad;
+				_pos = position _spawnPoint;
+				_dir = getDir _spawnPoint;
+				};
+			};
+		};
+	if !(_pos isEqualTo []) then
 		{
 		if ([_mrkDestino,true] call fogCheck < 0.3) then {_nveh = round (1.5*_nveh)};
-		_indice = aeropuertos find _mrkOrigen;
-		_spawnPoint = spawnPoints select _indice;
-		_pos = getMarkerPos _spawnPoint;
-
 		_vehPool = if (_lado == malos) then {vehNATOAttack} else {vehCSATAttack};
 		_vehPool = _vehPool select {[_x] call vehAvailable};
 		if (_esSDK) then
@@ -124,7 +147,7 @@ while {(_waves != 0)} do
 				sleep 1;
 				};
 			if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
-			_vehicle=[_pos, markerDir _spawnPoint,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+			_vehicle=[_pos, _dir,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
 
 			_veh = _vehicle select 0;
 			_vehCrew = _vehicle select 1;
@@ -161,7 +184,7 @@ while {(_waves != 0)} do
 					{_x disableAI "MINEDETECTION"} forEach (units _grupoVeh);
 					(units _grupo) joinSilent _grupoVeh;
 					deleteGroup _grupo;
-					[_mrkOrigen,_landPos,_grupoVeh] call WPCreate;
+					[_posOrigenLand,_landPos,_grupoVeh] call WPCreate;
 					_Vwp0 = (wayPoints _grupoVeh) select 0;
 					_Vwp0 setWaypointBehaviour "SAFE";
 					_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
@@ -180,7 +203,7 @@ while {(_waves != 0)} do
 					(units _grupo) joinSilent _grupoVeh;
 					deleteGroup _grupo;
 					_grupoVeh selectLeader (units _grupoVeh select 1);
-					[_mrkOrigen,_landPos,_grupoVeh] call WPCreate;
+					[_posOrigenLand,_landPos,_grupoVeh] call WPCreate;
 					_Vwp0 = (wayPoints _grupoVeh) select 0;
 					_Vwp0 setWaypointBehaviour "SAFE";
 					_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
@@ -194,7 +217,7 @@ while {(_waves != 0)} do
 			else
 				{
 				{_x disableAI "MINEDETECTION"} forEach (units _grupoVeh);
-				[_mrkOrigen,_posDestino,_grupoVeh] call WPCreate;
+				[_posOrigenLand,_posDestino,_grupoVeh] call WPCreate;
 				_Vwp0 = (wayPoints _grupoVeh) select 0;
 				_Vwp0 setWaypointBehaviour "SAFE";
 				_Vwp0 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
@@ -450,7 +473,7 @@ while {(_waves != 0)} do
 					deleteVehicle _x;
 					};
 				} forEach units _grupo;
-				if !(_veh isKindOf "Helicopter") then
+				if (!(_veh isKindOf "Helicopter") or (_mrkDestino in aeropuertos)) then
 					{
 					[_veh,_grupo,_mrkDestino,_mrkOrigen] spawn airdrop;
 					}
@@ -574,19 +597,16 @@ while {(_waves != 0)} do
 
 	if (!_SDKShown) then
 		{
-		_SDKShown = [true] call FIAradio;
-		if (_SDKShown) then
-			{
-			sleep 60;
-			["TaskSucceeded", ["", "Attack Destination Updated"]] remoteExec ["BIS_fnc_showNotification",buenos];
-			//["AtaqueAAF",getMarkerPos _mrkDestino] call BIS_fnc_taskSetDestination;
-			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED"] call taskUpdate;
-			};
+		if !([true] call FIAradio) then {sleep 100};
+		_SDKShown = true;
+		["TaskSucceeded", ["", "Attack Destination Updated"]] remoteExec ["BIS_fnc_showNotification",buenos];
+		["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED"] call taskUpdate;
 		};
 	_solMax = round ((count _soldados)*0.6);
-	if (_solMax > 15) then {_waves = _waves -1};
+	if (_solMax > 8) then {_waves = _waves -1};
 	_firstWave = false;
 	diag_log format ["Antistasi: Reached end of spawning attack, wave %1",_waves];
+	if (lados getVariable [_mrkDestino,sideUnknown] != buenos) then {_soldados spawn remoteBattle};
 	if (_lado == malos) then
 		{
 		waitUntil {sleep 5; (({!([_x] call canFight)} count _soldados) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestino,sideUnknown] == malos) or (({[_x,_mrkDestino] call canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestino] call canConquer)} count allUnits))};
@@ -668,12 +688,12 @@ if (_esSDK) then
 	{
 	if (!(lados getVariable [_mrkDestino,sideUnknown] == buenos)) then
 		{
-		[-10,stavros] call playerScoreAdd;
+		[-10,theBoss] call playerScoreAdd;
 		}
 	else
 		{
 		{if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_posdestino,"GREENFORSpawn"] call distanceUnits);
-		[5,stavros] call playerScoreAdd;
+		[5,theBoss] call playerScoreAdd;
 		};
 	};
 diag_log "Antistasi: Reached end of winning conditions. Starting despawn";

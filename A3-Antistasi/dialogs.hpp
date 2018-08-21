@@ -31,7 +31,7 @@ class first_load 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Loads the pervious personal session";
-			action = "closeDialog 0;nul = [] execVM ""statSave\loadAccount.sqf"";";
+			action = "closeDialog 0;nul = [true] execVM ""statSave\loadAccount.sqf"";";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -42,7 +42,7 @@ class first_load 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Starts a new game";
-			action = "closeDialog 0;if ((player == stavros) and (isNil ""placementDone"") and !(isMultiplayer)) then {_nul = [] spawn placementselection};";
+			action = "closeDialog 0;if ((player == theBoss) and (isNil ""placementDone"") and !(isMultiplayer)) then {_nul = [] spawn placementselection};";
 		};
 		/*
 		class HQ_button_Gremove: RscButton
@@ -998,7 +998,7 @@ class game_options 		{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Significantly affects performance. Please use this with caution. Set it to lower distances if you feel Antistasi is running bad";
+			tooltip = "Significantly affects performance. Please use this with caution. Set it to lower distances if you feel Antistasi is running poorly";
 			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""spawn_config""} else {hint ""Only the Commander has access to this function""};";
 		};
 		class 8slots_L2: RscButton
@@ -1079,7 +1079,7 @@ class game_options 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Use this option to save your current game. It does save the most important data in a ""Grand Theft Auto"" way. This opnion allows good MP save and independent saves of any version update. Vanilla saves are disabled because of lack of several features";
-			action = "closeDialog 0;if (player == Stavros) then {[""statSave\saveLoop.sqf"",""BIS_fnc_execVM""] call BIS_fnc_MP} else {_nul = [] execVM ""statSave\saveLoop.sqf""; hintC ""Personal Stats Saved""};";
+			action = "closeDialog 0;if (player == theBoss) then {[""statSave\saveLoop.sqf"",""BIS_fnc_execVM""] call BIS_fnc_MP} else {_nul = [] execVM ""statSave\saveLoop.sqf""; hintC ""Personal Stats Saved""};";
 		};
 	};
 };										//slots 6+1
@@ -1445,7 +1445,7 @@ class radio_comm 		{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "The cehicle or static weapon you're looking at will be garaged, interact with Flag to retrieve";
+			tooltip = "The vehicle or static weapon you're looking at will be garaged, interact with the Flag to retrieve";
 			action = "closeDialog 0;if (player != stavros) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
 		};
 		class 8slots_R3: RscButton
@@ -1874,7 +1874,7 @@ class commander_comm 		{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Request for Air Support, using Airstrike Points";
+			tooltip = "Request Air Support, using Airstrike Points";
 			action = "closeDialog 0;if (player == Stavros) then {_nul = createDialog ""carpet_bombing""} else {hint ""Only the Commander has access to this function""};";
 		};
 		class 8slots_L2: RscButton
@@ -1896,7 +1896,7 @@ class commander_comm 		{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Removes several itmes not in containers. Use with caution as it freezes the mission";
+			tooltip = "Removes several itmes not in containers. Use with caution as it may freeze the mission";
 			action = "if (player == Stavros) then {closedialog 0;[] remoteExec [""garbageCleaner"",2]} else {hint ""Only the Commander has access to this function""};";
 		};
 		class 8slots_L3: RscButton
@@ -1941,7 +1941,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Look at a vehicle and sell it for money";
-			action = "if (player == stavros) then {closeDialog 0; nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
+			action = "if (player == theBoss) then {closeDialog 0; nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
 		};
 	};
 };
@@ -2266,7 +2266,7 @@ class squad_recruit 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKSquad] spawn addFIAsquadHC";
+			action = "closeDialog 0;[] execVM ""Dialogs\squadOptions.sqf"";";
 		};
 		class HQ_button_infteam: RscButton
 		{
@@ -2460,7 +2460,7 @@ class garage_sell 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if (player != stavros) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
+			action = "closeDialog 0;if (player != theBoss) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2470,7 +2470,7 @@ class garage_sell 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; if (player == stavros) then {nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
+			action = "closeDialog 0; if (player == theBoss) then {nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
 		};
 		/*
 		class HQ_button_Gremove: RscButton
@@ -3014,10 +3014,8 @@ class mbt_type {
 		};
 	};
 };
-//OLD
-/*
-class garrison_menu {
-	idd=-1;
+class squad_options 	{
+	idd=100;
 	movingenable=false;
 
 	class controls {
@@ -3028,16 +3026,16 @@ class garrison_menu {
 			x = 0.244979 * safezoneW + safezoneX;
 			y = 0.223941 * safezoneH + safezoneY;
 			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
+			h = 0.30 * safezoneH;//30
 		};
 		class HQ_frame: RscFrame
 		{
 			idc = -1;
-			text = "Garrison Menu"; //--- ToDo: Localize;
+			text = "Squad Options"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
+			h = 0.28 * safezoneH;//28
 		};
 		class HQ_button_back: RscButton
 		{
@@ -3047,33 +3045,52 @@ class garrison_menu {
 			y = 0.251941 * safezoneH + safezoneY;
 			w = 0.06 * safezoneW;//0.175015
 			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""HQ_menu"";";
+			action = "closeDialog 0;_nul = createDialog ""squad_recruit"";";
 		};
 		class HQ_button_Gsquad: RscButton
 		{
-			idc = -1;
-			text = "Recruit Garrison"; //--- ToDo: Localize;
+			idc = 104;
+			text = "Normal Squad"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Select unit types and add them to the selected garrison";
-			action = "closeDialog 0;[""add""] spawn garrisonDialog";
+			//tooltip = "";
+			action = "closeDialog 0;nul = [gruposSDKSquad] spawn addFIAsquadHC;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
-			idc = -1;
-			text = "Remove Garrison"; //--- ToDo: Localize;
+			idc = 105;
+			text = "Engineer Squad"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Remove the whole garrison of a selected zone";
-			action = "closeDialog 0;[""rem""] spawn garrisonDialog";
+			action = "closeDialog 0; nul = [gruposSDKSquadEng] spawn addFIAsquadHC;";
+		};
+
+		class HQ_button_Gremove: RscButton
+		{
+			idc = 106;
+			text = "MG Squad"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""MG""] spawn addFIAsquadHC;";
+		};
+		class HQ_button_unlock: RscButton
+		{
+			idc = 107;
+			text = "Mortar Squad"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""Mortar""] spawn addFIAsquadHC;";
 		};
 	};
 };
-*/
 
 class RscTitles {
 	class Default {

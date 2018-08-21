@@ -31,7 +31,7 @@ if (_chequeo) exitWith {Hint "You cannot Fast Travel with enemies near the group
 	}
 } forEach units _grupo;
 
-if (_chequeo) exitWith {Hint "You cannot Fast Travel if your vehicles don't have a driver, your vehicles immobile or your group is in a boat"};
+if (_chequeo) exitWith {Hint "You cannot Fast Travel if your vehicles don't have a driver, your vehicles are immobilized or your group is in a boat"};
 
 posicionTel = [];
 

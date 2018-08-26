@@ -16,16 +16,34 @@ serverID = profileNameSpace getVariable "ss_ServerID";
 publicVariable "serverID";
 
 waitUntil {!isNil "serverID"};
-
+loadLastSave = if (paramsArray select 0 == 1) then {true} else {false};
+gameMode = paramsArray select 1; publicVariable "gameMode";
+autoSave = if (paramsArray select 2 == 1) then {true} else {false};
+membershipEnabled = if (paramsArray select 3 == 1) then {true} else {false}; publicVariable "membershipEnabled";
+switchCom = if (paramsArray select 4 == 1) then {true} else {false};
+tkPunish = if (paramsArray select 5 == 1) then {true} else {false};
+distanciaMiss = paramsArray select 6; publicVariable "distanciaMiss";
+pvpEnabled = if (paramsArray select 7 == 1) then {true} else {false}; publicVariable "pvpEnabled";
+skillMult = paramsArray select 9; publicVariable "skillMult";
+minWeaps = paramsArray select 10; publicVariable "minWeaps";
+civTraffic = paramsArray select 11; publicVariable "civTraffic";
+memberDistance = paramsArray select 13; publicVariable "memberDistance";
 _nul = call compile preprocessFileLineNumbers "initVar.sqf";
 initVar = true; publicVariable "initVar";
 savingServer = true;
 diag_log format ["Antistasi MP. InitVar done. Version: %1",antistasiVersion];
+bookedSlots = floor (((paramsArray select 12)/100) * (playableSlotsNumber buenos)); publicVariable "bookedSlots";
 _nul = call compile preprocessFileLineNumbers "initFuncs.sqf";
 diag_log "Antistasi MP Server. Funcs init finished";
 _nul = call compile preprocessFileLineNumbers "initZones.sqf";
 diag_log "Antistasi MP Server. Zones init finished";
-
+if (gameMode != 1) then
+    {
+    malos setFriend [muyMalos,1];
+    muyMalos setFriend [malos,1];
+    if (gameMode == 3) then {"CSAT_carrier" setMarkerAlpha 0};
+    if (gameMode == 4) then {"NATO_carrier" setMarkerAlpha 0};
+    };
 [] execVM "initPetros.sqf";
 ["Initialize"] call BIS_fnc_dynamicGroups;//Exec on Server
 hcArray = [];
@@ -38,23 +56,10 @@ private _index = _x call jn_fnc_arsenal_itemType;
 [_index,_x,-1] call jn_fnc_arsenal_addItem;
 }foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);
 //["buttonInvToJNA"] call jn_fnc_arsenal;
-
-
-
-loadLastSave = if (paramsArray select 0 == 1) then {true} else {false};
-autoSave = if (paramsArray select 1 == 1) then {true} else {false};
-membershipEnabled = if (paramsArray select 2 == 1) then {true} else {false}; publicVariable "membershipEnabled";
-switchCom = if (paramsArray select 3 == 1) then {true} else {false};
-tkPunish = if (paramsArray select 4 == 1) then {true} else {false}; publicVariable "tkPunish";
-distanciaMiss = paramsArray select 5; publicVariable "distanciaMiss";
-pvpEnabled = if (paramsArray select 6 == 1) then {true} else {false};
-skillMult = paramsArray select 8; publicVariable "skillMult";
-minWeaps = paramsArray select 9;
-civTraffic = paramsArray select 10; publicVariable "civTraffic";
-bookedSlots = floor (((paramsArray select 11)/100) * (playableSlotsNumber buenos)); publicVariable "bookedSlots";
-memberDistance = paramsArray select 12; publicVariable "memberDistance";
 //waitUntil {!isNil "bis_fnc_preload_init"};
 //waitUntil {!isNil "BIS_fnc_preload_server"};
+_nul = call compile preprocessFileLineNumbers "initGarrisons.sqf";
+diag_log "Antistasi MP Server. Garrisons init finished";
 if (loadLastSave) then
     {
 

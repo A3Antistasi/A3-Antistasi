@@ -8,8 +8,9 @@ _natoIsFull = false;
 _csatIsFull = false;
 _aeropuertos = aeropuertos select {([_x,false] call airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
 _objetivos = marcadores - controles - puestosFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedCities;
+if (gameMode != 1) then {_objetivos = _objetivos select {lados getVariable [_x,sideUnknown] == buenos}};
 //_objetivosSDK = _objetivos select {lados getVariable [_x,sideUnknown] == buenos};
-if (tierWar < 2) then
+if ((tierWar < 2) and (gameMode <= 2)) then
 	{
 	_aeropuertos = _aeropuertos select {(lados getVariable [_x,sideUnknown] == malos)};
 	//_objetivos = _objetivosSDK;
@@ -17,12 +18,19 @@ if (tierWar < 2) then
 	}
 else
 	{
-	if ({lados getVariable [_x,sideUnknown] == malos} count _aeropuertos == 0) then {_aeropuertos pushBack "NATO_carrier"};
-	if ({lados getVariable [_x,sideUnknown] == muyMalos} count _aeropuertos == 0) then {_aeropuertos pushBack "CSAT_carrier"};
+	if (gameMode != 4) then {if ({lados getVariable [_x,sideUnknown] == malos} count _aeropuertos == 0) then {_aeropuertos pushBack "NATO_carrier"}};
+	if (gameMode != 3) then {if ({lados getVariable [_x,sideUnknown] == muyMalos} count _aeropuertos == 0) then {_aeropuertos pushBack "CSAT_carrier"}};
 	if (([vehNATOPlane] call vehAvailable) and ([vehNATOMRLS] call vehAvailable) and ([vehNATOTank] call vehAvailable)) then {_natoIsFull = true};
 	if (([vehCSATPlane] call vehAvailable) and ([vehCSATMRLS] call vehAvailable) and ([vehCSATTank] call vehAvailable)) then {_csatIsFull = true};
 	};
-if (tierWar < 3) then {_objetivos = _objetivos - ciudades};
+if (gameMode != 4) then
+	{
+	if (tierWar < 3) then {_objetivos = _objetivos - ciudades};
+	}
+else
+	{
+	if (tierWar < 5) then {_objetivos = _objetivos - ciudades};
+	};
 _objetivosProv = _objetivos - aeropuertos;
 {
 _posObj = getMarkerPos _x;
@@ -71,11 +79,13 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 		if (lados getVariable [_x,sideUnknown] == buenos) then
 			{
 			_esSDK = true;
+			/*
 			_valor = if (_baseNATO) then {prestigeNATO} else {prestigeCSAT};
 			if (random 100 > _valor) then
 				{
 				_proceder = false
 				}
+			*/
 			};
 		if (!_isTheSameIsland and (not(_x in aeropuertos))) then
 			{
@@ -322,11 +332,13 @@ if ((count _objetivosFinal > 0) and (count _faciles < 3)) then
 		};
 	if (not(_destino in ciudades)) then
 		{
-		[[_destino,_origen,_waves],"wavedCA"] call scheduler;
+		///[[_destino,_origen,_waves],"wavedCA"] call scheduler;
+		[_destino,_origen,_waves] spawn wavedCA;
 		}
 	else
 		{
-		if (lados getVariable [_origen,sideUnknown] == malos) then {[[_destino,_origen,_waves],"wavedCA"] call scheduler} else {[[_destino,_origen],"CSATpunish"] call scheduler};
+		//if (lados getVariable [_origen,sideUnknown] == malos) then {[[_destino,_origen,_waves],"wavedCA"] call scheduler} else {[[_destino,_origen],"CSATpunish"] call scheduler};
+		if (lados getVariable [_origen,sideUnknown] == malos) then {[_destino,_origen,_waves] spawn wavedCA} else {[_destino,_origen] spawn CSATpunish};
 		};
 	};
 

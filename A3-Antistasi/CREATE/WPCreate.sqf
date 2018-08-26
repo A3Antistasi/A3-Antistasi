@@ -1,11 +1,27 @@
 private ["_mrkOrigen","_mrkDestino","_grupo","_posOrigen","_posDestino","_finalArray","_arr2","_final","_isCentral","_roadsCentral","_useCentral"];
 
 _mrkOrigen = _this select 0;
-
-if ((_mrkOrigen != "airport") and (_mrkOrigen != "airport_2")) exitWith {};
 _posOrigen = if (_mrkOrigen isEqualType "") then {getMarkerPos _mrkOrigen} else {_mrkOrigen};
 _mrkDestino = _this select 1;
 _posDestino = if (_mrkDestino isEqualType "") then {getMarkerPos _mrkDestino} else {_mrkDestino};
+_exit = false;
+if (_mrkOrigen isEqualType "") then
+	{
+	if ((_mrkOrigen != "airport") and (_mrkOrigen != "airport_2")) then {_exit = true};
+	}
+else
+	{
+	if !([_mrkOrigen,"airport"] call isTheSameIsland) then
+		{
+		_exit = true
+		}
+	else
+		{
+		if (_mrkOrigen distance2D (getMarkerPos "airport") < _mrkOrigen distance2D (getMarkerPos "airport_2")) then {_mrkOrigen = "airport"} else {_mrkOrigen = "airport_2"};
+		};
+	};
+if (_exit) exitWith {};
+
 _grupo = _this select 2;
 _finalArray = [];
 _arr2 = [];

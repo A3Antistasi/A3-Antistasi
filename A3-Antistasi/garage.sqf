@@ -1,8 +1,7 @@
-private ["_pool","_vehInGarage","_chequeo"];
+private ["_vehInGarage","_chequeo"];
 
-_pool = true;
-if (_this select 0) then {_pool = false};
-if (_pool and (not([player] call isMember))) exitWith {hint "You cannot access the Garage as you are guest in this server"};
+pool = !(_this select 0);
+if (pool and (not([player] call isMember))) exitWith {hint "You cannot access the Garage as you are guest in this server"};
 if (player != player getVariable "owner") exitWith {hint "You cannot access the Garage while you are controlling AI"};
 _chequeo = false;
 {
@@ -42,7 +41,7 @@ else
 		vehInGarageShow pushBack _x;
 		};
 	};
-} forEach (if (_pool) then {vehInGarage} else {personalGarage});
+} forEach (if (pool) then {vehInGarage} else {personalGarage});
 
 if (count vehInGarageShow == 0) exitWith {hintC "The Garage is empty or the vehicles you have are not suitable to recover in the place you are.\n\nAir vehicles need to be recovered near Airport flags.\n\nShips need to ve recovered on shore areas"};
 
@@ -148,11 +147,11 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 				[garageVeh] call AIVEHinit;
 				if (garageVeh isKindOf "Car") then {garageVeh setPlateNumber format ["%1",name player]};
 				["<t size='0.6'>Vehicle retrieved from Garage",0,0,3,0,0,4] spawn bis_fnc_dynamicText;
-				_pool = false;
-				if (vehInGarageShow isEqualTo vehInGarage) then {_pool = true};
+				//_pool = false;
+				//if (vehInGarageShow isEqualTo vehInGarage) then {_pool = true};
 				_newArr = [];
 				_found = false;
-				if (_pool) then
+				if (pool) then
 					{
 					{
 					if ((_x != (vehInGarageShow select cuentaGarage)) or (_found)) then {_newArr pushBack _x} else {_found = true};
@@ -169,7 +168,7 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 					["personalGarage",_newArr] call fn_SaveStat;
 					garageVeh setVariable ["duenyo",getPlayerUID player,true];
 					};
-				if (garageVeh isKindOf "StaticWeapon") then {staticsToSave = staticsToSave + [garageVeh]; publicVariable "staticsToSave"};
+				if (garageVeh isKindOf "StaticWeapon") then {staticsToSave pushBack garageVeh; publicVariable "staticsToSave"};
 				clearMagazineCargoGlobal garageVeh;
 				clearWeaponCargoGlobal garageVeh;
 				clearItemCargoGlobal garageVeh;

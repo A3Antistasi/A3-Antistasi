@@ -130,7 +130,6 @@ returnMuzzle = compile preProcessFileLineNumbers "returnMuzzle.sqf";
 autoRearm = compile preProcessFileLineNumbers "AI\autoRearm.sqf";
 rebuildAssets = compile preProcessFileLineNumbers "rebuildAssets.sqf";
 garrisonInfo = compile preProcessFileLineNumbers "garrisonInfo.sqf";
-groupComposition = compile preProcessFileLineNumbers "REINF\groupComposition.sqf";
 vehiclePrice = compile preProcessFileLineNumbers "REINF\vehiclePrice.sqf";
 VANTinfo = compile preProcessFileLineNumbers "AI\VANTinfo.sqf";
 garrisonAdd = compile preProcessFileLineNumbers "REINF\garrisonAdd.sqf";

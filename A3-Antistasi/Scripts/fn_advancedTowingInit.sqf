@@ -384,6 +384,7 @@ SA_Attach_Tow_Ropes = {
 };
 
 SA_Take_Tow_Ropes = {
+	if (captive player) then {player setCaptive false};//by Barbolani to avoid undercover exploits
 	params ["_vehicle","_player"];
 	if(local _vehicle) then {
 		diag_log format ["Take Tow Ropes Called %1", _this];

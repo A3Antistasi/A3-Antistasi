@@ -5,7 +5,7 @@ _lado = _this select 1;
 _tipos = _this select 2;
 _override = if (count _this >3) then {_this select 3} else {false};
 _grupo = createGroup _lado;
-_allUnits = {(local _x) and (simulationEnabled _x) and (alive _x)} count allUnits;
+_allUnits = {(local _x) /*and (simulationEnabled _x)*/ and (alive _x)} count allUnits;
 _cuenta = count _tipos;
 _rangos = ["LIEUTENANT","SERGEANT","CORPORAL"];
 

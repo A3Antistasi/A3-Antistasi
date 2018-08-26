@@ -69,6 +69,14 @@ class Params
         default = 1; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };
+    class gameMode
+    {
+        title = "Game Mode"; // Param name visible in the list
+        values[] = {1,2,3,4}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"Reb vs Gob vs Inv","Reb vs Gob & Inv","Reb vs Gov","Reb vs Inv"}; // Description of each selectable item
+        default = 1; // Default value; must be listed in 'values' array, otherwise 0 is used
+        // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
+    };
     class autoSave
     {
         title = "Enable Autosave (every hour)"; // Param name visible in the list
@@ -160,9 +168,9 @@ class Params
     class memberDistance
     {
         title = "Max distance non members can be from the closest member or HQ (they will be teleported to HQ after some timeout)";
-        values[] = {1000,2000,4000,8000,16000};
-        texts[] = {"1 Kmt","2 Kmts","4 Kmts","8 Kmts","Unlimited"};
-        default = 2000;
+        values[] = {4000,5000,6000,7000,8000,16000};
+        texts[] = {"4 Kmts","5 Kmts","6 Kmts","7 Kmts","8 Kmts","Unlimited"};
+        default = 5000;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
 };

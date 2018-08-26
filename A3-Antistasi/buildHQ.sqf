@@ -55,6 +55,7 @@ cajaVeh setPos _pos;
 petros setBehaviour "SAFE";
 "Synd_HQ" setMarkerPos getPos petros;
 if (isNil "placementDone") then {placementDone = true; publicVariable "placementDone"};
+chopForest = false; publicVariable "chopForest";
 sleep 5;
 [Petros,"mission"] remoteExec ["flagaction",[buenos,civilian],petros];
 

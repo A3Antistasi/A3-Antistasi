@@ -121,7 +121,7 @@ while {(_waves != 0)} do
 		if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 		_cuenta = 1;
 		_landPosBlacklist = [];
-		while {_cuenta <= _nVeh} do
+		while {(_cuenta <= _nVeh) and (count _soldados <= 80)} do
 			{
 			_tipoVeh = selectRandom _vehPool;
 			/*
@@ -259,7 +259,7 @@ while {(_waves != 0)} do
 			_vehPool = if (_lado == malos) then {vehNATOBoats} else {vehCSATBoats};
 			_vehPool = _vehPool select {[_x] call vehAvailable};
 			_cuenta = 0;
-			while {_cuenta < 3} do
+			while {(_cuenta < 3) and (count _soldados <= 80)} do
 				{
 				_tipoVeh = selectRandom _vehPool;
 				if (not([_tipoVeh] call vehAvailable)) then
@@ -292,7 +292,6 @@ while {(_waves != 0)} do
 					_pilotos append _vehCrew;
 					_grupos pushBack _grupoVeh;
 					_vehiculos pushBack _veh;
-					diag_log format ["Antistasi: Sea Attack %1 spawned. Number of vehicles %2",_tipoVeh,count _vehiculos];
 					{[_x] call NATOinit} forEach units _grupoVeh;
 					[_veh] call AIVEHinit;
 					if ((_tipoVeh == vehNATOBoat) or (_tipoVeh == vehCSATBoat)) then
@@ -383,7 +382,6 @@ while {(_waves != 0)} do
 		_uwp0 setWaypointBehaviour "AWARE";
 		_uwp0 setWaypointType "SAD";
 		if (not(_mrkDestino in aeropuertos)) then {_uav removeMagazines "6Rnd_LG_scalpel"};
-		diag_log format ["Antistasi: UAV %1 spawned. Number of vehicles %2",_tipoVeh,count _vehiculos];
 		sleep 5;
 
 		_vehPool = if (_lado == malos) then
@@ -429,7 +427,7 @@ while {(_waves != 0)} do
 			_pos = [_pos1, 5,_ang] call BIS_fnc_relPos;
 			};
 
-		while {_cuenta <= _nVeh} do
+		while {(_cuenta <= _nVeh) and (count _soldados <= 80)} do
 			{
 			_tipoVeh = selectRandom _vehPool;
 			if (_cuenta == _nVeh) then
@@ -443,7 +441,6 @@ while {(_waves != 0)} do
 			_grupoVeh = _vehicle select 2;
 			_pilotos append _vehCrew;
 			_vehiculos pushBack _veh;
-			//diag_log format ["Antistasi Debug wavedCA: %1 spawned, total amount %2, _cuenta: %3, _nVeh %4",_tipoVeh,count _vehiculos,_cuenta,_nVeh];
 			{[_x] call NATOinit} forEach units _grupoVeh;
 			[_veh] call AIVEHinit;
 			if (not (_tipoVeh in vehTransportAir)) then
@@ -605,7 +602,7 @@ while {(_waves != 0)} do
 	_solMax = round ((count _soldados)*0.6);
 	if (_solMax > 8) then {_waves = _waves -1};
 	_firstWave = false;
-	diag_log format ["Antistasi: Reached end of spawning attack, wave %1",_waves];
+	diag_log format ["Antistasi: Reached end of spawning attack, wave %1. Vehicles: %2. Wave Units: %3. Total units: %4 ",_waves, count _vehiculos, count _soldados, count _soldadosTotal];
 	if (lados getVariable [_mrkDestino,sideUnknown] != buenos) then {_soldados spawn remoteBattle};
 	if (_lado == malos) then
 		{

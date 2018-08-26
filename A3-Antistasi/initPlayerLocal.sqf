@@ -38,7 +38,7 @@ if (isMultiplayer) then
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
 	//if (hayTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
-	if ((side player == buenos) and (paramsArray select 4 == 1)) then
+	if ((side player == buenos) and tkPunish) then
 		{
 		player addEventHandler ["Fired",
 			{
@@ -97,7 +97,7 @@ player addWeaponGlobal "itemmap";
 player addWeaponGlobal "itemgps";
 if (isMultiplayer) then
 	{
-	if (paramsArray select 7 == 1) then {[] execVM "playerMarkers.sqf"};
+	if (paramsArray select 8 == 1) then {[] execVM "playerMarkers.sqf"};
 	};
 if (!hayACE) then
 	{
@@ -113,7 +113,7 @@ else
 if (player getVariable ["pvp",false]) exitWith
 	{
 	moto = objNull;
-	if ((!_isJIP) or (paramsArray select 6 != 1)) then
+	if ((!_isJIP) or !pvpEnabled) then
 		{
 		["noPvP",false,1,false,false] call BIS_fnc_endMission;
 		diag_log "Antistasi: PvP player kicked because he is not jipping or PvP slots are disabled";
@@ -457,31 +457,12 @@ if (_isJip) then
 	else
 		{
 		hint format ["Welcome back %1", name player];
-		/*
-		if (serverName in servidoresOficiales) then
-			{
-			if ((count playableUnits == maxPlayers) and (({[_x] call isMember} count playableUnits) < count miembros)) then
-				{
-				{
-				if (not([_x] call isMember)) exitWith {["serverFull",false,1,false,false] remoteExec ["BIS_fnc_endMission",_x]};
-				} forEach playableUnits;
-				};
-			};*/
 		if ({([_x] call isMember) and (side (group _x) == buenos)} count playableUnits == 1) then
 			{
 			[player] call theBossInit;
 			[] remoteExec ["assigntheBoss",2];
 			};
 		};
-	/*
-	if ((player == theBoss) and (isNil "placementDone") and (isMultiplayer)) then
-		{
-		_nul = [] execVM "Dialogs\initMenu.sqf";
-		}
-	else
-		{
-		_nul = [true] execVM "Dialogs\firstLoad.sqf";
-		};*/
 	if (count misiones > 0) then
 		{
 		{

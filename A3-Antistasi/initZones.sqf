@@ -72,37 +72,15 @@ else
             };
         };
     };
-
+{_x setMarkerAlpha 0} forEach (seaMarkers + seaSpawn + seaAttackSpawn + spawnPoints);
 defaultControlIndex = (count controles) - 1;
 puestosFIA = [];
-_mrkSDK = ["Synd_HQ"];
-garrison setVariable ["Synd_HQ",[],true];
-_mrkNATO = [];
-_mrkCSAT = [];
-
-if (worldName == "Tanoa") then
-    {
-    _mrkCSAT = ["airport_1","puerto_5","puesto_10","control_20"]
-    }
-else
-    {
-    if (worldName == "Altis") then
-        {
-        _mrkCSAT = ["airport_2","puerto_4","puesto_5","control_52","control_33"];
-        }
-    else
-        {
-        if (worldName == "Staszow") then {_mrkCSAT = ["airport"]};
-        };
-    };
-
 destroyedCities = [];
-
+garrison setVariable ["Synd_HQ",[],true];
 marcadores = aeropuertos + recursos + fabricas + puestos + puertos + controles + ["Synd_HQ"];
 {_x setMarkerAlpha 0;
 spawner setVariable [_x,2,true];
 } forEach marcadores;
-{_x setMarkerAlpha 0} forEach (seaMarkers + seaSpawn + seaAttackSpawn + spawnPoints);
 private ["_sizeX","_sizeY","_size"];
 {
 //_nombre = text _x;
@@ -171,139 +149,15 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
     _dmrk setMarkerType "loc_Ruin";
     _dmrk setMarkerColor colorMalos;
     if (_nroads < _numVeh) then {_numVeh = _nroads};
-
+    lados setVariable [_mrk,malos,true];
     _info = [_numCiv, _numVeh, prestigeOPFOR,prestigeBLUFOR];
     server setVariable [_nombre,_info,true];
-
-    //_nul = [_nombre] call crearControles;
     };
 }foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["NameCityCapital","NameCity","NameVillage","CityCenter"], 25000]);
 
 marcadores = marcadores + ciudades;
-//esto de abajo hay que hacerlo con foreach particulares sin if, en lugar de un foreach general
-{
-_pos = getMarkerPos _x;
-_dmrk = createMarker [format ["Dum%1",_x], _pos];
-_dmrk setMarkerShape "ICON";
-_dmrk setMarkerColor colorMalos;
-
-//garrison setVariable [_x,0,true];
-
-_garrNum = [_x] call garrisonSize;
-_garrNum = _garrNum / 8;
-_garrison = [];
-if (_x in aeropuertos) then
-    {
-    killZones setVariable [_x,[],true];
-    if (_x in _mrkCSAT) then
-        {
-        _dmrk setMarkerType flagCSATmrk;
-        _dmrk setMarkerText format ["%1 Airbase",nameMuyMalos];
-        _dmrk setMarkerColor colorMuyMalos;
-        for "_i" from 1 to _garrNum do
-            {
-            _garrison append (selectRandom gruposCSATSquad);
-            };
-        garrison setVariable [_x,_garrison,true];
-        _nul = [_x] call crearControles;
-        }
-    else
-        {
-        _dmrk setMarkerType flagNATOmrk;
-        _dmrk setMarkerText format ["%1 Airbase",nameMalos];
-        for "_i" from 1 to _garrNum do
-            {
-            _garrison append (selectRandom gruposNATOSquad);
-            };
-        garrison setVariable [_x,_garrison,true];
-        _nul = [_x] call crearControles;
-        };
-    server setVariable [_x,0,true];//fecha en fomrato dateToNumber en la que estarán idle
-    }
-else
-    {
-    if (_x in recursos) then
-        {
-        _dmrk setMarkerType "loc_rock";
-        _dmrk setMarkerText "Resources";
-        for "_i" from 1 to _garrNum do
-            {
-            _garrison append (selectRandom gruposFIASquad);
-            };
-        garrison setVariable [_x,_garrison,true];
-        _nul = [_x] call crearControles;
-        }
-    else
-        {
-        if (_x in fabricas) then
-            {
-            _dmrk setMarkerType "u_installation";
-            _dmrk setMarkerText "Factory";
-            for "_i" from 1 to _garrNum do
-                {
-                _garrison append (selectRandom gruposFIASquad);
-                };
-            garrison setVariable [_x,_garrison,true];
-            _nul = [_x] call crearControles;
-            }
-        else
-            {
-            if (_x in puestos) then
-                {
-                killZones setVariable [_x,[],true];
-                _dmrk setMarkerType "loc_bunker";
-                if !(_x in _mrkCSAT) then
-                    {
-                    _dmrk setMarkerText format ["%1 Outpost",nameMalos];
-                    for "_i" from 1 to _garrNum do
-                        {
-                        _garrison append (selectRandom gruposFIASquad);
-                        };
-                    garrison setVariable [_x,_garrison,true];
-                    server setVariable [_x,0,true];
-                    }
-                else
-                    {
-                    _dmrk setMarkerText format ["%1 Outpost",nameMuyMalos];
-                    _dmrk setMarkerColor colorMuyMalos;
-                    for "_i" from 1 to _garrNum do
-                        {
-                        _garrison append (selectRandom gruposCSATSquad);
-                        };
-                    garrison setVariable [_x,_garrison,true];
-                    server setVariable [_x,0,true];
-                    };
-                _nul = [_x] call crearControles;
-                }
-            else
-                {
-                _dmrk setMarkerType "b_naval";
-                _dmrk setMarkerText "Sea Port";
-                if (_x in _mrkCSAT) then
-                    {
-                    _dmrk setMarkerColor colorMuyMalos;
-                    for "_i" from 1 to _garrNum + 1 do
-                        {
-                        _garrison append (selectRandom gruposCSATSquad);
-                        };
-                    garrison setVariable [_x,_garrison,true];
-                    }
-                else
-                    {
-                    for "_i" from 1 to _garrNum do
-                        {
-                        _garrison append (selectRandom gruposNATOSquad);
-                        };
-                    garrison setVariable [_x,_garrison,true];
-                    };
-                _nul = [_x] call crearControles;
-                };
-            };
-        };
-    };
-} forEach marcadores - ciudades - controles - ["Synd_HQ"];
-
-_mrkNATO = marcadores - _mrkCSAT - ["Synd_HQ"];
+lados setVariable ["Synd_HQ",buenos,true];
+if !(isMultiplayer) then {call compile preprocessFileLineNumbers "initGarrisons.sqf"};
 
 antenasmuertas = [];
 bancos = [];
@@ -428,11 +282,6 @@ else
         };
     };
 
-{lados setVariable [_x,buenos,true]} forEach _mrkSDK;
-{lados setVariable [_x,malos,true]} forEach _mrkNATO;
-{lados setVariable [_x,muyMalos,true]} forEach _mrkCSAT;
-lados setVariable ["NATO_carrier",malos,true];
-lados setVariable ["CSAT_carrier",muyMalos,true];
 
 blackListDest = (marcadores - controles - ["Synd_HQ"] - ciudades) select {!((position ([getMarkerPos _x] call findNearestGoodRoad)) inArea _x)};
 

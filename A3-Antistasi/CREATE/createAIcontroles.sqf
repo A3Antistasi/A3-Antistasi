@@ -23,17 +23,24 @@ _esControl = if (isOnRoad _posicion) then {true} else {false};
 
 if (_esControl) then
 	{
-	if (lados getVariable [_marcador,sideUnknown] == malos) then
+	if (gameMode != 4) then
 		{
-		if ((random 10 <= (tierWar + difficultyCoef)) and (!([_marcador] call isFrontline))) then
+		if (_lado == malos) then
 			{
-			_lado = malos;
-			//_cfg = cfgNATOInf;
-			}
-		else
+			if ((random 10 > (tierWar + difficultyCoef)) and (!([_marcador] call isFrontline))) then
+				{
+				_esFIA = true;
+				}
+			};
+		}
+	else
+		{
+		if (_lado == muyMalos) then
 			{
-			_esFIA = true;
-			_lado = malos;
+			if ((random 10 > (tierWar + difficultyCoef)) and (!([_marcador] call isFrontline))) then
+				{
+				_esFIA = true;
+				}
 			};
 		};
 

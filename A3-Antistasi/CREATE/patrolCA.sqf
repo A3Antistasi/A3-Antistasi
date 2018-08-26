@@ -67,7 +67,7 @@ if (!_inWaves) then
 			{
 			if (!_super) then
 				{
-				_puestos = puestos select {lados getVariable [_x,sideUnknown] == _lado};
+				_puestos = puestos select {(lados getVariable [_x,sideUnknown] == _lado) and ([_posDestino,getMarkerPos _x] call isTheSameIsland)};
 				_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < distanceForLandAttack)  and ([_x,true] call airportCanAttack)});
 				};
 			};
@@ -227,6 +227,24 @@ if (_base != "") then
 	_vehPool = if (_lado == malos) then {vehNATOAttack select {[_x] call vehAvailable}} else {vehCSATAttack select {[_x] call vehAvailable}};
 	_road = [_posDestino] call findNearestGoodRoad;
 	if ((position _road) distance _posDestino > 150) then {_vehPool = _vehPool - vehTanks};
+	if (_esSDK) then
+		{
+		_rnd = random 100;
+		if (_lado == malos) then
+			{
+			if (_rnd > prestigeNATO) then
+				{
+				_vehPool = _vehPool - [vehNATOTank];
+				};
+			}
+		else
+			{
+			if (_rnd > prestigeCSAT) then
+				{
+				_vehPool = _vehPool - [vehCSATTank];
+				};
+			};
+		};
 	if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 	_cuenta = if (!_super) then {if (_esMarcador) then {2} else {1}} else {round ((tierWar + difficultyCoef) / 2) + 1};
 	_landPosBlacklist = [];
@@ -393,6 +411,24 @@ if (_aeropuerto != "") then
 	_cuenta = if (!_super) then {if (_esMarcador) then {2} else {1}} else {round ((tierWar + difficultyCoef) / 2) + 1};
 	_tipoVeh = "";
 	_vehPool = if (_lado == malos) then {(vehNATOAir - [vehNATOPlane]) select {[_x] call vehAvailable}} else {(vehCSATAir - [vehCSATPlane]) select {[_x] call vehAvailable}};
+	if (_esSDK) then
+		{
+		_rnd = random 100;
+		if (_lado == malos) then
+			{
+			if (_rnd > prestigeNATO) then
+				{
+				_vehPool = _vehPool - vehNATOAttackHelis;
+				};
+			}
+		else
+			{
+			if (_rnd > prestigeCSAT) then
+				{
+				_vehPool = _vehPool - vehCSATAttackHelis;
+				};
+			};
+		};
 	for "_i" from 1 to _cuenta do
 		{
 		_tipoVeh = if (_i == 1) then

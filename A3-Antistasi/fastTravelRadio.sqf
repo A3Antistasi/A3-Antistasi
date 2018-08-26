@@ -6,7 +6,7 @@ _esHC = false;
 
 if (count hcSelected player > 1) exitWith {hint "You can select one group only to Fast Travel"};
 if (count hcSelected player == 1) then {_grupo = hcSelected player select 0; _esHC = true} else {_grupo = group player};
-
+if ((!_esHC) and isMultiplayer) exitWith {hint "You cannot Fast Travel non AI groups in Multiplayer"};
 _jefe = leader _grupo;
 
 if ((_jefe != player) and (!_esHC)) then {_grupo = player};
@@ -94,12 +94,12 @@ if (count _posicionTel > 0) then
 						_tam = _tam + 10;
 						};
 					_road = _roads select 0;
-					_pos = position _road findEmptyPosition [1,50,typeOf (vehicle _unit)];
+					_pos = position _road findEmptyPosition [10,100,typeOf (vehicle _unit)];
 					vehicle _unit setPos _pos;
 					};
 				if ((vehicle _unit isKindOf "StaticWeapon") and (!isPlayer (leader _unit))) then
 					{
-					_pos = _posicion findEmptyPosition [1,50,typeOf (vehicle _unit)];
+					_pos = _posicion findEmptyPosition [10,100,typeOf (vehicle _unit)];
 					vehicle _unit setPosATL _pos;
 					};
 				}

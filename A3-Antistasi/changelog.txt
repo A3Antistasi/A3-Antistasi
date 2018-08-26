@@ -1084,6 +1084,28 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Reduced a lot the max distance between departure and targets for both land and air attacks (10Kmts and 3 Kmts).
 - Changed the position of the NATO Carrier in Altis.
 
-1.2.5 30/07/2018
+1.2.5 30/07/2018 Holliday update!
 
 - Seaport boat garrisons and patrols are subject to boat availability.
+- Fixed teammate disband.
+
+1.3.0 16/08/2018
+
+- NEW IMPORTANT FEATURE IN MP: GAME MODE. In the lobby you may set 4 options: All vs All, Rebels vs All and other two on which rebels only fight one chosen faction (invaders or government).
+- Fixed bug on hide in building AI script.
+- FT on vehicles will be a bit safer.
+- Disabled Fast Travel in MP for players (yes for AI groups).
+- Hopefully solved garage exploits.
+- Clarification message when a player fails to garage an air vehicle far from airbases and HQ.
+- Tweaked the non member distance params and default values.
+- Towing a vehicle on undercover will make the player lose the status.
+- AI limiter will count AI with simulation disabled in order to decide to spawn an AI or not. This will improve performance in major attacks.
+- Outposts wont send land attacks from other islands in Tanoa.
+- Removed aggro checks for AI deciding to send a major attack against rebels. They will be more likely targeted.
+- Aggro checks will affect vehicle type sent against rebels (you are not a big threat, I will send a cheap transport, you are athreat, Tanks).
+- Major attacks will be allways performed by the server no matter if there are HCs in.
+- Capped soldier count in major attacks.
+- Cleared forest will be reset when the HQ has been moved.
+- Fixed land attacks in Tanoa.
+- RHS: Added M1 Garand and Greas gun to rebels default loadout.
+- Corrected faction init bug on roadblocks.

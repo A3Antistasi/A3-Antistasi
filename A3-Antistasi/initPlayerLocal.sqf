@@ -38,6 +38,7 @@ if (isMultiplayer) then
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
 	//if (hayTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
+	tkPunish = if (paramsArray select 5 == 1) then {true} else {false};
 	if ((side player == buenos) and tkPunish) then
 		{
 		player addEventHandler ["Fired",
@@ -113,6 +114,7 @@ else
 if (player getVariable ["pvp",false]) exitWith
 	{
 	moto = objNull;
+	pvpEnabled = if (paramsArray select 7 == 1) then {true} else {false};
 	if ((!_isJIP) or !pvpEnabled) then
 		{
 		["noPvP",false,1,false,false] call BIS_fnc_endMission;
@@ -412,6 +414,7 @@ if (isMultiplayer) then
 	{
 	["InitializePlayer", [player]] call BIS_fnc_dynamicGroups;//Exec on client
 	["InitializeGroup", [player,buenos,true]] call BIS_fnc_dynamicGroups;
+	membershipEnabled = if (paramsArray select 3 == 1) then {true} else {false};
 	personalGarage = [];
 	if (membershipEnabled) then
 		{
@@ -463,6 +466,7 @@ if (_isJip) then
 			[] remoteExec ["assigntheBoss",2];
 			};
 		};
+	waitUntil {!(isNil "misiones")};
 	if (count misiones > 0) then
 		{
 		{
@@ -486,6 +490,7 @@ if (_isJip) then
 		waitUntil {!isNil "theBoss"};
 		if (player == theBoss) then
 		    {
+		    waitUntil {!(isNil"loadLastSave")};
 		    if !(loadLastSave) then
 	    		{
 	    		_nul = [] spawn placementSelection;

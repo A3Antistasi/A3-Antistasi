@@ -792,7 +792,7 @@ class buy_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closedialog 0; nul = [vehSDKBike] call addFIAveh";
+			action = "closedialog 0; nul = [vehSDKBike] spawn addFIAveh";
 		};
 		class HQ_button_offroad: RscButton
 		{
@@ -802,7 +802,7 @@ class buy_vehicle 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [vehSDKLightUnarmed] call addFIAveh;";
+			action = "closeDialog 0;nul = [vehSDKLightUnarmed] spawn addFIAveh;";
 		};
 		class HQ_button_truck: RscButton
 		{
@@ -812,7 +812,7 @@ class buy_vehicle 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [vehSDKTruck] call addFIAveh;";
+			action = "closeDialog 0;nul = [vehSDKTruck] spawn addFIAveh;";
 		};
 		class HQ_button_Aoffroad: RscButton
 		{
@@ -822,7 +822,7 @@ class buy_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [vehSDKLightArmed] call addFIAveh;";
+			action = "closeDialog 0;nul = [vehSDKLightArmed] spawn addFIAveh;";
 		};
 		class HQ_button_MG: RscButton
 		{
@@ -832,7 +832,7 @@ class buy_vehicle 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [SDKMGStatic] call addFIAveh;";
+			action = "closeDialog 0;nul = [SDKMGStatic] spawn addFIAveh;";
 		};
 		class HQ_button_mortar: RscButton
 		{
@@ -842,7 +842,7 @@ class buy_vehicle 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [SDKMortar] call addFIAveh;";
+			action = "closeDialog 0;nul = [SDKMortar] spawn addFIAveh;";
 		};
 		class HQ_button_AT: RscButton
 		{
@@ -852,7 +852,7 @@ class buy_vehicle 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticATBuenos] call addFIAveh;";
+			action = "closeDialog 0;nul = [staticATBuenos] spawn addFIAveh;";
 		};
 
 		class HQ_button_AA: RscButton
@@ -863,7 +863,7 @@ class buy_vehicle 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticAABuenos] call addFIAveh;";
+			action = "closeDialog 0;nul = [staticAABuenos] spawn addFIAveh;";
 		};
 	};
 };
@@ -908,7 +908,7 @@ class civ_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civCar] call addFIAveh;";
+			action = "closeDialog 0;nul = [civCar] spawn addFIAveh;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -918,7 +918,7 @@ class civ_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civTruck] call addFIAveh;";
+			action = "closeDialog 0;nul = [civTruck] spawn addFIAveh;";
 		};
 		class HQ_button_Gremove: RscButton
 		{
@@ -929,7 +929,7 @@ class civ_vehicle 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civHeli] call addFIAveh;";
+			action = "closeDialog 0;nul = [civHeli] spawn addFIAveh;";
 		};
 		class HQ_button_offroad: RscButton
 		{

@@ -39,6 +39,7 @@ else
 	{
 	_nul = [-1, 0] remoteExec ["resourcesFIA",2];
 	[- _coste] call resourcesPlayer;
+	["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
 	hint "Soldier Recruited.\n\nRemember: if you use the group menu to switch groups you will lose control of your recruited AI";
 	};
 

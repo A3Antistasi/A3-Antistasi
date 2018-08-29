@@ -238,15 +238,17 @@ while {(_waves != 0)} do
 		};
 
 	_esMar = false;
-
-	for "_i" from 0 to 3 do
+	if !(hayIFA) then
 		{
-		_pos = _posDestino getPos [1000,(_i*90)];
-		if (surfaceIsWater _pos) exitWith
+		for "_i" from 0 to 3 do
 			{
-			if ({lados getVariable [_x,sideUnknown] == _lado} count puertos > 1) then
+			_pos = _posDestino getPos [1000,(_i*90)];
+			if (surfaceIsWater _pos) exitWith
 				{
-				_esMar = true;
+				if ({lados getVariable [_x,sideUnknown] == _lado} count puertos > 1) then
+					{
+					_esMar = true;
+					};
 				};
 			};
 		};
@@ -366,24 +368,35 @@ while {(_waves != 0)} do
 		if (_posOrigen distance _posDestino < distanceForLandAttack) then {sleep ((_posOrigen distance _posDestino)/30)};
 		_posSuelo = [_posOrigen select 0,_posorigen select 1,0];
 		_posOrigen set [2,300];
-		_tipoVeh = if (_lado == malos) then {vehNATOUAV} else {vehCSATUAV};
+		_grupoUav = grpNull;
+		if !(hayIFA) then
+			{
+			_tipoVeh = if (_lado == malos) then {vehNATOUAV} else {vehCSATUAV};
 
-		_uav = createVehicle [_tipoVeh, _posOrigen, [], 0, "FLY"];
-		_vehiculos pushBack _uav;
-		//[_uav,"UAV"] spawn inmuneConvoy;
-		[_uav,_mrkDestino,_lado] spawn VANTinfo;
-		createVehicleCrew _uav;
-		_pilotos append (crew _uav);
-		_grupouav = group (crew _uav select 0);
-		_grupos pushBack _grupouav;
-		{[_x] call NATOinit} forEach units _grupoUav;
-		[_uav] call AIVEHinit;
-		_uwp0 = _grupouav addWayPoint [_posdestino,0];
-		_uwp0 setWaypointBehaviour "AWARE";
-		_uwp0 setWaypointType "SAD";
-		if (not(_mrkDestino in aeropuertos)) then {_uav removeMagazines "6Rnd_LG_scalpel"};
-		sleep 5;
-
+			_uav = createVehicle [_tipoVeh, _posOrigen, [], 0, "FLY"];
+			_vehiculos pushBack _uav;
+			//[_uav,"UAV"] spawn inmuneConvoy;
+			[_uav,_mrkDestino,_lado] spawn VANTinfo;
+			createVehicleCrew _uav;
+			_pilotos append (crew _uav);
+			_grupouav = group (crew _uav select 0);
+			_grupos pushBack _grupouav;
+			{[_x] call NATOinit} forEach units _grupoUav;
+			[_uav] call AIVEHinit;
+			_uwp0 = _grupouav addWayPoint [_posdestino,0];
+			_uwp0 setWaypointBehaviour "AWARE";
+			_uwp0 setWaypointType "SAD";
+			if (not(_mrkDestino in aeropuertos)) then {_uav removeMagazines "6Rnd_LG_scalpel"};
+			sleep 5;
+			}
+		else
+			{
+			_grupoUav = createGroup _lado;
+			//_posOrigen set [2,2000];
+			_uwp0 = _grupouav addWayPoint [_posdestino,0];
+			_uwp0 setWaypointBehaviour "AWARE";
+			_uwp0 setWaypointType "SAD";
+			};
 		_vehPool = if (_lado == malos) then
 					{
 					if (_mrkDestino in aeropuertos) then {(vehNATOAir - [vehNATOPlaneAA]) select {[_x] call vehAvailable}} else {(vehNatoAir - vehFixedWing) select {[_x] call vehAvailable}};
@@ -435,8 +448,8 @@ while {(_waves != 0)} do
 				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTransportHelis} else {selectRandom vehCSATTransportHelis};
 				};
 			_vehicle=[_pos, _ang + 90,_tipoveh, _lado] call bis_fnc_spawnvehicle;
-
 			_veh = _vehicle select 0;
+			if (hayIFA) then {_veh setVelocityModelSpace [((velocityModelSpace _veh) select 0) + 0,((velocityModelSpace _veh) select 1) + 150,((velocityModelSpace _veh) select 2) + 50]};
 			_vehCrew = _vehicle select 1;
 			_grupoVeh = _vehicle select 2;
 			_pilotos append _vehCrew;
@@ -527,9 +540,9 @@ while {(_waves != 0)} do
 	_plane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
 	if (_lado == malos) then
 		{
-		if ((not(_mrkDestino in puestos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "NATO_carrier")) then
+		if (((not(_mrkDestino in puestos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "NATO_carrier")) or hayIFA) then
 			{
-			[_mrkOrigen,_mrkDestino] spawn artilleria;
+			[_mrkOrigen,_mrkDestino,_lado] spawn artilleria;
 			diag_log "Antistasi: Arty Spawned";
 			if (([_plane] call vehAvailable) and (not(_mrkDestino in ciudades)) and _firstWave) then
 				{
@@ -560,9 +573,9 @@ while {(_waves != 0)} do
 		}
 	else
 		{
-		if ((not(_mrkDestino in recursos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "CSAT_carrier")) then
+		if (((not(_mrkDestino in recursos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "CSAT_carrier")) or hayIFA) then
 			{
-			[_mrkOrigen,_mrkDestino] spawn artilleria;
+			if !(_posOrigenLand isEqualTo []) then {[_posOrigenLand,_mrkDestino,_lado] spawn artilleria} else {[_mrkOrigen,_mrkDestino,_lado] spawn artilleria};
 			diag_log "Antistasi: Arty Spawned";
 			if (([_plane] call vehAvailable) and (_firstWave)) then
 				{

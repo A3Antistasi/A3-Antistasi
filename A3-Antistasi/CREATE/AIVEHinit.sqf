@@ -263,7 +263,7 @@ _veh addEventHandler ["Killed",{[_this select 0] spawn postmortem}];
 
 if (not(_veh in staticsToSave)) then
 	{
-	if (((count crew _veh) > 0) and (not (_tipo in vehAA)) and (not (_tipo in vehMRLS))) then
+	if (((count crew _veh) > 0) and (not (_tipo in vehAA)) and (not (_tipo in vehMRLS) and !(_veh isKindOf "StaticWeapon"))) then
 		{
 		[_veh] spawn VEHdespawner
 		}

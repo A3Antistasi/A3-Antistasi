@@ -23,6 +23,8 @@ _posiciones = carreteras getVariable [_marcador,[]];
 _posMG = _posiciones select {(_x select 2) == "MG"};
 _posMort = _posiciones select {(_x select 2) == "Mort"};
 _posTank = _posiciones select {(_x select 2) == "Tank"};
+_posAA = _posiciones select {(_x select 2) == "AA"};
+_posAT = _posiciones select {(_x select 2) == "AT"};
 
 if (spawner getVariable _marcador != 2) then
 	{
@@ -131,7 +133,7 @@ _tipoVeh = if (_lado == malos) then {NATOMortar} else {CSATMortar};
 {
 if (spawner getVariable _marcador != 2) then
 	{
-	_veh = _tipoVeh createVehicle [0,0,0];
+	_veh = _tipoVeh createVehicle [0,0,1000];
 	_veh setDir (_x select 1);
 	_veh setPosATL (_x select 0);
 	_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
@@ -148,7 +150,7 @@ _tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
 {
 if (spawner getVariable _marcador != 2) then
 	{
-	_veh = _tipoVeh createVehicle [0,0,0];
+	_veh = _tipoVeh createVehicle [0,0,1000];
 	_veh setDir (_x select 1);
 	_veh setPosATL (_x select 0);
 	_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
@@ -160,6 +162,38 @@ if (spawner getVariable _marcador != 2) then
 	sleep 1;
 	};
 } forEach _posMG;
+_tipoVeh = if (_lado == malos) then {staticAAMalos} else {staticAAmuyMalos};
+{
+if (spawner getVariable _marcador != 2) then
+	{
+	_veh = _tipoVeh createVehicle [0,0,1000];
+	_veh setDir (_x select 1);
+	_veh setPosATL (_x select 0);
+	_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+	[_unit,_marcador] call NATOinit;
+	_unit moveInGunner _veh;
+	_soldados pushBack _unit;
+	_vehiculos pushBack _veh;
+	_nul = [_veh] call AIVEHinit;
+	sleep 1;
+	};
+} forEach _posAA;
+_tipoVeh = if (_lado == malos) then {staticATMalos} else {staticATmuyMalos};
+{
+if (spawner getVariable _marcador != 2) then
+	{
+	_veh = _tipoVeh createVehicle [0,0,1000];
+	_veh setDir (_x select 1);
+	_veh setPosATL (_x select 0);
+	_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+	[_unit,_marcador] call NATOinit;
+	_unit moveInGunner _veh;
+	_soldados pushBack _unit;
+	_vehiculos pushBack _veh;
+	_nul = [_veh] call AIVEHinit;
+	sleep 1;
+	};
+} forEach _posAT;
 
 _ret = [_marcador,_size,_lado,_frontera] call milBuildings;
 _grupos pushBack (_ret select 0);

@@ -80,7 +80,7 @@ petros addMPEventHandler ["mpkilled",
             publicVariable "grupoPetros";
             petros = grupoPetros createUnit [tipoPetros, position _viejo, [], 0, "NONE"];
             publicVariable "petros";
-            grupoPetros setGroupId ["Maru","GroupColor4"];
+            grupoPetros setGroupId ["Petros","GroupColor4"];
             petros setIdentity "amiguete";
             if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
             petros disableAI "MOVE";

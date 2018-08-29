@@ -91,9 +91,9 @@ else
 	};
 
 if (_exit) exitWith {};
-
 _planefn = [_origpos, _ang, _tipoavion, _lado] call bis_fnc_spawnvehicle;
 _plane = _planefn select 0;
+if (hayIFA) then {_plane setVelocityModelSpace [((velocityModelSpace _plane) select 0) + 0,((velocityModelSpace _plane) select 1) + 150,((velocityModelSpace _plane) select 2) + 50]};
 _planeCrew = _planefn select 1;
 _grupoPlane = _planefn select 2;
 if (_lado == malos) then {{_x setVariable ["BLUFORSpawn",true,true]} forEach _planeCrew} else {{{_x setVariable ["OPFORSpawn",true,true]} forEach _planeCrew}};

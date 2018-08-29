@@ -77,7 +77,11 @@ if (!_inWaves) then
 			_aeropuertos = _aeropuertos select {({_x == _sitio} count (killZones getVariable [_x,[]])) < 3};
 			};
 		};
-	if (count _aeropuertos == 0) then
+	if (_esMarcador) then
+		{
+		_aeropuertos = _aeropuertos - [_marcador];
+		};
+	if (_aeropuertos isEqualTo []) then
 		{
 		_exit = true;
 		}
@@ -476,6 +480,7 @@ if (_aeropuerto != "") then
 		if (count _pos == 0) then {_pos = _posOrigen};
 		_vehicle=[_pos, _ang + 90,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
 		_veh = _vehicle select 0;
+		if (hayIFA) then {_veh setVelocityModelSpace [((velocityModelSpace _veh) select 0) + 0,((velocityModelSpace _veh) select 1) + 150,((velocityModelSpace _veh) select 2) + 50]};
 		_vehCrew = _vehicle select 1;
 		_grupoVeh = _vehicle select 2;
 		_soldados append _vehCrew;

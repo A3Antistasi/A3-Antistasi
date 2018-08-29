@@ -7,10 +7,11 @@ _controlesCSAT = [];
 
 if (gameMode == 1) then
 	{
+    _controlesNATO = controles;
 	if (worldName == "Tanoa") then
 	    {
 	    _mrkCSAT = ["airport_1","puerto_5","puesto_10","control_20"];
-	    _controlesNATO = controles - ["control_20"];
+	    _controlesNATO = _controlesNATO - ["control_20"];
 	    _controlesCSAT = ["control_20"];
 	    }
 	else
@@ -18,17 +19,16 @@ if (gameMode == 1) then
 	    if (worldName == "Altis") then
 	        {
 	        _mrkCSAT = ["airport_2","puerto_4","puesto_5","control_52","control_33"];
-	        _controlesNATO = controles - ["control_52","control_33"];
+	        _controlesNATO = _controlesNATO - ["control_52","control_33"];
 	    	_controlesCSAT = ["control_52","control_33"];
 	        }
-	    else
-	        {
-	        if (worldName == "Staszow") then
-	        	{
-	        	_mrkCSAT = ["airport"]
-
-	        	};
-	        };
+        else
+            {
+            if (worldName == "chernarus_summer") then
+                {
+                _mrkCSAT = ["puesto_21"];
+                };
+            };
 	    };
 	_mrkNATO = marcadores - _mrkCSAT - ["Synd_HQ"];
 	}

@@ -51,49 +51,41 @@ for "_i" from 1 to _var3 do
 	_num = 1 + (floor random 5);
 	_crate addMagazineCargoGlobal [_cosa, _num];
 	};
-/*
-for "_i" from 1 to _var4 do
-	{
-	_cosa = selectRandom antitanqueAAF;
-	if (!(_cosa in unlockedWeapons)) then
-		{
-		_crate addWeaponCargoGlobal [_cosa, 1];
-		_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
-		_crate addMagazineCargoGlobal [_magazines select 0, 3];
-		};
-	};
-*/
-for "_i" from 1 to _var4 do
-	{
-	_cosa = selectRandom opticasAAF;
-	if (not(_cosa in unlockedItems)) then
-		{
-		_crate addItemCargoGlobal [_cosa, 1 + (floor random 2)];
-		};
-	};
 
-if (round random 100 < 25) then
+if !(hayIFA) then
 	{
-	_crate addBackpackCargoGlobal ["O_Static_Designator_02_weapon_F",1];
-	}
-else
-	{
+	for "_i" from 1 to _var4 do
+		{
+		_cosa = selectRandom opticasAAF;
+		if (not(_cosa in unlockedItems)) then
+			{
+			_crate addItemCargoGlobal [_cosa, 1 + (floor random 2)];
+			};
+		};
+
 	if (round random 100 < 25) then
 		{
-		if (side group petros == independent) then
-			{
-			_crate addBackpackCargoGlobal ["I_UAV_01_backpack_F",1];
-			_crate addItemCargoGlobal ["I_UavTerminal",1];
-			}
-		else
-			{
-			_crate addBackpackCargoGlobal ["B_UAV_01_backpack_F",1];
-			_crate addItemCargoGlobal ["B_UavTerminal",1];
-			comment "Exported from Arsenal by Alberto";
-			};
+		_crate addBackpackCargoGlobal ["O_Static_Designator_02_weapon_F",1];
 		}
 	else
 		{
-		_crate addBackpackCargoGlobal ["B_Carryall_oli",round (random 2)];
+		if (round random 100 < 25) then
+			{
+			if (side group petros == independent) then
+				{
+				_crate addBackpackCargoGlobal ["I_UAV_01_backpack_F",1];
+				_crate addItemCargoGlobal ["I_UavTerminal",1];
+				}
+			else
+				{
+				_crate addBackpackCargoGlobal ["B_UAV_01_backpack_F",1];
+				_crate addItemCargoGlobal ["B_UavTerminal",1];
+				comment "Exported from Arsenal by Alberto";
+				};
+			}
+		else
+			{
+			_crate addBackpackCargoGlobal ["B_Carryall_oli",round (random 2)];
+			};
 		};
 	};

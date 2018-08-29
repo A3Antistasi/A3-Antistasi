@@ -57,18 +57,37 @@ else
         }
     else
         {
-        if (worldName == "Staszow") then
+        if (worldName == "chernarus_summer") then
             {
             aeropuertos = ["airport","airport_1","airport_2"];
             spawnPoints = ["spawnPoint","spawnPoint_1","spawnPoint_2"];
-            recursos = ["resource"];
-            fabricas = ["factory"];
-            puestos = ["puesto"];
-            puertos = [];
-            controles = ["control"];
+            recursos = ["resource","resource_1","resource_2","resource_3","resource_4","resource_5","resource_6","resource_7","resource_8","resource_9"];
+            fabricas = ["factory","factory_1","factory_2","factory_3","factory_4"];
+            puestos = ["puesto","puesto_1","puesto_2","puesto_3","puesto_4","puesto_5","puesto_6","puesto_7","puesto_8","puesto_9","puesto_10","puesto_11","puesto_12","puesto_13","puesto_14","puesto_15","puesto_16","puesto_17","puesto_18","puesto_19","puesto_20","puesto_21"];
+            puertos = ["puerto","puerto_1","puerto_2","puerto_3","puerto_4"];
+            controles = ["control","control_1","control_2","control_3","control_4","control_5","control_6","control_7","control_8","control_9","control_10","control_11","control_12","control_13","control_14","control_15","control_16","control_17","control_18","control_19","control_20","control_21","control_22","control_23","control_24","control_25","control_26","control_27","control_28","control_29","control_30","control_31","control_32","control_33","control_34","control_35","control_36","control_37","control_38","control_39","control_40"];
             seaMarkers = [];
             seaSpawn = [];
             seaAttackSpawn = [];
+            {
+            _name = text _x;
+            if ((_name != "Magos") AND !(_name == "")) then
+                {
+                _sizeX = getNumber (configFile >> "CfgWorlds" >> worldName >> "Names" >> (text _x) >> "radiusA");
+                _sizeY = getNumber (configFile >> "CfgWorlds" >> worldName >> "Names" >> (text _x) >> "radiusB");
+                _size = if (_sizeX > _sizeY) then {_sizeX} else {_sizeY};
+                _pos = getPos _x;
+                if (_size < 10) then {_size = 50};
+
+                _mrk = createmarker [format ["%1", _name], _pos];
+                _mrk setMarkerSize [_size, _size];
+                _mrk setMarkerShape "ELLIPSE";
+                _mrk setMarkerBrush "SOLID";
+                _mrk setMarkerColor "ColorRed";
+                _mrk setMarkerText _name;
+                controles pushBack _name;
+                };
+            } foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["Hill"], worldSize/1.414]);
             };
         };
     };
@@ -85,7 +104,7 @@ private ["_sizeX","_sizeY","_size"];
 {
 //_nombre = text _x;
 _nombre = [text _x, true] call fn_location;
-if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") and (_nombre != "Sosovu01") and (_nombre != "Ipota01") and (_nombre != "hill12")) then//sagonisi is blacklisted in Altis for some reason. If your island has a city in a small island you should blacklist it (road patrols will try to reach it)
+if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") and (_nombre != "Sosovu01") and (_nombre != "Ipota01") and (_nombre != "hill12") and (_nombre != "V_broad22")) then//sagonisi is blacklisted in Altis for some reason. If your island has a city in a small island you should blacklist it (road patrols will try to reach it)
     {
     _sizeX = getNumber (configFile >> "CfgWorlds" >> worldName >> "Names" >> (text _x) >> "radiusA");
     _sizeY = getNumber (configFile >> "CfgWorlds" >> worldName >> "Names" >> (text _x) >> "radiusB");
@@ -94,7 +113,7 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
     if (_size < 400) then {_size = 400};
     _roads = [];
     _numCiv = 0;
-    if ((worldName != "Tanoa") and (worldName != "Altis")) then//If Tanoa, data is picked from a DB in initVar.sqf, if not, is built on the fly.
+    if ((worldName != "Tanoa") and (worldName != "Altis") and (worldName != "chernarus_summer")) then//If Tanoa, data is picked from a DB in initVar.sqf, if not, is built on the fly.
         {
         _numCiv = (count (nearestObjects [_pos, ["house"], _size]));
         _roadsProv = _pos nearRoads _size;
@@ -185,27 +204,36 @@ else
         }
     else
         {
-        antenas = nearestObjects [[worldSize /2,worldSize/2,0],["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"], worldSize];
-        bancos = nearestObjects [[worldSize /2,worldSize/2,0],["Land_Offices_01_V1_F"],worldSize];
-        {
-        _mrkfin = createMarker [format ["Ant%1", _x], position _x];
-        _mrkfin setMarkerShape "ICON";
-        _mrkfin setMarkerType "loc_Transmitter";
-        _mrkfin setMarkerColor "ColorBlack";
-        _mrkfin setMarkerText "Radio Tower";
-        mrkAntenas pushBack _mrkfin;
-        _x addEventHandler ["Killed",
+        if (worldName == "chernarus_summer") then
             {
-            _antena = _this select 0;
-            {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn apagon}} forEach ciudades;
-            _mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
-            antenas = antenas - [_antena]; antenasmuertas pushBack (getPos _antena); deleteMarker _mrk;
-            publicVariable "antenas"; publicVariable "antenasMuertas";
-            ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
-            ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
+            _posAntenas = [[6444.13,6545.83,-0.106628],[5264.35,5314.45,0.0291748],[4968.53,9964.4,0],[3715.81,5984.25,0],[6563.69,3405.56,0.0547104],[4548.22,3131.85,0.570232],[13010.1,5964.96,-0.0164185],[3029.57,2350.28,0.0183334],[13477.6,3345.84,0.0729446],[12937,12763.6,0.164017]];
+            _blackListPos = [1,7];
+            antenas = [];
             }
-            ];
-        } forEach antenas;
+        else
+            {
+            antenas = nearestObjects [[worldSize /2,worldSize/2,0],["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F","Land_Vysilac_FM","Land_A_TVTower_base","Land_Telek1"], worldSize];
+            bancos = nearestObjects [[worldSize /2,worldSize/2,0],["Land_Offices_01_V1_F"],worldSize];
+            {
+            _mrkfin = createMarker [format ["Ant%1", _x], position _x];
+            _mrkfin setMarkerShape "ICON";
+            _mrkfin setMarkerType "loc_Transmitter";
+            _mrkfin setMarkerColor "ColorBlack";
+            _mrkfin setMarkerText "Radio Tower";
+            mrkAntenas pushBack _mrkfin;
+            _x addEventHandler ["Killed",
+                {
+                _antena = _this select 0;
+                {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn apagon}} forEach ciudades;
+                _mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
+                antenas = antenas - [_antena]; antenasmuertas pushBack (getPos _antena); deleteMarker _mrk;
+                publicVariable "antenas"; publicVariable "antenasMuertas";
+                ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
+                ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
+                }
+                ];
+            } forEach antenas;
+            };
         };
     };
 
@@ -213,7 +241,7 @@ if (count _posAntenas > 0) then
     {
     for "_i" from 0 to (count _posAntenas - 1) do
         {
-        _antenaProv = nearestObjects [_posAntenas select _i,["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"], 25];
+        _antenaProv = nearestObjects [_posAntenas select _i,["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F","Land_Vysilac_FM","Land_A_TVTower_base","Land_Telek1"], 35];
         if (count _antenaProv > 0) then
             {
             _antena = _antenaProv select 0;
@@ -258,30 +286,6 @@ if (count _posBancos > 0) then
             };
         };
     };
-
-if (worldName == "Tanoa") then
-    {
-    carreteras setVariable ["airport",[[[6988.38,7135.59,10.0673],17.0361,"MG"],[[6873.83,7472,3.19066],262.634,"MG"],[[6902.09,7427.71,13.0559],359.999,"MG"],[[6886.75,7445.52,0.0368803],360,"Mort"],[[6888.47,7440.31,0.0368826],0.000531628,"Mort"],[[6882.14,7445.42,0.0368817],360,"Mort"],[[6886.49,7436.58,0.0368807],360,"Mort"],[[6970.32,7188.49,-0.0339937],359.999,"Tank"],[[6960.98,7188.49,-0.0339937],359.999,"Tank"],[[6950.71,7187.42,-0.033505],359.999,"Tank"]],true];
-
-    carreteras setVariable ["airport_1",[[[2175.14,13402.4,-0.01863],138.861,"Tank"],[[2183.31,13409.7,-0.0184679],139.687,"Tank"],[[2211.39,13434.4,0.0164337],141.512,"Tank"],[[2221.62,13440.6,0.016408],142.886,"Tank"],[[2221.31,13195,0.0368757],0.000337857,"Mort"],[[2224.09,13197.6,0.038271],1.30051e-005,"Mort"],[[2218.96,13199.1,0.0382385],0.00923795,"Mort"],[[2071.1,13308.5,14.4943],133.738,"MG"]],true];
-
-    carreteras setVariable ["airport_2",[[[11803,13051.6,0.0368805],360,"Mort"],[[11813.5,13049.2,0.0368915],0.000145629,"Mort"],[[11799.5,13043.2,0.0368919],360,"Mort"],[[11723.3,13114.6,18.1545],300.703,"MG"],[[11782.3,13058.1,0.0307827],19.6564,"Tank"],[[11810.6,13040.2,0.0368905],360,"Tank"],[[11832.9,13042.1,0.0283785],16.3683,"Tank"]],true];
-    carreteras setVariable ["airport_3",[[[11658,3055.02,0.036881],360,"Mort"],[[11662.6,3060.14,0.0368819],0.000294881,"Mort"],[[11664.8,3049.94,0.0368805],360,"Mort"],[[11668.9,3055.64,0.0368805],2.08056e-005,"Mort"],[[11747.8,2982.95,18.1513],249.505,"MG"],[[11784.1,3132.77,0.183631],214.7,"Tank"],[[11720.3,3176.15,0.112019],215.055,"Tank"]],true];
-    carreteras setVariable ["airport_4",[[[2092.87,3412.98,0.0372648],0.00414928,"Mort"],[[2091.5,3420.69,0.0369596],360,"Mort"],[[2099.93,3422.53,0.0373936],0.00215797,"Mort"],[[2100.13,3416.28,0.0394554],0.0043371,"Mort"],[[2198.24,3471.03,18.0123],0.00187816,"MG"],[[2133.01,3405.88,-0.0156536],315.528,"Tank"],[[2145.82,3416.83,-0.00544548],316.441,"Tank"],[[2163.9,3432.18,-0.0256157],318.777,"Tank"]],true];
-    }
-else
-    {
-    if (worldName == "Altis") then
-        {
-        carreteras setVariable ["airport",[[[21175.06,7369.336,0],62.362,"Tank"],[[21178.89,7361.573,0.421],62.36,"Tank"],[[20961.332,7295.678,0],0,"Mort"],[[20956.143,7295.142,0],0,"Mort"],[[20961.1,7290.02,0.262632],0,"Mort"]],true];
-        carreteras setVariable ["airport_1",[[[23044.8,18745.7,0.0810001],88.275,"Tank"],[[23046.8,18756.8,0.0807302],88.275,"Tank"],[[23214.8,18859.5,0],267.943,"Tank"],[[22981.2,18903.9,0],0,"Mort"],[[22980.1,18907.5,0.553066],0,"Mort"]],true];
-        carreteras setVariable ["airport_2",[[[26803.1,24727.7,0.0629988],359.958,"Mort"],[[26809,24728.2,0.03755],359.986,"Mort"],[[26815.2,24729,0.0384922],359.972,"Mort"],[[26821.3,24729.1,0.0407047],359.965,"Mort"],[[26769.1,24638.7,0.290344],131.324,"Tank"],[[26774.2,24643.9,0.282555],134.931,"Tank"]],true];
-        carreteras setVariable ["airport_3",[[[14414.9,16327.8,-0.000991821],207.397,"Tank"],[[14471.9,16383.2,0.0378571],359.939,"Mort"],[[14443,16379.2,0.0369205],359.997,"Mort"],[[14449.4,16376.9,0.0369892],359.996,"Mort"],[[14458,16375.9,0.0369167],359.997,"Mort"],[[14447.2,16397.1,3.71081],269.525,"MG"],[[14472.3,16312,12.1993],317.315,"MG"],[[14411,16229,0.000303268],40.6607,"Tank"],[[14404.4,16235,-0.0169964],50.5741,"Tank"],[[14407.2,16331.7,0.0305004],204.588,"Tank"]],true];
-        carreteras setVariable ["airport_4",[[[11577.4,11953.6,0.241838],122.274,"Tank"],[[11577.8,11964.3,0.258125],124.324,"Tank"],[[11633.3,11762,0.0372791],359.996,"Mort"],[[11637.3,11768.1,0.043232],0.0110098,"Mort"],[[11637.1,11763.1,0.0394402],0.00529677,"Mort"]],true];
-        carreteras setVariable ["airport_5",[[[9064.02,21531.3,0.00117016],138.075,"Tank"],[[9095.12,21552.8,0.614614],157.935,"Tank"],[[9030.28,21531.1,0.261349],157.935,"Mort"],[[9033.91,21534.7,0.295588],157.935,"Mort"]],true];
-        };
-    };
-
 
 blackListDest = (marcadores - controles - ["Synd_HQ"] - ciudades) select {!((position ([getMarkerPos _x] call findNearestGoodRoad)) inArea _x)};
 

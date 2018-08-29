@@ -133,7 +133,7 @@ _caja call jn_fnc_logistics_addAction;
 {_nul = [_x] call AIVEHinit;} forEach _vehiculos;
 _roads = _posicion nearRoads _size;
 
-if ((_marcador in puertos) and (spawner getVariable _marcador!=2)) then
+if ((_marcador in puertos) and (spawner getVariable _marcador!=2) and !hayIFA) then
 	{
 	_tipoVeh = if (_lado == malos) then {vehNATOBoat} else {vehCSATBoat};
 	if ([_tipoVeh] call vehAvailable) then

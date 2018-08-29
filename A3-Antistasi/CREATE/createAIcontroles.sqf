@@ -13,9 +13,6 @@ _soldados = [];
 _pilotos = [];
 _conquistado = false;
 
-
-_lado = muyMalos;
-//_cfg = cfgCSATInf;
 _esFIA = false;
 _salir = false;
 
@@ -147,15 +144,18 @@ else
 			};
 		_grupo = [_posicion,_lado, _cfg] call spawnGroup;
 		_nul = [leader _grupo, _marcador, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-		sleep 1;
-		{_soldados pushBack _x} forEach units _grupo;
-		_tipoVeh = if (_lado == malos) then {vehNATOUAVSmall} else {vehCSATUAVSmall};
-		_uav = createVehicle [_tipoVeh, _posicion, [], 0, "FLY"];
-		createVehicleCrew _uav;
-		_vehiculos pushBack _uav;
-		_grupoUAV = group (crew _uav select 1);
-		{[_x] joinSilent _grupo; _pilotos pushBack _x} forEach units _grupoUAV;
-		deleteGroup _grupoUAV;
+		if !(hayIFA) then
+			{
+			sleep 1;
+			{_soldados pushBack _x} forEach units _grupo;
+			_tipoVeh = if (_lado == malos) then {vehNATOUAVSmall} else {vehCSATUAVSmall};
+			_uav = createVehicle [_tipoVeh, _posicion, [], 0, "FLY"];
+			createVehicleCrew _uav;
+			_vehiculos pushBack _uav;
+			_grupoUAV = group (crew _uav select 1);
+			{[_x] joinSilent _grupo; _pilotos pushBack _x} forEach units _grupoUAV;
+			deleteGroup _grupoUAV;
+			};
 		{[_x,""] call NATOinit} forEach units _grupo;
 		}
 	else

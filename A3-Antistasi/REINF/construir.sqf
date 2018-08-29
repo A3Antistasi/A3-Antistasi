@@ -229,6 +229,7 @@ if (_coste > 0) then
 	else
 		{
 		[-_coste] call resourcesPlayer;
+		["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
 		};
 	};
 

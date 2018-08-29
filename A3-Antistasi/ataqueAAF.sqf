@@ -279,7 +279,7 @@ if (count _faciles == 4) exitWith
 	{
 	{[[_x select 0,_x select 1,"",false],"patrolCA"] remoteExec ["scheduler",2];sleep 30} forEach _faciles;
 	};
-
+if (hayIFA and (sunOrMoon < 1)) exitWith {};
 if ((count _objetivosFinal > 0) and (count _faciles < 3)) then
 	{
 	_arrayFinal = [];

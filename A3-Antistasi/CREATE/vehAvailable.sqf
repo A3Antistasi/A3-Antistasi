@@ -1,6 +1,6 @@
 private ["_tipo","_return","_tiempo"];
 _tipo = _this select 0;
-
+if (_tipo == "") exitWith {false};
 _return = true;
 _tiempo = timer getVariable _tipo;
 if (!isNil "_tiempo") then

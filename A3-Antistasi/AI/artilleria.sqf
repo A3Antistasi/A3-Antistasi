@@ -1,26 +1,25 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_mrkOrigen","_pos","_lado","_cuenta","_mrkDestino","_veh","_posOrigen","_ladoMalos","_posDestino","_tipoVeh","_tipoMuni","_size","_vehicle","_vehCrew","_grupoVeh","_rondas","_objetivo","_objetivos","_tiempo"];
+private ["_mrkOrigen","_pos","_lado","_cuenta","_mrkDestino","_veh","_posOrigen","_ladosMalos","_posDestino","_tipoVeh","_tipoMuni","_size","_vehicle","_vehCrew","_grupoVeh","_rondas","_objetivo","_objetivos","_tiempo"];
 
 _mrkOrigen = _this select 0;
-_lado = if (lados getVariable [_mrkOrigen,sideUnknown] == malos) then {malos} else {muyMalos};
-_posOrigen = getMarkerPos _mrkOrigen;
+_posOrigen = if (_mrkOrigen isEqualType "") then {getMarkerPos _mrkOrigen} else {_mrkOrigen};
 _mrkDestino = _this select 1;
-_ladoMalos = if (_lado == malos) then {muyMalos} else {malos};
+_lado = _this select 2;
+_ladosMalos = _lado call BIS_fnc_enemySides;
 _posDestino = getMarkerPos _mrkDestino;
 _tipoVeh = if (_lado == malos) then {vehNATOMRLS} else {vehCSATMRLS};
 
 if !([_tipoVeh] call vehAvailable) exitWith {};
 
 _tipoMuni = if (_lado == malos) then {vehNATOMRLSMags} else {vehCSATMRLSMags};
-_size = [_mrkOrigen] call sizeMarker;
 
-_pos = [_posOrigen, 50, _size, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
-//_pos = _posicion findEmptyPosition [_size - 200,_size+50,_tipoveh];
+_pos = [_posOrigen, 50,100, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
+
 _vehicle=[_pos, random 360,_tipoveh, _lado] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 _vehCrew = _vehicle select 1;
-{[_x,_mrkOrigen] call NATOinit} forEach _vehCrew;
+{[_x] call NATOinit} forEach _vehCrew;
 [_veh] call AIVEHinit;
 _grupoVeh = _vehicle select 2;
 _size = [_mrkDestino] call sizeMarker;
@@ -31,7 +30,7 @@ if (_posDestino inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) select 0)
 		{
 		_objetivo = objNull;
 		_rondas = 1;
-		_objetivos = vehicles select {((side (group driver _x) == _ladoMalos) or (side (group driver _x) == buenos)) and (_x distance _posDestino <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (speed _x < 1)};
+		_objetivos = vehicles select {(side (group driver _x) in _ladosMalos) and (_x distance _posDestino <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (speed _x < 1)};
 		if (count _objetivos > 0) then
 			{
 			{
@@ -41,7 +40,7 @@ if (_posDestino inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) select 0)
 			}
 		else
 			{
-			_objetivos = allUnits select {((side (group _x) == _ladoMalos) or (side (group _x) == buenos)) and (_x distance _posDestino <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (_x == leader group _x)};
+			_objetivos = allUnits select {(side (group _x) in _ladosMalos) and (_x distance _posDestino <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (_x == leader group _x)};
 			if (count _objetivos > 0) then
 				{
 				_cuenta = 0;
@@ -82,19 +81,3 @@ deleteVehicle _veh;
 } forEach _vehCrew;
 
 deleteGroup _grupoVeh;
-
-/*
-_equis = _pos select 0;
-_y = _pos select 1;
-_cuenta = 0;
-
-_amigos = "BLUFORSpawn";
-if (_lado == muyMalos) then {_amigos = "OPFORSpawn"};
-while {(!([300,1,_pos,_amigos] call distanceUnits)) and (_cuenta < 50)} do
-	{
-	_cuenta = _cuenta + 1;
-	sleep (5 + (random 5));
-	_shell1 = "Sh_82mm_AMOS" createVehicle [_equis + (150 - (random 300)),_y + (150 - (random 300)),200];
-	_shell1 setVelocity [0,0,-50];
-	};
-

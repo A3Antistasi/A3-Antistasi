@@ -19,11 +19,11 @@ waitUntil {!isNil "serverID"};
 loadLastSave = if (paramsArray select 0 == 1) then {true} else {false};
 gameMode = paramsArray select 1; publicVariable "gameMode";
 autoSave = if (paramsArray select 2 == 1) then {true} else {false};
-membershipEnabled = if (paramsArray select 3 == 1) then {true} else {false}; publicVariable "membershipEnabled";
+membershipEnabled = if (paramsArray select 3 == 1) then {true} else {false};
 switchCom = if (paramsArray select 4 == 1) then {true} else {false};
 tkPunish = if (paramsArray select 5 == 1) then {true} else {false};
 distanciaMiss = paramsArray select 6; publicVariable "distanciaMiss";
-pvpEnabled = if (paramsArray select 7 == 1) then {true} else {false}; publicVariable "pvpEnabled";
+pvpEnabled = if (paramsArray select 7 == 1) then {true} else {false};
 skillMult = paramsArray select 9; publicVariable "skillMult";
 minWeaps = paramsArray select 10; publicVariable "minWeaps";
 civTraffic = paramsArray select 11; publicVariable "civTraffic";
@@ -127,7 +127,7 @@ else
         };
     publicVariable "theBoss";
     publicVariable "miembros";
-    _nul = [caja] call cajaAAF;
+    [] execVM "Municion\cajaAAF.sqf";
     };
 diag_log "Antistasi MP Server. Players are in";
 

@@ -52,9 +52,9 @@ if (isNull _grupo) then
 	{
 	_grupo = createGroup buenos;
 	_unidades joinSilent _grupo;
-	{arrayids = arrayids + [name _x]} forEach _unidades;
+	//{arrayids = arrayids + [name _x]} forEach _unidades;
 	hint "Adding units to garrison";
-	{arrayids pushBackUnique (name _x)} forEach _unidades;
+	if !(hayIFA) then {{arrayids pushBackUnique (name _x)} forEach _unidades};
 	}
 else
 	{

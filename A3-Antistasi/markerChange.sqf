@@ -128,7 +128,7 @@ if (_marcador in puestos) then
 		}
 	else
 		{
-		if (_looser == malos) then {_prestigeMalos = 5} else {_prestigeMuyMalos = 5};
+		if (_looser == malos) then {_prestigeMalos = 5;_prestigeMuyMalos = 2} else {_prestigeMalos = 2;_prestigeMuyMalos = 5};
 		};
 	["TaskSucceeded", ["", "Outpost Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Outpost Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
@@ -146,7 +146,7 @@ if (_marcador in puertos) then
 		}
 	else
 		{
-		if (_looser == malos) then {_prestigeMalos = 5} else {_prestigeMuyMalos = 5};
+		if (_looser == malos) then {_prestigeMalos = 5;_prestigeMuyMalos = 2} else {_prestigeMalos = 2;_prestigeMuyMalos = 5};
 		};
 	["TaskSucceeded", ["", "Seaport Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Seaport Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];

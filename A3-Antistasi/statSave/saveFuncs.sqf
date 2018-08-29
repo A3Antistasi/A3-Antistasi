@@ -279,7 +279,7 @@ fn_SetStat =
 				_tipoVeh = _varvalue select _i select 0;
 				_posVeh = _varvalue select _i select 1;
 				_dirVeh = _varvalue select _i select 2;
-				_veh = createVehicle [_tipoVeh,[0,0,0],[],0,"NONE"];
+				_veh = createVehicle [_tipoVeh,[0,0,1000],[],0,"NONE"];
 				_veh setPos _posVeh;
 				_veh setDir _dirVeh;
 				_veh setVectorUp surfaceNormal (getPos _veh);

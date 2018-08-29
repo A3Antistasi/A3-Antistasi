@@ -61,6 +61,7 @@ if (!_hayArty) exitWith {hint "You must select an artillery group or it is a Mob
 if (!_estanVivos) exitWith {hint "All elements in this Batery cannot fire or are disabled"};
 if ((_hayMuni < 2) and (!_estanListos)) exitWith {hint "The Battery has no ammo to fire. Reload it on HQ"};
 if (!_estanListos) exitWith {hint "Selected Battery is busy right now"};
+if (_tipoMuni == "not_supported") exitWith {hint "Your current modset doesent support this strike type"};
 if (isNil "_tipoMuni") exitWith {};
 
 hcShowBar false;

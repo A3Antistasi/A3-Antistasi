@@ -1121,3 +1121,5 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Corrected bug on saved vehicles not moving.
 - Squad mount / dismount button now supports selection of more than one squad.
 - Fixed rebel HE airstrikes.
+- The NV for the enemy specops is managed independently of the modset / edition.
+- Vehicle dialogs will show vehicle names related to the modset.

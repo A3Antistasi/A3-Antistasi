@@ -64,3 +64,5 @@ flagCSATmrk = "LIB_faction_RKKA";
 squadLeaders pushBack "LIB_SOV_sergeant";
 nameMuyMalos = "Soviets";
 if (isServer) then {"CSAT_carrier" setMarkerText "Soviet Reinforcements"};
+
+{cascos pushBackUnique (getUnitLoadout _x select 6)} forEach CSATSquad;

@@ -65,3 +65,5 @@ flagNATOmrk = "LIB_faction_WEHRMACHT";
 
 nameMalos = "Wehrmacht";
 if (isServer) then {"NATO_carrier" setMarkerText "Wehrmacht Reinforcements"};
+
+{cascos pushBackUnique (getUnitLoadout _x select 6)} forEach NATOSquad;

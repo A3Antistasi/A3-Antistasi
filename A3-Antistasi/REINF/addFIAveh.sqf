@@ -38,7 +38,7 @@ comprado = 0;
 hint "Hover your mouse to the desired position. If it's safe and suitable, you will see the vehicle";
 garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
-		_handled = true;
+		_handled = false;
 		_salir = false;
 		_comprado = false;
 		[format ["<t size='0.7'>%1<br/><br/><t size='0.6'>Garage Keys.<t size='0.5'><br/>Numpad 7-9 to rotate<br/>SPACE to Select<br/>ENTER to Exit",getText (configFile >> "CfgVehicles" >> typeOf garageVeh >> "displayName")],0,0,5,0,0,4] spawn bis_fnc_dynamicText;
@@ -55,10 +55,12 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		if (_this select 1 == 73) then
 			{
 			garageVeh setDir (getDir garageVeh + 1);
+			_handled = true;
 			};
 		if (_this select 1 == 71) then
 			{
 			garageVeh setDir (getDir garageVeh - 1);
+			_handled = true;
 			};
 		if (_salir) then
 			{
@@ -66,7 +68,6 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 				{
 				["",0,0,5,0,0,4] spawn bis_fnc_dynamicText;
 				comprado = 1;
-				(findDisplay 46) displayRemoveEventHandler ["KeyDown", garageKeys];
 				}
 			else
 				{
@@ -77,7 +78,6 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 				else
 					{
 					comprado = 2;
-					(findDisplay 46) displayRemoveEventHandler ["KeyDown", garageKeys];
 					["<t size='0.6'>Vehicle purchased",0,0,3,0,0,4] spawn bis_fnc_dynamicText;
 					};
 				};
@@ -94,9 +94,10 @@ onEachFrame
 	  	AGLToASL positionCameraToWorld [0,0,1000],
 	  	player,garageVeh
 	 	];
+	 	if (garageVeh isKindOf "Ship") then {(_ins select 0 select 0) set [2,0]};
 	 	if ((count _ins == 0) or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf garageVeh])== 0) or ((_ins select 0 select 0) distance2d player > 100))exitWith {garageVeh setPosASL [0,0,1000]};
-	 	if ((garageVeh isKindOf "Boat") and !(surfaceIsWater (_ins select 0 select 0))) exitWith {garageVeh setPosASL [0,0,1000]};
-	 	if (!(garageVeh isKindOf "Boat") and (surfaceIsWater (_ins select 0 select 0))) exitWith {garageVeh setPosASL [0,0,1000]};
+	 	if ((garageVeh isKindOf "Ship") and !(surfaceIsWater (_ins select 0 select 0))) exitWith {garageVeh setPosASL [0,0,1000]};
+	 	if (!(garageVeh isKindOf "Ship") and (surfaceIsWater (_ins select 0 select 0))) exitWith {garageVeh setPosASL [0,0,1000]};
 	 	garageVeh setPosASL (_ins select 0 select 0);
 	 	garageVeh setVectorUp (_ins select 0 select 1);
 	 	//garageVeh setDir (getDir player);
@@ -104,6 +105,7 @@ onEachFrame
 	};
 waitUntil {(comprado > 0) or !(player inArea _cercano)};
 onEachFrame {};
+(findDisplay 46) displayRemoveEventHandler ["KeyDown", garageKeys];
 _pos = getPosASL garageVeh;
 _dir = getDir garageVeh;
 deleteVehicle garageVeh;

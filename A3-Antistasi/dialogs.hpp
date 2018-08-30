@@ -939,7 +939,7 @@ class civ_vehicle 			{
 		 	y = 0.415981 * safezoneH + safezoneY;
 		 	w = 0.175015 * safezoneW;
 		 	h = 0.0560125 * safezoneH;
-		 	action = "closeDialog 0;[civBoat] call buyBoat;";
+		 	action = "closeDialog 0;[civBoat] spawn addFIAveh;";
 		 };
 	};
 };

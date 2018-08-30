@@ -203,6 +203,10 @@ if !(hayIFA) then
 				};
 			};
 		};
+	}
+else
+	{
+	_unit unlinkItem "ItemRadio";
 	};
 _revelar = false;
 if (vehicle _unit != _unit) then

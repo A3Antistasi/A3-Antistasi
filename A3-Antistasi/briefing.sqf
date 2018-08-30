@@ -71,7 +71,7 @@ player createDiaryRecord ["Options",["Persistent Save-game","Commander Only. You
 player createDiaryRecord ["Options",["AI Limiter","Commander Only. Sets the the maximum amount of AI in map per server or HC. Up to 200 AI may behave decently."]];
 player createDiaryRecord ["Options",["Map Info","Click on a city to learn the strength of their support for the enemy or Faction. Click on other zones to know relevant info about them."]];
 
-player createDiaryRecord ["Diary",["Thanks","<br/>LanCommi for his artwork.<br/>Gillaustio and Farooq for inspirational works on revive system<br/>Goon and jw custom: Part of the code for the NAPALM script.<br/>rebel12340: Radio Jam tips for script<br/>Manko: Earplug snippet<br/>Stef: Managing the comminity despite all difficulties.<br/>And all those players who spend their time on making comments, suggestions and reports on Steam and BIS forums"]];
+player createDiaryRecord ["Diary",["Thanks","<br/>LanCommi for his artwork.<br/>Gillaustio and Farooq for inspirational works on revive system<br/>Goon and jw custom: Part of the code for the NAPALM script.<br/>rebel12340: Radio Jam tips for script<br/>Manko: Earplug snippet<br/>Stef: Managing the community despite all difficulties.<br/>And all those players who spend their time on making comments, suggestions and reports on Steam and BIS forums"]];
 player createDiaryRecord ["Diary",["Mods","Integrated (optional) Mods:<br/>TFAR: Radio integrated in Arsenal. Sound disabled when player is unconscious.<br/>ACE Medical: Will disable Antistasi revive system.<br/><br/>CAUTION: The use of Persistent Save system with TFAR and any weapon mod activated will make them mandatory in future.<br/><br/>Any client sided Mod, such as JSRS, Blastcore, UI Mod should work.<br/><br/>Units and vehicles mods won't work. AI Mods may cause malfunctions (in any case Antistasi has heavy AI tweaking)."]];
 player createDiaryRecord ["Diary",["Script Credits","UPSMon by Monsada, Kronzy and Cool=Azroul13 <br/>Persistent Save by zooloo75.<br/>Tags by Marker and Melbo."]];
 player createDiaryRecord ["Diary",["HQ - Basics","Flag: Vehicle and Squad Unit Recruitment. Commander Options.<br/>Maru: Side-missions (Commander Only).<br/>Map: Game Options.<br/>Camp-fire: Rest for 8 hours and Clear Forest (Commander Only)."]];
@@ -89,7 +89,10 @@ switch (gameMode) do
 	};
 player createDiaryRecord ["Diary",["Loose",format ["You will loose the game if %1 has murdered 1/3 of the total population.",nameMuyMalos]]];
 player createDiaryRecord ["Diary",["Win","You will win the game when most of the population supports Faction and you have conquered all the Airbases"]];
-player createDiaryRecord ["Diary",["Welcome","Welcome to Arma 3 - Warlords of the Pacific. This mission aims to simulate guerilla combat, tactics and strategic situations. It is not a quick and easy mod, it is long term, step-by-step mission with LOTS of features and enhanced AI."]];
+
+_nombreMiss = if (hayIFA) then {"Armia Krajowa"} else {if (worldName == "Tanoa") then {"Warlords of the Pacific"} else {"Antistasi"}};
+
+player createDiaryRecord ["Diary",["Welcome",format ["Welcome to Arma 3 - %1. This mission aims to simulate guerilla combat, tactics and strategic situations. It is not a quick and easy mod, it is long term, step-by-step mission with LOTS of features and enhanced AI.",_nombreMiss]]];
 }
 else
 {

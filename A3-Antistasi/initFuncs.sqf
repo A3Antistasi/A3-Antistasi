@@ -34,7 +34,6 @@ canFight = compile preProcessFileLineNumbers "AI\canFight.sqf";
 AILoadInfo = compile preProcessFileLineNumbers "AILoadInfo.sqf";
 scheduler = compile preProcessFileLineNumbers "scheduler.sqf";
 addHC = compile preProcessFileLineNumbers "addHC.sqf";
-buyBoat = compile preProcessFileLineNumbers "REINF\buyBoat.sqf";
 construir = compile preProcessFileLineNumbers "REINF\construir.sqf";
 isBuildingPosition = compile preProcessFileLineNumbers "AI\Buildings\isBuildingPosition.sqf";
 groupDespawner= compile preProcessFileLineNumbers "CREATE\groupDespawner.sqf";

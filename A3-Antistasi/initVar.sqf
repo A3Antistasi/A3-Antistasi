@@ -464,7 +464,7 @@ if !(hayIFA) then
 	}
 else
 	{
-	unlockedItems = ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit","LIB_ToolKit","H_LIB_CIV_Villager_Cap_1","H_LIB_CIV_Worker_Cap_2","G_LIB_Scarf2_B","G_LIB_Mohawk"]
+	unlockedItems = ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit","LIB_ToolKit","H_LIB_CIV_Villager_Cap_1","H_LIB_CIV_Worker_Cap_2","G_LIB_Scarf2_B","G_LIB_Mohawk"] + uniformsSDK + civUniforms;
 	};
 
 

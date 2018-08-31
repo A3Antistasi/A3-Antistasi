@@ -161,5 +161,3 @@ distancias = [] spawn distancias4;
 resourcecheck = [] execVM "resourcecheck.sqf";
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 savingServer = false;
-
-//if (serverName in chungos) then {["asshole",false,true] remoteExec ["BIS_fnc_endMission"]};

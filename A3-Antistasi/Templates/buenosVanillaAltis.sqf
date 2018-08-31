@@ -28,7 +28,7 @@ vehSDKPlane = "I_C_Plane_civil_01_F";
 vehSDKBoat = "I_G_Boat_Transport_01_F";
 vehSDKRepair = "I_G_Offroad_01_repair_F";
 SDKFlag = "Flag_Altis_F";
-
+SDKFlagTexture = "\A3\Data_F\Flags\Flag_Altis_CO.paa";
 tipoPetros = "I_G_officer_F";
 
 soporteStaticSDKB = "I_HMG_01_support_F";

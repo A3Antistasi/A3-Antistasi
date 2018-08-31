@@ -27,7 +27,7 @@ vehSDKPlane = "LIB_US_NAC_P39";
 vehSDKBoat = "I_C_Boat_Transport_01_F";
 vehSDKRepair = "LIB_US_GMC_Parm";
 SDKFlag = "Flag_Syndikat_F";
-
+SDKFlagTexture = "ak.jpg"; if (isServer) then {bandera setFlagTexture SDKFlagTexture};
 tipoPetros = "LIB_WP_Sierzant";
 
 soporteStaticSDKB = "not_supported";

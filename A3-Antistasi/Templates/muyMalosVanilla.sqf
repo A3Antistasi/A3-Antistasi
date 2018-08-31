@@ -39,6 +39,7 @@ vehCSATNormal = vehCSATLight + vehCSATTrucks + [vehCSATAmmoTruck, "O_T_Truck_03_
 vehCSATBike = "O_T_Quadbike_01_ghex_F";
 
 CSATFlag = "Flag_CSAT_F";
+CSATFlagTexture = "\A3\Data_F\Flags\Flag_CSAT_CO.paa";
 CSATAmmoBox = "O_supplyCrate_F";
 //cfgCSATInf = (configfile >> "CfgGroups" >> "East" >> "OPF_T_F" >> "Infantry");
 gruposCSATSentry = ["O_T_soldier_GL_F","O_T_soldier_F"];///"O_T_InfSentry";///

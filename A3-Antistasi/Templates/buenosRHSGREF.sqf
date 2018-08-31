@@ -27,7 +27,7 @@ vehSDKPlane = "RHS_AN2";
 vehSDKBoat = "I_C_Boat_Transport_01_F";
 vehSDKRepair = "rhsgref_ins_g_gaz66_repair";
 SDKFlag = "Flag_Syndikat_F";
-
+SDKFlagTexture = "\A3\Data_F\Flags\Flag_Altis_CO.paa";
 tipoPetros = "rhsgref_ins_g_squadleader";
 
 soporteStaticSDKB = "RHS_DShkM_TripodHigh_Bag";

@@ -39,6 +39,7 @@ vehNATOMRLSMags = "rhs_mag_40Rnd_122mm_rockets";//[R Alpha 1-1:1 (Alberto),"rhs_
 vehNATONormal = vehNATOLight + vehNATOTrucks + [vehNATOAmmoTruck, "rhsgref_BRDM2_ATGM_ins_g", vehNATORepairTruck];
 vehNATOBike = "I_Quadbike_01_F";
 NATOFlag = "Flag_AltisColonial_F";
+NATOFlagTexture = "\A3\Data_F\Flags\Flag_AltisColonial_CO.paa";
 NATOAmmobox = "I_supplyCrate_F";
 
 //cfgNATOInf = (configfile >> "CfgGroups" >> "West" >> "BLU_T_F" >> "Infantry");///

@@ -1,11 +1,6 @@
 if (player != player getVariable ["owner",player]) exitWith {hint "You cannot buy vehicles while you are controlling AI"};
 
-_chequeo = false;
-{
-	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 300) and ([_x] call canFight) and !(isPlayer _x)) then {_chequeo = true};
-} forEach allUnits;
-
-if (_chequeo) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
+if ([player,300] call enemyNearCheck) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
 
 private ["_tipoVeh","_coste","_resourcesFIA","_marcador","_pos","_veh","_tipoVeh"];
 
@@ -112,10 +107,12 @@ onEachFrame
 waitUntil {(comprado > 0) or !(player inArea _cercano)};
 onEachFrame {};
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", garageKeys];
+posicionSel = nil;
 _pos = getPosASL garageVeh;
 _dir = getDir garageVeh;
 deleteVehicle garageVeh;
 if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to buy a vehicle";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; comprado = nil;garageVeh = nil};
+if ([player,300] call enemyNearCheck) then {comprado = 0; hint "You cannot buy vehicles with enemies nearby"};
 if (comprado != 2) exitWith {comprado = nil;garageVeh = nil};
 waitUntil {isNull garageVeh};
 garageVeh = nil;

@@ -27,7 +27,7 @@ vehSDKPlane = "C_Plane_Civil_01_F";
 vehSDKBoat = "B_G_Boat_Transport_01_F";
 vehSDKRepair = "B_G_Offroad_01_repair_F";
 SDKFlag = "Flag_FIA_F";
-
+SDKFlagTexture = "\A3\Data_F\Flags\Flag_FIA_CO.paa";
 tipoPetros = "B_G_officer_F";
 
 soporteStaticSDKB = "B_HMG_01_support_F";

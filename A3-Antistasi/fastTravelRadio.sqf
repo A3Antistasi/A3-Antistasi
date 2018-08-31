@@ -18,10 +18,8 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot Fa
 _chequeo = false;
 //_distancia = 500 - (([_jefe,false] call fogCheck) * 450);
 _distancia = 500;
-{_enemigo = _x;
-{if (((side _enemigo == muyMalos) or (side _enemigo == malos)) and (_enemigo distance _x < _distancia) and ([_x] call canFight)) exitWith {_chequeo = true}} forEach units _grupo;
-if (_chequeo) exitWith {};
-} forEach allUnits;
+
+{if ([_x,_distancia] call enemyNearCheck) exitWith {_chequeo = true}} forEach units _grupo;
 
 if (_chequeo) exitWith {Hint "You cannot Fast Travel with enemies near the group"};
 
@@ -53,20 +51,7 @@ if (count _posicionTel > 0) then
 
 	//if (_base in puestosFIA) exitWith {hint "You cannot Fast Travel to roadblocks and watchposts"; openMap [false,false]};
 
-	if (!isMultiplayer) then
-		{
-		{
-			if (((side _x == muyMalos) or (side _x == malos)) and (_x distance (getMarkerPos _base) < 500) and (not(captive _x))) exitWith {_chequeo = true};
-		} forEach allUnits;
-		}
-	else
-		{
-		{
-			if (((side _x == muyMalos) or (side _x == malos)) and (_x distance (getMarkerPos _base) < 300) and (not(captive _x))) exitWith {_chequeo = true};
-		} forEach allUnits;
-		};
-
-	if (_chequeo) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
+	if ([getMarkerPos _base,500] call enemyNearCheck) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
 
 	if (_posicionTel distance getMarkerPos _base < 50) then
 		{

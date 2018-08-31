@@ -27,7 +27,7 @@ vehSDKPlane = "RHS_AN2_B";
 vehSDKBoat = "B_G_Boat_Transport_01_F";
 vehSDKRepair = "rhsgref_cdf_b_ural_repair";
 SDKFlag = "Flag_FIA_F";
-
+SDKFlagTexture = "\A3\Data_F\Flags\Flag_FIA_CO.paa";
 tipoPetros = "rhsgref_cdf_b_reg_general";
 
 soporteStaticSDKB = "RHS_SPG9_Tripod_Bag";

@@ -37,6 +37,7 @@ vehNATOMRLSMags = "LIB_20x_Shell_105L28_Gr39HlC";
 vehNATONormal = vehNATOLight + vehNATOTrucks + [vehNATOAmmoTruck,"LIB_OpelBlitz_Fuel","LIB_OpelBlitz_Ambulance", vehNATORepairTruck,"LIB_SdKfz_7"];
 vehNATOBike = "B_T_Quadbike_01_F";
 NATOFlag = "LIB_FlagCarrier_GER";
+NATOFlagTexture = "ww2\core_t\if_decals_t\german\flag_ger_co.paa";
 NATOAmmobox = "LIB_BasicAmmunitionBox_GER";
 //cfgNATOInf = (configfile >> "CfgGroups" >> "West" >> "BLU_T_F" >> "Infantry");///
 gruposNATOSentry = ["LIB_GER_Soldier3_base","LIB_GER_ober_rifleman"];//"B_T_InfSentry";//

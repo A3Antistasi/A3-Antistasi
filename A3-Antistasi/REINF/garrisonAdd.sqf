@@ -30,12 +30,8 @@ if ((_tipo == staticCrewBuenos) and (_marcador in puestosFIA)) exitWith {hint "Y
 _posicion = getMarkerPos _marcador;
 
 if (surfaceIsWater _posicion) exitWith {hint "This Garrison is still updating, please try again in a few seconds"};
-_chequeo = false;
-{
-	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance _posicion < 500) and ([_x] call canFight) and !(isPlayer _x)) exitWith {_chequeo = true};
-} forEach allUnits;
 
-if (_chequeo) exitWith {Hint "You cannot Recruit Garrison Units with enemies near the zone"};
+if ([_posicion,500] call enemyNearCheck) exitWith {Hint "You cannot Recruit Garrison Units with enemies near the zone"};
 _nul = [-1,-_coste] remoteExec ["resourcesFIA",2];
 /*
 _garrison = [];

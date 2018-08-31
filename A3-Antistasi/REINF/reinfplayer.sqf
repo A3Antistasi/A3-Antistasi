@@ -7,12 +7,7 @@ if (recruitCooldown > time) exitWith {hint format ["You need to wait %1 seconds 
 
 if (player != player getVariable ["owner",player]) exitWith {hint "Youy cannot buy units while you are controlling AI"};
 
-_chequeo = false;
-{
-	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 300) and ([_x] call canFight) and !(isPlayer _x)) exitWith {_chequeo = true};
-} forEach allUnits;
-
-if (_chequeo) exitWith {Hint "You cannot Recruit Units with enemies nearby"};
+if ([player,300] call enemyNearCheck) exitWith {Hint "You cannot Recruit Units with enemies nearby"};
 
 if (player != leader group player) exitWith {hint "You cannot recruit units as you are not your group leader"};
 

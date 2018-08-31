@@ -37,6 +37,7 @@ vehCSATNormal = vehCSATLight + vehCSATTrucks + [vehCSATAmmoTruck, "rhs_gaz66_rep
 vehCSATBike = "O_T_Quadbike_01_ghex_F";
 
 CSATFlag = "rhs_Flag_Russia_F";
+CSATFlagTexture = "rhsafrf\addons\rhs_main\data\flag_rus_co.paa";
 CSATAmmoBox = "O_supplyCrate_F";
 //cfgCSATInf = (configfile >> "CfgGroups" >> "East" >> "OPF_T_F" >> "Infantry");
 gruposCSATSentry = ["rhs_vdv_efreitor","rhs_vdv_rifleman"];///"O_T_InfSentry";///

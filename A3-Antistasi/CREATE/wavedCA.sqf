@@ -86,7 +86,7 @@ while {(_waves != 0)} do
 				{
 				_puesto = selectRandom _puestos;
 				_posOrigenLand = getMarkerPos _puesto;
-				[_puesto,60] call addTimeForIdle;
+				//[_puesto,60] call addTimeForIdle;
 				_spawnPoint = [_posOrigenLand] call findNearestGoodRoad;
 				_pos = position _spawnPoint;
 				_dir = getDir _spawnPoint;
@@ -613,7 +613,7 @@ while {(_waves != 0)} do
 		["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED"] call taskUpdate;
 		};
 	_solMax = round ((count _soldados)*0.6);
-	if (_solMax > 8) then {_waves = _waves -1};
+	_waves = _waves -1;
 	_firstWave = false;
 	diag_log format ["Antistasi: Reached end of spawning attack, wave %1. Vehicles: %2. Wave Units: %3. Total units: %4 ",_waves, count _vehiculos, count _soldados, count _soldadosTotal];
 	if (lados getVariable [_mrkDestino,sideUnknown] != buenos) then {_soldados spawn remoteBattle};
@@ -647,7 +647,16 @@ while {(_waves != 0)} do
 				_killZones append [_mrkDestino,_mrkDestino,_mrkDestino];
 				killZones setVariable [_mrkOrigen,_killZones,true];
 				};
-			if ((_waves == 0) or (!(lados getVariable [_mrkOrigen,sideUnknown] == malos))) then
+
+			if !(_posOrigenLand isEqualTo []) then
+				{
+				if ({[_x] call vehAvailable} count vehNATOAPC == 0) then {_waves = _waves -1};
+				if !([vehNATOTank] call vehAvailable) then {_waves = _waves - 1};
+				};
+			if ({[_x] call vehAvailable} count vehNATOAttackHelis == 0) then {_waves = _waves -1};
+			if !([vehNATOPlane] call vehAvailable) then {_waves = _waves -1};
+
+			if ((_waves <= 0) or (!(lados getVariable [_mrkOrigen,sideUnknown] == malos))) then
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
 				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
@@ -678,6 +687,15 @@ while {(_waves != 0)} do
 				_killZones append [_mrkDestino,_mrkDestino,_mrkDestino];
 				killZones setVariable [_mrkOrigen,_killZones,true];
 				};
+
+			if !(_posOrigenLand isEqualTo []) then
+				{
+				if ({[_x] call vehAvailable} count vehCSATAPC == 0) then {_waves = _waves -1};
+				if !([vehCSATTank] call vehAvailable) then {_waves = _waves - 1};
+				};
+			if ({[_x] call vehAvailable} count vehCSATAttackHelis == 0) then {_waves = _waves -1};
+			if !([vehCSATPlane] call vehAvailable) then {_waves = _waves -1};
+
 			if ((_waves == 0) or (lados getVariable [_mrkOrigen,sideUnknown] != muyMalos)) then
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;

@@ -3,12 +3,8 @@ private ["_vehInGarage","_chequeo"];
 pool = !(_this select 0);
 if (pool and (not([player] call isMember))) exitWith {hint "You cannot access the Garage as you are guest in this server"};
 if (player != player getVariable "owner") exitWith {hint "You cannot access the Garage while you are controlling AI"};
-_chequeo = false;
-{
-	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance player < 300) and (not(captive _x))) then {_chequeo = true};
-} forEach allUnits;
 
-if (_chequeo) exitWith {Hint "You cannot manage the Garage with enemies nearby"};
+if ([player,300] call enemyNearCheck) exitWith {Hint "You cannot manage the Garage with enemies nearby"};
 vehInGarageShow = [];
 _hayAire = false;
 _aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == buenos) and (player inArea _x)};
@@ -144,6 +140,11 @@ _dir = getDir garageVeh;
 _tipo = typeOf garageVeh;
 deleteVehicle garageVeh;
 if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; comprado = nil; garageVeh = nil; cuentaGarage = nil};
+if ([player,300] call enemyNearCheck) then
+	{
+	hint "You cannot manage the Garage with enemies nearby";
+	comprado = 0;
+	};
 if (comprado != 2) exitWith {comprado = nil; garageVeh = nil; cuentaGarage = nil};
 comprado = nil;
 //if (player distance2D _pos > 100) exitWith {hint "You have to select a closer position from you"};

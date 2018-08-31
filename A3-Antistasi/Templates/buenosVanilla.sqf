@@ -29,7 +29,7 @@ vehSDKPlane = "I_C_Plane_civil_01_F";
 vehSDKBoat = "I_C_Boat_Transport_01_F";
 vehSDKRepair = "B_G_Offroad_01_repair_F";
 SDKFlag = "Flag_Syndikat_F";
-
+SDKFlagTexture = "\A3\Data_F_exp\Flags\Flag_Synd_CO.paa";
 tipoPetros = "I_C_Soldier_Camo_F";
 
 soporteStaticSDKB = "I_HMG_01_support_F";

@@ -12,7 +12,7 @@ if ((_var isEqualTo "") or (_var isEqualTo "ATMan") or (_var isEqualTo "AAMan") 
 		}
 	else
 		{
-		if ({(_x call BIS_fnc_itemType) select 0 == "Mine"} count (magazines _x) > 0) then
+		if ({(_x call BIS_fnc_itemType) select 0 == "Mine"} count (magazines _unit) > 0) then
 			{
 			_result = "Engineer";
 			}
@@ -75,6 +75,21 @@ if ((_var isEqualTo "") or (_var isEqualTo "ATMan") or (_var isEqualTo "AAMan") 
 								  		};
 								  	};
 								*/
+								};
+							}
+						else
+							{
+							if (vehicle _unit isKindOf "StaticWeapon") then
+								{
+								_weapon = vehicle _unit;
+								if (_weapon isKindOf "StaticMortar") then
+									{
+									_result = "StaticMortar";
+									}
+								else
+									{
+									_result = "StaticGunner";
+									};
 								};
 							};
 						};

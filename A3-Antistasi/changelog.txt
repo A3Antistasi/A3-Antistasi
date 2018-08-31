@@ -1094,6 +1094,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - NEW IMPORTANT FEATURE IN MP: GAME MODE. In the lobby you may set 4 options: All vs All, Rebels vs All and other two on which rebels only fight one chosen faction (invaders or government).
 - NEW VERSION: WWII Has arrived to Antistasi. In Armja Krajova polish resistance fight against Germans and Soviets. Required mods are CUP Maps and IFA.
 - Total rework on UI for garage and buy vehicle.
+- Squad Vehicle Stats button replaced by "Squad SITREP" on which player will receive a lot of useful information about his AI squads.
 - Removed MP explots on buying, login,logout.
 - Fixed bug on hide in building AI script.
 - FT on vehicles will be a bit safer.
@@ -1123,3 +1124,4 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Fixed rebel HE airstrikes.
 - The NV for the enemy specops is managed independently of the modset / edition.
 - Vehicle dialogs will show vehicle names related to the modset.
+- Removed a lot of vanilla action references and Warlords texts.

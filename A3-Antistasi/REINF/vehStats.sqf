@@ -1,6 +1,6 @@
 if (count hcSelected player == 0) exitWith {hint "You must select one group on the HC bar"};
 
-private ["_grupo","_veh","_texto"];
+private ["_grupo","_veh","_texto","_unidades"];
 
 /*
 _esStatic = false;
@@ -60,30 +60,53 @@ if (_this select 0 == "mount") exitWith
 	} forEach hcSelected player;
 	if (_texto != "") then {hint format ["%1",_texto]};
 	};
-
+_texto = "";
 _grupo = (hcSelected player select 0);
+player sideChat format ["%1, SITREP!!",groupID _grupo];
+_unidades = units _grupo;
+_texto = format ["%1 Status\n\nAlive members: %2\nAble to combat: %3\nCurrent task: %4\nCombat Mode:%5\n",groupID _grupo,{alive _x} count _unidades,{[_x] call canFight} count _unidades,_grupo getVariable ["tarea","Patrol"],behaviour (leader _grupo)];
+if ({[_x] call isMedic} count _unidades > 0) then {_texto = format ["%1Operative Medic\n",_texto]} else {_texto = format ["%1No operative Medic\n",_texto]};
+if ({_x call typeOfSoldier == "ATMan"} count _unidades > 0) then {_texto = format ["%1With AT capabilities\n",_texto]};
+if ({_x call typeOfSoldier == "AAMan"} count _unidades > 0) then {_texto = format ["%1With AA capabilities\n",_texto]};
+if (!(isNull(_grupo getVariable ["morteros",objNull])) or ({_x call typeOfSoldier == "StaticMortar"} count _unidades > 0)) then
+	{
+	if ({vehicle _x isKindOf "StaticWeapon"} count _unidades > 0) then {_texto = format ["%1Mortar is deployed\n",_texto]} else {_texto = format ["%1Mortar not deployed\n",_texto]};
+	}
+else
+	{
+	if ({_x call typeOfSoldier == "StaticGunner"} count _unidades > 0) then
+		{
+		if ({vehicle _x isKindOf "StaticWeapon"} count _unidades > 0) then {_texto = format ["%1Static is deployed\n",_texto]} else {_texto = format ["%1Static not deployed\n",_texto]};
+		};
+	};
+
 _veh = objNull;
 {
 _owner = _x getVariable "owner";
 if (!isNil "_owner") then {if (_owner == _grupo) exitWith {_veh = _x}};
 } forEach vehicles;
-if (isNull _veh) exitWith {hint "The group has no vehicle assigned"};
-
-if (_this select 0 == "stats") then
+if (isNull _veh) then
 	{
-	_texto = format ["Squad %1 Vehicle Stats\n\n%2",groupID _grupo,getText (configFile >> "CfgVehicles" >> (typeOf _veh) >> "displayName")];
+	{
+	if ((vehicle _x != _x) and (_x == driver _x) and !(vehicle _x isKindOf "StaticWeapon")) exitWith {_veh = vehicle _x};
+	} forEach _unidades;
+	};
+if !(isNull _veh) then
+	{
+	_texto = format ["%1Current vehicle:\n%2\n",_texto,getText (configFile >> "CfgVehicles" >> (typeOf _veh) >> "displayName")];
 	if (!alive _veh) then
 		{
-		_texto = format ["%1\n\nDESTROYED",_texto];
+		_texto = format ["%1DESTROYED",_texto];
 		}
 	else
 		{
-		if (!canMove _veh) then {_texto = format ["%1\n\nDISABLED",_texto]};
+		if (!canMove _veh) then {_texto = format ["%1DISABLED\n",_texto]};
 		if (count allTurrets [_veh, false] > 0) then
 			{
-			if (!canFire _veh) then {_texto = format ["%1\n\nWEAPON DISABLED",_texto]};
-			if (someAmmo _veh) then {_texto = format ["%1\n\nMunitioned",_texto]};
+			if (!canFire _veh) then {_texto = format ["%1WEAPON DISABLED\n",_texto]};
+			if (someAmmo _veh) then {_texto = format ["%1Munitioned\n",_texto]};
 			};
+		_texto = format ["%1Boarded:%2/%3",_texto,{vehicle _x == _veh} count _unidades,{alive _x} count _unidades];
 		};
-	hint format ["%1",_texto];
 	};
+hint format ["%1",_texto];

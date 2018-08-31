@@ -4,17 +4,20 @@ if (player getVariable ["owner",player] != player) exitWith {_handled};
 _key = _this select 1;
 if (_key == 21) then
 	{
-	if (_this select 2) then
+	if (isNil"garageVeh") then
 		{
-		if (player == theBoss) then
+		if (_this select 2) then
 			{
-			[] spawn artySupport;
+			if (player == theBoss) then
+				{
+				[] spawn artySupport;
+				};
+			}
+		else
+			{
+			closedialog 0;
+			_nul = createDialog "radio_comm";
 			};
-		}
-	else
-		{
-		closedialog 0;
-		_nul = createDialog "radio_comm";
 		};
 	}
 else

@@ -109,100 +109,172 @@ if ((_tipo == "SB") or (_tipo == "CB")) then
 
 if (_salir) exitWith {hint format ["%1",_texto]};
 hint "Select a place to build the required asset and press SPACE to start the construction.\n\nHit ESC to exit";
-veh = _clase createVehicleLocal [0,0,0];
-posicionado = 0;
+garageVeh = _clase createVehicleLocal [0,0,0];
+comprado = 0;
 
 _displayEH = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
 		_handled = false;
 		if (_this select 1 == 1) then
 			{
-			posicionado = 1;
+			comprado = 1;
 			_handled = true;
 			}
 		else
 			{
 			if (_this select 1 == 57) then
 				{
-				if (getPosASL veh isEqualTo [0,0,0]) then
+				if (getPosASL garageVeh isEqualTo [0,0,0]) then
 					{
 					hint "You have selected a wrong place. Please note:\n\nRoadblocks have to be built in road segments.\n\nBunkers have to be built in garrison zones";
 					}
 				else
 					{
-					posicionado = 2;
+					comprado = 2;
 					};
 				};
 			};
 		_handled;
 		}];
 
-_HDEH = player addEventHandler ["HandleDamage",{posicionado = 1}];
-
+_HDEH = player addEventHandler ["HandleDamage",{comprado = 1}];
+posicionSel = [0,0,0];
 if (_tipo == "RB") then
 	{
+	onEachFrame
+	 {
+	 if !(isNull garageVeh) then
+	  {
+	  _ins = lineIntersectsSurfaces [
+	    AGLToASL positionCameraToWorld [0,0,0],
+	    AGLToASL positionCameraToWorld [0,0,1000],
+	    player,garageVeh
+	   ];
+	   if (_ins isEqualTo []) exitWith {};
+	   _pos = (_ins select 0 select 0);
+	   if (_pos distance posicionSel < 0.1) exitWith {};
+	   posicionSel = _pos;
+	   if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
+	   if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
+	   if (surfaceIsWater _pos) exitWith {garageVeh setPosASL [0,0,0]};
+	   if !(isOnRoad ASLToAGL _pos) exitWith {garageVeh setPosASL [0,0,0]};
+	   garageVeh setPosASL _pos;
+	   garageVeh setVectorUp (_ins select 0 select 1);
+	   garageVeh setDir (getDir player);
+	   };
+	 };
+	/*
 	onEachFrame
 		{
 		_ins = lineIntersectsSurfaces [
 	  	AGLToASL positionCameraToWorld [0,0,0],
 	  	AGLToASL positionCameraToWorld [0,0,1000],
-	  	player,veh
+	  	player,garageVeh
 	 	];
-	 	if ((count _ins == 0) or (!isOnRoad ASLToAGL (_ins select 0 select 0)) /*or (!(isNull (_ins select 0 select 2)) and !(isNull (_ins select 0 select 3)))*/ or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf veh])== 0))exitWith {veh setPosASL [0,0,0]};
-	 	veh setPosASL (_ins select 0 select 0);
-	 	veh setVectorUp (_ins select 0 select 1);
-	 	veh setDir (getDir player)
+	 	if ((count _ins == 0) or (!isOnRoad ASLToAGL (_ins select 0 select 0)) or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf garageVeh])== 0))exitWith {garageVeh setPosASL [0,0,0]};
+	 	garageVeh setPosASL (_ins select 0 select 0);
+	 	garageVeh setVectorUp (_ins select 0 select 1);
+	 	garageVeh setDir (getDir player)
 		};
+	*/
 	}
 else
 	{
 	if ((_tipo == "SB") or (_tipo == "CB")) then
 		{
 		onEachFrame
-			{
-			_ins = lineIntersectsSurfaces [
-		  	AGLToASL positionCameraToWorld [0,0,0],
-		  	AGLToASL positionCameraToWorld [0,0,1000],
-		  	player,veh
-		 	];
-		 	if ((count _ins == 0) or !((_ins select 0 select 0) inArea cercano) or (isOnRoad ASLToAGL (_ins select 0 select 0))/*or (!(isNull (_ins select 0 select 2)) and !(isNull (_ins select 0 select 3)))*/ or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf veh])== 0))exitWith {veh setPosASL [0,0,0]};
-		 	veh setPosASL (_ins select 0 select 0);
-		 	veh setVectorUp (_ins select 0 select 1);
-		 	veh setDir (getDir player)
-			};
-		}
-	else
-		{
+		 {
+		 if !(isNull garageVeh) then
+		  {
+		  _ins = lineIntersectsSurfaces [
+		    AGLToASL positionCameraToWorld [0,0,0],
+		    AGLToASL positionCameraToWorld [0,0,1000],
+		    player,garageVeh
+		   ];
+		   if (_ins isEqualTo []) exitWith {};
+		   _pos = (_ins select 0 select 0);
+		   if (_pos distance posicionSel < 0.1) exitWith {};
+		   posicionSel = _pos;
+		   if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
+		   if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
+		   if (surfaceIsWater _pos) exitWith {garageVeh setPosASL [0,0,0]};
+		   if (isOnRoad ASLToAGL _pos) exitWith {garageVeh setPosASL [0,0,0]};
+		   if !(_pos inArea cercano) exitWith {garageVeh setPosASL [0,0,0]};
+		   garageVeh setPosASL _pos;
+		   garageVeh setVectorUp (_ins select 0 select 1);
+		   garageVeh setDir (getDir player);
+		   };
+		 };
+		/*
 		onEachFrame
 			{
 			_ins = lineIntersectsSurfaces [
 		  	AGLToASL positionCameraToWorld [0,0,0],
 		  	AGLToASL positionCameraToWorld [0,0,1000],
-		  	player,veh
+		  	player,garageVeh
 		 	];
-		 	if ((count _ins == 0) /*or (!(isNull (_ins select 0 select 2)) and !(isNull (_ins select 0 select 3)))*/ or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf veh])== 0))exitWith {veh setPosASL [0,0,0]};
-		 	veh setPosASL (_ins select 0 select 0);
-		 	veh setVectorUp (_ins select 0 select 1);
-		 	veh setDir (getDir player)
+		 	if ((count _ins == 0) or !((_ins select 0 select 0) inArea cercano) or (isOnRoad ASLToAGL (_ins select 0 select 0)) or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf garageVeh])== 0))exitWith {garageVeh setPosASL [0,0,0]};
+		 	garageVeh setPosASL (_ins select 0 select 0);
+		 	garageVeh setVectorUp (_ins select 0 select 1);
+		 	garageVeh setDir (getDir player)
 			};
+		*/
+		}
+	else
+		{
+		onEachFrame
+		 {
+		 if !(isNull garageVeh) then
+		  {
+		  _ins = lineIntersectsSurfaces [
+		    AGLToASL positionCameraToWorld [0,0,0],
+		    AGLToASL positionCameraToWorld [0,0,1000],
+		    player,garageVeh
+		   ];
+		   if (_ins isEqualTo []) exitWith {};
+		   _pos = (_ins select 0 select 0);
+		   if (_pos distance posicionSel < 0.1) exitWith {};
+		   posicionSel = _pos;
+		   if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
+		   if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
+		   if (surfaceIsWater _pos) exitWith {garageVeh setPosASL [0,0,0]};
+		   garageVeh setPosASL _pos;
+		   garageVeh setVectorUp (_ins select 0 select 1);
+		   garageVeh setDir (getDir player);
+		   };
+		 };
+		/*
+		onEachFrame
+			{
+			_ins = lineIntersectsSurfaces [
+		  	AGLToASL positionCameraToWorld [0,0,0],
+		  	AGLToASL positionCameraToWorld [0,0,1000],
+		  	player,garageVeh
+		 	];
+		 	if ((count _ins == 0) or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf garageVeh])== 0))exitWith {garageVeh setPosASL [0,0,0]};
+		 	garageVeh setPosASL (_ins select 0 select 0);
+		 	garageVeh setVectorUp (_ins select 0 select 1);
+		 	garageVeh setDir (getDir player)
+			};
+		*/
 		};
 	};
 
 private _timeOut = time + 60;
-waitUntil {(posicionado > 0) or (time > _timeOut)};
+waitUntil {(comprado > 0) or (time > _timeOut)};
 
 onEachFrame {};
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", _displayEH];
 player removeEventHandler ["HandleDamage",_HDEH];
-
+posicionSel = nil;
 //_posicion = getPosASL veh;
-_posicion = position veh;
-_dir = getDir veh;
-deleteVehicle veh;
-veh = nil;
+_posicion = position garageVeh;
+_dir = getDir garageVeh;
+deleteVehicle garageVeh;
+garageVeh = nil;
 cercano = nil;
-if (posicionado <= 1) exitWith {hint "Construction cancelled"; posicionado = nil};
-posicionado = nil;
+if (comprado <= 1) exitWith {hint "Construction cancelled"; comprado = nil};
+comprado = nil;
 private _isPlayer = if (player == _ingeniero) then {true} else {false};
 _timeOut = time + 30;
 
@@ -278,6 +350,7 @@ if ((_tipo == "SB") or (_tipo == "CB")) exitWith
 //falta inicializarlo en veh init
 if (_tipo == "RB") then
 	{
+	sleep 5;
 	_l1 = "#lightpoint" createVehicle getpos _veh;
 	_l1 setLightDayLight true;
 	_l1 setLightColor [5, 2.5, 0];

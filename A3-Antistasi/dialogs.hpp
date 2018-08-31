@@ -1665,7 +1665,7 @@ class squad_manager 			{
 		class HQ_button_MG: RscButton
 		{
 			idc = -1;
-			text = "Squad Vehicle Stats"; //--- ToDo: Localize;
+			text = "Squad SITREP"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -1767,12 +1767,12 @@ class AI_management 		{
 		class 8slots_R2: RscButton
 		{
 			idc = -1;
-			text = "Squad Vehicle Stats"; //--- ToDo: Localize;
+			text = "Squad SITREP"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "If the selected squad is using some vehicle, know remotely it's status";
+			tooltip = "Recover info about a HC squad status";
 			action = "[""stats""] call vehStats;";
 		};
 		class 8slots_L3: RscButton

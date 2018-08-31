@@ -550,7 +550,14 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
     haveRadio = true;
     unlockedItems = unlockedItems + ["tf_microdagr","tf_anprc148jem"];//making this items Arsenal available.["tf_anprc152"]
     tf_no_auto_long_range_radio = true; publicVariable "tf_no_auto_long_range_radio";//set to false and players will start with LR radio, uncomment the last line of so.
-	if (hayIFA) then {tf_give_personal_radio_to_regular_soldier = false; publicVariable "tf_give_personal_radio_to_regular_soldier"};
+	if (hayIFA) then
+		{tf_give_personal_radio_to_regular_soldier = false;
+		publicVariable "tf_give_personal_radio_to_regular_soldier";
+		}
+	else
+		{
+		unlockedItems = unlockedItems + ["tf_microdagr","tf_anprc148jem"];
+		};
 	//tf_buenos_radio_code = "";publicVariable "tf_buenos_radio_code";//to make enemy vehicles usable as LR radio
 	//tf_east_radio_code = tf_buenos_radio_code; publicVariable "tf_east_radio_code"; //to make enemy vehicles usable as LR radio
 	//tf_guer_radio_code = tf_buenos_radio_code; publicVariable "tf_guer_radio_code";//to make enemy vehicles usable as LR radio

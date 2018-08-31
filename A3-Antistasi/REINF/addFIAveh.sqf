@@ -84,34 +84,42 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 			};
 		_handled;
 		}];
-
+posicionSel = [0,0,0];
 onEachFrame
-	{
-	if !(isNull garageVeh) then
-		{
-		_ins = lineIntersectsSurfaces [
-	  	AGLToASL positionCameraToWorld [0,0,0],
-	  	AGLToASL positionCameraToWorld [0,0,1000],
-	  	player,garageVeh
-	 	];
-	 	if (garageVeh isKindOf "Ship") then {(_ins select 0 select 0) set [2,0]};
-	 	if ((count _ins == 0) or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf garageVeh])== 0) or ((_ins select 0 select 0) distance2d player > 100))exitWith {garageVeh setPosASL [0,0,1000]};
-	 	if ((garageVeh isKindOf "Ship") and !(surfaceIsWater (_ins select 0 select 0))) exitWith {garageVeh setPosASL [0,0,1000]};
-	 	if (!(garageVeh isKindOf "Ship") and (surfaceIsWater (_ins select 0 select 0))) exitWith {garageVeh setPosASL [0,0,1000]};
-	 	garageVeh setPosASL (_ins select 0 select 0);
-	 	garageVeh setVectorUp (_ins select 0 select 1);
-	 	//garageVeh setDir (getDir player);
-	 	};
-	};
+ {
+ if !(isNull garageVeh) then
+  {
+  _ins = lineIntersectsSurfaces [
+    AGLToASL positionCameraToWorld [0,0,0],
+    AGLToASL positionCameraToWorld [0,0,1000],
+    player,garageVeh
+   ];
+   if (_ins isEqualTo []) exitWith {};
+   _pos = (_ins select 0 select 0);
+   if (_pos distance posicionSel < 0.1) exitWith {};
+   posicionSel = _pos;
+   _barco = false;
+   if (garageVeh isKindOf "Ship") then {_pos set [2,0]; _barco = true};
+   if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
+   if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
+   _agua = surfaceIsWater _pos;
+   if (_barco and {!_agua}) exitWith {garageVeh setPosASL [0,0,0]};
+   if (!_barco and {_agua}) exitWith {garageVeh setPosASL [0,0,0]};
+   garageVeh setPosASL _pos;
+   garageVeh setVectorUp (_ins select 0 select 1);
+   };
+ };
 waitUntil {(comprado > 0) or !(player inArea _cercano)};
 onEachFrame {};
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", garageKeys];
 _pos = getPosASL garageVeh;
 _dir = getDir garageVeh;
 deleteVehicle garageVeh;
-if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to buy a vehicle";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText};
-if (comprado != 2) exitWith {};
+if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to buy a vehicle";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; comprado = nil;garageVeh = nil};
+if (comprado != 2) exitWith {comprado = nil;garageVeh = nil};
 waitUntil {isNull garageVeh};
+garageVeh = nil;
+comprado = nil;
 _veh = createVehicle [_tipoVeh, [0,0,1000], [], 0, "NONE"];
 _veh setDir _dir;
 _veh setPosASL _pos;

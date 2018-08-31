@@ -95,7 +95,7 @@ _introShot =
 _titulo = if (worldName == "Tanoa") then {["Warlords of the Pacific","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText} else {["Antistasi","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText};
 disableUserInput false;
 player addWeaponGlobal "itemmap";
-player addWeaponGlobal "itemgps";
+if !(hayIFA) then {player addWeaponGlobal "itemgps"};
 if (isMultiplayer) then
 	{
 	if (paramsArray select 8 == 1) then {[] execVM "playerMarkers.sqf"};

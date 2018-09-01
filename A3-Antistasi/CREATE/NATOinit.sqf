@@ -99,12 +99,16 @@ else
 
 if (_skill > 0.58) then {_skill = 0.58};
 _unit setSkill _skill;
-if (not(_tipo in sniperUnits)) then {if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]}};
-if (_unit == leader _unit) then
+if (not(_tipo in sniperUnits)) then
 	{
-	_unit setskill ["courage",_skill + 0.2];
-	_unit setskill ["commanding",_skill + 0.2];
+	if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]};
+	if (_tipo in squadLeaders) then
+		{
+		_unit setskill ["courage",_skill + 0.2];
+		_unit setskill ["commanding",_skill + 0.2];
+		};
 	};
+
 _hmd = hmd _unit;
 if !(hayIFA) then
 	{

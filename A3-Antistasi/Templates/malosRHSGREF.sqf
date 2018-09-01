@@ -74,7 +74,6 @@ _magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
 municionNATO pushBack (_magazines select 0);
 } forEach armasNATO;
 flagNATOmrk = "rhs_flag_insurgents";//ok
-squadLeaders pushBack "rhsgref_ins_g_grenadier";
 
 lamparaMalos = "rhs_acc_2dpZenit";
 nameMalos = "ChDKZ";

@@ -653,8 +653,14 @@ while {(_waves != 0)} do
 				if ({[_x] call vehAvailable} count vehNATOAPC == 0) then {_waves = _waves -1};
 				if !([vehNATOTank] call vehAvailable) then {_waves = _waves - 1};
 				};
-			if ({[_x] call vehAvailable} count vehNATOAttackHelis == 0) then {_waves = _waves -1};
-			if !([vehNATOPlane] call vehAvailable) then {_waves = _waves -1};
+			if ({[_x] call vehAvailable} count vehNATOAttackHelis == 0) then
+				{
+				if (_posOrigenLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
+				};
+			if !([vehNATOPlane] call vehAvailable) then
+				{
+				if (_posOrigenLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
+				};
 
 			if ((_waves <= 0) or (!(lados getVariable [_mrkOrigen,sideUnknown] == malos))) then
 				{
@@ -693,8 +699,14 @@ while {(_waves != 0)} do
 				if ({[_x] call vehAvailable} count vehCSATAPC == 0) then {_waves = _waves -1};
 				if !([vehCSATTank] call vehAvailable) then {_waves = _waves - 1};
 				};
-			if ({[_x] call vehAvailable} count vehCSATAttackHelis == 0) then {_waves = _waves -1};
-			if !([vehCSATPlane] call vehAvailable) then {_waves = _waves -1};
+			if ({[_x] call vehAvailable} count vehCSATAttackHelis == 0) then
+				{
+				if (_posOrigenLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
+				};
+			if !([vehCSATPlane] call vehAvailable) then
+				{
+				if (_posOrigenLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
+				};
 
 			if ((_waves == 0) or (lados getVariable [_mrkOrigen,sideUnknown] != muyMalos)) then
 				{

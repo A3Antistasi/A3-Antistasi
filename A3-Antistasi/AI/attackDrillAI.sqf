@@ -205,6 +205,22 @@ while {true} do
 						{
 						[_x,_cercano] call fuegoSupresor;
 						} forEach ((_grupo getVariable ["baseOfFire",[]]) select {([_x] call canFight) and ((_x getVariable ["typeOfSoldier",""] == "MGMan") or (_x getVariable ["typeOfSoldier",""] == "StaticGunner"))});
+						if (sunOrMoon < 1) then
+							{
+							if !(haveNV) then
+								{
+								if (hayIFA) then
+									{
+									if (([_lider] call canFight) and ((typeOf _lider) in squadLeaders)) then {[_lider,_cercano] call useFlares}
+									}
+								else
+									{
+									{
+									[_x,_cercano] call fuegoSupresor;
+									} forEach ((_grupo getVariable ["baseOfFire",[]]) select {([_x] call canFight) and (_x getVariable ["typeOfSoldier",""] == "Normal") and (count (getArray (configfile >> "CfgWeapons" >> primaryWeapon _x >> "muzzles")) == 2)});
+									};
+								};
+							};
 						_mortero = _grupo getVariable ["morteros",objNull];
 						if (!(isNull _mortero) and ([_mortero] call canFight)) then
 							{

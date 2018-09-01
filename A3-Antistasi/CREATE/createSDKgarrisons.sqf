@@ -71,60 +71,54 @@ if (_marcador != "Synd_HQ") then
 _estaticas = staticsToSave select {_x distance _posicion < _size};
 
 _garrison = garrison getVariable [_marcador,[]];
+_grupo = createGroup buenos;
+_grupoEst = createGroup buenos;
+_grupoMort = createGroup buenos;
+{
+_index = _garrison findIf {_x in SDKMil};
+if (_index == -1) exitWith {};
+if (typeOf _x == SDKMortar) then
+	{
+	_unit = _grupoMort createUnit [(_garrison select _index), _posicion, [], 0, "NONE"];
+	_unit moveInGunner _estatica;
+	_nul=[_estatica] execVM "scripts\UPSMON\MON_artillery_add.sqf";
+	[_unit,_marcador] call FIAinitBases;
+	_soldados pushBack _unit;
+	}
+else
+	{
+	_unit = _grupoEst createUnit [(_garrison select _index), _posicion, [], 0, "NONE"];
+	_unit moveInGunner _x;
+	[_unit,_marcador] call FIAinitBases;
+	_soldados pushBack _unit;
+	};
+_garrison deleteAT _index;
+} forEach _estaticas;
+
+if (staticCrewBuenos in _garrison) then
+	{
+	{
+	_unit = _grupoMort createUnit [staticCrewBuenos, _posicion, [], 0, "NONE"];
+	_pos = [_posicion] call mortarPos;
+	_veh = SDKMortar createVehicle _pos;
+	_vehiculos pushBack _veh;
+	_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
+	_unit assignAsGunner _veh;
+	_unit moveInGunner _veh;
+	[_veh] call AIVEHinit;
+	_soldados pushBack _unit;
+	} forEach (_garrison select {_x == staticCrewBuenos});
+	_garrison = _garrison - [staticCrewBuenos];
+	};
+_garrison = _garrison call garrisonReorg;
 _tam = count _garrison;
 _cuenta = 0;
-_grupo = createGroup buenos;
-_grupos pushBack _grupo;
-
-if ((staticCrewBuenos in _garrison) or ({typeOf _x == SDKMortar} count _estaticas > 0))then
-	{
-	_grupoMort = createGroup buenos;
-	};
-_grupoEst = grpNull;
-if (count _estaticas > 0) then
-	{
-	_grupoEst = createGroup buenos;
-	};
 
 while {(spawner getVariable _marcador != 2) and (_cuenta < _tam)} do
 	{
 	_tipo = _garrison select _cuenta;
-	if ((_tipo in SDKMil) and (count _estaticas > 0)) then
-		{
-		_estatica = _estaticas select 0;
-		if (typeOf _estatica == SDKMortar) then
-			{
-			_unit = _grupoMort createUnit [_tipo, _posicion, [], 0, "NONE"];
-			_unit moveInGunner _estatica;
-			_nul=[_estatica] execVM "scripts\UPSMON\MON_artillery_add.sqf";
-			}
-		else
-			{
-			_unit = _grupoEst createUnit [_tipo, _posicion, [], 0, "NONE"];
-			_unit moveInGunner _estatica;
-			};
-		_estaticas = _estaticas - [_estatica];
-		}
-	else
-		{
-		if (_tipo == staticCrewBuenos) then
-			{
-			_unit = _grupoMort createUnit [_tipo, _posicion, [], 0, "NONE"];
-			_pos = [_posicion] call mortarPos;
-			_veh = SDKMortar createVehicle _pos;
-			_vehiculos pushBack _veh;
-			_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
-			_unit assignAsGunner _veh;
-			_unit moveInGunner _veh;
-			[_veh] call AIVEHinit;
-			}
-		else
-			{
-			_unit = _grupo createUnit [_tipo, _posicion, [], 0, "NONE"];
-			if (_tipo in SDKSL) then {_grupo selectLeader _unit};
-			};
-		};
-
+	_unit = _grupo createUnit [_tipo, _posicion, [], 0, "NONE"];
+	if (_tipo in SDKSL) then {_grupo selectLeader _unit};
 	[_unit,_marcador] call FIAinitBases;
 	_soldados pushBack _unit;
 	_cuenta = _cuenta + 1;
@@ -148,12 +142,6 @@ for "_i" from 0 to (count _grupos) - 1 do
 		_nul = [leader _grupo, _marcador, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 		};
 	};
-
-if (staticCrewBuenos in _garrison) then
-	{
-	_grupos pushBack _grupoMort;
-	};
-
 waitUntil {sleep 1; (spawner getVariable _marcador == 2)};
 
 {
@@ -167,4 +155,5 @@ if (alive _soldado) then
 //if (!isNull _periodista) then {deleteVehicle _periodista};
 {deleteGroup _x} forEach _grupos;
 deleteGroup _grupoEst;
+deleteGroup _grupoMort;
 {if (!(_x in staticsToSave)) then {deleteVehicle _x}} forEach _vehiculos;

@@ -2,7 +2,7 @@
 if (player != theBoss) exitWith {hint "Only our Commander has access to this function"};
 //if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
 if (markerAlpha respawnBuenos == 0) exitWith {hint "You cant recruit a new squad while you are moving your HQ"};
-if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
+if (!([player] call hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
 _chequeo = false;
 {
 	if (((side _x == muyMalos) or (side _x == malos)) and (_x distance petros < 500) and ([_x] call canFight) and !(isPlayer _x)) exitWith {_chequeo = true};
@@ -58,7 +58,7 @@ if (_tipoGrupo isEqualType []) then
 	}
 else
 	{
-	_coste = _coste + (2*(server getVariable (SDKMil select 0))) + ([_tipogrupo] call vehiclePrice);
+	_coste = _coste + (2*(server getVariable staticCrewBuenos)) + ([_tipogrupo] call vehiclePrice);
 	_costeHR = 2;
 	//if (_tipoGrupo == SDKMortar) then {_coste = _coste + ([vehSDKBike] call vehiclePrice)} else {_coste = _coste + ([vehSDKTruck] call vehiclePrice)};
 	if ((_tipoGrupo == SDKMortar) or (_tipoGrupo == SDKMGStatic)) then

@@ -52,25 +52,59 @@ else
 
 if (_exit) exitWith {diag_log format ["Antistasi PatrolCA: CA cancelled because of other CA in vincity of %1",_marcador]};
 
+_enemigos = allUnits select {_x distance _posDestino < distanciaSPWN2 and (side (group _x) != _lado) and (side (group _x) != civilian) and (alive _x)};
+
+if ((!_esMarcador) and (_typeOfAttack != "Air") and (!_super) and ({lados getVariable [_x,sideUnknown] == _lado} count aeropuertos > 0)) then
+	{
+	_plane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
+	if ([_plane] call vehAvailable) then
+		{
+		_amigos = if (_lado == malos) then {allUnits select {(_x distance _posDestino < 200) and (alive _x) and ((side (group _x) == _lado) or (side (group _x) == civilian))}} else {allUnits select {(_x distance _posDestino < 100) and ([_x] call canFight) and (side (group _x) == _lado)}};
+		if (count _amigos == 0) then
+			{
+			_tipo = "NAPALM";
+			{
+			if (vehicle _x isKindOf "Tank") then
+				{
+				_tipo = "HE"
+				}
+			else
+				{
+				if (vehicle _x != _x) then
+					{
+					if !(vehicle _x isKindOf "StaticWeapon") then {_tipo = "CLUSTER"};
+					};
+				};
+			if (_tipo == "HE") exitWith {};
+			} forEach _enemigos;
+			_exit = true;
+			if (!_esMarcador) then {smallCApos pushBack _posDestino};
+			[_posDestino,_lado,_tipo] spawn airStrike;
+			diag_log format ["Antistasi PatrolCA: Airstrike of type %1 sent to %2",_tipo,_marcador];
+			if (!_esMarcador) then
+				{
+				sleep 120;
+				smallCApos = smallCApos - [_posDestino];
+				};
+			diag_log format ["Antistasi PatrolCA: CA resolved on airstrike %1",_marcador]
+			};
+		};
+	};
+if (_exit) exitWith {};
 
 if (!_inWaves) then
 	{
 	_aeropuertos = aeropuertos select {lados getVariable [_x,sideUnknown] == _lado};
 	_aeropuertos = _aeropuertos select 	{(getMarkerPos _x distance _posDestino < distanceForAirAttack) and ([_x,true] call airportCanAttack)};
+	_puestos = puestos select {(lados getVariable [_x,sideUnknown] == _lado) and ([_posDestino,getMarkerPos _x] call isTheSameIsland)};
+	_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < distanceForLandAttack)  and ([_x,true] call airportCanAttack)});
 	if (_esMarcador) then
 		{
 		_aeropuertos = _aeropuertos select {({_x == _marcador} count (killZones getVariable [_x,[]])) < 3};
+		if (hayIFA) then {_aeropuertos = _aeropuertos select {getMarkerPos _x distance _posDestino < distanceForLandAttack}};
 		}
 	else
 		{
-		if (_typeOfAttack == "Normal") then
-			{
-			if (!_super) then
-				{
-				_puestos = puestos select {(lados getVariable [_x,sideUnknown] == _lado) and ([_posDestino,getMarkerPos _x] call isTheSameIsland)};
-				_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < distanceForLandAttack)  and ([_x,true] call airportCanAttack)});
-				};
-			};
 		if (!_super) then
 			{
 			_sitio = [(recursos + fabricas + aeropuertos + puestos + puertos),_marcador] call BIS_fnc_nearestPosition;
@@ -98,43 +132,8 @@ _base = if ((_posOrigen distance _posDestino < distanceForLandAttack) and ([_pos
 
 if ((_base != "") and (_esMarcador)) then {if (_marcador in blackListDest) then {_base == ""}};
 
-_enemigos = if (_lado == malos) then {allUnits select {_x distance _posDestino < distanciaSPWN2 and (side _x != _lado) and (side (group _x) != civilian) and (alive _x)}} else {allUnits select {_x distance _posDestino < distanciaSPWN2 and (side (group _x) != _lado) and (alive _x)}};
 
-if ((_base == "") and (!_esMarcador) and (_typeOfAttack != "Air") and (!_super)) then
-	{
-	_plane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
-	if ([_plane] call vehAvailable) then
-		{
-		_amigos = allUnits select {(_x distance _posDestino < 300) and (alive _x) and (side (group _x) == _lado)};
-		if (count _amigos == 0) then
-			{
-			_tipo = "NAPALM";
-			{
-			if (vehicle _x isKindOf "Tank") then
-				{
-				_tipo = "HE"
-				}
-			else
-				{
-				if (vehicle _x != _x) then {_tipo = "CLUSTER"};
-				};
-			if (_tipo == "HE") exitWith {};
-			} forEach _enemigos;
-			_exit = true;
-			if (!_esMarcador) then {smallCApos pushBack _posDestino};
-			[_posDestino,_lado,_tipo] spawn airStrike;
-			if (debug) then {hint format ["Bombardeo de %1 en %2 por los %3",_tipo,_posDestino,_lado]};
-			diag_log format ["Antistasi PatrolCA: Airstrike of type %1 sent to %2",_tipo,_marcador];
-			if (!_esMarcador) then
-				{
-				sleep 120;
-				smallCApos = smallCApos - [_posDestino];
-				};
-			diag_log format ["Antistasi PatrolCA: CA resolved on airstrike %1",_marcador]
-			};
-		};
-	};
-
+/*
 if (_base != "") then
 	{
 	if (lados getVariable [_base,sideUnknown] == buenos) then {_exit = true}
@@ -142,8 +141,8 @@ if (_base != "") then
 else
 	{
 	if (lados getVariable [_aeropuerto,sideUnknown] == buenos) then {_exit = true}
-	};
-if (_exit) exitWith {};
+	};*/
+
 
 if (_typeOfAttack == "") then
 	{
@@ -199,7 +198,7 @@ else
 	};
 
 //if (debug) then {hint format ["Nos contraatacan desde %1 o desde el aeropuerto %2 hacia %3", _base, _aeropuerto,_marcador]; sleep 5};
-diag_log format ["Antistasi PatrolCA: CA performed from %1 or %2 to %3",_base,_aeropuerto,_marcador];
+diag_log format ["Antistasi PatrolCA: CA performed from %1 to %2",_aeropuerto,_marcador];
 //_config = if (_lado == malos) then {cfgNATOInf} else {cfgCSATInf};
 
 _soldados = [];

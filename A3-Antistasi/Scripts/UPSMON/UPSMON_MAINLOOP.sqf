@@ -851,7 +851,8 @@ while {true} do
 					If (_grp getvariable ["UPSMON_OnBattery",false]) then
 					{
 						//_area = (_attackpos distance (leader _grp))/10;//modified by Barbolani to make the dispersion distance dependant.
-						If ((!(_grp getvariable ["UPSMON_Batteryfire",false])) and ({((side (group _x) == civilian) and (_x distance _attackpos < (200))) or ((side (group _x) == side (leader _grp)) and (_x distance _attackPos < 100) and (!((vehicle _target) isKindOf "Air")))} count allUnits == 0)/* and (_area > 5)*/) then //modified by Barbolani for Antistasi
+						_amigos = if (side _grp == malos) then {{((side (group _x) == civilian) or (side (group _x) == side (leader _grp))) and (_x distance _attackPos < 100)} count allUnits} else {{(side (group _x) == side (leader _grp)) and (_x distance _attackPos < 100)} count allUnits};
+						If ((!(_grp getvariable ["UPSMON_Batteryfire",false])) and (_amigos == 0) and !((vehicle _target) isKindOf "Air")) then //modified by Barbolani for Antistasi
 						{
 							_artitarget = _attackpos;
 							_firemission = "HE";

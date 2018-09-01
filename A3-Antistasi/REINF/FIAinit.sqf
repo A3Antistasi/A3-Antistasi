@@ -111,6 +111,14 @@ else
 									[_unit, _rlauncher, 4, 0] call BIS_fnc_addWeapon;
 									};
 								};
+							}
+						else
+							{
+							if (_tipo in squadLeaders) then
+								{
+								_unit setskill ["courage",_skill + 0.2];
+								_unit setskill ["commanding",_skill + 0.2];
+								};
 							};
 						};
 					};
@@ -223,7 +231,7 @@ if (player == leader _unit) then
 	if (captive player) then {[_unit] spawn undercoverAI};
 
 	_unit setVariable ["rearming",false];
-	if ((!haveRadio) and (!hayTFAR) and (!hayACRE)) then
+	if ((!haveRadio) and (!hayTFAR) and (!hayACRE) and !(hayIFA)) then
 		{
 		while {alive _unit} do
 			{
@@ -248,11 +256,6 @@ if (player == leader _unit) then
 	}
 else
 	{
-	if (_unit == leader _unit) then
-		{
-		_unit setskill ["courage",_skill + 0.2];
-		_unit setskill ["commanding",_skill + 0.2];
-		};
 	_EHkilledIdx = _unit addEventHandler ["killed", {
 		_muerto = _this select 0;
 		_killer = _this select 1;

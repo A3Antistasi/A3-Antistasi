@@ -108,7 +108,7 @@ _wp1 setWaypointType "MOVE";
 _wp1 setWaypointSpeed "LIMITED";
 _wp1 setWaypointBehaviour "CARELESS";
 _plane setCollisionLight true;
-if ((_tipo == "NAPALM") and (napalmCurrent)) then {_tipo = "HE"};
+if ((_tipo == "NAPALM") and (napalmCurrent)) then {_tipo = "CLUSTER"};
 if (_tipo == "HE") then {_wp1 setWaypointStatements ["true", "[this,""HE""] execVM 'AI\airbomb.sqf'"]} else {if (_tipo == "NAPALM") then {_wp1 setWaypointStatements ["true", "[this,""NAPALM""] execVM 'AI\airbomb.sqf'"]} else {_wp1 setWaypointStatements ["true", "[this,""CLUSTER""] execVM 'AI\airbomb.sqf'"]}};
 
 _wp2 = _grupoplane addWaypoint [_pos2, 1];

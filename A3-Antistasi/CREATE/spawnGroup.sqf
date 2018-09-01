@@ -1,4 +1,4 @@
-private ["_posicion","_lado","_tipos","_grupo","_cuenta","_cuentaRangos","_lider","_override"];
+private ["_posicion","_lado","_tipos","_grupo","_cuenta","_cuentaRangos","_lider","_override","_unidades","_index"];
 
 _posicion = _this select 0;
 _lado = _this select 1;
@@ -28,12 +28,15 @@ for "_i" from 0 to (_cuenta - 1) do
 		if (_i <= _cuentaRangos) then
 			{
 			_unit setRank (_rangos select _i);
-			if (_i == 0) then {_grupo selectLeader _unit};
+			if (_i == 0) then {policeOfficer};
 			};
 		sleep 0.5;
 		};
 	};
-{_x allowDamage true} forEach (units _grupo);
+_unidades = units _grupo;
+_index = _unidades findIf {(typeOf _x in squadLeaders)};
+if (_index == -1) then {_grupo selectLeader (_unidades select 0)} else {_grupo selectLeader (_unidades select _index)};
+{_x allowDamage true} forEach _unidades;
 _grupo
 
 

@@ -53,8 +53,6 @@ NATOSpecOp = ["B_CTRG_Soldier_TL_tna_F","B_CTRG_Soldier_M_tna_F","B_CTRG_Soldier
 factionMachoMalos = "BLU_CTRG_F";
 gruposNATOSquad = [NATOSquad,["B_soldier_SL_F",NATOGrunt,"B_soldier_TL_F","B_soldier_AR_F","B_soldier_A_F","B_support_Mort_F","B_support_AMort_F","B_medic_F"],["B_soldier_SL_F",NATOGrunt,"B_soldier_TL_F","B_soldier_AR_F","B_soldier_A_F","B_support_MG_F","B_support_AMG_F","B_medic_F"],["B_soldier_SL_F",NATOGrunt,"B_soldier_TL_F","B_soldier_AR_F","B_soldier_A_F","B_soldier_AA_F","B_soldier_AAA_F","B_medic_F"],["B_soldier_SL_F",NATOGrunt,"B_soldier_TL_F","B_soldier_AR_F","B_soldier_A_F","B_soldier_AT_F","B_soldier_AAT_F","B_medic_F"],["B_soldier_SL_F",NATOGrunt,"B_soldier_TL_F","B_soldier_AR_F","B_soldier_A_F","B_engineer_F","B_engineer_F","B_medic_F"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///"B_engineer_F"
 
-squadLeaders pushBack "B_soldier_SL_F";
-
 soporteStaticNATOB = "B_HMG_01_support_F";
 ATStaticNATOB = "B_AT_01_weapon_F";
 MGStaticNATOB = "B_HMG_01_high_weapon_F";

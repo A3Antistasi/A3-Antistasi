@@ -118,6 +118,14 @@ else
 								[_unit, _rlauncher, 4, 0] call BIS_fnc_addWeapon;
 								};
 							};
+						}
+					else
+						{
+						if (_tipo in squadLeaders) then
+							{
+							_unit setskill ["courage",_skill + 0.2];
+							_unit setskill ["commanding",_skill + 0.2];
+							};
 						};
 					};
 				};
@@ -173,11 +181,6 @@ if !(hayIFA) then
 		};
 	};
 if ({if (_x in humo) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom humo,2]};
-if (_unit == leader _unit) then
-	{
-	_unit setskill ["courage",_skill + 0.2];
-	_unit setskill ["commanding",_skill + 0.2];
-	};
 
 _EHkilledIdx = _unit addEventHandler ["killed", {
 	_muerto = _this select 0;

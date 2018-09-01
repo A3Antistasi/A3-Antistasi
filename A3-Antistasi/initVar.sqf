@@ -150,7 +150,7 @@ if !(hayIFA) then
 else
 	{
 	cascos = [];
-	humo = ["LIB_US_M18_Yellow","LIB_US_M18_Red","LIB_US_M18_Green","LIB_US_M18","LIB_RDG"];
+	humo = ["LIB_RDG","LIB_NB39"];
 	};
 //allItems = [];
 
@@ -227,7 +227,7 @@ else
 	{
 	["LIB_DAK_OpelBlitz_Open","LIB_GazM1","LIB_GazM1_dirty","LIB_DAK_Kfz1","LIB_DAK_Kfz1_hood"];
 	};
-squadLeaders = [];
+
 
 if (!hayIFA) then
 	{
@@ -257,6 +257,8 @@ else
 	call compile preProcessFileLineNumbers "Templates\malosIFA.sqf";
 	};
 
+squadLeaders = SDKSL + [(NATOSquad select 0),(NATOSpecOp select 0),(CSATSquad select 0),(CSATSpecOp select 0)];
+medics = SDKMedic + [(FIAsquad select ((count FIAsquad)-1)),(NATOSquad select ((count NATOSquad)-1)),(NATOSpecOp select ((count NATOSpecOp)-1)),(CSATSquad select ((count CSATSquad)-1)),(CSATSpecOp select ((count CSATSpecOp)-1))];
 sdkTier1 = SDKMil + [staticCrewBuenos] + SDKMG + SDKGL + SDKATman;
 sdkTier2 = SDKMedic + SDKExp + SDKEng;
 sdkTier3 = SDKSL + SDKSniper;
@@ -504,9 +506,9 @@ if (!activeGREF) then
 		}
 	else
 		{
-		unlockedWeapons = ["LIB_PTRD","LIB_M2_Flamethrower","LIB_Binocular_GER","LIB_K98","LIB_M1895"];//"LMG_03_F"
+		unlockedWeapons = ["LIB_PTRD","LIB_M2_Flamethrower","LIB_Binocular_GER","LIB_K98","LIB_M1895","LIB_FLARE_PISTOL"];//"LMG_03_F"
 		unlockedRifles = ["LIB_K98"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
-		unlockedMagazines = ["LIB_1Rnd_145x114","LIB_M2_Flamethrower_Mag","LIB_5Rnd_792x57","LIB_Pwm","LIB_Rg42","LIB_US_TNT_4pound_mag","LIB_7Rnd_762x38"];
+		unlockedMagazines = ["LIB_1Rnd_145x114","LIB_M2_Flamethrower_Mag","LIB_5Rnd_792x57","LIB_Pwm","LIB_Rg42","LIB_US_TNT_4pound_mag","LIB_7Rnd_762x38","LIB_1Rnd_flare_red","LIB_1Rnd_flare_green","LIB_1Rnd_flare_white","LIB_1Rnd_flare_yellow"];
 		initialRifles = ["LIB_K98"];
 		unlockedAT = [];
 		};

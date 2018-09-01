@@ -74,7 +74,6 @@ _magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
 municionNATO pushBack (_magazines select 0);
 } forEach armasNATO;
 flagNATOmrk = "flag_USA";//ok
-squadLeaders pushBack "rhsusf_usmc_marpat_wd_squadleader";
 
 lamparaMalos = "acc_flashlight";
 nameMalos = "USAF";

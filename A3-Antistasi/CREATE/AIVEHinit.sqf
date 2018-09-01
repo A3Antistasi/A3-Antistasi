@@ -198,7 +198,7 @@ else
 					_chance = _datos select 1;
 					if ((_posicion distance (_datos select 0)) < 300) then
 						{
-						_chance = _chance + 3;
+						_chance = _chance + 2;
 						}
 					else
 						{
@@ -224,7 +224,7 @@ else
 							}
 						else
 							{
-							_bases = aeropuertos select {(getMarkerPos _x distance _posDestino < distanceForAirAttack) and ([_x,true] call airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
+							_bases = aeropuertos select {(getMarkerPos _x distance _mortero < distanceForAirAttack) and ([_x,true] call airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
 							if (count _bases > 0) then
 								{
 								_base = [_bases,_posicion] call BIS_fnc_nearestPosition;

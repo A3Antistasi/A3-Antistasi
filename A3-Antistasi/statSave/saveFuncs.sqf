@@ -186,7 +186,6 @@ fn_SetStat =
 			    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn apagon}} forEach ciudades;
 			    antenas = antenas - [_antena];
 			    _antena removeAllEventHandlers "Killed";
-			    //sleep 1;
 			    _antena setDamage [1,false];
 			    deleteMarker _mrk;
 			    };

@@ -1093,8 +1093,10 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 
 - NEW IMPORTANT FEATURE IN MP: GAME MODE. In the lobby you may set 4 options: All vs All, Rebels vs All and other two on which rebels only fight one chosen faction (invaders or government).
 - NEW VERSION: WWII Has arrived to Antistasi. In Armja Krajova polish resistance fight against Germans and Soviets. Required mods are CUP Maps and IFA.
-- Total rework on UI for construction, garage and buy vehicle options.
-- Squad Vehicle Stats button replaced by "Squad SITREP" on which player will receive a lot of useful information about his AI squads.
+- NEW FEATURE: Total rework on UI for construction, garage and buy vehicle options.
+- NEW FEATURE: Squad Vehicle Stats button replaced by "Squad SITREP" on which player will receive a lot of useful information about his AI squads.
+- NEW FEATURE: AI uses flares when there is no NV in the scene, to assault enemies on search for them.
+- RHS: Added M1 Garand and Grease gun to rebels default loadout.
 - Removed MP exploits on buying, login,logout.
 - Fixed bug on hide in building AI script.
 - FT on vehicles will be a bit safer.
@@ -1111,7 +1113,6 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Capped soldier count in major attacks.
 - Cleared forest will be reset when the HQ has been moved.
 - Fixed land attacks in Tanoa.
-- RHS: Added M1 Garand and Grease gun to rebels default loadout.
 - Corrected faction init bug on roadblocks.
 - Fixed some desynching on MP players init.
 - AI static defenses wont despawn when being attacked by another AI.
@@ -1128,3 +1129,12 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Adapted some (not all) flag textures to each mod.
 - Optimised "enemy nearby" checks and more user friendly to avoid UI wates of time.
 - Removed the conditions for a wave to be considered with enough assets and men.
+- Road patrols wont spawn if the possible destinations are less than 4 instead of 1.
+- Squad Leader skill bonuses apply to classnames, not to group leaders.
+- Garrison compositions will attempt to add a SL and a Medic to each garrison squad.
+- Better integration of mods + AI smoke usage.
+- Intesified usage of outposts as QRF departure points.
+- Intensified usage of CAS bombruns against enemies in the field instead of sending squads.
+- Criteria to avoid friendly fire in CAS and mortar bombing is different among sides of AI (NATO cares about civvies and injured friendly, CSAT not).
+- Fxied AI sending QRF against mortars.
+- Airstrikes against static weapons may consist in NAPALM.

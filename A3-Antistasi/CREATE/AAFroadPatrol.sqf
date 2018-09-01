@@ -89,7 +89,7 @@ else
 		};
 	};
 
-if (count _arraydestinos < 2) exitWith {};
+if (count _arraydestinos < 4) exitWith {};
 
 AAFpatrols = AAFpatrols + 1;
 

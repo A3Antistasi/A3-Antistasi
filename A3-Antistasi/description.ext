@@ -3,7 +3,7 @@
 
 author="Barbolani";
 OnLoadName = "Antistasi Altis";
-OnLoadMission = "Be a restistance leader, be a hero";
+OnLoadMission = "Be a Resistance leader, be a hero";
 loadScreen = "pic.JPG";
 
 overviewText = "Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.";
@@ -97,7 +97,7 @@ class Params
     };
     class switchComm
     {
-        title = "Enable Commander Swtich (highest ranked player)";
+        title = "Enable Commander Switch (highest ranked player)";
         values[] = {1,0};
         texts[] = {"Yes","No"};
         default = 1;
@@ -353,7 +353,7 @@ class CfgDebriefing
 	{
 		title = "V I C T O R Y";
 		subtitle = "Altis is Ours!";
-		description = "The population of Altis loves you!<br/>The brave soldiers prooved their valour, and Barbolani, Altis new Prime Minister, could at last to have a nice holliday. A deserved rest in a Greek island, drinking with Petros, his war master.";
+		description = "The population of Altis loves you!<br/>The brave soldiers prooved their valour, and Barbolani, Altis new Prime Minister, could at last to have a nice holidays. A deserved rest in a Greek island, drinking with Petros, his war master.";
 		picture = "n_inf";
 		pictureColor[] = {0.0,0.5,0.0,1};
 	};
@@ -369,7 +369,7 @@ class CfgDebriefing
     {
         title = "Altis is Destroyed";
         subtitle = "Altis got Destroyed by OPFOR";
-        description = "One third of the population in Tanoa has been murdered by the OPFOR.<br/>Tanoa no longer exists, nobody wants to live here.";
+        description = "One third of the population in Altis has been murdered by the OPFOR.<br/>Altis no longer exists, nobody wants to live here.";
         picture = "b_unknown";
         pictureColor[] = {0.5,0.0,0.0,1};
     };
@@ -393,7 +393,7 @@ class CfgDebriefing
     {
         title = "Slot Unavailable";
         subtitle = "This slot is unavailable";
-        description = "Sorry, but this slot is unavailable for some reson: player not member, match not initialised, lack of rebel commander or recent role as rebel.";
+        description = "Sorry, but this slot is unavailable for some reason: player not member, match not initialized, lack of rebel commander or recent role as rebel.";
         picture = "b_unknown";
         pictureColor[] = {0.0,0.5,0.0,1};
     };

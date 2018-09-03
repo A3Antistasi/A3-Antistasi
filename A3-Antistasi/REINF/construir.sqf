@@ -163,20 +163,6 @@ if (_tipo == "RB") then
 	   garageVeh setDir (getDir player);
 	   };
 	 };
-	/*
-	onEachFrame
-		{
-		_ins = lineIntersectsSurfaces [
-	  	AGLToASL positionCameraToWorld [0,0,0],
-	  	AGLToASL positionCameraToWorld [0,0,1000],
-	  	player,garageVeh
-	 	];
-	 	if ((count _ins == 0) or (!isOnRoad ASLToAGL (_ins select 0 select 0)) or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf garageVeh])== 0))exitWith {garageVeh setPosASL [0,0,0]};
-	 	garageVeh setPosASL (_ins select 0 select 0);
-	 	garageVeh setVectorUp (_ins select 0 select 1);
-	 	garageVeh setDir (getDir player)
-		};
-	*/
 	}
 else
 	{
@@ -205,20 +191,6 @@ else
 		   garageVeh setDir (getDir player);
 		   };
 		 };
-		/*
-		onEachFrame
-			{
-			_ins = lineIntersectsSurfaces [
-		  	AGLToASL positionCameraToWorld [0,0,0],
-		  	AGLToASL positionCameraToWorld [0,0,1000],
-		  	player,garageVeh
-		 	];
-		 	if ((count _ins == 0) or !((_ins select 0 select 0) inArea cercano) or (isOnRoad ASLToAGL (_ins select 0 select 0)) or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf garageVeh])== 0))exitWith {garageVeh setPosASL [0,0,0]};
-		 	garageVeh setPosASL (_ins select 0 select 0);
-		 	garageVeh setVectorUp (_ins select 0 select 1);
-		 	garageVeh setDir (getDir player)
-			};
-		*/
 		}
 	else
 		{
@@ -243,20 +215,6 @@ else
 		   garageVeh setDir (getDir player);
 		   };
 		 };
-		/*
-		onEachFrame
-			{
-			_ins = lineIntersectsSurfaces [
-		  	AGLToASL positionCameraToWorld [0,0,0],
-		  	AGLToASL positionCameraToWorld [0,0,1000],
-		  	player,garageVeh
-		 	];
-		 	if ((count _ins == 0) or (count ((_ins select 0 select 0) findEmptyPosition [0, 0, typeOf garageVeh])== 0))exitWith {garageVeh setPosASL [0,0,0]};
-		 	garageVeh setPosASL (_ins select 0 select 0);
-		 	garageVeh setVectorUp (_ins select 0 select 1);
-		 	garageVeh setDir (getDir player)
-			};
-		*/
 		};
 	};
 

@@ -198,7 +198,7 @@ else
 	};
 
 //if (debug) then {hint format ["Nos contraatacan desde %1 o desde el aeropuerto %2 hacia %3", _base, _aeropuerto,_marcador]; sleep 5};
-diag_log format ["Antistasi PatrolCA: CA performed from %1 to %2",_aeropuerto,_marcador];
+diag_log format ["Antistasi PatrolCA: CA performed from %1 to %2.Is waved:%3.Is super:%4",_aeropuerto,_marcador,_inWaves,_super];
 //_config = if (_lado == malos) then {cfgNATOInf} else {cfgCSATInf};
 
 _soldados = [];

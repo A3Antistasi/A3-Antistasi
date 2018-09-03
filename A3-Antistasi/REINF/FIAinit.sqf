@@ -110,6 +110,13 @@ else
 									_unit removeWeaponGlobal (secondaryWeapon _unit);
 									[_unit, _rlauncher, 4, 0] call BIS_fnc_addWeapon;
 									};
+								}
+							else
+								{
+								if (hayIFA) then
+									{
+									[_unit, "LIB_PTRD", 10, 0] call BIS_fnc_addWeapon;
+									};
 								};
 							}
 						else

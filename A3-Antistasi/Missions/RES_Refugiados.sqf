@@ -27,6 +27,7 @@ while {count _poscasa < 3} do
 
 _nombredest = [_marcador] call localizar;
 _tiempolim = if (_dificil) then {30} else {60};
+if (hayIFA) then {_tiempolim = _tiempolim * 2};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};

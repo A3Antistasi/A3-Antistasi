@@ -51,7 +51,8 @@ if (_tipo == "rem") then
 		{
 		garrison setVariable [_cercano,[],true];
 		//[_cercano] call mrkUpdate;
-		[_cercano] remoteExec ["tempMoveMrk",2];
+		//[_cercano] remoteExec ["tempMoveMrk",2];
+		{if (_x getVariable ["marcador",""] == _cercano) then {deleteVehicle _x}} forEach allUnits;
 		};
 	[_cercano] call mrkUpdate;
 	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];

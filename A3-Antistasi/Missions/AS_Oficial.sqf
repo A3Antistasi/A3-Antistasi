@@ -12,6 +12,7 @@ _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} els
 _posicion = getMarkerPos _marcador;
 
 _tiempolim = if (_dificil) then {15} else {30};//120
+if (hayIFA) then {_tiempolim = _tiempolim * 2};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
 

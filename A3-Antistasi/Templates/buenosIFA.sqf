@@ -51,16 +51,16 @@ APERSMineMag = "LIB_PMD6_MINE_mag";
 
 if (gameMode != 4) then
 	{
-	FIARifleman = "LIB_GER_Unequip_w";
-	FIAMarksman = "LIB_GER_Scout_sniper_w";
+	FIARifleman = "LIB_DAK_Soldier";
+	FIAMarksman = "LIB_DAK_Sniper";
 	vehFIAArmedCar = "LIB_Kfz1_MG42_camo_DLV";
 	vehFIATruck = "LIB_OpelBlitz_Open_Y_Camo_w";
 	vehFIACar = "LIB_Kfz1_hood_w";
-	gruposFIASmall = [["LIB_GER_Unequip_w","LIB_GER_Unequip_w"],["LIB_GER_Rifleman3_w","LIB_GER_Unequip_w"],[FIAMarksman,"LIB_GER_Rifleman3_w"]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
-	gruposFIAMid = [["LIB_GER_Scout_smgunner_w","LIB_GER_Scout_mgunner_w","LIB_GER_Rifleman_w","LIB_GER_Scout_ober_rifleman_w"],["LIB_GER_Scout_smgunner_w","LIB_GER_Scout_mgunner_w","LIB_GER_Scout_rifleman_w","LIB_GER_AT_soldier_w"],["LIB_GER_Scout_smgunner_w","LIB_GER_Scout_mgunner_w","LIB_GER_Scout_rifleman_w",FIAMarksman]];
-	FIASquad = ["LIB_GER_Unterofficer_w","LIB_GER_Scout_mgunner_w","LIB_GER_Stggunner_w","LIB_GER_AT_soldier_w","LIB_GER_Rifleman3_w","LIB_GER_Stggunner_w","LIB_GER_AT_grenadier_w","LIB_GER_Medic_w"];//"IRG_InfSquad";///
-	gruposFIASquad = [FIASquad];
-	factionFIA = "LIB_WEHRMACHT_w";
+	gruposFIASmall = [["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],[FIAMarksman,FIARifleman]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
+	gruposFIAMid = [["LIB_DAK_Soldier_2","LIB_DAK_Soldier_3","LIB_DAK_Soldier_2","LIB_DAK_Soldier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier_3","LIB_DAK_AT_soldier","LIB_DAK_AT_grenadier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier_3","LIB_DAK_Soldier","LIB_DAK_Sniper"]];
+	FIASquad = ["LIB_DAK_NCO_2","LIB_DAK_Soldier_2","LIB_DAK_Soldier_3","LIB_DAK_Soldier_3","LIB_DAK_AT_grenadier","LIB_DAK_AT_soldier","LIB_DAK_radioman","LIB_DAK_medic"];//"IRG_InfSquad";///
+	gruposFIASquad = [FIASquad,["LIB_DAK_NCO_2","LIB_DAK_Soldier_2","LIB_DAK_Soldier_3","LIB_DAK_Soldier_3","LIB_DAK_AT_grenadier","LIB_DAK_Sniper","LIB_DAK_radioman","LIB_DAK_medic"]];
+	factionFIA = "LIB_DAK";
 	}
 else
 	{

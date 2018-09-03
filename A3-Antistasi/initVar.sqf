@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.3.0";
+antistasiVersion = "v 1.3.1";
 
 
 debug = false;//debug variable, not useful for everything..
@@ -97,7 +97,6 @@ _allItems = "
     { getNumber ( _x >> ""type"" ) isEqualTo 131072 } } )
 " configClasses ( configFile >> "cfgWeapons" );
 
-primaryMagazines = [];
 _yaMetidos = [];
 {
 _nombre = configName _x;
@@ -105,7 +104,6 @@ _nombre = [_nombre] call BIS_fnc_baseWeapon;
 if (not(_nombre in _yaMetidos)) then
 	{
 	_magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
-	primaryMagazines pushBack (_magazines select 0);
 	_yaMetidos pushBack _nombre;
 	_weapon = [_nombre] call BIS_fnc_itemType;
 	_weaponType = _weapon select 1;
@@ -129,30 +127,22 @@ activeUSAF = false;
 activeGREF = false;
 hayFFAA = false;
 
-if !(worldName == "chernarus_summer") then
+if ("LIB_PTRD" in arifles) then
+	{
+	hayIFA = true;
+	cascos = [];
+	humo = ["LIB_RDG","LIB_NB39"];
+	}
+else
 	{
 	if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hayRHS = true};
 	if ("ffaa_armas_hkg36k_normal" in arifles) then {hayFFAA = true};
 	if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hayRHS = true};
 	if ("rhs_weap_m92" in arifles) then {activeGREF = true; hayRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
 	hayIFA = false;
-	}
-else
-	{
-	hayIFA = true;
-	};
-
-if !(hayIFA) then
-	{
 	cascos = cascos select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2};
 	humo = ["SmokeShell","SmokeShellRed","SmokeShellGreen","SmokeShellBlue","SmokeShellYellow","SmokeShellPurple","SmokeShellOrange"];
-	}
-else
-	{
-	cascos = [];
-	humo = ["LIB_RDG","LIB_NB39"];
 	};
-//allItems = [];
 
 titanLaunchers = if ((!hayRHS) and !hayIFA) then
 	{

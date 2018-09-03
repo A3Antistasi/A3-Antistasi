@@ -73,7 +73,7 @@ class Params
     {
         title = "Game Mode"; // Param name visible in the list
         values[] = {1,2,3,4}; // Values; must be integers; has to have the same number of elements as 'texts'
-        texts[] = {"Reb vs Gob vs Inv","Reb vs Gob & Inv","Reb vs Gov","Reb vs Inv"}; // Description of each selectable item
+        texts[] = {"Reb vs Gov vs Inv","Reb vs Gov & Inv","Reb vs Gov","Reb vs Inv"}; // Description of each selectable item
         default = 1; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };

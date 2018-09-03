@@ -14,6 +14,7 @@ _posicion = getMarkerPos _marcador;
 _POWs = [];
 
 _tiempolim = if (_dificil) then {30} else {120};//120
+if (hayIFA) then {_tiempolim = _tiempolim * 2};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
 

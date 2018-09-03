@@ -18,6 +18,7 @@ _exit = false;
 if (_tipoGrupo isEqualType "") then
 	{
 	if (_tipoGrupo == "not_supported") then {_exit = true; hint "The group or vehicle type you request is not supported in your modset"};
+	if (hayIFA and ((_tipoGrupo == SDKMortar) or (_tipoGrupo == SDKMGStatic)) and !debug) then {_exit = true; hint "The group or vehicle type you request is not supported in your modset"};
 	};
 
 if (activeGREF) then
@@ -71,13 +72,13 @@ else
 		_coste = _coste + ([vehSDKTruck] call vehiclePrice)
 		};
 	};
-if ((_conMochis != "") and hayIFA) exitWith {hint "Your current modset does not support packing / unpacking static weapons"};
+if ((_conMochis != "") and hayIFA) exitWith {hint "Your current modset does not support packing / unpacking static weapons"; garageVeh = nil};
 
 if (_hr < _costeHR) then {_exit = true;hint format ["You do not have enough HR for this request (%1 required)",_costeHR]};
 
 if (_resourcesFIA < _coste) then {_exit = true;hint format ["You do not have enough money for this request (%1 € required)",_coste]};
 
-if (_exit) exitWith {};
+if (_exit) exitWith {garageVeh = nil};
 
 _nul = [- _costeHR, - _coste] remoteExec ["resourcesFIA",2];
 
@@ -185,7 +186,7 @@ else
 
 _coste = [_tipoVeh] call vehiclePrice;
 private ["_display","_childControl"];
-if (_coste > server getVariable "resourcesFIA") exitWith {};
+if (_coste > server getVariable "resourcesFIA") exitWith {garageVeh = nil};
 
 _nul = createDialog "veh_query";
 

@@ -1708,7 +1708,7 @@ class Mission
 				name="caja";
 			};
 			id=244;
-			type="LIB_BasicAmmunitionBox_US";
+			type="I_supplyCrate_F";
 			class CustomAttributes
 			{
 				class Attribute0

@@ -1137,4 +1137,22 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Intensified usage of CAS bombruns against enemies in the field instead of sending squads.
 - Criteria to avoid friendly fire in CAS and mortar bombing is different among sides of AI (NATO cares about civvies and injured friendly, CSAT not).
 - Fxied AI sending QRF against mortars.
+- Corrected small differences of tooltip cost and real cost of some squads.
 - Airstrikes against static weapons may consist in NAPALM.
+- NAPALM damage loop a bit more spaced in time (more chances of survive if you move quickly)
+- Slight less chance for a mortar to get zeroed.
+
+1.3.1 02/09/18
+
+- IFA: Replaced winter wehrmacht by Afrikakorps for Tier 2 troops. Requires mission restart to see them.
+- IFA: Disabled mortar squad recruitment until I find a solution.
+- IFA: Fixed ammobox load on trucks and replaced by vanilla boxes, as they are barely visible.
+- IFA: AI wont spawn with flamethrowers.
+- IFA: AT Men will spawn with AT rifles until some decent AT weapon has been unlocked.
+- IFA: Doubled sidemission timer for most of them.
+- Enabled redress scripts on more islands than Tanoa.
+- Fixed player unable to access Y menu after trying to recruit a squad without funds.
+- Corrected typo on game mode menu.
+- Changed numpad arrows by normal arrows for the garage / buy menu.
+- Removed exploit on player FT with HC squads.
+- Minimum timer for traitor missions set in 30 minutes.

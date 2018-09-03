@@ -64,19 +64,6 @@ if (!isMultiPlayer) then
         }];
     deleteMarker "respawn_east";
     if (buenos == independent) then {deleteMarker "respawn_west"} else {deleteMarker "respawn_guerrila"};
-    }
-else
-    {/*
-    if !(isServer) then
-        {
-        membershipEnabled = if (paramsArray select 2 == 1) then {true} else {false};
-        switchCom = if (paramsArray select 3 == 1) then {true} else {false};
-        tkPunish = if (paramsArray select 4 == 1) then {true} else {false};
-        distanciaMiss = paramsArray select 5;
-        skillMult = paramsArray select 8;
-        minWeaps = paramsArray select 9;
-        civTraffic = paramsArray select 10;
-        };*/
     };
 
 

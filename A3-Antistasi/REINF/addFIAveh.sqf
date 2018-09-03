@@ -29,14 +29,14 @@ garageVeh = _tipoVeh createVehicleLocal [0,0,1000];
 garageVeh allowDamage false;
 garageVeh enableSimulationGlobal false;
 comprado = 0;
-[format ["<t size='0.7'>%1<br/><br/><t size='0.6'>Vehicle placement Keys.<t size='0.5'><br/>Numpad 7-9 to rotate<br/>SPACE to Select<br/>ENTER to Exit",getText (configFile >> "CfgVehicles" >> typeOf garageVeh >> "displayName")],0,0,5,0,0,4] spawn bis_fnc_dynamicText;
+[format ["<t size='0.7'>%1<br/><br/><t size='0.6'>Vehicle placement Keys.<t size='0.5'><br/>Arrow Left-Right to rotate<br/>SPACE to Select<br/>ENTER to Exit",getText (configFile >> "CfgVehicles" >> typeOf garageVeh >> "displayName")],0,0,5,0,0,4] spawn bis_fnc_dynamicText;
 hint "Hover your mouse to the desired position. If it's safe and suitable, you will see the vehicle";
 garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
 		_handled = false;
 		_salir = false;
 		_comprado = false;
-		[format ["<t size='0.7'>%1<br/><br/><t size='0.6'>Garage Keys.<t size='0.5'><br/>Numpad 7-9 to rotate<br/>SPACE to Select<br/>ENTER to Exit",getText (configFile >> "CfgVehicles" >> typeOf garageVeh >> "displayName")],0,0,5,0,0,4] spawn bis_fnc_dynamicText;
+		[format ["<t size='0.7'>%1<br/><br/><t size='0.6'>Vehicle placement Keys.<t size='0.5'><br/>Arrow Left-Right to rotate<br/>SPACE to Select<br/>ENTER to Exit",getText (configFile >> "CfgVehicles" >> typeOf garageVeh >> "displayName")],0,0,5,0,0,4] spawn bis_fnc_dynamicText;
 		if (_this select 1 == 57) then
 			{
 			_salir = true;
@@ -47,12 +47,12 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 			_salir = true;
 			deleteVehicle garageVeh;
 			};
-		if (_this select 1 == 73) then
+		if (_this select 1 == 205) then
 			{
 			garageVeh setDir (getDir garageVeh + 1);
 			_handled = true;
 			};
-		if (_this select 1 == 71) then
+		if (_this select 1 == 203) then
 			{
 			garageVeh setDir (getDir garageVeh - 1);
 			_handled = true;

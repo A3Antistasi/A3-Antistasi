@@ -21,11 +21,7 @@ _tiempo = time + 3600;
 
 for "_i" from 1 to 3 do
 	{
-	_tipoveh = if (_i != 3) then {selectRandom vehCSATAir} else {selectRandom vehCSATTransportHelis};
-	if (not([_tipoVeh] call vehAvailable)) then
-		{
-		_tipoVeh = selectRandom vehCSATTransportHelis;
-		};
+	_tipoveh = if (_i != 3) then {selectRandom (vehCSATAir select {[_x] call vehAvailable})} else {selectRandom (vehCSATTransportHelis select {[_x] call vehAvailable})};
 	_timeOut = 0;
 	_pos = _posorigen findEmptyPosition [0,100,_tipoveh];
 	while {_timeOut < 60} do
@@ -142,9 +138,9 @@ _nul = [leader _grupoCivil, _mrkDestino, "AWARE","SPAWNED","NOVEH2"] execVM "scr
 _civilMax = {alive _x} count _civiles;
 _solMax = count _soldados;
 
-if ([vehCSATPlane] call vehAvailable) then
+for "_i" from 0 to round random 2 do
 	{
-	for "_i" from 0 to round random 2 do
+	if ([vehCSATPlane] call vehAvailable) then
 		{
 		_nul = [_mrkdestino,muyMalos,"NAPALM"] spawn airstrike;
 		sleep 30;

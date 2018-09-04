@@ -36,7 +36,7 @@ if (!_pool) then
 
 if (_exit) exitWith {hint "You are not owner of this vehicle therefore you cannot garage it"};
 
-if (_tipoVeh isKindOf "Air") then
+if (_tipoVeh isKindOf "Plane") then
 	{
 	_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == buenos) and (player inArea _x)};
 	if (count _aeropuertos == 0) then {_exit = true};

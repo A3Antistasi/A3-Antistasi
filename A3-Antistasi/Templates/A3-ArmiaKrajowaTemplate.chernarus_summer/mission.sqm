@@ -16,7 +16,7 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={8402.8291,315.34415,5922.686};
+		pos[]={8397.3389,300.58774,5940.9561};
 		dir[]={0.11044382,-0.56106734,0.8203733};
 		up[]={0.074859127,0.82776976,0.55605191};
 		aside[]={0.99106097,6.0610182e-007,-0.13342495};
@@ -37,8 +37,7 @@ addons[]=
 	"A3_Structures_F_Exp_Military_Flags",
 	"CUP_Editor_Buildings_Config",
 	"WW2_Objects_c_Misc_WW2_SimpleObjects_c_CUP",
-	"WW2_Assets_c_Weapons_Ammoboxes_c",
-	"WW2_Assets_c_Weapons_SimpleObjects_c",
+	"A3_Weapons_F_Ammoboxes",
 	"WW2_Assets_c_Characters_Soviets_c_SOV_RKKA",
 	"WW2_Core_c_WW2_Core_c",
 	"WW2_Assets_c_Characters_Germans_c_GER_FSJ"
@@ -47,7 +46,7 @@ class AddonsMetaData
 {
 	class List
 	{
-		items=16;
+		items=15;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -117,25 +116,22 @@ class AddonsMetaData
 		};
 		class Item11
 		{
-			className="WW2_Assets_c_Weapons_Ammoboxes_c";
-			name="WW2_Assets_c_Weapons_Ammoboxes_c";
+			className="A3_Weapons_F";
+			name="Arma 3 Alpha - Weapons and Accessories";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
 		};
 		class Item12
-		{
-			className="WW2_Assets_c_Weapons_SimpleObjects_c";
-			name="WW2_Assets_c_Weapons_SimpleObjects_c";
-		};
-		class Item13
 		{
 			className="WW2_Assets_c_Characters_Soviets_c_SOV_RKKA";
 			name="WW2_Assets_c_Characters_Soviets_c_SOV_RKKA";
 		};
-		class Item14
+		class Item13
 		{
 			className="WW2_Core_c_WW2_Core_c";
 			name="WW2_Core_c_WW2_Core_c";
 		};
-		class Item15
+		class Item14
 		{
 			className="WW2_Assets_c_Characters_Germans_c_GER_FSJ";
 			name="WW2_Assets_c_Characters_Germans_c_GER_FSJ";
@@ -204,7 +200,7 @@ class Mission
 			type="rectangle";
 			a=200;
 			b=100;
-			angle=28.489872;
+			angle=28.48987;
 			id=6;
 		};
 		class Item3
@@ -1698,7 +1694,7 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={8399.9658,291.9964,5952.1558};
+				position[]={8399.9658,292.8862,5952.1558};
 				angles[]={0.0012918708,0,0};
 			};
 			side="Empty";

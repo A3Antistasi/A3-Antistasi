@@ -10,7 +10,7 @@ _hayAire = false;
 _aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == buenos) and (player inArea _x)};
 if (count _aeropuertos > 0) then {_hayAire = true};
 {
-if ((_x in vehPlanes) or (_x in vehAttackHelis) or (_x in vehTransportAir)) then
+if ((_x in vehPlanes)) then
 	{
 	if (_hayAire) then {vehInGarageShow pushBack _x};
 	}

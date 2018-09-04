@@ -1156,3 +1156,16 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Changed numpad arrows by normal arrows for the garage / buy menu.
 - Removed exploit on player FT with HC squads.
 - Minimum timer for traitor missions set in 30 minutes.
+- Fixed bug on CSAT punishments, all cities were targets instead of those who have high support levels.
+- CSAT wont punish cities influenced by them.
+
+1.3.2 04/09/18
+
+- NEW FEATURE: Total rework of economics for AI so there are now real economics (like old 1.8) but instead of money they will need time to replentish and maximum assets will depend on zone ownership. Example: Max Tanks for a faction is 1xAirbases belonging to them + you will never see more than that in the field.
+- Convoys wont spawn having a distance minor than the spawn distance setting from origin to destination.
+- Garrisons created "on the fly" won't get deleted when the player commander disconnects.
+- Applied garrison reorganisation to non rebel faction garrisons.
+- Removed Airbase requirement in order to retrieve helis from garage.
+- Re enabled Fast Travel for player groups in MP only when the destination is HQ.
+- Static AA and ATs will be subject to availability for AI.
+- Static weapons placed in building roofs wont spawn if the building is destroyed.

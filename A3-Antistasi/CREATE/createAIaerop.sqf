@@ -92,6 +92,7 @@ _ang = markerDir _marcador;
 _mrk setMarkerDirLocal _ang;
 if (!debug) then {_mrk setMarkerAlphaLocal 0};
 _garrison = garrison getVariable [_marcador,[]];
+_garrison = _garrison call garrisonReorg;
 _tam = count _garrison;
 private _patrol = true;
 if (_tam < ([_marcador] call garrisonSize)) then
@@ -150,48 +151,77 @@ _tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
 {
 if (spawner getVariable _marcador != 2) then
 	{
-	_veh = _tipoVeh createVehicle [0,0,1000];
-	_veh setDir (_x select 1);
-	_veh setPosATL (_x select 0);
-	_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-	[_unit,_marcador] call NATOinit;
-	_unit moveInGunner _veh;
-	_soldados pushBack _unit;
-	_vehiculos pushBack _veh;
-	_nul = [_veh] call AIVEHinit;
-	sleep 1;
+	_proceder = true;
+	if ((_x select 0) select 2 > 0.5) then
+		{
+		_bld = nearestBuilding (_x select 0);
+		if !(alive _bld) then {_proceder = false};
+		};
+	if (_proceder) then
+		{
+		_veh = _tipoVeh createVehicle [0,0,1000];
+		_veh setDir (_x select 1);
+		_veh setPosATL (_x select 0);
+		_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+		[_unit,_marcador] call NATOinit;
+		_unit moveInGunner _veh;
+		_soldados pushBack _unit;
+		_vehiculos pushBack _veh;
+		_nul = [_veh] call AIVEHinit;
+		sleep 1;
+		};
 	};
 } forEach _posMG;
 _tipoVeh = if (_lado == malos) then {staticAAMalos} else {staticAAmuyMalos};
 {
 if (spawner getVariable _marcador != 2) then
 	{
-	_veh = _tipoVeh createVehicle [0,0,1000];
-	_veh setDir (_x select 1);
-	_veh setPosATL (_x select 0);
-	_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-	[_unit,_marcador] call NATOinit;
-	_unit moveInGunner _veh;
-	_soldados pushBack _unit;
-	_vehiculos pushBack _veh;
-	_nul = [_veh] call AIVEHinit;
-	sleep 1;
+	if !([_tipoVeh] call vehAvailable) exitWith {};
+	_proceder = true;
+	if ((_x select 0) select 2 > 0.5) then
+		{
+		_bld = nearestBuilding (_x select 0);
+		if !(alive _bld) then {_proceder = false};
+		};
+	if (_proceder) then
+		{
+		_veh = _tipoVeh createVehicle [0,0,1000];
+		_veh setDir (_x select 1);
+		_veh setPosATL (_x select 0);
+		_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+		[_unit,_marcador] call NATOinit;
+		_unit moveInGunner _veh;
+		_soldados pushBack _unit;
+		_vehiculos pushBack _veh;
+		_nul = [_veh] call AIVEHinit;
+		sleep 1;
+		};
 	};
 } forEach _posAA;
 _tipoVeh = if (_lado == malos) then {staticATMalos} else {staticATmuyMalos};
 {
 if (spawner getVariable _marcador != 2) then
 	{
-	_veh = _tipoVeh createVehicle [0,0,1000];
-	_veh setDir (_x select 1);
-	_veh setPosATL (_x select 0);
-	_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-	[_unit,_marcador] call NATOinit;
-	_unit moveInGunner _veh;
-	_soldados pushBack _unit;
-	_vehiculos pushBack _veh;
-	_nul = [_veh] call AIVEHinit;
-	sleep 1;
+	if !([_tipoVeh] call vehAvailable) exitWith {};
+	_proceder = true;
+	if ((_x select 0) select 2 > 0.5) then
+		{
+		_bld = nearestBuilding (_x select 0);
+		if !(alive _bld) then {_proceder = false};
+		};
+	if (_proceder) then
+		{
+		_veh = _tipoVeh createVehicle [0,0,1000];
+		_veh setDir (_x select 1);
+		_veh setPosATL (_x select 0);
+		_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+		[_unit,_marcador] call NATOinit;
+		_unit moveInGunner _veh;
+		_soldados pushBack _unit;
+		_vehiculos pushBack _veh;
+		_nul = [_veh] call AIVEHinit;
+		sleep 1;
+		};
 	};
 } forEach _posAT;
 
@@ -256,8 +286,8 @@ else
 
 if (!_busy) then
 	{
-	_arrayVehAAF = if (_lado == malos) then {vehNATOAttack select {[_x] call vehAvailable}} else {vehCSATAttack select {[_x] call vehAvailable}};
 	{
+	_arrayVehAAF = if (_lado == malos) then {vehNATOAttack select {[_x] call vehAvailable}} else {vehCSATAttack select {[_x] call vehAvailable}};
 	if ((spawner getVariable _marcador != 2) and (count _arrayVehAAF > 0)) then
 		{
 		_veh = createVehicle [selectRandom _arrayVehAAF, (_x select 0), [], 0, "NONE"];

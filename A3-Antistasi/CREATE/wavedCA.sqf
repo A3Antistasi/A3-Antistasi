@@ -230,6 +230,7 @@ while {(_waves != 0)} do
 				};
 			sleep 15;
 			if (alive _veh) then {_cuenta = _cuenta + 1};
+			_vehPool = _vehPool select {[_x] call vehAvailable};
 			};
 		}
 	else
@@ -360,6 +361,7 @@ while {(_waves != 0)} do
 					};
 				sleep 15;
 				if (alive _veh) then {_cuenta = _cuenta + 1};
+				_vehPool = _vehPool select {[_x] call vehAvailable};
 				};
 			};
 		};
@@ -445,7 +447,7 @@ while {(_waves != 0)} do
 			_tipoVeh = selectRandom _vehPool;
 			if (_cuenta == _nVeh) then
 				{
-				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTransportHelis} else {selectRandom vehCSATTransportHelis};
+				_tipoVeh = if (_lado == malos) then {selectRandom (vehNATOTransportHelis select {[_x] call vehAvailable})} else {selectRandom (vehCSATTransportHelis select {[_x] call vehAvailable})};
 				};
 			_vehicle=[_pos, _ang + 90,_tipoveh, _lado] call bis_fnc_spawnvehicle;
 			_veh = _vehicle select 0;
@@ -535,6 +537,7 @@ while {(_waves != 0)} do
 			sleep 1;
 			_pos = [_pos, 80,_ang] call BIS_fnc_relPos;
 			if (alive _veh) then {_cuenta = _cuenta + 1};
+			_vehPool = _vehPool select {[_x] call vehAvailable};
 			};
 		};
 	_plane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
@@ -550,23 +553,26 @@ while {(_waves != 0)} do
 				_rnd = if (_mrkDestino in aeropuertos) then {round random 4} else {round random 2};
 				for "_i" from 0 to _rnd do
 					{
-					diag_log "Antistasi: Airstrike Spawned";
-					if (_i == 0) then
+					if ([_plane] call vehAvailable) then
 						{
-						if (_mrkDestino in aeropuertos) then
+						diag_log "Antistasi: Airstrike Spawned";
+						if (_i == 0) then
 							{
-							_nul = [_mrkdestino,_lado,"HE"] spawn airstrike;
+							if (_mrkDestino in aeropuertos) then
+								{
+								_nul = [_mrkdestino,_lado,"HE"] spawn airstrike;
+								}
+							else
+								{
+								_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
+								};
 							}
 						else
 							{
 							_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
 							};
-						}
-					else
-						{
-						_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
+						sleep 30;
 						};
-					sleep 30;
 					};
 				};
 			};
@@ -583,23 +589,26 @@ while {(_waves != 0)} do
 				_rnd = if (_mrkDestino in aeropuertos) then {if ({lados getVariable [_x,sideUnknown] == muyMalos} count aeropuertos == 1) then {8} else {round random 4}} else {round random 2};
 				for "_i" from 0 to _rnd do
 					{
-					diag_log "Antistasi: Airstrike Spawned";
-					if (_i == 0) then
+					if ([_plane] call vehAvailable) then
 						{
-						if (_mrkDestino in aeropuertos) then
+						diag_log "Antistasi: Airstrike Spawned";
+						if (_i == 0) then
 							{
-							_nul = [_mrkdestino,_lado,"HE"] spawn airstrike;
+							if (_mrkDestino in aeropuertos) then
+								{
+								_nul = [_mrkdestino,_lado,"HE"] spawn airstrike;
+								}
+							else
+								{
+								_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
+								};
 							}
 						else
 							{
-							_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
+							_nul = [_posDestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
 							};
-						}
-					else
-						{
-						_nul = [_posDestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
+						sleep 30;
 						};
-					sleep 30;
 					};
 				};
 			};
@@ -665,7 +674,7 @@ while {(_waves != 0)} do
 			if ((_waves <= 0) or (!(lados getVariable [_mrkOrigen,sideUnknown] == malos))) then
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
-				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
+				if (_waves <= 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
 
 				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call taskUpdate;
 				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call taskUpdate;
@@ -708,7 +717,7 @@ while {(_waves != 0)} do
 				if (_posOrigenLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
 				};
 
-			if ((_waves == 0) or (lados getVariable [_mrkOrigen,sideUnknown] != muyMalos)) then
+			if ((_waves <= 0) or (lados getVariable [_mrkOrigen,sideUnknown] != muyMalos)) then
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
 				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};

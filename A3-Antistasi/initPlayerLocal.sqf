@@ -618,7 +618,7 @@ mapa addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_thi
 if (isMultiplayer) then {mapa addAction ["AI Load Info", "[] remoteExec [""AILoadInfo"",2]",nil,0,false,true,"","(_this == theBoss)"]};
 _nul = [player] execVM "OrgPlayers\unitTraits.sqf";
 grupoPetros = group petros;
-grupoPetros setGroupId ["Petros","GroupColor4"];
+grupoPetros setGroupIdGlobal ["Petros","GroupColor4"];
 petros setIdentity "amiguete";
 petros setName "Petros";
 petros disableAI "MOVE";

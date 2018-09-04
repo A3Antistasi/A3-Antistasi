@@ -48,6 +48,7 @@ _ang = markerDir _marcador;
 _mrk setMarkerDirLocal _ang;
 if (!debug) then {_mrk setMarkerAlphaLocal 0};
 _garrison = garrison getVariable [_marcador,[]];
+_garrison = _garrison call garrisonReorg;
 _tam = count _garrison;
 private _patrol = true;
 if (_tam < ([_marcador] call garrisonSize)) then

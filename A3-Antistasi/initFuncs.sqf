@@ -3,6 +3,9 @@ call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 
 //defendDrillAI = compile preProcessFileLineNumbers "AI\defendDrillAI.sqf";
 //isInRoof = compile preProcessFileLineNumbers "AI\buildings\isInRoof.sqf";
+economicsAI = compile preProcessFileLineNumbers "economicsAI.sqf";
+removeVehFromPool = compile preProcessFileLineNumbers "CREATE\removeVehFromPool.sqf";
+createSDKgarrisonsTemp = compile preProcessFileLineNumbers "CREATE\createSDKgarrisonsTemp.sqf";
 useFlares = compile preProcessFileLineNumbers "AI\useFlares.sqf";
 garrisonReorg = compile preProcessFileLineNumbers "CREATE\garrisonReorg.sqf";
 enemyNearCheck = compile preProcessFileLineNumbers "REINF\enemyNearCheck.sqf";
@@ -64,7 +67,7 @@ isTheSameIsland = compile preProcessFileLineNumbers "isTheSameIsland.sqf";
 CSATCrate = compile preProcessFileLineNumbers "Municion\CSATCrate.sqf";
 markerChange = compile preProcessFileLineNumbers "markerChange.sqf";
 zoneCheck = compile preProcessFileLineNumbers "zoneCheck.sqf";
-tempMoveMrk = compile preProcessFileLineNumbers "tempMoveMrk.sqf";
+//tempMoveMrk = compile preProcessFileLineNumbers "tempMoveMrk.sqf";
 hasRadio = compile preProcessFileLineNumbers "AI\hasRadio.sqf";
 revealToPlayer = compile preProcessFileLineNumbers "revealToPlayer.sqf";
 mineSweep = compile preProcessFileLineNumbers "AI\mineSweep.sqf";

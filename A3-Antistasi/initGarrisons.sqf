@@ -47,7 +47,6 @@ else
 	};
 {lados setVariable [_x,malos,true]} forEach _controlesNATO;
 {lados setVariable [_x,muyMalos,true]} forEach _controlesCSAT;
-
 {
 _pos = getMarkerPos _x;
 _dmrk = createMarker [format ["Dum%1",_x], _pos];

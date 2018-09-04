@@ -47,34 +47,6 @@ while {true} do
 		{
 		_recAddCiudadSDK = ((_numciv * _multiplicandorec*(_prestigeSDK / 100))/3);
 		_hrAddCiudad = (_numciv * (_prestigeSDK / 10000));///20000 originalmente
-		/*
-		if (lados getVariable [_ciudad,sideUnknown] == buenos) then
-			{
-			if (_power) then
-				{
-				if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[-1,_suppBoost,_ciudad] spawn citySupportChange};
-				}
-			else
-				{
-				//if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[1,-1,_ciudad] spawn citySupportChange} else {[0,-1,_ciudad] spawn citySupportChange};
-				[0,-1,_ciudad] spawn citySupportChange;
-				};
-			}
-		else
-			{
-			_recAddCiudadSDK = (_recAddCiudadSDK/2);
-			_hrAddCiudad = (_hrAddCiudad/2);
-			if (_power) then
-				{
-				if (_prestigeNATO + _prestigeSDK + 1 <= 100) then {[1,-1,_ciudad] spawn citySupportChange};
-				}
-			else
-				{
-				//if (_prestigeSDK + _prestigeNATO + 1 <= 100) then {[-1,0,_ciudad] spawn citySupportChange} else {[-1,0,_ciudad] spawn citySupportChange};
-				[-1,0,_ciudad] spawn citySupportChange;
-				};
-			};
-		*/
 		switch (_power) do
 			{
 			case buenos: {[-1,_suppBoost,_ciudad] spawn citySupportChange};
@@ -155,7 +127,7 @@ while {true} do
 	server setVariable ["resourcesFIA",_recAddSDK,true];
 	bombRuns = bombRuns + (({lados getVariable [_x,sideUnknown] == buenos} count aeropuertos) * 0.25);
 	[petros,"taxRep",_texto] remoteExec ["commsMP",[buenos,civilian]];
-	//[] remoteExec ["statistics",[buenos,civilian]];
+	[] call economicsAI;
 	if (isMultiplayer) then
 		{
 		[] spawn assigntheBoss;

@@ -12,28 +12,8 @@ if ((_tipo in vehNormal) or (_tipo in vehAttack) or (_tipo in vehBoats)) then
 	_veh addEventHandler ["Killed",
 		{
 		private _veh = _this select 0;
-		private _tipo = typeOf _veh;
-		if !(_tipo in vehUnlimited) then
-			{
-			if (_tipo in vehAPCs) then
-				{
-				[_veh,60 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
-				_veh removeAllEventHandlers "HandleDamage";
-				}
-			else
-				{
-				if (_tipo in vehTanks) then
-					{
-					[_veh,480 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
-					_veh removeAllEventHandlers "HandleDamage";
-					}
-				else
-					{
-					[_veh,45 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
-					_veh removeAllEventHandlers "HandleDamage";
-					};
-				};
-			};
+		(typeOf _veh) call removeVehFromPool;
+		_veh removeAllEventHandlers "HandleDamage";
 		}];
 	if !(_tipo in vehAttack) then
 		{
@@ -102,29 +82,7 @@ else
 			{
 			private ["_veh","_tipo"];
 			_veh = _this select 0;
-			_tipo = typeOf _veh;
-			{if ((side _x == malos) or (side _x == muyMalos)) then {_x setDamage 1}} forEach (crew _veh);
-			if !(_tipo in vehUnlimited) then
-				{
-				if (_tipo in vehTransportAir) then
-					{
-					[_veh,45 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
-					_veh removeAllEventHandlers "HandleDamage";
-					}
-				else
-					{
-					if (_veh isKindOf "Helicopter") then
-						{
-						[_veh,120 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
-						_veh removeAllEventHandlers "HandleDamage";
-						}
-					else
-						{
-						[_veh,45 - ((tierWar + difficultyCoef) * 3)] call addTimeForIdle;
-						_veh removeAllEventHandlers "HandleDamage";
-						};
-					};
-				};
+			(typeOf _veh) call removeVehFromPool;
 			}];
 		_veh addEventHandler ["GetIn",
 			{
@@ -235,6 +193,15 @@ else
 						};
 					_mortero setVariable ["detection",[_posicion,_chance]];
 					}];
+				}
+			else
+				{
+				_veh addEventHandler ["killed",
+					{
+					private ["_veh","_tipo"];
+					_veh = _this select 0;
+					(typeOf _veh) call removeVehFromPool;
+					}];
 				};
 			}
 		else
@@ -250,7 +217,7 @@ else
 						{
 						if (_tipo == vehNATOAA) then {[-5,5,position (_veh)] remoteExec ["citySupportChange",2]};
 						};
-					[_veh,480] call addTimeForIdle;
+					_tipo call removeVehFromPool;
 					}];
 				};
 			};

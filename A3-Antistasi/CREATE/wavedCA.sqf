@@ -365,7 +365,7 @@ while {(_waves != 0)} do
 				};
 			};
 		};
-	if (([_mrkDestino,true] call fogCheck >= 0.3) or (_waves < 0)) then
+	if ([_mrkDestino,true] call fogCheck >= 0.3) then
 		{
 		if (_posOrigen distance _posDestino < distanceForLandAttack) then {sleep ((_posOrigen distance _posDestino)/30)};
 		_posSuelo = [_posOrigen select 0,_posorigen select 1,0];
@@ -720,7 +720,7 @@ while {(_waves != 0)} do
 			if ((_waves <= 0) or (lados getVariable [_mrkOrigen,sideUnknown] != muyMalos)) then
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
-				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
+				if (_waves <= 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
 				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call taskUpdate;
 				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call taskUpdate;
 				};

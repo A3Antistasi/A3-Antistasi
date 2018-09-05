@@ -1169,3 +1169,4 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Re enabled Fast Travel for player groups in MP only when the destination is HQ.
 - Static AA and ATs will be subject to availability for AI.
 - Static weapons placed in building roofs wont spawn if the building is destroyed.
+- Fixed relentless major attacks in some cases.

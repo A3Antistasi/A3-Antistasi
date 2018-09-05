@@ -68,6 +68,7 @@ else
 	};
 
 _tmpObjetivos = _tmpObjetivos select {getMarkerPos _x distance2D _posBase < distanceForAirAttack};
+if (_tmpObjetivos isEqualTo []) exitWith {};
 _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 	{
 	_esCiudad = if (_x in ciudades) then {true} else {false};

@@ -76,7 +76,7 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _numVeh) and (_cuenta
 	_cuenta = _cuenta + 1;
 	};
 
-_mrkMar = seaSpawn select {getMarkerPos _x inArea _marcador};
+_mrkMar = if !(hayIFA) then {seaSpawn select {getMarkerPos _x inArea _marcador}} else {[]};
 if (count _mrkMar > 0) then
 	{
 	for "_i" from 0 to (round (random 3)) do

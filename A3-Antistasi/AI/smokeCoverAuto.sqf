@@ -18,11 +18,14 @@ if ({"SmokeLauncher" in (_veh weaponsTurret _x)} count (allTurrets _veh) > 0) th
 	}
 else
 	{
-	private ["_pos","_humo"];
-	_tipoHumo = selectRandom humo;
-	for "_i" from 0 to 8 do
+	if !(hayIFA) then
 		{
-		_pos = position _veh getPos [(28 + random 2),_i*40];
-		_humo = _tipoHumo createVehicle [_pos select 0, _pos select 1,getPos _veh select 2];
+		private ["_pos","_humo"];
+		_tipoHumo = selectRandom humo;
+		for "_i" from 0 to 8 do
+			{
+			_pos = position _veh getPos [(28 + random 2),_i*40];
+			_humo = _tipoHumo createVehicle [_pos select 0, _pos select 1,getPos _veh select 2];
+			};
 		};
 	};

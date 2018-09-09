@@ -1,5 +1,5 @@
 private ["_display","_childControl","_coste","_costeHR","_unidades","_formato"];
-if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
+if (!([player] call hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
 _nul = createDialog "squad_options";
 
 sleep 1;

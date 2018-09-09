@@ -86,7 +86,7 @@ while {(_waves != 0)} do
 				{
 				_puesto = selectRandom _puestos;
 				_posOrigenLand = getMarkerPos _puesto;
-				[_puesto,60] call addTimeForIdle;
+				//[_puesto,60] call addTimeForIdle;
 				_spawnPoint = [_posOrigenLand] call findNearestGoodRoad;
 				_pos = position _spawnPoint;
 				_dir = getDir _spawnPoint;
@@ -121,7 +121,7 @@ while {(_waves != 0)} do
 		if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 		_cuenta = 1;
 		_landPosBlacklist = [];
-		while {_cuenta <= _nVeh} do
+		while {(_cuenta <= _nVeh) and (count _soldados <= 80)} do
 			{
 			_tipoVeh = selectRandom _vehPool;
 			/*
@@ -230,6 +230,7 @@ while {(_waves != 0)} do
 				};
 			sleep 15;
 			if (alive _veh) then {_cuenta = _cuenta + 1};
+			_vehPool = _vehPool select {[_x] call vehAvailable};
 			};
 		}
 	else
@@ -238,15 +239,17 @@ while {(_waves != 0)} do
 		};
 
 	_esMar = false;
-
-	for "_i" from 0 to 3 do
+	if !(hayIFA) then
 		{
-		_pos = _posDestino getPos [1000,(_i*90)];
-		if (surfaceIsWater _pos) exitWith
+		for "_i" from 0 to 3 do
 			{
-			if ({lados getVariable [_x,sideUnknown] == _lado} count puertos > 1) then
+			_pos = _posDestino getPos [1000,(_i*90)];
+			if (surfaceIsWater _pos) exitWith
 				{
-				_esMar = true;
+				if ({lados getVariable [_x,sideUnknown] == _lado} count puertos > 1) then
+					{
+					_esMar = true;
+					};
 				};
 			};
 		};
@@ -259,7 +262,7 @@ while {(_waves != 0)} do
 			_vehPool = if (_lado == malos) then {vehNATOBoats} else {vehCSATBoats};
 			_vehPool = _vehPool select {[_x] call vehAvailable};
 			_cuenta = 0;
-			while {_cuenta < 3} do
+			while {(_cuenta < 3) and (count _soldados <= 80)} do
 				{
 				_tipoVeh = selectRandom _vehPool;
 				if (not([_tipoVeh] call vehAvailable)) then
@@ -292,7 +295,6 @@ while {(_waves != 0)} do
 					_pilotos append _vehCrew;
 					_grupos pushBack _grupoVeh;
 					_vehiculos pushBack _veh;
-					diag_log format ["Antistasi: Sea Attack %1 spawned. Number of vehicles %2",_tipoVeh,count _vehiculos];
 					{[_x] call NATOinit} forEach units _grupoVeh;
 					[_veh] call AIVEHinit;
 					if ((_tipoVeh == vehNATOBoat) or (_tipoVeh == vehCSATBoat)) then
@@ -359,33 +361,44 @@ while {(_waves != 0)} do
 					};
 				sleep 15;
 				if (alive _veh) then {_cuenta = _cuenta + 1};
+				_vehPool = _vehPool select {[_x] call vehAvailable};
 				};
 			};
 		};
-	if (([_mrkDestino,true] call fogCheck >= 0.3) or (_waves < 0)) then
+	if ([_mrkDestino,true] call fogCheck >= 0.3) then
 		{
 		if (_posOrigen distance _posDestino < distanceForLandAttack) then {sleep ((_posOrigen distance _posDestino)/30)};
 		_posSuelo = [_posOrigen select 0,_posorigen select 1,0];
 		_posOrigen set [2,300];
-		_tipoVeh = if (_lado == malos) then {vehNATOUAV} else {vehCSATUAV};
+		_grupoUav = grpNull;
+		if !(hayIFA) then
+			{
+			_tipoVeh = if (_lado == malos) then {vehNATOUAV} else {vehCSATUAV};
 
-		_uav = createVehicle [_tipoVeh, _posOrigen, [], 0, "FLY"];
-		_vehiculos pushBack _uav;
-		//[_uav,"UAV"] spawn inmuneConvoy;
-		[_uav,_mrkDestino,_lado] spawn VANTinfo;
-		createVehicleCrew _uav;
-		_pilotos append (crew _uav);
-		_grupouav = group (crew _uav select 0);
-		_grupos pushBack _grupouav;
-		{[_x] call NATOinit} forEach units _grupoUav;
-		[_uav] call AIVEHinit;
-		_uwp0 = _grupouav addWayPoint [_posdestino,0];
-		_uwp0 setWaypointBehaviour "AWARE";
-		_uwp0 setWaypointType "SAD";
-		if (not(_mrkDestino in aeropuertos)) then {_uav removeMagazines "6Rnd_LG_scalpel"};
-		diag_log format ["Antistasi: UAV %1 spawned. Number of vehicles %2",_tipoVeh,count _vehiculos];
-		sleep 5;
-
+			_uav = createVehicle [_tipoVeh, _posOrigen, [], 0, "FLY"];
+			_vehiculos pushBack _uav;
+			//[_uav,"UAV"] spawn inmuneConvoy;
+			[_uav,_mrkDestino,_lado] spawn VANTinfo;
+			createVehicleCrew _uav;
+			_pilotos append (crew _uav);
+			_grupouav = group (crew _uav select 0);
+			_grupos pushBack _grupouav;
+			{[_x] call NATOinit} forEach units _grupoUav;
+			[_uav] call AIVEHinit;
+			_uwp0 = _grupouav addWayPoint [_posdestino,0];
+			_uwp0 setWaypointBehaviour "AWARE";
+			_uwp0 setWaypointType "SAD";
+			if (not(_mrkDestino in aeropuertos)) then {_uav removeMagazines "6Rnd_LG_scalpel"};
+			sleep 5;
+			}
+		else
+			{
+			_grupoUav = createGroup _lado;
+			//_posOrigen set [2,2000];
+			_uwp0 = _grupouav addWayPoint [_posdestino,0];
+			_uwp0 setWaypointBehaviour "AWARE";
+			_uwp0 setWaypointType "SAD";
+			};
 		_vehPool = if (_lado == malos) then
 					{
 					if (_mrkDestino in aeropuertos) then {(vehNATOAir - [vehNATOPlaneAA]) select {[_x] call vehAvailable}} else {(vehNatoAir - vehFixedWing) select {[_x] call vehAvailable}};
@@ -429,21 +442,20 @@ while {(_waves != 0)} do
 			_pos = [_pos1, 5,_ang] call BIS_fnc_relPos;
 			};
 
-		while {_cuenta <= _nVeh} do
+		while {(_cuenta <= _nVeh) and (count _soldados <= 80)} do
 			{
 			_tipoVeh = selectRandom _vehPool;
 			if (_cuenta == _nVeh) then
 				{
-				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTransportHelis} else {selectRandom vehCSATTransportHelis};
+				_tipoVeh = if (_lado == malos) then {selectRandom (vehNATOTransportHelis select {[_x] call vehAvailable})} else {selectRandom (vehCSATTransportHelis select {[_x] call vehAvailable})};
 				};
 			_vehicle=[_pos, _ang + 90,_tipoveh, _lado] call bis_fnc_spawnvehicle;
-
 			_veh = _vehicle select 0;
+			if (hayIFA) then {_veh setVelocityModelSpace [((velocityModelSpace _veh) select 0) + 0,((velocityModelSpace _veh) select 1) + 150,((velocityModelSpace _veh) select 2) + 50]};
 			_vehCrew = _vehicle select 1;
 			_grupoVeh = _vehicle select 2;
 			_pilotos append _vehCrew;
 			_vehiculos pushBack _veh;
-			//diag_log format ["Antistasi Debug wavedCA: %1 spawned, total amount %2, _cuenta: %3, _nVeh %4",_tipoVeh,count _vehiculos,_cuenta,_nVeh];
 			{[_x] call NATOinit} forEach units _grupoVeh;
 			[_veh] call AIVEHinit;
 			if (not (_tipoVeh in vehTransportAir)) then
@@ -525,14 +537,15 @@ while {(_waves != 0)} do
 			sleep 1;
 			_pos = [_pos, 80,_ang] call BIS_fnc_relPos;
 			if (alive _veh) then {_cuenta = _cuenta + 1};
+			_vehPool = _vehPool select {[_x] call vehAvailable};
 			};
 		};
 	_plane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
 	if (_lado == malos) then
 		{
-		if ((not(_mrkDestino in puestos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "NATO_carrier")) then
+		if (((not(_mrkDestino in puestos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "NATO_carrier")) or hayIFA) then
 			{
-			[_mrkOrigen,_mrkDestino] spawn artilleria;
+			[_mrkOrigen,_mrkDestino,_lado] spawn artilleria;
 			diag_log "Antistasi: Arty Spawned";
 			if (([_plane] call vehAvailable) and (not(_mrkDestino in ciudades)) and _firstWave) then
 				{
@@ -540,32 +553,35 @@ while {(_waves != 0)} do
 				_rnd = if (_mrkDestino in aeropuertos) then {round random 4} else {round random 2};
 				for "_i" from 0 to _rnd do
 					{
-					diag_log "Antistasi: Airstrike Spawned";
-					if (_i == 0) then
+					if ([_plane] call vehAvailable) then
 						{
-						if (_mrkDestino in aeropuertos) then
+						diag_log "Antistasi: Airstrike Spawned";
+						if (_i == 0) then
 							{
-							_nul = [_mrkdestino,_lado,"HE"] spawn airstrike;
+							if (_mrkDestino in aeropuertos) then
+								{
+								_nul = [_mrkdestino,_lado,"HE"] spawn airstrike;
+								}
+							else
+								{
+								_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
+								};
 							}
 						else
 							{
 							_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
 							};
-						}
-					else
-						{
-						_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
+						sleep 30;
 						};
-					sleep 30;
 					};
 				};
 			};
 		}
 	else
 		{
-		if ((not(_mrkDestino in recursos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "CSAT_carrier")) then
+		if (((not(_mrkDestino in recursos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "CSAT_carrier")) or hayIFA) then
 			{
-			[_mrkOrigen,_mrkDestino] spawn artilleria;
+			if !(_posOrigenLand isEqualTo []) then {[_posOrigenLand,_mrkDestino,_lado] spawn artilleria} else {[_mrkOrigen,_mrkDestino,_lado] spawn artilleria};
 			diag_log "Antistasi: Arty Spawned";
 			if (([_plane] call vehAvailable) and (_firstWave)) then
 				{
@@ -573,23 +589,26 @@ while {(_waves != 0)} do
 				_rnd = if (_mrkDestino in aeropuertos) then {if ({lados getVariable [_x,sideUnknown] == muyMalos} count aeropuertos == 1) then {8} else {round random 4}} else {round random 2};
 				for "_i" from 0 to _rnd do
 					{
-					diag_log "Antistasi: Airstrike Spawned";
-					if (_i == 0) then
+					if ([_plane] call vehAvailable) then
 						{
-						if (_mrkDestino in aeropuertos) then
+						diag_log "Antistasi: Airstrike Spawned";
+						if (_i == 0) then
 							{
-							_nul = [_mrkdestino,_lado,"HE"] spawn airstrike;
+							if (_mrkDestino in aeropuertos) then
+								{
+								_nul = [_mrkdestino,_lado,"HE"] spawn airstrike;
+								}
+							else
+								{
+								_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
+								};
 							}
 						else
 							{
-							_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
+							_nul = [_posDestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
 							};
-						}
-					else
-						{
-						_nul = [_posDestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn airstrike;
+						sleep 30;
 						};
-					sleep 30;
 					};
 				};
 			};
@@ -603,9 +622,9 @@ while {(_waves != 0)} do
 		["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED"] call taskUpdate;
 		};
 	_solMax = round ((count _soldados)*0.6);
-	if (_solMax > 8) then {_waves = _waves -1};
+	_waves = _waves -1;
 	_firstWave = false;
-	diag_log format ["Antistasi: Reached end of spawning attack, wave %1",_waves];
+	diag_log format ["Antistasi: Reached end of spawning attack, wave %1. Vehicles: %2. Wave Units: %3. Total units: %4 ",_waves, count _vehiculos, count _soldados, count _soldadosTotal];
 	if (lados getVariable [_mrkDestino,sideUnknown] != buenos) then {_soldados spawn remoteBattle};
 	if (_lado == malos) then
 		{
@@ -637,10 +656,25 @@ while {(_waves != 0)} do
 				_killZones append [_mrkDestino,_mrkDestino,_mrkDestino];
 				killZones setVariable [_mrkOrigen,_killZones,true];
 				};
-			if ((_waves == 0) or (!(lados getVariable [_mrkOrigen,sideUnknown] == malos))) then
+
+			if !(_posOrigenLand isEqualTo []) then
+				{
+				if ({[_x] call vehAvailable} count vehNATOAPC == 0) then {_waves = _waves -1};
+				if !([vehNATOTank] call vehAvailable) then {_waves = _waves - 1};
+				};
+			if ({[_x] call vehAvailable} count vehNATOAttackHelis == 0) then
+				{
+				if (_posOrigenLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
+				};
+			if !([vehNATOPlane] call vehAvailable) then
+				{
+				if (_posOrigenLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
+				};
+
+			if ((_waves <= 0) or (!(lados getVariable [_mrkOrigen,sideUnknown] == malos))) then
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
-				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
+				if (_waves <= 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
 
 				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call taskUpdate;
 				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call taskUpdate;
@@ -668,10 +702,25 @@ while {(_waves != 0)} do
 				_killZones append [_mrkDestino,_mrkDestino,_mrkDestino];
 				killZones setVariable [_mrkOrigen,_killZones,true];
 				};
-			if ((_waves == 0) or (lados getVariable [_mrkOrigen,sideUnknown] != muyMalos)) then
+
+			if !(_posOrigenLand isEqualTo []) then
+				{
+				if ({[_x] call vehAvailable} count vehCSATAPC == 0) then {_waves = _waves -1};
+				if !([vehCSATTank] call vehAvailable) then {_waves = _waves - 1};
+				};
+			if ({[_x] call vehAvailable} count vehCSATAttackHelis == 0) then
+				{
+				if (_posOrigenLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
+				};
+			if !([vehCSATPlane] call vehAvailable) then
+				{
+				if (_posOrigenLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
+				};
+
+			if ((_waves <= 0) or (lados getVariable [_mrkOrigen,sideUnknown] != muyMalos)) then
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
-				if (_waves == 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
+				if (_waves <= 0) then {[_mrkDestino,_mrkOrigen] call minefieldAAF};
 				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call taskUpdate;
 				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call taskUpdate;
 				};

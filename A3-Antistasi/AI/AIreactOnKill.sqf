@@ -45,7 +45,37 @@ else
 		_enemy = _x findNearestEnemy _x;
 		if (!isNull _enemy) then
 			{
-			if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then {[_x,_enemy] call fuegoSupresor} else {[_x,_x,_enemy] spawn cubrirConHumo};
+			if (([primaryWeapon _x] call BIS_fnc_baseWeapon) in mguns) then
+				{
+				[_x,_enemy] call fuegoSupresor;
+				}
+			else
+				{
+				if (sunOrMoon == 1 or haveNV) then
+					{
+					[_x,_x,_enemy] spawn cubrirConHumo;
+					}
+				else
+					{
+					if (sunOrMoon < 1) then
+						{
+						if ((hayIFA and (typeOf _x in squadLeaders)) or (count (getArray (configfile >> "CfgWeapons" >> primaryWeapon _x >> "muzzles")) == 2)) then
+							{
+							[_x,_enemy] spawn useFlares;
+							};
+						};
+					};
+				};
+			}
+		else
+			{
+			if ((sunOrMoon <1) and !haveNV) then
+				{
+				if ((hayIFA and (typeOf _x in squadLeaders)) or (count (getArray (configfile >> "CfgWeapons" >> primaryWeapon _x >> "muzzles")) == 2)) then
+					{
+					[_x] call useFlares;
+					};
+				};
 			};
 		if (random 1 < 0.5) then {if (count units _grupo > 0) then {_x allowFleeing (1 -(_x skill "courage") + (({!([_x] call canFight)} count units _grupo)/(count units _grupo)))}};
 		};

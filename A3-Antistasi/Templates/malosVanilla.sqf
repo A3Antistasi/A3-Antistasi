@@ -39,6 +39,7 @@ vehNATOMRLSMags = "32Rnd_155mm_Mo_shells";
 vehNATONormal = vehNATOLight + vehNATOTrucks + [vehNATOAmmoTruck, "B_T_Truck_01_fuel_F", "B_T_Truck_01_medical_F", vehNATORepairTruck,"B_T_APC_Tracked_01_CRV_F"];
 vehNATOBike = "B_T_Quadbike_01_F";
 NATOFlag = "Flag_NATO_F";
+NATOFlagTexture = "\A3\Data_F\Flags\Flag_NATO_CO.paa";
 NATOAmmobox = "B_supplyCrate_F";
 //cfgNATOInf = (configfile >> "CfgGroups" >> "West" >> "BLU_T_F" >> "Infantry");///
 gruposNATOSentry = ["B_T_soldier_GL_F",NATOGrunt];//"B_T_InfSentry";//
@@ -51,7 +52,6 @@ NATOSquad = ["B_T_soldier_SL_F",NATOGrunt,"B_T_soldier_LAT_F",NATOMarksman,"B_T_
 NATOSpecOp = ["B_CTRG_Soldier_TL_tna_F","B_CTRG_Soldier_M_tna_F","B_CTRG_Soldier_Medic_tna_F",NATOBodyG,"B_CTRG_Soldier_LAT_tna_F","B_CTRG_Soldier_JTAC_tna_F","B_CTRG_Soldier_Exp_tna_F","B_CTRG_Soldier_AR_tna_F"];
 gruposNATOSquad = [NATOSquad,["B_T_soldier_SL_F","B_T_soldier_AR_F","B_T_soldier_GL_F",NATOMarksman,"B_T_soldier_AT_F","B_T_soldier_AAT_F","B_T_soldier_A_F","B_T_medic_F"],["B_T_soldier_SL_F","B_T_soldier_LAT_F","B_T_soldier_TL_F","B_T_soldier_AR_F","B_T_soldier_A_F","B_T_medic_F","B_T_Support_Mort_F","B_support_AMort_F"],["B_T_soldier_SL_F","B_T_soldier_AR_F","B_T_soldier_GL_F",NATOMarksman,"B_T_soldier_AA_F","B_T_soldier_AAA_F","B_T_soldier_A_F","B_T_medic_F"],["B_T_soldier_SL_F","B_T_soldier_AR_F","B_T_soldier_GL_F",NATOMarksman,"B_T_engineer_F","B_T_engineer_F","B_T_soldier_A_F","B_T_medic_F"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///
 factionMachoMalos = "BLU_CTRG_F";
-squadLeaders pushBack "B_T_soldier_SL_F";
 
 soporteStaticNATOB = "B_HMG_01_support_grn_F";
 ATStaticNATOB = "B_AT_01_weapon_F";

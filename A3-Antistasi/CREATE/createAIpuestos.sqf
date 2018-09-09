@@ -48,6 +48,7 @@ _ang = markerDir _marcador;
 _mrk setMarkerDirLocal _ang;
 if (!debug) then {_mrk setMarkerAlphaLocal 0};
 _garrison = garrison getVariable [_marcador,[]];
+_garrison = _garrison call garrisonReorg;
 _tam = count _garrison;
 private _patrol = true;
 if (_tam < ([_marcador] call garrisonSize)) then
@@ -133,7 +134,7 @@ _caja call jn_fnc_logistics_addAction;
 {_nul = [_x] call AIVEHinit;} forEach _vehiculos;
 _roads = _posicion nearRoads _size;
 
-if ((_marcador in puertos) and (spawner getVariable _marcador!=2)) then
+if ((_marcador in puertos) and (spawner getVariable _marcador!=2) and !hayIFA) then
 	{
 	_tipoVeh = if (_lado == malos) then {vehNATOBoat} else {vehCSATBoat};
 	if ([_tipoVeh] call vehAvailable) then

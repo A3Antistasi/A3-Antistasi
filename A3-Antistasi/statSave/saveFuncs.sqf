@@ -186,7 +186,6 @@ fn_SetStat =
 			    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn apagon}} forEach ciudades;
 			    antenas = antenas - [_antena];
 			    _antena removeAllEventHandlers "Killed";
-			    //sleep 1;
 			    _antena setDamage [1,false];
 			    deleteMarker _mrk;
 			    };
@@ -279,7 +278,7 @@ fn_SetStat =
 				_tipoVeh = _varvalue select _i select 0;
 				_posVeh = _varvalue select _i select 1;
 				_dirVeh = _varvalue select _i select 2;
-				_veh = createVehicle [_tipoVeh,[0,0,0],[],0,"NONE"];
+				_veh = createVehicle [_tipoVeh,[0,0,1000],[],0,"NONE"];
 				_veh setPos _posVeh;
 				_veh setDir _dirVeh;
 				_veh setVectorUp surfaceNormal (getPos _veh);

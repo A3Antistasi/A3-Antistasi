@@ -18,7 +18,7 @@ _nuevoGrp = createGroup buenos;
 if (typeOf _x != SDKUnarmed) then
 	{
 	[_x] join _nuevogrp;
-	arrayids = arrayids + [name _x];
+	if !(hayIFA) then {arrayids = arrayids + [name _x]};
 	};
 } forEach _units;
 

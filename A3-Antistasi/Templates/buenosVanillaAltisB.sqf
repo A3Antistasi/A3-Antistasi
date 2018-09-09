@@ -27,7 +27,7 @@ vehSDKPlane = "C_Plane_Civil_01_F";
 vehSDKBoat = "B_G_Boat_Transport_01_F";
 vehSDKRepair = "B_G_Offroad_01_repair_F";
 SDKFlag = "Flag_FIA_F";
-
+SDKFlagTexture = "\A3\Data_F\Flags\Flag_FIA_CO.paa";
 tipoPetros = "B_G_officer_F";
 
 soporteStaticSDKB = "B_HMG_01_support_F";
@@ -48,17 +48,32 @@ lamparasSDK = ["acc_flashlight"];
 
 ATMineMag = "ATMine_Range_Mag";
 APERSMineMag = "APERSMine_Range_Mag";
-
-FIARifleman = "I_C_Soldier_Para_7_F";
-FIAMarksman = "I_C_Soldier_Para_2_F";
-vehFIAArmedCar = "I_C_Offroad_02_LMG_F";
-vehFIATruck = "I_C_Van_01_transport_F";
-vehFIACar = "I_C_Offroad_02_unarmed_F";
-gruposFIASmall = [["I_C_Soldier_Para_6_F",FIARifleman],[FIAMarksman,FIARifleman],[FIAMarksman,FIAMarksman]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
-gruposFIAMid = [["I_C_Soldier_Para_2_F","I_C_Soldier_Para_6_F","I_C_Soldier_Para_7_F","I_C_Soldier_Para_4_F"],["I_C_Soldier_Para_2_F","I_C_Soldier_Para_6_F","I_C_Soldier_Para_7_F","I_C_Soldier_Para_5_F"]];
-FIASquad = ["I_C_Soldier_Para_2_F","I_C_Soldier_Para_6_F","I_C_Soldier_Para_7_F","I_C_Soldier_Para_4_F","I_C_Soldier_Para_1_F","I_C_Soldier_Para_7_F","I_C_Soldier_Para_8_F","I_C_Soldier_Para_3_F"];//"IRG_InfSquad";///
-gruposFIASquad = [FIASquad];
-factionFIA = "IND_C_F";
+if (gameMode != 4) then
+	{
+	FIARifleman = "I_C_Soldier_Para_7_F";
+	FIAMarksman = "I_C_Soldier_Para_2_F";
+	vehFIAArmedCar = "I_C_Offroad_02_LMG_F";
+	vehFIATruck = "I_C_Van_01_transport_F";
+	vehFIACar = "I_C_Offroad_02_unarmed_F";
+	gruposFIASmall = [["I_C_Soldier_Para_6_F",FIARifleman],[FIAMarksman,FIARifleman],[FIAMarksman,FIAMarksman]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
+	gruposFIAMid = [["I_C_Soldier_Para_2_F","I_C_Soldier_Para_6_F","I_C_Soldier_Para_7_F","I_C_Soldier_Para_4_F"],["I_C_Soldier_Para_2_F","I_C_Soldier_Para_6_F","I_C_Soldier_Para_7_F","I_C_Soldier_Para_5_F"]];
+	FIASquad = ["I_C_Soldier_Para_2_F","I_C_Soldier_Para_6_F","I_C_Soldier_Para_7_F","I_C_Soldier_Para_4_F","I_C_Soldier_Para_1_F","I_C_Soldier_Para_7_F","I_C_Soldier_Para_8_F","I_C_Soldier_Para_3_F"];//"IRG_InfSquad";///
+	gruposFIASquad = [FIASquad];
+	factionFIA = "IND_C_F";
+	}
+else
+	{
+	FIARifleman = "O_soldierU_F";
+	FIAMarksman = "O_soldierU_M_F";
+	vehFIAArmedCar = "O_MRAP_02_hmg_F";
+	vehFIATruck = "O_Truck_02_transport_F";
+	vehFIACar = "O_MRAP_02_F";
+	gruposFIASmall = [["O_SoldierU_GL_F",FIARifleman],[FIAMarksman,FIARifleman],["O_soldierU_M_F","O_SoldierU_GL_F"]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
+	gruposFIAMid = [["O_SoldierU_SL_F","O_SoldierU_GL_F","O_soldierU_AR_F",FIAMarksman],["O_SoldierU_SL_F","O_SoldierU_GL_F","O_soldierU_AR_F","O_soldierU_LAT_F"],["O_SoldierU_SL_F","O_SoldierU_GL_F","O_soldierU_AR_F","O_engineer_U_F"]];
+	FIASquad = ["O_SoldierU_SL_F","O_soldierU_AR_F","O_SoldierU_GL_F",FIARifleman,FIARifleman,FIAMarksman,"O_soldierU_LAT_F","O_soldierU_medic_F"];//"IRG_InfSquad";///
+	gruposFIASquad = [FIASquad,["O_SoldierU_SL_F","O_soldierU_AR_F","O_SoldierU_GL_F",FIARifleman,"O_soldierU_A_F","O_soldierU_exp_F","O_soldierU_LAT_F","O_soldierU_medic_F"]];
+	factionFIA = "";
+	};
 
 vehPoliceCar = vehFIACar;
 policeOfficer = FIARifleman;

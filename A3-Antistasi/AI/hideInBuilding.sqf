@@ -23,6 +23,7 @@ if (count _unidades > count _buildingPos) then {_buildingPos resize (count _unid
 _grupo setVariable ["ocupadas",_ocupadas];
 {
 _pos = _buildingPos select _forEachIndex;
+if (isNil "_pos") exitWith {};
 _x setVariable ["maniobrando",true];
 _x disableAI "TARGET";
 _x disableAI "AUTOTARGET";

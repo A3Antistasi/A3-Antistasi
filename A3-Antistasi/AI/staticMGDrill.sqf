@@ -71,7 +71,7 @@ while {(alive _gunner)} do
 					_gunner setVariable ["timeToBuild",nil];
 					if ([_gunner] call canFight) then
 						{
-						private _veh = _tipoVeh createVehicle [0,0,0];
+						private _veh = _tipoVeh createVehicle [0,0,1000];
 						_veh setPos position (_gunner);
 						removeBackpackGlobal _gunner;
 						removeBackpackGlobal _ayudante;

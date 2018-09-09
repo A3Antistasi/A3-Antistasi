@@ -76,6 +76,5 @@ else
 			};
 		} forEach _units;
 		};
-	//hint format ["Si curo: intento %1.Eny: %2",distanciaSPWN,_enemy]; distanciaSPWN = distanciaSPWN + 1;
 	};
 _medico

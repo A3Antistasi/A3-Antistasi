@@ -6,12 +6,14 @@ if (isServer and (isNil "serverInitDone")) then {skipTime random 24};
 
 if (!isMultiPlayer) then
     {
-    [] execVM "briefing.sqf";
-
+    gameMode = 1;
     _nul = [] execVM "musica.sqf";
     diag_log "Starting Antistasi SP";
     call compile preprocessFileLineNumbers "initVar.sqf";//this is the file where you can modify a few things.
     initVar = true;
+    respawnMalos setMarkerAlpha 0;
+    "respawn_east" setMarkerAlpha 0;
+    [] execVM "briefing.sqf";
     diag_log format ["Antistasi SP. InitVar done. Version: %1",antistasiVersion];
     {if (/*(side _x == buenos) and */(_x != comandante) and (_x != Petros)) then {_grupete = group _x; deleteVehicle _x; deleteGroup _grupete}} forEach allUnits;
     _serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
@@ -44,7 +46,7 @@ if (!isMultiPlayer) then
     private _index = _x call jn_fnc_arsenal_itemType;
     [_index,_x,-1] call jn_fnc_arsenal_addItem;
     }foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);
-    _nul = [caja] call cajaAAF;
+    [] execVM "Municion\cajaAAF.sqf";
     waitUntil {sleep 1;!(isNil "placementDone")};
     distancias = [] spawn distancias4;
     resourcecheck = [] execVM "resourcecheck.sqf";
@@ -60,19 +62,8 @@ if (!isMultiPlayer) then
                 };
             };
         }];
-    }
-else
-    {
-    if !(isServer) then
-        {
-        membershipEnabled = if (paramsArray select 2 == 1) then {true} else {false};
-        switchCom = if (paramsArray select 3 == 1) then {true} else {false};
-        tkPunish = if (paramsArray select 4 == 1) then {true} else {false};
-        distanciaMiss = paramsArray select 5;
-        skillMult = paramsArray select 8;
-        minWeaps = paramsArray select 9;
-        civTraffic = paramsArray select 10;
-        };
+    deleteMarker "respawn_east";
+    if (buenos == independent) then {deleteMarker "respawn_west"} else {deleteMarker "respawn_guerrila"};
     };
 
 

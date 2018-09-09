@@ -1,4 +1,4 @@
-private ["_unit","_veh","_lado","_tipo","_skill""_riflefinal","_magazines","_hmd","_marcador","_revelar"];
+private ["_unit","_veh","_lado","_tipo","_skill","_riflefinal","_magazines","_hmd","_marcador","_revelar"];
 
 _unit = _this select 0;
 if (isNil "_unit") exitWith {};
@@ -57,7 +57,7 @@ else
 		};
 	};
 
-_skill = tierWar * 0.1 * skillMult;
+_skill = (tierWar + difficultyCoef) * 0.1 * skillMult;
 if ((faction _unit != factionGEN) and (faction _unit != factionFIA)) then
 	{
 	if (side _unit == malos) then
@@ -80,12 +80,12 @@ else
 	{
 	if (faction _unit == factionFIA) then
 		{
-		_skill = _skill max 0.3;
+		_skill = _skill min 0.3;
 		}
 	else
 		{
-		_skill = _skill max 0.2;
-		if (tierWar > 1) then
+		_skill = _skill min 0.2;
+		if ((tierWar > 1) and !hayIFA) then
 			{
 			_rifleFinal = primaryWeapon _unit;
 			_magazines = getArray (configFile / "CfgWeapons" / _rifleFinal / "magazines");
@@ -99,107 +99,118 @@ else
 
 if (_skill > 0.58) then {_skill = 0.58};
 _unit setSkill _skill;
-if (not(_tipo in sniperUnits)) then {if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]}};
-if (_unit == leader _unit) then
+if (not(_tipo in sniperUnits)) then
 	{
-	_unit setskill ["courage",_skill + 0.2];
-	_unit setskill ["commanding",_skill + 0.2];
-	};
-_hmd = hmd _unit;
-if (sunOrMoon < 1) then
-	{
-	if (!hayRHS) then
+	if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]};
+	if (_tipo in squadLeaders) then
 		{
-		if ((faction _unit != "BLU_CTRG_F") and (faction _unit != "OPF_V_F") and (_unit != leader (group _unit))) then
+		_unit setskill ["courage",_skill + 0.2];
+		_unit setskill ["commanding",_skill + 0.2];
+		};
+	};
+
+_hmd = hmd _unit;
+if !(hayIFA) then
+	{
+	if (sunOrMoon < 1) then
+		{
+		if (!hayRHS) then
 			{
-			if (_hmd != "") then
+			if ((faction _unit != factionMachoMalos) and (faction _unit != factionMachoMuyMalos) and (_unit != leader (group _unit))) then
 				{
-				if ((random 5 > tierWar) and (!haveNV)) then
+				if (_hmd != "") then
 					{
-					_unit unassignItem _hmd;
-					_unit removeItem _hmd;
-					_hmd = "";
+					if ((random 5 > tierWar) and (!haveNV)) then
+						{
+						_unit unassignItem _hmd;
+						_unit removeItem _hmd;
+						_hmd = "";
+						};
 					};
 				};
-			};
-		if (_hmd != "") then
-			{
-			if ("acc_pointer_IR" in primaryWeaponItems _unit) then
+			if (_hmd != "") then
 				{
-				_unit action ["IRLaserOn", _unit]
+				if ("acc_pointer_IR" in primaryWeaponItems _unit) then
+					{
+					_unit action ["IRLaserOn", _unit]
+					};
+				}
+			else
+				{
+				if (not("acc_flashlight" in primaryWeaponItems _unit)) then
+					{
+					_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
+					if ("acc_flashlight" in _compatibles) then
+						{
+						_unit addPrimaryWeaponItem "acc_flashlight";
+					    _unit assignItem "acc_flashlight";
+						};
+					};
+				_unit enableGunLights "AUTO";
+				_unit setskill ["spotDistance",_skill - 0.2];
+				_unit setskill ["spotTime",_skill - 0.2];
 				};
 			}
 		else
 			{
-			if (not("acc_flashlight" in primaryWeaponItems _unit)) then
+			_arr = (NVGoggles arrayIntersect (items _unit));
+			if (count _arr > 0) then
 				{
-				_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
-				if ("acc_flashlight" in _compatibles) then
+				_hmd = _arr select 0;
+				if ((random 5 > tierWar) and (!haveNV)) then
 					{
-					_unit addPrimaryWeaponItem "acc_flashlight";
-				    _unit assignItem "acc_flashlight";
+					_unit removeItem _hmd;
+					}
+				else
+					{
+					_unit assignItem _hmd;
 					};
 				};
-			_unit enableGunLights "AUTO";
-			_unit setskill ["spotDistance",_skill - 0.2];
-			_unit setskill ["spotTime",_skill - 0.2];
+			if (hmd _unit == "") then
+				{
+				_lampara = if (side _unit == muyMalos) then {lamparaMuyMalos} else {lamparaMalos};
+				if (!(_lampara in primaryWeaponItems _unit)) then
+					{
+					_unit addPrimaryWeaponItem _lampara;
+					_unit assignItem _lampara;
+					};
+				_unit enableGunLights "AUTO";
+				_unit setskill ["spotDistance",_skill - 0.2];
+				_unit setskill ["spotTime",_skill - 0.2];
+				}
+			else
+				{
+				_unit action ["IRLaserOn", _unit];
+				};
 			};
 		}
 	else
 		{
-		_arr = (NVGoggles arrayIntersect (items _unit));
-		if (count _arr > 0) then
+		if (!hayRHS) then
 			{
-			_hmd = _arr select 0;
-			if ((random 5 > tierWar) and (!haveNV)) then
+			if ((faction _unit != factionMachoMalos) and (faction _unit != factionMachoMuyMalos)) then
 				{
-				_unit removeItem _hmd;
-				}
-			else
-				{
-				_unit assignItem _hmd;
+				if (_hmd != "") then
+					{
+					_unit unassignItem _hmd;
+					_unit removeItem _hmd;
+					};
 				};
-			};
-		if (hmd _unit == "") then
-			{
-			_lampara = if (side _unit == muyMalos) then {lamparaMuyMalos} else {lamparaMalos};
-			if (!(_lampara in primaryWeaponItems _unit)) then
-				{
-				_unit addPrimaryWeaponItem _lampara;
-				_unit assignItem _lampara;
-				};
-			_unit enableGunLights "AUTO";
-			_unit setskill ["spotDistance",_skill - 0.2];
-			_unit setskill ["spotTime",_skill - 0.2];
 			}
 		else
 			{
-			_unit action ["IRLaserOn", _unit];
+			_arr = (NVGoggles arrayIntersect (items _unit));
+			if (count _arr > 0) then
+				{
+				_hmd = _arr select 0;
+				_unit removeItem _hmd;
+				};
 			};
 		};
 	}
 else
 	{
-	if (!hayRHS) then
-		{
-		if ((faction _unit != "BLU_CTRG_F") and (faction _unit != "OPF_V_F")) then
-			{
-			if (_hmd != "") then
-				{
-				_unit unassignItem _hmd;
-				_unit removeItem _hmd;
-				};
-			};
-		}
-	else
-		{
-		_arr = (NVGoggles arrayIntersect (items _unit));
-		if (count _arr > 0) then
-			{
-			_hmd = _arr select 0;
-			_unit removeItem _hmd;
-			};
-		};
+	_unit unlinkItem "ItemRadio";
 	};
 _revelar = false;
 if (vehicle _unit != _unit) then

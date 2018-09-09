@@ -67,7 +67,7 @@ if (_medico != _unit) then
 					//_medico playMoveNow "AcinPknlMstpSrasWrflDnon";
 					_medico stop false;
 					_dummyGrp = createGroup civilian;
-					_dummy = _dummyGrp createUnit ["C_man_polo_1_F", [0,0,0], [], 0, "FORM"];
+					_dummy = _dummyGrp createUnit ["C_man_polo_1_F", [0,0,20], [], 0, "FORM"];
 					_dummy setUnitPos "MIDDLE";
 					_dummy forceWalk true;
 					_dummy setSkill 0;

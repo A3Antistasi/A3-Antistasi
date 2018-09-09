@@ -12,7 +12,7 @@ if (time - _tiempo >= 0.5) then {sleep 0.1} else {sleep 0.5 - (time - _tiempo)};
 if (debugperf) then {hint format ["Tiempo transcurrido: %1 para %2 marcadores", time - _tiempo, count marcadores]};
 _tiempo = time;
 
-waitUntil {!isNil "stavros"};
+waitUntil {!isNil "theBoss"};
 
 _greenfor = [];
 _blufor = [];

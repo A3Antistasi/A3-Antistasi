@@ -10,6 +10,11 @@ if (_tipo == SDKMGStatic) then
 	{
 	_b0 = MGStaticSDKB;
 	_b1 = soporteStaticSDKB2;
+	_morty0 setVariable ["typeOfSoldier","StaticGunner"];
+	}
+else
+	{
+	_morty0 setVariable ["typeOfSoldier","StaticMortar"];
 	};
 while {(alive _morty0) and (alive _morty1)} do
 	{

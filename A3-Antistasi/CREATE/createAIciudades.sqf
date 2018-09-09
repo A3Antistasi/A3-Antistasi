@@ -1,7 +1,7 @@
 //NOTA: TAMBIÉN LO USO PARA FIA
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_grupos","_soldados","_posicion","_num","_datos","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontera","_array","_cuenta","_grupo","_perro","_grp"];
+private ["_marcador","_grupos","_soldados","_posicion","_num","_datos","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontera","_array","_cuenta","_grupo","_perro","_grp","_lado"];
 _marcador = _this select 0;
 
 _grupos = [];
@@ -10,7 +10,8 @@ _soldados = [];
 _posicion = getMarkerPos (_marcador);
 
 _num = [_marcador] call sizeMarker;
-
+_lado = lados getVariable [_marcador,sideUnknown];
+if ({if ((getMarkerPos _x inArea _marcador) and (lados getVariable [_x,sideUnknown] != _lado)) exitWith {1}} count marcadores > 0) exitWith {};
 _num = round (_num / 100);
 
 _datos = server getVariable _marcador;
@@ -26,7 +27,7 @@ if (_marcador in destroyedCities) then
 	}
 else
 	{
-	if (lados getVariable [_marcador,sideUnknown] == malos) then
+	if (_lado == malos) then
 		{
 		_num = round (_num * (_prestigeOPFOR + _prestigeBLUFOR)/100);
 		_frontera = [_marcador] call isFrontline;

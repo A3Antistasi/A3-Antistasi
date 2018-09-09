@@ -16,17 +16,20 @@ if (_muzzle !="") then
 	{
 	if (!isNull _enemy) then
 		{
-		if ((([objNull, "VIEW"] checkVisibility [eyePos _enemy, eyePos _ayudado]) > 0) or (behaviour _unit == "COMBAT")) then
+		if (_enemy distance _unit > 75) then
 			{
-			_unit stop true;
-			_unit doWatch _enemy;
-			_unit lookAt _enemy;
-			_unit doTarget _enemy;
-			if (_unit != _ayudado) then {sleep 5} else {sleep 1};
-			_unit forceWeaponFire [_muzzle,_muzzle];
-			_unit stop false;
-			_unit doFollow (leader _unit);
-			_return = true;
+			if ((([objNull, "VIEW"] checkVisibility [eyePos _enemy, eyePos _ayudado]) > 0) or (behaviour _unit == "COMBAT")) then
+				{
+				_unit stop true;
+				_unit doWatch _enemy;
+				_unit lookAt _enemy;
+				_unit doTarget _enemy;
+				if (_unit != _ayudado) then {sleep 5} else {sleep 1};
+				_unit forceWeaponFire [_muzzle,_muzzle];
+				_unit stop false;
+				_unit doFollow (leader _unit);
+				_return = true;
+				};
 			};
 		};
 	}

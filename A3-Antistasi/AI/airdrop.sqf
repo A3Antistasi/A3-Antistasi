@@ -73,11 +73,11 @@ if (alive _veh) then
 	_veh setCollisionLight true;
 	{
    waitUntil {sleep 0.5; !surfaceIsWater (position _x)};
+      _x allowDamage false;
    	unAssignVehicle _x;
-   	_x allowDamage false;
    	moveOut _x;
-   	sleep 0.35;
-   	_x allowDamage true;
+   	sleep 1;
+   	_x spawn {sleep 5; _this allowDamage true};
   	} forEach units _grupo;
 	};
 

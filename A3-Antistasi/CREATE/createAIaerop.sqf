@@ -17,16 +17,14 @@ _frontera = [_marcador] call isFrontline;
 _busy = if (dateToNumber date > server getVariable _marcador) then {false} else {true};
 _nVeh = round (_size/60);
 
-_lado = malos;
-if (lados getVariable [_marcador,sideUnknown] == muyMalos) then
-	{
-	_lado = muyMalos;
-	};
+_lado = lados getVariable [_marcador,sideUnknown];
 
 _posiciones = carreteras getVariable [_marcador,[]];
 _posMG = _posiciones select {(_x select 2) == "MG"};
 _posMort = _posiciones select {(_x select 2) == "Mort"};
 _posTank = _posiciones select {(_x select 2) == "Tank"};
+_posAA = _posiciones select {(_x select 2) == "AA"};
+_posAT = _posiciones select {(_x select 2) == "AT"};
 
 if (spawner getVariable _marcador != 2) then
 	{
@@ -93,25 +91,39 @@ _mrk setMarkerBrushLocal "DiagGrid";
 _ang = markerDir _marcador;
 _mrk setMarkerDirLocal _ang;
 if (!debug) then {_mrk setMarkerAlphaLocal 0};
-_cuenta = 0;
-
-while {(spawner getVariable _marcador != 2) and (_cuenta < 4)} do
+_garrison = garrison getVariable [_marcador,[]];
+_garrison = _garrison call garrisonReorg;
+_tam = count _garrison;
+private _patrol = true;
+if (_tam < ([_marcador] call garrisonSize)) then
 	{
-	_arrayGrupos = if (_lado == malos) then {gruposNATOsmall} else {gruposCSATsmall};
-	if ([_marcador,false] call fogCheck < 0.3) then {_arrayGrupos = _arrayGrupos - sniperGroups};
-	_tipoGrupo = selectRandom _arrayGrupos;
-	_grupo = [_posicion,_lado, _tipoGrupo] call spawnGroup;
-	sleep 1;
-	if ((random 10 < 2.5) and (not(_tipogrupo in sniperGroups))) then
+	_patrol = false;
+	}
+else
+	{
+	if ({if ((getMarkerPos _x inArea _mrk) and (lados getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count marcadores > 0) then {_patrol = false};
+	};
+if (_patrol) then
+	{
+	_cuenta = 0;
+	while {(spawner getVariable _marcador != 2) and (_cuenta < 4)} do
 		{
-		_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
-		[_perro] spawn guardDog;
+		_arrayGrupos = if (_lado == malos) then {gruposNATOsmall} else {gruposCSATsmall};
+		if ([_marcador,false] call fogCheck < 0.3) then {_arrayGrupos = _arrayGrupos - sniperGroups};
+		_tipoGrupo = selectRandom _arrayGrupos;
+		_grupo = [_posicion,_lado, _tipoGrupo] call spawnGroup;
 		sleep 1;
+		if ((random 10 < 2.5) and (not(_tipogrupo in sniperGroups))) then
+			{
+			_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
+			[_perro] spawn guardDog;
+			sleep 1;
+			};
+		_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "RANDOM", "NOVEH2"] execVM "scripts\UPSMON.sqf";
+		_grupos pushBack _grupo;
+		{[_x,_marcador] call NATOinit; _soldados pushBack _x} forEach units _grupo;
+		_cuenta = _cuenta +1;
 		};
-	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "RANDOM", "NOVEH2"] execVM "scripts\UPSMON.sqf";
-	_grupos pushBack _grupo;
-	{[_x,_marcador] call NATOinit; _soldados pushBack _x} forEach units _grupo;
-	_cuenta = _cuenta +1;
 	};
 _cuenta = 0;
 
@@ -122,7 +134,7 @@ _tipoVeh = if (_lado == malos) then {NATOMortar} else {CSATMortar};
 {
 if (spawner getVariable _marcador != 2) then
 	{
-	_veh = _tipoVeh createVehicle [0,0,0];
+	_veh = _tipoVeh createVehicle [0,0,1000];
 	_veh setDir (_x select 1);
 	_veh setPosATL (_x select 0);
 	_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
@@ -139,18 +151,79 @@ _tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
 {
 if (spawner getVariable _marcador != 2) then
 	{
-	_veh = _tipoVeh createVehicle [0,0,0];
-	_veh setDir (_x select 1);
-	_veh setPosATL (_x select 0);
-	_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-	[_unit,_marcador] call NATOinit;
-	_unit moveInGunner _veh;
-	_soldados pushBack _unit;
-	_vehiculos pushBack _veh;
-	_nul = [_veh] call AIVEHinit;
-	sleep 1;
+	_proceder = true;
+	if ((_x select 0) select 2 > 0.5) then
+		{
+		_bld = nearestBuilding (_x select 0);
+		if !(alive _bld) then {_proceder = false};
+		};
+	if (_proceder) then
+		{
+		_veh = _tipoVeh createVehicle [0,0,1000];
+		_veh setDir (_x select 1);
+		_veh setPosATL (_x select 0);
+		_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+		[_unit,_marcador] call NATOinit;
+		_unit moveInGunner _veh;
+		_soldados pushBack _unit;
+		_vehiculos pushBack _veh;
+		_nul = [_veh] call AIVEHinit;
+		sleep 1;
+		};
 	};
 } forEach _posMG;
+_tipoVeh = if (_lado == malos) then {staticAAMalos} else {staticAAmuyMalos};
+{
+if (spawner getVariable _marcador != 2) then
+	{
+	if !([_tipoVeh] call vehAvailable) exitWith {};
+	_proceder = true;
+	if ((_x select 0) select 2 > 0.5) then
+		{
+		_bld = nearestBuilding (_x select 0);
+		if !(alive _bld) then {_proceder = false};
+		};
+	if (_proceder) then
+		{
+		_veh = _tipoVeh createVehicle [0,0,1000];
+		_veh setDir (_x select 1);
+		_veh setPosATL (_x select 0);
+		_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+		[_unit,_marcador] call NATOinit;
+		_unit moveInGunner _veh;
+		_soldados pushBack _unit;
+		_vehiculos pushBack _veh;
+		_nul = [_veh] call AIVEHinit;
+		sleep 1;
+		};
+	};
+} forEach _posAA;
+_tipoVeh = if (_lado == malos) then {staticATMalos} else {staticATmuyMalos};
+{
+if (spawner getVariable _marcador != 2) then
+	{
+	if !([_tipoVeh] call vehAvailable) exitWith {};
+	_proceder = true;
+	if ((_x select 0) select 2 > 0.5) then
+		{
+		_bld = nearestBuilding (_x select 0);
+		if !(alive _bld) then {_proceder = false};
+		};
+	if (_proceder) then
+		{
+		_veh = _tipoVeh createVehicle [0,0,1000];
+		_veh setDir (_x select 1);
+		_veh setPosATL (_x select 0);
+		_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+		[_unit,_marcador] call NATOinit;
+		_unit moveInGunner _veh;
+		_soldados pushBack _unit;
+		_vehiculos pushBack _veh;
+		_nul = [_veh] call AIVEHinit;
+		sleep 1;
+		};
+	};
+} forEach _posAT;
 
 _ret = [_marcador,_size,_lado,_frontera] call milBuildings;
 _grupos pushBack (_ret select 0);
@@ -213,8 +286,8 @@ else
 
 if (!_busy) then
 	{
-	_arrayVehAAF = if (_lado == malos) then {vehNATOAttack select {[_x] call vehAvailable}} else {vehCSATAttack select {[_x] call vehAvailable}};
 	{
+	_arrayVehAAF = if (_lado == malos) then {vehNATOAttack select {[_x] call vehAvailable}} else {vehCSATAttack select {[_x] call vehAvailable}};
 	if ((spawner getVariable _marcador != 2) and (count _arrayVehAAF > 0)) then
 		{
 		_veh = createVehicle [selectRandom _arrayVehAAF, (_x select 0), [], 0, "NONE"];
@@ -241,8 +314,6 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _nVeh)} do
 	_cuenta = _cuenta + 1;
 	};
 
-_garrison = garrison getVariable [_marcador,[]];
-_tam = count _garrison;
 _array = [];
 _subArray = [];
 _cuenta = 0;

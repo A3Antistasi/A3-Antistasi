@@ -9,69 +9,12 @@ _salir = false;
 _contacto = objNull;
 _grpContacto = grpNull;
 _tsk = "";
-if (_dificil) then
-	{
-	_result = [] call spawnMissionGiver;
-	_ciudad = _result select 0;
-	if (_ciudad == "") exitWith {_dificil = false};
-	_contacto = _result select 1;
-
-	_nombredest = [_ciudad] call localizar;
-	_tiempolim = 15;//120
-	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-	_fechalimnum = dateToNumber _fechalim;
-	[[buenos,civilian],"RES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _contacto,false,0,true,"talk",true] call BIS_fnc_taskCreate;
-	misiones pushBack ["RES","CREATED"]; publicVariable "misiones";
-
-	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
-	if (dateToNumber date > _fechalimnum) then
-		{
-		_salir = true
-		}
-	else
-		{
-		if (lados getVariable [_marcador,sideUnknown] == buenos) then
-			{
-			_salir = true;
-			{
-			if (isPlayer _x) then {[_contacto,"globalChat","My information is useless now"] remoteExec ["commsMP",_x]}
-			} forEach ([50,0,position _contacto,"GREENFORSpawn"] call distanceUnits);
-			};
-		};
-	[_contacto] spawn
-		{
-		_contacto = _this select 0;
-		_grpContacto = group _contacto;
-		sleep cleanTime;
-		deleteVehicle _contacto;
-		deleteGroup _grpContacto;
-		};
-	if (_salir) exitWith
-		{
-		if (_contacto getVariable "statusAct") then
-			{
-			[0,"RES"] spawn borrarTask;
-			}
-		else
-			{
-			["RES",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _contacto,"FAILED","talk"] call taskUpdate;
-			[1200,"RES"] spawn borrarTask;
-			};
-		};
-	};
-if (_salir) exitWith {};
-
-if (_dificil) then
-	{
-	[0,"RES"] spawn borrarTask;
-	waitUntil {sleep 1; !(["RES"] call BIS_fnc_taskExists)};
-	};
-
 _posicion = getMarkerPos _marcador;
 
 _POWs = [];
 
 _tiempolim = if (_dificil) then {30} else {120};//120
+if (hayIFA) then {_tiempolim = _tiempolim * 2};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
 
@@ -136,7 +79,7 @@ sleep 5;
 
 {_x allowDamage true} forEach _POWS;
 
-waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 50)} count _POWs > 0) or (dateToNumber date > _fechalimnum)};
+waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos respawnBuenos < 50)} count _POWs > 0) or (dateToNumber date > _fechalimnum)};
 
 if (dateToNumber date > _fechalimnum) then
 	{
@@ -163,7 +106,7 @@ if (dateToNumber date > _fechalimnum) then
 		};
 	};
 
-waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 50)} count _POWs > 0)};
+waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos respawnBuenos < 50)} count _POWs > 0)};
 
 _bonus = if (_dificil) then {2} else {1};
 
@@ -171,20 +114,20 @@ if ({alive _x} count _POWs == 0) then
 	{
 	["RES",[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"POW Rescue",_marcador],_posicion,"FAILED","run"] call taskUpdate;
 	{[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false} forEach _POWs;
-	[-10*_bonus,stavros] call playerScoreAdd;
+	[-10*_bonus,theBoss] call playerScoreAdd;
 	}
 else
 	{
 	sleep 5;
 	["RES",[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"POW Rescue",_marcador],_posicion,"SUCCEEDED","run"] call taskUpdate;
-	_cuenta = {(alive _x) and (_x distance getMarkerPos "respawn_guerrila" < 150)} count _POWs;
+	_cuenta = {(alive _x) and (_x distance getMarkerPos respawnBuenos < 150)} count _POWs;
 	_hr = 2 * (_cuenta);
 	_resourcesFIA = 100 * _cuenta*_bonus;
 	[_hr,_resourcesFIA] remoteExec ["resourcesFIA",2];
 	[0,10*_bonus,_posicion] remoteExec ["citySupportChange",2];
 	//[_cuenta,0] remoteExec ["prestige",2];
-	{if (_x distance getMarkerPos "respawn_guerrila" < 500) then {[_cuenta,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-	[round (_cuenta*_bonus/2),stavros] call playerScoreAdd;
+	{if (_x distance getMarkerPos respawnBuenos < 500) then {[_cuenta,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+	[round (_cuenta*_bonus/2),theBoss] call playerScoreAdd;
 	{[_x] join _grpPOW; [_x] orderGetin false} forEach _POWs;
 	};
 
@@ -194,7 +137,7 @@ _municion = [];
 _armas = [];
 {
 _unit = _x;
-if (_unit distance getMarkerPos "respawn_guerrila" < 150) then
+if (_unit distance getMarkerPos respawnBuenos < 150) then
 	{
 	{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
 	{if (not(_x in unlockedMagazines)) then {_municion pushBack _x}} forEach magazines _unit;

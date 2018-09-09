@@ -61,6 +61,7 @@ if (!_hayArty) exitWith {hint "You must select an artillery group or it is a Mob
 if (!_estanVivos) exitWith {hint "All elements in this Batery cannot fire or are disabled"};
 if ((_hayMuni < 2) and (!_estanListos)) exitWith {hint "The Battery has no ammo to fire. Reload it on HQ"};
 if (!_estanListos) exitWith {hint "Selected Battery is busy right now"};
+if (_tipoMuni == "not_supported") exitWith {hint "Your current modset doesent support this strike type"};
 if (isNil "_tipoMuni") exitWith {};
 
 hcShowBar false;
@@ -178,7 +179,7 @@ if ((not(_marcador in forcedSpawn)) and (_posicionTel distance (getMarkerPos _ma
 	};
 
 _texto = format ["Requesting fire support on Grid %1. %2 Rounds", mapGridPosition _posicionTel, round _rounds];
-[stavros,"sideChat",_texto] remoteExec ["commsMP",[buenos,civilian]];
+[theBoss,"sideChat",_texto] remoteExec ["commsMP",[buenos,civilian]];
 
 if (_tipoArty == "BARRAGE") then
 	{
@@ -253,6 +254,7 @@ if (_tipoArty != "BARRAGE") then
 	sleep 5;
 	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_posicionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
 	_tiempo = time + _eta - 5;
+	if (isNil "_tiempo") exitWith {diag_log format ["Antistasi: Error en artySupport.sqf. Params: %1,%2,%3,%4",_artyArrayDef1 select 0,_posicionTel,((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0),(_artyArrayDef1 select 0) getArtilleryETA [_posicionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)]]};
 	_texto = format ["Acknowledged. Fire mission is inbound. %2 Rounds fired. ETA %1 secs",round _eta,_roundsMax - _rounds];
 	[petros,"sideChat",_texto] remoteExec ["commsMP",[buenos,civilian]];
 	};

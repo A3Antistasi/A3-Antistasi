@@ -9,67 +9,12 @@ _salir = false;
 _contacto = objNull;
 _grpContacto = grpNull;
 _tsk = "";
-if (_dificil) then
-	{
-	_result = [] call spawnMissionGiver;
-	_ciudad = _result select 0;
-	if (_ciudad == "") exitWith {_dificil = false};
-	_contacto = _result select 1;
-	_nombredest = [_ciudad] call localizar;
-	_tiempolim = 30;//120
-	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-	_fechalimnum = dateToNumber _fechalim;
-	[[buenos,civilian],"LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _contacto,false,0,true,"talk",true] call BIS_fnc_taskCreate;
-	misiones pushBack ["LOG","CREATED"]; publicVariable "misiones";
-	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
-	if (dateToNumber date > _fechalimnum) then
-		{
-		_salir = true
-		}
-	else
-		{
-		if (lados getVariable [_marcador,sideUnknown] == buenos) then
-			{
-			_salir = true;
-			{
-			if (isPlayer _x) then {[_contacto,"globalChat","My information is useless now"] remoteExec ["commsMP",_x]}
-			} forEach ([50,0,position _contacto,"GREENFORSpawn"] call distanceUnits);
-			};
-		};
-	[_contacto] spawn
-		{
-		_contacto = _this select 0;
-		_grpContacto = group _contacto;
-		sleep cleanTime;
-		deleteVehicle _contacto;
-		deleteGroup _grpContacto;
-		};
-	if (_salir) exitWith
-		{
-		if (_contacto getVariable "statusAct") then
-			{
-			[0,"LOG"] spawn borrarTask;
-			}
-		else
-			{
-			["LOG",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _contacto,"FAILED","talk"] call taskUpdate;
-			[1200,"LOG"] spawn borrarTask;
-			};
-		};
-	};
-if (_salir) exitWith {};
-
-if (_dificil) then
-	{
-	[0,"LOG"] spawn borrarTask;
-	waitUntil {sleep 1; !(["LOG"] call BIS_fnc_taskExists)};
-	};
-
 _posicion = getPosASL _banco;
 
-_posbase = getMarkerPos "respawn_guerrila";
+_posbase = getMarkerPos respawnBuenos;
 
 _tiempolim = if (_dificil) then {60} else {120};
+if (hayIFA) then {_tiempolim = _tiempolim * 2};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
 
@@ -81,7 +26,7 @@ _mrkfin setMarkerShape "ICON";
 //_mrkfin setMarkerColor "ColorBlue";
 //_mrkfin setMarkerText "Bank";
 
-_pos = (getMarkerPos "respawn_guerrila") findEmptyPosition [1,50,"C_Van_01_box_F"];
+_pos = (getMarkerPos respawnBuenos) findEmptyPosition [1,50,"C_Van_01_box_F"];
 
 _camion = "C_Van_01_box_F" createVehicle _pos;
 {_x reveal _camion} forEach (allPlayers - (entities "HeadlessClient_F"));
@@ -127,7 +72,7 @@ if ((dateToNumber date > _fechalimnum) or (!alive _camion)) then
 	{
 	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call taskUpdate;
 	[-1800*_bonus] remoteExec ["timingCA",2];
-	[-10*_bonus,stavros] call playerScoreAdd;
+	[-10*_bonus,theBoss] call playerScoreAdd;
 	}
 else
 	{
@@ -181,7 +126,7 @@ if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) the
 	[10*_bonus,0] remoteExec ["prestige",2];
 	[1800*_bonus] remoteExec ["timingCA",2];
 	{if (_x distance _camion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-	[5*_bonus,stavros] call playerScoreAdd;
+	[5*_bonus,theBoss] call playerScoreAdd;
 	waitUntil {sleep 1; speed _camion == 0};
 
 	[_camion] call vaciar;
@@ -190,7 +135,7 @@ if (!alive _camion) then
 	{
 	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call taskUpdate;
 	[1800*_bonus] remoteExec ["timingCA",2];
-	[-10*_bonus,stavros] call playerScoreAdd;
+	[-10*_bonus,theBoss] call playerScoreAdd;
 	};
 
 

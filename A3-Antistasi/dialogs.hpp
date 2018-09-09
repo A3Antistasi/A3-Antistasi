@@ -31,7 +31,7 @@ class first_load 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Loads the pervious personal session";
-			action = "closeDialog 0;nul = [] execVM ""statSave\loadAccount.sqf"";";
+			action = "closeDialog 0;nul = [true] execVM ""statSave\loadAccount.sqf"";";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -42,7 +42,7 @@ class first_load 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Starts a new game";
-			action = "closeDialog 0;if ((player == stavros) and (isNil ""placementDone"") and !(isMultiplayer)) then {_nul = [] spawn placementselection};";
+			action = "closeDialog 0;if ((player == theBoss) and (isNil ""placementDone"") and !(isMultiplayer)) then {_nul = [] spawn placementselection};";
 		};
 		/*
 		class HQ_button_Gremove: RscButton
@@ -221,7 +221,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Take 100 € from faction pool and add it to your personnal account. It will damage your position among the faction in the commander career";
-			action = "if (isMultiPlayer) then {if (player == Stavros) then {nul=call stavrosSteal} else {hint ""Only Player Commander has access to this function""}} else {hint ""This function is MP only""};";
+			action = "if (isMultiPlayer) then {if (player == theBoss) then {nul=call theBossSteal} else {hint ""Only Player Commander has access to this function""}} else {hint ""This function is MP only""};";
 		};
 		class HQ_button_savegame: RscButton
 		{
@@ -232,7 +232,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Add or remove units to garrisons";
-			action = "closeDialog 0;if (player == Stavros) then {nul=CreateDialog ""build_menu""} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if (player == theBoss) then {nul=CreateDialog ""build_menu""} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_moveHQ: RscButton
 		{
@@ -243,7 +243,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Maru will join your group. Ammobox must be empty. To rebuild, select the Build action near Maru";
-			action = "closeDialog 0;if (player == Stavros) then {nul = [] spawn moveHQ;} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if (player == theBoss) then {nul = [] spawn moveHQ;} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_recruitUnit: RscButton
 		{
@@ -254,7 +254,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Displays which server members are currently playing";
-			action = "if (player == Stavros) then {if (isMultiplayer) then {nul = [] call membersList} else {hint ""This function is MP only""}} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {if (isMultiplayer) then {nul = [] call membersList} else {hint ""This function is MP only""}} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_recruitSquad: RscButton
 		{
@@ -265,7 +265,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cost: 5.000 €";
-			action = "closeDialog 0;if (player == Stavros) then {nul=[] spawn rebuildAssets} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if (player == theBoss) then {nul=[] spawn rebuildAssets} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_vehicle: RscButton
 		{
@@ -276,7 +276,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "";
-			action = "closeDialog 0;if (player == Stavros) then {nul = [] call FIAskillAdd} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if (player == theBoss) then {nul = [] call FIAskillAdd} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_skill: RscButton
 		{
@@ -792,7 +792,7 @@ class buy_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closedialog 0; nul = [vehSDKBike] call addFIAveh";
+			action = "closedialog 0; nul = [vehSDKBike] spawn addFIAveh";
 		};
 		class HQ_button_offroad: RscButton
 		{
@@ -802,7 +802,7 @@ class buy_vehicle 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [vehSDKLightUnarmed] call addFIAveh;";
+			action = "closeDialog 0;nul = [vehSDKLightUnarmed] spawn addFIAveh;";
 		};
 		class HQ_button_truck: RscButton
 		{
@@ -812,7 +812,7 @@ class buy_vehicle 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [vehSDKTruck] call addFIAveh;";
+			action = "closeDialog 0;nul = [vehSDKTruck] spawn addFIAveh;";
 		};
 		class HQ_button_Aoffroad: RscButton
 		{
@@ -822,7 +822,7 @@ class buy_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [vehSDKLightArmed] call addFIAveh;";
+			action = "closeDialog 0;nul = [vehSDKLightArmed] spawn addFIAveh;";
 		};
 		class HQ_button_MG: RscButton
 		{
@@ -832,7 +832,7 @@ class buy_vehicle 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [SDKMGStatic] call addFIAveh;";
+			action = "closeDialog 0;nul = [SDKMGStatic] spawn addFIAveh;";
 		};
 		class HQ_button_mortar: RscButton
 		{
@@ -842,7 +842,7 @@ class buy_vehicle 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [SDKMortar] call addFIAveh;";
+			action = "closeDialog 0;nul = [SDKMortar] spawn addFIAveh;";
 		};
 		class HQ_button_AT: RscButton
 		{
@@ -852,7 +852,7 @@ class buy_vehicle 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticATBuenos] call addFIAveh;";
+			action = "closeDialog 0;nul = [staticATBuenos] spawn addFIAveh;";
 		};
 
 		class HQ_button_AA: RscButton
@@ -863,7 +863,7 @@ class buy_vehicle 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticAABuenos] call addFIAveh;";
+			action = "closeDialog 0;nul = [staticAABuenos] spawn addFIAveh;";
 		};
 	};
 };
@@ -908,7 +908,7 @@ class civ_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civCar] call addFIAveh;";
+			action = "closeDialog 0;nul = [civCar] spawn addFIAveh;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -918,7 +918,7 @@ class civ_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civTruck] call addFIAveh;";
+			action = "closeDialog 0;nul = [civTruck] spawn addFIAveh;";
 		};
 		class HQ_button_Gremove: RscButton
 		{
@@ -929,7 +929,7 @@ class civ_vehicle 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civHeli] call addFIAveh;";
+			action = "closeDialog 0;nul = [civHeli] spawn addFIAveh;";
 		};
 		class HQ_button_offroad: RscButton
 		{
@@ -939,7 +939,7 @@ class civ_vehicle 			{
 		 	y = 0.415981 * safezoneH + safezoneY;
 		 	w = 0.175015 * safezoneW;
 		 	h = 0.0560125 * safezoneH;
-		 	action = "closeDialog 0;[civBoat] call buyBoat;";
+		 	action = "closeDialog 0;[civBoat] spawn addFIAveh;";
 		 };
 	};
 };
@@ -988,7 +988,7 @@ class game_options 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Set the max number of spawned civilians. Affects game performance";
-			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""civ_config""} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {closeDialog 0; nul = createDialog ""civ_config""} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class 8slots_R1: RscButton
 		{
@@ -999,7 +999,7 @@ class game_options 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Affects performance. Please use this with caution. Set it to lower distances if you feel Antistasi is running bad";
-			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""spawn_config""} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {closeDialog 0; nul = createDialog ""spawn_config""} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class 8slots_L2: RscButton
 		{
@@ -1010,7 +1010,7 @@ class game_options 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Sets how much local and simulated AI can spawn in the map. Affects performance and AI ""intelligence"". Use with caution. This is not an exact number as vehicles and squad leaders will allways spawn";
-			action = "if (player == Stavros) then {closeDialog 0; nul = createDialog ""fps_limiter""} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {closeDialog 0; nul = createDialog ""fps_limiter""} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class 8slots_R2: RscButton
 		{
@@ -1079,7 +1079,7 @@ class game_options 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Use this option to save your current game. It does save the most important data in a ""Grand Theft Auto"" way. This opnion allows good MP save and independent saves of any version update. Vanilla saves are disabled because of lack of several features";
-			action = "closeDialog 0;if (player == Stavros) then {[""statSave\saveLoop.sqf"",""BIS_fnc_execVM""] call BIS_fnc_MP} else {_nul = [] execVM ""statSave\saveLoop.sqf""; hintC ""Personal Stats Saved""};";
+			action = "closeDialog 0;if (player == theBoss) then {[""statSave\saveLoop.sqf"",""BIS_fnc_execVM""] call BIS_fnc_MP} else {_nul = [] execVM ""statSave\saveLoop.sqf""; hintC ""Personal Stats Saved""};";
 		};
 	};
 };										//slots 6+1
@@ -1125,7 +1125,7 @@ class fps_limiter 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (maxUnits < 200) then {maxUnits = maxUnits + 10; publicVariable ""maxUnits""; hint format [""AI Limit has been set at %1"",maxUnits]} else {hint ""AI Limit cannot be raised from 200""}} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {if (maxUnits < 200) then {maxUnits = maxUnits + 10; publicVariable ""maxUnits""; hint format [""AI Limit has been set at %1"",maxUnits]} else {hint ""AI Limit cannot be raised from 200""}} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -1135,7 +1135,7 @@ class fps_limiter 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (maxUnits > 80) then {maxUnits = maxUnits - 10; publicVariable ""maxUnits""; hint format [""AI Limit has been set at %1"",maxUnits]} else {hint ""AI Limit cannot be less than 80""}} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {if (maxUnits > 80) then {maxUnits = maxUnits - 10; publicVariable ""maxUnits""; hint format [""AI Limit has been set at %1"",maxUnits]} else {hint ""AI Limit cannot be less than 80""}} else {hint ""Only Player Commander has access to this function""};";
 		};
 	};
 };
@@ -1180,7 +1180,7 @@ class spawn_config 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (distanciaSPWN < 2000) then {distanciaSPWN = distanciaSPWN + 100; distanciaSPWN1 = distanciaSPwN * 1.3; distanciaSPWN2 = distanciaSPWN /2; publicVariable ""distanciaSPWN"";publicVariable ""distanciaSPWN1"";publicVariable ""distanciaSPWN2""}; hint format [""Spawn Distance Set to %1 meters. Be careful, this may affect game performance"",distanciaSPWN]} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {if (distanciaSPWN < 2000) then {distanciaSPWN = distanciaSPWN + 100; distanciaSPWN1 = distanciaSPwN * 1.3; distanciaSPWN2 = distanciaSPWN /2; publicVariable ""distanciaSPWN"";publicVariable ""distanciaSPWN1"";publicVariable ""distanciaSPWN2""}; hint format [""Spawn Distance Set to %1 meters. Be careful, this may affect game performance"",distanciaSPWN]} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -1190,7 +1190,7 @@ class spawn_config 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (distanciaSPWN > 600) then {distanciaSPWN = distanciaSPWN - 100; if (distanciaSPWN < 600) then {distanciaSPWN = 600}; distanciaSPWN1 = distanciaSPwN * 1.3; distanciaSPWN2 = distanciaSPWN /2; if (distanciaSPWN < 600) then {distanciaSPWN = 600};publicVariable ""distanciaSPWN"";publicVariable ""distanciaSPWN1"";publicVariable ""distanciaSPWN2"";}; hint format [""Spawn Distance Set to %1 meters"",distanciaSPWN]} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {if (distanciaSPWN > 600) then {distanciaSPWN = distanciaSPWN - 100; if (distanciaSPWN < 600) then {distanciaSPWN = 600}; distanciaSPWN1 = distanciaSPwN * 1.3; distanciaSPWN2 = distanciaSPWN /2; if (distanciaSPWN < 600) then {distanciaSPWN = 600};publicVariable ""distanciaSPWN"";publicVariable ""distanciaSPWN1"";publicVariable ""distanciaSPWN2"";}; hint format [""Spawn Distance Set to %1 meters"",distanciaSPWN]} else {hint ""Only Player Commander has access to this function""};";
 		};
 	};
 };
@@ -1235,7 +1235,7 @@ class civ_config 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (civPerc < 150) then {civPerc = civPerc + 1; if (civPerc > 150) then {civPerc = 150}; publicVariable ""civPerc"";}; hint format [""Maximum Number of Civilians Set to %1"",civPerc]} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {if (civPerc < 150) then {civPerc = civPerc + 1; if (civPerc > 150) then {civPerc = 150}; publicVariable ""civPerc"";}; hint format [""Maximum Number of Civilians Set to %1"",civPerc]} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -1245,7 +1245,7 @@ class civ_config 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "if (player == Stavros) then {if (civPerc > 0) then {civPerc = civPerc - 1; if (civPerc < 0) then {civPerc = 0};publicVariable ""civPerc"";}; hint format [""Maximum Number of Civilians Set to %1"",civPerc]} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {if (civPerc > 0) then {civPerc = civPerc - 1; if (civPerc < 0) then {civPerc = 0};publicVariable ""civPerc"";}; hint format [""Maximum Number of Civilians Set to %1"",civPerc]} else {hint ""Only Player Commander has access to this function""};";
 		};
 	};
 };
@@ -1292,7 +1292,7 @@ class mission_menu 		{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == Stavros) or (not(isPlayer Stavros))) then {[[""AS""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""AS""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_CONV: RscButton
 		{
@@ -1302,7 +1302,7 @@ class mission_menu 		{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == Stavros) or (not(isPlayer Stavros))) then {[[""CONVOY""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""CONVOY""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_DES: RscButton
 		{
@@ -1312,7 +1312,7 @@ class mission_menu 		{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == Stavros) or (not(isPlayer Stavros))) then {[[""DES""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""DES""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_LOG: RscButton
 		{
@@ -1322,7 +1322,7 @@ class mission_menu 		{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == Stavros) or (not(isPlayer Stavros))) then {[[""LOG""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""LOG""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_RES: RscButton
 		{
@@ -1332,7 +1332,7 @@ class mission_menu 		{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == Stavros) or (not(isPlayer Stavros))) then {[[""RES""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""RES""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_vehicle: RscButton
 		{
@@ -1342,7 +1342,7 @@ class mission_menu 		{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == Stavros) or (not(isPlayer Stavros))) then {[[""CON""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""CON""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_exit: RscButton
 		{
@@ -1446,7 +1446,7 @@ class radio_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Vehicle or Static gun you're looking at will be garaged, interact with Flag to retrieve";
-			action = "closeDialog 0;if (player != stavros) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
+			action = "closeDialog 0;if (player != theBoss) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
 		};
 		class 8slots_R3: RscButton
 		{
@@ -1536,7 +1536,7 @@ class vehicle_manager 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Options related to vehicle management in HC controlled squads";
-			action = "closeDialog 0; if (player == Stavros) then {nul = createDialog ""squad_manager""} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0; if (player == theBoss) then {nul = createDialog ""squad_manager""} else {hint ""Only Player Commander has access to this function""};";
 		};
 
 		class HQ_button_Gremove: RscButton
@@ -1594,7 +1594,7 @@ class veh_query 				{
 			y = 0.251941 * safezoneH + safezoneY;
 			w = 0.06 * safezoneW;//0.175015
 			h = 0.05 * safezoneH;
-			action = "closeDialog 0;vehQuery = nil; if (player == Stavros) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;vehQuery = nil; if (player == theBoss) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_Gsquad: RscButton
 		{
@@ -1665,7 +1665,7 @@ class squad_manager 			{
 		class HQ_button_MG: RscButton
 		{
 			idc = -1;
-			text = "Squad Vehicle Stats"; //--- ToDo: Localize;
+			text = "Squad SITREP"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -1767,12 +1767,12 @@ class AI_management 		{
 		class 8slots_R2: RscButton
 		{
 			idc = -1;
-			text = "Squad Vehicle Stats"; //--- ToDo: Localize;
+			text = "Squad SITREP"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "If the selected squad is using some vehicle, know remotely it's status";
+			tooltip = "Recover info about a HC squad status";
 			action = "[""stats""] call vehStats;";
 		};
 		class 8slots_L3: RscButton
@@ -1864,7 +1864,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Recruit new squads and manage them with the HC Module (CTRL + SPACE)";
-			action = "closeDialog 0;if (player == Stavros) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if (player == theBoss) then {nul= [] execVM ""Dialogs\squad_recruit.sqf""} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class 8slots_R1: RscButton
 		{
@@ -1875,7 +1875,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Ask for Air Support (uses Airstrike points)";
-			action = "closeDialog 0;if (player == Stavros) then {_nul = createDialog ""carpet_bombing""} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if (player == theBoss) then {_nul = createDialog ""carpet_bombing""} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class 8slots_L2: RscButton
 		{
@@ -1886,7 +1886,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Establish a new watchpost or roadblock depending on the type of terrain you select";
-			action = "if (player == Stavros) then {closeDialog 0;[""create""] spawn puestoDialog} else {hint ""You're not the Commander!""};";
+			action = "if (player == theBoss) then {closeDialog 0;[""create""] spawn puestoDialog} else {hint ""You're not the Commander!""};";
 		};
 		class 8slots_R2: RscButton
 		{
@@ -1897,7 +1897,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cleans several things in game. Use with caution as it freezes the mission";
-			action = "if (player == Stavros) then {closedialog 0;[] remoteExec [""garbageCleaner"",2]} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {closedialog 0;[] remoteExec [""garbageCleaner"",2]} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class 8slots_L3: RscButton
 		{
@@ -1908,7 +1908,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Remove selected observation post or roadblock, money will be refunded";
-			action = "if (player == Stavros) then {closeDialog 0; [""delete""] spawn puestoDialog} else {hint ""You're not the Commander!""};";
+			action = "if (player == theBoss) then {closeDialog 0; [""delete""] spawn puestoDialog} else {hint ""You're not the Commander!""};";
 		};
 		class 8slots_R3: RscButton
 		{
@@ -1919,7 +1919,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Look at a vehicle and garage it into faction garage (shared among commanders)";
-			action = "if (player == Stavros) then {closeDialog 0;nul = [true] call garageVehicle;} else {hint ""You're not the Commander!""};";
+			action = "if (player == theBoss) then {closeDialog 0;nul = [true] call garageVehicle;} else {hint ""You're not the Commander!""};";
 		};
 		class 8slots_L4: RscButton
 		{
@@ -1941,7 +1941,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Look at a vehicle and sell it for money";
-			action = "if (player == stavros) then {closeDialog 0; nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
+			action = "if (player == theBoss) then {closeDialog 0; nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
 		};
 	};
 };
@@ -2266,7 +2266,7 @@ class squad_recruit 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKSquad] spawn addFIAsquadHC";
+			action = "closeDialog 0;[] execVM ""Dialogs\squadOptions.sqf"";";
 		};
 		class HQ_button_infteam: RscButton
 		{
@@ -2460,7 +2460,7 @@ class garage_sell 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if (player != stavros) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
+			action = "closeDialog 0;if (player != theBoss) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2470,7 +2470,7 @@ class garage_sell 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; if (player == stavros) then {nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
+			action = "closeDialog 0; if (player == theBoss) then {nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
 		};
 		/*
 		class HQ_button_Gremove: RscButton
@@ -3014,10 +3014,8 @@ class mbt_type {
 		};
 	};
 };
-//OLD
-/*
-class garrison_menu {
-	idd=-1;
+class squad_options 	{
+	idd=100;
 	movingenable=false;
 
 	class controls {
@@ -3028,16 +3026,16 @@ class garrison_menu {
 			x = 0.244979 * safezoneW + safezoneX;
 			y = 0.223941 * safezoneH + safezoneY;
 			w = 0.445038 * safezoneW;
-			h = 0.20 * safezoneH;//30
+			h = 0.30 * safezoneH;//30
 		};
 		class HQ_frame: RscFrame
 		{
 			idc = -1;
-			text = "Garrison Menu"; //--- ToDo: Localize;
+			text = "Squad Options"; //--- ToDo: Localize;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
-			h = 0.18 * safezoneH;//28
+			h = 0.28 * safezoneH;//28
 		};
 		class HQ_button_back: RscButton
 		{
@@ -3047,33 +3045,52 @@ class garrison_menu {
 			y = 0.251941 * safezoneH + safezoneY;
 			w = 0.06 * safezoneW;//0.175015
 			h = 0.05 * safezoneH;
-			action = "closeDialog 0;_nul = createDialog ""HQ_menu"";";
+			action = "closeDialog 0;_nul = createDialog ""squad_recruit"";";
 		};
 		class HQ_button_Gsquad: RscButton
 		{
-			idc = -1;
-			text = "Recruit Garrison"; //--- ToDo: Localize;
+			idc = 104;
+			text = "Normal Squad"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Select unit types and add them to the selected garrison";
-			action = "closeDialog 0;[""add""] spawn garrisonDialog";
+			//tooltip = "";
+			action = "closeDialog 0;nul = [gruposSDKSquad] spawn addFIAsquadHC;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
-			idc = -1;
-			text = "Remove Garrison"; //--- ToDo: Localize;
+			idc = 105;
+			text = "Engineer Squad"; //--- ToDo: Localize;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Remove the whole garrison of a selected zone";
-			action = "closeDialog 0;[""rem""] spawn garrisonDialog";
+			action = "closeDialog 0; nul = [gruposSDKSquadEng] spawn addFIAsquadHC;";
+		};
+
+		class HQ_button_Gremove: RscButton
+		{
+			idc = 106;
+			text = "MG Squad"; //--- ToDo: Localize;
+			x = 0.272481 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""MG""] spawn addFIAsquadHC;";
+		};
+		class HQ_button_unlock: RscButton
+		{
+			idc = 107;
+			text = "Mortar Squad"; //--- ToDo: Localize;
+			x = 0.482498 * safezoneW + safezoneX;
+			y = 0.415981 * safezoneH + safezoneY;
+			w = 0.175015 * safezoneW;
+			h = 0.0560125 * safezoneH;
+			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""Mortar""] spawn addFIAsquadHC;";
 		};
 	};
 };
-*/
 
 class RscTitles {
 	class Default {

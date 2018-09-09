@@ -1,6 +1,6 @@
 waitUntil {!isNull player};
 
-if (side player == independent) then
+if (side player == buenos) then
 {
 _index =player createDiarySubject ["Tutorial","Begin Tutorial"];
 player createDiaryRecord ["Tutorial",["Undercover","In the early stages, especially when accomplishing certain missions, being undercover can be extremely helpful. Just as for real resistance fighters, your ability to disappear is something the enemy cannot counter. See Features section for a deep explanation of Undercover Mode."]];
@@ -71,7 +71,7 @@ player createDiaryRecord ["Options",["Persistent Save-game","Commander Only. You
 player createDiaryRecord ["Options",["AI Limiter","Commander Only. Sets the the maximum amount of AI in map per server or HC. Up to 200 AI may behave decently."]];
 player createDiaryRecord ["Options",["Map Info","Click on a city to learn the strength of their support for the enemy or Faction. Click on other zones to know relevant info about them."]];
 
-player createDiaryRecord ["Diary",["Thanks","<br/>LanCommi for his artwork.<br/>Gillaustio and Farooq for inspirational works on revive system<br/>Goon and jw custom: Part of the code for the NAPALM script.<br/>rebel12340: Radio Jam tips for script<br/>Manko: Earplug snippet<br/>Stef: Managing the comminity despite all difficulties.<br/>And all those players who spend their time on making comments, suggestions and reports on Steam and BIS forums"]];
+player createDiaryRecord ["Diary",["Thanks","<br/>LanCommi for his artwork.<br/>Gillaustio and Farooq for inspirational works on revive system<br/>Goon and jw custom: Part of the code for the NAPALM script.<br/>rebel12340: Radio Jam tips for script<br/>Manko: Earplug snippet<br/>Stef: Managing the community despite all difficulties.<br/>And all those players who spend their time on making comments, suggestions and reports on Steam and BIS forums"]];
 player createDiaryRecord ["Diary",["Mods","Integrated (optional) Mods:<br/>TFAR: Radio integrated in Arsenal. Sound disabled when player is unconscious.<br/>ACE Medical: Will disable Antistasi revive system.<br/><br/>CAUTION: The use of Persistent Save system with TFAR and any weapon mod activated will make them mandatory in future.<br/><br/>Any client sided Mod, such as JSRS, Blastcore, UI Mod should work.<br/><br/>Units and vehicles mods won't work. AI Mods may cause malfunctions (in any case Antistasi has heavy AI tweaking)."]];
 player createDiaryRecord ["Diary",["Script Credits","UPSMon by Monsada, Kronzy and Cool=Azroul13 <br/>Persistent Save by zooloo75.<br/>Tags by Marker and Melbo."]];
 player createDiaryRecord ["Diary",["HQ - Basics","Flag: Vehicle and Squad Unit Recruitment. Commander Options.<br/>Maru: Side-missions (Commander Only).<br/>Map: Game Options.<br/>Camp-fire: Rest for 8 hours and Clear Forest (Commander Only)."]];
@@ -79,10 +79,20 @@ player createDiaryRecord ["Diary",["Resources","Every 10 minutes each faction re
 player createDiaryRecord ["Diary",["Money","Money comes from a combination of citizens support on each city, resources conquered, factories conquered (which boost the economy) and power provided to all of them with a nearby friendly power plant (you may also conquer them to cut off Money supply to the enemy). Money is used to purchase vehicles, units and squads"]];
 player createDiaryRecord ["Diary",["Money - MP","In MP games there are two money pools. Faction Money -which is for Commander use only- and personal money. Personal money can be used by any player to recruit AI or buy vehicles. Faction earns money by taxes and accomplishing missions. Personal money comes from killing enemies and accomplishing missions. Options to transfer or donate money are found in the Y menu. Commander can grab money from the Faction Pool to his own account"]];
 player createDiaryRecord ["Diary",["HR","HR or Manpower comes from citizen support on each city. Manpower is needed to recruit more units (1 HR Points = 1 Soldier)"]];
-player createDiaryRecord ["Diary",[format ["%1 and %2 Aggro",nameMalos,nameMuyMalos],format ["There is an All vs All war in %4. %1 and %2 are constantly attacking each other, but that does not mean they don't shoot at Faction on first sight. %1 and %2 Aggro points represent how much threat they see in %3 faction. Generally speaking those points will low or raise depending on your actions against them and civilians.",nameMalos,nameMuyMalos,nameBuenos,worldName]]];
+player createDiaryRecord ["Diary",[format ["%1 and %2 Aggro",nameMalos,nameMuyMalos],format ["There is an All vs All war in %4. %1 and %2 are constantly attacking each other, but that does not mean they don't shoot at %3 on first sight. %1 and %2 Aggro points represent how much threat they see in %3 faction. Generally speaking those points will low or raise depending on your actions against them and civilians.",nameMalos,nameMuyMalos,nameBuenos,worldName]]];
+switch (gameMode) do
+	{
+	case 1: {player createDiaryRecord ["Diary",["AI RoE",format ["All vs All war.<br/><br/>%1 and %2 will attack each other and both to %3.",nameMalos,nameMuyMalos,nameBuenos]]]};
+	case 2: {player createDiaryRecord ["Diary",["AI RoE",format ["%3 vs All war.<br/><br/>%1 and %2 will attack only %3 and act independently. Both can conquer.",nameMalos,nameMuyMalos,nameBuenos]]]};
+	case 3: {player createDiaryRecord ["Diary",["AI RoE",format ["%2 vs %1 war.",nameMalos,nameBuenos]]]};
+	case 4: {player createDiaryRecord ["Diary",["AI RoE",format ["%2 vs %1 war.",nameMuyMalos,nameBuenos]]]};
+	};
 player createDiaryRecord ["Diary",["Loose",format ["You will loose the game if %1 has murdered 1/3 of the total population.",nameMuyMalos]]];
 player createDiaryRecord ["Diary",["Win","You will win the game when most of the population supports Faction and you have conquered all the Airbases"]];
-player createDiaryRecord ["Diary",["Welcome","Welcome to Arma 3 - Warlords of the Pacific. This mission aims to simulate guerilla combat, tactics and strategic situations. It is not a quick and easy mod, it is long term, step-by-step mission with LOTS of features and enhanced AI."]];
+
+_nombreMiss = if (hayIFA) then {"Armia Krajowa"} else {if (worldName == "Tanoa") then {"Warlords of the Pacific"} else {"Antistasi"}};
+
+player createDiaryRecord ["Diary",["Welcome",format ["Welcome to Arma 3 - %1. This mission aims to simulate guerilla combat, tactics and strategic situations. It is not a quick and easy mod, it is long term, step-by-step mission with LOTS of features and enhanced AI.",_nombreMiss]]];
 }
 else
 {

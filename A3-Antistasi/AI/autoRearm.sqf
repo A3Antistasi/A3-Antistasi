@@ -2,13 +2,14 @@ private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hayCaja","_dista
 
 _unit = _this select 0;
 
-if ((isPlayer _unit) or (player != leader group player)) exitWith {};
+if (isPlayer _unit) exitWith {};
 if !([_unit] call canFight) exitWith {};
+_inPlayerGroup = (isPlayer (leader _unit));
 //_ayudando = _unit getVariable "ayudando";
-if (_unit getVariable ["ayudando",false]) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
+if (_unit getVariable ["ayudando",false]) exitWith {if (_inPlayerGroup) then {_unit groupChat "I cannot rearm right now. I'm healing a comrade"}};
 _rearming = _unit getVariable ["rearming",false];
-if (_rearming) exitWith {_unit groupChat "I am currently rearming. Cancelling."; _unit setVariable ["rearming",false]};
-
+if (_rearming) exitWith {if (_inPlayerGroup) then {_unit groupChat "I am currently rearming. Cancelling."; _unit setVariable ["rearming",false]}};
+if (vehicle _unit != _unit) exitWith {};
 _unit setVariable ["rearming",true];
 
 _Pweapon = primaryWeapon _unit;
@@ -57,7 +58,7 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 		_unit stop false;
 		if ((!alive _target) or (not(_target isKindOf "ReammoBox_F"))) then {_target setVariable ["busy",true]};
 		_unit doMove (getPosATL _target);
-		_unit groupChat "Picking a better weapon";
+		if (_inPlayerGroup) then {_unit groupChat "Picking a better weapon"};
 		_timeOut = time + 60;
 		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if ((unitReady _unit) and ([_unit] call canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
@@ -67,20 +68,11 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 			sleep 5;
 			if (primaryWeapon _unit == _arma) then
 				{
-				_unit groupChat "I have a better weapon now";
+				if (_inPlayerGroup) then {_unit groupChat "I have a better weapon now"};
 				if (_target isKindOf "ReammoBox_F") then {_unit action ["rearm",_target]};
-				}
-			else
-				{
-				_unit groupChat "Couldn't take this weapon";
 				};
-			}
-		else
-			{
-			_unit groupChat "Cannot take a better weapon";
 			};
 		_target setVariable ["busy",false];
-		_unit doFollow player;
 		};
 	_distancia = 51;
 	_Pweapon = primaryWeapon _unit;
@@ -125,7 +117,7 @@ if ((_hayCaja) and (_unit getVariable "rearming")) then
 	_unit stop false;
 	if ((!alive _target) or (not(_target isKindOf "ReammoBox_F"))) then {_target setVariable ["busy",true]};
 	_unit doMove (getPosATL _target);
-	_unit groupChat "Rearming";
+	if (_inPlayerGroup) then {_unit groupChat "Rearming"};
 	_timeOut = time + 60;
 	waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 	if ((unitReady _unit) and ([_unit] call canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
@@ -134,23 +126,18 @@ if ((_hayCaja) and (_unit getVariable "rearming")) then
 		_unit action ["rearm",_target];
 		if ({_x in _magazines} count (magazines _unit) >= _cuenta) then
 			{
-			_unit groupChat "Rearmed";
+			if (_inPlayerGroup) then {_unit groupChat "Rearmed"};
 			}
 		else
 			{
-			_unit groupChat "Partially Rearmed";
+			if (_inPlayerGroup) then {_unit groupChat "Partially Rearmed"};
 			};
-		}
-	else
-		{
-		_unit groupChat "Cannot rearm";
 		};
 	_target setVariable ["busy",false];
-	_unit doFollow player;
 	}
 else
 	{
-	_unit groupChat "No source to rearm my primary weapon";
+	if (_inPlayerGroup) then {_unit groupChat "No source to rearm my primary weapon"};
 	};
 _hayCaja = false;
 if ((_Sweapon == "") and (loadAbs _unit < 340)) then
@@ -184,7 +171,7 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 		_unit stop false;
 		if ((!alive _target) or (not(_target isKindOf "ReammoBox_F"))) then {_target setVariable ["busy",true]};
 		_unit doMove (getPosATL _target);
-		_unit groupChat "Picking a secondary weapon";
+		if (_inPlayerGroup) then {_unit groupChat "Picking a secondary weapon"};
 		_timeOut = time + 60;
 		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if ((unitReady _unit) and ([_unit] call canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
@@ -194,20 +181,11 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 			sleep 3;
 			if (secondaryWeapon _unit == _arma) then
 				{
-				_unit groupChat "I have a secondary weapon now";
+				if (_inPlayerGroup) then {_unit groupChat "I have a secondary weapon now"};
 				if (_target isKindOf "ReammoBox_F") then {sleep 3;_unit action ["rearm",_target]};
-				}
-			else
-				{
-				_unit groupChat "Couldn't take this weapon";
 				};
-			}
-		else
-			{
-			_unit groupChat "Cannot take a secondary weapon";
 			};
 		_target setVariable ["busy",false];
-		_unit doFollow player;
 		};
 	_Sweapon = secondaryWeapon _unit;
 	_distancia = 51;
@@ -253,7 +231,7 @@ if (_Sweapon != "") then
 		_unit stop false;
 		if (!alive _target) then {_target setVariable ["busy",true]};
 		_unit doMove (position _target);
-		_unit groupChat "Rearming";
+		if (_inPlayerGroup) then {_unit groupChat "Rearming"};
 		_timeOut = time + 60;
 		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if ((unitReady _unit) and ([_unit] call canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
@@ -274,22 +252,18 @@ if (_Sweapon != "") then
 
 			if ({_x in _magazines} count (magazines _unit) >= 2) then
 				{
-				_unit groupChat "Rearmed";
+				if (_inPlayerGroup) then {_unit groupChat "Rearmed"};
 				}
 			else
 				{
-				_unit groupChat "Partially Rearmed";
+				if (_inPlayerGroup) then {_unit groupChat "Partially Rearmed"};
 				};
-			}
-		else
-			{
-			_unit groupChat "Cannot rearm";
 			};
 		_target setVariable ["busy",false];
 		}
 	else
 		{
-		_unit groupChat "No source to rearm my secondary weapon.";
+		if (_inPlayerGroup) then {_unit groupChat "No source to rearm my secondary weapon"};
 		};
 	sleep 3;
 	};
@@ -314,7 +288,7 @@ if ((not("ItemRadio" in assignedItems _unit)) and !haveRadio) then
 		_unit stop false;
 		_target setVariable ["busy",true];
 		_unit doMove (getPosATL _target);
-		_unit groupChat "Picking a Radio";
+		if (_inPlayerGroup) then {_unit groupChat "Picking a Radio"};
 		_timeOut = time + 60;
 		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if (_unit distance _target < 3) then
@@ -322,13 +296,8 @@ if ((not("ItemRadio" in assignedItems _unit)) and !haveRadio) then
 			_unit action ["rearm",_target];
 			_unit linkItem "ItemRadio";
 			_target unlinkItem "ItemRadio";
-			}
-		else
-			{
-			_unit groupChat "Cannot pick the Radio";
 			};
 		_target setVariable ["busy",false];
-		_unit doFollow player;
 		};
 	};
 _hayCaja = false;
@@ -354,7 +323,7 @@ if (hmd _unit == "") then
 		_target setVariable ["busy",true];
 		_hmd = hmd _target;
 		_unit doMove (getPosATL _target);
-		_unit groupChat "Picking NV Googles";
+		if (_inPlayerGroup) then {_unit groupChat "Picking NV Googles"};
 		_timeOut = time + 60;
 		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if (_unit distance _target < 3) then
@@ -362,13 +331,8 @@ if (hmd _unit == "") then
 			_unit action ["rearm",_target];
 			_unit linkItem _hmd;
 			_target unlinkItem _hmd;
-			}
-		else
-			{
-			_unit groupChat "Cannot pick those NV Googles";
 			};
 		_target setVariable ["busy",false];
-		_unit doFollow player;
 		};
 	};
 _hayCaja = false;
@@ -393,7 +357,7 @@ if (not(headgear _unit in cascos)) then
 		_target setVariable ["busy",true];
 		_casco = headgear _target;
 		_unit doMove (getPosATL _target);
-		_unit groupChat "Picking a Helmet";
+		if (_inPlayerGroup) then {_unit groupChat "Picking a Helmet"};
 		_timeOut = time + 60;
 		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if (_unit distance _target < 3) then
@@ -401,13 +365,8 @@ if (not(headgear _unit in cascos)) then
 			_unit action ["rearm",_target];
 			_unit addHeadgear _casco;
 			removeHeadgear _target;
-			}
-		else
-			{
-			_unit groupChat "Cannot pick this Helmet";
 			};
 		_target setVariable ["busy",false];
-		_unit doFollow player;
 		};
 	};
 _hayCaja = false;
@@ -433,7 +392,7 @@ if ({_x == "FirstAidKit"} count (items _unit) < _minFA) then
 		_unit stop false;
 		_target setVariable ["busy",true];
 		_unit doMove (getPosATL _target);
-		_unit groupChat "Picking a First Aid Kit";
+		if (_inPlayerGroup) then {_unit groupChat "Picking a First Aid Kit"};
 		_timeOut = time + 60;
 		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if (_unit distance _target < 3) then
@@ -444,14 +403,9 @@ if ({_x == "FirstAidKit"} count (items _unit) < _minFA) then
 				_unit addItem "FirstAidKit";
 				_target removeItem "FirstAidKit";
 				if ("FirstAidKit" in items _muerto) then {sleep 3};
-				}
-			}
-		else
-			{
-			_unit groupChat "Cannot pick this Kit";
+				};
 			};
 		_target setVariable ["busy",false];
-		_unit doFollow player;
 		};
 	};
 _hayCaja = false;
@@ -472,7 +426,7 @@ if ((_hayCaja) and (_unit getVariable "rearming")) then
 	_unit stop false;
 	_target setVariable ["busy",true];
 	_unit doMove (getPosATL _target);
-	_unit groupChat "Picking a a better vest";
+	if (_inPlayerGroup) then {_unit groupChat "Picking a a better vest"};
 	_timeOut = time + 60;
 	waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 	if (_unit distance _target < 3) then
@@ -489,13 +443,8 @@ if ((_hayCaja) and (_unit getVariable "rearming")) then
 			{_cosa addItemCargoGlobal [_x,1]} forEach (vestItems _target);
 			};
 		removeVest _target;
-		}
-	else
-		{
-		_unit groupChat "Cannot pick this vest";
 		};
 	_target setVariable ["busy",false];
-	_unit doFollow player;
 	};
 
 if (backpack _unit == "") then
@@ -518,7 +467,7 @@ if (backpack _unit == "") then
 		_unit stop false;
 		_target setVariable ["busy",true];
 		_unit doMove (getPosATL _target);
-		_unit groupChat "Picking a Backpack";
+		if (_inPlayerGroup) then {_unit groupChat "Picking a Backpack"};
 		_timeOut = time + 60;
 		waitUntil {sleep 1; !([_unit] call canFight) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 		if (_unit distance _target < 3) then
@@ -533,15 +482,10 @@ if (backpack _unit == "") then
 				{_cosa addItemCargoGlobal [_x,1]} forEach (backpackItems _target);
 				};
 			removeBackpackGlobal _target;
-			}
-		else
-			{
-			_unit groupChat "Cannot pick this Pack";
 			};
 		_target setVariable ["busy",false];
-		_unit doFollow player;
 		};
 	};
-
-if (!_necesita) then {_unit groupChat "No need to rearm"} else {_unit groupChat "Rearming Done"};
+_unit doFollow (leader _unit);
+if (!_necesita) then {if (_inPlayerGroup) then {_unit groupChat "No need to rearm"}} else {if (_inPlayerGroup) then {_unit groupChat "Rearming Done"}};
 _unit setVariable ["rearming",false];

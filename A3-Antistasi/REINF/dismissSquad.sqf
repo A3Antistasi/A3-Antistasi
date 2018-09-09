@@ -17,11 +17,11 @@ if (_x getVariable ["esNATO",false]) then {_salir = true};
 
 if (_salir) exitWith {hint "You cannot dismiss NATO groups"};
 
-_pos = getMarkerPos "respawn_guerrila";
+_pos = getMarkerPos respawnBuenos;
 
 {
-stavros sideChat format ["%2, I'm sending %1 back to base", _x,name petros];
-stavros hcRemoveGroup _x;
+theBoss sideChat format ["%2, I'm sending %1 back to base", _x,name petros];
+theBoss hcRemoveGroup _x;
 _wp = _x addWaypoint [_pos, 0];
 _wp setWaypointType "MOVE";
 sleep 3} forEach _groups;
@@ -34,8 +34,7 @@ sleep 100;
 if (alive _x) then
 	{
 	_hr = _hr + 1;
-	_resourcesFIA = _resourcesFIA + (server getVariable (typeOf _x));
-	if (isNil "_resourcesFIA") then {diag_log format ["Antistasi Error en unitprice: %!",typeOf _x]};
+	_resourcesFIA = _resourcesFIA + (server getVariable [typeOf _x,0]);
 	if (!isNull (assignedVehicle _x)) then
 		{
 		_veh = assignedVehicle _x;

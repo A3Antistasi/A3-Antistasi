@@ -1,6 +1,6 @@
 if (!isNil "placementDone") then
 	{
-	stavros allowDamage false;
+	theBoss allowDamage false;
 	format ["%1 is Dead",name petros] hintC format ["%1 has been killed. You lost part of your assets and need to select a new HQ position far from the enemies.",name petros];
 	}
 else
@@ -102,9 +102,9 @@ if (visiblemap) then
         deleteVehicle _viejo;
         publicVariable "petros";
 		};
-	"respawn_guerrila" setMarkerPos _posicionTel;
-	["respawn_guerrila",1] remoteExec ["setMarkerAlphaLocal",[buenos,civilian]];
-	["respawn_guerrila",0] remoteExec ["setMarkerAlphaLocal",[malos,muyMalos]];
+	respawnBuenos setMarkerPos _posicionTel;
+	[respawnBuenos,1] remoteExec ["setMarkerAlphaLocal",[buenos,civilian]];
+	[respawnBuenos,0] remoteExec ["setMarkerAlphaLocal",[malos,muyMalos]];
 	if (isMultiplayer) then {hint "Please wait while moving HQ Assets to selected position";sleep 5};
 	_pos = [_posicionTel, 3, getDir petros] call BIS_Fnc_relPos;
 	fuego setPos _pos;
@@ -122,8 +122,8 @@ if (visiblemap) then
 	_rnd = _rnd + 45;
 	_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
 	cajaVeh setPos _pos;
-	if (isNil "placementDone") then {if (isMultiplayer) then {{if ((side _x == buenos) or (side _x == civilian)) then {_x setPos getPos petros}} forEach playableUnits} else {stavros setPos (getMarkerPos "respawn_guerrila")}};
-	stavros allowDamage true;
+	if (isNil "placementDone") then {if (isMultiplayer) then {{if ((side _x == buenos) or (side _x == civilian)) then {_x setPos getPos petros}} forEach playableUnits} else {theBoss setPos (getMarkerPos respawnBuenos)}};
+	theBoss allowDamage true;
 	if (isMultiplayer) then
 		{
 		caja hideObjectGlobal false;
@@ -143,7 +143,7 @@ if (visiblemap) then
 	openmap [false,false];
 	};
 {deleteMarkerLocal _x} forEach _mrkDum;
-"Synd_HQ" setMarkerPos (getMarkerPos "respawn_guerrila");
-posHQ = getMarkerPos "respawn_guerrila"; publicVariable "posHQ";
+"Synd_HQ" setMarkerPos (getMarkerPos respawnBuenos);
+posHQ = getMarkerPos respawnBuenos; publicVariable "posHQ";
 if (isNil "placementDone") then {placementDone = true; publicVariable "placementDone"};
 chopForest = false; publicVariable "chopForest";

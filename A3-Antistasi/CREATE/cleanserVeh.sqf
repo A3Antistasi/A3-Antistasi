@@ -10,5 +10,4 @@ if (!alive _veh) then
 	{
 	_veh hideObjectGlobal true;
 	deleteVehicle _veh;
-	if (debug) then {stavros globalChat format ["Spawned vehicle %1 exploded. Deleting",typeOf _veh]};
 	};

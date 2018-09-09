@@ -1,12 +1,13 @@
 private ["_roads","_pos","_posicion","_grupo"];
 
-_marcadores = marcadores + ["respawn_guerrila"];
+_marcadores = marcadores + [respawnBuenos];
 
 _esHC = false;
 
 if (count hcSelected player > 1) exitWith {hint "You can only select one group to Fast Travel"};
 if (count hcSelected player == 1) then {_grupo = hcSelected player select 0; _esHC = true} else {_grupo = group player};
-
+_checkForPlayer = false;
+if ((!_esHC) and isMultiplayer) then {_checkForPlayer = true};
 _jefe = leader _grupo;
 
 if ((_jefe != player) and (!_esHC)) then {_grupo = player};
@@ -18,10 +19,8 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot Fa
 _chequeo = false;
 //_distancia = 500 - (([_jefe,false] call fogCheck) * 450);
 _distancia = 500;
-{_enemigo = _x;
-{if (((side _enemigo == muyMalos) or (side _enemigo == malos)) and (_enemigo distance _x < _distancia) and ([_x] call canFight)) exitWith {_chequeo = true}} forEach units _grupo;
-if (_chequeo) exitWith {};
-} forEach allUnits;
+
+{if ([_x,_distancia] call enemyNearCheck) exitWith {_chequeo = true}} forEach units _grupo;
 
 if (_chequeo) exitWith {Hint "You cannot Fast Travel with enemies near the group"};
 
@@ -48,7 +47,7 @@ _posicionTel = posicionTel;
 if (count _posicionTel > 0) then
 	{
 	_base = [_marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
-
+	if (_checkForPlayer and (_base != "SYND_HQ")) exitWith {hint "Player groups are only allowed to Fast Travel to HQ"};
 	if ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == muyMalos)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
 	//if (_base in puestosFIA) exitWith {hint "You cannot Fast Travel to roadblocks and watchposts"; openMap [false,false]};
@@ -75,6 +74,14 @@ if (count _posicionTel > 0) then
 		if (!_esHC) then {disableUserInput true; cutText ["Fast traveling, please wait","BLACK",2]; sleep 2;} else {hcShowBar false;hcShowBar true;hint format ["Moving group %1 to destination",groupID _grupo]; sleep _distancia;};
 		_forzado = false;
 		if (!isMultiplayer) then {if (not(_base in forcedSpawn)) then {_forzado = true; forcedSpawn = forcedSpawn + [_base]}};
+		_exit = false;
+		if (isMultiplayer) then
+			{
+			_vehicles = [];
+			{if (vehicle _x != _x) then {_vehicles pushBackUnique (vehicle _x)}} forEach units _grupo;
+			{if ((vehicle _x) in _vehicles) exitWith {_checkForPlayer = true}} forEach playableUnits;
+			};
+		if (_checkForPlayer and (_base != "SYND_HQ")) exitWith {hint format ["%1 Fast Travel has been cancelled because some player has boarded their vehicle and the destination is not HQ",groupID _grupo]};
 		{
 		_unit = _x;
 		if ((!isPlayer _unit) or (_unit == player)) then
@@ -94,12 +101,12 @@ if (count _posicionTel > 0) then
 						_tam = _tam + 10;
 						};
 					_road = _roads select 0;
-					_pos = position _road findEmptyPosition [1,50,typeOf (vehicle _unit)];
+					_pos = position _road findEmptyPosition [10,100,typeOf (vehicle _unit)];
 					vehicle _unit setPos _pos;
 					};
 				if ((vehicle _unit isKindOf "StaticWeapon") and (!isPlayer (leader _unit))) then
 					{
-					_pos = _posicion findEmptyPosition [1,50,typeOf (vehicle _unit)];
+					_pos = _posicion findEmptyPosition [10,100,typeOf (vehicle _unit)];
 					vehicle _unit setPosATL _pos;
 					};
 				}

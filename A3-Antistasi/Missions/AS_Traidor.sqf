@@ -8,66 +8,11 @@ _contacto = objNull;
 _grpContacto = grpNull;
 _tsk = "";
 _tsk1 = "";
-if (_dificil) then
-	{
-	_result = [] call spawnMissionGiver;
-	_ciudad = _result select 0;
-	if (_ciudad == "") exitWith {_dificil = false};
-	_contacto = _result select 1;
 
-	_nombredest = [_ciudad] call localizar;
-	_tiempolim = 30;//120
-	_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-	_fechalimnum = dateToNumber _fechalim;
-	[[buenos,civilian],"AS",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _contacto,false,0,true,"talk",true] call BIS_fnc_taskCreate;
-	misiones pushBack ["AS","CREATED"]; publicVariable "misiones";
-
-	waitUntil {sleep 1; (_contacto getVariable "statusAct") or (dateToNumber date > _fechalimnum)};
-	if (dateToNumber date > _fechalimnum) then
-		{
-		_salir = true
-		}
-	else
-		{
-		if (lados getVariable [_marcador,sideUnknown] == buenos) then
-			{
-			_salir = true;
-			{
-			if (isPlayer _x) then {[_contacto,"globalChat","My information is useless now"] remoteExec ["commsMP",_x]}
-			} forEach ([50,0,position _contacto,"GREENFORSpawn"] call distanceUnits);
-			};
-		};
-	[_contacto] spawn
-		{
-		_contacto = _this select 0;
-		_grpContacto = group _contacto;
-		sleep cleanTime;
-		deleteVehicle _contacto;
-		deleteGroup _grpContacto;
-		};
-	if (_salir) exitWith
-		{
-		if (_contacto getVariable "statusAct") then
-			{
-			[0,"AS"] spawn borrarTask;
-			}
-		else
-			{
-			["AS",[format ["An informant is awaiting for you in %1. Go there before %2:%3. He will provide you some info on our next task",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Contact Informer",_ciudad],position _contacto,"FAILED"] call taskUpdate;
-			[1200,"AS"] spawn borrarTask;
-			};
-		};
-	};
-if (_salir) exitWith {};
-
-if (_dificil) then
-	{
-	[0,"AS"] spawn borrarTask;
-	waitUntil {sleep 1; !(["AS"] call BIS_fnc_taskExists)};
-	};
 _posicion = getMarkerPos _marcador;
 
-_tiempolim = if (_dificil) then {15} else {60};
+_tiempolim = if (_dificil) then {30} else {60};
+if (hayIFA) then {_tiempolim = _tiempolim * 2};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _fechalimnum = dateToNumber _fechalim;
 
@@ -132,7 +77,7 @@ else
 	_dirVeh = getDir _road;
 	};
 _posVeh = [_posroad, 3, _dirveh + 90] call BIS_Fnc_relPos;
-_veh = "B_G_Offroad_01_F" createVehicle _posVeh;
+_veh = vehSDKLightUnarmed createVehicle _posVeh;
 _veh allowDamage false;
 _veh setDir _dirVeh;
 sleep 15;
@@ -197,7 +142,7 @@ if (not alive _traidor) then
 			[20,_x] call playerScoreAdd;
 			};
 		} forEach ([_tam,0,_posicion,"GREENFORSpawn"] call distanceUnits);
-		[10,stavros] call playerScoreAdd;
+		[10,theBoss] call playerScoreAdd;
 		}
 	else
 		{
@@ -215,14 +160,14 @@ if (not alive _traidor) then
 			[10,_x] call playerScoreAdd;
 			};
 		} forEach ([_tam,0,_posicion,"GREENFORSpawn"] call distanceUnits);
-		[5,stavros] call playerScoreAdd;
+		[5,theBoss] call playerScoreAdd;
 		};
 	}
 else
 	{
 	["AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Kill the Traitor",_marcador],_traidor,"FAILED"] call taskUpdate;
 	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameBuenos],"Protect Contact",_marcador],getPos _casa,"SUCCEEDED"] call taskUpdate;
-	if (_dificil) then {[-10,stavros] call playerScoreAdd} else {[-10,stavros] call playerScoreAdd};
+	if (_dificil) then {[-10,theBoss] call playerScoreAdd} else {[-10,theBoss] call playerScoreAdd};
 	if (dateToNumber date > _fechalimnum) then
 		{
 		_hrT = server getVariable "hr";
@@ -231,7 +176,7 @@ else
 		}
 	else
 		{
-		if (isPlayer Stavros) then
+		if (isPlayer theBoss) then
 			{
 			if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
 				{

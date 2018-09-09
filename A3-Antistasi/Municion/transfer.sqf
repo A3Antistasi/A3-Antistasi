@@ -12,7 +12,7 @@ _objetos = nearestObjects [_camion, ["ReammoBox_F"], 20];
 if (count _objetos == 0) exitWith {};
 _caja = _objetos select 0;
 
-if ((_caja == caja) and (player!=stavros)) exitWith {hint "Only the Commander can transfer this ammobox content to any truck"; [driver _camion,"camion"] remoteExec ["flagaction",driver _camion]};
+if ((_caja == caja) and (player!=theBoss)) exitWith {hint "Only the Commander can transfer this ammobox content to any truck"; [driver _camion,"camion"] remoteExec ["flagaction",driver _camion]};
 
 
 _armas = weaponCargo _caja;

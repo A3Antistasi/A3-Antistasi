@@ -15,17 +15,13 @@ _civiles = [];
 _nombredest = [_mrkDestino] call localizar;
 [[buenos,civilian,malos],"AtaqueAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest,nameMuyMalos],format ["%1 Punishment",nameMuyMalos],_mrkDestino],getMarkerPos _mrkDestino,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 
-_nul = [_mrkOrigen,_mrkDestino] spawn artilleria;
+_nul = [_mrkOrigen,_mrkDestino,muyMalos] spawn artilleria;
 _lado = if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {malos} else {buenos};
 _tiempo = time + 3600;
 
 for "_i" from 1 to 3 do
 	{
-	_tipoveh = if (_i != 3) then {selectRandom vehCSATAir} else {selectRandom vehCSATTransportHelis};
-	if (not([_tipoVeh] call vehAvailable)) then
-		{
-		_tipoVeh = selectRandom vehCSATTransportHelis;
-		};
+	_tipoveh = if (_i != 3) then {selectRandom (vehCSATAir select {[_x] call vehAvailable})} else {selectRandom (vehCSATTransportHelis select {[_x] call vehAvailable})};
 	_timeOut = 0;
 	_pos = _posorigen findEmptyPosition [0,100,_tipoveh];
 	while {_timeOut < 60} do
@@ -112,8 +108,8 @@ if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[[_posDestino,ma
 if (_numCiv < 8) then {_numCiv = 8};
 
 _size = [_mrkDestino] call sizeMarker;
-_grupoCivil = if (_lado == buenos) then {createGroup buenos} else {createGroup malos};
-_grupoCivil = createGroup civilian;
+//_grupoCivil = if (_lado == buenos) then {createGroup buenos} else {createGroup malos};
+_grupoCivil = createGroup buenos;
 _grupos pushBack _grupoCivil;
 //[muyMalos,[civilian,0]] remoteExec ["setFriend",2];
 _tipoUnit = if (_lado == buenos) then {SDKUnarmed} else {NATOUnarmed};
@@ -142,9 +138,9 @@ _nul = [leader _grupoCivil, _mrkDestino, "AWARE","SPAWNED","NOVEH2"] execVM "scr
 _civilMax = {alive _x} count _civiles;
 _solMax = count _soldados;
 
-if ([vehCSATPlane] call vehAvailable) then
+for "_i" from 0 to round random 2 do
 	{
-	for "_i" from 0 to round random 2 do
+	if ([vehCSATPlane] call vehAvailable) then
 		{
 		_nul = [_mrkdestino,muyMalos,"NAPALM"] spawn airstrike;
 		sleep 30;
@@ -164,7 +160,7 @@ if ((({not (captive _x)} count _soldados) < ({captive _x} count _soldados)) or (
 		[-5,0] remoteExec ["prestige",2];
 		{[-10,10,_x] remoteExec ["citySupportChange",2]} forEach ciudades;
 		{if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_posdestino,"GREENFORSpawn"] call distanceUnits);
-		[10,stavros] call playerScoreAdd;
+		[10,theBoss] call playerScoreAdd;
 		}
 	else
 		{

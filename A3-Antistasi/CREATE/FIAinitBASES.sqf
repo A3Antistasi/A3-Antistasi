@@ -97,7 +97,11 @@ else
 				[_unit,unlockedRifles] call randomRifle;
 				if (_tipo in SDKMedic) then
 					{
-					_unit setUnitTrait ["medic",true]
+					_unit setUnitTrait ["medic",true];
+					if ({_x == "FirstAidKit"} count (items _unit) < 10) then
+						{
+						for "_i" from 1 to 10 do {_unit addItemToBackpack "FirstAidKit"};
+						};
 					}
 				else
 					{
@@ -113,6 +117,21 @@ else
 								_unit removeWeaponGlobal (secondaryWeapon _unit);
 								[_unit, _rlauncher, 4, 0] call BIS_fnc_addWeapon;
 								};
+							}
+						else
+							{
+							if (hayIFA) then
+								{
+								[_unit, "LIB_PTRD", 10, 0] call BIS_fnc_addWeapon;
+								};
+							};
+						}
+					else
+						{
+						if (_tipo in squadLeaders) then
+							{
+							_unit setskill ["courage",_skill + 0.2];
+							_unit setskill ["commanding",_skill + 0.2];
 							};
 						};
 					};
@@ -125,18 +144,38 @@ else
 _unit selectWeapon (primaryWeapon _unit);
 
 if (!haveRadio) then {_unit unlinkItem "ItemRadio"};
-
-if (sunOrMoon < 1) then
+if !(hayIFA) then
 	{
-	if (haveNV) then
+	if (sunOrMoon < 1) then
 		{
-		if (hmd _unit == "") then {_unit linkItem (selectRandom NVGoggles)};
-		if ("acc_pointer_IR" in unlockedItems) then
+		if (haveNV) then
 			{
-			_unit addPrimaryWeaponItem "acc_pointer_IR";
-	        _unit assignItem "acc_pointer_IR";
-	        _unit enableIRLasers true;
-			};
+			if (hmd _unit == "") then {_unit linkItem (selectRandom NVGoggles)};
+			if ("acc_pointer_IR" in unlockedItems) then
+				{
+				_unit addPrimaryWeaponItem "acc_pointer_IR";
+		        _unit assignItem "acc_pointer_IR";
+		        _unit enableIRLasers true;
+				};
+			}
+		else
+			{
+			_hmd = hmd _unit;
+			if (_hmd != "") then
+				{
+				_unit unassignItem _hmd;
+				_unit removeItem _hmd;
+				};
+			_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
+			_array = lamparasSDK arrayIntersect _compatibles;
+			if (count _array > 0) then
+				{
+				_compatible = _array select 0;
+				_unit addPrimaryWeaponItem _compatible;
+			    _unit assignItem _compatible;
+			    _unit enableGunLights _compatible;
+				};
+		    };
 		}
 	else
 		{
@@ -146,32 +185,9 @@ if (sunOrMoon < 1) then
 			_unit unassignItem _hmd;
 			_unit removeItem _hmd;
 			};
-		_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
-		_array = lamparasSDK arrayIntersect _compatibles;
-		if (count _array > 0) then
-			{
-			_compatible = _array select 0;
-			_unit addPrimaryWeaponItem _compatible;
-		    _unit assignItem _compatible;
-		    _unit enableGunLights _compatible;
-			};
-	    };
-	}
-else
-	{
-	_hmd = hmd _unit;
-	if (_hmd != "") then
-		{
-		_unit unassignItem _hmd;
-		_unit removeItem _hmd;
 		};
 	};
 if ({if (_x in humo) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom humo,2]};
-if (_unit == leader _unit) then
-	{
-	_unit setskill ["courage",_skill + 0.2];
-	_unit setskill ["commanding",_skill + 0.2];
-	};
 
 _EHkilledIdx = _unit addEventHandler ["killed", {
 	_muerto = _this select 0;

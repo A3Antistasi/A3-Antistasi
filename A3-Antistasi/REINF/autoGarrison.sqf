@@ -4,9 +4,9 @@ private ["_marcador","_destino","_origen","_grupos","_soldados","_vehiculos","_s
 
 _marcador = _this select 0;
 if (not(_marcador in smallCAmrk)) exitWith {};
-if (debug) then {stavros globalChat format ["AutoGarrison en marcha, destino %1",_marcador]};
+
 _destino = getMarkerPos _marcador;
-_origen = getMarkerPos "respawn_guerrila";
+_origen = getMarkerPos respawnBuenos;
 
 _grupos = [];
 _soldados = [];

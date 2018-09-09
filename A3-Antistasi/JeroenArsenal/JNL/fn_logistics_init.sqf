@@ -22,6 +22,42 @@ jnl_vehicleHardpoints = [
     	[1,		[0,-1.697,-0.874],	[]]
     ]],
 
+    //rebel IFA truck done by Barbolani: Jeroen / Sparker I need your help!
+    ["\WW2\Assets_m\Vehicles\Trucks_m\IF_Gmc353Truck.p3d",[
+    	[0,		[-0.000671387,-1.31882,-0.81],	[2,3,4,5,6,7,8,9,10,11,12,13]],
+    	[1,		[0,0.374054,-0.0936584],					[2,3,4,5,6,7,8]]
+    ]],
+
+    //"civ" and GER IFA truck done by Barbolani: Jeroen / Sparker I need your help![,[]]
+    ["\WW2\Assets_m\Vehicles\Trucks_m\IF_Opelblitz.p3d",[
+    	[0,		[-0.000671387,-1.31882,-0.81],	[2,3,4,5,6,7,8,9,10,11,12,13]],
+    	[1,		[0,-0.275879,-0.105191],					[2,3,4,5,6,7,8]]
+    ]],
+
+    //GER IFA truck done by Barbolani: Jeroen / Sparker I need your help!
+    ["\WW2\Assets_m\Vehicles\Trucks_m\IF_Opelblitz_Tent.p3d",[
+    	[0,		[-0.000671387,-1.31882,-0.81],	[2,3,4,5,6,7,8,9,10,11,12,13]],
+    	[1,		[0,-0.275391,-0.105209],					[2,3,4,5,6,7,8]]
+    ]],
+
+    //Sov IFA truck done by Barbolani: Jeroen / Sparker I need your help!
+    ["\WW2\Assets_m\Vehicles\Trucks_m\IF_Us6.p3d",[
+    	[0,		[-0.000671387,-1.31882,-0.81],	[2,3,4,5,6,7,8,9,10,11,12,13]],
+    	[1,		[0,-0.829102,0.173984],					[2,3,4,5,6,7,8]]
+    ]],
+
+	//another Sov IFA truck done by Barbolani: Jeroen / Sparker I need your help!
+    ["\WW2\Assets_m\Vehicles\Trucks_m\IF_Us6.p3d",[
+    	[0,		[-0.000671387,-1.31882,-0.81],	[2,3,4,5,6,7,8,9,10,11,12,13]],
+    	[1,		[0,-0.919434,0.174015],					[2,3,4,5,6,7,8]]
+    ]],
+
+    //another one Sov IFA truck done by Barbolani: Jeroen / Sparker I need your help!
+    ["\WW2\Assets_m\Vehicles\Trucks_m\IF_Zis5v.p3d",[
+    	[0,		[-0.000671387,-1.31882,-0.81],	[2,3,4,5,6,7,8,9,10,11,12,13]],
+    	[1,		[0,-0.657227,-0.817673],					[2,3,4,5,6,7,8]]
+    ]],
+
     //AAF Zamak open
     ["\A3\soft_f_beta\Truck_02\Truck_02_transport_F", [
     	[0,		[-0.000671387,-1.31882,-0.81],	[2,3,4,5,6,7,8,9,10,11,12,13]],
@@ -246,7 +282,9 @@ jnl_attachmentOffset = [
 	["\A3\Weapons_F\Ammoboxes\Proxy_UsBasicAmmoBox.p3d",			[0,0,0.85],				[1,0,0],				1], 	//Stef test Devin crate2
 	["\A3\Weapons_F\Ammoboxes\Proxy_UsBasicExplosives.p3d",			[0,0,0.85],				[1,0,0],				1], 	//Stef test Devin crate3
 	["\A3\Weapons_F\Ammoboxes\Supplydrop.p3d",						[0, 0, 0.95],			[1,0,0],				1],		//Ammodrop crate
-	["\A3\Soft_F\Quadbike_01\Quadbike_01_F.p3d",					[0, 0, 1.4],			[0,1,0],				1]		//Quadbike
+	["\A3\Soft_F\Quadbike_01\Quadbike_01_F.p3d",					[0, 0, 1.4],			[0,1,0],				1],		//Quadbike
+	["\WW2\Assets_m\Weapons\Ammoboxes_m\IF_GER_Ammo.p3d",			[0,0,0.85],				[1,0,0],				1],		//ifa ammo
+	["\WW2\Assets_m\Weapons\Ammoboxes_m\IF_SU_Ammo.p3d",			[0,0,0.85],				[1,0,0],				1]		//ifa ammo
 ];
 
 

@@ -96,7 +96,7 @@ while {time < _timeOut} do
 			};
 		};
 	} forEach _units;
-	sleep 2.5;
+	sleep 5;
 	};
 if (!isMultiplayer) then {{_x hideObject true } foreach (nearestTerrainObjects [_pos,["tree","bush"],20])} else {if (isServer) then {{ _x hideObjectGlobal true } foreach (nearestTerrainObjects [_pos,["tree","bush"],20])}};
 for "_i" from 0 to (count _fuegos) do

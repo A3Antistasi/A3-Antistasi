@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-_posicion = getMarkerPos "respawn_guerrila";
+_posicion = getMarkerPos respawnBuenos;
 
 _pilotos = [];
 _vehiculos = [];
@@ -16,8 +16,8 @@ _posOrigen = getMarkerPos _aeropuerto;
 _lado = if (lados getVariable [_aeropuerto,sideUnknown] == malos) then {malos} else {muyMalos};
 _tsk1 = "";
 _tsk = "";
-[[buenos,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],"respawn_guerrila"],_posicion,true,10,true,"Defend",true] call BIS_fnc_taskCreate;
-[[_lado],"DEF_HQ1",[format ["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros],format ["Kill %1",name petros],"respawn_guerrila"],_posicion,true,10,true,"Attack",true] call BIS_fnc_taskCreate;
+[[buenos,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,true,10,true,"Defend",true] call BIS_fnc_taskCreate;
+[[_lado],"DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros, nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,true,10,true,"Attack",true] call BIS_fnc_taskCreate;
 misiones pushBack ["DEF_HQ","CREATED"]; publicVariable "misiones";
 _tiposVeh = if (_lado == malos) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
 _tiposVeh = _tiposVeh select {[_x] call vehAvailable};
@@ -64,24 +64,24 @@ for "_i" from 0 to (round random 2) do
 	sleep 10;
 	};
 
-waitUntil {sleep 1;({[_x] call canFight} count _soldados < {!([_x] call canFight)} count _soldados) or (_posicion distance getMarkerPos "respawn_guerrila" > 999) or (!alive petros)};
+waitUntil {sleep 1;({[_x] call canFight} count _soldados < {!([_x] call canFight)} count _soldados) or (_posicion distance getMarkerPos respawnBuenos > 999) or (!alive petros)};
 
 if (!alive petros) then
 	{
-	["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],"respawn_guerrila"],_posicion,"FAILED"] call taskUpdate;
-	["DEF_HQ1",[format ["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros],format ["Kill %1",name petros],"respawn_guerrila"],_posicion,"SUCCEEDED"] call taskUpdate;
+	["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"FAILED"] call taskUpdate;
+	["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call taskUpdate;
 	}
 else
 	{
-	if (_posicion distance getMarkerPos "respawn_guerrila" > 999) then
+	if (_posicion distance getMarkerPos respawnBuenos > 999) then
 		{
-		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],"respawn_guerrila"],_posicion,"SUCCEEDED"] call taskUpdate;
-		["DEF_HQ1",[_lado],[format ["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros],format ["Kill %1",name petros],"respawn_guerrila"],_posicion,"FAILED"] call taskUpdate;
+		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call taskUpdate;
+		["DEF_HQ1",[_lado],[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"FAILED"] call taskUpdate;
 		}
 	else
 		{
-		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],"respawn_guerrila"],_posicion,"SUCCEEDED"] call taskUpdate;
-		["DEF_HQ1",[format ["We know Syndikat HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros],format ["Kill %1",name petros],"respawn_guerrila"],_posicion,"FAILED"] call taskUpdate;
+		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call taskUpdate;
+		["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"FAILED"] call taskUpdate;
 		[0,3] remoteExec ["prestige",2];
 		[0,300] remoteExec ["resourcesFIA",2];
 		//[-5,5,_posicion] remoteExec ["citySupportChange",2];

@@ -11,7 +11,7 @@ _tipo = typeOf _unit;
 _skill = skillFIA * 0.05 * skillMult;
 if (!activeGREF) then {if (not((uniform _unit) in uniformsSDK)) then {[_unit] call reDress}};
 
-if ((!isMultiplayer) and (leader _unit == stavros)) then {_skill = _skill + 0.1};
+if ((!isMultiplayer) and (leader _unit == theBoss)) then {_skill = _skill + 0.1};
 _unit setSkill _skill;
 if (_tipo in SDKSniper) then
 	{
@@ -90,7 +90,11 @@ else
 					{
 					if (_tipo in SDKMedic) then
 						{
-						_unit setUnitTrait ["medic",true]
+						_unit setUnitTrait ["medic",true];
+						if ({_x == "FirstAidKit"} count (items _unit) < 10) then
+							{
+							for "_i" from 1 to 10 do {_unit addItemToBackpack "FirstAidKit"};
+							};
 						}
 					else
 						{
@@ -106,6 +110,21 @@ else
 									_unit removeWeaponGlobal (secondaryWeapon _unit);
 									[_unit, _rlauncher, 4, 0] call BIS_fnc_addWeapon;
 									};
+								}
+							else
+								{
+								if (hayIFA) then
+									{
+									[_unit, "LIB_PTRD", 10, 0] call BIS_fnc_addWeapon;
+									};
+								};
+							}
+						else
+							{
+							if (_tipo in squadLeaders) then
+								{
+								_unit setskill ["courage",_skill + 0.2];
+								_unit setskill ["commanding",_skill + 0.2];
 								};
 							};
 						};
@@ -126,18 +145,38 @@ if (!haveRadio) then
 	};
 
 if ({if (_x in humo) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom humo,2]};
-
-if ((sunOrMoon < 1) and (_tipo != SDKUnarmed)) then
+if !(hayIFA) then
 	{
-	if (haveNV) then
+	if ((sunOrMoon < 1) and (_tipo != SDKUnarmed)) then
 		{
-		if (hmd _unit == "") then {_unit linkItem (selectRandom NVGoggles)};
-		if ("acc_pointer_IR" in unlockedItems) then
+		if (haveNV) then
 			{
-			_unit addPrimaryWeaponItem "acc_pointer_IR";
-	        _unit assignItem "acc_pointer_IR";
-	        _unit enableIRLasers true;
-	        };
+			if (hmd _unit == "") then {_unit linkItem (selectRandom NVGoggles)};
+			if ("acc_pointer_IR" in unlockedItems) then
+				{
+				_unit addPrimaryWeaponItem "acc_pointer_IR";
+		        _unit assignItem "acc_pointer_IR";
+		        _unit enableIRLasers true;
+		        };
+			}
+		else
+			{
+			_hmd = hmd _unit;
+			if (_hmd != "") then
+				{
+				_unit unassignItem _hmd;
+				_unit removeItem _hmd;
+				};
+			_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
+			_array = lamparasSDK arrayIntersect _compatibles;
+			if (count _array > 0) then
+				{
+				_compatible = _array select 0;
+				_unit addPrimaryWeaponItem _compatible;
+			    _unit assignItem _compatible;
+			    _unit enableGunLights _compatible;
+				};
+		    };
 		}
 	else
 		{
@@ -147,24 +186,6 @@ if ((sunOrMoon < 1) and (_tipo != SDKUnarmed)) then
 			_unit unassignItem _hmd;
 			_unit removeItem _hmd;
 			};
-		_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
-		_array = lamparasSDK arrayIntersect _compatibles;
-		if (count _array > 0) then
-			{
-			_compatible = _array select 0;
-			_unit addPrimaryWeaponItem _compatible;
-		    _unit assignItem _compatible;
-		    _unit enableGunLights _compatible;
-			};
-	    };
-	}
-else
-	{
-	_hmd = hmd _unit;
-	if (_hmd != "") then
-		{
-		_unit unassignItem _hmd;
-		_unit removeItem _hmd;
 		};
 	};
 /*
@@ -186,7 +207,7 @@ if (player == leader _unit) then
 		_muerto = _this select 0;
 		[_muerto] spawn postmortem;
 		_killer = _this select 1;
-		arrayids pushBackUnique (name _muerto);
+		if !(hayIFA) then {arrayids pushBackUnique (name _muerto)};
 		if (side _killer == malos) then
 			{
 			_nul = [0.25,0,getPos _muerto] remoteExec ["citySupportChange",2];
@@ -208,7 +229,7 @@ if (player == leader _unit) then
 			};
 		_muerto setVariable ["GREENFORSpawn",nil,true];
 		}];
-	if (typeOf _unit != SDKUnarmed) then
+	if ((typeOf _unit != SDKUnarmed) and !hayIFA) then
 		{
 		_idUnit = arrayids call BIS_Fnc_selectRandom;
 		arrayids = arrayids - [_idunit];
@@ -217,7 +238,7 @@ if (player == leader _unit) then
 	if (captive player) then {[_unit] spawn undercoverAI};
 
 	_unit setVariable ["rearming",false];
-	if ((!haveRadio) and (!hayTFAR) and (!hayACRE)) then
+	if ((!haveRadio) and (!hayTFAR) and (!hayACRE) and !(hayIFA)) then
 		{
 		while {alive _unit} do
 			{
@@ -225,7 +246,7 @@ if (player == leader _unit) then
 			if (("ItemRadio" in assignedItems _unit) and ([player] call hasRadio)) exitWith {_unit groupChat format ["This is %1, radiocheck OK",name _unit]};
 			if (unitReady _unit) then
 				{
-				if ((alive _unit) and (_unit distance (getMarkerPos "respawn_guerrila") > 50) and (_unit distance leader group _unit > 500) and ((vehicle _unit == _unit) or ((typeOf (vehicle _unit)) in arrayCivVeh))) then
+				if ((alive _unit) and (_unit distance (getMarkerPos respawnBuenos) > 50) and (_unit distance leader group _unit > 500) and ((vehicle _unit == _unit) or ((typeOf (vehicle _unit)) in arrayCivVeh))) then
 					{
 					hint format ["%1 lost communication, he will come back with you if possible", name _unit];
 					[_unit] join rezagados;
@@ -233,7 +254,7 @@ if (player == leader _unit) then
 					_unit doMove position player;
 					_tiempo = time + 900;
 					waitUntil {sleep 1;(!alive _unit) or (_unit distance player < 500) or (time > _tiempo)};
-					if ((_unit distance player >= 500) and (alive _unit)) then {_unit setPos (getMarkerPos "respawn_guerrila")};
+					if ((_unit distance player >= 500) and (alive _unit)) then {_unit setPos (getMarkerPos respawnBuenos)};
 					[_unit] join group player;
 					};
 				};
@@ -242,11 +263,6 @@ if (player == leader _unit) then
 	}
 else
 	{
-	if (_unit == leader _unit) then
-		{
-		_unit setskill ["courage",_skill + 0.2];
-		_unit setskill ["commanding",_skill + 0.2];
-		};
 	_EHkilledIdx = _unit addEventHandler ["killed", {
 		_muerto = _this select 0;
 		_killer = _this select 1;

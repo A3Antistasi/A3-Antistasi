@@ -4,11 +4,11 @@ _nombreDest = [_marcador] call localizar;
 _sideEny = _this select 1;
 _nombreEny = if (_sideEny == buenos) then
 				{
-				"SDK"
+				nameBuenos
 				}
 			else
 				{
-				if (_sideEny == muyMalos) then {"CSAT"} else {"NATO"};
+				if (_sideEny == muyMalos) then {nameMuyMalos} else {nameMalos};
 				};
 _lado = _this select 2;
 if (_lado == buenos) then {_lado = [buenos,civilian]};

@@ -101,5 +101,4 @@ if (side _injurer == buenos) then
 			};
 		};
 	};
-//stavros sidechat format ["Final Daño_ %1. Parte %2",_dam,_part];
 _dam

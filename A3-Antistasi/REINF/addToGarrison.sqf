@@ -66,9 +66,9 @@ _garrison = [];
 _garrison = _garrison + (garrison getVariable [_cercano,[]]);
 {_garrison pushBack (typeOf _x)} forEach _unidades;
 garrison setVariable [_cercano,_garrison,true];
-[_cercano] call mrkUpdate;
+[_cercano] call A3A_fnc_mrkUpdate;
 */
-[_unidades,buenos,_cercano,0] remoteExec ["garrisonUpdate",2];
+[_unidades,buenos,_cercano,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
 _noBorrar = false;
 
 if (spawner getVariable _cercano != 2) then
@@ -98,9 +98,9 @@ if (spawner getVariable _cercano != 2) then
 						};
 					garrison setVariable [_marcador,_garrison,true];
 					};
-				[_marcador] call mrkUpdate;
+				[_marcador] call A3A_fnc_mrkUpdate;
 				*/
-				[typeOf _muerto,buenos,_marcador,-1] remoteExec ["garrisonUpdate",2];
+				[typeOf _muerto,buenos,_marcador,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
 				_muerto setVariable [_marcador,nil,true];
 				};
 			};
@@ -132,12 +132,12 @@ else
 		_x addEventHandler ["killed", {
 			_muerto = _this select 0;
 			_killer = _this select 1;
-			[_muerto] remoteExec ["postmortem",2];
+			[_muerto] remoteExec ["A3A_fnc_postmortem",2];
 			if ((isPlayer _killer) and (side _killer == buenos)) then
 				{
 				if (!isMultiPlayer) then
 					{
-					_nul = [0,20] remoteExec ["resourcesFIA",2];
+					_nul = [0,20] remoteExec ["A3A_fnc_resourcesFIA",2];
 					_killer addRating 1000;
 					};
 				}
@@ -145,12 +145,12 @@ else
 				{
 				if (side _killer == malos) then
 					{
-					_nul = [0.25,0,getPos _muerto] remoteExec ["citySupportChange",2];
-					[-0.25,0] remoteExec ["prestige",2];
+					_nul = [0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+					[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
 					}
 				else
 					{
-					if (side _killer == muyMalos) then {[0,-0.25] remoteExec ["prestige",2]};
+					if (side _killer == muyMalos) then {[0,-0.25] remoteExec ["A3A_fnc_prestige",2]};
 					};
 				};
 			_muerto setVariable ["GREENFORSpawn",nil,true];

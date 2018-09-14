@@ -22,7 +22,7 @@ if (isMultiplayer) then
 if (!hasInterface) exitWith
 	{
 	if (worldName == "Tanoa") then {call compile preprocessFileLineNumbers "roadsDB.sqf"} else {if (worldName == "Altis") then {call compile preprocessFileLineNumbers "roadsDBAltis.sqf"}};
-	[clientOwner] remoteExec ["addHC",2];
+	[clientOwner] remoteExec ["A3A_fnc_addHC",2];
 	};
 _isJip = _this select 1;
 if (isMultiplayer) then
@@ -51,7 +51,7 @@ if (isMultiplayer) then
 					deleteVehicle (_this select 6);
 					if (_tipo == "Put") then
 						{
-						if (player distance petros < 10) then {[player,60] spawn castigo};
+						if (player distance petros < 10) then {[player,60] spawn A3A_fnc_castigo};
 						};
 					};
 				};
@@ -122,7 +122,7 @@ if (player getVariable ["pvp",false]) exitWith
 		}
 	else
 		{
-		if (not([player] call isMember)) then
+		if (not([player] call A3A_fnc_isMember)) then
 			{
 			["noPvP",false,1,false,false] call BIS_fnc_endMission;
 			diag_log "Antistasi: PvP player kicked because he is not member";
@@ -136,7 +136,7 @@ if (player getVariable ["pvp",false]) exitWith
 				}
 			else
 				{
-				[player] remoteExec ["playerHasBeenPvPCheck",2];
+				[player] remoteExec ["A3A_fnc_playerHasBeenPvPCheck",2];
 				diag_log "Antistasi: PvP player logged in, doing server side checks if the player has been rebel recently";
 				};
 			};
@@ -144,13 +144,13 @@ if (player getVariable ["pvp",false]) exitWith
 	if (side player == malos) then
 		{
 		player setVariable ["BLUFORSpawn",true,true];
-		if (activeUSAF) then {[player] call RHSdress};
+		if (activeUSAF) then {[player] call A3A_fnc_RHSdress};
 		}
 	else
 		{
 		player setVariable ["OPFORSpawn",true,true]
 		};
-	if (hayACE) then {[] call ACEpvpReDress};
+	if (hayACE) then {[] call A3A_fnc_ACEpvpReDress};
 	respawnBuenos setMarkerAlphaLocal 0;
 	player addEventHandler ["GetInMan",
 		{
@@ -218,7 +218,7 @@ rezagados = creategroup buenos;
 player setUnitTrait ["camouflageCoef",0.8];
 player setUnitTrait ["audibleCoef",0.8];
 
-if (activeGREF) then {[player] call RHSdress};
+if (activeGREF) then {[player] call A3A_fnc_RHSdress};
 player setvariable ["compromised",0];
 player addEventHandler ["FIRED",
 	{
@@ -234,7 +234,7 @@ player addEventHandler ["FIRED",
 		else
 			{
 			_ciudad = [ciudades,_player] call BIS_fnc_nearestPosition;
-			_size = [_ciudad] call sizeMarker;
+			_size = [_ciudad] call A3A_fnc_sizeMarker;
 			_datos = server getVariable _ciudad;
 			if (random 100 < _datos select 2) then
 				{
@@ -271,7 +271,7 @@ player addEventHandler ["InventoryOpened",
 			else
 				{
 				_ciudad = [ciudades,_jugador] call BIS_fnc_nearestPosition;
-				_size = [_ciudad] call sizeMarker;
+				_size = [_ciudad] call A3A_fnc_sizeMarker;
 				_datos = server getVariable _ciudad;
 				if (random 100 < _datos select 2) then
 					{
@@ -326,7 +326,7 @@ player addEventHandler ["HandleHeal",
 		else
 			{
 			_ciudad = [ciudades,_player] call BIS_fnc_nearestPosition;
-			_size = [_ciudad] call sizeMarker;
+			_size = [_ciudad] call A3A_fnc_sizeMarker;
 			_datos = server getVariable _ciudad;
 			if (random 100 < _datos select 2) then
 				{
@@ -350,7 +350,7 @@ player addEventHandler ["WeaponAssembled",
 			{
 			staticsToSave pushBack _veh;
 			publicVariable "staticsToSave";
-			[_veh] call AIVEHinit;
+			[_veh] call A3A_fnc_AIVEHinit;
 			};
 		_marcadores = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 		_pos = position _veh;
@@ -358,7 +358,7 @@ player addEventHandler ["WeaponAssembled",
 		}
 	else
 		{
-		_veh addEventHandler ["Killed",{[_this select 0] remoteExec ["postmortem",2]}];
+		_veh addEventHandler ["Killed",{[_this select 0] remoteExec ["A3A_fnc_postmortem",2]}];
 		};
 	}];
 player addEventHandler ["WeaponDisassembled",
@@ -367,8 +367,8 @@ player addEventHandler ["WeaponDisassembled",
 		_bag2 = _this select 2;
 		//_bag1 = objectParent (_this select 1);
 		//_bag2 = objectParent (_this select 2);
-		[_bag1] call AIVEHinit;
-		[_bag2] call AIVEHinit;
+		[_bag1] call A3A_fnc_AIVEHinit;
+		[_bag2] call A3A_fnc_AIVEHinit;
 		}
 	];
 
@@ -380,7 +380,7 @@ player addEventHandler ["GetInMan",
 	_exit = false;
 	if (isMultiplayer) then
 		{
-		if !([player] call isMember) then
+		if !([player] call A3A_fnc_isMember) then
 			{
 			_owner = _veh getVariable "duenyo";
 			if (!isNil "_owner") then
@@ -403,7 +403,7 @@ player addEventHandler ["GetInMan",
 			{
 			if (!(_veh in reportedVehs)) then
 				{
-				[] spawn undercover;
+				[] spawn A3A_fnc_undercover;
 				};
 			};
 		};
@@ -418,14 +418,14 @@ if (isMultiplayer) then
 	personalGarage = [];
 	if (membershipEnabled) then
 		{
-		if !([player] call isMember) then
+		if !([player] call A3A_fnc_isMember) then
 			{
 			if (isServer) then
 				{
 				miembros pushBack (getPlayerUID player);
 				publicVariable "miembros";
 				};
-			_nonMembers = {(side group _x == buenos) and !([_x] call isMember)} count playableUnits;
+			_nonMembers = {(side group _x == buenos) and !([_x] call A3A_fnc_isMember)} count playableUnits;
 			if (_nonMembers >= (playableSlotsNumber buenos) - bookedSlots) then {["memberSlots",false,1,false,false] call BIS_fnc_endMission};
 			if (memberDistance != 16000) then {[] execVM "orgPlayers\nonMemberDistance.sqf"};
 			};
@@ -443,7 +443,7 @@ if (_isJip) then
 	waitUntil {!isNil "posHQ"};
 	player setPos posHQ;
 	[true] execVM "reinitY.sqf";
-	if (not([player] call isMember)) then
+	if (not([player] call A3A_fnc_isMember)) then
 		{
 		if ((serverCommandAvailable "#logout") or (isServer)) then
 			{
@@ -454,16 +454,16 @@ if (_isJip) then
 		else
 			{
 			hint "Welcome Guest\n\nYou have joined this server as guest";
-			//if ((count playableUnits == maxPlayers) and (({[_x] call isMember} count playableUnits) < count miembros) and (serverName in servidoresOficiales)) then {["serverFull",false,1,false,false] call BIS_fnc_endMission};
+			//if ((count playableUnits == maxPlayers) and (({[_x] call A3A_fnc_isMember} count playableUnits) < count miembros) and (serverName in servidoresOficiales)) then {["serverFull",false,1,false,false] call BIS_fnc_endMission};
 			};
 		}
 	else
 		{
 		hint format ["Welcome back %1", name player];
-		if ({([_x] call isMember) and (side (group _x) == buenos)} count playableUnits == 1) then
+		if ({([_x] call A3A_fnc_isMember) and (side (group _x) == buenos)} count playableUnits == 1) then
 			{
-			[player] call theBossInit;
-			[] remoteExec ["assigntheBoss",2];
+			[player] call A3A_fnc_theBossInit;
+			[] remoteExec ["A3A_fnc_assigntheBoss",2];
 			};
 		};
 	waitUntil {!(isNil "misiones")};
@@ -493,7 +493,7 @@ if (_isJip) then
 		    waitUntil {!(isNil"loadLastSave")};
 		    if !(loadLastSave) then
 	    		{
-	    		_nul = [] spawn placementSelection;
+	    		_nul = [] spawn A3A_fnc_placementSelection;
 	    		};
 			};
 		}
@@ -519,7 +519,7 @@ else
 		    	//_nul = [] execVM "Dialogs\initMenu.sqf";
 		    	if !(loadLastSave) then
 		    		{
-		    		_nul = [] spawn placementSelection;
+		    		_nul = [] spawn A3A_fnc_placementSelection;
 		    		}
 		    	else
 		    		{
@@ -588,19 +588,19 @@ if (hayTFAR or hayACE or hayRHS or hayACRE or hayFFAA) then
 		};
 	};
 waituntil {!isnull (finddisplay 46)};
-gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",teclas];
+gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",A3A_fnc_teclas];
 //removeAllActions caja;
 
 if ((!isServer) and (isMultiplayer)) then {caja call jn_fnc_arsenal_init};
 
 caja allowDamage false;
-caja addAction ["Transfer Vehicle cargo to Ammobox", "[] call vaciar"];
+caja addAction ["Transfer Vehicle cargo to Ammobox", "[] call A3A_fnc_vaciar"];
 caja addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 bandera addAction ["HQ Management", {[] execVM "Dialogs\dialogHQ.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
 bandera allowDamage false;
-bandera addAction ["Unit Recruitment", {if ([player,300] call enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
-bandera addAction ["Buy Vehicle", {if ([player,300] call enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
-if (isMultiplayer) then {bandera addAction ["Personal Garage", {nul = [true] spawn garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"]};
+bandera addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+bandera addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+if (isMultiplayer) then {bandera addAction ["Personal Garage", {nul = [true] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"]};
 bandera addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 cajaVeh allowDamage false;
 cajaveh addAction ["Heal, Repair and Rearm", "healandrepair.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
@@ -615,7 +615,7 @@ mapa allowDamage false;
 mapa addAction ["Game Options", {hint format ["Antistasi - %2\n\nVersion: %1",antistasiVersion,worldName]; nul=CreateDialog "game_options";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
 mapa addAction ["Map Info", {nul = [] execVM "cityinfo.sqf";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
 mapa addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
-if (isMultiplayer) then {mapa addAction ["AI Load Info", "[] remoteExec [""AILoadInfo"",2]",nil,0,false,true,"","(_this == theBoss)"]};
+if (isMultiplayer) then {mapa addAction ["AI Load Info", "[] remoteExec [""A3A_fnc_AILoadInfo"",2]",nil,0,false,true,"","(_this == theBoss)"]};
 _nul = [player] execVM "OrgPlayers\unitTraits.sqf";
 grupoPetros = group petros;
 grupoPetros setGroupIdGlobal ["Petros","GroupColor4"];
@@ -629,4 +629,4 @@ disableSerialization;
 //1 cutRsc ["H8erHUD","PLAIN",0,false];
 _layer = ["estadisticas"] call bis_fnc_rscLayer;
 _layer cutRsc ["H8erHUD","PLAIN",0,false];
-[] spawn statistics;
+[] spawn A3A_fnc_statistics;

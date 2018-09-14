@@ -5,7 +5,7 @@ _grupos = _this select 0;
 _grupo = _grupos select 0;
 _unit = leader _grupo;
 
-if !([_unit] call canFight) exitWith {hint "You cannot control an unconscious or dead unit"};
+if !([_unit] call A3A_fnc_canFight) exitWith {hint "You cannot control an unconscious or dead unit"};
 
 while {(count (waypoints _grupo)) > 0} do
  {

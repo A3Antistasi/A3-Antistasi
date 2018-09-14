@@ -21,7 +21,7 @@ while {alive _perro} do
 			{
 			[_spotted,false] remoteExec ["setCaptive",0,_spotted]; _spotted setCaptive false;
 			};
-		} forEach ([100,0,position _perro,"GREENFORSpawn"] call distanceUnits);
+		} forEach ([100,0,position _perro,"GREENFORSpawn"] call A3A_fnc_distanceUnits);
 
 		if ((random 10 < 1) and (isNull _spotted)) then
 			{

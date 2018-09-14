@@ -11,7 +11,7 @@ if (vehicle _jugador != _jugador) exitWith {hint "You cannot move HQ assets whil
 if ({!(isNull _x)} count (attachedObjects _jugador) != 0) exitWith {hint "You have other things attached, you cannot move this"};
 _sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 _marcador = [_sitios,_jugador] call BIS_fnc_nearestPosition;
-_size = [_marcador] call sizeMarker;
+_size = [_marcador] call A3A_fnc_sizeMarker;
 _posicion = getMarkerPos _marcador;
 if (_jugador distance2D _posicion > _size) exitWith {hint "This asset needs to be closer to it relative zone center to be able to be moved"};
 
@@ -19,7 +19,7 @@ _cosa removeAction _id;
 _cosa attachTo [_jugador,[0,2,1]];
 accion = _jugador addAction ["Drop Here", {{detach _x} forEach attachedObjects player; player removeAction accion},nil,0,false,true,"",""];
 
-waitUntil {sleep 1; (count attachedObjects _jugador == 0) or (vehicle _jugador != _jugador) or (_jugador distance2D _posicion > (_size-3)) or !([_jugador] call canFight) or (!isPlayer _jugador)};
+waitUntil {sleep 1; (count attachedObjects _jugador == 0) or (vehicle _jugador != _jugador) or (_jugador distance2D _posicion > (_size-3)) or !([_jugador] call A3A_fnc_canFight) or (!isPlayer _jugador)};
 
 {detach _x} forEach attachedObjects _jugador;
 player removeAction accion;

@@ -94,7 +94,7 @@ if(_objectType == 0) then
 
 	[_vehicle,_object] remoteExec ["jn_fnc_logistics_addActionGetinWeapon",[0, -2] select isDedicated,_vehicle];
 };
-[_object] spawn VEHdespawner;
+[_object] spawn A3A_fnc_VEHdespawner;
 //save ACE settings to we can reset them when we unload
 _ace_dragging_canDrag = _object getVariable ["ace_dragging_canDrag",false];
 _ace_dragging_canCarry = _object getVariable ["ace_dragging_canCarry",false];

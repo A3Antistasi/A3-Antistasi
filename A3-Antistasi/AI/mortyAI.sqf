@@ -27,7 +27,7 @@ while {(alive _morty0) and (alive _morty1)} do
 	_morty1 assignAsGunner _mortero;
 	[_morty1] orderGetIn true;
 	[_morty1] allowGetIn true;
-	_nul = [_mortero] call AIVEHinit;
+	_nul = [_mortero] call A3A_fnc_AIVEHinit;
 
 	waitUntil {sleep 1; ({!(alive _x)} count units _grupo != 0) or !(unitReady _morty0)};
 

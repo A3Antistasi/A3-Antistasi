@@ -5,7 +5,7 @@ private ["_morty","_ayudante"];
 private _grupo = group _morty;
 while {true} do
 	{
-	_enemigo = _grupo call enemigoCercano;
+	_enemigo = _grupo call A3A_fnc_enemigoCercano;
 	if (isNull _enemigo) exitWith {};
 	if (_enemigo distance _morty > 50) exitWith {};
 	if ((!alive _morty) or (!alive _ayudante)) exitWith {};
@@ -42,7 +42,7 @@ if ((!alive _ayudante) and (alive _morty)) then
 	_flankers = _grupo getVariable ["flankers",[]];
 	_flankers pushBack _morty;
 	_grupo setVariable ["flankers",_flankers];
-	_morty call recallGroup;
+	_morty call A3A_fnc_recallGroup;
 	};
 if ((alive _ayudante) and !(alive _morty)) then
 	{
@@ -52,7 +52,7 @@ if ((alive _ayudante) and !(alive _morty)) then
 	_flankers = _grupo getVariable ["flankers",[]];
 	_flankers pushBack _ayudante;
 	_grupo setVariable ["flankers",_flankers];
-	_ayudante call recallGroup;
+	_ayudante call A3A_fnc_recallGroup;
 	};
 
 if ((!alive _morty) or (!alive _ayudante)) exitWith {};
@@ -64,20 +64,20 @@ _grupo addVehicle _mortero;
 _morty assignAsGunner _mortero;
 [_morty] orderGetIn true;
 [_morty] allowGetIn true;
-_nul = [_mortero] call AIVEHinit;
+_nul = [_mortero] call A3A_fnc_AIVEHinit;
 _movable = _grupo getVariable ["movable",[]];
 _movable pushBack _ayudante;
 _grupo setVariable ["movable",_movable];
 _flankers = _grupo getVariable ["flankers",[]];
 _flankers pushBack _ayudante;
 _grupo setVariable ["flankers",_flankers];
-_ayudante call recallGroup;
+_ayudante call A3A_fnc_recallGroup;
 
 waitUntil {sleep 1; (vehicle _morty == _mortero) or !(alive _morty) or !(alive _mortero)};
 
 if !(alive _morty) exitWith {};
 
-if !(alive _mortero) exitWith {_morty call recallGroup};
+if !(alive _mortero) exitWith {_morty call A3A_fnc_recallGroup};
 
 _grupo setVariable ["morteros",_morty];
 

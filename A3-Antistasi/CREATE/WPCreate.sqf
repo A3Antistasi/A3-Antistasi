@@ -11,7 +11,7 @@ if (_mrkOrigen isEqualType "") then
 	}
 else
 	{
-	if !([_mrkOrigen,"airport"] call isTheSameIsland) then
+	if !([_mrkOrigen,"airport"] call A3A_fnc_isTheSameIsland) then
 		{
 		_exit = true
 		}

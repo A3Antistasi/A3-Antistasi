@@ -29,7 +29,7 @@ while {_cuenta > 0} do
 		};
 	*/
 	//if (not _intersec) exitWith {};
-	if !([_pos] call isBuildingPosition) then {_exit = true};
+	if !([_pos] call A3A_fnc_isBuildingPosition) then {_exit = true};
 	_pos = _pos getPos [31,random 360];
 	//_sonda setpos [_pos select 0,_pos select 1,(_pos select 2) + 60];
 	_cuenta = _cuenta - 1;

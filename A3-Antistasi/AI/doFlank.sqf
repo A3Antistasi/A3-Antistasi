@@ -20,13 +20,13 @@ _x doMove _pos;
 	while {(_unit getVariable ["maniobrando",true]) and (time < _timeOut)} do
 		{
 		if (_unit distance _pos < 3) then {_unit doMove (position _cercano)};
-		if (!([_cercano] call canFight) or !([_unit] call canFight)) exitWith {};
+		if (!([_cercano] call A3A_fnc_canFight) or !([_unit] call A3A_fnc_canFight)) exitWith {};
 		sleep 3;
 		};
 	};
 } forEach _unidades;
 _timeOut = time + 60;
-waitUntil {sleep 5, !([_cercano] call canFight) or (time > _timeOut)};
+waitUntil {sleep 5, !([_cercano] call A3A_fnc_canFight) or (time > _timeOut)};
 {
-_x call recallGroup
+_x call A3A_fnc_recallGroup
 } forEach _unidades;

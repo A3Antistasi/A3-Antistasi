@@ -6,9 +6,9 @@ _eny2 = "OPFORSpawn";
 if (_lado == malos) then {_eny1 = "GREENFORSpawn"} else {if (_lado == muyMalos) then {_eny2 = "GREENFORSpawn"}};
 
 {_unit = _x;
-if (!([distanciaSPWN,1,_unit,_eny1] call distanceUnits) and !([distanciaSPWN,1,_unit,_eny2] call distanceUnits)) then {deleteVehicle _unit}} forEach units _grupo;
+if (!([distanciaSPWN,1,_unit,_eny1] call A3A_fnc_distanceUnits) and !([distanciaSPWN,1,_unit,_eny2] call A3A_fnc_distanceUnits)) then {deleteVehicle _unit}} forEach units _grupo;
 
 {_unit = _x;
-waitUntil {sleep 1;!([distanciaSPWN,1,_unit,_eny1] call distanceUnits) and !([distanciaSPWN,1,_unit,_eny2] call distanceUnits)};deleteVehicle _unit} forEach units _grupo;
+waitUntil {sleep 1;!([distanciaSPWN,1,_unit,_eny1] call A3A_fnc_distanceUnits) and !([distanciaSPWN,1,_unit,_eny2] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach units _grupo;
 
 deleteGroup _grupo;

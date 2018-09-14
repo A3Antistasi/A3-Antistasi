@@ -17,10 +17,10 @@ if (({isPlayer _x} count units _grupo > 1) and (_esHC)) exitWith {hint "You cann
 if (player != player getVariable ["owner",player]) exitWith {hint "You cannot Fast Travel while you are controlling AI"};
 
 _chequeo = false;
-//_distancia = 500 - (([_jefe,false] call fogCheck) * 450);
+//_distancia = 500 - (([_jefe,false] call A3A_fnc_fogCheck) * 450);
 _distancia = 500;
 
-{if ([_x,_distancia] call enemyNearCheck) exitWith {_chequeo = true}} forEach units _grupo;
+{if ([_x,_distancia] call A3A_fnc_enemyNearCheck) exitWith {_chequeo = true}} forEach units _grupo;
 
 if (_chequeo) exitWith {Hint "You cannot Fast Travel with enemies near the group"};
 
@@ -52,7 +52,7 @@ if (count _posicionTel > 0) then
 
 	//if (_base in puestosFIA) exitWith {hint "You cannot Fast Travel to roadblocks and watchposts"; openMap [false,false]};
 
-	if ([getMarkerPos _base,500] call enemyNearCheck) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
+	if ([getMarkerPos _base,500] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
 
 	if (_posicionTel distance getMarkerPos _base < 50) then
 		{

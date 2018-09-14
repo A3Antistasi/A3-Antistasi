@@ -13,7 +13,7 @@ _coste = 0;
 if (_tipo isEqualType "") then
 	{
 	_coste = server getVariable _tipo;
-	_coste = _coste + ([SDKMortar] call vehiclePrice);
+	_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice);
 	}
 else
 	{
@@ -31,21 +31,21 @@ _posicion = getMarkerPos _marcador;
 
 if (surfaceIsWater _posicion) exitWith {hint "This Garrison is still updating, please try again in a few seconds"};
 
-if ([_posicion,500] call enemyNearCheck) exitWith {Hint "You cannot Recruit Garrison Units with enemies near the zone"};
-_nul = [-1,-_coste] remoteExec ["resourcesFIA",2];
+if ([_posicion,500] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot Recruit Garrison Units with enemies near the zone"};
+_nul = [-1,-_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 /*
 _garrison = [];
 _garrison = _garrison + (garrison getVariable [_marcador,[]]);
 _garrison pushBack _tipo;
 garrison setVariable [_marcador,_garrison,true];
-//[_marcador] call mrkUpdate;*/
+//[_marcador] call A3A_fnc_mrkUpdate;*/
 _cuenta = count (garrison getVariable _marcador);
-[_tipo,buenos,_marcador,1] remoteExec ["garrisonUpdate",2];
+[_tipo,buenos,_marcador,1] remoteExec ["A3A_fnc_garrisonUpdate",2];
 waitUntil {(_cuenta < count (garrison getVariable _marcador)) or (lados getVariable [_marcador,sideUnknown] != buenos)};
 
 if (lados getVariable [_marcador,sideUnknown] == buenos) then
 	{
-	hint format ["Soldier recruited.%1",[_marcador] call garrisonInfo];
+	hint format ["Soldier recruited.%1",[_marcador] call A3A_fnc_garrisonInfo];
 
 	if (spawner getVariable _marcador != 2) then
 		{

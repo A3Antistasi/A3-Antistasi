@@ -35,13 +35,13 @@ if (_escarretera) then
 		_veh = vehSDKLightArmed createVehicle getPos (_road select 0);
 		_veh setDir _dirveh + 90;
 		_veh lock 3;
-		_nul = [_veh] call AIVEHinit;
+		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		sleep 1;
 		};
-	_grupo = [_posicion, buenos, _garrison] call spawnGroup;
+	_grupo = [_posicion, buenos, _garrison] call A3A_fnc_spawnGroup;
 	//_unit = _grupo createUnit [staticCrewBuenos, _posicion, [], 0, "NONE"];
 	//_unit moveInGunner _veh;
-	{[_x,_marcador] spawn FIAinitBases; if (typeOf _x == staticCrewBuenos) then {_x moveInGunner _veh}} forEach units _grupo;
+	{[_x,_marcador] spawn A3A_fnc_FIAinitBases; if (typeOf _x == staticCrewBuenos) then {_x moveInGunner _veh}} forEach units _grupo;
 	}
 else
 	{
@@ -49,10 +49,10 @@ else
 	{
 	if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
 	} forEach gruposSDKSniper;
-	_grupo = [_posicion, buenos, _formato] call spawnGroup;
+	_grupo = [_posicion, buenos, _formato] call A3A_fnc_spawnGroup;
 	_grupo setBehaviour "STEALTH";
 	_grupo setCombatMode "GREEN";
-	{[_x,_marcador] spawn FIAinitBases;} forEach units _grupo;
+	{[_x,_marcador] spawn A3A_fnc_FIAinitBases;} forEach units _grupo;
 	};
 
 waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({alive _x} count units _grupo == 0) or (not(_marcador in puestosFIA))};
@@ -63,7 +63,7 @@ if ({alive _x} count units _grupo == 0) then
 	puestosFIA = puestosFIA - [_marcador]; publicVariable "puestosFIA";
 	marcadores = marcadores - [_marcador]; publicVariable "marcadores";
 	lados setVariable [_marcador,nil,true];
-	_nul = [5,-5,_posicion] remoteExec ["citySupportChange",2];
+	_nul = [5,-5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 	deleteMarker _marcador;
 	if (_escarretera) then
 		{

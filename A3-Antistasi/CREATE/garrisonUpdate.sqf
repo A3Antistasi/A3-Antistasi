@@ -46,5 +46,5 @@ else
 	};
 if (isNil "_garrison") exitWith {garrisonIsChanging = false};
 garrison setVariable [_marcador,_garrison,true];
-if (_lado == buenos) then {[_marcador] call mrkUpdate};
+if (_lado == buenos) then {[_marcador] call A3A_fnc_mrkUpdate};
 garrisonIsChanging = false;

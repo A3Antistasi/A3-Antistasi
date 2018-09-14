@@ -31,7 +31,7 @@ if (_medico != _unit) then
 		};
 	if (hasInterface) then {if (player == _unit) then {hint format ["%1 is on the way to help you",name _medico]}};
 	_enemy = _medico findNearestEnemy _unit;
-	_smoked = [_medico,_unit,_enemy] call cubrirConHumo;
+	_smoked = [_medico,_unit,_enemy] call A3A_fnc_cubrirConHumo;
 	_medico stop false;
 	_medico forceSpeed -1;
 	_timeOut = time + 60;
@@ -39,19 +39,19 @@ if (_medico != _unit) then
 	_medico doMove getPosATL _unit;
 	while {true} do
 		{
-		if (!([_medico] call canFight) or (!alive _unit) or (_medico distance _unit <= 3) or (_timeOut < time) or (_unit != vehicle _unit) or (_medico != vehicle _medico) or (_medico != _unit getVariable ["ayudado",objNull]) or !(isNull attachedTo _unit) or (_medico getVariable ["cancelRevive",false])) exitWith {};
+		if (!([_medico] call A3A_fnc_canFight) or (!alive _unit) or (_medico distance _unit <= 3) or (_timeOut < time) or (_unit != vehicle _unit) or (_medico != vehicle _medico) or (_medico != _unit getVariable ["ayudado",objNull]) or !(isNull attachedTo _unit) or (_medico getVariable ["cancelRevive",false])) exitWith {};
 		sleep 1;
 		};
 	if ((isPlayer _unit) and !(isMultiplayer))  then
 		{
-		if (([_medico] call canFight) and (_medico distance _unit > 3) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false]) and (allUnits findIf {((side _x == malos) or (side _x == muyMalos)) and (_x distance2D _unit < 50)} == -1)) then {_medico setPos position _unit};
+		if (([_medico] call A3A_fnc_canFight) and (_medico distance _unit > 3) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false]) and (allUnits findIf {((side _x == malos) or (side _x == muyMalos)) and (_x distance2D _unit < 50)} == -1)) then {_medico setPos position _unit};
 		};
-	if ((_unit distance _medico <= 3) and (alive _unit) and ([_medico] call canFight) and (_medico == vehicle _medico) and (_medico == _unit getVariable ["ayudado",objNull]) and (isNull attachedTo _unit) and !(_medico getVariable ["cancelRevive",false])) then
+	if ((_unit distance _medico <= 3) and (alive _unit) and ([_medico] call A3A_fnc_canFight) and (_medico == vehicle _medico) and (_medico == _unit getVariable ["ayudado",objNull]) and (isNull attachedTo _unit) and !(_medico getVariable ["cancelRevive",false])) then
 		{
 		if ((_unit getVariable ["INCAPACITATED",false]) and (!isNull _enemy) and (_timeOut >= time) and (_medico != _unit)) then
 			{
-			_cobertura = [_unit,_enemy] call cobertura;
-			{if (([_x] call canFight) and (_x distance _medico < 50) and !(_x getVariable ["ayudando",false]) and (!isPlayer _x)) then {[_x,_enemy] call fuegoSupresor}} forEach units (group _medico);
+			_cobertura = [_unit,_enemy] call A3A_fnc_cobertura;
+			{if (([_x] call A3A_fnc_canFight) and (_x distance _medico < 50) and !(_x getVariable ["ayudando",false]) and (!isPlayer _x)) then {[_x,_enemy] call A3A_fnc_fuegoSupresor}} forEach units (group _medico);
 			if (count _cobertura == 3) then
 				{
 				//if (_isPlayer) then {_unit setVariable ["llevado",true,true]};
@@ -59,8 +59,8 @@ if (_medico != _unit) then
 				_medico playAction "grabDrag";
 				sleep 0.1;
 				_timeOut = time + 5;
-				waitUntil {sleep 0.3; ((animationState _medico) == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") or ((animationState _medico) == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2") or !([_medico] call canFight) or (_timeOut < time)};
-				if ([_medico] call canFight) then
+				waitUntil {sleep 0.3; ((animationState _medico) == "AmovPercMstpSlowWrflDnon_AcinPknlMwlkSlowWrflDb_2") or ((animationState _medico) == "AmovPercMstpSnonWnonDnon_AcinPknlMwlkSnonWnonDb_2") or !([_medico] call A3A_fnc_canFight) or (_timeOut < time)};
+				if ([_medico] call A3A_fnc_canFight) then
 					{
 					[_unit,"AinjPpneMrunSnonWnonDb"] remoteExec ["switchMove"];
 					_medico disableAI "ANIM";
@@ -89,7 +89,7 @@ if (_medico != _unit) then
 					while {true} do
 						{
 						sleep 0.2;
-						if (!([_medico] call canFight) or (!alive _unit) or (_medico distance _cobertura <= 2) or (_timeOut < time) or (_medico != vehicle _medico) or (_medico getVariable ["cancelRevive",false])) exitWith {};
+						if (!([_medico] call A3A_fnc_canFight) or (!alive _unit) or (_medico distance _cobertura <= 2) or (_timeOut < time) or (_medico != vehicle _medico) or (_medico getVariable ["cancelRevive",false])) exitWith {};
 						if (_unit distance _dummy > 3) then
 							{
 							detach _unit;
@@ -112,13 +112,13 @@ if (_medico != _unit) then
 					deleteGroup _dummyGrp;
 					_medico enableAI "ANIM";
 					};
-				if ((alive _unit) and ([_medico] call canFight) and (_medico == vehicle _medico) and !(_medico getVariable ["cancelRevive",false])) then
+				if ((alive _unit) and ([_medico] call A3A_fnc_canFight) and (_medico == vehicle _medico) and !(_medico getVariable ["cancelRevive",false])) then
 					{
 					_medico playMove "amovpknlmstpsraswrfldnon";
 					_medico stop true;
 					_unit stop true;
 					sleep 3;
-					_curado = [_unit,_medico] call actionRevive;
+					_curado = [_unit,_medico] call A3A_fnc_actionRevive;
 					_unit playMoveNow "";
 					if (_curado) then
 						{
@@ -132,7 +132,7 @@ if (_medico != _unit) then
 					}
 				else
 					{
-					//if ([_medico] call canFight) then {_medico switchMove ""};
+					//if ([_medico] call A3A_fnc_canFight) then {_medico switchMove ""};
 					[_medico,""] remoteExec ["switchMove"];
 					if ((alive _unit) and (_unit getVariable ["INCAPACITATED",false])) then
 						{
@@ -148,9 +148,9 @@ if (_medico != _unit) then
 			else
 				{
 				_medico stop true;
-				//if (!_smoked) then {[_medico,_unit] call cubrirConHumo};
+				//if (!_smoked) then {[_medico,_unit] call A3A_fnc_cubrirConHumo};
 				_unit stop true;
-				_curado = [_unit,_medico] call actionRevive;
+				_curado = [_unit,_medico] call A3A_fnc_actionRevive;
 				if (_curado) then
 					{
 					if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};
@@ -166,9 +166,9 @@ if (_medico != _unit) then
 		else
 			{
 			_medico stop true;
-			//if (!_smoked) then {[_medico,_unit] call cubrirConHumo};
+			//if (!_smoked) then {[_medico,_unit] call A3A_fnc_cubrirConHumo};
 			_unit stop true;
-			if (_unit getVariable ["INCAPACITATED",false]) then {_curado = [_unit,_medico] call actionRevive} else {_medico action ["HealSoldier",_unit]; _curado = true};
+			if (_unit getVariable ["INCAPACITATED",false]) then {_curado = [_unit,_medico] call A3A_fnc_actionRevive} else {_medico action ["HealSoldier",_unit]; _curado = true};
 			if (_curado) then
 				{
 				if (_medico != _unit) then {if (_isPlayer) then {_medico groupChat format ["You are ready %1",name _unit]}};
@@ -191,8 +191,8 @@ if (_medico != _unit) then
 	}
 else
 	{
-	[_medico,_medico] call cubrirConHumo;
-	if ([_medico] call canFight) then
+	[_medico,_medico] call A3A_fnc_cubrirConHumo;
+	if ([_medico] call A3A_fnc_canFight) then
 		{
 		_medico action ["HealSoldierSelf",_medico];
 		sleep 10;

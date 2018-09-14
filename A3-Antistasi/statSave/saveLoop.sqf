@@ -30,8 +30,8 @@ if (!isDedicated) then
 						{
 						if ((_veh isKindOf "StaticWeapon") or (driver _veh == _amigo)) then
 							{
-							_resfondo = _resfondo + ([_tipoVeh] call vehiclePrice);
-							if (count attachedObjects _veh != 0) then {{_resfondo = _resfondo + ([typeOf _x] call vehiclePrice)} forEach attachedObjects _veh};
+							_resfondo = _resfondo + ([_tipoVeh] call A3A_fnc_vehiclePrice);
+							if (count attachedObjects _veh != 0) then {{_resfondo = _resfondo + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
 							};
 						};
 					};
@@ -100,10 +100,10 @@ if (_amigo getVariable ["GREENFORSpawn",false]) then
 				{
 				switch (_mochi) do
 					{
-					case MortStaticSDKB: {_resfondo = _resfondo + ([SDKMortar] call vehiclePrice)};
-					case AAStaticSDKB: {_resfondo = _resfondo + ([staticAABuenos] call vehiclePrice)};
-					case MGStaticSDKB: {_resfondo = _resfondo + ([SDKMGStatic] call vehiclePrice)};
-					case ATStaticSDKB: {_resfondo = _resfondo + ([staticATBuenos] call vehiclePrice)};
+					case MortStaticSDKB: {_resfondo = _resfondo + ([SDKMortar] call A3A_fnc_vehiclePrice)};
+					case AAStaticSDKB: {_resfondo = _resfondo + ([staticAABuenos] call A3A_fnc_vehiclePrice)};
+					case MGStaticSDKB: {_resfondo = _resfondo + ([SDKMGStatic] call A3A_fnc_vehiclePrice)};
+					case ATStaticSDKB: {_resfondo = _resfondo + ([staticATBuenos] call A3A_fnc_vehiclePrice)};
 					};
 				};
 			if (vehicle _amigo != _amigo) then
@@ -116,8 +116,8 @@ if (_amigo getVariable ["GREENFORSpawn",false]) then
 						{
 						if ((group _amigo in (hcAllGroups theBoss)) or (!isMultiplayer)) then
 							{
-							_resfondo = _resfondo + ([_tipoVeh] call vehiclePrice);
-							if (count attachedObjects _veh != 0) then {{_resfondo = _resfondo + ([typeOf _x] call vehiclePrice)} forEach attachedObjects _veh};
+							_resfondo = _resfondo + ([_tipoVeh] call A3A_fnc_vehiclePrice);
+							if (count attachedObjects _veh != 0) then {{_resfondo = _resfondo + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
 							};
 						};
 					};
@@ -164,7 +164,7 @@ if ((alive _x) and !(surfaceIsWater _posicion) and !(isNull _x)) then
 } forEach staticsToSave;
 
 ["estaticas", _arrayEst] call fn_SaveStat;
-[] call arsenalManage;
+[] call A3A_fnc_arsenalManage;
 
 _jna_dataList = [];
 _jna_dataList = _jna_dataList + jna_dataList;

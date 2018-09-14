@@ -5,14 +5,14 @@ _objetos = [];
 _todo = [];
 _proceder = false;
 
-[driver _camion,"remove"] remoteExec ["flagaction",driver _camion];
+[driver _camion,"remove"] remoteExec ["A3A_fnc_flagaction",driver _camion];
 
 _objetos = nearestObjects [_camion, ["ReammoBox_F"], 20];
 
 if (count _objetos == 0) exitWith {};
 _caja = _objetos select 0;
 
-if ((_caja == caja) and (player!=theBoss)) exitWith {hint "Only the Commander can transfer this ammobox content to any truck"; [driver _camion,"camion"] remoteExec ["flagaction",driver _camion]};
+if ((_caja == caja) and (player!=theBoss)) exitWith {hint "Only the Commander can transfer this ammobox content to any truck"; [driver _camion,"camion"] remoteExec ["A3A_fnc_flagaction",driver _camion]};
 
 
 _armas = weaponCargo _caja;
@@ -83,7 +83,7 @@ if (_cuenta > 0) then
 		sleep 1;
 		if (_cuenta == 0) then
 			{
-			[_caja,_camion] remoteExec ["munitionTransfer",2];
+			[_caja,_camion] remoteExec ["A3A_fnc_munitionTransfer",2];
 			_proceder = true;
 			};
 		if ((_camion != vehicle player) or (speed _camion != 0)) then
@@ -94,4 +94,4 @@ if (_cuenta > 0) then
 		};
 	};
 
-if (_proceder) then {[driver _camion,"camion"] remoteExec ["flagaction",driver _camion]};
+if (_proceder) then {[driver _camion,"camion"] remoteExec ["A3A_fnc_flagaction",driver _camion]};

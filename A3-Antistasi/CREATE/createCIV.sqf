@@ -24,7 +24,7 @@ _vehiculos = [];
 _civsPatrol = [];
 _gruposPatrol = [];
 _vehPatrol = [];
-_size = [_marcador] call sizeMarker;
+_size = [_marcador] call A3A_fnc_sizeMarker;
 
 _tipociv = "";
 _tipoVeh = "";
@@ -32,7 +32,7 @@ _dirVeh = 0;
 
 _posicion = getMarkerPos (_marcador);
 
-_area = [_marcador] call sizeMarker;
+_area = [_marcador] call A3A_fnc_sizeMarker;
 
 _roads = _roads call BIS_fnc_arrayShuffle;
 
@@ -51,7 +51,7 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _numVeh) and (_cuenta
 	_road = roadAt _p1;
 	if (!isNull _road) then
 		{
-		if ((count (nearestObjects [_p1, ["Car", "Truck"], 5]) == 0) and !([50,1,_road,"GREENFORSpawn"] call distanceUnits)) then
+		if ((count (nearestObjects [_p1, ["Car", "Truck"], 5]) == 0) and !([50,1,_road,"GREENFORSpawn"] call A3A_fnc_distanceUnits)) then
 			{
 			_roadcon = roadsConnectedto (_road);
 			_p2 = getPos (_roadcon select 0);
@@ -69,7 +69,7 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _numVeh) and (_cuenta
 			_veh = _tipoveh createVehicle _pos;
 			_veh setDir _dirveh;
 			_vehiculos pushBack _veh;
-			_nul = [_veh] spawn civVEHinit;
+			_nul = [_veh] spawn A3A_fnc_civVEHinit;
 			};
 		};
 	sleep 0.5;
@@ -88,7 +88,7 @@ if (count _mrkMar > 0) then
 			_veh = _tipoveh createVehicle _pos;
 			_veh setDir (random 360);
 			_vehiculos pushBack _veh;
-			[_veh] spawn civVEHinit;
+			[_veh] spawn A3A_fnc_civVEHinit;
 			sleep 0.5;
 			};
 		};
@@ -105,15 +105,15 @@ if ((random 100 < ((prestigeNATO) + (prestigeCSAT))) and (spawner getVariable _m
 	_grupo = createGroup civilian;
 	_grupos pushBack _grupo;
 	_civ = _grupo createUnit ["C_journalist_F", _pos, [],0, "NONE"];
-	_nul = [_civ] spawn CIVinit;
+	_nul = [_civ] spawn A3A_fnc_CIVinit;
 	_civs pushBack _civ;
 	_nul = [_civ, _marcador, "SAFE", "SPAWNED","NOFOLLOW", "NOVEH2","NOSHARE","DoRelax"] execVM "scripts\UPSMON.sqf";
 	};
 
 
-if ([_marcador,false] call fogCheck > 0.2) then
+if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 	{
-	_patrolCiudades = [_marcador] call citiesToCivPatrol;
+	_patrolCiudades = [_marcador] call A3A_fnc_citiesToCivPatrol;
 
 	_cuentaPatrol = 0;
 
@@ -157,7 +157,7 @@ if ([_marcador,false] call fogCheck > 0.2) then
 					_vehPatrol = _vehPatrol + [_veh];
 					_tipociv = selectRandom arrayCivs;
 					_civ = _grupoP createUnit [_tipociv, _p1, [],0, "NONE"];
-					_nul = [_civ] spawn CIVinit;
+					_nul = [_civ] spawn A3A_fnc_CIVinit;
 					_civsPatrol = _civsPatrol + [_civ];
 					_civ moveInDriver _veh;
 					_grupoP addVehicle _veh;
@@ -186,24 +186,24 @@ waitUntil {sleep 1;(spawner getVariable _marcador == 2)};
 {deleteVehicle _x} forEach _civs;
 {deleteGroup _x} forEach _grupos;
 {
-if (!([distanciaSPWN-_size,1,_x,"GREENFORSpawn"] call distanceUnits)) then
+if (!([distanciaSPWN-_size,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits)) then
 	{
 	if (_x in reportedVehs) then {reportedVehs = reportedVehs - [_x]; publicVariable "reportedVehs"};
 	deleteVehicle _x;
 	}
 } forEach _vehiculos;
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,"GREENFORSpawn"] call distanceUnits)};
+waitUntil {sleep 1; !([distanciaSPWN,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits)};
 deleteVehicle _x} forEach _civsPatrol;
 {
-if (!([distanciaSPWN,1,_x,"GREENFORSpawn"] call distanceUnits)) then
+if (!([distanciaSPWN,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits)) then
 	{
 	if (_x in reportedVehs) then {reportedVehs = reportedVehs - [_x]; publicVariable "reportedVehs"};
 	deleteVehicle _x
 	}
 else
 	{
-	[_x] spawn civVEHinit
+	[_x] spawn A3A_fnc_civVEHinit
 	};
 } forEach _vehPatrol;
 {deleteGroup _x} forEach _gruposPatrol;

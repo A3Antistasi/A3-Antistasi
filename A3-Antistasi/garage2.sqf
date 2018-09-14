@@ -1,10 +1,10 @@
 private ["_vehInGarage","_chequeo"];
 
 pool = !(_this select 0);
-if (pool and (not([player] call isMember))) exitWith {hint "You cannot access the Garage as you are guest in this server"};
+if (pool and (not([player] call A3A_fnc_isMember))) exitWith {hint "You cannot access the Garage as you are guest in this server"};
 if (player != player getVariable "owner") exitWith {hint "You cannot access the Garage while you are controlling AI"};
 
-if ([player,300] call enemyNearCheck) exitWith {Hint "You cannot manage the Garage with enemies nearby"};
+if ([player,300] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot manage the Garage with enemies nearby"};
 vehInGarageShow = [];
 _hayAire = false;
 _aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == buenos) and (player inArea _x)};
@@ -140,7 +140,7 @@ _dir = getDir garageVeh;
 _tipo = typeOf garageVeh;
 deleteVehicle garageVeh;
 if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; comprado = nil; garageVeh = nil; cuentaGarage = nil};
-if ([player,300] call enemyNearCheck) then
+if ([player,300] call A3A_fnc_enemyNearCheck) then
 	{
 	hint "You cannot manage the Garage with enemies nearby";
 	comprado = 0;
@@ -153,7 +153,7 @@ garageVeh = nil;
 _garageVeh = createVehicle [_tipo, [0,0,1000], [], 0, "NONE"];
 _garageVeh setDir _dir;
 _garageVeh setPosASL _pos;
-[_garageVeh] call AIVEHinit;
+[_garageVeh] call A3A_fnc_AIVEHinit;
 if (_garageVeh isKindOf "Car") then {_garageVeh setPlateNumber format ["%1",name player]};
 //_pool = false;
 //if (vehInGarageShow isEqualTo vehInGarage) then {_pool = true};

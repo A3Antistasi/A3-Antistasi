@@ -2,11 +2,11 @@ private ["_tipo","_coste","_posicionTel","_cantidad","_cantidadMax"];
 
 if (["Mines"] call BIS_fnc_taskExists) exitWith {hint "We can only deploy one minefield at a time."};
 
-if (!([player] call hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
+if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
 
 _tipo = _this select 0;
 
-_coste = (2*(server getVariable (SDKExp select 0))) + ([vehSDKTruck] call vehiclePrice);
+_coste = (2*(server getVariable (SDKExp select 0))) + ([vehSDKTruck] call A3A_fnc_vehiclePrice);
 _hr = 2;
 if (_tipo == "delete") then
 	{
@@ -18,7 +18,7 @@ if ((server getVariable "resourcesFIA" < _coste) or (server getVariable "hr" < _
 if (_tipo == "delete") exitWith
 	{
 	hint "Explosive Specialists is available on your High Command bar.\n\nSend him anywhere on the map and he will deactivate and load in his truck any mine he may find.\n\nReturning back to HQ will unload the mines he stored in his vehicle";
-	[[],"mineSweep"] remoteExec ["scheduler",2];
+	[[],"A3A_fnc_mineSweep"] remoteExec ["A3A_fnc_scheduler",2];
 	};
 
 #include "\A3\Ui_f\hpp\defineResinclDesign.inc"
@@ -57,4 +57,4 @@ if (_cantidad > _cantidadMax) then
 	_cantidad = _cantidadMax;
 	};
 
-[[_tipo,_posicionTel,_cantidad],"buildMinefield"] remoteExec ["scheduler",2];
+[[_tipo,_posicionTel,_cantidad],"A3A_fnc_buildMinefield"] remoteExec ["A3A_fnc_scheduler",2];

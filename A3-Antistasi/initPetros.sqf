@@ -25,7 +25,7 @@ petros addEventHandler ["HandleDamage",
                     {
                     petros setVariable ["INCAPACITATED",true,true];
                     _dam = 0.9;
-                    if (!isNull _injurer) then {[petros,side _injurer] spawn inconsciente} else {[petros,sideUnknown] spawn inconsciente};
+                    if (!isNull _injurer) then {[petros,side _injurer] spawn A3A_fnc_inconsciente} else {[petros,sideUnknown] spawn A3A_fnc_inconsciente};
                     }
                 else
                     {
@@ -58,9 +58,9 @@ petros addMPEventHandler ["mpkilled",
                 garrison setVariable ["Synd_HQ",[],true];
                 _hrT = server getVariable "hr";
                 _resourcesFIAT = server getVariable "resourcesFIA";
-                [-1*(round(_hrT*0.9)),-1*(round(_resourcesFIAT*0.9))] remoteExec ["resourcesFIA",2];
+                [-1*(round(_hrT*0.9)),-1*(round(_resourcesFIAT*0.9))] remoteExec ["A3A_fnc_resourcesFIA",2];
                 waitUntil {sleep 6; isPlayer theBoss};
-                [] remoteExec ["placementSelection",theBoss];
+                [] remoteExec ["A3A_fnc_placementSelection",theBoss];
                };
             if (!isPlayer theBoss) then
                 {
@@ -85,7 +85,7 @@ petros addMPEventHandler ["mpkilled",
             if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
             petros disableAI "MOVE";
             petros disableAI "AUTOTARGET";
-            if (group _viejo == grupoPetros) then {[Petros,"mission"]remoteExec ["flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["flagaction",[buenos,civilian],petros]};
+            if (group _viejo == grupoPetros) then {[Petros,"mission"]remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]};
             [] execVM "initPetros.sqf";
             deleteVehicle _viejo;
             };

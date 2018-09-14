@@ -6,7 +6,7 @@ private _var = _unit getVariable ["typeOfSoldier",""];
 
 if ((_var isEqualTo "") or (_var isEqualTo "ATMan") or (_var isEqualTo "AAMan") or (_var isEqualTo "Engineer")) then
 	{
-	if ([_unit] call isMedic) then
+	if ([_unit] call A3A_fnc_isMedic) then
 		{
 		_result = "Medic";
 		}

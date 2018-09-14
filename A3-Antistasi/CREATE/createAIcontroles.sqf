@@ -24,7 +24,7 @@ if (_esControl) then
 		{
 		if (_lado == malos) then
 			{
-			if ((random 10 > (tierWar + difficultyCoef)) and (!([_marcador] call isFrontline))) then
+			if ((random 10 > (tierWar + difficultyCoef)) and (!([_marcador] call A3A_fnc_isFrontline))) then
 				{
 				_esFIA = true;
 				}
@@ -34,7 +34,7 @@ if (_esControl) then
 		{
 		if (_lado == muyMalos) then
 			{
-			if ((random 10 > (tierWar + difficultyCoef)) and (!([_marcador] call isFrontline))) then
+			if ((random 10 > (tierWar + difficultyCoef)) and (!([_marcador] call A3A_fnc_isFrontline))) then
 				{
 				_esFIA = true;
 				}
@@ -92,32 +92,32 @@ if (_esControl) then
 		_veh = createVehicle [_tipoVeh, _pos, [],0, "CAN_COLLIDE"];
 		_vehiculos pushBack _veh;
 
-		{_nul = [_x] call AIVEHinit} forEach _vehiculos;
+		{_nul = [_x] call A3A_fnc_AIVEHinit} forEach _vehiculos;
 
 		_tipogrupo = if (_lado == malos) then {selectRandom gruposNATOmid} else {selectRandom gruposCSATmid};
-		_grupo = [_posicion,_lado, _tipogrupo] call spawnGroup;
+		_grupo = [_posicion,_lado, _tipogrupo] call A3A_fnc_spawnGroup;
 		{[_x] join _grupo} forEach units _grupoE;
 		deleteGroup _grupoE;
 		if (random 10 < 2.5) then
 			{
 			_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
-			[_perro,_grupo] spawn guardDog;
+			[_perro,_grupo] spawn A3A_fnc_guardDog;
 			};
 		_nul = [leader _grupo, _marcador, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-		{[_x,""] call NATOinit; _soldados pushBack _x} forEach units _grupo;
+		{[_x,""] call A3A_fnc_NATOinit; _soldados pushBack _x} forEach units _grupo;
 		}
 	else
 		{
 		_veh = vehFIAArmedCar createVehicle getPos (_roads select 0);
 		_veh setDir _dirveh + 90;
-		_nul = [_veh] call AIVEHinit;
+		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		_vehiculos pushBack _veh;
 		sleep 1;
 		_tipogrupo = selectRandom gruposFIAMid;
-		_grupo = [_posicion, _lado, _tipoGrupo] call spawnGroup;
+		_grupo = [_posicion, _lado, _tipoGrupo] call A3A_fnc_spawnGroup;
 		_unit = _grupo createUnit [FIARifleman, _posicion, [], 0, "NONE"];
 		_unit moveInGunner _veh;
-		{_soldados pushBack _x; [_x,""] call NATOinit} forEach units _grupo;
+		{_soldados pushBack _x; [_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
 		};
 	}
 else
@@ -133,7 +133,7 @@ else
 			_cfg = NATOSpecOp;
 			_lado = malos;
 			};
-		_size = [_marcador] call sizeMarker;
+		_size = [_marcador] call A3A_fnc_sizeMarker;
 		if ({if (_x inArea _marcador) exitWith {1}} count allMines == 0) then
 			{
 			for "_i" from 1 to 60 do
@@ -142,7 +142,7 @@ else
 				if (_lado == malos) then {malos revealMine _mina} else {muyMalos revealMine _mina};
 				};
 			};
-		_grupo = [_posicion,_lado, _cfg] call spawnGroup;
+		_grupo = [_posicion,_lado, _cfg] call A3A_fnc_spawnGroup;
 		_nul = [leader _grupo, _marcador, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 		if !(hayIFA) then
 			{
@@ -156,7 +156,7 @@ else
 			{[_x] joinSilent _grupo; _pilotos pushBack _x} forEach units _grupoUAV;
 			deleteGroup _grupoUAV;
 			};
-		{[_x,""] call NATOinit} forEach units _grupo;
+		{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
 		}
 	else
 		{
@@ -165,7 +165,7 @@ else
 	};
 if (_salir) exitWith {};
 _spawnStatus = 0;
-while {(spawner getVariable _marcador != 2) and ({[_x,_marcador] call canConquer} count _soldados > 0)} do
+while {(spawner getVariable _marcador != 2) and ({[_x,_marcador] call A3A_fnc_canConquer} count _soldados > 0)} do
 	{
 	if ((spawner getVariable _marcador == 1) and (_spawnStatus != spawner getVariable _marcador)) then
 		{
@@ -197,7 +197,7 @@ while {(spawner getVariable _marcador != 2) and ({[_x,_marcador] call canConquer
 	sleep 3;
 	};
 
-waitUntil {sleep 1;((spawner getVariable _marcador == 2))  or ({[_x,_marcador] call canConquer} count _soldados == 0)};
+waitUntil {sleep 1;((spawner getVariable _marcador == 2))  or ({[_x,_marcador] call A3A_fnc_canConquer} count _soldados == 0)};
 
 _conquistado = false;
 _winner = malos;
@@ -217,7 +217,7 @@ if (spawner getVariable _marcador != 2) then
 		{
 		if (_winner == muyMalos) then
 			{
-			_nul = [-5,0,_posicion] remoteExec ["citySupportChange",2];
+			_nul = [-5,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 			lados setVariable [_marcador,muyMalos,true];
 			}
 		else
@@ -231,15 +231,15 @@ if (spawner getVariable _marcador != 2) then
 		if (_winner == malos) then
 			{
 			lados setVariable [_marcador,malos,true];
-			_nul = [5,0,_posicion] remoteExec ["citySupportChange",2];
+			_nul = [5,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 			}
 		else
 			{
 			lados setVariable [_marcador,buenos,true];
-			_nul = [0,5,_posicion] remoteExec ["citySupportChange",2];
+			_nul = [0,5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 			};
 		};
-	if (_winner == buenos) then {[[_posicion,_lado,"",false],"patrolCA"] remoteExec ["scheduler",2]};
+	if (_winner == buenos) then {[[_posicion,_lado,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
 	};
 
 waitUntil {sleep 1;(spawner getVariable _marcador == 2)};
@@ -247,7 +247,7 @@ waitUntil {sleep 1;(spawner getVariable _marcador == 2)};
 {_veh = _x;
 if (not(_veh in staticsToSave)) then
 	{
-	if ((!([distanciaSPWN,1,_x,"GREENFORSpawn"] call distanceUnits))) then {deleteVehicle _x}
+	if ((!([distanciaSPWN,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits))) then {deleteVehicle _x}
 	};
 } forEach _vehiculos;
 {
@@ -286,7 +286,7 @@ if (_conquistado) then
 		/*
 		if ((!_esControl) and (_winner == buenos)) then
 			{
-			_size = [_marcador] call sizeMarker;
+			_size = [_marcador] call A3A_fnc_sizeMarker;
 			for "_i" from 1 to 60 do
 				{
 				_mina = createMine ["APERSMine",_posicion,[],_size];

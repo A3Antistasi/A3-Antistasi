@@ -11,7 +11,7 @@ skillFIA = skillFIA + 1;
 hint format ["%2 Skill Level has been Upgraded\nCurrent level is %1",skillFIA,nameBuenos];
 publicVariable "skillFIA";
 server setVariable ["resourcesFIA",_resourcesFIA,true];
-[] spawn statistics;
+[] spawn A3A_fnc_statistics;
 {
 _coste = server getVariable _x;
 _coste = round (_coste + (_coste * (skillFIA/280)));

@@ -12,7 +12,7 @@ _grupos = [];
 _soldados = [];
 _vehiculos = [];
 
-_size = [_marcador] call sizeMarker;
+_size = [_marcador] call A3A_fnc_sizeMarker;
 
 _divisor = 50;
 
@@ -42,9 +42,9 @@ while {(_size > 0)} do
 		_vehicle=[_pos, random 360,_tipoVeh, buenos] call bis_fnc_spawnvehicle;
 		_veh = _vehicle select 0;
 		_vehCrew = _vehicle select 1;
-		{[_x] spawn FIAinit} forEach _vehCrew;
-		[_veh] call AIVEHinit;
-		_nul = [_veh,"Reinf"] spawn inmuneConvoy;
+		{[_x] spawn A3A_fnc_FIAinit} forEach _vehCrew;
+		[_veh] call A3A_fnc_AIVEHinit;
+		_nul = [_veh,"Reinf"] spawn A3A_fnc_inmuneConvoy;
 		_grupoVeh = _vehicle select 2;
 		_grupoVeh setVariable ["esNATO",true,true];
 		_soldados = _soldados + _vehCrew;
@@ -56,7 +56,7 @@ while {(_size > 0)} do
 				{
 				_tipoSoldado = if (random 20 <= skillFIA) then {SDKSniper select 1} else {SDKSniper select 0};
 				_soldado = _grupoVeh createUnit [_tipoSoldado, _pos, [], 0, "NONE"];
-				[_soldado] spawn FIAinit;
+				[_soldado] spawn A3A_fnc_FIAinit;
 				_soldados pushBack _soldado;
 				_soldado moveInCargo _veh;
 				}
@@ -69,10 +69,10 @@ while {(_size > 0)} do
 				if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
 				} forEach _tipoGrupo;
 				_grupo = [_origen, buenos, _formato] call BIS_Fnc_spawnGroup;
-				{[_x] call FIAinit; [_x] join _grupoVeh; _x moveInCargo _veh; _soldados pushBack _x} forEach units _grupo;
+				{[_x] call A3A_fnc_FIAinit; [_x] join _grupoVeh; _x moveInCargo _veh; _soldados pushBack _x} forEach units _grupo;
 				deleteGroup _grupo;
 				};
-			//[_marcador,_grupoVeh] spawn attackDrill;
+			//[_marcador,_grupoVeh] spawn A3A_fnc_attackDrill;
 			_Vwp0 = _grupoVeh addWaypoint [_destino, 0];
 			_Vwp0 setWaypointBehaviour "SAFE";
 			_Vwp0 setWaypointType "GETOUT";
@@ -94,8 +94,8 @@ while {(_size > 0)} do
 		{
 		if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
 		} forEach _tipoGrupo;
-		_grupo = [_origen, buenos, _formato] call spawnGroup;
-		{[_x] spawn FIAinit; _soldados pushBack _x} forEach units _grupo;
+		_grupo = [_origen, buenos, _formato] call A3A_fnc_spawnGroup;
+		{[_x] spawn A3A_fnc_FIAinit; _soldados pushBack _x} forEach units _grupo;
 		_Vwp1 = _grupo addWaypoint [_destino, 0];
 		_Vwp1 setWaypointType "MOVE";
 		_Vwp1 setWaypointBehaviour "AWARE";

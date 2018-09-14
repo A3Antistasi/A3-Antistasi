@@ -35,6 +35,6 @@ else
 
 if (_texto != "") then
 	{
-	[petros,"income",_texto] remoteExec ["commsMP",theBoss];
-	//[] remoteExec ["statistics",[buenos,civilian]];
+	[petros,"income",_texto] remoteExec ["A3A_fnc_commsMP",theBoss];
+	//[] remoteExec ["A3A_fnc_statistics",[buenos,civilian]];
 	};

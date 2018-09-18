@@ -308,7 +308,7 @@ if ((_tipo == "SB") or (_tipo == "CB")) exitWith
 //falta inicializarlo en veh init
 if (_tipo == "RB") then
 	{
-	sleep 5;
+	sleep 30;
 	_l1 = "#lightpoint" createVehicle getpos _veh;
 	_l1 setLightDayLight true;
 	_l1 setLightColor [5, 2.5, 0];

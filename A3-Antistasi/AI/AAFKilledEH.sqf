@@ -97,8 +97,11 @@ _garrisoned = true;
 if (isNil "_marcador") then {_marcador = _muerto getVariable ["origen",""]; _garrisoned = false};
 if (_marcador != "") then
 	{
-	[typeOf _muerto,_lado,_marcador,-1] remoteExec ["garrisonUpdate",2];
-	if (_garrisoned) then {[_marcador,_lado] remoteExec ["zoneCheck",2]};
+	if (lados getVariable [_marcador,sideUnknown] == _lado) then
+		{
+		[typeOf _muerto,_lado,_marcador,-1] remoteExec ["garrisonUpdate",2];
+		if (_garrisoned) then {[_marcador,_lado] remoteExec ["zoneCheck",2]};
+		};
 	};
 [_grupo,_killer] spawn AIreactOnKill;
 

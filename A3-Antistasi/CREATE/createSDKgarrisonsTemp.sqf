@@ -1,5 +1,6 @@
-_marcador = _this select 1;
-_tipo = _this select 2;
+_marcador = _this select 0;
+_tipo = _this select 1;
+_posicion = getMarkerPos _marcador;
 if (_tipo isEqualType "") then
 	{
 	_grupos = if (_tipo == staticCrewBuenos) then {[]} else {allGroups select {(leader _x getVariable ["marcador",""] == _marcador) and (count units _x < 8) and (vehicle (leader _x) == leader _x)}};
@@ -12,7 +13,7 @@ if (_tipo isEqualType "") then
 		_grupos select 0;
 		};
 	_unit = _grupo createUnit [_tipo, _posicion, [], 0, "NONE"];
-	if (_tipo in SDKSL) then {_grupo selectLeader _unit};
+	//if (_tipo in SDKSL) then {_grupo selectLeader _unit};
 	[_unit,_marcador] call FIAinitBases;
 	if (_tipo == staticCrewBuenos) then
 		{

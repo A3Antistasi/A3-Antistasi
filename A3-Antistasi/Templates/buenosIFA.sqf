@@ -53,7 +53,7 @@ if (gameMode != 4) then
 	{
 	FIARifleman = "LIB_DAK_Soldier";
 	FIAMarksman = "LIB_DAK_Sniper";
-	vehFIAArmedCar = "LIB_Kfz1_MG42_camo_DLV";
+	vehFIAArmedCar = "LIB_Kfz1_MG42_camo";
 	vehFIATruck = "LIB_OpelBlitz_Open_Y_Camo_w";
 	vehFIACar = "LIB_Kfz1_hood_w";
 	gruposFIASmall = [["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],[FIAMarksman,FIARifleman]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///

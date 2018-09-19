@@ -6,10 +6,12 @@ _veh = cursorTarget;
 if (isNull _veh) exitWith {hint "You are not looking at a vehicle"};
 
 if (!alive _veh) exitWith {hint "You cannot add destroyed vehicles to your garage"};
+_cercanos = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
+_cercanos = _cercanos select {(player inArea _x) and (_veh inArea _x)};
 
-if (_veh distance2d getMarkerPos respawnBuenos > 50) exitWith {hint "Vehicle must be closer than 50 meters to HQ"};
+if (_cercanos isEqualTo []) exitWith {hint format ["You and the vehicle need to be in a %1 garrison surrounding in order to garage a it",nameBuenos]};
 
-if (player distance2d getMarkerPos respawnBuenos > 50) exitWith {hint "You must be closer than 50 meters to HQ"};
+//if (player distance2d getMarkerPos respawnBuenos > 50) exitWith {hint "You must be closer than 50 meters to HQ"};
 
 if ({alive _x} count (crew vehicle _veh) > 0) exitWith { hint "In order to store a vehicle, its crew must disembark."};
 
@@ -17,7 +19,8 @@ _tipoVeh = typeOf _veh;
 
 if (_veh isKindOf "Man") exitWith {hint "Are you kidding?"};
 
-if (not(_veh isKindOf "AllVehicles")) exitWith {hint "The vehicle you are looking cannot be stored in our Garage"};
+if !(_veh isKindOf "AllVehicles") exitWith {hint "The vehicle you are looking cannot be stored in our Garage"};
+if (!_pool and !([player] call isMember)) exitWith {hint "Only server members have the garage feature enabled"};
 
 if (_pool and (count vehInGarage >= (tierWar *3))) exitWith {hint "You cannot garage more vehicles at your current War Level"};
 

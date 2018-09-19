@@ -1,43 +1,45 @@
 private _jammed = false;
 private _lado = side player;
+_rad = 1000;
+_strength = 49;
+_isJammed = false;
+_interference = 1;
+_sendInterference = 1;
 while {true} do
 	{
-	private _antena = if (_lado == malos) then {[([cajaVeh] + antenas),player] call BIS_fnc_nearestPosition} else {[antenas,player] call BIS_fnc_nearestPosition};
-	if (player distance2D _antena < 1000) then
+	private _antenas = [];
+	{
+	_puesto = [puestos,_x] call BIS_fnc_nearestPosition;
+	if (lados getVariable [_puesto,sideUnknown] != _lado) then {_antenas pushBack _x};
+	} forEach antenas;
+	if (_lado != buenos) then {_antenas pushBack [cajaVeh]};
+	if !(_antenas isEqualTo []) then
 		{
-		if ((_lado == malos) and (_antena == cajaVeh)) then
-			{
-			_jammed = true;
-			}
-		else
-			{
-			_puesto = "";
-			{
-			if (_antena inArea _x) exitWith {_puesto = _x};
-			} forEach puestos;
-			if (_puesto != "") then
-				{
-				if (lados getVariable [_puesto,sideUnknown] != _lado) then {_jammed = true};
-				};
-			};
-		};
-	if (_jammed) then
-		{
-		while {_jammed and (alive _antena)} do
-			{
-			_dist = player distance2D _antena;
-   			//_interference = 99 - ((_dist / 1000) * 99) + 1;
-   			_interference = _dist / 1000;
-   			player setVariable ["tf_receivingDistanceMultiplicator", _interference];
-			player setVariable ["tf_transmittingDistanceMultiplicator", _interference];
-			if (_dist > 1000) exitWith
-				{
-				_jammed = false;
-				player setVariable ["tf_receivingDistanceMultiplicator", 1];
-				player setVariable ["tf_transmittingDistanceMultiplicator", 1];
-				};
-			sleep 10;
-			};
+		_jammer = [_antenas,player] call BIS_fnc_nearestPosition;
+		_dist = player distance _jammer;
+	    _distPercent = _dist / _rad;
+
+	    if (_dist < _rad) then
+	    	{
+			_interference = _strength - (_distPercent * _strength) + 1; // Calculat the recieving interference, which has to be above 1 to have any effect.
+			_sendInterference = 1/_interference; //Calculate the sending interference, which needs to be below 1 to have any effect.
+			if (!_isJammed) then {_isJammed = true};
+			player setVariable ["tf_receivingDistanceMultiplicator", _interference];
+			player setVariable ["tf_sendingDistanceMultiplicator", _sendInterference];
+	    	}
+	    else
+	    	{
+	    	if (_isJammed) then
+	    		{
+	    		_isJammed = false;
+	    		_interference = 1;
+				_sendInterference = 1;
+				player setVariable ["tf_receivingDistanceMultiplicator", _interference];
+				player setVariable ["tf_sendingDistanceMultiplicator", _sendInterference];
+	    		};
+	    	};
+	    // Set the TF receiving and sending distance multipliers
+
 		};
 	sleep 10;
 	};

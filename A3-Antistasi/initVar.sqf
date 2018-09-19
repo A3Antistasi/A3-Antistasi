@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.3.2";
+antistasiVersion = "v 1.3.3";
 
 
 debug = false;//debug variable, not useful for everything..
@@ -603,7 +603,9 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
 		"ACE_acc_pointer_green",
 		"ACE_HandFlare_White",
 		"ACE_HandFlare_Red"
-	]; publicVariable "aceItems";
+	];
+	if (hayIFA) then {aceItems append ["ACE_LIB_LadungPM","ACE_SpareBarrel"]};
+	publicVariable "aceItems";
 
 	aceBasicMedItems = [
 		"ACE_fieldDressing",
@@ -635,10 +637,13 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
 
 if (!isNil "ace_common_fnc_isModLoaded") then {
 	unlockedItems = unlockedItems + aceItems;
-	unlockedBackpacks pushBackUnique "ACE_TacticalLadder_Pack";
-	unlockedWeapons pushBackUnique "ACE_VMH3";
-	itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX"];
-	armasNATO = armasNATO + ["ACE_M84"];
+	if !(hayIFA) then
+		{
+		unlockedBackpacks pushBackUnique "ACE_TacticalLadder_Pack";
+		unlockedWeapons pushBackUnique "ACE_VMH3";
+		itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX"];
+		armasNATO = armasNATO + ["ACE_M84"];
+		};
 	hayACE = true;
 	if (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak")) then {
 		hayACEhearing = true;

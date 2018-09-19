@@ -1170,3 +1170,18 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Static AA and ATs will be subject to availability for AI.
 - Static weapons placed in building roofs wont spawn if the building is destroyed.
 - Fixed relentless major attacks in some cases.
+
+1.3.3 05/09/18
+
+- IMPORTANT: Removed and unauthorised ACE medical in SP to avoid the "I cannot respawn" false bug report flood.
+- Vehicles can be garaged in any rebel garrison.
+- Non members with membership enabled cannot use the garage.
+- Re enabled FT in MP for players with Airbases as destination.
+- IFA & ACE: Increased integration with explosive cables and spare MG barrels.
+- Re enabled Radio Jam script from rebel12340 adapted to Antistasi (second try).
+- Hopefully solved the IFA templates with DLV classnames.
+- NAPALM shouldnt damage HQ assets.
+- Fixed bug which prevented to garage any vehicle.
+- Garrison modification on unit kill will be only done if the garrison is still on the side of the killed unit, which will save on performance and bandwith.
+- Fixed garrison add on spawned zones.
+- Fire of built roadblocks delayed so the builder doesent get hurt.

@@ -18,7 +18,7 @@ if (_land) then
 else
 	{
 	_vehPool = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
-	if (_numero > 4) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
+	if ((_numero > 4) and (count _vehPool > 1)) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
 	//_vehPool = _vehPool select {(_x isKindOf "Helicopter") and (_x in vehFastRope)};
 	_tipoVeh = selectRandom _vehPool;
 	};
@@ -48,7 +48,14 @@ if (_land) then
 	_grupo addVehicle _veh;
 	{
 	if (_x == leader _x) then {_x assignAsDriver _veh;_x moveInDriver _veh} else {_x assignAsCargo _veh;_x moveInCargo _veh};
-	[_x] call NATOinit
+	if (vehicle _x == _x) then
+		{
+		deleteVehicle _x;
+		}
+	else
+		{
+		[_x] call NATOinit;
+		};
 	} forEach units _grupo;
 	[_veh] call AIVEHinit;
 	[_veh,"Inf Truck."] spawn inmuneConvoy;
@@ -88,7 +95,14 @@ else
 	{
 	_x assignAsCargo _veh;
 	_x moveInCargo _veh;
-	[_x] call NATOinit;
+	if (vehicle _x == _x) then
+		{
+		deleteVehicle _x;
+		}
+	else
+		{
+		[_x] call NATOinit;
+		};
 	} forEach units _grupo;
 	_landPos = if (_tipoVeh isKindOf "Helicopter") then {[_posDestino, 0, 300, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos} else {[0,0,0]};
 	if !(_landPos isEqualTo [0,0,0]) then

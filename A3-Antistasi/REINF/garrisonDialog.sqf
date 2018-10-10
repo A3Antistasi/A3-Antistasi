@@ -22,7 +22,7 @@ _posicion = getMarkerPos _cercano;
 if (getMarkerPos _cercano distance _posicionTel > 40) exitWith {hint "You must click near a marked zone"; _nul=CreateDialog "build_menu";};
 
 if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameBuenos]; _nul=CreateDialog "build_menu";};
-if ([_posicion,500] call enemyNearCheck) exitWith {hint "You cannot manage this garrison while there are enemies nearby";_nul=CreateDialog "build_menu"};
+if ([_posicion,500] call A3A_fnc_enemyNearCheck) exitWith {hint "You cannot manage this garrison while there are enemies nearby";_nul=CreateDialog "build_menu"};
 //if (((_cercano in puestosFIA) and !(isOnRoad _posicion)) /*or (_cercano in ciudades)*/ or (_cercano in controles)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
 _puestoFIA = if (_cercano in puestosFIA) then {true} else {false};
 _wPost = if (_puestoFIA and !(isOnRoad getMarkerPos _cercano)) then {true} else {false};
@@ -34,11 +34,11 @@ if (_tipo == "rem") then
 	_coste = 0;
 	_hr = 0;
 	{
-	if (_x == staticCrewBuenos) then {if (_puestoFIA) then {_coste = _coste + ([vehSDKLightArmed] call vehiclePrice)} else {_coste = _coste + ([SDKMortar] call vehiclePrice)}};
+	if (_x == staticCrewBuenos) then {if (_puestoFIA) then {_coste = _coste + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice)} else {_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice)}};
 	_hr = _hr + 1;
 	_coste = _coste + (server getVariable [_x,0]);
 	} forEach _garrison;
-	[_hr,_coste] remoteExec ["resourcesFIA",2];
+	[_hr,_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 	if (_puestoFIA) then
 		{
 		garrison setVariable [_cercano,nil,true];
@@ -50,11 +50,11 @@ if (_tipo == "rem") then
 	else
 		{
 		garrison setVariable [_cercano,[],true];
-		//[_cercano] call mrkUpdate;
+		//[_cercano] call A3A_fnc_mrkUpdate;
 		//[_cercano] remoteExec ["tempMoveMrk",2];
 		{if (_x getVariable ["marcador",""] == _cercano) then {deleteVehicle _x}} forEach allUnits;
 		};
-	[_cercano] call mrkUpdate;
+	[_cercano] call A3A_fnc_mrkUpdate;
 	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
 	_nul=CreateDialog "build_menu";
 	}
@@ -62,7 +62,7 @@ else
 	{
 	posicionGarr = _cercano;
 	publicVariable "posicionGarr";
-	hint format ["Info%1",[_cercano] call garrisonInfo];
+	hint format ["Info%1",[_cercano] call A3A_fnc_garrisonInfo];
 	closeDialog 0;
 	_nul=CreateDialog "garrison_recruit";
 	sleep 1;
@@ -81,7 +81,7 @@ else
 		_ChildControl = _display displayCtrl 107;
 		_ChildControl  ctrlSetTooltip format ["Cost: %1 €",server getVariable (SDKSL select 0)];
 		_ChildControl = _display displayCtrl 108;
-		_ChildControl  ctrlSetTooltip format ["Cost: %1 €",(server getVariable staticCrewBuenos) + ([SDKMortar] call vehiclePrice)];
+		_ChildControl  ctrlSetTooltip format ["Cost: %1 €",(server getVariable staticCrewBuenos) + ([SDKMortar] call A3A_fnc_vehiclePrice)];
 		_ChildControl = _display displayCtrl 109;
 		_ChildControl  ctrlSetTooltip format ["Cost: %1 €",server getVariable (SDKGL select 0)];
 		_ChildControl = _display displayCtrl 110;

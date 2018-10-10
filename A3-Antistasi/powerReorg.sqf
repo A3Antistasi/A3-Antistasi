@@ -13,7 +13,7 @@ if (_power == _marcador) then
 	if (_marcador in destroyedCities) then
 		{
 		_powered = false;
-		//[-10,-10,_pos] remoteExec ["citySupportChange",2];
+		//[-10,-10,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
 		}
 	else
 		{
@@ -23,14 +23,14 @@ if (_power == _marcador) then
 			if (lados getVariable [_ciudad,sideUnknown] == buenos) then
 				{
 				//hint format ["You achieved to bring power to %1, more people there supports our cause",_ciudad];
-				//[-10,10,_pos] remoteExec ["citySupportChange",2];
-				_nul = [5,0] remoteExec ["prestige",2];
+				//[-10,10,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
+				_nul = [5,0] remoteExec ["A3A_fnc_prestige",2];
 				}
 			else
 				{
 				//hint format ["You cutted off power to %1, less people support AAF there",_ciudad];
-				//[-10,0,_pos] remoteExec ["citySupportChange",2];
-				_nul = [-5,0] remoteExec ["prestige",2];
+				//[-10,0,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
+				_nul = [-5,0] remoteExec ["A3A_fnc_prestige",2];
 				_powered = false;
 				};
 			}
@@ -39,13 +39,13 @@ if (_power == _marcador) then
 			if (lados getVariable [_ciudad,sideUnknown] == buenos) then
 				{
 				//hint format ["AAF has cut off power to %1, less people there supports our cause",_ciudad];
-				//[0,-10,_pos] remoteExec ["citySupportChange",2];
-				_nul = [5,0] remoteExec ["prestige",2];
+				//[0,-10,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
+				_nul = [5,0] remoteExec ["A3A_fnc_prestige",2];
 				_powered = false;
 				};
 			};
 		};
-	[_ciudad,_powered] spawn apagon;
+	[_ciudad,_powered] spawn A3A_fnc_apagon;
 	};
 } forEach ciudades;
 
@@ -60,7 +60,7 @@ if (_power == _marcador) then
 	if (_marcador in destroyedCities) then
 		{
 		_powered = false;
-		//[-10,-10,_pos] remoteExec ["citySupportChange",2];
+		//[-10,-10,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
 		}
 	else
 		{
@@ -83,6 +83,6 @@ if (_power == _marcador) then
 				};
 			};
 		};
-	[_sitio,_powered] spawn apagon;
+	[_sitio,_powered] spawn A3A_fnc_apagon;
 	};
 } forEach _marcadores;

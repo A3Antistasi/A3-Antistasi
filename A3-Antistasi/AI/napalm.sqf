@@ -91,7 +91,7 @@ if (hasInterface) then
 		sleep .01;
 		_x = _x + 1;
 		};
-	_nul = [_pos] spawn napalmDamage;
+	_nul = [_pos] spawn A3A_fnc_napalmDamage;
 	deletevehicle _ps9;
 	sleep 3;
 	deletevehicle _slight1;
@@ -108,7 +108,7 @@ if (hasInterface) then
 else
 	{
 	sleep 1;
-	_nul = [_pos] spawn napalmDamage;
+	_nul = [_pos] spawn A3A_fnc_napalmDamage;
 	};
 if (isServer) then
 	{

@@ -27,7 +27,7 @@ while {time < _timeOut} do
 					if ((_dam >= 1) and (isPlayer _x)) then
 						{
 						_x setdamage 0;
-						[_x] spawn respawn;
+						[_x] spawn A3A_fnc_respawn;
 						}
 					else
 						{

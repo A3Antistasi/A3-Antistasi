@@ -20,7 +20,7 @@ _tsk = "";
 [[_lado],"DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros, nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,true,10,true,"Attack",true] call BIS_fnc_taskCreate;
 misiones pushBack ["DEF_HQ","CREATED"]; publicVariable "misiones";
 _tiposVeh = if (_lado == malos) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
-_tiposVeh = _tiposVeh select {[_x] call vehAvailable};
+_tiposVeh = _tiposVeh select {[_x] call A3A_fnc_vehAvailable};
 
 if (count _tiposVeh > 0) then
 	{
@@ -33,11 +33,11 @@ if (count _tiposVeh > 0) then
 	_pilotos = _pilotos + _heliCrew;
 	_grupos pushBack _grupoheli;
 	_vehiculos pushBack _heli;
-	{[_x] call NATOinit} forEach _heliCrew;
-	[_heli] call AIVEHinit;
+	{[_x] call A3A_fnc_NATOinit} forEach _heliCrew;
+	[_heli] call A3A_fnc_AIVEHinit;
 	_wp1 = _grupoheli addWaypoint [_posicion, 0];
 	_wp1 setWaypointType "SAD";
-	//[_heli,"Air Attack"] spawn inmuneConvoy;
+	//[_heli,"Air Attack"] spawn A3A_fnc_inmuneConvoy;
 	sleep 30;
 	};
 _tiposVeh = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
@@ -56,61 +56,61 @@ for "_i" from 0 to (round random 2) do
 	_vehiculos pushBack _heli;
 
 	{_x setBehaviour "CARELESS";} forEach units _grupoheli;
-	_grupo = [_posOrigen, _lado, _tipoGrupo] call spawnGroup;
-	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldados pushBack _x; [_x] call NATOinit} forEach units _grupo;
+	_grupo = [_posOrigen, _lado, _tipoGrupo] call A3A_fnc_spawnGroup;
+	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldados pushBack _x; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	_grupos pushBack _grupo;
-	//[_heli,"Air Transport"] spawn inmuneConvoy;
-	[_heli,_grupo,_posicion,_posOrigen,_grupoHeli] spawn fastrope;
+	//[_heli,"Air Transport"] spawn A3A_fnc_inmuneConvoy;
+	[_heli,_grupo,_posicion,_posOrigen,_grupoHeli] spawn A3A_fnc_fastrope;
 	sleep 10;
 	};
 
-waitUntil {sleep 1;({[_x] call canFight} count _soldados < {!([_x] call canFight)} count _soldados) or (_posicion distance getMarkerPos respawnBuenos > 999) or (!alive petros)};
+waitUntil {sleep 1;({[_x] call A3A_fnc_canFight} count _soldados < {!([_x] call A3A_fnc_canFight)} count _soldados) or (_posicion distance getMarkerPos respawnBuenos > 999) or (!alive petros)};
 
 if (!alive petros) then
 	{
-	["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"FAILED"] call taskUpdate;
-	["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call taskUpdate;
+	["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
+	["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	}
 else
 	{
 	if (_posicion distance getMarkerPos respawnBuenos > 999) then
 		{
-		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call taskUpdate;
-		["DEF_HQ1",[_lado],[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"FAILED"] call taskUpdate;
+		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+		["DEF_HQ1",[_lado],[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
 		}
 	else
 		{
-		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call taskUpdate;
-		["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"FAILED"] call taskUpdate;
-		[0,3] remoteExec ["prestige",2];
-		[0,300] remoteExec ["resourcesFIA",2];
-		//[-5,5,_posicion] remoteExec ["citySupportChange",2];
-		{if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_posicion,"GREENFORSpawn"] call distanceUnits);
+		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+		["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
+		[0,3] remoteExec ["A3A_fnc_prestige",2];
+		[0,300] remoteExec ["A3A_fnc_resourcesFIA",2];
+		//[-5,5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_posicion,"GREENFORSpawn"] call A3A_fnc_distanceUnits);
 		};
 	};
 
-_nul = [1200,"DEF_HQ"] spawn borrarTask;
+_nul = [1200,"DEF_HQ"] spawn A3A_fnc_borrarTask;
 sleep 60;
-_nul = [0,"DEF_HQ1"] spawn borrarTask;
+_nul = [0,"DEF_HQ1"] spawn A3A_fnc_borrarTask;
 
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
+if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
 } forEach _vehiculos;
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldados = _soldados - [_x]};
+if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldados = _soldados - [_x]};
 } forEach _soldados;
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
+if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
 } forEach _pilotos;
 
 if (count _soldados > 0) then
 	{
 	{
 	_veh = _x;
-	waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+	waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"GREENFORSpawn"] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
 	} forEach _soldados;
 	};
@@ -119,7 +119,7 @@ if (count _pilotos > 0) then
 	{
 	{
 	_veh = _x;
-	waitUntil {sleep 1; !([distanciaSPWN,1,_x,"GREENFORSpawn"] call distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+	waitUntil {sleep 1; !([distanciaSPWN,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
 	} forEach _pilotos;
 	};

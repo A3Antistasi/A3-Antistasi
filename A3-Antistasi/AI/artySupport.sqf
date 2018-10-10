@@ -168,7 +168,7 @@ else
 	};
 
 _marcador = [marcadores,_posicionTel] call BIS_fnc_nearestPosition;
-_size = [_marcador] call sizeMarker;
+_size = [_marcador] call A3A_fnc_sizeMarker;
 _forzado = false;
 
 if ((not(_marcador in forcedSpawn)) and (_posicionTel distance (getMarkerPos _marcador) < _size) and ((spawner getVariable _marcador != 0))) then
@@ -179,7 +179,7 @@ if ((not(_marcador in forcedSpawn)) and (_posicionTel distance (getMarkerPos _ma
 	};
 
 _texto = format ["Requesting fire support on Grid %1. %2 Rounds", mapGridPosition _posicionTel, round _rounds];
-[theBoss,"sideChat",_texto] remoteExec ["commsMP",[buenos,civilian]];
+[theBoss,"sideChat",_texto] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
 
 if (_tipoArty == "BARRAGE") then
 	{
@@ -193,13 +193,13 @@ if (_tipoArty == "BARRAGE") then
 	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_posicionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
 	_tiempo = time + _eta;
 	_texto = format ["Acknowledged. Fire mission is inbound. ETA %1 secs for the first impact",round _eta];
-	[petros,"sideChat",_texto]remoteExec ["commsMP",[buenos,civilian]];
+	[petros,"sideChat",_texto]remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
 	[_tiempo] spawn
 		{
 		private ["_tiempo"];
 		_tiempo = _this select 0;
 		waitUntil {sleep 1; time > _tiempo};
-		[petros,"sideChat","Splash. Out"] remoteExec ["commsMP",[buenos,civilian]];
+		[petros,"sideChat","Splash. Out"] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
 		};
 	};
 
@@ -256,13 +256,13 @@ if (_tipoArty != "BARRAGE") then
 	_tiempo = time + _eta - 5;
 	if (isNil "_tiempo") exitWith {diag_log format ["Antistasi: Error en artySupport.sqf. Params: %1,%2,%3,%4",_artyArrayDef1 select 0,_posicionTel,((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0),(_artyArrayDef1 select 0) getArtilleryETA [_posicionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)]]};
 	_texto = format ["Acknowledged. Fire mission is inbound. %2 Rounds fired. ETA %1 secs",round _eta,_roundsMax - _rounds];
-	[petros,"sideChat",_texto] remoteExec ["commsMP",[buenos,civilian]];
+	[petros,"sideChat",_texto] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
 	};
 
 if (_tipoArty != "BARRAGE") then
 	{
 	waitUntil {sleep 1; time > _tiempo};
-	[petros,"sideChat","Splash. Out"] remoteExec ["commsMP",[buenos,civilian]];
+	[petros,"sideChat","Splash. Out"] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
 	};
 sleep 10;
 deleteMarkerLocal _mrkfin;

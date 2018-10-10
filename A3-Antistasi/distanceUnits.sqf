@@ -1,5 +1,5 @@
-//ejemplo: _result = [distanciaSPWN,0,posHQ,"OPFORSpawn"] call distanceUnits: devuelve un array con todas las que estén a menos de distanciaSPWN
-//ejemplo: _result = [distanciaSPWN,1,posHQ,"GREENFORSpawn"] call distanceUnits: devuelve un boolean si hay una que esté a menos de distanciaSPWN
+//ejemplo: _result = [distanciaSPWN,0,posHQ,"OPFORSpawn"] call A3A_fnc_distanceUnits: devuelve un array con todas las que estén a menos de distanciaSPWN
+//ejemplo: _result = [distanciaSPWN,1,posHQ,"GREENFORSpawn"] call A3A_fnc_distanceUnits: devuelve un boolean si hay una que esté a menos de distanciaSPWN
 private ["_distancia","_modo","_result","_referencia","_variable","_cuenta","_exit"];
 
 _distancia = _this select 0;//la distancia requisito, normalmente distanciaSPWN)

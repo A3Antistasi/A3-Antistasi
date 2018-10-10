@@ -49,7 +49,7 @@ if (_exit) exitWith {hint format ["You cannot garage an air vehicle while you ar
 
 if (_veh in staticsToSave) then {staticsToSave = staticsToSave - [_veh]; publicVariable "staticsToSave"};
 
-[_veh,true] call vaciar;
+[_veh,true] call A3A_fnc_vaciar;
 if (_veh in reportedVehs) then {reportedVehs = reportedVehs - [_veh]; publicVariable "reportedVehs"};
 if (_veh isKindOf "StaticWeapon") then {deleteVehicle _veh};
 if (_pool) then

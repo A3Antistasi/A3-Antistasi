@@ -7,7 +7,7 @@ private _ingeniero = objNull;
 if (isNull _ingeniero) exitWith {hint "Your squad needs an engineer to be able to construct"};
 if ((player != _ingeniero) and (isPlayer _ingeniero)) exitWith {hint "There is a human player engineer in your squad, ask him to construct whatever you need"};
 if ((player != leader player) and (_ingeniero != player)) exitWith {hint "Only squad leaders can ask engineers to construct something"};
-if !([_ingeniero] call canFight) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
+if !([_ingeniero] call A3A_fnc_canFight) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
 if ((_ingeniero getVariable ["ayudando",false]) or (_ingeniero getVariable ["rearming",false]) or (_ingeniero getVariable ["constructing",false])) exitWith {hint "Your engineer is currently performing another action"};
 
 private _tipo = _this select 0;
@@ -254,11 +254,11 @@ if (_coste > 0) then
 	{
 	if (!isMultiPlayer) then
 		{
-		_nul = [0, - _coste] remoteExec ["resourcesFIA",2];
+		_nul = [0, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 		}
 	else
 		{
-		[-_coste] call resourcesPlayer;
+		[-_coste] call A3A_fnc_resourcesPlayer;
 		["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
 		};
 	};
@@ -278,7 +278,7 @@ _ingeniero playMoveNow selectRandom medicAnims;
 _ingeniero addEventHandler ["AnimDone",
 	{
 	private _ingeniero = _this select 0;
-	if (([_ingeniero] call canFight) and !(_ingeniero getVariable ["ayudando",false]) and !(_ingeniero getVariable ["rearming",false]) and (_ingeniero getVariable ["constructing",false])) then
+	if (([_ingeniero] call A3A_fnc_canFight) and !(_ingeniero getVariable ["ayudando",false]) and !(_ingeniero getVariable ["rearming",false]) and (_ingeniero getVariable ["constructing",false])) then
 		{
 		_ingeniero playMoveNow selectRandom medicAnims;
 		}
@@ -288,7 +288,7 @@ _ingeniero addEventHandler ["AnimDone",
 		};
 	}];
 
-waitUntil  {sleep 5; !([_ingeniero] call canFight) or (_ingeniero getVariable ["ayudando",false]) or (_ingeniero getVariable ["rearming",false]) or (_ingeniero distance _posicion > 4) or (time > _timeOut)};
+waitUntil  {sleep 5; !([_ingeniero] call A3A_fnc_canFight) or (_ingeniero getVariable ["ayudando",false]) or (_ingeniero getVariable ["rearming",false]) or (_ingeniero distance _posicion > 4) or (time > _timeOut)};
 
 _ingeniero setVariable ["constructing",false];
 if (!_isPlayer) then {{_ingeniero enableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"]};
@@ -334,7 +334,7 @@ if (_tipo == "RB") then
 
 while {alive _veh} do
 	{
-	if ((not([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits)) and (_veh distance getMarkerPos respawnBuenos > 100)) then
+	if ((not([distanciaSPWN,1,_veh,"GREENFORSpawn"] call A3A_fnc_distanceUnits)) and (_veh distance getMarkerPos respawnBuenos > 100)) then
 		{
 		deleteVehicle _veh
 		};

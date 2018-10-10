@@ -1,7 +1,7 @@
 _unit = _this select 0;
 _jugador = _this select 1;
 
-[_unit,"remove"] remoteExec ["flagaction",[buenos,civilian],_unit];
+[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
 
 if (!alive _unit) exitWith {};
 _lado = side (group _unit);
@@ -42,12 +42,12 @@ if (round random 100 < _chance) then
 		{
 		if (_lado == malos) then
 			{
-			[-0.5,0] remoteExec ["prestige",2];
+			[-0.5,0] remoteExec ["A3A_fnc_prestige",2];
 			}
 		else
 			{
-			[1,0] remoteExec ["resourcesFIA",2];
-			[1,1] remoteExec ["prestige",2];
+			[1,0] remoteExec ["A3A_fnc_resourcesFIA",2];
+			[1,1] remoteExec ["A3A_fnc_prestige",2];
 			};
 		};
 	}

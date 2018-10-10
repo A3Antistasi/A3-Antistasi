@@ -727,4 +727,4 @@ publicVariable "unlockedAT";
 publicVariable "unlockedAA";
 publicVariable "initialRifles";
 
-if (isMultiplayer) then {[[petros,"hint","Variables Init Completed"],"commsMP"] call BIS_fnc_MP;};
+if (isMultiplayer) then {[[petros,"hint","Variables Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP;};

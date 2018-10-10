@@ -12,7 +12,7 @@ else
 		_muerto setVariable ["BLUFORSpawn",nil,true]
 		};
 	};
-[_muerto] spawn postmortem;
+[_muerto] spawn A3A_fnc_postmortem;
 _grupo = group _muerto;
 _lado = side (group _muerto);
 if (hayACE) then
@@ -22,12 +22,12 @@ if (hayACE) then
 		_killer = _muerto getVariable ["ace_medical_lastDamageSource", _killer];
 		};
 	};
-//if (_killer isEqualType "") then {diag_log format ["Antistasi error in AAFKilledEH, params: %1",_this]};
+//if (_killer isEqualType "") then {diag_log format ["Antistasi error in A3A_fnc_AAFKilledEH, params: %1",_this]};
 if (side (group _killer) == buenos) then
 	{
 	if (isPlayer _killer) then
 		{
-		[1,_killer] call playerScoreAdd;
+		[1,_killer] call A3A_fnc_playerScoreAdd;
 		if (captive _killer) then
 			{
 			if (_killer distance _muerto < distanciaSPWN) then
@@ -60,24 +60,24 @@ if (side (group _killer) == buenos) then
 		{
 		if (_lado == malos) then
 			{
-			[0,-2,getPos _muerto] remoteExec ["citySupportChange",2];
-			[1,0] remoteExec ["prestige",2];
+			[0,-2,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+			[1,0] remoteExec ["A3A_fnc_prestige",2];
 			}
 		else
 			{
-			[0,1] remoteExec ["prestige",2];
+			[0,1] remoteExec ["A3A_fnc_prestige",2];
 			};
 		}
 	else
 		{
-		[-1,1,getPos _muerto] remoteExec ["citySupportChange",2];
+		[-1,1,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 		if (_lado == malos) then
 			{
-			[0.1,0] remoteExec ["prestige",2];
+			[0.1,0] remoteExec ["A3A_fnc_prestige",2];
 			}
 		else
 			{
-			[0,0.25] remoteExec ["prestige",2];
+			[0,0.25] remoteExec ["A3A_fnc_prestige",2];
 			};
 		};
 	}
@@ -85,11 +85,11 @@ else
 	{
 	if (_lado == malos) then
 		{
-		[-0.25,0,getPos _muerto] remoteExec ["citySupportChange",2];
+		[-0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 		}
 	else
 		{
-		[0.25,0,getPos _muerto] remoteExec ["citySupportChange",2];
+		[0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 		};
 	};
 _marcador = _muerto getVariable "marcador";
@@ -99,9 +99,9 @@ if (_marcador != "") then
 	{
 	if (lados getVariable [_marcador,sideUnknown] == _lado) then
 		{
-		[typeOf _muerto,_lado,_marcador,-1] remoteExec ["garrisonUpdate",2];
-		if (_garrisoned) then {[_marcador,_lado] remoteExec ["zoneCheck",2]};
+		[typeOf _muerto,_lado,_marcador,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
+		if (_garrisoned) then {[_marcador,_lado] remoteExec ["A3A_fnc_zoneCheck",2]};
 		};
 	};
-[_grupo,_killer] spawn AIreactOnKill;
+[_grupo,_killer] spawn A3A_fnc_AIreactOnKill;
 

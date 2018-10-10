@@ -103,7 +103,7 @@ spawner setVariable [_x,2,true];
 private ["_sizeX","_sizeY","_size"];
 {
 //_nombre = text _x;
-_nombre = [text _x, true] call fn_location;
+_nombre = [text _x, true] call A3A_fnc_fn_location;
 if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") and (_nombre != "Sosovu01") and (_nombre != "Ipota01") and (_nombre != "hill12") and (_nombre != "V_broad22")) then//sagonisi is blacklisted in Altis for some reason. If your island has a city in a small island you should blacklist it (road patrols will try to reach it)
     {
     _sizeX = getNumber (configFile >> "CfgWorlds" >> worldName >> "Names" >> (text _x) >> "radiusA");
@@ -224,7 +224,7 @@ else
             _x addEventHandler ["Killed",
                 {
                 _antena = _this select 0;
-                {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn apagon}} forEach ciudades;
+                {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_apagon}} forEach ciudades;
                 _mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
                 antenas = antenas - [_antena]; antenasmuertas pushBack (getPos _antena); deleteMarker _mrk;
                 publicVariable "antenas"; publicVariable "antenasMuertas";
@@ -261,7 +261,7 @@ if (count _posAntenas > 0) then
                 _antena addEventHandler ["Killed",
                     {
                     _antena = _this select 0;
-                    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn apagon}} forEach ciudades;
+                    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_apagon}} forEach ciudades;
                     _mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
                     antenas = antenas - [_antena]; antenasmuertas pushBack (getPos _antena); deleteMarker _mrk;
                     publicVariable "antenas"; publicVariable "antenasMuertas";
@@ -287,7 +287,7 @@ if (count _posBancos > 0) then
         };
     };
 
-blackListDest = (marcadores - controles - ["Synd_HQ"] - ciudades) select {!((position ([getMarkerPos _x] call findNearestGoodRoad)) inArea _x)};
+blackListDest = (marcadores - controles - ["Synd_HQ"] - ciudades) select {!((position ([getMarkerPos _x] call A3A_fnc_findNearestGoodRoad)) inArea _x)};
 
 publicVariable "blackListDest";
 //the following is the console code snippet I use to pick positions of any kind of building. You may do this for gas stations, banks, radios etc.. markerPos "Base_4" is because it's in the middle of the island, and inside the array you may find the type of building I am searching for. Paste the result in a txt and add it to the corresponding arrays.
@@ -297,7 +297,7 @@ pospepe = [];
 {pospepe = pospepe + getPos _x} forEach pepe;
 copytoclipboard str pospepe;
 */
-if (isMultiplayer) then {[[petros,"hint","Zones Init Completed"],"commsMP"] call BIS_fnc_MP};
+if (isMultiplayer) then {[[petros,"hint","Zones Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP};
 publicVariable "marcadores";
 publicVariable "ciudades";
 publicVariable "aeropuertos";

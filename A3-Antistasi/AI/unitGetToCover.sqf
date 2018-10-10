@@ -3,13 +3,13 @@ _unit = _this select 0;
 if (isPlayer _unit) exitWith {};
 if (_unit != vehicle _unit) exitWith {};
 if ((behaviour _unit == "COMBAT") or (behaviour _unit == "STEALTH")) exitWith {};
-if !([_unit] call canFight) exitWith {};
+if !([_unit] call A3A_fnc_canFight) exitWith {};
 _enemy = if (count _this > 1) then {_this select 1} else {_unit findNearestEnemy _unit};
 
 if (isNull _enemy) exitWith {};
 if (_unit distance _enemy < 300) exitWith {};
-if (damage _unit >= 0.6) then {[_unit,_unit,_enemy] spawn cubrirConHumo};
-_cobertura = [_unit,_enemy] call cobertura;
+if (damage _unit >= 0.6) then {[_unit,_unit,_enemy] spawn A3A_fnc_cubrirConHumo};
+_cobertura = [_unit,_enemy] call A3A_fnc_cobertura;
 
 if (_cobertura isEqualTo []) exitWith {};
 

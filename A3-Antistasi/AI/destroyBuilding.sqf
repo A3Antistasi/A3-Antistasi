@@ -14,14 +14,14 @@ _ingeniero doMove (getPos _building);
 
 while {true} do
 	{
-	if !([_ingeniero] call canFight) exitWith {};
+	if !([_ingeniero] call A3A_fnc_canFight) exitWith {};
 	_arrayObjs = lineIntersectsObjs [(eyePos _ingeniero),(_ingeniero modelToWorld [0,3,0]),objNull,_ingeniero,false,32];
 	if (_building in _arrayObjs) exitWith {};
 	if (_ingeniero distance _building < 3) exitWith {};
 	sleep 1;
 	};
 
-if !([_ingeniero] call canFight) exitWith
+if !([_ingeniero] call A3A_fnc_canFight) exitWith
 	{
 	_ingeniero enableAI "TARGET";
 	_ingeniero enableAI "AUTOTARGET";
@@ -29,7 +29,7 @@ if !([_ingeniero] call canFight) exitWith
 	_ingeniero enableAI "CHECKVISIBLE";
 	_ingeniero enableAI "COVER";
 	_ingeniero enableAI "AUTOCOMBAT";
-	_ingeniero call recallGroup;
+	_ingeniero call A3A_fnc_recallGroup;
 	_building setVariable ["asaltado",false];
 	};
 
@@ -38,7 +38,7 @@ _ingeniero playActionNow "PutDown";
 private _mina = "SatchelCharge_Remote_Ammo" createVehicle (getposATL _ingeniero);
 private _mag = (magazines _ingeniero select {(_x call BIS_fnc_itemType) select 0 == "Mine"}) select 0;
 _ingeniero removeMagazineGlobal _mag;
-if (_ingeniero != leader _ingeniero) then {_ingeniero doMove (getPos (leader _ingeniero))} else {_ingeniero call recallGroup};
+if (_ingeniero != leader _ingeniero) then {_ingeniero doMove (getPos (leader _ingeniero))} else {_ingeniero call A3A_fnc_recallGroup};
 private _timeOut = time + 60;
 waitUntil {sleep 5; ({(side _x == _side) and (_x distance _building < 20)} count allUnits == 0) or (time > _timeOut) or !(alive _ingeniero)};
 
@@ -49,5 +49,5 @@ _ingeniero enableAI "SUPPRESSION";
 _ingeniero enableAI "CHECKVISIBLE";
 _ingeniero enableAI "COVER";
 _ingeniero enableAI "AUTOCOMBAT";
-_ingeniero call recallGroup;
+_ingeniero call A3A_fnc_recallGroup;
 _building setVariable ["asaltado",false];

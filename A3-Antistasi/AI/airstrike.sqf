@@ -29,7 +29,7 @@ if (_esMarcador) then
 	waitUntil {sleep 1; (spawner getVariable _marcador == 0) or (time > _timeOut)};
 	if (_marcador in aeropuertos) then
 		{
-		_size = [_marcador] call sizeMarker;
+		_size = [_marcador] call A3A_fnc_sizeMarker;
 		_buildings = nearestObjects [_posicion, ["Land_LandMark_F","Land_runway_edgelight"], _size / 2];
 		if (count _buildings > 1) then
 			{
@@ -128,7 +128,7 @@ if (alive _plane) then
 	}
 else
 	{
-	[_plane] spawn postMortem;
+	[_plane] spawn A3A_fnc_postMortem;
 	};
 {deleteVehicle _x} forEach _planeCrew;
 deleteGroup _grupoplane;

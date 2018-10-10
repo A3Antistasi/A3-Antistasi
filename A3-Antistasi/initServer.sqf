@@ -84,7 +84,7 @@ if (loadLastSave) then
         };
     if (membershipEnabled and (miembros isEqualTo [])) then
         {
-        [petros,"hint","Membership is enabled but members list is empty. Current players will be added to the member list"] remoteExec ["commsMP"];
+        [petros,"hint","Membership is enabled but members list is empty. Current players will be added to the member list"] remoteExec ["A3A_fnc_commsMP"];
         diag_log "Antistasi: Persitent Load done but membership enabled with members array empty";
         miembros = [];
         {
@@ -94,11 +94,11 @@ if (loadLastSave) then
         };
     theBoss = objNull;
     {
-    if (([_x] call isMember) and (side _x == buenos)) exitWith
+    if (([_x] call A3A_fnc_isMember) and (side _x == buenos)) exitWith
         {
         theBoss = _x;
         //_x setRank "CORPORAL";
-        //[_x,"CORPORAL"] remoteExec ["ranksMP"];
+        //[_x,"CORPORAL"] remoteExec ["A3A_fnc_ranksMP"];
         //_x setVariable ["score", 25,true];
         };
     } forEach playableUnits;
@@ -112,7 +112,7 @@ else
         {
         {miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
         {
-        if (([_x] call isMember) and (side _x == buenos)) exitWith {theBoss = _x};
+        if (([_x] call A3A_fnc_isMember) and (side _x == buenos)) exitWith {theBoss = _x};
         } forEach playableUnits;
        }
     else
@@ -122,7 +122,7 @@ else
         if (isNull comandante) then {comandante = (playableUnits select 0)};
         theBoss = comandante;
         theBoss setRank "CORPORAL";
-        [theBoss,"CORPORAL"] remoteExec ["ranksMP"];
+        [theBoss,"CORPORAL"] remoteExec ["A3A_fnc_ranksMP"];
         if (membershipEnabled) then {miembros = [getPlayerUID theBoss]} else {miembros = []};
         };
     publicVariable "theBoss";
@@ -138,9 +138,9 @@ private _index = _x call jn_fnc_arsenal_itemType;
 
 
 diag_log "Antistasi MP Server. Arsenal config finished";
-[[petros,"hint","Server Init Completed"],"commsMP"] call BIS_fnc_MP;
+[[petros,"hint","Server Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP;
 
-addMissionEventHandler ["HandleDisconnect",{_this call onPlayerDisconnect;false}];
+addMissionEventHandler ["HandleDisconnect",{_this call A3A_fnc_onPlayerDisconnect;false}];
 addMissionEventHandler ["BuildingChanged",
         {
         _building = _this select 0;
@@ -157,7 +157,7 @@ serverInitDone = true; publicVariable "serverInitDone";
 diag_log "Antistasi MP Server. serverInitDone set to true.";
 
 waitUntil {sleep 1;!(isNil "placementDone")};
-distancias = [] spawn distancias4;
+distancias = [] spawn A3A_fnc_distancias4;
 resourcecheck = [] execVM "resourcecheck.sqf";
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 savingServer = false;

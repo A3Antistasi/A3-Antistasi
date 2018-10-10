@@ -51,7 +51,7 @@ else
 _pos = getMarkerPos _x;
 _dmrk = createMarker [format ["Dum%1",_x], _pos];
 _dmrk setMarkerShape "ICON";
-_garrNum = [_x] call garrisonSize;
+_garrNum = [_x] call A3A_fnc_garrisonSize;
 _garrNum = _garrNum / 8;
 _garrison = [];
 killZones setVariable [_x,[],true];
@@ -79,7 +79,7 @@ else
     garrison setVariable [_x,_garrison,true];
     lados setVariable [_x,malos,true];
     };
-_nul = [_x] call crearControles;
+_nul = [_x] call A3A_fnc_crearControles;
 server setVariable [_x,0,true];//fecha en fomrato dateToNumber en la que estarán idle
 } forEach aeropuertos;
 
@@ -87,7 +87,7 @@ server setVariable [_x,0,true];//fecha en fomrato dateToNumber en la que estará
 _pos = getMarkerPos _x;
 _dmrk = createMarker [format ["Dum%1",_x], _pos];
 _dmrk setMarkerShape "ICON";
-_garrNum = [_x] call garrisonSize;
+_garrNum = [_x] call A3A_fnc_garrisonSize;
 _garrNum = _garrNum / 8;
 _garrison = [];
 _dmrk setMarkerType "loc_rock";
@@ -107,14 +107,14 @@ else
 	lados setVariable [_x,malos,true];
 	};
 garrison setVariable [_x,_garrison,true];
-_nul = [_x] call crearControles;
+_nul = [_x] call A3A_fnc_crearControles;
 } forEach recursos;
 
 {
 _pos = getMarkerPos _x;
 _dmrk = createMarker [format ["Dum%1",_x], _pos];
 _dmrk setMarkerShape "ICON";
-_garrNum = [_x] call garrisonSize;
+_garrNum = [_x] call A3A_fnc_garrisonSize;
 _garrNum = _garrNum / 8;
 _garrison = [];
 _dmrk setMarkerType "u_installation";
@@ -134,14 +134,14 @@ else
     lados setVariable [_x,malos,true];
     };
 garrison setVariable [_x,_garrison,true];
-_nul = [_x] call crearControles;
+_nul = [_x] call A3A_fnc_crearControles;
 } forEach fabricas;
 
 {
 _pos = getMarkerPos _x;
 _dmrk = createMarker [format ["Dum%1",_x], _pos];
 _dmrk setMarkerShape "ICON";
-_garrNum = [_x] call garrisonSize;
+_garrNum = [_x] call A3A_fnc_garrisonSize;
 _garrNum = _garrNum / 8;
 _garrison = [];
 killZones setVariable [_x,[],true];
@@ -178,14 +178,14 @@ else
     };
 garrison setVariable [_x,_garrison,true];
 server setVariable [_x,0,true];
-_nul = [_x] call crearControles;
+_nul = [_x] call A3A_fnc_crearControles;
 } forEach puestos;
 
 {
 _pos = getMarkerPos _x;
 _dmrk = createMarker [format ["Dum%1",_x], _pos];
 _dmrk setMarkerShape "ICON";
-_garrNum = [_x] call garrisonSize;
+_garrNum = [_x] call A3A_fnc_garrisonSize;
 _garrNum = _garrNum / 8;
 _garrison = [];
 _dmrk setMarkerType "b_naval";
@@ -219,7 +219,7 @@ else
     lados setVariable [_x,malos,true];
     };
 garrison setVariable [_x,_garrison,true];
-_nul = [_x] call crearControles;
+_nul = [_x] call A3A_fnc_crearControles;
 } forEach puertos;
 
 lados setVariable ["NATO_carrier",malos,true];

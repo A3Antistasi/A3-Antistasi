@@ -1,7 +1,7 @@
 _cuenta = 61;
-while {!([player] call isMember)} do
+while {!([player] call A3A_fnc_isMember)} do
 	{
-	_playerMembers = playableUnits select {([_x] call isMember) and (side group _x == buenos)};
+	_playerMembers = playableUnits select {([_x] call A3A_fnc_isMember) and (side group _x == buenos)};
 	if !(_playerMembers isEqualTo []) then
 		{
 		if (player distance2D (getMarkerPos respawnBuenos) > memberDistance) then

@@ -2,7 +2,7 @@ private ["_jugadores","_jugador","_mrk","_veh","_lado"];
 _lado = side group player;
 while {true} do
 	{
-	waitUntil {sleep 0.5; (visibleMap or visibleGPS) and ([player] call hasRadio)};
+	waitUntil {sleep 0.5; (visibleMap or visibleGPS) and ([player] call A3A_fnc_hasRadio)};
 	_jugadores = [];
 	_marcadores = [];
 	while {visibleMap or visibleGPS} do

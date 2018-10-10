@@ -20,7 +20,7 @@ while {alive _veh} do
 		if ((buenos knowsAbout _veh > 1.4) or revelar or _convoy) then
 			{
 			_veh setVariable ["revelado",true,true];
-			[_veh,_text] remoteExec ["vehicleMarkers",[buenos,civilian]];
+			[_veh,_text] remoteExec  ["A3A_fnc_vehicleMarkers",[buenos,civilian]];
 			};
 		}
 	else

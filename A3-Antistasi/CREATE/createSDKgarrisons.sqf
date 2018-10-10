@@ -13,7 +13,7 @@ _posicion = getMarkerPos (_marcador);
 _pos = [];
 _unit = objNull;
 _veh = objNull;
-_size = [_marcador] call sizeMarker;
+_size = [_marcador] call A3A_fnc_sizeMarker;
 
 if (_marcador != "Synd_HQ") then
 	{
@@ -23,10 +23,10 @@ if (_marcador != "Synd_HQ") then
 		if (hayIFA) then {_veh setFlagTexture SDKFlagTexture};
 		_veh allowDamage false;
 		_vehiculos pushBack _veh;
-		[_veh,"SDKFlag"] remoteExec ["flagaction",0,_veh];
-		//[_veh,"unit"] remoteExec ["flagaction",[buenos,civilian],_veh];
-		//[_veh,"vehicle"] remoteExec ["flagaction",[buenos,civilian],_veh];
-		//[_veh,"garage"] remoteExec ["flagaction",[buenos,civilian],_veh];
+		[_veh,"SDKFlag"] remoteExec ["A3A_fnc_flagaction",0,_veh];
+		//[_veh,"unit"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
+		//[_veh,"vehicle"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
+		//[_veh,"garage"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
 		};
 	if ((_marcador in recursos) or (_marcador in fabricas)) then
 		{
@@ -41,7 +41,7 @@ if (_marcador != "Synd_HQ") then
 					if (spawner getVariable _marcador != 2) then
 						{
 						_civ = _grupo createUnit ["C_man_w_worker_F", _posicion, [],0, "NONE"];
-						_nul = [_civ] spawn CIVinit;
+						_nul = [_civ] spawn A3A_fnc_CIVinit;
 						_civs pushBack _civ;
 						_civ setVariable ["marcador",_marcador,true];
 						sleep 0.5;
@@ -50,7 +50,7 @@ if (_marcador != "Synd_HQ") then
 							if (({alive _x} count units group (_this select 0)) == 0) then
 								{
 								_marcador = (_this select 0) getVariable "marcador";
-								_nombre = [_marcador] call localizar;
+								_nombre = [_marcador] call A3A_fnc_localizar;
 								destroyedCities pushBackUnique _marcador;
 								publicVariable "destroyedCities";
 								["TaskFailed", ["", format ["%1 Destroyed",_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
@@ -65,7 +65,7 @@ if (_marcador != "Synd_HQ") then
 		};
 	if (_marcador in puertos) then
 		{
-		[_veh,"seaport"] remoteExec ["flagaction",[buenos,civilian],_veh];
+		[_veh,"seaport"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
 		};
 	};
 _estaticas = staticsToSave select {_x distance _posicion < _size};
@@ -82,14 +82,14 @@ if (typeOf _x == SDKMortar) then
 	_unit = _grupoMort createUnit [(_garrison select _index), _posicion, [], 0, "NONE"];
 	_unit moveInGunner _estatica;
 	_nul=[_estatica] execVM "scripts\UPSMON\MON_artillery_add.sqf";
-	[_unit,_marcador] call FIAinitBases;
+	[_unit,_marcador] call A3A_fnc_FIAinitBases;
 	_soldados pushBack _unit;
 	}
 else
 	{
 	_unit = _grupoEst createUnit [(_garrison select _index), _posicion, [], 0, "NONE"];
 	_unit moveInGunner _x;
-	[_unit,_marcador] call FIAinitBases;
+	[_unit,_marcador] call A3A_fnc_FIAinitBases;
 	_soldados pushBack _unit;
 	};
 _garrison deleteAT _index;
@@ -99,18 +99,18 @@ if (staticCrewBuenos in _garrison) then
 	{
 	{
 	_unit = _grupoMort createUnit [staticCrewBuenos, _posicion, [], 0, "NONE"];
-	_pos = [_posicion] call mortarPos;
+	_pos = [_posicion] call A3A_fnc_mortarPos;
 	_veh = SDKMortar createVehicle _pos;
 	_vehiculos pushBack _veh;
 	_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
 	_unit assignAsGunner _veh;
 	_unit moveInGunner _veh;
-	[_veh] call AIVEHinit;
+	[_veh] call A3A_fnc_AIVEHinit;
 	_soldados pushBack _unit;
 	} forEach (_garrison select {_x == staticCrewBuenos});
 	_garrison = _garrison - [staticCrewBuenos];
 	};
-_garrison = _garrison call garrisonReorg;
+_garrison = _garrison call A3A_fnc_garrisonReorg;
 _tam = count _garrison;
 _cuenta = 0;
 
@@ -119,7 +119,7 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _tam)} do
 	_tipo = _garrison select _cuenta;
 	_unit = _grupo createUnit [_tipo, _posicion, [], 0, "NONE"];
 	if (_tipo in SDKSL) then {_grupo selectLeader _unit};
-	[_unit,_marcador] call FIAinitBases;
+	[_unit,_marcador] call A3A_fnc_FIAinitBases;
 	_soldados pushBack _unit;
 	_cuenta = _cuenta + 1;
 	sleep 0.5;

@@ -42,7 +42,7 @@ class first_load 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Starts a new game";
-			action = "closeDialog 0;if ((player == theBoss) and (isNil ""placementDone"") and !(isMultiplayer)) then {_nul = [] spawn placementselection};";
+			action = "closeDialog 0;if ((player == theBoss) and (isNil ""placementDone"") and !(isMultiplayer)) then {_nul = [] spawn A3A_fnc_placementselection};";
 		};
 		/*
 		class HQ_button_Gremove: RscButton
@@ -221,7 +221,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Take 100 € from faction pool and add it to your personnal account. It will damage your position among the faction in the commander career";
-			action = "if (isMultiPlayer) then {if (player == theBoss) then {nul=call theBossSteal} else {hint ""Only Player Commander has access to this function""}} else {hint ""This function is MP only""};";
+			action = "if (isMultiPlayer) then {if (player == theBoss) then {nul=call A3A_fnc_theBossSteal} else {hint ""Only Player Commander has access to this function""}} else {hint ""This function is MP only""};";
 		};
 		class HQ_button_savegame: RscButton
 		{
@@ -243,7 +243,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Maru will join your group. Ammobox must be empty. To rebuild, select the Build action near Maru";
-			action = "closeDialog 0;if (player == theBoss) then {nul = [] spawn moveHQ;} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if (player == theBoss) then {nul = [] spawn A3A_fnc_moveHQ;} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_recruitUnit: RscButton
 		{
@@ -254,7 +254,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Displays which server members are currently playing";
-			action = "if (player == theBoss) then {if (isMultiplayer) then {nul = [] call membersList} else {hint ""This function is MP only""}} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {if (isMultiplayer) then {nul = [] call A3A_fnc_membersList} else {hint ""This function is MP only""}} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_recruitSquad: RscButton
 		{
@@ -265,7 +265,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cost: 5.000 €";
-			action = "closeDialog 0;if (player == theBoss) then {nul=[] spawn rebuildAssets} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if (player == theBoss) then {nul=[] spawn A3A_fnc_rebuildAssets} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_vehicle: RscButton
 		{
@@ -276,7 +276,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "";
-			action = "closeDialog 0;if (player == theBoss) then {nul = [] call FIAskillAdd} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if (player == theBoss) then {nul = [] call A3A_fnc_FIAskillAdd} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_skill: RscButton
 		{
@@ -287,7 +287,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Check Faction garage";
-			action = "closeDialog 0;nul = [false] spawn garage";
+			action = "closeDialog 0;nul = [false] spawn A3A_fnc_garage";
 		};
 	};
 }; 										//slots: 6+1
@@ -346,7 +346,7 @@ class build_menu  			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Establish a new watchpost or roadblock depending on the type of terrain you select";
-			action = "closeDialog 0; [""create""] spawn puestoDialog";
+			action = "closeDialog 0; [""create""] spawn A3A_fnc_puestoDialog";
 		};
 		class 4slots_L2: RscButton
 		{
@@ -357,7 +357,7 @@ class build_menu  			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Add units to an existing garrison";
-			action = "closeDialog 0; [""add""] spawn garrisonDialog";
+			action = "closeDialog 0; [""add""] spawn A3A_fnc_garrisonDialog";
 		};
 		class 4slots_R2: RscButton
 		{
@@ -367,9 +367,9 @@ class build_menu  			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			//action = "closeDialog 0; [""delete""] spawn puestoDialog";
+			//action = "closeDialog 0; [""delete""] spawn A3A_fnc_puestoDialog";
 			tooltip = "Remove whole garrisons or posts";
-			action = "closeDialog 0; [""rem""] spawn garrisonDialog";
+			action = "closeDialog 0; [""rem""] spawn A3A_fnc_garrisonDialog";
 		};
 	};
 }; 										//slots: 4
@@ -414,7 +414,7 @@ class garrison_recruit 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMil] spawn garrisonAdd";
+			action = "nul = [SDKMil] spawn A3A_fnc_garrisonAdd";
 		};
 		class HQ_button_autorifleman: RscButton
 		{
@@ -424,7 +424,7 @@ class garrison_recruit 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMG] spawn garrisonAdd";
+			action = "nul = [SDKMG] spawn A3A_fnc_garrisonAdd";
 		};
 		class HQ_button_medic: RscButton
 		{
@@ -434,7 +434,7 @@ class garrison_recruit 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMedic] spawn garrisonAdd";
+			action = "nul = [SDKMedic] spawn A3A_fnc_garrisonAdd";
 		};
 		class HQ_button_engineer: RscButton
 		{
@@ -444,7 +444,7 @@ class garrison_recruit 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKSL] spawn garrisonAdd";
+			action = "nul = [SDKSL] spawn A3A_fnc_garrisonAdd";
 		};
 		class HQ_button_explosive: RscButton
 		{
@@ -454,7 +454,7 @@ class garrison_recruit 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [staticCrewBuenos] spawn garrisonAdd";
+			action = "nul = [staticCrewBuenos] spawn A3A_fnc_garrisonAdd";
 		};
 		class HQ_button_grenadier: RscButton
 		{
@@ -464,7 +464,7 @@ class garrison_recruit 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKGL] spawn garrisonAdd";
+			action = "nul = [SDKGL] spawn A3A_fnc_garrisonAdd";
 		};
 		class HQ_button_marksman: RscButton
 		{
@@ -474,7 +474,7 @@ class garrison_recruit 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKSniper] spawn garrisonAdd";
+			action = "nul = [SDKSniper] spawn A3A_fnc_garrisonAdd";
 		};
 
 		class HQ_button_AT: RscButton
@@ -485,7 +485,7 @@ class garrison_recruit 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKATman] spawn garrisonAdd";
+			action = "nul = [SDKATman] spawn A3A_fnc_garrisonAdd";
 		};
 	};
 };										//slots: 8
@@ -530,7 +530,7 @@ class minebuild_menu 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;[""APERSMine""] spawn mineDialog";
+			action = "closeDialog 0;[""APERSMine""] spawn A3A_fnc_mineDialog";
 		};
 		class HQ_button_MG: RscButton
 		{
@@ -541,7 +541,7 @@ class minebuild_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Spawn an AI Engineer which will clear any mine in it's surroundings";
-			action = "closeDialog 0; [""delete""] spawn mineDialog;";
+			action = "closeDialog 0; [""delete""] spawn A3A_fnc_mineDialog;";
 		};
 		class HQ_button_AT: RscButton
 		{
@@ -551,7 +551,7 @@ class minebuild_menu 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; [""ATMine""] spawn mineDialog";
+			action = "closeDialog 0; [""ATMine""] spawn A3A_fnc_mineDialog";
 		};
 		/*
 		class HQ_button_AA: RscButton
@@ -562,7 +562,7 @@ class minebuild_menu 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; [""delete""] spawn puestoDialog";
+			action = "closeDialog 0; [""delete""] spawn A3A_fnc_puestoDialog";
 		};*/
 	};
 };
@@ -606,7 +606,7 @@ class unit_recruit 		{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMil] spawn reinfPlayer";
+			action = "nul = [SDKMil] spawn A3A_fnc_reinfPlayer";
 		};
 		class HQ_button_autorifleman: RscButton
 		{
@@ -616,7 +616,7 @@ class unit_recruit 		{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMG] spawn reinfPlayer";
+			action = "nul = [SDKMG] spawn A3A_fnc_reinfPlayer";
 		};
 		class HQ_button_medic: RscButton
 		{
@@ -626,7 +626,7 @@ class unit_recruit 		{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKMedic] spawn reinfPlayer";
+			action = "nul = [SDKMedic] spawn A3A_fnc_reinfPlayer";
 		};
 		class HQ_button_engineer: RscButton
 		{
@@ -636,7 +636,7 @@ class unit_recruit 		{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKEng] spawn reinfPlayer";
+			action = "nul = [SDKEng] spawn A3A_fnc_reinfPlayer";
 		};
 		class HQ_button_explosive: RscButton
 		{
@@ -646,7 +646,7 @@ class unit_recruit 		{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKExp] spawn reinfPlayer";
+			action = "nul = [SDKExp] spawn A3A_fnc_reinfPlayer";
 		};
 		class HQ_button_grenadier: RscButton
 		{
@@ -656,7 +656,7 @@ class unit_recruit 		{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKGL] spawn reinfPlayer";
+			action = "nul = [SDKGL] spawn A3A_fnc_reinfPlayer";
 		};
 		class HQ_button_marksman: RscButton
 		{
@@ -666,7 +666,7 @@ class unit_recruit 		{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKSniper] spawn reinfPlayer";
+			action = "nul = [SDKSniper] spawn A3A_fnc_reinfPlayer";
 		};
 
 		class HQ_button_AT: RscButton
@@ -677,7 +677,7 @@ class unit_recruit 		{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [SDKATman] spawn reinfPlayer";
+			action = "nul = [SDKATman] spawn A3A_fnc_reinfPlayer";
 		};
 	};
 };
@@ -792,7 +792,7 @@ class buy_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closedialog 0; nul = [vehSDKBike] spawn addFIAveh";
+			action = "closedialog 0; nul = [vehSDKBike] spawn A3A_fnc_addFIAveh";
 		};
 		class HQ_button_offroad: RscButton
 		{
@@ -802,7 +802,7 @@ class buy_vehicle 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [vehSDKLightUnarmed] spawn addFIAveh;";
+			action = "closeDialog 0;nul = [vehSDKLightUnarmed] spawn A3A_fnc_addFIAveh;";
 		};
 		class HQ_button_truck: RscButton
 		{
@@ -812,7 +812,7 @@ class buy_vehicle 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [vehSDKTruck] spawn addFIAveh;";
+			action = "closeDialog 0;nul = [vehSDKTruck] spawn A3A_fnc_addFIAveh;";
 		};
 		class HQ_button_Aoffroad: RscButton
 		{
@@ -822,7 +822,7 @@ class buy_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [vehSDKLightArmed] spawn addFIAveh;";
+			action = "closeDialog 0;nul = [vehSDKLightArmed] spawn A3A_fnc_addFIAveh;";
 		};
 		class HQ_button_MG: RscButton
 		{
@@ -832,7 +832,7 @@ class buy_vehicle 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [SDKMGStatic] spawn addFIAveh;";
+			action = "closeDialog 0;nul = [SDKMGStatic] spawn A3A_fnc_addFIAveh;";
 		};
 		class HQ_button_mortar: RscButton
 		{
@@ -842,7 +842,7 @@ class buy_vehicle 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [SDKMortar] spawn addFIAveh;";
+			action = "closeDialog 0;nul = [SDKMortar] spawn A3A_fnc_addFIAveh;";
 		};
 		class HQ_button_AT: RscButton
 		{
@@ -852,7 +852,7 @@ class buy_vehicle 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticATBuenos] spawn addFIAveh;";
+			action = "closeDialog 0;nul = [staticATBuenos] spawn A3A_fnc_addFIAveh;";
 		};
 
 		class HQ_button_AA: RscButton
@@ -863,7 +863,7 @@ class buy_vehicle 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticAABuenos] spawn addFIAveh;";
+			action = "closeDialog 0;nul = [staticAABuenos] spawn A3A_fnc_addFIAveh;";
 		};
 	};
 };
@@ -908,7 +908,7 @@ class civ_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civCar] spawn addFIAveh;";
+			action = "closeDialog 0;nul = [civCar] spawn A3A_fnc_addFIAveh;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -918,7 +918,7 @@ class civ_vehicle 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civTruck] spawn addFIAveh;";
+			action = "closeDialog 0;nul = [civTruck] spawn A3A_fnc_addFIAveh;";
 		};
 		class HQ_button_Gremove: RscButton
 		{
@@ -929,7 +929,7 @@ class civ_vehicle 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [civHeli] spawn addFIAveh;";
+			action = "closeDialog 0;nul = [civHeli] spawn A3A_fnc_addFIAveh;";
 		};
 		class HQ_button_offroad: RscButton
 		{
@@ -939,7 +939,7 @@ class civ_vehicle 			{
 		 	y = 0.415981 * safezoneH + safezoneY;
 		 	w = 0.175015 * safezoneW;
 		 	h = 0.0560125 * safezoneH;
-		 	action = "closeDialog 0;[civBoat] spawn addFIAveh;";
+		 	action = "closeDialog 0;[civBoat] spawn A3A_fnc_addFIAveh;";
 		 };
 	};
 };
@@ -1292,7 +1292,7 @@ class mission_menu 		{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""AS""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""AS""],""A3A_fnc_missionRequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_CONV: RscButton
 		{
@@ -1302,7 +1302,7 @@ class mission_menu 		{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""CONVOY""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""CONVOY""],""A3A_fnc_missionRequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_DES: RscButton
 		{
@@ -1312,7 +1312,7 @@ class mission_menu 		{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""DES""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""DES""],""A3A_fnc_missionRequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_LOG: RscButton
 		{
@@ -1322,7 +1322,7 @@ class mission_menu 		{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""LOG""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""LOG""],""A3A_fnc_missionRequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_RES: RscButton
 		{
@@ -1332,7 +1332,7 @@ class mission_menu 		{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""RES""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""RES""],""A3A_fnc_missionRequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_vehicle: RscButton
 		{
@@ -1342,7 +1342,7 @@ class mission_menu 		{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""CON""],""missionrequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
+			action = "closeDialog 0;if ((player == theBoss) or (not(isPlayer theBoss))) then {[[""CON""],""A3A_fnc_missionRequest""] call BIS_fnc_MP} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class HQ_button_exit: RscButton
 		{
@@ -1424,7 +1424,7 @@ class radio_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Become Undercover if you match the requirements. Enemy AI won't attack you until they discover you";
-			action = "closeDialog 0;nul = [] spawn undercover";
+			action = "closeDialog 0;nul = [] spawn A3A_fnc_undercover";
 		};
 		class 8slots_R2: RscButton
 		{
@@ -1446,7 +1446,7 @@ class radio_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Vehicle or Static gun you're looking at will be garaged, interact with Flag to retrieve";
-			action = "closeDialog 0;if (player != theBoss) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
+			action = "closeDialog 0;if (player != theBoss) then {nul = [false] call A3A_fnc_garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call A3A_fnc_garageVehicle}};";
 		};
 		class 8slots_R3: RscButton
 		{
@@ -1457,7 +1457,7 @@ class radio_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Allow other groups to mount this vehicle";
-			action = "closeDialog 0;[] call unlockVehicle";
+			action = "closeDialog 0;[] call A3A_fnc_unlockVehicle";
 		};
 		class 8slots_L4: RscButton
 		{
@@ -1548,7 +1548,7 @@ class vehicle_manager 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Gain Airstrike points giving this vehicle to the faction Air pool";
-			action = "closeDialog 0;nul = [] call addBombRun";
+			action = "closeDialog 0;nul = [] call A3A_fnc_addBombRun";
 		};
 		class HQ_button_unlock: RscButton
 		{
@@ -1559,7 +1559,7 @@ class vehicle_manager 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Allow other groups to mount this vehicle";
-			action = "closeDialog 0;[] call unlockVehicle";
+			action = "closeDialog 0;[] call A3A_fnc_unlockVehicle";
 		};
 	};
 };
@@ -1660,7 +1660,7 @@ class squad_manager 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Look at some vehicle and assign it to the selected squad for it's use";
-			action = "closeDialog 0;[] call addSquadVeh;";
+			action = "closeDialog 0;[] call A3A_fnc_addSquadVeh;";
 		};
 		class HQ_button_MG: RscButton
 		{
@@ -1671,7 +1671,7 @@ class squad_manager 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "If the selected squad is using some vehicle, know remotely it's status";
-			action = "[""stats""] call vehStats;";
+			action = "[""stats""] call A3A_fnc_vehStats;";
 		};
 		class HQ_button_AT: RscButton
 		{
@@ -1682,7 +1682,7 @@ class squad_manager 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Force squad to mount or dismount their assigned vehicle";
-			action = "[""mount""] call vehStats";
+			action = "[""mount""] call A3A_fnc_vehStats";
 		};
 		class HQ_button_AA: RscButton
 		{
@@ -1693,7 +1693,7 @@ class squad_manager 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Use this option on AT / AA mounted squads. The truck driver will try to point his truck's back to any detected enemy";
-			action = "closeDialog 0; [] spawn staticAutoT";
+			action = "closeDialog 0; [] spawn A3A_fnc_staticAutoT";
 		};
 	};
 };
@@ -1751,7 +1751,7 @@ class AI_management 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "AI will search for better weapons, vests, helmets etc. If they are in a vehicle, they will just store what they scavenge in the vehicle. If not, they will equip them";
-			action = "closeDialog 0; if (count groupselectedUnits player == 0) then {nul = (units group player) spawn rearmCall} else {nul = (groupselectedUnits player) spawn rearmCall};";
+			action = "closeDialog 0; if (count groupselectedUnits player == 0) then {nul = (units group player) spawn A3A_fnc_rearmCall} else {nul = (groupselectedUnits player) spawn A3A_fnc_rearmCall};";
 		};
 		class 8slots_L2: RscButton
 		{
@@ -1762,7 +1762,7 @@ class AI_management 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "AI squad mates will heal proactively each other";
-			action = "if (autoHeal) then {autoHeal = false; hint ""Auto Healing disabled"";} else {autoHeal = true; hint ""Auto Heal enabled""; nul = [] spawn autoHealFnc}";
+			action = "if (autoHeal) then {autoHeal = false; hint ""Auto Healing disabled"";} else {autoHeal = true; hint ""Auto Heal enabled""; nul = [] spawn A3A_fnc_autoHealFnc}";
 		};
 		class 8slots_R2: RscButton
 		{
@@ -1773,7 +1773,7 @@ class AI_management 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Recover info about a HC squad status";
-			action = "[""stats""] call vehStats;";
+			action = "[""stats""] call A3A_fnc_vehStats;";
 		};
 		class 8slots_L3: RscButton
 		{
@@ -1795,7 +1795,7 @@ class AI_management 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Look at some vehicle and assign it to the selected squad for it's use";
-			action = "closeDialog 0;[] call addSquadVeh;";
+			action = "closeDialog 0;[] call A3A_fnc_addSquadVeh;";
 		};
 		class 8slots_L4: RscButton
 		{
@@ -1817,7 +1817,7 @@ class AI_management 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Force squad to mount or dismount their assigned vehicle";
-			action = "[""mount""] call vehStats";
+			action = "[""mount""] call A3A_fnc_vehStats";
 		};
 	};
 };
@@ -1886,7 +1886,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Establish a new watchpost or roadblock depending on the type of terrain you select";
-			action = "if (player == theBoss) then {closeDialog 0;[""create""] spawn puestoDialog} else {hint ""You're not the Commander!""};";
+			action = "if (player == theBoss) then {closeDialog 0;[""create""] spawn A3A_fnc_puestoDialog} else {hint ""You're not the Commander!""};";
 		};
 		class 8slots_R2: RscButton
 		{
@@ -1897,7 +1897,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cleans several things in game. Use with caution as it freezes the mission";
-			action = "if (player == theBoss) then {closedialog 0;[] remoteExec [""garbageCleaner"",2]} else {hint ""Only Player Commander has access to this function""};";
+			action = "if (player == theBoss) then {closedialog 0;[] remoteExec [""A3A_fnc_garbageCleaner"",2]} else {hint ""Only Player Commander has access to this function""};";
 		};
 		class 8slots_L3: RscButton
 		{
@@ -1908,7 +1908,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Remove selected observation post or roadblock, money will be refunded";
-			action = "if (player == theBoss) then {closeDialog 0; [""delete""] spawn puestoDialog} else {hint ""You're not the Commander!""};";
+			action = "if (player == theBoss) then {closeDialog 0; [""delete""] spawn A3A_fnc_puestoDialog} else {hint ""You're not the Commander!""};";
 		};
 		class 8slots_R3: RscButton
 		{
@@ -1919,7 +1919,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Look at a vehicle and garage it into faction garage (shared among commanders)";
-			action = "if (player == theBoss) then {closeDialog 0;nul = [true] call garageVehicle;} else {hint ""You're not the Commander!""};";
+			action = "if (player == theBoss) then {closeDialog 0;nul = [true] call A3A_fnc_garageVehicle;} else {hint ""You're not the Commander!""};";
 		};
 		class 8slots_L4: RscButton
 		{
@@ -1941,7 +1941,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Look at a vehicle and sell it for money";
-			action = "if (player == theBoss) then {closeDialog 0; nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
+			action = "if (player == theBoss) then {closeDialog 0; nul = [] call A3A_fnc_sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
 		};
 	};
 };
@@ -1987,7 +1987,7 @@ class carpet_bombing 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cost: 1 point";
-			action = "closeDialog 0;[""HE""] spawn NATObomb;";
+			action = "closeDialog 0;[""HE""] spawn A3A_fnc_NATObomb;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -1998,7 +1998,7 @@ class carpet_bombing 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cost: 1 point";
-			action = "closeDialog 0;[""CARPET""] spawn NATObomb;";
+			action = "closeDialog 0;[""CARPET""] spawn A3A_fnc_NATObomb;";
 		};
 		class 4slots_L2: RscButton
 		{
@@ -2009,7 +2009,7 @@ class carpet_bombing 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cost: 1 point";
-			action = "closeDialog 0;[""NAPALM""] spawn NATObomb;";
+			action = "closeDialog 0;[""NAPALM""] spawn A3A_fnc_NATObomb;";
 		};
 		class 4slots_R2: RscButton
 		{
@@ -2020,7 +2020,7 @@ class carpet_bombing 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Gain Airstrike points giving this aircraft to the faction Air pool";
-			action = "closeDialog 0;nul = [] call addBombRun";
+			action = "closeDialog 0;nul = [] call A3A_fnc_addBombRun";
 		};
 	};
 };
@@ -2127,7 +2127,7 @@ class construction_menu 	{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Make a quick small trench for one man";
-			action = "closeDialog 0;nul = [""ST""] spawn construir;";
+			action = "closeDialog 0;nul = [""ST""] spawn A3A_fnc_construir;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2138,7 +2138,7 @@ class construction_menu 	{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "A mid sized trench with capabilities for more than one soldier";
-			action = "closeDialog 0; nul = [""MT""] spawn construir;";
+			action = "closeDialog 0; nul = [""MT""] spawn A3A_fnc_construir;";
 		};
 
 		class HQ_button_Gremove: RscButton
@@ -2150,7 +2150,7 @@ class construction_menu 	{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Build some obstacles for vehicles";
-			action = "closeDialog 0;nul = [""RB""] spawn construir;";
+			action = "closeDialog 0;nul = [""RB""] spawn A3A_fnc_construir;";
 		};
 		class HQ_button_unlock: RscButton
 		{
@@ -2198,7 +2198,7 @@ class bunker_menu 				{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Requires to be in a garrisoned zone. It will be permanent";
-			action = "closeDialog 0;nul = [""SB""] spawn construir;";
+			action = "closeDialog 0;nul = [""SB""] spawn A3A_fnc_construir;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2209,7 +2209,7 @@ class bunker_menu 				{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Requires to be in a garrisoned zone. It will be permanent";
-			action = "closeDialog 0;nul = [""CB""] spawn construir;";
+			action = "closeDialog 0;nul = [""CB""] spawn A3A_fnc_construir;";
 		};
 		/*
 		class HQ_button_Gremove: RscButton
@@ -2276,7 +2276,7 @@ class squad_recruit 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKmid] spawn addFIAsquadHC";
+			action = "closeDialog 0;nul = [gruposSDKmid] spawn A3A_fnc_addFIAsquadHC";
 		};
 		class HQ_button_ATteam: RscButton
 		{
@@ -2286,7 +2286,7 @@ class squad_recruit 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKAT] spawn addFIAsquadHC";
+			action = "closeDialog 0;nul = [gruposSDKAT] spawn A3A_fnc_addFIAsquadHC";
 		};
 		class HQ_button_sniperTeam: RscButton
 		{
@@ -2296,7 +2296,7 @@ class squad_recruit 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKSniper] spawn addFIAsquadHC";
+			action = "closeDialog 0;nul = [gruposSDKSniper] spawn A3A_fnc_addFIAsquadHC";
 		};
 		class HQ_button_infsquadM: RscButton
 		{
@@ -2306,7 +2306,7 @@ class squad_recruit 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [SDKMGStatic] spawn addFIAsquadHC";
+			action = "closeDialog 0;nul = [SDKMGStatic] spawn A3A_fnc_addFIAsquadHC";
 		};
 		class HQ_button_infteamM: RscButton
 		{
@@ -2316,7 +2316,7 @@ class squad_recruit 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [vehSDKAT] spawn addFIAsquadHC";
+			action = "closeDialog 0;nul = [vehSDKAT] spawn A3A_fnc_addFIAsquadHC";
 		};
 		class HQ_button_ATteamM: RscButton
 		{
@@ -2326,7 +2326,7 @@ class squad_recruit 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticAABuenos] spawn addFIAsquadHC";
+			action = "closeDialog 0;nul = [staticAABuenos] spawn A3A_fnc_addFIAsquadHC";
 		};
 
 		class HQ_button_mortar: RscButton
@@ -2337,7 +2337,7 @@ class squad_recruit 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [SDKMortar] spawn addFIAsquadHC";
+			action = "closeDialog 0;nul = [SDKMortar] spawn A3A_fnc_addFIAsquadHC";
 		};
 	};
 };
@@ -2383,7 +2383,7 @@ class player_money 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Use this option to add the player which you are currently looking to the member's list";
-			action = "if (isMultiplayer) then {closeDialog 0;nul = [""add""] call memberAdd;} else {hint ""This function is MP only""};";
+			action = "if (isMultiplayer) then {closeDialog 0;nul = [""add""] call A3A_fnc_memberAdd;} else {hint ""This function is MP only""};";
 		};
 		class HQ_button_MG: RscButton
 		{
@@ -2394,7 +2394,7 @@ class player_money 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Use this option to remove the player which you are currently looking to the member's list";
-			action = "if (isMultiplayer) then {closeDialog 0;nul = [""remove""] call memberAdd;} else {hint ""This function is MP only""};";
+			action = "if (isMultiplayer) then {closeDialog 0;nul = [""remove""] call A3A_fnc_memberAdd;} else {hint ""This function is MP only""};";
 		};
 		class HQ_button_AT: RscButton
 		{
@@ -2404,7 +2404,7 @@ class player_money 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "[true] call donateMoney;";
+			action = "[true] call A3A_fnc_donateMoney;";
 		};
 		class HQ_button_AA: RscButton
 		{
@@ -2415,7 +2415,7 @@ class player_money 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "It will increase your prestige among your faction";
-			action = "[] call donateMoney;";
+			action = "[] call A3A_fnc_donateMoney;";
 		};
 	};
 };
@@ -2460,7 +2460,7 @@ class garage_sell 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;if (player != theBoss) then {nul = [false] call garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call garageVehicle}};";
+			action = "closeDialog 0;if (player != theBoss) then {nul = [false] call A3A_fnc_garageVehicle} else {if (isMultiplayer) then {_nul = createDialog ""garage_check""} else {nul = [true] call A3A_fnc_garageVehicle}};";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2470,7 +2470,7 @@ class garage_sell 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; if (player == theBoss) then {nul = [] call sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
+			action = "closeDialog 0; if (player == theBoss) then {nul = [] call A3A_fnc_sellVehicle} else {hint ""Only the Commander can sell vehicles""};";
 		};
 		/*
 		class HQ_button_Gremove: RscButton
@@ -2528,7 +2528,7 @@ class garage_check 				{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [false] call garageVehicle;";
+			action = "closeDialog 0;nul = [false] call A3A_fnc_garageVehicle;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2538,7 +2538,7 @@ class garage_check 				{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; nul = [true] call garageVehicle;";
+			action = "closeDialog 0; nul = [true] call A3A_fnc_garageVehicle;";
 		};
 		/*
 		class HQ_button_Gremove: RscButton
@@ -2607,7 +2607,7 @@ class tu_madre 				{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cost: 10 points";
-			action = "closeDialog 0;[""HE""] spawn NATObomb;";
+			action = "closeDialog 0;[""HE""] spawn A3A_fnc_NATObomb;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2618,7 +2618,7 @@ class tu_madre 				{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cost: 10 points";
-			action = "closeDialog 0;[""CARPET""] spawn NATObomb;";
+			action = "closeDialog 0;[""CARPET""] spawn A3A_fnc_NATObomb;";
 		};
 
 		class HQ_button_Gremove: RscButton
@@ -2630,7 +2630,7 @@ class tu_madre 				{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cost: 10 points";
-			action = "closeDialog 0;[""NAPALM""] spawn NATObomb;";
+			action = "closeDialog 0;[""NAPALM""] spawn A3A_fnc_NATObomb;";
 		};
 	};
 };
@@ -2931,7 +2931,7 @@ class NATO_player {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;[] call NATOQuadbike";
+			action = "closeDialog 0;[] call A3A_fnc_NATOQuadbike";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2941,7 +2941,7 @@ class NATO_player {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;[] spawn NATOFT";
+			action = "closeDialog 0;[] spawn A3A_fnc_NATOFT";
 		};
 	};
 };
@@ -3056,7 +3056,7 @@ class squad_options 	{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			//tooltip = "";
-			action = "closeDialog 0;nul = [gruposSDKSquad] spawn addFIAsquadHC;";
+			action = "closeDialog 0;nul = [gruposSDKSquad] spawn A3A_fnc_addFIAsquadHC;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -3066,7 +3066,7 @@ class squad_options 	{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; nul = [gruposSDKSquadEng] spawn addFIAsquadHC;";
+			action = "closeDialog 0; nul = [gruposSDKSquadEng] spawn A3A_fnc_addFIAsquadHC;";
 		};
 
 		class HQ_button_Gremove: RscButton
@@ -3077,7 +3077,7 @@ class squad_options 	{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""MG""] spawn addFIAsquadHC;";
+			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""MG""] spawn A3A_fnc_addFIAsquadHC;";
 		};
 		class HQ_button_unlock: RscButton
 		{
@@ -3087,7 +3087,7 @@ class squad_options 	{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""Mortar""] spawn addFIAsquadHC;";
+			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""Mortar""] spawn A3A_fnc_addFIAsquadHC;";
 		};
 	};
 };

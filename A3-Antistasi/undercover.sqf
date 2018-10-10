@@ -52,17 +52,17 @@ if ({((side _x== muyMalos) or (side _x== malos)) and (((_x knowsAbout _player > 
 	};
 
 _base = [_aeropuertos,_player] call BIS_fnc_nearestPosition;
-_size = [_base] call sizeMarker;
+_size = [_base] call A3A_fnc_sizeMarker;
 if ((_player distance getMarkerPos _base < _size*2) and (not(lados getVariable [_base,sideUnknown] == buenos))) exitWith {hint "You cannot go Undercover near Airports, Outposts or Roadblocks"};
 
 ["Undercover ON",0,0,4,0,0,4] spawn bis_fnc_dynamicText;
 
 [_player,true] remoteExec ["setCaptive",0,_player];
 _player setCaptive true;
-[] spawn statistics;
+[] spawn A3A_fnc_statistics;
 if (_player == leader group _player) then
 	{
-	{if ((!isplayer _x) and (local _x) and (_x getVariable ["owner",_x] == _player)) then {[_x] spawn undercoverAI}} forEach units group _player;
+	{if ((!isplayer _x) and (local _x) and (_x getVariable ["owner",_x] == _player)) then {[_x] spawn A3A_fnc_undercoverAI}} forEach units group _player;
 	};
 _estaEnControl = false;
 while {_cambiar == ""} do
@@ -130,7 +130,7 @@ while {_cambiar == ""} do
 			if ((_tipo != civHeli) and (!(_tipo in civBoats))) then
 				{
 				_base = [_aeropuertos,_player] call BIS_fnc_nearestPosition;
-				//_size = [_base] call sizeMarker;
+				//_size = [_base] call A3A_fnc_sizeMarker;
 				if ((_player inArea _base) and (lados getVariable [_base,sideUnknown] != buenos)) then
 					{
 					if !(_estaEnControl) then
@@ -156,7 +156,7 @@ while {_cambiar == ""} do
 				if (_tipo == civHeli) then
 					{
 					_base = [_aeropuertos1,_player] call BIS_fnc_nearestPosition;
-					_size = [_base] call sizeMarker;
+					_size = [_base] call A3A_fnc_sizeMarker;
 					if ((_player distance2d getMarkerPos _base < _size*3) and ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == muyMalos))) then
 						{
 						_cambiar = "NoFly";
@@ -175,7 +175,7 @@ if (vehicle _player != _player) then
 	};
 
 ["Undercover OFF",0,0,4,0,0,4] spawn bis_fnc_dynamicText;
-[] spawn statistics;
+[] spawn A3A_fnc_statistics;
 switch _cambiar do
 	{
 	case "Reported":

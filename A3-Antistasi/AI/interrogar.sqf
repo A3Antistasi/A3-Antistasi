@@ -1,7 +1,7 @@
 _unit = _this select 0;
 _jugador = _this select 1;
 
-[_unit,"remove"] remoteExec ["flagaction",[buenos,civilian],_unit];
+[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
 
 if (!alive _unit) exitWith {};
 
@@ -26,7 +26,7 @@ sleep 5;
 if (round random 100 < _chance) then
 	{
 	_unit globalChat "Okay, I'll tell you everything I know";
-	[_unit] call intelFound;
+	[_unit] call A3A_fnc_intelFound;
 	}
 else
 	{

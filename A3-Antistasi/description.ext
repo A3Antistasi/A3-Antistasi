@@ -41,6 +41,7 @@ class CfgTaskEnhancements
 
 class CfgFunctions {
     //#include "Functions\functionList.hpp"
+	#include "functions.hpp"
     #include "JeroenArsenal\functions.hpp"
 };
 class Header

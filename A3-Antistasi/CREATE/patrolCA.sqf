@@ -95,13 +95,13 @@ if (_exit) exitWith {};
 if (!_inWaves) then
 	{
 	_aeropuertos = aeropuertos select {lados getVariable [_x,sideUnknown] == _lado};
-	_aeropuertos = _aeropuertos select 	{(getMarkerPos _x distance _posDestino < distanceForAirAttack) and ([_x,true] call A3A_fnc_airportCanAttack)};
+	_aeropuertos = if (hayIFA) then {_aeropuertos select {(getMarkerPos _x distance _posDestino < distanceForLandAttack) and ([_x,true] call A3A_fnc_airportCanAttack) and ([_posDestino,getMarkerPos _x] call A3A_fnc_isTheSameIsland)} else {_aeropuertos select 	{(getMarkerPos _x distance _posDestino < distanceForAirAttack) and ([_x,true] call A3A_fnc_airportCanAttack)}};
 	_puestos = puestos select {(lados getVariable [_x,sideUnknown] == _lado) and ([_posDestino,getMarkerPos _x] call A3A_fnc_isTheSameIsland)};
 	_aeropuertos = _aeropuertos + (_puestos select 	{(getMarkerPos _x distance _posDestino < distanceForLandAttack)  and ([_x,true] call A3A_fnc_airportCanAttack)});
 	if (_esMarcador) then
 		{
 		_aeropuertos = _aeropuertos select {({_x == _marcador} count (killZones getVariable [_x,[]])) < 3};
-		if (hayIFA) then {_aeropuertos = _aeropuertos select {getMarkerPos _x distance _posDestino < distanceForLandAttack}};
+		//if (hayIFA) then {_aeropuertos = _aeropuertos select {getMarkerPos _x distance _posDestino < distanceForLandAttack}};
 		}
 	else
 		{

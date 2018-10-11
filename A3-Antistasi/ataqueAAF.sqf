@@ -31,7 +31,19 @@ else
 	{
 	if (tierWar < 5) then {_objetivos = _objetivos - ciudades};
 	};
-_objetivosProv = _objetivos - aeropuertos;
+//lets keep the nearest targets for each AI airbase in the target list, so we ensure even when they are surrounded of friendly zones, they remain as target
+_nearestObjectives = [];
+{
+_lado = lados getVariable [_x,sideUnknown];
+_tmpTargets = _objetivos select {lados getVariable [_x,sideUnknown] != _lado};
+if !(_tmpTargets isEqualTo []) then
+	{
+	_nearestTarget = [_tmpTargets,getMarkerPos _x] call BIS_fnc_nearestPosition;
+	_nearestObjectives pushBack _nearestTarget;
+	};
+} forEach _aeropuertos;
+//the following discards targets which are surrounded by friendly zones, excluding airbases and the nearest targets
+_objetivosProv = _objetivos - aeropuertos - _nearestObjectives;
 {
 _posObj = getMarkerPos _x;
 _ladoObj = lados getVariable [_x,sideUnknown];
@@ -118,9 +130,12 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 							_cuenta = ((count _garrison) + (count _puestos) + (2*(count _estaticas)));
 							if (_cuenta <= 8) then
 								{
-								_proceder = false;
-								_faciles pushBack [_sitio,_base];
-								_facilesArr pushBackUnique _sitio;
+								if (!hayIFA or (_posSitio distance _posBase < distanceForLandAttack)) then
+									{
+									_proceder = false;
+									_faciles pushBack [_sitio,_base];
+									_facilesArr pushBackUnique _sitio;
+									};
 								};
 							};
 						};

@@ -18,7 +18,7 @@ if (_land) then
 else
 	{
 	_vehPool = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
-	if ((_numero > 4) and (count _vehPool > 1)) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
+	if ((_numero > 4) and (count _vehPool > 1) and !hayIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
 	//_vehPool = _vehPool select {(_x isKindOf "Helicopter") and (_x in vehFastRope)};
 	_tipoVeh = selectRandom _vehPool;
 	};

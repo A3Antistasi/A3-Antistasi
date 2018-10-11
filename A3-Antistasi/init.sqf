@@ -42,6 +42,7 @@ if (!isMultiPlayer) then
     skillMult = 1;
     minWeaps = 24;
     civTraffic = 1;
+    limitedFT = false;
     {
     private _index = _x call jn_fnc_arsenal_itemType;
     [_index,_x,-1] call jn_fnc_arsenal_addItem;

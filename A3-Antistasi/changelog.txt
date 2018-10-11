@@ -1191,3 +1191,12 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 
 - Corrected reinf bug when the AI lacks of air transports to send big groups.
 - Convoy delay re enabled.
+- Converted the whole function structure in a more optimised way, thanks and all credits to blkanaki!!!
+- Solved garrison having militia deleted from the variable upon spawn when static weapons were present.
+- IFA: Enemy QRF will be allways land units, with the exception of bombstrikes.
+- AI will have as target on major attacks allways the nearest enemy position from the evaluated base, even when it has no enemy zones in the surroundings, so AI will be more agressive again.
+- IFA: Distance for land attacks has been increased.
+- Fast Travel now has a counter thanks to john681611. Thanks man!
+- By popular demand: Limited Fast Travel will be switchable in the MP lobby. Default value is Yes.
+- IFA: Adapted roadblocks.
+hacer opcional el FT en MP

@@ -50,7 +50,7 @@ if (lados getVariable [_marcador,sideUnknown] == buenos) then
 	if (spawner getVariable _marcador != 2) then
 		{
 		//[_marcador] remoteExec ["tempMoveMrk",2];
-		[_marcador,_tipo] remoteExec ["createSDKGarrisonsTemp",2];
+		[_marcador,_tipo] remoteExec ["A3A_fnc_createSDKGarrisonsTemp",2];
 		};
 	};
 

@@ -20,7 +20,7 @@ _tipoVeh = typeOf _veh;
 if (_veh isKindOf "Man") exitWith {hint "Are you kidding?"};
 
 if !(_veh isKindOf "AllVehicles") exitWith {hint "The vehicle you are looking cannot be stored in our Garage"};
-if (!_pool and !([player] call isMember)) exitWith {hint "Only server members have the garage feature enabled"};
+if (!_pool and !([player] call A3A_fnc_isMember)) exitWith {hint "Only server members have the garage feature enabled"};
 
 if (_pool and (count vehInGarage >= (tierWar *3))) exitWith {hint "You cannot garage more vehicles at your current War Level"};
 

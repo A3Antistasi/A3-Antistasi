@@ -355,7 +355,7 @@ smallCApos = [];
 bigAttackInProgress = false;
 chopForest = false;
 distanceForAirAttack = 10000;
-distanceForLandAttack = 3000;
+distanceForLandAttack = if (hayIFA) then {5000} else {3000};
 
 if (worldName == "Tanoa") then
 	{

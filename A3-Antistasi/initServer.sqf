@@ -28,6 +28,7 @@ skillMult = paramsArray select 9; publicVariable "skillMult";
 minWeaps = paramsArray select 10; publicVariable "minWeaps";
 civTraffic = paramsArray select 11; publicVariable "civTraffic";
 memberDistance = paramsArray select 13; publicVariable "memberDistance";
+limitedFT = if (paramsArray select 14 == 1) then {true} else {false}; publicVariable "limitedFT";
 _nul = call compile preprocessFileLineNumbers "initVar.sqf";
 initVar = true; publicVariable "initVar";
 savingServer = true;

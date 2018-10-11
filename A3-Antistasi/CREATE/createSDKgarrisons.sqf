@@ -70,7 +70,8 @@ if (_marcador != "Synd_HQ") then
 	};
 _estaticas = staticsToSave select {_x distance _posicion < _size};
 
-_garrison = garrison getVariable [_marcador,[]];
+_garrison = [];
+_garrison = _garrison + (garrison getVariable [_marcador,[]]);
 _grupo = createGroup buenos;
 _grupoEst = createGroup buenos;
 _grupoMort = createGroup buenos;

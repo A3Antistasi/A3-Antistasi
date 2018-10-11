@@ -215,18 +215,6 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 		{
 		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
-			/*
-			_garrison = [];
-			_garrison = _garrison + (garrison getVariable [_marcador,[]]);
-			if (_garrison isEqualType []) then
-				{
-				for "_i" from 0 to (count _garrison -1) do
-					{
-					if (typeOf _muerto == (_garrison select _i)) exitWith {_garrison deleteAt _i};
-					};
-				garrison setVariable [_marcador,_garrison,true];
-				};
-			if (!(_marcador in controles)) then {[_marcador] call A3A_fnc_mrkUpdate};*/
 			[typeOf _muerto,buenos,_marcador,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
 			_muerto setVariable [_marcador,nil,true];
 			};

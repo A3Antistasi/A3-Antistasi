@@ -56,48 +56,53 @@ if (_esControl) then
 
 	if (!_esFIA) then
 		{
-		_pos = [getPos (_roads select 0), 7, _dirveh + 270] call BIS_Fnc_relPos;
-		_bunker = "Land_BagBunker_01_Small_green_F" createVehicle _pos;
-		_vehiculos pushBack _bunker;
-		_bunker setDir _dirveh;
-		_pos = getPosATL _bunker;
-		_tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
-		_veh = _tipoVeh createVehicle _posicion;
-		_vehiculos pushBack _veh;
-		_veh setPosATL _pos;
-		_veh setDir _dirVeh;
+		_grupoE = grpNull;
+		if !(hayIFA) then
+			{
+			_pos = [getPos (_roads select 0), 7, _dirveh + 270] call BIS_Fnc_relPos;
+			_bunker = "Land_BagBunker_01_Small_green_F" createVehicle _pos;
+			_vehiculos pushBack _bunker;
+			_bunker setDir _dirveh;
+			_pos = getPosATL _bunker;
+			_tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
+			_veh = _tipoVeh createVehicle _posicion;
+			_vehiculos pushBack _veh;
+			_veh setPosATL _pos;
+			_veh setDir _dirVeh;
 
-		_grupoE = createGroup _lado;
-		_tipoUnit = if (_lado == malos) then {staticCrewMalos} else {staticCrewMuyMalos};
-		_unit = _grupoE createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-		_unit moveInGunner _veh;
-		_soldados pushBack _unit;
-		sleep 1;
-		_pos = [getPos (_roads select 0), 7, _dirveh + 90] call BIS_Fnc_relPos;
-		_bunker = "Land_BagBunker_01_Small_green_F" createVehicle _pos;
-		_vehiculos pushBack _bunker;
-		_bunker setDir _dirveh + 180;
-		_pos = getPosATL _bunker;
-		_veh = _tipoVeh createVehicle _posicion;
-		_vehiculos pushBack _veh;
-		_veh setPosATL _pos;
-		_veh setDir _dirVeh;
-		sleep 1;
-		_unit = _grupoE createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-		_unit moveInGunner _veh;
-		_soldados pushBack _unit;
-		sleep 1;
-		_pos = [getPos _bunker, 6, getDir _bunker] call BIS_fnc_relPos;
-		_tipoVeh = if (_lado == malos) then {NATOFlag} else {CSATFlag};
-		_veh = createVehicle [_tipoVeh, _pos, [],0, "CAN_COLLIDE"];
-		_vehiculos pushBack _veh;
-
-		{_nul = [_x] call A3A_fnc_AIVEHinit} forEach _vehiculos;
-
+			_grupoE = createGroup _lado;
+			_tipoUnit = if (_lado == malos) then {staticCrewMalos} else {staticCrewMuyMalos};
+			_unit = _grupoE createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+			_unit moveInGunner _veh;
+			_soldados pushBack _unit;
+			sleep 1;
+			_pos = [getPos (_roads select 0), 7, _dirveh + 90] call BIS_Fnc_relPos;
+			_bunker = "Land_BagBunker_01_Small_green_F" createVehicle _pos;
+			_vehiculos pushBack _bunker;
+			_bunker setDir _dirveh + 180;
+			_pos = getPosATL _bunker;
+			_pos = [getPos _bunker, 6, getDir _bunker] call BIS_fnc_relPos;
+			_tipoVeh = if (_lado == malos) then {NATOFlag} else {CSATFlag};
+			_veh = createVehicle [_tipoVeh, _pos, [],0, "CAN_COLLIDE"];
+			_vehiculos pushBack _veh;
+			_veh = _tipoVeh createVehicle _posicion;
+			_vehiculos pushBack _veh;
+			_veh setPosATL _pos;
+			_veh setDir _dirVeh;
+			sleep 1;
+			_unit = _grupoE createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+			_unit moveInGunner _veh;
+			_soldados pushBack _unit;
+			sleep 1;
+			{_nul = [_x] call A3A_fnc_AIVEHinit} forEach _vehiculos;
+			};
 		_tipogrupo = if (_lado == malos) then {selectRandom gruposNATOmid} else {selectRandom gruposCSATmid};
 		_grupo = [_posicion,_lado, _tipogrupo] call A3A_fnc_spawnGroup;
-		{[_x] join _grupo} forEach units _grupoE;
-		deleteGroup _grupoE;
+		if !(hayIFA) then
+			{
+			{[_x] join _grupo} forEach units _grupoE;
+			deleteGroup _grupoE;
+			};
 		if (random 10 < 2.5) then
 			{
 			_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
@@ -108,7 +113,8 @@ if (_esControl) then
 		}
 	else
 		{
-		_veh = vehFIAArmedCar createVehicle getPos (_roads select 0);
+		_tipoVeh = if !(hayIFA) then {vehFIAArmedCar} else {vehFIACar};
+		_veh = _tipoVeh createVehicle getPos (_roads select 0);
 		_veh setDir _dirveh + 90;
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		_vehiculos pushBack _veh;

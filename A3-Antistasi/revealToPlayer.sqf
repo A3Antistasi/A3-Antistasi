@@ -6,7 +6,7 @@ if (count _this == 0) then
 		{
 		if (player == leader group player) then
 			{
-			if ([player] call hasRadio) then
+			if ([player] call A3A_fnc_hasRadio) then
 				{
 				{
 				_lider = leader _x;

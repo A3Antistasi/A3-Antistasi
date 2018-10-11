@@ -97,7 +97,7 @@ if (visiblemap) then
         if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
         petros disableAI "MOVE";
         petros disableAI "AUTOTARGET";
-        if (group _viejo == grupoPetros) then {[Petros,"mission"] remoteExec ["flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["flagaction",[buenos,civilian],petros]};
+        if (group _viejo == grupoPetros) then {[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]};
         _nul= [] execVM "initPetros.sqf";
         deleteVehicle _viejo;
         publicVariable "petros";

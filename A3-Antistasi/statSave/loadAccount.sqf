@@ -4,7 +4,7 @@ if !(isMultiplayer) then
 	waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
 	["loadoutPlayer"] call fn_LoadStat;
 	diag_log "Antistasi: SP Personal player stats loaded";
-	[] spawn statistics;
+	[] spawn A3A_fnc_statistics;
 	}
 else
 	{
@@ -15,7 +15,7 @@ else
 			waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
 			["loadoutPlayer"] call fn_LoadStat;
 			//player setPos getMarkerPos respawnBuenos;
-			if ([player] call isMember) then
+			if ([player] call A3A_fnc_isMember) then
 				{
 				["scorePlayer"] call fn_LoadStat;
 				["rankPlayer"] call fn_LoadStat;
@@ -23,7 +23,7 @@ else
 			["dinero"] call fn_LoadStat;
 			["personalGarage"] call fn_LoadStat;
 			diag_log "Antistasi: MP Personal player stats loaded";
-			[] spawn statistics;
+			[] spawn A3A_fnc_statistics;
 			};
 		};
 	};
@@ -156,10 +156,10 @@ if (isServer and !_byPassServer) then
 		};
 	} forEach marcadores;
 
-	{[_x] call mrkUpdate} forEach (marcadores - controles);
+	{[_x] call A3A_fnc_mrkUpdate} forEach (marcadores - controles);
 	if (count puestosFIA > 0) then {marcadores = marcadores + puestosFIA; publicVariable "marcadores"};
 
-	{if (_x in destroyedCities) then {[_x] call destroyCity}} forEach ciudades;
+	{if (_x in destroyedCities) then {[_x] call A3A_fnc_destroyCity}} forEach ciudades;
 
 	["chopForest"] call fn_LoadStat;
 	["destroyedBuildings"] call fn_LoadStat;
@@ -185,7 +185,7 @@ if (isServer and !_byPassServer) then
 	clearItemCargoGlobal caja;
 	clearBackpackCargoGlobal caja;
 
-	[] remoteExec ["statistics",[buenos,civilian]];
+	[] remoteExec ["A3A_fnc_statistics",[buenos,civilian]];
 	diag_log "Antistasi: Server sided Persistent Load done";
 
 	["tasks"] call fn_LoadStat;

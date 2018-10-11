@@ -1,6 +1,6 @@
 private ["_marcador","_nombreDest","_nombreEny"];
 _marcador = _this select 0;
-_nombreDest = [_marcador] call localizar;
+_nombreDest = [_marcador] call A3A_fnc_localizar;
 _sideEny = _this select 1;
 _nombreEny = if (_sideEny == buenos) then
 				{
@@ -19,4 +19,4 @@ if (_lado isEqualType []) then {_lado = buenos};
 
 waitUntil {sleep 10; (lados getVariable [_marcador,sideUnknown] != _lado) or (spawner getVariable _marcador == 2)};
 
-[0,_marcador] spawn borrarTask;
+[0,_marcador] spawn A3A_fnc_borrarTask;

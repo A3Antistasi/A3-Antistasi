@@ -23,11 +23,14 @@ if (_currentItems < _maxItems) then
 //apcs
 _maxItems = (_puestos * 0.3) + (_airbases * 2);
 _tipo = if (_lado == malos) then {vehNATOAPC} else {vehCSATAPC};
-_currentItems = 0;
-{_currentItems = _currentItems + (timer getVariable [_x,0])} forEach _tipo;
-if (_currentItems < _maxItems) then
+if !(_tipo isEqualTo []) then
 	{
-	timer setVariable [selectRandom _tipo,_currentItems + (0.2 * _acelerador),true];
+	_currentItems = 0;
+	{_currentItems = _currentItems + (timer getVariable [_x,0])} forEach _tipo;
+	if (_currentItems < _maxItems) then
+		{
+		timer setVariable [selectRandom _tipo,_currentItems + (0.2 * _acelerador),true];
+		};
 	};
 //tanks
 _maxItems = (_puestos * 0.5) + (_airbases * 2);
@@ -72,20 +75,26 @@ if (_currentItems < _maxItems) then
 //AIR TRANSPORTS
 _maxItems = _airbases * 4;
 _tipo = if (_lado == malos) then {vehNATOTransportHelis - [vehNATOPatrolHeli]} else {vehCSATTransportHelis - [vehCSATPatrolHeli]};
-_currentItems = 0;
-{_currentItems = _currentItems + (timer getVariable [_x,0])} forEach _tipo;
-if (_currentItems < _maxItems) then
+if !(_tipo isEqualTo []) then
 	{
-	timer setVariable [selectRandom _tipo,_currentItems + (0.2 * _acelerador),true];
+	_currentItems = 0;
+	{_currentItems = _currentItems + (timer getVariable [_x,0])} forEach _tipo;
+	if (_currentItems < _maxItems) then
+		{
+		timer setVariable [selectRandom _tipo,_currentItems + (0.2 * _acelerador),true];
+		};
 	};
 //ATTACK HELIS
 _maxItems = _airbases * 4;
 _tipo = if (_lado == malos) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
-_currentItems = 0;
-{_currentItems = _currentItems + (timer getVariable [_x,0])} forEach _tipo;
-if (_currentItems < _maxItems) then
+if !(_tipo isEqualTo []) then
 	{
-	timer setVariable [selectRandom _tipo,_currentItems + (0.2 * _acelerador),true];
+	_currentItems = 0;
+	{_currentItems = _currentItems + (timer getVariable [_x,0])} forEach _tipo;
+	if (_currentItems < _maxItems) then
+		{
+		timer setVariable [selectRandom _tipo,_currentItems + (0.2 * _acelerador),true];
+		};
 	};
 //ARTY
 _maxItems = _airbases + (_puestos * 0.2);

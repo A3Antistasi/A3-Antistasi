@@ -42,7 +42,7 @@ deleteVehicle _estatica;
 _bag1 = _tipoB1 createVehicle _posicion1;
 _bag2 = _tipoB2 createVehicle _posicion2;
 
-[_bag1] call AIVEHinit;
-[_bag2] call AIVEHinit;
+[_bag1] call A3A_fnc_AIVEHinit;
+[_bag2] call A3A_fnc_AIVEHinit;
 
 hint "Weapon Stolen. It won't despawn when you assemble it again";

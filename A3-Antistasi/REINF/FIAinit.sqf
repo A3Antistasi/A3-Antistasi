@@ -2,14 +2,14 @@ private ["_unit","_muerto","_killer","_skill","_nombre","_tipo"];
 
 _unit = _this select 0;
 
-[_unit] call initRevive;
+[_unit] call A3A_fnc_initRevive;
 _unit setVariable ["GREENFORSpawn",true,true];
 
 _unit allowFleeing 0;
 _tipo = typeOf _unit;
 //_skill = if (_tipo in sdkTier1) then {(skillFIA * 0.2)} else {if (_tipo in sdkTier2) then {0.1 + (skillFIA * 0.2)} else {0.1 + (skillFIA * 0.2)}};
 _skill = skillFIA * 0.05 * skillMult;
-if (!activeGREF) then {if (not((uniform _unit) in uniformsSDK)) then {[_unit] call reDress}};
+if (!activeGREF) then {if (not((uniform _unit) in uniformsSDK)) then {[_unit] call A3A_fnc_reDress}};
 
 if ((!isMultiplayer) and (leader _unit == theBoss)) then {_skill = _skill + 0.1};
 _unit setSkill _skill;
@@ -30,7 +30,7 @@ if (_tipo in SDKSniper) then
 		}
 	else
 		{
-		[_unit,unlockedRifles] call randomRifle;
+		[_unit,unlockedRifles] call A3A_fnc_randomRifle;
 		};
 	}
 else
@@ -42,7 +42,7 @@ else
 		};
 	if ((_tipo in SDKMil) or (_tipo == staticCrewBuenos)) then
 		{
-		[_unit,unlockedRifles] call randomRifle;
+		[_unit,unlockedRifles] call A3A_fnc_randomRifle;
 		if ((loadAbs _unit < 340) and (_tipo in SDKMil)) then
 			{
 			if ((random 20 < skillFIA) and (count unlockedAA > 0)) then
@@ -59,11 +59,11 @@ else
 			{
 			if (count unlockedMG > 0) then
 				{
-				[_unit,unlockedMG] call randomRifle;
+				[_unit,unlockedMG] call A3A_fnc_randomRifle;
 				}
 			else
 				{
-				[_unit,unlockedRifles] call randomRifle;
+				[_unit,unlockedRifles] call A3A_fnc_randomRifle;
 				};
 			}
 		else
@@ -72,16 +72,16 @@ else
 				{
 				if (count unlockedGL > 0) then
 					{
-					[_unit,unlockedGL] call randomRifle;
+					[_unit,unlockedGL] call A3A_fnc_randomRifle;
 					}
 				else
 					{
-					[_unit,unlockedRifles] call randomRifle;
+					[_unit,unlockedRifles] call A3A_fnc_randomRifle;
 					};
 				}
 			else
 				{
-				if (_tipo != SDKUnarmed) then {[_unit,unlockedRifles] call randomRifle};
+				if (_tipo != SDKUnarmed) then {[_unit,unlockedRifles] call A3A_fnc_randomRifle};
 				if (_tipo in SDKExp) then
 					{
 					_unit setUnitTrait ["explosiveSpecialist",true];
@@ -205,19 +205,19 @@ if (player == leader _unit) then
 	_unit setVariable ["owner",player];
 	_EHkilledIdx = _unit addEventHandler ["killed", {
 		_muerto = _this select 0;
-		[_muerto] spawn postmortem;
+		[_muerto] spawn A3A_fnc_postmortem;
 		_killer = _this select 1;
 		if !(hayIFA) then {arrayids pushBackUnique (name _muerto)};
 		if (side _killer == malos) then
 			{
-			_nul = [0.25,0,getPos _muerto] remoteExec ["citySupportChange",2];
-			[-0.25,0] remoteExec ["prestige",2];
+			_nul = [0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+			[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
 			}
 		else
 			{
 			if (side _killer == muyMalos) then
 				{
-				[0,-0.25] remoteExec ["prestige",2]
+				[0,-0.25] remoteExec ["A3A_fnc_prestige",2]
 				}
 			else
 				{
@@ -235,7 +235,7 @@ if (player == leader _unit) then
 		arrayids = arrayids - [_idunit];
 		_unit setIdentity _idUnit;
 		};
-	if (captive player) then {[_unit] spawn undercoverAI};
+	if (captive player) then {[_unit] spawn A3A_fnc_undercoverAI};
 
 	_unit setVariable ["rearming",false];
 	if ((!haveRadio) and (!hayTFAR) and (!hayACRE) and !(hayIFA)) then
@@ -243,7 +243,7 @@ if (player == leader _unit) then
 		while {alive _unit} do
 			{
 			sleep 10;
-			if (("ItemRadio" in assignedItems _unit) and ([player] call hasRadio)) exitWith {_unit groupChat format ["This is %1, radiocheck OK",name _unit]};
+			if (("ItemRadio" in assignedItems _unit) and ([player] call A3A_fnc_hasRadio)) exitWith {_unit groupChat format ["This is %1, radiocheck OK",name _unit]};
 			if (unitReady _unit) then
 				{
 				if ((alive _unit) and (_unit distance (getMarkerPos respawnBuenos) > 50) and (_unit distance leader group _unit > 500) and ((vehicle _unit == _unit) or ((typeOf (vehicle _unit)) in arrayCivVeh))) then
@@ -266,12 +266,12 @@ else
 	_EHkilledIdx = _unit addEventHandler ["killed", {
 		_muerto = _this select 0;
 		_killer = _this select 1;
-		[_muerto] remoteExec ["postmortem",2];
+		[_muerto] remoteExec ["A3A_fnc_postmortem",2];
 		if ((isPlayer _killer) and (side _killer == buenos)) then
 			{
 			if (!isMultiPlayer) then
 				{
-				_nul = [0,20] remoteExec ["resourcesFIA",2];
+				_nul = [0,20] remoteExec ["A3A_fnc_resourcesFIA",2];
 				_killer addRating 1000;
 				};
 			}
@@ -279,14 +279,14 @@ else
 			{
 			if (side _killer == malos) then
 				{
-				_nul = [0.25,0,getPos _muerto] remoteExec ["citySupportChange",2];
-				[-0.25,0] remoteExec ["prestige",2];
+				_nul = [0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+				[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
 				}
 			else
 				{
 				if (side _killer == muyMalos) then
 					{
-					[0,-0.25] remoteExec ["prestige",2]
+					[0,-0.25] remoteExec ["A3A_fnc_prestige",2]
 					}
 				else
 					{

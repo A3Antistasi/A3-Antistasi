@@ -11,7 +11,7 @@ if (side _injurer == buenos) then
 		if ((behaviour leader _grupo != "COMBAT") and (behaviour leader _grupo != "STEALTH")) then
 			{
 			_grupo setVariable ["movedToCover",time + 120];
-			{[_x,_injurer] call unitGetToCover} forEach units _grupo;
+			{[_x,_injurer] call A3A_fnc_unitGetToCover} forEach units _grupo;
 			};
 		};
 	if (_part == "") then
@@ -23,7 +23,7 @@ if (side _injurer == buenos) then
 				_unit setVariable ["INCAPACITATED",true,true];
 				_unit setUnconscious true;
 				_dam = 0.9;
-				[_unit,_injurer] spawn inconscienteAAF;
+				[_unit,_injurer] spawn A3A_fnc_inconscienteAAF;
 				}
 			else
 				{
@@ -48,7 +48,7 @@ if (side _injurer == buenos) then
 					_unit setVariable ["cancelRevive",true];
 					};
 				};
-			if (_dam > 0.6) then {[_unit,_injurer] spawn unitGetToCover};
+			if (_dam > 0.6) then {[_unit,_injurer] spawn A3A_fnc_unitGetToCover};
 			};
 		}
 	else
@@ -76,7 +76,7 @@ if (side _injurer == buenos) then
 								moveOut _unit;
 								};
 							if (isPlayer _unit) then {_unit allowDamage false};
-							if (!isNull _injurer) then {[_unit,_injurer] spawn inconscienteAAF} else {[_unit,objNull] spawn inconscienteAAF};
+							if (!isNull _injurer) then {[_unit,_injurer] spawn A3A_fnc_inconscienteAAF} else {[_unit,objNull] spawn A3A_fnc_inconscienteAAF};
 							};
 						};
 					}
@@ -93,7 +93,7 @@ if (side _injurer == buenos) then
 								moveOut _unit;
 								};
 							if (isPlayer _unit) then {_unit allowDamage false};
-							if (!isNull _injurer) then {[_unit,_injurer] spawn inconscienteAAF} else {[_unit,objNull] spawn inconscienteAAF};
+							if (!isNull _injurer) then {[_unit,_injurer] spawn A3A_fnc_inconscienteAAF} else {[_unit,objNull] spawn A3A_fnc_inconscienteAAF};
 							};
 						};
 					};

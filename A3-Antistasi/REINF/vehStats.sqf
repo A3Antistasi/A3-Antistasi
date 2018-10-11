@@ -64,17 +64,17 @@ _texto = "";
 _grupo = (hcSelected player select 0);
 player sideChat format ["%1, SITREP!!",groupID _grupo];
 _unidades = units _grupo;
-_texto = format ["%1 Status\n\nAlive members: %2\nAble to combat: %3\nCurrent task: %4\nCombat Mode:%5\n",groupID _grupo,{alive _x} count _unidades,{[_x] call canFight} count _unidades,_grupo getVariable ["tarea","Patrol"],behaviour (leader _grupo)];
-if ({[_x] call isMedic} count _unidades > 0) then {_texto = format ["%1Operative Medic\n",_texto]} else {_texto = format ["%1No operative Medic\n",_texto]};
-if ({_x call typeOfSoldier == "ATMan"} count _unidades > 0) then {_texto = format ["%1With AT capabilities\n",_texto]};
-if ({_x call typeOfSoldier == "AAMan"} count _unidades > 0) then {_texto = format ["%1With AA capabilities\n",_texto]};
-if (!(isNull(_grupo getVariable ["morteros",objNull])) or ({_x call typeOfSoldier == "StaticMortar"} count _unidades > 0)) then
+_texto = format ["%1 Status\n\nAlive members: %2\nAble to combat: %3\nCurrent task: %4\nCombat Mode:%5\n",groupID _grupo,{alive _x} count _unidades,{[_x] call A3A_fnc_canFight} count _unidades,_grupo getVariable ["tarea","Patrol"],behaviour (leader _grupo)];
+if ({[_x] call A3A_fnc_isMedic} count _unidades > 0) then {_texto = format ["%1Operative Medic\n",_texto]} else {_texto = format ["%1No operative Medic\n",_texto]};
+if ({_x call A3A_fnc_typeOfSoldier == "ATMan"} count _unidades > 0) then {_texto = format ["%1With AT capabilities\n",_texto]};
+if ({_x call A3A_fnc_typeOfSoldier == "AAMan"} count _unidades > 0) then {_texto = format ["%1With AA capabilities\n",_texto]};
+if (!(isNull(_grupo getVariable ["morteros",objNull])) or ({_x call A3A_fnc_typeOfSoldier == "StaticMortar"} count _unidades > 0)) then
 	{
 	if ({vehicle _x isKindOf "StaticWeapon"} count _unidades > 0) then {_texto = format ["%1Mortar is deployed\n",_texto]} else {_texto = format ["%1Mortar not deployed\n",_texto]};
 	}
 else
 	{
-	if ({_x call typeOfSoldier == "StaticGunner"} count _unidades > 0) then
+	if ({_x call A3A_fnc_typeOfSoldier == "StaticGunner"} count _unidades > 0) then
 		{
 		if ({vehicle _x isKindOf "StaticWeapon"} count _unidades > 0) then {_texto = format ["%1Static is deployed\n",_texto]} else {_texto = format ["%1Static not deployed\n",_texto]};
 		};

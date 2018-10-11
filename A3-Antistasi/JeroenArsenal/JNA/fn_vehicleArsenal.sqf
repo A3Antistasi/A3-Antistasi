@@ -557,7 +557,7 @@ switch _mode do {
 			_data = call compile _dataStr;
 			_amount = _data select 1;
 			_grayout = false;
-			if ((_amount <= _min) AND (_amount != -1) AND (_amount !=0) AND !([player] call isMember)) then{_grayout = true};
+			if ((_amount <= _min) AND (_amount != -1) AND (_amount !=0) AND !([player] call A3A_fnc_isMember)) then{_grayout = true};
 
 			_isIncompatible = _ctrlList lnbvalue [_r,1];
 			_mass = _ctrlList lbvalue (_r * _columns);
@@ -637,7 +637,7 @@ switch _mode do {
 
 				//members only
 				_min = jna_minItemMember select _index;
-				if((_amount <= _min) AND (_amount != -1) AND !([player] call isMember)) exitWith{
+				if((_amount <= _min) AND (_amount != -1) AND !([player] call A3A_fnc_isMember)) exitWith{
 					['showMessage',[_display,"We are low on this item, only members may use it"]] call jn_fnc_arsenal;
 				};
 

@@ -52,12 +52,12 @@ if (_salir) exitWith {hint format ["%1",_texto]};
 
 if (count _antenaMuerta == 0) then
 	{
-	_nombre = [_sitio] call localizar;
+	_nombre = [_sitio] call A3A_fnc_localizar;
 
 	hint format ["%1 Rebuilt"];
 
-	[0,10,_posicionTel] remoteExec ["citySupportChange",2];
-	[5,0] remoteExec ["prestige",2];
+	[0,10,_posicionTel] remoteExec ["A3A_fnc_citySupportChange",2];
+	[5,0] remoteExec ["A3A_fnc_prestige",2];
 	destroyedCities = destroyedCities - [_sitio];
 	publicVariable "destroyedCities";
 	}
@@ -69,7 +69,7 @@ else
 	if (isMultiplayer) then {[_antena,true] remoteExec ["hideObjectGlobal",2]} else {_antena hideObject true};
 	_antena = createVehicle ["Land_Communication_F", _antenaMuerta, [], 0, "NONE"];
 	antenas pushBack _antena; publicVariable "antenas";
-	{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,true] spawn apagon}} forEach ciudades;
+	{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,true] spawn A3A_fnc_apagon}} forEach ciudades;
 	_mrkfin = createMarker [format ["Ant%1", count antenas], _antenaMuerta];
 	_mrkfin setMarkerShape "ICON";
 	_mrkfin setMarkerType "loc_Transmitter";
@@ -80,7 +80,7 @@ else
 	_antena addEventHandler ["Killed",
 		{
 		_antena = _this select 0;
-		{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn apagon}} forEach ciudades;
+		{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_apagon}} forEach ciudades;
 		_mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
 		antenas = antenas - [_antena]; antenasmuertas = antenasmuertas + [getPos _antena]; deleteMarker _mrk;
 		["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
@@ -89,4 +89,4 @@ else
 		}
 		];
 	};
-[0,-5000] remoteExec ["resourcesFIA",2];
+[0,-5000] remoteExec ["A3A_fnc_resourcesFIA",2];

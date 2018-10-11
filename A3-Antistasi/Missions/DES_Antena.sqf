@@ -10,7 +10,7 @@ _salir = false;
 _contacto = objNull;
 _grpContacto = grpNull;
 _tsk = "";
-_nombredest = [_marcador] call localizar;
+_nombredest = [_marcador] call A3A_fnc_localizar;
 _posicion = getPos _antena;
 
 _tiempolim = if (_dificil) then {30} else {120};
@@ -29,23 +29,23 @@ _bonus = if (_dificil) then {2} else {1};
 
 if (dateToNumber date > _fechalimnum) then
 	{
-	["DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt %4 Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Destroy Radio Tower",_mrkfin],_posicion,"FAILED","Destroy"] call taskUpdate;
-	//[5,0,_posicion] remoteExec ["citySupportChange",2];
-	[-10*_bonus,theBoss] call playerScoreAdd;
-	[-3,0] remoteExec ["prestige",2]
+	["DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt %4 Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Destroy Radio Tower",_mrkfin],_posicion,"FAILED","Destroy"] call A3A_fnc_taskUpdate;
+	//[5,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
+	[-3,0] remoteExec ["A3A_fnc_prestige",2]
 	}
 else
 	{
 	sleep 15;
-	["DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt %4 Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Destroy Radio Tower",_mrkfin],_posicion,"SUCCEEDED","Destroy"] call taskUpdate;
-	//[-5,0,_posicion] remoteExec ["citySupportChange",2];
-	[5,-5] remoteExec ["prestige",2];
-	[600*_bonus] remoteExec ["timingCA",2];
-	{if (_x distance _posicion < 500) then {[10*_bonus,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-	[5*_bonus,theBoss] call playerScoreAdd;
-	[3,0] remoteExec ["prestige",2]
+	["DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt %4 Propaganda Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Destroy Radio Tower",_mrkfin],_posicion,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
+	//[-5,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+	[5,-5] remoteExec ["A3A_fnc_prestige",2];
+	[600*_bonus] remoteExec ["A3A_fnc_timingCA",2];
+	{if (_x distance _posicion < 500) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+	[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
+	[3,0] remoteExec ["A3A_fnc_prestige",2]
 	};
 
 deleteMarker _mrkfin;
 
-_nul = [1200,"DES"] spawn borrarTask;
+_nul = [1200,"DES"] spawn A3A_fnc_borrarTask;

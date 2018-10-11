@@ -47,7 +47,7 @@ for "_i" from 0 to (count _buildings) - 1 do
 			_veh setPosATL [(getPos _building select 0),(getPos _building select 1),(getPosATL _veh select 2)];
 			_veh setDir (getDir _building);
 			_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-			[_unit,_marcador] call NATOinit;
+			[_unit,_marcador] call A3A_fnc_NATOinit;
 			_unit moveInGunner _veh;
 			_soldados pushBack _unit;
 			_vehiculos pushBack _veh;
@@ -63,7 +63,7 @@ for "_i" from 0 to (count _buildings) - 1 do
 				_veh setPosATL _pos;
 				_veh setDir (getDir _building) - 180;
 				_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-				[_unit,_marcador] call NATOinit;
+				[_unit,_marcador] call A3A_fnc_NATOinit;
 				_unit moveInGunner _veh;
 				_soldados pushBack _unit;
 				_vehiculos pushBack _veh;
@@ -75,14 +75,14 @@ for "_i" from 0 to (count _buildings) - 1 do
 					_tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
 					_veh = createVehicle [_tipoVeh, (_building buildingPos 11), [], 0, "CAN_COLLIDE"];
 					_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-					[_unit,_marcador] call NATOinit;
+					[_unit,_marcador] call A3A_fnc_NATOinit;
 					_unit moveInGunner _veh;
 					_soldados pushBack _unit;
 					_vehiculos pushBack _veh;
 					sleep 0.5;
 					_veh = createVehicle [_tipoVeh, (_building buildingPos 13), [], 0, "CAN_COLLIDE"];
 					_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-					[_unit,_marcador] call NATOinit;
+					[_unit,_marcador] call A3A_fnc_NATOinit;
 					_unit moveInGunner _veh;
 					_soldados pushBack _unit;
 					_vehiculos pushBack _veh;

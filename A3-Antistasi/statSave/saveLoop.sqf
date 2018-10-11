@@ -30,8 +30,8 @@ if (!isDedicated) then
 						{
 						if ((_veh isKindOf "StaticWeapon") or (driver _veh == _amigo)) then
 							{
-							_resfondo = _resfondo + ([_tipoVeh] call vehiclePrice);
-							if (count attachedObjects _veh != 0) then {{_resfondo = _resfondo + ([typeOf _x] call vehiclePrice)} forEach attachedObjects _veh};
+							_resfondo = _resfondo + ([_tipoVeh] call A3A_fnc_vehiclePrice);
+							if (count attachedObjects _veh != 0) then {{_resfondo = _resfondo + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
 							};
 						};
 					};
@@ -100,10 +100,10 @@ if (_amigo getVariable ["GREENFORSpawn",false]) then
 				{
 				switch (_mochi) do
 					{
-					case MortStaticSDKB: {_resfondo = _resfondo + ([SDKMortar] call vehiclePrice)};
-					case AAStaticSDKB: {_resfondo = _resfondo + ([staticAABuenos] call vehiclePrice)};
-					case MGStaticSDKB: {_resfondo = _resfondo + ([SDKMGStatic] call vehiclePrice)};
-					case ATStaticSDKB: {_resfondo = _resfondo + ([staticATBuenos] call vehiclePrice)};
+					case MortStaticSDKB: {_resfondo = _resfondo + ([SDKMortar] call A3A_fnc_vehiclePrice)};
+					case AAStaticSDKB: {_resfondo = _resfondo + ([staticAABuenos] call A3A_fnc_vehiclePrice)};
+					case MGStaticSDKB: {_resfondo = _resfondo + ([SDKMGStatic] call A3A_fnc_vehiclePrice)};
+					case ATStaticSDKB: {_resfondo = _resfondo + ([staticATBuenos] call A3A_fnc_vehiclePrice)};
 					};
 				};
 			if (vehicle _amigo != _amigo) then
@@ -116,8 +116,8 @@ if (_amigo getVariable ["GREENFORSpawn",false]) then
 						{
 						if ((group _amigo in (hcAllGroups theBoss)) or (!isMultiplayer)) then
 							{
-							_resfondo = _resfondo + ([_tipoVeh] call vehiclePrice);
-							if (count attachedObjects _veh != 0) then {{_resfondo = _resfondo + ([typeOf _x] call vehiclePrice)} forEach attachedObjects _veh};
+							_resfondo = _resfondo + ([_tipoVeh] call A3A_fnc_vehiclePrice);
+							if (count attachedObjects _veh != 0) then {{_resfondo = _resfondo + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
 							};
 						};
 					};
@@ -164,7 +164,7 @@ if ((alive _x) and !(surfaceIsWater _posicion) and !(isNull _x)) then
 } forEach staticsToSave;
 
 ["estaticas", _arrayEst] call fn_SaveStat;
-[] call arsenalManage;
+[] call A3A_fnc_arsenalManage;
 
 _jna_dataList = [];
 _jna_dataList = _jna_dataList + jna_dataList;
@@ -274,5 +274,5 @@ _controles = controles select {(lados getVariable [_x,sideUnknown] == buenos) an
 ["controlesSDK",_controles] call fn_SaveStat;
 
 savingServer = false;
-[[petros,"hint",format ["Savegame Done.\n\nYou won't lose your stats in the event of a game update.\n\nRemember: if you want to preserve any vehicle, it must be near the HQ Flag with no AI inside.\nIf AI are inside, you will save the funds you spent on it.\n\nAI will be refunded\n\nStolen and purchased Static Weapons need to be ASSEMBLED in order to be saved. You can save disassembled Static Weapons in the ammo box.\n\nMounted Statics (Mortar/AA/AT squads) won't get saved, but you will be able to recover the cost.\n\nSame for assigned vehicles more than 50m away from HQ.\n\n%1 fund count:\nHR: %2\nMoney: %3 €",nameBuenos,_hrFondo,_resFondo]],"commsMP"] call BIS_fnc_MP;
+[[petros,"hint",format ["Savegame Done.\n\nYou won't lose your stats in the event of a game update.\n\nRemember: if you want to preserve any vehicle, it must be near the HQ Flag with no AI inside.\nIf AI are inside, you will save the funds you spent on it.\n\nAI will be refunded\n\nStolen and purchased Static Weapons need to be ASSEMBLED in order to be saved. You can save disassembled Static Weapons in the ammo box.\n\nMounted Statics (Mortar/AA/AT squads) won't get saved, but you will be able to recover the cost.\n\nSame for assigned vehicles more than 50m away from HQ.\n\n%1 fund count:\nHR: %2\nMoney: %3 €",nameBuenos,_hrFondo,_resFondo]],"A3A_fnc_commsMP"] call BIS_fnc_MP;
 diag_log "Antistasi: Persistent Save Done";

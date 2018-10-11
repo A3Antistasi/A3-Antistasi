@@ -20,7 +20,7 @@ if (count _this > 1) then
 			}
 		};
 	};
-[_unit] call initRevive;
+[_unit] call A3A_fnc_initRevive;
 
 _unit allowFleeing 0;
 _tipo = typeOf _unit;
@@ -28,7 +28,7 @@ _tipo = typeOf _unit;
 _skill = 0.1 + (skillFIA * 0.05 * skillMult);
 if ((_marcador == "Synd_HQ") and (isMultiplayer)) then {_skill = 1};
 _unit setSkill _skill;
-if (!activeGREF) then {if (not((uniform _unit) in uniformsSDK)) then {[_unit] call reDress}};
+if (!activeGREF) then {if (not((uniform _unit) in uniformsSDK)) then {[_unit] call A3A_fnc_reDress}};
 if (_tipo in SDKSniper) then
 	{
 	if (count unlockedSN > 0) then
@@ -43,7 +43,7 @@ if (_tipo in SDKSniper) then
 		}
 	else
 		{
-		[_unit,unlockedRifles] call randomRifle;
+		[_unit,unlockedRifles] call A3A_fnc_randomRifle;
 		};
 	}
 else
@@ -55,7 +55,7 @@ else
 		};
 	if (_tipo in SDKMil) then
 		{
-		[_unit,unlockedRifles] call randomRifle;
+		[_unit,unlockedRifles] call A3A_fnc_randomRifle;
 		if ((loadAbs _unit < 340) and (_tipo in SDKMil)) then
 			{
 			if ((random 20 < skillFIA) and (count unlockedAA > 0)) then
@@ -72,11 +72,11 @@ else
 			{
 			if (count unlockedMG > 0) then
 				{
-				[_unit,unlockedMG] call randomRifle;
+				[_unit,unlockedMG] call A3A_fnc_randomRifle;
 				}
 			else
 				{
-				[_unit,unlockedRifles] call randomRifle;
+				[_unit,unlockedRifles] call A3A_fnc_randomRifle;
 				};
 			}
 		else
@@ -85,16 +85,16 @@ else
 				{
 				if (count unlockedGL > 0) then
 					{
-					[_unit,unlockedGL] call randomRifle;
+					[_unit,unlockedGL] call A3A_fnc_randomRifle;
 					}
 				else
 					{
-					[_unit,unlockedRifles] call randomRifle;
+					[_unit,unlockedRifles] call A3A_fnc_randomRifle;
 					};
 				}
 			else
 				{
-				[_unit,unlockedRifles] call randomRifle;
+				[_unit,unlockedRifles] call A3A_fnc_randomRifle;
 				if (_tipo in SDKMedic) then
 					{
 					_unit setUnitTrait ["medic",true];
@@ -192,23 +192,23 @@ if ({if (_x in humo) exitWith {1}} count unlockedMagazines > 0) then {_unit addM
 _EHkilledIdx = _unit addEventHandler ["killed", {
 	_muerto = _this select 0;
 	_killer = _this select 1;
-	[_muerto] remoteExec ["postmortem",2];
+	[_muerto] remoteExec ["A3A_fnc_postmortem",2];
 	if (isPlayer _killer) then
 		{
 		if (!isMultiPlayer) then
 			{
-			_nul = [0,20] remoteExec ["resourcesFIA",2];
+			_nul = [0,20] remoteExec ["A3A_fnc_resourcesFIA",2];
 			_killer addRating 1000;
 			};
 		};
 	if (side _killer == malos) then
 		{
-		[0,-0.25,getPos _muerto] remoteExec ["citySupportChange",2];
-		[-0.25,0] remoteExec ["prestige",2];
+		[0,-0.25,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+		[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
 		}
 	else
 		{
-		if (side _killer == muyMalos) then {[0,-0.25] remoteExec ["prestige",2]};
+		if (side _killer == muyMalos) then {[0,-0.25] remoteExec ["A3A_fnc_prestige",2]};
 		};
 	_marcador = _muerto getVariable "marcador";
 	if (!isNil "_marcador") then
@@ -226,8 +226,8 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 					};
 				garrison setVariable [_marcador,_garrison,true];
 				};
-			if (!(_marcador in controles)) then {[_marcador] call mrkUpdate};*/
-			[typeOf _muerto,buenos,_marcador,-1] remoteExec ["garrisonUpdate",2];
+			if (!(_marcador in controles)) then {[_marcador] call A3A_fnc_mrkUpdate};*/
+			[typeOf _muerto,buenos,_marcador,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
 			_muerto setVariable [_marcador,nil,true];
 			};
 		};

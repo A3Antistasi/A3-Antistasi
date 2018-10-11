@@ -17,10 +17,10 @@ if (({isPlayer _x} count units _grupo > 1) and (_esHC)) exitWith {hint "You cann
 if (player != player getVariable ["owner",player]) exitWith {hint "You cannot Fast Travel while you are controlling AI"};
 
 _chequeo = false;
-//_distancia = 500 - (([_jefe,false] call fogCheck) * 450);
+//_distancia = 500 - (([_jefe,false] call A3A_fnc_fogCheck) * 450);
 _distancia = 500;
 
-{if ([_x,_distancia] call enemyNearCheck) exitWith {_chequeo = true}} forEach units _grupo;
+{if ([_x,_distancia] call A3A_fnc_enemyNearCheck) exitWith {_chequeo = true}} forEach units _grupo;
 
 if (_chequeo) exitWith {Hint "You cannot Fast Travel with enemies near the group"};
 
@@ -47,12 +47,12 @@ _posicionTel = posicionTel;
 if (count _posicionTel > 0) then
 	{
 	_base = [_marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
-	if (_checkForPlayer and (_base != "SYND_HQ")) exitWith {hint "Player groups are only allowed to Fast Travel to HQ"};
+	if (_checkForPlayer and ((_base != "SYND_HQ") and !(_base in aeropuertos))) exitWith {hint "Player groups are only allowed to Fast Travel to HQ or Airbases"};
 	if ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == muyMalos)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
 	//if (_base in puestosFIA) exitWith {hint "You cannot Fast Travel to roadblocks and watchposts"; openMap [false,false]};
 
-	if ([getMarkerPos _base,500] call enemyNearCheck) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
+	if ([getMarkerPos _base,500] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
 
 	if (_posicionTel distance getMarkerPos _base < 50) then
 		{
@@ -68,7 +68,7 @@ if (count _posicionTel > 0) then
 			{if (vehicle _x != _x) then {_vehicles pushBackUnique (vehicle _x)}} forEach units _grupo;
 			{if ((vehicle _x) in _vehicles) exitWith {_checkForPlayer = true}} forEach playableUnits;
 			};
-		if (_checkForPlayer and (_base != "SYND_HQ")) exitWith {hint format ["%1 Fast Travel has been cancelled because some player has boarded their vehicle and the destination is not HQ",groupID _grupo]};
+		if (_checkForPlayer and ((_base != "SYND_HQ") and !(_base in aeropuertos))) exitWith {hint format ["%1 Fast Travel has been cancelled because some player has boarded their vehicle and the destination is not HQ or an Airbase",groupID _grupo]};
 		{
 		_unit = _x;
 		if ((!isPlayer _unit) or (_unit == player)) then

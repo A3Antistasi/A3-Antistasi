@@ -45,7 +45,7 @@ waitUntil {sleep 1; (not alive _veh) or ((speed _veh < 1) and (speed _veh > -1))
 
 if (alive _veh) then
 	{
-	[_veh] call smokeCoverAuto;
+	[_veh] call A3A_fnc_smokeCoverAuto;
 
 	{
 	[_veh,_x,_xRef,_yRef] spawn
@@ -86,7 +86,7 @@ if !(_reinf) then
 	{
 	_wp2 = _grupo addWaypoint [(position (leader _grupo)), 0];
 	_wp2 setWaypointType "MOVE";
-	_wp2 setWaypointStatements ["true", "(group this) spawn attackDrillAI"];
+	_wp2 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
 	_wp2 = _grupo addWaypoint [_posicion, 1];
 	_wp2 setWaypointType "MOVE";
 	_wp2 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
@@ -97,7 +97,7 @@ else
 	{
 	_wp2 = _grupo addWaypoint [_posicion, 0];
 	_wp2 setWaypointType "MOVE";
-	_wp2 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] remoteExec [""garrisonUpdate"",2];[group this] spawn groupDespawner; reinfPatrols = reinfPatrols - 1; publicVariable ""reinfPatrols"";"];
+	_wp2 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] remoteExec [""A3A_fnc_garrisonUpdate"",2];[group this] spawn A3A_fnc_groupDespawner; reinfPatrols = reinfPatrols - 1; publicVariable ""reinfPatrols"";"];
 	};
 _wp3 = _heli addWaypoint [_posorigen, 1];
 _wp3 setWaypointType "MOVE";

@@ -23,7 +23,7 @@ else
 		}
 	else
 		{
-		if ([(player getVariable ["owner",player])] call isMember) then
+		if ([(player getVariable ["owner",player])] call A3A_fnc_isMember) then
 			{
 			_texto = format ["<t size='0.60'>" + "Rank: %5 | HR: %1 | Your Money: %6 € | %11 Money: %2 € | Airstrikes: %7 | %9 Aggr: %3 | %10 Aggr: %4 | War Level: %8 | Undercover Mode: %12", server getVariable "hr", server getVariable "resourcesFIA", floor prestigeNATO, floor prestigeCSAT,rank player, player getVariable "dinero",floor bombRuns,tierWar,nameMalos,nameMuyMalos,nameBuenos,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false]))];
 			}

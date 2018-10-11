@@ -42,7 +42,7 @@ for "_i" from 1 to _cuenta do
 						_pos = getPosASL _bomba;
 						sleep 0.1;
 						};
-					[_pos] remoteExec ["napalm"];
+					[_pos] remoteExec  ["A3A_fnc_napalm"];
 					};
 				}
 			else

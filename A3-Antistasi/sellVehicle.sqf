@@ -24,7 +24,7 @@ _coste = 0;
 
 if (_tipo in vehFIA) then
 	{
-	_coste = round (([_tipo] call vehiclePrice)/2)
+	_coste = round (([_tipo] call A3A_fnc_vehiclePrice)/2)
 	}
 else
 	{
@@ -81,12 +81,12 @@ if (_coste == 0) exitWith {hint "The vehicle you are looking is not suitable in 
 
 _coste = round (_coste * (1-damage _veh));
 
-[0,_coste] remoteExec ["resourcesFIA",2];
+[0,_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 
 if (_veh in staticsToSave) then {staticsToSave = staticsToSave - [_veh]; publicVariable "staticsToSave"};
 if (_veh in reportedVehs) then {reportedVehs = reportedVehs - [_veh]; publicVariable "reportedVehs"};
 
-[_veh,true] call vaciar;
+[_veh,true] call A3A_fnc_vaciar;
 
 if (_veh isKindOf "StaticWeapon") then {deleteVehicle _veh};
 

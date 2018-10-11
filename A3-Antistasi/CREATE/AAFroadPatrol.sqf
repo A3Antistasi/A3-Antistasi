@@ -33,7 +33,7 @@ _lado = malos;
 _tipoPatrol = "LAND";
 if (lados getVariable [_base,sideUnknown] == malos) then
 	{
-	if ((_base in puertos) and ([vehNATOBoat] call vehAvailable)) then
+	if ((_base in puertos) and ([vehNATOBoat] call A3A_fnc_vehAvailable)) then
 		{
 		_tipoCoche = vehNATOBoat;
 		_tipoPatrol = "SEA";
@@ -54,7 +54,7 @@ if (lados getVariable [_base,sideUnknown] == malos) then
 else
 	{
 	_lado = muyMalos;
-	if ((_base in puertos) and ([vehCSATBoat] call vehAvailable)) then
+	if ((_base in puertos) and ([vehCSATBoat] call A3A_fnc_vehAvailable)) then
 		{
 		_tipoCoche = vehCSATBoat;
 		_tipoPatrol = "SEA";
@@ -84,7 +84,7 @@ else
 	else
 		{
 		_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
-		_arraydestinos = [_arrayDestinos,_posBase] call patrolDestinos;
+		_arraydestinos = [_arrayDestinos,_posBase] call A3A_fnc_patrolDestinos;
 		_distancia = 50;
 		};
 	};
@@ -109,17 +109,17 @@ if (_tipoPatrol != "AIR") then
 			}
 		else
 			{
-			_posbase = position ([_posbase] call findNearestGoodRoad);
+			_posbase = position ([_posbase] call A3A_fnc_findNearestGoodRoad);
 			};
 		};
 	};
 
 _vehicle=[_posBase, 0,_tipoCoche, _lado] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
-[_veh] call AIVEHinit;
-[_veh,"Patrol"] spawn inmuneConvoy;
+[_veh] call A3A_fnc_AIVEHinit;
+[_veh,"Patrol"] spawn A3A_fnc_inmuneConvoy;
 _vehCrew = _vehicle select 1;
-{[_x] call NATOinit} forEach _vehCrew;
+{[_x] call A3A_fnc_NATOinit} forEach _vehCrew;
 _grupoVeh = _vehicle select 2;
 _soldados = _soldados + _vehCrew;
 _grupos = _grupos + [_grupoVeh];
@@ -129,15 +129,15 @@ _vehiculos = _vehiculos + [_veh];
 if (_tipoCoche in vehNATOLightUnarmed) then
 	{
 	sleep 1;
-	_grupo = [_posbase, _lado, gruposNATOSentry] call spawnGroup;
-	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _grupoveh; [_x] call NATOinit} forEach units _grupo;
+	_grupo = [_posbase, _lado, gruposNATOSentry] call A3A_fnc_spawnGroup;
+	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _grupoveh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
 	};
 if (_tipoCoche in vehCSATLightUnarmed) then
 	{
 	sleep 1;
-	_grupo = [_posbase, _lado, gruposCSATSentry] call spawnGroup;
-	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _grupoveh; [_x] call NATOinit} forEach units _grupo;
+	_grupo = [_posbase, _lado, gruposCSATSentry] call A3A_fnc_spawnGroup;
+	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _grupoveh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
 	};
 
@@ -151,7 +151,7 @@ while {alive _veh} do
 	_posDestino = getMarkerPos _destino;
 	if (_tipoPatrol == "LAND") then
 		{
-		_road = [_posDestino] call findNearestGoodRoad;
+		_road = [_posDestino] call A3A_fnc_findNearestGoodRoad;
 		_posDestino = position _road;
 		};
 	_Vwp0 = _grupoVeh addWaypoint [_posdestino, 0];
@@ -160,7 +160,7 @@ while {alive _veh} do
 	_Vwp0 setWaypointSpeed "LIMITED";
 	_veh setFuel 1;
 
-	waitUntil {sleep 60; (_veh distance _posdestino < _distancia) or ({[_x] call canFight} count _soldados == 0) or (!canMove _veh)};
+	waitUntil {sleep 60; (_veh distance _posdestino < _distancia) or ({[_x] call A3A_fnc_canFight} count _soldados == 0) or (!canMove _veh)};
 	if !(_veh distance _posdestino < _distancia) exitWith {};
 	if (_tipoPatrol == "AIR") then
 		{
@@ -175,7 +175,7 @@ while {alive _veh} do
 		else
 			{
 			_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
-			_arraydestinos = [_arraydestinos,position _veh] call patrolDestinos;
+			_arraydestinos = [_arraydestinos,position _veh] call A3A_fnc_patrolDestinos;
 			};
 		};
 	};
@@ -183,9 +183,9 @@ while {alive _veh} do
 _enemigos = if (_lado == malos) then {"OPFORSpawn"} else {"BLUFORSpawn"};
 
 {_unit = _x;
-waitUntil {sleep 1;!([distanciaSPWN,1,_unit,"GREENFORSpawn"] call distanceUnits) and !([distanciaSPWN,1,_unit,_enemigos] call distanceUnits)};deleteVehicle _unit} forEach _soldados;
+waitUntil {sleep 1;!([distanciaSPWN,1,_unit,"GREENFORSpawn"] call A3A_fnc_distanceUnits) and !([distanciaSPWN,1,_unit,_enemigos] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldados;
 
 {_veh = _x;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call distanceUnits) and !([distanciaSPWN,1,_veh,_enemigos] call distanceUnits)) then {deleteVehicle _veh}} forEach _vehiculos;
+if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call A3A_fnc_distanceUnits) and !([distanciaSPWN,1,_veh,_enemigos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}} forEach _vehiculos;
 {deleteGroup _x} forEach _grupos;
 AAFpatrols = AAFpatrols - 1;

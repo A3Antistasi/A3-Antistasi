@@ -7,7 +7,7 @@ if (petros != (leader group petros)) then
 	publicVariable "grupoPetros";
 	[petros] join grupoPetros;
 	};
-[petros,"remove"] remoteExec ["flagaction",0,petros];
+[petros,"remove"] remoteExec ["A3A_fnc_flagaction",0,petros];
 petros disableAI "MOVE";
 petros disableAI "AUTOTARGET";
 respawnBuenos setMarkerPos getPos petros;
@@ -51,11 +51,11 @@ bandera setPos _pos;
 _rnd = _rnd + 45;
 _pos = [_posFuego, 3, _rnd] call BIS_Fnc_relPos;
 cajaVeh setPos _pos;
-//if (_movido) then {_nul = [] call vaciar};
+//if (_movido) then {_nul = [] call A3A_fnc_vaciar};
 petros setBehaviour "SAFE";
 "Synd_HQ" setMarkerPos getPos petros;
 if (isNil "placementDone") then {placementDone = true; publicVariable "placementDone"};
 chopForest = false; publicVariable "chopForest";
 sleep 5;
-[Petros,"mission"] remoteExec ["flagaction",[buenos,civilian],petros];
+[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros];
 

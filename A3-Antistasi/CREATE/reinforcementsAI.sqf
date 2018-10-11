@@ -5,19 +5,19 @@ _reinfPlaces = [];
 {
 _aeropuerto = _x;
 _numero = 8;
-_numGarr = [_aeropuerto] call garrisonSize;
+_numGarr = [_aeropuerto] call A3A_fnc_garrisonSize;
 _numReal = count (garrison getVariable _aeropuerto);
 _lado = lados getVariable [_aeropuerto,sideUnknown];
 if (_numReal + 4 <= _numGarr) then
 	{
 	if (_numReal + 8 <= _numGarr) then
 		{
-		if (_lado == malos) then {[selectRandom gruposNATOSquad,_lado,_aeropuerto,0] remoteExec ["garrisonUpdate",2]} else {[selectRandom gruposCSATSquad,_lado,_aeropuerto,0] remoteExec ["garrisonUpdate",2]};
+		if (_lado == malos) then {[selectRandom gruposNATOSquad,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom gruposCSATSquad,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
 		_numero = 0;
 		}
 	else
 		{
-		if (_lado == malos) then {[selectRandom gruposNATOmid,_lado,_aeropuerto,0] remoteExec ["garrisonUpdate",2]} else {[selectRandom gruposCSATmid,_lado,_aeropuerto,0] remoteExec ["garrisonUpdate",2]};
+		if (_lado == malos) then {[selectRandom gruposNATOmid,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom gruposCSATmid,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
 		_numero = 4;
 		};
 	};
@@ -35,7 +35,7 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 		_cuenta = 0;
 		_sitio = "";
 		{
-		_numGarr = [_x] call garrisonSize;
+		_numGarr = [_x] call A3A_fnc_garrisonSize;
 		_numReal = count (garrison getVariable _x);
 		if (_numGarr - _numReal > _cuenta) then
 			{
@@ -50,12 +50,12 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 				if ({(_x distance2D _posicion < (2*distanciaSPWN)) or (_x distance2D (getMarkerPos _sitio) < (2*distanciaSPWN))} count allPlayers == 0) then
 					{
 					_tipoGrupo = if (_lado == malos) then {if (_numero == 4) then {selectRandom gruposNATOmid} else {selectRandom gruposNATOSquad}} else {if (_numero == 4) then {selectRandom gruposCSATmid} else {selectRandom gruposCSATSquad}};
-					[_tipoGrupo,_lado,_sitio,2] remoteExec ["garrisonUpdate",2];
+					[_tipoGrupo,_lado,_sitio,2] remoteExec ["A3A_fnc_garrisonUpdate",2];
 					}
 				else
 					{
 					_reinfPlaces pushBack _sitio;
-					[[_sitio,_aeropuerto,_numero,_lado],"patrolReinf"] call scheduler;
+					[[_sitio,_aeropuerto,_numero,_lado],"A3A_fnc_patrolReinf"] call A3A_fnc_scheduler;
 					};
 				};
 			};
@@ -64,4 +64,4 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 if (count _reinfPlaces > 3) exitWith {};
 } forEach _aeropuertos;
 
-if ((count _reinfPlaces == 0) and (AAFpatrols <= 3)) then {[] spawn AAFroadPatrol};
+if ((count _reinfPlaces == 0) and (AAFpatrols <= 3)) then {[] spawn A3A_fnc_AAFroadPatrol};

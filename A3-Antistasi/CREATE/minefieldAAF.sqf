@@ -25,7 +25,7 @@ while {_intentos < 37} do
 		_cercano = [marcadores,_pos] call BIS_fnc_nearestPosition;
 		if (spawner getVariable _cercano == 2) then
 			{
-			_size = [_cercano] call sizeMarker;
+			_size = [_cercano] call A3A_fnc_sizeMarker;
 			if ((_pos distance (getMarkerPos _cercano)) > (_size + 100)) then
 				{
 				_road = [_pos,101] call BIS_fnc_nearestRoad;

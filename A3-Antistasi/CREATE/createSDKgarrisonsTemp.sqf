@@ -1,5 +1,6 @@
-_marcador = _this select 1;
-_tipo = _this select 2;
+_marcador = _this select 0;
+_tipo = _this select 1;
+_posicion = getMarkerPos _marcador;
 if (_tipo isEqualType "") then
 	{
 	_grupos = if (_tipo == staticCrewBuenos) then {[]} else {allGroups select {(leader _x getVariable ["marcador",""] == _marcador) and (count units _x < 8) and (vehicle (leader _x) == leader _x)}};
@@ -12,15 +13,15 @@ if (_tipo isEqualType "") then
 		_grupos select 0;
 		};
 	_unit = _grupo createUnit [_tipo, _posicion, [], 0, "NONE"];
-	if (_tipo in SDKSL) then {_grupo selectLeader _unit};
-	[_unit,_marcador] call FIAinitBases;
+	//if (_tipo in SDKSL) then {_grupo selectLeader _unit};
+	[_unit,_marcador] call A3A_fnc_FIAinitBases;
 	if (_tipo == staticCrewBuenos) then
 		{
 		private _veh = SDKMortar createVehicle _posicion;
 		_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
 		_unit assignAsGunner _veh;
 		_unit moveInGunner _veh;
-		[_veh] call AIVEHinit;
+		[_veh] call A3A_fnc_AIVEHinit;
 		};
 	if (_grupos isEqualTo []) then
 		{

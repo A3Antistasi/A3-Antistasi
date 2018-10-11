@@ -1,7 +1,7 @@
 _unit = _this select 0;
 _jugador = _this select 1;
 
-[_unit,"remove"] remoteExec ["flagaction",[buenos,civilian],_unit];
+[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
 
 //removeAllActions _unit;
 
@@ -27,4 +27,4 @@ _jugador playMove "";
 [_unit,false] remoteExec ["setCaptive",0,_unit];
 _unit setCaptive false;
 [_unit] join group _jugador;
-[_unit] spawn FIAInit;
+[_unit] spawn A3A_fnc_FIAInit;

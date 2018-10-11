@@ -8,11 +8,11 @@ _unit setVariable ["surrendered",true];
 
 if (side _unit == malos) then
 	{
-	_nul = [-2,0,getPos _unit] remoteExec ["citySupportChange",2];
+	_nul = [-2,0,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
 	}
 else
 	{
-	_nul = [1,0,getPos _unit] remoteExec ["citySupportChange",2];
+	_nul = [1,0,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
 	};
 _armas = [];
 _municion = [];
@@ -74,12 +74,12 @@ _marcador = _unit getVariable "marcador";
 if (!isNil "_marcador") then
 	{
 	_lado = side (group _unit);
-	[_marcador,_lado] remoteExec ["zoneCheck",2];
+	[_marcador,_lado] remoteExec ["A3A_fnc_zoneCheck",2];
 	};
-[_unit,"interrogar"] remoteExec ["flagaction",[buenos,civilian],_unit];
-[_unit,"capturar"]remoteExec ["flagaction",[buenos,civilian],_unit];
-[_unit] spawn postmortem;
-[_caja] spawn postmortem;
+[_unit,"interrogar"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
+[_unit,"capturar"]remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
+[_unit] spawn A3A_fnc_postmortem;
+[_caja] spawn A3A_fnc_postmortem;
 sleep 10;
 _unit allowDamage true;
 if (isMultiplayer) then {[_unit,false] remoteExec ["enableSimulationGlobal",2]} else {_unit enableSimulation false};

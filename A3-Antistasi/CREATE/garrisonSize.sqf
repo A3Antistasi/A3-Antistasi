@@ -1,7 +1,7 @@
 private ["_size","_frontera","_marcador","_nVeh","_buildings"];
 _marcador = _this select 0;
-_size = [_marcador] call sizeMarker;
-_frontera = [_marcador] call isFrontline;
+_size = [_marcador] call A3A_fnc_sizeMarker;
+_frontera = [_marcador] call A3A_fnc_isFrontline;
 
 _nVeh = 0;
 

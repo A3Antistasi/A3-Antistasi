@@ -26,7 +26,7 @@ if (str (_display) != "no display") then
 		_tipoVeh = typeOf _veh;
 		_coste = 0;
 
-		if (_tipoVeh in vehFIA) then {_coste = round (([_tipoVeh] call vehiclePrice)/2); _texto = "Fia Vehicle."};
+		if (_tipoVeh in vehFIA) then {_coste = round (([_tipoVeh] call A3A_fnc_vehiclePrice)/2); _texto = "Fia Vehicle."};
 
 		if (_tipoVeh in arrayCivVeh) then
 			{

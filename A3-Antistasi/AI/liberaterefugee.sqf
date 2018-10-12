@@ -3,7 +3,7 @@ private ["_unit","_jugador"];
 _unit = _this select 0;
 _jugador = _this select 1;
 
-[_unit,"remove"] remoteExec ["flagaction",[buenos,civilian],_unit];
+[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
 //removeAllActions _unit;
 
 _jugador globalChat "You are free. Come with us!";
@@ -19,5 +19,5 @@ _unit enableAI "AUTOTARGET";
 _unit enableAI "TARGET";
 _unit enableAI "ANIM";
 [_unit] join group _jugador;
-[_unit] spawn FIAInit;
+[_unit] spawn A3A_fnc_FIAInit;
 if (captive _unit) then {[_unit,false] remoteExec ["setCaptive",0,_unit]; _unit setCaptive false};

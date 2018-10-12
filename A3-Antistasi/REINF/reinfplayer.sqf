@@ -1,4 +1,4 @@
-if (not([player] call isMember)) exitWith {hint "Only Server Members can recruit AI units"};
+if (not([player] call A3A_fnc_isMember)) exitWith {hint "Only Server Members can recruit AI units"};
 private ["_chequeo","_hr","_tipounidad","_coste","_resourcesFIA","_unit"];
 
 //if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
@@ -7,7 +7,7 @@ if (recruitCooldown > time) exitWith {hint format ["You need to wait %1 seconds 
 
 if (player != player getVariable ["owner",player]) exitWith {hint "Youy cannot buy units while you are controlling AI"};
 
-if ([player,300] call enemyNearCheck) exitWith {Hint "You cannot Recruit Units with enemies nearby"};
+if ([player,300] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot Recruit Units with enemies nearby"};
 
 if (player != leader group player) exitWith {hint "You cannot recruit units as you are not your group leader"};
 
@@ -28,17 +28,17 @@ _unit = group player createUnit [_tipounidad, position player, [], 0, "NONE"];
 
 if (!isMultiPlayer) then
 	{
-	_nul = [-1, - _coste] remoteExec ["resourcesFIA",2];
+	_nul = [-1, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 	}
 else
 	{
-	_nul = [-1, 0] remoteExec ["resourcesFIA",2];
-	[- _coste] call resourcesPlayer;
+	_nul = [-1, 0] remoteExec ["A3A_fnc_resourcesFIA",2];
+	[- _coste] call A3A_fnc_resourcesPlayer;
 	["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
 	hint "Soldier Recruited.\n\nRemember: if you use the group menu to switch groups you will lose control of your recruited AI";
 	};
 
-[_unit] spawn FIAinit;
+[_unit] spawn A3A_fnc_FIAinit;
 _unit disableAI "AUTOCOMBAT";
 sleep 1;
 petros directSay "SentGenReinforcementsArrived";

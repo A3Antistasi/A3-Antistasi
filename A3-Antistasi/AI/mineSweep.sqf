@@ -2,9 +2,9 @@ if (!isServer and hasInterface) exitWith {};
 
 private ["_coste","_grupo","_unit","_minas","_tam","_roads","_camion","_mina","_cuenta"];
 
-_coste = (server getVariable (SDKExp select 0)) + ([vehSDKRepair] call vehiclePrice);
+_coste = (server getVariable (SDKExp select 0)) + ([vehSDKRepair] call A3A_fnc_vehiclePrice);
 
-[-1,-1*_coste] remoteExec ["resourcesFIA",2];
+[-1,-1*_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 
 _grupo = createGroup buenos;
 
@@ -12,13 +12,13 @@ _unit = _grupo createUnit [(SDKExp select 0), getMarkerPos respawnBuenos, [], 0,
 _grupo setGroupId ["MineSw"];
 _minas = [];
 sleep 1;
-_road = [getMarkerPos respawnBuenos] call findNearestGoodRoad;
+_road = [getMarkerPos respawnBuenos] call A3A_fnc_findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 
 _camion = vehSDKRepair createVehicle _pos;
 
-[_camion] call AIVEHinit;
-[_unit] spawn FIAinit;
+[_camion] call A3A_fnc_AIVEHinit;
+[_unit] spawn A3A_fnc_FIAinit;
 _grupo addVehicle _camion;
 [_unit] orderGetIn true;
 //_unit setBehaviour "SAFE";
@@ -33,7 +33,7 @@ while {alive _unit} do
 			{
 			if ((count magazineCargo _camion > 0) and (_unit distance (getMarkerPos respawnBuenos) < 50)) then
 				{
-				[_camion,caja] remoteExec ["munitionTransfer",2];
+				[_camion,caja] remoteExec ["A3A_fnc_munitionTransfer",2];
 				sleep 30;
 				};
 			};

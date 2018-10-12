@@ -37,7 +37,7 @@ while {visibleMap} do
 		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == buenos) then {nameBuenos} else {if (lados getVariable [_sitio,sideUnknown] == malos) then {nameMalos} else {nameMuyMalos}};
 		if (_sitio == "Synd_HQ") then
 			{
-			_texto = format ["%2 HQ%1",[_sitio] call garrisonInfo,nameBuenos];
+			_texto = format ["%2 HQ%1",[_sitio] call A3A_fnc_garrisonInfo,nameBuenos];
 			};
 		if (_sitio in ciudades) then
 			{
@@ -46,8 +46,8 @@ while {visibleMap} do
 			_numCiv = _datos select 0;
 			_prestigeOPFOR = _datos select 2;
 			_prestigeBLUFOR = _datos select 3;
-			_power = [_sitio] call powerCheck;
-			_texto = format ["%1\n\nPop %2\n%6 Support: %3 %5\n%7 Support: %4 %5",[_sitio,false] call fn_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%",nameMalos,nameBuenos];
+			_power = [_sitio] call A3A_fnc_powerCheck;
+			_texto = format ["%1\n\nPop %2\n%6 Support: %3 %5\n%7 Support: %4 %5",[_sitio,false] call A3A_fnc_fn_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%",nameMalos,nameBuenos];
 			_posicion = getMarkerPos _sitio;
 			_result = "NONE";
 			switch (_power) do
@@ -77,21 +77,21 @@ while {visibleMap} do
 			*/
 			_texto = format ["%1\nInfluence: %2",_texto,_result];
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
-			if (lados getVariable [_sitio,sideUnknown] == buenos) then {_texto = format ["%1\n%2",_texto,[_sitio] call garrisonInfo]};
+			if (lados getVariable [_sitio,sideUnknown] == buenos) then {_texto = format ["%1\n%2",_texto,[_sitio] call A3A_fnc_garrisonInfo]};
 			};
 		if (_sitio in aeropuertos) then
 			{
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Airport",_nameFaction];
-				_busy = [_sitio,true] call airportCanAttack;
+				_busy = [_sitio,true] call A3A_fnc_airportCanAttack;
 				if (_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
 				_garrison = count (garrison getVariable _sitio);
 				if (_garrison >= 40) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 20) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}
 			else
 				{
-				_texto = format ["%2 Airport%1",[_sitio] call garrisonInfo,_nameFaction];
+				_texto = format ["%2 Airport%1",[_sitio] call A3A_fnc_garrisonInfo,_nameFaction];
 				};
 			};
 		if (_sitio in recursos) then
@@ -104,7 +104,7 @@ while {visibleMap} do
 				}
 			else
 				{
-				_texto = format ["%2 Resources%1",[_sitio] call garrisonInfo,_nameFaction];
+				_texto = format ["%2 Resources%1",[_sitio] call A3A_fnc_garrisonInfo,_nameFaction];
 				};
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 			};
@@ -118,7 +118,7 @@ while {visibleMap} do
 				}
 			else
 				{
-				_texto = format ["%2 Factory%1",[_sitio] call garrisonInfo,_nameFaction];
+				_texto = format ["%2 Factory%1",[_sitio] call A3A_fnc_garrisonInfo,_nameFaction];
 				};
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 			};
@@ -127,14 +127,14 @@ while {visibleMap} do
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Grand Outpost",_nameFaction];
-				_busy = [_sitio,true] call airportCanAttack;
+				_busy = [_sitio,true] call A3A_fnc_airportCanAttack;
 				if (_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
 				_garrison = count (garrison getVariable _sitio);
 				if (_garrison >= 16) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 8) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}
 			else
 				{
-				_texto = format ["%2 Grand Outpost%1",[_sitio] call garrisonInfo,_nameFaction];
+				_texto = format ["%2 Grand Outpost%1",[_sitio] call A3A_fnc_garrisonInfo,_nameFaction];
 				};
 			};
 		if (_sitio in puertos) then
@@ -147,14 +147,14 @@ while {visibleMap} do
 				}
 			else
 				{
-				_texto = format ["%2 Seaport%1",[_sitio] call garrisonInfo,_nameFaction];
+				_texto = format ["%2 Seaport%1",[_sitio] call A3A_fnc_garrisonInfo,_nameFaction];
 				};
 			};
 		if (_sitio in puestosFIA) then
 			{
 			if (isOnRoad (getMarkerPos _sitio)) then
 				{
-				_texto = format ["%2 Roadblock%1",[_sitio] call garrisonInfo,_nameFaction];
+				_texto = format ["%2 Roadblock%1",[_sitio] call A3A_fnc_garrisonInfo,_nameFaction];
 				}
 			else
 				{

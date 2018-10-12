@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.3.3";
+antistasiVersion = "v 1.3.4";
 
 
 debug = false;//debug variable, not useful for everything..
@@ -355,7 +355,7 @@ smallCApos = [];
 bigAttackInProgress = false;
 chopForest = false;
 distanceForAirAttack = 10000;
-distanceForLandAttack = 3000;
+distanceForLandAttack = if (hayIFA) then {5000} else {3000};
 
 if (worldName == "Tanoa") then
 	{
@@ -727,4 +727,4 @@ publicVariable "unlockedAT";
 publicVariable "unlockedAA";
 publicVariable "initialRifles";
 
-if (isMultiplayer) then {[[petros,"hint","Variables Init Completed"],"commsMP"] call BIS_fnc_MP;};
+if (isMultiplayer) then {[[petros,"hint","Variables Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP;};

@@ -17,7 +17,7 @@ if !(alive _curado) exitWith
 	if (_inPlayerGroup) then {_curandero groupChat format ["%1 is already dead",name _curado]};
 	_healed
 	};
-if !([_curandero] call canFight) exitWith {if (_player) then {hint "You are not able to revive anyone"};_healed};
+if !([_curandero] call A3A_fnc_canFight) exitWith {if (_player) then {hint "You are not able to revive anyone"};_healed};
 if ((not("FirstAidKit" in (items _curandero))) and (not("FirstAidKit" in (items _curado)))) exitWith
 	{
 	if (_player) then {hint format ["You or %1 need a First Aid Kit to be able to revive",name _curado]};
@@ -30,7 +30,7 @@ if ((not("FirstAidKit" in (items _curandero))) and !(_curandero canAdd "FirstAid
 	if (_inPlayerGroup) then {_curandero groupChat "I'm out of FA kits!"};
 	_healed
 	};
-if ((([_curado] call fatalWound)) and !([_curandero] call isMedic)) exitWith
+if ((([_curado] call A3A_fnc_fatalWound)) and !([_curandero] call A3A_fnc_isMedic)) exitWith
 	{
 	if (_player) then {hint format ["%1 is injured by a fatal wound, only a medic can revive him",name _curado]};
 	if (_inPlayerGroup) then {_curandero groupChat format ["%1 is injured by a fatal wound, only a medic can revive him",name _curado]};
@@ -59,13 +59,13 @@ if (not("FirstAidKit" in (items _curandero))) then
 	_curandero addItem "FirstAidKit";
 	_curado removeItem "FirstAidKit";
 	};
-_timer = if ([_curado] call fatalWound) then
+_timer = if ([_curado] call A3A_fnc_fatalWound) then
 			{
 			time + 35 + (random 20)
 			}
 		else
 			{
-			if ((!isMultiplayer and (isPlayer _curado)) or ([_curandero] call isMedic)) then
+			if ((!isMultiplayer and (isPlayer _curado)) or ([_curandero] call A3A_fnc_isMedic)) then
 				{
 				time + 10 + (random 5)
 				}
@@ -94,7 +94,7 @@ _curandero addEventHandler ["AnimDone",
 	{
 	private _curandero = _this select 0;
 	private _curado = _curandero getVariable ["curado",objNull];
-	if (([_curandero] call canFight) and (time <= (_curandero getVariable ["timeToHeal",time])) and !(_curandero getVariable ["cancelRevive",false]) and (alive _curado) and (_curado getVariable ["INCAPACITATED",false]) and (_curandero == vehicle _curandero)) then
+	if (([_curandero] call A3A_fnc_canFight) and (time <= (_curandero getVariable ["timeToHeal",time])) and !(_curandero getVariable ["cancelRevive",false]) and (alive _curado) and (_curado getVariable ["INCAPACITATED",false]) and (_curandero == vehicle _curandero)) then
 		{
 		_curandero playMoveNow selectRandom medicAnims;
 		}
@@ -102,14 +102,14 @@ _curandero addEventHandler ["AnimDone",
 		{
 		_curandero removeEventHandler ["AnimDone",_thisEventHandler];
 		_curandero setVariable ["animsDone",true];
-		if (([_curandero] call canFight) and !(_curandero getVariable ["cancelRevive",false]) and (_curandero == vehicle _curandero) and (alive _curado)) then
+		if (([_curandero] call A3A_fnc_canFight) and !(_curandero getVariable ["cancelRevive",false]) and (_curandero == vehicle _curandero) and (alive _curado)) then
 			{
 			if (_curado getVariable ["INCAPACITATED",false]) then
 				{
 				_curandero setVariable ["success",true];
 				//_curado setVariable ["INCAPACITATED",false,true];
 				//_curandero action ["HealSoldier",_curado];
-				if ([_curandero] call isMedic) then {_curado setDamage 0.25} else {_curado setDamage 0.5};
+				if ([_curandero] call A3A_fnc_isMedic) then {_curado setDamage 0.25} else {_curado setDamage 0.5};
 				_curandero removeItem "FirstAidKit";
 				};
 			};
@@ -145,7 +145,7 @@ if !(alive _curado) exitWith
 	if (_inPlayerGroup) then {_curandero groupChat format ["We lost %1",name _curado]};
 	_healed
 	};
-if (!([_curandero] call canFight) or (_curandero != vehicle _curandero) or (_curandero distance _curado > 3)) exitWith {if (_player) then {hint "Revive cancelled"};_healed};
+if (!([_curandero] call A3A_fnc_canFight) or (_curandero != vehicle _curandero) or (_curandero distance _curado > 3)) exitWith {if (_player) then {hint "Revive cancelled"};_healed};
 
 if (_curandero getVariable ["success",true]) then
 	{

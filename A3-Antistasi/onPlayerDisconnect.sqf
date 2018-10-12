@@ -25,11 +25,11 @@ if (_unit == theBoss) then
 					_tipoVeh = typeOf _veh;
 					if ((_veh isKindOf "StaticWeapon") and (not(_veh in staticsToSave))) then
 						{
-						_recursos = _recursos + ([_tipoVeh] call vehiclePrice) + ([typeOf (vehicle leader _x)] call vehiclePrice);
+						_recursos = _recursos + ([_tipoVeh] call A3A_fnc_vehiclePrice) + ([typeOf (vehicle leader _x)] call A3A_fnc_vehiclePrice);
 						}
 					else
 						{
-						if (_tipoVeh in vehFIA) then {_recursos = _recursos + ([_tipoVeh] call vehiclePrice);};
+						if (_tipoVeh in vehFIA) then {_recursos = _recursos + ([_tipoVeh] call A3A_fnc_vehiclePrice);};
 						/*
 						if (_tipoVeh in vehAAFnormal) then {_recursos = _recursos + 300};
 						if (_tipoVeh in vehAAFAT) then
@@ -40,7 +40,7 @@ if (_unit == theBoss) then
 						if (count attachedObjects _veh > 0) then
 							{
 							_subVeh = (attachedObjects _veh) select 0;
-							_recursos = _recursos + ([(typeOf _subVeh)] call vehiclePrice);
+							_recursos = _recursos + ([(typeOf _subVeh)] call A3A_fnc_vehiclePrice);
 							deleteVehicle _subVeh;
 							};
 						};
@@ -53,19 +53,19 @@ if (_unit == theBoss) then
 	} forEach allGroups;
 	if (((count playableUnits > 0) and (!membershipEnabled)) or ({(getPlayerUID _x) in miembros} count playableUnits > 0)) then
 		{
-		[] spawn assigntheBoss;
+		[] spawn A3A_fnc_assigntheBoss;
 		};
-	if (group petros == group _unit) then {[] spawn buildHQ};
+	if (group petros == group _unit) then {[] spawn A3A_fnc_buildHQ};
 	};
 //{if (groupOwner _x ==)} forEach allGroups select {(side _x == civilian) and (!isPlayer leader _x)};
 if (side group _unit == buenos) then
 	{
-	if ((_hr > 0) or (_recursos > 0)) then {[_hr,_recursos] spawn resourcesFIA};
+	if ((_hr > 0) or (_recursos > 0)) then {[_hr,_recursos] spawn A3A_fnc_resourcesFIA};
 	if (membershipEnabled and pvpEnabled) then
 		{
 		if (_uid in miembros) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
 		};
-	//if ([_unit] call isMember) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
+	//if ([_unit] call A3A_fnc_isMember) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
 	};
 if ((owner _unit) in hcArray) then
 	{
@@ -77,7 +77,7 @@ if ((owner _unit) in hcArray) then
 			{
 			while {true} do
 				{
-				[petros,"hint","A Headless Client has been disconnected. This will cause malfunctions. Head back to HQ for saving ASAP and ask and Admin for a restart"] remoteExec ["commsMP"];
+				[petros,"hint","A Headless Client has been disconnected. This will cause malfunctions. Head back to HQ for saving ASAP and ask and Admin for a restart"] remoteExec ["A3A_fnc_commsMP"];
 				sleep 30;
 				};
 			};

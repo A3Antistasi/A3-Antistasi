@@ -11,5 +11,5 @@ waitUntil {!dialog};
 /*
 if ((!dialog) and (!visibleMap) and (isNil "statsLoaded") and (player == theBoss) and (!_bypass) and (isNil "placementDone")) then
 	{
-	_nul = [] spawn placementSelection;
+	_nul = [] spawn A3A_fnc_placementSelection;
 	};

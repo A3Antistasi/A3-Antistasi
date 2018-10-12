@@ -183,7 +183,7 @@ fn_SetStat =
 			    _posAnt = _varvalue select _i;
 			    _mrk = [mrkAntenas, _posAnt] call BIS_fnc_nearestPosition;
 			    _antena = [antenas,_mrk] call BIS_fnc_nearestPosition;
-			    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn apagon}} forEach ciudades;
+			    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_apagon}} forEach ciudades;
 			    antenas = antenas - [_antena];
 			    _antena removeAllEventHandlers "Killed";
 			    _antena setDamage [1,false];
@@ -256,7 +256,7 @@ fn_SetStat =
 				};
 			if (count _varValue == 3) then
 				{
-				[] spawn buildHQ;
+				[] spawn A3A_fnc_buildHQ;
 				}
 			else
 				{
@@ -286,7 +286,7 @@ fn_SetStat =
 					{
 					staticsToSave pushBack _veh;
 					};
-				[_veh] call AIVEHinit;
+				[_veh] call A3A_fnc_AIVEHinit;
 				};
 			publicVariable "staticsToSave";
 			};
@@ -295,17 +295,17 @@ fn_SetStat =
 			{
 			if (_x == "AtaqueAAF") then
 				{
-				[] call ataqueAAF;
+				[] call A3A_fnc_ataqueAAF;
 				}
 			else
 				{
 				if (_x == "DEF_HQ") then
 					{
-					[] spawn ataqueHQ;
+					[] spawn A3A_fnc_ataqueHQ;
 					}
 				else
 					{
-					[_x,true] call missionRequest;
+					[_x,true] call A3A_fnc_missionRequest;
 					};
 				};
 			} forEach _varvalue;

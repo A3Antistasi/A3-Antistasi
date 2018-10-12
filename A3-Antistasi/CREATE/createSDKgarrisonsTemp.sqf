@@ -14,14 +14,14 @@ if (_tipo isEqualType "") then
 		};
 	_unit = _grupo createUnit [_tipo, _posicion, [], 0, "NONE"];
 	//if (_tipo in SDKSL) then {_grupo selectLeader _unit};
-	[_unit,_marcador] call FIAinitBases;
+	[_unit,_marcador] call A3A_fnc_FIAinitBases;
 	if (_tipo == staticCrewBuenos) then
 		{
 		private _veh = SDKMortar createVehicle _posicion;
 		_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
 		_unit assignAsGunner _veh;
 		_unit moveInGunner _veh;
-		[_veh] call AIVEHinit;
+		[_veh] call A3A_fnc_AIVEHinit;
 		};
 	if (_grupos isEqualTo []) then
 		{

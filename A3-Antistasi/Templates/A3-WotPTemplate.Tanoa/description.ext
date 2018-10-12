@@ -40,7 +40,7 @@ class CfgTaskEnhancements
     };
 
 class CfgFunctions {
-    //#include "Functions\functionList.hpp"
+    #include "functions.hpp"
     #include "JeroenArsenal\functions.hpp"
 };
 class Header
@@ -171,6 +171,14 @@ class Params
         values[] = {4000,5000,6000,7000,8000,16000};
         texts[] = {"4 Kmts","5 Kmts","6 Kmts","7 Kmts","8 Kmts","Unlimited"};
         default = 5000;
+        //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
+    };
+    class allowFT
+    {
+        title = "Limited Fast Travel";
+        values[] = {0,1};
+        texts[] = {"No","Yes"};
+        default = 1;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
 };

@@ -15,7 +15,7 @@ if (getMarkerPos _x distance _posicion < distanciaSPWN) then
 	_analizado = _x;
 	_garrison = garrison getVariable [_analizado,[]];
 	_threat = _threat + (2*({(_x == "B_G_Soldier_A_F")} count _garrison)) + (floor((count _garrison)/8));
-	_size = [_analizado] call sizeMarker;
+	_size = [_analizado] call A3A_fnc_sizeMarker;
 	_estaticas = staticsToSave select {_x distance (getMarkerPos _analizado) < _size};
 	if (count _estaticas > 0) then
 		{

@@ -8,7 +8,7 @@ _units = _this select 0;
 _units = _units - [player];
 _units = _units select {!(isPlayer _x)};
 if (_units isEqualTo []) exitWith {};
-if (_units findIf {!([_x] call canFight)} != -1) exitWith {hint "You cannot disband supressed, undercover or unconscious units"};
+if (_units findIf {!([_x] call A3A_fnc_canFight)} != -1) exitWith {hint "You cannot disband supressed, undercover or unconscious units"};
 player globalChat "Get out of my sight you useless scum!";
 
 _nuevoGrp = createGroup buenos;
@@ -40,7 +40,7 @@ _municion = [];
 _armas = [];
 
 {_unit = _x;
-if ([_unit] call canFight) then
+if ([_unit] call A3A_fnc_canFight) then
 	{
 	_resourcesFIA = _resourcesFIA + (server getVariable (typeOf _unit));
 	_hr = _hr +1;
@@ -50,7 +50,7 @@ if ([_unit] call canFight) then
 	};
 deleteVehicle _x;
 } forEach units _nuevogrp;
-if (!isMultiplayer) then {_nul = [_hr,_resourcesFIA] remoteExec ["resourcesFIA",2];} else {_nul = [_hr,0] remoteExec ["resourcesFIA",2]; [_resourcesFIA] call resourcesPlayer};
+if (!isMultiplayer) then {_nul = [_hr,_resourcesFIA] remoteExec ["A3A_fnc_resourcesFIA",2];} else {_nul = [_hr,0] remoteExec ["A3A_fnc_resourcesFIA",2]; [_resourcesFIA] call A3A_fnc_resourcesPlayer};
 {caja addWeaponCargoGlobal [_x,1]} forEach _armas;
 {caja addMagazineCargoGlobal [_x,1]} forEach _municion;
 {caja addItemCargoGlobal [_x,1]} forEach _items;

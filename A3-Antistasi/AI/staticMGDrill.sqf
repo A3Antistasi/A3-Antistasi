@@ -49,7 +49,7 @@ while {(alive _gunner)} do
 			{
 			if !(_gunner getVariable ["maniobrando",false]) then
 				{
-				if (([_gunner] call canFight) and ([_ayudante] call canFight)) then
+				if (([_gunner] call A3A_fnc_canFight) and ([_ayudante] call A3A_fnc_canFight)) then
 					{
 					_gunner setVariable ["maniobrando",true];
 					_gunner playMoveNow selectRandom medicAnims;
@@ -57,7 +57,7 @@ while {(alive _gunner)} do
 					_gunner addEventHandler ["AnimDone",
 						{
 						private _gunner = _this select 0;
-						if ((time > _gunner getVariable ["timeToBuild",0]) or !([_gunner] call canFight)) then
+						if ((time > _gunner getVariable ["timeToBuild",0]) or !([_gunner] call A3A_fnc_canFight)) then
 							{
 							_gunner removeEventHandler ["AnimDone",_thisEventHandler];
 							_gunner setVariable ["maniobrando",false];
@@ -69,7 +69,7 @@ while {(alive _gunner)} do
 						}];
 					waitUntil {sleep 0.5; !(_gunner getVariable ["maniobrando",false])};
 					_gunner setVariable ["timeToBuild",nil];
-					if ([_gunner] call canFight) then
+					if ([_gunner] call A3A_fnc_canFight) then
 						{
 						private _veh = _tipoVeh createVehicle [0,0,1000];
 						_veh setPos position (_gunner);
@@ -80,7 +80,7 @@ while {(alive _gunner)} do
 						[_gunner] orderGetIn true;
 						[_gunner] allowGetIn true;
 						_gunner moveInGunner _veh;
-						[_veh] call AIVEHinit;
+						[_veh] call A3A_fnc_AIVEHinit;
 						_mounted = true;
 						if (_esMortero) then {_grupo setVariable ["morteros",_gunner]};
 						sleep 60;
@@ -92,7 +92,7 @@ while {(alive _gunner)} do
 			{
 			if (_gunner getVariable ["maniobrando",false]) then
 				{
-				if (([_gunner] call canFight) and ([_ayudante] call canFight)) then
+				if (([_gunner] call A3A_fnc_canFight) and ([_ayudante] call A3A_fnc_canFight)) then
 					{
 					[_gunner] orderGetIn false;
 					[_gunner] allowGetIn false;
@@ -103,7 +103,7 @@ while {(alive _gunner)} do
 						_gunner addBackpackGlobal _mochiG;
 						_ayudante addBackpackGlobal _mochiA;
 						deleteVehicle _veh;
-						_gunner call recallGroup;
+						_gunner call A3A_fnc_recallGroup;
 						if (_esMortero) then {_grupo setVariable ["morteros",objNull]};
 						};
 					};
@@ -114,7 +114,7 @@ while {(alive _gunner)} do
 		{
 		if (_mounted) then
 			{
-			if (([_gunner] call canFight) and ([_ayudante] call canFight)) then
+			if (([_gunner] call A3A_fnc_canFight) and ([_ayudante] call A3A_fnc_canFight)) then
 				{
 				[_gunner] orderGetIn false;
 				[_gunner] allowGetIn false;
@@ -124,7 +124,7 @@ while {(alive _gunner)} do
 				_gunner addBackpackGlobal _mochiG;
 				_ayudante addBackpackGlobal _mochiA;
 				deleteVehicle _veh;
-				_gunner call recallGroup;
+				_gunner call A3A_fnc_recallGroup;
 				if (_esMortero) then {_grupo setVariable ["morteros",objNull]};
 				};
 			};
@@ -141,7 +141,7 @@ if (alive _gunner) then
 	_flankers = _grupo getVariable ["flankers",[]];
 	_flankers pushBack _gunner;
 	_grupo setVariable ["flankers",_flankers];
-	_gunner call recallGroup;
+	_gunner call A3A_fnc_recallGroup;
 	};
 if (alive _ayudante) then
 	{
@@ -149,5 +149,5 @@ if (alive _ayudante) then
 	_flankers = _grupo getVariable ["flankers",[]];
 	_flankers pushBack _ayudante;
 	_grupo setVariable ["flankers",_flankers];
-	_ayudante call recallGroup;
+	_ayudante call A3A_fnc_recallGroup;
 	};

@@ -367,7 +367,7 @@ while {(_waves != 0)} do
 		};
 	if ([_mrkDestino,true] call A3A_fnc_fogCheck >= 0.3) then
 		{
-		if (_posOrigen distance _posDestino < distanceForLandAttack) then {sleep ((_posOrigen distance _posDestino)/30)};
+		if ((_posOrigen distance _posDestino < distanceForLandAttack) and !(_mrkDestino in blackListDest)) then {sleep ((_posOrigen distance _posDestino)/30)};
 		_posSuelo = [_posOrigen select 0,_posorigen select 1,0];
 		_posOrigen set [2,300];
 		_grupoUav = grpNull;
@@ -425,7 +425,7 @@ while {(_waves != 0)} do
 					};
 				};
 			};
-		if ((_waves != 1) and (_firstWave)) then
+		if ((_waves != 1) and (_firstWave) and (!hayIFA)) then
 			{
 			if (count (_vehPool - vehTransportAir) != 0) then {_vehPool = _vehPool - vehTransportAir};
 			};

@@ -38,7 +38,7 @@ if (!isMultiPlayer) then
     membershipEnabled = false;
     switchCom = false;
     tkPunish = false;
-    distanciaMiss = 4000;
+    distanciaMiss = if (hayIFA) then {2000} else {4000};
     skillMult = 1;
     minWeaps = 24;
     civTraffic = 1;

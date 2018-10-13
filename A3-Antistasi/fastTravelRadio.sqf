@@ -128,7 +128,7 @@ if (count _posicionTel > 0) then
 			//_unit hideObject false;
 		} forEach units _grupo;
 		//if (!_esHC) then {sleep _distancia};
-		if (!_esHC) then {disableUserInput false;cutText ["You arrived to destination","BLACK IN",3]} else {hint format ["Group %1 arrived to destination",groupID _grupo]};
+		if (!_esHC) then {disableUserInput false;cutText ["You arrived to destination","BLACK IN",1]} else {hint format ["Group %1 arrived to destination",groupID _grupo]};
 		if (_forzado) then {forcedSpawn = forcedSpawn - [_base]};
 		sleep 5;
 		{_x allowDamage true} forEach units _grupo;

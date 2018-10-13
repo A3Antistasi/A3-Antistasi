@@ -1,7 +1,7 @@
 if (count _this <= 8) exitWith {_this};
 private _SLcount = {_x in squadLeaders} count _this;
 private _medCount = {_x in medics} count _this;
-if ((_SLcount == 0) and (_medCount == 0)) exitWith {};
+if ((_SLcount == 0) and (_medCount == 0)) exitWith {_this};
 private _pool = +_this;
 private _slClass = "";
 if (_slCount > 0) then

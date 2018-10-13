@@ -1199,4 +1199,5 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Fast Travel now has a counter thanks to john681611. Thanks man!
 - By popular demand: Limited Fast Travel will be switchable in the MP lobby. Default value is Yes.
 - IFA: Adapted roadblocks.
-hacer opcional el FT en MP
+- Corrected garrison bug when the garrison lacked of SL or Medic classnames.
+- Solved bug on basic mandatory vehicle availability check.

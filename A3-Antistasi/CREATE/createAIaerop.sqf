@@ -326,8 +326,8 @@ for "_i" from 0 to (count _array - 1) do
 	{
 	_grupo = [_posicion,_lado, (_array select _i)] call A3A_fnc_spawnGroup;
 	_grupos pushBack _grupo;
-	if (_i == 0) then {_nul = [leader _grupo, _marcador, "SAFE", "RANDOMUP","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf"} else {_nul = [leader _grupo, _marcador, "SAFE","SPAWNED", "RANDOM","NOVEH", "NOFOLLOW"] execVM "scripts\UPSMON.sqf"};
 	{[_x,_marcador] call A3A_fnc_NATOinit; _soldados pushBack _x; if ((typeOf _x) in squadLeaders) then {_grupo selectLeader _x}} forEach units _grupo;
+	if (_i == 0) then {_nul = [leader _grupo, _marcador, "SAFE", "RANDOMUP","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf"} else {_nul = [leader _grupo, _marcador, "SAFE","SPAWNED", "RANDOM","NOVEH", "NOFOLLOW"] execVM "scripts\UPSMON.sqf"};
 	};
 
 waitUntil {sleep 1; (spawner getVariable _marcador == 2)};

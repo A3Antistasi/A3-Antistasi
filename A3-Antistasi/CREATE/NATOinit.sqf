@@ -1,7 +1,7 @@
 private ["_unit","_veh","_lado","_tipo","_skill","_riflefinal","_magazines","_hmd","_marcador","_revelar"];
 
 _unit = _this select 0;
-if (isNil "_unit") exitWith {};
+if (isNil "_unit") exitWith {diag_log format ["Antistasi: Error enviando a NATOinit los parámetros:%1",_this]};
 if (isNull _unit) exitWith {diag_log format ["Antistasi: Error enviando a NATOinit los parámetros:%1",_this]};
 _tipo = typeOf _unit;
 if (typeOf _unit == "Fin_random_F") exitWith {};
@@ -128,59 +128,69 @@ if !(hayIFA) then
 						};
 					};
 				};
-			if (_hmd != "") then
-				{
-				if ("acc_pointer_IR" in primaryWeaponItems _unit) then
-					{
-					_unit action ["IRLaserOn", _unit]
-					};
-				}
-			else
-				{
-				if (not("acc_flashlight" in primaryWeaponItems _unit)) then
-					{
-					_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
-					if ("acc_flashlight" in _compatibles) then
-						{
-						_unit addPrimaryWeaponItem "acc_flashlight";
-					    _unit assignItem "acc_flashlight";
-						};
-					};
-				_unit enableGunLights "AUTO";
-				_unit setskill ["spotDistance",_skill - 0.2];
-				_unit setskill ["spotTime",_skill - 0.2];
-				};
 			}
 		else
 			{
 			_arr = (NVGoggles arrayIntersect (items _unit));
-			if (count _arr > 0) then
+			if (!(_arr isEqualTo []) or (_hmd != "")) then
 				{
-				_hmd = _arr select 0;
-				if ((random 5 > tierWar) and (!haveNV)) then
+				if ((random 5 > tierWar) and (!haveNV) and (_unit != leader (group _unit))) then
 					{
-					_unit removeItem _hmd;
+					if (_hmd == "") then
+						{
+						_hmd = _arr select 0;
+						_unit removeItem _hmd;
+						}
+					else
+						{
+						_unit unassignItem _hmd;
+						_unit removeItem _hmd;
+						};
+					_hmd = "";
 					}
 				else
 					{
 					_unit assignItem _hmd;
 					};
 				};
-			if (hmd _unit == "") then
+			};
+		_weaponItems = primaryWeaponItems _unit;
+		if (_hmd != "") then
+			{
+			if (_weaponItems findIf {_x in pointers} != -1) then
 				{
-				_lampara = if (side _unit == muyMalos) then {lamparaMuyMalos} else {lamparaMalos};
-				if (!(_lampara in primaryWeaponItems _unit)) then
+				_unit action ["IRLaserOn", _unit];
+				_unit enableIRLasers true;
+				};
+			}
+		else
+			{
+			_pointers = _weaponItems arrayIntersect pointers;
+			if !(_pointers isEqualTo []) then
+				{
+				_unit removePrimaryWeaponItem (_pointers select 0);
+				};
+			_lamp = "";
+			_lamps = _weaponItems arrayIntersect flashlights;
+			if (_lamps isEqualTo []) then
+				{
+				_compatibleLamps = ((primaryWeapon _unit) call BIS_fnc_compatibleItems) arrayIntersect flashlights;
+				if !(_compatibleLamps isEqualTo []) then
 					{
-					_unit addPrimaryWeaponItem _lampara;
-					_unit assignItem _lampara;
+					_lamp = selectRandom _compatibleLamps;
+					_unit addPrimaryWeaponItem _lamp;
+				    _unit assignItem _lamp;
 					};
-				_unit enableGunLights "AUTO";
-				_unit setskill ["spotDistance",_skill - 0.2];
-				_unit setskill ["spotTime",_skill - 0.2];
 				}
 			else
 				{
-				_unit action ["IRLaserOn", _unit];
+				_lamp = _lamps select 0;
+				};
+			if (_lamp != "") then
+				{
+				_unit enableGunLights "AUTO";
+				_unit setskill ["spotDistance",_skill - 0.2];
+				_unit setskill ["spotTime",_skill - 0.2];
 				};
 			};
 		}
@@ -228,4 +238,5 @@ if (_revelar) then
 	{
 	{
 	_unit reveal [_x,1.5];
-	} forEach allUnits select {(vehicle _x isKindOf "Air") and (_x distance _unit <= distanciaSPWN
+	} forEach allUnits select {(vehicle _x isKindOf "Air") and (_x distance _unit <= distanciaSPWN)}
+	};

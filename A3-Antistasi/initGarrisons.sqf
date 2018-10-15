@@ -193,20 +193,10 @@ _dmrk setMarkerText "Sea Port";
 if (_x in _mrkCSAT) then
     {
     _dmrk setMarkerColor colorMuyMalos;
-    if (gameMode == 4) then
-    	{
-    	for "_i" from 1 to _garrNum do
-	        {
-	        _garrison append (selectRandom gruposNATOSquad);
-	        };
-    	}
-    else
-    	{
-    	for "_i" from 1 to _garrNum + 1 do
-	        {
-	        _garrison append (selectRandom gruposCSATSquad);
-	        };
-    	};
+	for "_i" from 1 to _garrNum do
+	   {
+	   _garrison append (selectRandom gruposCSATSquad);
+	   };
     lados setVariable [_x,muyMalos,true];
     }
 else

@@ -31,7 +31,8 @@ if (_unit distance _objeto < _distancia) then
 			{
 			_posible = _armas select _i;
 			_basePosible = [_posible] call BIS_fnc_baseWeapon;
-			if ((not(_basePosible in unlockedWeapons)) and ((_basePosible in arifles) or (_basePosible in srifles) or (_basePosible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers))) then
+			//if ((not(_basePosible in unlockedWeapons)) and ((_basePosible in arifles) or (_basePosible in srifles) or (_basePosible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers))) then
+			if ((_basePosible in arifles) or (_basePosible in srifles) or (_basePosible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers)) then
 				{
 				_target = _objeto;
 				_distancia = _unit distance _objeto;

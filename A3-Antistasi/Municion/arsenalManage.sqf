@@ -85,7 +85,7 @@ if (_check) then
 	};
 
 {
-if (_x select 1 >= minPacks) then
+if (_x select 1 >= minWeaps) then
 	{
 	_mochi = _x select 0;
 	_index = _mochi  call jn_fnc_arsenal_itemType;
@@ -97,7 +97,7 @@ if (_x select 1 >= minPacks) then
 } forEach _mochis;
 
 {
-if (_x select 1 >= minItems) then
+if (_x select 1 >= minWeaps) then
 	{
 	_item = _x select 0;
 	unlockedItems pushBack _item;
@@ -115,7 +115,7 @@ if (_check) then
 	_check = false;
 	};
 {
-if (_x select 1 >= minOptics) then
+if (_x select 1 >= minWeaps) then
 	{
 	_item = _x select 0;
 	unlockedOptics pushBack _item;
@@ -141,7 +141,7 @@ if (!haveNV) then
 	{
 	_cuenta = _cuenta + (_x select 1);
 	} forEach _nv;
-	if (_cuenta >= minItems) then
+	if (_cuenta >= minWeaps) then
 		{
 		unlockedItems = unlockedItems + NVGoggles;
 		haveNV = true; publicVariable "haveNV";

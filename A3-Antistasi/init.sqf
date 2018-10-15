@@ -7,7 +7,6 @@ if (isServer and (isNil "serverInitDone")) then {skipTime random 24};
 if (!isMultiPlayer) then
     {
     gameMode = 1;
-    _nul = [] execVM "musica.sqf";
     diag_log "Starting Antistasi SP";
     call compile preprocessFileLineNumbers "initVar.sqf";//this is the file where you can modify a few things.
     initVar = true;
@@ -15,6 +14,7 @@ if (!isMultiPlayer) then
     "respawn_east" setMarkerAlpha 0;
     [] execVM "briefing.sqf";
     diag_log format ["Antistasi SP. InitVar done. Version: %1",antistasiVersion];
+    _nul = [] execVM "musica.sqf";
     {if (/*(side _x == buenos) and */(_x != comandante) and (_x != Petros)) then {_grupete = group _x; deleteVehicle _x; deleteGroup _grupete}} forEach allUnits;
     _serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
     if(isNil "_serverHasID") then

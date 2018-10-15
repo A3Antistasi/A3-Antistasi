@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.3.4";
+antistasiVersion = "v 1.3.5";
 
 
 debug = false;//debug variable, not useful for everything..
@@ -21,11 +21,12 @@ recruitCooldown = 0;
 savingClient = false;
 incomeRep = false;
 //distanciaMiss = 2500;
+/*
 minMags = 20;
 
 minPacks = 20;
 minItems = 20;
-minOptics = 12;
+minOptics = 12;*/
 maxUnits = 140;
 
 buenos = side group petros;
@@ -126,6 +127,8 @@ activeAFRF = false;
 activeUSAF = false;
 activeGREF = false;
 hayFFAA = false;
+hayIFA = false;
+myCustomMod = false;
 
 if ("LIB_PTRD" in arifles) then
 	{
@@ -139,12 +142,11 @@ else
 	if ("ffaa_armas_hkg36k_normal" in arifles) then {hayFFAA = true};
 	if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hayRHS = true};
 	if ("rhs_weap_m92" in arifles) then {activeGREF = true; hayRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
-	hayIFA = false;
 	cascos = cascos select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2};
 	humo = ["SmokeShell","SmokeShellRed","SmokeShellGreen","SmokeShellBlue","SmokeShellYellow","SmokeShellPurple","SmokeShellOrange"];
 	};
 
-titanLaunchers = if ((!hayRHS) and !hayIFA) then
+titanLaunchers = if ((!hayRHS) and !hayIFA and !myCustomMod) then
 	{
 	["launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_ghex_F","launch_O_Titan_F","launch_B_Titan_tna_F"]
 	}
@@ -152,7 +154,7 @@ else
 	{
 	[]
 	};
-antitanqueAAF = if ((!hayRHS) and !hayIFA) then
+antitanqueAAF = if ((!hayRHS) and !hayIFA and !myCustomMod) then
 	{
 	["launch_I_Titan_F","launch_I_Titan_short_F"]
 	}
@@ -160,7 +162,7 @@ else
 	{
 	[];
 	};//possible Titan weapons that spawn in  ammoboxes
-MantitanqueAAF = if ((!hayRHS) and !hayIFA) then
+MantitanqueAAF = if ((!hayRHS) and !hayIFA and !myCustomMod) then
 	{
 	["Titan_AT", "Titan_AP", "Titan_AA"]
 	}
@@ -168,7 +170,7 @@ else
 	{
 	if (hayIFA) then {["LIB_Shg24"]} else {[]};
 	};//possible Titan rockets that spawn in  ammoboxes
-minasAAF = if ((!hayRHS) and !hayIFA) then
+minasAAF = if ((!hayRHS) and !hayIFA and !myCustomMod) then
 	{
 	["SLAMDirectionalMine_Wire_Mag","SatchelCharge_Remote_Mag","ClaymoreDirectionalMine_Remote_Mag", "ATMine_Range_Mag","APERSTripMine_Wire_Mag","APERSMine_Range_Mag", "APERSBoundingMine_Range_Mag"]
 	}
@@ -180,10 +182,10 @@ else
 		}
 	else
 		{
-		if (hayIFA) then {["LIB_PMD6_MINE_mag","LIB_TM44_MINE_mag","LIB_US_TNT_4pound_mag"]};
+		if (hayIFA and !myCustomMod) then {["LIB_PMD6_MINE_mag","LIB_TM44_MINE_mag","LIB_US_TNT_4pound_mag"]} else {[]};
 		}
 	};//possible mines that spawn in AAF ammoboxescomment "Exported from Arsenal by Alberto";
-itemsAAF = if ((!hayRHS) and !hayIFA) then
+itemsAAF = if ((!hayRHS) and !hayIFA and !myCustomMod) then
 	{
 	["FirstAidKit","Medikit","MineDetector","NVGoggles","ToolKit","muzzle_snds_H","muzzle_snds_L","muzzle_snds_M","muzzle_snds_B","muzzle_snds_H_MG","muzzle_snds_acp","bipod_03_F_oli","muzzle_snds_338_green","muzzle_snds_93mmg_tan","Rangefinder","Laserdesignator","ItemGPS","acc_pointer_IR","ItemRadio"]
 	}
@@ -195,19 +197,10 @@ else
 		}
 	else
 		{
-		if (hayIFA) then {["FirstAidKit","Medikit","ToolKit","LIB_ToolKit"]} else {["FirstAidKit","Medikit","ToolKit"]};
+		if (hayIFA and !myCustomMod) then {["FirstAidKit","Medikit","ToolKit","LIB_ToolKit"]} else {["FirstAidKit","Medikit","ToolKit"]};
 		}
 	};
 NVGoggles = if (!hayIFA) then {["NVGoggles_OPFOR","NVGoggles_INDEP","O_NVGoggles_hex_F","O_NVGoggles_urb_F","O_NVGoggles_ghex_F","NVGoggles_tna_F","NVGoggles"]} else {[]};
-opticasAAF = if ((!hayRHS) and !hayIFA) then
-	{
-	["optic_Arco","optic_Hamr","optic_Aco","optic_ACO_grn","optic_Aco_smg","optic_ACO_grn_smg","optic_Holosight","optic_Holosight_smg","optic_SOS","optic_MRCO","optic_NVS","optic_Nightstalker","optic_tws","optic_tws_mg","optic_DMS","optic_Yorris","optic_MRD","optic_LRPS","optic_AMS","optic_AMS_khk","optic_AMS_snd","optic_KHS_blk","optic_KHS_hex","optic_KHS_old","optic_KHS_tan","optic_Arco_blk_F","optic_Arco_ghex_F","optic_DMS_ghex_F","optic_Hamr_khk_F","optic_ERCO_blk_F","optic_ERCO_khk_F","optic_ERCO_snd_F","optic_SOS_khk_F","optic_LRPS_tna_F","optic_LRPS_ghex_F","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg_blk_F"]
-	}
-else
-	{
-	[]
-	};
-
 
 arrayCivVeh = if !(hayIFA) then
 	{
@@ -276,6 +269,42 @@ if (count _x > 1) then
 	uniformsSDK pushBackUnique _uniform;
 	};
 } forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewBuenos]];
+//optic, pointer and flashlight automated detection
+opticasAAF = [];
+flashLights = [];
+pointers = [];
+{
+{
+_item = _x;
+if !(_item in (opticasAAF + flashLights + pointers)) then
+	{
+	if (((_item call BIS_fnc_itemType) select 1) == "AccessorySights") then
+		{
+		opticasAAF pushBack _item
+		}
+	else
+		{
+		if (isClass (configfile >> "CfgWeapons" >> _item >> "ItemInfo" >> "FlashLight" >> "Attenuation")) then
+			{
+			flashLights pushBack _item;
+			}
+		else
+			{
+			if (isClass (configfile >> "CfgWeapons" >> "acc_pointer_IR" >> "ItemInfo" >> "Pointer")) then
+				{
+				pointers pushBack _item;
+				};
+			};
+		};
+	};
+} forEach (_x call BIS_fnc_compatibleItems);
+} forEach (armasNATO + armasCSAT);
+if (hayRHS) then
+	{
+	opticasAAF = opticasAAF select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
+	flashlights = flashlights select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
+	pointers = pointers select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
+	};
 
 vehNormal = vehNATONormal + vehCSATNormal + [vehFIATruck,vehSDKTruck,vehSDKLightArmed,vehSDKBike,vehSDKRepair];
 vehBoats = [vehNATOBoat,vehCSATBoat,vehSDKBoat];

@@ -152,12 +152,18 @@ if !(hayIFA) then
 		if (haveNV) then
 			{
 			if (hmd _unit == "") then {_unit linkItem (selectRandom NVGoggles)};
-			if ("acc_pointer_IR" in unlockedItems) then
+			_pointers = pointers arrayIntersect unlockedItems;
+			if !(_pointers isEqualTo []) then
 				{
-				_unit addPrimaryWeaponItem "acc_pointer_IR";
-		        _unit assignItem "acc_pointer_IR";
-		        _unit enableIRLasers true;
-		        };
+				_pointers = _pointers arrayIntersect ((primaryWeapon _unit) call BIS_fnc_compatibleItems);
+				if !(_pointers isEqualTo []) then
+					{
+					_pointer = selectRandom _pointers;
+					_unit addPrimaryWeaponItem _pointer;
+			        _unit assignItem _pointer;
+			        _unit enableIRLasers true;
+					};
+				};
 			}
 		else
 			{
@@ -167,14 +173,17 @@ if !(hayIFA) then
 				_unit unassignItem _hmd;
 				_unit removeItem _hmd;
 				};
-			_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
-			_array = lamparasSDK arrayIntersect _compatibles;
-			if (count _array > 0) then
+			_flashlights = flashlights arrayIntersect unlockedItems;
+			if !(_flashlights isEqualTo []) then
 				{
-				_compatible = _array select 0;
-				_unit addPrimaryWeaponItem _compatible;
-			    _unit assignItem _compatible;
-			    _unit enableGunLights _compatible;
+				_flashlights = _flashlights arrayIntersect ((primaryWeapon _unit) call BIS_fnc_compatibleItems);
+				if !(_flashlights isEqualTo []) then
+					{
+					_flashlight = selectRandom _flashlights;
+					_unit addPrimaryWeaponItem _flashlight;
+				    _unit assignItem _flashlight;
+				    _unit enableGunLights _flashlight;
+					};
 				};
 		    };
 		}

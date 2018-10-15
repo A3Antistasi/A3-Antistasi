@@ -433,6 +433,7 @@ if (_aeropuerto != "") then
 				};
 			};
 		};
+	if (_vehPool isEqualTo []) then {if (_lado == malos) then {_vehPool = [vehNATOPatrolHeli]} else {_vehPool = [vehCSATPatrolHeli]}};
 	for "_i" from 1 to _cuenta do
 		{
 		_tipoVeh = if (_i == 1) then

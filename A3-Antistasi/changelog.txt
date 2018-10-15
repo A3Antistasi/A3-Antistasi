@@ -1201,3 +1201,16 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - IFA: Adapted roadblocks.
 - Corrected garrison bug when the garrison lacked of SL or Medic classnames.
 - Solved bug on basic mandatory vehicle availability check.
+
+1.3.5 14/10/18
+
+- NEW FEATURE: SP init options ported from MP: Difficulty settings affect several params, and Game Mode behaves the same. Want to fight only Redfor? Now you can!
+- Garrison mortars will be manned again.
+- AutoLoot will bypass the check for unlocked weapons on the bodies, so the AI will do a brainless loot anyway.
+- Removed debug message on flare script.
+- Seaports now spawn the right classnames in Reb vs Inv game mode.
+- Major attacks should spawn allways with vehicles.
+- Better and automated flashlight, optic and pointer detection, mod independent. RHS AI will spawn with more proper pointers / flashlights, and all the sights are included in ammoboxes.
+- Corrected major bug on enemy AI init which caused several malfunctions.
+- Stanadarised for everything the minimum requirements for unlocking (default 25).
+- Added some useful info in the Game Options menu.

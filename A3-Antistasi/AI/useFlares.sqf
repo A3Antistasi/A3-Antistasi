@@ -16,7 +16,7 @@ if (count _this > 1) then
 if (_exit) exitWith {};
 _unit setVariable ["smokeUsed",time + 60];
 _unit setVariable ["usedFlares",_flares - 1];
-hint "bengala va!";
+//hint "bengala va!";
 _pos = if !(isNull _eny) then
 	{
 	_eny getPos [random 20,random 360];

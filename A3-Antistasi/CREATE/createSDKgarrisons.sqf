@@ -81,18 +81,16 @@ if (_index == -1) exitWith {};
 if (typeOf _x == SDKMortar) then
 	{
 	_unit = _grupoMort createUnit [(_garrison select _index), _posicion, [], 0, "NONE"];
-	_unit moveInGunner _estatica;
-	_nul=[_estatica] execVM "scripts\UPSMON\MON_artillery_add.sqf";
-	[_unit,_marcador] call A3A_fnc_FIAinitBases;
-	_soldados pushBack _unit;
+	_unit moveInGunner _x;
+	_nul=[_x] execVM "scripts\UPSMON\MON_artillery_add.sqf";
 	}
 else
 	{
 	_unit = _grupoEst createUnit [(_garrison select _index), _posicion, [], 0, "NONE"];
 	_unit moveInGunner _x;
-	[_unit,_marcador] call A3A_fnc_FIAinitBases;
-	_soldados pushBack _unit;
 	};
+[_unit,_marcador] call A3A_fnc_FIAinitBases;
+_soldados pushBack _unit;
 _garrison deleteAT _index;
 } forEach _estaticas;
 

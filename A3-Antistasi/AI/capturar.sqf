@@ -40,7 +40,7 @@ if (round random 100 < _chance) then
 	sleep 100;
 	if (alive _unit) then
 		{
-		if (_lado == malos) then
+		if ((_lado == malos) and (faction _unit != factionFIA)) then
 			{
 			[-0.5,0] remoteExec ["A3A_fnc_prestige",2];
 			}

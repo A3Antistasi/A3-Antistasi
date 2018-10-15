@@ -48,6 +48,8 @@ if (!isDedicated) then
  savingServer = true;
  private ["_garrison"];
 	["cuentaCA", cuentaCA] call fn_SaveStat;
+	["gameMode", gameMode] call fn_SaveStat;
+	["dificultad", skillMult] call fn_SaveStat;
 	["bombRuns", bombRuns] call fn_SaveStat;
 	["smallCAmrk", smallCAmrk] call fn_SaveStat;
 	["miembros", miembros] call fn_SaveStat;

@@ -118,20 +118,15 @@ while {(_waves != 0)} do
 			};
 		_road = [_posDestino] call A3A_fnc_findNearestGoodRoad;
 		if ((position _road) distance _posDestino > 150) then {_vehPool = _vehPool - vehTanks};
-		if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 		_cuenta = 1;
 		_landPosBlacklist = [];
 		while {(_cuenta <= _nVeh) and (count _soldados <= 80)} do
 			{
-			_tipoVeh = selectRandom _vehPool;
-			/*
-			if (not([_tipoVeh] call A3A_fnc_vehAvailable)) then
+			if (_vehPool isEqualTo []) then
 				{
-				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
-				_vehPool = _vehPool - [_tipoVeh];
-				if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
+				if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks};
 				};
-			*/
+			_tipoVeh = selectRandom _vehPool;
 			if ((_cuenta == _nVeh) and (_tipoVeh in vehTanks)) then
 				{
 				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
@@ -264,12 +259,8 @@ while {(_waves != 0)} do
 			_cuenta = 0;
 			while {(_cuenta < 3) and (count _soldados <= 80)} do
 				{
-				_tipoVeh = selectRandom _vehPool;
-				if (not([_tipoVeh] call A3A_fnc_vehAvailable)) then
-					{
-					_tipoVeh = if (_lado == malos) then {vehNATORBoat} else {vehCSATRBoat};
-					_vehPool = _vehPool - [_tipoVeh];
-					};
+				_tipoVeh = if (_vehPool isEqualTo []) then {if (_lado == malos) then {vehNATORBoat} else {vehCSATRBoat}} else {selectRandom _vehPool};
+
 				if ((_tipoVeh == vehNATOBoat) or (_tipoVeh == vehCSATBoat)) then
 					{
 					_landPos = [_posDestino, 10, 1000, 10, 2, 0.3, 0] call BIS_Fnc_findSafePos;
@@ -278,12 +269,6 @@ while {(_waves != 0)} do
 					{
 					_tipogrupo = [_tipoVeh,_lado] call A3A_fnc_cargoSeats;
 					_landPos = [_posDestino, 10, 1000, 10, 2, 0.3, 1] call BIS_Fnc_findSafePos;
-					if (debug) then
-						{
-						_mrkfin = createMarker [format ["%1", random 100], _landpos];
-						_mrkfin setMarkerShape "ICON";
-						_mrkfin setMarkerType "hd_destroy";
-						};
 					};
 				if (count _landPos > 0) then
 					{
@@ -444,11 +429,8 @@ while {(_waves != 0)} do
 
 		while {(_cuenta <= _nVeh) and (count _soldados <= 80)} do
 			{
-			_tipoVeh = selectRandom _vehPool;
-			if (_cuenta == _nVeh) then
-				{
-				_tipoVeh = if (_lado == malos) then {selectRandom (vehNATOTransportHelis select {[_x] call A3A_fnc_vehAvailable})} else {selectRandom (vehCSATTransportHelis select {[_x] call A3A_fnc_vehAvailable})};
-				};
+			if (_cuenta == _nveh) then {if (_lado == malos) then {_vehPool = _vehPool select {_x in vehNATOTransportHelis}} else {_vehPool = _vehPool select {_x in vehCSATTransportHelis}}};
+			_tipoVeh = if !(_vehPool isEqualTo []) then {selectRandom _vehPool} else {if (_lado == malos) then {vehNATOPatrolHeli} else {vehCSATPatrolHeli}};
 			_vehicle=[_pos, _ang + 90,_tipoveh, _lado] call bis_fnc_spawnvehicle;
 			_veh = _vehicle select 0;
 			if (hayIFA) then {_veh setVelocityModelSpace [((velocityModelSpace _veh) select 0) + 0,((velocityModelSpace _veh) select 1) + 150,((velocityModelSpace _veh) select 2) + 50]};

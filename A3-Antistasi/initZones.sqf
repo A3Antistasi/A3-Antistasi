@@ -176,7 +176,7 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
 
 marcadores = marcadores + ciudades;
 lados setVariable ["Synd_HQ",buenos,true];
-if !(isMultiplayer) then {call compile preprocessFileLineNumbers "initGarrisons.sqf"};
+//if !(isMultiplayer) then {call compile preprocessFileLineNumbers "initGarrisons.sqf"};
 
 antenasmuertas = [];
 bancos = [];

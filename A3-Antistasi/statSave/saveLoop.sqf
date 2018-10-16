@@ -96,7 +96,7 @@ if (_amigo getVariable ["GREENFORSpawn",false]) then
 		{
 		if (((isPlayer leader _amigo) and (!isMultiplayer)) or (group _amigo in (hcAllGroups theBoss)) and (not((group _amigo) getVariable ["esNATO",false]))) then
 			{
-			_precio = server getVariable [(typeOf _amigo),0];
+			_resfondo = _resfondo + (server getVariable [(typeOf _amigo),0]);
 			_mochi = backpack _amigo;
 			if (_mochi != "") then
 				{

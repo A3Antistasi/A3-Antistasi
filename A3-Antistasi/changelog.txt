@@ -1214,3 +1214,6 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Corrected major bug on enemy AI init which caused several malfunctions.
 - Stanadarised for everything the minimum requirements for unlocking (default 25).
 - Added some useful info in the Game Options menu.
+- Solved AI refund on persistent save.
+- Fixed major attacks not happening in early stages of the game.
+- Fixed major attacks not stopping even when the attack was succesful or failed in the tasks menu.

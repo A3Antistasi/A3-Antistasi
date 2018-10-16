@@ -61,7 +61,7 @@ _nombreDest = [_mrkDestino] call A3A_fnc_localizar;
 
 _tiempo = time + 3600;
 
-while {(_waves != 0)} do
+while {(_waves > 0)} do
 	{
 	_soldados = [];
 	_nVeh = 3 + (round random 1);

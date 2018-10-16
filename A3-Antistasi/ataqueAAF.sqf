@@ -80,8 +80,9 @@ else
 	};
 
 _tmpObjetivos = _tmpObjetivos select {getMarkerPos _x distance2D _posBase < distanceForAirAttack};
-if (_tmpObjetivos isEqualTo []) exitWith {};
-_cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
+if !(_tmpObjetivos isEqualTo []) then
+	{
+	_cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 	{
 	_esCiudad = if (_x in ciudades) then {true} else {false};
 	_proceder = true;
@@ -289,6 +290,7 @@ _cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
 		};
 	if (count _faciles == 4) exitWith {};
 	} forEach _tmpObjetivos;
+	};
 if (count _faciles == 4) exitWith {};
 } forEach _aeropuertos;
 

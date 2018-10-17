@@ -268,7 +268,7 @@ while {true} do
 										}
 									else
 										{
-										[[_flankers,_cercano] call BIS_fnc_nearestPosition,_cercano,_building] spawn A3A_fnc_assaultBuildingBuilding;
+										[[_flankers,_cercano] call BIS_fnc_nearestPosition,_cercano,_building] spawn A3A_fnc_assaultBuilding;
 										};
 									};
 								}

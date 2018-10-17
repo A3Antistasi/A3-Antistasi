@@ -248,11 +248,11 @@ if (_base != "") then
 				};
 			};
 		};
-	if (_vehPool isEqualTo []) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 	_cuenta = if (!_super) then {if (_esMarcador) then {2} else {1}} else {round ((tierWar + difficultyCoef) / 2) + 1};
 	_landPosBlacklist = [];
 	for "_i" from 1 to _cuenta do
 		{
+		if (_vehPool isEqualTo []) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 		_tipoVeh = if (_i == 1) then
 						{
 						if (_typeOfAttack == "Normal") then
@@ -263,11 +263,25 @@ if (_base != "") then
 							{
 							if (_typeOfAttack == "Air") then
 								{
-								if (_lado == malos) then {if ([vehNATOAA] call A3A_fnc_vehAvailable) then {vehNATOAA} else {selectRandom _vehPool}} else {if ([vehCSATAA] call A3A_fnc_vehAvailable) then {vehCSATAA} else {selectRandom _vehPool}};
+								if (_lado == malos) then
+									{
+									if ([vehNATOAA] call A3A_fnc_vehAvailable) then {vehNATOAA} else {selectRandom _vehPool}
+									}
+								else
+									{
+									if ([vehCSATAA] call A3A_fnc_vehAvailable) then {vehCSATAA} else {selectRandom _vehPool}
+									};
 								}
 							else
 								{
-								if (_lado == malos) then {if ([vehNATOTank] call A3A_fnc_vehAvailable) then {vehNATOTank} else {selectRandom _vehPool}} else {if ([vehCSATTank] call A3A_fnc_vehAvailable) then {vehCSATTank} else {selectRandom _vehPool}};
+								if (_lado == malos) then
+									{
+									if ([vehNATOTank] call A3A_fnc_vehAvailable) then {vehNATOTank} else {selectRandom _vehPool}
+									}
+								else
+									{
+									if ([vehCSATTank] call A3A_fnc_vehAvailable) then {vehCSATTank} else {selectRandom _vehPool}
+									};
 								};
 							};
 						}

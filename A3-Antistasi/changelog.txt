@@ -1217,3 +1217,5 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Solved AI refund on persistent save.
 - Fixed major attacks not happening in early stages of the game.
 - Fixed major attacks not stopping even when the attack was succesful or failed in the tasks menu.
+- Fixed bug on AI building assault.
+- Fixed error on qrf when the AI sends more than 1 vehicle and there are no more vehicles to send.

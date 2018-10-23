@@ -5,7 +5,7 @@ private ["_chequeo","_hr","_tipounidad","_coste","_resourcesFIA","_unit"];
 
 if (recruitCooldown > time) exitWith {hint format ["You need to wait %1 seconds to be able to recruit units again",round (recruitCooldown - time)]};
 
-if (player != player getVariable ["owner",player]) exitWith {hint "Youy cannot buy units while you are controlling AI"};
+if (player != player getVariable ["owner",player]) exitWith {hint "You cannot buy units while you are controlling AI"};
 
 if ([player,300] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot Recruit Units with enemies nearby"};
 

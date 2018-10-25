@@ -208,7 +208,7 @@ arrayCivVeh = if !(hayIFA) then
 	}
 else
 	{
-	["LIB_DAK_OpelBlitz_Open","LIB_GazM1","LIB_GazM1_dirty","LIB_DAK_Kfz1","LIB_DAK_Kfz1_hood"];
+	["LIB_CIV_FFI_CitC4", "LIB_CIV_FFI_CitC4_2", "LIB_CIV_FFI_CitC4_3","LIB_GazM1","LIB_GazM1_dirty"];
 	};
 
 

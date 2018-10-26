@@ -70,7 +70,7 @@ _grupo setVariable ["movable",_movable];
 _grupo setVariable ["baseOfFire",_baseOfFire];
 if (side _grupo == buenos) then {_grupo setVariable ["autoRearmed",time + 300]};
 _edificios = nearestTerrainObjects [getMarkerPos _marcador, ["House"],true];
-_edificios = _edificios select {((_x buildingPos -1) isEqualTo []) and !((typeof _bld) in UPSMON_Bld_remove) and (_x inAera _marcador)};
+_edificios = _edificios select {((_x buildingPos -1) isEqualTo []) and !((typeof _bld) in UPSMON_Bld_remove) and (_x inArea _marcador)};
 
 if (_modo == "FORTIFY") then
 	{

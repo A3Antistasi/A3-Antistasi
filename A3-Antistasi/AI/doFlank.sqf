@@ -26,7 +26,7 @@ _x doMove _pos;
 	};
 } forEach _unidades;
 _timeOut = time + 60;
-waitUntil {sleep 5, !([_cercano] call A3A_fnc_canFight) or (time > _timeOut)};
+waitUntil {sleep 5; !([_cercano] call A3A_fnc_canFight) or (time > _timeOut)};
 {
 _x call A3A_fnc_recallGroup
 } forEach _unidades;

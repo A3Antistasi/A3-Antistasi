@@ -20,10 +20,7 @@ _crew = crew _vehicle;
 {
 	If (alive _x) then
 	{
-		If () then
-		{
 			_unitsincargo pushback _x;
-		};
 	};
 } foreach _crew;
 

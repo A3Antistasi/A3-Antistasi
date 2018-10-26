@@ -22,7 +22,7 @@ onMapSingleClick "";
 _posicionTel = posicionTel;
 
 if (count _posicionTel > 0) then
-	{;
+	{
 	_mrkENY = marcadores select {lados getVariable [_x,sideUnknown] != _lado};
 	_marcadores = +marcadores;
 	_mrkRespawn = "";

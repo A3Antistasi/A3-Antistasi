@@ -205,16 +205,16 @@ deleteGroup _grupoPOW;
 if (_lado == malos) then
 	{
 	deleteMarkerLocal _mrk;
-	if (!isNull _veh) then {if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}};
+	if (!isNull _veh) then {if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}};
 	{
-	waitUntil {sleep 1; !([distanciaSPWN,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits)};
+	waitUntil {sleep 1; !([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 	deleteVehicle _x;
 	} forEach units _grupo;
 	deleteGroup _grupo;
 	if (!isNull _grupo1) then
 		{
 		{
-		waitUntil {sleep 1; !([distanciaSPWN,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits)};
+		waitUntil {sleep 1; !([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 		deleteVehicle _x;
 		} forEach units _grupo1;
 		deleteGroup _grupo1;

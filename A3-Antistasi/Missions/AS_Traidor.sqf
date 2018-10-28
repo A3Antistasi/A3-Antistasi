@@ -105,9 +105,9 @@ if (random 10 < 2.5) then
 _nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 {[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
 
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (not alive _traidor) or ({_traidor knowsAbout _x > 1.4} count ([500,0,_traidor,"GREENFORSpawn"] call A3A_fnc_distanceUnits) > 0)};
+waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (not alive _traidor) or ({_traidor knowsAbout _x > 1.4} count ([500,0,_traidor,buenos] call A3A_fnc_distanceUnits) > 0)};
 
-if ({_traidor knowsAbout _x > 1.4} count ([500,0,_traidor,"GREENFORSpawn"] call A3A_fnc_distanceUnits) > 0) then
+if ({_traidor knowsAbout _x > 1.4} count ([500,0,_traidor,buenos] call A3A_fnc_distanceUnits) > 0) then
 	{
 	{_x enableAI "MOVE"} forEach units _grptraidor;
 	_traidor assignAsDriver _veh;
@@ -141,7 +141,7 @@ if (not alive _traidor) then
 			{
 			[20,_x] call A3A_fnc_playerScoreAdd;
 			};
-		} forEach ([_tam,0,_posicion,"GREENFORSpawn"] call A3A_fnc_distanceUnits);
+		} forEach ([_tam,0,_posicion,buenos] call A3A_fnc_distanceUnits);
 		[10,theBoss] call A3A_fnc_playerScoreAdd;
 		}
 	else
@@ -159,7 +159,7 @@ if (not alive _traidor) then
 			{
 			[10,_x] call A3A_fnc_playerScoreAdd;
 			};
-		} forEach ([_tam,0,_posicion,"GREENFORSpawn"] call A3A_fnc_distanceUnits);
+		} forEach ([_tam,0,_posicion,buenos] call A3A_fnc_distanceUnits);
 		[5,theBoss] call A3A_fnc_playerScoreAdd;
 		};
 	}
@@ -196,16 +196,16 @@ else
 
 _nul = [1200,"AS"] spawn A3A_fnc_borrarTask;
 _nul = [10,"AS1"] spawn A3A_fnc_borrarTask;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
+if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
 
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits)};
+waitUntil {sleep 1; !([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 deleteVehicle _x
 } forEach units _grptraidor;
 deleteGroup _grptraidor;
 
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits)};
+waitUntil {sleep 1; !([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 deleteVehicle _x
 } forEach units _grupo;
 deleteGroup _grupo;

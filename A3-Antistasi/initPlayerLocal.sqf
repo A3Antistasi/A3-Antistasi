@@ -96,6 +96,7 @@ _titulo = if (worldName == "Tanoa") then {["Warlords of the Pacific","by Barbola
 disableUserInput false;
 player addWeaponGlobal "itemmap";
 if !(hayIFA) then {player addWeaponGlobal "itemgps"};
+player setVariable ["spawner",true,true];
 if (isMultiplayer) then
 	{
 	if (paramsArray select 8 == 1) then {[] execVM "playerMarkers.sqf"};
@@ -143,12 +144,11 @@ if (player getVariable ["pvp",false]) exitWith
 		};
 	if (side player == malos) then
 		{
-		player setVariable ["BLUFORSpawn",true,true];
 		if (activeUSAF) then {[player] call A3A_fnc_RHSdress};
 		}
 	else
 		{
-		player setVariable ["OPFORSpawn",true,true]
+		if (activeAFRF) then {[player] call A3A_fnc_RHSdress};
 		};
 	if (hayACE) then {[] call A3A_fnc_ACEpvpReDress};
 	respawnBuenos setMarkerAlphaLocal 0;
@@ -210,7 +210,6 @@ if (player getVariable ["pvp",false]) exitWith
 player setVariable ["owner",player,true];
 player setVariable ["punish",0,true];
 player setVariable ["dinero",100,true];
-player setVariable ["GREENFORSpawn",true,true];
 player setVariable ["rango",rank player,true];
 
 rezagados = creategroup buenos;

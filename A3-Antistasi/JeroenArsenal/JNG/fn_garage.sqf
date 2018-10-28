@@ -1141,8 +1141,8 @@ switch _mode do {
 				} forEach _currentMagazine;
 
 				_amountStr = _amount call AMOUTTOTEXT;
-				_currentAmountStr = _currentAmount call AMOUTTOTEXT
-				_maxAmountStr = _maxAmount call AMOUTTOTEXT
+				_currentAmountStr = _currentAmount call AMOUTTOTEXT;
+				_maxAmountStr = _maxAmount call AMOUTTOTEXT;
 
 				_displayName = getText(_cfg >> "displayName");
 				_text1 = "";//not used, picture;
@@ -1782,8 +1782,8 @@ switch _mode do {
 		if(_currentAmount>_maxAmount)then{_currentAmount=_maxAmount;};
 
 		_amountStr = _amount call AMOUTTOTEXT;
-		_currentAmountStr = _currentAmount call AMOUTTOTEXT
-		_maxAmountStr = _maxAmount call AMOUTTOTEXT
+		_currentAmountStr = _currentAmount call AMOUTTOTEXT;
+		_maxAmountStr = _maxAmount call AMOUTTOTEXT;
 
 		_text1 = "";//not used, picture;
 		_text2 = "[" + _amountStr + "] " + _displayName;//amount in garage + name

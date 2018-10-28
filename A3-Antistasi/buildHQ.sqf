@@ -22,7 +22,7 @@ if (isMultiplayer) then
 	}
 else
 	{
-	if (_movido) then {hint "Please wait while HQ assets are moved to selected postion"};
+	if (_movido) then {hint "Please wait while HQ assets are moved to selected position"};
 	//sleep 5
 	caja hideObject false;
 	cajaVeh hideObject false;

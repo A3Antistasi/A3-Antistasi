@@ -66,7 +66,7 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 	{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
 	{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo1;
 
-	waitUntil {sleep 1; (not alive _camion) or (dateToNumber date > _fechalimnum) or ({_x getVariable ["GREENFORSpawn",false]} count crew _camion > 0)};
+	waitUntil {sleep 1; (not alive _camion) or (dateToNumber date > _fechalimnum) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _camion > 0)};
 
 	if (dateToNumber date > _fechalimnum) then
 		{
@@ -74,9 +74,9 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 		[-1200*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 		[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 		};
-	if ((not alive _camion) or ({_x getVariable ["GREENFORSpawn",false]} count crew _camion > 0)) then
+	if ((not alive _camion) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _camion > 0)) then
 		{
-		if ({_x getVariable ["GREENFORSpawn",false]} count crew _camion > 0) then
+		if ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _camion > 0) then
 			{
 			["TaskFailed", ["", format ["Ammotruck Stolen in an %1",_nombreDest]]] remoteExec ["BIS_fnc_showNotification",_lado];
 			};
@@ -103,6 +103,6 @@ if (_camionCreado) then
 	{deleteVehicle _x} forEach units _grupo1;
 	deleteGroup _grupo1;
 	deleteMarker _mrk;
-	waitUntil {sleep 1; not ([300,1,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits)};
+	waitUntil {sleep 1; !([300,1,_camion,buenos] call A3A_fnc_distanceUnits)};
 	deleteVehicle _camion;
 	};

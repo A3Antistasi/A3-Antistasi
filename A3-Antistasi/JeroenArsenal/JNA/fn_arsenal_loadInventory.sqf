@@ -59,6 +59,10 @@ _subtractArrays = {
 	_array1;
 };
 
+_isItemBino = {
+	getNumber(configFile >> "CfgWeapons" >> _this >> "type") == 4096;
+};
+
 //name that needed to be loaded
 _saveName = _this;
 _saveData = profilenamespace getvariable ["bis_fnc_saveInventory_data",[]];
@@ -94,7 +98,12 @@ _assignedItems_old = assignedItems player + [headgear player] + [goggles player]
 	_item = _x;
 	_amount = 1;
 	_index = _item call jn_fnc_arsenal_itemType;
-	player unlinkItem _item;
+
+	if (_item call _isItemBino) then {
+		player removeWeapon _item;
+	} else {
+		player unlinkItem _item;
+	};
 
 	[_arrayPlaced,_index,_item,_amount]call _addToArray;
 } forEach _assignedItems_old - [""];
@@ -176,12 +185,22 @@ _assignedItems = ((_inventory select 9) + [_inventory select 3] + [_inventory se
 			_item =_radioName;
 		};
 
+		_isBino = _item call _isItemBino;
+
 		call {
 			if ([_itemCounts select _index, _item] call jn_fnc_arsenal_itemCount == -1) exitWith {
-				player linkItem _item;
+				if (_isBino) then {
+					player addWeapon _item;
+				} else {
+					player linkItem _item;
+				};
 			};
 			if ([_availableItems select _index, _item] call jn_fnc_arsenal_itemCount > 0) then {
-				player linkItem _item;
+				if (_isBino) then {
+					player addWeapon _item;
+				} else {
+					player linkItem _item;
+				};
 				[_arrayTaken,_index,_item,_amount]call _addToArray;
 				[_availableItems,_index,_item,_amount]call _removeFromArray;
 			} else {
@@ -447,6 +466,7 @@ if!(_reportTotal isEqualTo "")then{
 	]
 ]
 */
+
 
 
 

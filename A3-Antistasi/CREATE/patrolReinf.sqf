@@ -60,6 +60,7 @@ if (_land) then
 	} forEach units _grupo;
 	[_veh] call A3A_fnc_AIVEHinit;
 	[_veh,"Inf Truck."] spawn A3A_fnc_inmuneConvoy;
+	_grupo spawn A3A_fnc_attackDrillAI;
 	[_mrkOrigen,_posDestino,_grupo] call WPCreate;
 	_Vwp0 = (wayPoints _grupo) select 0;
 	_Vwp0 setWaypointBehaviour "SAFE";
@@ -117,6 +118,7 @@ else
 		_wp0 setWaypointBehaviour "CARELESS";
 		_wp3 = _grupo addWaypoint [_landpos, 0];
 		_wp3 setWaypointType "GETOUT";
+		_wp3 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
 		_wp0 synchronizeWaypoint [_wp3];
 		_wp4 = _grupo addWaypoint [_posDestino, 1];
 		_wp4 setWaypointType "MOVE";

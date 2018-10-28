@@ -69,21 +69,21 @@ else
 		};
 	if ((side _x == civilian) and (_x distance _posicion < 300) and (vehicle _x == _x)) then {_x doMove position _camion};
 	} forEach allUnits;
-	} forEach ([300,0,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits);
+	} forEach ([300,0,_camion,buenos] call A3A_fnc_distanceUnits);
 	while {(_cuenta > 0)/* or (_camion distance _posicion < 40)*/ and (dateToNumber date < _fechalimnum) and !(isNull _camion)} do
 		{
-		while {(_cuenta > 0) and (_camion distance _posicion < 40) and ({[_x] call A3A_fnc_canFight} count ([80,0,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits) == count ([80,0,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits)) and ({(side _x == malos) and (_x distance _camion < 50)} count allUnits == 0) and (dateToNumber date < _fechalimnum) and (isNull attachedTo _camion)} do
+		while {(_cuenta > 0) and (_camion distance _posicion < 40) and ({[_x] call A3A_fnc_canFight} count ([80,0,_camion,buenos] call A3A_fnc_distanceUnits) == count ([80,0,_camion,buenos] call A3A_fnc_distanceUnits)) and ({(side _x == malos) and (_x distance _camion < 50)} count allUnits == 0) and (dateToNumber date < _fechalimnum) and (isNull attachedTo _camion)} do
 			{
 			_formato = format ["%1", _cuenta];
-			{if (isPlayer _x) then {[petros,"countdown",_formato] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits);
+			{if (isPlayer _x) then {[petros,"countdown",_formato] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,buenos] call A3A_fnc_distanceUnits);
 			sleep 1;
 			_cuenta = _cuenta - 1;
 			};
 		if (_cuenta > 0) then
 			{
 			_cuenta = 120*_bonus;//120
-			if (((_camion distance _posicion > 40) or (not([80,1,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits)) or ({(side _x == malos) and (_x distance _camion < 50)} count allUnits != 0)) and (alive _camion)) then {{[petros,"hint","Don't get the truck far from the city center, and stay close to it, and clean all BLUFOR presence in the surroundings or count will restart"] remoteExec ["A3A_fnc_commsMP",_x]} forEach ([100,0,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits)};
-			waitUntil {sleep 1; ((_camion distance _posicion < 40) and ([80,1,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits) and ({(side _x == malos) and (_x distance _camion < 50)} count allUnits == 0)) or (dateToNumber date > _fechalimnum) or (isNull _camion)};
+			if (((_camion distance _posicion > 40) or (not([80,1,_camion,buenos] call A3A_fnc_distanceUnits)) or ({(side _x == malos) and (_x distance _camion < 50)} count allUnits != 0)) and (alive _camion)) then {{[petros,"hint","Don't get the truck far from the city center, and stay close to it, and clean all BLUFOR presence in the surroundings or count will restart"] remoteExec ["A3A_fnc_commsMP",_x]} forEach ([100,0,_camion,buenos] call A3A_fnc_distanceUnits)};
+			waitUntil {sleep 1; ((_camion distance _posicion < 40) and ([80,1,_camion,buenos] call A3A_fnc_distanceUnits) and ({(side _x == malos) and (_x distance _camion < 50)} count allUnits == 0)) or (dateToNumber date > _fechalimnum) or (isNull _camion)};
 			};
 		if (_cuenta < 1) exitWith {};
 		};
@@ -113,6 +113,6 @@ _emptybox = "Land_PaperBox_01_open_empty_F" createVehicle _ecpos;
 
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
 _nul = [1200,"LOG"] spawn A3A_fnc_borrarTask;
-waitUntil {sleep 1; (not([distanciaSPWN,1,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits)) or (_camion distance (getMarkerPos respawnBuenos) < 60)};
+waitUntil {sleep 1; (not([distanciaSPWN,1,_camion,buenos] call A3A_fnc_distanceUnits)) or (_camion distance (getMarkerPos respawnBuenos) < 60)};
 
 deleteVehicle _emptybox;

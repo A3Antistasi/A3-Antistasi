@@ -1,17 +1,11 @@
 private ["_muerto","_killer","_coste","_enemy","_grupo"];
 _muerto = _this select 0;
 _killer = _this select 1;
-if (_muerto getVariable ["OPFORSpawn",false]) then
+if (_muerto getVariable ["spawner",false]) then
 	{
-	_muerto setVariable ["OPFORSpawn",nil,true]
-	}
-else
-	{
-	if (_muerto getVariable ["BLUFORSpawn",false]) then
-		{
-		_muerto setVariable ["BLUFORSpawn",nil,true]
-		};
+	_muerto setVariable ["spawner",nil,true]
 	};
+
 [_muerto] spawn A3A_fnc_postmortem;
 _grupo = group _muerto;
 _lado = side (group _muerto);

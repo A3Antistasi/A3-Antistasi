@@ -57,16 +57,9 @@ _unit addEventHandler ["HandleDamage",
 	if (!simulationEnabled _unit) then {if (isMultiplayer) then {[_unit,true] remoteExec ["enableSimulationGlobal",2]} else {_unit enableSimulation true}};
 	}
 	];
-if (_unit getVariable ["OPFORSpawn",false]) then
+if (_unit getVariable ["spawner",false]) then
 	{
-	_unit setVariable ["OPFORSpawn",nil,true]
-	}
-else
-	{
-	if (_unit getVariable ["BLUFORSpawn",false]) then
-		{
-		_unit setVariable ["BLUFORSpawn",nil,true]
-		};
+	_unit setVariable ["spawner",nil,true]
 	};
 
 _marcador = _unit getVariable "marcador";
@@ -76,10 +69,10 @@ if (!isNil "_marcador") then
 	_lado = side (group _unit);
 	[_marcador,_lado] remoteExec ["A3A_fnc_zoneCheck",2];
 	};
-[_unit,"interrogar"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
-[_unit,"capturar"]remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
 [_unit] spawn A3A_fnc_postmortem;
 [_caja] spawn A3A_fnc_postmortem;
 sleep 10;
 _unit allowDamage true;
 if (isMultiplayer) then {[_unit,false] remoteExec ["enableSimulationGlobal",2]} else {_unit enableSimulation false};
+[_unit,"interrogar"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
+[_unit,"capturar"]remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];

@@ -4,14 +4,14 @@ private ["_winner","_marcador","_looser","_posicion","_other","_bandera","_bande
 
 _winner = _this select 0;
 _marcador = _this select 1;
-if ((_winner == "GREENFORSpawn") and (_marcador in aeropuertos) and (tierWar < 3)) exitWith {};
-if ((_winner == "GREENFORSpawn") and (lados getVariable [_marcador,sideUnknown] == buenos)) exitWith {};
-if ((_winner == "BLUFORSpawn") and (lados getVariable [_marcador,sideUnknown] == malos)) exitWith {};
-if ((_winner == "OPFORSpawn") and (lados getVariable [_marcador,sideUnknown] == muyMalos)) exitWith {};
+if ((_winner == buenos) and (_marcador in aeropuertos) and (tierWar < 3)) exitWith {};
+if ((_winner == buenos) and (lados getVariable [_marcador,sideUnknown] == buenos)) exitWith {};
+if ((_winner == malos) and (lados getVariable [_marcador,sideUnknown] == malos)) exitWith {};
+if ((_winner == muyMalos) and (lados getVariable [_marcador,sideUnknown] == muyMalos)) exitWith {};
 if (_marcador in markersChanging) exitWith {};
 markersChanging pushBackUnique _marcador;
 _posicion = getMarkerPos _marcador;
-_looser = sideUnknown;
+_looser = lados getVariable [_marcador,sideUnknown];
 _sides = [buenos,malos,muyMalos];
 _other = "";
 _texto = "";
@@ -28,30 +28,26 @@ if ((!(_marcador in ciudades)) and (spawner getVariable _marcador != 2)) then
 if (isNil "_bandera") then {_bandera = objNull};
 //[_bandera,"remove"] remoteExec ["A3A_fnc_flagaction",0,_bandera];
 
-if (lados getVariable [_marcador,sideUnknown] == buenos) then
+if (_looser == buenos) then
 	{
-	_looser = buenos;
 	_texto = format ["%1 ",nameBuenos];
 	[] call A3A_fnc_tierCheck;
 	}
 else
 	{
-	if (lados getVariable [_marcador,sideUnknown] == malos) then
+	if (_looser == malos) then
 		{
-		_looser = malos;
 		_texto = format ["%1 ",nameMalos];
 		}
 	else
 		{
-		_looser = muyMalos;
 		_texto = format ["%1 ",nameMuyMalos];
 		};
 	};
 garrison setVariable [_marcador,[],true];
-if (_winner == "GREENFORSpawn") then
+lados setVariable [_marcador,_winner,true];
+if (_winner == buenos) then
 	{
-	lados setVariable [_marcador,buenos,true];
-	_winner = buenos;
 	_super = if (_marcador in aeropuertos) then {true} else {false};
 	[[_marcador,_looser,"",_super],"A3A_fnc_patrolCA"] call A3A_fnc_scheduler;
 	//sleep 15;
@@ -60,17 +56,7 @@ if (_winner == "GREENFORSpawn") then
 else
 	{
 	_soldados = [];
-	{_soldados pushBack (typeOf _x)} forEach (allUnits select {(_x distance _posicion < (_size*3)) and (_x getVariable [_winner,false]) and (vehicle _x == _x) and (alive _x)});
-	if (_winner == "BLUFORspawn") then
-		{
-		lados setVariable [_marcador,malos,true];
-		_winner = malos;
-		}
-	else
-		{
-		lados setVariable [_marcador,muyMalos,true];
-		_winner = muyMalos;
-		};
+	{_soldados pushBack (typeOf _x)} forEach (allUnits select {(_x distance _posicion < (_size*3)) and (_x getVariable ["spawner",false]) and (side group _x == _winner) and (vehicle _x == _x) and (alive _x)});
 	[_soldados,_winner,_marcador,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
 	};
 
@@ -181,7 +167,7 @@ if (_winner == buenos) then
 		if (_marcador in puertos) then {[_bandera,"seaport"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera]};
 		};
 	[_prestigeMalos,_prestigeMuyMalos] spawn A3A_fnc_prestige;
-	waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({((_x getVariable ["BLUFORSpawn",false]) or (_x getVariable ["OPFORSpawn",false])) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits > 3*({(side _x == buenos) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits))};
+	waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({((side group _x) in [_looser,_other]) and (_x getVariable ["spawner",false]) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits > 3*({(side _x == buenos) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits))};
 	if (spawner getVariable _marcador != 2) then
 		{
 		sleep 10;
@@ -218,7 +204,7 @@ if ((_winner != buenos) and (_looser != buenos)) then
 	if (_marcador in puestos) then
 		{
 		_cercanos = (puertos + recursos + fabricas) select {((getMarkerPos _x) distance _posicion < distanciaSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
-		if (_looser == malos) then  {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == malos}; _winner = "OPFORSpawn"} else {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == muyMalos}; _winner = "BLUFORSpawn"};
+		if (_looser == malos) then  {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == malos}} else {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == muyMalos}};
 		{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _cercanos;
 		}
 	else
@@ -227,7 +213,7 @@ if ((_winner != buenos) and (_looser != buenos)) then
 			{
 			_cercanos = (puertos + puestos) select {((getMarkerPos _x) distance _posicion < distanciaSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
 			_cercanos append ((fabricas + recursos) select {(lados getVariable [_x,sideUnknown] != buenos) and (lados getVariable [_x,sideUnknown] != _winner) and ([aeropuertos,_x] call BIS_fnc_nearestPosition == _marcador)});
-			if (_looser == malos) then  {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == malos}; _winner = "OPFORSpawn"} else {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == muyMalos}; _winner = "BLUFORSpawn"};
+			if (_looser == malos) then  {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == malos}} else {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == muyMalos}};
 			{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _cercanos;
 			};
 		};

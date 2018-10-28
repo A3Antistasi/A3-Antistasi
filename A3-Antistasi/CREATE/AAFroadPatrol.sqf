@@ -14,7 +14,8 @@ if !(isMultiplayer) then
 	{
 	_aeropuerto = _x;
 	_pos = getMarkerPos _aeropuerto;
-	if (allUnits findIf {(_x getVariable ["GREENFORSpawn",false]) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAeropuertos1 pushBack _aeropuerto};
+	//if (allUnits findIf {(_x getVariable ["spawner",false]) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAeropuertos1 pushBack _aeropuerto};
+	if ([distanceForLandAttack,1,_pos,buenos] call A3A_fnc_distanceUnits) then {_arrayAeropuertos1 pushBack _aeropuerto};
 	} forEach _arrayAeropuertos;
 	}
 else
@@ -180,12 +181,12 @@ while {alive _veh} do
 		};
 	};
 
-_enemigos = if (_lado == malos) then {"OPFORSpawn"} else {"BLUFORSpawn"};
+_enemigos = if (_lado == malos) then {muyMalos} else {malos};
 
 {_unit = _x;
-waitUntil {sleep 1;!([distanciaSPWN,1,_unit,"GREENFORSpawn"] call A3A_fnc_distanceUnits) and !([distanciaSPWN,1,_unit,_enemigos] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldados;
+waitUntil {sleep 1;!([distanciaSPWN,1,_unit,buenos] call A3A_fnc_distanceUnits) and !([distanciaSPWN,1,_unit,_enemigos] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldados;
 
 {_veh = _x;
-if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call A3A_fnc_distanceUnits) and !([distanciaSPWN,1,_veh,_enemigos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}} forEach _vehiculos;
+if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and !([distanciaSPWN,1,_veh,_enemigos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}} forEach _vehiculos;
 {deleteGroup _x} forEach _grupos;
 AAFpatrols = AAFpatrols - 1;

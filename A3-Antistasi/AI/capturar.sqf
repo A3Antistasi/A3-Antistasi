@@ -35,8 +35,7 @@ if (round random 100 < _chance) then
 	_unit stop false;
 	[_unit,""] remoteExec ["switchMove"];
 	_unit doMove (getMarkerPos respawnMalos);
-	if (_unit getVariable ["OPFORSpawn",false]) then {_unit setVariable ["OPFORSpawn",nil,true]};
-	if (_unit getVariable ["BLUFORSpawn",false]) then {_unit setVariable ["BLUFORSpawn",nil,true]};
+	if (_unit getVariable ["spawner",false]) then {_unit setVariable ["spawner",nil,true]};
 	sleep 100;
 	if (alive _unit) then
 		{
@@ -50,6 +49,7 @@ if (round random 100 < _chance) then
 			[1,1] remoteExec ["A3A_fnc_prestige",2];
 			};
 		};
+	deleteVehicle _unit;
 	}
 else
 	{

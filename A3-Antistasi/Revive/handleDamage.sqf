@@ -1,8 +1,10 @@
-private ["_unit","_part","_dam","_injurer"];
+/*private ["_unit","_part","_dam","_injurer"];
 _unit = _this select 0;
 _part = _this select 1;
 _dam = _this select 2;
 _injurer = _this select 3;
+*/
+params ["_unit","_part","_dam","_injurer"];
 
 if (_part == "") then
 	{
@@ -39,7 +41,7 @@ if (_part == "") then
 							{
 							if (tkPunish) then
 								{
-								if ((_injurer != _unit) and (side _injurer == buenos) and (_unit getVariable ["GREENFORSpawn",false])) then
+								if ((_injurer != _unit) and (side _injurer == buenos) and (_unit getVariable ["buenos",false]) and (side group _unit == buenos)) then
 									{
 									_uniform = uniform _unit;
 									_typeSoldier = getText (configfile >> "CfgWeapons" >> _uniform >> "ItemInfo" >> "uniformClass");

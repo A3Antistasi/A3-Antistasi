@@ -19,6 +19,9 @@ _camion = vehSDKRepair createVehicle _pos;
 
 [_camion] call A3A_fnc_AIVEHinit;
 [_unit] spawn A3A_fnc_FIAinit;
+clearMagazineCargo unitBackpack _unit;
+_unit addItemToBackpack "MineDetector";
+
 _grupo addVehicle _camion;
 [_unit] orderGetIn true;
 //_unit setBehaviour "SAFE";

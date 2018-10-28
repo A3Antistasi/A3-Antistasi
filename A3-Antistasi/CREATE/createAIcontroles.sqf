@@ -12,7 +12,7 @@ _vehiculos = [];
 _soldados = [];
 _pilotos = [];
 _conquistado = false;
-
+_grupo = grpNull;
 _esFIA = false;
 _salir = false;
 
@@ -97,19 +97,22 @@ if (_esControl) then
 			{_nul = [_x] call A3A_fnc_AIVEHinit} forEach _vehiculos;
 			};
 		_tipogrupo = if (_lado == malos) then {selectRandom gruposNATOmid} else {selectRandom gruposCSATmid};
-		_grupo = [_posicion,_lado, _tipogrupo] call A3A_fnc_spawnGroup;
-		if !(hayIFA) then
+		_grupo = if !(hayIFA) then {[_posicion,_lado, _tipogrupo,false,true] call A3A_fnc_spawnGroup} else {[_posicion,_lado, _tipogrupo] call A3A_fnc_spawnGroup};
+		if !(isNull _grupo) then
 			{
-			{[_x] join _grupo} forEach units _grupoE;
-			deleteGroup _grupoE;
+			if !(hayIFA) then
+				{
+				{[_x] join _grupo} forEach units _grupoE;
+				deleteGroup _grupoE;
+				};
+			if (random 10 < 2.5) then
+				{
+				_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
+				[_perro,_grupo] spawn A3A_fnc_guardDog;
+				};
+			_nul = [leader _grupo, _marcador, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+			{[_x,""] call A3A_fnc_NATOinit; _soldados pushBack _x} forEach units _grupo;
 			};
-		if (random 10 < 2.5) then
-			{
-			_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
-			[_perro,_grupo] spawn A3A_fnc_guardDog;
-			};
-		_nul = [leader _grupo, _marcador, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-		{[_x,""] call A3A_fnc_NATOinit; _soldados pushBack _x} forEach units _grupo;
 		}
 	else
 		{
@@ -120,10 +123,13 @@ if (_esControl) then
 		_vehiculos pushBack _veh;
 		sleep 1;
 		_tipogrupo = selectRandom gruposFIAMid;
-		_grupo = [_posicion, _lado, _tipoGrupo] call A3A_fnc_spawnGroup;
-		_unit = _grupo createUnit [FIARifleman, _posicion, [], 0, "NONE"];
-		_unit moveInGunner _veh;
-		{_soldados pushBack _x; [_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
+		_grupo = if !(hayIFA) then {[_posicion, _lado, _tipoGrupo,false,true] call A3A_fnc_spawnGroup} else {[_posicion, _lado, _tipoGrupo] call A3A_fnc_spawnGroup};
+		if !(isNull _grupo) then
+			{
+			_unit = _grupo createUnit [FIARifleman, _posicion, [], 0, "NONE"];
+			_unit moveInGunner _veh;
+			{_soldados pushBack _x; [_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
+			};
 		};
 	}
 else
@@ -253,7 +259,7 @@ waitUntil {sleep 1;(spawner getVariable _marcador == 2)};
 {_veh = _x;
 if (not(_veh in staticsToSave)) then
 	{
-	if ((!([distanciaSPWN,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits))) then {deleteVehicle _x}
+	if ((!([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))) then {deleteVehicle _x}
 	};
 } forEach _vehiculos;
 {

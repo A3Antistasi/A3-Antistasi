@@ -4,7 +4,7 @@ _presente = false;
 {
 if ((side _x == malos) or (side _x == muyMalos)) then
 	{
-	if ([500,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits) then {_presente = true};
+	if ([500,1,_x,buenos] call A3A_fnc_distanceUnits) then {_presente = true};
 	};
 } forEach allUnits;
 if (_presente) exitWith {hint "You cannot rest while enemies are near our units"};

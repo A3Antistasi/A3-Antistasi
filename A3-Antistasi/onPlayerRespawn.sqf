@@ -13,7 +13,7 @@ if !(hayACEMedical) then
 	_viejo setVariable ["INCAPACITATED",false,true];
 	_nuevo setVariable ["INCAPACITATED",false,true];
 	};
-if ((side player == buenos) or (side player == civilian)) then
+if (side group player == buenos) then
 	{
 	_owner = _viejo getVariable ["owner",_viejo];
 
@@ -39,8 +39,8 @@ if ((side player == buenos) or (side player == civilian)) then
 	//_nuevo setUnitRank (rank _viejo);
 	_nuevo setVariable ["compromised",0];
 	_nuevo setVariable ["elegible",_elegible,true];
-	_nuevo setVariable ["GREENFORSpawn",true,true];
-	_viejo setVariable ["GREENFORSpawn",nil,true];
+	_nuevo setVariable ["spawner",true,true];
+	_viejo setVariable ["spawner",nil,true];
 	[_nuevo,false] remoteExec ["setCaptive",0,_nuevo];
 	_nuevo setCaptive false;
 	_nuevo setRank (_rango);
@@ -239,7 +239,8 @@ if ((side player == buenos) or (side player == civilian)) then
 	}
 else
 	{
-	if (side player == malos) then {_viejo setVariable ["BLUFORSpawn",nil,true];_nuevo setVariable ["BLUFORSpawn",true,true]};
-	if (activeUSAF) then {[player] call A3A_fnc_RHSdress};
+	_viejo setVariable ["spawner",nil,true];
+	_nuevo setVariable ["spawner",true,true];
+	if (hayRHS) then {[player] call A3A_fnc_RHSdress};
 	if (hayACE) then {[] call A3A_fnc_ACEpvpReDress};
 	};

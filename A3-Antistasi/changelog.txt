@@ -1219,3 +1219,21 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Fixed major attacks not stopping even when the attack was succesful or failed in the tasks menu.
 - Fixed bug on AI building assault.
 - Fixed error on qrf when the AI sends more than 1 vehicle and there are no more vehicles to send.
+
+1.4.0 25/10/18
+
+- Rework of the spawning scripts, less CPU and bandwith compsuming.
+- Liberated prisoners will be deleted after 100 seconds to save performance (those units have no combat capabilities at all).
+- Local AI number will be limited on sides up to a 70% of the Max AI parameter, so there will be allways room for their enemy AI.
+- Major garrisons will spawn at least a whole group (if they have troops) and the rest of the groups can be bypassed of spawning if the AI limit has been reached.
+- Some improvements in attack drills for AI
+- Attack AI will react better to tank and airplane presence (hide in bluidings if they or the nearby friendlies have no AA/AT capabilities).
+- Corrected (¡at last!) bug on binoculars in Arsenal menu thanks to SkaceKamen!!!
+- Solved bug in flanking procedures thanks to Alex Triada!
+- Better behaviour for AI using land transports.
+- Fixed: Threat evaluation analisys were done non mod-edition-faction independent.
+- Fixed Air QRF sent from outposts in some cases.
+- Major attacks and QRFs will at least send a whole squad if applicable, and they won't send squads with less than 4 units anymore.
+
+meter veh civiles IFA y rehacer lo relativo a JNL
+el redress de RHS para CSAT!

@@ -3,7 +3,7 @@ private ["_unit","_muerto","_killer","_skill","_nombre","_tipo"];
 _unit = _this select 0;
 
 [_unit] call A3A_fnc_initRevive;
-_unit setVariable ["GREENFORSpawn",true,true];
+_unit setVariable ["spawner",true,true];
 
 _unit allowFleeing 0;
 _tipo = typeOf _unit;
@@ -236,7 +236,7 @@ if (player == leader _unit) then
 					};
 				};
 			};
-		_muerto setVariable ["GREENFORSpawn",nil,true];
+		_muerto setVariable ["spawner",nil,true];
 		}];
 	if ((typeOf _unit != SDKUnarmed) and !hayIFA) then
 		{
@@ -306,7 +306,7 @@ else
 					};
 				};
 			};
-		_muerto setVariable ["GREENFORSpawn",nil,true];
+		_muerto setVariable ["spawner",nil,true];
 		}];
 	};
 

@@ -1,13 +1,11 @@
-private ["_veh"];
-
-_veh = _this select 0;
+private _veh = _this select 0;
 
 _inside = _veh getVariable "inDespawner";
 if (!isNil "_inside") exitWith {};
 
 _veh setVariable ["inDespawner",true,true];
 
-if ((typeOf _veh in arrayCivVeh) and ({_x getVariable ["GREENFORSpawn",false]} count crew _veh > 0) and (_veh distance getMarkerPos respawnBuenos > 50)) then
+if ((typeOf _veh in arrayCivVeh) and ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0) and (_veh distance getMarkerPos respawnBuenos > 50)) then
 	{
 	_pos = position _veh;
 	[0,-1,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
@@ -31,9 +29,8 @@ if ((typeOf _veh in arrayCivVeh) and ({_x getVariable ["GREENFORSpawn",false]} c
 	};
 while {alive _veh} do
 	{
-	if ((not([distanciaSPWN,1,_veh,"GREENFORSpawn"] call A3A_fnc_distanceUnits)) and (not([distanciaSPWN,1,_veh,"OPFORSpawn"] call A3A_fnc_distanceUnits)) and (not([distanciaSPWN,1,_veh,"BLUFORSpawn"] call A3A_fnc_distanceUnits)) and (not(_veh in staticsToSave)) and (_veh distance getMarkerPos respawnBuenos > 100)) then
+	if ((not([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) and (not([distanciaSPWN,1,_veh,muyMalos] call A3A_fnc_distanceUnits)) and (not([distanciaSPWN,1,_veh,malos] call A3A_fnc_distanceUnits)) and (not(_veh in staticsToSave)) and (_veh distance getMarkerPos respawnBuenos > 100)) then
 		{
-		//hint format ["%1 se lo ha cargado el despawner",_veh];
 		if (_veh in reportedVehs) then {reportedVehs = reportedVehs - [_veh]; publicVariable "reportedVehs"};
 		deleteVehicle _veh
 		};

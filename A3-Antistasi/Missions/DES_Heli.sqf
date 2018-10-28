@@ -193,7 +193,7 @@ _nul = [1200,"DES"] spawn A3A_fnc_borrarTask;
 _nul = [0,"DES1"] spawn A3A_fnc_borrarTask;
 deleteMarker _mrkfin;
 {
-waitUntil {sleep 1;(!([distanciaSPWN,1,_x,"GREENFORSpawn"] call A3A_fnc_distanceUnits))};
+waitUntil {sleep 1;(!([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))};
 deleteVehicle _x} forEach _vehiculos;
 {deleteVehicle _x} forEach _soldados;
 {deleteGroup _x} forEach _grupos;

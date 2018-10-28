@@ -39,7 +39,7 @@ if (isPlayer _x) then
 	[_marcador] remoteExec ["A3A_fnc_intelFound",_x];
 	if (captive _x) then {[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false};
 	}
-} forEach ([_size,0,_posicion,"GREENFORSpawn"] call A3A_fnc_distanceUnits);
+} forEach ([_size,0,_posicion,buenos] call A3A_fnc_distanceUnits);
 
 //_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
-["GREENFORSpawn",_marcador] remoteExec ["A3A_fnc_markerChange",2];
+[buenos,_marcador] remoteExec ["A3A_fnc_markerChange",2];

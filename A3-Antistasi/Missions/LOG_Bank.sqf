@@ -87,28 +87,28 @@ else
 		{if (side _x == malos) then {_x reveal [_amigo,4]};
 		} forEach allUnits;
 		};
-	} forEach ([distanciaSPWN,0,_posicion,"GREENFORSpawn"] call A3A_fnc_distanceUnits);
+	} forEach ([distanciaSPWN,0,_posicion,buenos] call A3A_fnc_distanceUnits);
 	_exit = false;
 	while {(_cuenta > 0) or (_camion distance _posicion < 7) and (alive _camion) and (dateToNumber date < _fechalimnum)} do
 		{
 		while {(_cuenta > 0) and (_camion distance _posicion < 7) and (alive _camion)} do
 			{
 			_formato = format ["%1", _cuenta];
-			{if (isPlayer _x) then {[petros,"countdown",_formato] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits);
+			{if (isPlayer _x) then {[petros,"countdown",_formato] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,buenos] call A3A_fnc_distanceUnits);
 			sleep 1;
 			_cuenta = _cuenta - 1;
 			};
 		if (_cuenta > 0) then
 			{
 			_cuenta = 120*_bonus;//120
-			if (_camion distance _posicion > 6) then {{[petros,"hint","Don't get the truck far from the bank or count will restart"] remoteExec ["A3A_fnc_commsMP",_x]} forEach ([200,0,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits)};
+			if (_camion distance _posicion > 6) then {{[petros,"hint","Don't get the truck far from the bank or count will restart"] remoteExec ["A3A_fnc_commsMP",_x]} forEach ([200,0,_camion,buenos] call A3A_fnc_distanceUnits)};
 			waitUntil {sleep 1; (!alive _camion) or (_camion distance _posicion < 7) or (dateToNumber date < _fechalimnum)};
 			}
 		else
 			{
 			if (alive _camion) then
 				{
-				{if (isPlayer _x) then {[petros,"hint","Drive the Truck back to base to finish this mission"] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,"GREENFORSpawn"] call A3A_fnc_distanceUnits);
+				{if (isPlayer _x) then {[petros,"hint","Drive the Truck back to base to finish this mission"] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,buenos] call A3A_fnc_distanceUnits);
 				_exit = true;
 				};
 			//waitUntil {sleep 1; (!alive _camion) or (_camion distance _posicion > 7) or (dateToNumber date < _fechalimnum)};
@@ -143,7 +143,7 @@ deleteVehicle _camion;
 
 _nul = [1200,"LOG"] spawn A3A_fnc_borrarTask;
 
-waitUntil {sleep 1; !([distanciaSPWN,1,_posicion,"GREENFORSpawn"] call A3A_fnc_distanceUnits)};
+waitUntil {sleep 1; !([distanciaSPWN,1,_posicion,buenos] call A3A_fnc_distanceUnits)};
 
 {_grupo = _x;
 {deleteVehicle _x} forEach units _grupo;

@@ -14,24 +14,24 @@ _enemy2 = "";
 if ((_lado == buenos) and (lados getVariable [_marcador,sideUnknown] == buenos)) then
 	{
 	_salir = false;
-	_enemy1 = "OPFORSpawn";
-	_enemy2 = "BLUFORSpawn";
+	_enemy1 = muyMalos;
+	_enemy2 = malos;
 	}
 else
 	{
 	if ((_lado == malos) and (lados getVariable [_marcador,sideUnknown] == malos)) then
 		{
 		_salir = false;
-		_enemy1 = "OPFORSpawn";
-		_enemy2 = "GREENFORSpawn";
+		_enemy1 = muyMalos;
+		_enemy2 = buenos;
 		}
 	else
 		{
 		if ((_lado == muyMalos) and (lados getVariable [_marcador,sideUnknown] == muyMalos)) then
 			{
 			_salir = false;
-			_enemy1 = "BLUFORSpawn";
-			_enemy2 = "GREENFORSpawn";
+			_enemy1 = malos;
+			_enemy2 = buenos;
 			};
 		};
 	};
@@ -39,23 +39,16 @@ else
 if (_salir) exitWith {zoneCheckInProgress = false};
 _salir = true;
 
-if ({((_x getVariable [_enemy1,false]) or (_x getVariable [_enemy2,false])) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits > 3*({([_x,_marcador] call A3A_fnc_canConquer) and (_x getVariable ["marcador",""] == _marcador)} count allUnits)) then
+if ({((_x getVariable ["spawner",false]) and ((side group _x) in [_enemy1,_enemy2])) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits > 3*({([_x,_marcador] call A3A_fnc_canConquer) and (_x getVariable ["marcador",""] == _marcador)} count allUnits)) then
 	{
 	_salir = false;
 	};
 if (_salir) exitWith {zoneCheckInProgress = false};
 
 _winner = _enemy1;
-if ({(_x getVariable [_enemy1,false]) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits <= {(_x getVariable [_enemy2,false]) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits) then {_winner = _enemy2};
+if ({(_x getVariable ["spawner",false]) and (side group _x == _enemy1) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits <= {(_x getVariable ["spawner",false]) and (side group _x == _enemy2) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits) then {_winner = _enemy2};
 
 [_winner,_marcador] remoteExec ["A3A_fnc_markerChange",2];
 
-if (_winner == "GREENFORSpawn") then
-	{
-	waitUntil {sleep 1; lados getVariable [_marcador,sideUnknown] == buenos};
-	}
-else
-	{
-	if (_winner == "BLUFORSpawn") then {waitUntil {sleep 1;(lados getVariable [_marcador,sideUnknown] == malos)}} else {waitUntil {sleep 1;(lados getVariable [_marcador,sideUnknown] == muyMalos)}};
-	};
+waitUntil {sleep 1; lados getVariable [_marcador,sideUnknown] == _winner};
 zoneCheckInProgress = false;

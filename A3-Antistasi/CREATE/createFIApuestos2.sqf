@@ -38,7 +38,7 @@ if (_escarretera) then
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		sleep 1;
 		};
-	_grupo = [_posicion, buenos, _garrison] call A3A_fnc_spawnGroup;
+	_grupo = [_posicion, buenos, _garrison,true,false] call A3A_fnc_spawnGroup;
 	//_unit = _grupo createUnit [staticCrewBuenos, _posicion, [], 0, "NONE"];
 	//_unit moveInGunner _veh;
 	{[_x,_marcador] spawn A3A_fnc_FIAinitBases; if (typeOf _x == staticCrewBuenos) then {_x moveInGunner _veh}} forEach units _grupo;

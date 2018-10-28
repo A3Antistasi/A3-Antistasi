@@ -1080,7 +1080,7 @@ switch _mode do {
 					}else{
 						_amount = _amountCurrent - _amount;
 						if(_amount<0)then{_amount = 0};
-					}
+					};
 				};
 
 				if(_amount <= 0 && {

@@ -34,13 +34,11 @@ else
 				_driver = driver _veh;
 				if (!isNull _driver) then
 					{
-					if ((_driver getVariable ["BLUFORSpawn",false]) or (_driver getVariable ["OPFORSpawn",false])) then
+					if (side group _driver != buenos) then
 						{
-						if ((not(_unit getVariable ["BLUFORSpawn",false])) or ((not(_unit getVariable ["OPFORSpawn",false])))) then
+						if !(_unit getVariable ["spawner",false]) then
 							{
-							_lado = side (group _unit);
-							if (_lado == malos) then {_unit setVariable ["BLUFORSpawn",true,true]} else {_unit setVariable ["OPFORSpawn",true,true]};
-							//if (!simulationEnabled _unit) then {if (isMultiplayer) then {[_unit,true] remoteExec ["enableSimulationGlobal",2]} else {_unit enableSimulation true}};
+							_unit setVariable ["spawner",true,true]
 							};
 						};
 					};
@@ -48,12 +46,12 @@ else
 			}
 		else
 			{
-			if (_lado == malos) then {_unit setVariable ["BLUFORSpawn",true,true]} else {_unit setVariable ["OPFORSpawn",true,true]};
+			_unit setVariable ["spawner",true,true]
 			};
 		}
 	else
 		{
-		if (_lado == malos) then {_unit setVariable ["BLUFORSpawn",true,true]} else {_unit setVariable ["OPFORSpawn",true,true]};
+		_unit setVariable ["spawner",true,true]
 		};
 	};
 

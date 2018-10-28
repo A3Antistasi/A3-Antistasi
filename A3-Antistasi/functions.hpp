@@ -17,7 +17,7 @@ class A3A
         class deleteControles {file="deleteControles.sqf";};
         class destroyCity {file="destroyCity.sqf";};
         class distanceUnits {file="distanceUnits.sqf";};
-        class distancias4 {file="distancias4.sqf";};
+        class distancias4 {file="distancias5.sqf";};
         class economicsAI {file="economicsAI.sqf";};
         class FIAradio {file="FIAradio.sqf";};
         class findBasesForConvoy {file="findBasesForConvoy.sqf";};

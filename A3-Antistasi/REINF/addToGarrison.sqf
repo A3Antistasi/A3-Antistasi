@@ -153,7 +153,7 @@ else
 					if (side _killer == muyMalos) then {[0,-0.25] remoteExec ["A3A_fnc_prestige",2]};
 					};
 				};
-			_muerto setVariable ["GREENFORSpawn",nil,true];
+			_muerto setVariable ["spawner",nil,true];
 			}];
 		};
 	} forEach _unidades;

@@ -90,7 +90,7 @@ else
 			if (_posicion == "driver") then
 				{
 				_unit = _this select 2;
-				if ((!isPlayer _unit) and (_unit getVariable ["GREENFORSpawn",false])) then
+				if ((!isPlayer _unit) and (_unit getVariable ["spawner",false]) and (side group _unit == buenos)) then
 					{
 					moveOut _unit;
 					hint "Only Humans can pilot an air vehicle";

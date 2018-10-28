@@ -54,17 +54,17 @@ if (spawner getVariable _marcador == 0) then
 		}
 	else
 		{
-		waitUntil {sleep 1;({leader _grupo knowsAbout _x > 1.4} count ([distanciaSPWN,0,leader _grupo,"GREENFORSpawn"] call A3A_fnc_distanceUnits) > 0) or (dateToNumber date > _fechalimnum) or (not alive _veh) or ({_x getVariable ["GREENFORSpawn",false]} count crew _veh > 0)};
+		waitUntil {sleep 1;({leader _grupo knowsAbout _x > 1.4} count ([distanciaSPWN,0,leader _grupo,buenos] call A3A_fnc_distanceUnits) > 0) or (dateToNumber date > _fechalimnum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0)};
 
-		if ({leader _grupo knowsAbout _x > 1.4} count ([distanciaSPWN,0,leader _grupo,"GREENFORSpawn"] call A3A_fnc_distanceUnits) > 0) then {_grupo addVehicle _veh;};
+		if ({leader _grupo knowsAbout _x > 1.4} count ([distanciaSPWN,0,leader _grupo,buenos] call A3A_fnc_distanceUnits) > 0) then {_grupo addVehicle _veh;};
 		};
 
-	waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (not alive _veh) or ({_x getVariable ["GREENFORSpawn",false]} count crew _veh > 0)};
+	waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0)};
 
-	if ((not alive _veh) or ({_x getVariable ["GREENFORSpawn",false]} count crew _veh > 0)) then
+	if ((not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0)) then
 		{
 		["DES",[format ["We know an enemy armor (%4) is stationed in a %1. It is a good chance to steal or destroy it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
-		if ({_x getVariable ["GREENFORSpawn",false]} count crew _veh > 0) then
+		if ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0) then
 			{
 			["TaskFailed", ["", format ["AA Stolen in %1",_nombreDest]]] remoteExec ["BIS_fnc_showNotification",_lado];
 			};
@@ -92,5 +92,5 @@ if (_camionCreado) then
 	{
 	{deleteVehicle _x} forEach units _grupo;
 	deleteGroup _grupo;
-	if (!([distanciaSPWN,1,_veh,"GREENFORSpawn"] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
+	if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
 	};

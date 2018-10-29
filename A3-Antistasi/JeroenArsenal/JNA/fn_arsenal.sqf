@@ -1080,7 +1080,7 @@ switch _mode do {
 					}else{
 						_amount = _amountCurrent - _amount;
 						if(_amount<0)then{_amount = 0};
-					};
+					}
 				};
 
 				if(_amount <= 0 && {
@@ -1268,10 +1268,11 @@ switch _mode do {
 				_ammoTotal = 0;
 				//_compatableMagazines = server getVariable [format ["%1_mags", _item],[]];//TODO marker for changed entry
 				scopeName "updateWeapon";//TODO marker for changed entry
-				_compatableMagazines = (getarray (configfile >> "cfgweapons" >> _item >> "magazines"));//TODO marker for changed entry
+				_compatableMagazines = (getarray (configfile >> "cfgweapons" >> _item >> "magazines")) apply { toLower(_x) };//TODO marker for changed entry
+
 				{
 					private ["_amount"];
-					_magName = _x select 0;
+					_magName = toLower(_x select 0);
 					_amount = _x select 1;
 					//if(_amount == -1)exitWith{_ammoTotal = -1};//TODO marker for changed entry
 					if (_magName in _compatableMagazines) then {

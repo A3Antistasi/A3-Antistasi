@@ -114,6 +114,10 @@
 
 disableserialization;
 
+_arrayContains = {
+	private _item = toLower(param [1]);
+	(param[0]) findIf { toLower(_x) == _item } != -1
+};
 
 _mode = [_this,0,"Open",[displaynull,""]] call bis_fnc_param;
 _this = [_this,1,[]] call bis_fnc_param;
@@ -622,7 +626,7 @@ switch _mode do {
 				_itemAvailable = _x select 0;
 				_amountAvailable = _x select 1;
 
-				if(_itemAvailable in _usableMagazines)then{
+				if([_usableMagazines, _itemAvailable] call _arrayContains) then {
 					_magazines set [count _magazines,[_itemAvailable, _amountAvailable]];
 				};
 			} forEach (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL);
@@ -686,7 +690,7 @@ switch _mode do {
 				_inventory = if(_index == IDC_RSCDISPLAYARSENAL_TAB_CARGOMAG)then{
 					{
 						{
-							if(_x in _itemsUnique)then{
+							if([_itemsUnique, _x] call _arrayContains)then{
 								["UpdateItemAdd",[_index,_x,0]] call jn_fnc_arsenal;
 							}
 						} forEach (getarray (configfile >> "cfgweapons" >> _x >> "magazines"));
@@ -1080,7 +1084,7 @@ switch _mode do {
 					}else{
 						_amount = _amountCurrent - _amount;
 						if(_amount<0)then{_amount = 0};
-					};
+					}
 				};
 
 				if(_amount <= 0 && {
@@ -1268,13 +1272,14 @@ switch _mode do {
 				_ammoTotal = 0;
 				//_compatableMagazines = server getVariable [format ["%1_mags", _item],[]];//TODO marker for changed entry
 				scopeName "updateWeapon";//TODO marker for changed entry
-				_compatableMagazines = (getarray (configfile >> "cfgweapons" >> _item >> "magazines"));//TODO marker for changed entry
+				_compatableMagazines = getarray (configfile >> "cfgweapons" >> _item >> "magazines");
+
 				{
 					private ["_amount"];
 					_magName = _x select 0;
 					_amount = _x select 1;
 					//if(_amount == -1)exitWith{_ammoTotal = -1};//TODO marker for changed entry
-					if (_magName in _compatableMagazines) then {
+					if ([_compatableMagazines, _magName] call _arrayContains) then {
 						if (_amount == -1) then {_ammoTotal = -1; breakTo "updateWeapon"};//TODO marker for changed entry
 						_ammoTotal = _ammoTotal + _amount;
 					}
@@ -1651,8 +1656,8 @@ switch _mode do {
 								player addweaponitem [_item,[_magazine,_amount]];
 							};
 						}else{
-							if(_magazine in _oldCompatableMagazines)then{
-								if!(_magazine in _newCompatableMagazines)then{
+							if([_oldCompatableMagazines, _magazine] call _arrayContains)then{
+								if!([_newCompatableMagazines, _magazine] call _arrayContains)then{
 									player removemagazine _magazine;
 								};
 							};

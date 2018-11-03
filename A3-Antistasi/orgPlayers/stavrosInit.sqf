@@ -29,7 +29,7 @@ else
 		{
 		_unit hcSetGroup [_x];
 		};
-	if ((leader _x getVariable ["spawner",false]) and (!isPlayer leader _x) and (side group _x == buenos)) then
+	if ((leader _x getVariable ["spawner",false]) and (!isPlayer leader _x) and (side _x == buenos)) then
 		{
 		_unit hcSetGroup [_x];
 		};

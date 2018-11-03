@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.4.0.0";
+antistasiVersion = "v 1.4.0.1";
 
 
 debug = false;//debug variable, not useful for everything..
@@ -211,6 +211,10 @@ else
 	["LIB_DAK_OpelBlitz_Open","LIB_GazM1","LIB_GazM1_dirty","LIB_DAK_Kfz1","LIB_DAK_Kfz1_hood"];
 	};
 
+municionNATO = [];
+armasNATO = [];
+municionCSAT = [];
+armasCSAT = [];
 
 if (!hayIFA) then
 	{
@@ -269,6 +273,49 @@ if (count _x > 1) then
 	uniformsSDK pushBackUnique _uniform;
 	};
 } forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewBuenos]];
+_checked = [];
+{
+{
+_tipo = _x;
+if !(_tipo in _checked) then
+	{
+	_checked pushBack _tipo;
+	_loadout = getUnitLoadout _tipo;
+	for "_i" from 0 to 2 do
+		{
+		_weapon = [((_loadout select _i) select 0)] call BIS_fnc_baseWeapon;
+		if !(_weapon in armasCSAT) then {armasCSAT pushBack _weapon};
+		};
+	};
+} forEach _x;
+} forEach gruposCSATmid + [CSATSpecOp] + gruposCSATSquad;
+_checked = [];
+{
+{
+_tipo = _x;
+if !(_tipo in _checked) then
+	{
+	_checked pushBack _tipo;
+	_loadout = getUnitLoadout _tipo;
+	for "_i" from 0 to 2 do
+		{
+		_weapon = [((_loadout select _i) select 0)] call BIS_fnc_baseWeapon;
+		if !(_weapon in armasNATO) then {armasNATO pushBack _weapon};
+		};
+	};
+} forEach _x;
+} forEach gruposNATOmid + [NATOSpecOp] + gruposNATOSquad;
+
+{
+_nombre = [_x] call BIS_fnc_baseWeapon;
+_magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
+municionNATO pushBack (_magazines select 0);
+} forEach armasNATO;
+{
+_nombre = [_x] call BIS_fnc_baseWeapon;
+_magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
+municionCSAT pushBack (_magazines select 0);
+} forEach armasCSAT;
 //optic, pointer and flashlight automated detection
 opticasAAF = [];
 flashLights = [];
@@ -298,6 +345,7 @@ if !(_item in (opticasAAF + flashLights + pointers)) then
 		};
 	};
 } forEach (_x call BIS_fnc_compatibleItems);
+
 } forEach (armasNATO + armasCSAT);
 if (hayRHS) then
 	{

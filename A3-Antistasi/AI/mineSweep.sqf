@@ -55,26 +55,21 @@ while {alive _unit} do
 			_minas = [_minas,[],{_unit distance _x},"ASCEND"] call BIS_fnc_sortBy;
 			_cuenta = 0;
 			_total = count _minas;
-			hint format ["Mine sweeper found %1 mines, deactivating", _total];
-			diag_log format ["Antistasi Mine sweep: Found %1 mines, deactivating", _total];
 			while {(alive _unit) and (_cuenta < _total)} do
 				{
 				_mina = _minas select _cuenta;
 				[_unit] orderGetin false;
-				diag_log format ["Antistasi Mine sweep: Moving to mine %1", _cuenta + 1];
 				_unit doMove position _mina;
 				_timeOut = time + 120;
 				waitUntil {sleep 0.5; (_unit distance _mina < 8) or (!alive _unit) or (time > _timeOut)};
 				if (alive _unit) then
 					{
-					diag_log format ["Antistasi Mine sweep: Deactivating mine %1 of %2", _cuenta + 1, _total];
 					_unit action ["Deactivate",_unit,_mina];
 					//_unit action ["deactivateMine", _unit];
 					sleep 3;
 					_toDelete = nearestObjects [position _unit, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 9];
 					if (count _toDelete > 0) then
 						{
-						diag_log format ["Antistasi Mine sweep: Deleting %1 containers for mine %2", count _toDelete, _cuenta + 1];
 						_wh = _toDelete select 0;
 						if (alive _camion) then {_camion addMagazineCargoGlobal [((magazineCargo _wh) select 0),1]};
 						deleteVehicle _mina;
@@ -86,11 +81,6 @@ while {alive _unit} do
 			if(alive _unit) then
 				{
 				[_unit] orderGetIn true;
-				diag_log "Antistasi Mine sweep: All mines deactivated";
-				hint "Mine sweeper deactivated all mines";
-				} else {
-				hint "Mine sweeper is dead";
-				diag_log "Antistasi Mine sweep: Mine sweeper is dead";
 				};
 			};
 		};

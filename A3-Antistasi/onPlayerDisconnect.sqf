@@ -2,6 +2,7 @@ private ["_unit","_recursos","_hr","_armas","_municion","_items","_pos"];
 
 _unit = _this select 0;
 _uid = _this select 2;
+_owner = _this select 4;
 _recursos = 0;
 _hr = 0;
 
@@ -67,10 +68,9 @@ if (side group _unit == buenos) then
 		};
 	//if ([_unit] call A3A_fnc_isMember) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
 	};
-if ((owner _unit) in hcArray) then
+if (_owner in hcArray) then
 	{
 	//["hcDown",true,true,true,true] remoteExec ["BIS_fnc_endMission"]
-	_owner = owner _unit;
 	if ({owner _x == _owner} count allUnits > 0) then
 		{
 		[] spawn

@@ -148,7 +148,7 @@ while {true} do
 				};
 			if !(isNull _tanques) then
 				{
-				if (_allNearFriendlies findIf {_x call A3A_fnc_typeOfSoldier == "ATMan"} == -1) then
+				if (_allNearFriends findIf {_x call A3A_fnc_typeOfSoldier == "ATMan"} == -1) then
 					{
 					_mortero = _grupo getVariable ["morteros",objNull];
 					if (!(isNull _mortero) and ([_mortero] call A3A_fnc_canFight)) then

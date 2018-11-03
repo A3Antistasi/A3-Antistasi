@@ -50,7 +50,7 @@ gruposNATOAA = ["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref
 gruposNATOAT = ["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_grenadier_rpg","rhsgref_ins_g_grenadier_rpg"];
 gruposNATOmid = [["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26"],gruposNATOAA,gruposNATOAT];//["B_T_InfTeam","B_T_InfTeam_AA","B_T_InfTeam_AT"];///
 NATOSquad = ["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_grenadier","rhsgref_ins_g_medic"];//"B_T_InfSquad";//
-NATOSpecOp = ["rhsgref_ins_g_grenadier","rhsgref_ins_g_spotter","rhsgref_ins_g_grenadier","rhsgref_ins_g_saboteur","rhsgref_ins_g_saboteur","rhsgref_ins_g_sniper","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_medic"];//(configfile >> "CfgGroups" >> "West" >> "BLU_CTRG_F" >> "Infantry" >> "CTRG_InfSquad");
+NATOSpecOp = ["rhsgref_ins_g_grenadier","rhsgref_ins_g_spotter","rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_sniper","rhsgref_ins_g_saboteur","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_medic"];//(configfile >> "CfgGroups" >> "West" >> "BLU_CTRG_F" >> "Infantry" >> "CTRG_InfSquad");
 factionMachoMalos = "";
 gruposNATOSquad = [NATOSquad,["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_specialist_aa","rhsgref_ins_g_specialist_aa","rhsgref_ins_g_medic"],["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_grenadier_rpg","rhsgref_ins_g_medic","rhsgref_ins_g_grenadier_rpg"],["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_medic","rhsgref_ins_g_engineer","rhsgref_ins_g_saboteur"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///
 
@@ -62,17 +62,12 @@ AAStaticNATOB = "no_exists";
 MortStaticNATOB = "RHS_Podnos_Gun_Bag";
 soporteStaticNATOB3 = "RHS_Podnos_Bipod_Bag";
 
-armasNATO = ["rhs_weap_akm_gp25","rhs_weap_pkm","rhs_weap_akms","rhs_weap_ak103","rhs_weap_akm","rhs_weap_aks74_2","rhs_weap_aks74u"];//possible weapons that spawn in NATO ammoboxes
+armasNATO append ["rhs_weap_akm_gp25","rhs_weap_pkm","rhs_weap_akms","rhs_weap_ak103","rhs_weap_akm","rhs_weap_aks74_2","rhs_weap_aks74u"];//possible weapons that spawn in NATO ammoboxes
 humo = humo + ["rhs_mag_an_m8hc","rhs_mag_m18_purple","rhs_mag_m18_red","rhs_mag_m18_green","rhs_mag_m18_yellow","rhs_mag_rdg2_white"];
 NVGoggles = NVGoggles + ["rhsusf_ANPVS_14"/*,"rhsusf_ANPVS_15"*/];
 itemsAAF = itemsAAF + ["rhsusf_acc_grip2","rhsusf_acc_grip2_tan","rhsusf_acc_anpeq15side_bk","rhsusf_acc_anpeq15_bk_top","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15_light","rhsusf_acc_anpeq15_bk","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15A","rhsusf_acc_ARDEC_M240","rhsusf_acc_nt4_black","rhsusf_acc_nt4_tan","rhsusf_acc_SFMB556"];
-//opticasAAF = opticasAAF + ["rhsusf_acc_anpas13gv1","rhsusf_acc_ACOG2_USMC","rhsusf_acc_ACOG3_USMC","rhsusf_acc_ACOG_USMC","rhsusf_acc_anpvs27","rhsusf_acc_ARDEC_M240","rhsusf_acc_ELCAN","rhsusf_acc_ELCAN_ard","rhsusf_acc_ACOG","rhsusf_acc_ACOG3","rhsusf_acc_ACOG_anpvs27","rhsusf_acc_M2A1","rhsusf_acc_compm4","rhsusf_acc_M8541","rhsusf_acc_premier_low","rhsusf_acc_premier_anpvs27","rhsusf_acc_premier","rhsusf_acc_LEUPOLDMK4","rhsusf_acc_LEUPOLDMK4_2","rhsusf_acc_LEUPOLDMK4_2_d","optic_MRD","rhs_weap_optic_smaw","rhsusf_acc_SpecterDR","rhsusf_acc_SpecterDR_D","rhsusf_acc_SpecterDR_A","rhsusf_acc_ACOG_MDO","rhsusf_acc_ACOG_RMR","rhsusf_acc_eotech_xps3"];
-municionNATO = [];
-{
-_nombre = [_x] call BIS_fnc_baseWeapon;
-_magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
-municionNATO pushBack (_magazines select 0);
-} forEach armasNATO;
+
+
 flagNATOmrk = "rhs_flag_insurgents";//ok
 
 lamparaMalos = "rhs_acc_2dpZenit";

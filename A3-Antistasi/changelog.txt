@@ -1228,12 +1228,15 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Major garrisons will spawn at least a whole group (if they have troops) and the rest of the groups can be bypassed of spawning if the AI limit has been reached.
 - Some improvements in attack drills for AI
 - Attack AI will react better to tank and airplane presence (hide in bluidings if they or the nearby friendlies have no AA/AT capabilities).
-- Corrected (¡at last!) bug on binoculars in Arsenal menu thanks to SkaceKamen!!!
+- Corrected (¡at last!) bug on binoculars in Arsenal menu and some mod integrations with Arsenal and unlocking system, ALL thanks to SkaceKamen!!! Thanks a lot!
 - Solved bug in flanking procedures thanks to Alex Triada!
 - Better behaviour for AI using land transports.
 - Fixed: Threat evaluation analisys were done non mod-edition-faction independent.
 - Fixed Air QRF sent from outposts in some cases.
 - Major attacks and QRFs will at least send a whole squad if applicable, and they won't send squads with less than 4 units anymore.
-
+- Engineer mine replacement script improved and less risky for AI thanks to wriley!!!
+- More automated, mod independent weapon detection for ammobox loot. If there is an enemy in the field with that weapon, it is possible to find it in an ammobox.
+- Improved a bit specop group compositions.
+- Improved RHS integration with PvP element for soldier loadout (with the exception of the UAV operators which are still vanilla as RHS lacks of proper classnames).
 meter veh civiles IFA y rehacer lo relativo a JNL
-el redress de RHS para CSAT!
+- Fixed bug on JiP commander assignation.

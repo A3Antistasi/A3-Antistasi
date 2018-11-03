@@ -1,4 +1,5 @@
 if (!hasInterface) exitWith {};
+if (isNil "initVar") exitWith {};
 if ((side player != buenos) and (side player != civilian)) exitWith {};
 private ["_unit","_tipo","_texto","_display","_setText"];
 

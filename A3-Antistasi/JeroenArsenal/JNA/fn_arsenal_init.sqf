@@ -51,6 +51,7 @@ if(hasInterface)then{
 		if("bis_fnc_arsenal" in _ids)then{
 		    private _display =  uiNamespace getVariable ["arsanalDisplay","No display"];
 		    titleText["Non Fatal Error, RHS?", "PLAIN"];
+		    diag_log "JNA: Non Fatal Error, RHS?";
 		    ["bis_fnc_arsenal"] call BIS_fnc_endLoadingScreen;
 		};
 	    };

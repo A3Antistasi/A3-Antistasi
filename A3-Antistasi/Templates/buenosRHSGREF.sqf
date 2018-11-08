@@ -2,7 +2,7 @@ SDKMortar = "rhsgref_ins_g_2b14";
 SDKMortarHEMag = "rhs_mag_3vo18_10";
 SDKMortarSmokeMag = "rhs_mag_d832du_10";
 SDKMGStatic = "rhsgref_ins_g_DSHKM";
-staticATBuenos = "rhsgref_ins_g_d30_at";
+staticATBuenos = "rhsgref_ins_g_SPG9M";
 staticAABuenos = "rhsgref_ins_g_ZU23";
 
 staticCrewBuenos = "rhsgref_ins_g_militiaman_mosin";

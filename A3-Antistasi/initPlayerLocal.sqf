@@ -21,7 +21,12 @@ if (isMultiplayer) then
 	};
 if (!hasInterface) exitWith
 	{
-	if (worldName == "Tanoa") then {call compile preprocessFileLineNumbers "roadsDB.sqf"} else {if (worldName == "Altis") then {call compile preprocessFileLineNumbers "roadsDBAltis.sqf"}};
+	switch (worldName) do {
+		case "Tanoa": { call compile preprocessFileLineNumbers "roadsDB.sqf" };
+		case "Altis": { call compile preprocessFileLineNumbers "roadsDBAltis.sqf" };
+		case "chernarus_summer": { call compile preprocessFileLineNumbers "roadsDBcherna.sqf" };
+		default { diag_log format ["Error: No road database loaded for %1",worldName] };
+	};
 	[clientOwner] remoteExec ["A3A_fnc_addHC",2];
 	};
 _isJip = _this select 1;

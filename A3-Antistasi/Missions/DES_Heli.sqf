@@ -23,7 +23,7 @@ _dist = if (_dificil) then {2000} else {3000};
 while {true} do
 	{
 	_poscrashOrig = _posicion getPos [_dist,_ang];
-	if ((!surfaceIsWater _poscrash) and (_poscrash distance _posHQ < 4000)) exitWith {};
+	if ((!surfaceIsWater _poscrashOrig) and (_poscrashOrig distance _posHQ < 4000)) exitWith {};
 	_ang = _ang + 1;
 	_cuenta = _cuenta + 1;
 	if (_cuenta > 360) then

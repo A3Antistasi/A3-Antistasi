@@ -1229,6 +1229,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Some improvements in attack drills for AI
 - Attack AI will react better to tank and airplane presence (hide in bluidings if they or the nearby friendlies have no AA/AT capabilities).
 - Corrected (¡at last!) bug on binoculars in Arsenal menu and some mod integrations with Arsenal and unlocking system, ALL thanks to SkaceKamen!!! Thanks a lot!
+- Fixed RHS / Arsenal crash upon respawn bug. Thanks to Jeroen not!!!!
 - Solved bug in flanking procedures thanks to Alex Triada!
 - Better behaviour for AI using land transports.
 - Fixed: Threat evaluation analisys were done non mod-edition-faction independent.
@@ -1238,5 +1239,8 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - More automated, mod independent weapon detection for ammobox loot. If there is an enemy in the field with that weapon, it is possible to find it in an ammobox.
 - Improved a bit specop group compositions.
 - Improved RHS integration with PvP element for soldier loadout (with the exception of the UAV operators which are still vanilla as RHS lacks of proper classnames).
-meter veh civiles IFA y rehacer lo relativo a JNL
 - Fixed bug on JiP commander assignation.
+- Solved bug in Destroy Heli missions.
+- Added RHS SPG9 as AT gun for rebel RHSGREF config, thanks to Mocksybren!!
+
+meter veh civiles IFA y rehacer lo relativo a JNL

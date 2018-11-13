@@ -258,7 +258,7 @@ switch _mode do {
 		['showMessage',[_display,"Jeroen (Not) Limited Arsenal"]] call jn_fnc_arsenal;
 		["HighlightMissingIcons",[_display]] call jn_fnc_arsenal;
 
-		//["jn_fnc_arsenal"] call BIS_fnc_endLoadingScreen;
+		["jn_fnc_arsenal"] call BIS_fnc_endLoadingScreen;
 	};
 
 	///////////////////////////////////////////////////////////////////////////////////////////

@@ -2,7 +2,7 @@ SDKMortar = "rhsgref_ins_g_2b14";
 SDKMortarHEMag = "rhs_mag_3vo18_10";
 SDKMortarSmokeMag = "rhs_mag_d832du_10";
 SDKMGStatic = "rhsgref_ins_g_DSHKM";
-staticATBuenos = "rhsgref_ins_g_d30_at";
+staticATBuenos = "rhsgref_ins_g_SPG9M";
 staticAABuenos = "rhsgref_ins_g_ZU23";
 
 staticCrewBuenos = "rhsgref_ins_g_militiaman_mosin";
@@ -30,15 +30,15 @@ SDKFlag = "Flag_Syndikat_F";
 SDKFlagTexture = "\A3\Data_F\Flags\Flag_Altis_CO.paa";
 tipoPetros = "rhsgref_ins_g_squadleader";
 
-soporteStaticSDKB = "RHS_DShkM_TripodHigh_Bag";
-ATStaticSDKB = "I_AT_01_weapon_F";
+soporteStaticSDKB = "RHS_SPG9_Tripod_Bag";
+ATStaticSDKB = "RHS_SPG9_Gun_Bag";
 MGStaticSDKB = "RHS_DShkM_Gun_Bag";
-soporteStaticSDKB2 = "I_HMG_01_support_high_F";
-AAStaticSDKB = "I_AA_01_weapon_F";
+soporteStaticSDKB2 = "RHS_DShkM_TripodHigh_Bag";
+AAStaticSDKB = "I_AA_01_weapon_F"; 
 MortStaticSDKB = "RHS_Podnos_Gun_Bag";
 soporteStaticSDKB3 = "RHS_Podnos_Bipod_Bag";
 
-civCar = "C_Offroad_01_F";
+civCar = "C_Offroad_01_F"; 
 civTruck = "RHS_Ural_Open_Civ_03";
 civHeli = "RHS_Mi8amt_civilian";
 civBoat = "C_Boat_Transport_02_F";

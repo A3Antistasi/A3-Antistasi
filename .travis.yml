@@ -1,0 +1,8 @@
+sudo: required
+language: minimal
+services:
+- docker
+install:
+- docker pull anpage/makepbo
+script:
+- docker run --rm -v ${PWD}:/data --entrypoint bash anpage/makepbo build.sh

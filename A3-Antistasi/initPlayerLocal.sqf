@@ -498,7 +498,7 @@ if (_isJip) then
 		}
 	else
 		{
-		_nul = [] execVM "Dialogs\firstLoad.sqf";
+		_nul = [] execVM "Dialogs\load_previous_session.sqf";
 		};
 	diag_log "Antistasi MP Client. JIP client finished";
 	player setPos (getMarkerPos respawnBuenos);
@@ -522,7 +522,7 @@ else
 		    		}
 		    	else
 		    		{
-		    		_nul = [true] execVM "Dialogs\firstLoad.sqf";
+		    		_nul = [true] execVM "Dialogs\load_previous_session.sqf";
 			    	};
 		    	diag_log "Antistasi MP Client. Client finished";
 		    	}
@@ -531,13 +531,13 @@ else
 		    	miembros = [];
 		    	player setUnitTrait ["medic",true];
 		    	player setUnitTrait ["engineer",true];
-		    	 _nul = [] execVM "Dialogs\firstLoad.sqf";
+		    	 _nul = [] execVM "Dialogs\load_previous_session.sqf";
 		    	};
 		    }
 		else
 			{
 			player setVariable ["score", 0,true];
-			_nul = [true] execVM "Dialogs\firstLoad.sqf";
+			_nul = [true] execVM "Dialogs\load_previous_session.sqf";
 			player setPos (getMarkerPos respawnBuenos);
 			};
 		}
@@ -545,7 +545,7 @@ else
 		{
 		if !(isServer) then
 			{
-			_nul = [] execVM "Dialogs\firstLoad.sqf";
+			_nul = [] execVM "Dialogs\load_previous_session.sqf";
 			player setPos (getMarkerPos respawnBuenos);
 			};
 		};
@@ -595,7 +595,7 @@ if ((!isServer) and (isMultiplayer)) then {caja call jn_fnc_arsenal_init};
 caja allowDamage false;
 caja addAction ["Transfer Vehicle cargo to Ammobox", "[] call A3A_fnc_vaciar"];
 caja addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
-bandera addAction ["HQ Management", {[] execVM "Dialogs\dialogHQ.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
+bandera addAction ["HQ Management", {[] execVM "Dialogs\headquarters.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
 bandera allowDamage false;
 bandera addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
 bandera addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];

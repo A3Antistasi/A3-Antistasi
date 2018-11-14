@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project name="A3-Antistasi">
+    <Package name="A3-Antistasi Mission">
+        <Container name="dialog_load_previous_session">
+            <Key ID="str_antistasi_lps_box_text">
+                <Original></Original>
+            </Key>
+            <Key ID="str_antistasi_lps_frame_text">
+                <Original>Load previous session?</Original>
+                <English>Load previous session?</English>
+                <Russian>Загрузить последнюю сессию?</Russian>
+            </Key>
+
+            <Key ID="str_antistasi_lps_button_yes_text">
+                <Original>Yes</Original>
+                <English>Yes</English>
+                <Russian>Да</Russian>
+            </Key>
+            <Key ID="str_antistasi_lps_button_yes_tooltip">
+                <Original>Loads the pervious personal session</Original>
+                <English>Loads the pervious personal session</English>
+                <Russian>Загрузить последнюю персональную сессию</Russian>
+            </Key>
+
+            <Key ID="str_antistasi_lps_button_no_text">
+                <Original>No</Original>
+                <English>No</English>
+                <Russian>Нет</Russian>
+            </Key>
+            <Key ID="str_antistasi_lps_button_no_tooltip">
+                <Original>Starts a new game</Original>
+                <English>Starts a new game</English>
+                <Russian>Начать новую игру</Russian>
+            </Key>
+        </Container>
+
+        <Container name="dialog_headquarters">
+            <Key ID="str_antistasi_hq_box_text">
+                <Original></Original>
+            </Key>
+            <Key ID="str_antistasi_hq_frame_text">
+                <Original>HQ Options - Commander Only</Original>
+                <English>HQ Options - Commander Only</English>
+            </Key>
+            <Key ID="str_antistasi_hq_button_close_text">
+                <Original>Close</Original>
+                <English>Close</English>
+            </Key>
+
+            <Key ID="str_antistasi_hq_button_withdraw_text">
+                <Original>Grab 100€ from Pool</Original>
+                <English>Grab 100€ from Pool</English>
+            </Key>
+            <Key ID="str_antistasi_hq_button_withdraw_tooltip">
+                <Original>Take 100€ from faction pool and add it to your personnal account. It will damage your position among the faction in the commander career</Original>
+                <English>Take 100€ from faction pool and add it to your personnal account. It will damage your position among the faction in the commander career</English>
+            </Key>
+
+            <Key ID="str_antistasi_hq_button_garrisons_text">
+                <Original>Manage Garrisons</Original>
+                <English>Manage Garrisons</English>
+            </Key>
+            <Key ID="str_antistasi_hq_button_garrisons_tooltip">
+                <Original>Add or remove units to garrisons</Original>
+                <English>Add or remove units to garrisons</English>
+            </Key>
+
+            <Key ID="str_antistasi_hq_button_move_headquarters_text">
+                <Original>Move HQ to another Zone</Original>
+                <English>Move HQ to another Zone</English>
+            </Key>
+            <Key ID="str_antistasi_hq_button_move_headquarters_tooltip">
+                <Original>Maru will join your group. Ammobox must be empty. To rebuild, select the Build action near Maru</Original>
+                <English>Maru will join your group. Ammobox must be empty. To rebuild, select the Build action near Maru</English>
+            </Key>
+
+            <Key ID="str_antistasi_hq_button_members_list_text">
+                <Original>Ingame Member's List</Original>
+                <English>Ingame Member's List</English>
+            </Key>
+            <Key ID="str_antistasi_hq_button_members_list_tooltip">
+                <Original>Displays which server members are currently playing</Original>
+                <English>Displays which server members are currently playing</English>
+            </Key>
+
+            <Key ID="str_antistasi_hq_button_rebuild_assets_text">
+                <Original>Rebuild Assets</Original>
+                <English>Rebuild Assets</English>
+            </Key>
+            <Key ID="str_antistasi_hq_button_rebuild_assets_tooltip">
+                <Original>Cost: 5.000 €</Original>
+                <English>Cost: 5.000 €</English>
+            </Key>
+
+            <Key ID="str_antistasi_hq_button_train_ai_text">
+                <Original>Train AI - Skill Upgrade</Original>
+                <English>Train AI - Skill Upgrade</English>
+            </Key>
+            <Key ID="str_antistasi_hq_button_train_ai_tooltip">
+                <Original>Current level: %1. Next Level Training Cost: %2€</Original>
+                <English>Current level: %1. Next Level Training Cost: %2€</English>
+            </Key>
+
+            <Key ID="str_antistasi_hq_button_garage_text">
+                <Original>Garage Access</Original>
+                <English>Garage Access</English>
+            </Key>
+            <Key ID="str_antistasi_hq_button_garage_tooltip">
+                <Original>Check Faction garage</Original>
+                <English>Check Faction garage</English>
+            </Key>
+        </Container>
+    </Package>
+</Project>

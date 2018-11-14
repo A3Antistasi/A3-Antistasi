@@ -163,12 +163,12 @@ class headquarters
 	};
 };
 
-class build_menu  			{
-	idd=-1;
-	movingenable=false;
+class build_menu {
+	idd = -1;
+	movingenable = false;
 
-	class controls {
-		//Structure
+	class controls
+	{
 		class HQ_box: BOX
 		{
 			idc = -1;

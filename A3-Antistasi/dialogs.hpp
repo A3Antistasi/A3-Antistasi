@@ -17,7 +17,7 @@ class load_previous_session
 		class lps_frame: RscFrame
 		{
 			idc = -1;
-			text = $str_antistasi_lps_frame_text;
+			text = $STR_antistasi_lps_frame_text;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
@@ -26,8 +26,8 @@ class load_previous_session
 		class lps_button_yes: RscButton
 		{
 			idc = -1;
-			text = $str_antistasi_lps_button_yes_text;
-			tooltip = $str_antistasi_lps_button_yes_tooltip;
+			text = $STR_antistasi_lps_button_yes_text;
+			tooltip = $STR_antistasi_lps_button_yes_tooltip;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -37,8 +37,8 @@ class load_previous_session
 		class lps_button_no: RscButton
 		{
 			idc = -1;
-			text = $str_antistasi_lps_button_no_text;
-			tooltip = $str_antistasi_lps_button_no_tooltip;
+			text = $STR_antistasi_lps_button_no_text;
+			tooltip = $STR_antistasi_lps_button_no_tooltip;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -58,7 +58,7 @@ class headquarters
 		class hq_box: BOX
 		{
 			idc = 101;
-			text = $str_antistasi_hq_box_text;
+			text = $STR_antistasi_hq_box_text;
 			x = 0.244979 * safezoneW + safezoneX;
 			y = 0.223941 * safezoneH + safezoneY;
 			w = 0.445038 * safezoneW;
@@ -67,7 +67,7 @@ class headquarters
 		class hq_frame: RscFrame
 		{
 			idc = 102;
-			text = $str_antistasi_hq_frame_text;
+			text = $STR_antistasi_hq_frame_text;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
@@ -76,7 +76,7 @@ class headquarters
 		class hq_button_close: RscButton
 		{
 			idc = 103;
-			text = $str_antistasi_hq_button_close_text;
+			text = $STR_antistasi_hq_button_close_text;
 			x = 0.61 * safezoneW + safezoneX;
 			y = 0.251941 * safezoneH + safezoneY;
 			w = 0.06 * safezoneW;
@@ -86,8 +86,8 @@ class headquarters
 		class hq_button_withdraw: RscButton
 		{
 			idc = 104;
-			text = $str_antistasi_hq_button_withdraw_text;
-			tooltip = $str_antistasi_hq_button_withdraw_tooltip;
+			text = $STR_antistasi_hq_button_withdraw_text;
+			tooltip = $STR_antistasi_hq_button_withdraw_tooltip;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -97,8 +97,8 @@ class headquarters
 		class hq_button_garrisons: RscButton
 		{
 			idc = 105;
-			text = $str_antistasi_hq_button_garrisons_text;
-			tooltip = $str_antistasi_hq_button_garrisons_tooltip;
+			text = $STR_antistasi_hq_button_garrisons_text;
+			tooltip = $STR_antistasi_hq_button_garrisons_tooltip;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -108,8 +108,8 @@ class headquarters
 		class hq_button_move_headquarters: RscButton
 		{
 			idc = 106;
-			text = $str_antistasi_hq_button_move_headquarters_text;
-			tooltip = $str_antistasi_hq_button_move_headquarters_tooltip;
+			text = $STR_antistasi_hq_button_move_headquarters_text;
+			tooltip = $STR_antistasi_hq_button_move_headquarters_tooltip;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -119,8 +119,8 @@ class headquarters
 		class hq_button_members_list: RscButton
 		{
 			idc = 107;
-			text = $str_antistasi_hq_button_members_list_text;
-			tooltip = $str_antistasi_hq_button_members_list_tooltip;
+			text = $STR_antistasi_hq_button_members_list_text;
+			tooltip = $STR_antistasi_hq_button_members_list_tooltip;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -130,8 +130,8 @@ class headquarters
 		class hq_button_rebuild_assets: RscButton
 		{
 			idc = 108;
-			text = $str_antistasi_hq_button_rebuild_assets_text;
-			tooltip = $str_antistasi_hq_button_rebuild_assets_tooltip;
+			text = $STR_antistasi_hq_button_rebuild_assets_text;
+			tooltip = $STR_antistasi_hq_button_rebuild_assets_tooltip;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -141,8 +141,8 @@ class headquarters
 		class hq_button_train_ai: RscButton
 		{
 			idc = 109;
-			text = $str_antistasi_hq_button_train_ai_text;
-			tooltip = $str_antistasi_hq_button_train_ai_tooltip;
+			text = $STR_antistasi_hq_button_train_ai_text;
+			tooltip = $STR_antistasi_hq_button_train_ai_tooltip;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
@@ -152,8 +152,8 @@ class headquarters
 		class hq_button_garage: RscButton
 		{
 			idc = 110;
-			text = $str_antistasi_hq_button_garage_text;
-			tooltip = $str_antistasi_hq_button_garage_tooltip;
+			text = $STR_antistasi_hq_button_garage_text;
+			tooltip = $STR_antistasi_hq_button_garage_tooltip;
 			x = 0.37749 * safezoneW + safezoneX;
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;

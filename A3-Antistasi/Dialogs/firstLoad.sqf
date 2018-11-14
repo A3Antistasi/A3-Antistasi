@@ -1,4 +1,4 @@
-_nul=createDialog "first_load";
+_nul = createDialog "load_previous_session";
 
 _bypass = false;
 

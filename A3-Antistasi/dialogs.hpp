@@ -1,168 +1,168 @@
-//Game start
-class first_load 		{
-	idd=-1;
-	movingenable=false;
+class load_previous_session
+{
+	idd = -1;
+	movingenable = false;
 
-	class controls {
-		class HQ_box: BOX
+	class controls
+	{
+		class lps_box: BOX
 		{
 			idc = -1;
-			text = ""; //--- ToDo: Localize;
+			text = "";
 			x = 0.244979 * safezoneW + safezoneX;
 			y = 0.223941 * safezoneH + safezoneY;
 			w = 0.445038 * safezoneW;
 			h = 0.20 * safezoneH;//30
 		};
-		class HQ_frame: RscFrame
+		class lps_frame: RscFrame
 		{
 			idc = -1;
-			text = "Load previous session?"; //--- ToDo: Localize;
+			text = $str_antistasi_lps_frame_text;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
 			h = 0.18 * safezoneH;//28
 		};
-		class HQ_button_Gsquad: RscButton
+		class lps_button_yes: RscButton
 		{
 			idc = -1;
-			text = "YES"; //--- ToDo: Localize;
+			text = $str_antistasi_lps_button_yes_text;
+			tooltip = $str_antistasi_lps_button_yes_tooltip;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Loads the pervious personal session";
 			action = "closeDialog 0;nul = [true] execVM ""statSave\loadAccount.sqf"";";
 		};
-		class HQ_button_Gstatic: RscButton
+		class lps_button_no: RscButton
 		{
 			idc = -1;
-			text = "NO"; //--- ToDo: Localize;
+			text = $str_antistasi_lps_button_no_text;
+			tooltip = $str_antistasi_lps_button_no_tooltip;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Starts a new game";
-			//action = "closeDialog 0;if ((player == theBoss) and (isNil ""placementDone"") and !(isMultiplayer)) then {_nul = [] spawn A3A_fnc_placementselection};";
 			action = "closeDialog 0;if ((player == theBoss) and (isNil ""placementDone"") and !(isMultiplayer)) then {closeDialog 0;[] execVM ""dialogs\difficultyMenu.sqf""};";
 		};
 	};
 };
 
-//FLAG
-class HQ_menu 			{
-	idd=100;
-	movingenable=false;
+class headquarters
+{
+	idd = 100;
+	movingenable = false;
 
-	class controls {
-		//Structure
-		class HQ_box: BOX
+	class controls
+	{
+		class hq_box: BOX
 		{
 			idc = 101;
-			text = ""; //--- ToDo: Localize;
+			text = $str_antistasi_hq_box_text;
 			x = 0.244979 * safezoneW + safezoneX;
 			y = 0.223941 * safezoneH + safezoneY;
 			w = 0.445038 * safezoneW;
 			h = 0.492103 * safezoneH;
 		};
-		class HQ_frame: RscFrame
+		class hq_frame: RscFrame
 		{
 			idc = 102;
-			text = "HQ Options - Commander Only"; //--- ToDo: Localize;
+			text = $str_antistasi_hq_frame_text;
 			x = 0.254979 * safezoneW + safezoneX;
 			y = 0.233941 * safezoneH + safezoneY;
 			w = 0.425038 * safezoneW;
 			h = 0.462103 * safezoneH;
 		};
-		class HQ_button_back: RscButton
+		class hq_button_close: RscButton
 		{
 			idc = 103;
-			text = "Back"; //--- ToDo: Localize;
+			text = $str_antistasi_hq_button_close_text;
 			x = 0.61 * safezoneW + safezoneX;
 			y = 0.251941 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;//0.175015
+			w = 0.06 * safezoneW;
 			h = 0.05 * safezoneH;
 			action = "closeDialog 0";
 		};
-		//Buttons L and R
-		class HQ_button_load: RscButton
+		class hq_button_withdraw: RscButton
 		{
-			idc = 104; 	//L1
-			text = "Grab 100 € from Pool"; //--- ToDo: Localize;
+			idc = 104;
+			text = $str_antistasi_hq_button_withdraw_text;
+			tooltip = $str_antistasi_hq_button_withdraw_tooltip;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Take 100 € from faction pool and add it to your personnal account. It will damage your position among the faction in the commander career";
 			action = "if (isMultiPlayer) then {if (player == theBoss) then {nul=call A3A_fnc_theBossSteal} else {hint ""Only Player Commander has access to this function""}} else {hint ""This function is MP only""};";
 		};
-		class HQ_button_savegame: RscButton
+		class hq_button_garrisons: RscButton
 		{
-			idc = 105; 	//L2
-			text = "Manage Garrisons"; //--- ToDo: Localize;
+			idc = 105;
+			text = $str_antistasi_hq_button_garrisons_text;
+			tooltip = $str_antistasi_hq_button_garrisons_tooltip;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Add or remove units to garrisons";
 			action = "closeDialog 0;if (player == theBoss) then {nul=CreateDialog ""build_menu""} else {hint ""Only Player Commander has access to this function""};";
 		};
-		class HQ_button_moveHQ: RscButton
+		class hq_button_move_headquarters: RscButton
 		{
-			idc = 106;	//L3
-			text = "Move HQ to another Zone"; //--- ToDo: Localize;
+			idc = 106;
+			text = $str_antistasi_hq_button_move_headquarters_text;
+			tooltip = $str_antistasi_hq_button_move_headquarters_tooltip;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Maru will join your group. Ammobox must be empty. To rebuild, select the Build action near Maru";
 			action = "closeDialog 0;if (player == theBoss) then {nul = [] spawn A3A_fnc_moveHQ;} else {hint ""Only Player Commander has access to this function""};";
 		};
-		class HQ_button_recruitUnit: RscButton
+		class hq_button_members_list: RscButton
 		{
-			idc = 107;	//R1
-			text = "Ingame Member's List"; //--- ToDo: Localize;
+			idc = 107;
+			text = $str_antistasi_hq_button_members_list_text;
+			tooltip = $str_antistasi_hq_button_members_list_tooltip;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Displays which server members are currently playing";
 			action = "if (player == theBoss) then {if (isMultiplayer) then {nul = [] call A3A_fnc_membersList} else {hint ""This function is MP only""}} else {hint ""Only Player Commander has access to this function""};";
 		};
-		class HQ_button_recruitSquad: RscButton
+		class hq_button_rebuild_assets: RscButton
 		{
-			idc = 108;	//R2
-			text = "Rebuild Assets"; //--- ToDo: Localize;
+			idc = 108;
+			text = $str_antistasi_hq_button_rebuild_assets_text;
+			tooltip = $str_antistasi_hq_button_rebuild_assets_tooltip;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Cost: 5.000 €";
 			action = "closeDialog 0;if (player == theBoss) then {nul=[] spawn A3A_fnc_rebuildAssets} else {hint ""Only Player Commander has access to this function""};";
 		};
-		class HQ_button_vehicle: RscButton
+		class hq_button_train_ai: RscButton
 		{
-			idc = 109;	//R3
-			text = "Train AI - Skill Upgrade"; //--- ToDo: Localize;
+			idc = 109;
+			text = $str_antistasi_hq_button_train_ai_text;
+			tooltip = $str_antistasi_hq_button_train_ai_tooltip;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "";
 			action = "closeDialog 0;if (player == theBoss) then {nul = [] call A3A_fnc_FIAskillAdd} else {hint ""Only Player Commander has access to this function""};";
 		};
-		class HQ_button_skill: RscButton
+		class hq_button_garage: RscButton
 		{
-			idc = 110;	//M4
-			text = "Garage Access"; //--- ToDo: Localize;
+			idc = 110;
+			text = $str_antistasi_hq_button_garage_text;
+			tooltip = $str_antistasi_hq_button_garage_tooltip;
 			x = 0.37749 * safezoneW + safezoneX;
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Check Faction garage";
 			action = "closeDialog 0;nul = [false] spawn A3A_fnc_garage";
 		};
 	};
-}; 										//slots: 6+1
+};
+
 class build_menu  			{
 	idd=-1;
 	movingenable=false;

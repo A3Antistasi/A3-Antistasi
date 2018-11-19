@@ -18,7 +18,7 @@ if (_x in destroyedCities) then {_popCSAT = _popCSAT + _numCIV};
 } forEach ciudades;
 _popFIA = round _popFIA;
 _popAAF = round _popAAF;
-hint format ["%7\n\nTotal pop: %1\n%6 Support: %2\n%5 SUpport: %3 \n\nMurdered Pop: %4\n\nClick on the zone",_pop, _popFIA, _popAAF, _popCSAT,nameMalos,nameBuenos,worldName];
+hint format ["%7\n\nTotal pop: %1\n%6 Support: %2\n%5 Support: %3 \n\nMurdered Pop: %4\n\nClick on the zone",_pop, _popFIA, _popAAF, _popCSAT,nameMalos,nameBuenos,worldName];
 
 if (!visibleMap) then {openMap true};
 

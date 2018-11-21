@@ -48,7 +48,7 @@ while {true} do
 					_mrk setMarkerAlphaLocal 1;
 					_mrk setMarkerPosLocal position _veh;
 					_mrk setMarkerDirLocal getDir _veh;
-					_texto = format ["%1 (%2)/",name _jugador,getText(configFile>>"CfgVehicles">>typeOf _veh>>"DisplayName")];
+					_texto = format ["%1 (%2)",name _jugador,getText(configFile>>"CfgVehicles">>typeOf _veh>>"DisplayName")];
 					{
 					if ((_x!=_jugador) and (vehicle _x == _veh)) then
 						{

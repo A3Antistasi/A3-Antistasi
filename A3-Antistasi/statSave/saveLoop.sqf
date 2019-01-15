@@ -154,7 +154,7 @@ _sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 _posicion = position _x;
 if ((alive _x) and !(surfaceIsWater _posicion) and !(isNull _x)) then
 	{
-	_arrayEst pushBack [typeOf _x,getPos _x,getDir _x];
+	_arrayEst pushBack [typeOf _x,getPosATL _x,getDir _x];
 	/*
 	_cercano = [_sitios,_posicion] call BIS_fnc_nearestPosition;
 	if (_posicion inArea _cercano) then

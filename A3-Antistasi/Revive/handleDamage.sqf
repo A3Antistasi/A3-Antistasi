@@ -48,7 +48,7 @@ if (_part == "") then
 									_sideType = getNumber (configfile >> "CfgVehicles" >> _typeSoldier >> "side");
 									if ((_sideType == 1) or (_sideType == 0)) then
 										{
-										[_injurer,60] remoteExec ["A3A_fnc_castigo",_injurer];
+										[_injurer,60] remoteExec ["A3A_fnc_punishment",_injurer];
 										};
 									};
 								};

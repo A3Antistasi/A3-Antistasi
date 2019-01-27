@@ -8,7 +8,7 @@ class A3A
         class apagon {file="apagon.sqf";};
         class ataqueAAF {file="ataqueAAF.sqf";};
         class buildHQ {file="buildHQ.sqf";};
-        class castigo {file="castigo.sqf";};
+        class punishment {file="punishment.sqf";};
         class citiesToCivPatrol {file="citiesToCivPatrol.sqf";};
         class citySupportChange {file="citySupportChange.sqf";};
         class commsMP {file="commsMP.sqf";};

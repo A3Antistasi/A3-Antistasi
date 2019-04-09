@@ -13,14 +13,14 @@ NATOMortar = "rhsgref_ins_g_2b14";
 staticATmalos = "rhsgref_ins_g_SPG9M";
 staticAAmalos = "rhsgref_ins_g_Igla_AA_pod";
 
-vehNATOLightArmed = ["rhsgref_ins_g_uaz_ags","rhsgref_ins_g_uaz_dshkm_chdkz","rhsgref_ins_g_uaz_spg9"];
+vehNATOLightArmed = ["rhsgref_ins_g_uaz_ags","rhsgref_ins_g_uaz_dshkm_chdkz","rhsgref_ins_g_uaz_spg9","rhsgref_BRDM2_HQ_ins_g"];
 vehNATOLightUnarmed = ["rhsgref_ins_g_uaz","rhsgref_ins_g_uaz_open","rhsgref_BRDM2UM_ins_g"];
 vehNATOTrucks = ["rhsgref_ins_g_gaz66","rhsgref_ins_g_ural","rhsgref_ins_g_ural_open","rhsgref_ins_g_gaz66o"];
 vehNATOAmmoTruck = "rhsgref_ins_g_gaz66_ammo";
 vehNATORepairTruck = "rhsgref_ins_g_ural_repair";
 vehNATOLight = vehNATOLightArmed + vehNATOLightUnarmed;
-vehNATOAPC = ["rhsgref_ins_g_btr60","rhsgref_ins_g_btr70","rhsgref_BRDM2_ins_g","rhsgref_ins_g_bmp2k"];//"B_T_APC_Tracked_01_CRV_F" has no cargo seats
-vehNATOTank = "rhsgref_ins_g_t72bc";
+vehNATOAPC = ["rhsgref_ins_g_btr60","rhsgref_ins_g_btr70","rhsgref_BRDM2_ins_g","rhsgref_ins_g_bmp2k","rhsgref_ins_g_bmp2d","rhsgref_ins_g_bmd2"];//"B_T_APC_Tracked_01_CRV_F" has no cargo seats
+vehNATOTank = ["rhsgref_ins_g_t72bc","rhsgref_ins_g_t72bb"];
 vehNATOAA = "rhsgref_ins_g_zsu234";
 vehNATOAttack = vehNATOAPC + [vehNATOTank];
 vehNATOBoat = "I_Boat_Armed_01_minigun_F";

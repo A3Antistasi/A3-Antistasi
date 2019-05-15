@@ -7,13 +7,13 @@ _posicionTel = _this select 1;
 
 if (_tipo == "delete") exitWith {hint "Deprecated option. Use Remove Garrison from HQ instead"};
 
-_escarretera = isOnRoad _posicionTel;
+_esCarretera = isOnRoad _posicionTel;
 
 _texto = format ["%1 Observation Post",nameBuenos];
 _tipogrupo = gruposSDKSniper;
 _tipoVeh = vehSDKBike;
 private _tsk = "";
-if (_escarretera) then
+if (_esCarretera) then
 	{
 	_texto = format ["%1 Roadblock",nameBuenos];
 	_tipogrupo = gruposSDKAT;
@@ -66,7 +66,7 @@ if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) the
 	spawner setVariable [_mrk,2,true];
 	["PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_posicionTel,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	//["PuestosFIA", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
-	_nul = [-5,5,_posiciontel] remoteExec ["A3A_fnc_citySupportChange",2];
+	_nul = [-5,5,_posicionTel] remoteExec ["A3A_fnc_citySupportChange",2];
 	_mrk setMarkerType "loc_bunker";
 	_mrk setMarkerColor colorBuenos;
 	_mrk setMarkerText _texto;

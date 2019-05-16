@@ -62,7 +62,7 @@ AAStaticNATOB = "no_exists";
 MortStaticNATOB = "RHS_Podnos_Gun_Bag";
 soporteStaticNATOB3 = "RHS_Podnos_Bipod_Bag";
 
-armasNATO append ["rhs_weap_akm_gp25","rhs_weap_pkm","rhs_weap_akms","rhs_weap_ak103","rhs_weap_akm","rhs_weap_aks74_2","rhs_weap_aks74u"];//possible weapons that spawn in NATO ammoboxes
+armasNATO append ["rhs_weap_akm_gp25","rhs_weap_pkm","rhs_weap_akms","rhs_weap_ak103","rhs_weap_akm","rhs_weap_aks74_2","rhs_weap_aks74u","rhs_weap_m21a","rhs_weap_m21s","rhs_weap_m70ab2","rhs_weap_m70b1","rhs_weap_m76","rhs_weap_m92","rhs_weap_m1garand_sa43","rhs_weap_Izh18","rhs_weap_Kar98k","rhs_weap_m3a1","rhs_weap_m3a1_specops","rhs_weap_m79","rhs_weap_mg42","rhs_weap_mosin_sbr","rhs_weap_MP44","rhs_weap_vhsd2","rhs_weap_vhsd2_ct15x","rhs_weap_vhsd2_bg","rhs_weap_vhsd2_bg_ct15x","rhs_weap_vhsk2"];//possible weapons that spawn in NATO ammoboxes
 humo = humo + ["rhs_mag_an_m8hc","rhs_mag_m18_purple","rhs_mag_m18_red","rhs_mag_m18_green","rhs_mag_m18_yellow","rhs_mag_rdg2_white"];
 NVGoggles = NVGoggles + ["rhsusf_ANPVS_14"/*,"rhsusf_ANPVS_15"*/];
 itemsAAF = itemsAAF + ["rhsusf_acc_grip2","rhsusf_acc_grip2_tan","rhsusf_acc_anpeq15side_bk","rhsusf_acc_anpeq15_bk_top","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15_light","rhsusf_acc_anpeq15_bk","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15A","rhsusf_acc_ARDEC_M240","rhsusf_acc_nt4_black","rhsusf_acc_nt4_tan","rhsusf_acc_SFMB556"];

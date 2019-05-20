@@ -172,7 +172,7 @@ if (side group player == buenos) then
 						deleteVehicle (_this select 6);
 						if (_tipo == "Put") then
 							{
-							if (player distance petros < 10) then {[player,60] spawn A3A_fnc_castigo};
+							if (player distance petros < 10) then {[player,60] spawn A3A_fnc_punishment};
 							};
 						};
 					};

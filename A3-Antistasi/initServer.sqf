@@ -158,7 +158,7 @@ serverInitDone = true; publicVariable "serverInitDone";
 diag_log "Antistasi MP Server. serverInitDone set to true.";
 
 waitUntil {sleep 1;!(isNil "placementDone")};
-distancias = [] spawn A3A_fnc_distancias4;
+distancias = [] spawn A3A_fnc_distances4;
 resourcecheck = [] execVM "resourcecheck.sqf";
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 savingServer = false;

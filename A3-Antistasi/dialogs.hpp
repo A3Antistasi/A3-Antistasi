@@ -218,7 +218,7 @@ class build_menu  			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Establish a new watchpost or roadblock depending on the type of terrain you select";
-			action = "closeDialog 0; [""create""] spawn A3A_fnc_puestoDialog";
+			action = "closeDialog 0; [""create""] spawn A3A_fnc_outpostDialog";
 		};
 		class 4slots_L2: RscButton
 		{
@@ -239,7 +239,7 @@ class build_menu  			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			//action = "closeDialog 0; [""delete""] spawn A3A_fnc_puestoDialog";
+			//action = "closeDialog 0; [""delete""] spawn A3A_fnc_outpostDialog";
 			tooltip = "Remove whole garrisons or posts";
 			action = "closeDialog 0; [""rem""] spawn A3A_fnc_garrisonDialog";
 		};
@@ -1735,7 +1735,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Establish a new watchpost or roadblock depending on the type of terrain you select";
-			action = "if (player == theBoss) then {closeDialog 0;[""create""] spawn A3A_fnc_puestoDialog} else {hint ""You're not the Commander!""};";
+			action = "if (player == theBoss) then {closeDialog 0;[""create""] spawn A3A_fnc_outpostDialog} else {hint ""You're not the Commander!""};";
 		};
 		class 8slots_R2: RscButton
 		{
@@ -1757,7 +1757,7 @@ class commander_comm 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Remove selected observation post or roadblock, money will be refunded";
-			action = "if (player == theBoss) then {closeDialog 0; [""delete""] spawn A3A_fnc_puestoDialog} else {hint ""You're not the Commander!""};";
+			action = "if (player == theBoss) then {closeDialog 0; [""delete""] spawn A3A_fnc_outpostDialog} else {hint ""You're not the Commander!""};";
 		};
 		class 8slots_R3: RscButton
 		{

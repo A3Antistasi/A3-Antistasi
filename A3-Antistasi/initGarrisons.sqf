@@ -79,7 +79,7 @@ else
     garrison setVariable [_x,_garrison,true];
     lados setVariable [_x,malos,true];
     };
-_nul = [_x] call A3A_fnc_crearControles;
+_nul = [_x] call A3A_fnc_createControls;
 server setVariable [_x,0,true];//fecha en fomrato dateToNumber en la que estarán idle
 } forEach aeropuertos;
 
@@ -107,7 +107,7 @@ else
 	lados setVariable [_x,malos,true];
 	};
 garrison setVariable [_x,_garrison,true];
-_nul = [_x] call A3A_fnc_crearControles;
+_nul = [_x] call A3A_fnc_createControls;
 } forEach recursos;
 
 {
@@ -134,7 +134,7 @@ else
     lados setVariable [_x,malos,true];
     };
 garrison setVariable [_x,_garrison,true];
-_nul = [_x] call A3A_fnc_crearControles;
+_nul = [_x] call A3A_fnc_createControls;
 } forEach fabricas;
 
 {
@@ -178,7 +178,7 @@ else
     };
 garrison setVariable [_x,_garrison,true];
 server setVariable [_x,0,true];
-_nul = [_x] call A3A_fnc_crearControles;
+_nul = [_x] call A3A_fnc_createControls;
 } forEach puestos;
 
 {
@@ -209,7 +209,7 @@ else
     lados setVariable [_x,malos,true];
     };
 garrison setVariable [_x,_garrison,true];
-_nul = [_x] call A3A_fnc_crearControles;
+_nul = [_x] call A3A_fnc_createControls;
 } forEach puertos;
 
 lados setVariable ["NATO_carrier",malos,true];

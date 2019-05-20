@@ -200,7 +200,7 @@ if (isServer and !_byPassServer) then
 		[_x] call A3A_fnc_mrkUpdate;
 		if (lados getVariable [_x,sideUnknown] != buenos) then
 			{
-			_nul = [_x] call A3A_fnc_crearControles;
+			_nul = [_x] call A3A_fnc_createControls;
 			};
 		} forEach aeropuertos;
 
@@ -213,7 +213,7 @@ if (isServer and !_byPassServer) then
 		[_x] call A3A_fnc_mrkUpdate;
 		if (lados getVariable [_x,sideUnknown] != buenos) then
 			{
-			_nul = [_x] call A3A_fnc_crearControles;
+			_nul = [_x] call A3A_fnc_createControls;
 			};
 		} forEach recursos;
 
@@ -226,7 +226,7 @@ if (isServer and !_byPassServer) then
 		[_x] call A3A_fnc_mrkUpdate;
 		if (lados getVariable [_x,sideUnknown] != buenos) then
 			{
-			_nul = [_x] call A3A_fnc_crearControles;
+			_nul = [_x] call A3A_fnc_createControls;
 			};
 		} forEach fabricas;
 
@@ -238,7 +238,7 @@ if (isServer and !_byPassServer) then
 		[_x] call A3A_fnc_mrkUpdate;
 		if (lados getVariable [_x,sideUnknown] != buenos) then
 			{
-			_nul = [_x] call A3A_fnc_crearControles;
+			_nul = [_x] call A3A_fnc_createControls;
 			};
 		} forEach puestos;
 
@@ -251,7 +251,7 @@ if (isServer and !_byPassServer) then
 		[_x] call A3A_fnc_mrkUpdate;
 		if (lados getVariable [_x,sideUnknown] != buenos) then
 			{
-			_nul = [_x] call A3A_fnc_crearControles;
+			_nul = [_x] call A3A_fnc_createControls;
 			};
 		} forEach puertos;
 		lados setVariable ["NATO_carrier",malos,true];

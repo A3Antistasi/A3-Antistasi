@@ -60,4 +60,4 @@ if (_tipo != "delete") then
 	[-_hr,-_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 	};
 
- [[_tipo,_posicionTel],"A3A_fnc_crearPuestosFIA"] call BIS_fnc_MP
+ [[_tipo,_posicionTel],"A3A_fnc_createOutpostsFIA"] call BIS_fnc_MP

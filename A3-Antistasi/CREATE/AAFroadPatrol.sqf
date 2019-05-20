@@ -85,7 +85,7 @@ else
 	else
 		{
 		_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
-		_arraydestinos = [_arrayDestinos,_posBase] call A3A_fnc_patrolDestinos;
+		_arraydestinos = [_arrayDestinos,_posBase] call A3A_fnc_patrolDestinations;
 		_distancia = 50;
 		};
 	};
@@ -176,7 +176,7 @@ while {alive _veh} do
 		else
 			{
 			_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
-			_arraydestinos = [_arraydestinos,position _veh] call A3A_fnc_patrolDestinos;
+			_arraydestinos = [_arraydestinos,position _veh] call A3A_fnc_patrolDestinations;
 			};
 		};
 	};

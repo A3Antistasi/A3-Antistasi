@@ -151,7 +151,7 @@ if (_marcador in recursos) then
 	["TaskUpdated",["",format ["%1 lost a Resource",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];
 	};
 
-{_nul = [_marcador,_x] spawn A3A_fnc_deleteControles} forEach controles;
+{_nul = [_marcador,_x] spawn A3A_fnc_deleteControls} forEach controles;
 if (_winner == buenos) then
 	{
 	[] call A3A_fnc_tierCheck;

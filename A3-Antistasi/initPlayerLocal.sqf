@@ -51,7 +51,7 @@ if (isMultiplayer) then
 					deleteVehicle (_this select 6);
 					if (_tipo == "Put") then
 						{
-						if (player distance petros < 10) then {[player,60] spawn A3A_fnc_castigo};
+						if (player distance petros < 10) then {[player,60] spawn A3A_fnc_punishment};
 						};
 					};
 				};
@@ -587,7 +587,7 @@ if (hayTFAR or hayACE or hayRHS or hayACRE or hayFFAA) then
 		};
 	};
 waituntil {!isnull (finddisplay 46)};
-gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",A3A_fnc_teclas];
+gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",A3A_fnc_keys];
 //removeAllActions caja;
 
 if ((!isServer) and (isMultiplayer)) then {caja call jn_fnc_arsenal_init};

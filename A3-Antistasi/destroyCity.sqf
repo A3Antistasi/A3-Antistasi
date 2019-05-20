@@ -18,4 +18,4 @@ if (random 100 < 70) then
 	}
 } forEach _buildings;
 
-[_marcador,false] spawn A3A_fnc_apagon;
+[_marcador,false] spawn A3A_fnc_blackout;

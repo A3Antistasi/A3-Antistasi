@@ -45,7 +45,7 @@ if (_power == _marcador) then
 				};
 			};
 		};
-	[_ciudad,_powered] spawn A3A_fnc_apagon;
+	[_ciudad,_powered] spawn A3A_fnc_blackout;
 	};
 } forEach ciudades;
 
@@ -83,6 +83,6 @@ if (_power == _marcador) then
 				};
 			};
 		};
-	[_sitio,_powered] spawn A3A_fnc_apagon;
+	[_sitio,_powered] spawn A3A_fnc_blackout;
 	};
 } forEach _marcadores;

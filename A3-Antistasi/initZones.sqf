@@ -224,7 +224,7 @@ else
             _x addEventHandler ["Killed",
                 {
                 _antena = _this select 0;
-                {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_apagon}} forEach ciudades;
+                {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach ciudades;
                 _mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
                 antenas = antenas - [_antena]; antenasmuertas pushBack (getPos _antena); deleteMarker _mrk;
                 publicVariable "antenas"; publicVariable "antenasMuertas";
@@ -261,7 +261,7 @@ if (count _posAntenas > 0) then
                 _antena addEventHandler ["Killed",
                     {
                     _antena = _this select 0;
-                    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_apagon}} forEach ciudades;
+                    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach ciudades;
                     _mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
                     antenas = antenas - [_antena]; antenasmuertas pushBack (getPos _antena); deleteMarker _mrk;
                     publicVariable "antenas"; publicVariable "antenasMuertas";

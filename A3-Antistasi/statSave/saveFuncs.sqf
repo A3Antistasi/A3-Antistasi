@@ -206,7 +206,7 @@ fn_SetStat =
 			    _posAnt = _varvalue select _i;
 			    _mrk = [mrkAntenas, _posAnt] call BIS_fnc_nearestPosition;
 			    _antena = [antenas,_mrk] call BIS_fnc_nearestPosition;
-			    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_apagon}} forEach ciudades;
+			    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach ciudades;
 			    antenas = antenas - [_antena];
 			    _antena removeAllEventHandlers "Killed";
 			    _antena setDamage [1,false];
@@ -318,7 +318,7 @@ fn_SetStat =
 			{
 			if (_x == "AtaqueAAF") then
 				{
-				[] call A3A_fnc_ataqueAAF;
+				[] call A3A_fnc_attackAAF;
 				}
 			else
 				{

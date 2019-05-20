@@ -71,7 +71,7 @@ while {true} do
 		_mrkD setMarkerColor colorBuenos;
 		garrison setVariable [_ciudad,[],true];
 		sleep 5;
-		{_nul = [_ciudad,_x] spawn A3A_fnc_deleteControles} forEach controles;
+		{_nul = [_ciudad,_x] spawn A3A_fnc_deleteControls} forEach controles;
 		if ((!(["CONVOY"] call BIS_fnc_taskExists)) and (!bigAttackInProgress)) then
 			{
 			_base = [_ciudad] call A3A_fnc_findBasesForConvoy;
@@ -152,7 +152,7 @@ while {true} do
 		[1200] remoteExec ["A3A_fnc_timingCA",2];
 		if (!bigAttackInProgress) then
 			{
-			_script = [] spawn A3A_fnc_ataqueAAF;
+			_script = [] spawn A3A_fnc_attackAAF;
 			waitUntil {sleep 5; scriptDone _script};
 			};
 		};

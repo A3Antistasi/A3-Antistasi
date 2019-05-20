@@ -5,19 +5,19 @@ class A3A
         class addHC {file="addHC.sqf";};
         class addTimeForIdle {file="addTimeForIdle.sqf";};
         class AILoadInfo {file="AILoadInfo.sqf";};
-        class apagon {file="apagon.sqf";};
-        class ataqueAAF {file="ataqueAAF.sqf";};
+        class blackout {file="blackout.sqf";};
+        class attackAAF {file="attackAAF.sqf";};
         class buildHQ {file="buildHQ.sqf";};
-        class castigo {file="castigo.sqf";};
+        class punishment {file="punishment.sqf";};
         class citiesToCivPatrol {file="citiesToCivPatrol.sqf";};
         class citySupportChange {file="citySupportChange.sqf";};
         class commsMP {file="commsMP.sqf";};
-        class crearControles {file="crearControles.sqf";};
-        class crearPuestosFIA {file="crearPuestosFIA.sqf";};
-        class deleteControles {file="deleteControles.sqf";};
+        class createControls {file="createControls.sqf";};
+        class createOutpostsFIA {file="createOutpostsFIA.sqf";};
+        class deleteControls {file="deleteControls.sqf";};
         class destroyCity {file="destroyCity.sqf";};
         class distanceUnits {file="distanceUnits.sqf";};
-        class distancias4 {file="distancias5.sqf";};
+        class distances4 {file="distances5.sqf";};
         class economicsAI {file="economicsAI.sqf";};
         class FIAradio {file="FIAradio.sqf";};
         class findBasesForConvoy {file="findBasesForConvoy.sqf";};
@@ -40,13 +40,13 @@ class A3A
         class NATOFT {file="NATOFT.sqf";};
         class numericRank {file="numericRank.sqf";};
         class onPlayerDisconnect {file="onPlayerDisconnect.sqf";};
-        class patrolDestinos {file="patrolDestinos.sqf";};
+        class patrolDestinations {file="patrolDestinations.sqf";};
         class placementSelection {file="placementselection.sqf";};
         class playerHasBeenPvPCheck {file="playerHasBeenPvPCheck.sqf";};
         class powerCheck {file="powerCheck.sqf";};
         class powerReorg {file="powerReorg.sqf";};
         class prestige {file="prestige.sqf";};
-        class puestoDialog {file="puestoDialog.sqf";};
+        class outpostDialog {file="outpostDialog.sqf";};
         class radioCheck {file="radioCheck.sqf";};
         class rebuildAssets {file="rebuildAssets.sqf";};
         class resourceCheckSkipTime {file="resourcecheckSkipTime.sqf";};
@@ -57,7 +57,7 @@ class A3A
         class sellVehicle {file="sellVehicle.sqf";};
         class sizeMarker {file="sizeMarker.sqf";};
         class statistics {file="statistics.sqf";};
-        class teclas {file="teclas.sqf";};
+        class keys {file="keys.sqf";};
         class timingCA {file="timingCA.sqf";};
         class undercover {file="undercover.sqf";};
         class unlockVehicle {file="unlockVehicle.sqf";};
@@ -119,7 +119,7 @@ class A3A
         //class AAthreatEval {file="AI\AAthreatEval.sqf";};
         //class hayLOS {file="AI\hayLOS.sqf";};
 	}
-	
+
 	class CREATE
 	{
         class AAFroadPatrol {file="CREATE\AAFroadpatrol.sqf";};
@@ -158,12 +158,12 @@ class A3A
         class VEHdespawner {file="CREATE\VEHdespawner.sqf";};
         class wavedCA {file="CREATE\wavedCA.sqf";};
 	}
-	
+
 	class Dialogs
 	{
 		class mineDialog {file="Dialogs\mineDialog.sqf";};
 	}
-	
+
 	class Missions
 	{
         class ataqueHQ {file="Missions\ataqueHQ.sqf";};

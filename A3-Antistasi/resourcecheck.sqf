@@ -141,7 +141,7 @@ while {true} do
 	if ((_veh isKindOf "StaticWeapon") and ({isPlayer _x} count crew _veh == 0) and (alive _veh)) then
 		{
 		_veh setDamage 0;
-		[_veh,1] remoteExec ["setVehicleAmmoDef",_veh];
+		[_veh,1] remoteExec ["setVehicleAmmo",_veh];
 		};
 	} forEach vehicles;
 	cuentaCA = cuentaCA - 600;

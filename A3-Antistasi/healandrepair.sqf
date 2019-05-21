@@ -19,7 +19,7 @@ if ((_x distance _posHQ < 150) and (alive _x) and (isNull(attachedTo _x))) then
 	{
 	_x setDamage 0;
 	if (_x getVariable ["INCAPACITATED",false]) then {_x setVariable ["INCAPACITATED",false,true]};
-	[_x,1] remoteExec ["setVehicleAmmoDef",_x];
+	[_x,1] remoteExec ["setVehicleAmmo",_x];
 	};
 } forEach vehicles;
 

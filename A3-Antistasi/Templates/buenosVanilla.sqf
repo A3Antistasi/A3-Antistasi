@@ -7,7 +7,7 @@ SDKMGStatic = "I_HMG_01_high_F";
 staticATBuenos = "I_Static_AT_F";
 staticAABuenos = "I_Static_AA_F";
 
-staticCrewBuenos = "I_G_Soldier_unarmed_F";
+staticCrewTeamPlayer = "I_G_Soldier_unarmed_F";
 SDKUnarmed = "I_G_Survivor_F";
 SDKSniper = ["I_C_Soldier_Bandit_5_F","I_C_Soldier_Para_7_F"];
 SDKATman = ["I_C_Soldier_Bandit_2_F","I_C_Soldier_Para_5_F"];
@@ -35,10 +35,10 @@ tipoPetros = "I_C_Soldier_Camo_F";
 soporteStaticSDKB = "I_HMG_01_support_F";
 ATStaticSDKB = "I_AT_01_weapon_F";
 MGStaticSDKB = "I_HMG_01_high_weapon_F";
-soporteStaticSDKB2 = "I_HMG_01_support_high_F";
+supportStaticsSDKB2 = "I_HMG_01_support_high_F";
 AAStaticSDKB = "I_AA_01_weapon_F";
 MortStaticSDKB = "I_Mortar_01_weapon_F";
-soporteStaticSDKB3 = "I_Mortar_01_support_F";
+supportStaticsSDKB3 = "I_Mortar_01_support_F";
 
 civCar = "C_Offroad_02_unarmed_F";
 civTruck = "C_Van_01_transport_F";

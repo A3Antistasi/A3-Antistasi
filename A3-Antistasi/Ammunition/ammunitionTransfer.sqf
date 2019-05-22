@@ -68,7 +68,7 @@ if (count _armasFinal > 0) then
 	};
 
 _municionFinal = [];
-_municionFinalCount = [];
+_ammunitionFinalCount = [];
 if (isNil "_municion") then
 	{
 	diag_log format ["Error en transmisión de munición. Tenía esto: %1 y estos contenedores: %2, el origen era un %3 y el objeto está definido como: %4", magazineCargo _origen, everyContainer _origen,typeOf _origen,_origen];
@@ -80,7 +80,7 @@ else
 	if ((not(_arma in _municionFinal)) and (not(_arma in unlockedMagazines))) then
 		{
 		_municionFinal pushBack _arma;
-		_municionFinalCount pushBack ({_x == _arma} count _municion);
+		_ammunitionFinalCount pushBack ({_x == _arma} count _municion);
 		};
 	} forEach  _municion;
 	};
@@ -90,7 +90,7 @@ if (count _municionFinal > 0) then
 	{
 	for "_i" from 0 to (count _municionFinal) - 1 do
 		{
-		_destino addMagazineCargoGlobal [_municionFinal select _i,_municionFinalCount select _i];
+		_destino addMagazineCargoGlobal [_municionFinal select _i,_ammunitionFinalCount select _i];
 		};
 	};
 
@@ -114,13 +114,13 @@ if (count _itemsFinal > 0) then
 	};
 
 _mochisFinal = [];
-_mochisFinalCount = [];
+_backpcksFinalCount = [];
 {
 _arma = _x;
 if ((not(_arma in _mochisFinal)) and (not(_arma in unlockedBackpacks))) then
 	{
 	_mochisFinal pushBack _arma;
-	_mochisFinalCount pushBack ({_x == _arma} count _mochis);
+	_backpcksFinalCount pushBack ({_x == _arma} count _mochis);
 	};
 } forEach _mochis;
 
@@ -128,7 +128,7 @@ if (count _mochisFinal > 0) then
 	{
 	for "_i" from 0 to (count _mochisFinal) - 1 do
 		{
-		_destino addBackpackCargoGlobal [_mochisFinal select _i,_mochisFinalCount select _i];
+		_destino addBackpackCargoGlobal [_mochisFinal select _i,_backpcksFinalCount select _i];
 		};
 	};
 

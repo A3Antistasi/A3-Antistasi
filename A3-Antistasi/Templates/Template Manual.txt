@@ -21,7 +21,7 @@ SDKMGStatic = "I_HMG_01_high_F";//rebel static MG
 staticATBuenos = "I_Static_AT_F";//rebel static AT
 staticAABuenos = "I_Static_AA_F";//rebel static AA
 
-staticCrewBuenos = "I_G_Soldier_unarmed_F";// static crew classname, has to be unique, if the mod does not have a cre model, use this and some script will replace his clothing
+staticCrewTeamPlayer = "I_G_Soldier_unarmed_F";// static crew classname, has to be unique, if the mod does not have a cre model, use this and some script will replace his clothing
 SDKUnarmed = "I_G_Survivor_F";//unarmed prisoner model, it has to be unique, if the mod does not have an unarmed model, use this and some script will replace his clothing 
 SDKSniper = ["I_C_Soldier_Bandit_5_F","I_C_Soldier_Para_7_F"];//sniper, with two tiers, both have to be unique, if your mod has not two tiers, place the same classname
 SDKATman = ["I_C_Soldier_Bandit_2_F","I_C_Soldier_Para_5_F"];//AT soldier, with two tiers, both have to be unique, if your mod has not two tiers, place the same classname
@@ -49,10 +49,10 @@ tipoPetros = "I_C_Soldier_Camo_F";//petros or maru model
 soporteStaticSDKB = "I_HMG_01_support_F";//static support backpack, place "not_supported" if your mod lacks of it
 ATStaticSDKB = "I_AT_01_weapon_F";//static support backpack, place "not_supported" if your mod lacks of it
 MGStaticSDKB = "I_HMG_01_high_weapon_F";//static support backpack, place "not_supported" if your mod lacks of it
-soporteStaticSDKB2 = "I_HMG_01_support_high_F";//static support backpack, place "not_supported" if your mod lacks of it
+supportStaticsSDKB2 = "I_HMG_01_support_high_F";//static support backpack, place "not_supported" if your mod lacks of it
 AAStaticSDKB = "I_AA_01_weapon_F";//static support backpack, place "not_supported" if your mod lacks of it
 MortStaticSDKB = "I_Mortar_01_weapon_F";//static support backpack, place "not_supported" if your mod lacks of it
-soporteStaticSDKB3 = "I_Mortar_01_support_F";//static support backpack, place "not_supported" if your mod lacks of it
+supportStaticsSDKB3 = "I_Mortar_01_support_F";//static support backpack, place "not_supported" if your mod lacks of it
 
 civCar = "C_Offroad_02_unarmed_F";//purchaseable civ car
 civTruck = "C_Van_01_transport_F";//purchaseable civ truck

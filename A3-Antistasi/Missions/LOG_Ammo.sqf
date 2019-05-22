@@ -47,7 +47,7 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 	_mrk setMarkerColorLocal "ColorRed";
 	_mrk setMarkerBrushLocal "DiagGrid";
 	if (!debug) then {_mrk setMarkerAlphaLocal 0};
-	_tipoGrupo = if (_dificil) then {if (_lado == malos) then {NATOSquad} else {CSATSquad}} else {if (_lado == malos) then {gruposNATOSentry} else {gruposCSATSentry}};
+	_tipoGrupo = if (_dificil) then {if (_lado == malos) then {NATOSquad} else {CSATSquad}} else {if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry}};
 	//_cfg = if (_lado == malos) then {cfgNATOInf} else {cfgCSATInf};
 	_grupo = [_pos,_lado, _tipoGrupo] call A3A_fnc_spawnGroup;
 	sleep 1;

@@ -3,13 +3,13 @@ CSATOfficer = "LIB_SOV_captain_summer";
 CSATBodyG = "LIB_SOV_scout_mgunner";
 CSATCrew = "LIB_SOV_tank_crew";
 CSATMarksman = "LIB_SOV_scout_sniper";
-staticCrewMuyMalos = "LIB_SOV_gun_crew";
+staticCrewInvaders = "LIB_SOV_gun_crew";
 CSATPilot = "LIB_SOV_pilot";
 
 CSATMortar = "LIB_BM37";
 CSATMG = "LIB_Maxim_M30_Trench";
-staticATmuyMalos = "LIB_Zis3";
-staticAAmuyMalos = "LIB_61k";
+staticATInvaders = "LIB_Zis3";
+staticAAInvaders = "LIB_61k";
 
 vehCSATLightArmed = ["LIB_Scout_M3"];
 vehCSATLightUnarmed = ["LIB_GazM1_SOV","LIB_GazM1_SOV_camo_sand","LIB_Willys_MB"];
@@ -40,16 +40,16 @@ CSATFlag = "LIB_FlagCarrier_SU";
 CSATFlagTexture = "ww2\core_t\if_decals_t\ussr\flag_su_co.paa";
 CSATAmmoBox = "O_supplyCrate_F";
 //cfgCSATInf = (configfile >> "CfgGroups" >> "East" >> "OPF_T_F" >> "Infantry");
-gruposCSATSentry = ["LIB_SOV_LC_rifleman_summer","LIB_SOV_rifleman"];///"O_T_InfSentry";///
+groupsCSATSentry = ["LIB_SOV_LC_rifleman_summer","LIB_SOV_rifleman"];///"O_T_InfSentry";///
 gruposCSATSniper = ["LIB_SOV_scout_sniper_autumn","LIB_SOV_scout_sergeant"];
-gruposCSATsmall = [gruposCSATSentry,gruposCSATSniper];///[gruposCSATSentry,"O_T_reconSentry","O_T_SniperTeam"];///
+gruposCSATsmall = [groupsCSATSentry,gruposCSATSniper];///[groupsCSATSentry,"O_T_reconSentry","O_T_SniperTeam"];///
 gruposCSATAA = ["LIB_SOV_sergeant","LIB_SOV_mgunner","LIB_SOV_smgunner_summer","LIB_SOV_smgunner_summer"];
 gruposCSATAT = ["LIB_SOV_sergeant","LIB_SOV_rifleman","LIB_SOV_AT_soldier","LIB_SOV_AT_grenadier"];
 gruposCSATmid = [["LIB_SOV_sergeant","LIB_SOV_LC_rifleman_summer","LIB_SOV_smgunner_summer","LIB_SOV_LC_rifleman_summer"],gruposCSATAA,gruposCSATAT];///["O_T_InfTeam","O_T_InfTeam_AA","O_T_InfTeam_AT"];///
 CSATSquad = ["LIB_SOV_sergeant","LIB_SOV_mgunner","LIB_SOV_LC_rifleman_summer","LIB_SOV_smgunner_summer","LIB_SOV_smgunner_summer","LIB_SOV_AT_soldier","LIB_SOV_AT_grenadier","LIB_SOV_medic"];///"O_T_InfSquad";///
 CSATSpecOp = ["LIB_SOV_scout_p_officer","LIB_SOV_scout_sergeant","LIB_SOV_scout_mgunner","LIB_SOV_scout_smgunner","LIB_SOV_scout_rifleman","LIB_SOV_scout_smgunner","LIB_SOV_scout_sniper","LIB_SOV_scout_sniper"];///(configfile >> "CfgGroups" >> "East" >> "OPF_T_F" >> "SpecOps" >> "O_T_ViperTeam");///
-factionMachoMuyMalos = "";
-gruposCSATSquad = [CSATSquad,["LIB_SOV_sergeant","LIB_SOV_mgunner","LIB_SOV_LC_rifleman_summer","LIB_SOV_sapper","LIB_SOV_smgunner_summer","LIB_SOV_AT_soldier","LIB_SOV_assault_smgunner","LIB_SOV_medic"]];//[CSATSquad,"O_T_InfSquad_Weapons"];///"O_T_Engineer_F"
+factionMaleInvaders = "";
+groupsCSATSquad = [CSATSquad,["LIB_SOV_sergeant","LIB_SOV_mgunner","LIB_SOV_LC_rifleman_summer","LIB_SOV_sapper","LIB_SOV_smgunner_summer","LIB_SOV_AT_soldier","LIB_SOV_assault_smgunner","LIB_SOV_medic"]];//[CSATSquad,"O_T_InfSquad_Weapons"];///"O_T_Engineer_F"
 
 soporteStaticCSATB = "not_supported";
 ATStaticCSATB = "not_supported";

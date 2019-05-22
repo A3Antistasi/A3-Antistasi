@@ -34,7 +34,7 @@ else
 		if (_frontera) then
 			{
 			_num = _num * 2;
-			_params = [_posicion, malos, gruposNATOSentry];
+			_params = [_posicion, malos, groupsNATOSentry];
 			}
 		else
 			{

@@ -5,13 +5,13 @@ CSATOfficer = "O_T_Officer_F";
 CSATBodyG = "O_V_Soldier_ghex_F";
 CSATCrew = "O_T_Crew_F";
 CSATMarksman = "O_T_Soldier_M_F";
-staticCrewMuyMalos = "O_T_support_MG_F";
+staticCrewInvaders = "O_T_support_MG_F";
 CSATPilot = "O_T_Pilot_F";
 
 CSATMortar = "O_Mortar_01_F";
 CSATMG = "O_HMG_01_high_F";
-staticATmuyMalos = "O_T_static_AT_F";
-staticAAmuyMalos = "O_static_AA_F";
+staticATInvaders = "O_T_static_AT_F";
+staticAAInvaders = "O_static_AA_F";
 
 vehCSATLightArmed = ["O_T_MRAP_02_gmg_ghex_F","O_T_MRAP_02_hmg_ghex_F","O_T_LSV_02_armed_F"];
 vehCSATLightUnarmed = ["O_T_MRAP_02_ghex_F","O_T_LSV_02_unarmed_F"];
@@ -42,16 +42,16 @@ CSATFlag = "Flag_CSAT_F";
 CSATFlagTexture = "\A3\Data_F\Flags\Flag_CSAT_CO.paa";
 CSATAmmoBox = "O_supplyCrate_F";
 //cfgCSATInf = (configfile >> "CfgGroups" >> "East" >> "OPF_T_F" >> "Infantry");
-gruposCSATSentry = ["O_T_soldier_GL_F","O_T_soldier_F"];///"O_T_InfSentry";///
+groupsCSATSentry = ["O_T_soldier_GL_F","O_T_soldier_F"];///"O_T_InfSentry";///
 gruposCSATSniper = ["O_T_sniper_F","O_T_spotter_F"];
-gruposCSATsmall = [gruposCSATSentry,["O_T_recon_M_F","O_T_recon_F"],gruposCSATSniper];///[gruposCSATSentry,"O_T_reconSentry","O_T_SniperTeam"];///
+gruposCSATsmall = [groupsCSATSentry,["O_T_recon_M_F","O_T_recon_F"],gruposCSATSniper];///[groupsCSATSentry,"O_T_reconSentry","O_T_SniperTeam"];///
 gruposCSATAA = ["O_T_soldier_TL_F","O_T_soldier_AA_F","O_T_soldier_AA_F","O_T_soldier_AAA_F"];
 gruposCSATAT = ["O_T_soldier_TL_F","O_T_soldier_AT_F","O_T_soldier_AT_F","O_T_soldier_AAT_F"];
 gruposCSATmid = [["O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_GL_F","O_T_soldier_LAT_F"],gruposCSATAA,gruposCSATAT];///["O_T_InfTeam","O_T_InfTeam_AA","O_T_InfTeam_AT"];///
 CSATSquad = ["O_T_soldier_SL_F","O_T_soldier_F","O_T_soldier_LAT_F","O_T_soldier_M_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F"];///"O_T_InfSquad";///
 CSATSpecOp = ["O_V_Soldier_TL_ghex_F","O_V_Soldier_JTAC_ghex_F","O_V_Soldier_M_ghex_F","O_V_Soldier_Exp_ghex_F","O_V_Soldier_LAT_ghex_F","O_V_Soldier_Medic_ghex_F"];///(configfile >> "CfgGroups" >> "East" >> "OPF_T_F" >> "SpecOps" >> "O_T_ViperTeam");///
-factionMachoMuyMalos = "OPF_V_F";
-gruposCSATSquad = [CSATSquad,["O_T_soldier_SL_F","O_T_soldier_AR_F","O_T_soldier_GL_F","O_T_soldier_M_F","O_T_soldier_AT_F","O_T_soldier_AAT_F","O_T_soldier_A_F","O_T_medic_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_Support_Mort_F","O_T_Support_AMort_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_Support_MG_F","O_T_Support_AMG_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_soldier_AA_F","O_T_soldier_AAA_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_Engineer_F","O_T_Engineer_F"]];//[CSATSquad,"O_T_InfSquad_Weapons"];///"O_T_Engineer_F"
+factionMaleInvaders = "OPF_V_F";
+groupsCSATSquad = [CSATSquad,["O_T_soldier_SL_F","O_T_soldier_AR_F","O_T_soldier_GL_F","O_T_soldier_M_F","O_T_soldier_AT_F","O_T_soldier_AAT_F","O_T_soldier_A_F","O_T_medic_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_Support_Mort_F","O_T_Support_AMort_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_Support_MG_F","O_T_Support_AMG_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_soldier_AA_F","O_T_soldier_AAA_F"],["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F","O_T_Engineer_F","O_T_Engineer_F"]];//[CSATSquad,"O_T_InfSquad_Weapons"];///"O_T_Engineer_F"
 
 soporteStaticCSATB = "O_HMG_01_support_F";
 ATStaticCSATB = "O_AT_01_weapon_F";

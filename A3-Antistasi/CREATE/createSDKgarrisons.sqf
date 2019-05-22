@@ -94,10 +94,10 @@ _soldados pushBack _unit;
 _garrison deleteAT _index;
 } forEach _estaticas;
 
-if (staticCrewBuenos in _garrison) then
+if (staticCrewTeamPlayer in _garrison) then
 	{
 	{
-	_unit = _grupoMort createUnit [staticCrewBuenos, _posicion, [], 0, "NONE"];
+	_unit = _grupoMort createUnit [staticCrewTeamPlayer, _posicion, [], 0, "NONE"];
 	_pos = [_posicion] call A3A_fnc_mortarPos;
 	_veh = SDKMortar createVehicle _pos;
 	_vehiculos pushBack _veh;
@@ -106,8 +106,8 @@ if (staticCrewBuenos in _garrison) then
 	_unit moveInGunner _veh;
 	[_veh] call A3A_fnc_AIVEHinit;
 	_soldados pushBack _unit;
-	} forEach (_garrison select {_x == staticCrewBuenos});
-	_garrison = _garrison - [staticCrewBuenos];
+	} forEach (_garrison select {_x == staticCrewTeamPlayer});
+	_garrison = _garrison - [staticCrewTeamPlayer];
 	};
 _garrison = _garrison call A3A_fnc_garrisonReorg;
 _tam = count _garrison;

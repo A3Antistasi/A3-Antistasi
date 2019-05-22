@@ -12,8 +12,8 @@ if ((_cargoSeats >= 2) and (_cargoSeats < 4)) then
 	{
 	switch (_lado) do
 		{
-		case malos: {_return = gruposNATOSentry};
-		case muyMalos: {_return = gruposCSATSentry};
+		case malos: {_return = groupsNATOSentry};
+		case muyMalos: {_return = groupsCSATSentry};
 		};
 	}
 else
@@ -32,7 +32,7 @@ else
 			{
 			case malos:
 				{
-				_return = selectRandom gruposNATOSquad;
+				_return = selectRandom groupsNATOSquad;
 				if (_cargoSeats > 8) then
 					{
 					_cuenta = _cargoSeats - (count _return);
@@ -44,7 +44,7 @@ else
 				};
 			case muyMalos:
 				{
-				_return = selectRandom gruposCSATSquad;
+				_return = selectRandom groupsCSATSquad;
 				if (_cargoSeats > 8) then
 					{
 					_cuenta = _cargoSeats - (count _return);

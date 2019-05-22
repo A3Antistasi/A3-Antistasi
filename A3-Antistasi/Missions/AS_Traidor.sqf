@@ -37,8 +37,8 @@ _nombredest = [_marcador] call A3A_fnc_localizar;
 
 _grptraidor = createGroup malos;
 
-_arrayaeropuertos = aeropuertos select {lados getVariable [_x,sideUnknown] == malos};
-_base = [_arrayaeropuertos, _posicion] call BIS_Fnc_nearestPosition;
+_arrayAirports = aeropuertos select {lados getVariable [_x,sideUnknown] == malos};
+_base = [_arrayAirports, _posicion] call BIS_Fnc_nearestPosition;
 _posBase = getMarkerPos _base;
 
 _traidor = _grptraidor createUnit [NATOOfficer2, _postraidor, [], 0, "NONE"];

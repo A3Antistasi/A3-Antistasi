@@ -59,13 +59,13 @@ if (_tipoGrupo isEqualType []) then
 	}
 else
 	{
-	_coste = _coste + (2*(server getVariable staticCrewBuenos)) + ([_tipogrupo] call A3A_fnc_vehiclePrice);
+	_coste = _coste + (2*(server getVariable staticCrewTeamPlayer)) + ([_tipogrupo] call A3A_fnc_vehiclePrice);
 	_costeHR = 2;
 	//if (_tipoGrupo == SDKMortar) then {_coste = _coste + ([vehSDKBike] call A3A_fnc_vehiclePrice)} else {_coste = _coste + ([vehSDKTruck] call A3A_fnc_vehiclePrice)};
 	if ((_tipoGrupo == SDKMortar) or (_tipoGrupo == SDKMGStatic)) then
 		{
 		_esInf = true;
-		_formato = [staticCrewBuenos,staticCrewBuenos];
+		_formato = [staticCrewTeamPlayer,staticCrewTeamPlayer];
 		}
 	else
 		{
@@ -99,7 +99,7 @@ if (_esinf) then
 		if (_tipogrupo isEqualTo gruposSDKSentry) then {_format = "Stry-"};
 		if (_conMochis == "MG") then
 			{
-			((units _grupo) select ((count (units _grupo)) - 2)) addBackpackGlobal soporteStaticSDKB2;
+			((units _grupo) select ((count (units _grupo)) - 2)) addBackpackGlobal supportStaticsSDKB2;
 			((units _grupo) select ((count (units _grupo)) - 1)) addBackpackGlobal MGStaticSDKB;
 			_format = "SqMG-";
 			}
@@ -107,7 +107,7 @@ if (_esinf) then
 			{
 			if (_conMochis == "Mortar") then
 				{
-				((units _grupo) select ((count (units _grupo)) - 2)) addBackpackGlobal soporteStaticSDKB3;
+				((units _grupo) select ((count (units _grupo)) - 2)) addBackpackGlobal supportStaticsSDKB3;
 				((units _grupo) select ((count (units _grupo)) - 1)) addBackpackGlobal MortStaticSDKB;
 				_format = "SqMort-";
 				};
@@ -144,7 +144,7 @@ else
 	if ((!activeGREF) and (_tipogrupo == staticAABuenos)) then
 		{
 		_pos = _pos findEmptyPosition [1,30,SDKMortar];
-		_morty = _grupo createUnit [staticCrewBuenos, _pos, [],0, "NONE"];
+		_morty = _grupo createUnit [staticCrewTeamPlayer, _pos, [],0, "NONE"];
 		_mortero = _tipogrupo createVehicle _pos;
 		_nul = [_mortero] call A3A_fnc_AIVEHinit;
 		_mortero attachTo [_camion,[0,-1.5,0.2]];

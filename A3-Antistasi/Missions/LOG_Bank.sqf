@@ -57,7 +57,7 @@ _grupos = [];
 _soldados = [];
 for "_i" from 1 to 4 do
 	{
-	_grupo = if (_dificil) then {[_posicion,malos, gruposNATOSentry] call A3A_fnc_spawnGroup} else {[_posicion,malos, gruposNATOGen] call A3A_fnc_spawnGroup};
+	_grupo = if (_dificil) then {[_posicion,malos, groupsNATOSentry] call A3A_fnc_spawnGroup} else {[_posicion,malos, gruposNATOGen] call A3A_fnc_spawnGroup};
 	sleep 1;
 	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "FORTIFY"] execVM "scripts\UPSMON.sqf";
 	{[_x,""] call A3A_fnc_NATOinit; _soldados pushBack _x} forEach units _grupo;

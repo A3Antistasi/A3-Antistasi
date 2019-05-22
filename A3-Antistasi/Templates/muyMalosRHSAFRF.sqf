@@ -3,13 +3,13 @@ CSATOfficer = "rhs_vmf_flora_officer";
 CSATBodyG = "rhs_vmf_recon_efreitor";
 CSATCrew = "rhs_vmf_flora_armoredcrew";
 CSATMarksman = "rhs_vmf_flora_marksman";
-staticCrewMuyMalos = "rhs_vmf_flora_rifleman_lite";
+staticCrewInvaders = "rhs_vmf_flora_rifleman_lite";
 CSATPilot = "rhs_pilot_tan";
 
 CSATMortar = "rhs_2b14_82mm_vmf";
 CSATMG = "rhs_KORD_high_VMF";
-staticATmuyMalos = "rhs_Kornet_9M133_2_vmf";
-staticAAmuyMalos = "RHS_ZU23_MSV";
+staticATInvaders = "rhs_Kornet_9M133_2_vmf";
+staticAAInvaders = "RHS_ZU23_MSV";
 
 vehCSATLightArmed = ["rhsgref_BRDM2_vdv","rhsgref_BRDM2_HQ_vdv","rhsgref_BRDM2_ATGM_vdv","rhs_tigr_sts_vdv"];
 vehCSATLightUnarmed = ["rhs_tigr_vdv","rhs_uaz_vdv"];
@@ -40,16 +40,16 @@ CSATFlag = "rhs_Flag_Russia_F";
 CSATFlagTexture = "rhsafrf\addons\rhs_main\data\flag_rus_co.paa";
 CSATAmmoBox = "O_supplyCrate_F";
 //cfgCSATInf = (configfile >> "CfgGroups" >> "East" >> "OPF_T_F" >> "Infantry");
-gruposCSATSentry = ["rhs_vdv_efreitor","rhs_vdv_rifleman"];///"O_T_InfSentry";///
+groupsCSATSentry = ["rhs_vdv_efreitor","rhs_vdv_rifleman"];///"O_T_InfSentry";///
 gruposCSATSniper = ["rhs_vdv_marksman_asval","rhs_vdv_rifleman_asval"];
-gruposCSATsmall = [gruposCSATSentry,["rhs_vdv_recon_rifleman_scout_akm","rhs_vdv_recon_rifleman_scout_akm"],gruposCSATSniper];///[gruposCSATSentry,"O_T_reconSentry","O_T_SniperTeam"];///
+gruposCSATsmall = [groupsCSATSentry,["rhs_vdv_recon_rifleman_scout_akm","rhs_vdv_recon_rifleman_scout_akm"],gruposCSATSniper];///[groupsCSATSentry,"O_T_reconSentry","O_T_SniperTeam"];///
 gruposCSATAA = ["rhs_vdv_flora_junior_sergeant","rhs_vdv_flora_aa","rhs_vdv_flora_aa","rhs_vdv_flora_aa"];
 gruposCSATAT = ["rhs_vdv_flora_junior_sergeant","rhs_vdv_flora_at","rhs_vdv_flora_strelok_rpg_assist","rhs_vdv_flora_LAT"];
 gruposCSATmid = [["rhs_vdv_flora_efreitor","rhs_vdv_flora_rifleman","rhs_vdv_flora_rifleman","rhs_vdv_flora_medic"],gruposCSATAA,gruposCSATAT];///["O_T_InfTeam","O_T_InfTeam_AA","O_T_InfTeam_AT"];///
 CSATSquad = ["rhs_vdv_mflora_sergeant","rhs_vdv_mflora_junior_sergeant","rhs_vdv_mflora_grenadier","rhs_vdv_mflora_machinegunner","rhs_vdv_mflora_at","rhs_vdv_mflora_strelok_rpg_assist","rhs_vdv_mflora_rifleman","rhs_vdv_mflora_medic"];///"O_T_InfSquad";///
 CSATSpecOp = ["rhs_vmf_recon_sergeant","rhs_vmf_recon_rifleman_scout","rhs_vmf_recon_efreitor","rhs_vmf_recon_arifleman","rhs_vmf_recon_machinegunner_assistant","rhs_vmf_flora_engineer","rhs_vmf_recon_rifleman_lat","rhs_vmf_recon_medic"];///(configfile >> "CfgGroups" >> "East" >> "OPF_T_F" >> "SpecOps" >> "O_T_ViperTeam");///
-factionMachoMuyMalos = "rhs_faction_vmf";
-gruposCSATSquad = [CSATSquad,["rhs_vdv_mflora_sergeant","rhs_vdv_mflora_junior_sergeant","rhs_vdv_mflora_machinegunner","rhs_vdv_mflora_rifleman","rhs_vdv_mflora_marksman","rhs_vdv_mflora_machinegunner_assistant","rhs_vdv_mflora_LAT","rhs_vdv_mflora_medic"],["rhs_vdv_mflora_sergeant","rhs_vdv_mflora_junior_sergeant","rhs_vdv_mflora_machinegunner","rhs_vdv_mflora_rifleman","rhs_vdv_mflora_marksman","rhs_vdv_mflora_machinegunner_assistant","rhs_vdv_mflora_aa","rhs_vdv_mflora_medic"]];//[CSATSquad,"O_T_InfSquad_Weapons"];///
+factionMaleInvaders = "rhs_faction_vmf";
+groupsCSATSquad = [CSATSquad,["rhs_vdv_mflora_sergeant","rhs_vdv_mflora_junior_sergeant","rhs_vdv_mflora_machinegunner","rhs_vdv_mflora_rifleman","rhs_vdv_mflora_marksman","rhs_vdv_mflora_machinegunner_assistant","rhs_vdv_mflora_LAT","rhs_vdv_mflora_medic"],["rhs_vdv_mflora_sergeant","rhs_vdv_mflora_junior_sergeant","rhs_vdv_mflora_machinegunner","rhs_vdv_mflora_rifleman","rhs_vdv_mflora_marksman","rhs_vdv_mflora_machinegunner_assistant","rhs_vdv_mflora_aa","rhs_vdv_mflora_medic"]];//[CSATSquad,"O_T_InfSquad_Weapons"];///
 
 soporteStaticCSATB = "RHS_Kord_Tripod_Bag";
 ATStaticCSATB = "RHS_Kornet_Gun_Bag";

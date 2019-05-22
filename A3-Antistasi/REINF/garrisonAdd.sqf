@@ -25,7 +25,7 @@ if (_coste > _resourcesFIA) exitWith {hint format ["You do not have enough money
 
 _marcador = posicionGarr;
 
-if ((_tipo == staticCrewBuenos) and (_marcador in puestosFIA)) exitWith {hint "You cannot add mortars to a Roadblock garrison"};
+if ((_tipo == staticCrewTeamPlayer) and (_marcador in puestosFIA)) exitWith {hint "You cannot add mortars to a Roadblock garrison"};
 
 _posicion = getMarkerPos _marcador;
 

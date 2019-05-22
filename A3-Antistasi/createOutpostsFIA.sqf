@@ -72,7 +72,7 @@ if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) the
 	_mrk setMarkerText _texto;
 	if (_esCarretera) then
 		{
-		_garrison = [staticCrewBuenos];
+		_garrison = [staticCrewTeamPlayer];
 		{
 		if (random 20 <= skillFIA) then {_garrison pushBack (_x select 1)} else {_garrison pushBack (_x select 0)};
 		} forEach gruposSDKAT;

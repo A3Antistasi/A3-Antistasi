@@ -50,7 +50,7 @@ if (count _garrison > 0) then
 				{
 				if (typeOf _x in soldadosSDK) then
 					{
-					if (typeOf _x == staticCrewBuenos) then {_coste = _coste - ([SDKMortar] call A3A_fnc_vehiclePrice)};
+					if (typeOf _x == staticCrewTeamPlayer) then {_coste = _coste - ([SDKMortar] call A3A_fnc_vehiclePrice)};
 					_hr = _hr - 1;
 					_coste = _coste - (server getVariable (typeOf _x));
 					};
@@ -61,7 +61,7 @@ if (count _garrison > 0) then
 		} forEach allUnits;
 		};
 	{
-	if (_x == staticCrewBuenos) then {_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice)};
+	if (_x == staticCrewTeamPlayer) then {_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice)};
 	_hr = _hr + 1;
 	_coste = _coste + (server getVariable _x);
 	} forEach _garrison;

@@ -5,7 +5,7 @@ SDKMGStatic = "LIB_M1919_M2";
 staticATBuenos = "LIB_Pak40";
 staticAABuenos = "LIB_FlaK_30";
 
-staticCrewBuenos = "LIB_US_Bomber_Crew";
+staticCrewTeamPlayer = "LIB_US_Bomber_Crew";
 SDKUnarmed = "I_G_Survivor_F";
 SDKSniper = ["LIB_WP_Sniper","LIB_WP_Sniper"];
 SDKATman = ["LIB_WP_AT_grenadier","LIB_WP_AT_grenadier"];
@@ -33,10 +33,10 @@ tipoPetros = "LIB_WP_Sierzant";
 soporteStaticSDKB = "not_supported";
 ATStaticSDKB = "not_supported";
 MGStaticSDKB = "not_supported";
-soporteStaticSDKB2 = "not_supported";
+supportStaticsSDKB2 = "not_supported";
 AAStaticSDKB = "not_supported";
 MortStaticSDKB = "not_supported";
-soporteStaticSDKB3 = "not_supported";
+supportStaticsSDKB3 = "not_supported";
 
 civCar = "LIB_GazM1_dirty";
 civTruck = "LIB_DAK_OpelBlitz_Open";

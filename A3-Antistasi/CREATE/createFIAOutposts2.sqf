@@ -16,7 +16,7 @@ if (_escarretera) then
 
 	if (isNil "_garrison") then
 		{//this is for backward compatibility, remove after v12
-		_garrison = [staticCrewBuenos];
+		_garrison = [staticCrewTeamPlayer];
 		{
 		if (random 20 <= skillFIA) then {_garrison pushBack (_x select 1)} else {_garrison pushBack (_x select 0)};
 		} forEach gruposSDKAT;
@@ -28,7 +28,7 @@ if (_escarretera) then
 		if (count _road > 0) exitWith {};
 		_tam = _tam + 5;
 		};
-	if (staticCrewBuenos in _garrison) then
+	if (staticCrewTeamPlayer in _garrison) then
 		{
 		_roadcon = roadsConnectedto (_road select 0);
 		_dirveh = [_road select 0, _roadcon select 0] call BIS_fnc_DirTo;
@@ -39,9 +39,9 @@ if (_escarretera) then
 		sleep 1;
 		};
 	_grupo = [_posicion, buenos, _garrison,true,false] call A3A_fnc_spawnGroup;
-	//_unit = _grupo createUnit [staticCrewBuenos, _posicion, [], 0, "NONE"];
+	//_unit = _grupo createUnit [staticCrewTeamPlayer, _posicion, [], 0, "NONE"];
 	//_unit moveInGunner _veh;
-	{[_x,_marcador] spawn A3A_fnc_FIAinitBases; if (typeOf _x == staticCrewBuenos) then {_x moveInGunner _veh}} forEach units _grupo;
+	{[_x,_marcador] spawn A3A_fnc_FIAinitBases; if (typeOf _x == staticCrewTeamPlayer) then {_x moveInGunner _veh}} forEach units _grupo;
 	}
 else
 	{

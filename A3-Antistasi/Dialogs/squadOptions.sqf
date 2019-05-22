@@ -22,7 +22,7 @@ if (str (_display) != "no display") then
 	_costeHR = 0;
 	//_formato = (cfgSDKInf >> (gruposSDKmid select 0));
 	//_unidades = [_formato] call groupComposition;
-	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach gruposSDKSquadEng;
+	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach groupsSDKSquadEng;
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 106;
@@ -30,7 +30,7 @@ if (str (_display) != "no display") then
 	_costeHR = 0;
 	//_formato = (cfgSDKInf >> (gruposSDKAT select 0));
 	//_unidades = [_formato] call groupComposition;
-	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach gruposSDKSquadSupp;
+	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach groupsSDKSquadSupp;
 	_coste = _coste + ([SDKMGStatic] call A3A_fnc_vehiclePrice);
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
@@ -38,7 +38,7 @@ if (str (_display) != "no display") then
 	_coste = 0;
 	_costeHR = 0;
 	//_unidades = [SDKSL,SDKSL];
-	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach gruposSDKSquadSupp;
+	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach groupsSDKSquadSupp;
 	_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice);
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 };

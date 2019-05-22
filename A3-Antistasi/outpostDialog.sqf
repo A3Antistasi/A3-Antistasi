@@ -34,7 +34,7 @@ if (_tipo != "delete") then
 	if (_escarretera) then
 		{
 		_tipogrupo = gruposSDKAT;
-		_coste = _coste + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice) + (server getVariable staticCrewBuenos);
+		_coste = _coste + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice) + (server getVariable staticCrewTeamPlayer);
 		_hr = _hr + 1;
 		};
 

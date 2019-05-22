@@ -13,7 +13,7 @@ _vehiculos = [];
 _soldados = [];
 
 _grupo = createGroup _lado;
-_tipoUnit = if (_lado==malos) then {staticCrewmalos} else {staticCrewMuyMalos};
+_tipoUnit = if (_lado==malos) then {staticCrewmalos} else {staticCrewInvaders};
 
 for "_i" from 0 to (count _buildings) - 1 do
 	{
@@ -42,7 +42,7 @@ for "_i" from 0 to (count _buildings) - 1 do
 		{
 		if 	((_tipoB == "Land_Cargo_HQ_V1_F") or (_tipoB == "Land_Cargo_HQ_V2_F") or (_tipoB == "Land_Cargo_HQ_V3_F")) then
 			{
-			_tipoVeh = if (_lado == malos) then {staticAAmalos} else {staticAAmuyMalos};
+			_tipoVeh = if (_lado == malos) then {staticAAmalos} else {staticAAInvaders};
 			_veh = createVehicle [_tipoVeh, (_building buildingPos 8), [],0, "CAN_COLLIDE"];
 			_veh setPosATL [(getPos _building select 0),(getPos _building select 1),(getPosATL _veh select 2)];
 			_veh setDir (getDir _building);

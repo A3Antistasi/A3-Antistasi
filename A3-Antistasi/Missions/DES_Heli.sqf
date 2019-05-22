@@ -97,7 +97,7 @@ _grupos pushBack _grupoVeh;
 _vehiculos pushBack _veh;
 
 sleep 1;
-_tipogrupo = if (_lado == malos) then {gruposNATOSentry} else {gruposCSATSentry};
+_tipogrupo = if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry};
 _grupo = [_posicion, _lado, _tipogrupo] call A3A_fnc_spawnGroup;
 
 {_x assignAsCargo _veh; _x moveInCargo _veh; _soldados pushBack _x; [_x] join _grupoveh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;

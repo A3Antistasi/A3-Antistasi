@@ -326,7 +326,7 @@ class garrison_recruit 			{
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "nul = [staticCrewBuenos] spawn A3A_fnc_garrisonAdd";
+			action = "nul = [staticCrewTeamPlayer] spawn A3A_fnc_garrisonAdd";
 		};
 		class HQ_button_grenadier: RscButton
 		{
@@ -2915,7 +2915,7 @@ class squad_options 	{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; nul = [gruposSDKSquadEng] spawn A3A_fnc_addFIAsquadHC;";
+			action = "closeDialog 0; nul = [groupsSDKSquadEng] spawn A3A_fnc_addFIAsquadHC;";
 		};
 
 		class HQ_button_Gremove: RscButton
@@ -2926,7 +2926,7 @@ class squad_options 	{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""MG""] spawn A3A_fnc_addFIAsquadHC;";
+			action = "closeDialog 0;nul = [groupsSDKSquadSupp,""MG""] spawn A3A_fnc_addFIAsquadHC;";
 		};
 		class HQ_button_unlock: RscButton
 		{
@@ -2936,7 +2936,7 @@ class squad_options 	{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [gruposSDKSquadSupp,""Mortar""] spawn A3A_fnc_addFIAsquadHC;";
+			action = "closeDialog 0;nul = [groupsSDKSquadSupp,""Mortar""] spawn A3A_fnc_addFIAsquadHC;";
 		};
 	};
 };

@@ -114,7 +114,7 @@ if !(hayIFA) then
 		{
 		if (!hayRHS) then
 			{
-			if ((faction _unit != factionMachoMalos) and (faction _unit != factionMachoMuyMalos) and (_unit != leader (group _unit))) then
+			if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders) and (_unit != leader (group _unit))) then
 				{
 				if (_hmd != "") then
 					{
@@ -196,7 +196,7 @@ if !(hayIFA) then
 		{
 		if (!hayRHS) then
 			{
-			if ((faction _unit != factionMachoMalos) and (faction _unit != factionMachoMuyMalos)) then
+			if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders)) then
 				{
 				if (_hmd != "") then
 					{

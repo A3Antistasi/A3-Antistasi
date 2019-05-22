@@ -69,12 +69,12 @@ if ((spawner getVariable _marcador != 2) and _frontera) then
 		_vehiculos pushBack _bunker;
 		_bunker setDir _dirveh;
 		_pos = getPosATL _bunker;
-		_tipoVeh = if (_lado==malos) then {staticATmalos} else {staticATmuyMalos};
+		_tipoVeh = if (_lado==malos) then {staticATmalos} else {staticATInvaders};
 		_veh = _tipoVeh createVehicle _posicion;
 		_vehiculos pushBack _veh;
 		_veh setPos _pos;
 		_veh setDir _dirVeh + 180;
-		_tipoUnit = if (_lado==malos) then {staticCrewmalos} else {staticCrewMuyMalos};
+		_tipoUnit = if (_lado==malos) then {staticCrewmalos} else {staticCrewInvaders};
 		_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
 		[_unit,_marcador] call A3A_fnc_NATOinit;
 		[_veh] call A3A_fnc_AIVEHinit;
@@ -132,7 +132,7 @@ _cuenta = 0;
 
 _grupo = createGroup _lado;
 _grupos pushBack _grupo;
-_tipoUnit = if (_lado==malos) then {staticCrewmalos} else {staticCrewMuyMalos};
+_tipoUnit = if (_lado==malos) then {staticCrewmalos} else {staticCrewInvaders};
 _tipoVeh = if (_lado == malos) then {NATOMortar} else {CSATMortar};
 {
 if (spawner getVariable _marcador != 2) then
@@ -175,7 +175,7 @@ if (spawner getVariable _marcador != 2) then
 		};
 	};
 } forEach _posMG;
-_tipoVeh = if (_lado == malos) then {staticAAMalos} else {staticAAmuyMalos};
+_tipoVeh = if (_lado == malos) then {staticAAMalos} else {staticAAInvaders};
 {
 if (spawner getVariable _marcador != 2) then
 	{
@@ -201,7 +201,7 @@ if (spawner getVariable _marcador != 2) then
 		};
 	};
 } forEach _posAA;
-_tipoVeh = if (_lado == malos) then {staticATMalos} else {staticATmuyMalos};
+_tipoVeh = if (_lado == malos) then {staticATMalos} else {staticATInvaders};
 {
 if (spawner getVariable _marcador != 2) then
 	{

@@ -34,8 +34,8 @@ while {true} do
 	_popTotal = _popTotal + _numCiv;
 	_popFIA = _popFIA + (_numCiv * (_prestigeSDK / 100));
 	_popAAF = _popAAF + (_numCiv * (_prestigeNATO / 100));
-	_multiplicandorec = if (_power != buenos) then {0.5} else {1};
-	//if (not _power) then {_multiplicandorec = 0.5};
+	_multiplyingRec = if (_power != buenos) then {0.5} else {1};
+	//if (not _power) then {_multiplyingRec = 0.5};
 
 	if (_ciudad in destroyedCities) then
 		{
@@ -45,7 +45,7 @@ while {true} do
 		}
 	else
 		{
-		_recAddCiudadSDK = ((_numciv * _multiplicandorec*(_prestigeSDK / 100))/3);
+		_recAddCiudadSDK = ((_numciv * _multiplyingRec*(_prestigeSDK / 100))/3);
 		_hrAddCiudad = (_numciv * (_prestigeSDK / 10000));///20000 originalmente
 		switch (_power) do
 			{

@@ -40,7 +40,7 @@ else
 		{
 		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") < 2) then {removeHeadgear _unit;_unit addHeadgear (selectRandom cascos)};
 		};
-	if ((_tipo in SDKMil) or (_tipo == staticCrewBuenos)) then
+	if ((_tipo in SDKMil) or (_tipo == staticCrewTeamPlayer)) then
 		{
 		[_unit,unlockedRifles] call A3A_fnc_randomRifle;
 		if ((loadAbs _unit < 340) and (_tipo in SDKMil)) then
@@ -141,7 +141,7 @@ _unit selectWeapon (primaryWeapon _unit);
 
 if (!haveRadio) then
 	{
-	if ((_unit != leader _unit) and (_tipo != staticCrewBuenos)) then {_unit unlinkItem "ItemRadio"};
+	if ((_unit != leader _unit) and (_tipo != staticCrewTeamPlayer)) then {_unit unlinkItem "ItemRadio"};
 	};
 
 if ({if (_x in humo) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom humo,2]};

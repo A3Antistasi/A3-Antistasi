@@ -62,7 +62,7 @@ if (_x in _mrkCSAT) then
     _dmrk setMarkerColor colorMuyMalos;
     for "_i" from 1 to _garrNum do
         {
-        _garrison append (selectRandom gruposCSATSquad);
+        _garrison append (selectRandom groupsCSATSquad);
         };
     garrison setVariable [_x,_garrison,true];
     lados setVariable [_x,muyMalos,true];
@@ -74,7 +74,7 @@ else
     _dmrk setMarkerColor colorMalos;
     for "_i" from 1 to _garrNum do
         {
-        _garrison append (selectRandom gruposNATOSquad);
+        _garrison append (selectRandom groupsNATOSquad);
         };
     garrison setVariable [_x,_garrison,true];
     lados setVariable [_x,malos,true];
@@ -171,7 +171,7 @@ else
     	{
 	    for "_i" from 1 to _garrNum do
 	        {
-	        _garrison append (selectRandom gruposCSATSquad);
+	        _garrison append (selectRandom groupsCSATSquad);
 	        };
 	    };
     lados setVariable [_x,muyMalos,true];
@@ -195,7 +195,7 @@ if (_x in _mrkCSAT) then
     _dmrk setMarkerColor colorMuyMalos;
 	for "_i" from 1 to _garrNum do
 	   {
-	   _garrison append (selectRandom gruposCSATSquad);
+	   _garrison append (selectRandom groupsCSATSquad);
 	   };
     lados setVariable [_x,muyMalos,true];
     }
@@ -204,7 +204,7 @@ else
     _dmrk setMarkerColor colorMalos;
     for "_i" from 1 to _garrNum do
         {
-        _garrison append (selectRandom gruposNATOSquad);
+        _garrison append (selectRandom groupsNATOSquad);
         };
     lados setVariable [_x,malos,true];
     };

@@ -43,16 +43,16 @@ NATOFlagTexture = "\A3\Data_F\Flags\Flag_AltisColonial_CO.paa";
 NATOAmmobox = "I_supplyCrate_F";
 
 //cfgNATOInf = (configfile >> "CfgGroups" >> "West" >> "BLU_T_F" >> "Infantry");///
-gruposNATOSentry = ["rhsgref_ins_g_grenadier",NATOGrunt];//"B_T_InfSentry";//
+groupsNATOSentry = ["rhsgref_ins_g_grenadier",NATOGrunt];//"B_T_InfSentry";//
 gruposNATOSniper = ["rhsgref_ins_g_sniper","rhsgref_ins_g_spotter"];
-gruposNATOsmall = [gruposNATOSentry,gruposNATOSniper]; //[gruposNATOSentry,"B_T_SniperTeam","B_T_ReconSentry"];///
+gruposNATOsmall = [groupsNATOSentry,gruposNATOSniper]; //[groupsNATOSentry,"B_T_SniperTeam","B_T_ReconSentry"];///
 gruposNATOAA = ["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_specialist_aa","rhsgref_ins_g_specialist_aa"];
 gruposNATOAT = ["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_grenadier_rpg","rhsgref_ins_g_grenadier_rpg"];
 gruposNATOmid = [["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26"],gruposNATOAA,gruposNATOAT];//["B_T_InfTeam","B_T_InfTeam_AA","B_T_InfTeam_AT"];///
 NATOSquad = ["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_grenadier","rhsgref_ins_g_medic"];//"B_T_InfSquad";//
 NATOSpecOp = ["rhsgref_ins_g_grenadier","rhsgref_ins_g_spotter","rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_sniper","rhsgref_ins_g_saboteur","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_medic"];//(configfile >> "CfgGroups" >> "West" >> "BLU_CTRG_F" >> "Infantry" >> "CTRG_InfSquad");
-factionMachoMalos = "";
-gruposNATOSquad = [NATOSquad,["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_specialist_aa","rhsgref_ins_g_specialist_aa","rhsgref_ins_g_medic"],["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_grenadier_rpg","rhsgref_ins_g_medic","rhsgref_ins_g_grenadier_rpg"],["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_medic","rhsgref_ins_g_engineer","rhsgref_ins_g_saboteur"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///
+factionMaleOccupants = "";
+groupsNATOSquad = [NATOSquad,["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_specialist_aa","rhsgref_ins_g_specialist_aa","rhsgref_ins_g_medic"],["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_grenadier_rpg","rhsgref_ins_g_medic","rhsgref_ins_g_grenadier_rpg"],["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_medic","rhsgref_ins_g_engineer","rhsgref_ins_g_saboteur"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///
 
 soporteStaticNATOB = "RHS_SPG9_Tripod_Bag";
 ATStaticNATOB = "RHS_SPG9_Gun_Bag";

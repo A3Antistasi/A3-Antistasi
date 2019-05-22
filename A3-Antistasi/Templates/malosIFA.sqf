@@ -40,16 +40,16 @@ NATOFlag = "LIB_FlagCarrier_GER";
 NATOFlagTexture = "ww2\core_t\if_decals_t\german\flag_ger_co.paa";
 NATOAmmobox = "B_supplyCrate_F";
 //cfgNATOInf = (configfile >> "CfgGroups" >> "West" >> "BLU_T_F" >> "Infantry");///
-gruposNATOSentry = ["LIB_GER_Soldier3_base","LIB_GER_ober_rifleman"];//"B_T_InfSentry";//
+groupsNATOSentry = ["LIB_GER_Soldier3_base","LIB_GER_ober_rifleman"];//"B_T_InfSentry";//
 gruposNATOSniper = ["LIB_GER_scout_sniper","LIB_GER_soldier_camo5_base"];
-gruposNATOsmall = [gruposNATOSentry,gruposNATOSniper]; //[gruposNATOSentry,"B_T_SniperTeam","B_T_ReconSentry"];///
+gruposNATOsmall = [groupsNATOSentry,gruposNATOSniper]; //[groupsNATOSentry,"B_T_SniperTeam","B_T_ReconSentry"];///
 gruposNATOAA = ["LIB_GER_unterofficer","LIB_GER_stggunner","LIB_GER_stggunner","LIB_GER_mgunner"];
 gruposNATOAT = ["LIB_GER_unterofficer","LIB_GER_AT_soldier","LIB_GER_AT_grenadier","LIB_GER_mgunner"];
 gruposNATOmid = [["LIB_GER_unterofficer","LIB_GER_mgunner","LIB_GER_scout_ober_rifleman","LIB_GER_AT_grenadier"],gruposNATOAA,gruposNATOAT];//["B_T_InfTeam","B_T_InfTeam_AA","B_T_InfTeam_AT"];///
 NATOSquad = ["LIB_GER_unterofficer","LIB_GER_mgunner","LIB_GER_Soldier2_base","LIB_GER_scout_ober_rifleman","LIB_GER_stggunner","LIB_GER_AT_soldier","LIB_GER_AT_grenadier","LIB_GER_medic"];//"B_T_InfSquad";//
 NATOSpecOp = ["LIB_FSJ_NCO","LIB_FSJ_Mgunner","LIB_FSJ_Soldier_2","LIB_FSJ_AT_soldier","LIB_FSJ_Soldier_2","LIB_FSJ_sapper","LIB_FSJ_Sniper","LIB_FSJ_medic"];
-gruposNATOSquad = [NATOSquad,["LIB_GER_unterofficer","LIB_GER_mgunner","LIB_GER_smgunner","LIB_GER_AT_grenadier","LIB_GER_ober_rifleman","LIB_GER_sapper","LIB_GER_sapper_gefr","LIB_GER_medic"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///
-factionMachoMalos = "LIB_FSJ";
+groupsNATOSquad = [NATOSquad,["LIB_GER_unterofficer","LIB_GER_mgunner","LIB_GER_smgunner","LIB_GER_AT_grenadier","LIB_GER_ober_rifleman","LIB_GER_sapper","LIB_GER_sapper_gefr","LIB_GER_medic"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///
+factionMaleOccupants = "LIB_FSJ";
 
 
 soporteStaticNATOB = "not_supported";

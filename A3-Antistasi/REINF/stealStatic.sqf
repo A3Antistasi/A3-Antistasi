@@ -25,13 +25,13 @@ _tipoB2 = soporteStaticSDKB;
 switch _tipoEst do
 	{
 	case staticATmalos: {_tipoB1 = ATStaticNATOB; _tipoB2 = soporteStaticNATOB};
-	case staticATmuyMalos: {_tipoB1 = ATStaticCSATB; _tipoB2 = soporteStaticCSATB};
+	case staticATInvaders: {_tipoB1 = ATStaticCSATB; _tipoB2 = soporteStaticCSATB};
 	case NATOMortar: {_tipoB1 = MortStaticNATOB; _tipoB2 = soporteStaticNATOB3};
 	case NATOMG: {_tipoB1 = MGStaticNATOB; _tipoB2 = soporteStaticNATOB2};
 	case CSATMG: {_tipoB1 = MGStaticCSATB; _tipoB2 = soporteStaticCSATB2};
-	case SDKMGStatic: {_tipoB1 = MGStaticSDKB; _tipoB2 = soporteStaticSDKB2;};
+	case SDKMGStatic: {_tipoB1 = MGStaticSDKB; _tipoB2 = supportStaticsSDKB2;};
 	case staticAABuenos: {_tipoB1 = AAStaticSDKB};
-	case SDKMortar: {_tipoB1 = MortStaticSDKB; _tipoB2 = soporteStaticSDKB3};
+	case SDKMortar: {_tipoB1 = MortStaticSDKB; _tipoB2 = supportStaticsSDKB3};
 	};
 
 _posicion1 = [_jugador, 1, (getDir _jugador) - 90] call BIS_fnc_relPos;

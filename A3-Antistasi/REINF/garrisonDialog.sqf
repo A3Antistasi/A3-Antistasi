@@ -34,7 +34,7 @@ if (_tipo == "rem") then
 	_coste = 0;
 	_hr = 0;
 	{
-	if (_x == staticCrewBuenos) then {if (_puestoFIA) then {_coste = _coste + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice)} else {_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice)}};
+	if (_x == staticCrewTeamPlayer) then {if (_puestoFIA) then {_coste = _coste + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice)} else {_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice)}};
 	_hr = _hr + 1;
 	_coste = _coste + (server getVariable [_x,0]);
 	} forEach _garrison;
@@ -81,7 +81,7 @@ else
 		_ChildControl = _display displayCtrl 107;
 		_ChildControl  ctrlSetTooltip format ["Cost: %1 €",server getVariable (SDKSL select 0)];
 		_ChildControl = _display displayCtrl 108;
-		_ChildControl  ctrlSetTooltip format ["Cost: %1 €",(server getVariable staticCrewBuenos) + ([SDKMortar] call A3A_fnc_vehiclePrice)];
+		_ChildControl  ctrlSetTooltip format ["Cost: %1 €",(server getVariable staticCrewTeamPlayer) + ([SDKMortar] call A3A_fnc_vehiclePrice)];
 		_ChildControl = _display displayCtrl 109;
 		_ChildControl  ctrlSetTooltip format ["Cost: %1 €",server getVariable (SDKGL select 0)];
 		_ChildControl = _display displayCtrl 110;

@@ -246,7 +246,7 @@ else
 
 squadLeaders = SDKSL + [(NATOSquad select 0),(NATOSpecOp select 0),(CSATSquad select 0),(CSATSpecOp select 0),(FIASquad select 0)];
 medics = SDKMedic + [(FIAsquad select ((count FIAsquad)-1)),(NATOSquad select ((count NATOSquad)-1)),(NATOSpecOp select ((count NATOSpecOp)-1)),(CSATSquad select ((count CSATSquad)-1)),(CSATSpecOp select ((count CSATSpecOp)-1))];
-sdkTier1 = SDKMil + [staticCrewBuenos] + SDKMG + SDKGL + SDKATman;
+sdkTier1 = SDKMil + [staticCrewTeamPlayer] + SDKMG + SDKGL + SDKATman;
 sdkTier2 = SDKMedic + SDKExp + SDKEng;
 sdkTier3 = SDKSL + SDKSniper;
 soldadosSDK = sdkTier1 + sdkTier2 + sdkTier3;
@@ -255,8 +255,8 @@ gruposSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
 gruposSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
 //["BanditShockTeam","ParaShockTeam"];
 gruposSDKSquad = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
-gruposSDKSquadEng = [SDKSL,SDKGL,SDKMil,SDKMG,SDKExp,SDKATman,SDKEng,SDKMedic];
-gruposSDKSquadSupp = [SDKSL,SDKGL,SDKMil,SDKMG,SDKATman,SDKMedic,[staticCrewBuenos,staticCrewBuenos],[staticCrewBuenos,staticCrewBuenos]];
+groupsSDKSquadEng = [SDKSL,SDKGL,SDKMil,SDKMG,SDKExp,SDKATman,SDKEng,SDKMedic];
+groupsSDKSquadSupp = [SDKSL,SDKGL,SDKMil,SDKMG,SDKATman,SDKMedic,[staticCrewTeamPlayer,staticCrewTeamPlayer],[staticCrewTeamPlayer,staticCrewTeamPlayer]];
 gruposSDKSniper = [SDKSniper,SDKSniper];
 gruposSDKSentry = [SDKGL,SDKMil];
 banditUniforms = [];
@@ -272,7 +272,7 @@ if (count _x > 1) then
 	_uniform = (getUnitLoadout _unit select 3) select 0;
 	uniformsSDK pushBackUnique _uniform;
 	};
-} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewBuenos]];
+} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewTeamPlayer]];
 _checked = [];
 {
 {
@@ -288,7 +288,7 @@ if !(_tipo in _checked) then
 		};
 	};
 } forEach _x;
-} forEach gruposCSATmid + [CSATSpecOp] + gruposCSATSquad;
+} forEach gruposCSATmid + [CSATSpecOp] + groupsCSATSquad;
 _checked = [];
 {
 {
@@ -304,7 +304,7 @@ if !(_tipo in _checked) then
 		};
 	};
 } forEach _x;
-} forEach gruposNATOmid + [NATOSpecOp] + gruposNATOSquad;
+} forEach gruposNATOmid + [NATOSpecOp] + groupsNATOSquad;
 
 {
 _nombre = [_x] call BIS_fnc_baseWeapon;
@@ -490,7 +490,7 @@ if (!isServer) exitWith {};
 {server setVariable [_x,150,true]} forEach sdkTier3;
 //{timer setVariable [_x,0,true]} forEach (vehAttack + vehNATOAttackHelis + [vehNATOPlane,vehNATOPlaneAA,vehCSATPlane,vehCSATPlaneAA] + vehCSATAttackHelis + vehAA + vehMRLS);
 {timer setVariable [_x,3,true]} forEach [staticATmalos,staticAAmalos];
-{timer setVariable [_x,6,true]} forEach [staticATmuyMalos,staticAAmuymalos];
+{timer setVariable [_x,6,true]} forEach [staticATInvaders,staticAAInvaders];
 {timer setVariable [_x,0,true]} forEach vehNATOAPC;
 {timer setVariable [_x,10,true]} forEach vehCSATAPC;
 timer setVariable [vehNATOTank,0,true];
@@ -615,7 +615,7 @@ else
 _loadOut = getUnitLoadout (_x select 0);
 _vest = _loadOut select 4;
 if !(_vest isEqualTo []) then {unlockedItems pushBackUnique (_vest select 0)};
-} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewBuenos]];
+} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewTeamPlayer]];
 
 unlockedBackpacks = if !(hayIFA) then {["B_FieldPack_oli","B_FieldPack_blk","B_FieldPack_ocamo","B_FieldPack_oucamo","B_FieldPack_cbr"]} else {["B_LIB_US_M2Flamethrower","B_LIB_SOV_RA_MGAmmoBag_Empty"]}; //Initial Arsenal available backpacks
 //lockedMochis = lockedMochis - unlockedBackpacks;

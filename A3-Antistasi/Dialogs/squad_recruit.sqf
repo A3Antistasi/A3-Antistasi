@@ -41,7 +41,7 @@ if (str (_display) != "no display") then
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 108;
-	_coste = (2*(server getVariable staticCrewBuenos));
+	_coste = (2*(server getVariable staticCrewTeamPlayer));
 	_costeHR = 2;
 	//_unidades = [SDKGL,SDKRifleman];
 	_coste = _coste + ([SDKMGStatic] call A3A_fnc_vehiclePrice);
@@ -49,19 +49,19 @@ if (str (_display) != "no display") then
 
 
 	_ChildControl = _display displayCtrl 109;
-	_coste = (2*(server getVariable staticCrewBuenos));
+	_coste = (2*(server getVariable staticCrewTeamPlayer));
 	_costeHR = 2;
 	_coste = _coste + ([vehSDKAT] call A3A_fnc_vehiclePrice);
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 110;
-	_coste = (2*(server getVariable staticCrewBuenos));
+	_coste = (2*(server getVariable staticCrewTeamPlayer));
 	_costeHR = 2;
 	_coste = _coste + ([vehSDKTruck] call A3A_fnc_vehiclePrice) + ([staticAABuenos] call A3A_fnc_vehiclePrice);
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 111;
-	_coste = (2*(server getVariable staticCrewBuenos));
+	_coste = (2*(server getVariable staticCrewTeamPlayer));
 	_costeHR = 2;
 	_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice);
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];

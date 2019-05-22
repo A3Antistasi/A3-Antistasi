@@ -12,7 +12,7 @@ if (_numReal + 4 <= _numGarr) then
 	{
 	if (_numReal + 8 <= _numGarr) then
 		{
-		if (_lado == malos) then {[selectRandom gruposNATOSquad,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom gruposCSATSquad,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
+		if (_lado == malos) then {[selectRandom groupsNATOSquad,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom groupsCSATSquad,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
 		_numero = 0;
 		}
 	else
@@ -49,7 +49,7 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 				{
 				if ({(_x distance2D _posicion < (2*distanciaSPWN)) or (_x distance2D (getMarkerPos _sitio) < (2*distanciaSPWN))} count allPlayers == 0) then
 					{
-					_tipoGrupo = if (_lado == malos) then {if (_numero == 4) then {selectRandom gruposNATOmid} else {selectRandom gruposNATOSquad}} else {if (_numero == 4) then {selectRandom gruposCSATmid} else {selectRandom gruposCSATSquad}};
+					_tipoGrupo = if (_lado == malos) then {if (_numero == 4) then {selectRandom gruposNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom gruposCSATmid} else {selectRandom groupsCSATSquad}};
 					[_tipoGrupo,_lado,_sitio,2] remoteExec ["A3A_fnc_garrisonUpdate",2];
 					}
 				else

@@ -6,7 +6,7 @@ _puestos =  {lados getVariable [_x,sideUnknown] == _lado} count puestos;
 _puertos = {lados getVariable [_x,sideUnknown] == _lado} count puertos;
 //at
 _maxItems = (_puestos * 0.2) + (_airbases * 0.5);
-_tipo = if (_lado == malos) then {staticATmalos} else {staticATmuyMalos};
+_tipo = if (_lado == malos) then {staticATmalos} else {staticATInvaders};
 _currentItems = timer getVariable [_tipo,0];
 if (_currentItems < _maxItems) then
 	{
@@ -14,7 +14,7 @@ if (_currentItems < _maxItems) then
 	};
 //aa
 _maxItems = (_airbases * 2);
-_tipo = if (_lado == malos) then {staticAAmalos} else {staticAAmuyMalos};
+_tipo = if (_lado == malos) then {staticAAmalos} else {staticAAInvaders};
 _currentItems = timer getVariable [_tipo,0];
 if (_currentItems < _maxItems) then
 	{

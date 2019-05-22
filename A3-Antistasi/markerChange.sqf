@@ -16,7 +16,7 @@ _sides = [buenos,malos,muyMalos];
 _other = "";
 _texto = "";
 _prestigeMalos = 0;
-_prestigeMuyMalos = 0;
+_prestigeInvaders = 0;
 _bandera = objNull;
 _size = [_marcador] call A3A_fnc_sizeMarker;
 
@@ -71,12 +71,12 @@ if (_marcador in aeropuertos) then
 		if (_looser == malos) then
 			{
 			_prestigeMalos = 20;
-			_prestigeMuyMalos = 10;
+			_prestigeInvaders = 10;
 			}
 		else
 			{
 			_prestigeMalos = 10;
-			_prestigeMuyMalos = 20;
+			_prestigeInvaders = 20;
 			};
 		}
 	else
@@ -94,7 +94,7 @@ if (_marcador in aeropuertos) then
 		if (_looser == buenos) then
 			{
 			_prestigeMalos = -10;
-			_prestigeMuyMalos = -10;
+			_prestigeInvaders = -10;
 			};
 		};
 	["TaskSucceeded", ["", "Airbase Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
@@ -109,12 +109,12 @@ if (_marcador in puestos) then
 		server setVariable [_marcador,dateToNumber date,true];
 		if (_looser == buenos) then
 			{
-			if (_winner == malos) then {_prestigeMalos = -5} else {_prestigeMuyMalos = -5};
+			if (_winner == malos) then {_prestigeMalos = -5} else {_prestigeInvaders = -5};
 			};
 		}
 	else
 		{
-		if (_looser == malos) then {_prestigeMalos = 5;_prestigeMuyMalos = 2} else {_prestigeMalos = 2;_prestigeMuyMalos = 5};
+		if (_looser == malos) then {_prestigeMalos = 5;_prestigeInvaders = 2} else {_prestigeMalos = 2;_prestigeInvaders = 5};
 		};
 	["TaskSucceeded", ["", "Outpost Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Outpost Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
@@ -127,12 +127,12 @@ if (_marcador in puertos) then
 		{
 		if (_looser == buenos) then
 			{
-			if (_winner == malos) then {_prestigeMalos = -5} else {_prestigeMuyMalos = -5};
+			if (_winner == malos) then {_prestigeMalos = -5} else {_prestigeInvaders = -5};
 			};
 		}
 	else
 		{
-		if (_looser == malos) then {_prestigeMalos = 5;_prestigeMuyMalos = 2} else {_prestigeMalos = 2;_prestigeMuyMalos = 5};
+		if (_looser == malos) then {_prestigeMalos = 5;_prestigeInvaders = 2} else {_prestigeMalos = 2;_prestigeInvaders = 5};
 		};
 	["TaskSucceeded", ["", "Seaport Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Seaport Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
@@ -166,7 +166,7 @@ if (_winner == buenos) then
 		//[_bandera,"garage"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera];
 		if (_marcador in puertos) then {[_bandera,"seaport"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera]};
 		};
-	[_prestigeMalos,_prestigeMuyMalos] spawn A3A_fnc_prestige;
+	[_prestigeMalos,_prestigeInvaders] spawn A3A_fnc_prestige;
 	waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({((side group _x) in [_looser,_other]) and (_x getVariable ["spawner",false]) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits > 3*({(side _x == buenos) and ([_x,_marcador] call A3A_fnc_canConquer)} count allUnits))};
 	if (spawner getVariable _marcador != 2) then
 		{
@@ -195,7 +195,7 @@ else
 		};
 	if (_looser == buenos) then
 		{
-		[_prestigeMalos,_prestigeMuyMalos] spawn A3A_fnc_prestige;
+		[_prestigeMalos,_prestigeInvaders] spawn A3A_fnc_prestige;
 		if ((random 10 < ((tierWar + difficultyCoef)/4)) and !(["DEF_HQ"] call BIS_fnc_taskExists) and (isPlayer theBoss)) then {[[],"A3A_fnc_attackHQ"] remoteExec ["A3A_fnc_scheduler",2]};
 		};
 	};

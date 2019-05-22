@@ -5,7 +5,7 @@ SDKMGStatic = "rhsgref_ins_g_DSHKM";
 staticATBuenos = "rhsgref_ins_g_SPG9M";
 staticAABuenos = "rhsgref_ins_g_ZU23";
 
-staticCrewBuenos = "rhsgref_ins_g_militiaman_mosin";
+staticCrewTeamPlayer = "rhsgref_ins_g_militiaman_mosin";
 SDKUnarmed = "I_G_Survivor_F";
 SDKSniper = ["rhsgref_nat_hunter","rhsgref_nat_pmil_hunter"];
 SDKATman = ["rhsgref_nat_grenadier_rpg","rhsgref_nat_pmil_grenadier_rpg"];
@@ -33,10 +33,10 @@ tipoPetros = "rhsgref_ins_g_squadleader";
 soporteStaticSDKB = "RHS_SPG9_Tripod_Bag";
 ATStaticSDKB = "RHS_SPG9_Gun_Bag";
 MGStaticSDKB = "RHS_DShkM_Gun_Bag";
-soporteStaticSDKB2 = "RHS_DShkM_TripodHigh_Bag";
+supportStaticsSDKB2 = "RHS_DShkM_TripodHigh_Bag";
 AAStaticSDKB = "I_AA_01_weapon_F"; 
 MortStaticSDKB = "RHS_Podnos_Gun_Bag";
-soporteStaticSDKB3 = "RHS_Podnos_Bipod_Bag";
+supportStaticsSDKB3 = "RHS_Podnos_Bipod_Bag";
 
 civCar = "C_Offroad_01_F"; 
 civTruck = "RHS_Ural_Open_Civ_03";

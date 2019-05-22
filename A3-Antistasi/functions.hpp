@@ -210,7 +210,7 @@ class A3A
         class addSquadVeh {file="REINF\addSquadVeh.sqf";};
         class autoGarrison {file="REINF\autoGarrison.sqf";};
         class buildMinefield {file="REINF\buildMinefield.sqf";};
-        class construir {file="REINF\construir.sqf";};
+        class build {file="REINF\build.sqf";};
         class enemyNearCheck {file="REINF\enemyNearCheck.sqf";};
         class FIAinit {file="REINF\FIAinit.sqf";};
         class FIAskillAdd {file="REINF\FIAskillAdd.sqf";};
@@ -231,8 +231,8 @@ class A3A
         class fatalWound {file="Revive\fatalWound.sqf";};
         class handleDamage {file="Revive\handleDamage.sqf";};
         class handleDamageAAF {file="Revive\handleDamageAAF.sqf";};
-        class inconsciente {file="Revive\inconsciente.sqf";};
-        class inconscienteAAF {file="Revive\inconscienteAAF.sqf";};
+        class unconscious {file="Revive\unconscious.sqf";};
+        class unconsciousAAF {file="Revive\unconsciousAAF.sqf";};
         class initRevive {file="Revive\initRevive.sqf";};
         class isMedic {file="Revive\isMedic.sqf";};
         class respawn {file="Revive\respawn.sqf";};

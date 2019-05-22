@@ -47,7 +47,7 @@ if (!isMultiPlayer) then
     private _index = _x call jn_fnc_arsenal_itemType;
     [_index,_x,-1] call jn_fnc_arsenal_addItem;
     }foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);
-    [] execVM "Municion\cajaAAF.sqf";
+    [] execVM "Ammunition\boxAAF.sqf";
     waitUntil {sleep 1;!(isNil "placementDone")};
     distancias = [] spawn A3A_fnc_distances4;
     resourcecheck = [] execVM "resourcecheck.sqf";
@@ -66,5 +66,3 @@ if (!isMultiPlayer) then
     deleteMarker "respawn_east";
     if (buenos == independent) then {deleteMarker "respawn_west"} else {deleteMarker "respawn_guerrila"};
     };
-
-

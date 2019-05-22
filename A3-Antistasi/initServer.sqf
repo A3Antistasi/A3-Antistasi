@@ -128,7 +128,7 @@ else
         };
     publicVariable "theBoss";
     publicVariable "miembros";
-    [] execVM "Municion\cajaAAF.sqf";
+    [] execVM "Ammunition\boxAAF.sqf";
     };
 diag_log "Antistasi MP Server. Players are in";
 

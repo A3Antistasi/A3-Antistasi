@@ -1,3 +1,6 @@
+Please note that this fork of A3-AntiStasi is momentarily undergoing the translation from spanish to english.
+This is done by me (Bob Murphy) as well as other members and admins of the Official A3-AntiStasi Community.
+
 # A3-Antistasi
 
 A Persistent Whole Map Mission, for SP or MP co-op, focused on Resistance, Infantry and Guerrilla Tactics. 

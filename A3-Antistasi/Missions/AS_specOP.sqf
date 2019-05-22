@@ -60,4 +60,4 @@ else
 	["TaskFailed", ["", format ["SpecOp Team decimated at a %1",_nombredest]]] remoteExec ["BIS_fnc_showNotification",_lado];
 	};
 
-_nul = [1200,"AS"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"AS"] spawn A3A_fnc_deleteTask;

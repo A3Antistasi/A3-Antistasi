@@ -180,7 +180,7 @@ else
 			{
 			if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
 				{
-				[[malos],"A3A_fnc_ataqueHQ"] remoteExec ["A3A_fnc_scheduler",2];
+				[[malos],"A3A_fnc_attackHQ"] remoteExec ["A3A_fnc_scheduler",2];
 				};
 			}
 		else
@@ -194,8 +194,8 @@ else
 		};
 	};
 
-_nul = [1200,"AS"] spawn A3A_fnc_borrarTask;
-_nul = [10,"AS1"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"AS"] spawn A3A_fnc_deleteTask;
+_nul = [10,"AS1"] spawn A3A_fnc_deleteTask;
 if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
 
 {

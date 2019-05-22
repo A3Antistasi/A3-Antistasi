@@ -324,7 +324,7 @@ fn_SetStat =
 				{
 				if (_x == "DEF_HQ") then
 					{
-					[] spawn A3A_fnc_ataqueHQ;
+					[] spawn A3A_fnc_attackHQ;
 					}
 				else
 					{

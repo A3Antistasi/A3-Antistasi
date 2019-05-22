@@ -189,8 +189,8 @@ if (!isNull _humo) then
 	deleteVehicle _humo;
 	};
 
-_nul = [1200,"DES"] spawn A3A_fnc_borrarTask;
-_nul = [0,"DES1"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"DES"] spawn A3A_fnc_deleteTask;
+_nul = [0,"DES1"] spawn A3A_fnc_deleteTask;
 deleteMarker _mrkfin;
 {
 waitUntil {sleep 1;(!([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))};

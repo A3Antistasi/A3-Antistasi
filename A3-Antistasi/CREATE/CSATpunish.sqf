@@ -186,7 +186,7 @@ else
 
 sleep 15;
 //[muyMalos,[civilian,1]] remoteExec ["setFriend",2];
-_nul = [0,"AtaqueAAF"] spawn A3A_fnc_borrarTask;
+_nul = [0,"AtaqueAAF"] spawn A3A_fnc_deleteTask;
 [7200] remoteExec ["A3A_fnc_timingCA",2];
 {
 _veh = _x;

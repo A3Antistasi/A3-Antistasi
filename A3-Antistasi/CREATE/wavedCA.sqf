@@ -787,8 +787,8 @@ if (_esSDK) then
 	};
 diag_log "Antistasi: Reached end of winning conditions. Starting despawn";
 sleep 30;
-_nul = [0,"AtaqueAAF"] spawn A3A_fnc_borrarTask;
-_nul = [0,"AtaqueAAF1"] spawn A3A_fnc_borrarTask;
+_nul = [0,"AtaqueAAF"] spawn A3A_fnc_deleteTask;
+_nul = [0,"AtaqueAAF1"] spawn A3A_fnc_deleteTask;
 
 [_mrkOrigen,60] call A3A_fnc_addTimeForIdle;
 bigAttackInProgress = false; publicVariable "bigAttackInProgress";

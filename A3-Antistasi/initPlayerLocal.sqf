@@ -593,7 +593,7 @@ gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",A3A_fnc_keys];
 if ((!isServer) and (isMultiplayer)) then {caja call jn_fnc_arsenal_init};
 
 caja allowDamage false;
-caja addAction ["Transfer Vehicle cargo to Ammobox", "[] call A3A_fnc_vaciar"];
+caja addAction ["Transfer Vehicle cargo to Ammobox", "[] call A3A_fnc_empty"];
 caja addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 bandera addAction ["HQ Management", {[] execVM "Dialogs\dialogHQ.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
 bandera allowDamage false;

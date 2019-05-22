@@ -84,7 +84,7 @@ else
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	};
 
-_nul = [1200,"DES"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"DES"] spawn A3A_fnc_deleteTask;
 
 waitUntil {sleep 1; (spawner getVariable _marcador == 2)};
 

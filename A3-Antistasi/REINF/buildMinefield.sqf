@@ -117,7 +117,7 @@ if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)
 		["Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"SUCCEEDED","Map"] call A3A_fnc_taskUpdate;
 		sleep 15;
 		//_nul = [_tsk,true] call BIS_fnc_deleteTask;
-		_nul = [0,"Mines"] spawn A3A_fnc_borrarTask;
+		_nul = [0,"Mines"] spawn A3A_fnc_deleteTask;
 		[2,_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 		}
 	else
@@ -126,7 +126,7 @@ if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)
 		sleep 15;
 		theBoss hcRemoveGroup _grupo;
 		//_nul = [_tsk,true] call BIS_fnc_deleteTask;
-		_nul = [0,"Mines"] spawn A3A_fnc_borrarTask;
+		_nul = [0,"Mines"] spawn A3A_fnc_deleteTask;
 		{deleteVehicle _x} forEach units _grupo;
 		deleteGroup _grupo;
 		deleteVehicle _camion;
@@ -139,7 +139,7 @@ else
 	sleep 15;
 	theBoss hcRemoveGroup _grupo;
 	//_nul = [_tsk,true] call BIS_fnc_deleteTask;
-	_nul = [0,"Mines"] spawn A3A_fnc_borrarTask;
+	_nul = [0,"Mines"] spawn A3A_fnc_deleteTask;
 	{deleteVehicle _x} forEach units _grupo;
 	deleteGroup _grupo;
 	deleteVehicle _camion;

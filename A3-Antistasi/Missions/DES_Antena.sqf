@@ -48,4 +48,4 @@ else
 
 deleteMarker _mrkfin;
 
-_nul = [1200,"DES"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"DES"] spawn A3A_fnc_deleteTask;

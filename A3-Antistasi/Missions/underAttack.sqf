@@ -19,4 +19,4 @@ if (_lado isEqualType []) then {_lado = buenos};
 
 waitUntil {sleep 10; (lados getVariable [_marcador,sideUnknown] != _lado) or (spawner getVariable _marcador == 2)};
 
-[0,_marcador] spawn A3A_fnc_borrarTask;
+[0,_marcador] spawn A3A_fnc_deleteTask;

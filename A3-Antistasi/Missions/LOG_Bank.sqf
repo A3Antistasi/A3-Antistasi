@@ -129,7 +129,7 @@ if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) the
 	[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	waitUntil {sleep 1; speed _camion == 0};
 
-	[_camion] call A3A_fnc_vaciar;
+	[_camion] call A3A_fnc_empty;
 	};
 if (!alive _camion) then
 	{
@@ -141,7 +141,7 @@ if (!alive _camion) then
 
 deleteVehicle _camion;
 
-_nul = [1200,"LOG"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"LOG"] spawn A3A_fnc_deleteTask;
 
 waitUntil {sleep 1; !([distanciaSPWN,1,_posicion,buenos] call A3A_fnc_distanceUnits)};
 

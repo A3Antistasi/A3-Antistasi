@@ -86,7 +86,7 @@ _coste = round (_coste * (1-damage _veh));
 if (_veh in staticsToSave) then {staticsToSave = staticsToSave - [_veh]; publicVariable "staticsToSave"};
 if (_veh in reportedVehs) then {reportedVehs = reportedVehs - [_veh]; publicVariable "reportedVehs"};
 
-[_veh,true] call A3A_fnc_vaciar;
+[_veh,true] call A3A_fnc_empty;
 
 if (_veh isKindOf "StaticWeapon") then {deleteVehicle _veh};
 

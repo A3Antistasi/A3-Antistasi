@@ -93,7 +93,7 @@ deleteVehicle _camion;
 deleteGroup _grupo;
 sleep 15;
 
-_nul = [0,"PuestosFIA"] spawn A3A_fnc_borrarTask;
+_nul = [0,"PuestosFIA"] spawn A3A_fnc_deleteTask;
 
 
 

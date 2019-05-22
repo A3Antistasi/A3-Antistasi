@@ -72,4 +72,4 @@ else
 		};
 	};
 
-_nul = [1200,"CON"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"CON"] spawn A3A_fnc_deleteTask;

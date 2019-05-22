@@ -112,7 +112,7 @@ _emptybox = "Land_PaperBox_01_open_empty_F" createVehicle _ecpos;
 //sleep (600 + random 1200);
 
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
-_nul = [1200,"LOG"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"LOG"] spawn A3A_fnc_deleteTask;
 waitUntil {sleep 1; (not([distanciaSPWN,1,_camion,buenos] call A3A_fnc_distanceUnits)) or (_camion distance (getMarkerPos respawnBuenos) < 60)};
 
 deleteVehicle _emptybox;

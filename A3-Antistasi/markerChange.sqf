@@ -196,7 +196,7 @@ else
 	if (_looser == buenos) then
 		{
 		[_prestigeMalos,_prestigeMuyMalos] spawn A3A_fnc_prestige;
-		if ((random 10 < ((tierWar + difficultyCoef)/4)) and !(["DEF_HQ"] call BIS_fnc_taskExists) and (isPlayer theBoss)) then {[[],"A3A_fnc_ataqueHQ"] remoteExec ["A3A_fnc_scheduler",2]};
+		if ((random 10 < ((tierWar + difficultyCoef)/4)) and !(["DEF_HQ"] call BIS_fnc_taskExists) and (isPlayer theBoss)) then {[[],"A3A_fnc_attackHQ"] remoteExec ["A3A_fnc_scheduler",2]};
 		};
 	};
 if ((_winner != buenos) and (_looser != buenos)) then

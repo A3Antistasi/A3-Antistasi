@@ -95,7 +95,7 @@ else
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	};
 
-_nul = [1200,"LOG"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"LOG"] spawn A3A_fnc_deleteTask;
 if (_camionCreado) then
 	{
 	{deleteVehicle _x} forEach units _grupo;

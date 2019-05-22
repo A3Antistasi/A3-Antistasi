@@ -166,25 +166,25 @@ class A3A
 
 	class Missions
 	{
-        class ataqueHQ {file="Missions\ataqueHQ.sqf";};
-        class borrarTask {file="Missions\borrarTask.sqf";};
+        class attackHQ {file="Missions\attackHQ.sqf";};
+        class deleteTask {file="Missions\deleteTask.sqf";};
         class missionRequest {file="Missions\missionrequest.sqf";};
         class missionRequestAUTO {file="Missions\missionrequestAUTO.sqf";};
         class taskUpdate {file="Missions\taskUpdate.sqf";};
         class underAttack {file="Missions\underAttack.sqf";};
 	}
 
-	class Municion
+	class Ammunition
 	{
-        class ACEpvpReDress {file="Municion\ACEpvpReDress.sqf";};
-        class arsenalManage {file="Municion\arsenalManage.sqf";};
-        class CSATCrate {file="Municion\CSATCrate.sqf";};
-        class munitionTransfer {file="Municion\munitionTransfer.sqf";};
-        class NATOCrate {file="Municion\NATOCrate.sqf";};
-        class randomRifle {file="Municion\randomRifle.sqf";};
-        class RHSdress {file="Municion\RHSdress.sqf";};
-        class vaciar {file="Municion\vaciar.sqf";};
-        //class cajaAAF {file="Municion\cajaAAF.sqf";};
+        class ACEpvpReDress {file="Ammunition\ACEpvpReDress.sqf";};
+        class arsenalManage {file="Ammunition\arsenalManage.sqf";};
+        class CSATCrate {file="Ammunition\CSATCrate.sqf";};
+        class ammunitionTransfer {file="Ammunition\ammunitionTransfer.sqf";};
+        class NATOCrate {file="Ammunition\NATOCrate.sqf";};
+        class randomRifle {file="Ammunition\randomRifle.sqf";};
+        class RHSdress {file="Ammunition\RHSdress.sqf";};
+        class empty {file="Ammunition\empty.sqf";};
+        //class boxAAF {file="Ammunition\boxAAF.sqf";};
 	}
 
 	class OrgPlayers

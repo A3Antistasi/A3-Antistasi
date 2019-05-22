@@ -51,7 +51,7 @@ bandera setPos _pos;
 _rnd = _rnd + 45;
 _pos = [_posFuego, 3, _rnd] call BIS_Fnc_relPos;
 cajaVeh setPos _pos;
-//if (_movido) then {_nul = [] call A3A_fnc_vaciar};
+//if (_movido) then {_nul = [] call A3A_fnc_empty};
 petros setBehaviour "SAFE";
 "Synd_HQ" setMarkerPos getPos petros;
 if (isNil "placementDone") then {placementDone = true; publicVariable "placementDone"};

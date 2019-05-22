@@ -569,7 +569,7 @@ if (_tipoConvoy == "Money") then
 			{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 			[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 			waitUntil {sleep 1; speed _vehObj < 1};
-			[_vehObj] call A3A_fnc_vaciar;
+			[_vehObj] call A3A_fnc_empty;
 			deleteVehicle _vehObj;
 			};
 		};
@@ -642,8 +642,8 @@ if (_tipoConvoy == "Prisoners") then
 	} forEach _POWs;
 	};
 
-_nul = [600,"CONVOY"] spawn A3A_fnc_borrarTask;
-_nul = [0,"CONVOY1"] spawn A3A_fnc_borrarTask;
+_nul = [600,"CONVOY"] spawn A3A_fnc_deleteTask;
+_nul = [0,"CONVOY1"] spawn A3A_fnc_deleteTask;
 {
 if (!([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _x}
 } forEach _vehiculos;

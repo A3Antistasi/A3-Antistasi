@@ -84,6 +84,6 @@ else
 {deleteVehicle _x} forEach units _grp;
 deleteGroup _grp;
 
-_nul = [1200,"AS"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"AS"] spawn A3A_fnc_deleteTask;
 
 

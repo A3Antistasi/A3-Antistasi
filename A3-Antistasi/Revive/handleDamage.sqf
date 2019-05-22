@@ -26,7 +26,7 @@ if (_part == "") then
 					};
 				_dam = 0.9;
 				if (isPlayer _unit) then {_unit allowDamage false};
-				if (!isNull _injurer) then {[_unit,side _injurer] spawn A3A_fnc_inconsciente} else {[_unit,sideUnknown] spawn A3A_fnc_inconsciente};
+				if (!isNull _injurer) then {[_unit,side _injurer] spawn A3A_fnc_unconscious} else {[_unit,sideUnknown] spawn A3A_fnc_unconscious};
 				}
 			else
 				{
@@ -116,7 +116,7 @@ else
 							moveOut _unit;
 							};
 						if (isPlayer _unit) then {_unit allowDamage false};
-						if (!isNull _injurer) then {[_unit,side _injurer] spawn A3A_fnc_inconsciente} else {[_unit,sideUnknown] spawn A3A_fnc_inconsciente};
+						if (!isNull _injurer) then {[_unit,side _injurer] spawn A3A_fnc_unconscious} else {[_unit,sideUnknown] spawn A3A_fnc_unconscious};
 						};
 					};
 				}
@@ -133,7 +133,7 @@ else
 							moveOut _unit;
 							};
 						if (isPlayer _unit) then {_unit allowDamage false};
-						if (!isNull _injurer) then {[_unit,side _injurer] spawn A3A_fnc_inconsciente} else {[_unit,sideUnknown] spawn A3A_fnc_inconsciente};
+						if (!isNull _injurer) then {[_unit,side _injurer] spawn A3A_fnc_unconscious} else {[_unit,sideUnknown] spawn A3A_fnc_unconscious};
 						};
 					};
 				};

@@ -93,7 +93,7 @@ if (dateToNumber date > _fechalimnum) then
 		];
 	};
 
-_nul = [0,"REP"] spawn A3A_fnc_borrarTask;
+_nul = [0,"REP"] spawn A3A_fnc_deleteTask;
 
 waitUntil {sleep 1; (spawner getVariable _marcador == 2)};
 

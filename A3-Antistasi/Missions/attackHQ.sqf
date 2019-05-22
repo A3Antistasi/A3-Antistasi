@@ -89,9 +89,9 @@ else
 		};
 	};
 
-_nul = [1200,"DEF_HQ"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"DEF_HQ"] spawn A3A_fnc_deleteTask;
 sleep 60;
-_nul = [0,"DEF_HQ1"] spawn A3A_fnc_borrarTask;
+_nul = [0,"DEF_HQ1"] spawn A3A_fnc_deleteTask;
 
 {
 _veh = _x;

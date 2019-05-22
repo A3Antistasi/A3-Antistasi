@@ -83,7 +83,7 @@ if (_cuenta > 0) then
 		sleep 1;
 		if (_cuenta == 0) then
 			{
-			[_caja,_camion] remoteExec ["A3A_fnc_munitionTransfer",2];
+			[_caja,_camion] remoteExec ["A3A_fnc_ammunitionTransfer",2];
 			_proceder = true;
 			};
 		if ((_camion != vehicle player) or (speed _camion != 0)) then

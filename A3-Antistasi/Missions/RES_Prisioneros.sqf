@@ -150,5 +150,5 @@ deleteGroup _grpPOW;
 {caja addMagazineCargoGlobal [_x,1]} forEach _municion;
 {caja addItemCargoGlobal [_x,1]} forEach _items;
 
-_nul = [1200,"RES"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"RES"] spawn A3A_fnc_deleteTask;
 

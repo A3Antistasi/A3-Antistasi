@@ -1976,7 +1976,7 @@ class construction_menu 	{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Make a quick small trench for one man";
-			action = "closeDialog 0;nul = [""ST""] spawn A3A_fnc_construir;";
+			action = "closeDialog 0;nul = [""ST""] spawn A3A_fnc_build;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -1987,7 +1987,7 @@ class construction_menu 	{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "A mid sized trench with capabilities for more than one soldier";
-			action = "closeDialog 0; nul = [""MT""] spawn A3A_fnc_construir;";
+			action = "closeDialog 0; nul = [""MT""] spawn A3A_fnc_build;";
 		};
 
 		class HQ_button_Gremove: RscButton
@@ -1999,7 +1999,7 @@ class construction_menu 	{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Build some obstacles for vehicles";
-			action = "closeDialog 0;nul = [""RB""] spawn A3A_fnc_construir;";
+			action = "closeDialog 0;nul = [""RB""] spawn A3A_fnc_build;";
 		};
 		class HQ_button_unlock: RscButton
 		{
@@ -2047,7 +2047,7 @@ class bunker_menu 				{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Requires to be in a garrisoned zone. It will be permanent";
-			action = "closeDialog 0;nul = [""SB""] spawn A3A_fnc_construir;";
+			action = "closeDialog 0;nul = [""SB""] spawn A3A_fnc_build;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2058,7 +2058,7 @@ class bunker_menu 				{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Requires to be in a garrisoned zone. It will be permanent";
-			action = "closeDialog 0;nul = [""CB""] spawn A3A_fnc_construir;";
+			action = "closeDialog 0;nul = [""CB""] spawn A3A_fnc_build;";
 		};
 		/*
 		class HQ_button_Gremove: RscButton

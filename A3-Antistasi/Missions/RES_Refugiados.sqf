@@ -225,6 +225,6 @@ if (_lado == malos) then
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
 //deleteMarker _mrkfin;
 
-_nul = [1200,"RES"] spawn A3A_fnc_borrarTask;
+_nul = [1200,"RES"] spawn A3A_fnc_deleteTask;
 
 

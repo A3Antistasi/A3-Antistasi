@@ -172,11 +172,11 @@ else
 								_lider = leader (gunner _mortero);
 								if (!isPlayer _lider) then
 									{
-									[[],"A3A_fnc_ataqueHQ"] remoteExec ["A3A_fnc_scheduler",2];
+									[[],"A3A_fnc_attackHQ"] remoteExec ["A3A_fnc_scheduler",2];
 									}
 								else
 									{
-									if ([_lider] call A3A_fnc_isMember) then {[[],"A3A_fnc_ataqueHQ"] remoteExec ["A3A_fnc_scheduler",2]};
+									if ([_lider] call A3A_fnc_isMember) then {[[],"A3A_fnc_attackHQ"] remoteExec ["A3A_fnc_scheduler",2]};
 									};
 								};
 							}

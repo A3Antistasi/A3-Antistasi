@@ -34,7 +34,7 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 	{
 	if (random 10 < 1) then {playSound3D [(injuredSounds call BIS_fnc_selectRandom),_unit,false, getPosASL _unit, 1, 1, 50];};
 	_ayudado = _unit getVariable ["ayudado",objNull];
-	if (isNull _ayudado) then {[_unit] call A3A_fnc_pedirAyuda;};
+	if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
 	sleep 3;
 	};
 

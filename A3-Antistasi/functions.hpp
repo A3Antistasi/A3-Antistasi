@@ -71,26 +71,26 @@ class A3A
         class airdrop {file="AI\airdrop.sqf";};
         class AIreactOnKill {file="AI\AIreactOnKill.sqf";};
         class airstrike {file="AI\airstrike.sqf";};
-        class artilleria {file="AI\artilleria.sqf";};
+        class artillery {file="AI\artillery.sqf";};
         class artySupport {file="AI\artySupport.sqf";};
         class assaultBuilding {file="AI\assaultBuilding.sqf";};
         class attackDrillAI {file="AI\attackDrillAI.sqf";};
         class autoHealFnc {file="AI\autoHealFnc.sqf";};
         class autoLoot {file="AI\autoLoot.sqf";};
         class autoRearm {file="AI\autoRearm.sqf";};
-        class ayudar {file="AI\ayudar.sqf";};
+        class help {file="AI\help.sqf";};
         class isBuildingPosition {file="AI\Buildings\isBuildingPosition.sqf";};
         class canConquer {file="AI\canConquer.sqf";};
         class canFight {file="AI\canFight.sqf";};
-        class cobertura {file="AI\cobertura.sqf";};
-        class cubrirConHumo {file="AI\cubrirConHumo.sqf";};
+        class coverage {file="AI\coverage.sqf";};
+        class chargeWithSmoke {file="AI\chargeWithSmoke.sqf";};
         class destroyBuilding {file="AI\destroyBuilding.sqf";};
         class doFlank {file="AI\doFlank.sqf";};
-        class enemigoCercano {file="AI\enemigoCercano.sqf";};
+        class nearEnemy {file="AI\nearEnemy.sqf";};
         class enemyList {file="AI\enemyList.sqf";};
         class fastrope {file="AI\fastrope.sqf";};
         class findSafeRoadToUnload {file="AI\findSafeRoadToUnload.sqf";};
-        class fuegoSupresor {file="AI\fuegoSupresor.sqf";};
+        class suppressingFire {file="AI\suppressingFire.sqf";};
         class guardDog {file="AI\guardDog.sqf";};
         class hasRadio {file="AI\hasRadio.sqf";};
         class hideInBuilding {file="AI\hideInBuilding.sqf";};
@@ -102,8 +102,8 @@ class A3A
         class mortyAI {file="AI\mortyAI.sqf";};
         class napalm {file="AI\napalm.sqf";};
         class napalmDamage {file="AI\napalmDamage.sqf";};
-        class pedirAyuda {file="AI\pedirAyuda.sqf";};
-        class puertasLand {file="AI\puertasLand.sqf";};
+        class askHelp {file="AI\askHelp.sqf";};
+        class entriesLand {file="AI\entriesLand.sqf";};
         class rearmCall {file="AI\rearmCall.sqf";};
         class recallGroup {file="AI\recallGroup.sqf";};
         class smokeCoverAuto {file="AI\smokeCoverAuto.sqf";};
@@ -117,7 +117,7 @@ class A3A
         class VANTinfo {file="AI\VANTinfo.sqf";};
         class vehicleMarkers {file="AI\vehicleMarkers.sqf";};
         //class AAthreatEval {file="AI\AAthreatEval.sqf";};
-        //class hayLOS {file="AI\hayLOS.sqf";};
+        //class hasLOS {file="AI\hasLOS.sqf";};
 	}
 
 	class CREATE

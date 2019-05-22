@@ -5,7 +5,7 @@ private ["_morty","_ayudante"];
 private _grupo = group _morty;
 while {true} do
 	{
-	_enemigo = _grupo call A3A_fnc_enemigoCercano;
+	_enemigo = _grupo call A3A_fnc_nearEnemy;
 	if (isNull _enemigo) exitWith {};
 	if (_enemigo distance _morty > 50) exitWith {};
 	if ((!alive _morty) or (!alive _ayudante)) exitWith {};

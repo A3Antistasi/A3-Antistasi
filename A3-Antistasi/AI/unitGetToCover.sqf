@@ -8,8 +8,8 @@ _enemy = if (count _this > 1) then {_this select 1} else {_unit findNearestEnemy
 
 if (isNull _enemy) exitWith {};
 if (_unit distance _enemy < 300) exitWith {};
-if (damage _unit >= 0.6) then {[_unit,_unit,_enemy] spawn A3A_fnc_cubrirConHumo};
-_cobertura = [_unit,_enemy] call A3A_fnc_cobertura;
+if (damage _unit >= 0.6) then {[_unit,_unit,_enemy] spawn A3A_fnc_chargeWithSmoke};
+_cobertura = [_unit,_enemy] call A3A_fnc_coverage;
 
 if (_cobertura isEqualTo []) exitWith {};
 

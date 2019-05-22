@@ -31,7 +31,7 @@ if (_medico != _unit) then
 		};
 	if (hasInterface) then {if (player == _unit) then {hint format ["%1 is on the way to help you",name _medico]}};
 	_enemy = _medico findNearestEnemy _unit;
-	_smoked = [_medico,_unit,_enemy] call A3A_fnc_cubrirConHumo;
+	_smoked = [_medico,_unit,_enemy] call A3A_fnc_chargeWithSmoke;
 	_medico stop false;
 	_medico forceSpeed -1;
 	_timeOut = time + 60;
@@ -50,8 +50,8 @@ if (_medico != _unit) then
 		{
 		if ((_unit getVariable ["INCAPACITATED",false]) and (!isNull _enemy) and (_timeOut >= time) and (_medico != _unit)) then
 			{
-			_cobertura = [_unit,_enemy] call A3A_fnc_cobertura;
-			{if (([_x] call A3A_fnc_canFight) and (_x distance _medico < 50) and !(_x getVariable ["ayudando",false]) and (!isPlayer _x)) then {[_x,_enemy] call A3A_fnc_fuegoSupresor}} forEach units (group _medico);
+			_cobertura = [_unit,_enemy] call A3A_fnc_coverage;
+			{if (([_x] call A3A_fnc_canFight) and (_x distance _medico < 50) and !(_x getVariable ["ayudando",false]) and (!isPlayer _x)) then {[_x,_enemy] call A3A_fnc_suppressingFire}} forEach units (group _medico);
 			if (count _cobertura == 3) then
 				{
 				//if (_isPlayer) then {_unit setVariable ["llevado",true,true]};
@@ -148,7 +148,7 @@ if (_medico != _unit) then
 			else
 				{
 				_medico stop true;
-				//if (!_smoked) then {[_medico,_unit] call A3A_fnc_cubrirConHumo};
+				//if (!_smoked) then {[_medico,_unit] call A3A_fnc_chargeWithSmoke};
 				_unit stop true;
 				_curado = [_unit,_medico] call A3A_fnc_actionRevive;
 				if (_curado) then
@@ -166,7 +166,7 @@ if (_medico != _unit) then
 		else
 			{
 			_medico stop true;
-			//if (!_smoked) then {[_medico,_unit] call A3A_fnc_cubrirConHumo};
+			//if (!_smoked) then {[_medico,_unit] call A3A_fnc_chargeWithSmoke};
 			_unit stop true;
 			if (_unit getVariable ["INCAPACITATED",false]) then {_curado = [_unit,_medico] call A3A_fnc_actionRevive} else {_medico action ["HealSoldier",_unit]; _curado = true};
 			if (_curado) then
@@ -191,7 +191,7 @@ if (_medico != _unit) then
 	}
 else
 	{
-	[_medico,_medico] call A3A_fnc_cubrirConHumo;
+	[_medico,_medico] call A3A_fnc_chargeWithSmoke;
 	if ([_medico] call A3A_fnc_canFight) then
 		{
 		_medico action ["HealSoldierSelf",_medico];

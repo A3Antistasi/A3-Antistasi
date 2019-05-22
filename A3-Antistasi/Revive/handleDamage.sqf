@@ -80,12 +80,12 @@ if (_part == "") then
 				if (autoheal) then
 					{
 					_ayudado = _unit getVariable ["ayudado",objNull];
-					if (isNull _ayudado) then {[_unit] call A3A_fnc_pedirAyuda;};
+					if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
 					};
 				}
 			else
 				{
-				//if (_dam > 0.6) then {[_unit,_unit,_injurer] spawn A3A_fnc_cubrirConHumo};
+				//if (_dam > 0.6) then {[_unit,_unit,_injurer] spawn A3A_fnc_chargeWithSmoke};
 				if (_dam > 0.6) then {[_unit,_injurer] spawn A3A_fnc_unitGetToCover};
 				};
 			};

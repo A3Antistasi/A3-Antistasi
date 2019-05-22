@@ -584,7 +584,7 @@ while {(_waves > 0)} do
 		{
 		if (((not(_mrkDestino in puestos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "NATO_carrier")) or hayIFA) then
 			{
-			[_mrkOrigen,_mrkDestino,_lado] spawn A3A_fnc_artilleria;
+			[_mrkOrigen,_mrkDestino,_lado] spawn A3A_fnc_artillery;
 			diag_log "Antistasi: Arty Spawned";
 			if (([_plane] call A3A_fnc_vehAvailable) and (not(_mrkDestino in ciudades)) and _firstWave) then
 				{
@@ -620,7 +620,7 @@ while {(_waves > 0)} do
 		{
 		if (((not(_mrkDestino in recursos)) and (not(_mrkDestino in puertos)) and (_mrkOrigen != "CSAT_carrier")) or hayIFA) then
 			{
-			if !(_posOrigenLand isEqualTo []) then {[_posOrigenLand,_mrkDestino,_lado] spawn A3A_fnc_artilleria} else {[_mrkOrigen,_mrkDestino,_lado] spawn A3A_fnc_artilleria};
+			if !(_posOrigenLand isEqualTo []) then {[_posOrigenLand,_mrkDestino,_lado] spawn A3A_fnc_artillery} else {[_mrkOrigen,_mrkDestino,_lado] spawn A3A_fnc_artillery};
 			diag_log "Antistasi: Arty Spawned";
 			if (([_plane] call A3A_fnc_vehAvailable) and (_firstWave)) then
 				{

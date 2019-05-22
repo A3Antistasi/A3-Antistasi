@@ -37,7 +37,7 @@ else
 	{
 	if (side _unit != buenos) then
 		{
-		if (fleeing _unit) then {[_unit,_enemy] call A3A_fnc_fuegoSupresor};
+		if (fleeing _unit) then {[_unit,_enemy] call A3A_fnc_suppressingFire};
 		};
 	};
 _return

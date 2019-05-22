@@ -101,7 +101,7 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 		_ayudado = _unit getVariable ["ayudado",objNull];
 		if (isNull _ayudado) then
 			{
-			_ayuda = [_unit] call A3A_fnc_pedirAyuda;
+			_ayuda = [_unit] call A3A_fnc_askHelp;
 			if (isNull _ayuda) then
 				{
 				_texto = format ["<t size='0.6'>There is no AI near to help you.<t size='0.5'><br/>Hit R to Respawn"];
@@ -132,13 +132,13 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 			if (autoheal) then
 				{
 				_ayudado = _unit getVariable ["ayudado",objNull];
-				if (isNull _ayudado) then {[_unit] call A3A_fnc_pedirAyuda;};
+				if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
 				};
 			}
 		else
 			{
 			_ayudado = _unit getVariable ["ayudado",objNull];
-			if (isNull _ayudado) then {[_unit] call A3A_fnc_pedirAyuda;};
+			if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
 			};
 		};
 	sleep 3;

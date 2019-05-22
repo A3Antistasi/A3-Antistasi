@@ -136,7 +136,7 @@ while {true} do
 		_tanques = objNull;
 		_numObjetivos = count _objetivos;
 		_tarea = _grupo getVariable ["tarea","Patrol"];
-		_cercano = _grupo call A3A_fnc_enemigoCercano;
+		_cercano = _grupo call A3A_fnc_nearEnemy;
 		_soldados = ((units _grupo) select {[_x] call A3A_fnc_canFight}) - [_grupo getVariable ["mortero",objNull]];
 		_numSoldados = count _soldados;
 		if !(isNull _aire) then
@@ -221,7 +221,7 @@ while {true} do
 					if !(isNull _cercano) then
 						{
 						{
-						[_x,_cercano] call A3A_fnc_fuegoSupresor;
+						[_x,_cercano] call A3A_fnc_suppressingFire;
 						} forEach ((_grupo getVariable ["baseOfFire",[]]) select {([_x] call A3A_fnc_canFight) and ((_x getVariable ["typeOfSoldier",""] == "MGMan") or (_x getVariable ["typeOfSoldier",""] == "StaticGunner"))});
 						_mortero = _grupo getVariable ["morteros",objNull];
 						if (!(isNull _mortero) and ([_mortero] call A3A_fnc_canFight)) then
@@ -253,7 +253,7 @@ while {true} do
 						if (count _flankers != 0) then
 							{
 							{
-							[_x,_x,_cercano] spawn A3A_fnc_cubrirConHumo;
+							[_x,_x,_cercano] spawn A3A_fnc_chargeWithSmoke;
 							} forEach ((_grupo getVariable ["baseOfFire",[]]) select {([_x] call A3A_fnc_canFight) and (_x getVariable ["typeOfSoldier",""] == "Normal")});
 							if ([getPosASL _cercano] call A3A_fnc_isBuildingPosition) then
 								{

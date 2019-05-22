@@ -61,7 +61,7 @@ else
 		};
 	if (!isNull _medico) then
 		{
-		if (isNull(_unit getVariable ["ayudado",objNull])) then {[_unit,_medico] spawn A3A_fnc_ayudar};
+		if (isNull(_unit getVariable ["ayudado",objNull])) then {[_unit,_medico] spawn A3A_fnc_help};
 		}
 	else
 		{

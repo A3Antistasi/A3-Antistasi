@@ -84,8 +84,8 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 					{
 					if (_marcador in controles) then {[[_marcador],"A3A_fnc_createAIcontrols"] call A3A_fnc_scheduler} else {
 					if (_marcador in aeropuertos) then {[[_marcador],"A3A_fnc_createAIAirplane"] call A3A_fnc_scheduler} else {
-					if (((_marcador in recursos) or (_marcador in fabricas))) then {[[_marcador],"A3A_fnc_createAIrecursos"] call A3A_fnc_scheduler} else {
-					if ((_marcador in puestos) or (_marcador in puertos)) then {[[_marcador],"A3A_fnc_createAIpuestos"] call A3A_fnc_scheduler};};};};
+					if (((_marcador in recursos) or (_marcador in fabricas))) then {[[_marcador],"A3A_fnc_createAIResources"] call A3A_fnc_scheduler} else {
+					if ((_marcador in puestos) or (_marcador in puertos)) then {[[_marcador],"A3A_fnc_createAIOutposts"] call A3A_fnc_scheduler};};};};
 					};
 				};
 			}
@@ -147,7 +147,7 @@ else
 							if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"A3A_fnc_createCIV"] call A3A_fnc_scheduler};
 							};
 						};
-					if (_marcador in puestosFIA) then {[[_marcador],"A3A_fnc_createFIApuestos2"] call A3A_fnc_scheduler} else {if (not(_marcador in controles)) then {[[_marcador],"A3A_fnc_createSDKGarrisons"] call A3A_fnc_scheduler}};
+					if (_marcador in puestosFIA) then {[[_marcador],"A3A_fnc_createFIAOutposts2"] call A3A_fnc_scheduler} else {if (not(_marcador in controles)) then {[[_marcador],"A3A_fnc_createSDKGarrisons"] call A3A_fnc_scheduler}};
 					};
 				}
 			else
@@ -200,8 +200,8 @@ else
 					spawner setVariable [_marcador,0,true];
 					if (_marcador in controles) then {[[_marcador],"A3A_fnc_createAIcontrols"] call A3A_fnc_scheduler} else {
 					if (_marcador in aeropuertos) then {[[_marcador],"A3A_fnc_createAIAirplane"] call A3A_fnc_scheduler} else {
-					if (((_marcador in recursos) or (_marcador in fabricas))) then {[[_marcador],"A3A_fnc_createAIrecursos"] call A3A_fnc_scheduler} else {
-					if ((_marcador in puestos) or (_marcador in puertos)) then {[[_marcador],"A3A_fnc_createAIpuestos"] call A3A_fnc_scheduler};};};};
+					if (((_marcador in recursos) or (_marcador in fabricas))) then {[[_marcador],"A3A_fnc_createAIResources"] call A3A_fnc_scheduler} else {
+					if ((_marcador in puestos) or (_marcador in puertos)) then {[[_marcador],"A3A_fnc_createAIOutposts"] call A3A_fnc_scheduler};};};};
 					};
 				}
 			else

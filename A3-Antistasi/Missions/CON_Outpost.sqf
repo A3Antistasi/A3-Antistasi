@@ -1,3 +1,4 @@
+//Mission: Conquer the outpost
 if (!isServer and hasInterface) exitWith{};
 
 private ["_marcador"];

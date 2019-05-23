@@ -1,3 +1,4 @@
+//Mission: Repair the antenna
 if (!isServer and hasInterface) exitWith{};
 
 private ["_marcador","_posicion","_fechalim","_fechalimnum","_nombredest","_camionCreado","_size","_pos","_veh","_grupo","_unit"];

@@ -1,3 +1,4 @@
+//Mission: HQ is under attack
 if (!isServer and hasInterface) exitWith{};
 
 _posicion = getMarkerPos respawnBuenos;

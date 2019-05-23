@@ -55,7 +55,7 @@ if (_tipo == "AS") then
 	else
 		{
 		_sitio = selectRandom _posibles;
-		if (_sitio in aeropuertos) then {[[_sitio],"AS_Oficial"] remoteExec ["A3A_fnc_scheduler",2]} else {if (_sitio in ciudades) then {[[_sitio],"AS_Traidor"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"AS_SpecOP"] remoteExec ["A3A_fnc_scheduler",2]}};
+		if (_sitio in aeropuertos) then {[[_sitio],"AS_Official"] remoteExec ["A3A_fnc_scheduler",2]} else {if (_sitio in ciudades) then {[[_sitio],"AS_Traitor"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"AS_SpecOP"] remoteExec ["A3A_fnc_scheduler",2]}};
 		};
 	};
 if (_tipo == "CON") then
@@ -77,7 +77,7 @@ if (_tipo == "CON") then
 	else
 		{
 		_sitio = selectRandom _posibles;
-		[[_sitio],"CON_Puestos"] remoteExec ["A3A_fnc_scheduler",2];
+		[[_sitio],"CON_Outpost"] remoteExec ["A3A_fnc_scheduler",2];
 		};
 	};
 if (_tipo == "DES") then
@@ -116,7 +116,7 @@ if (_tipo == "DES") then
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
 		if (_sitio in aeropuertos) then {if (random 10 < 8) then {[[_sitio],"DES_Vehicle"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"DES_Heli"] remoteExec ["A3A_fnc_scheduler",2]}};
-		if (_sitio in antenas) then {[[_sitio],"DES_antena"] remoteExec ["A3A_fnc_scheduler",2]}
+		if (_sitio in antenas) then {[[_sitio],"DES_antenna"] remoteExec ["A3A_fnc_scheduler",2]}
 		};
 	};
 if (_tipo == "LOG") then
@@ -172,7 +172,7 @@ if (_tipo == "LOG") then
 	else
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in ciudades) then {[[_sitio],"LOG_Suministros"] remoteExec ["A3A_fnc_scheduler",2]};
+		if (_sitio in ciudades) then {[[_sitio],"LOG_Supplies"] remoteExec ["A3A_fnc_scheduler",2]};
 		if (_sitio in puestos) then {[[_sitio],"LOG_Ammo"] remoteExec ["A3A_fnc_scheduler",2]};
 		if (_sitio in bancos) then {[[_sitio],"LOG_Bank"] remoteExec ["A3A_fnc_scheduler",2]};
 		};
@@ -201,7 +201,7 @@ if (_tipo == "RES") then
 	else
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in ciudades) then {[[_sitio],"RES_Refugiados"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"RES_Prisioneros"] remoteExec ["A3A_fnc_scheduler",2]};
+		if (_sitio in ciudades) then {[[_sitio],"RES_Refugees"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"RES_Prisoners"] remoteExec ["A3A_fnc_scheduler",2]};
 		};
 	};
 if (_tipo == "CONVOY") then

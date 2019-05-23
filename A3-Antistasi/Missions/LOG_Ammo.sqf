@@ -1,3 +1,4 @@
+//Mission: Logistics for ammunition
 if (!isServer and hasInterface) exitWith{};
 
 private ["_pos","_camion","_camionCreado","_grupo","_grupo1","_mrk"];

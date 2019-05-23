@@ -1,3 +1,4 @@
+//Mission: Assassinate a traitor
 if (!isServer and hasInterface) exitWith{};
 
 _marcador = _this select 0;

@@ -1,3 +1,4 @@
+//Mission: Destroy the helicopter
 if (!isServer and hasInterface) exitWith{};
 
 private ["_poscrash","_marcador","_posicion","_mrkfin","_tipoveh","_efecto","_heli","_vehiculos","_soldados","_grupos","_unit","_roads","_road","_vehicle","_veh","_tipogrupo","_tsk","_humo","_emitterArray","_cuenta"];
@@ -201,7 +202,3 @@ deleteVehicle _x} forEach _vehiculos;
 //sleep (600 + random 1200);
 
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
-
-
-
-

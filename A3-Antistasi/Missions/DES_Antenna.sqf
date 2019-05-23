@@ -1,3 +1,4 @@
+//Mission: Destroy the antenna
 if (!isServer and hasInterface) exitWith{};
 
 private ["_antena","_posicion","_tiempolim","_marcador","_nombredest","_mrkfin","_tsk"];

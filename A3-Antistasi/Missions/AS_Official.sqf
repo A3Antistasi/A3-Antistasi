@@ -1,3 +1,4 @@
+//Mission: Assassinate an official
 if (!isServer and hasInterface) exitWith{};
 
 _marcador = _this select 0;
@@ -85,5 +86,3 @@ else
 deleteGroup _grp;
 
 _nul = [1200,"AS"] spawn A3A_fnc_deleteTask;
-
-

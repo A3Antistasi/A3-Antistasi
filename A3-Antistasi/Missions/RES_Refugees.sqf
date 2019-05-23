@@ -1,3 +1,4 @@
+//Mission: Rescue the refugees
 if (!isServer and hasInterface) exitWith{};
 private ["_marcador","_dificil","_salir","_contacto","_grpContacto","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_casa","_posCasa","_nombreDest","_tiempoLim","_fechaLim","_fechaLimNum","_pos","_cuenta"];
 
@@ -226,5 +227,3 @@ if (_lado == malos) then
 //deleteMarker _mrkfin;
 
 _nul = [1200,"RES"] spawn A3A_fnc_deleteTask;
-
-

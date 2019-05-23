@@ -1,3 +1,4 @@
+//Mission: Logistics bank mission
 //el sitio de la caja es el 21
 if (!isServer and hasInterface) exitWith {};
 private ["_banco","_marcador","_dificil","_salir","_contacto","_grpContacto","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_posCasa","_nombreDest","_tiempoLim","_fechaLim","_fechaLimNum","_posBase","_pos","_camion","_cuenta","_mrkfin","_mrk","_soldados"];
@@ -154,5 +155,3 @@ deleteGroup _x;
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
 deleteMarker _mrk;
 deleteMarker _mrkfin;
-
-

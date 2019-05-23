@@ -1,3 +1,4 @@
+//Mission: Logistic supplies
 if (!isServer and hasInterface) exitWith{};
 private ["_marcador","_dificil","_salir","_contacto","_grpContacto","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_posCasa","_nombreDest","_tiempoLim","_fechaLim","_fechaLimNum","_pos","_camion","_cuenta"];
 

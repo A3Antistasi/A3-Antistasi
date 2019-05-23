@@ -170,7 +170,7 @@ while {true} do
 		if (count _posibles > 0) then
 			{
 			_posible = selectRandom _posibles;
-			[[_posible select 0,_posible select 1],"REP_Antena"] call A3A_fnc_scheduler;
+			[[_posible select 0,_posible select 1],"REP_Antenna"] call A3A_fnc_scheduler;
 			};
 		}
 	else

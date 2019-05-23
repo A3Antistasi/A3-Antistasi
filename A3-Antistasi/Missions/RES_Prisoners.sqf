@@ -1,3 +1,4 @@
+//Mission: Rescue the prisoners
 if (!isServer and hasInterface) exitWith{};
 
 private ["_unit","_marcador","_posicion","_cuenta"];
@@ -151,4 +152,3 @@ deleteGroup _grpPOW;
 {caja addItemCargoGlobal [_x,1]} forEach _items;
 
 _nul = [1200,"RES"] spawn A3A_fnc_deleteTask;
-

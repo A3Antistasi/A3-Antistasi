@@ -1,4 +1,4 @@
-private ["_unit","_lider","_aeropuertos","_base","_loadOut"];
+private ["_unit","_lider","_airportsX","_base","_loadOut"];
 
 _unit = _this select 0;
 if (isPlayer _unit) exitWith {};
@@ -14,12 +14,12 @@ _unit setUnitPos "UP";
 _loadOut = getUnitLoadout _unit;
 _unit setUnitLoadout (selectRandom arrayCivs);
 
-//_aeropuertos = aeropuertos + puestos;// + (controles select {isOnRoad getMarkerPos _x});
+//_airportsX = airportsX + puestos;// + (controlsX select {isOnRoad getMarkerPos _x});
 while {(captive _lider) and (captive _unit)} do
 	{
 	sleep 1;
 	if ((vehicle _unit != _unit) and (not((typeOf vehicle _unit) in arrayCivVeh))) exitWith {};
-	//_base = [_aeropuertos,player] call BIS_fnc_nearestPosition;
+	//_base = [_airportsX,player] call BIS_fnc_nearestPosition;
 	//_size = [_base] call A3A_fnc_sizeMarker;
 	//if ((_unit inArea _base) and (not(lados getVariable [_base,sideUnknown] == buenos))) exitWith {[_unit,false] remoteExec ["setCaptive"]};
 	if ((primaryWeapon _unit != "") or (secondaryWeapon _unit != "") or (handgunWeapon _unit != "")) exitWith {};

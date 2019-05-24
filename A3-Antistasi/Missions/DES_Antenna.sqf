@@ -4,7 +4,7 @@ if (!isServer and hasInterface) exitWith{};
 private ["_antena","_posicion","_tiempolim","_marcador","_nameDest","_mrkfin","_tsk"];
 
 _antena = _this select 0;
-_marcador = [marcadores,_antena] call BIS_fnc_nearestPosition;
+_marcador = [markersX,_antena] call BIS_fnc_nearestPosition;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;

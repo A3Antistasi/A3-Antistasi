@@ -4,7 +4,7 @@ _marcador = _this select 0;
 _isFrontier = false;
 
 _lado = lados getVariable [_marcador,sideUnknown];
-_mrkENY = (aeropuertos + puestos + puertos) select {lados getVariable [_x,sideUnknown] != _lado};
+_mrkENY = (airportsX + puestos + puertos) select {lados getVariable [_x,sideUnknown] != _lado};
 
 if (count _mrkENY > 0) then
 	{

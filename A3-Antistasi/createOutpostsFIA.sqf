@@ -61,8 +61,8 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) the
 		};
 	outpostsFIA = outpostsFIA + [_mrk]; publicVariable "outpostsFIA";
 	lados setVariable [_mrk,buenos,true];
-	marcadores = marcadores + [_mrk];
-	publicVariable "marcadores";
+	markersX = markersX + [_mrk];
+	publicVariable "markersX";
 	spawner setVariable [_mrk,2,true];
 	["outpostsFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	//["outpostsFIA", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;

@@ -69,12 +69,12 @@ if (count _mgs == 1) then
 _grupo setVariable ["movable",_movable];
 _grupo setVariable ["baseOfFire",_baseOfFire];
 if (side _grupo == buenos) then {_grupo setVariable ["autoRearmed",time + 300]};
-_edificios = nearestTerrainObjects [getMarkerPos _marcador, ["House"],true];
-_edificios = _edificios select {((_x buildingPos -1) isEqualTo []) and !((typeof _bld) in UPSMON_Bld_remove) and (_x inArea _marcador)};
+_buildingsX = nearestTerrainObjects [getMarkerPos _marcador, ["House"],true];
+_buildingsX = _buildingsX select {((_x buildingPos -1) isEqualTo []) and !((typeof _bld) in UPSMON_Bld_remove) and (_x inArea _marcador)};
 
 if (_modo == "FORTIFY") then
 	{
-	_edificios = _edificios call BIS_fnc_arrayShuffle;
+	_buildingsX = _buildingsX call BIS_fnc_arrayShuffle;
 	_bldPos = [];
 	_cuenta = count _movable;
 	_exit = false;
@@ -88,7 +88,7 @@ if (_modo == "FORTIFY") then
 		if (count _bldPos == _cuenta) then {_exit = true};
 		};
 	} forEach (_edificio buildingPos -1);
-	} forEach _edificios;
+	} forEach _buildingsX;
 	};
 while {true} do
 	{
@@ -257,16 +257,16 @@ while {true} do
 							} forEach ((_grupo getVariable ["baseOfFire",[]]) select {([_x] call A3A_fnc_canFight) and (_x getVariable ["typeOfSoldier",""] == "Normal")});
 							if ([getPosASL _cercano] call A3A_fnc_isBuildingPosition) then
 								{
-								_ingeniero = objNull;
+								_engineerX = objNull;
 								_building = nearestBuilding _cercano;
 								if !(_building getVariable ["asaltado",false]) then
 									{
 									{
-									if ((_x call A3A_fnc_typeOfSoldier == "Engineer") and {_x != leader _x} and {!(_x getVariable ["maneuvering",true])} and {_x distance _cercano < 50} and {[_x] call A3A_fnc_canFight}) exitWith {_ingeniero = _x};
+									if ((_x call A3A_fnc_typeOfSoldier == "Engineer") and {_x != leader _x} and {!(_x getVariable ["maneuvering",true])} and {_x distance _cercano < 50} and {[_x] call A3A_fnc_canFight}) exitWith {_engineerX = _x};
 									} forEach (_grupo getVariable ["baseOfFire",[]]);
-									if !(isNull _ingeniero) then
+									if !(isNull _engineerX) then
 										{
-										[_ingeniero,_cercano,_building] spawn A3A_fnc_destroyBuilding;
+										[_engineerX,_cercano,_building] spawn A3A_fnc_destroyBuilding;
 										}
 									else
 										{

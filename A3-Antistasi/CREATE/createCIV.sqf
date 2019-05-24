@@ -11,7 +11,7 @@ _datos = server getVariable _marcador;
 _numCiv = _datos select 0;
 _numVeh = _datos select 1;
 //_roads = _datos select 2;
-_roads = carreteras getVariable _marcador;//
+_roads = roadsX getVariable _marcador;//
 //_prestigeOPFOR = _datos select 3;
 //_prestigeBLUFOR = _datos select 4;
 
@@ -162,7 +162,7 @@ if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 					_civ moveInDriver _veh;
 					_grupoP addVehicle _veh;
 					_grupoP setBehaviour "CARELESS";
-					_posDestination = selectRandom (carreteras getVariable (_patrolCities select _countPatrol));
+					_posDestination = selectRandom (roadsX getVariable (_patrolCities select _countPatrol));
 					_wp = _grupoP addWaypoint [_posDestination,0];
 					_wp setWaypointType "MOVE";
 					_wp setWaypointSpeed "FULL";

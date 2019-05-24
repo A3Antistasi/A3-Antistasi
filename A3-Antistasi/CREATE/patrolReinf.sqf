@@ -29,7 +29,7 @@ _grupo = grpNull;
 
 if (_land) then
 	{
-	_indice = aeropuertos find _mrkOrigen;
+	_indice = airportsX find _mrkOrigen;
 	_spawnPoint = spawnPoints select _indice;
 	_pos = getMarkerPos _spawnPoint;
 	_timeOut = 0;

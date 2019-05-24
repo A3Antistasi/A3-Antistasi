@@ -18,7 +18,7 @@ if (!visibleMap) exitWith {};
 
 _positionTel = positionTel;
 
-_sitio = [marcadores,_positionTel] call BIS_fnc_nearestPosition;
+_sitio = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 
 if (getMarkerPos _sitio distance _positionTel > 50) exitWith {hint "You must click near a map marker"};
 

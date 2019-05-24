@@ -4,7 +4,7 @@ while {true} do
 	{
 	waitUntil {sleep 0.5; (visibleMap or visibleGPS) and ([player] call A3A_fnc_hasRadio)};
 	_jugadores = [];
-	_marcadores = [];
+	_markersX = [];
 	while {visibleMap or visibleGPS} do
 		{
 		{
@@ -16,7 +16,7 @@ while {true} do
 			_mrk setMarkerTypeLocal "mil_triangle";
 			_mrk setMarkerColorLocal "ColorWhite";
 			_mrk setMarkerTextLocal format ["%1",name _jugador];
-			_marcadores pushBack _mrk;
+			_markersX pushBack _mrk;
 			};
 		} forEach playableUnits;
 		if (count _jugadores > 0) then
@@ -66,5 +66,5 @@ while {true} do
 			};
 		sleep 1;
 		};
-	{deleteMarkerLocal _x} forEach _marcadores;
+	{deleteMarkerLocal _x} forEach _markersX;
 	};

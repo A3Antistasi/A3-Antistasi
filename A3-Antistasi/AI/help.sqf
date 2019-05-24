@@ -1,4 +1,4 @@
-private ["_unit","_medico","_timeOut","_curado","_isPlayer","_smoked","_enemy","_cobertura","_dummyGrp","_dummy"];
+private ["_unit","_medico","_timeOut","_curado","_isPlayer","_smoked","_enemy","_coverX","_dummyGrp","_dummy"];
 _unit = _this select 0;///no usar canfight porque algunas tienen setcaptive true y te va a liar todo
 if !(isNull (_unit getVariable ["ayudado",objNull])) exitWith {};
 _medico = _this select 1;
@@ -50,9 +50,9 @@ if (_medico != _unit) then
 		{
 		if ((_unit getVariable ["INCAPACITATED",false]) and (!isNull _enemy) and (_timeOut >= time) and (_medico != _unit)) then
 			{
-			_cobertura = [_unit,_enemy] call A3A_fnc_coverage;
+			_coverX = [_unit,_enemy] call A3A_fnc_coverage;
 			{if (([_x] call A3A_fnc_canFight) and (_x distance _medico < 50) and !(_x getVariable ["ayudando",false]) and (!isPlayer _x)) then {[_x,_enemy] call A3A_fnc_suppressingFire}} forEach units (group _medico);
-			if (count _cobertura == 3) then
+			if (count _coverX == 3) then
 				{
 				//if (_isPlayer) then {_unit setVariable ["llevado",true,true]};
 				_medico setUnitPos "MIDDLE";
@@ -83,13 +83,13 @@ if (_medico != _unit) then
 					//_unit attachTo [_dummy, [0, 1.1, 0.092]];
 					_unit attachTo [_dummy, [0,-1.1, 0.092]];
 					_unit setDir 0;
-					_dummy doMove _cobertura;
+					_dummy doMove _coverX;
 					[_medico] spawn {sleep 4.5; (_this select 0) playMove "AcinPknlMwlkSrasWrflDb"};
 					_timeOut = time + 30;
 					while {true} do
 						{
 						sleep 0.2;
-						if (!([_medico] call A3A_fnc_canFight) or (!alive _unit) or (_medico distance _cobertura <= 2) or (_timeOut < time) or (_medico != vehicle _medico) or (_medico getVariable ["cancelRevive",false])) exitWith {};
+						if (!([_medico] call A3A_fnc_canFight) or (!alive _unit) or (_medico distance _coverX <= 2) or (_timeOut < time) or (_medico != vehicle _medico) or (_medico getVariable ["cancelRevive",false])) exitWith {};
 						if (_unit distance _dummy > 3) then
 							{
 							detach _unit;

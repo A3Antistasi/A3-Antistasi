@@ -18,17 +18,17 @@ hintC_arr_EH = findDisplay 72 displayAddEventHandler ["unload",
 		};
 	}];
 
-private ["_positionTel","_marcador","_marcadores"];
-_marcadores = marcadores select {lados getVariable [_x,sideUnknown] != buenos};
+private ["_positionTel","_marcador","_markersX"];
+_markersX = markersX select {lados getVariable [_x,sideUnknown] != buenos};
 _positionTel = [];
 if (isNil "placementDone") then
 	{
-	_marcadores = _marcadores - controles;
+	_markersX = _markersX - controlsX;
 	openMap true;
 	}
 else
 	{
-	_marcadores = _marcadores - (controles select {!isOnRoad (getMarkerPos _x)});
+	_markersX = _markersX - (controlsX select {!isOnRoad (getMarkerPos _x)});
 	//openMap [true,true];
 	openMap [true,true];
 	};
@@ -41,7 +41,7 @@ _mrk setMarkerTypeLocal "hd_warning";
 _mrk setMarkerColorLocal "ColorRed";
 _mrk setMarkerBrushLocal "DiagGrid";
 _mrkDum pushBack _mrk;
-} forEach _marcadores;
+} forEach _markersX;
 while {true} do
 	{
 	positionTel = [];
@@ -50,7 +50,7 @@ while {true} do
 	onMapSingleClick "";
 	if (not visiblemap) exitWith {};
 	_positionTel = positionTel;
-	_marcador = [_marcadores,_positionTel] call BIS_fnc_nearestPosition;
+	_marcador = [_markersX,_positionTel] call BIS_fnc_nearestPosition;
 	if (getMarkerPos _marcador distance _positionTel < 500) then {hint "Place selected is very close to enemy zones.\n\n Please select another position"};
 	if (surfaceIsWater _positionTel) then {hint "Selected position cannot be in water"};
 	_enemigos = false;
@@ -76,18 +76,18 @@ if (visiblemap) then
 			{
 			lados setVariable [_x,buenos,true];
 			};
-		} forEach controles;
+		} forEach controlsX;
 		petros setPos _positionTel;
 		}
 	else
 		{
-		_controles = controles select {!(isOnRoad (getMarkerPos _x))};
+		_controlsX = controlsX select {!(isOnRoad (getMarkerPos _x))};
 		{
 		if (getMarkerPos _x distance _positionTel < distanceSPWN) then
 			{
 			lados setVariable [_x,buenos,true];
 			};
-		} forEach _controles;
+		} forEach _controlsX;
 		_viejo = petros;
 		groupPetros = createGroup buenos;
 		publicVariable "groupPetros";

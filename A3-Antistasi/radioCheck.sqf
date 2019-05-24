@@ -11,7 +11,7 @@ if (count antenas > 0) then
 		_antena = antenas select _i;
 		if ((alive _antena) and (_posicion distance _antena < 3500)) then
 			{
-			_cercano = [marcadores,_antena] call BIS_fnc_nearestPosition;
+			_cercano = [markersX,_antena] call BIS_fnc_nearestPosition;
 			if (not(lados getVariable [_cercano,sideUnknown] == buenos)) then {_ok = true};
 			};
 		};

@@ -23,8 +23,8 @@ if (_tipo in SDKSniper) then
 		[_unit, selectRandom unlockedSN, 8, 0] call BIS_fnc_addWeapon;
 		if (count unlockedOptics > 0) then
 			{
-			_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
-			_posibles = unlockedOptics select {_x in _compatibles};
+			_compatibleX = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
+			_posibles = unlockedOptics select {_x in _compatibleX};
 			if (count _posibles > 0) then {_unit addPrimaryWeaponItem (_posibles select 0)};
 			};
 		}

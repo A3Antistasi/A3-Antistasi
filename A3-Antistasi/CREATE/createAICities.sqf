@@ -11,7 +11,7 @@ _posicion = getMarkerPos (_marcador);
 
 _num = [_marcador] call A3A_fnc_sizeMarker;
 _lado = lados getVariable [_marcador,sideUnknown];
-if ({if ((getMarkerPos _x inArea _marcador) and (lados getVariable [_x,sideUnknown] != _lado)) exitWith {1}} count marcadores > 0) exitWith {};
+if ({if ((getMarkerPos _x inArea _marcador) and (lados getVariable [_x,sideUnknown] != _lado)) exitWith {1}} count markersX > 0) exitWith {};
 _num = round (_num / 100);
 
 _datos = server getVariable _marcador;

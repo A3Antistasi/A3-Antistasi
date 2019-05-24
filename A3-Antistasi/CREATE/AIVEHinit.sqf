@@ -182,7 +182,7 @@ else
 							}
 						else
 							{
-							_bases = aeropuertos select {(getMarkerPos _x distance _mortero < distanceForAirAttack) and ([_x,true] call A3A_fnc_airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
+							_bases = airportsX select {(getMarkerPos _x distance _mortero < distanceForAirAttack) and ([_x,true] call A3A_fnc_airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
 							if (count _bases > 0) then
 								{
 								_base = [_bases,_posicion] call BIS_fnc_nearestPosition;

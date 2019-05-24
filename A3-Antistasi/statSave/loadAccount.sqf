@@ -36,7 +36,7 @@ if (isServer and !_byPassServer) then
 	["outpostsFIA"] call fn_LoadStat; publicVariable "outpostsFIA";
 	["mrkSDK"] call fn_LoadStat; /*if (isMultiplayer) then {sleep 5}*/;
 	["mrkCSAT"] call fn_LoadStat;
-	["dificultad"] call fn_LoadStat;
+	["difficultyX"] call fn_LoadStat;
 	["gameMode"] call fn_LoadStat;
 	["destroyedCities"] call fn_LoadStat;
 	["minas"] call fn_LoadStat;
@@ -144,11 +144,11 @@ if (isServer and !_byPassServer) then
 	if (lados getVariable [_x,sideUnknown] != buenos) then
 		{
 		_posicion = getMarkerPos _x;
-		_cercano = [(marcadores - controles - outpostsFIA),_posicion] call BIS_fnc_nearestPosition;
+		_cercano = [(markersX - controlsX - outpostsFIA),_posicion] call BIS_fnc_nearestPosition;
 		_lado = lados getVariable [_cercano,sideUnknown];
 		lados setVariable [_x,_lado,true];
 		};
-	} forEach controles;
+	} forEach controlsX;
 
 
 	{
@@ -156,10 +156,10 @@ if (isServer and !_byPassServer) then
 		{
 		lados setVariable [_x,malos,true];
 		};
-	} forEach marcadores;
+	} forEach markersX;
 
-	{[_x] call A3A_fnc_mrkUpdate} forEach (marcadores - controles);
-	if (count outpostsFIA > 0) then {marcadores = marcadores + outpostsFIA; publicVariable "marcadores"};
+	{[_x] call A3A_fnc_mrkUpdate} forEach (markersX - controlsX);
+	if (count outpostsFIA > 0) then {markersX = markersX + outpostsFIA; publicVariable "markersX"};
 
 	{if (_x in destroyedCities) then {[_x] call A3A_fnc_destroyCity}} forEach ciudades;
 
@@ -177,8 +177,8 @@ if (isServer and !_byPassServer) then
 
 
 	if (!isMultiPlayer) then {player setPos getMarkerPos respawnTeamPlayer} else {{_x setPos getMarkerPos respawnTeamPlayer} forEach (playableUnits select {side _x == buenos})};
-	_sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
-	tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in aeropuertos} count _sitios)))/10));
+	_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
+	tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in airportsX} count _sitios)))/10));
 	if (tierWar > 10) then {tierWar = 10};
 	publicVariable "tierWar";
 
@@ -202,7 +202,7 @@ if (isServer and !_byPassServer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach aeropuertos;
+		} forEach airportsX;
 
 		{
 		_pos = getMarkerPos _x;

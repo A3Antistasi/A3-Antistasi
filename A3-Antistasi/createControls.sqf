@@ -7,7 +7,7 @@ _marcador = _this select 0;
 _pos = getMarkerPos _marcador;
 _cuenta = 0;
 
-{if (getMarkerPos _x distance _pos < 1000) then {_cuenta = _cuenta + 1}} forEach controles;
+{if (getMarkerPos _x distance _pos < 1000) then {_cuenta = _cuenta + 1}} forEach controlsX;
 
 if (_cuenta > 3) exitWith {};
 
@@ -24,10 +24,10 @@ if (_posroad distance _pos > 400) then
         _roadsCon = roadsConnectedto _road;
         if (count _roadsCon > 0) then
                 {
-        	_cercano = [controles,_posroad] call BIS_fnc_nearestPosition;
+        	_cercano = [controlsX,_posroad] call BIS_fnc_nearestPosition;
         	if (getMarkerPos _cercano distance _posroad > 1000) then
         		{
-        		_nombre = format ["control_%1", count controles];
+        		_nombre = format ["control_%1", count controlsX];
         		_mrk = createmarker [format ["%1", _nombre], _posroad];
                         _mrk setMarkerSize [30,30];
                         _mrk setMarkerShape "RECTANGLE";
@@ -43,8 +43,8 @@ if (_posroad distance _pos > 400) then
                                 {
                                 if (lados getVariable [_marcador,sideUnknown] == muyMalos) then {lados setVariable [_nombre,muyMalos,true]} else {lados setVariable [_nombre,buenos,true]};
                                 };
-                        controles pushBackUnique _nombre;
-                        marcadores pushBackUnique _nombre;
+                        controlsX pushBackUnique _nombre;
+                        markersX pushBackUnique _nombre;
                         spawner setVariable [_nombre,2,true];
                         _cuenta = _cuenta + 1;
         		};

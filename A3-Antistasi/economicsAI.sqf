@@ -1,7 +1,7 @@
 {
 _lado = _x;
 _accelerator = if (_lado == malos) then {if (tierWar == 1) then {0} else {1+((tierWar + difficultyCoef)/20)}} else {1.2+((tierWar + difficultyCoef)/20)};
-_airbases = {lados getVariable [_x,sideUnknown] == _lado} count aeropuertos;
+_airbases = {lados getVariable [_x,sideUnknown] == _lado} count airportsX;
 _puestos =  {lados getVariable [_x,sideUnknown] == _lado} count puestos;
 _puertos = {lados getVariable [_x,sideUnknown] == _lado} count puertos;
 //at

@@ -460,7 +460,7 @@ class Mission
 					class Attributes
 					{
 						skill=1;
-						name="comandante";
+						name="commanderX";
 						description="Default Commander";
 						isPlayer=1;
 					};
@@ -707,7 +707,7 @@ class Mission
 				position[]={9200.1191,220.03395,8720.8213};
 				angles[]={0.013327583,0,6.2405477};
 			};
-			name="carreteras";
+			name="roadsX";
 			id=17;
 			type="Logic";
 		};
@@ -795,7 +795,7 @@ class Mission
 				position[]={9189.1621,220.63734,8725.998};
 				angles[]={6.253861,4.511023,6.2139649};
 			};
-			name="HC_comandante";
+			name="HC_commanderX";
 			id=26;
 			type="HighCommand";
 		};

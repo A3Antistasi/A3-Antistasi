@@ -22,7 +22,7 @@ if (fleeing _x) then
 					_marcador = (leader _grupo) getVariable "marcador";
 					if (!isNil "_marcador") then
 						{
-						if (_marcador in aeropuertos) then {_super = true};
+						if (_marcador in airportsX) then {_super = true};
 						};
 					if (vehicle _killer == _killer) then
 						{

@@ -61,7 +61,7 @@ if ({alive _x} count units _grupo == 0) then
 //if ({alive _x} count units _grupo == 0) then
 	{
 	outpostsFIA = outpostsFIA - [_marcador]; publicVariable "outpostsFIA";
-	marcadores = marcadores - [_marcador]; publicVariable "marcadores";
+	markersX = markersX - [_marcador]; publicVariable "markersX";
 	lados setVariable [_marcador,nil,true];
 	_nul = [5,-5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 	deleteMarker _marcador;

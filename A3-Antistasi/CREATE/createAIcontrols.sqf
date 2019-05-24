@@ -1,13 +1,13 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_marcador","_posicion","_vehiculos","_soldados","_tam","_bunker","_grupoE","_unit","_tipogrupo","_grupo","_tiempolim","_fechalim","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_isControl","_tam","_tipoVeh","_tipoUnit","_marcadores","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_tiempolim","_fechalim","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
+private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_marcador","_posicion","_vehiculos","_soldados","_tam","_bunker","_grupoE","_unit","_tipogrupo","_grupo","_tiempolim","_fechalim","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_isControl","_tam","_tipoVeh","_tipoUnit","_markersX","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_tiempolim","_fechalim","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
 
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;
 _lado = lados getVariable [_marcador,sideUnknown];
 
 if ((_lado == buenos) or (_lado == sideUnknown)) exitWith {};
-if ({if ((lados getVariable [_x,sideUnknown] != _lado) and (_posicion inArea _x)) exitWith {1}} count marcadores >1) exitWith {};
+if ({if ((lados getVariable [_x,sideUnknown] != _lado) and (_posicion inArea _x)) exitWith {1}} count markersX >1) exitWith {};
 _vehiculos = [];
 _soldados = [];
 _pilotos = [];
@@ -134,9 +134,9 @@ if (_isControl) then
 	}
 else
 	{
-	_marcadores = marcadores select {(getMarkerPos _x distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
-	_marcadores = _marcadores - ["Synd_HQ"] - outpostsFIA;
-	_frontera = if (count _marcadores > 0) then {true} else {false};
+	_markersX = markersX select {(getMarkerPos _x distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
+	_markersX = _markersX - ["Synd_HQ"] - outpostsFIA;
+	_frontera = if (count _markersX > 0) then {true} else {false};
 	if (_frontera) then
 		{
 		_cfg = CSATSpecOp;
@@ -273,14 +273,14 @@ deleteGroup _grupo;
 
 if (_conquered) then
 	{
-	_indice = controles find _marcador;
+	_indice = controlsX find _marcador;
 	if (_indice > defaultControlIndex) then
 		{
 		_tiempolim = 120;//120
 		_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 		_dateLimitNum = dateToNumber _fechalim;
 		waitUntil {sleep 60;(dateToNumber date > _dateLimitNum)};
-		_base = [(marcadores - controles),_posicion] call BIS_fnc_nearestPosition;
+		_base = [(markersX - controlsX),_posicion] call BIS_fnc_nearestPosition;
 		if (lados getVariable [_base,sideUnknown] == malos) then
 			{
 			lados setVariable [_marcador,malos,true];

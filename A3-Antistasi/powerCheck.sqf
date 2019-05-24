@@ -9,7 +9,7 @@ _ant2 = [antennasDead, _posicion] call BIS_fnc_nearestPosition;
 
 if (_ant1 distance _posicion > _ant2 distance _posicion) exitWith {sideUnknown};
 
-_puesto = [marcadores,_ant1] call BIS_fnc_NearestPosition;
+_puesto = [markersX,_ant1] call BIS_fnc_NearestPosition;
 /*
 if (lados getVariable [_marcador,sideUnknown] == buenos) then
 	{

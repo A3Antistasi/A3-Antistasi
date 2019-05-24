@@ -1,14 +1,14 @@
 if (player != player getVariable ["owner",objNull]) exitWith {hint "You cannot construct anything while controlling AI"};
 
-private _ingeniero = objNull;
+private _engineerX = objNull;
 
-{if (_x getUnitTrait "engineer") exitWith {_ingeniero = _x}} forEach units group player;
+{if (_x getUnitTrait "engineer") exitWith {_engineerX = _x}} forEach units group player;
 
-if (isNull _ingeniero) exitWith {hint "Your squad needs an engineer to be able to construct"};
-if ((player != _ingeniero) and (isPlayer _ingeniero)) exitWith {hint "There is a human player engineer in your squad, ask him to construct whatever you need"};
-if ((player != leader player) and (_ingeniero != player)) exitWith {hint "Only squad leaders can ask engineers to construct something"};
-if !([_ingeniero] call A3A_fnc_canFight) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
-if ((_ingeniero getVariable ["ayudando",false]) or (_ingeniero getVariable ["rearming",false]) or (_ingeniero getVariable ["constructing",false])) exitWith {hint "Your engineer is currently performing another action"};
+if (isNull _engineerX) exitWith {hint "Your squad needs an engineer to be able to construct"};
+if ((player != _engineerX) and (isPlayer _engineerX)) exitWith {hint "There is a human player engineer in your squad, ask him to construct whatever you need"};
+if ((player != leader player) and (_engineerX != player)) exitWith {hint "Only squad leaders can ask engineers to construct something"};
+if !([_engineerX] call A3A_fnc_canFight) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
+if ((_engineerX getVariable ["ayudando",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX getVariable ["constructing",false])) exitWith {hint "Your engineer is currently performing another action"};
 
 private _tipo = _this select 0;
 private _dir = getDir player;
@@ -96,7 +96,7 @@ if ((_tipo == "SB") or (_tipo == "CB")) then
 		}
 	else
 		{
-		_sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
+		_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
 		cercano = [_sitios,_posicion] call BIS_fnc_nearestPosition;
 		if (!(_posicion inArea cercano)) then
 			{
@@ -233,12 +233,12 @@ garageVeh = nil;
 cercano = nil;
 if (comprado <= 1) exitWith {hint "Construction cancelled"; comprado = nil};
 comprado = nil;
-private _isPlayer = if (player == _ingeniero) then {true} else {false};
+private _isPlayer = if (player == _engineerX) then {true} else {false};
 _timeOut = time + 30;
 
 if (!_isPlayer) then
 	{
-	_ingeniero doMove ASLToAGL _posicion
+	_engineerX doMove ASLToAGL _posicion
 	}
 else
 	{
@@ -246,7 +246,7 @@ else
 	hint "Walk to the selected position to start building";
 	};
 
-waitUntil {sleep 1;(time > _timeOut) or (_ingeniero distance _posicion < 3)};
+waitUntil {sleep 1;(time > _timeOut) or (_engineerX distance _posicion < 3)};
 
 if (time > _timeOut) exitWith {};
 
@@ -263,38 +263,38 @@ if (_coste > 0) then
 		};
 	};
 
-_ingeniero setVariable ["constructing",true];
+_engineerX setVariable ["constructing",true];
 
 _timeOut = time + _tiempo;
 
 if (!_isPlayer) then
 	{
-	{_ingeniero disableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"];
+	{_engineerX disableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"];
 	};
 
 //_animation = selectRandom ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPknlMstpSnonWnonDnon_medic0","AinvPknlMstpSnonWnonDnon_medic1","AinvPknlMstpSnonWnonDnon_medic2"];
-_ingeniero playMoveNow selectRandom medicAnims;
+_engineerX playMoveNow selectRandom medicAnims;
 
-_ingeniero addEventHandler ["AnimDone",
+_engineerX addEventHandler ["AnimDone",
 	{
-	private _ingeniero = _this select 0;
-	if (([_ingeniero] call A3A_fnc_canFight) and !(_ingeniero getVariable ["ayudando",false]) and !(_ingeniero getVariable ["rearming",false]) and (_ingeniero getVariable ["constructing",false])) then
+	private _engineerX = _this select 0;
+	if (([_engineerX] call A3A_fnc_canFight) and !(_engineerX getVariable ["ayudando",false]) and !(_engineerX getVariable ["rearming",false]) and (_engineerX getVariable ["constructing",false])) then
 		{
-		_ingeniero playMoveNow selectRandom medicAnims;
+		_engineerX playMoveNow selectRandom medicAnims;
 		}
 	else
 		{
-		_ingeniero removeEventHandler ["AnimDone",_thisEventHandler];
+		_engineerX removeEventHandler ["AnimDone",_thisEventHandler];
 		};
 	}];
 
-waitUntil  {sleep 5; !([_ingeniero] call A3A_fnc_canFight) or (_ingeniero getVariable ["ayudando",false]) or (_ingeniero getVariable ["rearming",false]) or (_ingeniero distance _posicion > 4) or (time > _timeOut)};
+waitUntil  {sleep 5; !([_engineerX] call A3A_fnc_canFight) or (_engineerX getVariable ["ayudando",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX distance _posicion > 4) or (time > _timeOut)};
 
-_ingeniero setVariable ["constructing",false];
-if (!_isPlayer) then {{_ingeniero enableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"]};
+_engineerX setVariable ["constructing",false];
+if (!_isPlayer) then {{_engineerX enableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"]};
 
 if (time <= _timeOut) exitWith {hint "Constructing cancelled"};
-if (!_isPlayer) then {_ingeniero doFollow (leader _ingeniero)};
+if (!_isPlayer) then {_engineerX doFollow (leader _engineerX)};
 private _veh = createVehicle [_clase, _posicion, [], 0, "CAN_COLLIDE"];
 _veh setDir _dir;
 

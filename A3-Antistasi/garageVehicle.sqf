@@ -6,7 +6,7 @@ _veh = cursorTarget;
 if (isNull _veh) exitWith {hint "You are not looking at a vehicle"};
 
 if (!alive _veh) exitWith {hint "You cannot add destroyed vehicles to your garage"};
-_cercanos = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
+_cercanos = markersX select {lados getVariable [_x,sideUnknown] == buenos};
 _cercanos = _cercanos select {(player inArea _x) and (_veh inArea _x)};
 
 if (_cercanos isEqualTo []) exitWith {hint format ["You and the vehicle need to be in a %1 garrison surrounding in order to garage a it",nameTeamPlayer]};
@@ -41,8 +41,8 @@ if (_exit) exitWith {hint "You are not owner of this vehicle therefore you canno
 
 if (_tipoVeh isKindOf "Plane") then
 	{
-	_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == buenos) and (player inArea _x)};
-	if (count _aeropuertos == 0) then {_exit = true};
+	_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == buenos) and (player inArea _x)};
+	if (count _airportsX == 0) then {_exit = true};
 	};
 
 if (_exit) exitWith {hint format ["You cannot garage an air vehicle while you are not near an Aiport which belongs to %1. Place your HQ near an airbase flag in order to be able to garage it",nameTeamPlayer]};

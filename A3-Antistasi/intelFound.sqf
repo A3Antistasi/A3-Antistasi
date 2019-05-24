@@ -8,7 +8,7 @@ if (count _this == 1) then
 	_marcador = _this select 0;
 	if (_marcador isEqualType "") then
 		{
-		if (_marcador in aeropuertos) then {_chance = 30} else {_chance = 15};
+		if (_marcador in airportsX) then {_chance = 30} else {_chance = 15};
 		if (lados getVariable [_marcador,sideUnknown] == muyMalos) then {_lado = muyMalos};
 		}
 	else
@@ -78,12 +78,12 @@ if (random 100 < _chance) then
 
 _minasAAF = allmines - (detectedMines buenos);
 if (_lado == malos) then {_minasAAF = _minasAAF - (detectedMines muyMalos)} else {_minasAAF = _minasAAF - (detectedMines malos)};
-_revelaMina = false;
+_revealMineX = false;
 if (count _minasAAF > 0) then
 	{
-	{if (random 100 < _chance) then {buenos revealMine _x; _revelaMina = true}} forEach _minasAAF;
+	{if (random 100 < _chance) then {buenos revealMine _x; _revealMineX = true}} forEach _minasAAF;
 	};
-if (_revelaMina) then {_texto = format ["%1 New Mines marked on your map<br/>",_texto];};
+if (_revealMineX) then {_texto = format ["%1 New Mines marked on your map<br/>",_texto];};
 
 if (_texto == "<t size='0.6' color='#C1C0BB'>Intel Found.<br/> <t size='0.5' color='#C1C0BB'><br/>") then {_texto = format ["<t size='0.6' color='#C1C0BB'>Intel Not Found.<br/> <t size='0.5' color='#C1C0BB'><br/>"];};
 

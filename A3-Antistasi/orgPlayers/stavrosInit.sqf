@@ -9,14 +9,14 @@ if (!isNil "_grupos") then
   _oldUnit hcRemoveGroup _x;
   } forEach _grupos;
   };
-_oldUnit synchronizeObjectsRemove [HC_comandante];
+_oldUnit synchronizeObjectsRemove [HC_commanderX];
 //apoyo synchronizeObjectsRemove [_oldUnit];
-HC_comandante synchronizeObjectsRemove [_oldUnit];
+HC_commanderX synchronizeObjectsRemove [_oldUnit];
 theBoss = _unit;
 publicVariable "theBoss";
 [group _unit, _unit] remoteExec ["selectLeader",_unit];
-theBoss synchronizeObjectsAdd [HC_comandante];
-HC_comandante synchronizeObjectsAdd [theBoss];
+theBoss synchronizeObjectsAdd [HC_commanderX];
+HC_commanderX synchronizeObjectsAdd [theBoss];
 //apoyo synchronizeObjectsAdd [theBoss];
 if (!isNil "_grupos") then
 	{

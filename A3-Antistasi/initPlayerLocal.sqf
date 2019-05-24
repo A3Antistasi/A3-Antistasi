@@ -253,14 +253,14 @@ player addEventHandler ["FIRED",
 	];
 player addEventHandler ["InventoryOpened",
 	{
-	private ["_jugador","_contenedor","_tipo"];
+	private ["_jugador","_containerX","_tipo"];
 	_control = false;
 	_jugador = _this select 0;
 	if (captive _jugador) then
 		{
-		_contenedor = _this select 1;
-		_tipo = typeOf _contenedor;
-		if (((_contenedor isKindOf "Man") and (!alive _contenedor)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
+		_containerX = _this select 1;
+		_tipo = typeOf _containerX;
+		if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 			{
 			if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
 				{
@@ -351,9 +351,9 @@ player addEventHandler ["WeaponAssembled",
 			publicVariable "staticsToSave";
 			[_veh] call A3A_fnc_AIVEHinit;
 			};
-		_marcadores = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
+		_markersX = markersX select {lados getVariable [_x,sideUnknown] == buenos};
 		_pos = position _veh;
-		if (_marcadores findIf {_pos inArea _x} != -1) then {hint "Static weapon has been deployed for use in a nearby zone, and will be used by garrison militia if you leave it here the next time the zone spawns"};
+		if (_markersX findIf {_pos inArea _x} != -1) then {hint "Static weapon has been deployed for use in a nearby zone, and will be used by garrison militia if you leave it here the next time the zone spawns"};
 		}
 	else
 		{
@@ -513,8 +513,8 @@ else
 		    player setVariable ["score", 25,true];
 		    if (isMultiplayer) then
 		    	{
-		    	HC_comandante synchronizeObjectsAdd [player];
-				player synchronizeObjectsAdd [HC_comandante];
+		    	HC_commanderX synchronizeObjectsAdd [player];
+				player synchronizeObjectsAdd [HC_commanderX];
 		    	//_nul = [] execVM "Dialogs\initMenu.sqf";
 		    	if !(loadLastSave) then
 		    		{
@@ -626,6 +626,6 @@ petros addAction ["Mission Request", {nul=CreateDialog "mission_menu";},nil,0,fa
 
 disableSerialization;
 //1 cutRsc ["H8erHUD","PLAIN",0,false];
-_layer = ["estadisticas"] call bis_fnc_rscLayer;
+_layer = ["statisticsX"] call bis_fnc_rscLayer;
 _layer cutRsc ["H8erHUD","PLAIN",0,false];
 [] spawn A3A_fnc_statistics;

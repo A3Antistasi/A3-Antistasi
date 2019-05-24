@@ -468,7 +468,7 @@
 
 - Hotfixed some garrisons not spawning.
 - While BIS does not fix HC Bar squad order options, squads will spawn in Aware stance.
-cambiar a inArea el undercover y revisar a qu� bando van los controles conquereds
+cambiar a inArea el undercover y revisar a qu� bando van los controlsX conquereds
 
 0.9.4 22/08/2017 ALPHA
 - NEW FEATURE: Added JAS. The finest Inventory system around the scene, built in by Jeroen Not (Thanks!!!) for Antistasi and one of the things makes Antistasi special :)

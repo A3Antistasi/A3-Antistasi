@@ -16,9 +16,9 @@ if ([_tipo] call BIS_fnc_taskExists) exitWith {if (!_silencio) then {[petros,"gl
 
 if (_tipo == "AS") then
 	{
-	_sitios = aeropuertos + ciudades + (controles select {!(isOnRoad getMarkerPos _x)});
+	_sitios = airportsX + ciudades + (controlsX select {!(isOnRoad getMarkerPos _x)});
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
-	if ((count _sitios > 0) and ({lados getVariable [_x,sideUnknown] == malos} count aeropuertos > 0)) then
+	if ((count _sitios > 0) and ({lados getVariable [_x,sideUnknown] == malos} count airportsX > 0)) then
 		{
 		//_posibles = _sitios select {((getMarkerPos _x distance _posbase < distanceMission) and (not(spawner getVariable _x)))};
 		for "_i" from 0 to ((count _sitios) - 1) do
@@ -27,11 +27,11 @@ if (_tipo == "AS") then
 			_pos = getMarkerPos _sitio;
 			if (_pos distance _posbase < distanceMission) then
 				{
-				if (_sitio in controles) then
+				if (_sitio in controlsX) then
 					{
-					_marcadores = marcadores select {(getMarkerPos _x distance _pos < distanceSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
-					_marcadores = _marcadores - ["Synd_HQ"];
-					_frontera = if (count _marcadores > 0) then {true} else {false};
+					_markersX = markersX select {(getMarkerPos _x distance _pos < distanceSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
+					_markersX = _markersX - ["Synd_HQ"];
+					_frontera = if (count _markersX > 0) then {true} else {false};
 					if (_frontera) then
 						{
 						_posibles pushBack _sitio;
@@ -55,12 +55,12 @@ if (_tipo == "AS") then
 	else
 		{
 		_sitio = selectRandom _posibles;
-		if (_sitio in aeropuertos) then {[[_sitio],"AS_Official"] remoteExec ["A3A_fnc_scheduler",2]} else {if (_sitio in ciudades) then {[[_sitio],"AS_Traitor"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"AS_SpecOP"] remoteExec ["A3A_fnc_scheduler",2]}};
+		if (_sitio in airportsX) then {[[_sitio],"AS_Official"] remoteExec ["A3A_fnc_scheduler",2]} else {if (_sitio in ciudades) then {[[_sitio],"AS_Traitor"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"AS_SpecOP"] remoteExec ["A3A_fnc_scheduler",2]}};
 		};
 	};
 if (_tipo == "CON") then
 	{
-	_sitios = (controles select {(isOnRoad (getMarkerPos _x))})+ puestos + recursos;
+	_sitios = (controlsX select {(isOnRoad (getMarkerPos _x))})+ puestos + recursos;
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
@@ -82,23 +82,23 @@ if (_tipo == "CON") then
 	};
 if (_tipo == "DES") then
 	{
-	_sitios = aeropuertos select {lados getVariable [_x,sideUnknown] != buenos};
+	_sitios = airportsX select {lados getVariable [_x,sideUnknown] != buenos};
 	_sitios = _sitios + antenas;
 	if (count _sitios > 0) then
 		{
 		for "_i" from 0 to ((count _sitios) - 1) do
 			{
 			_sitio = _sitios select _i;
-			if (_sitio in marcadores) then {_pos = getMarkerPos _sitio} else {_pos = getPos _sitio};
+			if (_sitio in markersX) then {_pos = getMarkerPos _sitio} else {_pos = getPos _sitio};
 			if (_pos distance _posbase < distanceMission) then
 				{
-				if (_sitio in marcadores) then
+				if (_sitio in markersX) then
 					{
 					if (spawner getVariable _sitio == 2) then {_posibles pushBack _sitio};
 					}
 				else
 					{
-					_cercano = [marcadores, getPos _sitio] call BIS_fnc_nearestPosition;
+					_cercano = [markersX, getPos _sitio] call BIS_fnc_nearestPosition;
 					if (lados getVariable [_cercano,sideUnknown] == malos) then {_posibles pushBack _sitio};
 					};
 				};
@@ -115,7 +115,7 @@ if (_tipo == "DES") then
 	else
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in aeropuertos) then {if (random 10 < 8) then {[[_sitio],"DES_Vehicle"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"DES_Heli"] remoteExec ["A3A_fnc_scheduler",2]}};
+		if (_sitio in airportsX) then {if (random 10 < 8) then {[[_sitio],"DES_Vehicle"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"DES_Heli"] remoteExec ["A3A_fnc_scheduler",2]}};
 		if (_sitio in antenas) then {[[_sitio],"DES_antenna"] remoteExec ["A3A_fnc_scheduler",2]}
 		};
 	};
@@ -129,7 +129,7 @@ if (_tipo == "LOG") then
 		for "_i" from 0 to ((count _sitios) - 1) do
 			{
 			_sitio = _sitios select _i;
-			if (_sitio in marcadores) then
+			if (_sitio in markersX) then
 				{
 				_pos = getMarkerPos _sitio;
 				}
@@ -179,7 +179,7 @@ if (_tipo == "LOG") then
 	};
 if (_tipo == "RES") then
 	{
-	_sitios = aeropuertos + puestos + ciudades;
+	_sitios = airportsX + puestos + ciudades;
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
@@ -208,7 +208,7 @@ if (_tipo == "CONVOY") then
 	{
 	if (!bigAttackInProgress) then
 		{
-		_sitios = (aeropuertos + recursos + fabricas + puertos + puestos - blackListDest) + (ciudades select {count (garrison getVariable [_x,[]]) < 10});
+		_sitios = (airportsX + recursos + fabricas + puertos + puestos - blackListDest) + (ciudades select {count (garrison getVariable [_x,[]]) < 10});
 		_sitios = _sitios select {(lados getVariable [_x,sideUnknown] != buenos) and !(_x in blackListDest)};
 		if (count _sitios > 0) then
 			{

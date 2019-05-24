@@ -15,7 +15,7 @@ if (!isMultiPlayer) then
     [] execVM "briefing.sqf";
     diag_log format ["Antistasi SP. InitVar done. Version: %1",antistasiVersion];
     _nul = [] execVM "musica.sqf";
-    {if (/*(side _x == buenos) and */(_x != comandante) and (_x != Petros)) then {_grupete = group _x; deleteVehicle _x; deleteGroup _grupete}} forEach allUnits;
+    {if (/*(side _x == buenos) and */(_x != commanderX) and (_x != Petros)) then {_grupete = group _x; deleteVehicle _x; deleteGroup _grupete}} forEach allUnits;
     _serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
     if(isNil "_serverHasID") then
         {
@@ -49,7 +49,7 @@ if (!isMultiPlayer) then
     }foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);
     [] execVM "Ammunition\boxAAF.sqf";
     waitUntil {sleep 1;!(isNil "placementDone")};
-    distancias = [] spawn A3A_fnc_distances4;
+    distanceXs = [] spawn A3A_fnc_distances4;
     resourcecheck = [] execVM "resourcecheck.sqf";
     [] execVM "Scripts\fn_advancedTowingInit.sqf";
     addMissionEventHandler ["BuildingChanged",

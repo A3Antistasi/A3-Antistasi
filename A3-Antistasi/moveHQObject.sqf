@@ -9,7 +9,7 @@ if (!(isNull attachedTo _cosa)) exitWith {hint "The asset you want to move is be
 if (vehicle _jugador != _jugador) exitWith {hint "You cannot move HQ assets while in a vehicle"};
 
 if ({!(isNull _x)} count (attachedObjects _jugador) != 0) exitWith {hint "You have other things attached, you cannot move this"};
-_sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
+_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
 _marcador = [_sitios,_jugador] call BIS_fnc_nearestPosition;
 _size = [_marcador] call A3A_fnc_sizeMarker;
 _posicion = getMarkerPos _marcador;

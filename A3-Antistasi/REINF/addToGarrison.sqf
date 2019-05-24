@@ -14,7 +14,7 @@ if (!visibleMap) exitWith {};
 
 _positionTel = positionTel;
 
-_cercano = [marcadores,_positionTel] call BIS_fnc_nearestPosition;
+_cercano = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 
 if !(_positionTel inArea _cercano) exitWith {hint "You must click near a marked zone"};
 

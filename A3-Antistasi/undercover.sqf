@@ -3,11 +3,11 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot go
 _player = player getVariable ["owner",player];
 if (captive _player) exitWith {hint "You are Undercover already"};
 
-private ["_compromised","_cambiar","_aeropuertos","_arrayCivVeh","_player","_size","_base"];
+private ["_compromised","_cambiar","_airportsX","_arrayCivVeh","_player","_size","_base"];
 
 _cambiar = "";
-_aeropuertos = aeropuertos + puestos + (controles select {isOnRoad (getMarkerPos _x)});
-_aeropuertos1 = aeropuertos;
+_airportsX = airportsX + puestos + (controlsX select {isOnRoad (getMarkerPos _x)});
+_airportsX1 = airportsX;
 _arrayCivVeh = arrayCivVeh + [civHeli] + civBoats;
 _compromised = _player getVariable "compromised";
 
@@ -51,7 +51,7 @@ if ({((side _x== muyMalos) or (side _x== malos)) and (((_x knowsAbout _player > 
 		};
 	};
 
-_base = [_aeropuertos,_player] call BIS_fnc_nearestPosition;
+_base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 _size = [_base] call A3A_fnc_sizeMarker;
 if ((_player distance getMarkerPos _base < _size*2) and (not(lados getVariable [_base,sideUnknown] == buenos))) exitWith {hint "You cannot go Undercover near Airports, Outposts or Roadblocks"};
 
@@ -129,7 +129,7 @@ while {_cambiar == ""} do
 			{
 			if ((_tipo != civHeli) and (!(_tipo in civBoats))) then
 				{
-				_base = [_aeropuertos,_player] call BIS_fnc_nearestPosition;
+				_base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 				//_size = [_base] call A3A_fnc_sizeMarker;
 				if ((_player inArea _base) and (lados getVariable [_base,sideUnknown] != buenos)) then
 					{
@@ -155,7 +155,7 @@ while {_cambiar == ""} do
 				{
 				if (_tipo == civHeli) then
 					{
-					_base = [_aeropuertos1,_player] call BIS_fnc_nearestPosition;
+					_base = [_airportsX1,_player] call BIS_fnc_nearestPosition;
 					_size = [_base] call A3A_fnc_sizeMarker;
 					if ((_player distance2d getMarkerPos _base < _size*3) and ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == muyMalos))) then
 						{
@@ -211,7 +211,7 @@ switch _cambiar do
 		_player setVariable ["compromised",dateToNumber [date select 0, date select 1, date select 2, date select 3, (date select 4) + 30]];
 		};
 	case "Compromised": {hint "You left your vehicle and you are still on the Wanted List"};
-	case "Distancia":
+	case "distanceX":
 		{
 		hint "You have gotten too close to an enemy Base, Outpost or Roadblock";
 		//_compromised = _player getVariable "compromised";

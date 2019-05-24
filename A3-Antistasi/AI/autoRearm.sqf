@@ -1,4 +1,4 @@
-private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hayCaja","_distancia","_objetos","_target","_muerto","_check","_timeOut","_arma","_armas","_rearming","_basePossible","_hmd","_casco","_camion","_autoLoot","_itemsUnit"];
+private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hayCaja","_distanceX","_objetos","_target","_muerto","_check","_timeOut","_arma","_armas","_rearming","_basePossible","_hmd","_casco","_camion","_autoLoot","_itemsUnit"];
 
 _unit = _this select 0;
 
@@ -19,7 +19,7 @@ _objetos = [];
 _hayCaja = false;
 _arma = "";
 _armas = [];
-_distancia = 51;
+_distanceX = 51;
 _objetos = nearestObjects [_unit, ["ReammoBox_F","LandVehicle","WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
 if (caja in _objetos) then {_objetos = _objetos - [caja]};
 
@@ -32,7 +32,7 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 		{
 		{
 		_objeto = _x;
-		if (_unit distance _objeto < _distancia) then
+		if (_unit distance _objeto < _distanceX) then
 			{
 			if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 				{
@@ -45,7 +45,7 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 						{
 						_target = _objeto;
 						_hayCaja = true;
-						_distancia = _unit distance _objeto;
+						_distanceX = _unit distance _objeto;
 						_arma = _posible;
 						};
 					};
@@ -74,7 +74,7 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 			};
 		_target setVariable ["busy",false];
 		};
-	_distancia = 51;
+	_distanceX = 51;
 	_Pweapon = primaryWeapon _unit;
 	sleep 3;
 	};
@@ -92,11 +92,11 @@ if ({_x in _magazines} count (magazines _unit) < _cuenta) then
 		_objeto = _x;
 		if (({_x in _magazines} count magazineCargo _objeto) > 0) then
 			{
-			if (_unit distance _objeto < _distancia) then
+			if (_unit distance _objeto < _distanceX) then
 				{
 				_target = _objeto;
 				_hayCaja = true;
-				_distancia = _unit distance _objeto;
+				_distanceX = _unit distance _objeto;
 				};
 			};
 		} forEach _objetos;
@@ -104,11 +104,11 @@ if ({_x in _magazines} count (magazines _unit) < _cuenta) then
 	_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 	{
 	_muerto = _x;
-	if (({_x in _magazines} count (magazines _muerto) > 0) and (_unit distance _muerto < _distancia)) then
+	if (({_x in _magazines} count (magazines _muerto) > 0) and (_unit distance _muerto < _distanceX)) then
 		{
 		_target = _muerto;
 		_hayCaja = true;
-		_distancia = _muerto distance _unit;
+		_distanceX = _muerto distance _unit;
 		};
 	} forEach _muertos;
 	};
@@ -146,7 +146,7 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 		{
 		{
 		_objeto = _x;
-		if (_unit distance _objeto < _distancia) then
+		if (_unit distance _objeto < _distanceX) then
 			{
 			if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 				{
@@ -158,7 +158,7 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 						{
 						_target = _objeto;
 						_hayCaja = true;
-						_distancia = _unit distance _objeto;
+						_distanceX = _unit distance _objeto;
 						_arma = _posible;
 						};
 					};
@@ -188,7 +188,7 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 		_target setVariable ["busy",false];
 		};
 	_Sweapon = secondaryWeapon _unit;
-	_distancia = 51;
+	_distanceX = 51;
 	sleep 3;
 	};
 _hayCaja = false;
@@ -199,18 +199,18 @@ if (_Sweapon != "") then
 		{
 		_necesita = true;
 		_hayCaja = false;
-		_distancia = 50;
+		_distanceX = 50;
 		if (count _objetos > 0) then
 			{
 			{
 			_objeto = _x;
 			if ({_x in _magazines} count magazineCargo _objeto > 0) then
 				{
-				if (_unit distance _objeto < _distancia) then
+				if (_unit distance _objeto < _distanceX) then
 					{
 					_target = _objeto;
 					_hayCaja = true;
-					_distancia = _unit distance _objeto;
+					_distanceX = _unit distance _objeto;
 					};
 				};
 			} forEach _objetos;
@@ -218,11 +218,11 @@ if (_Sweapon != "") then
 		_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 		{
 		_muerto = _x;
-		if (({_x in _magazines} count (magazines _muerto) > 0) and (_unit distance _muerto < _distancia)) then
+		if (({_x in _magazines} count (magazines _muerto) > 0) and (_unit distance _muerto < _distanceX)) then
 			{
 			_target = _muerto;
 			_hayCaja = true;
-			_distancia = _muerto distance _unit;
+			_distanceX = _muerto distance _unit;
 			};
 		} forEach _muertos;
 		};
@@ -272,15 +272,15 @@ if ((not("ItemRadio" in assignedItems _unit)) and !haveRadio) then
 	{
 	_necesita = true;
 	_hayCaja = false;
-	_distancia = 50;
+	_distanceX = 50;
 	_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 	{
 	_muerto = _x;
-	if (("ItemRadio" in (assignedItems _muerto)) and (_unit distance _muerto < _distancia)) then
+	if (("ItemRadio" in (assignedItems _muerto)) and (_unit distance _muerto < _distanceX)) then
 		{
 		_target = _muerto;
 		_hayCaja = true;
-		_distancia = _muerto distance _unit;
+		_distanceX = _muerto distance _unit;
 		};
 	} forEach _muertos;
 	if ((_hayCaja) and (_unit getVariable "rearming")) then
@@ -305,15 +305,15 @@ if (hmd _unit == "") then
 	{
 	_necesita = true;
 	_hayCaja = false;
-	_distancia = 50;
+	_distanceX = 50;
 	_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 	{
 	_muerto = _x;
-	if ((hmd _muerto != "") and (_unit distance _muerto < _distancia)) then
+	if ((hmd _muerto != "") and (_unit distance _muerto < _distanceX)) then
 		{
 		_target = _muerto;
 		_hayCaja = true;
-		_distancia = _muerto distance _unit;
+		_distanceX = _muerto distance _unit;
 		};
 	} forEach _muertos;
 
@@ -340,15 +340,15 @@ if (not(headgear _unit in cascos)) then
 	{
 	_necesita = true;
 	_hayCaja = false;
-	_distancia = 50;
+	_distanceX = 50;
 	_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 	{
 	_muerto = _x;
-	if (((headgear _muerto) in cascos) and (_unit distance _muerto < _distancia)) then
+	if (((headgear _muerto) in cascos) and (_unit distance _muerto < _distanceX)) then
 		{
 		_target = _muerto;
 		_hayCaja = true;
-		_distancia = _muerto distance _unit;
+		_distanceX = _muerto distance _unit;
 		};
 	} forEach _muertos;
 	if ((_hayCaja) and (_unit getVariable "rearming")) then
@@ -376,15 +376,15 @@ if ({_x == "FirstAidKit"} count (items _unit) < _minFA) then
 	{
 	_necesita = true;
 	_hayCaja = false;
-	_distancia = 50;
+	_distanceX = 50;
 	_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 	{
 	_muerto = _x;
-	if (("FirstAidKit" in items _muerto) and (_unit distance _muerto < _distancia)) then
+	if (("FirstAidKit" in items _muerto) and (_unit distance _muerto < _distanceX)) then
 		{
 		_target = _muerto;
 		_hayCaja = true;
-		_distancia = _muerto distance _unit;
+		_distanceX = _muerto distance _unit;
 		};
 	} forEach _muertos;
 	if ((_hayCaja) and (_unit getVariable "rearming")) then
@@ -410,15 +410,15 @@ if ({_x == "FirstAidKit"} count (items _unit) < _minFA) then
 	};
 _hayCaja = false;
 _numero = getNumber (configfile >> "CfgWeapons" >> vest cursortarget >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor");
-_distancia = 50;
+_distanceX = 50;
 _muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 {
 _muerto = _x;
-if ((getNumber (configfile >> "CfgWeapons" >> vest _muerto >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor") > _numero) and (_unit distance _muerto < _distancia)) then
+if ((getNumber (configfile >> "CfgWeapons" >> vest _muerto >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor") > _numero) and (_unit distance _muerto < _distanceX)) then
 	{
 	_target = _muerto;
 	_hayCaja = true;
-	_distancia = _muerto distance _unit;
+	_distanceX = _muerto distance _unit;
 	};
 } forEach _muertos;
 if ((_hayCaja) and (_unit getVariable "rearming")) then
@@ -451,15 +451,15 @@ if (backpack _unit == "") then
 	{
 	_necesita = true;
 	_hayCaja = false;
-	_distancia = 50;
+	_distanceX = 50;
 	_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 	{
 	_muerto = _x;
-	if ((backpack _muerto != "") and (_unit distance _muerto < _distancia)) then
+	if ((backpack _muerto != "") and (_unit distance _muerto < _distanceX)) then
 		{
 		_target = _muerto;
 		_hayCaja = true;
-		_distancia = _muerto distance _unit;
+		_distanceX = _muerto distance _unit;
 		};
 	} forEach _muertos;
 	if ((_hayCaja) and (_unit getVariable "rearming")) then

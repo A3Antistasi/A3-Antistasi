@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {false};
-private ["_marcador","_base","_posbase","_posMarker","_angOrig","_ang","_intentos","_distancia","_pos","_fallo","_mina"];
+private ["_marcador","_base","_posbase","_posMarker","_angOrig","_ang","_intentos","_distanceX","_pos","_fallo","_mina"];
 
 _marcador = _this select 0;
 
@@ -12,17 +12,17 @@ _angOrig = [_posbase,_posMarker] call BIS_fnc_dirTo;
 _angOrig = _angOrig - 45;
 _ang = _angOrig + random 90;
 _intentos = 1;
-//_distancia = (distanceSPWN/2) + 101;
-_distancia = 500;
+//_distanceX = (distanceSPWN/2) + 101;
+_distanceX = 500;
 
 _pos = [];
 _fallo = true;
 while {_intentos < 37} do
 	{
-	_pos = [_posbase, _distancia, _ang] call BIS_Fnc_relPos;
+	_pos = [_posbase, _distanceX, _ang] call BIS_Fnc_relPos;
 	if (!surfaceIsWater _pos) then
 		{
-		_cercano = [marcadores,_pos] call BIS_fnc_nearestPosition;
+		_cercano = [markersX,_pos] call BIS_fnc_nearestPosition;
 		if (spawner getVariable _cercano == 2) then
 			{
 			_size = [_cercano] call A3A_fnc_sizeMarker;

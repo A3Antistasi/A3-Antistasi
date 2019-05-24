@@ -1,4 +1,4 @@
-private ["_soldados","_vehiculos","_grupos","_base","_posBase","_roads","_tipoCoche","_arrayAirports","_arrayDestinations","_tam","_road","_veh","_vehCrew","_grupoVeh","_grupo","_grupoP","_distancia","_spawnPoint"];
+private ["_soldados","_vehiculos","_grupos","_base","_posBase","_roads","_tipoCoche","_arrayAirports","_arrayDestinations","_tam","_road","_veh","_vehCrew","_grupoVeh","_grupo","_grupoP","_distanceX","_spawnPoint"];
 
 _soldados = [];
 _vehiculos = [];
@@ -6,24 +6,24 @@ _grupos = [];
 _base = "";
 _roads = [];
 
-_arrayAirports = if (hayIFA) then {(aeropuertos + puestos) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}} else {(puertos + aeropuertos + puestos) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}};
+_arrayAirports = if (hayIFA) then {(airportsX + puestos) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}} else {(puertos + airportsX + puestos) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}};
 
 _arrayAirports1 = [];
 if !(isMultiplayer) then
 	{
 	{
-	_aeropuerto = _x;
-	_pos = getMarkerPos _aeropuerto;
-	//if (allUnits findIf {(_x getVariable ["spawner",false]) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAirports1 pushBack _aeropuerto};
-	if ([distanceForLandAttack,1,_pos,buenos] call A3A_fnc_distanceUnits) then {_arrayAirports1 pushBack _aeropuerto};
+	_airportX = _x;
+	_pos = getMarkerPos _airportX;
+	//if (allUnits findIf {(_x getVariable ["spawner",false]) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAirports1 pushBack _airportX};
+	if ([distanceForLandAttack,1,_pos,buenos] call A3A_fnc_distanceUnits) then {_arrayAirports1 pushBack _airportX};
 	} forEach _arrayAirports;
 	}
 else
 	{
 	{
-	_aeropuerto = _x;
-	_pos = getMarkerPos _aeropuerto;
-	if (playableUnits findIf {(side (group _x) == buenos) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAirports1 pushBack _aeropuerto};
+	_airportX = _x;
+	_pos = getMarkerPos _airportX;
+	if (playableUnits findIf {(side (group _x) == buenos) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAirports1 pushBack _airportX};
 	} forEach _arrayAirports;
 	};
 if (_arrayAirports1 isEqualTo []) exitWith {};
@@ -43,7 +43,7 @@ if (lados getVariable [_base,sideUnknown] == malos) then
 		{
 		if (random 100 < prestigeNATO) then
 			{
-			_tipoCoche = if (_base in aeropuertos) then {selectRandom (vehNATOLight + [vehNATOPatrolHeli])} else {selectRandom vehNATOLight};
+			_tipoCoche = if (_base in airportsX) then {selectRandom (vehNATOLight + [vehNATOPatrolHeli])} else {selectRandom vehNATOLight};
 			if (_tipoCoche == vehNATOPatrolHeli) then {_typePatrol = "AIR"};
 			}
 		else
@@ -62,7 +62,7 @@ else
 		}
 	else
 		{
-		_tipoCoche = if (_base in aeropuertos) then {selectRandom (vehCSATLight + [vehCSATPatrolHeli])} else {selectRandom vehCSATLight};
+		_tipoCoche = if (_base in airportsX) then {selectRandom (vehCSATLight + [vehCSATPatrolHeli])} else {selectRandom vehCSATLight};
 		if (_tipoCoche == vehCSATPatrolHeli) then {_typePatrol = "AIR"};
 		};
 	};
@@ -72,21 +72,21 @@ _posbase = getMarkerPos _base;
 
 if (_typePatrol == "AIR") then
 	{
-	_arrayDestinations = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
-	_distancia = 200;
+	_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
+	_distanceX = 200;
 	}
 else
 	{
 	if (_typePatrol == "SEA") then
 		{
 		_arrayDestinations = seaMarkers select {(getMarkerPos _x) distance _posbase < 2500};
-		_distancia = 100;
+		_distanceX = 100;
 		}
 	else
 		{
-		_arrayDestinations = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
+		_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
 		_arrayDestinations = [_arrayDestinations,_posBase] call A3A_fnc_patrolDestinations;
-		_distancia = 50;
+		_distanceX = 50;
 		};
 	};
 
@@ -102,7 +102,7 @@ if (_typePatrol != "AIR") then
 		}
 	else
 		{
-		_indice = aeropuertos find _base;
+		_indice = airportsX find _base;
 		if (_indice != -1) then
 			{
 			_spawnPoint = spawnPoints select _indice;
@@ -161,11 +161,11 @@ while {alive _veh} do
 	_Vwp0 setWaypointSpeed "LIMITED";
 	_veh setFuel 1;
 
-	waitUntil {sleep 60; (_veh distance _posDestination < _distancia) or ({[_x] call A3A_fnc_canFight} count _soldados == 0) or (!canMove _veh)};
-	if !(_veh distance _posDestination < _distancia) exitWith {};
+	waitUntil {sleep 60; (_veh distance _posDestination < _distanceX) or ({[_x] call A3A_fnc_canFight} count _soldados == 0) or (!canMove _veh)};
+	if !(_veh distance _posDestination < _distanceX) exitWith {};
 	if (_typePatrol == "AIR") then
 		{
-		_arrayDestinations = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
+		_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
 		}
 	else
 		{
@@ -175,7 +175,7 @@ while {alive _veh} do
 			}
 		else
 			{
-			_arrayDestinations = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
+			_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
 			_arrayDestinations = [_arrayDestinations,position _veh] call A3A_fnc_patrolDestinations;
 			};
 		};

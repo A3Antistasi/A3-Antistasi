@@ -7,7 +7,7 @@ if (lados getVariable [_marcador,sideUnknown] == buenos) then
 	{
 	_texto = if (count (garrison getVariable [_marcador,[]]) > 0) then {format [": %1", count (garrison getVariable [_marcador,[]])]} else {""};
 	if (markerColor _mrkD != colourTeamPlayer) then {_mrkD setMarkerColor colourTeamPlayer};
-	if (_marcador in aeropuertos) then
+	if (_marcador in airportsX) then
 		{
 		_texto = format ["%2 Airbase%1",_texto,nameTeamPlayer];
 		[_mrkD,format ["%1 Airbase",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[malos,muyMalos],true];
@@ -46,7 +46,7 @@ else
 	{
 	if (lados getVariable [_marcador,sideUnknown] == malos) then
 		{
-		if (_marcador in aeropuertos) then
+		if (_marcador in airportsX) then
 			{_mrkD setMarkerText format ["%1 Airbase",nameMalos];
 			_mrkD setMarkerType flagNATOmrk
 			}
@@ -61,7 +61,7 @@ else
 		}
 	else
 		{
-		if (_marcador in aeropuertos) then {_mrkD setMarkerText format ["%1 Airbase",nameInvaders];_mrkD setMarkerType flagCSATmrk} else {
+		if (_marcador in airportsX) then {_mrkD setMarkerText format ["%1 Airbase",nameInvaders];_mrkD setMarkerType flagCSATmrk} else {
 		if (_marcador in puestos) then {_mrkD setMarkerText format ["%1 Outpost",nameInvaders]}};
 		_mrkD setMarkerColor colorInvaders;
 		};

@@ -2,11 +2,11 @@ if (!isServer) exitWith{};
 
 //debugperf = false;
 
-private ["_tiempo","_marcadores","_marcador","_positionMRK","_cuenta"];
+private ["_tiempo","_markersX","_marcador","_positionMRK","_cuenta"];
 
 waitUntil {!isNil "theBoss"};
 
-_tiempo = 1/(count marcadores);
+_tiempo = 1/(count markersX);
 _cuenta = 0;
 _greenfor = [];
 _blufor = [];
@@ -25,7 +25,7 @@ else
 	sleep 0.5 - (time - _tiempo);
 	_cuenta = _cuenta + (0.5 - (time-_tiempo));
 	};
-//if (debugperf) then {hint format ["Tiempo transcurrido: %1 para %2 marcadores", time - _tiempo, count marcadores]};
+//if (debugperf) then {hint format ["Tiempo transcurrido: %1 para %2 markersX", time - _tiempo, count markersX]};
 _tiempo = time;
 */
 //sleep 1;
@@ -82,8 +82,8 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 					}
 				else
 					{
-					if (_marcador in controles) then {[[_marcador],"A3A_fnc_createAIcontrols"] call A3A_fnc_scheduler} else {
-					if (_marcador in aeropuertos) then {[[_marcador],"A3A_fnc_createAIAirplane"] call A3A_fnc_scheduler} else {
+					if (_marcador in controlsX) then {[[_marcador],"A3A_fnc_createAIcontrols"] call A3A_fnc_scheduler} else {
+					if (_marcador in airportsX) then {[[_marcador],"A3A_fnc_createAIAirplane"] call A3A_fnc_scheduler} else {
 					if (((_marcador in recursos) or (_marcador in fabricas))) then {[[_marcador],"A3A_fnc_createAIResources"] call A3A_fnc_scheduler} else {
 					if ((_marcador in puestos) or (_marcador in puertos)) then {[[_marcador],"A3A_fnc_createAIOutposts"] call A3A_fnc_scheduler};};};};
 					};
@@ -147,7 +147,7 @@ else
 							if (({if ((isPlayer _x) and (_x distance2D _positionMRK < distanceSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"A3A_fnc_createCIV"] call A3A_fnc_scheduler};
 							};
 						};
-					if (_marcador in outpostsFIA) then {[[_marcador],"A3A_fnc_createFIAOutposts2"] call A3A_fnc_scheduler} else {if (not(_marcador in controles)) then {[[_marcador],"A3A_fnc_createSDKGarrisons"] call A3A_fnc_scheduler}};
+					if (_marcador in outpostsFIA) then {[[_marcador],"A3A_fnc_createFIAOutposts2"] call A3A_fnc_scheduler} else {if (not(_marcador in controlsX)) then {[[_marcador],"A3A_fnc_createSDKGarrisons"] call A3A_fnc_scheduler}};
 					};
 				}
 			else
@@ -198,8 +198,8 @@ else
 				if (({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _greenfor > 0) or ({if ((_x distance2D _positionMRK < distanceSPWN2) and (isPlayer _x)) exitWith {1}} count _opfor > 0) or ({if (_x distance2D _positionMRK < distanceSPWN2) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then
 					{
 					spawner setVariable [_marcador,0,true];
-					if (_marcador in controles) then {[[_marcador],"A3A_fnc_createAIcontrols"] call A3A_fnc_scheduler} else {
-					if (_marcador in aeropuertos) then {[[_marcador],"A3A_fnc_createAIAirplane"] call A3A_fnc_scheduler} else {
+					if (_marcador in controlsX) then {[[_marcador],"A3A_fnc_createAIcontrols"] call A3A_fnc_scheduler} else {
+					if (_marcador in airportsX) then {[[_marcador],"A3A_fnc_createAIAirplane"] call A3A_fnc_scheduler} else {
 					if (((_marcador in recursos) or (_marcador in fabricas))) then {[[_marcador],"A3A_fnc_createAIResources"] call A3A_fnc_scheduler} else {
 					if ((_marcador in puestos) or (_marcador in puertos)) then {[[_marcador],"A3A_fnc_createAIOutposts"] call A3A_fnc_scheduler};};};};
 					};
@@ -244,6 +244,6 @@ else
 			};
 		};
 	};
-} forEach marcadores;
+} forEach markersX;
 
 };

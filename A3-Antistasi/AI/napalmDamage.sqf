@@ -1,9 +1,9 @@
 private ["_pos"];
 _pos = _this select 0;
 
-_argumentos = ["Car","Truck","Man","Air"];
+_argumentX = ["Car","Truck","Man","Air"];
 
-if (isServer) then {_argumentos = ["All", "", "House", "Wall"]};
+if (isServer) then {_argumentX = ["All", "", "House", "Wall"]};
 
 _timeOut = time + 70;
 _luces = [];
@@ -11,7 +11,7 @@ _fuegos = [];
 
 while {time < _timeOut} do
 	{
-	_units = nearestobjects [_pos, _argumentos, 70];
+	_units = nearestobjects [_pos, _argumentX, 70];
 	if (isServer) then {_units = _units - [mapa,bandera,cajaVeh,caja]};
 	{
 	if (local _x) then

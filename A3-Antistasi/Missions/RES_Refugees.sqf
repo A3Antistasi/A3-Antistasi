@@ -73,11 +73,11 @@ if (_lado == muyMalos) then
 		if (_dificil) then {sleep 300} else {sleep 300 + (random 1800)};
 		if (["RES"] call BIS_fnc_taskExists) then
 			{
-			_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == muyMalos) and ([_x,true] call A3A_fnc_airportCanAttack)};
-			if (count _aeropuertos > 0) then
+			_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == muyMalos) and ([_x,true] call A3A_fnc_airportCanAttack)};
+			if (count _airportsX > 0) then
 				{
-				_aeropuerto = [_aeropuertos, position casa] call BIS_fnc_nearestPosition;
-				[[getPosASL _casa,_aeropuerto,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
+				_airportX = [_airportsX, position casa] call BIS_fnc_nearestPosition;
+				[[getPosASL _casa,_airportX,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
 				};
 			};
 		};

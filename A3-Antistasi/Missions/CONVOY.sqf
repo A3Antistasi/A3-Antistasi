@@ -42,7 +42,7 @@ _enddateNum = dateToNumber _fechafin;
 
 private ["_tsk","_grpPOW","_pos"];
 
-if ((_destino in aeropuertos) or (_destino in puestos)) then
+if ((_destino in airportsX) or (_destino in puestos)) then
 	{
 	_typeConvoy = ["Municion","Armor"];
 	if (_destino in puestos) then {if (((count (garrison getVariable [_destino,0]))/2) >= [_destino] call A3A_fnc_garrisonSize) then {_typeConvoy pushBack "Refuerzos"}};
@@ -128,9 +128,9 @@ sleep (_tiempolim * 60);
 
 _posOrig = [];
 _dir = 0;
-if (_base in aeropuertos) then
+if (_base in airportsX) then
 	{
-	_indice = aeropuertos find _base;
+	_indice = airportsX find _base;
 	_spawnPoint = spawnPoints select _indice;
 	_posOrig = getMarkerPos _spawnPoint;
 	_dir = markerDir _spawnPoint;

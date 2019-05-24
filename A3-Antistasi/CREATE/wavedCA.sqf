@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_posOrigen","_tipoGrupo","_nameOrigin","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiculos","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_grupoVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_grupouav","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigen","_aeropuerto","_nameDest","_tiempo","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_cuenta","_tsk1","_spawnPoint","_vehPool"];
+private ["_posOrigen","_tipoGrupo","_nameOrigin","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiculos","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_grupoVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_grupouav","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigen","_airportX","_nameDest","_tiempo","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_cuenta","_tsk1","_spawnPoint","_vehPool"];
 
 bigAttackInProgress = true;
 publicVariable "bigAttackInProgress";
@@ -73,7 +73,7 @@ while {(_waves > 0)} do
 		{
 		if (_posOrigen distance _posDestination < distanceForLandAttack) then
 			{
-			_indice = aeropuertos find _mrkOrigen;
+			_indice = airportsX find _mrkOrigen;
 			_spawnPoint = spawnPoints select _indice;
 			_pos = getMarkerPos _spawnPoint;
 			_posOrigenLand = _posOrigen;
@@ -410,7 +410,7 @@ while {(_waves > 0)} do
 			_uwp0 = _grupouav addWayPoint [_posDestination,0];
 			_uwp0 setWaypointBehaviour "AWARE";
 			_uwp0 setWaypointType "SAD";
-			if (not(_mrkDestination in aeropuertos)) then {_uav removeMagazines "6Rnd_LG_scalpel"};
+			if (not(_mrkDestination in airportsX)) then {_uav removeMagazines "6Rnd_LG_scalpel"};
 			sleep 5;
 			}
 		else
@@ -423,11 +423,11 @@ while {(_waves > 0)} do
 			};
 		_vehPool = if (_lado == malos) then
 					{
-					if (_mrkDestination in aeropuertos) then {(vehNATOAir - [vehNATOPlaneAA]) select {[_x] call A3A_fnc_vehAvailable}} else {(vehNatoAir - vehFixedWing) select {[_x] call A3A_fnc_vehAvailable}};
+					if (_mrkDestination in airportsX) then {(vehNATOAir - [vehNATOPlaneAA]) select {[_x] call A3A_fnc_vehAvailable}} else {(vehNatoAir - vehFixedWing) select {[_x] call A3A_fnc_vehAvailable}};
 					}
 				else
 					{
-					if (_mrkDestination in aeropuertos) then {(vehCSATAir - [vehCSATPlaneAA]) select {[_x] call A3A_fnc_vehAvailable}} else {(vehCSATAir - vehFixedWing) select {[_x] call A3A_fnc_vehAvailable}};
+					if (_mrkDestination in airportsX) then {(vehCSATAir - [vehCSATPlaneAA]) select {[_x] call A3A_fnc_vehAvailable}} else {(vehCSATAir - vehFixedWing) select {[_x] call A3A_fnc_vehAvailable}};
 					};
 		if (_esSDK) then
 			{
@@ -523,7 +523,7 @@ while {(_waves > 0)} do
 						deleteVehicle _x;
 						};
 					} forEach units _grupo;
-					if (!(_veh isKindOf "Helicopter") or (_mrkDestination in aeropuertos)) then
+					if (!(_veh isKindOf "Helicopter") or (_mrkDestination in airportsX)) then
 						{
 						[_veh,_grupo,_mrkDestination,_mrkOrigen] spawn A3A_fnc_airdrop;
 						}
@@ -589,7 +589,7 @@ while {(_waves > 0)} do
 			if (([_plane] call A3A_fnc_vehAvailable) and (not(_mrkDestination in ciudades)) and _firstWave) then
 				{
 				sleep 60;
-				_rnd = if (_mrkDestination in aeropuertos) then {round random 4} else {round random 2};
+				_rnd = if (_mrkDestination in airportsX) then {round random 4} else {round random 2};
 				for "_i" from 0 to _rnd do
 					{
 					if ([_plane] call A3A_fnc_vehAvailable) then
@@ -597,7 +597,7 @@ while {(_waves > 0)} do
 						diag_log "Antistasi: Airstrike Spawned";
 						if (_i == 0) then
 							{
-							if (_mrkDestination in aeropuertos) then
+							if (_mrkDestination in airportsX) then
 								{
 								_nul = [_mrkDestination,_lado,"HE"] spawn A3A_fnc_airstrike;
 								}
@@ -625,7 +625,7 @@ while {(_waves > 0)} do
 			if (([_plane] call A3A_fnc_vehAvailable) and (_firstWave)) then
 				{
 				sleep 60;
-				_rnd = if (_mrkDestination in aeropuertos) then {if ({lados getVariable [_x,sideUnknown] == muyMalos} count aeropuertos == 1) then {8} else {round random 4}} else {round random 2};
+				_rnd = if (_mrkDestination in airportsX) then {if ({lados getVariable [_x,sideUnknown] == muyMalos} count airportsX == 1) then {8} else {round random 4}} else {round random 2};
 				for "_i" from 0 to _rnd do
 					{
 					if ([_plane] call A3A_fnc_vehAvailable) then
@@ -633,7 +633,7 @@ while {(_waves > 0)} do
 						diag_log "Antistasi: Airstrike Spawned";
 						if (_i == 0) then
 							{
-							if (_mrkDestination in aeropuertos) then
+							if (_mrkDestination in airportsX) then
 								{
 								_nul = [_mrkDestination,_lado,"HE"] spawn A3A_fnc_airstrike;
 								}

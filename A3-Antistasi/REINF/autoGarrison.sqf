@@ -16,7 +16,7 @@ _size = [_marcador] call A3A_fnc_sizeMarker;
 
 _divisor = 50;
 
-if (_marcador in aeropuertos) then {_divisor = 100};
+if (_marcador in airportsX) then {_divisor = 100};
 
 _size = round (_size / _divisor);
 

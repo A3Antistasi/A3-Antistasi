@@ -19,10 +19,10 @@ _objetos = nearestObjects [_unit, ["WeaponHolderSimulated", "GroundWeaponHolder"
 if (count _objetos == 0) exitWith {_unit groupChat "I see no corpses here to loot"};
 
 _target = objNull;
-_distancia = 51;
+_distanceX = 51;
 {
 _objeto = _x;
-if (_unit distance _objeto < _distancia) then
+if (_unit distance _objeto < _distanceX) then
 	{
 	if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 		{
@@ -35,7 +35,7 @@ if (_unit distance _objeto < _distancia) then
 			if ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers)) then
 				{
 				_target = _objeto;
-				_distancia = _unit distance _objeto;
+				_distanceX = _unit distance _objeto;
 				_arma = _posible;
 				};
 			};
@@ -87,14 +87,14 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 		_magazines = getArray (configFile / "CfgWeapons" / _tempPrimary / "magazines");
 		_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 		_hayCaja = false;
-		_distancia = 51;
+		_distanceX = 51;
 		{
 		_muerto = _x;
-		if (({_x in _magazines} count (magazines _muerto) > 0) and (_unit distance _muerto < _distancia)) then
+		if (({_x in _magazines} count (magazines _muerto) > 0) and (_unit distance _muerto < _distanceX)) then
 			{
 			_target = _muerto;
 			_hayCaja = true;
-			_distancia = _muerto distance _unit;
+			_distanceX = _muerto distance _unit;
 			};
 		} forEach _muertos;
 		if ((_hayCaja) and (_unit getVariable "rearming")) then
@@ -158,10 +158,10 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 		removeHeadgear _unit;
 		};
 	_target = objNull;
-	_distancia = 51;
+	_distanceX = 51;
 	{
 	_objeto = _x;
-	if (_unit distance _objeto < _distancia) then
+	if (_unit distance _objeto < _distanceX) then
 		{
 		if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 			{
@@ -173,7 +173,7 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 				if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers))) then
 					{
 					_target = _objeto;
-					_distancia = _unit distance _objeto;
+					_distanceX = _unit distance _objeto;
 					_arma = _posible;
 					};
 				};

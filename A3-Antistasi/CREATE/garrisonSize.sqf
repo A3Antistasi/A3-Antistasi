@@ -5,7 +5,7 @@ _frontera = [_marcador] call A3A_fnc_isFrontline;
 
 _nVeh = 0;
 
-if (_marcador in aeropuertos) then
+if (_marcador in airportsX) then
 	{
 	_nveh = _nveh + round (_size/60);
 	if (_frontera) then {_nveh = _nveh * 2};

@@ -167,7 +167,7 @@ else
 	_roundsMax = _rounds;
 	};
 
-_marcador = [marcadores,_positionTel] call BIS_fnc_nearestPosition;
+_marcador = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 _size = [_marcador] call A3A_fnc_sizeMarker;
 _forzado = false;
 

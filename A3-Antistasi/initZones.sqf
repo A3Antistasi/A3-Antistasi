@@ -11,13 +11,13 @@ forcedSpawn = [];
 ciudades = [];
 if (worldName == "Tanoa") then
     {
-    aeropuertos = ["airport","airport_1","airport_2","airport_3","airport_4"];//airports
+    airportsX = ["airport","airport_1","airport_2","airport_3","airport_4"];//airports
     spawnPoints = ["spawnPoint","spawnPoint_1","spawnPoint_2","spawnPoint_3","spawnPoint_4"];
     recursos = ["resource","resource_1","resource_2","resource_3","resource_4","resource_5","resource_6","resource_7"];//economic resources
     fabricas = ["factory","factory_1","factory_2","factory_3","factory_4"];//factories
     puestos = ["puesto","puesto_1","puesto_2","puesto_3","puesto_4","puesto_5","puesto_6","puesto_7","puesto_8","puesto_9","puesto_10","puesto_11","puesto_12","puesto_13","puesto_14"];//any small zone with mil buildings
     puertos = ["puerto","puerto_1","puerto_2","puerto_3","puerto_4","puerto_5"];//seaports, adding a lot will affect economics, 5 is ok
-    controles = ["control","control_1","control_2","control_3","control_4","control_5","control_6","control_7","control_8","control_9","control_10","control_11","control_12","control_13","control_14","control_15","control_16","control_17","control_18","control_19","control_20","control_21","control_22","control_23","control_24","control_25","control_26","control_27","control_28","control_29","control_30","control_31","control_32","control_33","control_34","control_35","control_36","control_37","control_38","control_39","control_40","control_41","control_42","control_43","control_44","control_45","control_46","control_47","control_48","control_49","control_50","control_51"];//use this for points where you want a roadblock (logic/strategic points, such as crossroads, airport or bases entrances etc..) game will add some more automatically
+    controlsX = ["control","control_1","control_2","control_3","control_4","control_5","control_6","control_7","control_8","control_9","control_10","control_11","control_12","control_13","control_14","control_15","control_16","control_17","control_18","control_19","control_20","control_21","control_22","control_23","control_24","control_25","control_26","control_27","control_28","control_29","control_30","control_31","control_32","control_33","control_34","control_35","control_36","control_37","control_38","control_39","control_40","control_41","control_42","control_43","control_44","control_45","control_46","control_47","control_48","control_49","control_50","control_51"];//use this for points where you want a roadblock (logic/strategic points, such as crossroads, airport or bases entrances etc..) game will add some more automatically
     seaMarkers = ["seaPatrol","seaPatrol_1","seaPatrol_2","seaPatrol_3","seaPatrol_4","seaPatrol_5","seaPatrol_6","seaPatrol_7","seaPatrol_8","seaPatrol_9","seaPatrol_10","seaPatrol_11","seaPatrol_12","seaPatrol_13","seaPatrol_14","seaPatrol_15","seaPatrol_16","seaPatrol_17","seaPatrol_18","seaPatrol_19","seaPatrol_20","seaPatrol_21"];
     seaSpawn = ["seaSpawn","seaSpawn_1","seaSpawn_2","seaSpawn_3","seaSpawn_4","seaSpawn_5","seaSpawn_6","seaSpawn_7","seaSpawn_8","seaSpawn_9","seaSpawn_10","seaSpawn_11","seaSpawn_12","seaSpawn_13","seaSpawn_14","seaSpawn_15","seaSpawn_16","seaSpawn_17","seaSpawn_18","seaSpawn_19","seaSpawn_20","seaSpawn_21","seaSpawn_22","seaSpawn_23","seaSpawn_24","seaSpawn_25","seaSpawn_26","seaSpawn_27","seaSpawn_28","seaSpawn_29","seaSpawn_30","seaSpawn_31","seaSpawn_32"];
     seaAttackSpawn = ["seaAttackSpawn","seaAttackSpawn_1","seaAttackSpawn_2","seaAttackSpawn_3","seaAttackSpawn_4","seaAttackSpawn_5","seaAttackSpawn_6","seaAttackSpawn_7","seaAttackSpawn_8","seaAttackSpawn_9","seaAttackSpawn_10"];
@@ -26,13 +26,13 @@ else
     {
     if (worldName == "Altis") then
         {
-        aeropuertos = ["airport","airport_1","airport_2","airport_3","airport_4","airport_5"];//airports
+        airportsX = ["airport","airport_1","airport_2","airport_3","airport_4","airport_5"];//airports
         spawnPoints = ["spawnPoint","spawnPoint_1","spawnPoint_2","spawnPoint_3","spawnPoint_4","spawnPoint_5"];
         recursos = ["resource","resource_1","resource_2","resource_3","resource_4","resource_5","resource_6","resource_7"];//economic resources
         fabricas = ["factory","factory_1","factory_2","factory_3","factory_4","factory_5","factory_6","factory_7","factory_8","factory_9","factory_10","factory_11"];//factories
         puestos = ["puesto","puesto_1","puesto_2","puesto_3","puesto_4","puesto_5","puesto_6","puesto_7","puesto_8","puesto_9","puesto_10","puesto_11","puesto_12","puesto_13","puesto_14","puesto_15","puesto_16","puesto_17","puesto_18","puesto_19","puesto_20","puesto_21","puesto_22","puesto_23","puesto_24","puesto_25","puesto_26","puesto_27","puesto_28","puesto_29","puesto_30","puesto_31","puesto_32","puesto_33","puesto_34","puesto_35","puesto_36","puesto_37","puesto_38","puesto_39","puesto_40","puesto_41","puesto_42"];
         puertos = ["puerto","puerto_1","puerto_2","puerto_3","puerto_4"];//seaports, adding a lot will affect economics, 5 is ok
-        controles = ["control","control_1","control_2","control_3","control_4","control_5","control_6","control_7","control_8","control_9","control_10","control_11","control_12","control_13","control_14","control_15","control_16","control_17","control_18","control_19","control_20","control_21","control_22","control_23","control_24","control_25","control_26","control_27","control_28","control_29","control_30","control_31","control_32","control_33","control_34","control_35","control_36","control_37","control_38","control_39","control_40","control_41","control_42","control_43","control_44","control_45","control_46","control_47","control_48","control_49","control_50","control_51","control_52","control_53","control_54","control_55","control_56","control_57","control_58"];//use this for points where you want a roadblock (logic/strategic points, such as crossroads, airport or bases entrances etc..) game will add some more automatically
+        controlsX = ["control","control_1","control_2","control_3","control_4","control_5","control_6","control_7","control_8","control_9","control_10","control_11","control_12","control_13","control_14","control_15","control_16","control_17","control_18","control_19","control_20","control_21","control_22","control_23","control_24","control_25","control_26","control_27","control_28","control_29","control_30","control_31","control_32","control_33","control_34","control_35","control_36","control_37","control_38","control_39","control_40","control_41","control_42","control_43","control_44","control_45","control_46","control_47","control_48","control_49","control_50","control_51","control_52","control_53","control_54","control_55","control_56","control_57","control_58"];//use this for points where you want a roadblock (logic/strategic points, such as crossroads, airport or bases entrances etc..) game will add some more automatically
         seaMarkers = ["seaPatrol","seaPatrol_1","seaPatrol_2","seaPatrol_3","seaPatrol_4","seaPatrol_5","seaPatrol_6","seaPatrol_7","seaPatrol_8","seaPatrol_9","seaPatrol_10","seaPatrol_11","seaPatrol_12","seaPatrol_13","seaPatrol_14","seaPatrol_15","seaPatrol_16","seaPatrol_17","seaPatrol_18","seaPatrol_19","seaPatrol_20","seaPatrol_21","seaPatrol_22","seaPatrol_23","seaPatrol_24","seaPatrol_25","seaPatrol_26","seaPatrol_27"];
         seaSpawn = ["seaSpawn","seaSpawn_1","seaSpawn_2","seaSpawn_3","seaSpawn_4","seaSpawn_5","seaSpawn_6","seaSpawn_7","seaSpawn_8","seaSpawn_9"];
         seaAttackSpawn = ["seaAttackSpawn","seaAttackSpawn_1","seaAttackSpawn_2","seaAttackSpawn_3","seaAttackSpawn_4","seaAttackSpawn_5","seaAttackSpawn_6"];
@@ -51,7 +51,7 @@ else
             _mrk setMarkerBrush "SOLID";
             _mrk setMarkerColor "ColorRed";
             _mrk setMarkerText _name;
-            controles pushBack _name;
+            controlsX pushBack _name;
         };
         } foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["Hill"], worldSize/1.414]);
         }
@@ -59,13 +59,13 @@ else
         {
         if (worldName == "chernarus_summer") then
             {
-            aeropuertos = ["airport","airport_1","airport_2"];
+            airportsX = ["airport","airport_1","airport_2"];
             spawnPoints = ["spawnPoint","spawnPoint_1","spawnPoint_2"];
             recursos = ["resource","resource_1","resource_2","resource_3","resource_4","resource_5","resource_6","resource_7","resource_8","resource_9"];
             fabricas = ["factory","factory_1","factory_2","factory_3","factory_4"];
             puestos = ["puesto","puesto_1","puesto_2","puesto_3","puesto_4","puesto_5","puesto_6","puesto_7","puesto_8","puesto_9","puesto_10","puesto_11","puesto_12","puesto_13","puesto_14","puesto_15","puesto_16","puesto_17","puesto_18","puesto_19","puesto_20","puesto_21"];
             puertos = ["puerto","puerto_1","puerto_2","puerto_3","puerto_4"];
-            controles = ["control","control_1","control_2","control_3","control_4","control_5","control_6","control_7","control_8","control_9","control_10","control_11","control_12","control_13","control_14","control_15","control_16","control_17","control_18","control_19","control_20","control_21","control_22","control_23","control_24","control_25","control_26","control_27","control_28","control_29","control_30","control_31","control_32","control_33","control_34","control_35","control_36","control_37","control_38","control_39","control_40"];
+            controlsX = ["control","control_1","control_2","control_3","control_4","control_5","control_6","control_7","control_8","control_9","control_10","control_11","control_12","control_13","control_14","control_15","control_16","control_17","control_18","control_19","control_20","control_21","control_22","control_23","control_24","control_25","control_26","control_27","control_28","control_29","control_30","control_31","control_32","control_33","control_34","control_35","control_36","control_37","control_38","control_39","control_40"];
             seaMarkers = [];
             seaSpawn = [];
             seaAttackSpawn = [];
@@ -85,21 +85,21 @@ else
                 _mrk setMarkerBrush "SOLID";
                 _mrk setMarkerColor "ColorRed";
                 _mrk setMarkerText _name;
-                controles pushBack _name;
+                controlsX pushBack _name;
                 };
             } foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["Hill"], worldSize/1.414]);
             };
         };
     };
 {_x setMarkerAlpha 0} forEach (seaMarkers + seaSpawn + seaAttackSpawn + spawnPoints);
-defaultControlIndex = (count controles) - 1;
+defaultControlIndex = (count controlsX) - 1;
 outpostsFIA = [];
 destroyedCities = [];
 garrison setVariable ["Synd_HQ",[],true];
-marcadores = aeropuertos + recursos + fabricas + puestos + puertos + controles + ["Synd_HQ"];
+markersX = airportsX + recursos + fabricas + puestos + puertos + controlsX + ["Synd_HQ"];
 {_x setMarkerAlpha 0;
 spawner setVariable [_x,2,true];
-} forEach marcadores;
+} forEach markersX;
 private ["_sizeX","_sizeY","_size"];
 {
 //_nombre = text _x;
@@ -125,11 +125,11 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
             _roads pushBack (getPosATL _x);
             };
         } forEach _roadsProv;
-        carreteras setVariable [_nombre,_roads];
+        roadsX setVariable [_nombre,_roads];
         }
     else
         {
-        _roads = carreteras getVariable _nombre;
+        _roads = roadsX getVariable _nombre;
         _numCiv = server getVariable _nombre;
         if (isNil "_numCiv") then
             {
@@ -144,7 +144,7 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
                 _roads pushBack (getPosATL _x);
                 };
             } forEach _roadsProv;
-            carreteras setVariable [_nombre,_roads];
+            roadsX setVariable [_nombre,_roads];
             };
         if (typeName _numCiv != typeName 0) then {hint format ["Datos erróneos en %1. Son del tipo %2",_nombre, typeName _numCiv]};
         //if (isNil "_roads") then {hint format ["A mi no me sale en %1",_nombre]};
@@ -174,7 +174,7 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
     };
 }foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["NameCityCapital","NameCity","NameVillage","CityCenter"], 25000]);
 
-marcadores = marcadores + ciudades;
+markersX = markersX + ciudades;
 lados setVariable ["Synd_HQ",buenos,true];
 //if !(isMultiplayer) then {call compile preprocessFileLineNumbers "initGarrisons.sqf"};
 
@@ -287,7 +287,7 @@ if (count _posBancos > 0) then
         };
     };
 
-blackListDest = (marcadores - controles - ["Synd_HQ"] - ciudades) select {!((position ([getMarkerPos _x] call A3A_fnc_findNearestGoodRoad)) inArea _x)};
+blackListDest = (markersX - controlsX - ["Synd_HQ"] - ciudades) select {!((position ([getMarkerPos _x] call A3A_fnc_findNearestGoodRoad)) inArea _x)};
 
 publicVariable "blackListDest";
 //the following is the console code snippet I use to pick positions of any kind of building. You may do this for gas stations, banks, radios etc.. markerPos "Base_4" is because it's in the middle of the island, and inside the array you may find the type of building I am searching for. Paste the result in a txt and add it to the corresponding arrays.
@@ -298,13 +298,13 @@ pospepe = [];
 copytoclipboard str pospepe;
 */
 if (isMultiplayer) then {[[petros,"hint","Zones Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP};
-publicVariable "marcadores";
+publicVariable "markersX";
 publicVariable "ciudades";
-publicVariable "aeropuertos";
+publicVariable "airportsX";
 publicVariable "recursos";
 publicVariable "fabricas";
 publicVariable "puestos";
-publicVariable "controles";
+publicVariable "controlsX";
 publicVariable "puertos";
 publicVariable "destroyedCities";
 publicVariable "forcedSpawn";

@@ -27,7 +27,7 @@ if (_isMarker) then
 	{
 	_timeOut = time + 600;
 	waitUntil {sleep 1; (spawner getVariable _marcador == 0) or (time > _timeOut)};
-	if (_marcador in aeropuertos) then
+	if (_marcador in airportsX) then
 		{
 		_size = [_marcador] call A3A_fnc_sizeMarker;
 		_buildings = nearestObjects [_posicion, ["Land_LandMark_F","Land_runway_edgelight"], _size / 2];

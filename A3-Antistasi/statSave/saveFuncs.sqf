@@ -44,7 +44,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["outpostsFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","dificultad","gameMode"];
+["outpostsFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -54,7 +54,7 @@ fn_SetStat =
 	if(_varName in specialVarLoads) then
 	{
 		if(_varName == 'cuentaCA') then {cuentaCA = _varValue; publicVariable "cuentaCA"};
-		if(_varName == 'dificultad') then
+		if(_varName == 'difficultyX') then
 			{
 			if !(isMultiplayer) then
 				{
@@ -175,7 +175,7 @@ fn_SetStat =
 			};
 		if(_varName == 'garrison') then
 			{
-			//_marcadores = marcadores - outpostsFIA - controles - ciudades;
+			//_markersX = markersX - outpostsFIA - controlsX - ciudades;
 			{garrison setVariable [_x select 0,_x select 1,true]} forEach _varvalue;
 			};
 		if(_varName == 'outpostsFIA') then
@@ -269,7 +269,7 @@ fn_SetStat =
 				{
 				lados setVariable [_x,buenos,true];
 				};
-			} forEach controles;
+			} forEach controlsX;
 			respawnTeamPlayer setMarkerPos _posHQ;
 			petros setPos _posHQ;
 			"Synd_HQ" setMarkerPos _posHQ;

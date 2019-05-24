@@ -101,14 +101,14 @@ if (side group player == buenos) then
 
 	player addEventHandler ["InventoryOpened",
 		{
-		private ["_jugador","_contenedor","_tipo"];
+		private ["_jugador","_containerX","_tipo"];
 		_control = false;
 		_jugador = _this select 0;
 		if (captive _jugador) then
 			{
-			_contenedor = _this select 1;
-			_tipo = typeOf _contenedor;
-			if (((_contenedor isKindOf "Man") and (!alive _contenedor)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
+			_containerX = _this select 1;
+			_tipo = typeOf _containerX;
+			if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 				{
 				if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
 					{

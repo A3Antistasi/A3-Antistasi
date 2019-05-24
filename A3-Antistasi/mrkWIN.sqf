@@ -4,13 +4,13 @@ _bandera = _this select 0;
 _jugador = _this select 1;
 
 _pos = getPos _bandera;
-_marcador = [marcadores,_pos] call BIS_fnc_nearestPosition;
+_marcador = [markersX,_pos] call BIS_fnc_nearestPosition;
 if (lados getVariable [_marcador,sideUnknown] == buenos) exitWith {};
 _posicion = getMarkerPos _marcador;
 _size = [_marcador] call A3A_fnc_sizeMarker;
 
 if ((!isNull _jugador) and (captive _jugador)) exitWith {hint "You cannot Capture the Flag while Undercover"};
-if ((_marcador in aeropuertos) and (tierWar < 3)) exitWith {hint "You cannot capture Airports until you reach War Level 3"};
+if ((_marcador in airportsX) and (tierWar < 3)) exitWith {hint "You cannot capture Airports until you reach War Level 3"};
 _arevelar = [];
 if (!isNull _jugador) then
 	{

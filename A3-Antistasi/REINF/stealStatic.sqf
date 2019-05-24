@@ -11,7 +11,7 @@ if ((alive assignedGunner _estatica) and (!isPlayer (assignedGunner _estatica)))
 
 if (activeGREF and ((typeOf _estatica == staticATBuenos) or (typeOf _estatica == staticAABuenos))) exitWith {hint "This weapon cannot be dissassembled"};
 
-_cercano = [marcadores,_estatica] call BIS_fnc_nearestPosition;
+_cercano = [markersX,_estatica] call BIS_fnc_nearestPosition;
 
 if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
 

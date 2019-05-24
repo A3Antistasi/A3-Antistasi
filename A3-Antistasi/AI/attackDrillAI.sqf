@@ -302,16 +302,16 @@ while {true} do
 								} forEach (_baseOfFire select {(_x getVariable ["typeOfSoldier",""] == "Normal")});
 								if ([getPosASL _cercano] call A3A_fnc_isBuildingPosition) then
 									{
-									_ingeniero = objNull;
+									_engineerX = objNull;
 									_building = nearestBuilding _cercano;
 									if !(_building getVariable ["asaltado",false]) then
 										{
 										{
-										if ((_x call A3A_fnc_typeOfSoldier == "Engineer") and {_x != leader _x} and {!(_x getVariable ["maneuvering",true])} and {_x distance _cercano < 50}) exitWith {_ingeniero = _x};
+										if ((_x call A3A_fnc_typeOfSoldier == "Engineer") and {_x != leader _x} and {!(_x getVariable ["maneuvering",true])} and {_x distance _cercano < 50}) exitWith {_engineerX = _x};
 										} forEach _baseOfFire;
-										if !(isNull _ingeniero) then
+										if !(isNull _engineerX) then
 											{
-											[_ingeniero,_cercano,_building] spawn A3A_fnc_destroyBuilding;
+											[_engineerX,_cercano,_building] spawn A3A_fnc_destroyBuilding;
 											}
 										else
 											{

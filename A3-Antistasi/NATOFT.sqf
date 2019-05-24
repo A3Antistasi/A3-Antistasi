@@ -23,24 +23,24 @@ _positionTel = positionTel;
 
 if (count _positionTel > 0) then
 	{
-	_mrkENY = marcadores select {lados getVariable [_x,sideUnknown] != _lado};
-	_marcadores = +marcadores;
+	_mrkENY = markersX select {lados getVariable [_x,sideUnknown] != _lado};
+	_markersX = +markersX;
 	_mrkRespawn = "";
 	if (_lado == malos) then
 		{
-		_marcadores pushBack "respawn_west";
+		_markersX pushBack "respawn_west";
 		_mrkRespawn = "respawn_west";
 		}
 	else
 		{
-		_marcadores pushBack "respawn_east";
+		_markersX pushBack "respawn_east";
 		_mrkRespawn = "respawn_east";
 		};
-	_base = [_marcadores, _positionTel] call BIS_Fnc_nearestPosition;
+	_base = [_markersX, _positionTel] call BIS_Fnc_nearestPosition;
 
 	if ((lados getVariable [_base,sideUnknown] == buenos) or (_base in _mrkENY)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
-	if ((!(_base in aeropuertos)) and (!(_base in puertos)) and (!(_base in puestos)) and (_base != _mrkRespawn)) exitWith {hint "You can only Fast Travel to Airbases, Outposts and Seaports"; openMap [false,false]};
+	if ((!(_base in airportsX)) and (!(_base in puertos)) and (!(_base in puestos)) and (_base != _mrkRespawn)) exitWith {hint "You can only Fast Travel to Airbases, Outposts and Seaports"; openMap [false,false]};
 
 	{
 		if (((side (group _x) == buenos) or (side (group _x) == _enemyFaction)) and (_x distance (getMarkerPos _base) < 500) and (not(captive _x))) then {_chequeo = true};
@@ -51,13 +51,13 @@ if (count _positionTel > 0) then
 	if (_positionTel distance getMarkerPos _base < 50) then
 		{
 		_posicion = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
-		_distancia = round (((position player) distance _posicion)/200);
+		_distanceX = round (((position player) distance _posicion)/200);
 		disableUserInput true;
 		cutText ["Fast traveling, please wait","BLACK",2];
 		sleep 2;
 		(vehicle player) setPos _posicion;
 		player allowDamage false;
-		sleep _distancia;
+		sleep _distanceX;
 		disableUserInput false;
 		cutText ["You arrived to destination","BLACK IN",3];
 		sleep 5;

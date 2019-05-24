@@ -19,7 +19,7 @@ _nVeh = round (_size/60);
 
 _lado = lados getVariable [_marcador,sideUnknown];
 
-_posiciones = carreteras getVariable [_marcador,[]];
+_posiciones = roadsX getVariable [_marcador,[]];
 _posMG = _posiciones select {(_x select 2) == "MG"};
 _posMort = _posiciones select {(_x select 2) == "Mort"};
 _posTank = _posiciones select {(_x select 2) == "Tank"};
@@ -101,7 +101,7 @@ if (_tam < ([_marcador] call A3A_fnc_garrisonSize)) then
 	}
 else
 	{
-	if ({if ((getMarkerPos _x inArea _mrk) and (lados getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count marcadores > 0) then {_patrol = false};
+	if ({if ((getMarkerPos _x inArea _mrk) and (lados getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count markersX > 0) then {_patrol = false};
 	};
 if (_patrol) then
 	{

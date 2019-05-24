@@ -71,7 +71,7 @@ while {true} do
 		_mrkD setMarkerColor colourTeamPlayer;
 		garrison setVariable [_ciudad,[],true];
 		sleep 5;
-		{_nul = [_ciudad,_x] spawn A3A_fnc_deleteControls} forEach controles;
+		{_nul = [_ciudad,_x] spawn A3A_fnc_deleteControls} forEach controlsX;
 		if ((!(["CONVOY"] call BIS_fnc_taskExists)) and (!bigAttackInProgress)) then
 			{
 			_base = [_ciudad] call A3A_fnc_findBasesForConvoy;
@@ -95,7 +95,7 @@ while {true} do
 		};
 	} forEach ciudades;
 	if (_popCSAT > (_popTotal / 3)) then {["destroyedCities",false,true] remoteExec ["BIS_fnc_endMission"]};
-	if ((_popFIA > _popAAF) and ({lados getVariable [_x,sideUnknown] == buenos} count aeropuertos == count aeropuertos)) then {["end1",true,true,true,true] remoteExec ["BIS_fnc_endMission",0]};
+	if ((_popFIA > _popAAF) and ({lados getVariable [_x,sideUnknown] == buenos} count airportsX == count airportsX)) then {["end1",true,true,true,true] remoteExec ["BIS_fnc_endMission",0]};
 	/*
 	{
 	_fabrica = _x;
@@ -125,7 +125,7 @@ while {true} do
 	_recAddSDK = _recAddSDK + (server getVariable "resourcesFIA");
 	server setVariable ["hr",_hrAddBLUFOR,true];
 	server setVariable ["resourcesFIA",_recAddSDK,true];
-	bombRuns = bombRuns + (({lados getVariable [_x,sideUnknown] == buenos} count aeropuertos) * 0.25);
+	bombRuns = bombRuns + (({lados getVariable [_x,sideUnknown] == buenos} count airportsX) * 0.25);
 	[petros,"taxRep",_texto] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
 	[] call A3A_fnc_economicsAI;
 	if (isMultiplayer) then
@@ -161,7 +161,7 @@ while {true} do
 		{
 		_posibles = [];
 		{
-		_marcador = [marcadores, _x] call BIS_fnc_nearestPosition;
+		_marcador = [markersX, _x] call BIS_fnc_nearestPosition;
 		if ((lados getVariable [_marcador,sideUnknown] == malos) and (spawner getVariable _marcador == 2)) exitWith
 			{
 			_posibles pushBack [_marcador,_x];

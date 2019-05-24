@@ -119,9 +119,9 @@ else
     else
         {
         diag_log "Antistasi: New Game selected";
-        if (isNil "comandante") then {comandante = (playableUnits select 0)};
-        if (isNull comandante) then {comandante = (playableUnits select 0)};
-        theBoss = comandante;
+        if (isNil "commanderX") then {commanderX = (playableUnits select 0)};
+        if (isNull commanderX) then {commanderX = (playableUnits select 0)};
+        theBoss = commanderX;
         theBoss setRank "CORPORAL";
         [theBoss,"CORPORAL"] remoteExec ["A3A_fnc_ranksMP"];
         if (membershipEnabled) then {miembros = [getPlayerUID theBoss]} else {miembros = []};
@@ -158,7 +158,7 @@ serverInitDone = true; publicVariable "serverInitDone";
 diag_log "Antistasi MP Server. serverInitDone set to true.";
 
 waitUntil {sleep 1;!(isNil "placementDone")};
-distancias = [] spawn A3A_fnc_distances4;
+distanceXs = [] spawn A3A_fnc_distances4;
 resourcecheck = [] execVM "resourcecheck.sqf";
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 savingServer = false;

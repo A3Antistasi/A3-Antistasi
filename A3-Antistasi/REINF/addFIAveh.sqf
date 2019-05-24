@@ -22,7 +22,7 @@ if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} els
 	};
 
 if (_resourcesFIA < _coste) exitWith {hint format ["You do not have enough money for this vehicle: %1 € required",_coste]};
-_cercano = [marcadores select {lados getVariable [_x,sideUnknown] == buenos},player] call BIS_fnc_nearestPosition;
+_cercano = [markersX select {lados getVariable [_x,sideUnknown] == buenos},player] call BIS_fnc_nearestPosition;
 if !(player inArea _cercano) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
 
 garageVeh = _tipoVeh createVehicleLocal [0,0,1000];

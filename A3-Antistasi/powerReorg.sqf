@@ -49,7 +49,7 @@ if (_power == _marcador) then
 	};
 } forEach ciudades;
 
-_marcadores = fabricas + recursos;
+_markersX = fabricas + recursos;
 {
 _sitio = _x;
 _pos = getMarkerPos _x;
@@ -85,4 +85,4 @@ if (_power == _marcador) then
 		};
 	[_sitio,_powered] spawn A3A_fnc_blackout;
 	};
-} forEach _marcadores;
+} forEach _markersX;

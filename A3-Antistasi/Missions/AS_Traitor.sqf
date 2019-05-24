@@ -38,7 +38,7 @@ _nameDest = [_marcador] call A3A_fnc_localizar;
 
 _groupTraitor = createGroup malos;
 
-_arrayAirports = aeropuertos select {lados getVariable [_x,sideUnknown] == malos};
+_arrayAirports = airportsX select {lados getVariable [_x,sideUnknown] == malos};
 _base = [_arrayAirports, _posicion] call BIS_Fnc_nearestPosition;
 _posBase = getMarkerPos _base;
 

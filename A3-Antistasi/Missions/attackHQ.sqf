@@ -10,11 +10,11 @@ _soldados = [];
 
 if ({(_x distance _posicion < 500) and (typeOf _x == staticAABuenos)} count staticsToSave > 4) exitWith {};
 
-_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] != buenos) and (spawner getVariable _x == 2)};
-if (count _aeropuertos == 0) exitWith {};
-_aeropuerto = [_aeropuertos,_posicion] call BIS_fnc_nearestPosition;
-_posOrigen = getMarkerPos _aeropuerto;
-_lado = if (lados getVariable [_aeropuerto,sideUnknown] == malos) then {malos} else {muyMalos};
+_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] != buenos) and (spawner getVariable _x == 2)};
+if (count _airportsX == 0) exitWith {};
+_airportX = [_airportsX,_posicion] call BIS_fnc_nearestPosition;
+_posOrigen = getMarkerPos _airportX;
+_lado = if (lados getVariable [_airportX,sideUnknown] == malos) then {malos} else {muyMalos};
 _tsk1 = "";
 _tsk = "";
 [[buenos,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_posicion,true,10,true,"Defend",true] call BIS_fnc_taskCreate;

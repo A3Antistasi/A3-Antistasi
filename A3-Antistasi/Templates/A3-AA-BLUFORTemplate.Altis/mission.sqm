@@ -1498,7 +1498,7 @@ class Mission
 				position[]={3608.7026,15.474901,10268.476};
 				angles[]={6.2631893,0,6.2046809};
 			};
-			name="carreteras";
+			name="roadsX";
 			id=945;
 			type="Logic";
 		};
@@ -1510,7 +1510,7 @@ class Mission
 				position[]={3597.7456,16.048376,10273.652};
 				angles[]={6.2818484,4.511023,6.2432065};
 			};
-			name="HC_comandante";
+			name="HC_commanderX";
 			id=946;
 			type="HighCommand";
 		};
@@ -3735,7 +3735,7 @@ class Mission
 					flags=7;
 					class Attributes
 					{
-						name="comandante";
+						name="commanderX";
 						description="Default Commander";
 						isPlayer=1;
 					};

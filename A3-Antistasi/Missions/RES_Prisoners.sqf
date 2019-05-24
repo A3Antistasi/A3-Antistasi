@@ -72,7 +72,7 @@ for "_i" from 0 to _cuenta do
 	sleep 1;
 	//if (alive _unit) then {_unit playMove "UnaErcPoslechVelitele1";};
 	_POWS pushBack _unit;
-	[_unit,"prisionero"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
+	[_unit,"prisonerX"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
 	[_unit] call A3A_fnc_reDress;
 	};
 

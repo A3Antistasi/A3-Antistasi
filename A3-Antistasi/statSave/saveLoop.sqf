@@ -49,14 +49,14 @@ if (!isDedicated) then
  private ["_garrison"];
 	["cuentaCA", cuentaCA] call fn_SaveStat;
 	["gameMode", gameMode] call fn_SaveStat;
-	["dificultad", skillMult] call fn_SaveStat;
+	["difficultyX", skillMult] call fn_SaveStat;
 	["bombRuns", bombRuns] call fn_SaveStat;
 	["smallCAmrk", smallCAmrk] call fn_SaveStat;
 	["miembros", miembros] call fn_SaveStat;
 	["antenas", antennasDead] call fn_SaveStat;
-	//["mrkNATO", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == malos}] call fn_SaveStat;
-	["mrkSDK", (marcadores - controles - outpostsFIA) select {lados getVariable [_x,sideUnknown] == buenos}] call fn_SaveStat;
-	["mrkCSAT", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == muyMalos}] call fn_SaveStat;
+	//["mrkNATO", (markersX - controlsX) select {lados getVariable [_x,sideUnknown] == malos}] call fn_SaveStat;
+	["mrkSDK", (markersX - controlsX - outpostsFIA) select {lados getVariable [_x,sideUnknown] == buenos}] call fn_SaveStat;
+	["mrkCSAT", (markersX - controlsX) select {lados getVariable [_x,sideUnknown] == muyMalos}] call fn_SaveStat;
 	["posHQ", [getMarkerPos respawnTeamPlayer,getPos fuego,[getDir caja,getPos caja],[getDir mapa,getPos mapa],getPos bandera,[getDir cajaVeh,getPos cajaVeh]]] call fn_Savestat;
 	["prestigeNATO", prestigeNATO] call fn_SaveStat;
 	["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
@@ -77,7 +77,7 @@ if (!isDedicated) then
 	["weather",[fogParams,rain]] call fn_SaveStat;
 	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
 	//["firstLoad",false] call fn_SaveStat;
-private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_municion","_items","_mochis","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_marcadores","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_tipoMina","_posMina","_detected","_tipos","_exists","_amigo"];
+private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_municion","_items","_mochis","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_tipoMina","_posMina","_detected","_tipos","_exists","_amigo"];
 
 _hrfondo = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["spawner",false]) and ((group _x in (hcAllGroups theBoss) or (isPlayer (leader _x))) and (side group _x == buenos))} count allUnits);
 _resfondo = server getVariable "resourcesFIA";
@@ -149,7 +149,7 @@ if ((_veh distance getMarkerPos respawnTeamPlayer < 50) and !(_veh in staticsToS
 	};
 } forEach vehicles - [caja,bandera,fuego,cajaveh,mapa];
 
-_sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
+_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
 {
 _posicion = position _x;
 if ((alive _x) and !(surfaceIsWater _posicion) and !(isNull _x)) then
@@ -185,11 +185,11 @@ _prestigeBLUFOR = _prestigeBLUFOR + [_datos select 3];
 ["prestigeOPFOR", _prestigeOPFOR] call fn_SaveStat;
 ["prestigeBLUFOR", _prestigeBLUFOR] call fn_SaveStat;
 
-_marcadores = marcadores - outpostsFIA - controles;
+_markersX = markersX - outpostsFIA - controlsX;
 _garrison = [];
 {
 _garrison pushBack [_x,garrison getVariable [_x,[]]];
-} forEach _marcadores;
+} forEach _markersX;
 
 ["garrison",_garrison] call fn_SaveStat;
 /*
@@ -254,7 +254,7 @@ if (!isDedicated) then
 _datos = [];
 {
 _datos pushBack [_x,server getVariable _x];
-} forEach aeropuertos + puestos;
+} forEach airportsX + puestos;
 
 ["idlebases",_datos] call fn_SaveStat;
 
@@ -268,12 +268,12 @@ _datos pushBack [_x,timer getVariable _x];
 _datos = [];
 {
 _datos pushBack [_x,killZones getVariable [_x,[]]];
-} forEach aeropuertos + puestos;
+} forEach airportsX + puestos;
 
 ["killZones",_datos] call fn_SaveStat;
 
-_controles = controles select {(lados getVariable [_x,sideUnknown] == buenos) and (controles find _x < defaultControlIndex)};
-["controlsSDK",_controles] call fn_SaveStat;
+_controlsX = controlsX select {(lados getVariable [_x,sideUnknown] == buenos) and (controlsX find _x < defaultControlIndex)};
+["controlsSDK",_controlsX] call fn_SaveStat;
 
 savingServer = false;
 [[petros,"hint",format ["Savegame Done.\n\nYou won't lose your stats in the event of a game update.\n\nRemember: if you want to preserve any vehicle, it must be near the HQ Flag with no AI inside.\nIf AI are inside, you will save the funds you spent on it.\n\nAI will be refunded\n\nStolen and purchased Static Weapons need to be ASSEMBLED in order to be saved. You can save disassembled Static Weapons in the ammo box.\n\nMounted Statics (Mortar/AA/AT squads) won't get saved, but you will be able to recover the cost.\n\nSame for assigned vehicles more than 50m away from HQ.\n\n%1 fund count:\nHR: %2\nMoney: %3 €",nameTeamPlayer,_hrFondo,_resFondo]],"A3A_fnc_commsMP"] call BIS_fnc_MP;

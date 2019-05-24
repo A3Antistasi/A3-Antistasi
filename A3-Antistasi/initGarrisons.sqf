@@ -7,7 +7,7 @@ _controlsCSAT = [];
 
 if (gameMode == 1) then
 	{
-    _controlsNATO = controles;
+    _controlsNATO = controlsX;
 	if (worldName == "Tanoa") then
 	    {
 	    _mrkCSAT = ["airport_1","puerto_5","puesto_10","control_20"];
@@ -30,19 +30,19 @@ if (gameMode == 1) then
                 };
             };
 	    };
-	_mrkNATO = marcadores - _mrkCSAT - ["Synd_HQ"];
+	_mrkNATO = markersX - _mrkCSAT - ["Synd_HQ"];
 	}
 else
 	{
 	if (gameMode == 4) then
 		{
-		_mrkCSAT = marcadores - ["Synd_HQ"];
-		_controlsCSAT = controles;
+		_mrkCSAT = markersX - ["Synd_HQ"];
+		_controlsCSAT = controlsX;
 		}
 	else
 		{
-		_mrkNATO = marcadores - ["Synd_HQ"];
-		_controlsNATO = controles;
+		_mrkNATO = markersX - ["Synd_HQ"];
+		_controlsNATO = controlsX;
 		};
 	};
 {lados setVariable [_x,malos,true]} forEach _controlsNATO;
@@ -81,7 +81,7 @@ else
     };
 _nul = [_x] call A3A_fnc_createControls;
 server setVariable [_x,0,true];//fecha en fomrato dateToNumber en la que estarán idle
-} forEach aeropuertos;
+} forEach airportsX;
 
 {
 _pos = getMarkerPos _x;

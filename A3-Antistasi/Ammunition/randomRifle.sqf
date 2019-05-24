@@ -1,4 +1,4 @@
-private ["_unit","_compatibles","_posibles","_rifle","_helmet","_uniform","_vest"];
+private ["_unit","_compatibleX","_posibles","_rifle","_helmet","_uniform","_vest"];
 
 _unit = _this select 0;
 _pool = _this select 1;
@@ -17,7 +17,7 @@ if (_rifleFinal in unlockedGL) then
 [_unit, _rifleFinal, 5, 0] call BIS_fnc_addWeapon;
 if (count unlockedOptics > 0) then
 	{
-	_compatibles = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
-	_posibles = unlockedOptics select {_x in _compatibles};
+	_compatibleX = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
+	_posibles = unlockedOptics select {_x in _compatibleX};
 	if (count _posibles > 0) then {_unit addPrimaryWeaponItem (selectRandom _posibles)};
 	};

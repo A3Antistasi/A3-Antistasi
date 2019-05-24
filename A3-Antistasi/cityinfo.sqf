@@ -32,7 +32,7 @@ while {visibleMap} do
 	if (count positionTel > 0) then
 		{
 		_positionTel = positionTel;
-		_sitio = [marcadores, _positionTel] call BIS_Fnc_nearestPosition;
+		_sitio = [markersX, _positionTel] call BIS_Fnc_nearestPosition;
 		_texto = "Click on the zone";
 		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == buenos) then {nameTeamPlayer} else {if (lados getVariable [_sitio,sideUnknown] == malos) then {nameMalos} else {nameInvaders}};
 		if (_sitio == "Synd_HQ") then
@@ -64,7 +64,7 @@ while {visibleMap} do
 				}
 			else
 				{
-				_puesto = [marcadores,_ant1] call BIS_fnc_NearestPosition;
+				_puesto = [markersX,_ant1] call BIS_fnc_NearestPosition;
 				if (lados getVariable [_sitio,sideUnknown] == buenos) then
 					{
 					if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == muyMalos) then {_result = "NONE"}};
@@ -79,7 +79,7 @@ while {visibleMap} do
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 			if (lados getVariable [_sitio,sideUnknown] == buenos) then {_texto = format ["%1\n%2",_texto,[_sitio] call A3A_fnc_garrisonInfo]};
 			};
-		if (_sitio in aeropuertos) then
+		if (_sitio in airportsX) then
 			{
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{

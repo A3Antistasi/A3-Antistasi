@@ -29,8 +29,8 @@ _antenaMuerta = [];
 _texto = "That Outpost does not have a destroyed Radio Tower";
 if (_sitio in puestos) then
 	{
-	_antenasMuertas = antenasMuertas select {_x inArea _sitio};
-	if (count _antenasMuertas > 0) then
+	_antennasDead = antennasDead select {_x inArea _sitio};
+	if (count _antennasDead > 0) then
 		{
 		if (lados getVariable [_sitio, sideUnknown] != buenos) then
 			{
@@ -39,7 +39,7 @@ if (_sitio in puestos) then
 			}
 		else
 			{
-			_antenaMuerta = _antenasMuertas select 0;
+			_antenaMuerta = _antennasDead select 0;
 			};
 		}
 	else
@@ -64,7 +64,7 @@ if (count _antenaMuerta == 0) then
 else
 	{
 	hint "Radio Tower rebuilt";
-	antenasMuertas = antenasMuertas - [_antenaMuerta]; publicVariable "antenasMuertas";
+	antennasDead = antennasDead - [_antenaMuerta]; publicVariable "antennasDead";
 	_antena = nearestBuilding _antenaMuerta;
 	if (isMultiplayer) then {[_antena,true] remoteExec ["hideObjectGlobal",2]} else {_antena hideObject true};
 	_antena = createVehicle ["Land_Communication_F", _antenaMuerta, [], 0, "NONE"];
@@ -82,10 +82,10 @@ else
 		_antena = _this select 0;
 		{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach ciudades;
 		_mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
-		antenas = antenas - [_antena]; antenasmuertas = antenasmuertas + [getPos _antena]; deleteMarker _mrk;
+		antenas = antenas - [_antena]; antennasDead = antennasDead + [getPos _antena]; deleteMarker _mrk;
 		["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
 		["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
-		publicVariable "antenas"; publicVariable "antenasMuertas";
+		publicVariable "antenas"; publicVariable "antennasDead";
 		}
 		];
 	};

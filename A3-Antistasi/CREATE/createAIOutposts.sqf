@@ -96,7 +96,7 @@ if (_patrol) then
 if ((_frontera) and (spawner getVariable _marcador!=2) and (_marcador in puestos)) then
 	{
 	_grupo = createGroup _lado;
-	_tipoUnit = if (_lado==malos) then {staticCrewmalos} else {staticCrewInvaders};
+	_tipoUnit = if (_lado==malos) then {staticCrewOccupants} else {staticCrewInvaders};
 	_tipoVeh = if (_lado == malos) then {NATOMortar} else {CSATMortar};
 	_pos = [_posicion] call A3A_fnc_mortarPos;
 	_veh = _tipoVeh createVehicle _pos;
@@ -185,7 +185,7 @@ else
 					_vehiculos pushBack _veh;
 					_veh setPos _pos;
 					_veh setDir _dirVeh + 180;
-					_tipoUnit = if (_lado==malos) then {staticCrewmalos} else {staticCrewInvaders};
+					_tipoUnit = if (_lado==malos) then {staticCrewOccupants} else {staticCrewInvaders};
 					_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
 					[_unit,_marcador] call A3A_fnc_NATOinit;
 					[_veh] call A3A_fnc_AIVEHinit;

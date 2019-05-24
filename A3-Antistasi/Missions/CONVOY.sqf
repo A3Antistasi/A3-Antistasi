@@ -236,7 +236,7 @@ for "_i" from 1 to _cuenta do
 		{
 		if (not(_tipoVehEsc == vehFIAArmedCar)) then
 			{
-			_tipoGrupo = selectRandom gruposFIASquad;
+			_tipoGrupo = selectRandom groupsFIASquad;
 			if (_tipoVehEsc == vehFIACar) then
 				{
 				_tipoGrupo = selectRandom gruposFIAMid;
@@ -358,7 +358,7 @@ else
 	{
 	if (not(_tipoVehEsc == vehFIAArmedCar)) then
 		{
-		_tipoGrupo = selectRandom gruposFIASquad;
+		_tipoGrupo = selectRandom groupsFIASquad;
 		if (_tipoVehEsc == vehFIACar) then
 			{
 			_tipoGrupo = selectRandom gruposFIAMid;

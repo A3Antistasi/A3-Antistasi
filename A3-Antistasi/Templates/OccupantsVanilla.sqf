@@ -1,4 +1,4 @@
-if (worldName == "Altis") exitWith {call compile preProcessFileLineNumbers "Templates\malosVanillaAltis.sqf"};
+if (worldName == "Altis") exitWith {call compile preProcessFileLineNumbers "Templates\OccupantsVanillaAltis.sqf"};
 
 NATOGrunt = "B_T_Soldier_F";
 NATOOfficer = "B_T_Officer_F";
@@ -7,7 +7,7 @@ NATOBodyG = "B_CTRG_Soldier_tna_F";
 NATOCrew = "B_T_Crew_F";
 NATOUnarmed = "B_G_Survivor_F";
 NATOMarksman = "B_T_Soldier_M_F";
-staticCrewMalos = "B_T_support_MG_F";
+staticCrewOccupants = "B_T_support_MG_F";
 NATOMG = "B_HMG_01_high_F";
 NATOMortar = "B_T_Mortar_01_F";
 staticATmalos = "B_T_static_AT_F";

@@ -5,7 +5,7 @@ NATOBodyG = "rhsgref_ins_g_saboteur";
 NATOCrew = "rhsgref_ins_g_crew";
 NATOUnarmed = "I_G_Survivor_F";
 NATOMarksman = "rhsgref_ins_g_sniper";
-staticCrewMalos = "rhsgref_ins_g_rifleman";
+staticCrewOccupants = "rhsgref_ins_g_rifleman";
 NATOPilot = "rhsgref_ins_g_pilot";
 
 NATOMG = "rhsgref_ins_g_DSHKM";

@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiculos","_civsPatrol","_gruposPatrol","_vehPatrol","_tipoCiv","_tipoVeh","_dirVeh","_cuenta","_grupo","_size","_road","_tipociv","_tipoVeh","_dirVeh","_posicion","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCiudades","_cuentaPatrol","_andanadas","_grupoP","_wp","_wp1"];
+private ["_marcador","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiculos","_civsPatrol","_gruposPatrol","_vehPatrol","_tipoCiv","_tipoVeh","_dirVeh","_cuenta","_grupo","_size","_road","_tipociv","_tipoVeh","_dirVeh","_posicion","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_cuentaPatrol","_andanadas","_grupoP","_wp","_wp1"];
 
 _marcador = _this select 0;
 
@@ -113,7 +113,7 @@ if ((random 100 < ((prestigeNATO) + (prestigeCSAT))) and (spawner getVariable _m
 
 if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 	{
-	_patrolCiudades = [_marcador] call A3A_fnc_citiesToCivPatrol;
+	_patrolCities = [_marcador] call A3A_fnc_citiesToCivPatrol;
 
 	_cuentaPatrol = 0;
 
@@ -122,7 +122,7 @@ if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 
 	for "_i" from 1 to _andanadas do
 		{
-		while {(spawner getVariable _marcador != 2) and (_cuentaPatrol < (count _patrolCiudades - 1) and (_cuenta < _max))} do
+		while {(spawner getVariable _marcador != 2) and (_cuentaPatrol < (count _patrolCities - 1) and (_cuenta < _max))} do
 			{
 			//_p1 = getPos (_roads select _cuenta);
 			_p1 = _roads select _cuenta;
@@ -162,7 +162,7 @@ if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 					_civ moveInDriver _veh;
 					_grupoP addVehicle _veh;
 					_grupoP setBehaviour "CARELESS";
-					_posDestino = selectRandom (carreteras getVariable (_patrolCiudades select _cuentaPatrol));
+					_posDestino = selectRandom (carreteras getVariable (_patrolCities select _cuentaPatrol));
 					_wp = _grupoP addWaypoint [_posDestino,0];
 					_wp setWaypointType "MOVE";
 					_wp setWaypointSpeed "FULL";

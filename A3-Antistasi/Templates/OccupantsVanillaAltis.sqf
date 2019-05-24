@@ -1,4 +1,4 @@
-if (side petros == west) exitWith {call compile preProcessFileLineNumbers "Templates\malosVanillaAltisB.sqf"};
+if (side petros == west) exitWith {call compile preProcessFileLineNumbers "Templates\OccupantsVanillaAltisB.sqf"};
 
 NATOGrunt = "B_Soldier_F";
 NATOOfficer = "B_Officer_F";
@@ -7,7 +7,7 @@ NATOBodyG = "B_Patrol_Soldier_TL_F";
 NATOCrew = "B_Crew_F";
 NATOUnarmed = "B_G_Survivor_F";
 NATOMarksman = "B_Sharpshooter_F";
-staticCrewMalos = "B_support_MG_F";
+staticCrewOccupants = "B_support_MG_F";
 NATOMG = "B_HMG_01_high_F";
 NATOMortar = "B_Mortar_01_F";
 staticATmalos = "B_static_AT_F";

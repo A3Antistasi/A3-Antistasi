@@ -1,4 +1,4 @@
-private ["_unit","_distancia","_hayMedico","_medico","_units","_ayudando","_pidiendoAyuda"];
+private ["_unit","_distancia","_hayMedico","_medico","_units","_ayudando","_askingForHelp"];
 _unit = _this select 0;
 _ayudado = _unit getVariable ["ayudado",objNull];
 if (!isNull _ayudado) exitWith {};

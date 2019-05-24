@@ -68,7 +68,7 @@ if (dateToNumber date > _fechalimnum) then
 		[-600] remoteExec ["A3A_fnc_timingCA",2];
 		[-10,theBoss] call A3A_fnc_playerScoreAdd;
 		};
-	antenasMuertas = antenasMuertas - [_posicion]; publicVariable "antenasMuertas";
+	antennasDead = antennasDead - [_posicion]; publicVariable "antennasDead";
 	_antena = nearestBuilding _posicion;
 	if (isMultiplayer) then {[_antena,true] remoteExec ["hideObjectGlobal",2]} else {_antena hideObject true};
 	_antena = createVehicle ["Land_Communication_F", _posicion, [], 0, "NONE"];
@@ -86,10 +86,10 @@ if (dateToNumber date > _fechalimnum) then
 		_antena = _this select 0;
 		{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach ciudades;
 		_mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
-		antenas = antenas - [_antena]; antenasmuertas = antenasmuertas + [getPos _antena]; deleteMarker _mrk;
+		antenas = antenas - [_antena]; antennasDead = antennasDead + [getPos _antena]; deleteMarker _mrk;
 		["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
 		["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
-		publicVariable "antenas"; publicVariable "antenasMuertas";
+		publicVariable "antenas"; publicVariable "antennasDead";
 		}
 		];
 	};

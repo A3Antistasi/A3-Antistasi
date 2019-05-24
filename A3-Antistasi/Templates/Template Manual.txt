@@ -12,7 +12,7 @@ classnames.
 Fifth: VERY IMPORTANT: RESPECT THE VARIABLE FORMATS IN THE TEMPLATES, IF YOU SEE AN ARRAY, IT HAS TO BE AN ARRAY, IF YOU SEE A STRING, IT HAS TO BE A STRING!!!!!
 
 Now the templates:
-buenosVanilla.sqf:
+teamPlayerVanilla.sqf:
 
 SDKMortar = "I_G_Mortar_01_F";//rebel mortar
 SDKMortarHEMag = "8Rnd_82mm_Mo_shells";// the mortar shells, used in arty scripts
@@ -70,7 +70,7 @@ APERSMineMag = "APERSMine_Range_Mag";//mines which will be deployed in the minef
 
 if (hayFFAA) then//FFAA mod template loading, ignore it.
 	{
-	call compile preProcessFileLineNumbers "Templates\malosFFAA.sqf"
+	call compile preProcessFileLineNumbers "Templates\OccupantsFFAA.sqf"
 	}
 else
 	{
@@ -84,7 +84,7 @@ else
 		gruposFIASmall = [["B_G_Soldier_GL_F","B_G_Soldier_F"],["B_G_Soldier_M_F","B_G_Soldier_F"],["B_G_Sharpshooter_F","B_G_Soldier_M_F"]];//those are the ones you find patrolling outside garrisons. You may put several times the same config so those will have more chance to spawn
 		gruposFIAMid = [["B_G_Soldier_SL_F","B_G_Sharpshooter_F","B_G_Soldier_AR_F","B_G_Soldier_A_F"],["B_G_Soldier_TL_F","B_G_Soldier_AR_F","B_G_Soldier_GL_F","B_G_Soldier_LAT_F"],["B_G_Soldier_TL_F","B_G_Soldier_LAT_F","B_G_Soldier_LAT_F","B_G_Soldier_LAT_F"]];
 		FIASquad = ["B_G_soldier_SL_F","B_G_soldier_F","B_G_soldier_LAT_F","B_G_Soldier_M_F","B_G_soldier_TL_F","B_G_soldier_AR_F","B_G_Soldier_A_F","B_G_medic_F"];//"IRG_InfSquad";///
-		gruposFIASquad = [FIASquad,["B_G_soldier_SL_F","B_G_soldier_LAT_F","B_G_Soldier_M_F","B_G_soldier_TL_F","B_G_Soldier_A_F","B_G_medic_F","B_support_MG_F","B_support_AMG_F"]];
+		groupsFIASquad = [FIASquad,["B_G_soldier_SL_F","B_G_soldier_LAT_F","B_G_Soldier_M_F","B_G_soldier_TL_F","B_G_Soldier_A_F","B_G_medic_F","B_support_MG_F","B_support_AMG_F"]];
 		factionFIA = "BLU_G_F";
 		}
 	else
@@ -97,7 +97,7 @@ else
 		gruposFIASmall = [["O_G_Soldier_GL_F","O_G_Soldier_F"],["O_G_Soldier_M_F","O_G_Soldier_F"],["O_G_Sharpshooter_F","O_G_Soldier_M_F"]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
 		gruposFIAMid = [["O_G_Soldier_SL_F","O_G_Sharpshooter_F","O_G_Soldier_AR_F","O_G_Soldier_A_F"],["O_G_Soldier_TL_F","O_G_Soldier_AR_F","O_G_Soldier_GL_F","O_G_Soldier_LAT_F"],["O_G_Soldier_TL_F","O_G_Soldier_LAT_F","O_G_Soldier_LAT_F","O_G_Soldier_LAT_F"]];
 		FIASquad = ["O_G_soldier_SL_F","O_G_soldier_F","O_G_soldier_LAT_F","O_G_Soldier_M_F","O_G_soldier_TL_F","O_G_soldier_AR_F","O_G_Soldier_A_F","O_G_medic_F"];//"IRG_InfSquad";///
-		gruposFIASquad = [FIASquad,["O_G_soldier_SL_F","O_G_soldier_LAT_F","O_G_Soldier_M_F","O_G_soldier_TL_F","O_G_Soldier_A_F","O_G_medic_F","O_support_MG_F","O_support_AMG_F"]];
+		groupsFIASquad = [FIASquad,["O_G_soldier_SL_F","O_G_soldier_LAT_F","O_G_Soldier_M_F","O_G_soldier_TL_F","O_G_Soldier_A_F","O_G_medic_F","O_support_MG_F","O_support_AMG_F"]];
 		factionFIA = "OPF_G_F";
 		};
 	};

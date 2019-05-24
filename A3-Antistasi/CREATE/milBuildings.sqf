@@ -13,7 +13,7 @@ _vehiculos = [];
 _soldados = [];
 
 _grupo = createGroup _lado;
-_tipoUnit = if (_lado==malos) then {staticCrewmalos} else {staticCrewInvaders};
+_tipoUnit = if (_lado==malos) then {staticCrewOccupants} else {staticCrewInvaders};
 
 for "_i" from 0 to (count _buildings) - 1 do
 	{

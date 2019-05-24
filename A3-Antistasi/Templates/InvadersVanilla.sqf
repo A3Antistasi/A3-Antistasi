@@ -1,4 +1,4 @@
-if (worldName == "Altis") exitWith {call compile preProcessFileLineNumbers "Templates\muyMalosVanillaAltis.sqf"};
+if (worldName == "Altis") exitWith {call compile preProcessFileLineNumbers "Templates\InvadersVanillaAltis.sqf"};
 
 CSATGrunt = "O_T_Soldier_F";
 CSATOfficer = "O_T_Officer_F";

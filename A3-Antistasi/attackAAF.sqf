@@ -51,7 +51,7 @@ if (((marcadores - controles - ciudades - puestosFIA) select {lados getVariable 
 } forEach _objetivosProv;
 
 if (_objetivos isEqualTo []) exitWith {};
-_objetivosFinal = [];
+_objectivesFinal = [];
 _basesFinal = [];
 _cuentasFinal = [];
 _objetivoFinal = [];
@@ -267,10 +267,10 @@ if !(_tmpObjetivos isEqualTo []) then
 				_times = _times / (({_x == _sitio} count _killZones) + 1);
 				};
 			_times = round (_times);
-			_index = _objetivosFinal find _x;
+			_index = _objectivesFinal find _x;
 			if (_index == -1) then
 				{
-				_objetivosFinal pushBack _x;
+				_objectivesFinal pushBack _x;
 				_basesFinal pushBack _base;
 				_cuentasFinal pushBack _times;
 				}
@@ -278,10 +278,10 @@ if !(_tmpObjetivos isEqualTo []) then
 				{
 				if ((_times > (_cuentasFinal select _index)) or ((_times == (_cuentasFinal select _index)) and (random 1 < 0.5))) then
 					{
-					_objetivosFinal deleteAt _index;
+					_objectivesFinal deleteAt _index;
 					_basesFinal deleteAt _index;
 					_cuentasFinal deleteAt _index;
-					_objetivosFinal pushBack _x;
+					_objectivesFinal pushBack _x;
 					_basesFinal pushBack _base;
 					_cuentasFinal pushBack _times;
 					};
@@ -299,18 +299,18 @@ if (count _faciles == 4) exitWith
 	{[[_x select 0,_x select 1,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];sleep 30} forEach _faciles;
 	};
 if (hayIFA and (sunOrMoon < 1)) exitWith {};
-if ((count _objetivosFinal > 0) and (count _faciles < 3)) then
+if ((count _objectivesFinal > 0) and (count _faciles < 3)) then
 	{
 	_arrayFinal = [];
 	/*{
 	for "_i" from 1 to _x do
 		{
-		_arrayFinal pushBack [(_objetivosFinal select _forEachIndex),(_basesFinal select _forEachIndex)];
+		_arrayFinal pushBack [(_objectivesFinal select _forEachIndex),(_basesFinal select _forEachIndex)];
 		};
 	} forEach _cuentasFinal;*/
-	for "_i" from 0 to (count _objetivosFinal) - 1 do
+	for "_i" from 0 to (count _objectivesFinal) - 1 do
 		{
-		_arrayFinal pushBack [_objetivosFinal select _i,_basesFinal select _i];
+		_arrayFinal pushBack [_objectivesFinal select _i,_basesFinal select _i];
 		};
 	//_objetivoFinal = selectRandom _arrayFinal;
 	_objetivoFinal = _arrayFinal selectRandomWeighted _cuentasFinal;

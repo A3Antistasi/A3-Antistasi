@@ -48,7 +48,7 @@ else
 	_formato = [];
 	{
 	if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
-	} forEach gruposSDKSniper;
+	} forEach groupsSDKSniper;
 	_grupo = [_posicion, buenos, _formato] call A3A_fnc_spawnGroup;
 	_grupo setBehaviour "STEALTH";
 	_grupo setCombatMode "GREEN";

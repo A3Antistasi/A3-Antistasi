@@ -135,7 +135,7 @@ fn_SetStat =
 			server setVariable [_x,_coste,true];
 			} forEach soldadosSDK;
 			};
-		if(_varName == 'distanciaSPWN') then {distanciaSPWN = _varValue; distanciaSPWN1 = distanciaSPWN * 1.3; distanciaSPWN2 = distanciaSPWN /2; publicVariable "distanciaSPWN";publicVariable "distanciaSPWN1";publicVariable "distanciaSPWN2"};
+		if(_varName == 'distanciaSPWN') then {distanciaSPWN = _varValue; distanceSPWN1 = distanciaSPWN * 1.3; distanceSPWN2 = distanciaSPWN /2; publicVariable "distanciaSPWN";publicVariable "distanceSPWN1";publicVariable "distanceSPWN2"};
 		if(_varName == 'civPerc') then {civPerc = _varValue; if (civPerc < 1) then {civPerc = 35}; publicVariable "civPerc"};
 		if(_varName == 'maxUnits') then {maxUnits=_varValue; publicVariable "maxUnits"};
 		if(_varName == 'vehInGarage') then {vehInGarage= +_varValue; publicVariable "vehInGarage"};
@@ -200,7 +200,7 @@ fn_SetStat =
 
 		if(_varName == 'antenas') then
 			{
-			antenasmuertas = +_varvalue;
+			antennasDead = +_varvalue;
 			for "_i" from 0 to (count _varvalue - 1) do
 			    {
 			    _posAnt = _varvalue select _i;
@@ -212,9 +212,9 @@ fn_SetStat =
 			    _antena setDamage [1,false];
 			    deleteMarker _mrk;
 			    };
-			antenasmuertas = _varvalue;
+			antennasDead = _varvalue;
 			publicVariable "antenas";
-			publicVariable "antenasMuertas";
+			publicVariable "antennasDead";
 			};
 		if(_varname == 'prestigeOPFOR') then
 			{

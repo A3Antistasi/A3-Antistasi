@@ -157,7 +157,7 @@ while {true} do
 			};
 		};
 	sleep 3;
-	if ((count antenasMuertas > 0) and (not(["REP"] call BIS_fnc_taskExists))) then
+	if ((count antennasDead > 0) and (not(["REP"] call BIS_fnc_taskExists))) then
 		{
 		_posibles = [];
 		{
@@ -166,7 +166,7 @@ while {true} do
 			{
 			_posibles pushBack [_marcador,_x];
 			};
-		} forEach antenasMuertas;
+		} forEach antennasDead;
 		if (count _posibles > 0) then
 			{
 			_posible = selectRandom _posibles;

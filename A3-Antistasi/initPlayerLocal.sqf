@@ -71,13 +71,13 @@ else
 	//_nul = addMissionEventHandler ["Loaded", {_nul = [] execVM "statistics.sqf";_nul = [] execVM "reinitY.sqf";}];
 	};
 [] execVM "CREATE\ambientCivs.sqf";
-private ["_colorbuenos", "_colormuyMalos"];
+private ["_colorbuenos", "_colorInvaders"];
 _colorbuenos = buenos call BIS_fnc_sideColor;
-_colormuyMalos = muyMalos call BIS_fnc_sideColor;
+_colorInvaders = muyMalos call BIS_fnc_sideColor;
 _posicion = if (side player == side (group petros)) then {position petros} else {getMarkerPos "respawn_west"};
 {
 _x set [3, 0.33]
-} forEach [_colorbuenos, _colormuyMalos];
+} forEach [_colorbuenos, _colorInvaders];
 _introShot =
 	[
     _posicion, // Target position
@@ -88,7 +88,7 @@ _introShot =
     0, // clockwise movement
     [
     	["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colorbuenos, markerPos "insertMrk", 1, 1, 0, "Insertion Point", 0],
-        ["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colormuyMalos, markerPos "towerBaseMrk", 1, 1, 0, "Radio Towers", 0]
+        ["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colorInvaders, markerPos "towerBaseMrk", 1, 1, 0, "Radio Towers", 0]
     ]
     ] spawn BIS_fnc_establishingShot;
 

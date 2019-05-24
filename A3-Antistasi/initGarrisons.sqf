@@ -59,7 +59,7 @@ if (_x in _mrkCSAT) then
     {
     _dmrk setMarkerType flagCSATmrk;
     _dmrk setMarkerText format ["%1 Airbase",nameMuyMalos];
-    _dmrk setMarkerColor colorMuyMalos;
+    _dmrk setMarkerColor colorInvaders;
     for "_i" from 1 to _garrNum do
         {
         _garrison append (selectRandom groupsCSATSquad);
@@ -94,11 +94,11 @@ _dmrk setMarkerType "loc_rock";
 _dmrk setMarkerText "Resources";
 for "_i" from 1 to _garrNum do
    {
-   _garrison append (selectRandom gruposFIASquad);
+   _garrison append (selectRandom groupsFIASquad);
    };
 if (_x in _mrkCSAT) then
 	{
-	_dmrk setMarkerColor colorMuyMalos;
+	_dmrk setMarkerColor colorInvaders;
 	lados setVariable [_x,muyMalos,true];
 	}
 else
@@ -121,11 +121,11 @@ _dmrk setMarkerType "u_installation";
 _dmrk setMarkerText "Factory";
 for "_i" from 1 to _garrNum do
    {
-   _garrison append (selectRandom gruposFIASquad);
+   _garrison append (selectRandom groupsFIASquad);
    };
 if (_x in _mrkCSAT) then
 	{
-	_dmrk setMarkerColor colorMuyMalos;
+	_dmrk setMarkerColor colorInvaders;
     lados setVariable [_x,muyMalos,true];
 	}
 else
@@ -152,19 +152,19 @@ if !(_x in _mrkCSAT) then
     _dmrk setMarkerText format ["%1 Outpost",nameMalos];
     for "_i" from 1 to _garrNum do
         {
-        _garrison append (selectRandom gruposFIASquad);
+        _garrison append (selectRandom groupsFIASquad);
         };
     lados setVariable [_x,malos,true];
     }
 else
     {
     _dmrk setMarkerText format ["%1 Outpost",nameMuyMalos];
-    _dmrk setMarkerColor colorMuyMalos;
+    _dmrk setMarkerColor colorInvaders;
     if (gameMode == 4) then
     	{
     	for "_i" from 1 to _garrNum do
 	       {
-	       _garrison append (selectRandom gruposFIASquad);
+	       _garrison append (selectRandom groupsFIASquad);
 	       };
     	}
     else
@@ -192,7 +192,7 @@ _dmrk setMarkerType "b_naval";
 _dmrk setMarkerText "Sea Port";
 if (_x in _mrkCSAT) then
     {
-    _dmrk setMarkerColor colorMuyMalos;
+    _dmrk setMarkerColor colorInvaders;
 	for "_i" from 1 to _garrNum do
 	   {
 	   _garrison append (selectRandom groupsCSATSquad);

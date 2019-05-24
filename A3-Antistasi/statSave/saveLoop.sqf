@@ -53,7 +53,7 @@ if (!isDedicated) then
 	["bombRuns", bombRuns] call fn_SaveStat;
 	["smallCAmrk", smallCAmrk] call fn_SaveStat;
 	["miembros", miembros] call fn_SaveStat;
-	["antenas", antenasmuertas] call fn_SaveStat;
+	["antenas", antennasDead] call fn_SaveStat;
 	//["mrkNATO", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == malos}] call fn_SaveStat;
 	["mrkSDK", (marcadores - controles - puestosFIA) select {lados getVariable [_x,sideUnknown] == buenos}] call fn_SaveStat;
 	["mrkCSAT", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == muyMalos}] call fn_SaveStat;

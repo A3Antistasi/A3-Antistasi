@@ -12,8 +12,8 @@ debug = false;//debug variable, not useful for everything..
 
 cleantime = 3600;//time to delete dead bodies, vehicles etc..
 distanciaSPWN = 1000;//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
-distanciaSPWN1 = 1300;
-distanciaSPWN2 = 500;
+distanceSPWN1 = 1300;
+distanceSPWN2 = 500;
 musicON = if (isMultiplayer) then {false} else {true};
 civPerc = 35;
 autoHeal = false;
@@ -35,7 +35,7 @@ muyMalos = east;
 
 colorBuenos = if (buenos == independent) then {"colorGUER"} else {"colorBLUFOR"};
 colorMalos = if (buenos == independent) then {"colorBLUFOR"} else {"colorGUER"};
-colorMuyMalos = "colorOPFOR";
+colorInvaders = "colorOPFOR";
 
 respawnBuenos = if (buenos == independent) then {"respawn_guerrila"} else {"respawn_west"};
 respawnMalos = if (buenos == independent) then {"respawn_west"} else {"respawn_guerrila"};
@@ -154,7 +154,7 @@ else
 	{
 	[]
 	};
-antitanqueAAF = if ((!hayRHS) and !hayIFA and !myCustomMod) then
+antitankAAF = if ((!hayRHS) and !hayIFA and !myCustomMod) then
 	{
 	["launch_I_Titan_F","launch_I_Titan_short_F"]
 	}
@@ -162,7 +162,7 @@ else
 	{
 	[];
 	};//possible Titan weapons that spawn in  ammoboxes
-MantitanqueAAF = if ((!hayRHS) and !hayIFA and !myCustomMod) then
+MAntitankAAF = if ((!hayRHS) and !hayIFA and !myCustomMod) then
 	{
 	["Titan_AT", "Titan_AP", "Titan_AA"]
 	}
@@ -220,28 +220,28 @@ if (!hayIFA) then
 	{
 	if (!activeUSAF) then
 		{
-		call compile preProcessFileLineNumbers "Templates\malosVanilla.sqf";
+		call compile preProcessFileLineNumbers "Templates\OccupantsVanilla.sqf";
 		}
 	else
 		{
-		if (buenos == independent) then {call compile preProcessFileLineNumbers "Templates\malosRHSUSAF.sqf"} else {call compile preProcessFileLineNumbers "Templates\buenosRHSUSAF.sqf"};
+		if (buenos == independent) then {call compile preProcessFileLineNumbers "Templates\OccupantsRHSUSAF.sqf"} else {call compile preProcessFileLineNumbers "Templates\teamPlayerRHSUSAF.sqf"};
 		};
-	if (!activeAFRF) then {call compile preProcessFileLineNumbers "Templates\muyMalosVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\muyMalosRHSAFRF.sqf"};
+	if (!activeAFRF) then {call compile preProcessFileLineNumbers "Templates\InvadersVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\InvadersRHSAFRF.sqf"};
 
 	if (!activeGREF) then
 		{
-		call compile preProcessFileLineNumbers "Templates\buenosVanilla.sqf"
+		call compile preProcessFileLineNumbers "Templates\teamPlayerVanilla.sqf"
 		}
 	else
 		{
-		if (buenos == independent) then {call compile preProcessFileLineNumbers "Templates\buenosRHSGREF.sqf"} else {call compile preProcessFileLineNumbers "Templates\malosRHSGREF.sqf"};
+		if (buenos == independent) then {call compile preProcessFileLineNumbers "Templates\teamPlayerRHSGREF.sqf"} else {call compile preProcessFileLineNumbers "Templates\OccupantsRHSGREF.sqf"};
 		};
 	}
 else
 	{
-	call compile preProcessFileLineNumbers "Templates\buenosIFA.sqf";
-	call compile preProcessFileLineNumbers "Templates\muyMalosIFA.sqf";
-	call compile preProcessFileLineNumbers "Templates\malosIFA.sqf";
+	call compile preProcessFileLineNumbers "Templates\teamPlayerIFA.sqf";
+	call compile preProcessFileLineNumbers "Templates\InvadersIFA.sqf";
+	call compile preProcessFileLineNumbers "Templates\OccupantsIFA.sqf";
 	};
 
 squadLeaders = SDKSL + [(NATOSquad select 0),(NATOSpecOp select 0),(CSATSquad select 0),(CSATSpecOp select 0),(FIASquad select 0)];
@@ -254,11 +254,11 @@ vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck
 gruposSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
 gruposSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
 //["BanditShockTeam","ParaShockTeam"];
-gruposSDKSquad = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
+groupsSDKSquad = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
 groupsSDKSquadEng = [SDKSL,SDKGL,SDKMil,SDKMG,SDKExp,SDKATman,SDKEng,SDKMedic];
 groupsSDKSquadSupp = [SDKSL,SDKGL,SDKMil,SDKMG,SDKATman,SDKMedic,[staticCrewTeamPlayer,staticCrewTeamPlayer],[staticCrewTeamPlayer,staticCrewTeamPlayer]];
-gruposSDKSniper = [SDKSniper,SDKSniper];
-gruposSDKSentry = [SDKGL,SDKMil];
+groupsSDKSniper = [SDKSniper,SDKSniper];
+groupsSDKSentry = [SDKGL,SDKMil];
 banditUniforms = [];
 uniformsSDK = [];
 {

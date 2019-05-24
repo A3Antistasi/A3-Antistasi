@@ -51,7 +51,7 @@ else
 		if (_side == muyMalos) then
 			{
 			_formato = "o";
-			_color = colorMuyMalos;
+			_color = colorInvaders;
 			};
 		};
 	};

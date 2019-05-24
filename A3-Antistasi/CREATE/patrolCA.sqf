@@ -36,7 +36,7 @@ else
 	{
 	_posDestino = _marcador;
 	_cercano = [smallCApos,_marcador] call BIS_fnc_nearestPosition;
-	if (_cercano distance _marcador < (distanciaSPWN2)) then
+	if (_cercano distance _marcador < (distanceSPWN2)) then
 		{
 		_exit = true;
 		}
@@ -45,14 +45,14 @@ else
 		if (count smallCAmrk > 0) then
 			{
 			_cercano = [smallCAmrk,_marcador] call BIS_fnc_nearestPosition;
-			if (getMarkerPos _cercano distance _marcador < (distanciaSPWN2)) then {_exit = true};
+			if (getMarkerPos _cercano distance _marcador < (distanceSPWN2)) then {_exit = true};
 			};
 		};
 	};
 
 if (_exit) exitWith {diag_log format ["Antistasi PatrolCA: CA cancelled because of other CA in vincity of %1",_marcador]};
 
-_enemigos = allUnits select {_x distance _posDestino < distanciaSPWN2 and (side (group _x) != _lado) and (side (group _x) != civilian) and (alive _x)};
+_enemigos = allUnits select {_x distance _posDestino < distanceSPWN2 and (side (group _x) != _lado) and (side (group _x) != civilian) and (alive _x)};
 
 if ((!_esMarcador) and (_typeOfAttack != "Air") and (!_super) and ({lados getVariable [_x,sideUnknown] == _lado} count aeropuertos > 0)) then
 	{
@@ -657,7 +657,7 @@ if (_esMarcador) then
 else
 	{
 	_ladoENY = if (_lado == malos) then {muyMalos} else {malos};
-	if (_typeOfAttack != "Air") then {waitUntil {sleep 1; (!([distanciaSPWN1,1,_posDestino,buenos] call A3A_fnc_distanceUnits) and !([distanciaSPWN1,1,_posDestino,_ladoENY] call A3A_fnc_distanceUnits)) or (({!([_x] call A3A_fnc_canFight)} count _soldados) >= 3*({([_x] call A3A_fnc_canFight)} count _soldados))}} else {waitUntil {sleep 1; (({!([_x] call A3A_fnc_canFight)} count _soldados) >= 3*({([_x] call A3A_fnc_canFight)} count _soldados))}};
+	if (_typeOfAttack != "Air") then {waitUntil {sleep 1; (!([distanceSPWN1,1,_posDestino,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN1,1,_posDestino,_ladoENY] call A3A_fnc_distanceUnits)) or (({!([_x] call A3A_fnc_canFight)} count _soldados) >= 3*({([_x] call A3A_fnc_canFight)} count _soldados))}} else {waitUntil {sleep 1; (({!([_x] call A3A_fnc_canFight)} count _soldados) >= 3*({([_x] call A3A_fnc_canFight)} count _soldados))}};
 	if (({!([_x] call A3A_fnc_canFight)} count _soldados) >= 3*({([_x] call A3A_fnc_canFight)} count _soldados)) then
 		{
 		_marcadores = recursos + fabricas + aeropuertos + puestos + puertos select {getMarkerPos _x distance _posDestino < distanciaSPWN};

@@ -55,7 +55,7 @@ else
 		}
 	else
 		{
-		if ({if ((isPlayer _x) and (_x distance _unit < distanciaSPWN2)) exitWith {1}} count allUnits != 0) then
+		if ({if ((isPlayer _x) and (_x distance _unit < distanceSPWN2)) exitWith {1}} count allUnits != 0) then
 			{
 			_jugadores = true;
 			[_unit,"heal"] remoteExec ["A3A_fnc_flagaction",0,_unit];

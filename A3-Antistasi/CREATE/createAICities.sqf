@@ -46,7 +46,7 @@ else
 		_esAAF = false;
 		_num = round (_num * (_prestigeBLUFOR/100));
 		_array = [];
-		{if (random 20 < skillFIA) then {_array pushBack (_x select 0)} else {_array pushBack (_x select 1)}} forEach gruposSDKsentry;
+		{if (random 20 < skillFIA) then {_array pushBack (_x select 0)} else {_array pushBack (_x select 1)}} forEach groupsSDKSentry;
 		_params = [_posicion, buenos, _array];
 		};
 	};

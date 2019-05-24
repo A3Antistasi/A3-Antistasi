@@ -71,7 +71,7 @@ if (_esControl) then
 			_veh setDir _dirVeh;
 
 			_grupoE = createGroup _lado;
-			_tipoUnit = if (_lado == malos) then {staticCrewMalos} else {staticCrewInvaders};
+			_tipoUnit = if (_lado == malos) then {staticCrewOccupants} else {staticCrewInvaders};
 			_unit = _grupoE createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
 			_unit moveInGunner _veh;
 			_soldados pushBack _unit;

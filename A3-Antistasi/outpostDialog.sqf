@@ -29,7 +29,7 @@ if (_tipo != "delete") then
 	{
 	_escarretera = isOnRoad _posicionTel;
 
-	_tipogrupo = gruposSDKSniper;
+	_tipogrupo = groupsSDKSniper;
 
 	if (_escarretera) then
 		{

@@ -92,11 +92,11 @@ if (_esinf) then
 	if (_tipoGrupo isEqualType []) then
 		{
 		_grupo = [_pos, buenos, _formato,true] call A3A_fnc_spawnGroup;
-		//if (_tipogrupo isEqualTo gruposSDKSquad) then {_format = "Squd-"};
+		//if (_tipogrupo isEqualTo groupsSDKSquad) then {_format = "Squd-"};
 		if (_tipogrupo isEqualTo gruposSDKmid) then {_format = "Tm-"};
 		if (_tipogrupo isEqualTo gruposSDKAT) then {_format = "AT-"};
-		if (_tipogrupo isEqualTo gruposSDKSniper) then {_format = "Snpr-"};
-		if (_tipogrupo isEqualTo gruposSDKSentry) then {_format = "Stry-"};
+		if (_tipogrupo isEqualTo groupsSDKSniper) then {_format = "Snpr-"};
+		if (_tipogrupo isEqualTo groupsSDKSentry) then {_format = "Stry-"};
 		if (_conMochis == "MG") then
 			{
 			((units _grupo) select ((count (units _grupo)) - 2)) addBackpackGlobal supportStaticsSDKB2;

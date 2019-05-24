@@ -1,4 +1,4 @@
-private ["_soldados","_vehiculos","_grupos","_base","_posBase","_roads","_tipoCoche","_arrayAirports","_arrayDestinos","_tam","_road","_veh","_vehCrew","_grupoVeh","_grupo","_grupoP","_distancia","_spawnPoint"];
+private ["_soldados","_vehiculos","_grupos","_base","_posBase","_roads","_tipoCoche","_arrayAirports","_arrayDestinations","_tam","_road","_veh","_vehCrew","_grupoVeh","_grupo","_grupoP","_distancia","_spawnPoint"];
 
 _soldados = [];
 _vehiculos = [];
@@ -72,25 +72,25 @@ _posbase = getMarkerPos _base;
 
 if (_tipoPatrol == "AIR") then
 	{
-	_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
+	_arrayDestinations = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
 	_distancia = 200;
 	}
 else
 	{
 	if (_tipoPatrol == "SEA") then
 		{
-		_arraydestinos = seaMarkers select {(getMarkerPos _x) distance _posbase < 2500};
+		_arrayDestinations = seaMarkers select {(getMarkerPos _x) distance _posbase < 2500};
 		_distancia = 100;
 		}
 	else
 		{
-		_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
-		_arraydestinos = [_arrayDestinos,_posBase] call A3A_fnc_patrolDestinations;
+		_arrayDestinations = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
+		_arrayDestinations = [_arrayDestinations,_posBase] call A3A_fnc_patrolDestinations;
 		_distancia = 50;
 		};
 	};
 
-if (count _arraydestinos < 4) exitWith {};
+if (count _arrayDestinations < 4) exitWith {};
 
 AAFpatrols = AAFpatrols + 1;
 
@@ -146,8 +146,8 @@ if (_tipoCoche in vehCSATLightUnarmed) then
 
 while {alive _veh} do
 	{
-	if (count _arraydestinos < 2) exitWith {};
-	_destino = selectRandom _arraydestinos;
+	if (count _arrayDestinations < 2) exitWith {};
+	_destino = selectRandom _arrayDestinations;
 	if (debug) then {player globalChat format ["Patrulla AI generada. Origen: %2 Destino %1", _destino, _base]; sleep 3};
 	_posDestino = getMarkerPos _destino;
 	if (_tipoPatrol == "LAND") then
@@ -165,18 +165,18 @@ while {alive _veh} do
 	if !(_veh distance _posdestino < _distancia) exitWith {};
 	if (_tipoPatrol == "AIR") then
 		{
-		_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
+		_arrayDestinations = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
 		}
 	else
 		{
 		if (_tipoPatrol == "SEA") then
 			{
-			_arraydestinos = seaMarkers select {(getMarkerPos _x) distance position _veh < 2500};
+			_arrayDestinations = seaMarkers select {(getMarkerPos _x) distance position _veh < 2500};
 			}
 		else
 			{
-			_arrayDestinos = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
-			_arraydestinos = [_arraydestinos,position _veh] call A3A_fnc_patrolDestinations;
+			_arrayDestinations = marcadores select {lados getVariable [_x,sideUnknown] == _lado};
+			_arrayDestinations = [_arrayDestinations,position _veh] call A3A_fnc_patrolDestinations;
 			};
 		};
 	};

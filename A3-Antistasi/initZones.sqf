@@ -178,7 +178,7 @@ marcadores = marcadores + ciudades;
 lados setVariable ["Synd_HQ",buenos,true];
 //if !(isMultiplayer) then {call compile preprocessFileLineNumbers "initGarrisons.sqf"};
 
-antenasmuertas = [];
+antennasDead = [];
 bancos = [];
 
 _posAntenas = [];
@@ -226,8 +226,8 @@ else
                 _antena = _this select 0;
                 {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach ciudades;
                 _mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
-                antenas = antenas - [_antena]; antenasmuertas pushBack (getPos _antena); deleteMarker _mrk;
-                publicVariable "antenas"; publicVariable "antenasMuertas";
+                antenas = antenas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
+                publicVariable "antenas"; publicVariable "antennasDead";
                 ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
                 ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
                 }
@@ -263,8 +263,8 @@ if (count _posAntenas > 0) then
                     _antena = _this select 0;
                     {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach ciudades;
                     _mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
-                    antenas = antenas - [_antena]; antenasmuertas pushBack (getPos _antena); deleteMarker _mrk;
-                    publicVariable "antenas"; publicVariable "antenasMuertas";
+                    antenas = antenas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
+                    publicVariable "antenas"; publicVariable "antennasDead";
                     ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
                     ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
                     }
@@ -312,7 +312,7 @@ publicVariable "puestosFIA";
 publicVariable "seaMarkers";
 publicVariable "spawnPoints";
 publicVariable "antenas";
-publicVariable "antenasMuertas";
+publicVariable "antennasDead";
 publicVariable "mrkAntenas";
 publicVariable "bancos";
 publicVariable "seaSpawn";

@@ -10,7 +10,7 @@ if (_tipo == "delete") exitWith {hint "Deprecated option. Use Remove Garrison fr
 _escarretera = isOnRoad _posicionTel;
 
 _texto = format ["%1 Observation Post",nameBuenos];
-_tipogrupo = gruposSDKSniper;
+_tipogrupo = groupsSDKSniper;
 _tipoVeh = vehSDKBike;
 private _tsk = "";
 if (_escarretera) then

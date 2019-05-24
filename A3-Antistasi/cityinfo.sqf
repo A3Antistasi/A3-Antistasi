@@ -57,7 +57,7 @@ while {visibleMap} do
 				case muyMalos: {_result = format ["%1",nameMuyMalos]};
 				};
 			/*_ant1 = [antenas,_posicion] call BIS_fnc_nearestPosition;
-			_ant2 = [antenasMuertas, _posicion] call BIS_fnc_nearestPosition;
+			_ant2 = [antennasDead, _posicion] call BIS_fnc_nearestPosition;
 			if (_ant1 distance _posicion > _ant2 distance _posicion) then
 				{
 				_result = "NONE";

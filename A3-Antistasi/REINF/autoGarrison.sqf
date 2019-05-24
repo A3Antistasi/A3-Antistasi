@@ -22,7 +22,7 @@ _size = round (_size / _divisor);
 
 if (_size == 0) then {_size = 1};
 
-_tiposGrupo = [gruposSDKmid,gruposSDKAT,gruposSDKSquad,gruposSDKSniper];
+_tiposGrupo = [gruposSDKmid,gruposSDKAT,groupsSDKSquad,groupsSDKSniper];
 
 while {(_size > 0)} do
 	{

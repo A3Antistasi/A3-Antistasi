@@ -5,7 +5,7 @@ NATOBodyG = "rhsusf_socom_marsoc_teamleader";
 NATOCrew = "rhsusf_usmc_marpat_wd_crewman";
 NATOUnarmed = "B_G_Survivor_F";
 NATOMarksman = "rhsusf_usmc_marpat_wd_marksman";
-staticCrewMalos = "rhsusf_usmc_marpat_wd_machinegunner_ass";
+staticCrewOccupants = "rhsusf_usmc_marpat_wd_machinegunner_ass";
 NATOPilot = "rhsusf_airforce_jetpilot";
 
 NATOMG = "RHS_M2StaticMG_USMC_WD";

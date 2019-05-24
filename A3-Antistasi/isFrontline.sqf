@@ -9,6 +9,6 @@ _mrkENY = (aeropuertos + puestos + puertos) select {lados getVariable [_x,sideUn
 if (count _mrkENY > 0) then
 	{
 	_posicion = getMarkerPos _marcador;
-	{if (_posicion distance (getMarkerPos _x) < distanciaSPWN) exitWith {_isFrontier = true}} forEach _mrkENY;
+	{if (_posicion distance (getMarkerPos _x) < distanceSPWN) exitWith {_isFrontier = true}} forEach _mrkENY;
 	};
 _isfrontier

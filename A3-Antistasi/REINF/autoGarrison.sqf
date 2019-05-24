@@ -6,7 +6,7 @@ _marcador = _this select 0;
 if (not(_marcador in smallCAmrk)) exitWith {};
 
 _destino = getMarkerPos _marcador;
-_origen = getMarkerPos respawnBuenos;
+_origen = getMarkerPos respawnTeamPlayer;
 
 _grupos = [];
 _soldados = [];
@@ -22,7 +22,7 @@ _size = round (_size / _divisor);
 
 if (_size == 0) then {_size = 1};
 
-_tiposGrupo = [gruposSDKmid,gruposSDKAT,groupsSDKSquad,groupsSDKSniper];
+_tiposGrupo = [groupsSDKmid,gruposSDKAT,groupsSDKSquad,groupsSDKSniper];
 
 while {(_size > 0)} do
 	{
@@ -47,11 +47,11 @@ while {(_size > 0)} do
 waitUntil {sleep 1;((not(_marcador in smallCAmrk)) or (lados getVariable [_marcador,sideUnknown] == malos) or (lados getVariable [_marcador,sideUnknown] == muyMalos))};
 /*
 {_vehiculo = _x;
-waitUntil {sleep 1; {_x distance _vehiculo < distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _vehiculo;
 } forEach _vehiculos;*/
 {_soldado = _x;
-waitUntil {sleep 1; {_x distance _soldado < distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _soldado;
 } forEach _soldados;
 {deleteGroup _x} forEach _grupos;

@@ -236,5 +236,5 @@ if (_revelar) then
 	{
 	{
 	_unit reveal [_x,1.5];
-	} forEach allUnits select {(vehicle _x isKindOf "Air") and (_x distance _unit <= distanciaSPWN)}
+	} forEach allUnits select {(vehicle _x isKindOf "Air") and (_x distance _unit <= distanceSPWN)}
 	};

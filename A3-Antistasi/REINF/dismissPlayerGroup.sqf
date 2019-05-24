@@ -27,11 +27,11 @@ if (recruitCooldown < time) then {recruitCooldown = time + 60} else {recruitCool
 
 _lider = leader _nuevoGrp;
 
-{_x domove getMarkerPos respawnBuenos} forEach units _nuevogrp;
+{_x domove getMarkerPos respawnTeamPlayer} forEach units _nuevogrp;
 
 _tiempo = time + 120;
 
-waitUntil {sleep 1; (time > _tiempo) or ({(_x distance getMarkerPos respawnBuenos < 50) and (alive _x)} count units _nuevogrp == {alive _x} count units _nuevogrp)};
+waitUntil {sleep 1; (time > _tiempo) or ({(_x distance getMarkerPos respawnTeamPlayer < 50) and (alive _x)} count units _nuevogrp == {alive _x} count units _nuevogrp)};
 
 _hr = 0;
 _resourcesFIA = 0;

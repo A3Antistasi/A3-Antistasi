@@ -1,6 +1,6 @@
 params ["_posicion","_lado","_tipos",["_override",false],["_canBypass",false]];
-//private ["_grupo","_cuenta","_cuentaRangos","_lider","_unidades","_index","_posicion","_lado","_tipos","_override","_canBypass"];
-private ["_grupo","_cuenta","_cuentaRangos","_lider","_unidades","_index"];
+//private ["_grupo","_cuenta","_countRanks","_lider","_unidades","_index","_posicion","_lado","_tipos","_override","_canBypass"];
+private ["_grupo","_cuenta","_countRanks","_lider","_unidades","_index"];
 
 /*_posicion = _this select 0;
 _lado = _this select 1;
@@ -33,7 +33,7 @@ else
 	{
 	if (_cuenta < 8) then {_rangos = _rangos - ["LIEUTENANT"]};
 	};
-_cuentaRangos = (count _rangos - 1);
+_countRanks = (count _rangos - 1);
 for "_i" from 0 to (_cuenta - 1) do
 	{
 	if ((_i == 0) or (((_allUnits + 1) < maxUnits) and ((_allUnitsSide + 1) < _maxUnitsSide)) or _override) then
@@ -42,7 +42,7 @@ for "_i" from 0 to (_cuenta - 1) do
 		_unit allowDamage false;
 		_allUnits = _allUnits + 1;
 		_allUnitsSide = _allUnitsSide + 1;
-		if (_i <= _cuentaRangos) then
+		if (_i <= _countRanks) then
 			{
 			_unit setRank (_rangos select _i);
 			};

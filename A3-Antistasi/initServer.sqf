@@ -22,7 +22,7 @@ autoSave = if (paramsArray select 2 == 1) then {true} else {false};
 membershipEnabled = if (paramsArray select 3 == 1) then {true} else {false};
 switchCom = if (paramsArray select 4 == 1) then {true} else {false};
 tkPunish = if (paramsArray select 5 == 1) then {true} else {false};
-distanciaMiss = paramsArray select 6; publicVariable "distanciaMiss";
+distanceMission = paramsArray select 6; publicVariable "distanceMission";
 pvpEnabled = if (paramsArray select 7 == 1) then {true} else {false};
 skillMult = paramsArray select 9; publicVariable "skillMult";
 minWeaps = paramsArray select 10; publicVariable "minWeaps";

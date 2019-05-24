@@ -55,9 +55,9 @@ if (spawner getVariable _marcador == 0) then
 		}
 	else
 		{
-		waitUntil {sleep 1;({leader _grupo knowsAbout _x > 1.4} count ([distanciaSPWN,0,leader _grupo,buenos] call A3A_fnc_distanceUnits) > 0) or (dateToNumber date > _fechalimnum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0)};
+		waitUntil {sleep 1;({leader _grupo knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _grupo,buenos] call A3A_fnc_distanceUnits) > 0) or (dateToNumber date > _fechalimnum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0)};
 
-		if ({leader _grupo knowsAbout _x > 1.4} count ([distanciaSPWN,0,leader _grupo,buenos] call A3A_fnc_distanceUnits) > 0) then {_grupo addVehicle _veh;};
+		if ({leader _grupo knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _grupo,buenos] call A3A_fnc_distanceUnits) > 0) then {_grupo addVehicle _veh;};
 		};
 
 	waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0)};
@@ -93,5 +93,5 @@ if (_camionCreado) then
 	{
 	{deleteVehicle _x} forEach units _grupo;
 	deleteGroup _grupo;
-	if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
+	if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
 	};

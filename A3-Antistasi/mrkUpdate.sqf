@@ -61,8 +61,8 @@ else
 		}
 	else
 		{
-		if (_marcador in aeropuertos) then {_mrkD setMarkerText format ["%1 Airbase",nameMuyMalos];_mrkD setMarkerType flagCSATmrk} else {
-		if (_marcador in puestos) then {_mrkD setMarkerText format ["%1 Outpost",nameMuyMalos]}};
+		if (_marcador in aeropuertos) then {_mrkD setMarkerText format ["%1 Airbase",nameInvaders];_mrkD setMarkerType flagCSATmrk} else {
+		if (_marcador in puestos) then {_mrkD setMarkerText format ["%1 Outpost",nameInvaders]}};
 		_mrkD setMarkerColor colorInvaders;
 		};
 	if (_marcador in recursos) then

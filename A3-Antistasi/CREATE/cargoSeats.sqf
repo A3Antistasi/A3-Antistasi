@@ -22,8 +22,8 @@ else
 		{
 		switch (_lado) do
 			{
-			case malos: {_return = selectRandom gruposNATOmid};
-			case muyMalos: {_return = selectRandom gruposCSATmid};
+			case malos: {_return = selectRandom groupsNATOmid};
+			case muyMalos: {_return = selectRandom groupsCSATmid};
 			};
 		}
 	else

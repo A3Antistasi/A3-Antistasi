@@ -11,7 +11,7 @@ antistasiVersion = "v 1.4.0.2";
 debug = false;//debug variable, not useful for everything..
 
 cleantime = 3600;//time to delete dead bodies, vehicles etc..
-distanciaSPWN = 1000;//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
+distanceSPWN = 1000;//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
 distanceSPWN1 = 1300;
 distanceSPWN2 = 500;
 musicON = if (isMultiplayer) then {false} else {true};
@@ -20,7 +20,7 @@ autoHeal = false;
 recruitCooldown = 0;
 savingClient = false;
 incomeRep = false;
-//distanciaMiss = 2500;
+//distanceMission = 2500;
 /*
 minMags = 20;
 
@@ -37,9 +37,9 @@ colorBuenos = if (buenos == independent) then {"colorGUER"} else {"colorBLUFOR"}
 colorMalos = if (buenos == independent) then {"colorBLUFOR"} else {"colorGUER"};
 colorInvaders = "colorOPFOR";
 
-respawnBuenos = if (buenos == independent) then {"respawn_guerrila"} else {"respawn_west"};
-respawnMalos = if (buenos == independent) then {"respawn_west"} else {"respawn_guerrila"};
-posHQ = getMarkerPos respawnBuenos;
+respawnTeamPlayer = if (buenos == independent) then {"respawn_guerrila"} else {"respawn_west"};
+respawnOccupants = if (buenos == independent) then {"respawn_west"} else {"respawn_guerrila"};
+posHQ = getMarkerPos respawnTeamPlayer;
 
 allMagazines = [];
 _cfgmagazines = configFile >> "cfgmagazines";
@@ -251,7 +251,7 @@ sdkTier2 = SDKMedic + SDKExp + SDKEng;
 sdkTier3 = SDKSL + SDKSniper;
 soldadosSDK = sdkTier1 + sdkTier2 + sdkTier3;
 vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATBuenos,staticAABuenos,vehSDKRepair];
-gruposSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
+groupsSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
 gruposSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
 //["BanditShockTeam","ParaShockTeam"];
 groupsSDKSquad = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
@@ -288,7 +288,7 @@ if !(_tipo in _checked) then
 		};
 	};
 } forEach _x;
-} forEach gruposCSATmid + [CSATSpecOp] + groupsCSATSquad;
+} forEach groupsCSATmid + [CSATSpecOp] + groupsCSATSquad;
 _checked = [];
 {
 {
@@ -304,7 +304,7 @@ if !(_tipo in _checked) then
 		};
 	};
 } forEach _x;
-} forEach gruposNATOmid + [NATOSpecOp] + groupsNATOSquad;
+} forEach groupsNATOmid + [NATOSpecOp] + groupsNATOSquad;
 
 {
 _nombre = [_x] call BIS_fnc_baseWeapon;
@@ -489,7 +489,7 @@ if (!isServer) exitWith {};
 {server setVariable [_x,100,true]} forEach  sdkTier2;
 {server setVariable [_x,150,true]} forEach sdkTier3;
 //{timer setVariable [_x,0,true]} forEach (vehAttack + vehNATOAttackHelis + [vehNATOPlane,vehNATOPlaneAA,vehCSATPlane,vehCSATPlaneAA] + vehCSATAttackHelis + vehAA + vehMRLS);
-{timer setVariable [_x,3,true]} forEach [staticATmalos,staticAAmalos];
+{timer setVariable [_x,3,true]} forEach [staticATOccupants,staticAAOccupants];
 {timer setVariable [_x,6,true]} forEach [staticATInvaders,staticAAInvaders];
 {timer setVariable [_x,0,true]} forEach vehNATOAPC;
 {timer setVariable [_x,10,true]} forEach vehCSATAPC;
@@ -631,8 +631,8 @@ reportedVehs = [];
 hayTFAR = false;
 hayACRE = false;
 hayACE = false;
-hayACEhearing = false;
-hayACEMedical = false;
+hasACEhearing = false;
+hasACEMedical = false;
 //TFAR detection and config.
 if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
     {
@@ -723,18 +723,18 @@ if (!isNil "ace_common_fnc_isModLoaded") then {
 		};
 	hayACE = true;
 	if (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak")) then {
-		hayACEhearing = true;
+		hasACEhearing = true;
 	};
 	if (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3")) then {
 		if (ace_medical_level == 1) then {
-			hayACEMedical = true;
+			hasACEMedical = true;
 			unlockedItems = unlockedItems + aceBasicMedItems;
 		};
 	};
 
 	if (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3")) then {
 		if (ace_medical_level == 2) then {
-			hayACEMedical = true;
+			hasACEMedical = true;
 			unlockedItems = unlockedItems + aceBasicMedItems + aceAdvMedItems;
 		};
 	};
@@ -784,8 +784,8 @@ publicVariable "reportedVehs";
 publicVariable "hayACE";
 publicVariable "hayTFAR";
 publicVariable "hayACRE";
-publicVariable "hayACEhearing";
-publicVariable "hayACEMedical";
+publicVariable "hasACEhearing";
+publicVariable "hasACEMedical";
 publicVariable "revelar";
 publicVariable "prestigeNATO";
 publicVariable "prestigeCSAT";

@@ -80,7 +80,7 @@ sleep 5;
 
 {_x allowDamage true} forEach _POWS;
 
-waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos respawnBuenos < 50)} count _POWs > 0) or (dateToNumber date > _fechalimnum)};
+waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 50)} count _POWs > 0) or (dateToNumber date > _fechalimnum)};
 
 if (dateToNumber date > _fechalimnum) then
 	{
@@ -107,7 +107,7 @@ if (dateToNumber date > _fechalimnum) then
 		};
 	};
 
-waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos respawnBuenos < 50)} count _POWs > 0)};
+waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 50)} count _POWs > 0)};
 
 _bonus = if (_dificil) then {2} else {1};
 
@@ -121,13 +121,13 @@ else
 	{
 	sleep 5;
 	["RES",[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"POW Rescue",_marcador],_posicion,"SUCCEEDED","run"] call A3A_fnc_taskUpdate;
-	_cuenta = {(alive _x) and (_x distance getMarkerPos respawnBuenos < 150)} count _POWs;
+	_cuenta = {(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 150)} count _POWs;
 	_hr = 2 * (_cuenta);
 	_resourcesFIA = 100 * _cuenta*_bonus;
 	[_hr,_resourcesFIA] remoteExec ["A3A_fnc_resourcesFIA",2];
 	[0,10*_bonus,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 	//[_cuenta,0] remoteExec ["A3A_fnc_prestige",2];
-	{if (_x distance getMarkerPos respawnBuenos < 500) then {[_cuenta,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+	{if (_x distance getMarkerPos respawnTeamPlayer < 500) then {[_cuenta,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 	[round (_cuenta*_bonus/2),theBoss] call A3A_fnc_playerScoreAdd;
 	{[_x] join _grpPOW; [_x] orderGetin false} forEach _POWs;
 	};
@@ -138,7 +138,7 @@ _municion = [];
 _armas = [];
 {
 _unit = _x;
-if (_unit distance getMarkerPos respawnBuenos < 150) then
+if (_unit distance getMarkerPos respawnTeamPlayer < 150) then
 	{
 	{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
 	{if (not(_x in unlockedMagazines)) then {_municion pushBack _x}} forEach magazines _unit;

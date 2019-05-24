@@ -19,7 +19,7 @@ if ((_tipo in vehNormal) or (_tipo in vehAttack) or (_tipo in vehBoats)) then
 		{
 		if (_tipo in vehAmmoTrucks) then
 			{
-			if (_veh distance getMarkerPos respawnBuenos > 50) then {if (_tipo == vehNatoAmmoTruck) then {_nul = [_veh] call A3A_fnc_NATOcrate} else {_nul = [_veh] call A3A_fnc_CSATcrate}};
+			if (_veh distance getMarkerPos respawnTeamPlayer > 50) then {if (_tipo == vehNatoAmmoTruck) then {_nul = [_veh] call A3A_fnc_NATOcrate} else {_nul = [_veh] call A3A_fnc_CSATcrate}};
 			};
 		if (_veh isKindOf "Car") then
 			{
@@ -243,7 +243,7 @@ if (not(_veh in staticsToSave)) then
 			}
 			];
 		};
-	if (_veh distance getMarkerPos respawnBuenos <= 50) then
+	if (_veh distance getMarkerPos respawnTeamPlayer <= 50) then
 		{
 		clearMagazineCargoGlobal _veh;
 		clearWeaponCargoGlobal _veh;

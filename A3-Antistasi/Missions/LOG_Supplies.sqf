@@ -20,7 +20,7 @@ _taskDescription = format ["%1 population is in need of supplies. We may improve
 
 [[buenos,civilian],"LOG",[_taskDescription,"City Supplies",_marcador],_posicion,false,0,true,"Heal",true] call BIS_fnc_taskCreate;
 misiones pushBack ["LOG","CREATED"]; publicVariable "misiones";
-_pos = (getMarkerPos respawnBuenos) findEmptyPosition [1,50,"C_Van_01_box_F"];
+_pos = (getMarkerPos respawnTeamPlayer) findEmptyPosition [1,50,"C_Van_01_box_F"];
 
 //Creating the box
 _camion = "Land_PaperBox_01_open_boxes_F" createVehicle _pos;
@@ -64,7 +64,7 @@ else
 		_amigo setCaptive false;
 		};
 	{
-	if ((side _x == malos) and (_x distance _posicion < distanciaSPWN)) then
+	if ((side _x == malos) and (_x distance _posicion < distanceSPWN)) then
 		{
 		if (_x distance _posicion < 300) then {_x doMove _posicion} else {_x reveal [_amigo,4]};
 		};
@@ -114,6 +114,6 @@ _emptybox = "Land_PaperBox_01_open_empty_F" createVehicle _ecpos;
 
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
 _nul = [1200,"LOG"] spawn A3A_fnc_deleteTask;
-waitUntil {sleep 1; (not([distanciaSPWN,1,_camion,buenos] call A3A_fnc_distanceUnits)) or (_camion distance (getMarkerPos respawnBuenos) < 60)};
+waitUntil {sleep 1; (not([distanceSPWN,1,_camion,buenos] call A3A_fnc_distanceUnits)) or (_camion distance (getMarkerPos respawnTeamPlayer) < 60)};
 
 deleteVehicle _emptybox;

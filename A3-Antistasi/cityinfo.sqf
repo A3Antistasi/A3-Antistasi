@@ -34,7 +34,7 @@ while {visibleMap} do
 		_posicionTel = posicionTel;
 		_sitio = [marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
 		_texto = "Click on the zone";
-		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == buenos) then {nameBuenos} else {if (lados getVariable [_sitio,sideUnknown] == malos) then {nameMalos} else {nameMuyMalos}};
+		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == buenos) then {nameBuenos} else {if (lados getVariable [_sitio,sideUnknown] == malos) then {nameMalos} else {nameInvaders}};
 		if (_sitio == "Synd_HQ") then
 			{
 			_texto = format ["%2 HQ%1",[_sitio] call A3A_fnc_garrisonInfo,nameBuenos];
@@ -54,7 +54,7 @@ while {visibleMap} do
 				{
 				case buenos: {_result = format ["%1",nameBuenos]};
 				case malos: {_result = format ["%1",nameMalos]};
-				case muyMalos: {_result = format ["%1",nameMuyMalos]};
+				case muyMalos: {_result = format ["%1",nameInvaders]};
 				};
 			/*_ant1 = [antenas,_posicion] call BIS_fnc_nearestPosition;
 			_ant2 = [antennasDead, _posicion] call BIS_fnc_nearestPosition;

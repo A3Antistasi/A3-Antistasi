@@ -44,7 +44,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","dificultad","gameMode"];
+["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","dificultad","gameMode"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -84,7 +84,7 @@ fn_SetStat =
 		if(_varName == 'mrkNATO') then {{lados setVariable [_x,malos,true]} forEach _varValue;};
 		if(_varName == 'mrkCSAT') then {{lados setVariable [_x,muyMalos,true]} forEach _varValue;};
 		if(_varName == 'mrkSDK') then {{lados setVariable [_x,buenos,true]} forEach _varValue;};
-		if(_varName == 'controlesSDK') then
+		if(_varName == 'controlsSDK') then
 			{
 			{
 			lados setVariable [_x,buenos,true]
@@ -135,7 +135,7 @@ fn_SetStat =
 			server setVariable [_x,_coste,true];
 			} forEach soldadosSDK;
 			};
-		if(_varName == 'distanciaSPWN') then {distanciaSPWN = _varValue; distanceSPWN1 = distanciaSPWN * 1.3; distanceSPWN2 = distanciaSPWN /2; publicVariable "distanciaSPWN";publicVariable "distanceSPWN1";publicVariable "distanceSPWN2"};
+		if(_varName == 'distanceSPWN') then {distanceSPWN = _varValue; distanceSPWN1 = distanceSPWN * 1.3; distanceSPWN2 = distanceSPWN /2; publicVariable "distanceSPWN";publicVariable "distanceSPWN1";publicVariable "distanceSPWN2"};
 		if(_varName == 'civPerc') then {civPerc = _varValue; if (civPerc < 1) then {civPerc = 35}; publicVariable "civPerc"};
 		if(_varName == 'maxUnits') then {maxUnits=_varValue; publicVariable "maxUnits"};
 		if(_varName == 'vehInGarage') then {vehInGarage= +_varValue; publicVariable "vehInGarage"};
@@ -270,7 +270,7 @@ fn_SetStat =
 				lados setVariable [_x,buenos,true];
 				};
 			} forEach controles;
-			respawnBuenos setMarkerPos _posHQ;
+			respawnTeamPlayer setMarkerPos _posHQ;
 			petros setPos _posHQ;
 			"Synd_HQ" setMarkerPos _posHQ;
 			if (chopForest) then

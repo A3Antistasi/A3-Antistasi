@@ -334,7 +334,7 @@ if (_tipo == "RB") then
 
 while {alive _veh} do
 	{
-	if ((not([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) and (_veh distance getMarkerPos respawnBuenos > 100)) then
+	if ((not([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
 		{
 		deleteVehicle _veh
 		};

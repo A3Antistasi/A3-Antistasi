@@ -17,7 +17,7 @@ if (_numReal + 4 <= _numGarr) then
 		}
 	else
 		{
-		if (_lado == malos) then {[selectRandom gruposNATOmid,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom gruposCSATmid,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
+		if (_lado == malos) then {[selectRandom groupsNATOmid,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom groupsCSATmid,_lado,_aeropuerto,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
 		_numero = 4;
 		};
 	};
@@ -45,11 +45,11 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 		} forEach _posibles;
 		if (_sitio != "") then
 			{
-			if ({(getMarkerPos _x distance2d getMarkerPos _sitio < distanciaSPWN) and (lados getVariable [_x,sideUnknown] != _lado)} count aeropuertos == 0) then
+			if ({(getMarkerPos _x distance2d getMarkerPos _sitio < distanceSPWN) and (lados getVariable [_x,sideUnknown] != _lado)} count aeropuertos == 0) then
 				{
-				if ({(_x distance2D _posicion < (2*distanciaSPWN)) or (_x distance2D (getMarkerPos _sitio) < (2*distanciaSPWN))} count allPlayers == 0) then
+				if ({(_x distance2D _posicion < (2*distanceSPWN)) or (_x distance2D (getMarkerPos _sitio) < (2*distanceSPWN))} count allPlayers == 0) then
 					{
-					_tipoGrupo = if (_lado == malos) then {if (_numero == 4) then {selectRandom gruposNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom gruposCSATmid} else {selectRandom groupsCSATSquad}};
+					_tipoGrupo = if (_lado == malos) then {if (_numero == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
 					[_tipoGrupo,_lado,_sitio,2] remoteExec ["A3A_fnc_garrisonUpdate",2];
 					}
 				else

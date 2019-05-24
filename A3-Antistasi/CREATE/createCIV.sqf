@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiculos","_civsPatrol","_gruposPatrol","_vehPatrol","_tipoCiv","_tipoVeh","_dirVeh","_cuenta","_grupo","_size","_road","_tipociv","_tipoVeh","_dirVeh","_posicion","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_cuentaPatrol","_andanadas","_grupoP","_wp","_wp1"];
+private ["_marcador","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiculos","_civsPatrol","_gruposPatrol","_vehPatrol","_tipoCiv","_tipoVeh","_dirVeh","_cuenta","_grupo","_size","_road","_tipociv","_tipoVeh","_dirVeh","_posicion","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_andanadas","_grupoP","_wp","_wp1"];
 
 _marcador = _this select 0;
 
@@ -115,14 +115,14 @@ if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 	{
 	_patrolCities = [_marcador] call A3A_fnc_citiesToCivPatrol;
 
-	_cuentaPatrol = 0;
+	_countPatrol = 0;
 
 	_andanadas = round (_numCiv / 60);
 	if (_andanadas < 1) then {_andanadas = 1};
 
 	for "_i" from 1 to _andanadas do
 		{
-		while {(spawner getVariable _marcador != 2) and (_cuentaPatrol < (count _patrolCities - 1) and (_cuenta < _max))} do
+		while {(spawner getVariable _marcador != 2) and (_countPatrol < (count _patrolCities - 1) and (_cuenta < _max))} do
 			{
 			//_p1 = getPos (_roads select _cuenta);
 			_p1 = _roads select _cuenta;
@@ -162,7 +162,7 @@ if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 					_civ moveInDriver _veh;
 					_grupoP addVehicle _veh;
 					_grupoP setBehaviour "CARELESS";
-					_posDestino = selectRandom (carreteras getVariable (_patrolCities select _cuentaPatrol));
+					_posDestino = selectRandom (carreteras getVariable (_patrolCities select _countPatrol));
 					_wp = _grupoP addWaypoint [_posDestino,0];
 					_wp setWaypointType "MOVE";
 					_wp setWaypointSpeed "FULL";
@@ -175,7 +175,7 @@ if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 					_wp1 synchronizeWaypoint [_wp];
 					};
 				};
-			_cuentaPatrol = _cuentaPatrol + 1;
+			_countPatrol = _countPatrol + 1;
 			sleep 5;
 			};
 		};
@@ -186,17 +186,17 @@ waitUntil {sleep 1;(spawner getVariable _marcador == 2)};
 {deleteVehicle _x} forEach _civs;
 {deleteGroup _x} forEach _grupos;
 {
-if (!([distanciaSPWN-_size,1,_x,buenos] call A3A_fnc_distanceUnits)) then
+if (!([distanceSPWN-_size,1,_x,buenos] call A3A_fnc_distanceUnits)) then
 	{
 	if (_x in reportedVehs) then {reportedVehs = reportedVehs - [_x]; publicVariable "reportedVehs"};
 	deleteVehicle _x;
 	}
 } forEach _vehiculos;
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 deleteVehicle _x} forEach _civsPatrol;
 {
-if (!([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)) then
+if (!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)) then
 	{
 	if (_x in reportedVehs) then {reportedVehs = reportedVehs - [_x]; publicVariable "reportedVehs"};
 	deleteVehicle _x

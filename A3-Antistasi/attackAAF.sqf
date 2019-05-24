@@ -9,11 +9,11 @@ _csatIsFull = false;
 _aeropuertos = aeropuertos select {([_x,false] call A3A_fnc_airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
 _objetivos = marcadores - controles - puestosFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedCities;
 if (gameMode != 1) then {_objetivos = _objetivos select {lados getVariable [_x,sideUnknown] == buenos}};
-//_objetivosSDK = _objetivos select {lados getVariable [_x,sideUnknown] == buenos};
+//_objectivesSDK = _objetivos select {lados getVariable [_x,sideUnknown] == buenos};
 if ((tierWar < 2) and (gameMode <= 2)) then
 	{
 	_aeropuertos = _aeropuertos select {(lados getVariable [_x,sideUnknown] == malos)};
-	//_objetivos = _objetivosSDK;
+	//_objetivos = _objectivesSDK;
 	_objetivos = _objetivos select {lados getVariable [_x,sideUnknown] == buenos};
 	}
 else
@@ -53,8 +53,8 @@ if (((marcadores - controles - ciudades - puestosFIA) select {lados getVariable 
 if (_objetivos isEqualTo []) exitWith {};
 _objectivesFinal = [];
 _basesFinal = [];
-_cuentasFinal = [];
-_objetivoFinal = [];
+_countFinal = [];
+_objectiveFinal = [];
 _faciles = [];
 _facilesArr = [];
 _puertoCSAT = if ({(lados getVariable [_x,sideUnknown] == muyMalos)} count puertos >0) then {true} else {false};
@@ -123,11 +123,11 @@ if !(_tmpObjetivos isEqualTo []) then
 					if (((!(_sitio in aeropuertos)) or (_esSDK)) and !(_base in ["NATO_carrier","CSAT_carrier"])) then
 						{
 						_ladoEny = if (_baseNATO) then {muyMalos} else {malos};
-						if ({(lados getVariable [_x,sideUnknown] == _ladoEny) and (getMarkerPos _x distance _posSitio < distanciaSPWN)} count aeropuertos == 0) then
+						if ({(lados getVariable [_x,sideUnknown] == _ladoEny) and (getMarkerPos _x distance _posSitio < distanceSPWN)} count aeropuertos == 0) then
 							{
 							_garrison = garrison getVariable [_sitio,[]];
-							_estaticas = staticsToSave select {_x distance _posSitio < distanciaSPWN};
-							_puestos = puestosFIA select {getMarkerPos _x distance _posSitio < distanciaSPWN};
+							_estaticas = staticsToSave select {_x distance _posSitio < distanceSPWN};
+							_puestos = puestosFIA select {getMarkerPos _x distance _posSitio < distanceSPWN};
 							_cuenta = ((count _garrison) + (count _puestos) + (2*(count _estaticas)));
 							if (_cuenta <= 8) then
 								{
@@ -184,8 +184,8 @@ if !(_tmpObjetivos isEqualTo []) then
 				};
 			if (_times > 0) then
 				{
-				_aeropCercano = [aeropuertos,_posSitio] call bis_fnc_nearestPosition;
-				if ((lados getVariable [_aeropCercano,sideUnknown] == muyMalos) and (_x != _aeropCercano)) then {_times = 0};
+				_airportNear = [aeropuertos,_posSitio] call bis_fnc_nearestPosition;
+				if ((lados getVariable [_airportNear,sideUnknown] == muyMalos) and (_x != _airportNear)) then {_times = 0};
 				};
 			}
 		else
@@ -225,8 +225,8 @@ if !(_tmpObjetivos isEqualTo []) then
 				};
 			if (_times > 0) then
 				{
-				_aeropCercano = [aeropuertos,_posSitio] call bis_fnc_nearestPosition;
-				if ((lados getVariable [_aeropCercano,sideUnknown] == malos) and (_x != _aeropCercano)) then {_times = 0};
+				_airportNear = [aeropuertos,_posSitio] call bis_fnc_nearestPosition;
+				if ((lados getVariable [_airportNear,sideUnknown] == malos) and (_x != _airportNear)) then {_times = 0};
 				};
 			};
 		if (_times > 0) then
@@ -272,18 +272,18 @@ if !(_tmpObjetivos isEqualTo []) then
 				{
 				_objectivesFinal pushBack _x;
 				_basesFinal pushBack _base;
-				_cuentasFinal pushBack _times;
+				_countFinal pushBack _times;
 				}
 			else
 				{
-				if ((_times > (_cuentasFinal select _index)) or ((_times == (_cuentasFinal select _index)) and (random 1 < 0.5))) then
+				if ((_times > (_countFinal select _index)) or ((_times == (_countFinal select _index)) and (random 1 < 0.5))) then
 					{
 					_objectivesFinal deleteAt _index;
 					_basesFinal deleteAt _index;
-					_cuentasFinal deleteAt _index;
+					_countFinal deleteAt _index;
 					_objectivesFinal pushBack _x;
 					_basesFinal pushBack _base;
-					_cuentasFinal pushBack _times;
+					_countFinal pushBack _times;
 					};
 				};
 			};
@@ -307,15 +307,15 @@ if ((count _objectivesFinal > 0) and (count _faciles < 3)) then
 		{
 		_arrayFinal pushBack [(_objectivesFinal select _forEachIndex),(_basesFinal select _forEachIndex)];
 		};
-	} forEach _cuentasFinal;*/
+	} forEach _countFinal;*/
 	for "_i" from 0 to (count _objectivesFinal) - 1 do
 		{
 		_arrayFinal pushBack [_objectivesFinal select _i,_basesFinal select _i];
 		};
-	//_objetivoFinal = selectRandom _arrayFinal;
-	_objetivoFinal = _arrayFinal selectRandomWeighted _cuentasFinal;
-	_destino = _objetivoFinal select 0;
-	_origen = _objetivoFinal select 1;
+	//_objectiveFinal = selectRandom _arrayFinal;
+	_objectiveFinal = _arrayFinal selectRandomWeighted _countFinal;
+	_destino = _objectiveFinal select 0;
+	_origen = _objectiveFinal select 1;
 	///aquí decidimos las oleadas
 	if (_waves == 1) then
 		{

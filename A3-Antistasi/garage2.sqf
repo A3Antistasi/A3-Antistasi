@@ -22,8 +22,8 @@ else
 if (count vehInGarageShow == 0) exitWith {hintC "The Garage is empty or the vehicles you have are not suitable to recover in the place you are.\n\nAir vehicles need to be recovered near Airport flags."};
 _cercano = [marcadores select {lados getVariable [_x,sideUnknown] == buenos},player] call BIS_fnc_nearestPosition;
 if !(player inArea _cercano) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
-cuentaGarage = 0;
-_tipo = vehInGarageShow select cuentaGarage;
+countGarage = 0;
+_tipo = vehInGarageShow select countGarage;
 garageVeh = _tipo createVehicleLocal [0,0,1000];
 garageVeh allowDamage false;
 garageVeh enableSimulationGlobal false;
@@ -48,14 +48,14 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 			};
 		if (_this select 1 == 200) then
 			{
-			if (cuentaGarage + 1 > (count vehInGarageShow) - 1) then {cuentaGarage = 0} else {cuentaGarage = cuentaGarage + 1};
+			if (countGarage + 1 > (count vehInGarageShow) - 1) then {countGarage = 0} else {countGarage = countGarage + 1};
 			_cambio = true;
 			_handled = true;
 			//["",0,0,0.34,0,0,4] spawn bis_fnc_dynamicText;
 			};
 		if (_this select 1 == 208) then
 			{
-			if (cuentaGarage - 1 < 0) then {cuentaGarage = (count vehInGarageShow) - 1} else {cuentaGarage = cuentaGarage - 1};
+			if (countGarage - 1 < 0) then {countGarage = (count vehInGarageShow) - 1} else {countGarage = countGarage - 1};
 			_cambio = true;
 			_handled = true;
 			//["",0,0,0.34,0,0,4] spawn bis_fnc_dynamicText;
@@ -73,7 +73,7 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		if (_cambio) then
 			{
 			deleteVehicle garageVeh;
-			_tipo = vehInGarageShow select cuentaGarage;
+			_tipo = vehInGarageShow select countGarage;
 			if (isNil "_tipo") then {_salir = true};
 			if (typeName _tipo != typeName "") then {_salir = true};
 			if (!_salir) then
@@ -139,13 +139,13 @@ _pos = getPosASL garageVeh;
 _dir = getDir garageVeh;
 _tipo = typeOf garageVeh;
 deleteVehicle garageVeh;
-if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; comprado = nil; garageVeh = nil; cuentaGarage = nil};
+if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; comprado = nil; garageVeh = nil; countGarage = nil};
 if ([player,300] call A3A_fnc_enemyNearCheck) then
 	{
 	hint "You cannot manage the Garage with enemies nearby";
 	comprado = 0;
 	};
-if (comprado != 2) exitWith {comprado = nil; garageVeh = nil; cuentaGarage = nil};
+if (comprado != 2) exitWith {comprado = nil; garageVeh = nil; countGarage = nil};
 comprado = nil;
 //if (player distance2D _pos > 100) exitWith {hint "You have to select a closer position from you"};
 waitUntil {isNull garageVeh};
@@ -162,7 +162,7 @@ _found = false;
 if (pool) then
 	{
 	{
-	if ((_x != (vehInGarageShow select cuentaGarage)) or (_found)) then {_newArr pushBack _x} else {_found = true};
+	if ((_x != (vehInGarageShow select countGarage)) or (_found)) then {_newArr pushBack _x} else {_found = true};
 	} forEach vehInGarage;
 	vehInGarage = _newArr;
 	publicVariable "vehInGarage";
@@ -170,13 +170,13 @@ if (pool) then
 else
 	{
 	{
-	if ((_x != (vehInGarageShow select cuentaGarage)) or (_found)) then {_newArr pushBack _x} else {_found = true};
+	if ((_x != (vehInGarageShow select countGarage)) or (_found)) then {_newArr pushBack _x} else {_found = true};
 	} forEach personalGarage;
 	personalGarage = _newArr;
 	["personalGarage",_newArr] call fn_SaveStat;
 	_garageVeh setVariable ["duenyo",getPlayerUID player,true];
 	};
-cuentaGarage = nil;
+countGarage = nil;
 if (_garageVeh isKindOf "StaticWeapon") then {staticsToSave pushBack _garageVeh; publicVariable "staticsToSave"};
 clearMagazineCargoGlobal _garageVeh;
 clearWeaponCargoGlobal _garageVeh;

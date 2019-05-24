@@ -10,7 +10,7 @@ if (!isMultiPlayer) then
     diag_log "Starting Antistasi SP";
     call compile preprocessFileLineNumbers "initVar.sqf";//this is the file where you can modify a few things.
     initVar = true;
-    respawnMalos setMarkerAlpha 0;
+    respawnOccupants setMarkerAlpha 0;
     "respawn_east" setMarkerAlpha 0;
     [] execVM "briefing.sqf";
     diag_log format ["Antistasi SP. InitVar done. Version: %1",antistasiVersion];
@@ -38,7 +38,7 @@ if (!isMultiPlayer) then
     membershipEnabled = false;
     switchCom = false;
     tkPunish = false;
-    distanciaMiss = if (hayIFA) then {2000} else {4000};
+    distanceMission = if (hayIFA) then {2000} else {4000};
     skillMult = 1;
     minWeaps = 24;
     civTraffic = 1;

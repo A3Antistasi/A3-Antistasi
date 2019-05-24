@@ -4,7 +4,7 @@ while {!([player] call A3A_fnc_isMember)} do
 	_playerMembers = playableUnits select {([_x] call A3A_fnc_isMember) and (side group _x == buenos)};
 	if !(_playerMembers isEqualTo []) then
 		{
-		if (player distance2D (getMarkerPos respawnBuenos) > memberDistance) then
+		if (player distance2D (getMarkerPos respawnTeamPlayer) > memberDistance) then
 			{
 			_closestMember = [_playerMembers,player] call BIS_fnc_nearestPosition;
 			if (player distance2d _closestMember > memberDistance) then
@@ -29,7 +29,7 @@ while {!([player] call A3A_fnc_isMember)} do
 		{
 		hint format ["You have to get closer to the HQ or the closest server member in %1 seconds. \n\n After this timeout you will be teleported to your HQ",_cuenta];
 		sleep 1;
-		if (_cuenta == 0) then {player setPos (getMarkerPos respawnBuenos)};
+		if (_cuenta == 0) then {player setPos (getMarkerPos respawnTeamPlayer)};
 		}
 	else
 		{

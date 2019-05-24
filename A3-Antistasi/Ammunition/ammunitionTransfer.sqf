@@ -18,16 +18,16 @@ if (count backpackCargo _origen > 0) then
 	_mochis pushBack (_x call BIS_fnc_basicBackpack);
 	} forEach backpackCargo _origen;
 	};
-_contenedores = everyContainer _origen;
-if (count _contenedores > 0) then
+_containers = everyContainer _origen;
+if (count _containers > 0) then
 	{
-	for "_i" from 0 to (count _contenedores) - 1 do
+	for "_i" from 0 to (count _containers) - 1 do
 		{
-		_subCosa = magazineCargo ((_contenedores select _i) select 1);
-		if (!isNil "_subCosa") then {_municion = _municion + _subCosa} else {diag_log format ["Error from %1",magazineCargo (_contenedores select _i)]};
-		//_municion = _municion + (magazineCargo ((_contenedores select _i) select 1));
-		_items = _items + (itemCargo ((_contenedores select _i) select 1));
-		_weaponsItemsCargo = _weaponsItemsCargo + weaponsItemsCargo ((_contenedores select _i) select 1);
+		_subCosa = magazineCargo ((_containers select _i) select 1);
+		if (!isNil "_subCosa") then {_municion = _municion + _subCosa} else {diag_log format ["Error from %1",magazineCargo (_containers select _i)]};
+		//_municion = _municion + (magazineCargo ((_containers select _i) select 1));
+		_items = _items + (itemCargo ((_containers select _i) select 1));
+		_weaponsItemsCargo = _weaponsItemsCargo + weaponsItemsCargo ((_containers select _i) select 1);
 		};
 	};
 if (!isNil "_weaponsItemsCargo") then
@@ -71,7 +71,7 @@ _ammunitionFinal = [];
 _ammunitionFinalCount = [];
 if (isNil "_municion") then
 	{
-	diag_log format ["Error en transmisión de munición. Tenía esto: %1 y estos contenedores: %2, el origen era un %3 y el objeto está definido como: %4", magazineCargo _origen, everyContainer _origen,typeOf _origen,_origen];
+	diag_log format ["Error en transmisión de munición. Tenía esto: %1 y estos containers: %2, el origen era un %3 y el objeto está definido como: %4", magazineCargo _origen, everyContainer _origen,typeOf _origen,_origen];
 	}
 else
 	{

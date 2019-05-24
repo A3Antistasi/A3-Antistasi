@@ -1,4 +1,4 @@
-private ["_camion","_objetos","_todo","_proceder","_caja","_armas","_municion","_items","_mochis","_contenedores","_cuenta","_exists"];
+private ["_camion","_objetos","_todo","_proceder","_caja","_armas","_municion","_items","_mochis","_containers","_cuenta","_exists"];
 
 _camion = vehicle player;
 _objetos = [];
@@ -45,14 +45,14 @@ if (count backpackCargo _caja > 0) then
 	_mochis pushBack (_x call BIS_fnc_basicBackpack);
 	} forEach backpackCargo _caja;
 	};
-_contenedores = everyContainer _caja;
-if (count _contenedores > 0) then
+_containers = everyContainer _caja;
+if (count _containers > 0) then
 	{
-	for "_i" from 0 to (count _contenedores - 1) do
+	for "_i" from 0 to (count _containers - 1) do
 		{
-		_armas = _armas + weaponCargo ((_contenedores select _i) select 1);
-		_municion = _municion + magazineCargo ((_contenedores select _i) select 1);
-		_items = _items + itemCargo ((_contenedores select _i) select 1);
+		_armas = _armas + weaponCargo ((_containers select _i) select 1);
+		_municion = _municion + magazineCargo ((_containers select _i) select 1);
+		_items = _items + itemCargo ((_containers select _i) select 1);
 		};
 	};
 */

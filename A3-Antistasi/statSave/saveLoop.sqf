@@ -57,13 +57,13 @@ if (!isDedicated) then
 	//["mrkNATO", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == malos}] call fn_SaveStat;
 	["mrkSDK", (marcadores - controles - puestosFIA) select {lados getVariable [_x,sideUnknown] == buenos}] call fn_SaveStat;
 	["mrkCSAT", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == muyMalos}] call fn_SaveStat;
-	["posHQ", [getMarkerPos respawnBuenos,getPos fuego,[getDir caja,getPos caja],[getDir mapa,getPos mapa],getPos bandera,[getDir cajaVeh,getPos cajaVeh]]] call fn_Savestat;
+	["posHQ", [getMarkerPos respawnTeamPlayer,getPos fuego,[getDir caja,getPos caja],[getDir mapa,getPos mapa],getPos bandera,[getDir cajaVeh,getPos cajaVeh]]] call fn_Savestat;
 	["prestigeNATO", prestigeNATO] call fn_SaveStat;
 	["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
 	["fecha", date] call fn_SaveStat;
 	["skillFIA", skillFIA] call fn_SaveStat;
 	["destroyedCities", destroyedCities] call fn_SaveStat;
-	["distanciaSPWN", distanciaSPWN] call fn_SaveStat;
+	["distanceSPWN", distanceSPWN] call fn_SaveStat;
 	["civPerc", civPerc] call fn_SaveStat;
 	["chopForest", chopForest] call fn_SaveStat;
 	["maxUnits", maxUnits] call fn_SaveStat;
@@ -77,7 +77,7 @@ if (!isDedicated) then
 	["weather",[fogParams,rain]] call fn_SaveStat;
 	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
 	//["firstLoad",false] call fn_SaveStat;
-private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_municion","_items","_mochis","_contenedores","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_marcadores","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_tipoMina","_posMina","_detectada","_tipos","_exists","_amigo"];
+private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_municion","_items","_mochis","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_marcadores","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_tipoMina","_posMina","_detectada","_tipos","_exists","_amigo"];
 
 _hrfondo = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["spawner",false]) and ((group _x in (hcAllGroups theBoss) or (isPlayer (leader _x))) and (side group _x == buenos))} count allUnits);
 _resfondo = server getVariable "resourcesFIA";
@@ -138,7 +138,7 @@ _arrayEst = [];
 {
 _veh = _x;
 _tipoVeh = typeOf _veh;
-if ((_veh distance getMarkerPos respawnBuenos < 50) and !(_veh in staticsToSave) and !(_tipoVeh in ["ACE_SandbagObject","Land_PaperBox_01_open_boxes_F","Land_PaperBox_01_open_empty_F"])) then
+if ((_veh distance getMarkerPos respawnTeamPlayer < 50) and !(_veh in staticsToSave) and !(_tipoVeh in ["ACE_SandbagObject","Land_PaperBox_01_open_boxes_F","Land_PaperBox_01_open_empty_F"])) then
 	{
 	if (((not (_veh isKindOf "StaticWeapon")) and (not (_veh isKindOf "ReammoBox")) and (not (_veh isKindOf "FlagCarrier")) and (not(_veh isKindOf "Building"))) and (not (_tipoVeh == "C_Van_01_box_F")) and (count attachedObjects _veh == 0) and (alive _veh) and ({(alive _x) and (!isPlayer _x)} count crew _veh == 0) and (not(_tipoVeh == "WeaponHolderSimulated"))) then
 		{
@@ -273,7 +273,7 @@ _datos pushBack [_x,killZones getVariable [_x,[]]];
 ["killZones",_datos] call fn_SaveStat;
 
 _controles = controles select {(lados getVariable [_x,sideUnknown] == buenos) and (controles find _x < defaultControlIndex)};
-["controlesSDK",_controles] call fn_SaveStat;
+["controlsSDK",_controles] call fn_SaveStat;
 
 savingServer = false;
 [[petros,"hint",format ["Savegame Done.\n\nYou won't lose your stats in the event of a game update.\n\nRemember: if you want to preserve any vehicle, it must be near the HQ Flag with no AI inside.\nIf AI are inside, you will save the funds you spent on it.\n\nAI will be refunded\n\nStolen and purchased Static Weapons need to be ASSEMBLED in order to be saved. You can save disassembled Static Weapons in the ammo box.\n\nMounted Statics (Mortar/AA/AT squads) won't get saved, but you will be able to recover the cost.\n\nSame for assigned vehicles more than 50m away from HQ.\n\n%1 fund count:\nHR: %2\nMoney: %3 €",nameBuenos,_hrFondo,_resFondo]],"A3A_fnc_commsMP"] call BIS_fnc_MP;

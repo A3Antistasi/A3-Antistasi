@@ -47,7 +47,7 @@ gruposCSATSniper = ["O_T_sniper_F","O_T_spotter_F"];
 gruposCSATsmall = [groupsCSATSentry,["O_T_recon_M_F","O_T_recon_F"],gruposCSATSniper];///[groupsCSATSentry,"O_T_reconSentry","O_T_SniperTeam"];///
 gruposCSATAA = ["O_T_soldier_TL_F","O_T_soldier_AA_F","O_T_soldier_AA_F","O_T_soldier_AAA_F"];
 gruposCSATAT = ["O_T_soldier_TL_F","O_T_soldier_AT_F","O_T_soldier_AT_F","O_T_soldier_AAT_F"];
-gruposCSATmid = [["O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_GL_F","O_T_soldier_LAT_F"],gruposCSATAA,gruposCSATAT];///["O_T_InfTeam","O_T_InfTeam_AA","O_T_InfTeam_AT"];///
+groupsCSATmid = [["O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_GL_F","O_T_soldier_LAT_F"],gruposCSATAA,gruposCSATAT];///["O_T_InfTeam","O_T_InfTeam_AA","O_T_InfTeam_AT"];///
 CSATSquad = ["O_T_soldier_SL_F","O_T_soldier_F","O_T_soldier_LAT_F","O_T_soldier_M_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F"];///"O_T_InfSquad";///
 CSATSpecOp = ["O_V_Soldier_TL_ghex_F","O_V_Soldier_JTAC_ghex_F","O_V_Soldier_M_ghex_F","O_V_Soldier_Exp_ghex_F","O_V_Soldier_LAT_ghex_F","O_V_Soldier_Medic_ghex_F"];///(configfile >> "CfgGroups" >> "East" >> "OPF_T_F" >> "SpecOps" >> "O_T_ViperTeam");///
 factionMaleInvaders = "OPF_V_F";
@@ -64,5 +64,5 @@ soporteStaticCSATB3 = "O_Mortar_01_support_F";
 armasCSAT append ["srifle_DMR_01_F","LMG_Zafir_F","hgun_Pistol_heavy_02_F","arifle_Katiba_F","MMG_01_hex_F","srifle_DMR_04_F","arifle_Katiba_GL_F","SMG_02_F","srifle_GM6_camo_F","srifle_DMR_05_blk_F","arifle_AK12_F","arifle_AK12_GL_F"];
 municionCSAT append ["30Rnd_65x39_caseless_green","10Rnd_762x54_Mag","150Rnd_762x54_Box","6Rnd_45ACP_Cylinder","150Rnd_93x64_Mag","10Rnd_127x54_Mag","30Rnd_9x21_Mag","5Rnd_127x108_Mag","10Rnd_93x64_DMR_05_Mag"];
 flagCSATmrk = "flag_CSAT";
-nameMuyMalos = "CSAT";
+nameInvaders = "CSAT";
 if (isServer) then {"CSAT_carrier" setMarkerText "CSAT Carrier"};

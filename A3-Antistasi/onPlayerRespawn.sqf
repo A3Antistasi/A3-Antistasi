@@ -8,7 +8,7 @@ if (isNull _viejo) exitWith {};
 waitUntil {alive player};
 
 _nul = [_viejo] spawn A3A_fnc_postmortem;
-if !(hayACEMedical) then
+if !(hasACEMedical) then
 	{
 	_viejo setVariable ["INCAPACITATED",false,true];
 	_nuevo setVariable ["INCAPACITATED",false,true];
@@ -51,7 +51,7 @@ if (side group player == buenos) then
     _nuevo addOwnedMine _x;
     } count (getAllOwnedMines (_viejo));
 
-	//if (!hayACEMedical) then {[_nuevo] call A3A_fnc_initRevive};
+	//if (!hasACEMedical) then {[_nuevo] call A3A_fnc_initRevive};
 	disableUserInput false;
 	//_nuevo enableSimulation true;
 	if (_viejo == theBoss) then

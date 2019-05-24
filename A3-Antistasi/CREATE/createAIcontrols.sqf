@@ -96,7 +96,7 @@ if (_esControl) then
 			sleep 1;
 			{_nul = [_x] call A3A_fnc_AIVEHinit} forEach _vehiculos;
 			};
-		_tipogrupo = if (_lado == malos) then {selectRandom gruposNATOmid} else {selectRandom gruposCSATmid};
+		_tipogrupo = if (_lado == malos) then {selectRandom groupsNATOmid} else {selectRandom groupsCSATmid};
 		_grupo = if !(hayIFA) then {[_posicion,_lado, _tipogrupo,false,true] call A3A_fnc_spawnGroup} else {[_posicion,_lado, _tipogrupo] call A3A_fnc_spawnGroup};
 		if !(isNull _grupo) then
 			{
@@ -122,7 +122,7 @@ if (_esControl) then
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		_vehiculos pushBack _veh;
 		sleep 1;
-		_tipogrupo = selectRandom gruposFIAMid;
+		_tipogrupo = selectRandom groupsFIAMid;
 		_grupo = if !(hayIFA) then {[_posicion, _lado, _tipoGrupo,false,true] call A3A_fnc_spawnGroup} else {[_posicion, _lado, _tipoGrupo] call A3A_fnc_spawnGroup};
 		if !(isNull _grupo) then
 			{
@@ -134,7 +134,7 @@ if (_esControl) then
 	}
 else
 	{
-	_marcadores = marcadores select {(getMarkerPos _x distance _posicion < distanciaSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
+	_marcadores = marcadores select {(getMarkerPos _x distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
 	_marcadores = _marcadores - ["Synd_HQ"] - puestosFIA;
 	_frontera = if (count _marcadores > 0) then {true} else {false};
 	if (_frontera) then
@@ -259,7 +259,7 @@ waitUntil {sleep 1;(spawner getVariable _marcador == 2)};
 {_veh = _x;
 if (not(_veh in staticsToSave)) then
 	{
-	if ((!([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))) then {deleteVehicle _x}
+	if ((!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))) then {deleteVehicle _x}
 	};
 } forEach _vehiculos;
 {

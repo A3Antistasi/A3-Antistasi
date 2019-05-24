@@ -660,7 +660,7 @@ else
 	if (_typeOfAttack != "Air") then {waitUntil {sleep 1; (!([distanceSPWN1,1,_posDestino,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN1,1,_posDestino,_ladoENY] call A3A_fnc_distanceUnits)) or (({!([_x] call A3A_fnc_canFight)} count _soldados) >= 3*({([_x] call A3A_fnc_canFight)} count _soldados))}} else {waitUntil {sleep 1; (({!([_x] call A3A_fnc_canFight)} count _soldados) >= 3*({([_x] call A3A_fnc_canFight)} count _soldados))}};
 	if (({!([_x] call A3A_fnc_canFight)} count _soldados) >= 3*({([_x] call A3A_fnc_canFight)} count _soldados)) then
 		{
-		_marcadores = recursos + fabricas + aeropuertos + puestos + puertos select {getMarkerPos _x distance _posDestino < distanciaSPWN};
+		_marcadores = recursos + fabricas + aeropuertos + puestos + puertos select {getMarkerPos _x distance _posDestino < distanceSPWN};
 		_sitio = if (_base != "") then {_base} else {_aeropuerto};
 		_killZones = killZones getVariable [_sitio,[]];
 		_killZones append _marcadores;
@@ -675,11 +675,11 @@ diag_log format ["Antistasi PatrolCA: CA on %1 finished",_marcador];
 
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
 } forEach _vehiculos;
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldados = _soldados - [_x]};
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldados = _soldados - [_x]};
 } forEach _soldados;
 
 if (count _soldados > 0) then
@@ -689,7 +689,7 @@ if (count _soldados > 0) then
 		{
 		private ["_veh"];
 		_veh = _this select 0;
-		waitUntil {sleep 1; !([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+		waitUntil {sleep 1; !([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 		deleteVehicle _veh;
 		};
 	} forEach _soldados;

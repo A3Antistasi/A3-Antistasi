@@ -12,7 +12,7 @@ if (["AtaqueAAF"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while
 if (["DEF_HQ"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while your HQ is under attack"};
 
 _chequeo = false;
-_posHQ = getMarkerPos respawnBuenos;
+_posHQ = getMarkerPos respawnTeamPlayer;
 {
 if ((_x distance _posHQ > 100) and (side _x == buenos)) then {_chequeo = true};
 } forEach (allPlayers - (entities "HeadlessClient_F"));

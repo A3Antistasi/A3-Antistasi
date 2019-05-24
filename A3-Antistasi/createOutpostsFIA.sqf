@@ -32,9 +32,9 @@ _formato = [];
 {
 if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
 } forEach _tipoGrupo;
-_grupo = [getMarkerPos respawnBuenos, buenos, _formato] call A3A_fnc_spawnGroup;
+_grupo = [getMarkerPos respawnTeamPlayer, buenos, _formato] call A3A_fnc_spawnGroup;
 _grupo setGroupId ["Post"];
-_road = [getMarkerPos respawnBuenos] call A3A_fnc_findNearestGoodRoad;
+_road = [getMarkerPos respawnTeamPlayer] call A3A_fnc_findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 _camion = _tipoVeh createVehicle _pos;
 //_nul = [_grupo] spawn dismountFIA;

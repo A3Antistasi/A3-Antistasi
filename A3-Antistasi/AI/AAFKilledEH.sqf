@@ -24,7 +24,7 @@ if (side (group _killer) == buenos) then
 		[1,_killer] call A3A_fnc_playerScoreAdd;
 		if (captive _killer) then
 			{
-			if (_killer distance _muerto < distanciaSPWN) then
+			if (_killer distance _muerto < distanceSPWN) then
 				{
 				[_killer,false] remoteExec ["setCaptive",0,_killer];
 				_killer setCaptive false;

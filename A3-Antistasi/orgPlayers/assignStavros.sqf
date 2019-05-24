@@ -1,7 +1,7 @@
-private ["_puntMax","_texto","_multiplicador","_newRank","_selectable","_disconnected","_owner","_puntos","_datos"];
+private ["_puntMax","_texto","_multiplier","_newRank","_selectable","_disconnected","_owner","_puntos","_datos"];
 _puntMax = 0;
 _texto = "";
-_multiplicador = 1;
+_multiplier = 1;
 //_newRank = "CORPORAL";
 _disconnected = false;
 
@@ -40,19 +40,19 @@ _promoted = false;
 {
 _puntos = _x getVariable ["score",0];
 _datos = [_x] call A3A_fnc_numericRank;
-_multiplicador = _datos select 0;
+_multiplier = _datos select 0;
 _newRank = _datos select 1;
 _rank = _x getVariable ["rango","PRIVATE"];
 if (_rank != "COLONEL") then
 	{
-	if (_puntos >= 50*_multiplicador) then
+	if (_puntos >= 50*_multiplier) then
 		{
 		_promoted = true;
 		[_x,_newRank] remoteExec ["A3A_fnc_ranksMP"];
 		_x setVariable ["rango",_newRank,true];
 		_texto = format ["%3%1: %2.\n",name _x,_newRank,_texto];
-		[-1*(50*_multiplicador),_x] call A3A_fnc_playerScoreAdd;
-		_multiplicador = _multiplicador + 1;
+		[-1*(50*_multiplier),_x] call A3A_fnc_playerScoreAdd;
+		_multiplier = _multiplier + 1;
 		sleep 5;
 		};
 	};
@@ -80,11 +80,11 @@ if (!_proceder) exitWith {};
 _selectable = objNull;
 {
 _datos = [_x] call A3A_fnc_numericRank;
-_multiplicador = _datos select 0;
-if ((_multiplicador > _puntMax) and (_x!=_lider)) then
+_multiplier = _datos select 0;
+if ((_multiplier > _puntMax) and (_x!=_lider)) then
 	{
 	_selectable = _x;
-	_puntMax = _multiplicador;
+	_puntMax = _multiplier;
 	};
 } forEach _elegibles;
 

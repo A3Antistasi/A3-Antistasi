@@ -28,8 +28,8 @@ else
 
 fuego inflame false;
 
-//respawnBuenos setMarkerPos [0,0,0];
-respawnBuenos setMarkerAlpha 0;
+//respawnTeamPlayer setMarkerPos [0,0,0];
+respawnTeamPlayer setMarkerAlpha 0;
 _garrison = garrison getVariable ["Synd_HQ", []];
 _posicion = getMarkerPos "Synd_HQ";
 if (count _garrison > 0) then

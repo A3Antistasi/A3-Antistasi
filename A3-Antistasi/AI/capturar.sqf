@@ -34,7 +34,7 @@ if (round random 100 < _chance) then
 	_unit enableAI "MOVE";
 	_unit stop false;
 	[_unit,""] remoteExec ["switchMove"];
-	_unit doMove (getMarkerPos respawnMalos);
+	_unit doMove (getMarkerPos respawnOccupants);
 	if (_unit getVariable ["spawner",false]) then {_unit setVariable ["spawner",nil,true]};
 	sleep 100;
 	if (alive _unit) then

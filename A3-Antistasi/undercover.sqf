@@ -64,7 +64,7 @@ if (_player == leader group _player) then
 	{
 	{if ((!isplayer _x) and (local _x) and (_x getVariable ["owner",_x] == _player)) then {[_x] spawn A3A_fnc_undercoverAI}} forEach units group _player;
 	};
-_estaEnControl = false;
+_isInControl = false;
 while {_cambiar == ""} do
 	{
 	sleep 1;
@@ -133,7 +133,7 @@ while {_cambiar == ""} do
 				//_size = [_base] call A3A_fnc_sizeMarker;
 				if ((_player inArea _base) and (lados getVariable [_base,sideUnknown] != buenos)) then
 					{
-					if !(_estaEnControl) then
+					if !(_isInControl) then
 						{
 						_aggro = if (lados getVariable [_base,sideUnknown] == malos) then {prestigeNATO} else {prestigeCSAT};
 						if (random 100 < _aggro) then
@@ -142,13 +142,13 @@ while {_cambiar == ""} do
 							}
 						else
 							{
-							_estaEnControl = true;
+							_isInControl = true;
 							};
 						};
 					}
 				else
 					{
-					_estaEnControl = false;
+					_isInControl = false;
 					};
 				}
 			else

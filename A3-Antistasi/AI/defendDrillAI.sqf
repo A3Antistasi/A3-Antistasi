@@ -119,7 +119,7 @@ while {true} do
 		if (!(isNull _aire) and !(isNull _tanques)) exitWith {};
 		} forEach _objetivos;
 		_lider = leader _grupo;
-		_allNearFriends = allUnits select {(_x distance _lider < (distanciaSPWN/2)) and (side _x in _friendlies) and ([_x] call A3A_fnc_canFight)};
+		_allNearFriends = allUnits select {(_x distance _lider < (distanceSPWN/2)) and (side _x in _friendlies) and ([_x] call A3A_fnc_canFight)};
 		{
 		_unit = _x;
 		{

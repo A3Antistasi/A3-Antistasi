@@ -11,7 +11,7 @@ _cercanos = _cercanos select {(player inArea _x) and (_veh inArea _x)};
 
 if (_cercanos isEqualTo []) exitWith {hint format ["You and the vehicle need to be in a %1 garrison surrounding in order to garage a it",nameBuenos]};
 
-//if (player distance2d getMarkerPos respawnBuenos > 50) exitWith {hint "You must be closer than 50 meters to HQ"};
+//if (player distance2d getMarkerPos respawnTeamPlayer > 50) exitWith {hint "You must be closer than 50 meters to HQ"};
 
 if ({alive _x} count (crew vehicle _veh) > 0) exitWith { hint "In order to store a vehicle, its crew must disembark."};
 

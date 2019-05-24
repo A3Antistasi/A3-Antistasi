@@ -12,7 +12,7 @@ _angOrig = [_posbase,_posmarcador] call BIS_fnc_dirTo;
 _angOrig = _angOrig - 45;
 _ang = _angOrig + random 90;
 _intentos = 1;
-//_distancia = (distanciaSPWN/2) + 101;
+//_distancia = (distanceSPWN/2) + 101;
 _distancia = 500;
 
 _pos = [];

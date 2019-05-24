@@ -59,7 +59,7 @@ if (gameMode != 4) then
 	vehFIATruck = "rhsgref_nat_van";
 	vehFIACar = "rhsgref_nat_uaz";
 	gruposFIASmall = [["rhsgref_nat_pmil_grenadier","rhsgref_nat_pmil_rifleman_m92"],["rhsgref_nat_pmil_scout","rhsgref_nat_pmil_rifleman_aksu"],["rhsgref_nat_pmil_hunter","rhsgref_nat_pmil_scout"]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
-	gruposFIAMid = [["rhsgref_nat_pmil_rifleman","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_grenadier","rhsgref_nat_pmil_grenadier"],["rhsgref_nat_pmil_rifleman","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_hunter","rhsgref_nat_pmil_hunter"],["rhsgref_nat_pmil_rifleman","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_grenadier_rpg","rhsgref_nat_pmil_grenadier_rpg"],["rhsgref_nat_pmil_rifleman","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_specialist_aa","rhsgref_nat_pmil_specialist_aa"]];
+	groupsFIAMid = [["rhsgref_nat_pmil_rifleman","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_grenadier","rhsgref_nat_pmil_grenadier"],["rhsgref_nat_pmil_rifleman","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_hunter","rhsgref_nat_pmil_hunter"],["rhsgref_nat_pmil_rifleman","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_grenadier_rpg","rhsgref_nat_pmil_grenadier_rpg"],["rhsgref_nat_pmil_rifleman","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_specialist_aa","rhsgref_nat_pmil_specialist_aa"]];
 	FIASquad = ["rhsgref_nat_pmil_rifleman","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_grenadier","rhsgref_nat_pmil_grenadier","rhsgref_nat_pmil_grenadier_rpg","rhsgref_nat_pmil_hunter","rhsgref_nat_pmil_medic"];//"IRG_InfSquad";///
 	groupsFIASquad = [FIASquad,["rhsgref_nat_pmil_rifleman","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_machinegunner","rhsgref_nat_pmil_saboteur","rhsgref_nat_pmil_grenadier","rhsgref_nat_pmil_grenadier_rpg","rhsgref_nat_pmil_grenadier_rpg","rhsgref_nat_pmil_medic"]];
 	factionFIA = "rhsgref_faction_nationalist";
@@ -72,7 +72,7 @@ else
 	vehFIATruck = "rhsgref_ins_gaz66o";
 	vehFIACar = "rhsgref_ins_uaz_open";
 	gruposFIASmall = [["rhsgref_ins_grenadier_rpg",FIARifleman],["rhsgref_ins_grenadier_rpg",FIARifleman],[FIAMarksman,FIARifleman]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
-	gruposFIAMid = [["rhsgref_ins_squadleader","rhsgref_ins_machinegunner","rhsgref_ins_grenadier",FIARifleman],["rhsgref_ins_squadleader","rhsgref_ins_machinegunner","rhsgref_ins_grenadier",FIAMarksman],["rhsgref_ins_squadleader","rhsgref_ins_machinegunner","rhsgref_ins_grenadier","rhsgref_ins_grenadier_rpg"],["rhsgref_ins_squadleader","rhsgref_ins_machinegunner","rhsgref_ins_grenadier","rhsgref_ins_saboteur"]];
+	groupsFIAMid = [["rhsgref_ins_squadleader","rhsgref_ins_machinegunner","rhsgref_ins_grenadier",FIARifleman],["rhsgref_ins_squadleader","rhsgref_ins_machinegunner","rhsgref_ins_grenadier",FIAMarksman],["rhsgref_ins_squadleader","rhsgref_ins_machinegunner","rhsgref_ins_grenadier","rhsgref_ins_grenadier_rpg"],["rhsgref_ins_squadleader","rhsgref_ins_machinegunner","rhsgref_ins_grenadier","rhsgref_ins_saboteur"]];
 	FIASquad = ["rhsgref_ins_squadleader","rhsgref_ins_machinegunner","rhsgref_ins_grenadier","rhsgref_ins_grenadier_rpg","rhsgref_ins_sniper","rhsgref_ins_militiaman_mosin","rhsgref_ins_saboteur","rhsgref_ins_medic"];//"IRG_InfSquad";///
 	groupsFIASquad = [FIASquad];
 	factionFIA = "rhsgref_faction_chdkz";

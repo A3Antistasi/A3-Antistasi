@@ -69,7 +69,7 @@ petros addMPEventHandler ["mpkilled",
             else
                 {
                 {
-                if (side _x == malos) then {_x setPos (getMarkerPos respawnMalos)};
+                if (side _x == malos) then {_x setPos (getMarkerPos respawnOccupants)};
                 } forEach playableUnits;
                 };
             }

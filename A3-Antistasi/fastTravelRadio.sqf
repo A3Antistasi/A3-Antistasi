@@ -1,6 +1,6 @@
 private ["_roads","_pos","_posicion","_grupo"];
 
-_marcadores = marcadores + [respawnBuenos];
+_marcadores = marcadores + [respawnTeamPlayer];
 
 _esHC = false;
 

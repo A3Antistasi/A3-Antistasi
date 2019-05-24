@@ -48,7 +48,7 @@ if ((spawner getVariable _marcador != 2) and _frontera) then
 			_vehiculos pushBack _bunker;
 			_bunker setDir _dirveh;
 			_pos = getPosATL _bunker;
-			_tipoVeh = if (_lado==malos) then {staticATmalos} else {staticATInvaders};
+			_tipoVeh = if (_lado==malos) then {staticATOccupants} else {staticATInvaders};
 			_veh = _tipoVeh createVehicle _posicion;
 			_vehiculos pushBack _veh;
 			_veh setPos _pos;
@@ -62,7 +62,7 @@ if ((spawner getVariable _marcador != 2) and _frontera) then
 			}
 		else
 			{
-			_tipoGrupo = selectRandom gruposFIAMid;
+			_tipoGrupo = selectRandom groupsFIAMid;
 			_grupo = [_posicion, _lado, _tipoGrupo,false,true] call A3A_fnc_spawnGroup;
 			if !(isNull _grupo) then
 				{
@@ -81,7 +81,7 @@ if ((spawner getVariable _marcador != 2) and _frontera) then
 
 _mrk = createMarkerLocal [format ["%1patrolarea", random 100], _posicion];
 _mrk setMarkerShapeLocal "RECTANGLE";
-_mrk setMarkerSizeLocal [(distanciaSPWN/2),(distanciaSPWN/2)];
+_mrk setMarkerSizeLocal [(distanceSPWN/2),(distanceSPWN/2)];
 _mrk setMarkerTypeLocal "hd_warning";
 _mrk setMarkerColorLocal "ColorRed";
 _mrk setMarkerBrushLocal "DiagGrid";
@@ -219,4 +219,4 @@ if (alive _x) then
 //if (!isNull _periodista) then {deleteVehicle _periodista};
 {deleteGroup _x} forEach _grupos;
 {deleteVehicle _x} forEach _civs;
-{if (!([distanciaSPWN-_size,1,_x,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _x}} forEach _vehiculos;
+{if (!([distanceSPWN-_size,1,_x,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _x}} forEach _vehiculos;

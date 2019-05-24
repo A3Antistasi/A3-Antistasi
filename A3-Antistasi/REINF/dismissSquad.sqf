@@ -17,7 +17,7 @@ if (_x getVariable ["esNATO",false]) then {_salir = true};
 
 if (_salir) exitWith {hint "You cannot dismiss NATO groups"};
 
-_pos = getMarkerPos respawnBuenos;
+_pos = getMarkerPos respawnTeamPlayer;
 
 {
 theBoss sideChat format ["%2, I'm sending %1 back to base", _x,name petros];

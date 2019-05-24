@@ -40,9 +40,9 @@ if (_esMarcador) then
 			}
 		};
 	_pos1 = [_posicion, 400, _angorig] call BIS_Fnc_relPos;
-	_origpos = [_posicion, 3*distanciaSPWN, _angorig] call BIS_fnc_relPos;
+	_origpos = [_posicion, 3*distanceSPWN, _angorig] call BIS_fnc_relPos;
 	_pos2 = [_posicion, 200, _ang] call BIS_Fnc_relPos;
-	_finpos = [_posicion, 3*distanciaSPWN, _ang] call BIS_fnc_relPos;
+	_finpos = [_posicion, 3*distanceSPWN, _ang] call BIS_fnc_relPos;
 	}
 else
 	{

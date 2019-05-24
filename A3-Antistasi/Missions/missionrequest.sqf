@@ -4,7 +4,7 @@ private ["_tipo","_posbase","_posibles","_sitios","_exists","_sitio","_pos","_ci
 
 _tipo = _this select 0;
 
-_posbase = getMarkerPos respawnBuenos;
+_posbase = getMarkerPos respawnTeamPlayer;
 _posibles = [];
 _sitios = [];
 _exists = false;
@@ -20,16 +20,16 @@ if (_tipo == "AS") then
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if ((count _sitios > 0) and ({lados getVariable [_x,sideUnknown] == malos} count aeropuertos > 0)) then
 		{
-		//_posibles = _sitios select {((getMarkerPos _x distance _posbase < distanciaMiss) and (not(spawner getVariable _x)))};
+		//_posibles = _sitios select {((getMarkerPos _x distance _posbase < distanceMission) and (not(spawner getVariable _x)))};
 		for "_i" from 0 to ((count _sitios) - 1) do
 			{
 			_sitio = _sitios select _i;
 			_pos = getMarkerPos _sitio;
-			if (_pos distance _posbase < distanciaMiss) then
+			if (_pos distance _posbase < distanceMission) then
 				{
 				if (_sitio in controles) then
 					{
-					_marcadores = marcadores select {(getMarkerPos _x distance _pos < distanciaSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
+					_marcadores = marcadores select {(getMarkerPos _x distance _pos < distanceSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
 					_marcadores = _marcadores - ["Synd_HQ"];
 					_frontera = if (count _marcadores > 0) then {true} else {false};
 					if (_frontera) then
@@ -64,7 +64,7 @@ if (_tipo == "CON") then
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
-		_posibles = _sitios select {(getMarkerPos _x distance _posbase < distanciaMiss)};
+		_posibles = _sitios select {(getMarkerPos _x distance _posbase < distanceMission)};
 		};
 	if (count _posibles == 0) then
 		{
@@ -90,7 +90,7 @@ if (_tipo == "DES") then
 			{
 			_sitio = _sitios select _i;
 			if (_sitio in marcadores) then {_pos = getMarkerPos _sitio} else {_pos = getPos _sitio};
-			if (_pos distance _posbase < distanciaMiss) then
+			if (_pos distance _posbase < distanceMission) then
 				{
 				if (_sitio in marcadores) then
 					{
@@ -137,7 +137,7 @@ if (_tipo == "LOG") then
 				{
 				_pos = getPos _sitio;
 				};
-			if (_pos distance _posbase < distanciaMiss) then
+			if (_pos distance _posbase < distanceMission) then
 				{
 				if (_sitio in ciudades) then
 					{
@@ -187,7 +187,7 @@ if (_tipo == "RES") then
 			{
 			_sitio = _sitios select _i;
 			_pos = getMarkerPos _sitio;
-			if (_sitio in ciudades) then {if (_pos distance _posbase < distanciaMiss) then {_posibles pushBack _sitio}} else {if ((_pos distance _posbase < distanciaMiss) and (spawner getVariable _sitio == 2)) then {_posibles = _posibles + [_sitio]}};
+			if (_sitio in ciudades) then {if (_pos distance _posbase < distanceMission) then {_posibles pushBack _sitio}} else {if ((_pos distance _posbase < distanceMission) and (spawner getVariable _sitio == 2)) then {_posibles = _posibles + [_sitio]}};
 			};
 		};
 	if (count _posibles == 0) then
@@ -217,7 +217,7 @@ if (_tipo == "CONVOY") then
 				_sitio = _sitios select _i;
 				_pos = getMarkerPos _sitio;
 				_base = [_sitio] call A3A_fnc_findBasesForConvoy;
-				if ((_pos distance _posbase < (distanciaMiss*2)) and (_base !="")) then
+				if ((_pos distance _posbase < (distanceMission*2)) and (_base !="")) then
 					{
 					if ((_sitio in ciudades) and (lados getVariable [_sitio,sideUnknown] == buenos)) then
 						{

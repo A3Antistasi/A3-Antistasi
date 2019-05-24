@@ -45,7 +45,7 @@ gruposCSATSniper = ["rhs_vdv_marksman_asval","rhs_vdv_rifleman_asval"];
 gruposCSATsmall = [groupsCSATSentry,["rhs_vdv_recon_rifleman_scout_akm","rhs_vdv_recon_rifleman_scout_akm"],gruposCSATSniper];///[groupsCSATSentry,"O_T_reconSentry","O_T_SniperTeam"];///
 gruposCSATAA = ["rhs_vdv_flora_junior_sergeant","rhs_vdv_flora_aa","rhs_vdv_flora_aa","rhs_vdv_flora_aa"];
 gruposCSATAT = ["rhs_vdv_flora_junior_sergeant","rhs_vdv_flora_at","rhs_vdv_flora_strelok_rpg_assist","rhs_vdv_flora_LAT"];
-gruposCSATmid = [["rhs_vdv_flora_efreitor","rhs_vdv_flora_rifleman","rhs_vdv_flora_rifleman","rhs_vdv_flora_medic"],gruposCSATAA,gruposCSATAT];///["O_T_InfTeam","O_T_InfTeam_AA","O_T_InfTeam_AT"];///
+groupsCSATmid = [["rhs_vdv_flora_efreitor","rhs_vdv_flora_rifleman","rhs_vdv_flora_rifleman","rhs_vdv_flora_medic"],gruposCSATAA,gruposCSATAT];///["O_T_InfTeam","O_T_InfTeam_AA","O_T_InfTeam_AT"];///
 CSATSquad = ["rhs_vdv_mflora_sergeant","rhs_vdv_mflora_junior_sergeant","rhs_vdv_mflora_grenadier","rhs_vdv_mflora_machinegunner","rhs_vdv_mflora_at","rhs_vdv_mflora_strelok_rpg_assist","rhs_vdv_mflora_rifleman","rhs_vdv_mflora_medic"];///"O_T_InfSquad";///
 CSATSpecOp = ["rhs_vmf_recon_sergeant","rhs_vmf_recon_rifleman_scout","rhs_vmf_recon_efreitor","rhs_vmf_recon_arifleman","rhs_vmf_recon_machinegunner_assistant","rhs_vmf_flora_engineer","rhs_vmf_recon_rifleman_lat","rhs_vmf_recon_medic"];///(configfile >> "CfgGroups" >> "East" >> "OPF_T_F" >> "SpecOps" >> "O_T_ViperTeam");///
 factionMaleInvaders = "rhs_faction_vmf";
@@ -68,5 +68,5 @@ itemsAAF = itemsAAF + ["rhs_acc_2dpZenit","rhs_acc_2dpZenit_ris","rhs_acc_uuk","
 
 lamparaMuyMalos = "rhs_acc_2dpZenit";
 flagCSATmrk = "rhs_flag_vmf";
-nameMuyMalos = "AFRF";
+nameInvaders = "AFRF";
 if (isServer) then {"CSAT_carrier" setMarkerText "Russian Carrier"};

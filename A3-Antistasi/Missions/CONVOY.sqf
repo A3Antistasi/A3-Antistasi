@@ -34,7 +34,7 @@ _tipoVehEsc = "";
 _tipoVehObj = "";
 _tipogrupo = "";
 _tiposConvoy = [];
-_posHQ = getMarkerPos respawnBuenos;
+_posHQ = getMarkerPos respawnTeamPlayer;
 
 _tiempofin = 120;
 _fechafin = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempofin];
@@ -239,7 +239,7 @@ for "_i" from 1 to _cuenta do
 			_tipoGrupo = selectRandom groupsFIASquad;
 			if (_tipoVehEsc == vehFIACar) then
 				{
-				_tipoGrupo = selectRandom gruposFIAMid;
+				_tipoGrupo = selectRandom groupsFIAMid;
 				};
 			_grupoEsc = [_posbase,_lado, _tipogrupo] call A3A_fnc_spawnGroup;
 			{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
@@ -361,7 +361,7 @@ else
 		_tipoGrupo = selectRandom groupsFIASquad;
 		if (_tipoVehEsc == vehFIACar) then
 			{
-			_tipoGrupo = selectRandom gruposFIAMid;
+			_tipoGrupo = selectRandom groupsFIAMid;
 			};
 		_grupoEsc = [_posbase,_lado,_tipogrupo] call A3A_fnc_spawnGroup;
 		{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
@@ -646,16 +646,16 @@ if (_tipoConvoy == "Prisoners") then
 _nul = [600,"CONVOY"] spawn A3A_fnc_deleteTask;
 _nul = [0,"CONVOY1"] spawn A3A_fnc_deleteTask;
 {
-if (!([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _x}
+if (!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _x}
 } forEach _vehiculos;
 {
-if (!([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _x; _soldados = _soldados - [_x]}
+if (!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _x; _soldados = _soldados - [_x]}
 } forEach _soldados;
 
 if (count _soldados > 0) then
 	{
 	{
-	waitUntil {sleep 1; (!([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))};
+	waitUntil {sleep 1; (!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))};
 	deleteVehicle _x;
 	} forEach _soldados;
 	};

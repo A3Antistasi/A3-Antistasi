@@ -8,7 +8,7 @@ _nombreEny = if (_sideEny == buenos) then
 				}
 			else
 				{
-				if (_sideEny == muyMalos) then {nameMuyMalos} else {nameMalos};
+				if (_sideEny == muyMalos) then {nameInvaders} else {nameMalos};
 				};
 _lado = _this select 2;
 if (_lado == buenos) then {_lado = [buenos,civilian]};

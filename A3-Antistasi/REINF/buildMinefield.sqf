@@ -66,12 +66,12 @@ _mrk setMarkerText _texto;
 
 _grupo = createGroup buenos;
 
-_unit = _grupo createUnit [(SDKExp select 0), (getMarkerPos respawnBuenos), [], 0, "NONE"];
+_unit = _grupo createUnit [(SDKExp select 0), (getMarkerPos respawnTeamPlayer), [], 0, "NONE"];
 sleep 1;
-_unit = _grupo createUnit [(SDKExp select 0), (getMarkerPos respawnBuenos), [], 0, "NONE"];
+_unit = _grupo createUnit [(SDKExp select 0), (getMarkerPos respawnTeamPlayer), [], 0, "NONE"];
 _grupo setGroupId ["MineF"];
 
-_road = [getMarkerPos respawnBuenos] call A3A_fnc_findNearestGoodRoad;
+_road = [getMarkerPos respawnTeamPlayer] call A3A_fnc_findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,vehSDKTruck];
 
 _camion = vehSDKTruck createVehicle _pos;

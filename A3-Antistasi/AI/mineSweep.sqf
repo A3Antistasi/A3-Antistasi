@@ -8,11 +8,11 @@ _coste = (server getVariable (SDKExp select 0)) + ([vehSDKRepair] call A3A_fnc_v
 
 _grupo = createGroup buenos;
 
-_unit = _grupo createUnit [(SDKExp select 0), getMarkerPos respawnBuenos, [], 0, "NONE"];
+_unit = _grupo createUnit [(SDKExp select 0), getMarkerPos respawnTeamPlayer, [], 0, "NONE"];
 _grupo setGroupId ["MineSw"];
 _minas = [];
 sleep 1;
-_road = [getMarkerPos respawnBuenos] call A3A_fnc_findNearestGoodRoad;
+_road = [getMarkerPos respawnTeamPlayer] call A3A_fnc_findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 
 _camion = vehSDKRepair createVehicle _pos;
@@ -37,7 +37,7 @@ while {alive _unit} do
 		{
 		if (alive _camion) then
 			{
-			if ((count magazineCargo _camion > 0) and (_unit distance (getMarkerPos respawnBuenos) < 50)) then
+			if ((count magazineCargo _camion > 0) and (_unit distance (getMarkerPos respawnTeamPlayer) < 50)) then
 				{
 				[_camion,caja] remoteExec ["A3A_fnc_ammunitionTransfer",2];
 				sleep 30;

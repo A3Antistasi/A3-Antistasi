@@ -197,16 +197,16 @@ else
 
 _nul = [1200,"AS"] spawn A3A_fnc_deleteTask;
 _nul = [10,"AS1"] spawn A3A_fnc_deleteTask;
-if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
 
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 deleteVehicle _x
 } forEach units _grptraidor;
 deleteGroup _grptraidor;
 
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 deleteVehicle _x
 } forEach units _grupo;
 deleteGroup _grupo;

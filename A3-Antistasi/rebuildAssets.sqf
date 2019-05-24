@@ -25,7 +25,7 @@ if (getMarkerPos _sitio distance _posicionTel > 50) exitWith {hint "You must cli
 if ((not(_sitio in _destroyedCities)) and (!(_sitio in puestos))) exitWith {hint "You cannot rebuild that"};
 
 _salir = false;
-_antenaMuerta = [];
+_antennaDead = [];
 _texto = "That Outpost does not have a destroyed Radio Tower";
 if (_sitio in puestos) then
 	{
@@ -39,7 +39,7 @@ if (_sitio in puestos) then
 			}
 		else
 			{
-			_antenaMuerta = _antennasDead select 0;
+			_antennaDead = _antennasDead select 0;
 			};
 		}
 	else
@@ -50,7 +50,7 @@ if (_sitio in puestos) then
 
 if (_salir) exitWith {hint format ["%1",_texto]};
 
-if (count _antenaMuerta == 0) then
+if (count _antennaDead == 0) then
 	{
 	_nombre = [_sitio] call A3A_fnc_localizar;
 
@@ -64,13 +64,13 @@ if (count _antenaMuerta == 0) then
 else
 	{
 	hint "Radio Tower rebuilt";
-	antennasDead = antennasDead - [_antenaMuerta]; publicVariable "antennasDead";
-	_antena = nearestBuilding _antenaMuerta;
+	antennasDead = antennasDead - [_antennaDead]; publicVariable "antennasDead";
+	_antena = nearestBuilding _antennaDead;
 	if (isMultiplayer) then {[_antena,true] remoteExec ["hideObjectGlobal",2]} else {_antena hideObject true};
-	_antena = createVehicle ["Land_Communication_F", _antenaMuerta, [], 0, "NONE"];
+	_antena = createVehicle ["Land_Communication_F", _antennaDead, [], 0, "NONE"];
 	antenas pushBack _antena; publicVariable "antenas";
 	{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,true] spawn A3A_fnc_blackout}} forEach ciudades;
-	_mrkfin = createMarker [format ["Ant%1", count antenas], _antenaMuerta];
+	_mrkfin = createMarker [format ["Ant%1", count antenas], _antennaDead];
 	_mrkfin setMarkerShape "ICON";
 	_mrkfin setMarkerType "loc_Transmitter";
 	_mrkfin setMarkerColor "ColorBlack";

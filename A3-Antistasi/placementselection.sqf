@@ -72,7 +72,7 @@ if (visiblemap) then
 	if (isNil "placementDone") then
 		{
 		{
-		if (getMarkerPos _x distance _posicionTel < distanciaSPWN) then
+		if (getMarkerPos _x distance _posicionTel < distanceSPWN) then
 			{
 			lados setVariable [_x,buenos,true];
 			};
@@ -83,7 +83,7 @@ if (visiblemap) then
 		{
 		_controles = controles select {!(isOnRoad (getMarkerPos _x))};
 		{
-		if (getMarkerPos _x distance _posicionTel < distanciaSPWN) then
+		if (getMarkerPos _x distance _posicionTel < distanceSPWN) then
 			{
 			lados setVariable [_x,buenos,true];
 			};
@@ -102,9 +102,9 @@ if (visiblemap) then
         deleteVehicle _viejo;
         publicVariable "petros";
 		};
-	respawnBuenos setMarkerPos _posicionTel;
-	[respawnBuenos,1] remoteExec ["setMarkerAlphaLocal",[buenos,civilian]];
-	[respawnBuenos,0] remoteExec ["setMarkerAlphaLocal",[malos,muyMalos]];
+	respawnTeamPlayer setMarkerPos _posicionTel;
+	[respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",[buenos,civilian]];
+	[respawnTeamPlayer,0] remoteExec ["setMarkerAlphaLocal",[malos,muyMalos]];
 	if (isMultiplayer) then {hint "Please wait while moving HQ Assets to selected position";sleep 5};
 	_pos = [_posicionTel, 3, getDir petros] call BIS_Fnc_relPos;
 	fuego setPos _pos;
@@ -122,7 +122,7 @@ if (visiblemap) then
 	_rnd = _rnd + 45;
 	_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
 	cajaVeh setPos _pos;
-	if (isNil "placementDone") then {if (isMultiplayer) then {{if ((side _x == buenos) or (side _x == civilian)) then {_x setPos getPos petros}} forEach playableUnits} else {theBoss setPos (getMarkerPos respawnBuenos)}};
+	if (isNil "placementDone") then {if (isMultiplayer) then {{if ((side _x == buenos) or (side _x == civilian)) then {_x setPos getPos petros}} forEach playableUnits} else {theBoss setPos (getMarkerPos respawnTeamPlayer)}};
 	theBoss allowDamage true;
 	if (isMultiplayer) then
 		{
@@ -143,7 +143,7 @@ if (visiblemap) then
 	openmap [false,false];
 	};
 {deleteMarkerLocal _x} forEach _mrkDum;
-"Synd_HQ" setMarkerPos (getMarkerPos respawnBuenos);
-posHQ = getMarkerPos respawnBuenos; publicVariable "posHQ";
+"Synd_HQ" setMarkerPos (getMarkerPos respawnTeamPlayer);
+posHQ = getMarkerPos respawnTeamPlayer; publicVariable "posHQ";
 if (isNil "placementDone") then {placementDone = true; publicVariable "placementDone"};
 chopForest = false; publicVariable "chopForest";

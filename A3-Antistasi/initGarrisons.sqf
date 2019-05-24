@@ -2,25 +2,25 @@
 
 _mrkNATO = [];
 _mrkCSAT = [];
-_controlesNATO = [];
-_controlesCSAT = [];
+_controlsNATO = [];
+_controlsCSAT = [];
 
 if (gameMode == 1) then
 	{
-    _controlesNATO = controles;
+    _controlsNATO = controles;
 	if (worldName == "Tanoa") then
 	    {
 	    _mrkCSAT = ["airport_1","puerto_5","puesto_10","control_20"];
-	    _controlesNATO = _controlesNATO - ["control_20"];
-	    _controlesCSAT = ["control_20"];
+	    _controlsNATO = _controlsNATO - ["control_20"];
+	    _controlsCSAT = ["control_20"];
 	    }
 	else
 	    {
 	    if (worldName == "Altis") then
 	        {
 	        _mrkCSAT = ["airport_2","puerto_4","puesto_5","control_52","control_33"];
-	        _controlesNATO = _controlesNATO - ["control_52","control_33"];
-	    	_controlesCSAT = ["control_52","control_33"];
+	        _controlsNATO = _controlsNATO - ["control_52","control_33"];
+	    	_controlsCSAT = ["control_52","control_33"];
 	        }
         else
             {
@@ -37,16 +37,16 @@ else
 	if (gameMode == 4) then
 		{
 		_mrkCSAT = marcadores - ["Synd_HQ"];
-		_controlesCSAT = controles;
+		_controlsCSAT = controles;
 		}
 	else
 		{
 		_mrkNATO = marcadores - ["Synd_HQ"];
-		_controlesNATO = controles;
+		_controlsNATO = controles;
 		};
 	};
-{lados setVariable [_x,malos,true]} forEach _controlesNATO;
-{lados setVariable [_x,muyMalos,true]} forEach _controlesCSAT;
+{lados setVariable [_x,malos,true]} forEach _controlsNATO;
+{lados setVariable [_x,muyMalos,true]} forEach _controlsCSAT;
 {
 _pos = getMarkerPos _x;
 _dmrk = createMarker [format ["Dum%1",_x], _pos];
@@ -58,7 +58,7 @@ killZones setVariable [_x,[],true];
 if (_x in _mrkCSAT) then
     {
     _dmrk setMarkerType flagCSATmrk;
-    _dmrk setMarkerText format ["%1 Airbase",nameMuyMalos];
+    _dmrk setMarkerText format ["%1 Airbase",nameInvaders];
     _dmrk setMarkerColor colorInvaders;
     for "_i" from 1 to _garrNum do
         {
@@ -158,7 +158,7 @@ if !(_x in _mrkCSAT) then
     }
 else
     {
-    _dmrk setMarkerText format ["%1 Outpost",nameMuyMalos];
+    _dmrk setMarkerText format ["%1 Outpost",nameInvaders];
     _dmrk setMarkerColor colorInvaders;
     if (gameMode == 4) then
     	{

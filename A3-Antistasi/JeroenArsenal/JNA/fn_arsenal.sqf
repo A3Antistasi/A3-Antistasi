@@ -2417,7 +2417,7 @@ switch _mode do {
 		/////////////////////////////////////////////////////////////////////////////////
 		// unifrom
 		_itemsUnifrom = [];
-		if(hayACEmedical)then{
+		if(hasACEMedical)then{
 
 			//ACE Basic medical system
 			if (ace_medical_level == 1) then{
@@ -2475,7 +2475,7 @@ switch _mode do {
 
 		if([player] call A3A_fnc_isMedic)then{
 
-			if(hayACEmedical) then { //Medic equipment
+			if(hasACEMedical) then { //Medic equipment
 
 				if (ace_medical_level == 1) then{ //ACE Basic medical system for medic
 					_itemsBackpack pushBack ["ACE_fieldDressing",20];
@@ -2494,7 +2494,7 @@ switch _mode do {
 				_itemsBackpack pushBack ["FirstAidKit",1];
 			};
 		} else {
-		 		if(hayACEmedical) then {
+		 		if(hasACEMedical) then {
 					if (ace_medical_level == 1) then{ //ACE Basic medical system for soldiers
 						_itemsBackpack pushBack ["ACE_fieldDressing",10];
 						_itemsBackpack pushBack ["ACE_morphine",3];

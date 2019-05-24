@@ -108,8 +108,8 @@ if (!hayACE) then
 	}
 else
 	{
-	if (hayACEhearing) then {player addItem "ACE_EarPlugs"};
-	if (!hayACEMedical) then {[player] execVM "Revive\initRevive.sqf"};
+	if (hasACEhearing) then {player addItem "ACE_EarPlugs"};
+	if (!hasACEMedical) then {[player] execVM "Revive\initRevive.sqf"};
 	};
 
 if (player getVariable ["pvp",false]) exitWith
@@ -151,7 +151,7 @@ if (player getVariable ["pvp",false]) exitWith
 		if (activeAFRF) then {[player] call A3A_fnc_RHSdress};
 		};
 	if (hayACE) then {[] call A3A_fnc_ACEpvpReDress};
-	respawnBuenos setMarkerAlphaLocal 0;
+	respawnTeamPlayer setMarkerAlphaLocal 0;
 	player addEventHandler ["GetInMan",
 		{
 		private ["_unit","_veh"];
@@ -173,7 +173,7 @@ if (player getVariable ["pvp",false]) exitWith
 		if ((_caja == NATOAmmoBox) or (_caja == CSATAmmoBox)) then {_override = true};
 		_override
 		}];
-	_nombre = if (side player == malos) then {nameMalos} else {nameMuyMalos};
+	_nombre = if (side player == malos) then {nameMalos} else {nameInvaders};
 	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 	waituntil {!isnull (finddisplay 46)};
 	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
@@ -181,7 +181,7 @@ if (player getVariable ["pvp",false]) exitWith
 		_handled = FALSE;
 		if (_this select 1 == 207) then
 			{
-			if (!hayACEhearing) then
+			if (!hasACEhearing) then
 				{
 				if (soundVolume <= 0.5) then
 					{
@@ -501,7 +501,7 @@ if (_isJip) then
 		_nul = [] execVM "Dialogs\firstLoad.sqf";
 		};
 	diag_log "Antistasi MP Client. JIP client finished";
-	player setPos (getMarkerPos respawnBuenos);
+	player setPos (getMarkerPos respawnTeamPlayer);
 	}
 else
 	{
@@ -538,7 +538,7 @@ else
 			{
 			player setVariable ["score", 0,true];
 			_nul = [true] execVM "Dialogs\firstLoad.sqf";
-			player setPos (getMarkerPos respawnBuenos);
+			player setPos (getMarkerPos respawnTeamPlayer);
 			};
 		}
 	else
@@ -546,7 +546,7 @@ else
 		if !(isServer) then
 			{
 			_nul = [] execVM "Dialogs\firstLoad.sqf";
-			player setPos (getMarkerPos respawnBuenos);
+			player setPos (getMarkerPos respawnTeamPlayer);
 			};
 		};
 	};

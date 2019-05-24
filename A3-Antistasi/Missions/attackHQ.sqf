@@ -1,7 +1,7 @@
 //Mission: HQ is under attack
 if (!isServer and hasInterface) exitWith{};
 
-_posicion = getMarkerPos respawnBuenos;
+_posicion = getMarkerPos respawnTeamPlayer;
 
 _pilotos = [];
 _vehiculos = [];
@@ -17,8 +17,8 @@ _posOrigen = getMarkerPos _aeropuerto;
 _lado = if (lados getVariable [_aeropuerto,sideUnknown] == malos) then {malos} else {muyMalos};
 _tsk1 = "";
 _tsk = "";
-[[buenos,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,true,10,true,"Defend",true] call BIS_fnc_taskCreate;
-[[_lado],"DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros, nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,true,10,true,"Attack",true] call BIS_fnc_taskCreate;
+[[buenos,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_posicion,true,10,true,"Defend",true] call BIS_fnc_taskCreate;
+[[_lado],"DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros, nameBuenos],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,true,10,true,"Attack",true] call BIS_fnc_taskCreate;
 misiones pushBack ["DEF_HQ","CREATED"]; publicVariable "misiones";
 _tiposVeh = if (_lado == malos) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
 _tiposVeh = _tiposVeh select {[_x] call A3A_fnc_vehAvailable};
@@ -26,7 +26,7 @@ _tiposVeh = _tiposVeh select {[_x] call A3A_fnc_vehAvailable};
 if (count _tiposVeh > 0) then
 	{
 	_tipoVeh = selectRandom _tiposVeh;
-	//_pos = [_posicion, distanciaSPWN * 3, random 360] call BIS_Fnc_relPos;
+	//_pos = [_posicion, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
 	_vehicle=[_posOrigen, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
@@ -47,7 +47,7 @@ _tipoGrupo = if (_lado == malos) then {NATOSpecOp} else {CSATSpecOp};
 for "_i" from 0 to (round random 2) do
 	{
 	_tipoVeh = selectRandom _tiposVeh;
-	//_pos = [_posicion, distanciaSPWN * 3, random 360] call BIS_Fnc_relPos;
+	//_pos = [_posicion, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
 	_vehicle=[_posOrigen, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
@@ -65,24 +65,24 @@ for "_i" from 0 to (round random 2) do
 	sleep 10;
 	};
 
-waitUntil {sleep 1;({[_x] call A3A_fnc_canFight} count _soldados < {!([_x] call A3A_fnc_canFight)} count _soldados) or (_posicion distance getMarkerPos respawnBuenos > 999) or (!alive petros)};
+waitUntil {sleep 1;({[_x] call A3A_fnc_canFight} count _soldados < {!([_x] call A3A_fnc_canFight)} count _soldados) or (_posicion distance getMarkerPos respawnTeamPlayer > 999) or (!alive petros)};
 
 if (!alive petros) then
 	{
-	["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
-	["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+	["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
+	["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	}
 else
 	{
-	if (_posicion distance getMarkerPos respawnBuenos > 999) then
+	if (_posicion distance getMarkerPos respawnTeamPlayer > 999) then
 		{
-		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-		["DEF_HQ1",[_lado],[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
+		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+		["DEF_HQ1",[_lado],[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
 		}
 	else
 		{
-		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnBuenos],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-		["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
+		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+		["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
 		[0,3] remoteExec ["A3A_fnc_prestige",2];
 		[0,300] remoteExec ["A3A_fnc_resourcesFIA",2];
 		//[-5,5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
@@ -96,22 +96,22 @@ _nul = [0,"DEF_HQ1"] spawn A3A_fnc_deleteTask;
 
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
 } forEach _vehiculos;
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldados = _soldados - [_x]};
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldados = _soldados - [_x]};
 } forEach _soldados;
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
 } forEach _pilotos;
 
 if (count _soldados > 0) then
 	{
 	{
 	_veh = _x;
-	waitUntil {sleep 1; !([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
 	} forEach _soldados;
 	};
@@ -120,7 +120,7 @@ if (count _pilotos > 0) then
 	{
 	{
 	_veh = _x;
-	waitUntil {sleep 1; !([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
 	} forEach _pilotos;
 	};

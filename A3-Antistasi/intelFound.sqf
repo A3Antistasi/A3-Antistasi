@@ -28,7 +28,7 @@ if (random 100 < _chance) then
 		}
 	else
 		{
-		if ([vehCSATPlane] call A3A_fnc_vehAvailable) then {_texto = format ["%1 %2 Planes Available<br/>",_texto,nameMuyMalos]} else {_texto = format ["%1 %2 Planes Unavailable<br/>",_texto,nameMuyMalos]}
+		if ([vehCSATPlane] call A3A_fnc_vehAvailable) then {_texto = format ["%1 %2 Planes Available<br/>",_texto,nameInvaders]} else {_texto = format ["%1 %2 Planes Unavailable<br/>",_texto,nameInvaders]}
 		};
 	};
 if (random 100 < _chance) then
@@ -39,7 +39,7 @@ if (random 100 < _chance) then
 		}
 	else
 		{
-		if ({[_x] call A3A_fnc_vehAvailable} count vehCSATAttackHelis > 0) then {_texto = format ["%1 %2 Attack Helis Available<br/>",_texto,nameMuyMalos]} else {_texto = format ["%1 %2 Attack Helis Unavailable<br/>",_texto,nameMuyMalos]}
+		if ({[_x] call A3A_fnc_vehAvailable} count vehCSATAttackHelis > 0) then {_texto = format ["%1 %2 Attack Helis Available<br/>",_texto,nameInvaders]} else {_texto = format ["%1 %2 Attack Helis Unavailable<br/>",_texto,nameInvaders]}
 		};
 	};
 if (random 100 < _chance) then
@@ -50,7 +50,7 @@ if (random 100 < _chance) then
 		}
 	else
 		{
-		if ({[_x] call A3A_fnc_vehAvailable} count vehCSATAPC > 0) then {_texto = format ["%1 %2 APCs Available<br/>",_texto,nameMuyMalos]} else {_texto = format ["%1 %2 APCs Unavailable<br/>",_texto,nameMuyMalos]}
+		if ({[_x] call A3A_fnc_vehAvailable} count vehCSATAPC > 0) then {_texto = format ["%1 %2 APCs Available<br/>",_texto,nameInvaders]} else {_texto = format ["%1 %2 APCs Unavailable<br/>",_texto,nameInvaders]}
 		};
 	};
 if (random 100 < _chance) then
@@ -61,7 +61,7 @@ if (random 100 < _chance) then
 		}
 	else
 		{
-		if ([vehCSATTank] call A3A_fnc_vehAvailable) then {_texto = format ["%1 %2 Tanks Available<br/>",_texto,nameMuyMalos]} else {_texto = format ["%1 %2 Tanks Unavailable<br/>",_texto,nameMuyMalos]}
+		if ([vehCSATTank] call A3A_fnc_vehAvailable) then {_texto = format ["%1 %2 Tanks Available<br/>",_texto,nameInvaders]} else {_texto = format ["%1 %2 Tanks Unavailable<br/>",_texto,nameInvaders]}
 		};
 	};
 if (random 100 < _chance) then
@@ -72,7 +72,7 @@ if (random 100 < _chance) then
 		}
 	else
 		{
-		if ([vehCSATAA] call A3A_fnc_vehAvailable) then {_texto = format ["%1 %2 AA Tanks Available<br/>",_texto,nameMuyMalos]} else {_texto = format ["%1 %2 AA Tanks Unavailable<br/>",_texto,nameMuyMalos]}
+		if ([vehCSATAA] call A3A_fnc_vehAvailable) then {_texto = format ["%1 %2 AA Tanks Available<br/>",_texto,nameInvaders]} else {_texto = format ["%1 %2 AA Tanks Unavailable<br/>",_texto,nameInvaders]}
 		};
 	};
 

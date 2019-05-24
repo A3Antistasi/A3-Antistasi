@@ -13,7 +13,7 @@ _tsk = "";
 _tsk1 = "";
 _posicion = getMarkerPos _marcador;
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
-_posHQ = getMarkerPos respawnBuenos;
+_posHQ = getMarkerPos respawnTeamPlayer;
 
 _tiempolim = 120;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
@@ -194,7 +194,7 @@ _nul = [1200,"DES"] spawn A3A_fnc_deleteTask;
 _nul = [0,"DES1"] spawn A3A_fnc_deleteTask;
 deleteMarker _mrkfin;
 {
-waitUntil {sleep 1;(!([distanciaSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))};
+waitUntil {sleep 1;(!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))};
 deleteVehicle _x} forEach _vehiculos;
 {deleteVehicle _x} forEach _soldados;
 {deleteGroup _x} forEach _grupos;

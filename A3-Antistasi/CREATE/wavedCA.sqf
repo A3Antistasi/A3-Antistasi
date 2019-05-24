@@ -17,7 +17,7 @@ _posDestino = getMarkerPos _mrkDestino;
 _posOrigen = getMarkerPos _mrkOrigen;
 
 _grupos = [];
-_soldadosTotal = [];
+_soldiersTotal = [];
 _pilotos = [];
 _vehiculos = [];
 _forced = [];
@@ -32,7 +32,7 @@ _nombreEny = nameMalos;
 //_config = cfgNATOInf;
 if (_lado == muyMalos) then
 	{
-	_nombreEny = nameMuyMalos;
+	_nombreEny = nameInvaders;
 	//_config = cfgCSATInf;
 	_ladosTsk = [buenos,civilian,malos];
 	_ladosTsk1 = [muyMalos];
@@ -166,7 +166,7 @@ while {(_waves > 0)} do
 				[_veh] call A3A_fnc_AIVEHinit;
 				_grupoVeh = _vehicle select 2;
 				_soldados append _vehCrew;
-				_soldadosTotal append _vehCrew;
+				_soldiersTotal append _vehCrew;
 				_grupos pushBack _grupoVeh;
 				_vehiculos pushBack _veh;
 				_landPos = [_posDestino,_pos,false,_landPosBlacklist] call A3A_fnc_findSafeRoadToUnload;
@@ -182,7 +182,7 @@ while {(_waves > 0)} do
 					if (vehicle _x == _veh) then
 						{
 						_soldados pushBack _x;
-						_soldadosTotal pushBack _x;
+						_soldiersTotal pushBack _x;
 						[_x] call A3A_fnc_NATOinit;
 						_x setVariable ["origen",_mrkOrigen];
 						}
@@ -334,7 +334,7 @@ while {(_waves > 0)} do
 						if (vehicle _x == _veh) then
 							{
 							_soldados pushBack _x;
-							_soldadosTotal pushBack _x;
+							_soldiersTotal pushBack _x;
 							[_x] call A3A_fnc_NATOinit;
 							_x setVariable ["origen",_mrkOrigen];
 							}
@@ -514,7 +514,7 @@ while {(_waves > 0)} do
 					if (vehicle _x == _veh) then
 						{
 						_soldados pushBack _x;
-						_soldadosTotal pushBack _x;
+						_soldiersTotal pushBack _x;
 						[_x] call A3A_fnc_NATOinit;
 						_x setVariable ["origen",_mrkOrigen];
 						}
@@ -663,7 +663,7 @@ while {(_waves > 0)} do
 	_solMax = round ((count _soldados)*0.6);
 	_waves = _waves -1;
 	_firstWave = false;
-	diag_log format ["Antistasi: Reached end of spawning attack, wave %1. Vehicles: %2. Wave Units: %3. Total units: %4 ",_waves, count _vehiculos, count _soldados, count _soldadosTotal];
+	diag_log format ["Antistasi: Reached end of spawning attack, wave %1. Vehicles: %2. Wave Units: %3. Total units: %4 ",_waves, count _vehiculos, count _soldados, count _soldiersTotal];
 	if (lados getVariable [_mrkDestino,sideUnknown] != buenos) then {_soldados spawn A3A_fnc_remoteBattle};
 	if (_lado == malos) then
 		{
@@ -712,7 +712,7 @@ while {(_waves > 0)} do
 
 			if ((_waves <= 0) or (!(lados getVariable [_mrkOrigen,sideUnknown] == malos))) then
 				{
-				{_x doMove _posorigen} forEach _soldadosTotal;
+				{_x doMove _posorigen} forEach _soldiersTotal;
 				if (_waves <= 0) then {[_mrkDestino,_mrkOrigen] call A3A_fnc_minefieldAAF};
 
 				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call A3A_fnc_taskUpdate;
@@ -759,7 +759,7 @@ while {(_waves > 0)} do
 
 			if ((_waves <= 0) or (lados getVariable [_mrkOrigen,sideUnknown] != muyMalos)) then
 				{
-				{_x doMove _posorigen} forEach _soldadosTotal;
+				{_x doMove _posorigen} forEach _soldiersTotal;
 				if (_waves <= 0) then {[_mrkDestino,_mrkOrigen] call A3A_fnc_minefieldAAF};
 				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call A3A_fnc_taskUpdate;
@@ -798,16 +798,16 @@ forcedSpawn = forcedSpawn - [_mrkDestino]; publicVariable "forcedSpawn";
 
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
 } forEach _pilotos;
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
 } forEach _vehiculos;
 {
 _veh = _x;
-if (!([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldadosTotal = _soldadosTotal - [_x]};
-} forEach _soldadosTotal;
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldiersTotal = _soldiersTotal - [_x]};
+} forEach _soldiersTotal;
 
 if (count _pilotos > 0) then
 	{
@@ -816,23 +816,23 @@ if (count _pilotos > 0) then
 		{
 		private ["_veh"];
 		_veh = _this select 0;
-		waitUntil {sleep 1; !([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+		waitUntil {sleep 1; !([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 		deleteVehicle _veh;
 		};
 	} forEach _pilotos;
 	};
 
-if (count _soldadosTotal > 0) then
+if (count _soldiersTotal > 0) then
 	{
 	{
 	[_x] spawn
 		{
 		private ["_veh"];
 		_veh = _this select 0;
-		waitUntil {sleep 1; !([distanciaSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+		waitUntil {sleep 1; !([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 		deleteVehicle _veh;
 		};
-	} forEach _soldadosTotal;
+	} forEach _soldiersTotal;
 	};
 
 

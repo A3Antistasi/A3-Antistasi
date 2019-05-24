@@ -20,9 +20,9 @@ if (str (_display) != "no display") then
 	_ChildControl = _display displayCtrl 105;
 	_coste = 0;
 	_costeHR = 0;
-	//_formato = (cfgSDKInf >> (gruposSDKmid select 0));
+	//_formato = (cfgSDKInf >> (groupsSDKmid select 0));
 	//_unidades = [_formato] call groupComposition;
-	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach gruposSDKmid;
+	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach groupsSDKmid;
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 106;

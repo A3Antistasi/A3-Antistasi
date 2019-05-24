@@ -24,7 +24,7 @@ _tipoB2 = soporteStaticSDKB;
 
 switch _tipoEst do
 	{
-	case staticATmalos: {_tipoB1 = ATStaticNATOB; _tipoB2 = soporteStaticNATOB};
+	case staticATOccupants: {_tipoB1 = ATStaticNATOB; _tipoB2 = soporteStaticNATOB};
 	case staticATInvaders: {_tipoB1 = ATStaticCSATB; _tipoB2 = soporteStaticCSATB};
 	case NATOMortar: {_tipoB1 = MortStaticNATOB; _tipoB2 = soporteStaticNATOB3};
 	case NATOMG: {_tipoB1 = MGStaticNATOB; _tipoB2 = soporteStaticNATOB2};

@@ -7,10 +7,10 @@ _threat = 0;
 _marcador = _this select 0;
 _lado = _this select 1;
 if (_marcador isEqualType []) then {_posicion = _marcador} else {_posicion = getMarkerPos _marcador};
-_threat = _threat + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _posicion < distanciaSPWN)} count puestosFIA);
+_threat = _threat + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _posicion < distanceSPWN)} count puestosFIA);
 
 {
-if (getMarkerPos _x distance _posicion < distanciaSPWN) then
+if (getMarkerPos _x distance _posicion < distanceSPWN) then
 	{
 	_analizado = _x;
 	_garrison = garrison getVariable [_analizado,[]];

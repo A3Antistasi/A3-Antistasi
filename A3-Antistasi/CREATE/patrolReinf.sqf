@@ -9,7 +9,7 @@ _posDestino = getMarkerPos _mrkDestino;
 _posOrigen = getMarkerPos _mrkOrigen;
 
 _land = if (_posOrigen distance _posDestino > distanceForLandAttack) then {false} else {true};
-_tipoGrupo = if (_lado == malos) then {if (_numero == 4) then {selectRandom gruposNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom gruposCSATmid} else {selectRandom groupsCSATSquad}};
+_tipoGrupo = if (_lado == malos) then {if (_numero == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
 _tipoVeh = "";
 if (_land) then
 	{

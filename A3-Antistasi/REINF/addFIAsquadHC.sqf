@@ -1,7 +1,7 @@
 
 if (player != theBoss) exitWith {hint "Only our Commander has access to this function"};
 //if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
-if (markerAlpha respawnBuenos == 0) exitWith {hint "You cant recruit a new squad while you are moving your HQ"};
+if (markerAlpha respawnTeamPlayer == 0) exitWith {hint "You cant recruit a new squad while you are moving your HQ"};
 if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
 _chequeo = false;
 {
@@ -82,18 +82,18 @@ if (_exit) exitWith {garageVeh = nil};
 
 _nul = [- _costeHR, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 
-_pos = getMarkerPos respawnBuenos;
+_pos = getMarkerPos respawnTeamPlayer;
 
 _road = [_pos] call A3A_fnc_findNearestGoodRoad;
 _bypassAI = false;
 if (_esinf) then
 	{
-	_pos = [(getMarkerPos respawnBuenos), 30, random 360] call BIS_Fnc_relPos;
+	_pos = [(getMarkerPos respawnTeamPlayer), 30, random 360] call BIS_Fnc_relPos;
 	if (_tipoGrupo isEqualType []) then
 		{
 		_grupo = [_pos, buenos, _formato,true] call A3A_fnc_spawnGroup;
 		//if (_tipogrupo isEqualTo groupsSDKSquad) then {_format = "Squd-"};
-		if (_tipogrupo isEqualTo gruposSDKmid) then {_format = "Tm-"};
+		if (_tipogrupo isEqualTo groupsSDKmid) then {_format = "Tm-"};
 		if (_tipogrupo isEqualTo gruposSDKAT) then {_format = "AT-"};
 		if (_tipogrupo isEqualTo groupsSDKSniper) then {_format = "Snpr-"};
 		if (_tipogrupo isEqualTo groupsSDKSentry) then {_format = "Stry-"};

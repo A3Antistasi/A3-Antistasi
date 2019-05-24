@@ -14,7 +14,7 @@ else
 			{
 			waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
 			["loadoutPlayer"] call fn_LoadStat;
-			//player setPos getMarkerPos respawnBuenos;
+			//player setPos getMarkerPos respawnTeamPlayer;
 			if ([player] call A3A_fnc_isMember) then
 				{
 				["scorePlayer"] call fn_LoadStat;
@@ -52,7 +52,7 @@ if (isServer and !_byPassServer) then
 	["resourcesFIA"] call fn_LoadStat;
 	["garrison"] call fn_LoadStat;
 	["skillFIA"] call fn_LoadStat;
-	["distanciaSPWN"] call fn_LoadStat;
+	["distanceSPWN"] call fn_LoadStat;
 	["civPerc"] call fn_LoadStat;
 	["maxUnits"] call fn_LoadStat;
 	["miembros"] call fn_LoadStat;
@@ -61,7 +61,7 @@ if (isServer and !_byPassServer) then
 	["idlebases"] call fn_LoadStat;
 	["idleassets"] call fn_LoadStat;
 	["killZones"] call fn_LoadStat;
-	["controlesSDK"] call fn_LoadStat;
+	["controlsSDK"] call fn_LoadStat;
 	["bombRuns"] call fn_LoadStat;
 	waitUntil {!isNil "arsenalInit"};
 	["jna_dataList"] call fn_LoadStat;
@@ -176,7 +176,7 @@ if (isServer and !_byPassServer) then
 	["estaticas"] call fn_LoadStat;//tiene que ser el último para que el sleep del borrado del contenido no haga que despawneen
 
 
-	if (!isMultiPlayer) then {player setPos getMarkerPos respawnBuenos} else {{_x setPos getMarkerPos respawnBuenos} forEach (playableUnits select {side _x == buenos})};
+	if (!isMultiPlayer) then {player setPos getMarkerPos respawnTeamPlayer} else {{_x setPos getMarkerPos respawnTeamPlayer} forEach (playableUnits select {side _x == buenos})};
 	_sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 	tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in aeropuertos} count _sitios)))/10));
 	if (tierWar > 10) then {tierWar = 10};

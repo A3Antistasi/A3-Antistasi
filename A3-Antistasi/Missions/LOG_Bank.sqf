@@ -12,7 +12,7 @@ _grpContacto = grpNull;
 _tsk = "";
 _posicion = getPosASL _banco;
 
-_posbase = getMarkerPos respawnBuenos;
+_posbase = getMarkerPos respawnTeamPlayer;
 
 _tiempolim = if (_dificil) then {60} else {120};
 if (hayIFA) then {_tiempolim = _tiempolim * 2};
@@ -27,7 +27,7 @@ _mrkfin setMarkerShape "ICON";
 //_mrkfin setMarkerColor "ColorBlue";
 //_mrkfin setMarkerText "Bank";
 
-_pos = (getMarkerPos respawnBuenos) findEmptyPosition [1,50,"C_Van_01_box_F"];
+_pos = (getMarkerPos respawnTeamPlayer) findEmptyPosition [1,50,"C_Van_01_box_F"];
 
 _camion = "C_Van_01_box_F" createVehicle _pos;
 {_x reveal _camion} forEach (allPlayers - (entities "HeadlessClient_F"));
@@ -88,7 +88,7 @@ else
 		{if (side _x == malos) then {_x reveal [_amigo,4]};
 		} forEach allUnits;
 		};
-	} forEach ([distanciaSPWN,0,_posicion,buenos] call A3A_fnc_distanceUnits);
+	} forEach ([distanceSPWN,0,_posicion,buenos] call A3A_fnc_distanceUnits);
 	_exit = false;
 	while {(_cuenta > 0) or (_camion distance _posicion < 7) and (alive _camion) and (dateToNumber date < _fechalimnum)} do
 		{
@@ -144,7 +144,7 @@ deleteVehicle _camion;
 
 _nul = [1200,"LOG"] spawn A3A_fnc_deleteTask;
 
-waitUntil {sleep 1; !([distanciaSPWN,1,_posicion,buenos] call A3A_fnc_distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_posicion,buenos] call A3A_fnc_distanceUnits)};
 
 {_grupo = _x;
 {deleteVehicle _x} forEach units _grupo;

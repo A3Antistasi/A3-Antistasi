@@ -1,4 +1,4 @@
-private ["_camiones","_camion","_armas","_municion","_items","_mochis","_contenedores","_todo"];
+private ["_camiones","_camion","_armas","_municion","_items","_mochis","_containers","_todo"];
 
 _camion = objNull;
 

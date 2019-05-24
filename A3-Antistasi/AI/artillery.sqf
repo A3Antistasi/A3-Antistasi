@@ -46,13 +46,13 @@ if (_posDestino inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) select 0)
 				_cuenta = 0;
 				{
 				_posible = _x;
-				_cuentaGrupo = {(alive _x) and (!captive _x)} count units group _posible;
-				if (_cuentaGrupo > _cuenta) then
+				_countGroup = {(alive _x) and (!captive _x)} count units group _posible;
+				if (_countGroup > _cuenta) then
 					{
 					if ((_lado == muyMalos) or ({(side (group _x) == civilian) and (_x distance _posible < 50)} count allUnits == 0)) then
 						{
 						_objetivo = _posible;
-						if (_cuentaGrupo > 6) then {_rondas = 2};
+						if (_countGroup > 6) then {_rondas = 2};
 						};
 					};
 				} forEach _objetivos;

@@ -1,4 +1,4 @@
-private ["_tipo","_coste","_posicionTel","_cantidad","_cantidadMax"];
+private ["_tipo","_coste","_positionTel","_cantidad","_quantityMax"];
 
 if (["Mines"] call BIS_fnc_taskExists) exitWith {hint "We can only deploy one minefield at a time."};
 
@@ -25,11 +25,11 @@ if (_tipo == "delete") exitWith
 
 _pool = jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOPUT;
 _cantidad = 0;
-_cantidadMax = 40;
+_quantityMax = 40;
 _tipoM =APERSMineMag;
 if (_tipo == "ATMine") then
 	{
-	_cantidadMax = 20;
+	_quantityMax = 20;
 	_tipoM = ATMineMag;
 	};
 
@@ -40,21 +40,21 @@ if (_x select 0 == _tipoM) exitWith {_cantidad = _x select 1}
 if (_cantidad < 5) exitWith {hint "You need at least 5 mines of this type to build a Minefield"};
 
 if (!visibleMap) then {openMap true};
-posicionTel = [];
+positionTel = [];
 hint "Click on the position you wish to build the minefield.";
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 
-if (_cantidad > _cantidadMax) then
+if (_cantidad > _quantityMax) then
 	{
-	_cantidad = _cantidadMax;
+	_cantidad = _quantityMax;
 	};
 
-[[_tipo,_posicionTel,_cantidad],"A3A_fnc_buildMinefield"] remoteExec ["A3A_fnc_scheduler",2];
+[[_tipo,_positionTel,_cantidad],"A3A_fnc_buildMinefield"] remoteExec ["A3A_fnc_scheduler",2];

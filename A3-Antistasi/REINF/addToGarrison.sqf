@@ -1,22 +1,22 @@
-private ["_posicionTel","_cercano","_cosa","_grupo","_unidades","_salir"];
+private ["_positionTel","_cercano","_cosa","_grupo","_unidades","_salir"];
 if (!visibleMap) then {openMap true};
-posicionTel = [];
+positionTel = [];
 _cosa = _this select 0;
 
-onMapSingleClick "posicionTel = _pos";
+onMapSingleClick "positionTel = _pos";
 
 hint "Select the zone on which sending the selected troops as garrison";
 
-waitUntil {sleep 0.5; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 0.5; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 
-_cercano = [marcadores,_posicionTel] call BIS_fnc_nearestPosition;
+_cercano = [marcadores,_positionTel] call BIS_fnc_nearestPosition;
 
-if !(_posicionTel inArea _cercano) exitWith {hint "You must click near a marked zone"};
+if !(_positionTel inArea _cercano) exitWith {hint "You must click near a marked zone"};
 
 if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameBuenos]};
 

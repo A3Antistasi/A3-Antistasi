@@ -1,21 +1,21 @@
 //Mission: Logistics for ammunition
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_camion","_camionCreado","_grupo","_grupo1","_mrk"];
+private ["_pos","_camion","_truckCreated","_grupo","_grupo1","_mrk"];
 
 _marcador = _this select 0;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contacto = objNull;
-_grpContacto = grpNull;
+_groupContact = grpNull;
 _tsk = "";
 _posicion = getMarkerPos _marcador;
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _tiempolim = if (_dificil) then {30} else {60};
 if (hayIFA) then {_tiempolim = _tiempolim * 2};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call A3A_fnc_localizar;
 _tipoVeh = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
@@ -26,11 +26,11 @@ _pos = position _road;
 _pos = _pos findEmptyPosition [1,60,_tipoVeh];
 if (count _pos == 0) then {_pos = position _road};
 
-[[buenos,civilian],"LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_pos,false,0,true,"rearm",true] call BIS_fnc_taskCreate;
-_camionCreado = false;
+[[buenos,civilian],"LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Steal or Destroy Ammotruck",_marcador],_pos,false,0,true,"rearm",true] call BIS_fnc_taskCreate;
+_truckCreated = false;
 misiones pushBack ["LOG","CREATED"]; publicVariable "misiones";
 
-waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,sideUnknown] == buenos))};
+waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,sideUnknown] == buenos))};
 _bonus = if (_dificil) then {2} else {1};
 if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,sideUnknown] == buenos)) then
 	{
@@ -38,7 +38,7 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 
 	_camion = _tipoVeh createVehicle _pos;
 	_camion setDir (getDir _road);
-	_camionCreado = true;
+	_truckCreated = true;
 	if (_lado == malos) then {[_camion] call A3A_fnc_NATOcrate} else {[_camion] call A3A_fnc_CSATcrate};
 
 	_mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], _pos];
@@ -67,11 +67,11 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 	{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
 	{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo1;
 
-	waitUntil {sleep 1; (not alive _camion) or (dateToNumber date > _fechalimnum) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _camion > 0)};
+	waitUntil {sleep 1; (not alive _camion) or (dateToNumber date > _dateLimitNum) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _camion > 0)};
 
-	if (dateToNumber date > _fechalimnum) then
+	if (dateToNumber date > _dateLimitNum) then
 		{
-		["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED","rearm"] call A3A_fnc_taskUpdate;
+		["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED","rearm"] call A3A_fnc_taskUpdate;
 		[-1200*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 		[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 		};
@@ -82,7 +82,7 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 			["TaskFailed", ["", format ["Ammotruck Stolen in an %1",_nombreDest]]] remoteExec ["BIS_fnc_showNotification",_lado];
 			};
 		[getPosASL _camion,_lado,"",false] spawn A3A_fnc_patrolCA;
-		["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"SUCCEEDED","rearm"] call A3A_fnc_taskUpdate;
+		["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"SUCCEEDED","rearm"] call A3A_fnc_taskUpdate;
 		[0,300*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 		[1200*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 		{if (_x distance _camion < 500) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
@@ -91,13 +91,13 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 	}
 else
 	{
-	["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED","rearm"] call A3A_fnc_taskUpdate;
+	["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED","rearm"] call A3A_fnc_taskUpdate;
 	[-1200*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	};
 
 _nul = [1200,"LOG"] spawn A3A_fnc_deleteTask;
-if (_camionCreado) then
+if (_truckCreated) then
 	{
 	{deleteVehicle _x} forEach units _grupo;
 	deleteGroup _grupo;

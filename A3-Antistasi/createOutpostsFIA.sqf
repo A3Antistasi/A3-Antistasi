@@ -3,30 +3,30 @@ if (!isServer) exitWith {};
 private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unidades","_formato"];
 
 _tipo = _this select 0;
-_posicionTel = _this select 1;
+_positionTel = _this select 1;
 
 if (_tipo == "delete") exitWith {hint "Deprecated option. Use Remove Garrison from HQ instead"};
 
-_escarretera = isOnRoad _posicionTel;
+_isRoad = isOnRoad _positionTel;
 
 _texto = format ["%1 Observation Post",nameBuenos];
 _tipogrupo = groupsSDKSniper;
 _tipoVeh = vehSDKBike;
 private _tsk = "";
-if (_escarretera) then
+if (_isRoad) then
 	{
 	_texto = format ["%1 Roadblock",nameBuenos];
-	_tipogrupo = gruposSDKAT;
+	_tipogrupo = groupsSDKAT;
 	_tipoVeh = vehSDKTruck;
 	};
 
-_mrk = createMarker [format ["FIAPost%1", random 1000], _posicionTel];
+_mrk = createMarker [format ["FIAPost%1", random 1000], _positionTel];
 _mrk setMarkerShape "ICON";
 
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
-_fechalimnum = dateToNumber _fechalim;
-[[buenos,civilian],"PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_posicionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
-//_tsk = ["PuestosFIA",[buenos,civilian],["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
+_dateLimitNum = dateToNumber _fechalim;
+[[buenos,civilian],"PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
+//_tsk = ["PuestosFIA",[buenos,civilian],["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
 //misiones pushBackUnique _tsk; publicVariable "misiones";
 _formato = [];
 {
@@ -44,9 +44,9 @@ leader _grupo setBehaviour "SAFE";
 (units _grupo) orderGetIn true;
 theBoss hcSetGroup [_grupo];
 
-waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) or (dateToNumber date > _fechalimnum)};
+waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) or (dateToNumber date > _dateLimitNum)};
 
-if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) then
+if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) then
 	{
 	if (isPlayer leader _grupo) then
 		{
@@ -64,24 +64,24 @@ if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) the
 	marcadores = marcadores + [_mrk];
 	publicVariable "marcadores";
 	spawner setVariable [_mrk,2,true];
-	["PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_posicionTel,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+	["PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	//["PuestosFIA", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
-	_nul = [-5,5,_posiciontel] remoteExec ["A3A_fnc_citySupportChange",2];
+	_nul = [-5,5,_positionTel] remoteExec ["A3A_fnc_citySupportChange",2];
 	_mrk setMarkerType "loc_bunker";
-	_mrk setMarkerColor colorBuenos;
+	_mrk setMarkerColor colourTeamPlayer;
 	_mrk setMarkerText _texto;
-	if (_esCarretera) then
+	if (_isRoad) then
 		{
 		_garrison = [staticCrewTeamPlayer];
 		{
 		if (random 20 <= skillFIA) then {_garrison pushBack (_x select 1)} else {_garrison pushBack (_x select 0)};
-		} forEach gruposSDKAT;
+		} forEach groupsSDKAT;
 		garrison setVariable [_mrk,_garrison,true];
 		};
 	}
 else
 	{
-	["PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_posicionTel,"FAILED"] call A3A_fnc_taskUpdate;
+	["PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"FAILED"] call A3A_fnc_taskUpdate;
 	//["PuestosFIA", "FAILED",true] spawn BIS_fnc_taskSetState;
 	sleep 3;
 	deleteMarker _mrk;

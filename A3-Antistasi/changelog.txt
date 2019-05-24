@@ -468,7 +468,7 @@
 
 - Hotfixed some garrisons not spawning.
 - While BIS does not fix HC Bar squad order options, squads will spawn in Aware stance.
-cambiar a inArea el undercover y revisar a qué bando van los controles conquistados
+cambiar a inArea el undercover y revisar a quï¿½ bando van los controles conquereds
 
 0.9.4 22/08/2017 ALPHA
 - NEW FEATURE: Added JAS. The finest Inventory system around the scene, built in by Jeroen Not (Thanks!!!) for Antistasi and one of the things makes Antistasi special :)
@@ -1228,7 +1228,7 @@ cambiar a inArea el undercover y revisar a qué bando van los controles conquista
 - Major garrisons will spawn at least a whole group (if they have troops) and the rest of the groups can be bypassed of spawning if the AI limit has been reached.
 - Some improvements in attack drills for AI
 - Attack AI will react better to tank and airplane presence (hide in bluidings if they or the nearby friendlies have no AA/AT capabilities).
-- Corrected (¡at last!) bug on binoculars in Arsenal menu and some mod integrations with Arsenal and unlocking system, ALL thanks to SkaceKamen!!! Thanks a lot!
+- Corrected (ï¿½at last!) bug on binoculars in Arsenal menu and some mod integrations with Arsenal and unlocking system, ALL thanks to SkaceKamen!!! Thanks a lot!
 - Fixed RHS / Arsenal crash upon respawn bug. Thanks to Jeroen not!!!!
 - Solved bug in flanking procedures thanks to Alex Triada!
 - Better behaviour for AI using land transports.

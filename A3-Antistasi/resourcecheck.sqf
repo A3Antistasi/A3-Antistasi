@@ -4,7 +4,7 @@ if (isMultiplayer) then {waitUntil {!isNil "switchCom"}};
 
 private ["_texto"];
 scriptName "resourcecheck";
-_cuentaSave = 3600;
+_countSave = 3600;
 
 while {true} do
 	{
@@ -23,7 +23,7 @@ while {true} do
 	{
 	_ciudad = _x;
 	_recAddCiudadSDK = 0;
-	_hrAddCiudad = 0;
+	_hrAddCity = 0;
 	_datos = server getVariable _ciudad;
 	_numCiv = _datos select 0;
 	_numVeh = _datos select 1;
@@ -40,13 +40,13 @@ while {true} do
 	if (_ciudad in destroyedCities) then
 		{
 		_recAddCiudadSDK = 0;
-		_hrAddCiudad = 0;
+		_hrAddCity = 0;
 		_popCSAT = _popCSAT + _numCIV;
 		}
 	else
 		{
 		_recAddCiudadSDK = ((_numciv * _multiplyingRec*(_prestigeSDK / 100))/3);
-		_hrAddCiudad = (_numciv * (_prestigeSDK / 10000));///20000 originalmente
+		_hrAddCity = (_numciv * (_prestigeSDK / 10000));///20000 originalmente
 		switch (_power) do
 			{
 			case buenos: {[-1,_suppBoost,_ciudad] spawn A3A_fnc_citySupportChange};
@@ -56,11 +56,11 @@ while {true} do
 		if (lados getVariable [_ciudad,sideUnknown] == malos) then
 			{
 			_recAddCiudadSDK = (_recAddCiudadSDK/2);
-			_hrAddCiudad = (_hrAddCiudad/2);
+			_hrAddCity = (_hrAddCity/2);
 			};
 		};
 	_recAddSDK = _recAddSDK + _recAddCiudadSDK;
-	_hrAddBLUFOR = _hrAddBLUFOR + _hrAddCiudad;
+	_hrAddBLUFOR = _hrAddBLUFOR + _hrAddCity;
 	// revuelta civil!!
 	if ((_prestigeNATO < _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == malos)) then
 		{
@@ -68,7 +68,7 @@ while {true} do
 		lados setVariable [_ciudad,buenos,true];
 		_nul = [5,0] remoteExec ["A3A_fnc_prestige",2];
 		_mrkD = format ["Dum%1",_ciudad];
-		_mrkD setMarkerColor colorBuenos;
+		_mrkD setMarkerColor colourTeamPlayer;
 		garrison setVariable [_ciudad,[],true];
 		sleep 5;
 		{_nul = [_ciudad,_x] spawn A3A_fnc_deleteControls} forEach controles;
@@ -88,7 +88,7 @@ while {true} do
 		lados setVariable [_ciudad,malos,true];
 		_nul = [-5,0] remoteExec ["A3A_fnc_prestige",2];
 		_mrkD = format ["Dum%1",_ciudad];
-		_mrkD setMarkerColor colorMalos;
+		_mrkD setMarkerColor colorOccupants;
 		garrison setVariable [_ciudad,[],true];
 		sleep 5;
 		[] call A3A_fnc_tierCheck;
@@ -218,10 +218,10 @@ while {true} do
 		} forEach allUnits;
 		if (autoSave) then
 			{
-			_cuentaSave = _cuentaSave - 600;
-			if (_cuentaSave <= 0) then
+			_countSave = _countSave - 600;
+			if (_countSave <= 0) then
 				{
-				_cuentaSave = 3600;
+				_countSave = 3600;
 				_nul = [] execVM "statSave\saveLoop.sqf";
 				};
 			};

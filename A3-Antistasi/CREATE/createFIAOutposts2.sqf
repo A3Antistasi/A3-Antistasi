@@ -1,14 +1,14 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_marcador","_posicion","_escarretera","_tam","_road","_veh","_grupo","_unit","_roadcon"];
+private ["_marcador","_posicion","_isRoad","_tam","_road","_veh","_grupo","_unit","_roadcon"];
 
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;
 
-_escarretera = false;
-if (isOnRoad _posicion) then {_escarretera = true};
+_isRoad = false;
+if (isOnRoad _posicion) then {_isRoad = true};
 
-if (_escarretera) then
+if (_isRoad) then
 	{
 	_tam = 1;
 	_garrison = garrison getVariable _marcador;
@@ -19,7 +19,7 @@ if (_escarretera) then
 		_garrison = [staticCrewTeamPlayer];
 		{
 		if (random 20 <= skillFIA) then {_garrison pushBack (_x select 1)} else {_garrison pushBack (_x select 0)};
-		} forEach gruposSDKAT;
+		} forEach groupsSDKAT;
 		garrison setVariable [_marcador,_garrison,true];
 		};
 	while {true} do
@@ -65,7 +65,7 @@ if ({alive _x} count units _grupo == 0) then
 	lados setVariable [_marcador,nil,true];
 	_nul = [5,-5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 	deleteMarker _marcador;
-	if (_escarretera) then
+	if (_isRoad) then
 		{
 		[["TaskFailed", ["", "Roadblock Lost"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
 		}
@@ -77,6 +77,6 @@ if ({alive _x} count units _grupo == 0) then
 
 waitUntil {sleep 1; (spawner getVariable _marcador == 2) or (not(_marcador in puestosFIA))};
 
-if (_escarretera) then {if (!isNull _veh) then {deleteVehicle _veh}};
+if (_isRoad) then {if (!isNull _veh) then {deleteVehicle _veh}};
 {deleteVehicle _x} forEach units _grupo;
 deleteGroup _grupo;

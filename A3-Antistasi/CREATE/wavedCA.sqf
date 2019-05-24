@@ -681,7 +681,7 @@ while {(_waves > 0)} do
 				lados setVariable [_mrkDestino,malos,true];
 				_nul = [-5,0] remoteExec ["A3A_fnc_prestige",2];
 				_mrkD = format ["Dum%1",_mrkDestino];
-				_mrkD setMarkerColor colorMalos;
+				_mrkD setMarkerColor colorOccupants;
 				garrison setVariable [_mrkDestino,[],true];
 				};
 			};

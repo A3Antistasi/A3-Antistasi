@@ -3,9 +3,9 @@ _movido = false;
 if (petros != (leader group petros)) then
 	{
 	_movido = true;
-	grupoPetros = createGroup buenos;
-	publicVariable "grupoPetros";
-	[petros] join grupoPetros;
+	groupPetros = createGroup buenos;
+	publicVariable "groupPetros";
+	[petros] join groupPetros;
 	};
 [petros,"remove"] remoteExec ["A3A_fnc_flagaction",0,petros];
 petros disableAI "MOVE";

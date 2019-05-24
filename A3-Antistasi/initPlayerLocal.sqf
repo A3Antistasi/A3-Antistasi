@@ -71,13 +71,13 @@ else
 	//_nul = addMissionEventHandler ["Loaded", {_nul = [] execVM "statistics.sqf";_nul = [] execVM "reinitY.sqf";}];
 	};
 [] execVM "CREATE\ambientCivs.sqf";
-private ["_colorbuenos", "_colorInvaders"];
-_colorbuenos = buenos call BIS_fnc_sideColor;
+private ["_colourTeamPlayer", "_colorInvaders"];
+_colourTeamPlayer = buenos call BIS_fnc_sideColor;
 _colorInvaders = muyMalos call BIS_fnc_sideColor;
 _posicion = if (side player == side (group petros)) then {position petros} else {getMarkerPos "respawn_west"};
 {
 _x set [3, 0.33]
-} forEach [_colorbuenos, _colorInvaders];
+} forEach [_colourTeamPlayer, _colorInvaders];
 _introShot =
 	[
     _posicion, // Target position
@@ -87,7 +87,7 @@ _introShot =
     90, //  degrees viewing angle
     0, // clockwise movement
     [
-    	["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colorbuenos, markerPos "insertMrk", 1, 1, 0, "Insertion Point", 0],
+    	["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colourTeamPlayer, markerPos "insertMrk", 1, 1, 0, "Insertion Point", 0],
         ["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colorInvaders, markerPos "towerBaseMrk", 1, 1, 0, "Radio Towers", 0]
     ]
     ] spawn BIS_fnc_establishingShot;
@@ -294,16 +294,16 @@ player addEventHandler ["InventoryClosed",
 	_sideType = getNumber (configfile >> "CfgVehicles" >> _typeSoldier >> "side");
 	if ((_sideType == 1) or (_sideType == 0) and (_uniform != "")) then
 		{
-		if !(player getVariable ["disfrazado",false]) then
+		if !(player getVariable ["disguised",false]) then
 			{
 			hint "You are wearing an enemy uniform, this will make the AI attack you. Beware!";
-			player setVariable ["disfrazado",true];
+			player setVariable ["disguised",true];
 			player addRating (-1*(2001 + rating player));
 			};
 		}
 	else
 		{
-		if (player getVariable ["disfrazado",false]) then
+		if (player getVariable ["disguised",false]) then
 			{
 			hint "You removed your enemy uniform";
 			player addRating (rating player * -1);
@@ -616,8 +616,8 @@ mapa addAction ["Map Info", {nul = [] execVM "cityinfo.sqf";},nil,0,false,true,"
 mapa addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 if (isMultiplayer) then {mapa addAction ["AI Load Info", "[] remoteExec [""A3A_fnc_AILoadInfo"",2]",nil,0,false,true,"","(_this == theBoss)"]};
 _nul = [player] execVM "OrgPlayers\unitTraits.sqf";
-grupoPetros = group petros;
-grupoPetros setGroupIdGlobal ["Petros","GroupColor4"];
+groupPetros = group petros;
+groupPetros setGroupIdGlobal ["Petros","GroupColor4"];
 petros setIdentity "amiguete";
 petros setName "Petros";
 petros disableAI "MOVE";

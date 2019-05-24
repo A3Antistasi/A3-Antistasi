@@ -76,16 +76,16 @@ petros addMPEventHandler ["mpkilled",
         else
             {
             _viejo = petros;
-            grupoPetros = createGroup buenos;
-            publicVariable "grupoPetros";
-            petros = grupoPetros createUnit [tipoPetros, position _viejo, [], 0, "NONE"];
+            groupPetros = createGroup buenos;
+            publicVariable "groupPetros";
+            petros = groupPetros createUnit [tipoPetros, position _viejo, [], 0, "NONE"];
             publicVariable "petros";
-            grupoPetros setGroupIdGlobal ["Petros","GroupColor4"];
+            groupPetros setGroupIdGlobal ["Petros","GroupColor4"];
             petros setIdentity "amiguete";
             if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
             petros disableAI "MOVE";
             petros disableAI "AUTOTARGET";
-            if (group _viejo == grupoPetros) then {[Petros,"mission"]remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]};
+            if (group _viejo == groupPetros) then {[Petros,"mission"]remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]};
             [] execVM "initPetros.sqf";
             deleteVehicle _viejo;
             };

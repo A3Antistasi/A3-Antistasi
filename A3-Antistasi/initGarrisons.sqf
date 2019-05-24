@@ -71,7 +71,7 @@ else
     {
     _dmrk setMarkerType flagNATOmrk;
     _dmrk setMarkerText format ["%1 Airbase",nameMalos];
-    _dmrk setMarkerColor colorMalos;
+    _dmrk setMarkerColor colorOccupants;
     for "_i" from 1 to _garrNum do
         {
         _garrison append (selectRandom groupsNATOSquad);
@@ -103,7 +103,7 @@ if (_x in _mrkCSAT) then
 	}
 else
 	{
-	_dmrk setMarkerColor colorMalos;
+	_dmrk setMarkerColor colorOccupants;
 	lados setVariable [_x,malos,true];
 	};
 garrison setVariable [_x,_garrison,true];
@@ -130,7 +130,7 @@ if (_x in _mrkCSAT) then
 	}
 else
 	{
-	_dmrk setMarkerColor colorMalos;
+	_dmrk setMarkerColor colorOccupants;
     lados setVariable [_x,malos,true];
     };
 garrison setVariable [_x,_garrison,true];
@@ -148,7 +148,7 @@ killZones setVariable [_x,[],true];
 _dmrk setMarkerType "loc_bunker";
 if !(_x in _mrkCSAT) then
     {
-    _dmrk setMarkerColor colorMalos;
+    _dmrk setMarkerColor colorOccupants;
     _dmrk setMarkerText format ["%1 Outpost",nameMalos];
     for "_i" from 1 to _garrNum do
         {
@@ -201,7 +201,7 @@ if (_x in _mrkCSAT) then
     }
 else
     {
-    _dmrk setMarkerColor colorMalos;
+    _dmrk setMarkerColor colorOccupants;
     for "_i" from 1 to _garrNum do
         {
         _garrison append (selectRandom groupsNATOSquad);

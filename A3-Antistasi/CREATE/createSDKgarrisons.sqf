@@ -112,7 +112,7 @@ if (staticCrewTeamPlayer in _garrison) then
 _garrison = _garrison call A3A_fnc_garrisonReorg;
 _tam = count _garrison;
 _cuenta = 0;
-_cuentaGrupo = 0;
+_countGroup = 0;
 while {(spawner getVariable _marcador != 2) and (_cuenta < _tam)} do
 	{
 	_tipo = _garrison select _cuenta;
@@ -122,11 +122,11 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _tam)} do
 	_soldados pushBack _unit;
 	_cuenta = _cuenta + 1;
 	sleep 0.5;
-	if (_cuentaGrupo == 8) then
+	if (_countGroup == 8) then
 		{
 		_grupo = createGroup buenos;
 		_grupos pushBack _grupo;
-		_cuentaGrupo = 0;
+		_countGroup = 0;
 		};
 	};
 

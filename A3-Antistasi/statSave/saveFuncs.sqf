@@ -133,7 +133,7 @@ fn_SetStat =
 				_coste = round (_coste + (_coste * (_i/280)));
 				};
 			server setVariable [_x,_coste,true];
-			} forEach soldadosSDK;
+			} forEach soldiersSDK;
 			};
 		if(_varName == 'distanceSPWN') then {distanceSPWN = _varValue; distanceSPWN1 = distanceSPWN * 1.3; distanceSPWN2 = distanceSPWN /2; publicVariable "distanceSPWN";publicVariable "distanceSPWN1";publicVariable "distanceSPWN2"};
 		if(_varName == 'civPerc') then {civPerc = _varValue; if (civPerc < 1) then {civPerc = 35}; publicVariable "civPerc"};
@@ -188,7 +188,7 @@ fn_SetStat =
 				_mrk = createMarker [format ["FIApost%1", random 1000], _posicion];
 				_mrk setMarkerShape "ICON";
 				_mrk setMarkerType "loc_bunker";
-				_mrk setMarkerColor colorBuenos;
+				_mrk setMarkerColor colourTeamPlayer;
 				if (isOnRoad _posicion) then {_mrk setMarkerText format ["%1 Roadblock",nameBuenos]} else {_mrk setMarkerText format ["%1 Watchpost",nameBuenos]};
 				spawner setVariable [_mrk,2,true];
 				if (count _garrison > 0) then {garrison setVariable [_mrk,_garrison,true]};

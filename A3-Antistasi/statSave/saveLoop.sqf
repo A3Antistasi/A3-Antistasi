@@ -202,7 +202,7 @@ _arrayMrkMF = _arrayMrkMF + [_posMineF];
 
 ["mineFieldMrk", _arrayMrkMF] call fn_SaveStat;
 */
-_arrayMinas = [];
+_arrayMines = [];
 {
 _tipoMina = typeOf _x;
 _posMina = getPos _x;
@@ -220,10 +220,10 @@ if (_x mineDetectedBy muyMalos) then
 	{
 	_detectada pushBack muyMalos
 	};
-_arrayMinas = _arrayMinas + [[_tipoMina,_posMina,_detectada,_dirMina]];
+_arrayMines = _arrayMines + [[_tipoMina,_posMina,_detectada,_dirMina]];
 } forEach allMines;
 
-["minas", _arrayMinas] call fn_SaveStat;
+["minas", _arrayMines] call fn_SaveStat;
 
 _arrayOutpostsFIA = [];
 

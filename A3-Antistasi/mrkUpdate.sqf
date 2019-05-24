@@ -6,7 +6,7 @@ _mrkD = format ["Dum%1",_marcador];
 if (lados getVariable [_marcador,sideUnknown] == buenos) then
 	{
 	_texto = if (count (garrison getVariable [_marcador,[]]) > 0) then {format [": %1", count (garrison getVariable [_marcador,[]])]} else {""};
-	if (markerColor _mrkD != colorBuenos) then {_mrkD setMarkerColor colorBuenos};
+	if (markerColor _mrkD != colourTeamPlayer) then {_mrkD setMarkerColor colourTeamPlayer};
 	if (_marcador in aeropuertos) then
 		{
 		_texto = format ["%2 Airbase%1",_texto,nameBuenos];
@@ -57,7 +57,7 @@ else
 				_mrkD setMarkerText format ["%1 Outpost",nameMalos]
 				};
 			};
-		_mrkD setMarkerColor colorMalos;
+		_mrkD setMarkerColor colorOccupants;
 		}
 	else
 		{

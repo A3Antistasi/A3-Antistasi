@@ -28,7 +28,7 @@ if (str (_display) != "no display") then
 	_ChildControl = _display displayCtrl 106;
 	_coste = 0;
 	_costeHR = 0;
-	//_formato = (cfgSDKInf >> (gruposSDKAT select 0));
+	//_formato = (cfgSDKInf >> (groupsSDKAT select 0));
 	//_unidades = [_formato] call groupComposition;
 	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach groupsSDKSquadSupp;
 	_coste = _coste + ([SDKMGStatic] call A3A_fnc_vehiclePrice);

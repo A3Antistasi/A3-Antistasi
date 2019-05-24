@@ -1,16 +1,16 @@
 //Mission: Capture/destroy the convoy
 if (!isServer and hasInterface) exitWith {};
-private ["_pos","_timeOut","_posbase","_posdestino","_soldados","_grupos","_vehiculos","_POWS","_tiempofin","_fechafin","_fechafinNum","_veh","_unit","_grupo","_lado","_cuenta","_nombredest","_vehPool","_spawnPoint","_tipoVeh"];
+private ["_pos","_timeOut","_posbase","_posdestino","_soldados","_grupos","_vehiculos","_POWS","_tiempofin","_fechafin","_enddateNum","_veh","_unit","_grupo","_lado","_cuenta","_nombredest","_vehPool","_spawnPoint","_tipoVeh"];
 _destino = _this select 0;
 _base = _this select 1;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contacto = objNull;
-_grpContacto = grpNull;
+_groupContact = grpNull;
 _tsk = "";
 _tsk1 = "";
-_fechalimnum = 0;
+_dateLimitNum = 0;
 _esFIA = false;
 _lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {muyMalos};
 
@@ -33,38 +33,38 @@ _refuerzos = [];
 _tipoVehEsc = "";
 _tipoVehObj = "";
 _tipogrupo = "";
-_tiposConvoy = [];
+_typeConvoy = [];
 _posHQ = getMarkerPos respawnTeamPlayer;
 
 _tiempofin = 120;
 _fechafin = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempofin];
-_fechafinNum = dateToNumber _fechafin;
+_enddateNum = dateToNumber _fechafin;
 
 private ["_tsk","_grpPOW","_pos"];
 
 if ((_destino in aeropuertos) or (_destino in puestos)) then
 	{
-	_tiposConvoy = ["Municion","Armor"];
-	if (_destino in puestos) then {if (((count (garrison getVariable [_destino,0]))/2) >= [_destino] call A3A_fnc_garrisonSize) then {_tiposConvoy pushBack "Refuerzos"}};
+	_typeConvoy = ["Municion","Armor"];
+	if (_destino in puestos) then {if (((count (garrison getVariable [_destino,0]))/2) >= [_destino] call A3A_fnc_garrisonSize) then {_typeConvoy pushBack "Refuerzos"}};
 	}
 else
 	{
 	if (_destino in ciudades) then
 		{
-		if (lados getVariable [_destino,sideUnknown] == malos) then {_tiposConvoy = ["Supplies"]} else {_tiposConvoy = ["Supplies"]}
+		if (lados getVariable [_destino,sideUnknown] == malos) then {_typeConvoy = ["Supplies"]} else {_typeConvoy = ["Supplies"]}
 		}
 	else
 		{
-		if ((_destino in recursos) or (_destino in fabricas)) then {_tiposConvoy = ["Money"]} else {_tiposConvoy = ["Prisoners"]};
-		if (((count (garrison getVariable [_destino,0]))/2) >= [_destino] call A3A_fnc_garrisonSize) then {_tiposConvoy pushBack "Refuerzos"};
+		if ((_destino in recursos) or (_destino in fabricas)) then {_typeConvoy = ["Money"]} else {_typeConvoy = ["Prisoners"]};
+		if (((count (garrison getVariable [_destino,0]))/2) >= [_destino] call A3A_fnc_garrisonSize) then {_typeConvoy pushBack "Refuerzos"};
 		};
 	};
 
-_tipoConvoy = selectRandom _tiposConvoy;
+_tipoConvoy = selectRandom _typeConvoy;
 
 _tiempolim = if (_dificil) then {0} else {round random 10};// tiempo para que salga el convoy, deberíamos poner un round random 15
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
 _nombredest = [_destino] call A3A_fnc_localizar;
 _nombreOrig = [_base] call A3A_fnc_localizar;
@@ -79,42 +79,42 @@ switch (_tipoConvoy) do
 	{
 	case "Municion":
 		{
-		_texto = format ["A convoy from %1 is about to depart at %2:%3. It will provide ammunition to %4. Try to intercept it. Steal or destroy that truck before it reaches it's destination.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
+		_texto = format ["A convoy from %1 is about to depart at %2:%3. It will provide ammunition to %4. Try to intercept it. Steal or destroy that truck before it reaches it's destination.",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nombredest];
 		_taskTitle = "Ammo Convoy";
 		_taskIcon = "rearm";
 		_tipoVehObj = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
 		};
 	case "Armor":
 		{
-		_texto = format ["A convoy from %1 is about to depart at %2:%3. It will reinforce %4 with armored vehicles. Try to intercept it. Steal or destroy that thing before it reaches it's destination.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
+		_texto = format ["A convoy from %1 is about to depart at %2:%3. It will reinforce %4 with armored vehicles. Try to intercept it. Steal or destroy that thing before it reaches it's destination.",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nombredest];
 		_taskTitle = "Armored Convoy";
 		_taskIcon = "Destroy";
 		_tipoVehObj = if (_lado == malos) then {vehNATOAA} else {vehCSATAA};
 		};
 	case "Prisoners":
 		{
-		_texto = format ["A group os POW's is being transported from %1 to %4, and it's about to depart at %2:%3. Try to intercept it. Kill or capture the truck driver to make them join you and bring them to HQ. Alive if possible.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
+		_texto = format ["A group os POW's is being transported from %1 to %4, and it's about to depart at %2:%3. Try to intercept it. Kill or capture the truck driver to make them join you and bring them to HQ. Alive if possible.",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nombredest];
 		_taskTitle = "Prisoner Convoy";
 		_taskIcon = "run";
 		_tipoVehObj = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
 		};
 	case "Refuerzos":
 		{
-		_texto = format ["Reinforcements are being sent from %1 to %4 in a convoy, and it's about to depart at %2:%3. Try to intercept and kill all the troops and vehicle objective.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
+		_texto = format ["Reinforcements are being sent from %1 to %4 in a convoy, and it's about to depart at %2:%3. Try to intercept and kill all the troops and vehicle objective.",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nombredest];
 		_taskTitle = "Reinforcements Convoy";
 		_taskIcon = "run";
 		_tipoVehObj = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
 		};
 	case "Money":
 		{
-		_texto = format ["A truck plenty of money is being moved from %1 to %4, and it's about to depart at %2:%3. Steal that truck and bring it to HQ. Those funds will be very welcome.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest];
+		_texto = format ["A truck plenty of money is being moved from %1 to %4, and it's about to depart at %2:%3. Steal that truck and bring it to HQ. Those funds will be very welcome.",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nombredest];
 		_taskTitle = "Money Convoy";
 		_taskIcon = "move";
 		_tipoVehObj = "C_Van_01_box_F";
 		};
 	case "Supplies":
 		{
-		_texto = format ["A truck with medical supplies destination %4 it's about to depart at %2:%3 from %1. Steal that truck bring it to %4 and let people in there know it is %5 who's giving those supplies.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest,nameBuenos];
+		_texto = format ["A truck with medical supplies destination %4 it's about to depart at %2:%3 from %1. Steal that truck bring it to %4 and let people in there know it is %5 who's giving those supplies.",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nombredest,nameBuenos];
 		_taskTitle = "Supply Convoy";
 		_taskIcon = "heal";
 		_tipoVehObj = "C_Van_01_box_F";
@@ -122,7 +122,7 @@ switch (_tipoConvoy) do
 	};
 
 [[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posdestino,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
-[[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,false,0,true,"run",true] call BIS_fnc_taskCreate;
+[[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,false,0,true,"run",true] call BIS_fnc_taskCreate;
 misiones pushBack ["CONVOY","CREATED"]; publicVariable "misiones";
 sleep (_tiempolim * 60);
 
@@ -389,8 +389,8 @@ _bonus = if (_dificil) then {2} else {1};
 
 if (_tipoConvoy == "Municion") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
-	if ((_vehObj distance _posdestino < 100) or (dateToNumber date >_fechafinNum)) then
+	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
+	if ((_vehObj distance _posdestino < 100) or (dateToNumber date >_enddateNum)) then
 		{
 		_taskState = "FAILED";
 		_taskState1 = "SUCCEEDED";
@@ -422,8 +422,8 @@ if (_tipoConvoy == "Municion") then
 
 if (_tipoConvoy == "Armor") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
-	if ((_vehObj distance _posdestino < 100) or (dateToNumber date > _fechafinNum)) then
+	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
+	if ((_vehObj distance _posdestino < 100) or (dateToNumber date > _enddateNum)) then
 		{
 		_taskState = "FAILED";
 		_taskState1 = "SUCCEEDED";
@@ -453,8 +453,8 @@ if (_tipoConvoy == "Armor") then
 
 if (_tipoConvoy == "Prisoners") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (not alive driver _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj == buenos))) or ({alive _x} count _POWs == 0)};
-	if ((_vehObj distance _posdestino < 100) or ({alive _x} count _POWs == 0) or (dateToNumber date > _fechafinNum)) then
+	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posdestino < 300) or (not alive driver _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj == buenos))) or ({alive _x} count _POWs == 0)};
+	if ((_vehObj distance _posdestino < 100) or ({alive _x} count _POWs == 0) or (dateToNumber date > _enddateNum)) then
 		{
 		_taskState = "FAILED";
 		_taskState1 = "SUCCEEDED";
@@ -467,8 +467,8 @@ if (_tipoConvoy == "Prisoners") then
 		{
 		[getPosASL _vehObj,_lado,"",false] spawn A3A_fnc_patrolCA;
 		{[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false; _x enableAI "MOVE"; [_x] orderGetin false} forEach _POWs;
-		waitUntil {sleep 2; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance _posHQ < 50)} count _POWs > 0) or (dateToNumber date > _fechafinNum)};
-		if (({alive _x} count _POWs == 0) or (dateToNumber date > _fechafinNum)) then
+		waitUntil {sleep 2; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance _posHQ < 50)} count _POWs > 0) or (dateToNumber date > _enddateNum)};
+		if (({alive _x} count _POWs == 0) or (dateToNumber date > _enddateNum)) then
 			{
 			_taskState = "FAILED";
 			_taskState1 = "FAILED";
@@ -498,7 +498,7 @@ if (_tipoConvoy == "Prisoners") then
 
 if (_tipoConvoy == "Refuerzos") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or ({(!alive _x) or (captive _x)} count _refuerzos == count _refuerzos)};
+	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posdestino < 300) or ({(!alive _x) or (captive _x)} count _refuerzos == count _refuerzos)};
 	if ({(!alive _x) or (captive _x)} count _refuerzos == count _refuerzos) then
 		{
 		_taskState = "SUCCEEDED";
@@ -529,11 +529,11 @@ if (_tipoConvoy == "Refuerzos") then
 
 if (_tipoConvoy == "Money") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
-	if ((dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 100) or (not alive _vehObj)) then
+	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
+	if ((dateToNumber date > _enddateNum) or (_vehObj distance _posdestino < 100) or (not alive _vehObj)) then
 		{
 		_taskState = "FAILED";
-		if ((dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 100)) then
+		if ((dateToNumber date > _enddateNum) or (_vehObj distance _posdestino < 100)) then
 			{
 			[-1200*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 			[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
@@ -552,8 +552,8 @@ if (_tipoConvoy == "Money") then
 	if ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos)) then
 		{
 		[getPosASL _vehObj,_lado,"",false] spawn A3A_fnc_patrolCA;
-		waitUntil {sleep 2; (_vehObj distance _posHQ < 50) or (not alive _vehObj) or (dateToNumber date > _fechafinNum)};
-		if ((not alive _vehObj) or (dateToNumber date > _fechafinNum)) then
+		waitUntil {sleep 2; (_vehObj distance _posHQ < 50) or (not alive _vehObj) or (dateToNumber date > _enddateNum)};
+		if ((not alive _vehObj) or (dateToNumber date > _enddateNum)) then
 			{
 			_taskState = "FAILED";
 			_taskState1 = "FAILED";
@@ -580,7 +580,7 @@ if (_tipoConvoy == "Money") then
 
 if (_tipoConvoy == "Supplies") then
 	{
-	waitUntil {sleep 1; (dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
+	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posdestino < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
 	if (not alive _vehObj) then
 		{
 		[getPosASL _vehObj,_lado,"",false] spawn A3A_fnc_patrolCA;
@@ -592,12 +592,12 @@ if (_tipoConvoy == "Supplies") then
 		_killZones = _killZones + [_destino,_destino];
 		killZones setVariable [_base,_killZones,true];
 		};
-	if ((dateToNumber date > _fechafinNum) or (_vehObj distance _posdestino < 300) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))) then
+	if ((dateToNumber date > _enddateNum) or (_vehObj distance _posdestino < 300) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))) then
 		{
 		if ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos)) then
 			{
 			[getPosASL _vehObj,_lado,"",false] spawn A3A_fnc_patrolCA;
-			waitUntil {sleep 1; (_vehObj distance _posdestino < 100) or (not alive _vehObj) or (dateToNumber date > _fechafinNum)};
+			waitUntil {sleep 1; (_vehObj distance _posdestino < 100) or (not alive _vehObj) or (dateToNumber date > _enddateNum)};
 			if (_vehObj distance _posdestino < 100) then
 				{
 				_taskState = "SUCCEEDED";
@@ -629,7 +629,7 @@ if (_tipoConvoy == "Supplies") then
 	};
 
 ["CONVOY",[_texto,_taskTitle,_destino],_posdestino,_taskState] call A3A_fnc_taskUpdate;
-["CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,_taskState1] call A3A_fnc_taskUpdate;
+["CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nombredest],"Protect Convoy",_destino],_posdestino,_taskState1] call A3A_fnc_taskUpdate;
 _wp0 = _grupo addWaypoint [_posbase, 0];
 _wp0 setWaypointType "MOVE";
 _wp0 setWaypointBehaviour "SAFE";

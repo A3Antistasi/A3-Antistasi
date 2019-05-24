@@ -1,4 +1,4 @@
-private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hayCaja","_distancia","_objetos","_target","_muerto","_check","_timeOut","_arma","_armas","_rearming","_basePosible","_hmd","_casco","_camion","_autoLoot","_itemsUnit"];
+private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hayCaja","_distancia","_objetos","_target","_muerto","_check","_timeOut","_arma","_armas","_rearming","_basePossible","_hmd","_casco","_camion","_autoLoot","_itemsUnit"];
 
 _unit = _this select 0;
 
@@ -40,8 +40,8 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 				for "_i" from 0 to (count _armas - 1) do
 					{
 					_posible = _armas select _i;
-					_basePosible = [_posible] call BIS_fnc_baseWeapon;
-					if ((not(_basePosible in ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","LMG_03_F"])) and ((_basePosible in arifles) or (_basePosible in srifles) or (_basePosible in mguns))) then
+					_basePossible = [_posible] call BIS_fnc_baseWeapon;
+					if ((not(_basePossible in ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","LMG_03_F"])) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns))) then
 						{
 						_target = _objeto;
 						_hayCaja = true;

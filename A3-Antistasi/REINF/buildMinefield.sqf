@@ -1,9 +1,9 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_tipo","_cantidad","_tipoMuni","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_ATminesAdd","_APminesAdd","_posicionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_camion"];
+private ["_tipo","_cantidad","_tipoMuni","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_camion"];
 
 _tipo = _this select 0;
-_posicionTel = _this select 1;
+_positionTel = _this select 1;
 _cantidad = _this select 2;
 _coste = (2*(server getVariable (SDKExp select 0))) + ([vehSDKTruck] call A3A_fnc_vehiclePrice);
 [-2,(-1*_coste)] remoteExecCall ["A3A_fnc_resourcesFIA",2];
@@ -51,7 +51,7 @@ for "_i" from 0 to (count _typeMagazines) - 1 do
 _index = _tipoMuni call jn_fnc_arsenal_itemType;
 [_index,_tipoMuni,_cantidad] call jn_fnc_arsenal_removeItem;
 
-_mrk = createMarker [format ["Minefield%1", random 1000], _posicionTel];
+_mrk = createMarker [format ["Minefield%1", random 1000], _positionTel];
 _mrk setMarkerShape "ELLIPSE";
 _mrk setMarkerSize [100,100];
 _mrk setMarkerType "hd_warning";
@@ -60,8 +60,8 @@ _mrk setMarkerBrush "DiagGrid";
 _mrk setMarkerText _texto;
 [_mrk,0] remoteExec ["setMarkerAlpha",[malos,muyMalos]];
 
-[[buenos,civilian],"Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,false,0,true,"map",true] call BIS_fnc_taskCreate;
-//_tsk = ["Mines",[buenos,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"CREATED",5,true,true,"map"] call BIS_fnc_setTask;
+[[buenos,civilian],"Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_positionTel,false,0,true,"map",true] call BIS_fnc_taskCreate;
+//_tsk = ["Mines",[buenos,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_positionTel,"CREATED",5,true,true,"map"] call BIS_fnc_setTask;
 //misiones pushBack _tsk; publicVariable "misiones";
 
 _grupo = createGroup buenos;
@@ -85,9 +85,9 @@ _camion allowCrewInImmobile true;
 
 //waitUntil {sleep 1; (count crew _camion > 0) or (!alive _camion) or ({alive _x} count units _grupo == 0)};
 
-waitUntil {sleep 1; (!alive _camion) or ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0))};
+waitUntil {sleep 1; (!alive _camion) or ((_camion distance _positionTel < 50) and ({alive _x} count units _grupo > 0))};
 
-if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)) then
+if ((_camion distance _positionTel < 50) and ({alive _x} count units _grupo > 0)) then
 	{
 	if (isPlayer leader _grupo) then
 		{
@@ -111,10 +111,10 @@ if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)
 		deleteVehicle _camion;
 		for "_i" from 1 to _cantidad do
 			{
-			_mina = createMine [_tipo,_posicionTel,[],100];
+			_mina = createMine [_tipo,_positionTel,[],100];
 			buenos revealMine _mina;
 			};
-		["Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"SUCCEEDED","Map"] call A3A_fnc_taskUpdate;
+		["Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_positionTel,"SUCCEEDED","Map"] call A3A_fnc_taskUpdate;
 		sleep 15;
 		//_nul = [_tsk,true] call BIS_fnc_deleteTask;
 		_nul = [0,"Mines"] spawn A3A_fnc_deleteTask;
@@ -122,7 +122,7 @@ if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)
 		}
 	else
 		{
-		["Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"FAILED","Map"] call A3A_fnc_taskUpdate;
+		["Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_positionTel,"FAILED","Map"] call A3A_fnc_taskUpdate;
 		sleep 15;
 		theBoss hcRemoveGroup _grupo;
 		//_nul = [_tsk,true] call BIS_fnc_deleteTask;
@@ -135,7 +135,7 @@ if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)
 	}
 else
 	{
-	["Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"FAILED","Map"] call A3A_fnc_taskUpdate;
+	["Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_positionTel,"FAILED","Map"] call A3A_fnc_taskUpdate;
 	sleep 15;
 	theBoss hcRemoveGroup _grupo;
 	//_nul = [_tsk,true] call BIS_fnc_deleteTask;

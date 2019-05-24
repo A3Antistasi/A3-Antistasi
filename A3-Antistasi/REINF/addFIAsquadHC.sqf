@@ -94,7 +94,7 @@ if (_esinf) then
 		_grupo = [_pos, buenos, _formato,true] call A3A_fnc_spawnGroup;
 		//if (_tipogrupo isEqualTo groupsSDKSquad) then {_format = "Squd-"};
 		if (_tipogrupo isEqualTo groupsSDKmid) then {_format = "Tm-"};
-		if (_tipogrupo isEqualTo gruposSDKAT) then {_format = "AT-"};
+		if (_tipogrupo isEqualTo groupsSDKAT) then {_format = "AT-"};
 		if (_tipogrupo isEqualTo groupsSDKSniper) then {_format = "Snpr-"};
 		if (_tipogrupo isEqualTo groupsSDKSentry) then {_format = "Stry-"};
 		if (_conMochis == "MG") then

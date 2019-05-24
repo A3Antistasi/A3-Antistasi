@@ -16,4 +16,4 @@ server setVariable ["resourcesFIA",_resourcesFIA,true];
 _coste = server getVariable _x;
 _coste = round (_coste + (_coste * (skillFIA/280)));
 server setVariable [_x,_coste,true];
-} forEach soldadosSDK;
+} forEach soldiersSDK;

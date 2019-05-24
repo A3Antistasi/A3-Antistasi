@@ -60,7 +60,7 @@ civHeli = "C_Heli_Light_01_civil_F";//purchaseable civ heli
 civBoat = "C_Boat_Transport_02_F";//purchaseable civ boat
 
 sniperRifle = "srifle_DMR_06_camo_F";//sniper rifle, mainly for metros / maru
-lamparasSDK = ["acc_flashlight"];//flashlight if available in your mod
+lampsSDK = ["acc_flashlight"];//flashlight if available in your mod
 
 ATMineMag = "ATMine_Range_Mag";//mines which will be deployed in the minefield scripts
 APERSMineMag = "APERSMine_Range_Mag";//mines which will be deployed in the minefield scripts

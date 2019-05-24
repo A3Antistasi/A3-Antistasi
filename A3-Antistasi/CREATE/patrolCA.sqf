@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_marcador","_esMarcador","_exit","_radio","_base","_aeropuerto","_posDestino","_soldados","_vehiculos","_grupos","_roads","_posOrigen","_tam","_tipoVeh","_vehicle","_veh","_vehCrew","_grupoVeh","_landPos","_tipoGrupo","_grupo","_soldado","_threatEval","_pos","_timeOut","_lado","_cuenta","_esMarcador","_inWaves","_typeOfAttack","_cercano","_aeropuertos","_sitio","_enemigos","_plane","_amigos","_tipo","_esSDK","_weapons","_nombreDest","_vehPool","_super","_spawnPoint","_pos1","_pos2"];
+private ["_marcador","_isMarker","_exit","_radio","_base","_aeropuerto","_posDestino","_soldados","_vehiculos","_grupos","_roads","_posOrigen","_tam","_tipoVeh","_vehicle","_veh","_vehCrew","_grupoVeh","_landPos","_tipoGrupo","_grupo","_soldado","_threatEval","_pos","_timeOut","_lado","_cuenta","_isMarker","_inWaves","_typeOfAttack","_cercano","_aeropuertos","_sitio","_enemigos","_plane","_amigos","_tipo","_esSDK","_weapons","_nombreDest","_vehPool","_super","_spawnPoint","_pos1","_pos2"];
 
 _marcador = _this select 0;//[position player,malos,"Normal",false] spawn A3A_Fnc_patrolCA
 _aeropuerto = _this select 1;
@@ -24,11 +24,11 @@ else
 
 //if ((!_inWaves) and (diag_fps < minimoFPS)) exitWith {diag_log format ["Antistasi PatrolCA: CA cancelled because of FPS %1",""]};
 
-_esMarcador = false;
+_isMarker = false;
 _exit = false;
 if (_marcador isEqualType "") then
 	{
-	_esMarcador = true;
+	_isMarker = true;
 	_posDestino = getMarkerPos _marcador;
 	if (!_inWaves) then {if (_marcador in smallCAmrk) then {_exit = true}};
 	}
@@ -54,7 +54,7 @@ if (_exit) exitWith {diag_log format ["Antistasi PatrolCA: CA cancelled because 
 
 _enemigos = allUnits select {_x distance _posDestino < distanceSPWN2 and (side (group _x) != _lado) and (side (group _x) != civilian) and (alive _x)};
 
-if ((!_esMarcador) and (_typeOfAttack != "Air") and (!_super) and ({lados getVariable [_x,sideUnknown] == _lado} count aeropuertos > 0)) then
+if ((!_isMarker) and (_typeOfAttack != "Air") and (!_super) and ({lados getVariable [_x,sideUnknown] == _lado} count aeropuertos > 0)) then
 	{
 	_plane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
 	if ([_plane] call A3A_fnc_vehAvailable) then
@@ -78,10 +78,10 @@ if ((!_esMarcador) and (_typeOfAttack != "Air") and (!_super) and ({lados getVar
 			if (_tipo == "HE") exitWith {};
 			} forEach _enemigos;
 			_exit = true;
-			if (!_esMarcador) then {smallCApos pushBack _posDestino};
+			if (!_isMarker) then {smallCApos pushBack _posDestino};
 			[_posDestino,_lado,_tipo] spawn A3A_fnc_airstrike;
 			diag_log format ["Antistasi PatrolCA: Airstrike of type %1 sent to %2",_tipo,_marcador];
-			if (!_esMarcador) then
+			if (!_isMarker) then
 				{
 				sleep 120;
 				smallCApos = smallCApos - [_posDestino];
@@ -99,7 +99,7 @@ if (!_inWaves) then
 	if (hayIFA and (_threatEvalLand <= 15)) then {_aeropuertos = _areopuertos select {(getMarkerPos _x distance2D _posDestino < distanceForLandAttack)}};
 	_puestos = if (_threatEvalLand <= 15) then {puestos select {(lados getVariable [_x,sideUnknown] == _lado) and ([_posDestino,getMarkerPos _x] call A3A_fnc_isTheSameIsland) and (getMarkerPos _x distance _posDestino < distanceForLandAttack)  and ([_x,true] call A3A_fnc_airportCanAttack)}} else {[]};
 	_aeropuertos = _aeropuertos + _puestos;
-	if (_esMarcador) then
+	if (_isMarker) then
 		{
 		if (_marcador in blackListDest) then
 			{
@@ -172,7 +172,7 @@ if (_typeOfAttack == "") then
 	};
 
 _esSDK = false;
-if (_esMarcador) then
+if (_isMarker) then
 	{
 	smallCAmrk pushBackUnique _marcador; publicVariable "smallCAmrk";
 	if (lados getVariable [_marcador,sideUnknown] == buenos) then
@@ -238,7 +238,7 @@ if (_base != "") then
 				};
 			};
 		};
-	_cuenta = if (!_super) then {if (_esMarcador) then {2} else {1}} else {round ((tierWar + difficultyCoef) / 2) + 1};
+	_cuenta = if (!_super) then {if (_isMarker) then {2} else {1}} else {round ((tierWar + difficultyCoef) / 2) + 1};
 	_landPosBlacklist = [];
 	for "_i" from 1 to _cuenta do
 		{
@@ -277,7 +277,7 @@ if (_base != "") then
 						}
 					else
 						{
-						if ((_esMarcador) and !((_vehPool - vehTanks) isEqualTo [])) then {selectRandom (_vehPool - vehTanks)} else {selectRandom _vehPool};
+						if ((_isMarker) and !((_vehPool - vehTanks) isEqualTo [])) then {selectRandom (_vehPool - vehTanks)} else {selectRandom _vehPool};
 						};
 		//_road = _roads select 0;
 		_timeOut = 0;
@@ -373,7 +373,7 @@ if (_base != "") then
 				//_Vwp0 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
 				_Vwp1 = _grupoVeh addWaypoint [_posDestino, count (wayPoints _grupoVeh)];
 				_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
-				if (_esMarcador) then
+				if (_isMarker) then
 					{
 
 					if ((count (garrison getVariable _marcador)) < 4) then
@@ -416,7 +416,7 @@ else
 	{
 	[_aeropuerto,20] call A3A_fnc_addTimeForIdle;
 	_vehPool = [];
-	_cuenta = if (!_super) then {if (_esMarcador) then {2} else {1}} else {round ((tierWar + difficultyCoef) / 2) + 1};
+	_cuenta = if (!_super) then {if (_isMarker) then {2} else {1}} else {round ((tierWar + difficultyCoef) / 2) + 1};
 	_tipoVeh = "";
 	_vehPool = if (_lado == malos) then {(vehNATOAir - [vehNATOPlane]) select {[_x] call A3A_fnc_vehAvailable}} else {(vehCSATAir - [vehCSATPlane]) select {[_x] call A3A_fnc_vehAvailable}};
 	if (_esSDK) then
@@ -468,7 +468,7 @@ else
 				}
 			else
 				{
-				if (_esMarcador) then {selectRandom (_vehPool select {_x in vehTransportAir})} else {selectRandom _vehPool};
+				if (_isMarker) then {selectRandom (_vehPool select {_x in vehTransportAir})} else {selectRandom _vehPool};
 				};
 
 		_pos = _posOrigen;
@@ -536,7 +536,7 @@ else
 			_grupos pushBack _grupo;
 			_landpos = [];
 			_proceder = true;
-			if (_esMarcador) then
+			if (_isMarker) then
 				{
 				if ((_marcador in aeropuertos)  or !(_veh isKindOf "Helicopter")) then
 					{
@@ -607,7 +607,7 @@ else
 	diag_log format ["Antistasi PatrolCA: Air CA performed on %1, Type is %2, Vehicle count: %3, Soldier count: %4",_marcador,_typeOfAttack,count _vehiculos,count _soldados];
 	};
 
-if (_esMarcador) then
+if (_isMarker) then
 	{
 	_tiempo = time + 3600;
 	_size = [_marcador] call A3A_fnc_sizeMarker;
@@ -698,4 +698,4 @@ if (count _soldados > 0) then
 {deleteGroup _x} forEach _grupos;
 
 sleep ((300 - ((tierWar + difficultyCoef) * 5)) max 0);
-if (_esMarcador) then {smallCAmrk = smallCAmrk - [_marcador]; publicVariable "smallCAmrk"} else {smallCApos = smallCApos - [_posDestino]};
+if (_isMarker) then {smallCAmrk = smallCAmrk - [_marcador]; publicVariable "smallCAmrk"} else {smallCApos = smallCApos - [_posDestino]};

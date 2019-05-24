@@ -48,7 +48,7 @@ if (count _garrison > 0) then
 			{
 			if (!alive _x) then
 				{
-				if (typeOf _x in soldadosSDK) then
+				if (typeOf _x in soldiersSDK) then
 					{
 					if (typeOf _x == staticCrewTeamPlayer) then {_coste = _coste - ([SDKMortar] call A3A_fnc_vehiclePrice)};
 					_hr = _hr - 1;

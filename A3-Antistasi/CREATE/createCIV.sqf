@@ -63,7 +63,7 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _numVeh) and (_cuenta
 		    _mrk setMarkerSize [5, 5];
 		    _mrk setMarkerShape "RECTANGLE";
 		    _mrk setMarkerBrush "SOLID";
-		    _mrk setMarkerColor colorBuenos;
+		    _mrk setMarkerColor colourTeamPlayer;
 		    //_mrk setMarkerText _nombre;
 		    */
 			_veh = _tipoveh createVehicle _pos;

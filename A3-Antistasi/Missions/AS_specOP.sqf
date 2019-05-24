@@ -6,25 +6,25 @@ _marcador = _this select 0;
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contacto = objNull;
-_grpContacto = grpNull;
+_groupContact = grpNull;
 _tsk = "";
 _posicion = getMarkerPos _marcador;
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _tiempolim = if (_dificil) then {60} else {120};
 if (hayIFA) then {_tiempolim = _tiempolim * 2};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call A3A_fnc_localizar;
-_nombreBando = if (_lado == malos) then {"NATO"} else {"CSAT"};
+_naming = if (_lado == malos) then {"NATO"} else {"CSAT"};
 
-[[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
+[[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
 misiones pushBack ["AS","CREATED"]; publicVariable "misiones";
-waitUntil  {sleep 5; (dateToNumber date > _fechalimnum) or (lados getVariable [_marcador,sideUnknown] == buenos)};
+waitUntil  {sleep 5; (dateToNumber date > _dateLimitNum) or (lados getVariable [_marcador,sideUnknown] == buenos)};
 
-if (dateToNumber date > _fechalimnum) then
+if (dateToNumber date > _dateLimitNum) then
 	{
-	["AS",[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
+	["AS",[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"SpecOps",_marcador],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
 	if (_dificil) then
 		{
 		[10,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
@@ -40,7 +40,7 @@ if (dateToNumber date > _fechalimnum) then
 	}
 else
 	{
-	["AS",[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+	["AS",[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"SpecOps",_marcador],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	if (_dificil) then
 		{
 		[0,400] remoteExec ["A3A_fnc_resourcesFIA",2];

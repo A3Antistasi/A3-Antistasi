@@ -113,22 +113,22 @@ if (count _itemsFinal > 0) then
 		};
 	};
 
-_mochisFinal = [];
+_backpcksFinal = [];
 _backpcksFinalCount = [];
 {
 _arma = _x;
-if ((not(_arma in _mochisFinal)) and (not(_arma in unlockedBackpacks))) then
+if ((not(_arma in _backpcksFinal)) and (not(_arma in unlockedBackpacks))) then
 	{
-	_mochisFinal pushBack _arma;
+	_backpcksFinal pushBack _arma;
 	_backpcksFinalCount pushBack ({_x == _arma} count _mochis);
 	};
 } forEach _mochis;
 
-if (count _mochisFinal > 0) then
+if (count _backpcksFinal > 0) then
 	{
-	for "_i" from 0 to (count _mochisFinal) - 1 do
+	for "_i" from 0 to (count _backpcksFinal) - 1 do
 		{
-		_destino addBackpackCargoGlobal [_mochisFinal select _i,_backpcksFinalCount select _i];
+		_destino addBackpackCargoGlobal [_backpcksFinal select _i,_backpcksFinalCount select _i];
 		};
 	};
 

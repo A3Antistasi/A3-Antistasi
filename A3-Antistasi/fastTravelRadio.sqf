@@ -32,21 +32,21 @@ if (_chequeo) exitWith {Hint "You cannot Fast Travel with enemies near the group
 
 if (_chequeo) exitWith {Hint "You cannot Fast Travel if you don't have a driver in all your vehicles or your vehicles are damaged and cannot move or your group is in a boat"};
 
-posicionTel = [];
+positionTel = [];
 
 if (_esHC) then {hcShowBar false};
 hint "Click on the zone you want to travel";
 if (!visibleMap) then {openMap true};
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 
-if (count _posicionTel > 0) then
+if (count _positionTel > 0) then
 	{
-	_base = [_marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
+	_base = [_marcadores, _positionTel] call BIS_Fnc_nearestPosition;
 	if (_checkForPlayer and ((_base != "SYND_HQ") and !(_base in aeropuertos))) exitWith {hint "Player groups are only allowed to Fast Travel to HQ or Airbases"};
 	if ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == muyMalos)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
@@ -54,7 +54,7 @@ if (count _posicionTel > 0) then
 
 	if ([getMarkerPos _base,500] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
 
-	if (_posicionTel distance getMarkerPos _base < 50) then
+	if (_positionTel distance getMarkerPos _base < 50) then
 		{
 		_posicion = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
 		_distancia = round (((position _jefe) distance _posicion)/200);

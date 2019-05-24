@@ -23,7 +23,7 @@ while {true} do
 	};
 
 if ((!alive _morty) or (!alive _ayudante)) exitWith {};
-_morty setVariable ["maniobrando",true];
+_morty setVariable ["maneuvering",true];
 while {true} do
 	{
 	if (_morty distance _pos < 5) exitWith {};
@@ -35,7 +35,7 @@ while {true} do
 
 if ((!alive _ayudante) and (alive _morty)) then
 	{
-	_morty setVariable ["maniobrando",false];
+	_morty setVariable ["maneuvering",false];
 	_movable = _grupo getVariable ["movable",[]];
 	_movable pushBack _morty;
 	_grupo setVariable ["movable",_movable];

@@ -44,7 +44,7 @@ civHeli = "C_Heli_Light_01_civil_F";
 civBoat = "C_Boat_Transport_02_F";
 
 sniperRifle = "srifle_DMR_06_camo_F";
-lamparasSDK = ["acc_flashlight"];
+lampsSDK = ["acc_flashlight"];
 
 ATMineMag = "ATMine_Range_Mag";
 APERSMineMag = "APERSMine_Range_Mag";

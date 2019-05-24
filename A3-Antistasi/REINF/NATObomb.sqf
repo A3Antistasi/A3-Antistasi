@@ -4,20 +4,20 @@ if (bombRuns < 1) exitWith {hint "You lack of enough Air Support to make this re
 if ({lados getVariable [_x,sideUnknown] == buenos} count aeropuertos == 0) exitWith {hint "You need to control an airport in order to fulfill this request"};
 _tipo = _this select 0;
 
-posicionTel = [];
+positionTel = [];
 
 hint "Select the spot from which the plane will start to drop the bombs";
 
 if (!visibleMap) then {openMap true};
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+waitUntil {sleep 1; (count positionTel > 0) or (!visibleMap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_pos1 = posicionTel;
-posicionTel = [];
+_pos1 = positionTel;
+positionTel = [];
 
 _mrkorig = createMarkerLocal [format ["BRStart%1",random 1000], _pos1];
 _mrkorig setMarkerShapeLocal "ICON";
@@ -27,15 +27,15 @@ _mrkOrig setMarkerTextLocal "Bomb Run Init";
 
 hint "Select the map position to which the plane will exit to calculate plane's route vector";
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+waitUntil {sleep 1; (count positionTel > 0) or (!visibleMap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {deleteMarker _mrkOrig};
 
-_pos2 = posicionTel;
-posicionTel = [];
+_pos2 = positionTel;
+positionTel = [];
 
 _ang = [_pos1,_pos2] call BIS_fnc_dirTo;
 

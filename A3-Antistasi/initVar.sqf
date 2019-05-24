@@ -33,8 +33,8 @@ buenos = side group petros;
 malos = if (buenos == independent) then {west} else {independent};
 muyMalos = east;
 
-colorBuenos = if (buenos == independent) then {"colorGUER"} else {"colorBLUFOR"};
-colorMalos = if (buenos == independent) then {"colorBLUFOR"} else {"colorGUER"};
+colourTeamPlayer = if (buenos == independent) then {"colorGUER"} else {"colorBLUFOR"};
+colorOccupants = if (buenos == independent) then {"colorBLUFOR"} else {"colorGUER"};
 colorInvaders = "colorOPFOR";
 
 respawnTeamPlayer = if (buenos == independent) then {"respawn_guerrila"} else {"respawn_west"};
@@ -249,10 +249,10 @@ medics = SDKMedic + [(FIAsquad select ((count FIAsquad)-1)),(NATOSquad select ((
 sdkTier1 = SDKMil + [staticCrewTeamPlayer] + SDKMG + SDKGL + SDKATman;
 sdkTier2 = SDKMedic + SDKExp + SDKEng;
 sdkTier3 = SDKSL + SDKSniper;
-soldadosSDK = sdkTier1 + sdkTier2 + sdkTier3;
+soldiersSDK = sdkTier1 + sdkTier2 + sdkTier3;
 vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATBuenos,staticAABuenos,vehSDKRepair];
 groupsSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
-gruposSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
+groupsSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
 //["BanditShockTeam","ParaShockTeam"];
 groupsSDKSquad = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
 groupsSDKSquadEng = [SDKSL,SDKGL,SDKMil,SDKMG,SDKExp,SDKATman,SDKEng,SDKMedic];

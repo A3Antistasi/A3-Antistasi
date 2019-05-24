@@ -7,7 +7,7 @@ if ((_text == "Convoy Objective") or (_text == "Mission Vehicle") or (_text == "
 _side = side (group (driver _veh));
 _tipo = "_unknown";
 _formato = "";
-_color = colorMalos;
+_color = colorOccupants;
 if (_veh isKindOf "Truck") then {_tipo = "_motor_inf"}
 	else
 		{
@@ -38,7 +38,7 @@ if ((_side == buenos) or (_side == sideUnknown)) then
 	{
 	_enemigo = false;
 	_formato = "n";
-	_color = colorBuenos;
+	_color = colourTeamPlayer;
 	}
 else
 	{

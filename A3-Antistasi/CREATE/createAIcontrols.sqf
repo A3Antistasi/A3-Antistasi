@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_roadscon","_veh","_roads","_conquistado","_dirVeh","_marcador","_posicion","_vehiculos","_soldados","_tam","_bunker","_grupoE","_unit","_tipogrupo","_grupo","_tiempolim","_fechalim","_fechalimnum","_base","_perro","_lado","_cfg","_esFIA","_salir","_esControl","_tam","_tipoVeh","_tipoUnit","_marcadores","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_tiempolim","_fechalim","_fechalimNum","_size","_base","_mina","_loser","_lado"];
+private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_marcador","_posicion","_vehiculos","_soldados","_tam","_bunker","_grupoE","_unit","_tipogrupo","_grupo","_tiempolim","_fechalim","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_esControl","_tam","_tipoVeh","_tipoUnit","_marcadores","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_tiempolim","_fechalim","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
 
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;
@@ -11,7 +11,7 @@ if ({if ((lados getVariable [_x,sideUnknown] != _lado) and (_posicion inArea _x)
 _vehiculos = [];
 _soldados = [];
 _pilotos = [];
-_conquistado = false;
+_conquered = false;
 _grupo = grpNull;
 _esFIA = false;
 _salir = false;
@@ -211,11 +211,11 @@ while {(spawner getVariable _marcador != 2) and ({[_x,_marcador] call A3A_fnc_ca
 
 waitUntil {sleep 1;((spawner getVariable _marcador == 2))  or ({[_x,_marcador] call A3A_fnc_canConquer} count _soldados == 0)};
 
-_conquistado = false;
+_conquered = false;
 _winner = malos;
 if (spawner getVariable _marcador != 2) then
 	{
-	_conquistado = true;
+	_conquered = true;
 	_allUnits = allUnits select {(side _x != civilian) and (side _x != _lado) and (alive _x) and (!captive _x)};
 	_closest = [_allUnits,_posicion] call BIS_fnc_nearestPosition;
 	_winner = side _closest;
@@ -271,15 +271,15 @@ if (alive _x) then
 } forEach (_soldados + _pilotos);
 deleteGroup _grupo;
 
-if (_conquistado) then
+if (_conquered) then
 	{
 	_indice = controles find _marcador;
 	if (_indice > defaultControlIndex) then
 		{
 		_tiempolim = 120;//120
 		_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-		_fechalimnum = dateToNumber _fechalim;
-		waitUntil {sleep 60;(dateToNumber date > _fechalimnum)};
+		_dateLimitNum = dateToNumber _fechalim;
+		waitUntil {sleep 60;(dateToNumber date > _dateLimitNum)};
 		_base = [(marcadores - controles),_posicion] call BIS_fnc_nearestPosition;
 		if (lados getVariable [_base,sideUnknown] == malos) then
 			{

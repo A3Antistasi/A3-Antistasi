@@ -108,9 +108,9 @@ if (lados getVariable [_mrkDestino,sideUnknown] == malos) then {[[_posDestino,ma
 if (_numCiv < 8) then {_numCiv = 8};
 
 _size = [_mrkDestino] call A3A_fnc_sizeMarker;
-//_grupoCivil = if (_lado == buenos) then {createGroup buenos} else {createGroup malos};
-_grupoCivil = createGroup buenos;
-_grupos pushBack _grupoCivil;
+//_groupCivil = if (_lado == buenos) then {createGroup buenos} else {createGroup malos};
+_groupCivil = createGroup buenos;
+_grupos pushBack _groupCivil;
 //[muyMalos,[civilian,0]] remoteExec ["setFriend",2];
 _tipoUnit = if (_lado == buenos) then {SDKUnarmed} else {NATOUnarmed};
 for "_i" from 0 to _numCiv do
@@ -121,7 +121,7 @@ for "_i" from 0 to _numCiv do
 		if (!surfaceIsWater _pos) exitWith {};
 		};
 	_tipoUnit = selectRandom arrayCivs;
-	_civ = _grupoCivil createUnit [_tipoUnit,_pos, [],0,"NONE"];
+	_civ = _groupCivil createUnit [_tipoUnit,_pos, [],0,"NONE"];
 	_civ forceAddUniform (selectRandom civUniforms);
 	_rnd = random 100;
 	if (_rnd < 90) then
@@ -133,7 +133,7 @@ for "_i" from 0 to _numCiv do
 	sleep 0.5;
 	};
 
-_nul = [leader _grupoCivil, _mrkDestino, "AWARE","SPAWNED","NOVEH2"] execVM "scripts\UPSMON.sqf";
+_nul = [leader _groupCivil, _mrkDestino, "AWARE","SPAWNED","NOVEH2"] execVM "scripts\UPSMON.sqf";
 
 _civilMax = {alive _x} count _civiles;
 _solMax = count _soldados;
@@ -226,4 +226,4 @@ if (count _pilotos > 0) then
 waitUntil {sleep 1; (spawner getVariable _mrkDestino == 2)};
 
 {deleteVehicle _x} forEach _civiles;
-deleteGroup _grupoCivil;
+deleteGroup _groupCivil;

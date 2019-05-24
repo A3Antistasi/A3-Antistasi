@@ -2,7 +2,7 @@ if (!isServer) exitWith{};
 
 debugperf = false;
 
-private ["_tiempo","_marcadores","_marcador","_posicionMRK"];
+private ["_tiempo","_marcadores","_marcador","_positionMRK"];
 
 _tiempo = time;
 
@@ -51,7 +51,7 @@ else
 {
 _marcador = _x;
 
-_posicionMRK = getMarkerPos (_marcador);
+_positionMRK = getMarkerPos (_marcador);
 
 if (lados getVariable [_marcador,sideUnknown] == malos) then
 	{
@@ -59,15 +59,15 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 		{
 		if (spawner getVariable _marcador == 2) then
 			{
-			if (({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _greenfor > 0) or ({if ((_x distance2D _posicionMRK < distanceSPWN2)) exitWith {1}} count _opfor > 0) or ({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanceSPWN2)) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then
+			if (({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _greenfor > 0) or ({if ((_x distance2D _positionMRK < distanceSPWN2)) exitWith {1}} count _opfor > 0) or ({if ((isPlayer _x) and (_x distance2D _positionMRK < distanceSPWN2)) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then
 				{
 				spawner setVariable [_marcador,0,true];
 				if (_marcador in ciudades) then
 					{
-					if (({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _greenfor > 0) or ({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanceSPWN2)) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"A3A_fnc_createAICities"] call A3A_fnc_scheduler};
+					if (({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _greenfor > 0) or ({if ((isPlayer _x) and (_x distance2D _positionMRK < distanceSPWN2)) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"A3A_fnc_createAICities"] call A3A_fnc_scheduler};
 					if (not(_marcador in destroyedCities)) then
 						{
-						if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanceSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"A3A_fnc_createCIV"] call A3A_fnc_scheduler};
+						if (({if ((isPlayer _x) and (_x distance2D _positionMRK < distanceSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"A3A_fnc_createCIV"] call A3A_fnc_scheduler};
 						};
 					}
 				else
@@ -81,7 +81,7 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 			}
 		else
 			{
-			if (({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _greenfor > 0) or ({if ((_x distance2D _posicionMRK < distanceSPWN2)) exitWith {1}} count _opfor > 0) or ({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanceSPWN2)) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then
+			if (({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _greenfor > 0) or ({if ((_x distance2D _positionMRK < distanceSPWN2)) exitWith {1}} count _opfor > 0) or ({if ((isPlayer _x) and (_x distance2D _positionMRK < distanceSPWN2)) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then
 				{
 				spawner setVariable [_marcador,0,true];
 				if (isMUltiplayer) then
@@ -95,7 +95,7 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 				}
 			else
 				{
-				if (({if (_x distance2D _posicionMRK < distanceSPWN1) exitWith {1}} count _greenfor == 0) and ({if ((_x distance2D _posicionMRK < distanceSPWN)) exitWith {1}} count _opfor == 0) and ({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanceSPWN)) exitWith {1}} count _blufor == 0) and (not(_marcador in forcedSpawn))) then
+				if (({if (_x distance2D _positionMRK < distanceSPWN1) exitWith {1}} count _greenfor == 0) and ({if ((_x distance2D _positionMRK < distanceSPWN)) exitWith {1}} count _opfor == 0) and ({if ((isPlayer _x) and (_x distance2D _positionMRK < distanceSPWN)) exitWith {1}} count _blufor == 0) and (not(_marcador in forcedSpawn))) then
 					{
 					spawner setVariable [_marcador,2,true];
 					};
@@ -104,7 +104,7 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 		}
 	else
 		{
-		if (({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _greenfor == 0) and ({if ((_x distance2D _posicionMRK < distanceSPWN2)) exitWith {1}} count _opfor == 0) and ({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanceSPWN2)) exitWith {1}} count _blufor == 0) and (not(_marcador in forcedSpawn))) then
+		if (({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _greenfor == 0) and ({if ((_x distance2D _positionMRK < distanceSPWN2)) exitWith {1}} count _opfor == 0) and ({if ((isPlayer _x) and (_x distance2D _positionMRK < distanceSPWN2)) exitWith {1}} count _blufor == 0) and (not(_marcador in forcedSpawn))) then
 			{
 			spawner setVariable [_marcador,1,true];
 			if (isMUltiplayer) then
@@ -126,7 +126,7 @@ else
 			{
 			if (spawner getVariable _marcador == 2) then
 				{
-				if (({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _blufor > 0) or ({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _opfor > 0) or ({if (((_x getVariable ["owner",objNull]) == _x) and (_x distance2D _posicionMRK < distanceSPWN2)) exitWith {1}} count _greenfor > 0) or (_marcador in forcedSpawn)) then
+				if (({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _blufor > 0) or ({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _opfor > 0) or ({if (((_x getVariable ["owner",objNull]) == _x) and (_x distance2D _positionMRK < distanceSPWN2)) exitWith {1}} count _greenfor > 0) or (_marcador in forcedSpawn)) then
 					{
 					spawner setVariable [_marcador,0,true];
 					if (_marcador in ciudades) then
@@ -134,7 +134,7 @@ else
 						//[_marcador] remoteExec ["A3A_fnc_createAICities",HCGarrisons];
 						if (not(_marcador in destroyedCities)) then
 							{
-							if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanceSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"A3A_fnc_createCIV"] call A3A_fnc_scheduler};
+							if (({if ((isPlayer _x) and (_x distance2D _positionMRK < distanceSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"A3A_fnc_createCIV"] call A3A_fnc_scheduler};
 							};
 						};
 					if (_marcador in puestosFIA) then {[[_marcador],"A3A_fnc_createFIAOutposts2"] call A3A_fnc_scheduler} else {if (not(_marcador in controles)) then {[[_marcador],"A3A_fnc_createSDKGarrisons"] call A3A_fnc_scheduler}};
@@ -142,7 +142,7 @@ else
 				}
 			else
 				{
-				if (({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _blufor > 0) or ({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _opfor > 0) or ({if (((_x getVariable ["owner",objNull]) == _x) and (_x distance2D _posicionMRK < distanceSPWN2) or (_marcador in forcedSpawn)) exitWith {1}} count _greenfor > 0)) then
+				if (({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _blufor > 0) or ({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _opfor > 0) or ({if (((_x getVariable ["owner",objNull]) == _x) and (_x distance2D _positionMRK < distanceSPWN2) or (_marcador in forcedSpawn)) exitWith {1}} count _greenfor > 0)) then
 					{
 					spawner setVariable [_marcador,0,true];
 					if (isMUltiplayer) then
@@ -156,7 +156,7 @@ else
 					}
 				else
 					{
-					if (({if (_x distance2D _posicionMRK < distanceSPWN1) exitWith {1}} count _blufor == 0) and ({if (_x distance2D _posicionMRK < distanceSPWN1) exitWith {1}} count _opfor == 0) and ({if (((_x getVariable ["owner",objNull]) == _x) and (_x distance2D _posicionMRK < distanceSPWN)) exitWith {1}} count _greenfor == 0) and (not(_marcador in forcedSpawn))) then
+					if (({if (_x distance2D _positionMRK < distanceSPWN1) exitWith {1}} count _blufor == 0) and ({if (_x distance2D _positionMRK < distanceSPWN1) exitWith {1}} count _opfor == 0) and ({if (((_x getVariable ["owner",objNull]) == _x) and (_x distance2D _positionMRK < distanceSPWN)) exitWith {1}} count _greenfor == 0) and (not(_marcador in forcedSpawn))) then
 						{
 						spawner setVariable [_marcador,2,true];
 						};
@@ -165,7 +165,7 @@ else
 			}
 		else
 			{
-			if (({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _blufor == 0) and ({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _opfor == 0) and ({if (((_x getVariable ["owner",objNull]) == _x) and (_x distance2D _posicionMRK < distanceSPWN2)) exitWith {1}} count _greenfor == 0) and (not(_marcador in forcedSpawn))) then
+			if (({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _blufor == 0) and ({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _opfor == 0) and ({if (((_x getVariable ["owner",objNull]) == _x) and (_x distance2D _positionMRK < distanceSPWN2)) exitWith {1}} count _greenfor == 0) and (not(_marcador in forcedSpawn))) then
 				{
 				spawner setVariable [_marcador,1,true];
 				if (isMUltiplayer) then
@@ -185,7 +185,7 @@ else
 			{
 			if (spawner getVariable _marcador == 2) then
 				{
-				if (({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _greenfor > 0) or ({if ((_x distance2D _posicionMRK < distanceSPWN2) and (isPlayer _x)) exitWith {1}} count _opfor > 0) or ({if (_x distance2D _posicionMRK < distanceSPWN2) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then
+				if (({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _greenfor > 0) or ({if ((_x distance2D _positionMRK < distanceSPWN2) and (isPlayer _x)) exitWith {1}} count _opfor > 0) or ({if (_x distance2D _positionMRK < distanceSPWN2) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then
 					{
 					spawner setVariable [_marcador,0,true];
 					if (_marcador in controles) then {[[_marcador],"A3A_fnc_createAIcontrols"] call A3A_fnc_scheduler} else {
@@ -196,7 +196,7 @@ else
 				}
 			else
 				{
-				if (({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _greenfor > 0) or ({if ((_x distance2D _posicionMRK < distanceSPWN2) and (isPlayer _x)) exitWith {1}} count _opfor > 0) or ({if (_x distance2D _posicionMRK < distanceSPWN2) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then
+				if (({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _greenfor > 0) or ({if ((_x distance2D _positionMRK < distanceSPWN2) and (isPlayer _x)) exitWith {1}} count _opfor > 0) or ({if (_x distance2D _positionMRK < distanceSPWN2) exitWith {1}} count _blufor > 0) or (_marcador in forcedSpawn)) then
 					{
 					spawner setVariable [_marcador,0,true];
 					if (isMUltiplayer) then
@@ -210,7 +210,7 @@ else
 					}
 				else
 					{
-					if (({if (_x distance2D _posicionMRK < distanceSPWN1) exitWith {1}} count _greenfor == 0) and ({if ((_x distance2D _posicionMRK < distanceSPWN2) and (isPlayer _x)) exitWith {1}} count _opfor == 0) and ({if ((_x distance2D _posicionMRK < distanceSPWN)) exitWith {1}} count _blufor == 0) and (not(_marcador in forcedSpawn))) then
+					if (({if (_x distance2D _positionMRK < distanceSPWN1) exitWith {1}} count _greenfor == 0) and ({if ((_x distance2D _positionMRK < distanceSPWN2) and (isPlayer _x)) exitWith {1}} count _opfor == 0) and ({if ((_x distance2D _positionMRK < distanceSPWN)) exitWith {1}} count _blufor == 0) and (not(_marcador in forcedSpawn))) then
 						{
 						spawner setVariable [_marcador,2,true];
 						};
@@ -219,7 +219,7 @@ else
 			}
 		else
 			{
-			if (({if (_x distance2D _posicionMRK < distanceSPWN) exitWith {1}} count _greenfor == 0) and ({if ((_x distance2D _posicionMRK < distanceSPWN2) and (isPlayer _x)) exitWith {1}} count _opfor == 0) and ({if (_x distance2D _posicionMRK < distanceSPWN2) exitWith {1}} count _blufor == 0) and (not(_marcador in forcedSpawn))) then
+			if (({if (_x distance2D _positionMRK < distanceSPWN) exitWith {1}} count _greenfor == 0) and ({if ((_x distance2D _positionMRK < distanceSPWN2) and (isPlayer _x)) exitWith {1}} count _opfor == 0) and ({if (_x distance2D _positionMRK < distanceSPWN2) exitWith {1}} count _blufor == 0) and (not(_marcador in forcedSpawn))) then
 				{
 				spawner setVariable [_marcador,1,true];
 				if (isMUltiplayer) then

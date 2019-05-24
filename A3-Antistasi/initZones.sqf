@@ -158,7 +158,7 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
     _mrk setMarkerSize [_size, _size];
     _mrk setMarkerShape "RECTANGLE";
     _mrk setMarkerBrush "SOLID";
-    _mrk setMarkerColor colorMalos;
+    _mrk setMarkerColor colorOccupants;
     _mrk setMarkerText _nombre;
     _mrk setMarkerAlpha 0;
     ciudades pushBack _nombre;
@@ -166,7 +166,7 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
     _dmrk = createMarker [format ["Dum%1",_nombre], _pos];
     _dmrk setMarkerShape "ICON";
     _dmrk setMarkerType "loc_Ruin";
-    _dmrk setMarkerColor colorMalos;
+    _dmrk setMarkerColor colorOccupants;
     if (_nroads < _numVeh) then {_numVeh = _nroads};
     lados setVariable [_mrk,malos,true];
     _info = [_numCiv, _numVeh, prestigeOPFOR,prestigeBLUFOR];

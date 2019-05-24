@@ -32,7 +32,7 @@ if (_posroad distance _pos > 400) then
                         _mrk setMarkerSize [30,30];
                         _mrk setMarkerShape "RECTANGLE";
                         _mrk setMarkerBrush "SOLID";
-                        _mrk setMarkerColor colorBuenos;
+                        _mrk setMarkerColor colourTeamPlayer;
                         _mrk setMarkerText _nombre;
                         if (not debug) then {_mrk setMarkerAlpha 0};
                         if (lados getVariable [_marcador,sideUnknown] == malos) then

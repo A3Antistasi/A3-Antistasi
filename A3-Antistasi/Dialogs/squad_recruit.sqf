@@ -28,9 +28,9 @@ if (str (_display) != "no display") then
 	_ChildControl = _display displayCtrl 106;
 	_coste = 0;
 	_costeHR = 0;
-	//_formato = (cfgSDKInf >> (gruposSDKAT select 0));
+	//_formato = (cfgSDKInf >> (groupsSDKAT select 0));
 	//_unidades = [_formato] call groupComposition;
-	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach gruposSDKAT;
+	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach groupsSDKAT;
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 107;

@@ -16,7 +16,7 @@ private _baseOfFire = [leader _grupo];
 if (alive _x) then
 	{
 	_result = _x call A3A_fnc_typeOfSoldier;
-	_x setVariable ["maniobrando",false];
+	_x setVariable ["maneuvering",false];
 	if (_result == "Normal") then
 		{
 		_movable pushBack _x;
@@ -138,7 +138,7 @@ while {true} do
 		_tarea = _grupo getVariable ["tarea","Patrol"];
 		_cercano = _grupo call A3A_fnc_nearEnemy;
 		_soldados = ((units _grupo) select {[_x] call A3A_fnc_canFight}) - [_grupo getVariable ["mortero",objNull]];
-		_numSoldados = count _soldados;
+		_numSoldiers = count _soldados;
 		if !(isNull _aire) then
 			{
 			if ({(_x call A3A_fnc_typeOfSoldier == "AAMan") or (_x call A3A_fnc_typeOfSoldier == "StaticGunner")} count _allNearFriends == 0) then
@@ -249,7 +249,7 @@ while {true} do
 					{
 					if !(isNull _cercano) then
 						{
-						_flankers = (_grupo getVariable ["flankers",[]]) select {([_x] call A3A_fnc_canFight) and !(_x getVariable ["maniobrando",false])};
+						_flankers = (_grupo getVariable ["flankers",[]]) select {([_x] call A3A_fnc_canFight) and !(_x getVariable ["maneuvering",false])};
 						if (count _flankers != 0) then
 							{
 							{
@@ -262,7 +262,7 @@ while {true} do
 								if !(_building getVariable ["asaltado",false]) then
 									{
 									{
-									if ((_x call A3A_fnc_typeOfSoldier == "Engineer") and {_x != leader _x} and {!(_x getVariable ["maniobrando",true])} and {_x distance _cercano < 50} and {[_x] call A3A_fnc_canFight}) exitWith {_ingeniero = _x};
+									if ((_x call A3A_fnc_typeOfSoldier == "Engineer") and {_x != leader _x} and {!(_x getVariable ["maneuvering",true])} and {_x distance _cercano < 50} and {[_x] call A3A_fnc_canFight}) exitWith {_ingeniero = _x};
 									} forEach (_grupo getVariable ["baseOfFire",[]]);
 									if !(isNull _ingeniero) then
 										{
@@ -292,7 +292,7 @@ while {true} do
 				}
 			else
 				{
-				_movable = (_grupo getVariable ["movable",[]]) select {[_x] call A3A_fnc_canFight and !(_x getVariable ["maniobrando",false])};
+				_movable = (_grupo getVariable ["movable",[]]) select {[_x] call A3A_fnc_canFight and !(_x getVariable ["maneuvering",false])};
 				_movable spawn A3A_fnc_hideInBuilding;
 				};
 			};
@@ -309,7 +309,7 @@ while {true} do
 			if (time >= _grupo getVariable ["autoRearm",time]) then
 				{
 				_grupo setVariable ["autoRearm",time + 120];
-				{[_x] spawn A3A_fnc_autoRearm; sleep 1} forEach ((_grupo getVariable ["movable",[]]) select {[_x] call A3A_fnc_canFight and !(_x getVariable ["maniobrando",false])});
+				{[_x] spawn A3A_fnc_autoRearm; sleep 1} forEach ((_grupo getVariable ["movable",[]]) select {[_x] call A3A_fnc_canFight and !(_x getVariable ["maneuvering",false])});
 				};
 			};
 		};

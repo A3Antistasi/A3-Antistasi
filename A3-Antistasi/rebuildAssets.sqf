@@ -6,21 +6,21 @@ if (_resourcesFIA < 5000) exitWith {hint "You do not have enough money to rebuil
 _destroyedCities = destroyedCities - ciudades;
 
 if (!visibleMap) then {openMap true};
-posicionTel = [];
+positionTel = [];
 hint "Click on the zone you want to rebuild.";
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 
-_sitio = [marcadores,_posicionTel] call BIS_fnc_nearestPosition;
+_sitio = [marcadores,_positionTel] call BIS_fnc_nearestPosition;
 
-if (getMarkerPos _sitio distance _posicionTel > 50) exitWith {hint "You must click near a map marker"};
+if (getMarkerPos _sitio distance _positionTel > 50) exitWith {hint "You must click near a map marker"};
 
 if ((not(_sitio in _destroyedCities)) and (!(_sitio in puestos))) exitWith {hint "You cannot rebuild that"};
 
@@ -56,7 +56,7 @@ if (count _antennaDead == 0) then
 
 	hint format ["%1 Rebuilt"];
 
-	[0,10,_posicionTel] remoteExec ["A3A_fnc_citySupportChange",2];
+	[0,10,_positionTel] remoteExec ["A3A_fnc_citySupportChange",2];
 	[5,0] remoteExec ["A3A_fnc_prestige",2];
 	destroyedCities = destroyedCities - [_sitio];
 	publicVariable "destroyedCities";

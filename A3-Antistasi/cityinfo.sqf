@@ -1,6 +1,6 @@
 
-private ["_texto","_datos","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_power","_busy","_sitio","_posicionTel","_garrison"];
-posicionTel = [];
+private ["_texto","_datos","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_power","_busy","_sitio","_positionTel","_garrison"];
+positionTel = [];
 
 _popFIA = 0;
 _popAAF = 0;
@@ -22,17 +22,17 @@ hint format ["%7\n\nTotal pop: %1\n%6 Support: %2\n%5 Support: %3 \n\nMurdered P
 
 if (!visibleMap) then {openMap true};
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
 
-//waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+//waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 while {visibleMap} do
 	{
 	sleep 1;
-	if (count posicionTel > 0) then
+	if (count positionTel > 0) then
 		{
-		_posicionTel = posicionTel;
-		_sitio = [marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
+		_positionTel = positionTel;
+		_sitio = [marcadores, _positionTel] call BIS_Fnc_nearestPosition;
 		_texto = "Click on the zone";
 		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == buenos) then {nameBuenos} else {if (lados getVariable [_sitio,sideUnknown] == malos) then {nameMalos} else {nameInvaders}};
 		if (_sitio == "Synd_HQ") then
@@ -163,7 +163,7 @@ while {visibleMap} do
 			};
 		hint format ["%1",_texto];
 		};
-	posicionTel = [];
+	positionTel = [];
 	};
 onMapSingleClick "";
 

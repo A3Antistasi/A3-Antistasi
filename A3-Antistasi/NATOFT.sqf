@@ -10,18 +10,18 @@ if (_chequeo) exitWith {Hint "You cannot Fast Travel while enemies are nearby"};
 if (vehicle player != player) then {if (!(canMove vehicle player)) then {_chequeo = true}};
 if (_chequeo) exitWith {Hint "You cannot Fast Travel if your vehicles don't have a driver or your vehicles immobile"};
 
-posicionTel = [];
+positionTel = [];
 
 hint "Click on the zone you want to travel to";
 if (!visibleMap) then {openMap true};
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 
-if (count _posicionTel > 0) then
+if (count _positionTel > 0) then
 	{
 	_mrkENY = marcadores select {lados getVariable [_x,sideUnknown] != _lado};
 	_marcadores = +marcadores;
@@ -36,7 +36,7 @@ if (count _posicionTel > 0) then
 		_marcadores pushBack "respawn_east";
 		_mrkRespawn = "respawn_east";
 		};
-	_base = [_marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
+	_base = [_marcadores, _positionTel] call BIS_Fnc_nearestPosition;
 
 	if ((lados getVariable [_base,sideUnknown] == buenos) or (_base in _mrkENY)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
@@ -48,7 +48,7 @@ if (count _posicionTel > 0) then
 
 	if (_chequeo) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding area"; openMap [false,false]};
 
-	if (_posicionTel distance getMarkerPos _base < 50) then
+	if (_positionTel distance getMarkerPos _base < 50) then
 		{
 		_posicion = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
 		_distancia = round (((position player) distance _posicion)/200);

@@ -44,7 +44,7 @@ civHeli = "not_supported";
 civBoat = "C_Boat_Transport_02_F";
 
 sniperRifle = "LIB_K98ZF39";
-lamparasSDK = ["not_supported"];
+lampsSDK = ["not_supported"];
 
 ATMineMag = "LIB_TM44_MINE_mag";
 APERSMineMag = "LIB_PMD6_MINE_mag";

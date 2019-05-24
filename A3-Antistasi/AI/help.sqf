@@ -6,7 +6,7 @@ if (isPlayer _medico) exitWith {};
 if (_medico getVariable ["ayudando",false]) exitWith {};
 _unit setVariable ["ayudado",_medico];
 _medico setVariable ["ayudando",true];
-_medico setVariable ["maniobrando",true];
+_medico setVariable ["maneuvering",true];
 _curado = false;
 _isPlayer = if ({isPlayer _x} count units group _unit >0) then {true} else {false};
 _smoked = false;
@@ -206,5 +206,5 @@ if (_medico getVariable ["cancelRevive",false]) then
 	sleep 15;
 	};
 _medico setVariable ["ayudando",false];
-_medico setVariable ["maniobrando",false];
+_medico setVariable ["maneuvering",false];
 _curado

@@ -25,7 +25,7 @@ _unit setVariable ["ayudado",objNull];
 _unit setVariable ["ayudando",false];
 _unit setDamage 0;
 _unit setVariable ["compromised",0];
-_unit setVariable ["disfrazado",false];
+_unit setVariable ["disguised",false];
 _unit setVariable ["INCAPACITATED",false];
 
 if (rating _unit < 0) then {_unit addRating (rating _unit * -1)};

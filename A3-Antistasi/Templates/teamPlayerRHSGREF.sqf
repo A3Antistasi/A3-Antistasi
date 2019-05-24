@@ -46,7 +46,7 @@ civBoat = "C_Boat_Transport_02_F";
 arrayCivVeh = arrayCivVeh + ["RHS_Ural_Open_Civ_03","RHS_Ural_Open_Civ_01","RHS_Ural_Open_Civ_02"];
 
 sniperRifle = "rhs_weap_m76_pso";
-lamparasSDK = ["rhs_acc_2dpZenit","acc_flashlight"];
+lampsSDK = ["rhs_acc_2dpZenit","acc_flashlight"];
 
 ATMineMag = "rhs_mine_tm62m_mag";
 APERSMineMag = "rhs_mine_pmn2_mag";

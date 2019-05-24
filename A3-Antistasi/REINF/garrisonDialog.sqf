@@ -1,25 +1,25 @@
-private ["_tipo","_posicionTel","_cercano","_garrison","_coste","_hr","_size"];
+private ["_tipo","_positionTel","_cercano","_garrison","_coste","_hr","_size"];
 _tipo = _this select 0;
 
 if (_tipo == "add") then {hint "Select a zone to add garrisoned troops"} else {hint "Select a zone to remove it's Garrison"};
 
 if (!visibleMap) then {openMap true};
-posicionTel = [];
+positionTel = [];
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 posicionGarr = "";
 
-_cercano = [marcadores,_posicionTel] call BIS_fnc_nearestPosition;
+_cercano = [marcadores,_positionTel] call BIS_fnc_nearestPosition;
 _posicion = getMarkerPos _cercano;
 
-if (getMarkerPos _cercano distance _posicionTel > 40) exitWith {hint "You must click near a marked zone"; _nul=CreateDialog "build_menu";};
+if (getMarkerPos _cercano distance _positionTel > 40) exitWith {hint "You must click near a marked zone"; _nul=CreateDialog "build_menu";};
 
 if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameBuenos]; _nul=CreateDialog "build_menu";};
 if ([_posicion,500] call A3A_fnc_enemyNearCheck) exitWith {hint "You cannot manage this garrison while there are enemies nearby";_nul=CreateDialog "build_menu"};

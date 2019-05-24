@@ -1,14 +1,14 @@
 //Mission: Logistics bank mission
 //el sitio de la caja es el 21
 if (!isServer and hasInterface) exitWith {};
-private ["_banco","_marcador","_dificil","_salir","_contacto","_grpContacto","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_posCasa","_nombreDest","_tiempoLim","_fechaLim","_fechaLimNum","_posBase","_pos","_camion","_cuenta","_mrkfin","_mrk","_soldados"];
+private ["_banco","_marcador","_dificil","_salir","_contacto","_groupContact","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_posCasa","_nombreDest","_tiempoLim","_fechaLim","_dateLimitNum","_posBase","_pos","_camion","_cuenta","_mrkfin","_mrk","_soldados"];
 _banco = _this select 0;
 _marcador = [ciudades,_banco] call BIS_fnc_nearestPosition;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contacto = objNull;
-_grpContacto = grpNull;
+_groupContact = grpNull;
 _tsk = "";
 _posicion = getPosASL _banco;
 
@@ -17,7 +17,7 @@ _posbase = getMarkerPos respawnTeamPlayer;
 _tiempolim = if (_dificil) then {60} else {120};
 if (hayIFA) then {_tiempolim = _tiempolim * 2};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
 _ciudad = [ciudades, _posicion] call BIS_fnc_nearestPosition;
 _mrkfin = createMarker [format ["LOG%1", random 100], _posicion];
@@ -44,7 +44,7 @@ _camion addEventHandler ["GetIn",
 
 [_camion,"Mission Vehicle"] spawn A3A_fnc_inmuneConvoy;
 
-[[buenos,civilian],"LOG",[format ["We know Gendarmes are guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,false,0,true,"Interact",true] call BIS_fnc_taskCreate;
+[[buenos,civilian],"LOG",[format ["We know Gendarmes are guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkfin],_posicion,false,0,true,"Interact",true] call BIS_fnc_taskCreate;
 misiones pushBack ["LOG","CREATED"]; publicVariable "misiones";
 _mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], _posicion];
 _mrk setMarkerShapeLocal "RECTANGLE";
@@ -67,11 +67,11 @@ for "_i" from 1 to 4 do
 
 _posicion = _banco buildingPos 1;
 
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (!alive _camion) or (_camion distance _posicion < 7)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (!alive _camion) or (_camion distance _posicion < 7)};
 _bonus = if (_dificil) then {2} else {1};
-if ((dateToNumber date > _fechalimnum) or (!alive _camion)) then
+if ((dateToNumber date > _dateLimitNum) or (!alive _camion)) then
 	{
-	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call A3A_fnc_taskUpdate;
+	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call A3A_fnc_taskUpdate;
 	[-1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	}
@@ -90,7 +90,7 @@ else
 		};
 	} forEach ([distanceSPWN,0,_posicion,buenos] call A3A_fnc_distanceUnits);
 	_exit = false;
-	while {(_cuenta > 0) or (_camion distance _posicion < 7) and (alive _camion) and (dateToNumber date < _fechalimnum)} do
+	while {(_cuenta > 0) or (_camion distance _posicion < 7) and (alive _camion) and (dateToNumber date < _dateLimitNum)} do
 		{
 		while {(_cuenta > 0) and (_camion distance _posicion < 7) and (alive _camion)} do
 			{
@@ -103,7 +103,7 @@ else
 			{
 			_cuenta = 120*_bonus;//120
 			if (_camion distance _posicion > 6) then {{[petros,"hint","Don't get the truck far from the bank or count will restart"] remoteExec ["A3A_fnc_commsMP",_x]} forEach ([200,0,_camion,buenos] call A3A_fnc_distanceUnits)};
-			waitUntil {sleep 1; (!alive _camion) or (_camion distance _posicion < 7) or (dateToNumber date < _fechalimnum)};
+			waitUntil {sleep 1; (!alive _camion) or (_camion distance _posicion < 7) or (dateToNumber date < _dateLimitNum)};
 			}
 		else
 			{
@@ -112,17 +112,17 @@ else
 				{if (isPlayer _x) then {[petros,"hint","Drive the Truck back to base to finish this mission"] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,buenos] call A3A_fnc_distanceUnits);
 				_exit = true;
 				};
-			//waitUntil {sleep 1; (!alive _camion) or (_camion distance _posicion > 7) or (dateToNumber date < _fechalimnum)};
+			//waitUntil {sleep 1; (!alive _camion) or (_camion distance _posicion > 7) or (dateToNumber date < _dateLimitNum)};
 			};
 		if (_exit) exitWith {};
 		};
 	};
 
 
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (!alive _camion) or (_camion distance _posbase < 50)};
-if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) then
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (!alive _camion) or (_camion distance _posbase < 50)};
+if ((_camion distance _posbase < 50) and (dateToNumber date < _dateLimitNum)) then
 	{
-	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"SUCCEEDED","Interact"] call A3A_fnc_taskUpdate;
+	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkfin],_posicion,"SUCCEEDED","Interact"] call A3A_fnc_taskUpdate;
 	[0,5000*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 	[10*_bonus,0] remoteExec ["A3A_fnc_prestige",2];
 	[1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
@@ -134,7 +134,7 @@ if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) the
 	};
 if (!alive _camion) then
 	{
-	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call A3A_fnc_taskUpdate;
+	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call A3A_fnc_taskUpdate;
 	[1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	};

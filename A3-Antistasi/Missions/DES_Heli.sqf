@@ -8,7 +8,7 @@ _marcador = _this select 0;
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contacto = objNull;
-_grpContacto = grpNull;
+_groupContact = grpNull;
 _tsk = "";
 _tsk1 = "";
 _posicion = getMarkerPos _marcador;
@@ -17,7 +17,7 @@ _posHQ = getMarkerPos respawnTeamPlayer;
 
 _tiempolim = 120;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 _ang = random 360;
 _cuenta = 0;
 _dist = if (_dificil) then {2000} else {3000};
@@ -128,7 +128,7 @@ _vehiculos pushBack _vehT;
 _Vwp0 = _grupoVehT addWaypoint [_poscrash, 0];
 _Vwp0 setWaypointType "MOVE";
 _Vwp0 setWaypointBehaviour "SAFE";
-waitUntil {sleep 1; (not alive _heli) or (_vehT distance _heli < 50) or (dateToNumber date > _fechalimnum)};
+waitUntil {sleep 1; (not alive _heli) or (_vehT distance _heli < 50) or (dateToNumber date > _dateLimitNum)};
 
 if (_vehT distance _heli < 50) then
 	{
@@ -159,7 +159,7 @@ if (_vehT distance _heli < 50) then
 
 	};
 
-waitUntil {sleep 1; (not alive _heli) or (_vehT distance _posicion < 100) or (dateToNumber date > _fechalimnum)};
+waitUntil {sleep 1; (not alive _heli) or (_vehT distance _posicion < 100) or (dateToNumber date > _dateLimitNum)};
 
 _bonus = if (_dificil) then {2} else {1};
 

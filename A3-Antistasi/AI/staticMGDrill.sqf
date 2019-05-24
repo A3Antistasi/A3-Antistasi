@@ -47,11 +47,11 @@ while {(alive _gunner)} do
 		{
 		if !(_mounted) then
 			{
-			if !(_gunner getVariable ["maniobrando",false]) then
+			if !(_gunner getVariable ["maneuvering",false]) then
 				{
 				if (([_gunner] call A3A_fnc_canFight) and ([_ayudante] call A3A_fnc_canFight)) then
 					{
-					_gunner setVariable ["maniobrando",true];
+					_gunner setVariable ["maneuvering",true];
 					_gunner playMoveNow selectRandom medicAnims;
 					_gunner setVariable ["timeToBuild",time + 30];
 					_gunner addEventHandler ["AnimDone",
@@ -60,14 +60,14 @@ while {(alive _gunner)} do
 						if ((time > _gunner getVariable ["timeToBuild",0]) or !([_gunner] call A3A_fnc_canFight)) then
 							{
 							_gunner removeEventHandler ["AnimDone",_thisEventHandler];
-							_gunner setVariable ["maniobrando",false];
+							_gunner setVariable ["maneuvering",false];
 							}
 						else
 							{
 							_gunner playMoveNow selectRandom medicAnims;
 							};
 						}];
-					waitUntil {sleep 0.5; !(_gunner getVariable ["maniobrando",false])};
+					waitUntil {sleep 0.5; !(_gunner getVariable ["maneuvering",false])};
 					_gunner setVariable ["timeToBuild",nil];
 					if ([_gunner] call A3A_fnc_canFight) then
 						{
@@ -90,7 +90,7 @@ while {(alive _gunner)} do
 			}
 		else
 			{
-			if (_gunner getVariable ["maniobrando",false]) then
+			if (_gunner getVariable ["maneuvering",false]) then
 				{
 				if (([_gunner] call A3A_fnc_canFight) and ([_ayudante] call A3A_fnc_canFight)) then
 					{
@@ -137,7 +137,7 @@ if (alive _gunner) then
 	[_gunner] orderGetIn false;
 	[_gunner] allowGetIn false;
 	moveOut _gunner;
-	_gunner setVariable ["maniobrando",false];
+	_gunner setVariable ["maneuvering",false];
 	_flankers = _grupo getVariable ["flankers",[]];
 	_flankers pushBack _gunner;
 	_grupo setVariable ["flankers",_flankers];
@@ -145,7 +145,7 @@ if (alive _gunner) then
 	};
 if (alive _ayudante) then
 	{
-	_ayudante setVariable ["maniobrando",false];
+	_ayudante setVariable ["maneuvering",false];
 	_flankers = _grupo getVariable ["flankers",[]];
 	_flankers pushBack _ayudante;
 	_grupo setVariable ["flankers",_flankers];

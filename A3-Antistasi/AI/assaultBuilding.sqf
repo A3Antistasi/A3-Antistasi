@@ -1,5 +1,5 @@
 private _unit = _this select 0;
-_unit setVariable ["maniobrando",true];
+_unit setVariable ["maneuvering",true];
 private _cercano = _this select 1;
 private _building = _this select 2;
 _building setVariable ["asaltado",true];
@@ -16,5 +16,5 @@ while {true} do
 	sleep 5;
 	};
 _building setVariable ["asaltado",false];
-_unit setVariable ["maniobrando",false];
+_unit setVariable ["maneuvering",false];
 _unit call A3A_fnc_recallGroup;

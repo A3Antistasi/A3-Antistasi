@@ -74,5 +74,5 @@ if (!isNil "_marcador") then
 sleep 10;
 _unit allowDamage true;
 if (isMultiplayer) then {[_unit,false] remoteExec ["enableSimulationGlobal",2]} else {_unit enableSimulation false};
-[_unit,"interrogar"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
+[_unit,"interrogate"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
 [_unit,"capturar"]remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];

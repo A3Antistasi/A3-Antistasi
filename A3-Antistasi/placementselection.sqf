@@ -18,9 +18,9 @@ hintC_arr_EH = findDisplay 72 displayAddEventHandler ["unload",
 		};
 	}];
 
-private ["_posicionTel","_marcador","_marcadores"];
+private ["_positionTel","_marcador","_marcadores"];
 _marcadores = marcadores select {lados getVariable [_x,sideUnknown] != buenos};
-_posicionTel = [];
+_positionTel = [];
 if (isNil "placementDone") then
 	{
 	_marcadores = _marcadores - controles;
@@ -44,27 +44,27 @@ _mrkDum pushBack _mrk;
 } forEach _marcadores;
 while {true} do
 	{
-	posicionTel = [];
-	onMapSingleClick "posicionTel = _pos;";
-	waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+	positionTel = [];
+	onMapSingleClick "positionTel = _pos;";
+	waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 	onMapSingleClick "";
 	if (not visiblemap) exitWith {};
-	_posicionTel = posicionTel;
-	_marcador = [_marcadores,_posicionTel] call BIS_fnc_nearestPosition;
-	if (getMarkerPos _marcador distance _posicionTel < 500) then {hint "Place selected is very close to enemy zones.\n\n Please select another position"};
-	if (surfaceIsWater _posicionTel) then {hint "Selected position cannot be in water"};
+	_positionTel = positionTel;
+	_marcador = [_marcadores,_positionTel] call BIS_fnc_nearestPosition;
+	if (getMarkerPos _marcador distance _positionTel < 500) then {hint "Place selected is very close to enemy zones.\n\n Please select another position"};
+	if (surfaceIsWater _positionTel) then {hint "Selected position cannot be in water"};
 	_enemigos = false;
 	if (!isNil "placementDone") then
 		{
 		{
 		if ((side _x == malos) or (side _x == muyMalos)) then
 			{
-			if (_x distance _posicionTel < 500) then {_enemigos = true};
+			if (_x distance _positionTel < 500) then {_enemigos = true};
 			};
 		} forEach allUnits;
 		};
 	if (_enemigos) then {hint "There are enemies in the surroundings of that area, please select another."};
-	if ((getMarkerPos _marcador distance _posicionTel >= 500) and (!surfaceIsWater _posicionTel) and (!_enemigos)) exitWith {};
+	if ((getMarkerPos _marcador distance _positionTel >= 500) and (!surfaceIsWater _positionTel) and (!_enemigos)) exitWith {};
 	sleep 0.1;
 	};
 if (visiblemap) then
@@ -72,41 +72,41 @@ if (visiblemap) then
 	if (isNil "placementDone") then
 		{
 		{
-		if (getMarkerPos _x distance _posicionTel < distanceSPWN) then
+		if (getMarkerPos _x distance _positionTel < distanceSPWN) then
 			{
 			lados setVariable [_x,buenos,true];
 			};
 		} forEach controles;
-		petros setPos _posicionTel;
+		petros setPos _positionTel;
 		}
 	else
 		{
 		_controles = controles select {!(isOnRoad (getMarkerPos _x))};
 		{
-		if (getMarkerPos _x distance _posicionTel < distanceSPWN) then
+		if (getMarkerPos _x distance _positionTel < distanceSPWN) then
 			{
 			lados setVariable [_x,buenos,true];
 			};
 		} forEach _controles;
 		_viejo = petros;
-		grupoPetros = createGroup buenos;
-		publicVariable "grupoPetros";
-        petros = grupoPetros createUnit [tipoPetros, _posicionTel, [], 0, "NONE"];
-        grupoPetros setGroupId ["Maru","GroupColor4"];
+		groupPetros = createGroup buenos;
+		publicVariable "groupPetros";
+        petros = groupPetros createUnit [tipoPetros, _positionTel, [], 0, "NONE"];
+        groupPetros setGroupId ["Maru","GroupColor4"];
         petros setIdentity "amiguete";
         if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
         petros disableAI "MOVE";
         petros disableAI "AUTOTARGET";
-        if (group _viejo == grupoPetros) then {[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]};
+        if (group _viejo == groupPetros) then {[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]};
         _nul= [] execVM "initPetros.sqf";
         deleteVehicle _viejo;
         publicVariable "petros";
 		};
-	respawnTeamPlayer setMarkerPos _posicionTel;
+	respawnTeamPlayer setMarkerPos _positionTel;
 	[respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",[buenos,civilian]];
 	[respawnTeamPlayer,0] remoteExec ["setMarkerAlphaLocal",[malos,muyMalos]];
 	if (isMultiplayer) then {hint "Please wait while moving HQ Assets to selected position";sleep 5};
-	_pos = [_posicionTel, 3, getDir petros] call BIS_Fnc_relPos;
+	_pos = [_positionTel, 3, getDir petros] call BIS_Fnc_relPos;
 	fuego setPos _pos;
 	_rnd = getdir Petros;
 	if (isMultiplayer) then {sleep 5};

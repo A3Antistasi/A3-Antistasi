@@ -56,7 +56,7 @@ _basesFinal = [];
 _countFinal = [];
 _objectiveFinal = [];
 _faciles = [];
-_facilesArr = [];
+_easyArray = [];
 _puertoCSAT = if ({(lados getVariable [_x,sideUnknown] == muyMalos)} count puertos >0) then {true} else {false};
 _puertoNATO = if ({(lados getVariable [_x,sideUnknown] == malos)} count puertos >0) then {true} else {false};
 _waves = 1;
@@ -65,24 +65,24 @@ _waves = 1;
 _base = _x;
 _posBase = getMarkerPos _base;
 _killZones = killZones getVariable [_base,[]];
-_tmpObjetivos = [];
+_tmpObjectives = [];
 _baseNATO = true;
 if (lados getVariable [_base,sideUnknown] == malos) then
 	{
-	_tmpObjetivos = _objetivos select {lados getVariable [_x,sideUnknown] != malos};
-	_tmpObjetivos = _tmpObjetivos - (ciudades select {([_x] call A3A_fnc_powerCheck) == buenos});
+	_tmpObjectives = _objetivos select {lados getVariable [_x,sideUnknown] != malos};
+	_tmpObjectives = _tmpObjectives - (ciudades select {([_x] call A3A_fnc_powerCheck) == buenos});
 	}
 else
 	{
 	_baseNATO = false;
-	_tmpObjetivos = _objetivos select {lados getVariable [_x,sideUnknown] != muyMalos};
-	_tmpObjetivos = _tmpObjetivos - (ciudades select {(((server getVariable _x) select 2) + ((server getVariable _x) select 3) < 90) and ([_x] call A3A_fnc_powerCheck != malos)});
+	_tmpObjectives = _objetivos select {lados getVariable [_x,sideUnknown] != muyMalos};
+	_tmpObjectives = _tmpObjectives - (ciudades select {(((server getVariable _x) select 2) + ((server getVariable _x) select 3) < 90) and ([_x] call A3A_fnc_powerCheck != malos)});
 	};
 
-_tmpObjetivos = _tmpObjetivos select {getMarkerPos _x distance2D _posBase < distanceForAirAttack};
-if !(_tmpObjetivos isEqualTo []) then
+_tmpObjectives = _tmpObjectives select {getMarkerPos _x distance2D _posBase < distanceForAirAttack};
+if !(_tmpObjectives isEqualTo []) then
 	{
-	_cercano = [_tmpObjetivos,_base] call BIS_fnc_nearestPosition;
+	_cercano = [_tmpObjectives,_base] call BIS_fnc_nearestPosition;
 	{
 	_esCiudad = if (_x in ciudades) then {true} else {false};
 	_proceder = true;
@@ -117,7 +117,7 @@ if !(_tmpObjetivos isEqualTo []) then
 			{
 			if !(_x in _killZones) then
 				{
-				if !(_x in _facilesArr) then
+				if !(_x in _easyArray) then
 					{
 					_sitio = _x;
 					if (((!(_sitio in aeropuertos)) or (_esSDK)) and !(_base in ["NATO_carrier","CSAT_carrier"])) then
@@ -135,7 +135,7 @@ if !(_tmpObjetivos isEqualTo []) then
 									{
 									_proceder = false;
 									_faciles pushBack [_sitio,_base];
-									_facilesArr pushBackUnique _sitio;
+									_easyArray pushBackUnique _sitio;
 									};
 								};
 							};
@@ -289,7 +289,7 @@ if !(_tmpObjetivos isEqualTo []) then
 			};
 		};
 	if (count _faciles == 4) exitWith {};
-	} forEach _tmpObjetivos;
+	} forEach _tmpObjectives;
 	};
 if (count _faciles == 4) exitWith {};
 } forEach _aeropuertos;

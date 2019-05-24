@@ -1,9 +1,9 @@
-private ["_mrkOrigen","_mrkDestino","_grupo","_posOrigen","_posDestino","_finalArray","_arr2","_final","_isCentral","_roadsCentral","_useCentral"];
+private ["_mrkOrigen","_mrkDestination","_grupo","_posOrigen","_posDestination","_finalArray","_arr2","_final","_isCentral","_roadsCentral","_useCentral"];
 
 _mrkOrigen = _this select 0;
 _posOrigen = if (_mrkOrigen isEqualType "") then {getMarkerPos _mrkOrigen} else {_mrkOrigen};
-_mrkDestino = _this select 1;
-_posDestino = if (_mrkDestino isEqualType "") then {getMarkerPos _mrkDestino} else {_mrkDestino};
+_mrkDestination = _this select 1;
+_posDestination = if (_mrkDestination isEqualType "") then {getMarkerPos _mrkDestination} else {_mrkDestination};
 _exit = false;
 if (_mrkOrigen isEqualType "") then
 	{
@@ -25,7 +25,7 @@ if (_exit) exitWith {};
 _grupo = _this select 2;
 _finalArray = [];
 _arr2 = [];
-_final = [roadsMrk,_posDestino] call BIS_fnc_nearestPosition;
+_final = [roadsMrk,_posDestination] call BIS_fnc_nearestPosition;
 
 _useCentral = true;
 _isCentral = false;
@@ -116,7 +116,7 @@ else
 		};
 	};
 
-if (getMarkerPos _final distance _posOrigen > _posDestino distance _posOrigen) then {_finalArray = _finalArray - [_final]};
+if (getMarkerPos _final distance _posOrigen > _posDestination distance _posOrigen) then {_finalArray = _finalArray - [_final]};
 
 for "_i" from 0 to ((count _finalArray) - 1) do
 	{

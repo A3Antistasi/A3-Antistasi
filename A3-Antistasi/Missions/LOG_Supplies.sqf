@@ -1,6 +1,6 @@
 //Mission: Logistic supplies
 if (!isServer and hasInterface) exitWith{};
-private ["_marcador","_dificil","_salir","_contacto","_groupContact","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_posCasa","_nombreDest","_tiempoLim","_fechaLim","_dateLimitNum","_pos","_camion","_cuenta"];
+private ["_marcador","_dificil","_salir","_contacto","_groupContact","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_posCasa","_nameDest","_tiempoLim","_fechaLim","_dateLimitNum","_pos","_camion","_cuenta"];
 
 _marcador = _this select 0;
 
@@ -15,8 +15,8 @@ _tiempolim = if (_dificil) then {30} else {60};
 if (hayIFA) then {_tiempolim = _tiempolim * 2};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _dateLimitNum = dateToNumber _fechalim;
-_nombredest = [_marcador] call A3A_fnc_localizar;
-_taskDescription = format ["%1 population is in need of supplies. We may improve our relationship with that city if we are the ones who provide them. I reserved a transport truck with supplies near our HQ. Drive the transport truck to %1 city center. Hold it there for 2 minutes and it's done. Do this before %2:%3. You may allways sell those supplies here, that money can be welcome. Just sell the truck and job is done",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4];
+_nameDest = [_marcador] call A3A_fnc_localizar;
+_taskDescription = format ["%1 population is in need of supplies. We may improve our relationship with that city if we are the ones who provide them. I reserved a transport truck with supplies near our HQ. Drive the transport truck to %1 city center. Hold it there for 2 minutes and it's done. Do this before %2:%3. You may allways sell those supplies here, that money can be welcome. Just sell the truck and job is done",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4];
 
 [[buenos,civilian],"LOG",[_taskDescription,"City Supplies",_marcador],_posicion,false,0,true,"Heal",true] call BIS_fnc_taskCreate;
 misiones pushBack ["LOG","CREATED"]; publicVariable "misiones";
@@ -40,7 +40,7 @@ _camion addAction ["Delivery infos",
 ];
 [_camion] call A3A_fnc_AIVEHinit;
 //{_x reveal _camion} forEach (allPlayers - (entities "HeadlessClient_F"));
-_camion setVariable ["destino",_nombredest,true];
+_camion setVariable ["destino",_nameDest,true];
 
 [_camion,"Supply Box"] spawn A3A_fnc_inmuneConvoy;
 
@@ -56,7 +56,7 @@ else
 	{
 	_cuenta = 120*_bonus;//120
 	[[_posicion,malos,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
-	["TaskFailed", ["", format ["%2 deploying supplies in %1",_nombredest,nameBuenos]]] remoteExec ["BIS_fnc_showNotification",malos];
+	["TaskFailed", ["", format ["%2 deploying supplies in %1",_nameDest,nameTeamPlayer]]] remoteExec ["BIS_fnc_showNotification",malos];
 	{_amigo = _x;
 	if (captive _amigo) then
 		{

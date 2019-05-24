@@ -9,7 +9,7 @@ if (!alive _veh) exitWith {hint "You cannot add destroyed vehicles to your garag
 _cercanos = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 _cercanos = _cercanos select {(player inArea _x) and (_veh inArea _x)};
 
-if (_cercanos isEqualTo []) exitWith {hint format ["You and the vehicle need to be in a %1 garrison surrounding in order to garage a it",nameBuenos]};
+if (_cercanos isEqualTo []) exitWith {hint format ["You and the vehicle need to be in a %1 garrison surrounding in order to garage a it",nameTeamPlayer]};
 
 //if (player distance2d getMarkerPos respawnTeamPlayer > 50) exitWith {hint "You must be closer than 50 meters to HQ"};
 
@@ -45,7 +45,7 @@ if (_tipoVeh isKindOf "Plane") then
 	if (count _aeropuertos == 0) then {_exit = true};
 	};
 
-if (_exit) exitWith {hint format ["You cannot garage an air vehicle while you are not near an Aiport which belongs to %1. Place your HQ near an airbase flag in order to be able to garage it",nameBuenos]};
+if (_exit) exitWith {hint format ["You cannot garage an air vehicle while you are not near an Aiport which belongs to %1. Place your HQ near an airbase flag in order to be able to garage it",nameTeamPlayer]};
 
 if (_veh in staticsToSave) then {staticsToSave = staticsToSave - [_veh]; publicVariable "staticsToSave"};
 
@@ -56,7 +56,7 @@ if (_pool) then
 	{
 	vehInGarage = vehInGarage + [_tipoVeh];
 	publicVariable "vehInGarage";
-	hint format ["Vehicle added to %1 Garage",nameBuenos];
+	hint format ["Vehicle added to %1 Garage",nameTeamPlayer];
 	}
 else
 	{

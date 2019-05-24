@@ -7,7 +7,7 @@ switch (_tipo) do
 	case "I_C_Soldier_Para_7_F": {player setUnitTrait ["UAVHacker",true]};
 	case "I_C_Soldier_Para_8_F": {player setUnitTrait ["engineer",true]; player setUnitTrait ["explosiveSpecialist",true]};
 	case "I_C_Soldier_Para_3_F": {player setUnitTrait ["medic",true]};
-	case tipoPetros: {player setUnitTrait ["UAVHacker",true]};
+	case typePetros: {player setUnitTrait ["UAVHacker",true]};
 	/*
 	case "I_C_Soldier_Para_3_F":  {_texto = "Medic role.\n\nMedics do not have any bonus or penalties, but have the ability to use Medikits for full health restoration"};
 	case "B_G_officer_F": {player setUnitTrait ["camouflageCoef",0.8]; player setUnitTrait ["audibleCoef",0.8]; player setUnitTrait ["loadCoef",1.4];};

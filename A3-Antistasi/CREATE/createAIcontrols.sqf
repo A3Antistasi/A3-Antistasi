@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_marcador","_posicion","_vehiculos","_soldados","_tam","_bunker","_grupoE","_unit","_tipogrupo","_grupo","_tiempolim","_fechalim","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_esControl","_tam","_tipoVeh","_tipoUnit","_marcadores","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_tiempolim","_fechalim","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
+private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_marcador","_posicion","_vehiculos","_soldados","_tam","_bunker","_grupoE","_unit","_tipogrupo","_grupo","_tiempolim","_fechalim","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_isControl","_tam","_tipoVeh","_tipoUnit","_marcadores","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_tiempolim","_fechalim","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
 
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;
@@ -16,9 +16,9 @@ _grupo = grpNull;
 _esFIA = false;
 _salir = false;
 
-_esControl = if (isOnRoad _posicion) then {true} else {false};
+_isControl = if (isOnRoad _posicion) then {true} else {false};
 
-if (_esControl) then
+if (_isControl) then
 	{
 	if (gameMode != 4) then
 		{
@@ -135,7 +135,7 @@ if (_esControl) then
 else
 	{
 	_marcadores = marcadores select {(getMarkerPos _x distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
-	_marcadores = _marcadores - ["Synd_HQ"] - puestosFIA;
+	_marcadores = _marcadores - ["Synd_HQ"] - outpostsFIA;
 	_frontera = if (count _marcadores > 0) then {true} else {false};
 	if (_frontera) then
 		{
@@ -220,7 +220,7 @@ if (spawner getVariable _marcador != 2) then
 	_closest = [_allUnits,_posicion] call BIS_fnc_nearestPosition;
 	_winner = side _closest;
 	_loser = malos;
-	if (_esControl) then
+	if (_isControl) then
 		{
 		["TaskSucceeded", ["", "Roadblock Destroyed"]] remoteExec ["BIS_fnc_showNotification",_winner];
 		["TaskFailed", ["", "Roadblock Lost"]] remoteExec ["BIS_fnc_showNotification",_lado];
@@ -296,7 +296,7 @@ if (_conquered) then
 	else
 		{
 		/*
-		if ((!_esControl) and (_winner == buenos)) then
+		if ((!_isControl) and (_winner == buenos)) then
 			{
 			_size = [_marcador] call A3A_fnc_sizeMarker;
 			for "_i" from 1 to 60 do

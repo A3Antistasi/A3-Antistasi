@@ -1,4 +1,4 @@
-private ["_marcador","_threat","_posicion","_analizado","_lado"];
+private ["_marcador","_threat","_posicion","_analyzed","_lado"];
 
 _threat = 0;
 
@@ -7,21 +7,21 @@ _threat = 0;
 _marcador = _this select 0;
 _lado = _this select 1;
 if (_marcador isEqualType []) then {_posicion = _marcador} else {_posicion = getMarkerPos _marcador};
-_threat = _threat + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _posicion < distanceSPWN)} count puestosFIA);
+_threat = _threat + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _posicion < distanceSPWN)} count outpostsFIA);
 
 {
 if (getMarkerPos _x distance _posicion < distanceSPWN) then
 	{
-	_analizado = _x;
-	_garrison = garrison getVariable [_analizado,[]];
+	_analyzed = _x;
+	_garrison = garrison getVariable [_analyzed,[]];
 	_threat = _threat + (floor((count _garrison)/8));
-	//_size = [_analizado] call A3A_fnc_sizeMarker;
-	_estaticas = staticsToSave select {_x inArea _analizado};
+	//_size = [_analyzed] call A3A_fnc_sizeMarker;
+	_estaticas = staticsToSave select {_x inArea _analyzed};
 	if (count _estaticas > 0) then
 		{
 		_threat = _threat + ({typeOf _x == SDKMortar} count _estaticas) + (2*({typeOf _x == staticATBuenos} count _estaticas))
 		};
 	};
-} forEach (marcadores - ciudades - controles - puestosFIA) select {lados getVariable [_x,sideUnknown] != _lado};
+} forEach (marcadores - ciudades - controles - outpostsFIA) select {lados getVariable [_x,sideUnknown] != _lado};
 
 _threat

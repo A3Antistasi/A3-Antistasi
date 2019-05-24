@@ -15,16 +15,16 @@ if (hayIFA) then {_tiempolim = _tiempolim * 2};
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _dateLimitNum = dateToNumber _fechalim;
 
-_nombredest = [_marcador] call A3A_fnc_localizar;
+_nameDest = [_marcador] call A3A_fnc_localizar;
 _naming = if (_lado == malos) then {"NATO"} else {"CSAT"};
 
-[[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
+[[buenos,civilian],"AS",[format ["We have spotted a %4 SpecOp team patrolling around a %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"SpecOps",_marcador],_posicion,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
 misiones pushBack ["AS","CREATED"]; publicVariable "misiones";
 waitUntil  {sleep 5; (dateToNumber date > _dateLimitNum) or (lados getVariable [_marcador,sideUnknown] == buenos)};
 
 if (dateToNumber date > _dateLimitNum) then
 	{
-	["AS",[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"SpecOps",_marcador],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
+	["AS",[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"SpecOps",_marcador],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
 	if (_dificil) then
 		{
 		[10,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
@@ -40,7 +40,7 @@ if (dateToNumber date > _dateLimitNum) then
 	}
 else
 	{
-	["AS",[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"SpecOps",_marcador],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+	["AS",[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"SpecOps",_marcador],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	if (_dificil) then
 		{
 		[0,400] remoteExec ["A3A_fnc_resourcesFIA",2];
@@ -58,7 +58,7 @@ else
 		[10,theBoss] call A3A_fnc_playerScoreAdd;
 		};
 	if (_lado == malos) then {[3,0] remoteExec ["A3A_fnc_prestige",2]} else {[0,3] remoteExec ["A3A_fnc_prestige",2]};
-	["TaskFailed", ["", format ["SpecOp Team decimated at a %1",_nombredest]]] remoteExec ["BIS_fnc_showNotification",_lado];
+	["TaskFailed", ["", format ["SpecOp Team decimated at a %1",_nameDest]]] remoteExec ["BIS_fnc_showNotification",_lado];
 	};
 
 _nul = [1200,"AS"] spawn A3A_fnc_deleteTask;

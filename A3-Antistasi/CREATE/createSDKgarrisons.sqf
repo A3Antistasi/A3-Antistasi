@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_vehiculos","_grupos","_soldados","_posicion","_pos","_size","_veh","_estaticas","_garrison","_tam","_cuenta","_grupo","_grupoMort","_tipo","_unit"];
+private ["_marcador","_vehiculos","_grupos","_soldados","_posicion","_pos","_size","_veh","_estaticas","_garrison","_tam","_cuenta","_grupo","_groupMortar","_tipo","_unit"];
 
 _marcador = _this select 0;
 
@@ -74,13 +74,13 @@ _garrison = [];
 _garrison = _garrison + (garrison getVariable [_marcador,[]]);
 _grupo = createGroup buenos;
 _grupoEst = createGroup buenos;
-_grupoMort = createGroup buenos;
+_groupMortar = createGroup buenos;
 {
 _index = _garrison findIf {_x in SDKMil};
 if (_index == -1) exitWith {};
 if (typeOf _x == SDKMortar) then
 	{
-	_unit = _grupoMort createUnit [(_garrison select _index), _posicion, [], 0, "NONE"];
+	_unit = _groupMortar createUnit [(_garrison select _index), _posicion, [], 0, "NONE"];
 	_unit moveInGunner _x;
 	_nul=[_x] execVM "scripts\UPSMON\MON_artillery_add.sqf";
 	}
@@ -97,7 +97,7 @@ _garrison deleteAT _index;
 if (staticCrewTeamPlayer in _garrison) then
 	{
 	{
-	_unit = _grupoMort createUnit [staticCrewTeamPlayer, _posicion, [], 0, "NONE"];
+	_unit = _groupMortar createUnit [staticCrewTeamPlayer, _posicion, [], 0, "NONE"];
 	_pos = [_posicion] call A3A_fnc_mortarPos;
 	_veh = SDKMortar createVehicle _pos;
 	_vehiculos pushBack _veh;
@@ -155,5 +155,5 @@ if (alive _soldado) then
 //if (!isNull _periodista) then {deleteVehicle _periodista};
 {deleteGroup _x} forEach _grupos;
 deleteGroup _grupoEst;
-deleteGroup _grupoMort;
+deleteGroup _groupMortar;
 {if (!(_x in staticsToSave)) then {deleteVehicle _x}} forEach _vehiculos;

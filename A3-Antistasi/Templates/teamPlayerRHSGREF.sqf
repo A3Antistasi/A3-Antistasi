@@ -28,7 +28,7 @@ vehSDKBoat = "I_C_Boat_Transport_01_F";
 vehSDKRepair = "rhsgref_ins_g_gaz66_repair";
 SDKFlag = "Flag_Syndikat_F";
 SDKFlagTexture = "\A3\Data_F\Flags\Flag_Altis_CO.paa";
-tipoPetros = "rhsgref_ins_g_squadleader";
+typePetros = "rhsgref_ins_g_squadleader";
 
 soporteStaticSDKB = "RHS_SPG9_Tripod_Bag";
 ATStaticSDKB = "RHS_SPG9_Gun_Bag";
@@ -91,6 +91,6 @@ vehPoliceCar = "B_GEN_OFFROAD_01_gen_F";
 policeOfficer = "B_GEN_Commander_F";
 policeGrunt = "B_GEN_Soldier_F";
 gruposNATOGen = [policeOfficer,policeGrunt];
-nameBuenos = "ChDKZ";
+nameTeamPlayer = "ChDKZ";
 
 factionGEN = "BLU_GEN_F";

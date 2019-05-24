@@ -1,5 +1,5 @@
 //if ([0.5] call A3A_fnc_fogCheck) exitWith {};
-private ["_objetivos","_marcadores","_base","_objetivo","_cuenta","_aeropuerto","_datos","_prestigeOPFOR","_scoreLand","_scoreAir","_analizado","_garrison","_size","_estaticas","_salir"];
+private ["_objetivos","_marcadores","_base","_objetivo","_cuenta","_aeropuerto","_datos","_prestigeOPFOR","_scoreLand","_scoreAir","_analyzed","_garrison","_size","_estaticas","_salir"];
 
 _objetivos = [];
 _marcadores = [];
@@ -7,7 +7,7 @@ _cuentaFacil = 0;
 _natoIsFull = false;
 _csatIsFull = false;
 _aeropuertos = aeropuertos select {([_x,false] call A3A_fnc_airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
-_objetivos = marcadores - controles - puestosFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedCities;
+_objetivos = marcadores - controles - outpostsFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedCities;
 if (gameMode != 1) then {_objetivos = _objetivos select {lados getVariable [_x,sideUnknown] == buenos}};
 //_objectivesSDK = _objetivos select {lados getVariable [_x,sideUnknown] == buenos};
 if ((tierWar < 2) and (gameMode <= 2)) then
@@ -47,7 +47,7 @@ _objetivosProv = _objetivos - aeropuertos - _nearestObjectives;
 {
 _posObj = getMarkerPos _x;
 _ladoObj = lados getVariable [_x,sideUnknown];
-if (((marcadores - controles - ciudades - puestosFIA) select {lados getVariable [_x,sideUnknown] != _ladoObj}) findIf {getMarkerPos _x distance2D _posObj < 2000} == -1) then {_objetivos = _objetivos - [_x]};
+if (((marcadores - controles - ciudades - outpostsFIA) select {lados getVariable [_x,sideUnknown] != _ladoObj}) findIf {getMarkerPos _x distance2D _posObj < 2000} == -1) then {_objetivos = _objetivos - [_x]};
 } forEach _objetivosProv;
 
 if (_objetivos isEqualTo []) exitWith {};
@@ -57,8 +57,8 @@ _countFinal = [];
 _objectiveFinal = [];
 _faciles = [];
 _easyArray = [];
-_puertoCSAT = if ({(lados getVariable [_x,sideUnknown] == muyMalos)} count puertos >0) then {true} else {false};
-_puertoNATO = if ({(lados getVariable [_x,sideUnknown] == malos)} count puertos >0) then {true} else {false};
+_seaportCSAT = if ({(lados getVariable [_x,sideUnknown] == muyMalos)} count puertos >0) then {true} else {false};
+_seaportNATO = if ({(lados getVariable [_x,sideUnknown] == malos)} count puertos >0) then {true} else {false};
 _waves = 1;
 
 {
@@ -127,7 +127,7 @@ if !(_tmpObjectives isEqualTo []) then
 							{
 							_garrison = garrison getVariable [_sitio,[]];
 							_estaticas = staticsToSave select {_x distance _posSitio < distanceSPWN};
-							_puestos = puestosFIA select {getMarkerPos _x distance _posSitio < distanceSPWN};
+							_puestos = outpostsFIA select {getMarkerPos _x distance _posSitio < distanceSPWN};
 							_cuenta = ((count _garrison) + (count _puestos) + (2*(count _estaticas)));
 							if (_cuenta <= 8) then
 								{
@@ -250,7 +250,7 @@ if !(_tmpObjectives isEqualTo []) then
 			if (!_esCiudad) then
 				{
 				_esMar = false;
-				if ((_baseNATO and _puertoNATO) or (!_baseNATO and _puertoCSAT)) then
+				if ((_baseNATO and _seaportNATO) or (!_baseNATO and _seaportCSAT)) then
 					{
 					for "_i" from 0 to 3 do
 						{

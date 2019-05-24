@@ -35,7 +35,7 @@ if (_sitio in puestos) then
 		if (lados getVariable [_sitio, sideUnknown] != buenos) then
 			{
 			_salir = true;
-			_texto = format ["You cannot rebuild a Radio Tower in an Outpost which does not belong to %1",nameBuenos];
+			_texto = format ["You cannot rebuild a Radio Tower in an Outpost which does not belong to %1",nameTeamPlayer];
 			}
 		else
 			{
@@ -75,13 +75,13 @@ else
 	_mrkfin setMarkerType "loc_Transmitter";
 	_mrkfin setMarkerColor "ColorBlack";
 	_mrkfin setMarkerText "Radio Tower";
-	mrkAntenas pushBack _mrkfin;
-	publicVariable "mrkAntenas";
+	mrkAntennas pushBack _mrkfin;
+	publicVariable "mrkAntennas";
 	_antena addEventHandler ["Killed",
 		{
 		_antena = _this select 0;
 		{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach ciudades;
-		_mrk = [mrkAntenas, _antena] call BIS_fnc_nearestPosition;
+		_mrk = [mrkAntennas, _antena] call BIS_fnc_nearestPosition;
 		antenas = antenas - [_antena]; antennasDead = antennasDead + [getPos _antena]; deleteMarker _mrk;
 		["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
 		["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];

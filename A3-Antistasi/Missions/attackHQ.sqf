@@ -18,7 +18,7 @@ _lado = if (lados getVariable [_aeropuerto,sideUnknown] == malos) then {malos} e
 _tsk1 = "";
 _tsk = "";
 [[buenos,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_posicion,true,10,true,"Defend",true] call BIS_fnc_taskCreate;
-[[_lado],"DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros, nameBuenos],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,true,10,true,"Attack",true] call BIS_fnc_taskCreate;
+[[_lado],"DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros, nameTeamPlayer],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,true,10,true,"Attack",true] call BIS_fnc_taskCreate;
 misiones pushBack ["DEF_HQ","CREATED"]; publicVariable "misiones";
 _tiposVeh = if (_lado == malos) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
 _tiposVeh = _tiposVeh select {[_x] call A3A_fnc_vehAvailable};
@@ -30,13 +30,13 @@ if (count _tiposVeh > 0) then
 	_vehicle=[_posOrigen, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
-	_grupoheli = _vehicle select 2;
+	_groupHeli = _vehicle select 2;
 	_pilotos = _pilotos + _heliCrew;
-	_grupos pushBack _grupoheli;
+	_grupos pushBack _groupHeli;
 	_vehiculos pushBack _heli;
 	{[_x] call A3A_fnc_NATOinit} forEach _heliCrew;
 	[_heli] call A3A_fnc_AIVEHinit;
-	_wp1 = _grupoheli addWaypoint [_posicion, 0];
+	_wp1 = _groupHeli addWaypoint [_posicion, 0];
 	_wp1 setWaypointType "SAD";
 	//[_heli,"Air Attack"] spawn A3A_fnc_inmuneConvoy;
 	sleep 30;
@@ -51,17 +51,17 @@ for "_i" from 0 to (round random 2) do
 	_vehicle=[_posOrigen, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
-	_grupoheli = _vehicle select 2;
+	_groupHeli = _vehicle select 2;
 	_pilotos = _pilotos + _heliCrew;
-	_grupos pushBack _grupoheli;
+	_grupos pushBack _groupHeli;
 	_vehiculos pushBack _heli;
 
-	{_x setBehaviour "CARELESS";} forEach units _grupoheli;
+	{_x setBehaviour "CARELESS";} forEach units _groupHeli;
 	_grupo = [_posOrigen, _lado, _tipoGrupo] call A3A_fnc_spawnGroup;
 	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldados pushBack _x; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	_grupos pushBack _grupo;
 	//[_heli,"Air Transport"] spawn A3A_fnc_inmuneConvoy;
-	[_heli,_grupo,_posicion,_posOrigen,_grupoHeli] spawn A3A_fnc_fastrope;
+	[_heli,_grupo,_posicion,_posOrigen,_groupHeli] spawn A3A_fnc_fastrope;
 	sleep 10;
 	};
 
@@ -70,19 +70,19 @@ waitUntil {sleep 1;({[_x] call A3A_fnc_canFight} count _soldados < {!([_x] call 
 if (!alive petros) then
 	{
 	["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
-	["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+	["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameTeamPlayer],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	}
 else
 	{
 	if (_posicion distance getMarkerPos respawnTeamPlayer > 999) then
 		{
 		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Maru. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-		["DEF_HQ1",[_lado],[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
+		["DEF_HQ1",[_lado],[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameTeamPlayer],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
 		}
 	else
 		{
 		["DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-		["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
+		["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameTeamPlayer],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
 		[0,3] remoteExec ["A3A_fnc_prestige",2];
 		[0,300] remoteExec ["A3A_fnc_resourcesFIA",2];
 		//[-5,5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];

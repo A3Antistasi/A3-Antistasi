@@ -98,14 +98,14 @@ _allItems = "
     { getNumber ( _x >> ""type"" ) isEqualTo 131072 } } )
 " configClasses ( configFile >> "cfgWeapons" );
 
-_yaMetidos = [];
+_alreadyPlaced = [];
 {
 _nombre = configName _x;
 _nombre = [_nombre] call BIS_fnc_baseWeapon;
-if (not(_nombre in _yaMetidos)) then
+if (not(_nombre in _alreadyPlaced)) then
 	{
 	_magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
-	_yaMetidos pushBack _nombre;
+	_alreadyPlaced pushBack _nombre;
 	_weapon = [_nombre] call BIS_fnc_itemType;
 	_weaponType = _weapon select 1;
 	switch (_weaponType) do
@@ -317,17 +317,17 @@ _magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
 municionCSAT pushBack (_magazines select 0);
 } forEach armasCSAT;
 //optic, pointer and flashlight automated detection
-opticasAAF = [];
+opticsAAF = [];
 flashLights = [];
 pointers = [];
 {
 {
 _item = _x;
-if !(_item in (opticasAAF + flashLights + pointers)) then
+if !(_item in (opticsAAF + flashLights + pointers)) then
 	{
 	if (((_item call BIS_fnc_itemType) select 1) == "AccessorySights") then
 		{
-		opticasAAF pushBack _item
+		opticsAAF pushBack _item
 		}
 	else
 		{
@@ -349,7 +349,7 @@ if !(_item in (opticasAAF + flashLights + pointers)) then
 } forEach (armasNATO + armasCSAT);
 if (hayRHS) then
 	{
-	opticasAAF = opticasAAF select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
+	opticsAAF = opticsAAF select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
 	flashlights = flashlights select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
 	pointers = pointers select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
 	};
@@ -746,7 +746,7 @@ if (isClass(configFile >> "cfgPatches" >> "acre_main")) then
 	unlockedItems = unlockedItems + ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"];
 	};
 
-//allItems = allItems + itemsAAF + opticasAAF + _vests + cascos + NVGoggles;
+//allItems = allItems + itemsAAF + opticsAAF + _vests + cascos + NVGoggles;
 
 if (worldName == "Tanoa") then
 	{

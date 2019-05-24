@@ -55,12 +55,12 @@ else
 	{[_x,_marcador] spawn A3A_fnc_FIAinitBases;} forEach units _grupo;
 	};
 
-waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({alive _x} count units _grupo == 0) or (not(_marcador in puestosFIA))};
+waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({alive _x} count units _grupo == 0) or (not(_marcador in outpostsFIA))};
 
 if ({alive _x} count units _grupo == 0) then
 //if ({alive _x} count units _grupo == 0) then
 	{
-	puestosFIA = puestosFIA - [_marcador]; publicVariable "puestosFIA";
+	outpostsFIA = outpostsFIA - [_marcador]; publicVariable "outpostsFIA";
 	marcadores = marcadores - [_marcador]; publicVariable "marcadores";
 	lados setVariable [_marcador,nil,true];
 	_nul = [5,-5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
@@ -75,7 +75,7 @@ if ({alive _x} count units _grupo == 0) then
 		};
 	};
 
-waitUntil {sleep 1; (spawner getVariable _marcador == 2) or (not(_marcador in puestosFIA))};
+waitUntil {sleep 1; (spawner getVariable _marcador == 2) or (not(_marcador in outpostsFIA))};
 
 if (_isRoad) then {if (!isNull _veh) then {deleteVehicle _veh}};
 {deleteVehicle _x} forEach units _grupo;

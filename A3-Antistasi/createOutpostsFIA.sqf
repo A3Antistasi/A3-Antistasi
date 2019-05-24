@@ -9,13 +9,13 @@ if (_tipo == "delete") exitWith {hint "Deprecated option. Use Remove Garrison fr
 
 _isRoad = isOnRoad _positionTel;
 
-_texto = format ["%1 Observation Post",nameBuenos];
+_texto = format ["%1 Observation Post",nameTeamPlayer];
 _tipogrupo = groupsSDKSniper;
 _tipoVeh = vehSDKBike;
 private _tsk = "";
 if (_isRoad) then
 	{
-	_texto = format ["%1 Roadblock",nameBuenos];
+	_texto = format ["%1 Roadblock",nameTeamPlayer];
 	_tipogrupo = groupsSDKAT;
 	_tipoVeh = vehSDKTruck;
 	};
@@ -25,8 +25,8 @@ _mrk setMarkerShape "ICON";
 
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
 _dateLimitNum = dateToNumber _fechalim;
-[[buenos,civilian],"PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
-//_tsk = ["PuestosFIA",[buenos,civilian],["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
+[[buenos,civilian],"outpostsFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
+//_tsk = ["outpostsFIA",[buenos,civilian],["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
 //misiones pushBackUnique _tsk; publicVariable "misiones";
 _formato = [];
 {
@@ -59,13 +59,13 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) the
 		"" remoteExec ["hint",_owner];
 		waitUntil {!(isPlayer leader _grupo)};
 		};
-	puestosFIA = puestosFIA + [_mrk]; publicVariable "puestosFIA";
+	outpostsFIA = outpostsFIA + [_mrk]; publicVariable "outpostsFIA";
 	lados setVariable [_mrk,buenos,true];
 	marcadores = marcadores + [_mrk];
 	publicVariable "marcadores";
 	spawner setVariable [_mrk,2,true];
-	["PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-	//["PuestosFIA", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
+	["outpostsFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+	//["outpostsFIA", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
 	_nul = [-5,5,_positionTel] remoteExec ["A3A_fnc_citySupportChange",2];
 	_mrk setMarkerType "loc_bunker";
 	_mrk setMarkerColor colourTeamPlayer;
@@ -81,8 +81,8 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) the
 	}
 else
 	{
-	["PuestosFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"FAILED"] call A3A_fnc_taskUpdate;
-	//["PuestosFIA", "FAILED",true] spawn BIS_fnc_taskSetState;
+	["outpostsFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"FAILED"] call A3A_fnc_taskUpdate;
+	//["outpostsFIA", "FAILED",true] spawn BIS_fnc_taskSetState;
 	sleep 3;
 	deleteMarker _mrk;
 	};
@@ -93,7 +93,7 @@ deleteVehicle _camion;
 deleteGroup _grupo;
 sleep 15;
 
-_nul = [0,"PuestosFIA"] spawn A3A_fnc_deleteTask;
+_nul = [0,"outpostsFIA"] spawn A3A_fnc_deleteTask;
 
 
 

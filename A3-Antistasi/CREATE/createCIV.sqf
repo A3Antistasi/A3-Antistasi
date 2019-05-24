@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiculos","_civsPatrol","_gruposPatrol","_vehPatrol","_tipoCiv","_tipoVeh","_dirVeh","_cuenta","_grupo","_size","_road","_tipociv","_tipoVeh","_dirVeh","_posicion","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_andanadas","_grupoP","_wp","_wp1"];
+private ["_marcador","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiculos","_civsPatrol","_gruposPatrol","_vehPatrol","_tipoCiv","_tipoVeh","_dirVeh","_cuenta","_grupo","_size","_road","_tipociv","_tipoVeh","_dirVeh","_posicion","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_burst","_grupoP","_wp","_wp1"];
 
 _marcador = _this select 0;
 
@@ -117,10 +117,10 @@ if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 
 	_countPatrol = 0;
 
-	_andanadas = round (_numCiv / 60);
-	if (_andanadas < 1) then {_andanadas = 1};
+	_burst = round (_numCiv / 60);
+	if (_burst < 1) then {_burst = 1};
 
-	for "_i" from 1 to _andanadas do
+	for "_i" from 1 to _burst do
 		{
 		while {(spawner getVariable _marcador != 2) and (_countPatrol < (count _patrolCities - 1) and (_cuenta < _max))} do
 			{
@@ -162,8 +162,8 @@ if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 					_civ moveInDriver _veh;
 					_grupoP addVehicle _veh;
 					_grupoP setBehaviour "CARELESS";
-					_posDestino = selectRandom (carreteras getVariable (_patrolCities select _countPatrol));
-					_wp = _grupoP addWaypoint [_posDestino,0];
+					_posDestination = selectRandom (carreteras getVariable (_patrolCities select _countPatrol));
+					_wp = _grupoP addWaypoint [_posDestination,0];
 					_wp setWaypointType "MOVE";
 					_wp setWaypointSpeed "FULL";
 					_wp setWaypointTimeout [30, 45, 60];

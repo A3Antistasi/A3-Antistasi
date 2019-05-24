@@ -8,7 +8,7 @@ if ((side _x == malos) or (side _x == muyMalos)) then
 	};
 } forEach allUnits;
 if (_presente) exitWith {hint "You cannot rest while enemies are near our units"};
-if (["AtaqueAAF"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while the enemy is counterattacking"};
+if (["AttackAAF"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while the enemy is counterattacking"};
 if (["DEF_HQ"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while your HQ is under attack"};
 
 _chequeo = false;

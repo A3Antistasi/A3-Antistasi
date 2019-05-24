@@ -1,6 +1,6 @@
 private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_exists","_positionTel","_isRoad","_tipogrupo","_resourcesFIA","_hrFIA"];
 
-if (["PuestosFIA"] call BIS_fnc_taskExists) exitWith {hint "We can only deploy / delete one Observation Post or Roadblock at a time."};
+if (["outpostsFIA"] call BIS_fnc_taskExists) exitWith {hint "We can only deploy / delete one Observation Post or Roadblock at a time."};
 if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
 
 _tipo = _this select 0;
@@ -19,7 +19,7 @@ if (!visibleMap) exitWith {};
 _positionTel = positionTel;
 _pos = [];
 
-if ((_tipo == "delete") and (count puestosFIA < 1)) exitWith {hint "No Posts or Roadblocks deployed to delete"};
+if ((_tipo == "delete") and (count outpostsFIA < 1)) exitWith {hint "No Posts or Roadblocks deployed to delete"};
 if ((_tipo == "delete") and ({(alive _x) and (!captive _x) and ((side _x == malos) or (side _x == muyMalos)) and (_x distance _positionTel < 500)} count allUnits > 0)) exitWith {hint "You cannot delete a Post while enemies are near it"};
 
 _coste = 0;
@@ -44,7 +44,7 @@ if (_tipo != "delete") then
 	}
 else
 	{
-	_mrk = [puestosFIA,_positionTel] call BIS_fnc_nearestPosition;
+	_mrk = [outpostsFIA,_positionTel] call BIS_fnc_nearestPosition;
 	_pos = getMarkerPos _mrk;
 	if (_positionTel distance _pos >10) exitWith {hint "No post nearby"};
 	};

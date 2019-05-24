@@ -1,4 +1,4 @@
-private ["_unit","_enemigo","_small","_big","_objeto","_posAtras","_objetos","_roads","_tipo","_p1","_p2","_ancho","_grueso","_alto","_posEnemigo","_pos","_arr","_grupo"];
+private ["_unit","_enemigo","_small","_big","_objeto","_posAtras","_objetos","_roads","_tipo","_p1","_p2","_ancho","_grueso","_alto","_posEnemy","_pos","_arr","_grupo"];
 _unit = _this select 0;
 _enemigo = _this select 1;
 _small= [];
@@ -59,6 +59,6 @@ if !(_objeto isKindOf "House") then
 			};
 		};
 	};
-_posEnemigo = position _enemigo;
-_pos = _posEnemigo getPos [(_objeto distance _posEnemigo) + 2, _posEnemigo getDir _objeto];
+_posEnemy = position _enemigo;
+_pos = _posEnemy getPos [(_objeto distance _posEnemy) + 2, _posEnemy getDir _objeto];
 _pos

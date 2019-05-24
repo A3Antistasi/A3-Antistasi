@@ -45,9 +45,9 @@ _conMochis = "";
 if (_tipoGrupo isEqualType []) then
 	{
 	{
-	_tipoUnidad = if (random 20 <= skillFIA) then {_x select 1} else {_x select 0};
-	_formato pushBack _tipoUnidad;
-	_coste = _coste + (server getVariable _tipoUnidad); _costeHR = _costeHR +1
+	_typeUnit = if (random 20 <= skillFIA) then {_x select 1} else {_x select 0};
+	_formato pushBack _typeUnit;
+	_coste = _coste + (server getVariable _typeUnit); _costeHR = _costeHR +1
 	} forEach _tipoGrupo;
 	if (count _this > 1) then
 		{

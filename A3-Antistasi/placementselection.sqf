@@ -91,7 +91,7 @@ if (visiblemap) then
 		_viejo = petros;
 		groupPetros = createGroup buenos;
 		publicVariable "groupPetros";
-        petros = groupPetros createUnit [tipoPetros, _positionTel, [], 0, "NONE"];
+        petros = groupPetros createUnit [typePetros, _positionTel, [], 0, "NONE"];
         groupPetros setGroupId ["Maru","GroupColor4"];
         petros setIdentity "amiguete";
         if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};

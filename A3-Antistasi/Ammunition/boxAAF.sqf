@@ -27,11 +27,11 @@ for "_i" from 1 to (floor random 3) do
 	_num = 1 + (floor random 5);
 	caja addMagazineCargoGlobal [_cosa, _num];
 	};
-if !(opticasAAF isEqualTo []) then
+if !(opticsAAF isEqualTo []) then
 	{
 	for "_i" from 1 to (floor random 2) do
 		{
-		_cosa = selectRandom opticasAAF;
+		_cosa = selectRandom opticsAAF;
 		caja addItemCargoGlobal [_cosa, 1 + (floor random 2)];
 		};
 	};

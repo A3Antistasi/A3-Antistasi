@@ -44,7 +44,7 @@ vehSDKBoat = "I_C_Boat_Transport_01_F";//rebel rudder boat
 vehSDKRepair = "B_G_Offroad_01_repair_F";//repair car or truck
 SDKFlag = "Flag_Syndikat_F";//flag of the rebel faction
 SDKFlagTexture = "\A3\Data_F_exp\Flags\Flag_Synd_CO.paa";//texture of the flag, in case rebels take an enemy flag
-tipoPetros = "I_C_Soldier_Camo_F";//petros or maru model
+typePetros = "I_C_Soldier_Camo_F";//petros or maru model
 
 soporteStaticSDKB = "I_HMG_01_support_F";//static support backpack, place "not_supported" if your mod lacks of it
 ATStaticSDKB = "I_AT_01_weapon_F";//static support backpack, place "not_supported" if your mod lacks of it
@@ -106,6 +106,6 @@ vehPoliceCar = "B_GEN_OFFROAD_01_gen_F";
 policeOfficer = "B_GEN_Commander_F";
 policeGrunt = "B_GEN_Soldier_F";
 gruposNATOGen = [policeOfficer,policeGrunt];
-nameBuenos = if (worldName == "Tanoa") then {"SDK"} else {"FIA"};
+nameTeamPlayer = if (worldName == "Tanoa") then {"SDK"} else {"FIA"};
 
 factionGEN = "BLU_GEN_F";

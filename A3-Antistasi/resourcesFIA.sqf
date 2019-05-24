@@ -26,11 +26,11 @@ _resourcesFIASim = "";
 if (_resourcesFIA > 0) then {_resourcesFIASim = "+"};
 if ((_hr != 0) and (_resourcesFIA != 0)) then
 	{
-	_texto = format ["<t size='0.6' color='#C1C0BB'>%5 Resources.<br/> <t size='0.5' color='#C1C0BB'><br/>HR: %3%1<br/>Money: %4%2 €",_hr,_resourcesFIA,_hrSim,_resourcesFIASim,nameBuenos]
+	_texto = format ["<t size='0.6' color='#C1C0BB'>%5 Resources.<br/> <t size='0.5' color='#C1C0BB'><br/>HR: %3%1<br/>Money: %4%2 €",_hr,_resourcesFIA,_hrSim,_resourcesFIASim,nameTeamPlayer]
 	}
 else
 	{
-	if (_hr != 0) then {_texto = format ["<t size='0.6' color='#C1C0BB'>%4 Resources.<br/> <t size='0.5' color='#C1C0BB'><br/>HR: %3%1",_hr,_resourcesFIA,_hrSim,nameBuenos]} else {if (_resourcesFIA != 5) then {_texto = format ["<t size='0.6' color='#C1C0BB'>%4 Resources.<br/> <t size='0.5' color='#C1C0BB'><br/>Money: %4%2 €",_hr,_resourcesFIA,_hrSim,_resourcesFIASim,nameBuenos]}};
+	if (_hr != 0) then {_texto = format ["<t size='0.6' color='#C1C0BB'>%4 Resources.<br/> <t size='0.5' color='#C1C0BB'><br/>HR: %3%1",_hr,_resourcesFIA,_hrSim,nameTeamPlayer]} else {if (_resourcesFIA != 5) then {_texto = format ["<t size='0.6' color='#C1C0BB'>%4 Resources.<br/> <t size='0.5' color='#C1C0BB'><br/>Money: %4%2 €",_hr,_resourcesFIA,_hrSim,_resourcesFIASim,nameTeamPlayer]}};
 	};
 
 if (_texto != "") then

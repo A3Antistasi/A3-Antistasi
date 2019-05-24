@@ -28,7 +28,7 @@ vehSDKBoat = "B_G_Boat_Transport_01_F";
 vehSDKRepair = "rhsgref_cdf_b_ural_repair";
 SDKFlag = "Flag_FIA_F";
 SDKFlagTexture = "\A3\Data_F\Flags\Flag_FIA_CO.paa";
-tipoPetros = "rhsgref_cdf_b_reg_general";
+typePetros = "rhsgref_cdf_b_reg_general";
 
 soporteStaticSDKB = "RHS_SPG9_Tripod_Bag";
 ATStaticSDKB = "RHS_SPG9_Gun_Bag";
@@ -82,6 +82,6 @@ vehPoliceCar = "rhsgref_un_uaz";
 policeOfficer = "rhsgref_cdf_un_squadleader";
 policeGrunt = "rhsgref_cdf_un_rifleman_lite";
 gruposNATOGen = [policeOfficer,policeGrunt];
-nameBuenos = "FIA";
+nameTeamPlayer = "FIA";
 
 factionGEN = "rhsgref_faction_un";

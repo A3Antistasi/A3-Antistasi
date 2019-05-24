@@ -55,7 +55,7 @@ if !(hayIFA) then
 	{
 	for "_i" from 1 to _var4 do
 		{
-		_cosa = selectRandom opticasAAF;
+		_cosa = selectRandom opticsAAF;
 		if (not(_cosa in unlockedItems)) then
 			{
 			_crate addItemCargoGlobal [_cosa, 1 + (floor random 2)];

@@ -28,7 +28,7 @@ vehSDKBoat = "I_C_Boat_Transport_01_F";
 vehSDKRepair = "LIB_US_GMC_Parm";
 SDKFlag = "Flag_Syndikat_F";
 SDKFlagTexture = "ak.jpg"; if (isServer) then {bandera setFlagTexture SDKFlagTexture};
-tipoPetros = "LIB_WP_Sierzant";
+typePetros = "LIB_WP_Sierzant";
 
 soporteStaticSDKB = "not_supported";
 ATStaticSDKB = "not_supported";
@@ -80,6 +80,6 @@ vehPoliceCar = "LIB_Kfz1_sernyt";
 policeOfficer = "SG_sturmpanzer_unterofficer";
 policeGrunt = "SG_sturmpanzer_crew";
 gruposNATOGen = [policeOfficer,policeGrunt];
-nameBuenos = "AK";
+nameTeamPlayer = "AK";
 
 factionGEN = "SG_STURMPANZER";

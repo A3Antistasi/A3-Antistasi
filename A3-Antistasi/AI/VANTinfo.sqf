@@ -6,7 +6,7 @@ _lado = _this select 2;
 
 _posicion = getMarkerPos _marcador;
 
-_enemigosS = if (_lado == muyMalos) then {malos} else {muyMalos};
+_enemiesS = if (_lado == muyMalos) then {malos} else {muyMalos};
 
 while {alive _veh} do
 	{
@@ -15,7 +15,7 @@ while {alive _veh} do
 	_enemigos = [distanceSPWN,0,_posicion,_lado] call A3A_fnc_distanceUnits;
 	sleep 60;
 	_grupos = allGroups select {(leader _x in _enemigos) and ((vehicle leader _x) != (leader _x))};
-	_conocidos = allUnits select {((side _x == buenos) or (side _x == _enemigosS)) and (alive _x) and (_x distance _posicion < 500)};
+	_conocidos = allUnits select {((side _x == buenos) or (side _x == _enemiesS)) and (alive _x) and (_x distance _posicion < 500)};
 	{
 	_grupo = _x;
 		{

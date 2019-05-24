@@ -78,7 +78,7 @@ petros addMPEventHandler ["mpkilled",
             _viejo = petros;
             groupPetros = createGroup buenos;
             publicVariable "groupPetros";
-            petros = groupPetros createUnit [tipoPetros, position _viejo, [], 0, "NONE"];
+            petros = groupPetros createUnit [typePetros, position _viejo, [], 0, "NONE"];
             publicVariable "petros";
             groupPetros setGroupIdGlobal ["Petros","GroupColor4"];
             petros setIdentity "amiguete";

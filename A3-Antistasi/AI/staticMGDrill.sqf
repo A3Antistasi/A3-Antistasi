@@ -1,12 +1,12 @@
 private ["_gunner","_ayudante"];
-private _esMortero = false;
+private _isMortar = false;
 {if (_x getVariable ["typeOfSoldier",""] == "StaticGunner") then {_gunner = _x} else {_ayudante = _x}} forEach _this;
-{if (_x getVariable ["typeOfSoldier",""] == "StaticMortar") then {_gunner = _x;_esMortero = true} else {_ayudante = _x}} forEach _this;
+{if (_x getVariable ["typeOfSoldier",""] == "StaticMortar") then {_gunner = _x;_isMortar = true} else {_ayudante = _x}} forEach _this;
 private _grupo = group _gunner;
 private _mounted = false;
 private _veh = objNull;
 private _lado = side _grupo;
-private _tipoVeh = 	if !(_esMortero) then
+private _tipoVeh = 	if !(_isMortar) then
 						{
 						if (_lado == malos) then {NATOMG} else {if (_lado == muyMalos) then {CSATMG} else {SDKMGStatic}};
 						}
@@ -24,7 +24,7 @@ while {(alive _gunner)} do
 	_enemigo = objNull;
 	if (!(_objetivos isEqualTo []) and (((_objetivos select 0) select 4) distance _gunner > 150))  then
 		{
-		if !(_esMortero) then
+		if !(_isMortar) then
 			{
 			{
 			_eny = _x select 4;
@@ -82,7 +82,7 @@ while {(alive _gunner)} do
 						_gunner moveInGunner _veh;
 						[_veh] call A3A_fnc_AIVEHinit;
 						_mounted = true;
-						if (_esMortero) then {_grupo setVariable ["morteros",_gunner]};
+						if (_isMortar) then {_grupo setVariable ["morteros",_gunner]};
 						sleep 60;
 						};
 					};
@@ -104,7 +104,7 @@ while {(alive _gunner)} do
 						_ayudante addBackpackGlobal _mochiA;
 						deleteVehicle _veh;
 						_gunner call A3A_fnc_recallGroup;
-						if (_esMortero) then {_grupo setVariable ["morteros",objNull]};
+						if (_isMortar) then {_grupo setVariable ["morteros",objNull]};
 						};
 					};
 				};
@@ -125,7 +125,7 @@ while {(alive _gunner)} do
 				_ayudante addBackpackGlobal _mochiA;
 				deleteVehicle _veh;
 				_gunner call A3A_fnc_recallGroup;
-				if (_esMortero) then {_grupo setVariable ["morteros",objNull]};
+				if (_isMortar) then {_grupo setVariable ["morteros",objNull]};
 				};
 			};
 		};

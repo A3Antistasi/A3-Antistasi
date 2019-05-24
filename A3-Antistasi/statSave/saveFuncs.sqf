@@ -44,7 +44,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","dificultad","gameMode"];
+["outpostsFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","dificultad","gameMode"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -164,8 +164,8 @@ fn_SetStat =
 					};
 				_posMina = _varvalue select _i select 1;
 				_mina = createMine [_tipoMina, _posMina, [], 0];
-				_detectada = _varvalue select _i select 2;
-				{_x revealMine _mina} forEach _detectada;
+				_detected = _varvalue select _i select 2;
+				{_x revealMine _mina} forEach _detected;
 				if (count (_varvalue select _i) > 3) then//borrar esto en febrero
 					{
 					_dirMina = _varvalue select _i select 3;
@@ -175,10 +175,10 @@ fn_SetStat =
 			};
 		if(_varName == 'garrison') then
 			{
-			//_marcadores = marcadores - puestosFIA - controles - ciudades;
+			//_marcadores = marcadores - outpostsFIA - controles - ciudades;
 			{garrison setVariable [_x select 0,_x select 1,true]} forEach _varvalue;
 			};
-		if(_varName == 'puestosFIA') then
+		if(_varName == 'outpostsFIA') then
 			{
 			if (count (_varValue select 0) == 2) then
 				{
@@ -189,10 +189,10 @@ fn_SetStat =
 				_mrk setMarkerShape "ICON";
 				_mrk setMarkerType "loc_bunker";
 				_mrk setMarkerColor colourTeamPlayer;
-				if (isOnRoad _posicion) then {_mrk setMarkerText format ["%1 Roadblock",nameBuenos]} else {_mrk setMarkerText format ["%1 Watchpost",nameBuenos]};
+				if (isOnRoad _posicion) then {_mrk setMarkerText format ["%1 Roadblock",nameTeamPlayer]} else {_mrk setMarkerText format ["%1 Watchpost",nameTeamPlayer]};
 				spawner setVariable [_mrk,2,true];
 				if (count _garrison > 0) then {garrison setVariable [_mrk,_garrison,true]};
-				puestosFIA pushBack _mrk;
+				outpostsFIA pushBack _mrk;
 				lados setVariable [_mrk,buenos,true];
 				} forEach _varvalue;
 				};
@@ -204,7 +204,7 @@ fn_SetStat =
 			for "_i" from 0 to (count _varvalue - 1) do
 			    {
 			    _posAnt = _varvalue select _i;
-			    _mrk = [mrkAntenas, _posAnt] call BIS_fnc_nearestPosition;
+			    _mrk = [mrkAntennas, _posAnt] call BIS_fnc_nearestPosition;
 			    _antena = [antenas,_mrk] call BIS_fnc_nearestPosition;
 			    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach ciudades;
 			    antenas = antenas - [_antena];
@@ -316,7 +316,7 @@ fn_SetStat =
 		if(_varname == 'tasks') then
 			{
 			{
-			if (_x == "AtaqueAAF") then
+			if (_x == "AttackAAF") then
 				{
 				[] call A3A_fnc_attackAAF;
 				}

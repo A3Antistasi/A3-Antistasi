@@ -33,7 +33,7 @@ if (isServer and !_byPassServer) then
 	diag_log "Antistasi: Starting Persistent Load";
 	petros allowdamage false;
 
-	["puestosFIA"] call fn_LoadStat; publicVariable "puestosFIA";
+	["outpostsFIA"] call fn_LoadStat; publicVariable "outpostsFIA";
 	["mrkSDK"] call fn_LoadStat; /*if (isMultiplayer) then {sleep 5}*/;
 	["mrkCSAT"] call fn_LoadStat;
 	["dificultad"] call fn_LoadStat;
@@ -144,7 +144,7 @@ if (isServer and !_byPassServer) then
 	if (lados getVariable [_x,sideUnknown] != buenos) then
 		{
 		_posicion = getMarkerPos _x;
-		_cercano = [(marcadores - controles - puestosFIA),_posicion] call BIS_fnc_nearestPosition;
+		_cercano = [(marcadores - controles - outpostsFIA),_posicion] call BIS_fnc_nearestPosition;
 		_lado = lados getVariable [_cercano,sideUnknown];
 		lados setVariable [_x,_lado,true];
 		};
@@ -159,7 +159,7 @@ if (isServer and !_byPassServer) then
 	} forEach marcadores;
 
 	{[_x] call A3A_fnc_mrkUpdate} forEach (marcadores - controles);
-	if (count puestosFIA > 0) then {marcadores = marcadores + puestosFIA; publicVariable "marcadores"};
+	if (count outpostsFIA > 0) then {marcadores = marcadores + outpostsFIA; publicVariable "marcadores"};
 
 	{if (_x in destroyedCities) then {[_x] call A3A_fnc_destroyCity}} forEach ciudades;
 

@@ -29,7 +29,7 @@ vehSDKBoat = "I_G_Boat_Transport_01_F";
 vehSDKRepair = "I_G_Offroad_01_repair_F";
 SDKFlag = "Flag_Altis_F";
 SDKFlagTexture = "\A3\Data_F\Flags\Flag_Altis_CO.paa";
-tipoPetros = "I_G_officer_F";
+typePetros = "I_G_officer_F";
 
 soporteStaticSDKB = "I_HMG_01_support_F";
 ATStaticSDKB = "I_AT_01_weapon_F";
@@ -88,6 +88,6 @@ vehPoliceCar = "B_GEN_OFFROAD_01_gen_F";
 policeOfficer = "B_GEN_Commander_F";
 policeGrunt = "B_GEN_Soldier_F";
 gruposNATOGen = [policeOfficer,policeGrunt];
-nameBuenos = if (worldName == "Tanoa") then {"SDK"} else {"FIA"};
+nameTeamPlayer = if (worldName == "Tanoa") then {"SDK"} else {"FIA"};
 
 factionGEN = "BLU_GEN_F";

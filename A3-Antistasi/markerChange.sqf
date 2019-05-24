@@ -30,7 +30,7 @@ if (isNil "_bandera") then {_bandera = objNull};
 
 if (_looser == buenos) then
 	{
-	_texto = format ["%1 ",nameBuenos];
+	_texto = format ["%1 ",nameTeamPlayer];
 	[] call A3A_fnc_tierCheck;
 	}
 else

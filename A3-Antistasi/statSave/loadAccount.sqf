@@ -39,7 +39,7 @@ if (isServer and !_byPassServer) then
 	["difficultyX"] call fn_LoadStat;
 	["gameMode"] call fn_LoadStat;
 	["destroyedCities"] call fn_LoadStat;
-	["minas"] call fn_LoadStat;
+	["minesX"] call fn_LoadStat;
 	["countCA"] call fn_LoadStat;
 	["antennas"] call fn_LoadStat;
 	["prestigeNATO"] call fn_LoadStat;
@@ -141,20 +141,20 @@ if (isServer and !_byPassServer) then
 	if (!haveRadio) then {if ("ItemRadio" in unlockedItems) then {haveRadio = true; publicVariable "haveRadio"}};
 
 	{
-	if (lados getVariable [_x,sideUnknown] != teamPlayer) then
+	if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
 		{
 		_positionX = getMarkerPos _x;
 		_nearX = [(markersX - controlsX - outpostsFIA),_positionX] call BIS_fnc_nearestPosition;
-		_lado = lados getVariable [_nearX,sideUnknown];
-		lados setVariable [_x,_lado,true];
+		_lado = sidesX getVariable [_nearX,sideUnknown];
+		sidesX setVariable [_x,_lado,true];
 		};
 	} forEach controlsX;
 
 
 	{
-	if (lados getVariable [_x,sideUnknown] == sideUnknown) then
+	if (sidesX getVariable [_x,sideUnknown] == sideUnknown) then
 		{
-		lados setVariable [_x,Occupants,true];
+		sidesX setVariable [_x,Occupants,true];
 		};
 	} forEach markersX;
 
@@ -177,7 +177,7 @@ if (isServer and !_byPassServer) then
 
 
 	if (!isMultiPlayer) then {player setPos getMarkerPos respawnTeamPlayer} else {{_x setPos getMarkerPos respawnTeamPlayer} forEach (playableUnits select {side _x == teamPlayer})};
-	_sites = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
+	_sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
 	tierWar = 1 + (floor (((5*({(_x in outposts) or (_x in resourcesX) or (_x in citiesX)} count _sites)) + (10*({_x in seaports} count _sites)) + (20*({_x in airportsX} count _sites)))/10));
 	if (tierWar > 10) then {tierWar = 10};
 	publicVariable "tierWar";
@@ -198,7 +198,7 @@ if (isServer and !_byPassServer) then
 		_dmrk = createMarker [format ["Dum%1",_x], _pos];
 		_dmrk setMarkerShape "ICON";
 		[_x] call A3A_fnc_mrkUpdate;
-		if (lados getVariable [_x,sideUnknown] != teamPlayer) then
+		if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
@@ -211,7 +211,7 @@ if (isServer and !_byPassServer) then
 		_dmrk setMarkerType "loc_rock";
 		_dmrk setMarkerText "Resources";
 		[_x] call A3A_fnc_mrkUpdate;
-		if (lados getVariable [_x,sideUnknown] != teamPlayer) then
+		if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
@@ -224,7 +224,7 @@ if (isServer and !_byPassServer) then
 		_dmrk setMarkerType "u_installation";
 		_dmrk setMarkerText "Factory";
 		[_x] call A3A_fnc_mrkUpdate;
-		if (lados getVariable [_x,sideUnknown] != teamPlayer) then
+		if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
@@ -236,7 +236,7 @@ if (isServer and !_byPassServer) then
 		_dmrk setMarkerShape "ICON";
 		_dmrk setMarkerType "loc_bunker";
 		[_x] call A3A_fnc_mrkUpdate;
-		if (lados getVariable [_x,sideUnknown] != teamPlayer) then
+		if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
@@ -249,13 +249,13 @@ if (isServer and !_byPassServer) then
 		_dmrk setMarkerType "b_naval";
 		_dmrk setMarkerText "Sea Port";
 		[_x] call A3A_fnc_mrkUpdate;
-		if (lados getVariable [_x,sideUnknown] != teamPlayer) then
+		if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
 		} forEach seaports;
-		lados setVariable ["NATO_carrier",Occupants,true];
-		lados setVariable ["CSAT_carrier",,true];
+		sidesX setVariable ["NATO_carrier",Occupants,true];
+		sidesX setVariable ["CSAT_carrier",,true];
 		};
 	statsLoaded = 0; publicVariable "statsLoaded";
 	placementDone = true; publicVariable "placementDone";

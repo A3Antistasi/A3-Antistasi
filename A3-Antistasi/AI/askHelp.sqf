@@ -1,7 +1,7 @@
 private ["_unit","_distanceX","_hasMedic","_medicX","_units","_helping","_askingForHelp"];
 _unit = _this select 0;
-_ayudado = _unit getVariable ["ayudado",objNull];
-if (!isNull _ayudado) exitWith {};
+_helped = _unit getVariable ["helped",objNull];
+if (!isNull _helped) exitWith {};
 //if (!(isMultiplayer) and (isPlayer _unit) and (_unit getVariable ["INCAPACITATED",false])) then {_unit setVariable ["INCAPACITATED",false]};
 _enemy = _unit findNearestEnemy _unit;
 _distanceX = 81;
@@ -61,7 +61,7 @@ else
 		};
 	if (!isNull _medicX) then
 		{
-		if (isNull(_unit getVariable ["ayudado",objNull])) then {[_unit,_medicX] spawn A3A_fnc_help};
+		if (isNull(_unit getVariable ["helped",objNull])) then {[_unit,_medicX] spawn A3A_fnc_help};
 		}
 	else
 		{

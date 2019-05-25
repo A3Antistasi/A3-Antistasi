@@ -9,7 +9,7 @@ _playerXes = [];
 _membersX = [];
 _eligibles = [];
 
-_lider = objNull;
+_LeaderX = objNull;
 
 {
 _playerXes pushBack (_x getVariable ["owner",_x]);
@@ -22,15 +22,15 @@ if ([_x] call A3A_fnc_isMember) then
 		_eligibles pushBack _x;
 		if (_x == theBoss) then
 			{
-			_lider = _x;
-			_dataX = [_lider] call A3A_fnc_numericRank;
+			_LeaderX = _x;
+			_dataX = [_LeaderX] call A3A_fnc_numericRank;
 			_puntMax = _dataX select 0;
 			};
 		};
 	};
 } forEach (playableUnits select {(side (group _x) == teamPlayer)});
 
-if (isNull _lider) then
+if (isNull _LeaderX) then
 	{
 	_puntMax = 0;
 	_disconnected = true;
@@ -42,14 +42,14 @@ _pointsX = _x getVariable ["score",0];
 _dataX = [_x] call A3A_fnc_numericRank;
 _multiplier = _dataX select 0;
 _newRank = _dataX select 1;
-_rank = _x getVariable ["rango","PRIVATE"];
+_rank = _x getVariable ["rankX","PRIVATE"];
 if (_rank != "COLONEL") then
 	{
 	if (_pointsX >= 50*_multiplier) then
 		{
 		_promoted = true;
 		[_x,_newRank] remoteExec ["A3A_fnc_ranksMP"];
-		_x setVariable ["rango",_newRank,true];
+		_x setVariable ["rankX",_newRank,true];
 		_texto = format ["%3%1: %2.\n",name _x,_newRank,_texto];
 		[-1*(50*_multiplier),_x] call A3A_fnc_playerScoreAdd;
 		_multiplier = _multiplier + 1;
@@ -66,7 +66,7 @@ if (_promoted) then
 
 _proceed = false;
 
-if ((isNull _lider) or switchCom) then
+if ((isNull _LeaderX) or switchCom) then
 	{
 	if (count _membersX > 0) then
 		{
@@ -81,7 +81,7 @@ _selectable = objNull;
 {
 _dataX = [_x] call A3A_fnc_numericRank;
 _multiplier = _dataX select 0;
-if ((_multiplier > _puntMax) and (_x!=_lider)) then
+if ((_multiplier > _puntMax) and (_x!=_LeaderX)) then
 	{
 	_selectable = _x;
 	_puntMax = _multiplier;

@@ -25,7 +25,7 @@ if (typeOf _x != SDKUnarmed) then
 if (recruitCooldown < time) then {recruitCooldown = time + 60} else {recruitCooldown = recruitCooldown + 60};
 
 
-_lider = leader _newGroup;
+_LeaderX = leader _newGroup;
 
 {_x domove getMarkerPos respawnTeamPlayer} forEach units _newGroup;
 

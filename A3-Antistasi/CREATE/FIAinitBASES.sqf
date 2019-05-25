@@ -222,7 +222,7 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 	_markerX = _muerto getVariable "markerX";
 	if (!isNil "_markerX") then
 		{
-		if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+		if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 			{
 			[typeOf _muerto,teamPlayer,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
 			_muerto setVariable [_markerX,nil,true];

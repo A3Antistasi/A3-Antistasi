@@ -1,5 +1,5 @@
 private ["_airportsX","_reinfPlaces","_airportX","_number","_numGarr","_numReal","_lado","_potentials","_countX","_sitio","_positionX"];
-_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] != teamPlayer) and (spawner getVariable _x == 2)};
+_airportsX = airportsX select {(sidesX getVariable [_x,sideUnknown] != teamPlayer) and (spawner getVariable _x == 2)};
 if (count _airportsX == 0) exitWith {};
 _reinfPlaces = [];
 {
@@ -7,7 +7,7 @@ _airportX = _x;
 _number = 8;
 _numGarr = [_airportX] call A3A_fnc_garrisonSize;
 _numReal = count (garrison getVariable _airportX);
-_lado = lados getVariable [_airportX,sideUnknown];
+_lado = sidesX getVariable [_airportX,sideUnknown];
 if (_numReal + 4 <= _numGarr) then
 	{
 	if (_numReal + 8 <= _numGarr) then
@@ -23,10 +23,10 @@ if (_numReal + 4 <= _numGarr) then
 	};
 if ((_number >= 4) and (reinfPatrols <= 4)) then
 	{
-	_potentials = (outposts + seaports - _reinfPlaces - (killZones getVariable [_airportX,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
+	_potentials = (outposts + seaports - _reinfPlaces - (killZones getVariable [_airportX,[]])) select {sidesX getVariable [_x,sideUnknown] == _lado};
 	if (_potentials isEqualTo []) then
 		{
-		_potentials = (resourcesX + factories - _reinfPlaces - (killZones getVariable [_airportX,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
+		_potentials = (resourcesX + factories - _reinfPlaces - (killZones getVariable [_airportX,[]])) select {sidesX getVariable [_x,sideUnknown] == _lado};
 		};
 	_positionX = getMarkerPos _airportX;
 	_potentials = _potentials select {((getMarkerPos _x distance2D _positionX) < distanceForAirAttack) and !(_x in forcedSpawn)};
@@ -45,7 +45,7 @@ if ((_number >= 4) and (reinfPatrols <= 4)) then
 		} forEach _potentials;
 		if (_sitio != "") then
 			{
-			if ({(getMarkerPos _x distance2d getMarkerPos _sitio < distanceSPWN) and (lados getVariable [_x,sideUnknown] != _lado)} count airportsX == 0) then
+			if ({(getMarkerPos _x distance2d getMarkerPos _sitio < distanceSPWN) and (sidesX getVariable [_x,sideUnknown] != _lado)} count airportsX == 0) then
 				{
 				if ({(_x distance2D _positionX < (2*distanceSPWN)) or (_x distance2D (getMarkerPos _sitio) < (2*distanceSPWN))} count allPlayers == 0) then
 					{

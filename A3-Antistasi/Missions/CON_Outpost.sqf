@@ -6,7 +6,7 @@ private ["_markerX"];
 _markerX = _this select 0;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -33,7 +33,7 @@ else
 
 [[teamPlayer,civilian],"CON",[_texto,_taskName,_markerX],_positionX,false,0,true,"Target",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["CON","CREATED"]; publicVariable "missionsX";
-waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (lados getVariable [_markerX,sideUnknown] == teamPlayer)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (sidesX getVariable [_markerX,sideUnknown] == teamPlayer)};
 
 if (dateToNumber date > _dateLimitNum) then
 	{

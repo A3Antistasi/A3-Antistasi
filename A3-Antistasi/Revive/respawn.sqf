@@ -21,7 +21,7 @@ if (isMultiplayer) exitWith
 private ["_positionX","_tam","_roads","_road","_pos"];
 _positionX = getMarkerPos respawnTeamPlayer;
 if (lifeState _unit == "INCAPACITATED") then {_unit setUnconscious false};
-_unit setVariable ["ayudado",objNull];
+_unit setVariable ["helped",objNull];
 _unit setVariable ["helping",false];
 _unit setDamage 0;
 _unit setVariable ["compromised",0];

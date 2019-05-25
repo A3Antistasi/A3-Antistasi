@@ -1,4 +1,4 @@
-private _casas = [];
+private _houses = [];
 private _mrk = createMarkerLocal ["ambientCiv", position player];
 _mrk setMarkerShapeLocal "RECTANGLE";
 _mrk setMarkerSizeLocal [300,300];
@@ -32,16 +32,16 @@ while {true} do
 	_allCivs = allUnits select {(alive _x) and (side _x == civilian)};
 	if ((count _allCivs < civPerc) and ({(local _x) and (simulationEnabled _x) and (alive _x)} count allUnits < maxUnits)) then
 		{
-		if (_reset) then {_casas = (nearestTerrainObjects [player, ["House"], 300]) select {(count (_x buildingPos -1) > 0)}};
-		_casas = _casas select {!((typeOf _x) in listMilBld)};
-		_numCasas = count _casas;
-		if (_numCasas > 0) then
+		if (_reset) then {_houses = (nearestTerrainObjects [player, ["House"], 300]) select {(count (_x buildingPos -1) > 0)}};
+		_houses = _houses select {!((typeOf _x) in listMilBld)};
+		_numhouses = count _houses;
+		if (_numhouses > 0) then
 			{
 			_reset = false;
-			if ((daytime < 8) or (daytime > 21)) then {_numCasas = round (_numCasas / 2)};
-			if ({_x distance player < 300} count _allCivs <= _numCasas) then
+			if ((daytime < 8) or (daytime > 21)) then {_numhouses = round (_numhouses / 2)};
+			if ({_x distance player < 300} count _allCivs <= _numhouses) then
 				{
-				_casa = selectRandom _casas;
+				_casa = selectRandom _houses;
 				if ({_x distance _casa < 20} count (allPlayers - (entities "HeadlessClient_F")) == 0) then
 					{
 					if (isNull _group) then

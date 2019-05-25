@@ -44,7 +44,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","backpcks","ammunition","dateX", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["outpostsFIA","minas","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","backpcks","ammunition","dateX", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","moneyX","membersX","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
+["outpostsFIA","minesX","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","backpcks","ammunition","dateX", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","moneyX","membersX","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -81,13 +81,13 @@ fn_SetStat =
 		if(_varName == 'nextTick') then {nextTick = time + _varValue};
 		if(_varName == 'membersX') then {membersX = +_varValue; publicVariable "membersX"};
 		if(_varName == 'smallCAmrk') then {smallCAmrk = +_varValue};
-		if(_varName == 'mrkNATO') then {{lados setVariable [_x,Occupants,true]} forEach _varValue;};
-		if(_varName == 'mrkCSAT') then {{lados setVariable [_x,,true]} forEach _varValue;};
-		if(_varName == 'mrkSDK') then {{lados setVariable [_x,teamPlayer,true]} forEach _varValue;};
+		if(_varName == 'mrkNATO') then {{sidesX setVariable [_x,Occupants,true]} forEach _varValue;};
+		if(_varName == 'mrkCSAT') then {{sidesX setVariable [_x,,true]} forEach _varValue;};
+		if(_varName == 'mrkSDK') then {{sidesX setVariable [_x,teamPlayer,true]} forEach _varValue;};
 		if(_varName == 'controlsSDK') then
 			{
 			{
-			lados setVariable [_x,teamPlayer,true]
+			sidesX setVariable [_x,teamPlayer,true]
 			} forEach _varValue;
 			};
 		if(_varName == 'chopForest') then {chopForest = _varValue; publicVariable "chopForest"};
@@ -108,7 +108,7 @@ fn_SetStat =
 			player setUnitLoadout _pepe;
 			};
 		if(_varName == 'scorePlayer') then {player setVariable ["score",_varValue,true];};
-		if(_varName == 'rankPlayer') then {player setRank _varValue; player setVariable ["rango",_varValue,true]};
+		if(_varName == 'rankPlayer') then {player setRank _varValue; player setVariable ["rankX",_varValue,true]};
 		if(_varName == 'personalGarage') then {personalGarage = +_varValue};
 		if(_varName == 'jna_dataList') then {jna_dataList = +_varValue};
 		if(_varName == 'prestigeNATO') then {prestigeNATO = _varValue; publicVariable "prestigeNATO"};
@@ -148,7 +148,7 @@ fn_SetStat =
 			[nearestBuilding _x,[1,false]] remoteExec ["setDamage"];
 			} forEach destroyedBuildings;
 			};
-		if(_varName == 'minas') then
+		if(_varName == 'minesX') then
 			{
 			for "_i" from 0 to (count _varvalue) - 1 do
 				{
@@ -193,7 +193,7 @@ fn_SetStat =
 				spawner setVariable [_mrk,2,true];
 				if (count _garrison > 0) then {garrison setVariable [_mrk,_garrison,true]};
 				outpostsFIA pushBack _mrk;
-				lados setVariable [_mrk,teamPlayer,true];
+				sidesX setVariable [_mrk,teamPlayer,true];
 				} forEach _varvalue;
 				};
 			};
@@ -267,7 +267,7 @@ fn_SetStat =
 			_posHQ = if (count _varValue >3) then {_varValue select 0} else {_varValue};
 			{if (getMarkerPos _x distance _posHQ < 1000) then
 				{
-				lados setVariable [_x,teamPlayer,true];
+				sidesX setVariable [_x,teamPlayer,true];
 				};
 			} forEach controlsX;
 			respawnTeamPlayer setMarkerPos _posHQ;
@@ -283,7 +283,7 @@ fn_SetStat =
 				}
 			else
 				{
-				fuego setPos (_varValue select 1);
+				fireX setPos (_varValue select 1);
 				caja setDir ((_varValue select 2) select 0);
 				caja setPos ((_varValue select 2) select 1);
 				mapa setDir ((_varValue select 3) select 0);

@@ -5,7 +5,7 @@ _playerX = _this select 1;
 
 _pos = getPos _flagX;
 _markerX = [markersX,_pos] call BIS_fnc_nearestPosition;
-if (lados getVariable [_markerX,sideUnknown] == teamPlayer) exitWith {};
+if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) exitWith {};
 _positionX = getMarkerPos _markerX;
 _size = [_markerX] call A3A_fnc_sizeMarker;
 
@@ -41,5 +41,5 @@ if (isPlayer _x) then
 	}
 } forEach ([_size,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
 
-//_lado = if (lados getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
+//_lado = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
 [teamPlayer,_markerX] remoteExec ["A3A_fnc_markerChange",2];

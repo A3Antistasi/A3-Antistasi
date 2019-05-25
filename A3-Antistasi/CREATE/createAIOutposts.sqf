@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith{};
-private ["_markerX","_vehiclesX","_groups","_soldiers","_positionX","_pos","_size","_frontierX","_lado","_cfg","_esFIA","_garrison","_antena","_tam","_buildings","_mrk","_countX","_typeGroup","_group","_typeUnit","_typeVehX","_veh","_unit","_flagX","_caja","_roads","_mrkMar","_vehicle","_vehCrew","_groupVeh","_dist","_road","_roadCon","_dirVeh","_bunker","_dir","_posF"];
+private ["_markerX","_vehiclesX","_groups","_soldiers","_positionX","_pos","_size","_frontierX","_lado","_cfg","_isFIA","_garrison","_antena","_tam","_buildings","_mrk","_countX","_typeGroup","_group","_typeUnit","_typeVehX","_veh","_unit","_flagX","_caja","_roads","_mrkMar","_vehicle","_vehCrew","_groupVeh","_dist","_road","_roadCon","_dirVeh","_bunker","_dir","_posF"];
 _markerX = _this select 0;
 
 _vehiclesX = [];
@@ -14,13 +14,13 @@ _size = [_markerX] call A3A_fnc_sizeMarker;
 
 _frontierX = [_markerX] call A3A_fnc_isFrontline;
 _lado = ;
-_esFIA = false;
-if (lados getVariable [_markerX,sideUnknown] == Occupants) then
+_isFIA = false;
+if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then
 	{
 	_lado = Occupants;
 	if ((random 10 >= (tierWar + difficultyCoef)) and !(_frontierX) and !(_markerX in forcedSpawn)) then
 		{
-		_esFIA = true;
+		_isFIA = true;
 		};
 	};
 
@@ -57,7 +57,7 @@ if (_tam < ([_markerX] call A3A_fnc_garrisonSize)) then
 	}
 else
 	{
-	if ({if ((getMarkerPos _x inArea _mrk) and (lados getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count markersX > 0) then {_patrol = false};
+	if ({if ((getMarkerPos _x inArea _mrk) and (sidesX getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count markersX > 0) then {_patrol = false};
 	};
 if (_patrol) then
 	{
@@ -66,7 +66,7 @@ if (_patrol) then
 		{
 		_arraygroups = if (_lado == Occupants) then
 			{
-			if (!_esFIA) then {groupsNATOsmall} else {groupsFIASmall};
+			if (!_isFIA) then {groupsNATOsmall} else {groupsFIASmall};
 			}
 		else
 			{
@@ -171,7 +171,7 @@ else
 				_roadcon = objNull;
 				{if ((position _x) distance _positionX > _dist) then {_roadcon = _x}} forEach _roadscon;
 				_dirveh = [_roadcon, _road] call BIS_fnc_DirTo;
-				if (!_esFIA) then
+				if (!_isFIA) then
 					{
 					_group = createGroup _lado;
 					_groups pushBack _group;
@@ -218,7 +218,7 @@ if (count _roads != 0) then
 	_pos = _positionX findEmptyPosition [5,_size,"I_Truck_02_covered_F"];//donde pone 5 antes ponía 10
 	if (count _pos > 0) then
 		{
-		_typeVehX = if (_lado == Occupants) then {if (!_esFIA) then {vehNATOTrucks} else {[vehFIATruck]}} else {vehCSATTrucks};
+		_typeVehX = if (_lado == Occupants) then {if (!_isFIA) then {vehNATOTrucks} else {[vehFIATruck]}} else {vehCSATTrucks};
 		_veh = createVehicle [selectRandom _typeVehX, _pos, [], 0, "NONE"];
 		_veh setDir random 360;
 		_vehiclesX pushBack _veh;
@@ -243,7 +243,7 @@ if ((!isNull _antena) and (spawner getVariable _markerX!=2)) then
 			_posF = _pos getPos [1,_dir];
 			_posF set [2,24.3];
 			};
-		_typeUnit = if (_lado == Occupants) then {if (!_esFIA) then {NATOMarksman} else {FIAMarksman}} else {CSATMarksman};
+		_typeUnit = if (_lado == Occupants) then {if (!_isFIA) then {NATOMarksman} else {FIAMarksman}} else {CSATMarksman};
 		_unit = _group createUnit [_typeUnit, _positionX, [], _dir, "NONE"];
 		_unit setPosATL _posF;
 		_unit forceSpeed 0;

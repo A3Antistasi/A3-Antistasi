@@ -1,4 +1,4 @@
-private ["_veh","_markerX","_positionX","_groups","_knownX","_group","_lider"];
+private ["_veh","_markerX","_positionX","_groups","_knownX","_group","_LeaderX"];
 
 _veh = _this select 0;
 _markerX = _this select 1;

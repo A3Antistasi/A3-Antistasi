@@ -3,8 +3,8 @@ private ["_markerX","_isFrontier","_positionX","_mrkENY"];
 _markerX = _this select 0;
 _isFrontier = false;
 
-_lado = lados getVariable [_markerX,sideUnknown];
-_mrkENY = (airportsX + outposts + seaports) select {lados getVariable [_x,sideUnknown] != _lado};
+_lado = sidesX getVariable [_markerX,sideUnknown];
+_mrkENY = (airportsX + outposts + seaports) select {sidesX getVariable [_x,sideUnknown] != _lado};
 
 if (count _mrkENY > 0) then
 	{

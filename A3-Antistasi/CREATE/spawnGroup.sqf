@@ -1,6 +1,6 @@
 params ["_positionX","_lado","_tipos",["_override",false],["_canBypass",false]];
-//private ["_group","_countX","_countRanks","_lider","_unitsX","_index","_positionX","_lado","_tipos","_override","_canBypass"];
-private ["_group","_countX","_countRanks","_lider","_unitsX","_index"];
+//private ["_group","_countX","_countRanks","_LeaderX","_unitsX","_index","_positionX","_lado","_tipos","_override","_canBypass"];
+private ["_group","_countX","_countRanks","_LeaderX","_unitsX","_index"];
 
 /*_positionX = _this select 0;
 _lado = _this select 1;

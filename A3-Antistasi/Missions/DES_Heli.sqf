@@ -6,13 +6,13 @@ private ["_poscrash","_markerX","_positionX","_mrkFinal","_typeVehX","_effect","
 _markerX = _this select 0;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _tsk1 = "";
 _positionX = getMarkerPos _markerX;
-_lado = if (lados getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
+_lado = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
 _posHQ = getMarkerPos respawnTeamPlayer;
 
 _timeLimit = 120;

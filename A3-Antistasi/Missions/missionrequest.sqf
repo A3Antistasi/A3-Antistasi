@@ -17,8 +17,8 @@ if ([_tipo] call BIS_fnc_taskExists) exitWith {if (!_silencio) then {[petros,"gl
 if (_tipo == "AS") then
 	{
 	_sites = airportsX + citiesX + (controlsX select {!(isOnRoad getMarkerPos _x)});
-	_sites = _sites select {lados getVariable [_x,sideUnknown] != teamPlayer};
-	if ((count _sites > 0) and ({lados getVariable [_x,sideUnknown] == Occupants} count airportsX > 0)) then
+	_sites = _sites select {sidesX getVariable [_x,sideUnknown] != teamPlayer};
+	if ((count _sites > 0) and ({sidesX getVariable [_x,sideUnknown] == Occupants} count airportsX > 0)) then
 		{
 		//_potentials = _sites select {((getMarkerPos _x distance _posbase < distanceMission) and (not(spawner getVariable _x)))};
 		for "_i" from 0 to ((count _sites) - 1) do
@@ -29,7 +29,7 @@ if (_tipo == "AS") then
 				{
 				if (_sitio in controlsX) then
 					{
-					_markersX = markersX select {(getMarkerPos _x distance _pos < distanceSPWN) and (lados getVariable [_x,sideUnknown] == teamPlayer)};
+					_markersX = markersX select {(getMarkerPos _x distance _pos < distanceSPWN) and (sidesX getVariable [_x,sideUnknown] == teamPlayer)};
 					_markersX = _markersX - ["Synd_HQ"];
 					_frontierX = if (count _markersX > 0) then {true} else {false};
 					if (_frontierX) then
@@ -61,7 +61,7 @@ if (_tipo == "AS") then
 if (_tipo == "CON") then
 	{
 	_sites = (controlsX select {(isOnRoad (getMarkerPos _x))})+ outposts + resourcesX;
-	_sites = _sites select {lados getVariable [_x,sideUnknown] != teamPlayer};
+	_sites = _sites select {sidesX getVariable [_x,sideUnknown] != teamPlayer};
 	if (count _sites > 0) then
 		{
 		_potentials = _sites select {(getMarkerPos _x distance _posbase < distanceMission)};
@@ -82,7 +82,7 @@ if (_tipo == "CON") then
 	};
 if (_tipo == "DES") then
 	{
-	_sites = airportsX select {lados getVariable [_x,sideUnknown] != teamPlayer};
+	_sites = airportsX select {sidesX getVariable [_x,sideUnknown] != teamPlayer};
 	_sites = _sites + antennas;
 	if (count _sites > 0) then
 		{
@@ -99,7 +99,7 @@ if (_tipo == "DES") then
 				else
 					{
 					_nearX = [markersX, getPos _sitio] call BIS_fnc_nearestPosition;
-					if (lados getVariable [_nearX,sideUnknown] == Occupants) then {_potentials pushBack _sitio};
+					if (sidesX getVariable [_nearX,sideUnknown] == Occupants) then {_potentials pushBack _sitio};
 					};
 				};
 			};
@@ -122,7 +122,7 @@ if (_tipo == "DES") then
 if (_tipo == "LOG") then
 	{
 	_sites = outposts + citiesX - destroyedCities;
-	_sites = _sites select {lados getVariable [_x,sideUnknown] != teamPlayer};
+	_sites = _sites select {sidesX getVariable [_x,sideUnknown] != teamPlayer};
 	if (random 100 < 20) then {_sites = _sites + banks};
 	if (count _sites > 0) then
 		{
@@ -157,7 +157,7 @@ if (_tipo == "LOG") then
 			if (_sitio in banks) then
 				{
 				_city = [citiesX, _pos] call BIS_fnc_nearestPosition;
-				if (lados getVariable [_city,sideUnknown] == teamPlayer) then {_potentials = _potentials - [_sitio]};
+				if (sidesX getVariable [_city,sideUnknown] == teamPlayer) then {_potentials = _potentials - [_sitio]};
 				};
 			};
 		};
@@ -180,7 +180,7 @@ if (_tipo == "LOG") then
 if (_tipo == "RES") then
 	{
 	_sites = airportsX + outposts + citiesX;
-	_sites = _sites select {lados getVariable [_x,sideUnknown] != teamPlayer};
+	_sites = _sites select {sidesX getVariable [_x,sideUnknown] != teamPlayer};
 	if (count _sites > 0) then
 		{
 		for "_i" from 0 to ((count _sites) - 1) do
@@ -209,7 +209,7 @@ if (_tipo == "CONVOY") then
 	if (!bigAttackInProgress) then
 		{
 		_sites = (airportsX + resourcesX + factories + seaports + outposts - blackListDest) + (citiesX select {count (garrison getVariable [_x,[]]) < 10});
-		_sites = _sites select {(lados getVariable [_x,sideUnknown] != teamPlayer) and !(_x in blackListDest)};
+		_sites = _sites select {(sidesX getVariable [_x,sideUnknown] != teamPlayer) and !(_x in blackListDest)};
 		if (count _sites > 0) then
 			{
 			for "_i" from 0 to ((count _sites) - 1) do
@@ -219,9 +219,9 @@ if (_tipo == "CONVOY") then
 				_base = [_sitio] call A3A_fnc_findBasesForConvoy;
 				if ((_pos distance _posbase < (distanceMission*2)) and (_base !="")) then
 					{
-					if ((_sitio in citiesX) and (lados getVariable [_sitio,sideUnknown] == teamPlayer)) then
+					if ((_sitio in citiesX) and (sidesX getVariable [_sitio,sideUnknown] == teamPlayer)) then
 						{
-						if (lados getVariable [_base,sideUnknown] == Occupants) then
+						if (sidesX getVariable [_base,sideUnknown] == Occupants) then
 							{
 							_dataX = server getVariable _sitio;
 							_prestigeOPFOR = _dataX select 2;
@@ -234,7 +234,7 @@ if (_tipo == "CONVOY") then
 						}
 					else
 						{
-						if (((lados getVariable [_sitio,sideUnknown] == Occupants) and (lados getVariable [_base,sideUnknown] == Occupants)) or ((lados getVariable [_sitio,sideUnknown] == ) and (lados getVariable [_base,sideUnknown] == ))) then {_potentials pushBack _sitio};
+						if (((sidesX getVariable [_sitio,sideUnknown] == Occupants) and (sidesX getVariable [_base,sideUnknown] == Occupants)) or ((sidesX getVariable [_sitio,sideUnknown] == ) and (sidesX getVariable [_base,sideUnknown] == ))) then {_potentials pushBack _sitio};
 						};
 					};
 				};

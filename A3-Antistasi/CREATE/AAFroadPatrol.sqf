@@ -6,7 +6,7 @@ _groups = [];
 _base = "";
 _roads = [];
 
-_arrayAirports = if (hasIFA) then {(airportsX + outposts) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != teamPlayer)}} else {(seaports + airportsX + outposts) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != teamPlayer)}};
+_arrayAirports = if (hasIFA) then {(airportsX + outposts) select {((spawner getVariable _x != 0)) and (sidesX getVariable [_x,sideUnknown] != teamPlayer)}} else {(seaports + airportsX + outposts) select {((spawner getVariable _x != 0)) and (sidesX getVariable [_x,sideUnknown] != teamPlayer)}};
 
 _arrayAirports1 = [];
 if !(isMultiplayer) then
@@ -32,7 +32,7 @@ _base = selectRandom _arrayAirports1;
 _typeCar = "";
 _lado = Occupants;
 _typePatrol = "LAND";
-if (lados getVariable [_base,sideUnknown] == Occupants) then
+if (sidesX getVariable [_base,sideUnknown] == Occupants) then
 	{
 	if ((_base in seaports) and ([vehNATOBoat] call A3A_fnc_vehAvailable)) then
 		{
@@ -72,7 +72,7 @@ _posbase = getMarkerPos _base;
 
 if (_typePatrol == "AIR") then
 	{
-	_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
+	_arrayDestinations = markersX select {sidesX getVariable [_x,sideUnknown] == _lado};
 	_distanceX = 200;
 	}
 else
@@ -84,7 +84,7 @@ else
 		}
 	else
 		{
-		_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
+		_arrayDestinations = markersX select {sidesX getVariable [_x,sideUnknown] == _lado};
 		_arrayDestinations = [_arrayDestinations,_posBase] call A3A_fnc_patrolDestinations;
 		_distanceX = 50;
 		};
@@ -165,7 +165,7 @@ while {alive _veh} do
 	if !(_veh distance _posDestination < _distanceX) exitWith {};
 	if (_typePatrol == "AIR") then
 		{
-		_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
+		_arrayDestinations = markersX select {sidesX getVariable [_x,sideUnknown] == _lado};
 		}
 	else
 		{
@@ -175,7 +175,7 @@ while {alive _veh} do
 			}
 		else
 			{
-			_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
+			_arrayDestinations = markersX select {sidesX getVariable [_x,sideUnknown] == _lado};
 			_arrayDestinations = [_arrayDestinations,position _veh] call A3A_fnc_patrolDestinations;
 			};
 		};

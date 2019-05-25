@@ -6,12 +6,12 @@ private ["_markerX","_positionX","_dateLimit","_dateLimitNum","_nameDest","_type
 _markerX = _this select 0;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _positionX = getMarkerPos _markerX;
-_lado = if (lados getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
+_lado = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
 _timeLimit = if (_difficultX) then {30} else {120};
 if (hasIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];

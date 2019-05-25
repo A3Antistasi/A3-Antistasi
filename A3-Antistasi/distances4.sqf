@@ -53,7 +53,7 @@ _markerX = _x;
 
 _positionMRK = getMarkerPos (_markerX);
 
-if (lados getVariable [_markerX,sideUnknown] == Occupants) then
+if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then
 	{
 	if (spawner getVariable _markerX != 0) then
 		{
@@ -120,7 +120,7 @@ if (lados getVariable [_markerX,sideUnknown] == Occupants) then
 	}
 else
 	{
-	if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+	if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 		{
 		if (spawner getVariable _markerX != 0) then
 			{

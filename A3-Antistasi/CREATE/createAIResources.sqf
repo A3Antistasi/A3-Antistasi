@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_vehiclesX","_groups","_soldiers","_civs","_positionX","_pos","_typeGroup","_typeCiv","_size","_mrk","_ang","_countX","_group","_veh","_civ","_frontierX","_flagX","_dog","_garrison","_lado","_cfg","_esFIA","_roads","_dist","_road","_roadscon","_roadcon","_dirveh","_bunker","_typeVehX","_typeUnit","_unit","_typeGroup","_stance"];
+private ["_markerX","_vehiclesX","_groups","_soldiers","_civs","_positionX","_pos","_typeGroup","_typeCiv","_size","_mrk","_ang","_countX","_group","_veh","_civ","_frontierX","_flagX","_dog","_garrison","_lado","_cfg","_isFIA","_roads","_dist","_road","_roadscon","_roadcon","_dirveh","_bunker","_typeVehX","_typeUnit","_unit","_typeGroup","_stance"];
 
 _markerX = _this select 0;
 
@@ -17,13 +17,13 @@ _frontierX = [_markerX] call A3A_fnc_isFrontline;
 
 _lado = ;
 
-_esFIA = false;
-if (lados getVariable [_markerX,sideUnknown] == Occupants) then
+_isFIA = false;
+if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then
 	{
 	_lado = Occupants;
 	if ((random 10 <= (tierWar + difficultyCoef)) and !(_frontierX)) then
 		{
-		_esFIA = true;
+		_isFIA = true;
 		};
 	};
 _roads = _positionX nearRoads _size;
@@ -39,7 +39,7 @@ if ((spawner getVariable _markerX != 2) and _frontierX) then
 	{
 	if (count _roads != 0) then
 		{
-		if (!_esFIA) then
+		if (!_isFIA) then
 			{
 			_group = createGroup _lado;
 			_groups pushBack _group;
@@ -98,7 +98,7 @@ if (_tam < ([_markerX] call A3A_fnc_garrisonSize)) then
 	}
 else
 	{
-	if ({if ((getMarkerPos _x inArea _mrk) and (lados getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count markersX > 0) then {_patrol = false};
+	if ({if ((getMarkerPos _x inArea _mrk) and (sidesX getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count markersX > 0) then {_patrol = false};
 	};
 if (_patrol) then
 	{
@@ -107,7 +107,7 @@ if (_patrol) then
 		{
 		_arraygroups = if (_lado == Occupants) then
 			{
-			if (!_esFIA) then {groupsNATOsmall} else {groupsFIASmall};
+			if (!_isFIA) then {groupsNATOsmall} else {groupsFIASmall};
 			}
 		else
 			{
@@ -177,7 +177,7 @@ if (count _pos > 0) then
 	{
 	_typeVehX = if (_lado == Occupants) then
 		{
-		if (!_esFIA) then {vehNATOTrucks} else {[vehFIATruck]};
+		if (!_isFIA) then {vehNATOTrucks} else {[vehFIATruck]};
 		}
 	else
 		{

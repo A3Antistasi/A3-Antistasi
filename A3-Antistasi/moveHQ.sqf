@@ -14,7 +14,7 @@ if (isMultiplayer) then
 	caja hideObjectGlobal true;
 	vehicleBox hideObjectGlobal true;
 	mapa hideObjectGlobal true;
-	fuego hideObjectGlobal true;
+	fireX hideObjectGlobal true;
 	flagX hideObjectGlobal true;
 	}
 else
@@ -22,11 +22,11 @@ else
 	caja hideObject true;
 	vehicleBox hideObject true;
 	mapa hideObject true;
-	fuego hideObject true;
+	fireX hideObject true;
 	flagX hideObject true;
 	};
 
-fuego inflame false;
+fireX inflame false;
 
 //respawnTeamPlayer setMarkerPos [0,0,0];
 respawnTeamPlayer setMarkerAlpha 0;

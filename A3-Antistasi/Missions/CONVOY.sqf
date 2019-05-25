@@ -5,20 +5,20 @@ _destinationX = _this select 0;
 _base = _this select 1;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _tsk1 = "";
 _dateLimitNum = 0;
-_esFIA = false;
-_lado = if (lados getVariable [_base,sideUnknown] == Occupants) then {Occupants} else {};
+_isFIA = false;
+_lado = if (sidesX getVariable [_base,sideUnknown] == Occupants) then {Occupants} else {};
 
 if (_lado == Occupants) then
 	{
 	if ((random 10 >= tierWar) and !(_difficultX)) then
 		{
-		_esFIA = true;
+		_isFIA = true;
 		};
 	};
 
@@ -51,7 +51,7 @@ else
 	{
 	if (_destinationX in citiesX) then
 		{
-		if (lados getVariable [_destinationX,sideUnknown] == Occupants) then {_typeConvoy = ["Supplies"]} else {_typeConvoy = ["Supplies"]}
+		if (sidesX getVariable [_destinationX,sideUnknown] == Occupants) then {_typeConvoy = ["Supplies"]} else {_typeConvoy = ["Supplies"]}
 		}
 	else
 		{
@@ -143,7 +143,7 @@ else
 	};
 _group = createGroup _lado;
 _groups pushBack _group;
-_typeVehX = if (_lado == Occupants) then {if (!_esFIA) then {selectRandom vehNATOLightArmed} else {vehPoliceCar}} else {selectRandom vehCSATLightArmed};
+_typeVehX = if (_lado == Occupants) then {if (!_isFIA) then {selectRandom vehNATOLightArmed} else {vehPoliceCar}} else {selectRandom vehCSATLightArmed};
 _timeOut = 0;
 _pos = _posOrig findEmptyPosition [0,100,_typeVehX];
 while {_timeOut < 60} do
@@ -172,8 +172,8 @@ _vehLead limitSpeed 50;
 
 _countX = 1;
 if (_difficultX) then {_countX =3} else {if ([_destinationX] call A3A_fnc_isFrontline) then {_countX = (round random 2) + 1}};
-_vehPool = if (_lado == Occupants) then {if (!_esFIA) then {vehNATOAttack} else {[vehFIAArmedCar,vehFIATruck,vehFIACar]}} else {vehCSATAttack};
-if (!_esFIA) then
+_vehPool = if (_lado == Occupants) then {if (!_isFIA) then {vehNATOAttack} else {[vehFIAArmedCar,vehFIATruck,vehFIACar]}} else {vehCSATAttack};
+if (!_isFIA) then
 	{
 	_rnd = random 100;
 	if (_lado == Occupants) then
@@ -222,7 +222,7 @@ for "_i" from 1 to _countX do
 	_vehiclesX pushBack _veh;
 	[_veh] call A3A_fnc_AIVEHinit;
 	if (_i == 1) then {_veh setConvoySeparation 60} else {_veh setConvoySeparation 20};
-	if (!_esFIA) then
+	if (!_isFIA) then
 		{
 		if (not(_typeVehEsc in vehTanks)) then
 			{
@@ -344,7 +344,7 @@ _vehiclesX pushBack _veh;
 //_veh forceFollowRoad true;
 _veh setConvoySeparation 20;
 //_veh limitSpeed 50;
-if (!_esFIA) then
+if (!_isFIA) then
 	{
 	if (not(_typeVehEsc in vehTanks)) then
 		{
@@ -517,7 +517,7 @@ if (_tipoConvoy == "reinforcementsX") then
 		_countX = {alive _x} count _reinforcementsX;
 		if (_countX > 8) then {_taskState1 = "SUCCEEDED"} else {_taskState = "FAILED"};
 		[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
-		if (lados getVariable [_destinationX,sideUnknown] != teamPlayer) then
+		if (sidesX getVariable [_destinationX,sideUnknown] != teamPlayer) then
 			{
 			_tipos = [];
 			{_tipos pushBack (typeOf _x)} forEach (_reinforcementsX select {alive _x});

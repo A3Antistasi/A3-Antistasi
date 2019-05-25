@@ -148,8 +148,8 @@ if ([_markerX,false] call A3A_fnc_fogCheck > 0.2) then
 						_veh = _this select 0;
 						if (side(_this select 3) == teamPlayer) then
 							{
-							_condu = driver _veh;
-							if (side _condu == civilian) then {_condu leaveVehicle _veh};
+							_driverX = driver _veh;
+							if (side _driverX == civilian) then {_driverX leaveVehicle _veh};
 							};
 						}
 						];

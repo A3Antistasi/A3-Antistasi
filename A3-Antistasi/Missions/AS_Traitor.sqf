@@ -4,7 +4,7 @@ if (!isServer and hasInterface) exitWith{};
 _markerX = _this select 0;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -18,14 +18,14 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _tam = [_markerX] call A3A_fnc_sizeMarker;
-_casas = (nearestObjects [_positionX, ["house"], _tam]) select {!((typeOf _x) in UPSMON_Bld_remove)};
+_houses = (nearestObjects [_positionX, ["house"], _tam]) select {!((typeOf _x) in UPSMON_Bld_remove)};
 _posHouse = [];
-_casa = _casas select 0;
+_casa = _houses select 0;
 while {count _posHouse < 3} do
 	{
-	_casa = _casas call BIS_Fnc_selectRandom;
+	_casa = _houses call BIS_Fnc_selectRandom;
 	_posHouse = _casa buildingPos -1;
-	if (count _posHouse < 3) then {_casas = _casas - [_casa]};
+	if (count _posHouse < 3) then {_houses = _houses - [_casa]};
 	};
 
 _max = (count _posHouse) - 1;
@@ -38,7 +38,7 @@ _nameDest = [_markerX] call A3A_fnc_localizar;
 
 _groupTraitor = createGroup Occupants;
 
-_arrayAirports = airportsX select {lados getVariable [_x,sideUnknown] == Occupants};
+_arrayAirports = airportsX select {sidesX getVariable [_x,sideUnknown] == Occupants};
 _base = [_arrayAirports, _positionX] call BIS_Fnc_nearestPosition;
 _posBase = getMarkerPos _base;
 

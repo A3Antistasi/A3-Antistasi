@@ -118,19 +118,19 @@ while {true} do
 			};
 		if (!(isNull _aire) and !(isNull _tanksX)) exitWith {};
 		} forEach _objectivesX;
-		_lider = leader _group;
-		_allNearFriends = allUnits select {(_x distance _lider < (distanceSPWN/2)) and (side _x in _friendlies) and ([_x] call A3A_fnc_canFight)};
+		_LeaderX = leader _group;
+		_allNearFriends = allUnits select {(_x distance _LeaderX < (distanceSPWN/2)) and (side _x in _friendlies) and ([_x] call A3A_fnc_canFight)};
 		{
 		_unit = _x;
 		{
 		_objectiveX = _x select 4;
-		if (_lider knowsAbout _objectiveX >= 1.4) then
+		if (_LeaderX knowsAbout _objectiveX >= 1.4) then
 			{
 			_know = _unit knowsAbout _objectiveX;
 			if (_know < 1.2) then {_unit reveal [_objectiveX,(_know + 0.2)]};
 			};
 		} forEach _objectivesX;
-		} forEach (_allNearFriends select {_x == leader _x}) - [_lider];
+		} forEach (_allNearFriends select {_x == leader _x}) - [_LeaderX];
 		_numNearFriends = count _allNearFriends;
 		_aire = objNull;
 		_tanksX = objNull;
@@ -143,7 +143,7 @@ while {true} do
 			{
 			if ({(_x call A3A_fnc_typeOfSoldier == "AAMan") or (_x call A3A_fnc_typeOfSoldier == "StaticGunner")} count _allNearFriends == 0) then
 				{
-				if (_lado != teamPlayer) then {[[getPosASL _lider,_lado,"Air",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
+				if (_lado != teamPlayer) then {[[getPosASL _LeaderX,_lado,"Air",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
 				};
 			//_nuevaTarea = ["Hide",_soldiers - (_soldiers select {(_x call A3A_fnc_typeOfSoldier == "AAMan") or (_x getVariable ["typeOfSoldier",""] == "StaticGunner")})];
 			_group setVariable ["tarea","Hide"];
@@ -160,7 +160,7 @@ while {true} do
 					}
 				else
 					{
-					if (_lado != teamPlayer) then {[[getPosASL _lider,_lado,"Tank",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
+					if (_lado != teamPlayer) then {[[getPosASL _LeaderX,_lado,"Tank",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
 					};
 				};
 			//_nuevaTarea = ["Hide",_soldiers - (_soldiers select {(_x getVariable ["typeOfSoldier",""] == "ATMan")})];
@@ -171,7 +171,7 @@ while {true} do
 			{
 			if !(isNull _nearX) then
 				{
-				if (_lado != teamPlayer) then {[[getPosASL _lider,_lado,"Normal",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
+				if (_lado != teamPlayer) then {[[getPosASL _LeaderX,_lado,"Normal",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
 				_mortarX = _group getVariable ["mortarsX",objNull];
 				if (!(isNull _mortarX) and ([_mortarX] call A3A_fnc_canFight)) then
 					{
@@ -185,7 +185,7 @@ while {true} do
 
 		if (_tarea == "Patrol") then
 			{
-			if ((_nearX distance _lider < 150) and !(isNull _nearX)) then
+			if ((_nearX distance _LeaderX < 150) and !(isNull _nearX)) then
 				{
 				_group setVariable ["tarea","Assault"];
 				_tarea = "Assault";
@@ -205,14 +205,14 @@ while {true} do
 
 		if (_tarea == "Assault") then
 			{
-			if (_nearX distance _lider < 50) then
+			if (_nearX distance _LeaderX < 50) then
 				{
 				_group setVariable ["tarea","AssaultClose"];
 				_tarea = "AssaultClose";
 				}
 			else
 				{
-				if (_nearX distance _lider > 150) then
+				if (_nearX distance _LeaderX > 150) then
 					{
 					_group setVariable ["tarea","Patrol"];
 					}
@@ -235,13 +235,13 @@ while {true} do
 
 		if (_tarea == "AssaultClose") then
 			{
-			if (_nearX distance _lider > 150) then
+			if (_nearX distance _LeaderX > 150) then
 				{
 				_group setVariable ["tarea","Patrol"];
 				}
 			else
 				{
-				if (_nearX distance _lider > 50) then
+				if (_nearX distance _LeaderX > 50) then
 					{
 					_group setVariable ["tarea","Assault"];
 					}

@@ -34,8 +34,8 @@ while {alive _veh} do
 	sleep 60;
 	_newPos = getPos _veh;
 
-	_condu = driver _veh;
-	if ((_newPos distance _pos < 5) and (_text != "Supply Box") and !(isNull _condu)) then
+	_driverX = driver _veh;
+	if ((_newPos distance _pos < 5) and (_text != "Supply Box") and !(isNull _driverX)) then
 		{
 		if (_veh isKindOf "Air") then
 			{
@@ -57,8 +57,8 @@ while {alive _veh} do
 					_puentes = nearestObjects [_newPos, ["Land_Bridge_01_PathLod_F","Land_Bridge_Asphalt_PathLod_F","Land_Bridge_Concrete_PathLod_F","Land_Bridge_HighWay_PathLod_F","Land_BridgeSea_01_pillar_F","Land_BridgeWooden_01_pillar_F"], 50];
 					if !(_puentes isEqualTo []) then
 						{
-						_nextWaypoint = currentWaypoint (group _condu);
-						_wpPos = waypointPosition ((waypoints (group _condu)) select _nextWaypoint);
+						_nextWaypoint = currentWaypoint (group _driverX);
+						_wpPos = waypointPosition ((waypoints (group _driverX)) select _nextWaypoint);
 						_ang = [_newPos, _wpPos] call BIS_fnc_DirTo;
 						_newPos = _newPos getPos [100,_ang];
 						};

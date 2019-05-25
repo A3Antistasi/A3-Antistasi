@@ -1,4 +1,4 @@
-private ["_unit","_group","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_ayudado","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_unit","_group","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_helped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
 //if (_unit getVariable "inconsciente") exitWith {};
 //if (damage _unit < 0.9) exitWith {};
@@ -66,7 +66,7 @@ else
 			_markerX = _unit getVariable ["markerX",""];
 			if (_markerX != "") then
 				{
-				if (!([_markerX] call BIS_fnc_taskExists) and (lados getVariable [_markerX,sideUnknown] == teamPlayer)) then {[_markerX,_injurer,teamPlayer] remoteExec ["A3A_fnc_underAttack",2]};
+				if (!([_markerX] call BIS_fnc_taskExists) and (sidesX getVariable [_markerX,sideUnknown] == teamPlayer)) then {[_markerX,_injurer,teamPlayer] remoteExec ["A3A_fnc_underAttack",2]};
 				};
 			};
 		};
@@ -98,24 +98,24 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 	if (random 10 < 1) then {playSound3D [(injuredSounds call BIS_fnc_selectRandom),_unit,false, getPosASL _unit, 1, 1, 50];};
 	if (_isPlayer) then
 		{
-		_ayudado = _unit getVariable ["ayudado",objNull];
-		if (isNull _ayudado) then
+		_helped = _unit getVariable ["helped",objNull];
+		if (isNull _helped) then
 			{
-			_ayuda = [_unit] call A3A_fnc_askHelp;
-			if (isNull _ayuda) then
+			_helpX = [_unit] call A3A_fnc_askHelp;
+			if (isNull _helpX) then
 				{
 				_texto = format ["<t size='0.6'>There is no AI near to help you.<t size='0.5'><br/>Hit R to Respawn"];
 				}
 			else
 				{
-				if (_ayuda != _unit) then {_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _ayuda]} else {_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
+				if (_helpX != _unit) then {_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX]} else {_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
 				};
 			}
 		else
 			{
-			if (!isNil "_ayuda") then
+			if (!isNil "_helpX") then
 				{
-				if (!isNull _ayuda) then {_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _ayuda]} else {_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
+				if (!isNull _helpX) then {_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX]} else {_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
 				}
 			else
 				{
@@ -131,14 +131,14 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 			{
 			if (autoheal) then
 				{
-				_ayudado = _unit getVariable ["ayudado",objNull];
-				if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
+				_helped = _unit getVariable ["helped",objNull];
+				if (isNull _helped) then {[_unit] call A3A_fnc_askHelp;};
 				};
 			}
 		else
 			{
-			_ayudado = _unit getVariable ["ayudado",objNull];
-			if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
+			_helped = _unit getVariable ["helped",objNull];
+			if (isNull _helped) then {[_unit] call A3A_fnc_askHelp;};
 			};
 		};
 	sleep 3;

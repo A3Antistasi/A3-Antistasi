@@ -23,7 +23,7 @@ _positionTel = positionTel;
 
 if (count _positionTel > 0) then
 	{
-	_mrkENY = markersX select {lados getVariable [_x,sideUnknown] != _lado};
+	_mrkENY = markersX select {sidesX getVariable [_x,sideUnknown] != _lado};
 	_markersX = +markersX;
 	_mrkRespawn = "";
 	if (_lado == Occupants) then
@@ -38,7 +38,7 @@ if (count _positionTel > 0) then
 		};
 	_base = [_markersX, _positionTel] call BIS_Fnc_nearestPosition;
 
-	if ((lados getVariable [_base,sideUnknown] == teamPlayer) or (_base in _mrkENY)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
+	if ((sidesX getVariable [_base,sideUnknown] == teamPlayer) or (_base in _mrkENY)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
 	if ((!(_base in airportsX)) and (!(_base in seaports)) and (!(_base in outposts)) and (_base != _mrkRespawn)) exitWith {hint "You can only Fast Travel to Airbases, Outposts and Seaports"; openMap [false,false]};
 

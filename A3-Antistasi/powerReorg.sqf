@@ -18,9 +18,9 @@ if (_power == _markerX) then
 	else
 		{
 		//_powered = _dataX select 4;
-		if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+		if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 			{
-			if (lados getVariable [_city,sideUnknown] == teamPlayer) then
+			if (sidesX getVariable [_city,sideUnknown] == teamPlayer) then
 				{
 				//hint format ["You achieved to bring power to %1, more people there supports our cause",_city];
 				//[-10,10,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
@@ -36,7 +36,7 @@ if (_power == _markerX) then
 			}
 		else
 			{
-			if (lados getVariable [_city,sideUnknown] == teamPlayer) then
+			if (sidesX getVariable [_city,sideUnknown] == teamPlayer) then
 				{
 				//hint format ["AAF has cut off power to %1, less people there supports our cause",_city];
 				//[0,-10,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
@@ -64,9 +64,9 @@ if (_power == _markerX) then
 		}
 	else
 		{
-		if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+		if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 			{
-			if (lados getVariable [_sitio,sideUnknown] == Occupants) then
+			if (sidesX getVariable [_sitio,sideUnknown] == Occupants) then
 				{
 				//_city = [citiesX,_pos] call BIS_fnc_nearestPosition;
 				//hint format ["You cutted off power to AAF resources near %1. They will be less productive from now",_city];
@@ -75,7 +75,7 @@ if (_power == _markerX) then
 			}
 		else
 			{
-			if (lados getVariable [_sitio,sideUnknown] == teamPlayer) then
+			if (sidesX getVariable [_sitio,sideUnknown] == teamPlayer) then
 				{
 				//_city = [citiesX,_pos] call BIS_fnc_nearestPosition;
 				//hint format ["AAF cutted off power supply to our resources near %1. They will be less productive from now",_city];

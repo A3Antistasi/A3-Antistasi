@@ -79,8 +79,8 @@ if (_part == "") then
 				{
 				if (autoheal) then
 					{
-					_ayudado = _unit getVariable ["ayudado",objNull];
-					if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
+					_helped = _unit getVariable ["helped",objNull];
+					if (isNull _helped) then {[_unit] call A3A_fnc_askHelp;};
 					};
 				}
 			else

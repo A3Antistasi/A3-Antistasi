@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {false};
-private ["_markerX","_base","_posbase","_posMarker","_angOrig","_ang","_attempts","_distanceX","_pos","_fallo","_mina"];
+private ["_markerX","_base","_posbase","_posMarker","_angOrig","_ang","_attempts","_distanceX","_pos","_failure","_mina"];
 
 _markerX = _this select 0;
 
@@ -16,7 +16,7 @@ _attempts = 1;
 _distanceX = 500;
 
 _pos = [];
-_fallo = true;
+_failure = true;
 while {_attempts < 37} do
 	{
 	_pos = [_posbase, _distanceX, _ang] call BIS_Fnc_relPos;
@@ -33,23 +33,23 @@ while {_attempts < 37} do
 					{
 					if ({_x distance _pos < 100} count allMines == 0) then
 						{
-						_fallo = false;
+						_failure = false;
 						};
 					};
 				};
 			};
 		};
-	if (!_fallo) exitWith {};
+	if (!_failure) exitWith {};
 	_attempts = _attempts + 1;
 	_ang = _ang - 10;
 	};
 
-if (_fallo) exitWith {false};
+if (_failure) exitWith {false};
 
 for "_i" from 1 to 60 do
 	{
 	_mina = createMine ["APERSMine",_pos,[],100];
-	if (lados getVariable [_markerX,sideUnknown] == Occupants) then {Occupants revealMine _mina} else { revealMine _mina};
+	if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants revealMine _mina} else { revealMine _mina};
 	};
 
 //[-4000] remoteExec ["resourcesAAF",2];

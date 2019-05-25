@@ -91,7 +91,7 @@ _garrisoned = true;
 if (isNil "_markerX") then {_markerX = _muerto getVariable ["originX",""]; _garrisoned = false};
 if (_markerX != "") then
 	{
-	if (lados getVariable [_markerX,sideUnknown] == _lado) then
+	if (sidesX getVariable [_markerX,sideUnknown] == _lado) then
 		{
 		[typeOf _muerto,_lado,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
 		if (_garrisoned) then {[_markerX,_lado] remoteExec ["A3A_fnc_zoneCheck",2]};

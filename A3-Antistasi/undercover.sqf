@@ -53,7 +53,7 @@ if ({((side _x== ) or (side _x== Occupants)) and (((_x knowsAbout _player > 1.4)
 
 _base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 _size = [_base] call A3A_fnc_sizeMarker;
-if ((_player distance getMarkerPos _base < _size*2) and (not(lados getVariable [_base,sideUnknown] == teamPlayer))) exitWith {hint "You cannot go Undercover near Airports, Outposts or Roadblocks"};
+if ((_player distance getMarkerPos _base < _size*2) and (not(sidesX getVariable [_base,sideUnknown] == teamPlayer))) exitWith {hint "You cannot go Undercover near Airports, Outposts or Roadblocks"};
 
 ["Undercover ON",0,0,4,0,0,4] spawn bis_fnc_dynamicText;
 
@@ -131,11 +131,11 @@ while {_changeX == ""} do
 				{
 				_base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 				//_size = [_base] call A3A_fnc_sizeMarker;
-				if ((_player inArea _base) and (lados getVariable [_base,sideUnknown] != teamPlayer)) then
+				if ((_player inArea _base) and (sidesX getVariable [_base,sideUnknown] != teamPlayer)) then
 					{
 					if !(_isInControl) then
 						{
-						_aggro = if (lados getVariable [_base,sideUnknown] == Occupants) then {prestigeNATO} else {prestigeCSAT};
+						_aggro = if (sidesX getVariable [_base,sideUnknown] == Occupants) then {prestigeNATO} else {prestigeCSAT};
 						if (random 100 < _aggro) then
 							{
 							_changeX = "Control";
@@ -157,7 +157,7 @@ while {_changeX == ""} do
 					{
 					_base = [_airportsX1,_player] call BIS_fnc_nearestPosition;
 					_size = [_base] call A3A_fnc_sizeMarker;
-					if ((_player distance2d getMarkerPos _base < _size*3) and ((lados getVariable [_base,sideUnknown] == Occupants) or (lados getVariable [_base,sideUnknown] == ))) then
+					if ((_player distance2d getMarkerPos _base < _size*3) and ((sidesX getVariable [_base,sideUnknown] == Occupants) or (sidesX getVariable [_base,sideUnknown] == ))) then
 						{
 						_changeX = "NoFly";
 						};

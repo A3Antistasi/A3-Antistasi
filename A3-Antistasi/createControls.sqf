@@ -35,13 +35,13 @@ if (_posroad distance _pos > 400) then
                         _mrk setMarkerColor colourTeamPlayer;
                         _mrk setMarkerText _nameX;
                         if (not debug) then {_mrk setMarkerAlpha 0};
-                        if (lados getVariable [_markerX,sideUnknown] == Occupants) then
+                        if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then
                                 {
-                                lados setVariable [_nameX,Occupants,true];
+                                sidesX setVariable [_nameX,Occupants,true];
                                 }
                         else
                                 {
-                                if (lados getVariable [_markerX,sideUnknown] == ) then {lados setVariable [_nameX,,true]} else {lados setVariable [_nameX,teamPlayer,true]};
+                                if (sidesX getVariable [_markerX,sideUnknown] == ) then {sidesX setVariable [_nameX,,true]} else {sidesX setVariable [_nameX,teamPlayer,true]};
                                 };
                         controlsX pushBackUnique _nameX;
                         markersX pushBackUnique _nameX;

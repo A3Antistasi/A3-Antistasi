@@ -6,7 +6,7 @@ private ["_unit","_markerX","_positionX","_countX"];
 _markerX = _this select 0;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -26,13 +26,13 @@ _nameDest = [_markerX] call A3A_fnc_localizar;
 missionsX pushBack ["RES","CREATED"]; publicVariable "missionsX";
 _posHouse = [];
 _countX = 0;
-//_casas = nearestObjects [_positionX, ["house"], 50];
-_casas = (nearestObjects [_positionX, ["house"], 50]) select {!((typeOf _x) in UPSMON_Bld_remove)};
+//_houses = nearestObjects [_positionX, ["house"], 50];
+_houses = (nearestObjects [_positionX, ["house"], 50]) select {!((typeOf _x) in UPSMON_Bld_remove)};
 _casa = "";
 _potentials = [];
-for "_i" from 0 to (count _casas) - 1 do
+for "_i" from 0 to (count _houses) - 1 do
 	{
-	_casa = (_casas select _i);
+	_casa = (_houses select _i);
 	_posHouse = [_casa] call BIS_fnc_buildingPositions;
 	if (count _posHouse > 1) then {_potentials pushBack _casa};
 	};

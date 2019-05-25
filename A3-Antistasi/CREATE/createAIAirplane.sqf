@@ -17,7 +17,7 @@ _frontierX = [_markerX] call A3A_fnc_isFrontline;
 _busy = if (dateToNumber date > server getVariable _markerX) then {false} else {true};
 _nVeh = round (_size/60);
 
-_lado = lados getVariable [_markerX,sideUnknown];
+_lado = sidesX getVariable [_markerX,sideUnknown];
 
 _positionXes = roadsX getVariable [_markerX,[]];
 _posMG = _positionXes select {(_x select 2) == "MG"};
@@ -101,7 +101,7 @@ if (_tam < ([_markerX] call A3A_fnc_garrisonSize)) then
 	}
 else
 	{
-	if ({if ((getMarkerPos _x inArea _mrk) and (lados getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count markersX > 0) then {_patrol = false};
+	if ({if ((getMarkerPos _x inArea _mrk) and (sidesX getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count markersX > 0) then {_patrol = false};
 	};
 if (_patrol) then
 	{

@@ -53,7 +53,7 @@ if (spawner getVariable _markerX != 2) then
 	};
 if (dateToNumber date > _dateLimitNum) then
 	{
-	if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+	if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 		{
 		["REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Tower Rebuild Disrupt",_markerX],_positionX,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
 		[2,0] remoteExec ["A3A_fnc_prestige",2];

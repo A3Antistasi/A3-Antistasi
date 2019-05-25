@@ -1,9 +1,9 @@
 {
 _lado = _x;
 _accelerator = if (_lado == Occupants) then {if (tierWar == 1) then {0} else {1+((tierWar + difficultyCoef)/20)}} else {1.2+((tierWar + difficultyCoef)/20)};
-_airbases = {lados getVariable [_x,sideUnknown] == _lado} count airportsX;
-_outposts =  {lados getVariable [_x,sideUnknown] == _lado} count outposts;
-_seaports = {lados getVariable [_x,sideUnknown] == _lado} count seaports;
+_airbases = {sidesX getVariable [_x,sideUnknown] == _lado} count airportsX;
+_outposts =  {sidesX getVariable [_x,sideUnknown] == _lado} count outposts;
+_seaports = {sidesX getVariable [_x,sideUnknown] == _lado} count seaports;
 //at
 _maxItems = (_outposts * 0.2) + (_airbases * 0.5);
 _tipo = if (_lado == Occupants) then {staticATOccupants} else {staticATInvaders};

@@ -1,5 +1,5 @@
 if (isDedicated) exitWith {};
-private ["_lider"];
+private ["_LeaderX"];
 if (count _this == 0) then
 	{
 	while {revealX} do
@@ -9,10 +9,10 @@ if (count _this == 0) then
 			if ([player] call A3A_fnc_hasRadio) then
 				{
 				{
-				_lider = leader _x;
-				if (((side _lider == ) or (side _lider == Occupants)) and (vehicle _lider != _lider) and (player knowsAbout _lider < 1.5)) then
+				_LeaderX = leader _x;
+				if (((side _LeaderX == ) or (side _LeaderX == Occupants)) and (vehicle _LeaderX != _LeaderX) and (player knowsAbout _LeaderX < 1.5)) then
 					{
-					player reveal [_lider,4];
+					player reveal [_LeaderX,4];
 					sleep 1;
 					};
 				} forEach allGroups;
@@ -27,7 +27,7 @@ else
 	if (player == leader group player) then
 		{
 		_group = _this select 0;
-		_lider = leader _group;
-		player reveal [_lider,4];
+		_LeaderX = leader _group;
+		player reveal [_LeaderX,4];
 		};
 	};

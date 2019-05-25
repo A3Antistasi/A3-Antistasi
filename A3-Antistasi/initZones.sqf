@@ -168,14 +168,14 @@ if ((_nameX != "") and (_nameX != "Lakatoro01") and (_nameX != "Galili01") and (
     _dmrk setMarkerType "loc_Ruin";
     _dmrk setMarkerColor colorOccupants;
     if (_nroads < _numVeh) then {_numVeh = _nroads};
-    lados setVariable [_mrk,Occupants,true];
+    sidesX setVariable [_mrk,Occupants,true];
     _info = [_numCiv, _numVeh, prestigeOPFOR,prestigeBLUFOR];
     server setVariable [_nameX,_info,true];
     };
 }foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["NameCityCapital","NameCity","NameVillage","CityCenter"], 25000]);
 
 markersX = markersX + citiesX;
-lados setVariable ["Synd_HQ",teamPlayer,true];
+sidesX setVariable ["Synd_HQ",teamPlayer,true];
 //if !(isMultiplayer) then {call compile preprocessFileLineNumbers "initGarrisons.sqf"};
 
 antennasDead = [];

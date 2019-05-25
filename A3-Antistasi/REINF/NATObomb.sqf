@@ -1,7 +1,7 @@
 if (bombRuns < 1) exitWith {hint "You lack of enough Air Support to make this request"};
 //if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
 	if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hasIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
-if ({lados getVariable [_x,sideUnknown] == teamPlayer} count airportsX == 0) exitWith {hint "You need to control an airport in order to fulfill this request"};
+if ({sidesX getVariable [_x,sideUnknown] == teamPlayer} count airportsX == 0) exitWith {hint "You need to control an airport in order to fulfill this request"};
 _tipo = _this select 0;
 
 positionTel = [];

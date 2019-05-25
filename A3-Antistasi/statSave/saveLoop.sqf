@@ -18,17 +18,17 @@ if (!isDedicated) then
 			["personalGarage",_personalGarage] call fn_SaveStat;
 			_resourcesBackground = player getVariable "moneyX";
 			{
-			_amigo = _x;
-			if ((!isPlayer _amigo) and (alive _amigo)) then
+			_friendX = _x;
+			if ((!isPlayer _friendX) and (alive _friendX)) then
 				{
-				_resourcesBackground = _resourcesBackground + (server getVariable (typeOf _amigo));
-				if (vehicle _amigo != _amigo) then
+				_resourcesBackground = _resourcesBackground + (server getVariable (typeOf _friendX));
+				if (vehicle _friendX != _friendX) then
 					{
-					_veh = vehicle _amigo;
+					_veh = vehicle _friendX;
 					_typeVehX = typeOf _veh;
 					if (not(_veh in staticsToSave)) then
 						{
-						if ((_veh isKindOf "StaticWeapon") or (driver _veh == _amigo)) then
+						if ((_veh isKindOf "StaticWeapon") or (driver _veh == _friendX)) then
 							{
 							_resourcesBackground = _resourcesBackground + ([_typeVehX] call A3A_fnc_vehiclePrice);
 							if (count attachedObjects _veh != 0) then {{_resourcesBackground = _resourcesBackground + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
@@ -54,10 +54,10 @@ if (!isDedicated) then
 	["smallCAmrk", smallCAmrk] call fn_SaveStat;
 	["membersX", membersX] call fn_SaveStat;
 	["antennas", antennasDead] call fn_SaveStat;
-	//["mrkNATO", (markersX - controlsX) select {lados getVariable [_x,sideUnknown] == Occupants}] call fn_SaveStat;
-	["mrkSDK", (markersX - controlsX - outpostsFIA) select {lados getVariable [_x,sideUnknown] == teamPlayer}] call fn_SaveStat;
-	["mrkCSAT", (markersX - controlsX) select {lados getVariable [_x,sideUnknown] == }] call fn_SaveStat;
-	["posHQ", [getMarkerPos respawnTeamPlayer,getPos fuego,[getDir caja,getPos caja],[getDir mapa,getPos mapa],getPos flagX,[getDir vehicleBox,getPos vehicleBox]]] call fn_Savestat;
+	//["mrkNATO", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Occupants}] call fn_SaveStat;
+	["mrkSDK", (markersX - controlsX - outpostsFIA) select {sidesX getVariable [_x,sideUnknown] == teamPlayer}] call fn_SaveStat;
+	["mrkCSAT", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == }] call fn_SaveStat;
+	["posHQ", [getMarkerPos respawnTeamPlayer,getPos fireX,[getDir caja,getPos caja],[getDir mapa,getPos mapa],getPos flagX,[getDir vehicleBox,getPos vehicleBox]]] call fn_Savestat;
 	["prestigeNATO", prestigeNATO] call fn_SaveStat;
 	["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
 	["dateX", date] call fn_SaveStat;
@@ -77,7 +77,7 @@ if (!isDedicated) then
 	["weather",[fogParams,rain]] call fn_SaveStat;
 	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
 	//["firstLoad",false] call fn_SaveStat;
-private ["_hrBackground","_resourcesBackground","_veh","_typeVehX","_armas","_ammunition","_items","_backpcks","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_city","_dataX","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_posoutpost","_tipoMina","_posMina","_detected","_tipos","_exists","_amigo"];
+private ["_hrBackground","_resourcesBackground","_veh","_typeVehX","_armas","_ammunition","_items","_backpcks","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_city","_dataX","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_posoutpost","_tipoMina","_posMina","_detected","_tipos","_exists","_friendX"];
 
 _hrBackground = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["spawner",false]) and ((group _x in (hcAllGroups theBoss) or (isPlayer (leader _x))) and (side group _x == teamPlayer))} count allUnits);
 _resourcesBackground = server getVariable "resourcesFIA";
@@ -89,15 +89,15 @@ _backpcks = [];*/
 _vehInGarage = [];
 _vehInGarage = _vehInGarage + vehInGarage;
 {
-_amigo = _x;
-if ((_amigo getVariable ["spawner",false]) and (side group _amigo == teamPlayer))then
+_friendX = _x;
+if ((_friendX getVariable ["spawner",false]) and (side group _friendX == teamPlayer))then
 	{
-	if ((alive _amigo) and (!isPlayer _amigo)) then
+	if ((alive _friendX) and (!isPlayer _friendX)) then
 		{
-		if (((isPlayer leader _amigo) and (!isMultiplayer)) or (group _amigo in (hcAllGroups theBoss)) and (not((group _amigo) getVariable ["esNATO",false]))) then
+		if (((isPlayer leader _friendX) and (!isMultiplayer)) or (group _friendX in (hcAllGroups theBoss)) and (not((group _friendX) getVariable ["esNATO",false]))) then
 			{
-			_resourcesBackground = _resourcesBackground + (server getVariable [(typeOf _amigo),0]);
-			_backpck = backpack _amigo;
+			_resourcesBackground = _resourcesBackground + (server getVariable [(typeOf _friendX),0]);
+			_backpck = backpack _friendX;
 			if (_backpck != "") then
 				{
 				switch (_backpck) do
@@ -108,15 +108,15 @@ if ((_amigo getVariable ["spawner",false]) and (side group _amigo == teamPlayer)
 					case ATStaticSDKB: {_resourcesBackground = _resourcesBackground + ([staticATteamPlayer] call A3A_fnc_vehiclePrice)};
 					};
 				};
-			if (vehicle _amigo != _amigo) then
+			if (vehicle _friendX != _friendX) then
 				{
-				_veh = vehicle _amigo;
+				_veh = vehicle _friendX;
 				_typeVehX = typeOf _veh;
 				if (not(_veh in staticsToSave)) then
 					{
-					if ((_veh isKindOf "StaticWeapon") or (driver _veh == _amigo)) then
+					if ((_veh isKindOf "StaticWeapon") or (driver _veh == _friendX)) then
 						{
-						if ((group _amigo in (hcAllGroups theBoss)) or (!isMultiplayer)) then
+						if ((group _friendX in (hcAllGroups theBoss)) or (!isMultiplayer)) then
 							{
 							_resourcesBackground = _resourcesBackground + ([_typeVehX] call A3A_fnc_vehiclePrice);
 							if (count attachedObjects _veh != 0) then {{_resourcesBackground = _resourcesBackground + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
@@ -147,9 +147,9 @@ if ((_veh distance getMarkerPos respawnTeamPlayer < 50) and !(_veh in staticsToS
 		_arrayEst pushBack [_typeVehX,_posVeh,_dirVeh];
 		};
 	};
-} forEach vehicles - [caja,flagX,fuego,vehicleBox,mapa];
+} forEach vehicles - [caja,flagX,fireX,vehicleBox,mapa];
 
-_sites = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
+_sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
 {
 _positionX = position _x;
 if ((alive _x) and !(surfaceIsWater _positionX) and !(isNull _x)) then
@@ -223,7 +223,7 @@ if (_x mineDetectedBy ) then
 _arrayMines = _arrayMines + [[_tipoMina,_posMina,_detected,_dirMine]];
 } forEach allMines;
 
-["minas", _arrayMines] call fn_SaveStat;
+["minesX", _arrayMines] call fn_SaveStat;
 
 _arrayOutpostsFIA = [];
 
@@ -272,7 +272,7 @@ _dataX pushBack [_x,killZones getVariable [_x,[]]];
 
 ["killZones",_dataX] call fn_SaveStat;
 
-_controlsX = controlsX select {(lados getVariable [_x,sideUnknown] == teamPlayer) and (controlsX find _x < defaultControlIndex)};
+_controlsX = controlsX select {(sidesX getVariable [_x,sideUnknown] == teamPlayer) and (controlsX find _x < defaultControlIndex)};
 ["controlsSDK",_controlsX] call fn_SaveStat;
 
 savingServer = false;

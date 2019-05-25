@@ -3,7 +3,7 @@ private ["_markerX","_mrkD"];
 _markerX = _this select 0;
 
 _mrkD = format ["Dum%1",_markerX];
-if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 	{
 	_texto = if (count (garrison getVariable [_markerX,[]]) > 0) then {format [": %1", count (garrison getVariable [_markerX,[]])]} else {""};
 	if (markerColor _mrkD != colourTeamPlayer) then {_mrkD setMarkerColor colourTeamPlayer};
@@ -44,7 +44,7 @@ if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
 	}
 else
 	{
-	if (lados getVariable [_markerX,sideUnknown] == Occupants) then
+	if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then
 		{
 		if (_markerX in airportsX) then
 			{_mrkD setMarkerText format ["%1 Airbase",nameOccupants];

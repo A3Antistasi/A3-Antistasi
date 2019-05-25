@@ -1,4 +1,4 @@
-private ["_positionTel","_nearX","_cosa","_group","_unitsX","_salir"];
+private ["_positionTel","_nearX","_cosa","_group","_unitsX","_leave"];
 if (!visibleMap) then {openMap true};
 positionTel = [];
 _cosa = _this select 0;
@@ -18,7 +18,7 @@ _nearX = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 
 if !(_positionTel inArea _nearX) exitWith {hint "You must click near a marked zone"};
 
-if (not(lados getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]};
+if (not(sidesX getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]};
 
 if ((_nearX in outpostsFIA) and !(isOnRoad getMarkerPos _nearX)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
 
@@ -37,13 +37,13 @@ else
 	_unitsX = _cosa;
 	};
 
-_salir = false;
+_leave = false;
 
 {
-if ((typeOf _x == staticCrewTeamPlayer) or (typeOf _x == SDKUnarmed) or (typeOf _x in arrayCivs) or (!alive _x)) exitWith {_salir = true}
+if ((typeOf _x == staticCrewTeamPlayer) or (typeOf _x == SDKUnarmed) or (typeOf _x in arrayCivs) or (!alive _x)) exitWith {_leave = true}
 } forEach _unitsX;
 
-if (_salir) exitWith {hint "Static crewman, prisoners, refugees or dead units cannot be added to any garrison"};
+if (_leave) exitWith {hint "Static crewman, prisoners, refugees or dead units cannot be added to any garrison"};
 
 if ((groupID _group == "MineF") or (groupID _group == "Watch") or (isPlayer(leader _group))) exitWith {hint "You cannot garrison player led, Watchpost, Roadblocks or Minefield building squads"};
 
@@ -85,7 +85,7 @@ if (spawner getVariable _nearX != 2) then
 		_markerX = _muerto getVariable "markerX";
 		if (!isNil "_markerX") then
 			{
-			if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+			if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 				{
 				/*
 				_garrison = [];
@@ -107,8 +107,8 @@ if (spawner getVariable _nearX != 2) then
 		}];
 	} forEach _unitsX;
 
-	waitUntil {sleep 1; (spawner getVariable _nearX == 2 or !(lados getVariable [_nearX,sideUnknown] == teamPlayer))};
-	if (!(lados getVariable [_nearX,sideUnknown] == teamPlayer)) then {_noBorrar = true};
+	waitUntil {sleep 1; (spawner getVariable _nearX == 2 or !(sidesX getVariable [_nearX,sideUnknown] == teamPlayer))};
+	if (!(sidesX getVariable [_nearX,sideUnknown] == teamPlayer)) then {_noBorrar = true};
 	};
 
 if (!_noBorrar) then

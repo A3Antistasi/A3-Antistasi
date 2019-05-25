@@ -1,4 +1,4 @@
-private ["_lider","_static","_group","_maxCargo"];
+private ["_LeaderX","_static","_group","_maxCargo"];
 
 if (count hcSelected player != 1) exitWith {hint "You must select one group on the HC bar"};
 
@@ -24,8 +24,8 @@ hint format ["Mounted Static Squad %1 set to Auto Target Mode ON", groupID _grou
 _group setVariable ["staticAutoT",true,true];
 
 if (typeOf _static == SDKMortar) exitWith {_nul=[_static] execVM "scripts\UPSMON\MON_artillery_add.sqf";};
-_lider = leader _group;
-_truckX = vehicle _lider;
+_LeaderX = leader _group;
+_truckX = vehicle _LeaderX;
 _boy = gunner _static;
 while {(count (waypoints _group)) > 0} do
 	{
@@ -34,7 +34,7 @@ while {(count (waypoints _group)) > 0} do
 
 while {true} do
 	{
-	if ((!alive _lider) or (!alive _truckX) or (!alive _boy) or (!alive _static) or (!someAmmo _static) or (!canMove _truckX) or (not(_group getVariable "staticAutoT"))) exitWith {};
+	if ((!alive _LeaderX) or (!alive _truckX) or (!alive _boy) or (!alive _static) or (!someAmmo _static) or (!canMove _truckX) or (not(_group getVariable "staticAutoT"))) exitWith {};
 	_enemyX = assignedTarget _static;
 	if (!isNull _enemyX) then
 		{

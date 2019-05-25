@@ -24,7 +24,7 @@ else
 		}
 	else
 		{
-		_nveh = if (lados getVariable [_markerX,sideUnknown] == Occupants) then {round (_size/70)} else {round (_size/50)};
+		_nveh = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {round (_size/70)} else {round (_size/50)};
 		};
 	if (_frontierX) then {_nveh = _nveh + 1};
 	};

@@ -60,7 +60,7 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _group > 0) the
 		waitUntil {!(isPlayer leader _group)};
 		};
 	outpostsFIA = outpostsFIA + [_mrk]; publicVariable "outpostsFIA";
-	lados setVariable [_mrk,teamPlayer,true];
+	sidesX setVariable [_mrk,teamPlayer,true];
 	markersX = markersX + [_mrk];
 	publicVariable "markersX";
 	spawner setVariable [_mrk,2,true];

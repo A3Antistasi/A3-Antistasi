@@ -137,7 +137,7 @@ Historial de modificaciones:
 //    	Added
 //		Se ha a�adido ataque frontal
 //		Formaciones de combate en funci�n de la situaci�n
-//		La IA puede entrar en los buildingsX a tomar positionXes de defensa y en ataque puede patrullarlos en busca de enemiesX o positionXes de fuego.
+//		La IA puede entrar en los buildingsX a tomar positionXes de defensa y en ataque puede patrullarlos en busca de enemiesX o positionXes de fireX.
 // 	Modificaciones:
 //		Mejorado el sistema para localizar, asignar y entrar en vehiclesX,.
 //		Optimizado el rendimiento. Se ha mejorado para que se pueda ejecutar cada 20s.

@@ -1,21 +1,21 @@
 //if (!isServer) exitWith{};
-private ["_groups","_hr","_resourcesFIA","_wp","_group","_veh","_salir"];
+private ["_groups","_hr","_resourcesFIA","_wp","_group","_veh","_leave"];
 
 _groups = _this select 0;
 _hr = 0;
 _resourcesFIA = 0;
-_salir = false;
+_leave = false;
 {
-if ((groupID _x == "MineF") or (groupID _x == "Watch") or (isPlayer(leader _x))) then {_salir = true};
+if ((groupID _x == "MineF") or (groupID _x == "Watch") or (isPlayer(leader _x))) then {_leave = true};
 } forEach _groups;
 
-if (_salir) exitWith {hint "You cannot dismiss player led, Watchpost, Roadblocks or Minefield building squads"};
+if (_leave) exitWith {hint "You cannot dismiss player led, Watchpost, Roadblocks or Minefield building squads"};
 
 {
-if (_x getVariable ["esNATO",false]) then {_salir = true};
+if (_x getVariable ["esNATO",false]) then {_leave = true};
 } forEach _groups;
 
-if (_salir) exitWith {hint "You cannot dismiss NATO groups"};
+if (_leave) exitWith {hint "You cannot dismiss NATO groups"};
 
 _pos = getMarkerPos respawnTeamPlayer;
 

@@ -1,11 +1,11 @@
 //Mission: Logistic supplies
 if (!isServer and hasInterface) exitWith{};
-private ["_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_truckX","_countX"];
+private ["_markerX","_difficultX","_leave","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_truckX","_countX"];
 
 _markerX = _this select 0;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -57,16 +57,16 @@ else
 	_countX = 120*_bonus;//120
 	[[_positionX,Occupants,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
 	["TaskFailed", ["", format ["%2 deploying supplies in %1",_nameDest,nameTeamPlayer]]] remoteExec ["BIS_fnc_showNotification",Occupants];
-	{_amigo = _x;
-	if (captive _amigo) then
+	{_friendX = _x;
+	if (captive _friendX) then
 		{
-		[_amigo,false] remoteExec ["setCaptive",0,_amigo];
-		_amigo setCaptive false;
+		[_friendX,false] remoteExec ["setCaptive",0,_friendX];
+		_friendX setCaptive false;
 		};
 	{
 	if ((side _x == Occupants) and (_x distance _positionX < distanceSPWN)) then
 		{
-		if (_x distance _positionX < 300) then {_x doMove _positionX} else {_x reveal [_amigo,4]};
+		if (_x distance _positionX < 300) then {_x doMove _positionX} else {_x reveal [_friendX,4]};
 		};
 	if ((side _x == civilian) and (_x distance _positionX < 300) and (vehicle _x == _x)) then {_x doMove position _truckX};
 	} forEach allUnits;

@@ -17,6 +17,6 @@ if (_lado == teamPlayer) then {_lado = [teamPlayer,civilian]};
 
 if (_lado isEqualType []) then {_lado = teamPlayer};
 
-waitUntil {sleep 10; (lados getVariable [_markerX,sideUnknown] != _lado) or (spawner getVariable _markerX == 2)};
+waitUntil {sleep 10; (sidesX getVariable [_markerX,sideUnknown] != _lado) or (spawner getVariable _markerX == 2)};
 
 [0,_markerX] spawn A3A_fnc_deleteTask;

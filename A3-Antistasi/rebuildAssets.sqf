@@ -24,7 +24,7 @@ if (getMarkerPos _sitio distance _positionTel > 50) exitWith {hint "You must cli
 
 if ((not(_sitio in _destroyedCities)) and (!(_sitio in outposts))) exitWith {hint "You cannot rebuild that"};
 
-_salir = false;
+_leave = false;
 _antennaDead = [];
 _texto = "That Outpost does not have a destroyed Radio Tower";
 if (_sitio in outposts) then
@@ -32,9 +32,9 @@ if (_sitio in outposts) then
 	_antennasDead = antennasDead select {_x inArea _sitio};
 	if (count _antennasDead > 0) then
 		{
-		if (lados getVariable [_sitio, sideUnknown] != teamPlayer) then
+		if (sidesX getVariable [_sitio, sideUnknown] != teamPlayer) then
 			{
-			_salir = true;
+			_leave = true;
 			_texto = format ["You cannot rebuild a Radio Tower in an Outpost which does not belong to %1",nameTeamPlayer];
 			}
 		else
@@ -44,11 +44,11 @@ if (_sitio in outposts) then
 		}
 	else
 		{
-		_salir = true
+		_leave = true
 		};
 	};
 
-if (_salir) exitWith {hint format ["%1",_texto]};
+if (_leave) exitWith {hint format ["%1",_texto]};
 
 if (count _antennaDead == 0) then
 	{

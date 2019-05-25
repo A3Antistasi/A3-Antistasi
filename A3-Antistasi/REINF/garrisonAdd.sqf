@@ -41,9 +41,9 @@ garrison setVariable [_markerX,_garrison,true];
 //[_markerX] call A3A_fnc_mrkUpdate;*/
 _countX = count (garrison getVariable _markerX);
 [_tipo,teamPlayer,_markerX,1] remoteExec ["A3A_fnc_garrisonUpdate",2];
-waitUntil {(_countX < count (garrison getVariable _markerX)) or (lados getVariable [_markerX,sideUnknown] != teamPlayer)};
+waitUntil {(_countX < count (garrison getVariable _markerX)) or (sidesX getVariable [_markerX,sideUnknown] != teamPlayer)};
 
-if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 	{
 	hint format ["Soldier recruited.%1",[_markerX] call A3A_fnc_garrisonInfo];
 

@@ -10,8 +10,8 @@ _soldiers = [];
 _positionX = getMarkerPos (_markerX);
 
 _num = [_markerX] call A3A_fnc_sizeMarker;
-_lado = lados getVariable [_markerX,sideUnknown];
-if ({if ((getMarkerPos _x inArea _markerX) and (lados getVariable [_x,sideUnknown] != _lado)) exitWith {1}} count markersX > 0) exitWith {};
+_lado = sidesX getVariable [_markerX,sideUnknown];
+if ({if ((getMarkerPos _x inArea _markerX) and (sidesX getVariable [_x,sideUnknown] != _lado)) exitWith {1}} count markersX > 0) exitWith {};
 _num = round (_num / 100);
 
 _dataX = server getVariable _markerX;

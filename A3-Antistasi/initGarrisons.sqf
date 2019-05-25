@@ -45,8 +45,8 @@ else
 		_controlsNATO = controlsX;
 		};
 	};
-{lados setVariable [_x,Occupants,true]} forEach _controlsNATO;
-{lados setVariable [_x,,true]} forEach _controlsCSAT;
+{sidesX setVariable [_x,Occupants,true]} forEach _controlsNATO;
+{sidesX setVariable [_x,,true]} forEach _controlsCSAT;
 {
 _pos = getMarkerPos _x;
 _dmrk = createMarker [format ["Dum%1",_x], _pos];
@@ -65,7 +65,7 @@ if (_x in _mrkCSAT) then
         _garrison append (selectRandom groupsCSATSquad);
         };
     garrison setVariable [_x,_garrison,true];
-    lados setVariable [_x,,true];
+    sidesX setVariable [_x,,true];
     }
 else
     {
@@ -77,7 +77,7 @@ else
         _garrison append (selectRandom groupsNATOSquad);
         };
     garrison setVariable [_x,_garrison,true];
-    lados setVariable [_x,Occupants,true];
+    sidesX setVariable [_x,Occupants,true];
     };
 _nul = [_x] call A3A_fnc_createControls;
 server setVariable [_x,0,true];//dateX en fomrato dateToNumber en la que estarán idle
@@ -99,12 +99,12 @@ for "_i" from 1 to _garrNum do
 if (_x in _mrkCSAT) then
 	{
 	_dmrk setMarkerColor colorInvaders;
-	lados setVariable [_x,,true];
+	sidesX setVariable [_x,,true];
 	}
 else
 	{
 	_dmrk setMarkerColor colorOccupants;
-	lados setVariable [_x,Occupants,true];
+	sidesX setVariable [_x,Occupants,true];
 	};
 garrison setVariable [_x,_garrison,true];
 _nul = [_x] call A3A_fnc_createControls;
@@ -126,12 +126,12 @@ for "_i" from 1 to _garrNum do
 if (_x in _mrkCSAT) then
 	{
 	_dmrk setMarkerColor colorInvaders;
-    lados setVariable [_x,,true];
+    sidesX setVariable [_x,,true];
 	}
 else
 	{
 	_dmrk setMarkerColor colorOccupants;
-    lados setVariable [_x,Occupants,true];
+    sidesX setVariable [_x,Occupants,true];
     };
 garrison setVariable [_x,_garrison,true];
 _nul = [_x] call A3A_fnc_createControls;
@@ -154,7 +154,7 @@ if !(_x in _mrkCSAT) then
         {
         _garrison append (selectRandom groupsFIASquad);
         };
-    lados setVariable [_x,Occupants,true];
+    sidesX setVariable [_x,Occupants,true];
     }
 else
     {
@@ -174,7 +174,7 @@ else
 	        _garrison append (selectRandom groupsCSATSquad);
 	        };
 	    };
-    lados setVariable [_x,,true];
+    sidesX setVariable [_x,,true];
     };
 garrison setVariable [_x,_garrison,true];
 server setVariable [_x,0,true];
@@ -197,7 +197,7 @@ if (_x in _mrkCSAT) then
 	   {
 	   _garrison append (selectRandom groupsCSATSquad);
 	   };
-    lados setVariable [_x,,true];
+    sidesX setVariable [_x,,true];
     }
 else
     {
@@ -206,11 +206,11 @@ else
         {
         _garrison append (selectRandom groupsNATOSquad);
         };
-    lados setVariable [_x,Occupants,true];
+    sidesX setVariable [_x,Occupants,true];
     };
 garrison setVariable [_x,_garrison,true];
 _nul = [_x] call A3A_fnc_createControls;
 } forEach seaports;
 
-lados setVariable ["NATO_carrier",Occupants,true];
-lados setVariable ["CSAT_carrier",,true];
+sidesX setVariable ["NATO_carrier",Occupants,true];
+sidesX setVariable ["CSAT_carrier",,true];

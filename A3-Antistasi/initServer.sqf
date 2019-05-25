@@ -4,7 +4,7 @@ diag_log "Antistasi MP Server init";
 caja allowDamage false;
 flagX allowDamage false;
 vehicleBox allowDamage false;
-fuego allowDamage false;
+fireX allowDamage false;
 mapa allowDamage false;
 _serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
 if(isNil "_serverHasID") then

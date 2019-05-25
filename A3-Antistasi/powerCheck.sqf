@@ -11,14 +11,14 @@ if (_ant1 distance _positionX > _ant2 distance _positionX) exitWith {sideUnknown
 
 _outpost = [markersX,_ant1] call BIS_fnc_NearestPosition;
 /*
-if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 	{
-	if (lados getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = true};
+	if (sidesX getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = true};
 	}
 else
 	{
-	if (lados getVariable [_outpost,sideUnknown] == Occupants) then {_result = true};
+	if (sidesX getVariable [_outpost,sideUnknown] == Occupants) then {_result = true};
 	};*/
-private _lado = lados getVariable [_outpost,sideUnknown];
+private _lado = sidesX getVariable [_outpost,sideUnknown];
 //_result
 _lado

@@ -1,4 +1,4 @@
-private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_arma","_armas","_rearming","_basePossible","_hmd","_casco","_truckX","_autoLoot","_itemsUnit"];
+private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_arma","_armas","_rearming","_basePossible","_hmd","_helmet","_truckX","_autoLoot","_itemsUnit"];
 
 _unit = _this select 0;
 
@@ -355,7 +355,7 @@ if (not(headgear _unit in helmets)) then
 		{
 		_unit stop false;
 		_target setVariable ["busy",true];
-		_casco = headgear _target;
+		_helmet = headgear _target;
 		_unit doMove (getPosATL _target);
 		if (_inPlayerGroup) then {_unit groupChat "Picking a Helmet"};
 		_timeOut = time + 60;
@@ -363,7 +363,7 @@ if (not(headgear _unit in helmets)) then
 		if (_unit distance _target < 3) then
 			{
 			_unit action ["rearm",_target];
-			_unit addHeadgear _casco;
+			_unit addHeadgear _helmet;
 			removeHeadgear _target;
 			};
 		_target setVariable ["busy",false];

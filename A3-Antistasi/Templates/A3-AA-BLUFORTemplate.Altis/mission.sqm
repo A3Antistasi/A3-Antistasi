@@ -1590,7 +1590,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="fuego";
+				name="fireX";
 			};
 			id=1009;
 			type="Land_Camping_Light_F";
@@ -1603,7 +1603,7 @@ class Mission
 				position[]={3611.3882,15.175223,10266.14};
 				angles[]={6.2325621,0,6.2046804};
 			};
-			name="lados";
+			name="sidesX";
 			id=1010;
 			type="Logic";
 		};

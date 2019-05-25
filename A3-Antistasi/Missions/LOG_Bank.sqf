@@ -1,12 +1,12 @@
 //Mission: Logistics bank mission
 //el sitio de la caja es el 21
 if (!isServer and hasInterface) exitWith {};
-private ["_banco","_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_truckX","_countX","_mrkFinal","_mrk","_soldiers"];
+private ["_banco","_markerX","_difficultX","_leave","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_truckX","_countX","_mrkFinal","_mrk","_soldiers"];
 _banco = _this select 0;
 _markerX = [citiesX,_banco] call BIS_fnc_nearestPosition;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -81,11 +81,11 @@ else
 	[[_positionX,Occupants,"",true],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
 	[10*_bonus,-20*_bonus,_markerX] remoteExec ["A3A_fnc_citySupportChange",2];
 	["TaskFailed", ["", format ["Bank of %1 being assaulted",_nameDest]]] remoteExec ["BIS_fnc_showNotification",Occupants];
-	{_amigo = _x;
-	if (_amigo distance _truckX < 300) then
+	{_friendX = _x;
+	if (_friendX distance _truckX < 300) then
 		{
-		if ((captive _amigo) and (isPlayer _amigo)) then {[_amigo,false] remoteExec ["setCaptive",0,_amigo]; _amigo setCaptive false};
-		{if (side _x == Occupants) then {_x reveal [_amigo,4]};
+		if ((captive _friendX) and (isPlayer _friendX)) then {[_friendX,false] remoteExec ["setCaptive",0,_friendX]; _friendX setCaptive false};
+		{if (side _x == Occupants) then {_x reveal [_friendX,4]};
 		} forEach allUnits;
 		};
 	} forEach ([distanceSPWN,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);

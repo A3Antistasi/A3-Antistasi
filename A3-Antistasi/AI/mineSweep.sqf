@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_costs","_group","_unit","_minas","_tam","_roads","_truckX","_mina","_countX"];
+private ["_costs","_group","_unit","_minesX","_tam","_roads","_truckX","_mina","_countX"];
 
 _costs = (server getVariable (SDKExp select 0)) + ([vehSDKRepair] call A3A_fnc_vehiclePrice);
 
@@ -10,7 +10,7 @@ _group = createGroup teamPlayer;
 
 _unit = _group createUnit [(SDKExp select 0), getMarkerPos respawnTeamPlayer, [], 0, "NONE"];
 _group setGroupId ["MineSw"];
-_minas = [];
+_minesX = [];
 sleep 1;
 _road = [getMarkerPos respawnTeamPlayer] call A3A_fnc_findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
@@ -43,8 +43,8 @@ while {alive _unit} do
 				sleep 30;
 				};
 			};
-		_minas = (detectedMines teamPlayer) select {(_x distance _unit) < 100};
-		if (count _minas == 0) then
+		_minesX = (detectedMines teamPlayer) select {(_x distance _unit) < 100};
+		if (count _minesX == 0) then
 			{
 			waitUntil {sleep 1;(!alive _unit) or (!unitReady _unit)};
 			}
@@ -52,12 +52,12 @@ while {alive _unit} do
 			{
 			moveOut _unit;
 			[_unit] orderGetin false;
-			_minas = [_minas,[],{_unit distance _x},"ASCEND"] call BIS_fnc_sortBy;
+			_minesX = [_minesX,[],{_unit distance _x},"ASCEND"] call BIS_fnc_sortBy;
 			_countX = 0;
-			_total = count _minas;
+			_total = count _minesX;
 			while {(alive _unit) and (_countX < _total)} do
 				{
-				_mina = _minas select _countX;
+				_mina = _minesX select _countX;
 				[_unit] orderGetin false;
 				_unit doMove position _mina;
 				_timeOut = time + 120;

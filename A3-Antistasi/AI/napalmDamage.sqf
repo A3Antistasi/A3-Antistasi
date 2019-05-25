@@ -6,8 +6,8 @@ _argumentX = ["Car","Truck","Man","Air"];
 if (isServer) then {_argumentX = ["All", "", "House", "Wall"]};
 
 _timeOut = time + 70;
-_luces = [];
-_fuegos = [];
+_lightsX = [];
+_fireXs = [];
 
 while {time < _timeOut} do
 	{
@@ -35,7 +35,7 @@ while {time < _timeOut} do
 						if (_dam >= 1) then
 							{
 							_l1 = "#lightpoint" createVehicleLocal getpos _x;
-							_luces pushBack _l1;
+							_lightsX pushBack _l1;
 							_l1 setLightDayLight true;
 							_l1 setLightColor [5, 2.5, 0];
 							_l1 setLightBrightness 0.1;
@@ -43,7 +43,7 @@ while {time < _timeOut} do
 							_l1 lightAttachObject [_x, [0, 0, 0]];
 							_l1 setLightAttenuation [3, 0, 0, 0.6];
 							_source01 = "#particlesource" createVehicleLocal getpos _x;
-							_fuegos pushBack _source01;
+							_fireXs pushBack _source01;
 							_source01 setParticleClass "ObjectDestructionFire1Tiny";
 							_l1 attachTo [_x, [0,0,0], "Spine3"];
 							_source01 attachTo [_x, [0,0,0], "Spine3"];
@@ -100,10 +100,10 @@ while {time < _timeOut} do
 	sleep 5;
 	};
 if (!isMultiplayer) then {{_x hideObject true } foreach (nearestTerrainObjects [_pos,["tree","bush"],20])} else {if (isServer) then {{ _x hideObjectGlobal true } foreach (nearestTerrainObjects [_pos,["tree","bush"],20])}};
-for "_i" from 0 to (count _fuegos) do
+for "_i" from 0 to (count _fireXs) do
 	{
 	sleep random 5;
-	deleteVehicle (_fuegos select _i);
+	deleteVehicle (_fireXs select _i);
 	sleep random 3;
-	deleteVehicle (_luces select _i);
+	deleteVehicle (_lightsX select _i);
 	};

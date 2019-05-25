@@ -83,7 +83,7 @@ switch _tipo do
 
 //if ((_tipo == "RB") and !(isOnRoad _positionX)) exitWith {hint "Please select this option on a road segment"};
 
-private _salir = false;
+private _leave = false;
 private _texto = "";
 if ((_tipo == "SB") or (_tipo == "CB")) then
 	{
@@ -91,23 +91,23 @@ if ((_tipo == "SB") or (_tipo == "CB")) then
 	_resourcesFIA = if (!isMultiPlayer) then {server getVariable "resourcesFIA"} else {player getVariable "moneyX"};
 	if (_costs > _resourcesFIA) then
 		{
-		_salir = true;
+		_leave = true;
 		_texto = format ["You do not have enough money for this construction (%1 € needed)",_costs]
 		}
 	else
 		{
-		_sites = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
+		_sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
 		nearX = [_sites,_positionX] call BIS_fnc_nearestPosition;
 		if (!(_positionX inArea nearX)) then
 			{
-			_salir = true;
+			_leave = true;
 			_texto = "You cannot build a bunker outside a controlled zone";
 			nearX = nil;
 			};
 		};
 	};
 
-if (_salir) exitWith {hint format ["%1",_texto]};
+if (_leave) exitWith {hint format ["%1",_texto]};
 hint "Select a place to build the required asset and press SPACE to start the construction.\n\nHit ESC to exit";
 garageVeh = _classX createVehicleLocal [0,0,0];
 bought = 0;

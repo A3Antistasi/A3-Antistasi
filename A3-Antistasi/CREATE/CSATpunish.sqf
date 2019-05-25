@@ -16,7 +16,7 @@ _nameDest = [_mrkDestination] call A3A_fnc_localizar;
 [[teamPlayer,civilian,Occupants],"AttackAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest,nameInvaders],format ["%1 Punishment",nameInvaders],_mrkDestination],getMarkerPos _mrkDestination,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 
 _nul = [_mrkOrigin,_mrkDestination,] spawn A3A_fnc_artillery;
-_lado = if (lados getVariable [_mrkDestination,sideUnknown] == Occupants) then {Occupants} else {teamPlayer};
+_lado = if (sidesX getVariable [_mrkDestination,sideUnknown] == Occupants) then {Occupants} else {teamPlayer};
 _timeX = time + 3600;
 
 for "_i" from 1 to 3 do
@@ -103,7 +103,7 @@ _dataX = server getVariable _mrkDestination;
 _numCiv = _dataX select 0;
 _numCiv = round (_numCiv /10);
 
-if (lados getVariable [_mrkDestination,sideUnknown] == Occupants) then {[[_posDestination,Occupants,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
+if (sidesX getVariable [_mrkDestination,sideUnknown] == Occupants) then {[[_posDestination,Occupants,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
 
 if (_numCiv < 8) then {_numCiv = 8};
 
@@ -156,7 +156,7 @@ if ((({not (captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or (
 	["AttackAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest,nameInvaders],format ["%1 Punishment",nameInvaders],_mrkDestination],getMarkerPos _mrkDestination,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	if ({(side _x == teamPlayer) and (_x distance _posDestination < _size * 2)} count allUnits >= {(side _x == Occupants) and (_x distance _posDestination < _size * 2)} count allUnits) then
 		{
-		if (lados getVariable [_mrkDestination,sideUnknown] == Occupants) then {[-15,15,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]} else {[-5,15,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]};
+		if (sidesX getVariable [_mrkDestination,sideUnknown] == Occupants) then {[-15,15,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]} else {[-5,15,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]};
 		[-5,0] remoteExec ["A3A_fnc_prestige",2];
 		{[-10,10,_x] remoteExec ["A3A_fnc_citySupportChange",2]} forEach citiesX;
 		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_posDestination,teamPlayer] call A3A_fnc_distanceUnits);
@@ -164,7 +164,7 @@ if ((({not (captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or (
 		}
 	else
 		{
-		if (lados getVariable [_mrkDestination,sideUnknown] == Occupants) then {[15,-5,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]} else {[15,-15,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]};
+		if (sidesX getVariable [_mrkDestination,sideUnknown] == Occupants) then {[15,-5,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]} else {[15,-15,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]};
 		{[10,-10,_x] remoteExec ["A3A_fnc_citySupportChange",2]} forEach citiesX;
 		};
 	}

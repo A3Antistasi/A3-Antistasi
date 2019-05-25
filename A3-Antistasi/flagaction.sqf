@@ -94,12 +94,12 @@ switch _tipo do
 			_flag addAction ["Faction Garage", {nul = [false] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]
 			};
 		};
-	case "fuego":
+	case "fireX":
 		{
-		fuego addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)",4];
-		fuego addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","(_this == theBoss)",4];
-		fuego addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this)",4];
-		fuego addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)",4];
+		fireX addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)",4];
+		fireX addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","(_this == theBoss)",4];
+		fireX addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this)",4];
+		fireX addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)",4];
 		};
 
 	case "SDKFlag":

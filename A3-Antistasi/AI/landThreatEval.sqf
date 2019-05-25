@@ -22,6 +22,6 @@ if (getMarkerPos _x distance _positionX < distanceSPWN) then
 		_threat = _threat + ({typeOf _x == SDKMortar} count _staticsX) + (2*({typeOf _x == staticATteamPlayer} count _staticsX))
 		};
 	};
-} forEach (markersX - citiesX - controlsX - outpostsFIA) select {lados getVariable [_x,sideUnknown] != _lado};
+} forEach (markersX - citiesX - controlsX - outpostsFIA) select {sidesX getVariable [_x,sideUnknown] != _lado};
 
 _threat

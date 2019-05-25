@@ -210,7 +210,7 @@ if (player getVariable ["pvp",false]) exitWith
 player setVariable ["owner",player,true];
 player setVariable ["punish",0,true];
 player setVariable ["moneyX",100,true];
-player setVariable ["rango",rank player,true];
+player setVariable ["rankX",rank player,true];
 
 stragglers = creategroup teamPlayer;
 (group player) enableAttack false;
@@ -351,7 +351,7 @@ player addEventHandler ["WeaponAssembled",
 			publicVariable "staticsToSave";
 			[_veh] call A3A_fnc_AIVEHinit;
 			};
-		_markersX = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
+		_markersX = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
 		_pos = position _veh;
 		if (_markersX findIf {_pos inArea _x} != -1) then {hint "Static weapon has been deployed for use in a nearby zone, and will be used by garrison militia if you leave it here the next time the zone spawns"};
 		}
@@ -605,11 +605,11 @@ vehicleBox allowDamage false;
 vehicleBox addAction ["Heal, Repair and Rearm", "healandrepair.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
 vehicleBox addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 
-fuego allowDamage false;
-fuego addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)"];
-fuego addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","_this == theBoss"];
-fuego addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this) and (side (group _this) == teamPlayer)"];
-fuego addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)"];
+fireX allowDamage false;
+fireX addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)"];
+fireX addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","_this == theBoss"];
+fireX addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this) and (side (group _this) == teamPlayer)"];
+fireX addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)"];
 mapa allowDamage false;
 mapa addAction ["Game Options", {hint format ["Antistasi - %2\n\nVersion: %1\n\nDifficulty: %3\nUnlock Weapon Number: %4\nLimited Fast Travel: %5",antistasiVersion,worldName,if (skillMult == 1) then {"Normal"} else {if (skillMult == 0.5) then {"Easy"} else {"Hard"}},minWeaps,if (limitedFT) then {"Yes"} else {"No"}]; nul=CreateDialog "game_options";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
 mapa addAction ["Map Info", {nul = [] execVM "cityinfo.sqf";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];

@@ -9,7 +9,7 @@ if (count _this == 1) then
 	if (_markerX isEqualType "") then
 		{
 		if (_markerX in airportsX) then {_chance = 30} else {_chance = 15};
-		if (lados getVariable [_markerX,sideUnknown] == ) then {_lado = };
+		if (sidesX getVariable [_markerX,sideUnknown] == ) then {_lado = };
 		}
 	else
 		{

@@ -1,6 +1,6 @@
 if (player != theBoss) exitWith {hint "Only our Commander has access to this function"};
 
-if ((count weaponCargo boxX >0) or (count magazineCargo boxX >0) or (count itemCargo boxX >0) or (count backpackCargo boxX >0)) exitWith {hint "You must first empty your Ammobox in order to move the HQ"};
+if ((count weaponCargo caja >0) or (count magazineCargo caja >0) or (count itemCargo caja >0) or (count backpackCargo caja >0)) exitWith {hint "You must first empty your Ammobox in order to move the HQ"};
 
 petros enableAI "MOVE";
 petros enableAI "AUTOTARGET";
@@ -11,17 +11,17 @@ petros enableAI "AUTOTARGET";
 petros setBehaviour "AWARE";
 if (isMultiplayer) then
 	{
-	boxX hideObjectGlobal true;
+	caja hideObjectGlobal true;
 	vehicleBox hideObjectGlobal true;
-	mapX hideObjectGlobal true;
+	mapa hideObjectGlobal true;
 	fireX hideObjectGlobal true;
 	flagX hideObjectGlobal true;
 	}
 else
 	{
-	boxX hideObject true;
+	caja hideObject true;
 	vehicleBox hideObject true;
-	mapX hideObject true;
+	mapa hideObject true;
 	fireX hideObject true;
 	flagX hideObject true;
 	};

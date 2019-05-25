@@ -4,9 +4,9 @@ _playerX = _this select 1;
 [_unit,"remove"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_unit];
 
 if (!alive _unit) exitWith {};
-_sideX = side (group _unit);
+_lado = side (group _unit);
 _chance = 80;
-if ((_sideX == Occupants) and (faction _unit != factionFIA)) then
+if ((_lado == Occupants) and (faction _unit != factionFIA)) then
 	{
 	_playerX globalChat "Go back to your base and tell your comrades we are not enemies. We just want to live in peace";
 	}
@@ -22,7 +22,7 @@ sleep 5;
 if (round random 100 < _chance) then
 	{
 	if (isMultiplayer) then {[_unit,true] remoteExec ["enableSimulationGlobal",2]} else {_unit enableSimulation true};
-	if ((_sideX == Occupants) and (faction _unit != factionFIA)) then
+	if ((_lado == Occupants) and (faction _unit != factionFIA)) then
 		{
 		_unit globalChat "Okay, thank you. I owe you my life";
 		}
@@ -39,7 +39,7 @@ if (round random 100 < _chance) then
 	sleep 100;
 	if (alive _unit) then
 		{
-		if ((_sideX == Occupants) and (faction _unit != factionFIA)) then
+		if ((_lado == Occupants) and (faction _unit != factionFIA)) then
 			{
 			[-0.5,0] remoteExec ["A3A_fnc_prestige",2];
 			}

@@ -1,4 +1,4 @@
-private ["_cured","_medicX","_healed","_player","_timer","_sideX","_actionX"];
+private ["_cured","_medicX","_healed","_player","_timer","_lado","_actionX"];
 
 _cured = _this select 0;
 _medicX = _this select 1;
@@ -149,8 +149,8 @@ if (!([_medicX] call A3A_fnc_canFight) or (_medicX != vehicle _medicX) or (_medi
 
 if (_medicX getVariable ["success",true]) then
 	{
-	_sideX = side (group _cured);
-	if ((_sideX != side (group _medicX)) and ((_sideX == Occupants) or (_sideX == ))) then
+	_lado = side (group _cured);
+	if ((_lado != side (group _medicX)) and ((_lado == Occupants) or (_lado == ))) then
 		{
 		_cured setVariable ["surrendered",true,true];
 		sleep 2;

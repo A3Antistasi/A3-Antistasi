@@ -1,7 +1,7 @@
 //NOTA: TAMBIÉN LO USO PARA FIA
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_groups","_soldiers","_positionX","_num","_dataX","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontierX","_array","_countX","_group","_dog","_grp","_sideX"];
+private ["_markerX","_groups","_soldiers","_positionX","_num","_dataX","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontierX","_array","_countX","_group","_dog","_grp","_lado"];
 _markerX = _this select 0;
 
 _groups = [];
@@ -10,8 +10,8 @@ _soldiers = [];
 _positionX = getMarkerPos (_markerX);
 
 _num = [_markerX] call A3A_fnc_sizeMarker;
-_sideX = sidesX getVariable [_markerX,sideUnknown];
-if ({if ((getMarkerPos _x inArea _markerX) and (sidesX getVariable [_x,sideUnknown] != _sideX)) exitWith {1}} count markersX > 0) exitWith {};
+_lado = sidesX getVariable [_markerX,sideUnknown];
+if ({if ((getMarkerPos _x inArea _markerX) and (sidesX getVariable [_x,sideUnknown] != _lado)) exitWith {1}} count markersX > 0) exitWith {};
 _num = round (_num / 100);
 
 _dataX = server getVariable _markerX;
@@ -27,7 +27,7 @@ if (_markerX in destroyedCities) then
 	}
 else
 	{
-	if (_sideX == Occupants) then
+	if (_lado == Occupants) then
 		{
 		_num = round (_num * (_prestigeOPFOR + _prestigeBLUFOR)/100);
 		_frontierX = [_markerX] call A3A_fnc_isFrontline;

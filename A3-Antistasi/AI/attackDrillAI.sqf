@@ -1,9 +1,9 @@
 private _group = _this;
 _objectivesX = _group call A3A_fnc_enemyList;
 _group setVariable ["objectivesX",_objectivesX];
-_group setVariable ["taskX","Patrol"];
-private _sideX = side _group;
-private _friendlies = if ((_sideX == Occupants) or (_sideX == teamPlayer)) then {[_sideX,civilian]} else {[_sideX]};
+_group setVariable ["tarea","Patrol"];
+private _lado = side _group;
+private _friendlies = if ((_lado == Occupants) or (_lado == teamPlayer)) then {[_lado,civilian]} else {[_lado]};
 _mortarsX = [];
 _mgs = [];
 _movable = [leader _group];
@@ -132,7 +132,7 @@ while {true} do
 			//_aire = objNull;
 			//_tanksX = objNull;
 			_numObjectives = count _objectivesX;
-			_taskX = _group getVariable ["taskX","Patrol"];
+			_tarea = _group getVariable ["tarea","Patrol"];
 			_nearX = _group call A3A_fnc_nearEnemy;
 			_soldiers = ((units _group) select {[_x] call A3A_fnc_canFight}) - [_group getVariable ["mortarX",objNull]];
 			_numSoldiers = count _soldiers;
@@ -140,11 +140,11 @@ while {true} do
 				{
 				if (_allNearFriends findIf {(_x call A3A_fnc_typeOfSoldier == "AAMan") or (_x call A3A_fnc_typeOfSoldier == "StaticGunner")} == -1) then
 					{
-					if (_sideX != teamPlayer) then {[[getPosASL _LeaderX,_sideX,"Air",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
+					if (_lado != teamPlayer) then {[[getPosASL _LeaderX,_lado,"Air",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
 					};
-				//_nuevataskX = ["Hide",_soldiers - (_soldiers select {(_x call A3A_fnc_typeOfSoldier == "AAMan") or (_x getVariable ["typeOfSoldier",""] == "StaticGunner")})];
-				_group setVariable ["taskX","Hide"];
-				_taskX = "Hide";
+				//_nuevaTarea = ["Hide",_soldiers - (_soldiers select {(_x call A3A_fnc_typeOfSoldier == "AAMan") or (_x getVariable ["typeOfSoldier",""] == "StaticGunner")})];
+				_group setVariable ["tarea","Hide"];
+				_tarea = "Hide";
 				};
 			if !(isNull _tanksX) then
 				{
@@ -157,26 +157,26 @@ while {true} do
 						}
 					else
 						{
-						if (_sideX != teamPlayer) then {[[getPosASL _LeaderX,_sideX,"Tank",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
+						if (_lado != teamPlayer) then {[[getPosASL _LeaderX,_lado,"Tank",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
 						};
 					};
-				//_nuevataskX = ["Hide",_soldiers - (_soldiers select {(_x getVariable ["typeOfSoldier",""] == "ATMan")})];
-				_group setVariable ["taskX","Hide"];
-				_taskX = "Hide";
+				//_nuevaTarea = ["Hide",_soldiers - (_soldiers select {(_x getVariable ["typeOfSoldier",""] == "ATMan")})];
+				_group setVariable ["tarea","Hide"];
+				_tarea = "Hide";
 				};
 			if (_numObjectives > 2*_numNearFriends) then
 				{
 				if !(isNull _nearX) then
 					{
-					if (_sideX != teamPlayer) then {[[getPosASL _LeaderX,_sideX,"Normal",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
+					if (_lado != teamPlayer) then {[[getPosASL _LeaderX,_lado,"Normal",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
 					_mortarX = _group getVariable ["mortarsX",objNull];
 					if (!(isNull _mortarX) and ([_mortarX] call A3A_fnc_canFight)) then
 						{
 						if ({if (_x distance _nearX < 100) exitWith {1}} count _allNearFriends == 0) then {[_mortarX,getPosASL _nearX,1] spawn A3A_fnc_mortarSupport};
 						};
 					};
-				_group setVariable ["taskX","Hide"];
-				_taskX = "Hide";
+				_group setVariable ["tarea","Hide"];
+				_tarea = "Hide";
 				};
 			_transporte = _group getVariable ["transporte",objNull];
 			if (isNull(_group getVariable ["transporte",objNull])) then
@@ -212,12 +212,12 @@ while {true} do
 				(units _group select {(assignedVehicleRole _x) select 0 == "Cargo"}) allowGetIn false;
 				};
 
-			if (_taskX == "Patrol") then
+			if (_tarea == "Patrol") then
 				{
 				if ((_nearX distance _LeaderX < 150) and !(isNull _nearX)) then
 					{
-					_group setVariable ["taskX","Assault"];
-					_taskX = "Assault";
+					_group setVariable ["tarea","Assault"];
+					_tarea = "Assault";
 					}
 				else
 					{
@@ -232,18 +232,18 @@ while {true} do
 					};
 				};
 
-			if (_taskX == "Assault") then
+			if (_tarea == "Assault") then
 				{
 				if (_nearX distance _LeaderX < 50) then
 					{
-					_group setVariable ["taskX","AssaultClose"];
-					_taskX = "AssaultClose";
+					_group setVariable ["tarea","AssaultClose"];
+					_tarea = "AssaultClose";
 					}
 				else
 					{
 					if (_nearX distance _LeaderX > 150) then
 						{
-						_group setVariable ["taskX","Patrol"];
+						_group setVariable ["tarea","Patrol"];
 						}
 					else
 						{
@@ -278,17 +278,17 @@ while {true} do
 					};
 				};
 
-			if (_taskX == "AssaultClose") then
+			if (_tarea == "AssaultClose") then
 				{
 				if (_nearX distance _LeaderX > 150) then
 					{
-					_group setVariable ["taskX","Patrol"];
+					_group setVariable ["tarea","Patrol"];
 					}
 				else
 					{
 					if (_nearX distance _LeaderX > 50) then
 						{
-						_group setVariable ["taskX","Assault"];
+						_group setVariable ["tarea","Assault"];
 						}
 					else
 						{
@@ -329,11 +329,11 @@ while {true} do
 					};
 				};
 
-			if (_taskX == "Hide") then
+			if (_tarea == "Hide") then
 				{
 				if ((isNull _tanksX) and {isNull _aire} and {_numObjectives <= 2*_numNearFriends}) then
 					{
-					_group setVariable ["taskX","Patrol"];
+					_group setVariable ["tarea","Patrol"];
 					}
 				else
 					{
@@ -344,10 +344,10 @@ while {true} do
 			}
 		else
 			{
-			if (_group getVariable ["taskX","Patrol"] != "Patrol") then
+			if (_group getVariable ["tarea","Patrol"] != "Patrol") then
 				{
-				if (_group getVariable ["taskX","Patrol"] == "Hide") then {_group call A3A_fnc_recallGroup};
-				_group setVariable ["taskX","Patrol"];
+				if (_group getVariable ["tarea","Patrol"] == "Hide") then {_group call A3A_fnc_recallGroup};
+				_group setVariable ["tarea","Patrol"];
 				};
 			if (side _group == teamPlayer) then
 				{
@@ -362,7 +362,7 @@ while {true} do
 				(units _group select {vehicle _x == _x}) allowGetIn true;
 				};
 			};
-		//diag_log format ["taskX:%1.Movable:%2.Base:%3.Flankers:%4",_group getVariable "taskX",_group getVariable "movable",_group getVariable "baseOfFire",_group getVariable "flankers"];
+		//diag_log format ["Tarea:%1.Movable:%2.Base:%3.Flankers:%4",_group getVariable "tarea",_group getVariable "movable",_group getVariable "baseOfFire",_group getVariable "flankers"];
 		sleep 30;
 		_movable =  (_group getVariable ["movable",[]]) select {alive _x};
 		if ((_movable isEqualTo []) or (isNull _group)) exitWith {};

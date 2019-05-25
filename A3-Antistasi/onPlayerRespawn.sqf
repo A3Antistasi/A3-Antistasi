@@ -101,14 +101,14 @@ if (side group player == teamPlayer) then
 
 	player addEventHandler ["InventoryOpened",
 		{
-		private ["_playerX","_containerX","_typeX"];
+		private ["_playerX","_containerX","_tipo"];
 		_control = false;
 		_playerX = _this select 0;
 		if (captive _playerX) then
 			{
 			_containerX = _this select 1;
-			_typeX = typeOf _containerX;
-			if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_typeX == NATOAmmoBox) or (_typeX == CSATAmmoBox)) then
+			_tipo = typeOf _containerX;
+			if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 				{
 				if ({if (((side _x== ) or (side _x== Occupants)) and (_x knowsAbout _playerX > 1.4)) exitWith {1}} count allUnits > 0) then
 					{
@@ -164,13 +164,13 @@ if (side group player == teamPlayer) then
 		{
 		player addEventHandler ["Fired",
 				{
-				_typeX = _this select 1;
-				if ((_typeX == "Put") or (_typeX == "Throw")) then
+				_tipo = _this select 1;
+				if ((_tipo == "Put") or (_tipo == "Throw")) then
 					{
 					if (player distance petros < 50) then
 						{
 						deleteVehicle (_this select 6);
-						if (_typeX == "Put") then
+						if (_tipo == "Put") then
 							{
 							if (player distance petros < 10) then {[player,60] spawn A3A_fnc_punishment};
 							};

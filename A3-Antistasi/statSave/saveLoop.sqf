@@ -57,7 +57,7 @@ if (!isDedicated) then
 	//["mrkNATO", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Occupants}] call fn_SaveStat;
 	["mrkSDK", (markersX - controlsX - outpostsFIA) select {sidesX getVariable [_x,sideUnknown] == teamPlayer}] call fn_SaveStat;
 	["mrkCSAT", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == }] call fn_SaveStat;
-	["posHQ", [getMarkerPos respawnTeamPlayer,getPos fireX,[getDir boxX,getPos boxX],[getDir mapX,getPos mapX],getPos flagX,[getDir vehicleBox,getPos vehicleBox]]] call fn_Savestat;
+	["posHQ", [getMarkerPos respawnTeamPlayer,getPos fireX,[getDir caja,getPos caja],[getDir mapa,getPos mapa],getPos flagX,[getDir vehicleBox,getPos vehicleBox]]] call fn_Savestat;
 	["prestigeNATO", prestigeNATO] call fn_SaveStat;
 	["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
 	["dateX", date] call fn_SaveStat;
@@ -77,12 +77,12 @@ if (!isDedicated) then
 	["weather",[fogParams,rain]] call fn_SaveStat;
 	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
 	//["firstLoad",false] call fn_SaveStat;
-private ["_hrBackground","_resourcesBackground","_veh","_typeVehX","_weaponsX","_ammunition","_items","_backpcks","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_city","_dataX","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_posoutpost","_typeMine","_posMine","_detected","_typesX","_exists","_friendX"];
+private ["_hrBackground","_resourcesBackground","_veh","_typeVehX","_armas","_ammunition","_items","_backpcks","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_city","_dataX","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_posoutpost","_tipoMina","_posMina","_detected","_tipos","_exists","_friendX"];
 
 _hrBackground = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["spawner",false]) and ((group _x in (hcAllGroups theBoss) or (isPlayer (leader _x))) and (side group _x == teamPlayer))} count allUnits);
 _resourcesBackground = server getVariable "resourcesFIA";
 /*
-_weaponsX = [];
+_armas = [];
 _ammunition = [];
 _items = [];
 _backpcks = [];*/
@@ -147,7 +147,7 @@ if ((_veh distance getMarkerPos respawnTeamPlayer < 50) and !(_veh in staticsToS
 		_arrayEst pushBack [_typeVehX,_posVeh,_dirVeh];
 		};
 	};
-} forEach vehicles - [boxX,flagX,fireX,vehicleBox,mapX];
+} forEach vehicles - [caja,flagX,fireX,vehicleBox,mapa];
 
 _sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
 {
@@ -204,8 +204,8 @@ _arrayMrkMF = _arrayMrkMF + [_posMineF];
 */
 _arrayMines = [];
 {
-_typeMine = typeOf _x;
-_posMine = getPos _x;
+_tipoMina = typeOf _x;
+_posMina = getPos _x;
 _dirMine = getDir _x;
 _detected = [];
 if (_x mineDetectedBy teamPlayer) then
@@ -220,7 +220,7 @@ if (_x mineDetectedBy ) then
 	{
 	_detected pushBack 
 	};
-_arrayMines = _arrayMines + [[_typeMine,_posMine,_detected,_dirMine]];
+_arrayMines = _arrayMines + [[_tipoMina,_posMina,_detected,_dirMine]];
 } forEach allMines;
 
 ["minesX", _arrayMines] call fn_SaveStat;
@@ -236,19 +236,19 @@ _arrayOutpostsFIA pushBack [_posoutpost,garrison getVariable [_x,[]]];
 
 if (!isDedicated) then
 	{
-	_typesX = [];
+	_tipos = [];
 	{
 	if ([_x] call BIS_fnc_taskExists) then
 		{
 		_state = [_x] call BIS_fnc_taskState;
 		if (_state == "CREATED") then
 			{
-			_typesX pushBackUnique _x;
+			_tipos pushBackUnique _x;
 			};
 		};
 	} forEach ["AS","CON","DES","LOG","RES","CONVOY","DEF_HQ","AttackAAF"];
 
-	["tasks",_typesX] call fn_SaveStat;
+	["tasks",_tipos] call fn_SaveStat;
 	};
 
 _dataX = [];

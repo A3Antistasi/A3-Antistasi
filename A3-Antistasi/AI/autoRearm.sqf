@@ -1,4 +1,4 @@
-private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_weaponX","_weaponsX","_rearming","_basePossible","_hmd","_helmet","_truckX","_autoLoot","_itemsUnit"];
+private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_arma","_armas","_rearming","_basePossible","_hmd","_helmet","_truckX","_autoLoot","_itemsUnit"];
 
 _unit = _this select 0;
 
@@ -17,11 +17,11 @@ _Sweapon = secondaryWeapon _unit;
 
 _objectsX = [];
 _hasBox = false;
-_weaponX = "";
-_weaponsX = [];
+_arma = "";
+_armas = [];
 _distanceX = 51;
 _objectsX = nearestObjects [_unit, ["ReammoBox_F","LandVehicle","WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
-if (boxX in _objectsX) then {_objectsX = _objectsX - [boxX]};
+if (caja in _objectsX) then {_objectsX = _objectsX - [caja]};
 
 _necesita = false;
 
@@ -36,17 +36,17 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 			{
 			if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 				{
-				_weaponsX = weaponCargo _objeto;
-				for "_i" from 0 to (count _weaponsX - 1) do
+				_armas = weaponCargo _objeto;
+				for "_i" from 0 to (count _armas - 1) do
 					{
-					_potential = _weaponsX select _i;
+					_potential = _armas select _i;
 					_basePossible = [_potential] call BIS_fnc_baseWeapon;
 					if ((not(_basePossible in ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","LMG_03_F"])) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns))) then
 						{
 						_target = _objeto;
 						_hasBox = true;
 						_distanceX = _unit distance _objeto;
-						_weaponX = _potential;
+						_arma = _potential;
 						};
 					};
 				};
@@ -64,9 +64,9 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 		if ((unitReady _unit) and ([_unit] call A3A_fnc_canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
 		if (_unit distance _target < 3) then
 			{
-			_unit action ["TakeWeapon",_target,_weaponX];
+			_unit action ["TakeWeapon",_target,_arma];
 			sleep 5;
-			if (primaryWeapon _unit == _weaponX) then
+			if (primaryWeapon _unit == _arma) then
 				{
 				if (_inPlayerGroup) then {_unit groupChat "I have a better weapon now"};
 				if (_target isKindOf "ReammoBox_F") then {_unit action ["rearm",_target]};
@@ -150,16 +150,16 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 			{
 			if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 				{
-				_weaponsX = weaponCargo _objeto;
-				for "_i" from 0 to (count _weaponsX - 1) do
+				_armas = weaponCargo _objeto;
+				for "_i" from 0 to (count _armas - 1) do
 					{
-					_potential = _weaponsX select _i;
+					_potential = _armas select _i;
 					if ((_potential in mlaunchers) or (_potential in rlaunchers)) then
 						{
 						_target = _objeto;
 						_hasBox = true;
 						_distanceX = _unit distance _objeto;
-						_weaponX = _potential;
+						_arma = _potential;
 						};
 					};
 				};
@@ -177,9 +177,9 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 		if ((unitReady _unit) and ([_unit] call A3A_fnc_canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
 		if (_unit distance _target < 3) then
 			{
-			_unit action ["TakeWeapon",_target,_weaponX];
+			_unit action ["TakeWeapon",_target,_arma];
 			sleep 3;
-			if (secondaryWeapon _unit == _weaponX) then
+			if (secondaryWeapon _unit == _arma) then
 				{
 				if (_inPlayerGroup) then {_unit groupChat "I have a secondary weapon now"};
 				if (_target isKindOf "ReammoBox_F") then {sleep 3;_unit action ["rearm",_target]};
@@ -436,11 +436,11 @@ if ((_hasBox) and (_unit getVariable "rearming")) then
 		{_unit addItemToVest _x} forEach _itemsUnit;
 		_unit action ["rearm",_target];
 		//{_unit addItemCargoGlobal [_x,1]} forEach ((backpackItems _target) + (backpackMagazines _target));
-		_things = nearestObjects [_target, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 5];
-		if (count _things > 0) then
+		_cosas = nearestObjects [_target, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 5];
+		if (count _cosas > 0) then
 			{
-			_thingX = _things select 0;
-			{_thingX addItemCargoGlobal [_x,1]} forEach (vestItems _target);
+			_cosa = _cosas select 0;
+			{_cosa addItemCargoGlobal [_x,1]} forEach (vestItems _target);
 			};
 		removeVest _target;
 		};
@@ -475,11 +475,11 @@ if (backpack _unit == "") then
 			_unit addBackPackGlobal ((backpack _target) call BIS_fnc_basicBackpack);
 			_unit action ["rearm",_target];
 			//{_unit addItemCargoGlobal [_x,1]} forEach ((backpackItems _target) + (backpackMagazines _target));
-			_things = nearestObjects [_target, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 5];
-			if (count _things > 0) then
+			_cosas = nearestObjects [_target, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 5];
+			if (count _cosas > 0) then
 				{
-				_thingX = _things select 0;
-				{_thingX addItemCargoGlobal [_x,1]} forEach (backpackItems _target);
+				_cosa = _cosas select 0;
+				{_cosa addItemCargoGlobal [_x,1]} forEach (backpackItems _target);
 				};
 			removeBackpackGlobal _target;
 			};

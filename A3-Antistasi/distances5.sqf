@@ -38,14 +38,14 @@ if (_countX > 5) then
 	_blufor = [];
 	_opfor = [];
 	{
-	_sideX = side (group _x);
-	if (_sideX == Occupants) then
+	_lado = side (group _x);
+	if (_lado == Occupants) then
 		{
 		_blufor pushBack _x;
 		}
 	else
 		{
-		if (_sideX == ) then
+		if (_lado == ) then
 			{
 			_opfor pushBack _x;
 			}

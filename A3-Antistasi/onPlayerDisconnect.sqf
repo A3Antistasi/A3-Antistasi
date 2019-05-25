@@ -1,4 +1,4 @@
-private ["_unit","_resourcesX","_hr","_weaponsX","_ammunition","_items","_pos"];
+private ["_unit","_resourcesX","_hr","_armas","_ammunition","_items","_pos"];
 
 _unit = _this select 0;
 _uid = _this select 2;

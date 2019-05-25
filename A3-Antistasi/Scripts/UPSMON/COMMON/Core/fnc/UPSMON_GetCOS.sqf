@@ -3,7 +3,7 @@ File: UPSMON_GetSIN.sqf
 Author: MONSADA
 
 Description:
-	Funciï¿½n que devuelve el valueX negativo o positivo del coseno en base a un angulo
+	Función que devuelve el valor negativo o positivo del coseno en base a un angulo
 Parameter(s):
 
 Returns:

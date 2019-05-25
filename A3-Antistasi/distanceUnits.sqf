@@ -1,14 +1,14 @@
 //example: _result = [distanceSPWN,0,posHQ,] call A3A_fnc_distanceUnits: devuelve un array con todas las que estén a menos de distanceSPWN
 //example: _result = [distanceSPWN,1,posHQ,teamPlayer] call A3A_fnc_distanceUnits: devuelve un boolean si hay una que esté a menos de distanceSPWN
-params ["_distanceX","_modeX","_referencia","_variable"];
+params ["_distanceX","_modo","_referencia","_variable"];
 
 _distanceX = _this select 0;//la distanceX requisito, normalmente distanceSPWN)
-_modeX = _this select 1;//lo que devuelve la función, 0 un array, un número mayor un boolean cuando la countX llegue a ese número.
+_modo = _this select 1;//lo que devuelve la función, 0 un array, un número mayor un boolean cuando la countX llegue a ese número.
 _referencia = _this select 2; // posición en formatX array u objeto
 _variable = _this select 3;//side
 private _result = false;
 private _allUnits = allUnits select {_x getVariable ["spawner",false]};
-if (_modeX == 0) then
+if (_modo == 0) then
 	{
 	_result = [];
 	{

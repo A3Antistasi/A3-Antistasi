@@ -1,4 +1,4 @@
-private ["_unit","_muerto","_killer","_skill","_nameX","_typeX"];
+private ["_unit","_muerto","_killer","_skill","_nameX","_tipo"];
 
 _unit = _this select 0;
 
@@ -6,14 +6,14 @@ _unit = _this select 0;
 _unit setVariable ["spawner",true,true];
 
 _unit allowFleeing 0;
-_typeX = typeOf _unit;
-//_skill = if (_typeX in sdkTier1) then {(skillFIA * 0.2)} else {if (_typeX in sdkTier2) then {0.1 + (skillFIA * 0.2)} else {0.1 + (skillFIA * 0.2)}};
+_tipo = typeOf _unit;
+//_skill = if (_tipo in sdkTier1) then {(skillFIA * 0.2)} else {if (_tipo in sdkTier2) then {0.1 + (skillFIA * 0.2)} else {0.1 + (skillFIA * 0.2)}};
 _skill = skillFIA * 0.05 * skillMult;
 if (!activeGREF) then {if (not((uniform _unit) in uniformsSDK)) then {[_unit] call A3A_fnc_reDress}};
 
 if ((!isMultiplayer) and (leader _unit == theBoss)) then {_skill = _skill + 0.1};
 _unit setSkill _skill;
-if (_typeX in SDKSniper) then
+if (_tipo in SDKSniper) then
 	{
 	if (count unlockedSN > 0) then
 		{
@@ -40,10 +40,10 @@ else
 		{
 		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") < 2) then {removeHeadgear _unit;_unit addHeadgear (selectRandom helmets)};
 		};
-	if ((_typeX in SDKMil) or (_typeX == staticCrewTeamPlayer)) then
+	if ((_tipo in SDKMil) or (_tipo == staticCrewTeamPlayer)) then
 		{
 		[_unit,unlockedRifles] call A3A_fnc_randomRifle;
-		if ((loadAbs _unit < 340) and (_typeX in SDKMil)) then
+		if ((loadAbs _unit < 340) and (_tipo in SDKMil)) then
 			{
 			if ((random 20 < skillFIA) and (count unlockedAA > 0)) then
 				{
@@ -55,7 +55,7 @@ else
 		}
 	else
 		{
-		if (_typeX in SDKMG) then
+		if (_tipo in SDKMG) then
 			{
 			if (count unlockedMG > 0) then
 				{
@@ -68,7 +68,7 @@ else
 			}
 		else
 			{
-			if (_typeX in SDKGL) then
+			if (_tipo in SDKGL) then
 				{
 				if (count unlockedGL > 0) then
 					{
@@ -81,14 +81,14 @@ else
 				}
 			else
 				{
-				if (_typeX != SDKUnarmed) then {[_unit,unlockedRifles] call A3A_fnc_randomRifle};
-				if (_typeX in SDKExp) then
+				if (_tipo != SDKUnarmed) then {[_unit,unlockedRifles] call A3A_fnc_randomRifle};
+				if (_tipo in SDKExp) then
 					{
 					_unit setUnitTrait ["explosiveSpecialist",true];
 					}
 				else
 					{
-					if (_typeX in SDKMedic) then
+					if (_tipo in SDKMedic) then
 						{
 						_unit setUnitTrait ["medic",true];
 						if ({_x == "FirstAidKit"} count (items _unit) < 10) then
@@ -98,7 +98,7 @@ else
 						}
 					else
 						{
-						if (_typeX in SDKATman) then
+						if (_tipo in SDKATman) then
 							{
 							if !(unlockedAT isEqualTo []) then
 								{
@@ -121,7 +121,7 @@ else
 							}
 						else
 							{
-							if (_typeX in squadLeaders) then
+							if (_tipo in squadLeaders) then
 								{
 								_unit setskill ["courage",_skill + 0.2];
 								_unit setskill ["commanding",_skill + 0.2];
@@ -141,13 +141,13 @@ _unit selectWeapon (primaryWeapon _unit);
 
 if (!haveRadio) then
 	{
-	if ((_unit != leader _unit) and (_typeX != staticCrewTeamPlayer)) then {_unit unlinkItem "ItemRadio"};
+	if ((_unit != leader _unit) and (_tipo != staticCrewTeamPlayer)) then {_unit unlinkItem "ItemRadio"};
 	};
 
-if ({if (_x in smokeX) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom smokeX,2]};
+if ({if (_x in humo) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom humo,2]};
 if !(hasIFA) then
 	{
-	if ((sunOrMoon < 1) and (_typeX != SDKUnarmed)) then
+	if ((sunOrMoon < 1) and (_tipo != SDKUnarmed)) then
 		{
 		if (haveNV) then
 			{
@@ -198,7 +198,7 @@ if !(hasIFA) then
 		};
 	};
 /*
-if ((_typeX != "B_G_Soldier_M_F") and (_typeX != "B_G_Sharpshooter_F")) then {if (_aiming > 0.35) then {_aiming = 0.35}};
+if ((_tipo != "B_G_Soldier_M_F") and (_tipo != "B_G_Sharpshooter_F")) then {if (_aiming > 0.35) then {_aiming = 0.35}};
 
 _unit setskill ["aimingAccuracy",_aiming];
 _unit setskill ["spotDistance",_spotD];

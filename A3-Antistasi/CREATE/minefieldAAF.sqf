@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {false};
-private ["_markerX","_base","_posbase","_posMarker","_angOrig","_ang","_attempts","_distanceX","_pos","_failure","_mineX"];
+private ["_markerX","_base","_posbase","_posMarker","_angOrig","_ang","_attempts","_distanceX","_pos","_failure","_mina"];
 
 _markerX = _this select 0;
 
@@ -48,8 +48,8 @@ if (_failure) exitWith {false};
 
 for "_i" from 1 to 60 do
 	{
-	_mineX = createMine ["APERSMine",_pos,[],100];
-	if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants revealMine _mineX} else { revealMine _mineX};
+	_mina = createMine ["APERSMine",_pos,[],100];
+	if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants revealMine _mina} else { revealMine _mina};
 	};
 
 //[-4000] remoteExec ["resourcesAAF",2];

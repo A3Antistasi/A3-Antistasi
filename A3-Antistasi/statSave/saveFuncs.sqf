@@ -152,24 +152,24 @@ fn_SetStat =
 			{
 			for "_i" from 0 to (count _varvalue) - 1 do
 				{
-				_typeMine = _varvalue select _i select 0;
-				switch _typeMine do
+				_tipoMina = _varvalue select _i select 0;
+				switch _tipoMina do
 					{
-					case "APERSMine_Range_Ammo": {_typeMine = "APERSMine"};
-					case "ATMine_Range_Ammo": {_typeMine = "ATMine"};
-					case "APERSBoundingMine_Range_Ammo": {_typeMine = "APERSBoundingMine"};
-					case "SLAMDirectionalMine_Wire_Ammo": {_typeMine = "SLAMDirectionalMine"};
-					case "APERSTripMine_Wire_Ammo": {_typeMine = "APERSTripMine"};
-					case "ClaymoreDirectionalMine_Remote_Ammo": {_typeMine = "Claymore_F"};
+					case "APERSMine_Range_Ammo": {_tipoMina = "APERSMine"};
+					case "ATMine_Range_Ammo": {_tipoMina = "ATMine"};
+					case "APERSBoundingMine_Range_Ammo": {_tipoMina = "APERSBoundingMine"};
+					case "SLAMDirectionalMine_Wire_Ammo": {_tipoMina = "SLAMDirectionalMine"};
+					case "APERSTripMine_Wire_Ammo": {_tipoMina = "APERSTripMine"};
+					case "ClaymoreDirectionalMine_Remote_Ammo": {_tipoMina = "Claymore_F"};
 					};
-				_posMine = _varvalue select _i select 1;
-				_mineX = createMine [_typeMine, _posMine, [], 0];
+				_posMina = _varvalue select _i select 1;
+				_mina = createMine [_tipoMina, _posMina, [], 0];
 				_detected = _varvalue select _i select 2;
-				{_x revealMine _mineX} forEach _detected;
+				{_x revealMine _mina} forEach _detected;
 				if (count (_varvalue select _i) > 3) then//borrar esto en febrero
 					{
 					_dirMine = _varvalue select _i select 3;
-					_mineX setDir _dirMine;
+					_mina setDir _dirMine;
 					};
 				};
 			};
@@ -284,10 +284,10 @@ fn_SetStat =
 			else
 				{
 				fireX setPos (_varValue select 1);
-				boxX setDir ((_varValue select 2) select 0);
-				boxX setPos ((_varValue select 2) select 1);
-				mapX setDir ((_varValue select 3) select 0);
-				mapX setPos ((_varValue select 3) select 1);
+				caja setDir ((_varValue select 2) select 0);
+				caja setPos ((_varValue select 2) select 1);
+				mapa setDir ((_varValue select 3) select 0);
+				mapa setPos ((_varValue select 3) select 1);
 				flagX setPos (_varValue select 4);
 				vehicleBox setDir ((_varValue select 5) select 0);
 				vehicleBox setPos ((_varValue select 5) select 1);

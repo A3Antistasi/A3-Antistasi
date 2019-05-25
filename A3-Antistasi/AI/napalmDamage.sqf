@@ -12,7 +12,7 @@ _fireXs = [];
 while {time < _timeOut} do
 	{
 	_units = nearestobjects [_pos, _argumentX, 70];
-	if (isServer) then {_units = _units - [mapX,flagX,vehicleBox,boxX]};
+	if (isServer) then {_units = _units - [mapa,flagX,vehicleBox,caja]};
 	{
 	if (local _x) then
 		{
@@ -61,9 +61,9 @@ while {time < _timeOut} do
 							{
 							if (random 100 < 50) then
 								{
-								_typeX = _this select 0;
+								_tipo = _this select 0;
 								sleep random 3;
-								playSound3D [(injuredSounds call BIS_fnc_selectRandom),_typeX];
+								playSound3D [(injuredSounds call BIS_fnc_selectRandom),_tipo];
 								};
 							};
 						};

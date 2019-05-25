@@ -41,8 +41,8 @@ while {true} do
 			if ((daytime < 8) or (daytime > 21)) then {_numhouses = round (_numhouses / 2)};
 			if ({_x distance player < 300} count _allCivs <= _numhouses) then
 				{
-				_houseX = selectRandom _houses;
-				if ({_x distance _houseX < 20} count (allPlayers - (entities "HeadlessClient_F")) == 0) then
+				_casa = selectRandom _houses;
+				if ({_x distance _casa < 20} count (allPlayers - (entities "HeadlessClient_F")) == 0) then
 					{
 					if (isNull _group) then
 						{
@@ -52,7 +52,7 @@ while {true} do
 						{
 						if (count units _group > 2) then {_group = createGroup civilian};
 						};
-					_posHouse = selectRandom (_houseX buildingPos -1);
+					_posHouse = selectRandom (_casa buildingPos -1);
 					_civ = _group createUnit [selectRandom arrayCivs, _posHouse, [],0, "NONE"];
 					_civ setPosATL _posHouse;
 					[_civ] spawn A3A_fnc_CIVinit;

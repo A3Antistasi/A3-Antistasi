@@ -41,5 +41,5 @@ if (isPlayer _x) then
 	}
 } forEach ([_size,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
 
-//_sideX = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
+//_lado = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
 [teamPlayer,_markerX] remoteExec ["A3A_fnc_markerChange",2];

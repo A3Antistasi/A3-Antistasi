@@ -3,9 +3,9 @@ private _soldiers = _this;
 waitUntil {sleep 10;{([_x] call A3A_fnc_canFight) and (vehicle _x == _x)} count _soldiers == {[_x] call A3A_fnc_canFight} count _soldiers};
 
 if ({[_x] call A3A_fnc_canFight} count _soldiers == 0) exitWith {};
-private _sideX = side (group (_soldiers select 0));
+private _lado = side (group (_soldiers select 0));
 private _eny = [teamPlayer];
-if (_sideX == Occupants) then {_eny pushBack } else {_eny pushBack Occupants};
+if (_lado == Occupants) then {_eny pushBack } else {_eny pushBack Occupants};
 
 while {true} do
 	{

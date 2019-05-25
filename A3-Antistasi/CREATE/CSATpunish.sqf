@@ -16,7 +16,7 @@ _nameDest = [_mrkDestination] call A3A_fnc_localizar;
 [[teamPlayer,civilian,Occupants],"AttackAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest,nameInvaders],format ["%1 Punishment",nameInvaders],_mrkDestination],getMarkerPos _mrkDestination,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 
 _nul = [_mrkOrigin,_mrkDestination,] spawn A3A_fnc_artillery;
-_sideX = if (sidesX getVariable [_mrkDestination,sideUnknown] == Occupants) then {Occupants} else {teamPlayer};
+_lado = if (sidesX getVariable [_mrkDestination,sideUnknown] == Occupants) then {Occupants} else {teamPlayer};
 _timeX = time + 3600;
 
 for "_i" from 1 to 3 do
@@ -108,11 +108,11 @@ if (sidesX getVariable [_mrkDestination,sideUnknown] == Occupants) then {[[_posD
 if (_numCiv < 8) then {_numCiv = 8};
 
 _size = [_mrkDestination] call A3A_fnc_sizeMarker;
-//_groupCivil = if (_sideX == teamPlayer) then {createGroup teamPlayer} else {createGroup Occupants};
+//_groupCivil = if (_lado == teamPlayer) then {createGroup teamPlayer} else {createGroup Occupants};
 _groupCivil = createGroup teamPlayer;
 _groups pushBack _groupCivil;
 //[,[civilian,0]] remoteExec ["setFriend",2];
-_typeUnit = if (_sideX == teamPlayer) then {SDKUnarmed} else {NATOUnarmed};
+_typeUnit = if (_lado == teamPlayer) then {SDKUnarmed} else {NATOUnarmed};
 for "_i" from 0 to _numCiv do
 	{
 	while {true} do
@@ -178,8 +178,8 @@ else
 	publicVariable "destroyedCities";
 	for "_i" from 1 to 60 do
 		{
-		_mineX = createMine ["APERSMine",_posDestination,[],_size];
-		 revealMine _mineX;
+		_mina = createMine ["APERSMine",_posDestination,[],_size];
+		 revealMine _mina;
 		};
 	[_mrkDestination] call A3A_fnc_destroyCity;
 	};

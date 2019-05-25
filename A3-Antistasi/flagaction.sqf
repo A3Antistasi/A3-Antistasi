@@ -1,11 +1,11 @@
-private ["_flag","_typeX"];
+private ["_flag","_tipo"];
 
 if (!hasInterface) exitWith {};
 
 _flag = _this select 0;
-_typeX = _this select 1;
+_tipo = _this select 1;
 
-switch _typeX do
+switch _tipo do
 	{
 	case "take":
 		{

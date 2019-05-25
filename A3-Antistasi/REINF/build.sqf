@@ -10,13 +10,13 @@ if ((player != leader player) and (_engineerX != player)) exitWith {hint "Only s
 if !([_engineerX] call A3A_fnc_canFight) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
 if ((_engineerX getVariable ["helping",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX getVariable ["constructing",false])) exitWith {hint "Your engineer is currently performing another action"};
 
-private _typeX = _this select 0;
+private _tipo = _this select 0;
 private _dir = getDir player;
 private _positionX = position player;
 private _costs = 0;
 private _timeX = 60;
 private _classX = "";
-switch _typeX do
+switch _tipo do
 	{
 	case "ST":
 		{
@@ -81,18 +81,18 @@ switch _typeX do
 		};
 	};
 
-//if ((_typeX == "RB") and !(isOnRoad _positionX)) exitWith {hint "Please select this option on a road segment"};
+//if ((_tipo == "RB") and !(isOnRoad _positionX)) exitWith {hint "Please select this option on a road segment"};
 
 private _leave = false;
-private _textX = "";
-if ((_typeX == "SB") or (_typeX == "CB")) then
+private _texto = "";
+if ((_tipo == "SB") or (_tipo == "CB")) then
 	{
-	if (_typeX == "SB") then {_dir = _dir + 180};
+	if (_tipo == "SB") then {_dir = _dir + 180};
 	_resourcesFIA = if (!isMultiPlayer) then {server getVariable "resourcesFIA"} else {player getVariable "moneyX"};
 	if (_costs > _resourcesFIA) then
 		{
 		_leave = true;
-		_textX = format ["You do not have enough money for this construction (%1 € needed)",_costs]
+		_texto = format ["You do not have enough money for this construction (%1 € needed)",_costs]
 		}
 	else
 		{
@@ -101,13 +101,13 @@ if ((_typeX == "SB") or (_typeX == "CB")) then
 		if (!(_positionX inArea nearX)) then
 			{
 			_leave = true;
-			_textX = "You cannot build a bunker outside a controlled zone";
+			_texto = "You cannot build a bunker outside a controlled zone";
 			nearX = nil;
 			};
 		};
 	};
 
-if (_leave) exitWith {hint format ["%1",_textX]};
+if (_leave) exitWith {hint format ["%1",_texto]};
 hint "Select a place to build the required asset and press SPACE to start the construction.\n\nHit ESC to exit";
 garageVeh = _classX createVehicleLocal [0,0,0];
 bought = 0;
@@ -139,7 +139,7 @@ _displayEH = (findDisplay 46) displayAddEventHandler ["KeyDown",
 
 _HDEH = player addEventHandler ["HandleDamage",{bought = 1}];
 positionXSel = [0,0,0];
-if (_typeX == "RB") then
+if (_tipo == "RB") then
 	{
 	onEachFrame
 	 {
@@ -166,7 +166,7 @@ if (_typeX == "RB") then
 	}
 else
 	{
-	if ((_typeX == "SB") or (_typeX == "CB")) then
+	if ((_tipo == "SB") or (_tipo == "CB")) then
 		{
 		onEachFrame
 		 {
@@ -298,7 +298,7 @@ if (!_isPlayer) then {_engineerX doFollow (leader _engineerX)};
 private _veh = createVehicle [_classX, _positionX, [], 0, "CAN_COLLIDE"];
 _veh setDir _dir;
 
-if ((_typeX == "SB") or (_typeX == "CB")) exitWith
+if ((_tipo == "SB") or (_tipo == "CB")) exitWith
 	{
 	staticsToSave pushBackUnique _veh;
 	publicVariable "staticsToSave"
@@ -306,7 +306,7 @@ if ((_typeX == "SB") or (_typeX == "CB")) exitWith
 
 
 //falta inicializarlo en veh init
-if (_typeX == "RB") then
+if (_tipo == "RB") then
 	{
 	sleep 30;
 	_l1 = "#lightpoint" createVehicle getpos _veh;

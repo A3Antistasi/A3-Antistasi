@@ -111,11 +111,11 @@ if (visiblemap) then
 	_rnd = getdir Petros;
 	if (isMultiplayer) then {sleep 5};
 	_pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
-	boxX setPos _pos;
+	caja setPos _pos;
 	_rnd = _rnd + 45;
 	_pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
-	mapX setPos _pos;
-	mapX setDir ([fireX, mapX] call BIS_fnc_dirTo);
+	mapa setPos _pos;
+	mapa setDir ([fireX, mapa] call BIS_fnc_dirTo);
 	_rnd = _rnd + 45;
 	_pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
 	flagX setPos _pos;
@@ -126,17 +126,17 @@ if (visiblemap) then
 	theBoss allowDamage true;
 	if (isMultiplayer) then
 		{
-		boxX hideObjectGlobal false;
+		caja hideObjectGlobal false;
 		vehicleBox hideObjectGlobal false;
-		mapX hideObjectGlobal false;
+		mapa hideObjectGlobal false;
 		fireX hideObjectGlobal false;
 		flagX hideObjectGlobal false;
 		}
 	else
 		{
-		boxX hideObject false;
+		caja hideObject false;
 		vehicleBox hideObject false;
-		mapX hideObject false;
+		mapa hideObject false;
 		fireX hideObject false;
 		flagX hideObject false;
 		};

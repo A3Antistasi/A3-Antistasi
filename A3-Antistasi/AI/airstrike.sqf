@@ -1,10 +1,10 @@
 // usage: Activate via radio trigger, on act: [] execVM "airstrike.sqf";
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_positionX","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_sideX","_isMarker","_typePlane","_exit","_timeOut","_size","_buildings","_friends","_enemiesX","_mediaX","_mediaY","_pos","_countX","_distantNum","_distantX","_planefn","_planeCrew","_groupPlane","_typeX"];
+private ["_markerX","_positionX","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_lado","_isMarker","_typePlane","_exit","_timeOut","_size","_buildings","_friends","_enemiesX","_mediaX","_mediaY","_pos","_countX","_distantNum","_distantX","_planefn","_planeCrew","_groupPlane","_tipo"];
 
 _markerX = _this select 0;
-_sideX = _this select 1;
+_lado = _this select 1;
 _positionX = _markerX;
 _isMarker = false;
 if (_markerX isEqualType "") then
@@ -12,9 +12,9 @@ if (_markerX isEqualType "") then
 	_isMarker = true;
 	_positionX = getMarkerPos _markerX;
 	};
-_typeX = _this select 2;
+_tipo = _this select 2;
 
-_typePlane = if (_sideX == Occupants) then {vehNATOPlane} else {vehCSATPlane};
+_typePlane = if (_lado == Occupants) then {vehNATOPlane} else {vehCSATPlane};
 
 _ang = random 360;
 _angorig = _ang + 180;
@@ -46,10 +46,10 @@ if (_isMarker) then
 	}
 else
 	{
-	_friends = if (_sideX == Occupants) then {allUnits select {(_x distance _positionX < 300) and (alive _x) and ((side _x == Occupants) or (side _x == civilian))}} else {allUnits select {(_x distance _positionX < 300) and (alive _x) and (side _x == )}};
+	_friends = if (_lado == Occupants) then {allUnits select {(_x distance _positionX < 300) and (alive _x) and ((side _x == Occupants) or (side _x == civilian))}} else {allUnits select {(_x distance _positionX < 300) and (alive _x) and (side _x == )}};
 	if (count _friends == 0) then
 		{
-		_enemiesX = if (_sideX == Occupants) then {allUnits select {_x distance _positionX < 300 and (side _x != _sideX) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _positionX < 300 and (side _x != _sideX) and (alive _x)}};
+		_enemiesX = if (_lado == Occupants) then {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (alive _x)}};
 		if (count _enemiesX > 0) then
 			{
 			_mediaX = 0;
@@ -91,7 +91,7 @@ else
 	};
 
 if (_exit) exitWith {};
-_planefn = [_origpos, _ang, _typePlane, _sideX] call bis_fnc_spawnvehicle;
+_planefn = [_origpos, _ang, _typePlane, _lado] call bis_fnc_spawnvehicle;
 _plane = _planefn select 0;
 if (hasIFA) then {_plane setVelocityModelSpace [((velocityModelSpace _plane) select 0) + 0,((velocityModelSpace _plane) select 1) + 150,((velocityModelSpace _plane) select 2) + 50]};
 _planeCrew = _planefn select 1;
@@ -108,8 +108,8 @@ _wp1 setWaypointType "MOVE";
 _wp1 setWaypointSpeed "LIMITED";
 _wp1 setWaypointBehaviour "CARELESS";
 _plane setCollisionLight true;
-if ((_typeX == "NAPALM") and (napalmCurrent)) then {_typeX = "CLUSTER"};
-if (_typeX == "HE") then {_wp1 setWaypointStatements ["true", "[this,""HE""] execVM 'AI\airbomb.sqf'"]} else {if (_typeX == "NAPALM") then {_wp1 setWaypointStatements ["true", "[this,""NAPALM""] execVM 'AI\airbomb.sqf'"]} else {_wp1 setWaypointStatements ["true", "[this,""CLUSTER""] execVM 'AI\airbomb.sqf'"]}};
+if ((_tipo == "NAPALM") and (napalmCurrent)) then {_tipo = "CLUSTER"};
+if (_tipo == "HE") then {_wp1 setWaypointStatements ["true", "[this,""HE""] execVM 'AI\airbomb.sqf'"]} else {if (_tipo == "NAPALM") then {_wp1 setWaypointStatements ["true", "[this,""NAPALM""] execVM 'AI\airbomb.sqf'"]} else {_wp1 setWaypointStatements ["true", "[this,""CLUSTER""] execVM 'AI\airbomb.sqf'"]}};
 
 _wp2 = _groupPlane addWaypoint [_pos2, 1];
 _wp2 setWaypointSpeed "LIMITED";

@@ -43,13 +43,13 @@ if (isMultiplayer) then
 		{
 		player addEventHandler ["Fired",
 			{
-			_typeX = _this select 1;
-			if ((_typeX == "Put") or (_typeX == "Throw")) then
+			_tipo = _this select 1;
+			if ((_tipo == "Put") or (_tipo == "Throw")) then
 				{
 				if (player distance petros < 50) then
 					{
 					deleteVehicle (_this select 6);
-					if (_typeX == "Put") then
+					if (_tipo == "Put") then
 						{
 						if (player distance petros < 10) then {[player,60] spawn A3A_fnc_punishment};
 						};
@@ -169,8 +169,8 @@ if (player getVariable ["pvp",false]) exitWith
 	player addEventHandler ["InventoryOpened",
 		{
 		_override = false;
-		_boxX = typeOf (_this select 1);
-		if ((_boxX == NATOAmmoBox) or (_boxX == CSATAmmoBox)) then {_override = true};
+		_caja = typeOf (_this select 1);
+		if ((_caja == NATOAmmoBox) or (_caja == CSATAmmoBox)) then {_override = true};
 		_override
 		}];
 	_nameX = if (side player == Occupants) then {nameOccupants} else {nameInvaders};
@@ -253,14 +253,14 @@ player addEventHandler ["FIRED",
 	];
 player addEventHandler ["InventoryOpened",
 	{
-	private ["_playerX","_containerX","_typeX"];
+	private ["_playerX","_containerX","_tipo"];
 	_control = false;
 	_playerX = _this select 0;
 	if (captive _playerX) then
 		{
 		_containerX = _this select 1;
-		_typeX = typeOf _containerX;
-		if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_typeX == NATOAmmoBox) or (_typeX == CSATAmmoBox)) then
+		_tipo = typeOf _containerX;
+		if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 			{
 			if ({if (((side _x== ) or (side _x== Occupants)) and (_x knowsAbout _playerX > 1.4)) exitWith {1}} count allUnits > 0) then
 				{
@@ -552,32 +552,32 @@ else
 	};
 waitUntil {scriptDone _titulo};
 
-_textX = [];
+_texto = [];
 
 if ((hasTFAR) or (hasACRE)) then
 	{
-	_textX = ["TFAR or ACRE Detected\n\nAntistasi detects TFAR or ACRE in the server config.\nAll players will start with addon default radios.\nDefault revive system will shut down radios while players are inconscious.\n\n"];
+	_texto = ["TFAR or ACRE Detected\n\nAntistasi detects TFAR or ACRE in the server config.\nAll players will start with addon default radios.\nDefault revive system will shut down radios while players are inconscious.\n\n"];
 	};
 if (hasACE) then
 	{
-	_textX = _textX + ["ACE 3 Detected\n\nAntistasi detects ACE modules in the server config.\nACE items added to arsenal and ammoboxes. Default AI control is disabled\nIf ACE Medical is used, default revive system will be disabled.\nIf ACE Hearing is used, default earplugs will be disabled."];
+	_texto = _texto + ["ACE 3 Detected\n\nAntistasi detects ACE modules in the server config.\nACE items added to arsenal and ammoboxes. Default AI control is disabled\nIf ACE Medical is used, default revive system will be disabled.\nIf ACE Hearing is used, default earplugs will be disabled."];
 	};
 if (hasRHS) then
 	{
-	_textX = _textX + ["RHS Detected\n\nAntistasi detects RHS in the server config.\nDepending on the modules will have the following effects.\n\nAFRF: Replaces CSAT by a mix of russian units\n\nUSAF: Replaces NATO by a mix of US units\n\nGREF: Recruited AI will count with RHS as basic weapons, replaces FIA with Chdk units. Adds some civilian trucks"];
+	_texto = _texto + ["RHS Detected\n\nAntistasi detects RHS in the server config.\nDepending on the modules will have the following effects.\n\nAFRF: Replaces CSAT by a mix of russian units\n\nUSAF: Replaces NATO by a mix of US units\n\nGREF: Recruited AI will count with RHS as basic weapons, replaces FIA with Chdk units. Adds some civilian trucks"];
 	};
 if (hasFFAA) then
 	{
-	_textX = _textX + ["FFAA Detected\n\nAntistasi detects FFAA in the server config.\nFIA Faction will be replaced by Spanish Armed Forces"];
+	_texto = _texto + ["FFAA Detected\n\nAntistasi detects FFAA in the server config.\nFIA Faction will be replaced by Spanish Armed Forces"];
 	};
 
 if (hasTFAR or hasACE or hasRHS or hasACRE or hasFFAA) then
 	{
-	[_textX] spawn
+	[_texto] spawn
 		{
 		sleep 0.5;
-		_textX = _this select 0;
-		"Integrated Mods Detected" hintC _textX;
+		_texto = _this select 0;
+		"Integrated Mods Detected" hintC _texto;
 		hintC_arr_EH = findDisplay 72 displayAddEventHandler ["unload", {
 			0 = _this spawn {
 				_this select 0 displayRemoveEventHandler ["unload", hintC_arr_EH];
@@ -588,13 +588,13 @@ if (hasTFAR or hasACE or hasRHS or hasACRE or hasFFAA) then
 	};
 waituntil {!isnull (finddisplay 46)};
 gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",A3A_fnc_keys];
-//removeAllActions boxX;
+//removeAllActions caja;
 
-if ((!isServer) and (isMultiplayer)) then {boxX call jn_fnc_arsenal_init};
+if ((!isServer) and (isMultiplayer)) then {caja call jn_fnc_arsenal_init};
 
-boxX allowDamage false;
-boxX addAction ["Transfer Vehicle cargo to Ammobox", "[] call A3A_fnc_empty"];
-boxX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
+caja allowDamage false;
+caja addAction ["Transfer Vehicle cargo to Ammobox", "[] call A3A_fnc_empty"];
+caja addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 flagX addAction ["HQ Management", {[] execVM "Dialogs\dialogHQ.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
 flagX allowDamage false;
 flagX addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
@@ -610,11 +610,11 @@ fireX addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this 
 fireX addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","_this == theBoss"];
 fireX addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this) and (side (group _this) == teamPlayer)"];
 fireX addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)"];
-mapX allowDamage false;
-mapX addAction ["Game Options", {hint format ["Antistasi - %2\n\nVersion: %1\n\nDifficulty: %3\nUnlock Weapon Number: %4\nLimited Fast Travel: %5",antistasiVersion,worldName,if (skillMult == 1) then {"Normal"} else {if (skillMult == 0.5) then {"Easy"} else {"Hard"}},minWeaps,if (limitedFT) then {"Yes"} else {"No"}]; nul=CreateDialog "game_options";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
-mapX addAction ["Map Info", {nul = [] execVM "cityinfo.sqf";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
-mapX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
-if (isMultiplayer) then {mapX addAction ["AI Load Info", "[] remoteExec [""A3A_fnc_AILoadInfo"",2]",nil,0,false,true,"","(_this == theBoss)"]};
+mapa allowDamage false;
+mapa addAction ["Game Options", {hint format ["Antistasi - %2\n\nVersion: %1\n\nDifficulty: %3\nUnlock Weapon Number: %4\nLimited Fast Travel: %5",antistasiVersion,worldName,if (skillMult == 1) then {"Normal"} else {if (skillMult == 0.5) then {"Easy"} else {"Hard"}},minWeaps,if (limitedFT) then {"Yes"} else {"No"}]; nul=CreateDialog "game_options";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
+mapa addAction ["Map Info", {nul = [] execVM "cityinfo.sqf";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
+mapa addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
+if (isMultiplayer) then {mapa addAction ["AI Load Info", "[] remoteExec [""A3A_fnc_AILoadInfo"",2]",nil,0,false,true,"","(_this == theBoss)"]};
 _nul = [player] execVM "OrgPlayers\unitTraits.sqf";
 groupPetros = group petros;
 groupPetros setGroupIdGlobal ["Petros","GroupColor4"];

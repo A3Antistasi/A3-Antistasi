@@ -1,12 +1,12 @@
 if (not isServer and hasInterface) exitWith {};
-private ["_countX","_plane","_typeX","_ammo","_cluster","_carpet","_sleep","_bomb"];
+private ["_countX","_plane","_tipo","_ammo","_cluster","_carpet","_sleep","_bomb"];
 _plane = _this select 0;
-_typeX = _this select 1;
+_tipo = _this select 1;
 _ammo = "Bomb_03_F";
 _countX = 8;
 _cluster = false;
 _carpet = false;
-if (_typeX != "HE") then
+if (_tipo != "HE") then
 	{
 	_ammo = "G_40mm_HEDP";
 	if (_this select 1 == "NAPALM") then {_countX = 24} else {_countX = 48; _carpet = true};

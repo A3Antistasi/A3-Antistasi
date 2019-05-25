@@ -1606,7 +1606,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="boxX";
+				name="caja";
 			};
 			id=950;
 			type="IG_supplyCrate_F";
@@ -3833,7 +3833,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="mapX";
+				name="mapa";
 			};
 			id=1098;
 			type="MapBoard_seismic_F";

@@ -7,8 +7,8 @@ if (!alive _unit) exitWith {};
 
 _playerX globalChat "You imperialist! Tell me what you know!";
 _chance = 0;
-_sideX = side (group _unit);
-if (_sideX == Occupants) then
+_lado = side (group _unit);
+if (_lado == Occupants) then
 	{
 	_chance = 100 - prestigeNATO;
 	}

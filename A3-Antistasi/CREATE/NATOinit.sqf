@@ -1,12 +1,12 @@
-private ["_unit","_veh","_sideX","_typeX","_skill","_riflefinal","_magazines","_hmd","_markerX","_revealX"];
+private ["_unit","_veh","_lado","_tipo","_skill","_riflefinal","_magazines","_hmd","_markerX","_revealX"];
 
 _unit = _this select 0;
 if (isNil "_unit") exitWith {diag_log format ["Antistasi: Error enviando a NATOinit los parámetros:%1",_this]};
 if (isNull _unit) exitWith {diag_log format ["Antistasi: Error enviando a NATOinit los parámetros:%1",_this]};
-_typeX = typeOf _unit;
+_tipo = typeOf _unit;
 if (typeOf _unit == "Fin_random_F") exitWith {};
-_sideX = side _unit;
-//_unit setVariable ["sideX",_sideX];
+_lado = side _unit;
+//_unit setVariable ["lado",_lado];
 _unit addEventHandler ["HandleDamage",A3A_fnc_handleDamageAAF];
 
 _unit addEventHandler ["killed",A3A_fnc_AAFKilledEH];
@@ -97,10 +97,10 @@ else
 
 if (_skill > 0.58) then {_skill = 0.58};
 _unit setSkill _skill;
-if (not(_typeX in sniperUnits)) then
+if (not(_tipo in sniperUnits)) then
 	{
 	if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]};
-	if (_typeX in squadLeaders) then
+	if (_tipo in squadLeaders) then
 		{
 		_unit setskill ["courage",_skill + 0.2];
 		_unit setskill ["commanding",_skill + 0.2];

@@ -17,27 +17,27 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_markerX] call A3A_fnc_localizar;
-_textX = "";
+_texto = "";
 _taskName = "";
 if (_markerX in resourcesX) then
 	{
-	_textX = format ["A %1 would be a fine addition to our cause. Go there and capture it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4];
+	_texto = format ["A %1 would be a fine addition to our cause. Go there and capture it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4];
 	_taskName = "Resource Acquisition";
 	}
 else
 	{
-	_textX = format ["A %1 is disturbing our operations in the area. Go there and capture it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4];
+	_texto = format ["A %1 is disturbing our operations in the area. Go there and capture it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4];
 	_taskName = "Take the Outpost";
 	};
 
 
-[[teamPlayer,civilian],"CON",[_textX,_taskName,_markerX],_positionX,false,0,true,"Target",true] call BIS_fnc_taskCreate;
+[[teamPlayer,civilian],"CON",[_texto,_taskName,_markerX],_positionX,false,0,true,"Target",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["CON","CREATED"]; publicVariable "missionsX";
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (sidesX getVariable [_markerX,sideUnknown] == teamPlayer)};
 
 if (dateToNumber date > _dateLimitNum) then
 	{
-	["CON",[_textX,_taskName,_markerX],_positionX,"FAILED"] call A3A_fnc_taskUpdate;
+	["CON",[_texto,_taskName,_markerX],_positionX,"FAILED"] call A3A_fnc_taskUpdate;
 	if (_difficultX) then
 		{
 		[10,0,_positionX] remoteExec ["A3A_fnc_citySupportChange",2];
@@ -54,7 +54,7 @@ if (dateToNumber date > _dateLimitNum) then
 else
 	{
 	sleep 10;
-	["CON",[_textX,_taskName,_markerX],_positionX,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+	["CON",[_texto,_taskName,_markerX],_positionX,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	if (_difficultX) then
 		{
 		[0,400] remoteExec ["A3A_fnc_resourcesFIA",2];

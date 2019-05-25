@@ -1,12 +1,12 @@
-private ["_typeX","_costs"];
+private ["_tipo","_costs"];
 
-_typeX = _this select 0;
+_tipo = _this select 0;
 
-_costs = server getVariable _typeX;
+_costs = server getVariable _tipo;
 
 if (isNil "_costs") then
 	{
-	diag_log format ["Antistasi Error en vehicleprice: %!",_typeX];
+	diag_log format ["Antistasi Error en vehicleprice: %!",_tipo];
 	_costs = 0;
 	}
 else

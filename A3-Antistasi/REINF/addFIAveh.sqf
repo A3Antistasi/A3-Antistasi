@@ -97,9 +97,9 @@ onEachFrame
    if (garageVeh isKindOf "Ship") then {_pos set [2,0]; _shipX = true};
    if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
    if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
-   _waterX = surfaceIsWater _pos;
-   if (_shipX and {!_waterX}) exitWith {garageVeh setPosASL [0,0,0]};
-   if (!_shipX and {_waterX}) exitWith {garageVeh setPosASL [0,0,0]};
+   _agua = surfaceIsWater _pos;
+   if (_shipX and {!_agua}) exitWith {garageVeh setPosASL [0,0,0]};
+   if (!_shipX and {_agua}) exitWith {garageVeh setPosASL [0,0,0]};
    garageVeh setPosASL _pos;
    garageVeh setVectorUp (_ins select 0 select 1);
    };

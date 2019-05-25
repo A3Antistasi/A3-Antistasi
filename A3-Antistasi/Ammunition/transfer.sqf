@@ -1,4 +1,4 @@
-private ["_truckX","_objectsX","_todo","_proceed","_boxX","_weaponsX","_ammunition","_items","_backpcks","_containers","_countX","_exists"];
+private ["_truckX","_objectsX","_todo","_proceed","_caja","_armas","_ammunition","_items","_backpcks","_containers","_countX","_exists"];
 
 _truckX = vehicle player;
 _objectsX = [];
@@ -10,53 +10,53 @@ _proceed = false;
 _objectsX = nearestObjects [_truckX, ["ReammoBox_F"], 20];
 
 if (count _objectsX == 0) exitWith {};
-_boxX = _objectsX select 0;
+_caja = _objectsX select 0;
 
-if ((_boxX == boxX) and (player!=theBoss)) exitWith {hint "Only the Commander can transfer this ammobox content to any truck"; [driver _truckX,"truckX"] remoteExec ["A3A_fnc_flagaction",driver _truckX]};
+if ((_caja == caja) and (player!=theBoss)) exitWith {hint "Only the Commander can transfer this ammobox content to any truck"; [driver _truckX,"truckX"] remoteExec ["A3A_fnc_flagaction",driver _truckX]};
 
 
-_weaponsX = weaponCargo _boxX;
-_ammunition = magazineCargo _boxX;
-_items = itemCargo _boxX;
+_armas = weaponCargo _caja;
+_ammunition = magazineCargo _caja;
+_items = itemCargo _caja;
 _backpcks = [];
 /*
 if (count weaponsItemsCargo _truckX > 0) then
 	{
 	{
-	_weaponsX pushBack ([(_x select 0)] call BIS_fnc_baseWeapon);
+	_armas pushBack ([(_x select 0)] call BIS_fnc_baseWeapon);
 	for "_i" from 1 to (count _x) - 1 do
 		{
-		_thingX = _x select _i;
-		if (typeName _thingX == typeName "") then
+		_cosa = _x select _i;
+		if (typeName _cosa == typeName "") then
 			{
-			if (_thingX != "") then {_items pushBack _thingX};
+			if (_cosa != "") then {_items pushBack _cosa};
 			}
 		else
 			{
-			if (typeName (_thingX select 0) == typeName []) then {_ammunition pushBack (_thingX select 0)};
+			if (typeName (_cosa select 0) == typeName []) then {_ammunition pushBack (_cosa select 0)};
 			}
 		};
-	} forEach weaponsItemsCargo _boxX;
+	} forEach weaponsItemsCargo _caja;
 	};
 
-if (count backpackCargo _boxX > 0) then
+if (count backpackCargo _caja > 0) then
 	{
 	{
 	_backpcks pushBack (_x call BIS_fnc_basicBackpack);
-	} forEach backpackCargo _boxX;
+	} forEach backpackCargo _caja;
 	};
-_containers = everyContainer _boxX;
+_containers = everyContainer _caja;
 if (count _containers > 0) then
 	{
 	for "_i" from 0 to (count _containers - 1) do
 		{
-		_weaponsX = _weaponsX + weaponCargo ((_containers select _i) select 1);
+		_armas = _armas + weaponCargo ((_containers select _i) select 1);
 		_ammunition = _ammunition + magazineCargo ((_containers select _i) select 1);
 		_items = _items + itemCargo ((_containers select _i) select 1);
 		};
 	};
 */
-_todo = _weaponsX + _ammunition + _items + _backpcks;
+_todo = _armas + _ammunition + _items + _backpcks;
 _countX = count _todo;
 
 if (_countX < 1) then
@@ -67,7 +67,7 @@ if (_countX < 1) then
 
 if (_countX > 0) then
 	{
-	if (_boxX == boxX) then
+	if (_caja == caja) then
 		{
 		if (["DEF_HQ"] call BIS_fnc_taskExists) then {_countX = round (_countX / 10)} else {_countX = round (_countX / 100)};
 		}
@@ -83,7 +83,7 @@ if (_countX > 0) then
 		sleep 1;
 		if (_countX == 0) then
 			{
-			[_boxX,_truckX] remoteExec ["A3A_fnc_ammunitionTransfer",2];
+			[_caja,_truckX] remoteExec ["A3A_fnc_ammunitionTransfer",2];
 			_proceed = true;
 			};
 		if ((_truckX != vehicle player) or (speed _truckX != 0)) then

@@ -1,6 +1,6 @@
 _checkX = false;
-_sideX = side (group player);
-_enemyFaction = if (_sideX == Occupants) then {} else {Occupants};
+_lado = side (group player);
+_enemyFaction = if (_lado == Occupants) then {} else {Occupants};
 {_enemyX = _x;
 if (((side _enemyX == _enemyFaction) or (side _enemyX == teamPlayer)) and (_enemyX distance player < 500) and (not(captive _enemyX))) exitWith {_checkX = true};
 } forEach allUnits;
@@ -23,10 +23,10 @@ _positionTel = positionTel;
 
 if (count _positionTel > 0) then
 	{
-	_mrkENY = markersX select {sidesX getVariable [_x,sideUnknown] != _sideX};
+	_mrkENY = markersX select {sidesX getVariable [_x,sideUnknown] != _lado};
 	_markersX = +markersX;
 	_mrkRespawn = "";
-	if (_sideX == Occupants) then
+	if (_lado == Occupants) then
 		{
 		_markersX pushBack "respawn_west";
 		_mrkRespawn = "respawn_west";

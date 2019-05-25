@@ -20,19 +20,19 @@ _dateLimitNum = dateToNumber _dateLimit;
 _tam = [_markerX] call A3A_fnc_sizeMarker;
 _houses = (nearestObjects [_positionX, ["house"], _tam]) select {!((typeOf _x) in UPSMON_Bld_remove)};
 _posHouse = [];
-_houseX = _houses select 0;
+_casa = _houses select 0;
 while {count _posHouse < 3} do
 	{
-	_houseX = _houses call BIS_Fnc_selectRandom;
-	_posHouse = _houseX buildingPos -1;
-	if (count _posHouse < 3) then {_houses = _houses - [_houseX]};
+	_casa = _houses call BIS_Fnc_selectRandom;
+	_posHouse = _casa buildingPos -1;
+	if (count _posHouse < 3) then {_houses = _houses - [_casa]};
 	};
 
 _max = (count _posHouse) - 1;
 _rnd = floor random _max;
 _posTraitor = _posHouse select _rnd;
 _posSol1 = _posHouse select (_rnd + 1);
-_posSol2 = (_houseX buildingExit 0);
+_posSol2 = (_casa buildingExit 0);
 
 _nameDest = [_markerX] call A3A_fnc_localizar;
 
@@ -49,10 +49,10 @@ _sol1 = _groupTraitor createUnit [NATOBodyG, _posSol1, [], 0, "NONE"];
 _sol2 = _groupTraitor createUnit [NATOBodyG, _posSol2, [], 0, "NONE"];
 _groupTraitor selectLeader _traitor;
 
-_posTsk = (position _houseX) getPos [random 100, random 360];
+_posTsk = (position _casa) getPos [random 100, random 360];
 
 [[teamPlayer,civilian],"AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Kill the Traitor",_markerX],_posTsk,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
-[[Occupants],"AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _houseX,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
+[[Occupants],"AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _casa,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["AS","CREATED"]; publicVariable "missionsX";
 {_nul = [_x,""] call A3A_fnc_NATOinit; _x allowFleeing 0} forEach units _groupTraitor;
 _posVeh = [];
@@ -61,7 +61,7 @@ _roads = [];
 _radius = 20;
 while {count _roads == 0} do
 	{
-	_roads = (getPos _houseX) nearRoads _radius;
+	_roads = (getPos _casa) nearRoads _radius;
 	_radius = _radius + 10;
 	};
 
@@ -87,7 +87,7 @@ _traitor allowDamage true;
 _nul = [_veh] call A3A_fnc_AIVEHinit;
 {_x disableAI "MOVE"; _x setUnitPos "UP"} forEach units _groupTraitor;
 
-_mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], getPos _houseX];
+_mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], getPos _casa];
 _mrk setMarkerShapeLocal "RECTANGLE";
 _mrk setMarkerSizeLocal [50,50];
 _mrk setMarkerTypeLocal "hd_warning";
@@ -126,7 +126,7 @@ waitUntil  {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traitor)
 if (not alive _traitor) then
 	{
 	["AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Kill the Traitor",_markerX],_traitor,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _houseX,"FAILED"] call A3A_fnc_taskUpdate;
+	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _casa,"FAILED"] call A3A_fnc_taskUpdate;
 	if (_difficultX) then
 		{
 		[4,0] remoteExec ["A3A_fnc_prestige",2];
@@ -167,7 +167,7 @@ if (not alive _traitor) then
 else
 	{
 	["AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Kill the Traitor",_markerX],_traitor,"FAILED"] call A3A_fnc_taskUpdate;
-	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _houseX,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _casa,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	if (_difficultX) then {[-10,theBoss] call A3A_fnc_playerScoreAdd} else {[-10,theBoss] call A3A_fnc_playerScoreAdd};
 	if (dateToNumber date > _dateLimitNum) then
 		{

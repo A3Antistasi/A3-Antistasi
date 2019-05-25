@@ -166,7 +166,7 @@ Historial de modificaciones:
 //             Habilitado b�squeda y uso de veh�culos de transporte, cuando la IA est� lejos del objectiveX busca vehiclesX con capacidad cerca, ahora ya puedes definir tu base con vehiclesX, que si la IA los necesita los coge.
 //		
 // 	Modificaciones:
-//		Adaptadas ciertas partes de c�digo para ser usadas en modeX multihilo, mejorando los resultados y el rendimiento en general.
+//		Adaptadas ciertas partes de c�digo para ser usadas en modo multihilo, mejorando los resultados y el rendimiento en general.
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.0.0
 // 	Added
@@ -208,7 +208,7 @@ Historial de modificaciones:
 //Version: 3.0.4
 //    	Added
 //   		A�adidos par�metros para asignar enemiesX y aliados a la resistencia
-//             A�adido control anti snipers, si la IA se ve atacada y no sabe de donde se mueve de siteX
+//             A�adido control anti snipers, si la IA se ve atacada y no sabe de donde se mueve de sitio
 // 	Modificaciones
 //		Se ajusta el �ngulo de flanqueo en funci�n de la distanceX al objectiveX
 //	
@@ -226,7 +226,7 @@ Historial de modificaciones:
 //Version: 3.0.2
 //    	Added
 //		Se ha a�adido la opci�n de reinforcementsX, ahora se pueden definir unas unitsX de reinforcementsX alejados de la zona que se enviar�n al detectar enemiesX enemiesX 
-//		si KRON_UPS_reinforcement es true, se puede usar un markerX a modeX de alarma para alimentar esta variable cuando se desee.
+//		si KRON_UPS_reinforcement es true, se puede usar un markerX a modo de alarma para alimentar esta variable cuando se desee.
 //		Las unitsX tendr�n una predisposici�n a mantener la posici�n si tienen el rol NOMOVE
 // 	Modificaciones
 //		Se ha corregido la formula par definir los pointsX de flanqueo tx = sin x * dist * (signo cos x).
@@ -240,7 +240,7 @@ Historial de modificaciones:
 //	Modificaciones
 //		Ahora los pelotones verifican la presencia de aliados para determinar otras rutas de flanqueo.
 //		Se ha substituido el algoritmo de determinaci�n de positionXes de flanqueo por un bug con las funciones cos y sin 
-//		que retornan aleatoriamente values positivos o negativos con el mismo �ngulo.
+//		que retornan aleatoriamente valores positivos o negativos con el mismo �ngulo.
 //
 //-------------------------------------------------------------------------------------------------------------
 // Version: 3.0.0

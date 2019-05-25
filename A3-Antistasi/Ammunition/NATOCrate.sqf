@@ -1,6 +1,6 @@
 //if (!isServer) exitWith {};
 
-private ["_crate","_thingX","_num","_magazines"];
+private ["_crate","_cosa","_num","_magazines"];
 
 _crate = _this select 0;
 
@@ -23,42 +23,42 @@ if (typeOf _crate == vehNATOAmmoTruck) then
 
 for "_i" from 0 to _var1 do
 	{
-	_thingX = selectRandom (weaponsNato + antitankAAF);
-	if (!(_thingX in unlockedWeapons)) then
+	_cosa = selectRandom (armasNATO + antitankAAF);
+	if (!(_cosa in unlockedWeapons)) then
 		{
 		_num = 1+ (floor random 12);
-		_crate addWeaponCargoGlobal [_thingX, _num];
-		_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
+		_crate addWeaponCargoGlobal [_cosa, _num];
+		_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
 		_crate addMagazineCargoGlobal [_magazines select 0, _num * 3];
 		};
 	};
 for "_i" from 0 to _var2 do
 	{
-	_thingX = selectRandom itemsAAF;
-	if (!(_thingX in unlockedItems)) then
+	_cosa = selectRandom itemsAAF;
+	if (!(_cosa in unlockedItems)) then
 		{
 		_num = floor random 5;
-		_crate addItemCargoGlobal [_thingX, _num];
+		_crate addItemCargoGlobal [_cosa, _num];
 		};
 	};
 for "_i" from 0 to _var2 do
 	{
-	_thingX = selectRandom ammunitionNATO;
-	if (!(_thingX in unlockedMagazines)) then {_crate addMagazineCargoGlobal [_thingX, 10]};
+	_cosa = selectRandom ammunitionNATO;
+	if (!(_cosa in unlockedMagazines)) then {_crate addMagazineCargoGlobal [_cosa, 10]};
 	};
 for "_i" from 1 to _var3 do
-	{_thingX = selectRandom minesAAF;
+	{_cosa = selectRandom minesAAF;
 	_num = 1 + (floor random 5);
-	_crate addMagazineCargoGlobal [_thingX, _num];
+	_crate addMagazineCargoGlobal [_cosa, _num];
 	};
 if !(hasIFA) then
 	{
 	for "_i" from 1 to _var4 do
 		{
-		_thingX = selectRandom opticsAAF;
-		if (not(_thingX in unlockedItems)) then
+		_cosa = selectRandom opticsAAF;
+		if (not(_cosa in unlockedItems)) then
 			{
-			_crate addItemCargoGlobal [_thingX, 1 + (floor random 2)];
+			_crate addItemCargoGlobal [_cosa, 1 + (floor random 2)];
 			};
 		};
 

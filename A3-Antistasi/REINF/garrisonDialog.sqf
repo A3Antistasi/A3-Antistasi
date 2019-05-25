@@ -1,7 +1,7 @@
-private ["_typeX","_positionTel","_nearX","_garrison","_costs","_hr","_size"];
-_typeX = _this select 0;
+private ["_tipo","_positionTel","_nearX","_garrison","_costs","_hr","_size"];
+_tipo = _this select 0;
 
-if (_typeX == "add") then {hint "Select a zone to add garrisoned troops"} else {hint "Select a zone to remove it's Garrison"};
+if (_tipo == "add") then {hint "Select a zone to add garrisoned troops"} else {hint "Select a zone to remove it's Garrison"};
 
 if (!visibleMap) then {openMap true};
 positionTel = [];
@@ -28,7 +28,7 @@ _outpostFIA = if (_nearX in outpostsFIA) then {true} else {false};
 _wPost = if (_outpostFIA and !(isOnRoad getMarkerPos _nearX)) then {true} else {false};
 _garrison = if (! _wpost) then {garrison getVariable [_nearX,[]]} else {SDKSniper};
 
-if (_typeX == "rem") then
+if (_tipo == "rem") then
 	{
 	if ((count _garrison == 0) and !(_nearX in outpostsFIA)) exitWith {hint "The place has no garrisoned troops to remove"; _nul=CreateDialog "build_menu";};
 	_costs = 0;

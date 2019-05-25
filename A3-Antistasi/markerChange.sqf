@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_winner","_markerX","_looser","_positionX","_other","_flagX","_flagsX","_dist","_textX","_sides"];
+private ["_winner","_markerX","_looser","_positionX","_other","_flagX","_flagsX","_dist","_texto","_sides"];
 
 _winner = _this select 0;
 _markerX = _this select 1;
@@ -14,7 +14,7 @@ _positionX = getMarkerPos _markerX;
 _looser = sidesX getVariable [_markerX,sideUnknown];
 _sides = [teamPlayer,Occupants,];
 _other = "";
-_textX = "";
+_texto = "";
 _prestigeOccupants = 0;
 _prestigeInvaders = 0;
 _flagX = objNull;
@@ -30,18 +30,18 @@ if (isNil "_flagX") then {_flagX = objNull};
 
 if (_looser == teamPlayer) then
 	{
-	_textX = format ["%1 ",nameTeamPlayer];
+	_texto = format ["%1 ",nameTeamPlayer];
 	[] call A3A_fnc_tierCheck;
 	}
 else
 	{
 	if (_looser == Occupants) then
 		{
-		_textX = format ["%1 ",nameOccupants];
+		_texto = format ["%1 ",nameOccupants];
 		}
 	else
 		{
-		_textX = format ["%1 ",nameInvaders];
+		_texto = format ["%1 ",nameInvaders];
 		};
 	};
 garrison setVariable [_markerX,[],true];
@@ -99,7 +99,7 @@ if (_markerX in airportsX) then
 		};
 	["TaskSucceeded", ["", "Airbase Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Airbase Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
-	["TaskUpdated",["",format ["%1 lost an Airbase",_textX]]] remoteExec ["BIS_fnc_showNotification",_other];
+	["TaskUpdated",["",format ["%1 lost an Airbase",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];
 	killZones setVariable [_markerX,[],true];
 	};
 if (_markerX in outposts) then
@@ -118,7 +118,7 @@ if (_markerX in outposts) then
 		};
 	["TaskSucceeded", ["", "Outpost Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Outpost Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
-	["TaskUpdated",["",format ["%1 lost an Outpost",_textX]]] remoteExec ["BIS_fnc_showNotification",_other];
+	["TaskUpdated",["",format ["%1 lost an Outpost",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];
 	killZones setVariable [_markerX,[],true];
 	};
 if (_markerX in seaports) then
@@ -136,19 +136,19 @@ if (_markerX in seaports) then
 		};
 	["TaskSucceeded", ["", "Seaport Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Seaport Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
-	["TaskUpdated",["",format ["%1 lost a Seaport",_textX]]] remoteExec ["BIS_fnc_showNotification",_other];
+	["TaskUpdated",["",format ["%1 lost a Seaport",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];
 	};
 if (_markerX in factories) then
 	{
 	["TaskSucceeded", ["", "Factory Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Factory Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
-	["TaskUpdated",["",format ["%1 lost a Factory",_textX]]] remoteExec ["BIS_fnc_showNotification",_other];
+	["TaskUpdated",["",format ["%1 lost a Factory",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];
 	};
 if (_markerX in resourcesX) then
 	{
 	["TaskSucceeded", ["", "Resource Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Resource Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
-	["TaskUpdated",["",format ["%1 lost a Resource",_textX]]] remoteExec ["BIS_fnc_showNotification",_other];
+	["TaskUpdated",["",format ["%1 lost a Resource",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];
 	};
 
 {_nul = [_markerX,_x] spawn A3A_fnc_deleteControls} forEach controlsX;

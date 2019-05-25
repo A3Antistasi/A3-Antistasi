@@ -1,21 +1,21 @@
 if (!isServer) exitWith {};
 
-private ["_typeX","_costs","_group","_unit","_tam","_roads","_road","_pos","_truckX","_textX","_mrk","_hr","_unitsX","_formatX"];
+private ["_tipo","_costs","_group","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_unitsX","_formatX"];
 
-_typeX = _this select 0;
+_tipo = _this select 0;
 _positionTel = _this select 1;
 
-if (_typeX == "delete") exitWith {hint "Deprecated option. Use Remove Garrison from HQ instead"};
+if (_tipo == "delete") exitWith {hint "Deprecated option. Use Remove Garrison from HQ instead"};
 
 _isRoad = isOnRoad _positionTel;
 
-_textX = format ["%1 Observation Post",nameTeamPlayer];
+_texto = format ["%1 Observation Post",nameTeamPlayer];
 _typeGroup = groupsSDKSniper;
 _typeVehX = vehSDKBike;
 private _tsk = "";
 if (_isRoad) then
 	{
-	_textX = format ["%1 Roadblock",nameTeamPlayer];
+	_texto = format ["%1 Roadblock",nameTeamPlayer];
 	_typeGroup = groupsSDKAT;
 	_typeVehX = vehSDKTruck;
 	};
@@ -69,7 +69,7 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _group > 0) the
 	_nul = [-5,5,_positionTel] remoteExec ["A3A_fnc_citySupportChange",2];
 	_mrk setMarkerType "loc_bunker";
 	_mrk setMarkerColor colourTeamPlayer;
-	_mrk setMarkerText _textX;
+	_mrk setMarkerText _texto;
 	if (_isRoad) then
 		{
 		_garrison = [staticCrewTeamPlayer];

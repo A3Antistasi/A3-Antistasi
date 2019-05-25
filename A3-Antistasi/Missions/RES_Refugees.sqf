@@ -1,12 +1,12 @@
 //Mission: Rescue the refugees
 if (!isServer and hasInterface) exitWith{};
-private ["_marcador","_dificil","_salir","_contacto","_groupContact","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_casa","_posCasa","_nameDest","_tiempoLim","_fechaLim","_dateLimitNum","_pos","_cuenta"];
+private ["_marcador","_dificil","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_posicion","_casa","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_cuenta"];
 
 _marcador = _this select 0;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
-_contacto = objNull;
+_contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _posicion = getMarkerPos _marcador;
@@ -27,10 +27,10 @@ while {count _poscasa < 3} do
 
 
 _nameDest = [_marcador] call A3A_fnc_localizar;
-_tiempolim = if (_dificil) then {30} else {60};
-if (hayIFA) then {_tiempolim = _tiempolim * 2};
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = if (_dificil) then {30} else {60};
+if (hayIFA) then {_timeLimit = _timeLimit * 2};
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _texto = if (_lado == malos) then {format ["A group of smugglers have been arrested in %1 and they are about to be sent to prison. Go there and free them in order to make them join our cause. Do this before %2:%3",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4]} else {format ["A group of %3 supportes are hidden in %1 awaiting for evacuation. We have to find them before %2 does it. If not, there will be a certain death for them. Bring them back to HQ",_nameDest,nameInvaders,nameTeamPlayer]};
 _posTsk = if (_lado == malos) then {(position _casa) getPos [random 100, random 360]} else {position _casa};
@@ -49,7 +49,7 @@ for "_i" from 1 to (((count _poscasa) - 1) min 15) do
 	_unit allowFleeing 0;
 	_unit setSkill 0;
 	_POWs pushBack _unit;
-	[_unit,"refugiado"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
+	[_unit,"refugee"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
 	if (_lado == malos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 	[_unit] call A3A_fnc_reDress;
 	sleep 0.5;
@@ -186,21 +186,21 @@ else
 
 sleep 60;
 _items = [];
-_municion = [];
+_ammunition = [];
 _armas = [];
 {
 _unit = _x;
 if (_unit distance getMarkerPos respawnTeamPlayer < 150) then
 	{
 	{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
-	{if (not(_x in unlockedMagazines)) then {_municion pushBack _x}} forEach magazines _unit;
+	{if (not(_x in unlockedMagazines)) then {_ammunition pushBack _x}} forEach magazines _unit;
 	_items = _items + (items _unit) + (primaryWeaponItems _unit) + (assignedItems _unit) + (secondaryWeaponItems _unit);
 	};
 deleteVehicle _unit;
 } forEach _POWs;
 deleteGroup _grupoPOW;
 {caja addWeaponCargoGlobal [_x,1]} forEach _armas;
-{caja addMagazineCargoGlobal [_x,1]} forEach _municion;
+{caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
 {caja addItemCargoGlobal [_x,1]} forEach _items;
 
 if (_lado == malos) then

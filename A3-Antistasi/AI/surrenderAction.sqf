@@ -1,4 +1,4 @@
-private ["_unit","_coste","_armas","_municion","_caja","_items"];
+private ["_unit","_coste","_armas","_ammunition","_caja","_items"];
 
 _unit = _this select 0;
 
@@ -15,7 +15,7 @@ else
 	_nul = [1,0,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
 	};
 _armas = [];
-_municion = [];
+_ammunition = [];
 _items = [];
 _unit allowDamage false;
 [_unit] orderGetin false;
@@ -35,8 +35,8 @@ clearItemCargoGlobal _caja;
 clearBackpackCargoGlobal _caja;
 _armas = weapons _unit;
 {_caja addWeaponCargoGlobal [[_x] call BIS_fnc_baseWeapon,1]} forEach _armas;
-_municion = magazines _unit;
-{_caja addMagazineCargoGlobal [_x,1]} forEach _municion;
+_ammunition = magazines _unit;
+{_caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
 _items = assignedItems _unit + items _unit + primaryWeaponItems _unit;
 {_caja addItemCargoGlobal [_x,1]} forEach _items;
 _caja call jn_fnc_logistics_addAction;
@@ -75,4 +75,4 @@ sleep 10;
 _unit allowDamage true;
 if (isMultiplayer) then {[_unit,false] remoteExec ["enableSimulationGlobal",2]} else {_unit enableSimulation false};
 [_unit,"interrogate"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
-[_unit,"capturar"]remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
+[_unit,"captureX"]remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];

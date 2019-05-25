@@ -1,4 +1,4 @@
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_exists","_positionTel","_isRoad","_tipogrupo","_resourcesFIA","_hrFIA"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_exists","_positionTel","_isRoad","_typeGroup","_resourcesFIA","_hrFIA"];
 
 if (["outpostsFIA"] call BIS_fnc_taskExists) exitWith {hint "We can only deploy / delete one Observation Post or Roadblock at a time."};
 if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
@@ -29,18 +29,18 @@ if (_tipo != "delete") then
 	{
 	_isRoad = isOnRoad _positionTel;
 
-	_tipogrupo = groupsSDKSniper;
+	_typeGroup = groupsSDKSniper;
 
 	if (_isRoad) then
 		{
-		_tipogrupo = groupsSDKAT;
+		_typeGroup = groupsSDKAT;
 		_coste = _coste + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice) + (server getVariable staticCrewTeamPlayer);
 		_hr = _hr + 1;
 		};
 
-	//_formato = (configfile >> "CfgGroups" >> "buenos" >> "Guerilla" >> "Infantry" >> _tipogrupo);
+	//_formato = (configfile >> "CfgGroups" >> "buenos" >> "Guerilla" >> "Infantry" >> _typeGroup);
 	//_unidades = [_formato] call groupComposition;
-	{_coste = _coste + (server getVariable (_x select 0)); _hr = _hr +1} forEach _tipoGrupo;
+	{_coste = _coste + (server getVariable (_x select 0)); _hr = _hr +1} forEach _typeGroup;
 	}
 else
 	{

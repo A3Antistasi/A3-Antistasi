@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_marcador","_destino","_origen","_grupos","_soldados","_vehiculos","_size","_grupo","_camion","_tam","_roads","_road","_pos"];
+private ["_marcador","_destino","_origen","_grupos","_soldados","_vehiclesX","_size","_grupo","_camion","_tam","_roads","_road","_pos"];
 
 _marcador = _this select 0;
 if (not(_marcador in smallCAmrk)) exitWith {};
@@ -10,7 +10,7 @@ _origen = getMarkerPos respawnTeamPlayer;
 
 _grupos = [];
 _soldados = [];
-_vehiculos = [];
+_vehiclesX = [];
 
 _size = [_marcador] call A3A_fnc_sizeMarker;
 
@@ -26,11 +26,11 @@ _tiposGrupo = [groupsSDKmid,groupsSDKAT,groupsSDKSquad,groupsSDKSniper];
 
 while {(_size > 0)} do
 	{
-	_tipoGrupo = selectRandom _tiposGrupo;
+	_typeGroup = selectRandom _tiposGrupo;
 	_formato = [];
 	{
 	if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
-	} forEach _tipoGrupo;
+	} forEach _typeGroup;
 	_grupo = [_origen, buenos, _formato,false,true] call A3A_fnc_spawnGroup;
 	if !(isNull _grupo) then
 		{
@@ -49,7 +49,7 @@ waitUntil {sleep 1;((not(_marcador in smallCAmrk)) or (lados getVariable [_marca
 {_vehiculo = _x;
 waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _vehiculo;
-} forEach _vehiculos;*/
+} forEach _vehiclesX;*/
 {_soldado = _x;
 waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _soldado;

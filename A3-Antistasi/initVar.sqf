@@ -211,9 +211,9 @@ else
 	["LIB_DAK_OpelBlitz_Open","LIB_GazM1","LIB_GazM1_dirty","LIB_DAK_Kfz1","LIB_DAK_Kfz1_hood"];
 	};
 
-municionNATO = [];
+ammunitionNATO = [];
 armasNATO = [];
-municionCSAT = [];
+ammunitionCSAT = [];
 armasCSAT = [];
 
 if (!hayIFA) then
@@ -309,12 +309,12 @@ if !(_tipo in _checked) then
 {
 _nombre = [_x] call BIS_fnc_baseWeapon;
 _magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
-municionNATO pushBack (_magazines select 0);
+ammunitionNATO pushBack (_magazines select 0);
 } forEach armasNATO;
 {
 _nombre = [_x] call BIS_fnc_baseWeapon;
 _magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
-municionCSAT pushBack (_magazines select 0);
+ammunitionCSAT pushBack (_magazines select 0);
 } forEach armasCSAT;
 //optic, pointer and flashlight automated detection
 opticsAAF = [];
@@ -529,7 +529,7 @@ prestigeCSAT = 5;//Initial Prestige CSAT
 prestigeOPFOR = 50;//Initial % support for NATO on each city
 if (not cadetMode) then {prestigeOPFOR = 75};//if you play on vet, this is the number
 prestigeBLUFOR = 0;//Initial % FIA support on each city
-cuentaCA = 600;//600
+countCA = 600;//600
 bombRuns = 0;
 cityIsSupportChanging = false;
 resourcesIsChanging = false;

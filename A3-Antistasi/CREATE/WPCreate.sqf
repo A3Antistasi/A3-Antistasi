@@ -1,23 +1,23 @@
-private ["_mrkOrigen","_mrkDestination","_grupo","_posOrigen","_posDestination","_finalArray","_arr2","_final","_isCentral","_roadsCentral","_useCentral"];
+private ["_mrkOrigin","_mrkDestination","_grupo","_posOrigin","_posDestination","_finalArray","_arr2","_final","_isCentral","_roadsCentral","_useCentral"];
 
-_mrkOrigen = _this select 0;
-_posOrigen = if (_mrkOrigen isEqualType "") then {getMarkerPos _mrkOrigen} else {_mrkOrigen};
+_mrkOrigin = _this select 0;
+_posOrigin = if (_mrkOrigin isEqualType "") then {getMarkerPos _mrkOrigin} else {_mrkOrigin};
 _mrkDestination = _this select 1;
 _posDestination = if (_mrkDestination isEqualType "") then {getMarkerPos _mrkDestination} else {_mrkDestination};
 _exit = false;
-if (_mrkOrigen isEqualType "") then
+if (_mrkOrigin isEqualType "") then
 	{
-	if ((_mrkOrigen != "airport") and (_mrkOrigen != "airport_2")) then {_exit = true};
+	if ((_mrkOrigin != "airport") and (_mrkOrigin != "airport_2")) then {_exit = true};
 	}
 else
 	{
-	if !([_mrkOrigen,"airport"] call A3A_fnc_isTheSameIsland) then
+	if !([_mrkOrigin,"airport"] call A3A_fnc_isTheSameIsland) then
 		{
 		_exit = true
 		}
 	else
 		{
-		if (_mrkOrigen distance2D (getMarkerPos "airport") < _mrkOrigen distance2D (getMarkerPos "airport_2")) then {_mrkOrigen = "airport"} else {_mrkOrigen = "airport_2"};
+		if (_mrkOrigin distance2D (getMarkerPos "airport") < _mrkOrigin distance2D (getMarkerPos "airport_2")) then {_mrkOrigin = "airport"} else {_mrkOrigin = "airport_2"};
 		};
 	};
 if (_exit) exitWith {};
@@ -56,7 +56,7 @@ else
 				if (_final in roadsSW) then
 					{
 					_arr2 = +roadsSW;
-					if (_mrkOrigen == "airport") then {_useCentral = false};
+					if (_mrkOrigin == "airport") then {_useCentral = false};
 					}
 				else
 					{
@@ -73,7 +73,7 @@ else
 						else
 							{
 							_arr2 = +roadsNE;
-							if (_mrkOrigen == "airport_2") then {_useCentral = false};
+							if (_mrkOrigin == "airport_2") then {_useCentral = false};
 							};
 						};
 					};
@@ -83,7 +83,7 @@ else
 	};
 
 _roadsCentral = +roadsCentral;
-if (_useCentral and (_mrkOrigen != "airport")) then {reverse _roadsCentral};
+if (_useCentral and (_mrkOrigin != "airport")) then {reverse _roadsCentral};
 
 if (_isCentral) then
 	{
@@ -116,7 +116,7 @@ else
 		};
 	};
 
-if (getMarkerPos _final distance _posOrigen > _posDestination distance _posOrigen) then {_finalArray = _finalArray - [_final]};
+if (getMarkerPos _final distance _posOrigin > _posDestination distance _posOrigin) then {_finalArray = _finalArray - [_final]};
 
 for "_i" from 0 to ((count _finalArray) - 1) do
 	{

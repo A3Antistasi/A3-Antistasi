@@ -6,10 +6,10 @@ _veh = cursorTarget;
 if (isNull _veh) exitWith {hint "You are not looking at a vehicle"};
 
 if (!alive _veh) exitWith {hint "You cannot add destroyed vehicles to your garage"};
-_cercanos = markersX select {lados getVariable [_x,sideUnknown] == buenos};
-_cercanos = _cercanos select {(player inArea _x) and (_veh inArea _x)};
+_closeX = markersX select {lados getVariable [_x,sideUnknown] == buenos};
+_closeX = _closeX select {(player inArea _x) and (_veh inArea _x)};
 
-if (_cercanos isEqualTo []) exitWith {hint format ["You and the vehicle need to be in a %1 garrison surrounding in order to garage a it",nameTeamPlayer]};
+if (_closeX isEqualTo []) exitWith {hint format ["You and the vehicle need to be in a %1 garrison surrounding in order to garage a it",nameTeamPlayer]};
 
 //if (player distance2d getMarkerPos respawnTeamPlayer > 50) exitWith {hint "You must be closer than 50 meters to HQ"};
 

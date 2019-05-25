@@ -28,19 +28,19 @@ if !(player inArea _cercano) exitWith {hint "You need to be close to one of your
 garageVeh = _tipoVeh createVehicleLocal [0,0,1000];
 garageVeh allowDamage false;
 garageVeh enableSimulationGlobal false;
-comprado = 0;
+bought = 0;
 [format ["<t size='0.7'>%1<br/><br/><t size='0.6'>Vehicle placement Keys.<t size='0.5'><br/>Arrow Left-Right to rotate<br/>SPACE to Select<br/>ENTER to Exit",getText (configFile >> "CfgVehicles" >> typeOf garageVeh >> "displayName")],0,0,5,0,0,4] spawn bis_fnc_dynamicText;
 hint "Hover your mouse to the desired position. If it's safe and suitable, you will see the vehicle";
 garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
 		_handled = false;
 		_salir = false;
-		_comprado = false;
+		_bought = false;
 		[format ["<t size='0.7'>%1<br/><br/><t size='0.6'>Vehicle placement Keys.<t size='0.5'><br/>Arrow Left-Right to rotate<br/>SPACE to Select<br/>ENTER to Exit",getText (configFile >> "CfgVehicles" >> typeOf garageVeh >> "displayName")],0,0,5,0,0,4] spawn bis_fnc_dynamicText;
 		if (_this select 1 == 57) then
 			{
 			_salir = true;
-			_comprado = true;
+			_bought = true;
 			};
 		if (_this select 1 == 28) then
 			{
@@ -59,10 +59,10 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 			};
 		if (_salir) then
 			{
-			if (!_comprado) then
+			if (!_bought) then
 				{
 				["",0,0,5,0,0,4] spawn bis_fnc_dynamicText;
-				comprado = 1;
+				bought = 1;
 				}
 			else
 				{
@@ -72,7 +72,7 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 					}
 				else
 					{
-					comprado = 2;
+					bought = 2;
 					["<t size='0.6'>Vehicle purchased",0,0,3,0,0,4] spawn bis_fnc_dynamicText;
 					};
 				};
@@ -104,19 +104,19 @@ onEachFrame
    garageVeh setVectorUp (_ins select 0 select 1);
    };
  };
-waitUntil {(comprado > 0) or !(player inArea _cercano)};
+waitUntil {(bought > 0) or !(player inArea _cercano)};
 onEachFrame {};
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", garageKeys];
 posicionSel = nil;
 _pos = getPosASL garageVeh;
 _dir = getDir garageVeh;
 deleteVehicle garageVeh;
-if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to buy a vehicle";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; comprado = nil;garageVeh = nil};
-if ([player,300] call A3A_fnc_enemyNearCheck) then {comprado = 0; hint "You cannot buy vehicles with enemies nearby"};
-if (comprado != 2) exitWith {comprado = nil;garageVeh = nil};
+if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to buy a vehicle";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; bought = nil;garageVeh = nil};
+if ([player,300] call A3A_fnc_enemyNearCheck) then {bought = 0; hint "You cannot buy vehicles with enemies nearby"};
+if (bought != 2) exitWith {bought = nil;garageVeh = nil};
 waitUntil {isNull garageVeh};
 garageVeh = nil;
-comprado = nil;
+bought = nil;
 _veh = createVehicle [_tipoVeh, [0,0,1000], [], 0, "NONE"];
 _veh setDir _dir;
 _veh setPosASL _pos;

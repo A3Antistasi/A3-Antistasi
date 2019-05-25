@@ -16,7 +16,7 @@ if ([_tipo] call BIS_fnc_taskExists) exitWith {if (!_silencio) then {[petros,"gl
 
 if (_tipo == "AS") then
 	{
-	_sitios = airportsX + ciudades + (controlsX select {!(isOnRoad getMarkerPos _x)});
+	_sitios = airportsX + citiesX + (controlsX select {!(isOnRoad getMarkerPos _x)});
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if ((count _sitios > 0) and ({lados getVariable [_x,sideUnknown] == malos} count airportsX > 0)) then
 		{
@@ -55,7 +55,7 @@ if (_tipo == "AS") then
 	else
 		{
 		_sitio = selectRandom _posibles;
-		if (_sitio in airportsX) then {[[_sitio],"AS_Official"] remoteExec ["A3A_fnc_scheduler",2]} else {if (_sitio in ciudades) then {[[_sitio],"AS_Traitor"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"AS_SpecOP"] remoteExec ["A3A_fnc_scheduler",2]}};
+		if (_sitio in airportsX) then {[[_sitio],"AS_Official"] remoteExec ["A3A_fnc_scheduler",2]} else {if (_sitio in citiesX) then {[[_sitio],"AS_Traitor"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"AS_SpecOP"] remoteExec ["A3A_fnc_scheduler",2]}};
 		};
 	};
 if (_tipo == "CON") then
@@ -121,7 +121,7 @@ if (_tipo == "DES") then
 	};
 if (_tipo == "LOG") then
 	{
-	_sitios = puestos + ciudades - destroyedCities;
+	_sitios = puestos + citiesX - destroyedCities;
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (random 100 < 20) then {_sitios = _sitios + bancos};
 	if (count _sitios > 0) then
@@ -139,7 +139,7 @@ if (_tipo == "LOG") then
 				};
 			if (_pos distance _posbase < distanceMission) then
 				{
-				if (_sitio in ciudades) then
+				if (_sitio in citiesX) then
 					{
 					_datos = server getVariable _sitio;
 					_prestigeOPFOR = _datos select 2;
@@ -156,7 +156,7 @@ if (_tipo == "LOG") then
 				};
 			if (_sitio in bancos) then
 				{
-				_ciudad = [ciudades, _pos] call BIS_fnc_nearestPosition;
+				_ciudad = [citiesX, _pos] call BIS_fnc_nearestPosition;
 				if (lados getVariable [_ciudad,sideUnknown] == buenos) then {_posibles = _posibles - [_sitio]};
 				};
 			};
@@ -172,14 +172,14 @@ if (_tipo == "LOG") then
 	else
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in ciudades) then {[[_sitio],"LOG_Supplies"] remoteExec ["A3A_fnc_scheduler",2]};
+		if (_sitio in citiesX) then {[[_sitio],"LOG_Supplies"] remoteExec ["A3A_fnc_scheduler",2]};
 		if (_sitio in puestos) then {[[_sitio],"LOG_Ammo"] remoteExec ["A3A_fnc_scheduler",2]};
 		if (_sitio in bancos) then {[[_sitio],"LOG_Bank"] remoteExec ["A3A_fnc_scheduler",2]};
 		};
 	};
 if (_tipo == "RES") then
 	{
-	_sitios = airportsX + puestos + ciudades;
+	_sitios = airportsX + puestos + citiesX;
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
@@ -187,7 +187,7 @@ if (_tipo == "RES") then
 			{
 			_sitio = _sitios select _i;
 			_pos = getMarkerPos _sitio;
-			if (_sitio in ciudades) then {if (_pos distance _posbase < distanceMission) then {_posibles pushBack _sitio}} else {if ((_pos distance _posbase < distanceMission) and (spawner getVariable _sitio == 2)) then {_posibles = _posibles + [_sitio]}};
+			if (_sitio in citiesX) then {if (_pos distance _posbase < distanceMission) then {_posibles pushBack _sitio}} else {if ((_pos distance _posbase < distanceMission) and (spawner getVariable _sitio == 2)) then {_posibles = _posibles + [_sitio]}};
 			};
 		};
 	if (count _posibles == 0) then
@@ -201,14 +201,14 @@ if (_tipo == "RES") then
 	else
 		{
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in ciudades) then {[[_sitio],"RES_Refugees"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"RES_Prisoners"] remoteExec ["A3A_fnc_scheduler",2]};
+		if (_sitio in citiesX) then {[[_sitio],"RES_Refugees"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"RES_Prisoners"] remoteExec ["A3A_fnc_scheduler",2]};
 		};
 	};
 if (_tipo == "CONVOY") then
 	{
 	if (!bigAttackInProgress) then
 		{
-		_sitios = (airportsX + recursos + fabricas + puertos + puestos - blackListDest) + (ciudades select {count (garrison getVariable [_x,[]]) < 10});
+		_sitios = (airportsX + recursos + fabricas + puertos + puestos - blackListDest) + (citiesX select {count (garrison getVariable [_x,[]]) < 10});
 		_sitios = _sitios select {(lados getVariable [_x,sideUnknown] != buenos) and !(_x in blackListDest)};
 		if (count _sitios > 0) then
 			{
@@ -219,7 +219,7 @@ if (_tipo == "CONVOY") then
 				_base = [_sitio] call A3A_fnc_findBasesForConvoy;
 				if ((_pos distance _posbase < (distanceMission*2)) and (_base !="")) then
 					{
-					if ((_sitio in ciudades) and (lados getVariable [_sitio,sideUnknown] == buenos)) then
+					if ((_sitio in citiesX) and (lados getVariable [_sitio,sideUnknown] == buenos)) then
 						{
 						if (lados getVariable [_base,sideUnknown] == malos) then
 							{

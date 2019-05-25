@@ -110,14 +110,14 @@ if ((_tipo == "SB") or (_tipo == "CB")) then
 if (_salir) exitWith {hint format ["%1",_texto]};
 hint "Select a place to build the required asset and press SPACE to start the construction.\n\nHit ESC to exit";
 garageVeh = _clase createVehicleLocal [0,0,0];
-comprado = 0;
+bought = 0;
 
 _displayEH = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
 		_handled = false;
 		if (_this select 1 == 1) then
 			{
-			comprado = 1;
+			bought = 1;
 			_handled = true;
 			}
 		else
@@ -130,14 +130,14 @@ _displayEH = (findDisplay 46) displayAddEventHandler ["KeyDown",
 					}
 				else
 					{
-					comprado = 2;
+					bought = 2;
 					};
 				};
 			};
 		_handled;
 		}];
 
-_HDEH = player addEventHandler ["HandleDamage",{comprado = 1}];
+_HDEH = player addEventHandler ["HandleDamage",{bought = 1}];
 posicionSel = [0,0,0];
 if (_tipo == "RB") then
 	{
@@ -219,7 +219,7 @@ else
 	};
 
 private _timeOut = time + 60;
-waitUntil {(comprado > 0) or (time > _timeOut)};
+waitUntil {(bought > 0) or (time > _timeOut)};
 
 onEachFrame {};
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", _displayEH];
@@ -231,8 +231,8 @@ _dir = getDir garageVeh;
 deleteVehicle garageVeh;
 garageVeh = nil;
 cercano = nil;
-if (comprado <= 1) exitWith {hint "Construction cancelled"; comprado = nil};
-comprado = nil;
+if (bought <= 1) exitWith {hint "Construction cancelled"; bought = nil};
+bought = nil;
 private _isPlayer = if (player == _engineerX) then {true} else {false};
 _timeOut = time + 30;
 

@@ -1,13 +1,13 @@
 //Mission: Destroy the helicopter
 if (!isServer and hasInterface) exitWith{};
 
-private ["_poscrash","_marcador","_posicion","_mrkfin","_tipoveh","_efecto","_heli","_vehiculos","_soldados","_grupos","_unit","_roads","_road","_vehicle","_veh","_tipogrupo","_tsk","_humo","_emitterArray","_cuenta"];
+private ["_poscrash","_marcador","_posicion","_mrkfin","_tipoveh","_efecto","_heli","_vehiclesX","_soldados","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray","_cuenta"];
 
 _marcador = _this select 0;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
-_contacto = objNull;
+_contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _tsk1 = "";
@@ -15,9 +15,9 @@ _posicion = getMarkerPos _marcador;
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _posHQ = getMarkerPos respawnTeamPlayer;
 
-_tiempolim = 120;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 120;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 _ang = random 360;
 _cuenta = 0;
 _dist = if (_dificil) then {2000} else {3000};
@@ -63,7 +63,7 @@ else
 [[buenos,civilian],"DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
 [[buenos,civilian],"DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 misiones pushBack ["DES","CREATED"]; publicVariable "misiones";
-_vehiculos = [];
+_vehiclesX = [];
 _soldados = [];
 _grupos = [];
 
@@ -73,7 +73,7 @@ _heli attachTo [_efecto,[0,0,1.5]];
 _humo = "test_EmptyObjectForSmoke" createVehicle _poscrash; _humo attachTo[_heli,[0,1.5,-1]];
 _heli setDamage 0.9;
 _heli lock 2;
-_vehiculos = _vehiculos + [_heli,_efecto];
+_vehiclesX = _vehiclesX + [_heli,_efecto];
 
 _tam = 100;
 
@@ -95,11 +95,11 @@ _vehCrew = _vehicle select 1;
 _grupoVeh = _vehicle select 2;
 _soldados = _soldados + _vehCrew;
 _grupos pushBack _grupoVeh;
-_vehiculos pushBack _veh;
+_vehiclesX pushBack _veh;
 
 sleep 1;
-_tipogrupo = if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry};
-_grupo = [_posicion, _lado, _tipogrupo] call A3A_fnc_spawnGroup;
+_typeGroup = if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry};
+_grupo = [_posicion, _lado, _typeGroup] call A3A_fnc_spawnGroup;
 
 {_x assignAsCargo _veh; _x moveInCargo _veh; _soldados pushBack _x; [_x] join _grupoveh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 deleteGroup _grupo;
@@ -123,7 +123,7 @@ _vehCrewT = _vehicle select 1;
 _grupoVehT = _vehicleT select 2;
 _soldados = _soldados + _vehCrewT;
 _grupos pushBack _grupoVehT;
-_vehiculos pushBack _vehT;
+_vehiclesX pushBack _vehT;
 
 _Vwp0 = _grupoVehT addWaypoint [_poscrash, 0];
 _Vwp0 setWaypointType "MOVE";
@@ -195,7 +195,7 @@ _nul = [0,"DES1"] spawn A3A_fnc_deleteTask;
 deleteMarker _mrkfin;
 {
 waitUntil {sleep 1;(!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))};
-deleteVehicle _x} forEach _vehiculos;
+deleteVehicle _x} forEach _vehiclesX;
 {deleteVehicle _x} forEach _soldados;
 {deleteGroup _x} forEach _grupos;
 

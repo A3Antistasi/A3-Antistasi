@@ -1,25 +1,25 @@
 //Mission: Logistics bank mission
 //el sitio de la caja es el 21
 if (!isServer and hasInterface) exitWith {};
-private ["_banco","_marcador","_dificil","_salir","_contacto","_groupContact","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_posCasa","_nameDest","_tiempoLim","_fechaLim","_dateLimitNum","_posBase","_pos","_camion","_cuenta","_mrkfin","_mrk","_soldados"];
+private ["_banco","_marcador","_dificil","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_posicion","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_camion","_cuenta","_mrkfin","_mrk","_soldados"];
 _banco = _this select 0;
-_marcador = [ciudades,_banco] call BIS_fnc_nearestPosition;
+_marcador = [citiesX,_banco] call BIS_fnc_nearestPosition;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
-_contacto = objNull;
+_contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _posicion = getPosASL _banco;
 
 _posbase = getMarkerPos respawnTeamPlayer;
 
-_tiempolim = if (_dificil) then {60} else {120};
-if (hayIFA) then {_tiempolim = _tiempolim * 2};
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = if (_dificil) then {60} else {120};
+if (hayIFA) then {_timeLimit = _timeLimit * 2};
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
-_ciudad = [ciudades, _posicion] call BIS_fnc_nearestPosition;
+_ciudad = [citiesX, _posicion] call BIS_fnc_nearestPosition;
 _mrkfin = createMarker [format ["LOG%1", random 100], _posicion];
 _nameDest = [_ciudad] call A3A_fnc_localizar;
 _mrkfin setMarkerShape "ICON";

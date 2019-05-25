@@ -1,20 +1,20 @@
 //if ([0.5] call A3A_fnc_fogCheck) exitWith {};
-private ["_objetivos","_markersX","_base","_objetivo","_cuenta","_airportX","_datos","_prestigeOPFOR","_scoreLand","_scoreAir","_analyzed","_garrison","_size","_estaticas","_salir"];
+private ["_objectivesX","_markersX","_base","_objetivo","_cuenta","_airportX","_datos","_prestigeOPFOR","_scoreLand","_scoreAir","_analyzed","_garrison","_size","_staticsX","_salir"];
 
-_objetivos = [];
+_objectivesX = [];
 _markersX = [];
 _cuentaFacil = 0;
 _natoIsFull = false;
 _csatIsFull = false;
 _airportsX = airportsX select {([_x,false] call A3A_fnc_airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
-_objetivos = markersX - controlsX - outpostsFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedCities;
-if (gameMode != 1) then {_objetivos = _objetivos select {lados getVariable [_x,sideUnknown] == buenos}};
-//_objectivesSDK = _objetivos select {lados getVariable [_x,sideUnknown] == buenos};
+_objectivesX = markersX - controlsX - outpostsFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedCities;
+if (gameMode != 1) then {_objectivesX = _objectivesX select {lados getVariable [_x,sideUnknown] == buenos}};
+//_objectivesSDK = _objectivesX select {lados getVariable [_x,sideUnknown] == buenos};
 if ((tierWar < 2) and (gameMode <= 2)) then
 	{
 	_airportsX = _airportsX select {(lados getVariable [_x,sideUnknown] == malos)};
-	//_objetivos = _objectivesSDK;
-	_objetivos = _objetivos select {lados getVariable [_x,sideUnknown] == buenos};
+	//_objectivesX = _objectivesSDK;
+	_objectivesX = _objectivesX select {lados getVariable [_x,sideUnknown] == buenos};
 	}
 else
 	{
@@ -25,17 +25,17 @@ else
 	};
 if (gameMode != 4) then
 	{
-	if (tierWar < 3) then {_objetivos = _objetivos - ciudades};
+	if (tierWar < 3) then {_objectivesX = _objectivesX - citiesX};
 	}
 else
 	{
-	if (tierWar < 5) then {_objetivos = _objetivos - ciudades};
+	if (tierWar < 5) then {_objectivesX = _objectivesX - citiesX};
 	};
 //lets keep the nearest targets for each AI airbase in the target list, so we ensure even when they are surrounded of friendly zones, they remain as target
 _nearestObjectives = [];
 {
 _lado = lados getVariable [_x,sideUnknown];
-_tmpTargets = _objetivos select {lados getVariable [_x,sideUnknown] != _lado};
+_tmpTargets = _objectivesX select {lados getVariable [_x,sideUnknown] != _lado};
 if !(_tmpTargets isEqualTo []) then
 	{
 	_nearestTarget = [_tmpTargets,getMarkerPos _x] call BIS_fnc_nearestPosition;
@@ -43,14 +43,14 @@ if !(_tmpTargets isEqualTo []) then
 	};
 } forEach _airportsX;
 //the following discards targets which are surrounded by friendly zones, excluding airbases and the nearest targets
-_objetivosProv = _objetivos - airportsX - _nearestObjectives;
+_objectivesXProv = _objectivesX - airportsX - _nearestObjectives;
 {
 _posObj = getMarkerPos _x;
 _ladoObj = lados getVariable [_x,sideUnknown];
-if (((markersX - controlsX - ciudades - outpostsFIA) select {lados getVariable [_x,sideUnknown] != _ladoObj}) findIf {getMarkerPos _x distance2D _posObj < 2000} == -1) then {_objetivos = _objetivos - [_x]};
-} forEach _objetivosProv;
+if (((markersX - controlsX - citiesX - outpostsFIA) select {lados getVariable [_x,sideUnknown] != _ladoObj}) findIf {getMarkerPos _x distance2D _posObj < 2000} == -1) then {_objectivesX = _objectivesX - [_x]};
+} forEach _objectivesXProv;
 
-if (_objetivos isEqualTo []) exitWith {};
+if (_objectivesX isEqualTo []) exitWith {};
 _objectivesFinal = [];
 _basesFinal = [];
 _countFinal = [];
@@ -69,14 +69,14 @@ _tmpObjectives = [];
 _baseNATO = true;
 if (lados getVariable [_base,sideUnknown] == malos) then
 	{
-	_tmpObjectives = _objetivos select {lados getVariable [_x,sideUnknown] != malos};
-	_tmpObjectives = _tmpObjectives - (ciudades select {([_x] call A3A_fnc_powerCheck) == buenos});
+	_tmpObjectives = _objectivesX select {lados getVariable [_x,sideUnknown] != malos};
+	_tmpObjectives = _tmpObjectives - (citiesX select {([_x] call A3A_fnc_powerCheck) == buenos});
 	}
 else
 	{
 	_baseNATO = false;
-	_tmpObjectives = _objetivos select {lados getVariable [_x,sideUnknown] != muyMalos};
-	_tmpObjectives = _tmpObjectives - (ciudades select {(((server getVariable _x) select 2) + ((server getVariable _x) select 3) < 90) and ([_x] call A3A_fnc_powerCheck != malos)});
+	_tmpObjectives = _objectivesX select {lados getVariable [_x,sideUnknown] != muyMalos};
+	_tmpObjectives = _tmpObjectives - (citiesX select {(((server getVariable _x) select 2) + ((server getVariable _x) select 3) < 90) and ([_x] call A3A_fnc_powerCheck != malos)});
 	};
 
 _tmpObjectives = _tmpObjectives select {getMarkerPos _x distance2D _posBase < distanceForAirAttack};
@@ -84,7 +84,7 @@ if !(_tmpObjectives isEqualTo []) then
 	{
 	_cercano = [_tmpObjectives,_base] call BIS_fnc_nearestPosition;
 	{
-	_esCiudad = if (_x in ciudades) then {true} else {false};
+	_esCiudad = if (_x in citiesX) then {true} else {false};
 	_proceder = true;
 	_posSitio = getMarkerPos _x;
 	_esSDK = false;
@@ -126,9 +126,9 @@ if !(_tmpObjectives isEqualTo []) then
 						if ({(lados getVariable [_x,sideUnknown] == _ladoEny) and (getMarkerPos _x distance _posSitio < distanceSPWN)} count airportsX == 0) then
 							{
 							_garrison = garrison getVariable [_sitio,[]];
-							_estaticas = staticsToSave select {_x distance _posSitio < distanceSPWN};
+							_staticsX = staticsToSave select {_x distance _posSitio < distanceSPWN};
 							_puestos = outpostsFIA select {getMarkerPos _x distance _posSitio < distanceSPWN};
-							_cuenta = ((count _garrison) + (count _puestos) + (2*(count _estaticas)));
+							_cuenta = ((count _garrison) + (count _puestos) + (2*(count _staticsX)));
 							if (_cuenta <= 8) then
 								{
 								if (!hayIFA or (_posSitio distance _posBase < distanceForLandAttack)) then
@@ -334,7 +334,7 @@ if ((count _objectivesFinal > 0) and (count _faciles < 3)) then
 					}
 				else
 					{
-					if (!(_destino in ciudades)) then
+					if (!(_destino in citiesX)) then
 						{
 						_waves = 1 + round (random (tierWar)/2);
 						};
@@ -342,14 +342,14 @@ if ((count _objectivesFinal > 0) and (count _faciles < 3)) then
 				}
 			else
 				{
-				if (!(_destino in ciudades)) then
+				if (!(_destino in citiesX)) then
 					{
 					_waves = 1 + round (random ((tierWar - 3)/2));
 					};
 				};
 			};
 		};
-	if (not(_destino in ciudades)) then
+	if (not(_destino in citiesX)) then
 		{
 		///[[_destino,_origen,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler;
 		[_destino,_origen,_waves] spawn A3A_fnc_wavedCA;

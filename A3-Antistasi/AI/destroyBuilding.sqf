@@ -2,7 +2,7 @@ private _engineerX = _this select 0;
 _engineerX setVariable ["maneuvering",true];
 private _cercano = _this select 1;
 private _building = _this select 2;
-_building setVariable ["asaltado",true];
+_building setVariable ["assaulted",true];
 _engineerX disableAI "TARGET";
 _engineerX disableAI "AUTOTARGET";
 _engineerX disableAI "SUPPRESSION";
@@ -30,7 +30,7 @@ if !([_engineerX] call A3A_fnc_canFight) exitWith
 	_engineerX enableAI "COVER";
 	_engineerX enableAI "AUTOCOMBAT";
 	_engineerX call A3A_fnc_recallGroup;
-	_building setVariable ["asaltado",false];
+	_building setVariable ["assaulted",false];
 	};
 
 private _side = side _engineerX;
@@ -50,4 +50,4 @@ _engineerX enableAI "CHECKVISIBLE";
 _engineerX enableAI "COVER";
 _engineerX enableAI "AUTOCOMBAT";
 _engineerX call A3A_fnc_recallGroup;
-_building setVariable ["asaltado",false];
+_building setVariable ["assaulted",false];

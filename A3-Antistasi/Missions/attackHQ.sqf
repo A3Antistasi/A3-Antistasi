@@ -4,7 +4,7 @@ if (!isServer and hasInterface) exitWith{};
 _posicion = getMarkerPos respawnTeamPlayer;
 
 _pilotos = [];
-_vehiculos = [];
+_vehiclesX = [];
 _grupos = [];
 _soldados = [];
 
@@ -13,7 +13,7 @@ if ({(_x distance _posicion < 500) and (typeOf _x == staticAABuenos)} count stat
 _airportsX = airportsX select {(lados getVariable [_x,sideUnknown] != buenos) and (spawner getVariable _x == 2)};
 if (count _airportsX == 0) exitWith {};
 _airportX = [_airportsX,_posicion] call BIS_fnc_nearestPosition;
-_posOrigen = getMarkerPos _airportX;
+_posOrigin = getMarkerPos _airportX;
 _lado = if (lados getVariable [_airportX,sideUnknown] == malos) then {malos} else {muyMalos};
 _tsk1 = "";
 _tsk = "";
@@ -27,13 +27,13 @@ if (count _tiposVeh > 0) then
 	{
 	_tipoVeh = selectRandom _tiposVeh;
 	//_pos = [_posicion, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
-	_vehicle=[_posOrigen, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
+	_vehicle=[_posOrigin, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
 	_pilotos = _pilotos + _heliCrew;
 	_grupos pushBack _groupHeli;
-	_vehiculos pushBack _heli;
+	_vehiclesX pushBack _heli;
 	{[_x] call A3A_fnc_NATOinit} forEach _heliCrew;
 	[_heli] call A3A_fnc_AIVEHinit;
 	_wp1 = _groupHeli addWaypoint [_posicion, 0];
@@ -42,26 +42,26 @@ if (count _tiposVeh > 0) then
 	sleep 30;
 	};
 _tiposVeh = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
-_tipoGrupo = if (_lado == malos) then {NATOSpecOp} else {CSATSpecOp};
+_typeGroup = if (_lado == malos) then {NATOSpecOp} else {CSATSpecOp};
 
 for "_i" from 0 to (round random 2) do
 	{
 	_tipoVeh = selectRandom _tiposVeh;
 	//_pos = [_posicion, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
-	_vehicle=[_posOrigen, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
+	_vehicle=[_posOrigin, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
 	_pilotos = _pilotos + _heliCrew;
 	_grupos pushBack _groupHeli;
-	_vehiculos pushBack _heli;
+	_vehiclesX pushBack _heli;
 
 	{_x setBehaviour "CARELESS";} forEach units _groupHeli;
-	_grupo = [_posOrigen, _lado, _tipoGrupo] call A3A_fnc_spawnGroup;
+	_grupo = [_posOrigin, _lado, _typeGroup] call A3A_fnc_spawnGroup;
 	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldados pushBack _x; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	_grupos pushBack _grupo;
 	//[_heli,"Air Transport"] spawn A3A_fnc_inmuneConvoy;
-	[_heli,_grupo,_posicion,_posOrigen,_groupHeli] spawn A3A_fnc_fastrope;
+	[_heli,_grupo,_posicion,_posOrigin,_groupHeli] spawn A3A_fnc_fastrope;
 	sleep 10;
 	};
 
@@ -97,7 +97,7 @@ _nul = [0,"DEF_HQ1"] spawn A3A_fnc_deleteTask;
 {
 _veh = _x;
 if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
-} forEach _vehiculos;
+} forEach _vehiclesX;
 {
 _veh = _x;
 if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldados = _soldados - [_x]};

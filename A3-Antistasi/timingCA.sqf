@@ -6,10 +6,10 @@ _tiempo = _tiempo - (((tierWar + difficultyCoef)-1)*400);
 
 if (_tiempo < 0) then {_tiempo = 0};
 
-cuentaCA = cuentaCA + round (random _tiempo);
+countCA = countCA + round (random _tiempo);
 
-if (_mayor and (cuentaCA < 1200)) then {cuentaCA = 1200};
-publicVariable "cuentaCA";
+if (_mayor and (countCA < 1200)) then {countCA = 1200};
+publicVariable "countCA";
 
 
 

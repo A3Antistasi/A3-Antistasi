@@ -1,9 +1,9 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_marcador","_vehiculos","_grupos","_soldados","_posicion","_busy","_buildings","_pos1","_pos2","_grupo","_cuenta","_tipoVeh","_veh","_unit","_arrayVehAAF","_nVeh","_frontera","_size","_ang","_mrk","_tipogrupo","_bandera","_perro","_tipoUnit","_garrison","_lado","_cfg","_max","_vehicle","_vehCrew","_grupoVeh","_roads","_dist","_road","_roadscon","_roadcon","_dirveh","_bunker","_tipoGrupo","_posiciones","_posMG","_posMort","_posTank"];
+private ["_pos","_marcador","_vehiclesX","_grupos","_soldados","_posicion","_busy","_buildings","_pos1","_pos2","_grupo","_cuenta","_tipoVeh","_veh","_unit","_arrayVehAAF","_nVeh","_frontera","_size","_ang","_mrk","_typeGroup","_bandera","_perro","_tipoUnit","_garrison","_lado","_cfg","_max","_vehicle","_vehCrew","_grupoVeh","_roads","_dist","_road","_roadscon","_roadcon","_dirveh","_bunker","_typeGroup","_posiciones","_posMG","_posMort","_posTank"];
 _marcador = _this select 0;
 
-_vehiculos = [];
+_vehiclesX = [];
 _grupos = [];
 _soldados = [];
 
@@ -44,7 +44,7 @@ if (spawner getVariable _marcador != 2) then
 			_grupoVeh = _vehicle select 2;
 			_soldados = _soldados + _vehCrew;
 			_grupos pushBack _grupoVeh;
-			_vehiculos pushBack _veh;
+			_vehiclesX pushBack _veh;
 			sleep 1;
 			};
 		};
@@ -66,12 +66,12 @@ if ((spawner getVariable _marcador != 2) and _frontera) then
 		_dirveh = [_roadcon, _road] call BIS_fnc_DirTo;
 		_pos = [getPos _road, 7, _dirveh + 270] call BIS_Fnc_relPos;
 		_bunker = "Land_BagBunker_01_small_green_F" createVehicle _pos;
-		_vehiculos pushBack _bunker;
+		_vehiclesX pushBack _bunker;
 		_bunker setDir _dirveh;
 		_pos = getPosATL _bunker;
 		_tipoVeh = if (_lado==malos) then {staticATOccupants} else {staticATInvaders};
 		_veh = _tipoVeh createVehicle _posicion;
-		_vehiculos pushBack _veh;
+		_vehiclesX pushBack _veh;
 		_veh setPos _pos;
 		_veh setDir _dirVeh + 180;
 		_tipoUnit = if (_lado==malos) then {staticCrewOccupants} else {staticCrewInvaders};
@@ -110,12 +110,12 @@ if (_patrol) then
 		{
 		_arrayGrupos = if (_lado == malos) then {gruposNATOsmall} else {gruposCSATsmall};
 		if ([_marcador,false] call A3A_fnc_fogCheck < 0.3) then {_arrayGrupos = _arrayGrupos - sniperGroups};
-		_tipoGrupo = selectRandom _arrayGrupos;
-		_grupo = [_posicion,_lado, _tipoGrupo,false,true] call A3A_fnc_spawnGroup;
+		_typeGroup = selectRandom _arrayGrupos;
+		_grupo = [_posicion,_lado, _typeGroup,false,true] call A3A_fnc_spawnGroup;
 		if !(isNull _grupo) then
 			{
 			sleep 1;
-			if ((random 10 < 2.5) and (not(_tipogrupo in sniperGroups))) then
+			if ((random 10 < 2.5) and (not(_typeGroup in sniperGroups))) then
 				{
 				_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
 				[_perro] spawn A3A_fnc_guardDog;
@@ -145,7 +145,7 @@ if (spawner getVariable _marcador != 2) then
 	[_unit,_marcador] call A3A_fnc_NATOinit;
 	_unit moveInGunner _veh;
 	_soldados pushBack _unit;
-	_vehiculos pushBack _veh;
+	_vehiclesX pushBack _veh;
 	_nul = [_veh] call A3A_fnc_AIVEHinit;
 	sleep 1;
 	};
@@ -169,7 +169,7 @@ if (spawner getVariable _marcador != 2) then
 		[_unit,_marcador] call A3A_fnc_NATOinit;
 		_unit moveInGunner _veh;
 		_soldados pushBack _unit;
-		_vehiculos pushBack _veh;
+		_vehiclesX pushBack _veh;
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		sleep 1;
 		};
@@ -195,7 +195,7 @@ if (spawner getVariable _marcador != 2) then
 		[_unit,_marcador] call A3A_fnc_NATOinit;
 		_unit moveInGunner _veh;
 		_soldados pushBack _unit;
-		_vehiculos pushBack _veh;
+		_vehiclesX pushBack _veh;
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		sleep 1;
 		};
@@ -221,7 +221,7 @@ if (spawner getVariable _marcador != 2) then
 		[_unit,_marcador] call A3A_fnc_NATOinit;
 		_unit moveInGunner _veh;
 		_soldados pushBack _unit;
-		_vehiculos pushBack _veh;
+		_vehiclesX pushBack _veh;
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		sleep 1;
 		};
@@ -230,7 +230,7 @@ if (spawner getVariable _marcador != 2) then
 
 _ret = [_marcador,_size,_lado,_frontera] call A3A_fnc_milBuildings;
 _grupos pushBack (_ret select 0);
-_vehiculos append (_ret select 1);
+_vehiclesX append (_ret select 1);
 _soldados append (_ret select 2);
 
 if (!_busy) then
@@ -252,7 +252,7 @@ if (!_busy) then
 			_veh = createVehicle [_tipoveh, _pos, [],3, "NONE"];
 			_veh setDir (_ang + 90);
 			sleep 1;
-			_vehiculos pushBack _veh;
+			_vehiclesX pushBack _veh;
 			_nul = [_veh] call A3A_fnc_AIVEHinit;
 			_pos = [_pos, 50,_ang] call BIS_fnc_relPos;
 			/*
@@ -271,19 +271,19 @@ _tipoVeh = if (_lado == malos) then {NATOFlag} else {CSATFlag};
 _bandera = createVehicle [_tipoVeh, _posicion, [],0, "CAN_COLLIDE"];
 _bandera allowDamage false;
 [_bandera,"take"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera];
-_vehiculos pushBack _bandera;
+_vehiclesX pushBack _bandera;
 if (_lado == malos) then
 	{
 	_veh = NATOAmmoBox createVehicle _posicion;
 	_nul = [_veh] call A3A_fnc_NATOcrate;
-	_vehiculos pushBack _veh;
+	_vehiclesX pushBack _veh;
 	_veh call jn_fnc_logistics_addAction;
 	}
 else
 	{
 	_veh = CSATAmmoBox createVehicle _posicion;
 	_nul = [_veh] call A3A_fnc_CSATcrate;
-	_vehiculos pushBack _veh;
+	_vehiclesX pushBack _veh;
 	_veh call jn_fnc_logistics_addAction;
 	};
 
@@ -295,7 +295,7 @@ if (!_busy) then
 		{
 		_veh = createVehicle [selectRandom _arrayVehAAF, (_x select 0), [], 0, "NONE"];
 		_veh setDir (_x select 1);
-		_vehiculos pushBack _veh;
+		_vehiclesX pushBack _veh;
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		_nVeh = _nVeh -1;
 		sleep 1;
@@ -311,7 +311,7 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _nVeh)} do
 	_pos = [_posicion, 10, _size/2, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 	_veh = createVehicle [_tipoVeh, _pos, [], 0, "NONE"];
 	_veh setDir random 360;
-	_vehiculos pushBack _veh;
+	_vehiclesX pushBack _veh;
 	_nul = [_veh] call A3A_fnc_AIVEHinit;
 	sleep 1;
 	_cuenta = _cuenta + 1;
@@ -349,6 +349,6 @@ if (!(_x in staticsToSave)) then
 	{
 	if ((!([distanceSPWN-_size,1,_x,buenos] call A3A_fnc_distanceUnits))) then {deleteVehicle _x}
 	};
-} forEach _vehiculos;
+} forEach _vehiclesX;
 
 

@@ -20,7 +20,7 @@ _prestigeInvaders = 0;
 _bandera = objNull;
 _size = [_marcador] call A3A_fnc_sizeMarker;
 
-if ((!(_marcador in ciudades)) and (spawner getVariable _marcador != 2)) then
+if ((!(_marcador in citiesX)) and (spawner getVariable _marcador != 2)) then
 	{
 	_banderas = nearestObjects [_posicion, ["FlagCarrier"], _size];
 	_bandera = _banderas select 0;
@@ -37,7 +37,7 @@ else
 	{
 	if (_looser == malos) then
 		{
-		_texto = format ["%1 ",nameMalos];
+		_texto = format ["%1 ",nameOccupants];
 		}
 	else
 		{
@@ -203,18 +203,18 @@ if ((_winner != buenos) and (_looser != buenos)) then
 	{
 	if (_marcador in puestos) then
 		{
-		_cercanos = (puertos + recursos + fabricas) select {((getMarkerPos _x) distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
-		if (_looser == malos) then  {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == malos}} else {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == muyMalos}};
-		{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _cercanos;
+		_closeX = (puertos + recursos + fabricas) select {((getMarkerPos _x) distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
+		if (_looser == malos) then  {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == malos}} else {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == muyMalos}};
+		{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _closeX;
 		}
 	else
 		{
 		if (_marcador in airportsX) then
 			{
-			_cercanos = (puertos + puestos) select {((getMarkerPos _x) distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
-			_cercanos append ((fabricas + recursos) select {(lados getVariable [_x,sideUnknown] != buenos) and (lados getVariable [_x,sideUnknown] != _winner) and ([airportsX,_x] call BIS_fnc_nearestPosition == _marcador)});
-			if (_looser == malos) then  {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == malos}} else {_cercanos = _cercanos select {lados getVariable [_x,sideUnknown] == muyMalos}};
-			{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _cercanos;
+			_closeX = (puertos + puestos) select {((getMarkerPos _x) distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
+			_closeX append ((fabricas + recursos) select {(lados getVariable [_x,sideUnknown] != buenos) and (lados getVariable [_x,sideUnknown] != _winner) and ([airportsX,_x] call BIS_fnc_nearestPosition == _marcador)});
+			if (_looser == malos) then  {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == malos}} else {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == muyMalos}};
+			{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _closeX;
 			};
 		};
 	};

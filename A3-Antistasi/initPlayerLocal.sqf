@@ -173,7 +173,7 @@ if (player getVariable ["pvp",false]) exitWith
 		if ((_caja == NATOAmmoBox) or (_caja == CSATAmmoBox)) then {_override = true};
 		_override
 		}];
-	_nombre = if (side player == malos) then {nameMalos} else {nameInvaders};
+	_nombre = if (side player == malos) then {nameOccupants} else {nameInvaders};
 	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 	waituntil {!isnull (finddisplay 46)};
 	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
@@ -212,7 +212,7 @@ player setVariable ["punish",0,true];
 player setVariable ["dinero",100,true];
 player setVariable ["rango",rank player,true];
 
-rezagados = creategroup buenos;
+stragglers = creategroup buenos;
 (group player) enableAttack false;
 player setUnitTrait ["camouflageCoef",0.8];
 player setUnitTrait ["audibleCoef",0.8];
@@ -232,7 +232,7 @@ player addEventHandler ["FIRED",
 			}
 		else
 			{
-			_ciudad = [ciudades,_player] call BIS_fnc_nearestPosition;
+			_ciudad = [citiesX,_player] call BIS_fnc_nearestPosition;
 			_size = [_ciudad] call A3A_fnc_sizeMarker;
 			_datos = server getVariable _ciudad;
 			if (random 100 < _datos select 2) then
@@ -269,7 +269,7 @@ player addEventHandler ["InventoryOpened",
 				}
 			else
 				{
-				_ciudad = [ciudades,_jugador] call BIS_fnc_nearestPosition;
+				_ciudad = [citiesX,_jugador] call BIS_fnc_nearestPosition;
 				_size = [_ciudad] call A3A_fnc_sizeMarker;
 				_datos = server getVariable _ciudad;
 				if (random 100 < _datos select 2) then
@@ -324,7 +324,7 @@ player addEventHandler ["HandleHeal",
 			}
 		else
 			{
-			_ciudad = [ciudades,_player] call BIS_fnc_nearestPosition;
+			_ciudad = [citiesX,_player] call BIS_fnc_nearestPosition;
 			_size = [_ciudad] call A3A_fnc_sizeMarker;
 			_datos = server getVariable _ciudad;
 			if (random 100 < _datos select 2) then

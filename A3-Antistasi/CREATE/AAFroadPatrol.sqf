@@ -1,7 +1,7 @@
-private ["_soldados","_vehiculos","_grupos","_base","_posBase","_roads","_tipoCoche","_arrayAirports","_arrayDestinations","_tam","_road","_veh","_vehCrew","_grupoVeh","_grupo","_grupoP","_distanceX","_spawnPoint"];
+private ["_soldados","_vehiclesX","_grupos","_base","_posBase","_roads","_typeCar","_arrayAirports","_arrayDestinations","_tam","_road","_veh","_vehCrew","_grupoVeh","_grupo","_grupoP","_distanceX","_spawnPoint"];
 
 _soldados = [];
-_vehiculos = [];
+_vehiclesX = [];
 _grupos = [];
 _base = "";
 _roads = [];
@@ -29,26 +29,26 @@ else
 if (_arrayAirports1 isEqualTo []) exitWith {};
 
 _base = selectRandom _arrayAirports1;
-_tipoCoche = "";
+_typeCar = "";
 _lado = malos;
 _typePatrol = "LAND";
 if (lados getVariable [_base,sideUnknown] == malos) then
 	{
 	if ((_base in puertos) and ([vehNATOBoat] call A3A_fnc_vehAvailable)) then
 		{
-		_tipoCoche = vehNATOBoat;
+		_typeCar = vehNATOBoat;
 		_typePatrol = "SEA";
 		}
 	else
 		{
 		if (random 100 < prestigeNATO) then
 			{
-			_tipoCoche = if (_base in airportsX) then {selectRandom (vehNATOLight + [vehNATOPatrolHeli])} else {selectRandom vehNATOLight};
-			if (_tipoCoche == vehNATOPatrolHeli) then {_typePatrol = "AIR"};
+			_typeCar = if (_base in airportsX) then {selectRandom (vehNATOLight + [vehNATOPatrolHeli])} else {selectRandom vehNATOLight};
+			if (_typeCar == vehNATOPatrolHeli) then {_typePatrol = "AIR"};
 			}
 		else
 			{
-			_tipoCoche = selectRandom [vehPoliceCar,vehFIAArmedCar];
+			_typeCar = selectRandom [vehPoliceCar,vehFIAArmedCar];
 			};
 		};
 	}
@@ -57,13 +57,13 @@ else
 	_lado = muyMalos;
 	if ((_base in puertos) and ([vehCSATBoat] call A3A_fnc_vehAvailable)) then
 		{
-		_tipoCoche = vehCSATBoat;
+		_typeCar = vehCSATBoat;
 		_typePatrol = "SEA";
 		}
 	else
 		{
-		_tipoCoche = if (_base in airportsX) then {selectRandom (vehCSATLight + [vehCSATPatrolHeli])} else {selectRandom vehCSATLight};
-		if (_tipoCoche == vehCSATPatrolHeli) then {_typePatrol = "AIR"};
+		_typeCar = if (_base in airportsX) then {selectRandom (vehCSATLight + [vehCSATPatrolHeli])} else {selectRandom vehCSATLight};
+		if (_typeCar == vehCSATPatrolHeli) then {_typePatrol = "AIR"};
 		};
 	};
 
@@ -115,7 +115,7 @@ if (_typePatrol != "AIR") then
 		};
 	};
 
-_vehicle=[_posBase, 0,_tipoCoche, _lado] call bis_fnc_spawnvehicle;
+_vehicle=[_posBase, 0,_typeCar, _lado] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 [_veh] call A3A_fnc_AIVEHinit;
 [_veh,"Patrol"] spawn A3A_fnc_inmuneConvoy;
@@ -124,17 +124,17 @@ _vehCrew = _vehicle select 1;
 _grupoVeh = _vehicle select 2;
 _soldados = _soldados + _vehCrew;
 _grupos = _grupos + [_grupoVeh];
-_vehiculos = _vehiculos + [_veh];
+_vehiclesX = _vehiclesX + [_veh];
 
 
-if (_tipoCoche in vehNATOLightUnarmed) then
+if (_typeCar in vehNATOLightUnarmed) then
 	{
 	sleep 1;
 	_grupo = [_posbase, _lado, groupsNATOSentry] call A3A_fnc_spawnGroup;
 	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _grupoveh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
 	};
-if (_tipoCoche in vehCSATLightUnarmed) then
+if (_typeCar in vehCSATLightUnarmed) then
 	{
 	sleep 1;
 	_grupo = [_posbase, _lado, groupsCSATSentry] call A3A_fnc_spawnGroup;
@@ -187,6 +187,6 @@ _enemigos = if (_lado == malos) then {muyMalos} else {malos};
 waitUntil {sleep 1;!([distanceSPWN,1,_unit,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_unit,_enemigos] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldados;
 
 {_veh = _x;
-if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_veh,_enemigos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}} forEach _vehiculos;
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_veh,_enemigos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}} forEach _vehiclesX;
 {deleteGroup _x} forEach _grupos;
 AAFpatrols = AAFpatrols - 1;

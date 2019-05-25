@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiculos","_civsPatrol","_gruposPatrol","_vehPatrol","_tipoCiv","_tipoVeh","_dirVeh","_cuenta","_grupo","_size","_road","_tipociv","_tipoVeh","_dirVeh","_posicion","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_burst","_grupoP","_wp","_wp1"];
+private ["_marcador","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiclesX","_civsPatrol","_gruposPatrol","_vehPatrol","_tipoCiv","_tipoVeh","_dirVeh","_cuenta","_grupo","_size","_road","_tipociv","_tipoVeh","_dirVeh","_posicion","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_burst","_grupoP","_wp","_wp1"];
 
 _marcador = _this select 0;
 
@@ -20,7 +20,7 @@ _prestigeBLUFOR = _datos select 3;
 
 _civs = [];
 _grupos = [];
-_vehiculos = [];
+_vehiclesX = [];
 _civsPatrol = [];
 _gruposPatrol = [];
 _vehPatrol = [];
@@ -68,7 +68,7 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _numVeh) and (_cuenta
 		    */
 			_veh = _tipoveh createVehicle _pos;
 			_veh setDir _dirveh;
-			_vehiculos pushBack _veh;
+			_vehiclesX pushBack _veh;
 			_nul = [_veh] spawn A3A_fnc_civVEHinit;
 			};
 		};
@@ -87,7 +87,7 @@ if (count _mrkMar > 0) then
 			_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_tipoVeh];
 			_veh = _tipoveh createVehicle _pos;
 			_veh setDir (random 360);
-			_vehiculos pushBack _veh;
+			_vehiclesX pushBack _veh;
 			[_veh] spawn A3A_fnc_civVEHinit;
 			sleep 0.5;
 			};
@@ -191,7 +191,7 @@ if (!([distanceSPWN-_size,1,_x,buenos] call A3A_fnc_distanceUnits)) then
 	if (_x in reportedVehs) then {reportedVehs = reportedVehs - [_x]; publicVariable "reportedVehs"};
 	deleteVehicle _x;
 	}
-} forEach _vehiculos;
+} forEach _vehiclesX;
 {
 waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 deleteVehicle _x} forEach _civsPatrol;

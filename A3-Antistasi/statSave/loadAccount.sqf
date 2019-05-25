@@ -40,7 +40,7 @@ if (isServer and !_byPassServer) then
 	["gameMode"] call fn_LoadStat;
 	["destroyedCities"] call fn_LoadStat;
 	["minas"] call fn_LoadStat;
-	["cuentaCA"] call fn_LoadStat;
+	["countCA"] call fn_LoadStat;
 	["antenas"] call fn_LoadStat;
 	["prestigeNATO"] call fn_LoadStat;
 	["prestigeCSAT"] call fn_LoadStat;
@@ -161,7 +161,7 @@ if (isServer and !_byPassServer) then
 	{[_x] call A3A_fnc_mrkUpdate} forEach (markersX - controlsX);
 	if (count outpostsFIA > 0) then {markersX = markersX + outpostsFIA; publicVariable "markersX"};
 
-	{if (_x in destroyedCities) then {[_x] call A3A_fnc_destroyCity}} forEach ciudades;
+	{if (_x in destroyedCities) then {[_x] call A3A_fnc_destroyCity}} forEach citiesX;
 
 	["chopForest"] call fn_LoadStat;
 	["destroyedBuildings"] call fn_LoadStat;
@@ -173,12 +173,12 @@ if (isServer and !_byPassServer) then
 	*/
 	["posHQ"] call fn_LoadStat;
 	["nextTick"] call fn_LoadStat;
-	["estaticas"] call fn_LoadStat;//tiene que ser el último para que el sleep del borrado del contenido no haga que despawneen
+	["staticsX"] call fn_LoadStat;//tiene que ser el último para que el sleep del borrado del contenido no haga que despawneen
 
 
 	if (!isMultiPlayer) then {player setPos getMarkerPos respawnTeamPlayer} else {{_x setPos getMarkerPos respawnTeamPlayer} forEach (playableUnits select {side _x == buenos})};
 	_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
-	tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in ciudades)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in airportsX} count _sitios)))/10));
+	tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in citiesX)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in airportsX} count _sitios)))/10));
 	if (tierWar > 10) then {tierWar = 10};
 	publicVariable "tierWar";
 

@@ -7,15 +7,15 @@ _marcador = _this select 0;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
-_contacto = objNull;
+_contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _posicion = getMarkerPos _marcador;
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
-_tiempolim = if (_dificil) then {30} else {60};
-if (hayIFA) then {_tiempolim = _tiempolim * 2};
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = if (_dificil) then {30} else {60};
+if (hayIFA) then {_timeLimit = _timeLimit * 2};
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_marcador] call A3A_fnc_localizar;
 _tipoVeh = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
@@ -48,9 +48,9 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 	_mrk setMarkerColorLocal "ColorRed";
 	_mrk setMarkerBrushLocal "DiagGrid";
 	if (!debug) then {_mrk setMarkerAlphaLocal 0};
-	_tipoGrupo = if (_dificil) then {if (_lado == malos) then {NATOSquad} else {CSATSquad}} else {if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry}};
+	_typeGroup = if (_dificil) then {if (_lado == malos) then {NATOSquad} else {CSATSquad}} else {if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry}};
 	//_cfg = if (_lado == malos) then {cfgNATOInf} else {cfgCSATInf};
-	_grupo = [_pos,_lado, _tipoGrupo] call A3A_fnc_spawnGroup;
+	_grupo = [_pos,_lado, _typeGroup] call A3A_fnc_spawnGroup;
 	sleep 1;
 	if (random 10 < 33) then
 		{
@@ -60,7 +60,7 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 
 	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
 
-	_grupo1 = [_pos,_lado,_tipoGrupo] call A3A_fnc_spawnGroup;
+	_grupo1 = [_pos,_lado,_typeGroup] call A3A_fnc_spawnGroup;
 	sleep 1;
 	_nul = [leader _grupo1, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
 

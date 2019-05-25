@@ -1,4 +1,4 @@
-private ["_posicion","_size","_buildings","_grupo","_tipoUnit","_lado","_building","_tipoB","_frontera","_tipoVeh","_veh","_vehiculos","_soldados","_pos","_ang","_marcador","_unit","_return"];
+private ["_posicion","_size","_buildings","_grupo","_tipoUnit","_lado","_building","_tipoB","_frontera","_tipoVeh","_veh","_vehiclesX","_soldados","_pos","_ang","_marcador","_unit","_return"];
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;
 _size = _this select 1;
@@ -9,7 +9,7 @@ if (count _buildings == 0) exitWith {[grpNull,[],[]]};
 _lado = _this select 2;
 _frontera = _this select 3;
 
-_vehiculos = [];
+_vehiclesX = [];
 _soldados = [];
 
 _grupo = createGroup _lado;
@@ -36,7 +36,7 @@ for "_i" from 0 to (count _buildings) - 1 do
 		_tipoVeh = if (_lado == malos) then {vehNATOPatrolHeli} else {vehCSATPatrolHeli};
 		_veh = createVehicle [_tipoVeh, position _building, [],0, "CAN_COLLIDE"];
 		_veh setDir (getDir _building);
-		_vehiculos pushBack _veh;
+		_vehiclesX pushBack _veh;
 		}
 	else
 		{
@@ -50,7 +50,7 @@ for "_i" from 0 to (count _buildings) - 1 do
 			[_unit,_marcador] call A3A_fnc_NATOinit;
 			_unit moveInGunner _veh;
 			_soldados pushBack _unit;
-			_vehiculos pushBack _veh;
+			_vehiclesX pushBack _veh;
 			}
 		else
 			{
@@ -66,7 +66,7 @@ for "_i" from 0 to (count _buildings) - 1 do
 				[_unit,_marcador] call A3A_fnc_NATOinit;
 				_unit moveInGunner _veh;
 				_soldados pushBack _unit;
-				_vehiculos pushBack _veh;
+				_vehiclesX pushBack _veh;
 				}
 			else
 				{
@@ -78,17 +78,17 @@ for "_i" from 0 to (count _buildings) - 1 do
 					[_unit,_marcador] call A3A_fnc_NATOinit;
 					_unit moveInGunner _veh;
 					_soldados pushBack _unit;
-					_vehiculos pushBack _veh;
+					_vehiclesX pushBack _veh;
 					sleep 0.5;
 					_veh = createVehicle [_tipoVeh, (_building buildingPos 13), [], 0, "CAN_COLLIDE"];
 					_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
 					[_unit,_marcador] call A3A_fnc_NATOinit;
 					_unit moveInGunner _veh;
 					_soldados pushBack _unit;
-					_vehiculos pushBack _veh;
+					_vehiclesX pushBack _veh;
 					};
 				};
 			};
 		};
 	};
-[_grupo,_vehiculos,_soldados]
+[_grupo,_vehiclesX,_soldados]

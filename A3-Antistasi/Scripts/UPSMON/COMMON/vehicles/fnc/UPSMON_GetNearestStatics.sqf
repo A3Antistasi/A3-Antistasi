@@ -3,7 +3,7 @@ File: UPSMON_GetNearestCombat.sqf
 Author: Azroul13
 
 Description:
-	Función que busca vehiculos cercanos y hace entrar a las unidades del lider
+	Funciï¿½n que busca vehiclesX closeX y hace entrar a las unidades del lider
 Parameter(s):
 	<--- leader
 	<--- Vehicle types
@@ -11,13 +11,13 @@ Parameter(s):
 Returns:
 	Array vehicles [[vehicles,emptypositions]]
 ****************************************************************/
-private["_npc","_distance","_marker","_OCercanos","_emptypositions","_vehicles","_isuav","_inzone"];	
+private["_npc","_distance","_marker","_OcloseX","_emptypositions","_vehicles","_isuav","_inzone"];	
 					
 _npc = _this select 0;	
 _distance = _this select 1;		
 _marker = _this select 2;		
 
-_OCercanos = [];
+_OcloseX = [];
 _emptypositions = 0;
 _vehicles = [];
 _Cargocount = 0;
@@ -25,8 +25,8 @@ _Gunnercount = 0;
 _Commandercount = 0;
 _Drivercount = 0;
 	
-//Buscamos objetos cercanos
-_OCercanos = _npc nearentities [["StaticWeapon"], _distance];
+//Buscamos objetos closeX
+_OcloseX = _npc nearentities [["StaticWeapon"], _distance];
 		
 {
 	_isuav = getnumber (configFile >> "cfgVehicles" >> (typeOf (_x)) >> "isUav");
@@ -58,6 +58,6 @@ _OCercanos = _npc nearentities [["StaticWeapon"], _distance];
 			};
 		};
 	};
-}foreach _OCercanos;
+}foreach _OcloseX;
 	
 _vehicles;

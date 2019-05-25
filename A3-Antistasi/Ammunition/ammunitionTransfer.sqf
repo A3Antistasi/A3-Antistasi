@@ -1,12 +1,12 @@
 if (!isServer) exitWith {};
-private ["_subCosa","_municion","_origen","_destino"];
+private ["_subCosa","_ammunition","_origen","_destino"];
 _origen = _this select 0;
 if (isNull _origen) exitWith {};
 _destino = _this select 1;
 
-_municion= [];
+_ammunition= [];
 _items = [];
-_municion = magazineCargo _origen;
+_ammunition = magazineCargo _origen;
 _items = itemCargo _origen;
 _armas = [];
 _weaponsItemsCargo = weaponsItemsCargo _origen;
@@ -24,8 +24,8 @@ if (count _containers > 0) then
 	for "_i" from 0 to (count _containers) - 1 do
 		{
 		_subCosa = magazineCargo ((_containers select _i) select 1);
-		if (!isNil "_subCosa") then {_municion = _municion + _subCosa} else {diag_log format ["Error from %1",magazineCargo (_containers select _i)]};
-		//_municion = _municion + (magazineCargo ((_containers select _i) select 1));
+		if (!isNil "_subCosa") then {_ammunition = _ammunition + _subCosa} else {diag_log format ["Error from %1",magazineCargo (_containers select _i)]};
+		//_ammunition = _ammunition + (magazineCargo ((_containers select _i) select 1));
 		_items = _items + (itemCargo ((_containers select _i) select 1));
 		_weaponsItemsCargo = _weaponsItemsCargo + weaponsItemsCargo ((_containers select _i) select 1);
 		};
@@ -69,7 +69,7 @@ if (count _armasFinal > 0) then
 
 _ammunitionFinal = [];
 _ammunitionFinalCount = [];
-if (isNil "_municion") then
+if (isNil "_ammunition") then
 	{
 	diag_log format ["Error en transmisión de munición. Tenía esto: %1 y estos containers: %2, el origen era un %3 y el objeto está definido como: %4", magazineCargo _origen, everyContainer _origen,typeOf _origen,_origen];
 	}
@@ -80,9 +80,9 @@ else
 	if ((not(_arma in _ammunitionFinal)) and (not(_arma in unlockedMagazines))) then
 		{
 		_ammunitionFinal pushBack _arma;
-		_ammunitionFinalCount pushBack ({_x == _arma} count _municion);
+		_ammunitionFinalCount pushBack ({_x == _arma} count _ammunition);
 		};
-	} forEach  _municion;
+	} forEach  _ammunition;
 	};
 
 

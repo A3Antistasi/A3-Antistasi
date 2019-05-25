@@ -1,9 +1,9 @@
-private ["_veh","_grupo","_posicion","_posorigen","_heli","_landpos","_wp","_d","_wp2","_wp3","_xRef","_yRef","_reinf","_dist"];
+private ["_veh","_grupo","_posicion","_posOrigin","_heli","_landpos","_wp","_d","_wp2","_wp3","_xRef","_yRef","_reinf","_dist"];
 
 _veh = _this select 0;
 _grupo = _this select 1;
 _posicion = _this select 2;
-_posorigen = _this select 3;
+_posOrigin = _this select 3;
 _heli = _this select 4;
 _reinf = if (count _this > 5) then {_this select 5} else {false};
 
@@ -99,7 +99,7 @@ else
 	_wp2 setWaypointType "MOVE";
 	_wp2 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] remoteExec [""A3A_fnc_garrisonUpdate"",2];[group this] spawn A3A_fnc_groupDespawner; reinfPatrols = reinfPatrols - 1; publicVariable ""reinfPatrols"";"];
 	};
-_wp3 = _heli addWaypoint [_posorigen, 1];
+_wp3 = _heli addWaypoint [_posOrigin, 1];
 _wp3 setWaypointType "MOVE";
 _wp3 setWaypointSpeed "NORMAL";
 _wp3 setWaypointBehaviour "AWARE";

@@ -41,10 +41,10 @@ fn_LoadStat =
 	"backpackPlayer",
 	"mrkNATO",
 	"mrkSDK",
-	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
+	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","ammunition","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["outpostsFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
+["outpostsFIA","minas","staticsX","countCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","ammunition","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -53,7 +53,7 @@ fn_SetStat =
 	if(isNil '_varValue') exitWith {};
 	if(_varName in specialVarLoads) then
 	{
-		if(_varName == 'cuentaCA') then {cuentaCA = _varValue; publicVariable "cuentaCA"};
+		if(_varName == 'countCA') then {countCA = _varValue; publicVariable "countCA"};
 		if(_varName == 'difficultyX') then
 			{
 			if !(isMultiplayer) then
@@ -175,7 +175,7 @@ fn_SetStat =
 			};
 		if(_varName == 'garrison') then
 			{
-			//_markersX = markersX - outpostsFIA - controlsX - ciudades;
+			//_markersX = markersX - outpostsFIA - controlsX - citiesX;
 			{garrison setVariable [_x select 0,_x select 1,true]} forEach _varvalue;
 			};
 		if(_varName == 'outpostsFIA') then
@@ -206,7 +206,7 @@ fn_SetStat =
 			    _posAnt = _varvalue select _i;
 			    _mrk = [mrkAntennas, _posAnt] call BIS_fnc_nearestPosition;
 			    _antena = [antenas,_mrk] call BIS_fnc_nearestPosition;
-			    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach ciudades;
+			    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
 			    antenas = antenas - [_antena];
 			    _antena removeAllEventHandlers "Killed";
 			    _antena setDamage [1,false];
@@ -218,9 +218,9 @@ fn_SetStat =
 			};
 		if(_varname == 'prestigeOPFOR') then
 			{
-			for "_i" from 0 to (count ciudades) - 1 do
+			for "_i" from 0 to (count citiesX) - 1 do
 				{
-				_ciudad = ciudades select _i;
+				_ciudad = citiesX select _i;
 				_datos = server getVariable _ciudad;
 				_numCiv = _datos select 0;
 				_numVeh = _datos select 1;
@@ -232,9 +232,9 @@ fn_SetStat =
 			};
 		if(_varname == 'prestigeBLUFOR') then
 			{
-			for "_i" from 0 to (count ciudades) - 1 do
+			for "_i" from 0 to (count citiesX) - 1 do
 				{
-				_ciudad = ciudades select _i;
+				_ciudad = citiesX select _i;
 				_datos = server getVariable _ciudad;
 				_numCiv = _datos select 0;
 				_numVeh = _datos select 1;
@@ -294,7 +294,7 @@ fn_SetStat =
 				};
 			{_x setPos _posHQ} forEach (playableUnits select {side _x == buenos});
 			};
-		if(_varname == 'estaticas') then
+		if(_varname == 'staticsX') then
 			{
 			for "_i" from 0 to (count _varvalue) - 1 do
 				{

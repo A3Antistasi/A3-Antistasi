@@ -23,7 +23,7 @@ if (getMarkerPos _cercano distance _positionTel > 40) exitWith {hint "You must c
 
 if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]; _nul=CreateDialog "build_menu";};
 if ([_posicion,500] call A3A_fnc_enemyNearCheck) exitWith {hint "You cannot manage this garrison while there are enemies nearby";_nul=CreateDialog "build_menu"};
-//if (((_cercano in outpostsFIA) and !(isOnRoad _posicion)) /*or (_cercano in ciudades)*/ or (_cercano in controlsX)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
+//if (((_cercano in outpostsFIA) and !(isOnRoad _posicion)) /*or (_cercano in citiesX)*/ or (_cercano in controlsX)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
 _puestoFIA = if (_cercano in outpostsFIA) then {true} else {false};
 _wPost = if (_puestoFIA and !(isOnRoad getMarkerPos _cercano)) then {true} else {false};
 _garrison = if (! _wpost) then {garrison getVariable [_cercano,[]]} else {SDKSniper};

@@ -1,4 +1,4 @@
-private ["_camion","_objetos","_todo","_proceder","_caja","_armas","_municion","_items","_mochis","_containers","_cuenta","_exists"];
+private ["_camion","_objetos","_todo","_proceder","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
 
 _camion = vehicle player;
 _objetos = [];
@@ -16,7 +16,7 @@ if ((_caja == caja) and (player!=theBoss)) exitWith {hint "Only the Commander ca
 
 
 _armas = weaponCargo _caja;
-_municion = magazineCargo _caja;
+_ammunition = magazineCargo _caja;
 _items = itemCargo _caja;
 _mochis = [];
 /*
@@ -33,7 +33,7 @@ if (count weaponsItemsCargo _camion > 0) then
 			}
 		else
 			{
-			if (typeName (_cosa select 0) == typeName []) then {_municion pushBack (_cosa select 0)};
+			if (typeName (_cosa select 0) == typeName []) then {_ammunition pushBack (_cosa select 0)};
 			}
 		};
 	} forEach weaponsItemsCargo _caja;
@@ -51,12 +51,12 @@ if (count _containers > 0) then
 	for "_i" from 0 to (count _containers - 1) do
 		{
 		_armas = _armas + weaponCargo ((_containers select _i) select 1);
-		_municion = _municion + magazineCargo ((_containers select _i) select 1);
+		_ammunition = _ammunition + magazineCargo ((_containers select _i) select 1);
 		_items = _items + itemCargo ((_containers select _i) select 1);
 		};
 	};
 */
-_todo = _armas + _municion + _items + _mochis;
+_todo = _armas + _ammunition + _items + _mochis;
 _cuenta = count _todo;
 
 if (_cuenta < 1) then

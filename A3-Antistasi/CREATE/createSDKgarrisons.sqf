@@ -1,10 +1,10 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_vehiculos","_grupos","_soldados","_posicion","_pos","_size","_veh","_estaticas","_garrison","_tam","_cuenta","_grupo","_groupMortar","_tipo","_unit"];
+private ["_marcador","_vehiclesX","_grupos","_soldados","_posicion","_pos","_size","_veh","_staticsX","_garrison","_tam","_cuenta","_grupo","_groupMortar","_tipo","_unit"];
 
 _marcador = _this select 0;
 
-_vehiculos = [];
+_vehiclesX = [];
 _grupos = [];
 _soldados = [];
 _civs = [];
@@ -17,12 +17,12 @@ _size = [_marcador] call A3A_fnc_sizeMarker;
 
 if (_marcador != "Synd_HQ") then
 	{
-	if (!(_marcador in ciudades)) then
+	if (!(_marcador in citiesX)) then
 		{
 		_veh = createVehicle [SDKFlag, _posicion, [],0, "CAN_COLLIDE"];
 		if (hayIFA) then {_veh setFlagTexture SDKFlagTexture};
 		_veh allowDamage false;
-		_vehiculos pushBack _veh;
+		_vehiclesX pushBack _veh;
 		[_veh,"SDKFlag"] remoteExec ["A3A_fnc_flagaction",0,_veh];
 		//[_veh,"unit"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
 		//[_veh,"vehicle"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
@@ -68,7 +68,7 @@ if (_marcador != "Synd_HQ") then
 		[_veh,"seaport"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
 		};
 	};
-_estaticas = staticsToSave select {_x distance _posicion < _size};
+_staticsX = staticsToSave select {_x distance _posicion < _size};
 
 _garrison = [];
 _garrison = _garrison + (garrison getVariable [_marcador,[]]);
@@ -92,7 +92,7 @@ else
 [_unit,_marcador] call A3A_fnc_FIAinitBases;
 _soldados pushBack _unit;
 _garrison deleteAT _index;
-} forEach _estaticas;
+} forEach _staticsX;
 
 if (staticCrewTeamPlayer in _garrison) then
 	{
@@ -100,7 +100,7 @@ if (staticCrewTeamPlayer in _garrison) then
 	_unit = _groupMortar createUnit [staticCrewTeamPlayer, _posicion, [], 0, "NONE"];
 	_pos = [_posicion] call A3A_fnc_mortarPos;
 	_veh = SDKMortar createVehicle _pos;
-	_vehiculos pushBack _veh;
+	_vehiclesX pushBack _veh;
 	_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
 	_unit assignAsGunner _veh;
 	_unit moveInGunner _veh;
@@ -156,4 +156,4 @@ if (alive _soldado) then
 {deleteGroup _x} forEach _grupos;
 deleteGroup _grupoEst;
 deleteGroup _groupMortar;
-{if (!(_x in staticsToSave)) then {deleteVehicle _x}} forEach _vehiculos;
+{if (!(_x in staticsToSave)) then {deleteVehicle _x}} forEach _vehiclesX;

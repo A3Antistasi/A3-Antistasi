@@ -47,14 +47,14 @@ else
 	if (lados getVariable [_marcador,sideUnknown] == malos) then
 		{
 		if (_marcador in airportsX) then
-			{_mrkD setMarkerText format ["%1 Airbase",nameMalos];
+			{_mrkD setMarkerText format ["%1 Airbase",nameOccupants];
 			_mrkD setMarkerType flagNATOmrk
 			}
 		else
 			{
 			if (_marcador in puestos) then
 				{
-				_mrkD setMarkerText format ["%1 Outpost",nameMalos]
+				_mrkD setMarkerText format ["%1 Outpost",nameOccupants]
 				};
 			};
 		_mrkD setMarkerColor colorOccupants;

@@ -79,7 +79,7 @@ if (side group player == buenos) then
 				}
 			else
 				{
-				_ciudad = [ciudades,_player] call BIS_fnc_nearestPosition;
+				_ciudad = [citiesX,_player] call BIS_fnc_nearestPosition;
 				_size = [_ciudad] call A3A_fnc_sizeMarker;
 				_datos = server getVariable _ciudad;
 				if (random 100 < _datos select 2) then
@@ -117,7 +117,7 @@ if (side group player == buenos) then
 					}
 				else
 					{
-					_ciudad = [ciudades,_jugador] call BIS_fnc_nearestPosition;
+					_ciudad = [citiesX,_jugador] call BIS_fnc_nearestPosition;
 					_size = [_ciudad] call A3A_fnc_sizeMarker;
 					_datos = server getVariable _ciudad;
 					if (random 100 < _datos select 2) then
@@ -190,7 +190,7 @@ if (side group player == buenos) then
 				}
 			else
 				{
-				_ciudad = [ciudades,_player] call BIS_fnc_nearestPosition;
+				_ciudad = [citiesX,_player] call BIS_fnc_nearestPosition;
 				_size = [_ciudad] call A3A_fnc_sizeMarker;
 				_datos = server getVariable _ciudad;
 				if (random 100 < _datos select 2) then

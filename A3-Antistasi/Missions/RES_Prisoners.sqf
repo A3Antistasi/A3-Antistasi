@@ -7,17 +7,17 @@ _marcador = _this select 0;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
-_contacto = objNull;
+_contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _posicion = getMarkerPos _marcador;
 
 _POWs = [];
 
-_tiempolim = if (_dificil) then {30} else {120};//120
-if (hayIFA) then {_tiempolim = _tiempolim * 2};
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = if (_dificil) then {30} else {120};//120
+if (hayIFA) then {_timeLimit = _timeLimit * 2};
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_marcador] call A3A_fnc_localizar;
 
@@ -134,21 +134,21 @@ else
 
 sleep 60;
 _items = [];
-_municion = [];
+_ammunition = [];
 _armas = [];
 {
 _unit = _x;
 if (_unit distance getMarkerPos respawnTeamPlayer < 150) then
 	{
 	{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
-	{if (not(_x in unlockedMagazines)) then {_municion pushBack _x}} forEach magazines _unit;
+	{if (not(_x in unlockedMagazines)) then {_ammunition pushBack _x}} forEach magazines _unit;
 	_items = _items + (items _unit) + (primaryWeaponItems _unit) + (assignedItems _unit) + (secondaryWeaponItems _unit);
 	};
 deleteVehicle _unit;
 } forEach _POWs;
 deleteGroup _grpPOW;
 {caja addWeaponCargoGlobal [_x,1]} forEach _armas;
-{caja addMagazineCargoGlobal [_x,1]} forEach _municion;
+{caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
 {caja addItemCargoGlobal [_x,1]} forEach _items;
 
 _nul = [1200,"RES"] spawn A3A_fnc_deleteTask;

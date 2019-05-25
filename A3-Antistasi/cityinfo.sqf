@@ -15,10 +15,10 @@ _popFIA = _popFIA + (_numCiv * (_prestigeBLUFOR / 100));
 _popAAF = _popAAF + (_numCiv * (_prestigeOPFOR / 100));
 _pop = _pop + _numCiv;
 if (_x in destroyedCities) then {_popCSAT = _popCSAT + _numCIV};
-} forEach ciudades;
+} forEach citiesX;
 _popFIA = round _popFIA;
 _popAAF = round _popAAF;
-hint format ["%7\n\nTotal pop: %1\n%6 Support: %2\n%5 Support: %3 \n\nMurdered Pop: %4\n\nClick on the zone",_pop, _popFIA, _popAAF, _popCSAT,nameMalos,nameTeamPlayer,worldName];
+hint format ["%7\n\nTotal pop: %1\n%6 Support: %2\n%5 Support: %3 \n\nMurdered Pop: %4\n\nClick on the zone",_pop, _popFIA, _popAAF, _popCSAT,nameOccupants,nameTeamPlayer,worldName];
 
 if (!visibleMap) then {openMap true};
 
@@ -34,12 +34,12 @@ while {visibleMap} do
 		_positionTel = positionTel;
 		_sitio = [markersX, _positionTel] call BIS_Fnc_nearestPosition;
 		_texto = "Click on the zone";
-		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == buenos) then {nameTeamPlayer} else {if (lados getVariable [_sitio,sideUnknown] == malos) then {nameMalos} else {nameInvaders}};
+		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == buenos) then {nameTeamPlayer} else {if (lados getVariable [_sitio,sideUnknown] == malos) then {nameOccupants} else {nameInvaders}};
 		if (_sitio == "Synd_HQ") then
 			{
 			_texto = format ["%2 HQ%1",[_sitio] call A3A_fnc_garrisonInfo,nameTeamPlayer];
 			};
-		if (_sitio in ciudades) then
+		if (_sitio in citiesX) then
 			{
 			_datos = server getVariable _sitio;
 
@@ -47,13 +47,13 @@ while {visibleMap} do
 			_prestigeOPFOR = _datos select 2;
 			_prestigeBLUFOR = _datos select 3;
 			_power = [_sitio] call A3A_fnc_powerCheck;
-			_texto = format ["%1\n\nPop %2\n%6 Support: %3 %5\n%7 Support: %4 %5",[_sitio,false] call A3A_fnc_fn_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%",nameMalos,nameTeamPlayer];
+			_texto = format ["%1\n\nPop %2\n%6 Support: %3 %5\n%7 Support: %4 %5",[_sitio,false] call A3A_fnc_fn_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%",nameOccupants,nameTeamPlayer];
 			_posicion = getMarkerPos _sitio;
 			_result = "NONE";
 			switch (_power) do
 				{
 				case buenos: {_result = format ["%1",nameTeamPlayer]};
-				case malos: {_result = format ["%1",nameMalos]};
+				case malos: {_result = format ["%1",nameOccupants]};
 				case muyMalos: {_result = format ["%1",nameInvaders]};
 				};
 			/*_ant1 = [antenas,_posicion] call BIS_fnc_nearestPosition;

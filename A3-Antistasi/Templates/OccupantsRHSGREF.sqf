@@ -71,5 +71,5 @@ itemsAAF = itemsAAF + ["rhsusf_acc_grip2","rhsusf_acc_grip2_tan","rhsusf_acc_anp
 flagNATOmrk = "rhs_flag_insurgents";//ok
 
 lamparaMalos = "rhs_acc_2dpZenit";
-nameMalos = "ChDKZ";
+nameOccupants = "ChDKZ";
 if (isServer) then {"NATO_carrier" setMarkerText "ChDKZ Carrier"};

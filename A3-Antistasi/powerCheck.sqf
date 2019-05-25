@@ -1,6 +1,6 @@
 private ["_marcador","_result","_posicion"];
 _marcador = _this select 0;
-//if (!(_marcador in ciudades)) exitWith {true; diag_log format ["Error en cálculo de Antena para %1",_marcador]};
+//if (!(_marcador in citiesX)) exitWith {true; diag_log format ["Error en cálculo de Antena para %1",_marcador]};
 if (count antenas == 0) exitWith {sideUnknown};
 //_result = false;
 _posicion = getMarkerPos _marcador;

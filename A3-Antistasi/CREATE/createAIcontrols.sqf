@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_marcador","_posicion","_vehiculos","_soldados","_tam","_bunker","_grupoE","_unit","_tipogrupo","_grupo","_tiempolim","_fechalim","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_isControl","_tam","_tipoVeh","_tipoUnit","_markersX","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_tiempolim","_fechalim","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
+private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_marcador","_posicion","_vehiclesX","_soldados","_tam","_bunker","_grupoE","_unit","_typeGroup","_grupo","_timeLimit","_dateLimit","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_isControl","_tam","_tipoVeh","_tipoUnit","_markersX","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_timeLimit","_dateLimit","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
 
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;
@@ -8,7 +8,7 @@ _lado = lados getVariable [_marcador,sideUnknown];
 
 if ((_lado == buenos) or (_lado == sideUnknown)) exitWith {};
 if ({if ((lados getVariable [_x,sideUnknown] != _lado) and (_posicion inArea _x)) exitWith {1}} count markersX >1) exitWith {};
-_vehiculos = [];
+_vehiclesX = [];
 _soldados = [];
 _pilotos = [];
 _conquered = false;
@@ -61,12 +61,12 @@ if (_isControl) then
 			{
 			_pos = [getPos (_roads select 0), 7, _dirveh + 270] call BIS_Fnc_relPos;
 			_bunker = "Land_BagBunker_01_Small_green_F" createVehicle _pos;
-			_vehiculos pushBack _bunker;
+			_vehiclesX pushBack _bunker;
 			_bunker setDir _dirveh;
 			_pos = getPosATL _bunker;
 			_tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
 			_veh = _tipoVeh createVehicle _posicion;
-			_vehiculos pushBack _veh;
+			_vehiclesX pushBack _veh;
 			_veh setPosATL _pos;
 			_veh setDir _dirVeh;
 
@@ -78,15 +78,15 @@ if (_isControl) then
 			sleep 1;
 			_pos = [getPos (_roads select 0), 7, _dirveh + 90] call BIS_Fnc_relPos;
 			_bunker = "Land_BagBunker_01_Small_green_F" createVehicle _pos;
-			_vehiculos pushBack _bunker;
+			_vehiclesX pushBack _bunker;
 			_bunker setDir _dirveh + 180;
 			_pos = getPosATL _bunker;
 			_pos = [getPos _bunker, 6, getDir _bunker] call BIS_fnc_relPos;
 			_tipoVeh = if (_lado == malos) then {NATOFlag} else {CSATFlag};
 			_veh = createVehicle [_tipoVeh, _pos, [],0, "CAN_COLLIDE"];
-			_vehiculos pushBack _veh;
+			_vehiclesX pushBack _veh;
 			_veh = _tipoVeh createVehicle _posicion;
-			_vehiculos pushBack _veh;
+			_vehiclesX pushBack _veh;
 			_veh setPosATL _pos;
 			_veh setDir _dirVeh;
 			sleep 1;
@@ -94,10 +94,10 @@ if (_isControl) then
 			_unit moveInGunner _veh;
 			_soldados pushBack _unit;
 			sleep 1;
-			{_nul = [_x] call A3A_fnc_AIVEHinit} forEach _vehiculos;
+			{_nul = [_x] call A3A_fnc_AIVEHinit} forEach _vehiclesX;
 			};
-		_tipogrupo = if (_lado == malos) then {selectRandom groupsNATOmid} else {selectRandom groupsCSATmid};
-		_grupo = if !(hayIFA) then {[_posicion,_lado, _tipogrupo,false,true] call A3A_fnc_spawnGroup} else {[_posicion,_lado, _tipogrupo] call A3A_fnc_spawnGroup};
+		_typeGroup = if (_lado == malos) then {selectRandom groupsNATOmid} else {selectRandom groupsCSATmid};
+		_grupo = if !(hayIFA) then {[_posicion,_lado, _typeGroup,false,true] call A3A_fnc_spawnGroup} else {[_posicion,_lado, _typeGroup] call A3A_fnc_spawnGroup};
 		if !(isNull _grupo) then
 			{
 			if !(hayIFA) then
@@ -120,10 +120,10 @@ if (_isControl) then
 		_veh = _tipoVeh createVehicle getPos (_roads select 0);
 		_veh setDir _dirveh + 90;
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
-		_vehiculos pushBack _veh;
+		_vehiclesX pushBack _veh;
 		sleep 1;
-		_tipogrupo = selectRandom groupsFIAMid;
-		_grupo = if !(hayIFA) then {[_posicion, _lado, _tipoGrupo,false,true] call A3A_fnc_spawnGroup} else {[_posicion, _lado, _tipoGrupo] call A3A_fnc_spawnGroup};
+		_typeGroup = selectRandom groupsFIAMid;
+		_grupo = if !(hayIFA) then {[_posicion, _lado, _typeGroup,false,true] call A3A_fnc_spawnGroup} else {[_posicion, _lado, _typeGroup] call A3A_fnc_spawnGroup};
 		if !(isNull _grupo) then
 			{
 			_unit = _grupo createUnit [FIARifleman, _posicion, [], 0, "NONE"];
@@ -163,7 +163,7 @@ else
 			_tipoVeh = if (_lado == malos) then {vehNATOUAVSmall} else {vehCSATUAVSmall};
 			_uav = createVehicle [_tipoVeh, _posicion, [], 0, "FLY"];
 			createVehicleCrew _uav;
-			_vehiculos pushBack _uav;
+			_vehiclesX pushBack _uav;
 			_grupoUAV = group (crew _uav select 1);
 			{[_x] joinSilent _grupo; _pilotos pushBack _x} forEach units _grupoUAV;
 			deleteGroup _grupoUAV;
@@ -261,7 +261,7 @@ if (not(_veh in staticsToSave)) then
 	{
 	if ((!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))) then {deleteVehicle _x}
 	};
-} forEach _vehiculos;
+} forEach _vehiclesX;
 {
 if (alive _x) then
 	{
@@ -276,9 +276,9 @@ if (_conquered) then
 	_indice = controlsX find _marcador;
 	if (_indice > defaultControlIndex) then
 		{
-		_tiempolim = 120;//120
-		_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-		_dateLimitNum = dateToNumber _fechalim;
+		_timeLimit = 120;//120
+		_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+		_dateLimitNum = dateToNumber _dateLimit;
 		waitUntil {sleep 60;(dateToNumber date > _dateLimitNum)};
 		_base = [(markersX - controlsX),_posicion] call BIS_fnc_nearestPosition;
 		if (lados getVariable [_base,sideUnknown] == malos) then

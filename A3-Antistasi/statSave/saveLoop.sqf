@@ -47,7 +47,7 @@ if (!isDedicated) then
  if (savingServer) exitWith {"Server data save is still in progress" remoteExecCall ["hint",theBoss]};
  savingServer = true;
  private ["_garrison"];
-	["cuentaCA", cuentaCA] call fn_SaveStat;
+	["countCA", countCA] call fn_SaveStat;
 	["gameMode", gameMode] call fn_SaveStat;
 	["difficultyX", skillMult] call fn_SaveStat;
 	["bombRuns", bombRuns] call fn_SaveStat;
@@ -77,13 +77,13 @@ if (!isDedicated) then
 	["weather",[fogParams,rain]] call fn_SaveStat;
 	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
 	//["firstLoad",false] call fn_SaveStat;
-private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_municion","_items","_mochis","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_tipoMina","_posMina","_detected","_tipos","_exists","_amigo"];
+private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_ammunition","_items","_mochis","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_tipoMina","_posMina","_detected","_tipos","_exists","_amigo"];
 
 _hrfondo = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["spawner",false]) and ((group _x in (hcAllGroups theBoss) or (isPlayer (leader _x))) and (side group _x == buenos))} count allUnits);
 _resfondo = server getVariable "resourcesFIA";
 /*
 _armas = [];
-_municion = [];
+_ammunition = [];
 _items = [];
 _mochis = [];*/
 _vehInGarage = [];
@@ -165,7 +165,7 @@ if ((alive _x) and !(surfaceIsWater _posicion) and !(isNull _x)) then
 	};
 } forEach staticsToSave;
 
-["estaticas", _arrayEst] call fn_SaveStat;
+["staticsX", _arrayEst] call fn_SaveStat;
 [] call A3A_fnc_arsenalManage;
 
 _jna_dataList = [];
@@ -180,7 +180,7 @@ _ciudad = _x;
 _datos = server getVariable _ciudad;
 _prestigeOPFOR = _prestigeOPFOR + [_datos select 2];
 _prestigeBLUFOR = _prestigeBLUFOR + [_datos select 3];
-} forEach ciudades;
+} forEach citiesX;
 
 ["prestigeOPFOR", _prestigeOPFOR] call fn_SaveStat;
 ["prestigeBLUFOR", _prestigeBLUFOR] call fn_SaveStat;

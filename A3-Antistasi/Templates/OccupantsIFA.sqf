@@ -61,10 +61,10 @@ MortStaticNATOB = "not_supported";
 soporteStaticNATOB3 = "not_supported";
 
 armasNATO append ["LIB_MP40","LIB_MP44","LIB_K98","LIB_G43","LIB_MG42","LIB_MP40","LIB_K98ZF39","LIB_RPzB","LIB_M1908"];//
-municionNATO append ["LIB_32Rnd_9x19","LIB_NB39","LIB_30Rnd_792x33","LIB_Shg24","LIB_5Rnd_792x57","LIB_10Rnd_792x57","LIB_50Rnd_792x57","LIB_1Rnd_RPzB","LIB_8Rnd_9x19_P08","LIB_Pwm"];//possible ammo that spawn in NATO ammoboxes
+ammunitionNATO append ["LIB_32Rnd_9x19","LIB_NB39","LIB_30Rnd_792x33","LIB_Shg24","LIB_5Rnd_792x57","LIB_10Rnd_792x57","LIB_50Rnd_792x57","LIB_1Rnd_RPzB","LIB_8Rnd_9x19_P08","LIB_Pwm"];//possible ammo that spawn in NATO ammoboxes
 flagNATOmrk = "LIB_faction_WEHRMACHT";
 
-nameMalos = "Wehrmacht";
+nameOccupants = "Wehrmacht";
 if (isServer) then {"NATO_carrier" setMarkerText "Wehrmacht Reinforcements"};
 
 {cascos pushBackUnique (getUnitLoadout _x select 6)} forEach NATOSquad;

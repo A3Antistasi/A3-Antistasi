@@ -84,7 +84,7 @@ while {true} do
 		};
 	if ((_prestigeNATO > _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == buenos)) then
 		{
-		["TaskFailed", ["", format ["%1 joined %2",[_ciudad, false] call A3A_fnc_fn_location,nameMalos]]] remoteExec ["BIS_fnc_showNotification",buenos];
+		["TaskFailed", ["", format ["%1 joined %2",[_ciudad, false] call A3A_fnc_fn_location,nameOccupants]]] remoteExec ["BIS_fnc_showNotification",buenos];
 		lados setVariable [_ciudad,malos,true];
 		_nul = [-5,0] remoteExec ["A3A_fnc_prestige",2];
 		_mrkD = format ["Dum%1",_ciudad];
@@ -93,7 +93,7 @@ while {true} do
 		sleep 5;
 		[] call A3A_fnc_tierCheck;
 		};
-	} forEach ciudades;
+	} forEach citiesX;
 	if (_popCSAT > (_popTotal / 3)) then {["destroyedCities",false,true] remoteExec ["BIS_fnc_endMission"]};
 	if ((_popFIA > _popAAF) and ({lados getVariable [_x,sideUnknown] == buenos} count airportsX == count airportsX)) then {["end1",true,true,true,true] remoteExec ["BIS_fnc_endMission",0]};
 	/*
@@ -144,10 +144,10 @@ while {true} do
 		[_veh,1] remoteExec ["setVehicleAmmo",_veh];
 		};
 	} forEach vehicles;
-	cuentaCA = cuentaCA - 600;
-	if (cuentaCA < 0) then {cuentaCA = 0};
-	publicVariable "cuentaCA";
-	if ((cuentaCA == 0)/* and (diag_fps > minimoFPS)*/) then
+	countCA = countCA - 600;
+	if (countCA < 0) then {countCA = 0};
+	publicVariable "countCA";
+	if ((countCA == 0)/* and (diag_fps > minimoFPS)*/) then
 		{
 		[1200] remoteExec ["A3A_fnc_timingCA",2];
 		if (!bigAttackInProgress) then
@@ -175,20 +175,20 @@ while {true} do
 		}
 	else
 		{
-		_cambiado = false;
+		_changingX = false;
 		{
 		_chance = 5;
 		if ((_x in recursos) and (lados getVariable [_x,sideUnknown] == muyMalos)) then {_chace = 20};
 		if (random 100 < _chance) then
 			{
-			_cambiado = true;
+			_changingX = true;
 			destroyedCities = destroyedCities - [_x];
 			_nombre = [_x] call A3A_fnc_localizar;
 			["TaskSucceeded", ["", format ["%1 Rebuilt",_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 			sleep 2;
 			};
-		} forEach (destroyedCities - ciudades) select {lados getVariable [_x,sideUnknown] != buenos};
-		if (_cambiado) then {publicVariable "destroyedCities"};
+		} forEach (destroyedCities - citiesX) select {lados getVariable [_x,sideUnknown] != buenos};
+		if (_changingX) then {publicVariable "destroyedCities"};
 		};
 	if (isDedicated) then
 		{

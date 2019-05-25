@@ -42,7 +42,7 @@ for "_i" from 0 to _var2 do
 	};
 for "_i" from 0 to _var2 do
 	{
-	_cosa = selectRandom municionCSAT;
+	_cosa = selectRandom ammunitionCSAT;
 	if (!(_cosa in unlockedMagazines)) then {_crate addMagazineCargoGlobal [_cosa, 10]};
 	};
 for "_i" from 1 to _var3 do

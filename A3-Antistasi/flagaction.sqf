@@ -16,7 +16,7 @@ switch _tipo do
 	case "unit": {_flag addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
 	case "vehicle": {_flag addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
 	case "mission": {petros addAction ["Mission Request", {nul=CreateDialog "mission_menu";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
-	case "camion": {accion = _flag addAction ["<t>Transfer Ammobox to Truck<t> <img image='\A3\ui_f\data\igui\cfg\actions\unloadVehicle_ca.paa' size='1.8' shadow=2 />", "Municion\transfer.sqf",nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]};
+	case "camion": {accion = _flag addAction ["<t>Transfer Ammobox to Truck<t> <img image='\A3\ui_f\data\igui\cfg\actions\unloadVehicle_ca.paa' size='1.8' shadow=2 />", "ammunition\transfer.sqf",nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]};
 	//case "heal": {if (player != _flag) then {_flag addAction [format ["Revive %1",name _flag], "Revive\actionRevive.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]}};
 	case "heal": {
 				if (player != _flag) then
@@ -75,10 +75,10 @@ switch _tipo do
 			removeAllActions _flag
 			};
 		};
-	case "refugiado": {_flag addAction ["<t>Liberate</t> <img image='\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_unbind_ca.paa' size='1.6' shadow=2 />", "AI\liberaterefugee.sqf",nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};//"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_unbind_ca.paa"
+	case "refugee": {_flag addAction ["<t>Liberate</t> <img image='\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_unbind_ca.paa' size='1.6' shadow=2 />", "AI\liberaterefugee.sqf",nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};//"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_unbind_ca.paa"
 	case "prisonerX": {_flag addAction ["<t>Liberate POW</t> <img image='\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_unbind_ca.paa' size='1.6' shadow=2 />", "AI\liberatePOW.sqf",nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
 	case "interrogate": {_flag addAction ["Interrogate", "AI\interrogate.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
-	case "capturar": {_flag addAction ["<t>Release POW</t> <img image='\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_unbind_ca.paa' size='1.6' shadow=2 />", "AI\capturar.sqf",nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
+	case "captureX": {_flag addAction ["<t>Release POW</t> <img image='\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_unbind_ca.paa' size='1.6' shadow=2 />", "AI\captureX.sqf",nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
 	case "buildHQ": {_flag addAction ["Build HQ here", {[] spawn A3A_fnc_buildHQ},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
 	case "seaport": {_flag addAction ["Buy Boat", {[vehSDKBoat] spawn A3A_fnc_addFIAVeh},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
 	case "steal": {_flag addAction ["Steal Static", "REINF\stealStatic.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};

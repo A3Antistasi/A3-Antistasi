@@ -69,5 +69,5 @@ itemsAAF = itemsAAF + ["rhsusf_acc_grip2","rhsusf_acc_grip2_tan","rhsusf_acc_anp
 flagNATOmrk = "flag_USA";//ok
 
 lamparaMalos = "acc_flashlight";
-nameMalos = "USAF";
+nameOccupants = "USAF";
 if (isServer) then {"NATO_carrier" setMarkerText "USMC Carrier"};

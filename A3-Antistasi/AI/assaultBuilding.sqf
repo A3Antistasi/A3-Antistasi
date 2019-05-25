@@ -2,7 +2,7 @@ private _unit = _this select 0;
 _unit setVariable ["maneuvering",true];
 private _cercano = _this select 1;
 private _building = _this select 2;
-_building setVariable ["asaltado",true];
+_building setVariable ["assaulted",true];
 
 private _buildingPos = _building buildingPos -1;
 
@@ -15,6 +15,6 @@ while {true} do
 	if (!([_unit] call A3A_fnc_canFight) or !([_cercano] call A3A_fnc_canFight)) exitWith {};
 	sleep 5;
 	};
-_building setVariable ["asaltado",false];
+_building setVariable ["assaulted",false];
 _unit setVariable ["maneuvering",false];
 _unit call A3A_fnc_recallGroup;

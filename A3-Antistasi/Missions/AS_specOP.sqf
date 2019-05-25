@@ -5,15 +5,15 @@ _marcador = _this select 0;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
-_contacto = objNull;
+_contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _posicion = getMarkerPos _marcador;
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
-_tiempolim = if (_dificil) then {60} else {120};
-if (hayIFA) then {_tiempolim = _tiempolim * 2};
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = if (_dificil) then {60} else {120};
+if (hayIFA) then {_timeLimit = _timeLimit * 2};
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_marcador] call A3A_fnc_localizar;
 _naming = if (_lado == malos) then {"NATO"} else {"CSAT"};

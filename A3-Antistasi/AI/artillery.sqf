@@ -1,9 +1,9 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_mrkOrigen","_pos","_lado","_cuenta","_mrkDestination","_veh","_posOrigen","_sidesOccupants","_posDestination","_tipoVeh","_tipoMuni","_size","_vehicle","_vehCrew","_grupoVeh","_rondas","_objetivo","_objetivos","_tiempo"];
+private ["_mrkOrigin","_pos","_lado","_cuenta","_mrkDestination","_veh","_posOrigin","_sidesOccupants","_posDestination","_tipoVeh","_tipoMuni","_size","_vehicle","_vehCrew","_grupoVeh","_rondas","_objetivo","_objectivesX","_tiempo"];
 
-_mrkOrigen = _this select 0;
-_posOrigen = if (_mrkOrigen isEqualType "") then {getMarkerPos _mrkOrigen} else {_mrkOrigen};
+_mrkOrigin = _this select 0;
+_posOrigin = if (_mrkOrigin isEqualType "") then {getMarkerPos _mrkOrigin} else {_mrkOrigin};
 _mrkDestination = _this select 1;
 _lado = _this select 2;
 _sidesOccupants = _lado call BIS_fnc_enemySides;
@@ -14,7 +14,7 @@ if !([_tipoVeh] call A3A_fnc_vehAvailable) exitWith {};
 
 _tipoMuni = if (_lado == malos) then {vehNATOMRLSMags} else {vehCSATMRLSMags};
 
-_pos = [_posOrigen, 50,100, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
+_pos = [_posOrigin, 50,100, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 
 _vehicle=[_pos, random 360,_tipoveh, _lado] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
@@ -30,18 +30,18 @@ if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) selec
 		{
 		_objetivo = objNull;
 		_rondas = 1;
-		_objetivos = vehicles select {(side (group driver _x) in _sidesOccupants) and (_x distance _posDestination <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (speed _x < 1)};
-		if (count _objetivos > 0) then
+		_objectivesX = vehicles select {(side (group driver _x) in _sidesOccupants) and (_x distance _posDestination <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (speed _x < 1)};
+		if (count _objectivesX > 0) then
 			{
 			{
 			if (typeOf _x in vehAttack) exitWith {_objetivo = _x; _rondas = 4};
-			} forEach _objetivos;
-			if (isNull _objetivo) then {_objetivo = selectRandom _objetivos};
+			} forEach _objectivesX;
+			if (isNull _objetivo) then {_objetivo = selectRandom _objectivesX};
 			}
 		else
 			{
-			_objetivos = allUnits select {(side (group _x) in _sidesOccupants) and (_x distance _posDestination <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (_x == leader group _x)};
-			if (count _objetivos > 0) then
+			_objectivesX = allUnits select {(side (group _x) in _sidesOccupants) and (_x distance _posDestination <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (_x == leader group _x)};
+			if (count _objectivesX > 0) then
 				{
 				_cuenta = 0;
 				{
@@ -55,7 +55,7 @@ if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) selec
 						if (_countGroup > 6) then {_rondas = 2};
 						};
 					};
-				} forEach _objetivos;
+				} forEach _objectivesX;
 				};
 			};
 		if (!isNull _objetivo) then

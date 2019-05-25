@@ -3,7 +3,7 @@ _resourcesFIA = server getVariable "resourcesFIA";
 
 if (_resourcesFIA < 5000) exitWith {hint "You do not have enough money to rebuild any Asset. You need 5.000 €"};
 
-_destroyedCities = destroyedCities - ciudades;
+_destroyedCities = destroyedCities - citiesX;
 
 if (!visibleMap) then {openMap true};
 positionTel = [];
@@ -69,7 +69,7 @@ else
 	if (isMultiplayer) then {[_antena,true] remoteExec ["hideObjectGlobal",2]} else {_antena hideObject true};
 	_antena = createVehicle ["Land_Communication_F", _antennaDead, [], 0, "NONE"];
 	antenas pushBack _antena; publicVariable "antenas";
-	{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,true] spawn A3A_fnc_blackout}} forEach ciudades;
+	{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,true] spawn A3A_fnc_blackout}} forEach citiesX;
 	_mrkfin = createMarker [format ["Ant%1", count antenas], _antennaDead];
 	_mrkfin setMarkerShape "ICON";
 	_mrkfin setMarkerType "loc_Transmitter";
@@ -80,7 +80,7 @@ else
 	_antena addEventHandler ["Killed",
 		{
 		_antena = _this select 0;
-		{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach ciudades;
+		{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
 		_mrk = [mrkAntennas, _antena] call BIS_fnc_nearestPosition;
 		antenas = antenas - [_antena]; antennasDead = antennasDead + [getPos _antena]; deleteMarker _mrk;
 		["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];

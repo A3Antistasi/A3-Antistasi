@@ -20,9 +20,9 @@ while {(alive _gunner)} do
 	{
 	if (!(alive _ayudante) and !(_mounted)) exitWith {};
 	if (!(isNull _veh) and !(alive _veh)) exitWith {};
-	_objetivos = _grupo getVariable ["objetivos",[]];
+	_objectivesX = _grupo getVariable ["objectivesX",[]];
 	_enemigo = objNull;
-	if (!(_objetivos isEqualTo []) and (((_objetivos select 0) select 4) distance _gunner > 150))  then
+	if (!(_objectivesX isEqualTo []) and (((_objectivesX select 0) select 4) distance _gunner > 150))  then
 		{
 		if !(_isMortar) then
 			{
@@ -36,11 +36,11 @@ while {(alive _gunner)} do
 					};
 				};
 			if !(isNull _enemigo) exitWith {};
-			} forEach _objetivos;
+			} forEach _objectivesX;
 			}
 		else
 			{
-			_enemigo = ((_objetivos select 0) select 4);
+			_enemigo = ((_objectivesX select 0) select 4);
 			};
 		};
 	if !(isNull _enemigo) then

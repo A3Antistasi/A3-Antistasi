@@ -317,18 +317,18 @@ Modified:
 //		Formaciones de combate en funci�n de la situaci�n
 //		La IA puede entrar en los buildingsX a tomar posiciones de defensa y en ataque puede patrullarlos en busca de enemigos o posiciones de fuego.
 // 	Modificaciones:
-//		Mejorado el sistema para localizar, asignar y entrar en vehiculos,.
+//		Mejorado el sistema para localizar, asignar y entrar en vehiclesX,.
 //		Optimizado el rendimiento. Se ha mejorado para que se pueda ejecutar cada 20s.
 //		Modificada la parametrizaci�n, sharedist incrementado, react reducido, cycle aumentado.
 //		Modificada la actitud e la IA en combate, se ha dado m�s especializaci�n en funci�n de la situaci�n.
-//		Corregido bug que al enviar refuerzos hac�a que dejaran de patrullar si no tenian ning�n target
+//		Corregido bug que al enviar reinforcementsX hac�a que dejaran de patrullar si no tenian ning�n target
 //		Posiciones de flanqueo m�s din�micas.
 //		Las escuadras con rol "NOMOVE" tienden a asegurar la posici�n y a hacer mayor uso de los buildingsX del entorno.
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.3
 //		
 // 	Modificaciones:
-//		corregidos los problemas al entrar en vehiculos, que hac�a que casi siempre alguno se quedara fuera
+//		corregidos los problemas al entrar en vehiclesX, que hac�a que casi siempre alguno se quedara fuera
 //		Optimizado el rendimiento.
 //		Modificada la actitud e la IA en combate, se ha dado m�s especializaci�n en funci�n de la situaci�n.
 //		
@@ -341,7 +341,7 @@ Modified:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.0
 //    	Added
-//             Habilitado b�squeda y uso de veh�culos de transporte, cuando la IA est� lejos del objetivo busca vehiculos con capacidad cerca, ahora ya puedes definir tu base con vehiculos, que si la IA los necesita los coge.
+//             Habilitado b�squeda y uso de veh�culos de transporte, cuando la IA est� lejos del objetivo busca vehiclesX con capacidad cerca, ahora ya puedes definir tu base con vehiclesX, que si la IA los necesita los coge.
 //		
 // 	Modificaciones:
 //		Adaptadas ciertas partes de c�digo para ser usadas en modo multihilo, mejorando los resultados y el rendimiento en general.
@@ -379,8 +379,8 @@ Modified:
 //    	Added
 //             
 // 	Modificaciones
-//		Corregido bug que evitaba enviar los refuerzos
-//		La distanceX de comunicaci�n de objetivos aumenta en funci�n del rol, los nomove * 1.5
+//		Corregido bug que evitaba enviar los reinforcementsX
+//		La distanceX de comunicaci�n de objectivesX aumenta en funci�n del rol, los nomove * 1.5
 //	
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.4
@@ -403,7 +403,7 @@ Modified:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.2
 //    	Added
-//		Se ha a�adido la opci�n de Refuerzos, ahora se pueden definir unas unidades de refuerzos alejados de la zona que se enviar�n al detectar enemigos enemigos 
+//		Se ha a�adido la opci�n de reinforcementsX, ahora se pueden definir unas unidades de reinforcementsX alejados de la zona que se enviar�n al detectar enemigos enemigos 
 //		si KRON_UPS_reinforcement es true, se puede usar un marcador a modo de alarma para alimentar esta variable cuando se desee.
 //		Las unidades tendr�n una predisposici�n a mantener la posici�n si tienen el rol NOMOVE
 // 	Modificaciones

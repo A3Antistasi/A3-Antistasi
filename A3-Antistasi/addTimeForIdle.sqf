@@ -1,10 +1,10 @@
-private ["_isMarker","_sitio","_time","_fechaNum","_fechaArr"];
+private ["_isMarker","_sitio","_time","_dateNum","_dateArray"];
 _sitio = _this select 0;
 _time = _this select 1;
 _isMarker = false;
 if (_sitio isEqualType "") then {_isMarker = true};
-_fechaNum = if (_isMarker) then {server getVariable [_sitio,0]} else {timer getVariable [(typeOf _sitio),0]};
-if (_fechaNum < dateToNumber date) then {_fechaNum = dateToNumber date};
+_dateNum = if (_isMarker) then {server getVariable [_sitio,0]} else {timer getVariable [(typeOf _sitio),0]};
+if (_dateNum < dateToNumber date) then {_dateNum = dateToNumber date};
 if (!_isMarker) then
 	{
 	if (side _sitio == malos) then
@@ -16,8 +16,8 @@ if (!_isMarker) then
 		if ({lados getVariable [_x,sideUnknown] == muyMalos} count airportsX == 1) then {_time = 0};
 		};
 	};
-_fechaArr = numberToDate [2035,_fechaNum];
+_dateArray = numberToDate [2035,_dateNum];
 
-_fechaArr = [_fechaArr select 0, _fechaArr select 1, _fechaArr select 2, _fechaArr select 3, (_fechaArr select 4) + _time];
+_dateArray = [_dateArray select 0, _dateArray select 1, _dateArray select 2, _dateArray select 3, (_dateArray select 4) + _time];
 
-if (_isMarker) then {server setVariable [_sitio,dateToNumber _fechaArr,true]} else {timer setVariable [(typeOf _sitio),dateToNumber _fechaArr,true]};
+if (_isMarker) then {server setVariable [_sitio,dateToNumber _dateArray,true]} else {timer setVariable [(typeOf _sitio),dateToNumber _dateArray,true]};

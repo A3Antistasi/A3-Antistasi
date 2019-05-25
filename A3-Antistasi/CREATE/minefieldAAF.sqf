@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {false};
-private ["_marcador","_base","_posbase","_posMarker","_angOrig","_ang","_intentos","_distanceX","_pos","_fallo","_mina"];
+private ["_marcador","_base","_posbase","_posMarker","_angOrig","_ang","_attempts","_distanceX","_pos","_fallo","_mina"];
 
 _marcador = _this select 0;
 
@@ -11,13 +11,13 @@ _posMarker = getMarkerPos _marcador;
 _angOrig = [_posbase,_posMarker] call BIS_fnc_dirTo;
 _angOrig = _angOrig - 45;
 _ang = _angOrig + random 90;
-_intentos = 1;
+_attempts = 1;
 //_distanceX = (distanceSPWN/2) + 101;
 _distanceX = 500;
 
 _pos = [];
 _fallo = true;
-while {_intentos < 37} do
+while {_attempts < 37} do
 	{
 	_pos = [_posbase, _distanceX, _ang] call BIS_Fnc_relPos;
 	if (!surfaceIsWater _pos) then
@@ -40,7 +40,7 @@ while {_intentos < 37} do
 			};
 		};
 	if (!_fallo) exitWith {};
-	_intentos = _intentos + 1;
+	_attempts = _attempts + 1;
 	_ang = _ang - 10;
 	};
 

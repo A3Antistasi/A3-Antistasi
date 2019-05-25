@@ -1,20 +1,20 @@
 //Mission: Logistic supplies
 if (!isServer and hasInterface) exitWith{};
-private ["_marcador","_dificil","_salir","_contacto","_groupContact","_tsk","_posHQ","_ciudades","_ciudad","_tam","_posicion","_posCasa","_nameDest","_tiempoLim","_fechaLim","_dateLimitNum","_pos","_camion","_cuenta"];
+private ["_marcador","_dificil","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_posicion","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_camion","_cuenta"];
 
 _marcador = _this select 0;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
-_contacto = objNull;
+_contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _posicion = getMarkerPos _marcador;
 
-_tiempolim = if (_dificil) then {30} else {60};
-if (hayIFA) then {_tiempolim = _tiempolim * 2};
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = if (_dificil) then {30} else {60};
+if (hayIFA) then {_timeLimit = _timeLimit * 2};
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 _nameDest = [_marcador] call A3A_fnc_localizar;
 _taskDescription = format ["%1 population is in need of supplies. We may improve our relationship with that city if we are the ones who provide them. I reserved a transport truck with supplies near our HQ. Drive the transport truck to %1 city center. Hold it there for 2 minutes and it's done. Do this before %2:%3. You may allways sell those supplies here, that money can be welcome. Just sell the truck and job is done",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4];
 

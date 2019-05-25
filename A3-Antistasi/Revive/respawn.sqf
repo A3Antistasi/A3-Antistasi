@@ -67,7 +67,7 @@ else
 		};
 	};
 //_x hideObject false;
-} forEach (units group _unit) + (units rezagados) - [_unit];
+} forEach (units group _unit) + (units stragglers) - [_unit];
 removeAllItemsWithMagazines _unit;
 _hmd = hmd _unit;
 if (_hmd != "") then

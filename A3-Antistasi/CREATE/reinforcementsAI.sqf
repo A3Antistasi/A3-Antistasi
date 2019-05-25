@@ -49,8 +49,8 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 				{
 				if ({(_x distance2D _posicion < (2*distanceSPWN)) or (_x distance2D (getMarkerPos _sitio) < (2*distanceSPWN))} count allPlayers == 0) then
 					{
-					_tipoGrupo = if (_lado == malos) then {if (_numero == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
-					[_tipoGrupo,_lado,_sitio,2] remoteExec ["A3A_fnc_garrisonUpdate",2];
+					_typeGroup = if (_lado == malos) then {if (_numero == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
+					[_typeGroup,_lado,_sitio,2] remoteExec ["A3A_fnc_garrisonUpdate",2];
 					}
 				else
 					{

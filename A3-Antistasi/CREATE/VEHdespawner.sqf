@@ -9,7 +9,7 @@ if ((typeOf _veh in arrayCivVeh) and ({(_x getVariable ["spawner",false]) and (s
 	{
 	_pos = position _veh;
 	[0,-1,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
-	_ciudad = [ciudades, _pos] call BIS_fnc_nearestPosition;
+	_ciudad = [citiesX, _pos] call BIS_fnc_nearestPosition;
 	_datos = server getVariable _ciudad;
 	_prestigeOPFOR = _datos select 2;
 	sleep 5;

@@ -3,23 +3,23 @@ File: UPSMON_deadbodies.sqf
 Author: Monsada
 
 Description:
-	Función que devuelve un array con los vehiculos terrestres más cercanos
+	Funciï¿½n que devuelve un array con los vehiclesX terrestres mï¿½s closeX
 Parameter(s):
 	<--- object for  position search
 	<---  max distance from npc
 Returns:
 	---> _vehicles:  array of vehiclesnetid object
 ****************************************************************/
-private["_vehicles","_npc","_bodies","_OCercanos","_distance","_side"];	
+private["_vehicles","_npc","_bodies","_OcloseX","_distance","_side"];	
 					
 _npc = _this select 0;	
 _distance = _this select 1;	
 		
-_OCercanos = [];
+_OcloseX = [];
 _bodies = objNull;
 		
-//Buscamos objetos cercanos
-_OCercanos = nearestObjects [_npc,["Man"],_distance];
+//Buscamos objetos closeX
+_OcloseX = nearestObjects [_npc,["Man"],_distance];
 			
 {	
 	if (!alive _x) then
@@ -30,6 +30,6 @@ _OCercanos = nearestObjects [_npc,["Man"],_distance];
 			_bodies
 		};
 	};
-}foreach _OCercanos;
+}foreach _OcloseX;
 		
 _bodies;

@@ -47,7 +47,7 @@ if (_power == _marcador) then
 		};
 	[_ciudad,_powered] spawn A3A_fnc_blackout;
 	};
-} forEach ciudades;
+} forEach citiesX;
 
 _markersX = fabricas + recursos;
 {
@@ -68,7 +68,7 @@ if (_power == _marcador) then
 			{
 			if (lados getVariable [_sitio,sideUnknown] == malos) then
 				{
-				//_ciudad = [ciudades,_pos] call BIS_fnc_nearestPosition;
+				//_ciudad = [citiesX,_pos] call BIS_fnc_nearestPosition;
 				//hint format ["You cutted off power to AAF resources near %1. They will be less productive from now",_ciudad];
 				_powered = false;
 				};
@@ -77,7 +77,7 @@ if (_power == _marcador) then
 			{
 			if (lados getVariable [_sitio,sideUnknown] == buenos) then
 				{
-				//_ciudad = [ciudades,_pos] call BIS_fnc_nearestPosition;
+				//_ciudad = [citiesX,_pos] call BIS_fnc_nearestPosition;
 				//hint format ["AAF cutted off power supply to our resources near %1. They will be less productive from now",_ciudad];
 				_powered = false;
 				};

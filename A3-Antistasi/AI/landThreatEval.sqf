@@ -16,12 +16,12 @@ if (getMarkerPos _x distance _posicion < distanceSPWN) then
 	_garrison = garrison getVariable [_analyzed,[]];
 	_threat = _threat + (floor((count _garrison)/8));
 	//_size = [_analyzed] call A3A_fnc_sizeMarker;
-	_estaticas = staticsToSave select {_x inArea _analyzed};
-	if (count _estaticas > 0) then
+	_staticsX = staticsToSave select {_x inArea _analyzed};
+	if (count _staticsX > 0) then
 		{
-		_threat = _threat + ({typeOf _x == SDKMortar} count _estaticas) + (2*({typeOf _x == staticATBuenos} count _estaticas))
+		_threat = _threat + ({typeOf _x == SDKMortar} count _staticsX) + (2*({typeOf _x == staticATBuenos} count _staticsX))
 		};
 	};
-} forEach (markersX - ciudades - controlsX - outpostsFIA) select {lados getVariable [_x,sideUnknown] != _lado};
+} forEach (markersX - citiesX - controlsX - outpostsFIA) select {lados getVariable [_x,sideUnknown] != _lado};
 
 _threat

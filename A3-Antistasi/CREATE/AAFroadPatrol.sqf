@@ -54,7 +54,7 @@ if (sidesX getVariable [_base,sideUnknown] == Occupants) then
 	}
 else
 	{
-	_lado = ;
+	_lado = Invaders;
 	if ((_base in seaports) and ([vehCSATBoat] call A3A_fnc_vehAvailable)) then
 		{
 		_typeCar = vehCSATBoat;
@@ -181,7 +181,7 @@ while {alive _veh} do
 		};
 	};
 
-_enemiesX = if (_lado == Occupants) then {} else {Occupants};
+_enemiesX = if (_lado == Occupants) then {Invaders} else {Occupants};
 
 {_unit = _x;
 waitUntil {sleep 1;!([distanceSPWN,1,_unit,teamPlayer] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_unit,_enemiesX] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldiers;

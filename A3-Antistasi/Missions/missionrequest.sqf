@@ -234,7 +234,7 @@ if (_tipo == "CONVOY") then
 						}
 					else
 						{
-						if (((sidesX getVariable [_sitio,sideUnknown] == Occupants) and (sidesX getVariable [_base,sideUnknown] == Occupants)) or ((sidesX getVariable [_sitio,sideUnknown] == ) and (sidesX getVariable [_base,sideUnknown] == ))) then {_potentials pushBack _sitio};
+						if (((sidesX getVariable [_sitio,sideUnknown] == Occupants) and (sidesX getVariable [_base,sideUnknown] == Occupants)) or ((sidesX getVariable [_sitio,sideUnknown] == Invaders) and (sidesX getVariable [_base,sideUnknown] == Invaders))) then {_potentials pushBack _sitio};
 						};
 					};
 				};

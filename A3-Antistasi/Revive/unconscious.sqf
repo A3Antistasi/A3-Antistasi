@@ -36,7 +36,7 @@ if (isPlayer _unit) then
 		_handled;
 		}];
 	//if (side _unit == teamPlayer) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
-	if (_injurer != ) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
+	if (_injurer != Invaders) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 	openMap false;
 	{
 	if ((!isPlayer _x) and (vehicle _x != _x) and (_x distance _unit < 50)) then {unassignVehicle _x; [_x] orderGetIn false}
@@ -51,7 +51,7 @@ else
 		[_unit,"heal1"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 		//[_unit,"carry"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 		//_unit call jn_fnc_logistics_addAction;
-		if (_injurer != ) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
+		if (_injurer != Invaders) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 		}
 	else
 		{
@@ -59,9 +59,9 @@ else
 			{
 			_playerXes = true;
 			[_unit,"heal"] remoteExec ["A3A_fnc_flagaction",0,_unit];
-			if (_unit != petros) then {if (_injurer != ) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true}};
+			if (_unit != petros) then {if (_injurer != Invaders) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true}};
 			};
-		if ((_injurer  == Occupants) or (_injurer  == )) then
+		if ((_injurer  == Occupants) or (_injurer  == Invaders)) then
 			{
 			_markerX = _unit getVariable ["markerX",""];
 			if (_markerX != "") then

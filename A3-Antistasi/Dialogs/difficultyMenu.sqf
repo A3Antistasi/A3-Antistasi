@@ -43,8 +43,8 @@ hint "Choose a Game Mode";
 waitUntil {!dialog};
 if (gameMode != 1) then
 	{
-	Occupants setFriend [,1];
-     setFriend [Occupants,1];
+	Occupants setFriend [Invaders,1];
+    Invaders setFriend [Occupants,1];
     if (gameMode == 3) then {"CSAT_carrier" setMarkerAlpha 0};
     if (gameMode == 4) then {"NATO_carrier" setMarkerAlpha 0};
 	};

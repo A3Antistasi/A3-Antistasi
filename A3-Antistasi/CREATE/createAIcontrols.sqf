@@ -32,7 +32,7 @@ if (_isControl) then
 		}
 	else
 		{
-		if (_lado == ) then
+		if (_lado == Invaders) then
 			{
 			if ((random 10 > (tierWar + difficultyCoef)) and (!([_markerX] call A3A_fnc_isFrontline))) then
 				{
@@ -151,7 +151,7 @@ else
 			for "_i" from 1 to 60 do
 				{
 				_mina = createMine ["APERSMine",_positionX,[],_size];
-				if (_lado == Occupants) then {Occupants revealMine _mina} else { revealMine _mina};
+				if (_lado == Occupants) then {Occupants revealMine _mina} else {Invaders revealMine _mina};
 				};
 			};
 		_group = [_positionX,_lado, _cfg] call A3A_fnc_spawnGroup;
@@ -227,10 +227,10 @@ if (spawner getVariable _markerX != 2) then
 		};
 	if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then
 		{
-		if (_winner == ) then
+		if (_winner == Invaders) then
 			{
 			_nul = [-5,0,_positionX] remoteExec ["A3A_fnc_citySupportChange",2];
-			sidesX setVariable [_markerX,,true];
+			sidesX setVariable [_markerX,Invaders,true];
 			}
 		else
 			{
@@ -239,7 +239,7 @@ if (spawner getVariable _markerX != 2) then
 		}
 	else
 		{
-		_loser = ;
+		_loser = Invaders;
 		if (_winner == Occupants) then
 			{
 			sidesX setVariable [_markerX,Occupants,true];
@@ -287,9 +287,9 @@ if (_conquered) then
 			}
 		else
 			{
-			if (sidesX getVariable [_base,sideUnknown] == ) then
+			if (sidesX getVariable [_base,sideUnknown] == Invaders) then
 				{
-				sidesX setVariable [_markerX,,true];
+				sidesX setVariable [_markerX,Invaders,true];
 				};
 			};
 		}
@@ -302,10 +302,9 @@ if (_conquered) then
 			for "_i" from 1 to 60 do
 				{
 				_mina = createMine ["APERSMine",_positionX,[],_size];
-				if (_loser == Occupants) then {Occupants revealMine _mina} else { revealMine _mina};
+				if (_loser == Occupants) then {Occupants revealMine _mina} else {Invaders revealMine _mina};
 				};
 			};
 		*/
 		};
 	};
-

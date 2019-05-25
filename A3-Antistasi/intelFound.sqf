@@ -9,7 +9,7 @@ if (count _this == 1) then
 	if (_markerX isEqualType "") then
 		{
 		if (_markerX in airportsX) then {_chance = 30} else {_chance = 15};
-		if (sidesX getVariable [_markerX,sideUnknown] == ) then {_lado = };
+		if (sidesX getVariable [_markerX,sideUnknown] == Invaders) then {_lado = Invaders};
 		}
 	else
 		{
@@ -77,7 +77,7 @@ if (random 100 < _chance) then
 	};
 
 _minesAAF = allmines - (detectedMines teamPlayer);
-if (_lado == Occupants) then {_minesAAF = _minesAAF - (detectedMines )} else {_minesAAF = _minesAAF - (detectedMines Occupants)};
+if (_lado == Occupants) then {_minesAAF = _minesAAF - (detectedMines Invaders)} else {_minesAAF = _minesAAF - (detectedMines Occupants)};
 _revealMineX = false;
 if (count _minesAAF > 0) then
 	{

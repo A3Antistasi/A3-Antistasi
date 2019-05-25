@@ -14,7 +14,7 @@ if ([_markerX,false] call A3A_fnc_fogCheck < 0.3) exitWith {diag_log format ["An
 if (_airportX isEqualType "") then
 	{
 	_inWaves = true;
-	if (sidesX getVariable [_airportX,sideUnknown] == ) then {_lado = };
+	if (sidesX getVariable [_airportX,sideUnknown] == ) then {_lado = Invaders};
 	_posOrigin = getMarkerPos _airportX;
 	}
 else
@@ -634,17 +634,17 @@ if (_isMarker) then
 		}
 	else
 		{
-		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))or (time > _timeX) or (sidesX getVariable [_markerX,sideUnknown] == ) or (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
-		if  ((({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits)) and (not(sidesX getVariable [_markerX,sideUnknown] == ))) then
+		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))or (time > _timeX) or (sidesX getVariable [_markerX,sideUnknown] == Invaders) or (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
+		if  ((({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits)) and (not(sidesX getVariable [_markerX,sideUnknown] == Invaders))) then
 			{
-			[,_markerX] remoteExec ["A3A_fnc_markerChange",2];
+			[Invaders,_markerX] remoteExec ["A3A_fnc_markerChange",2];
 			diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to retake %3 succesful. Retaken.",_airportX,_base,_markerX];
 			};
 		sleep 10;
-		if (!(sidesX getVariable [_markerX,sideUnknown] == )) then
+		if (!(sidesX getVariable [_markerX,sideUnknown] == Invaders)) then
 			{
 			{_x doMove _posOrigin} forEach _soldiers;
-			if (sidesX getVariable [_airportX,sideUnknown] == ) then
+			if (sidesX getVariable [_airportX,sideUnknown] == Invaders) then
 				{
 				_killZones = killZones getVariable [_airportX,[]];
 				_killZones = _killZones + [_markerX,_markerX];
@@ -656,7 +656,7 @@ if (_isMarker) then
 	}
 else
 	{
-	_sideENY = if (_lado == Occupants) then {} else {Occupants};
+	_sideENY = if (_lado == Occupants) then {Invaders} else {Occupants};
 	if (_typeOfAttack != "Air") then {waitUntil {sleep 1; (!([distanceSPWN1,1,_posDestination,teamPlayer] call A3A_fnc_distanceUnits) and !([distanceSPWN1,1,_posDestination,_sideENY] call A3A_fnc_distanceUnits)) or (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))}} else {waitUntil {sleep 1; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))}};
 	if (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers)) then
 		{

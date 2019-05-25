@@ -20,7 +20,7 @@ _positionTel = positionTel;
 _pos = [];
 
 if ((_tipo == "delete") and (count outpostsFIA < 1)) exitWith {hint "No Posts or Roadblocks deployed to delete"};
-if ((_tipo == "delete") and ({(alive _x) and (!captive _x) and ((side _x == Occupants) or (side _x == )) and (_x distance _positionTel < 500)} count allUnits > 0)) exitWith {hint "You cannot delete a Post while enemies are near it"};
+if ((_tipo == "delete") and ({(alive _x) and (!captive _x) and ((side _x == Occupants) or (side _x == Invaders)) and (_x distance _positionTel < 500)} count allUnits > 0)) exitWith {hint "You cannot delete a Post while enemies are near it"};
 
 _costs = 0;
 _hr = 0;

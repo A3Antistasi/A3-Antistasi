@@ -14,7 +14,7 @@ _enemy2 = "";
 if ((_lado == teamPlayer) and (sidesX getVariable [_markerX,sideUnknown] == teamPlayer)) then
 	{
 	_leave = false;
-	_enemy1 = ;
+	_enemy1 = Invaders;
 	_enemy2 = Occupants;
 	}
 else
@@ -22,12 +22,12 @@ else
 	if ((_lado == Occupants) and (sidesX getVariable [_markerX,sideUnknown] == Occupants)) then
 		{
 		_leave = false;
-		_enemy1 = ;
+		_enemy1 = Invaders;
 		_enemy2 = teamPlayer;
 		}
 	else
 		{
-		if ((_lado == ) and (sidesX getVariable [_markerX,sideUnknown] == )) then
+		if ((_lado == Invaders) and (sidesX getVariable [_markerX,sideUnknown] == Invaders)) then
 			{
 			_leave = false;
 			_enemy1 = Occupants;

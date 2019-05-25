@@ -51,7 +51,7 @@ petros addMPEventHandler ["mpkilled",
     _killer = _this select 1;
     if (isServer) then
         {
-        if ((side _killer == ) or (side _killer == Occupants) and !(isPlayer _killer) and !(isNull _killer)) then
+        if ((side _killer == Invaders) or (side _killer == Occupants) and !(isPlayer _killer) and !(isNull _killer)) then
              {
             _nul = [] spawn
                 {

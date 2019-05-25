@@ -19,7 +19,7 @@ if ((tierWar < 2) and (gameMode <= 2)) then
 else
 	{
 	if (gameMode != 4) then {if ({sidesX getVariable [_x,sideUnknown] == Occupants} count _airportsX == 0) then {_airportsX pushBack "NATO_carrier"}};
-	if (gameMode != 3) then {if ({sidesX getVariable [_x,sideUnknown] == } count _airportsX == 0) then {_airportsX pushBack "CSAT_carrier"}};
+	if (gameMode != 3) then {if ({sidesX getVariable [_x,sideUnknown] == Invaders} count _airportsX == 0) then {_airportsX pushBack "CSAT_carrier"}};
 	if (([vehNATOPlane] call A3A_fnc_vehAvailable) and ([vehNATOMRLS] call A3A_fnc_vehAvailable) and ([vehNATOTank] call A3A_fnc_vehAvailable)) then {_natoIsFull = true};
 	if (([vehCSATPlane] call A3A_fnc_vehAvailable) and ([vehCSATMRLS] call A3A_fnc_vehAvailable) and ([vehCSATTank] call A3A_fnc_vehAvailable)) then {_csatIsFull = true};
 	};
@@ -57,7 +57,7 @@ _countFinal = [];
 _objectiveFinal = [];
 _easyX = [];
 _easyArray = [];
-_seaportCSAT = if ({(sidesX getVariable [_x,sideUnknown] == )} count seaports >0) then {true} else {false};
+_seaportCSAT = if ({(sidesX getVariable [_x,sideUnknown] == Invaders)} count seaports >0) then {true} else {false};
 _seaportNATO = if ({(sidesX getVariable [_x,sideUnknown] == Occupants)} count seaports >0) then {true} else {false};
 _waves = 1;
 
@@ -75,7 +75,7 @@ if (sidesX getVariable [_base,sideUnknown] == Occupants) then
 else
 	{
 	_baseNATO = false;
-	_tmpObjectives = _objectivesX select {sidesX getVariable [_x,sideUnknown] != };
+	_tmpObjectives = _objectivesX select {sidesX getVariable [_x,sideUnknown] != Invaders};
 	_tmpObjectives = _tmpObjectives - (citiesX select {(((server getVariable _x) select 2) + ((server getVariable _x) select 3) < 90) and ([_x] call A3A_fnc_powerCheck != Occupants)});
 	};
 
@@ -122,7 +122,7 @@ if !(_tmpObjectives isEqualTo []) then
 					_sitio = _x;
 					if (((!(_sitio in airportsX)) or (_isSDK)) and !(_base in ["NATO_carrier","CSAT_carrier"])) then
 						{
-						_sideENY = if (_baseNATO) then {} else {Occupants};
+						_sideENY = if (_baseNATO) then {Invaders} else {Occupants};
 						if ({(sidesX getVariable [_x,sideUnknown] == _sideENY) and (getMarkerPos _x distance _posSite < distanceSPWN)} count airportsX == 0) then
 							{
 							_garrison = garrison getVariable [_sitio,[]];
@@ -185,7 +185,7 @@ if !(_tmpObjectives isEqualTo []) then
 			if (_times > 0) then
 				{
 				_airportNear = [airportsX,_posSite] call bis_fnc_nearestPosition;
-				if ((sidesX getVariable [_airportNear,sideUnknown] == ) and (_x != _airportNear)) then {_times = 0};
+				if ((sidesX getVariable [_airportNear,sideUnknown] == Invaders) and (_x != _airportNear)) then {_times = 0};
 				};
 			}
 		else
@@ -326,7 +326,7 @@ if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 			}
 		else
 			{
-			if (sidesX getVariable [_originX,sideUnknown] == ) then
+			if (sidesX getVariable [_originX,sideUnknown] == Invaders) then
 				{
 				if (_destinationX in airportsX) then
 					{

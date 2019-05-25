@@ -48,7 +48,7 @@ else
 		}
 	else
 		{
-		if (_side == ) then
+		if (_side == Invaders) then
 			{
 			_formatX = "o";
 			_color = colorInvaders;

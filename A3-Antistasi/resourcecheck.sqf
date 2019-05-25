@@ -51,7 +51,7 @@ while {true} do
 			{
 			case teamPlayer: {[-1,_suppBoost,_city] spawn A3A_fnc_citySupportChange};
 			case Occupants: {[1,-1,_city] spawn A3A_fnc_citySupportChange};
-			case : {[-1,-1,_city] spawn A3A_fnc_citySupportChange};
+			case Invaders: {[-1,-1,_city] spawn A3A_fnc_citySupportChange};
 			};
 		if (sidesX getVariable [_city,sideUnknown] == Occupants) then
 			{
@@ -178,7 +178,7 @@ while {true} do
 		_changingX = false;
 		{
 		_chance = 5;
-		if ((_x in resourcesX) and (sidesX getVariable [_x,sideUnknown] == )) then {_chace = 20};
+		if ((_x in resourcesX) and (sidesX getVariable [_x,sideUnknown] == Invaders)) then {_chace = 20};
 		if (random 100 < _chance) then
 			{
 			_changingX = true;

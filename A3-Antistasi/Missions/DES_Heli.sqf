@@ -12,7 +12,7 @@ _groupContact = grpNull;
 _tsk = "";
 _tsk1 = "";
 _positionX = getMarkerPos _markerX;
-_lado = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
+_lado = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {Invaders};
 _posHQ = getMarkerPos respawnTeamPlayer;
 
 _timeLimit = 120;

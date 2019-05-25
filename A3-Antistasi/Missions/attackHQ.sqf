@@ -14,7 +14,7 @@ _airportsX = airportsX select {(sidesX getVariable [_x,sideUnknown] != teamPlaye
 if (count _airportsX == 0) exitWith {};
 _airportX = [_airportsX,_positionX] call BIS_fnc_nearestPosition;
 _posOrigin = getMarkerPos _airportX;
-_lado = if (sidesX getVariable [_airportX,sideUnknown] == Occupants) then {Occupants} else {};
+_lado = if (sidesX getVariable [_airportX,sideUnknown] == Occupants) then {Occupants} else {Invaders};
 _tsk1 = "";
 _tsk = "";
 [[teamPlayer,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_positionX,true,10,true,"Defend",true] call BIS_fnc_taskCreate;

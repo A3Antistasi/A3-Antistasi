@@ -70,8 +70,8 @@ fn_SetStat =
 				gameMode = _varValue;
 				if (gameMode != 1) then
 					{
-					Occupants setFriend [,1];
-				     setFriend [Occupants,1];
+					Occupants setFriend [Invaders,1];
+				    Invaders setFriend [Occupants,1];
 				    if (gameMode == 3) then {"CSAT_carrier" setMarkerAlpha 0};
 				    if (gameMode == 4) then {"NATO_carrier" setMarkerAlpha 0};
 					};
@@ -82,7 +82,7 @@ fn_SetStat =
 		if(_varName == 'membersX') then {membersX = +_varValue; publicVariable "membersX"};
 		if(_varName == 'smallCAmrk') then {smallCAmrk = +_varValue};
 		if(_varName == 'mrkNATO') then {{sidesX setVariable [_x,Occupants,true]} forEach _varValue;};
-		if(_varName == 'mrkCSAT') then {{sidesX setVariable [_x,,true]} forEach _varValue;};
+		if(_varName == 'mrkCSAT') then {{sidesX setVariable [_x,Invaders,true]} forEach _varValue;};
 		if(_varName == 'mrkSDK') then {{sidesX setVariable [_x,teamPlayer,true]} forEach _varValue;};
 		if(_varName == 'controlsSDK') then
 			{

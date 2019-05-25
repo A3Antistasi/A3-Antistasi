@@ -49,7 +49,7 @@ if (_failure) exitWith {false};
 for "_i" from 1 to 60 do
 	{
 	_mina = createMine ["APERSMine",_pos,[],100];
-	if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants revealMine _mina} else { revealMine _mina};
+	if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants revealMine _mina} else {Invaders revealMine _mina};
 	};
 
 //[-4000] remoteExec ["resourcesAAF",2];

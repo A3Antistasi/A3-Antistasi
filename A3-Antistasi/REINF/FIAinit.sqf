@@ -224,7 +224,7 @@ if (player == leader _unit) then
 			}
 		else
 			{
-			if (side _killer == ) then
+			if (side _killer == Invaders) then
 				{
 				[0,-0.25] remoteExec ["A3A_fnc_prestige",2]
 				}
@@ -293,7 +293,7 @@ else
 				}
 			else
 				{
-				if (side _killer == ) then
+				if (side _killer == Invaders) then
 					{
 					[0,-0.25] remoteExec ["A3A_fnc_prestige",2]
 					}
@@ -309,5 +309,3 @@ else
 		_muerto setVariable ["spawner",nil,true];
 		}];
 	};
-
-

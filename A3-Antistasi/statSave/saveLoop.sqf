@@ -56,7 +56,7 @@ if (!isDedicated) then
 	["antennas", antennasDead] call fn_SaveStat;
 	//["mrkNATO", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Occupants}] call fn_SaveStat;
 	["mrkSDK", (markersX - controlsX - outpostsFIA) select {sidesX getVariable [_x,sideUnknown] == teamPlayer}] call fn_SaveStat;
-	["mrkCSAT", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == }] call fn_SaveStat;
+	["mrkCSAT", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Invaders}] call fn_SaveStat;
 	["posHQ", [getMarkerPos respawnTeamPlayer,getPos fireX,[getDir caja,getPos caja],[getDir mapa,getPos mapa],getPos flagX,[getDir vehicleBox,getPos vehicleBox]]] call fn_Savestat;
 	["prestigeNATO", prestigeNATO] call fn_SaveStat;
 	["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
@@ -216,9 +216,9 @@ if (_x mineDetectedBy Occupants) then
 	{
 	_detected pushBack Occupants
 	};
-if (_x mineDetectedBy ) then
+if (_x mineDetectedBy Invaders) then
 	{
-	_detected pushBack 
+	_detected pushBack Invaders
 	};
 _arrayMines = _arrayMines + [[_tipoMina,_posMina,_detected,_dirMine]];
 } forEach allMines;

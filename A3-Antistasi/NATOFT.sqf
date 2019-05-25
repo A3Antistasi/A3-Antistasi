@@ -1,6 +1,6 @@
 _checkX = false;
 _lado = side (group player);
-_enemyFaction = if (_lado == Occupants) then {} else {Occupants};
+_enemyFaction = if (_lado == Occupants) then {Invaders} else {Occupants};
 {_enemyX = _x;
 if (((side _enemyX == _enemyFaction) or (side _enemyX == teamPlayer)) and (_enemyX distance player < 500) and (not(captive _enemyX))) exitWith {_checkX = true};
 } forEach allUnits;

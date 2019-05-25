@@ -49,7 +49,7 @@ if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) selec
 				_countGroup = {(alive _x) and (!captive _x)} count units group _potential;
 				if (_countGroup > _countX) then
 					{
-					if ((_lado == ) or ({(side (group _x) == civilian) and (_x distance _potential < 50)} count allUnits == 0)) then
+					if ((_lado == Invaders) or ({(side (group _x) == civilian) and (_x distance _potential < 50)} count allUnits == 0)) then
 						{
 						_objectiveX = _potential;
 						if (_countGroup > 6) then {_roundsX = 2};

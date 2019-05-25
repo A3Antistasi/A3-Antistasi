@@ -15,7 +15,7 @@ _civiles = [];
 _nameDest = [_mrkDestination] call A3A_fnc_localizar;
 [[teamPlayer,civilian,Occupants],"AttackAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest,nameInvaders],format ["%1 Punishment",nameInvaders],_mrkDestination],getMarkerPos _mrkDestination,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 
-_nul = [_mrkOrigin,_mrkDestination,] spawn A3A_fnc_artillery;
+_nul = [_mrkOrigin,_mrkDestination,Invaders] spawn A3A_fnc_artillery;
 _lado = if (sidesX getVariable [_mrkDestination,sideUnknown] == Occupants) then {Occupants} else {teamPlayer};
 _timeX = time + 3600;
 
@@ -32,7 +32,7 @@ for "_i" from 1 to 3 do
 		sleep 1;
 		};
 	if (count _pos == 0) then {_pos = _posOrigin};
-	_vehicle=[_pos, 0, _typeVehX, ] call bis_fnc_spawnvehicle;
+	_vehicle=[_pos, 0, _typeVehX, Invaders] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	{[_x] call A3A_fnc_NATOinit} forEach _heliCrew;
@@ -52,8 +52,8 @@ for "_i" from 1 to 3 do
 	else
 		{
 		{_x setBehaviour "CARELESS";} forEach units _groupHeli;
-		_typeGroup = [_typeVehX,] call A3A_fnc_cargoSeats;
-		_group = [_posOrigin, , _typeGroup] call A3A_fnc_spawnGroup;
+		_typeGroup = [_typeVehX,Invaders] call A3A_fnc_cargoSeats;
+		_group = [_posOrigin, Invaders, _typeGroup] call A3A_fnc_spawnGroup;
 		{_x assignAsCargo _heli;_x moveInCargo _heli; _soldiers pushBack _x; [_x] call A3A_fnc_NATOinit; _x setVariable ["originX",_mrkOrigin]} forEach units _group;
 		_groups pushBack _group;
 		//[_heli,"CSAT Air Transport"] spawn A3A_fnc_inmuneConvoy;
@@ -111,7 +111,7 @@ _size = [_mrkDestination] call A3A_fnc_sizeMarker;
 //_groupCivil = if (_lado == teamPlayer) then {createGroup teamPlayer} else {createGroup Occupants};
 _groupCivil = createGroup teamPlayer;
 _groups pushBack _groupCivil;
-//[,[civilian,0]] remoteExec ["setFriend",2];
+//[Invaders,[civilian,0]] remoteExec ["setFriend",2];
 _typeUnit = if (_lado == teamPlayer) then {SDKUnarmed} else {NATOUnarmed};
 for "_i" from 0 to _numCiv do
 	{
@@ -142,7 +142,7 @@ for "_i" from 0 to round random 2 do
 	{
 	if ([vehCSATPlane] call A3A_fnc_vehAvailable) then
 		{
-		_nul = [_mrkDestination,,"NAPALM"] spawn A3A_fnc_airstrike;
+		_nul = [_mrkDestination,Invaders,"NAPALM"] spawn A3A_fnc_airstrike;
 		sleep 30;
 		};
 	};
@@ -179,13 +179,13 @@ else
 	for "_i" from 1 to 60 do
 		{
 		_mina = createMine ["APERSMine",_posDestination,[],_size];
-		 revealMine _mina;
+		Invaders revealMine _mina;
 		};
 	[_mrkDestination] call A3A_fnc_destroyCity;
 	};
 
 sleep 15;
-//[,[civilian,1]] remoteExec ["setFriend",2];
+//[Invaders,[civilian,1]] remoteExec ["setFriend",2];
 _nul = [0,"AttackAAF"] spawn A3A_fnc_deleteTask;
 [7200] remoteExec ["A3A_fnc_timingCA",2];
 {

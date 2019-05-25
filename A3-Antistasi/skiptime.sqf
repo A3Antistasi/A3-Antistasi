@@ -2,7 +2,7 @@ if (player!= theBoss) exitWith {hint "Only the Commander can order to rest"};
 _presente = false;
 
 {
-if ((side _x == Occupants) or (side _x == )) then
+if ((side _x == Occupants) or (side _x == Invaders)) then
 	{
 	if ([500,1,_x,teamPlayer] call A3A_fnc_distanceUnits) then {_presente = true};
 	};
@@ -20,5 +20,3 @@ if ((_x distance _posHQ > 100) and (side _x == teamPlayer)) then {_checkX = true
 if (_checkX) exitWith {hint "All players must be in a 100m radius from HQ to be able to rest"};
 
 [[],"A3A_fnc_resourcecheckSkipTime"] call BIS_fnc_MP;
-
-

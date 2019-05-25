@@ -7,12 +7,12 @@ _markerX = _this select 1;
 if ((_winner == teamPlayer) and (_markerX in airportsX) and (tierWar < 3)) exitWith {};
 if ((_winner == teamPlayer) and (sidesX getVariable [_markerX,sideUnknown] == teamPlayer)) exitWith {};
 if ((_winner == Occupants) and (sidesX getVariable [_markerX,sideUnknown] == Occupants)) exitWith {};
-if ((_winner == ) and (sidesX getVariable [_markerX,sideUnknown] == )) exitWith {};
+if ((_winner == Invaders) and (sidesX getVariable [_markerX,sideUnknown] == Invaders)) exitWith {};
 if (_markerX in markersChanging) exitWith {};
 markersChanging pushBackUnique _markerX;
 _positionX = getMarkerPos _markerX;
 _looser = sidesX getVariable [_markerX,sideUnknown];
-_sides = [teamPlayer,Occupants,];
+_sides = [teamPlayer,Occupants,Invaders];
 _other = "";
 _texto = "";
 _prestigeOccupants = 0;
@@ -204,7 +204,7 @@ if ((_winner != teamPlayer) and (_looser != teamPlayer)) then
 	if (_markerX in outposts) then
 		{
 		_closeX = (seaports + resourcesX + factories) select {((getMarkerPos _x) distance _positionX < distanceSPWN) and (sidesX getVariable [_x,sideUnknown] != teamPlayer)};
-		if (_looser == Occupants) then  {_closeX = _closeX select {sidesX getVariable [_x,sideUnknown] == Occupants}} else {_closeX = _closeX select {sidesX getVariable [_x,sideUnknown] == }};
+		if (_looser == Occupants) then  {_closeX = _closeX select {sidesX getVariable [_x,sideUnknown] == Occupants}} else {_closeX = _closeX select {sidesX getVariable [_x,sideUnknown] == Invaders}};
 		{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _closeX;
 		}
 	else
@@ -213,7 +213,7 @@ if ((_winner != teamPlayer) and (_looser != teamPlayer)) then
 			{
 			_closeX = (seaports + outposts) select {((getMarkerPos _x) distance _positionX < distanceSPWN) and (sidesX getVariable [_x,sideUnknown] != teamPlayer)};
 			_closeX append ((factories + resourcesX) select {(sidesX getVariable [_x,sideUnknown] != teamPlayer) and (sidesX getVariable [_x,sideUnknown] != _winner) and ([airportsX,_x] call BIS_fnc_nearestPosition == _markerX)});
-			if (_looser == Occupants) then  {_closeX = _closeX select {sidesX getVariable [_x,sideUnknown] == Occupants}} else {_closeX = _closeX select {sidesX getVariable [_x,sideUnknown] == }};
+			if (_looser == Occupants) then  {_closeX = _closeX select {sidesX getVariable [_x,sideUnknown] == Occupants}} else {_closeX = _closeX select {sidesX getVariable [_x,sideUnknown] == Invaders}};
 			{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _closeX;
 			};
 		};

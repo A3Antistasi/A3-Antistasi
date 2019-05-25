@@ -10,7 +10,7 @@ if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 	if (_markerX in airportsX) then
 		{
 		_texto = format ["%2 Airbase%1",_texto,nameTeamPlayer];
-		[_mrkD,format ["%1 Airbase",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[Occupants,],true];
+		[_mrkD,format ["%1 Airbase",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[Occupants,Invaders],true];
 		//_mrkD setMarkerText format ["SDK Airbase%1",_texto];
 		if (markerType _mrkD != "flag_Syndicat") then {_mrkD setMarkerType "flag_Syndicat"};
 		}
@@ -19,7 +19,7 @@ if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 		if (_markerX in outposts) then
 			{
 			_texto = format ["%2 Outpost%1",_texto,nameTeamPlayer];
-			[_mrkD,format ["%1 Outpost",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[Occupants,],true];
+			[_mrkD,format ["%1 Outpost",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[Occupants,Invaders],true];
 			}
 		else
 			{
@@ -84,4 +84,3 @@ else
     		};
 	 	};
 	};
-

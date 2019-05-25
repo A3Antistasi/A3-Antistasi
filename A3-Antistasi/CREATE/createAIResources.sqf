@@ -15,7 +15,7 @@ _vehiclesX = [];
 
 _frontierX = [_markerX] call A3A_fnc_isFrontline;
 
-_lado = ;
+_lado = Invaders;
 
 _isFIA = false;
 if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then

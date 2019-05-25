@@ -31,7 +31,7 @@ maxUnits = 140;
 
 teamPlayer = side group petros;
 Occupants = if (teamPlayer == independent) then {west} else {independent};
- = east;
+Invaders = east;
 
 colourTeamPlayer = if (teamPlayer == independent) then {"colorGUER"} else {"colorBLUFOR"};
 colorOccupants = if (teamPlayer == independent) then {"colorBLUFOR"} else {"colorGUER"};

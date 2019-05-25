@@ -57,7 +57,7 @@ while {true} do
 	if (!isNil "placementDone") then
 		{
 		{
-		if ((side _x == Occupants) or (side _x == )) then
+		if ((side _x == Occupants) or (side _x == Invaders)) then
 			{
 			if (_x distance _positionTel < 500) then {_enemiesX = true};
 			};
@@ -104,7 +104,7 @@ if (visiblemap) then
 		};
 	respawnTeamPlayer setMarkerPos _positionTel;
 	[respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",[teamPlayer,civilian]];
-	[respawnTeamPlayer,0] remoteExec ["setMarkerAlphaLocal",[Occupants,]];
+	[respawnTeamPlayer,0] remoteExec ["setMarkerAlphaLocal",[Occupants,Invaders]];
 	if (isMultiplayer) then {hint "Please wait while moving HQ Assets to selected position";sleep 5};
 	_pos = [_positionTel, 3, getDir petros] call BIS_Fnc_relPos;
 	fireX setPos _pos;

@@ -12,7 +12,7 @@ _tsk = "";
 _tsk1 = "";
 _dateLimitNum = 0;
 _isFIA = false;
-_lado = if (sidesX getVariable [_base,sideUnknown] == Occupants) then {Occupants} else {};
+_lado = if (sidesX getVariable [_base,sideUnknown] == Occupants) then {Occupants} else {Invaders};
 
 if (_lado == Occupants) then
 	{

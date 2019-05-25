@@ -8,11 +8,11 @@ private _veh = objNull;
 private _lado = side _group;
 private _typeVehX = 	if !(_isMortar) then
 						{
-						if (_lado == Occupants) then {NATOMG} else {if (_lado == ) then {CSATMG} else {SDKMGStatic}};
+						if (_lado == Occupants) then {NATOMG} else {if (_lado == Invaders) then {CSATMG} else {SDKMGStatic}};
 						}
 					else
 						{
-						if (_lado == Occupants) then {NATOMortar} else {if (_lado == ) then {CSATMortar} else {SDKMortar}};
+						if (_lado == Occupants) then {NATOMortar} else {if (_lado == Invaders) then {CSATMortar} else {SDKMortar}};
 						};
 private _backpckG = backPack _gunner;
 private _backpckA = backpack _helperX;

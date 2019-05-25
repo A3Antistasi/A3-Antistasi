@@ -1,5 +1,5 @@
 //if (!isMultiplayer) exitWith {};
-if ((side player == Occupants) or (side player == )) exitWith {};
+if ((side player == Occupants) or (side player == Invaders)) exitWith {};
 private ["_pointsX","_playerX","_pointsXJ","_moneyJ"];
 _pointsX = _this select 0;
 _playerX = _this select 1;
@@ -32,4 +32,3 @@ if (_pointsX > 0) then
 	{
 	if (_pointsX != 1) then {[0,(_pointsX * 5)] remoteExec ["A3A_fnc_resourcesFIA",2]} else {[0,20-(tierWar * 2)] remoteExec ["A3A_fnc_resourcesFIA",2]};
 	};
-

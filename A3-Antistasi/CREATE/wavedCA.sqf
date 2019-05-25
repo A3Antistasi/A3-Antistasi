@@ -26,22 +26,22 @@ _nameDest = [_mrkDestination] call A3A_fnc_localizar;
 _nameOrigin = [_mrkOrigin] call A3A_fnc_localizar;
 
 _lado = sidesX getVariable [_mrkOrigin,sideUnknown];
-_sideTsk = [teamPlayer,civilian,];
+_sideTsk = [teamPlayer,civilian,Invaders];
 _sideTsk1 = [Occupants];
 _nameENY = nameOccupants;
 //_config = cfgNATOInf;
-if (_lado == ) then
+if (_lado == Invaders) then
 	{
 	_nameENY = nameInvaders;
 	//_config = cfgCSATInf;
 	_sideTsk = [teamPlayer,civilian,Occupants];
-	_sideTsk1 = [];
+	_sideTsk1 = [Invaders];
 	};
 _isSDK = if (sidesX getVariable [_mrkDestination,sideUnknown] == teamPlayer) then {true} else {false};
 _SDKShown = false;
 if (_isSDK) then
 	{
-	_sideTsk = [teamPlayer,civilian,Occupants,] - [_lado];
+	_sideTsk = [teamPlayer,civilian,Occupants,Invaders] - [_lado];
 	}
 else
 	{
@@ -625,7 +625,7 @@ while {(_waves > 0)} do
 			if (([_plane] call A3A_fnc_vehAvailable) and (_firstWave)) then
 				{
 				sleep 60;
-				_rnd = if (_mrkDestination in airportsX) then {if ({sidesX getVariable [_x,sideUnknown] == } count airportsX == 1) then {8} else {round random 4}} else {round random 2};
+				_rnd = if (_mrkDestination in airportsX) then {if ({sidesX getVariable [_x,sideUnknown] == Invaders} count airportsX == 1) then {8} else {round random 4}} else {round random 2};
 				for "_i" from 0 to _rnd do
 					{
 					if ([_plane] call A3A_fnc_vehAvailable) then
@@ -722,21 +722,21 @@ while {(_waves > 0)} do
 		}
 	else
 		{
-		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax) or (time > _timeX) or (sidesX getVariable [_mrkDestination,sideUnknown] == ) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
-		//diag_log format ["1:%1,2:%2,3:%3,4:%4",(({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax),(time > _timeX),(sidesX getVariable [_mrkDestination,sideUnknown] == ),(({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))];
-		if  ((({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits)) or (sidesX getVariable [_mrkDestination,sideUnknown] == ))  then
+		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax) or (time > _timeX) or (sidesX getVariable [_mrkDestination,sideUnknown] == Invaders) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
+		//diag_log format ["1:%1,2:%2,3:%3,4:%4",(({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax),(time > _timeX),(sidesX getVariable [_mrkDestination,sideUnknown] == Invaders),(({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))];
+		if  ((({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits)) or (sidesX getVariable [_mrkDestination,sideUnknown] == Invaders))  then
 			{
 			_waves = 0;
-			if (not(sidesX getVariable [_mrkDestination,sideUnknown] == )) then {[,_mrkDestination] remoteExec ["A3A_fnc_markerChange",2]};
+			if (not(sidesX getVariable [_mrkDestination,sideUnknown] == Invaders)) then {[Invaders,_mrkDestination] remoteExec ["A3A_fnc_markerChange",2]};
 			["AttackAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nameOrigin,_nameENY],format ["%1 Attack",_nameENY],_mrkOrigin],getMarkerPos _mrkOrigin,"FAILED"] call A3A_fnc_taskUpdate;
 			["AttackAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nameOrigin,_nameDest],format ["%1 Attack",_nameENY],_mrkDestination],getMarkerPos _mrkDestination,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 			};
 		sleep 10;
-		if (!(sidesX getVariable [_mrkDestination,sideUnknown] == )) then
+		if (!(sidesX getVariable [_mrkDestination,sideUnknown] == Invaders)) then
 			{
 			_timeX = time + 3600;
 			diag_log format ["Antistasi debug wavedCA: Wave number %1 on wavedCA lost",_waves];
-			if (sidesX getVariable [_mrkOrigin,sideUnknown] == ) then
+			if (sidesX getVariable [_mrkOrigin,sideUnknown] == Invaders) then
 				{
 				_killZones = killZones getVariable [_mrkOrigin,[]];
 				_killZones append [_mrkDestination,_mrkDestination,_mrkDestination];
@@ -757,7 +757,7 @@ while {(_waves > 0)} do
 				if (_posOriginLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
 				};
 
-			if ((_waves <= 0) or (sidesX getVariable [_mrkOrigin,sideUnknown] != )) then
+			if ((_waves <= 0) or (sidesX getVariable [_mrkOrigin,sideUnknown] != Invaders)) then
 				{
 				{_x doMove _posOrigin} forEach _soldiersTotal;
 				if (_waves <= 0) then {[_mrkDestination,_mrkOrigin] call A3A_fnc_minefieldAAF};

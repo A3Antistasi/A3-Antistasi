@@ -186,7 +186,7 @@ else
 			}
 		else
 			{
-			_minesFIA = allmines - (detectedMines Occupants) - (detectedMines );
+			_minesFIA = allmines - (detectedMines Occupants) - (detectedMines Invaders);
 			if (count _minesFIA > 0) then
 				{
 				{if (random 100 < 30) then {Occupants revealMine _x;}} forEach _minesFIA;

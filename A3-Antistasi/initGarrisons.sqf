@@ -46,7 +46,7 @@ else
 		};
 	};
 {sidesX setVariable [_x,Occupants,true]} forEach _controlsNATO;
-{sidesX setVariable [_x,,true]} forEach _controlsCSAT;
+{sidesX setVariable [_x,Invaders,true]} forEach _controlsCSAT;
 {
 _pos = getMarkerPos _x;
 _dmrk = createMarker [format ["Dum%1",_x], _pos];
@@ -65,7 +65,7 @@ if (_x in _mrkCSAT) then
         _garrison append (selectRandom groupsCSATSquad);
         };
     garrison setVariable [_x,_garrison,true];
-    sidesX setVariable [_x,,true];
+    sidesX setVariable [_x,Invaders,true];
     }
 else
     {
@@ -99,7 +99,7 @@ for "_i" from 1 to _garrNum do
 if (_x in _mrkCSAT) then
 	{
 	_dmrk setMarkerColor colorInvaders;
-	sidesX setVariable [_x,,true];
+	sidesX setVariable [_x,Invaders,true];
 	}
 else
 	{
@@ -126,7 +126,7 @@ for "_i" from 1 to _garrNum do
 if (_x in _mrkCSAT) then
 	{
 	_dmrk setMarkerColor colorInvaders;
-    sidesX setVariable [_x,,true];
+    sidesX setVariable [_x,Invaders,true];
 	}
 else
 	{
@@ -174,7 +174,7 @@ else
 	        _garrison append (selectRandom groupsCSATSquad);
 	        };
 	    };
-    sidesX setVariable [_x,,true];
+    sidesX setVariable [_x,Invaders,true];
     };
 garrison setVariable [_x,_garrison,true];
 server setVariable [_x,0,true];
@@ -197,7 +197,7 @@ if (_x in _mrkCSAT) then
 	   {
 	   _garrison append (selectRandom groupsCSATSquad);
 	   };
-    sidesX setVariable [_x,,true];
+    sidesX setVariable [_x,Invaders,true];
     }
 else
     {
@@ -213,4 +213,4 @@ _nul = [_x] call A3A_fnc_createControls;
 } forEach seaports;
 
 sidesX setVariable ["NATO_carrier",Occupants,true];
-sidesX setVariable ["CSAT_carrier",,true];
+sidesX setVariable ["CSAT_carrier",Invaders,true];

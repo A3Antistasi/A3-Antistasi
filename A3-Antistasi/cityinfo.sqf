@@ -54,7 +54,7 @@ while {visibleMap} do
 				{
 				case teamPlayer: {_result = format ["%1",nameTeamPlayer]};
 				case Occupants: {_result = format ["%1",nameOccupants]};
-				case : {_result = format ["%1",nameInvaders]};
+				case Invaders: {_result = format ["%1",nameInvaders]};
 				};
 			/*_ant1 = [antennas,_positionX] call BIS_fnc_nearestPosition;
 			_ant2 = [antennasDead, _positionX] call BIS_fnc_nearestPosition;
@@ -67,11 +67,11 @@ while {visibleMap} do
 				_outpost = [markersX,_ant1] call BIS_fnc_NearestPosition;
 				if (sidesX getVariable [_sitio,sideUnknown] == teamPlayer) then
 					{
-					if (sidesX getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (sidesX getVariable [_outpost,sideUnknown] == ) then {_result = "NONE"}};
+					if (sidesX getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (sidesX getVariable [_outpost,sideUnknown] == Invaders) then {_result = "NONE"}};
 					}
 				else
 					{
-					if (sidesX getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (sidesX getVariable [_outpost,sideUnknown] == ) then {_result = "NONE"}};
+					if (sidesX getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (sidesX getVariable [_outpost,sideUnknown] == Invaders) then {_result = "NONE"}};
 					};
 				};
 			*/
@@ -166,11 +166,3 @@ while {visibleMap} do
 	positionTel = [];
 	};
 onMapSingleClick "";
-
-
-
-
-
-
-
-

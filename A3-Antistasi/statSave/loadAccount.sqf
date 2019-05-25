@@ -255,7 +255,7 @@ if (isServer and !_byPassServer) then
 			};
 		} forEach seaports;
 		sidesX setVariable ["NATO_carrier",Occupants,true];
-		sidesX setVariable ["CSAT_carrier",,true];
+		sidesX setVariable ["CSAT_carrier",Invaders,true];
 		};
 	statsLoaded = 0; publicVariable "statsLoaded";
 	placementDone = true; publicVariable "placementDone";

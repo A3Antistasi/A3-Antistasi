@@ -8,7 +8,7 @@ _nameENY = if (_sideEny == teamPlayer) then
 				}
 			else
 				{
-				if (_sideEny == ) then {nameInvaders} else {nameOccupants};
+				if (_sideEny == Invaders) then {nameInvaders} else {nameOccupants};
 				};
 _lado = _this select 2;
 if (_lado == teamPlayer) then {_lado = [teamPlayer,civilian]};

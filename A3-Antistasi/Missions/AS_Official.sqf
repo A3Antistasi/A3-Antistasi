@@ -9,7 +9,7 @@ _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 
-_lado = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
+_lado = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {Invaders};
 _positionX = getMarkerPos _markerX;
 
 _timeLimit = if (_difficultX) then {15} else {30};//120

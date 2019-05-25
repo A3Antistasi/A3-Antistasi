@@ -45,7 +45,7 @@ if (_countX > 5) then
 		}
 	else
 		{
-		if (_lado == ) then
+		if (_lado == Invaders) then
 			{
 			_opfor pushBack _x;
 			}

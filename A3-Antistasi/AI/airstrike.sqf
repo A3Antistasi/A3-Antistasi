@@ -46,7 +46,7 @@ if (_isMarker) then
 	}
 else
 	{
-	_friends = if (_lado == Occupants) then {allUnits select {(_x distance _positionX < 300) and (alive _x) and ((side _x == Occupants) or (side _x == civilian))}} else {allUnits select {(_x distance _positionX < 300) and (alive _x) and (side _x == )}};
+	_friends = if (_lado == Occupants) then {allUnits select {(_x distance _positionX < 300) and (alive _x) and ((side _x == Occupants) or (side _x == civilian))}} else {allUnits select {(_x distance _positionX < 300) and (alive _x) and (side _x == Invaders)}};
 	if (count _friends == 0) then
 		{
 		_enemiesX = if (_lado == Occupants) then {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (alive _x)}};
@@ -132,4 +132,3 @@ else
 	};
 {deleteVehicle _x} forEach _planeCrew;
 deleteGroup _groupPlane;
-

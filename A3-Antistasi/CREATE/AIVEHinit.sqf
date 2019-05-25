@@ -164,7 +164,7 @@ else
 						};
 					if (random 100 < _chance) then
 						{
-						{if ((side _x == Occupants) or (side _x == )) then {_x reveal [_mortarX,4]}} forEach allUnits;
+						{if ((side _x == Occupants) or (side _x == Invaders)) then {_x reveal [_mortarX,4]}} forEach allUnits;
 						if (_mortarX distance posHQ < 300) then
 							{
 							if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then

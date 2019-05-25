@@ -41,7 +41,7 @@ if (_posroad distance _pos > 400) then
                                 }
                         else
                                 {
-                                if (sidesX getVariable [_markerX,sideUnknown] == ) then {sidesX setVariable [_nameX,,true]} else {sidesX setVariable [_nameX,teamPlayer,true]};
+                                if (sidesX getVariable [_markerX,sideUnknown] == Invaders) then {sidesX setVariable [_nameX,Invaders,true]} else {sidesX setVariable [_nameX,teamPlayer,true]};
                                 };
                         controlsX pushBackUnique _nameX;
                         markersX pushBackUnique _nameX;

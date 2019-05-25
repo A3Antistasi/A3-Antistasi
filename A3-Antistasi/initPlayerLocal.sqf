@@ -73,7 +73,7 @@ else
 [] execVM "CREATE\ambientCivs.sqf";
 private ["_colourTeamPlayer", "_colorInvaders"];
 _colourTeamPlayer = teamPlayer call BIS_fnc_sideColor;
-_colorInvaders =  call BIS_fnc_sideColor;
+_colorInvaders = Invaders call BIS_fnc_sideColor;
 _positionX = if (side player == side (group petros)) then {position petros} else {getMarkerPos "respawn_west"};
 {
 _x set [3, 0.33]
@@ -224,8 +224,8 @@ player addEventHandler ["FIRED",
 	_player = _this select 0;
 	if (captive _player) then
 		{
-		//if ({((side _x== ) or (side _x== Occupants)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
-		if ({if (((side _x == Occupants) or (side _x == )) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
+		//if ({((side _x== Invaders) or (side _x== Occupants)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
+		if ({if (((side _x == Occupants) or (side _x == Invaders)) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
 			{
 			[_player,false] remoteExec ["setCaptive",0,_player];
 			_player setCaptive false;
@@ -262,7 +262,7 @@ player addEventHandler ["InventoryOpened",
 		_tipo = typeOf _containerX;
 		if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 			{
-			if ({if (((side _x== ) or (side _x== Occupants)) and (_x knowsAbout _playerX > 1.4)) exitWith {1}} count allUnits > 0) then
+			if ({if (((side _x== Invaders) or (side _x== Occupants)) and (_x knowsAbout _playerX > 1.4)) exitWith {1}} count allUnits > 0) then
 				{
 				[_playerX,false] remoteExec ["setCaptive",0,_playerX];
 				_playerX setCaptive false;
@@ -317,7 +317,7 @@ player addEventHandler ["HandleHeal",
 	_player = _this select 0;
 	if (captive _player) then
 		{
-		if ({((side _x== ) or (side _x== Occupants)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
+		if ({((side _x== Invaders) or (side _x== Occupants)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
 			{
 			[_player,false] remoteExec ["setCaptive",0,_player];
 			_player setCaptive false;

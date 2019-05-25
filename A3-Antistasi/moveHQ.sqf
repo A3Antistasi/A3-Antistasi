@@ -36,7 +36,7 @@ if (count _garrison > 0) then
 	{
 	_costs = 0;
 	_hr = 0;
-	if ({(alive _x) and (!captive _x) and ((side _x == Occupants) or (side _x == )) and (_x distance _positionX < 500)} count allUnits > 0) then
+	if ({(alive _x) and (!captive _x) and ((side _x == Occupants) or (side _x == Invaders)) and (_x distance _positionX < 500)} count allUnits > 0) then
 		{
 		hint "HQ Garrison will stay here and hold the enemy";
 		}

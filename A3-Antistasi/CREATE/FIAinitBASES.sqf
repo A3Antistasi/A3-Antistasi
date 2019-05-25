@@ -217,7 +217,7 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 		}
 	else
 		{
-		if (side _killer == ) then {[0,-0.25] remoteExec ["A3A_fnc_prestige",2]};
+		if (side _killer == Invaders) then {[0,-0.25] remoteExec ["A3A_fnc_prestige",2]};
 		};
 	_markerX = _muerto getVariable "markerX";
 	if (!isNil "_markerX") then

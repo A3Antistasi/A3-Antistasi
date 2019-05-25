@@ -23,7 +23,7 @@ _esAAF = true;
 if (_markerX in destroyedCities) then
 	{
 	_esAAF = false;
-	_params = [_positionX,,CSATSpecOp];
+	_params = [_positionX,Invaders,CSATSpecOp];
 	}
 else
 	{

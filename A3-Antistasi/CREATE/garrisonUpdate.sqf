@@ -29,7 +29,7 @@ waitUntil {!garrisonIsChanging};
 if (_exit) exitWith {diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal dataX: %1,%2,%3,%4",_tipo,_lado,_markerX,_modo]};
 garrisonIsChanging = true;
 if ((_lado == Occupants) and (!(sidesX getVariable [_markerX,sideUnknown] == Occupants))) exitWith {garrisonIsChanging = false};
-if ((_lado == ) and (!(sidesX getVariable [_markerX,sideUnknown] == ))) exitWith {garrisonIsChanging = false};
+if ((_lado == Invaders) and (!(sidesX getVariable [_markerX,sideUnknown] == Invaders))) exitWith {garrisonIsChanging = false};
 if ((_lado == teamPlayer) and (!(sidesX getVariable [_markerX,sideUnknown] == teamPlayer))) exitWith {garrisonIsChanging = false};
 _garrison = [];
 _garrison = _garrison + (garrison getVariable [_markerX,[]]);

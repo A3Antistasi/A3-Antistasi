@@ -14,7 +14,7 @@ if ([_markerX,false] call A3A_fnc_fogCheck < 0.3) exitWith {diag_log format ["An
 if (_airportX isEqualType "") then
 	{
 	_inWaves = true;
-	if (sidesX getVariable [_airportX,sideUnknown] == ) then {_lado = Invaders};
+	if (sidesX getVariable [_airportX,sideUnknown] == Invaders) then {_lado = Invaders};
 	_posOrigin = getMarkerPos _airportX;
 	}
 else

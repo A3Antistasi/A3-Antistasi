@@ -1,5 +1,5 @@
 //if (!isServer) exitWith{};
-private ["_groups","_hr","_resourcesFIA","_wp","_grupo","_veh","_salir"];
+private ["_groups","_hr","_resourcesFIA","_wp","_group","_veh","_salir"];
 
 _groups = _this select 0;
 _hr = 0;
@@ -28,7 +28,7 @@ sleep 3} forEach _groups;
 
 sleep 100;
 
-{_grupo = _x;
+{_group = _x;
 {
 
 if (alive _x) then
@@ -50,21 +50,21 @@ if (alive _x) then
 			deleteVehicle _veh;
 			};
 		};
-	_mochi = backpack _x;
-	if (_mochi != "") then
+	_backpck = backpack _x;
+	if (_backpck != "") then
 		{
-		switch (_mochi) do
+		switch (_backpck) do
 			{
 			case MortStaticSDKB: {_resourcesFIA = _resourcesFIA + ([SDKMortar] call A3A_fnc_vehiclePrice)};
-			case AAStaticSDKB: {_resourcesFIA = _resourcesFIA + ([staticAABuenos] call A3A_fnc_vehiclePrice)};
+			case AAStaticSDKB: {_resourcesFIA = _resourcesFIA + ([staticAAteamPlayer] call A3A_fnc_vehiclePrice)};
 			case MGStaticSDKB: {_resourcesFIA = _resourcesFIA + ([SDKMGStatic] call A3A_fnc_vehiclePrice)};
-			case ATStaticSDKB: {_resourcesFIA = _resourcesFIA + ([staticATBuenos] call A3A_fnc_vehiclePrice)};
+			case ATStaticSDKB: {_resourcesFIA = _resourcesFIA + ([staticATteamPlayer] call A3A_fnc_vehiclePrice)};
 			};
 		};
 	};
 deleteVehicle _x;
-} forEach units _grupo;
-deleteGroup _grupo;} forEach _groups;
+} forEach units _group;
+deleteGroup _group;} forEach _groups;
 _nul = [_hr,_resourcesFIA] remoteExec ["A3A_fnc_resourcesFIA",2];
 
 

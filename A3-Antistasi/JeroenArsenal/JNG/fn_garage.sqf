@@ -1644,7 +1644,7 @@ switch _mode do {
 			_center setpos _pos;
 
 			//lock the vehicle
-			//_center setVariable ["duenyo",getPlayerUID player];
+			//_center setVariable ["ownerX",getPlayerUID player];
 
 			//remove items inside vehicle
 			clearWeaponCargo _center;
@@ -1686,7 +1686,7 @@ switch _mode do {
 		//_center setpos _pos;
 
 		//lock vehicle
-		//_center setVariable ["duenyo",getPlayerUID player];
+		//_center setVariable ["ownerX",getPlayerUID player];
 
 		_center setVariable ["jng_name",_name];
 

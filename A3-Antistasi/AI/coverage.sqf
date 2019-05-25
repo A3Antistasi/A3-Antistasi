@@ -1,4 +1,4 @@
-private ["_unit","_enemyX","_small","_big","_objeto","_posBehind","_objectsX","_roads","_tipo","_p1","_p2","_ancho","_grueso","_alto","_posEnemy","_pos","_arr","_grupo"];
+private ["_unit","_enemyX","_small","_big","_objeto","_posBehind","_objectsX","_roads","_tipo","_p1","_p2","_ancho","_grueso","_alto","_posEnemy","_pos","_arr","_group"];
 _unit = _this select 0;
 _enemyX = _this select 1;
 _small= [];
@@ -6,8 +6,8 @@ _big = [];
 _objeto = objNull;
 _pos = [];
 _posBehind = (position _unit) getPos [5,_enemyX getDir _unit];
-_grupo = group _unit;
-_objectsX = (nearestObjects [_posBehind, [], 30]) select {!(_x in (_grupo getVariable ["usedForCover",[]]))};
+_group = group _unit;
+_objectsX = (nearestObjects [_posBehind, [], 30]) select {!(_x in (_group getVariable ["usedForCover",[]]))};
 _roads = _posBehind nearRoads 30;
 {
 _tipo = typeOf _x;
@@ -42,20 +42,20 @@ if !(_big isEqualTo []) then {_objeto = [_big,_unit] call BIS_fnc_nearestPositio
 if (isNull _objeto) exitWith {_pos};
 if !(_objeto isKindOf "House") then
 	{
-	_arr = _grupo getVariable ["usedForCover",[]];
+	_arr = _group getVariable ["usedForCover",[]];
 	_arr pushBack _objeto;
-	_grupo setVariable ["usedForCover",_arr];
-	[_objeto,_grupo] spawn
+	_group setVariable ["usedForCover",_arr];
+	[_objeto,_group] spawn
 		{
 		sleep 60;
-		private ["_objeto","_grupo","_arr"];
+		private ["_objeto","_group","_arr"];
 		_objeto = _this select 0;
-		_grupo = _this select 1;
-		if (!(isNull _grupo) and !(isNull _objeto)) then
+		_group = _this select 1;
+		if (!(isNull _group) and !(isNull _objeto)) then
 			{
-			_arr = _grupo getVariable ["usedForCover",[]];
+			_arr = _group getVariable ["usedForCover",[]];
 			_arr = _arr - [_objeto];
-			_grupo setVariable ["usedForCover",_arr];
+			_group setVariable ["usedForCover",_arr];
 			};
 		};
 	};

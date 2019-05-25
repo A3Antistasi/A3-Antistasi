@@ -1,12 +1,12 @@
-private ["_destinationX","_origen","_tam","_dif","_roads","_road","_dist","_result","_safe","_blackList","_roadsTmp","_ok"];
+private ["_destinationX","_originX","_tam","_dif","_roads","_road","_dist","_result","_safe","_blackList","_roadsTmp","_ok"];
 
 _destinationX = _this select 0;
-_origen = _this select 1;
+_originX = _this select 1;
 _safe = _this select 2;
 _blacklist = _this select 3;
 if (count _blackList == 0) then {_blackList = [[0,0,0]]};
 _tam = if (!_safe) then {400} else {50};
-_dif = (_destinationX select 2) - (_origen select 2);
+_dif = (_destinationX select 2) - (_originX select 2);
 
 if (_dif > 0) then
 	{
@@ -31,13 +31,13 @@ while {count _roads == 0} do
 //_road = _roads select 0;
 if (!_safe) then
 	{
-	_roads = [_roads,[],{_origen distance _x},"ASCEND"] call BIS_fnc_sortBy;
+	_roads = [_roads,[],{_originX distance _x},"ASCEND"] call BIS_fnc_sortBy;
 	/*
-	_dist = _origen distance (position _road);
+	_dist = _originX distance (position _road);
 	{
-	if ((_origen distance (position _x)) < _dist) then
+	if ((_originX distance (position _x)) < _dist) then
 		{
-		_dist = _origen distance (position _x);
+		_dist = _originX distance (position _x);
 		_road = _x;
 		};
 	} forEach _roads - [_road];

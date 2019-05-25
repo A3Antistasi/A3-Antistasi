@@ -1,4 +1,4 @@
-private ["_tipo","_positionTel","_nearX","_garrison","_coste","_hr","_size"];
+private ["_tipo","_positionTel","_nearX","_garrison","_costs","_hr","_size"];
 _tipo = _this select 0;
 
 if (_tipo == "add") then {hint "Select a zone to add garrisoned troops"} else {hint "Select a zone to remove it's Garrison"};
@@ -21,7 +21,7 @@ _positionX = getMarkerPos _nearX;
 
 if (getMarkerPos _nearX distance _positionTel > 40) exitWith {hint "You must click near a marked zone"; _nul=CreateDialog "build_menu";};
 
-if (not(lados getVariable [_nearX,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]; _nul=CreateDialog "build_menu";};
+if (not(lados getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]; _nul=CreateDialog "build_menu";};
 if ([_positionX,500] call A3A_fnc_enemyNearCheck) exitWith {hint "You cannot manage this garrison while there are enemies nearby";_nul=CreateDialog "build_menu"};
 //if (((_nearX in outpostsFIA) and !(isOnRoad _positionX)) /*or (_nearX in citiesX)*/ or (_nearX in controlsX)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
 _outpostFIA = if (_nearX in outpostsFIA) then {true} else {false};
@@ -31,14 +31,14 @@ _garrison = if (! _wpost) then {garrison getVariable [_nearX,[]]} else {SDKSnipe
 if (_tipo == "rem") then
 	{
 	if ((count _garrison == 0) and !(_nearX in outpostsFIA)) exitWith {hint "The place has no garrisoned troops to remove"; _nul=CreateDialog "build_menu";};
-	_coste = 0;
+	_costs = 0;
 	_hr = 0;
 	{
-	if (_x == staticCrewTeamPlayer) then {if (_outpostFIA) then {_coste = _coste + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice)} else {_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice)}};
+	if (_x == staticCrewTeamPlayer) then {if (_outpostFIA) then {_costs = _costs + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice)} else {_costs = _costs + ([SDKMortar] call A3A_fnc_vehiclePrice)}};
 	_hr = _hr + 1;
-	_coste = _coste + (server getVariable [_x,0]);
+	_costs = _costs + (server getVariable [_x,0]);
 	} forEach _garrison;
-	[_hr,_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
+	[_hr,_costs] remoteExec ["A3A_fnc_resourcesFIA",2];
 	if (_outpostFIA) then
 		{
 		garrison setVariable [_nearX,nil,true];
@@ -55,7 +55,7 @@ if (_tipo == "rem") then
 		{if (_x getVariable ["markerX",""] == _nearX) then {deleteVehicle _x}} forEach allUnits;
 		};
 	[_nearX] call A3A_fnc_mrkUpdate;
-	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
+	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_costs,_hr];
 	_nul=CreateDialog "build_menu";
 	}
 else

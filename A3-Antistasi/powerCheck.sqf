@@ -11,9 +11,9 @@ if (_ant1 distance _positionX > _ant2 distance _positionX) exitWith {sideUnknown
 
 _outpost = [markersX,_ant1] call BIS_fnc_NearestPosition;
 /*
-if (lados getVariable [_markerX,sideUnknown] == buenos) then
+if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
 	{
-	if (lados getVariable [_outpost,sideUnknown] == buenos) then {_result = true};
+	if (lados getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = true};
 	}
 else
 	{

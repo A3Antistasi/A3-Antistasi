@@ -1,12 +1,12 @@
-private ["_soldiers","_vehiclesX","_grupos","_base","_posBase","_roads","_typeCar","_arrayAirports","_arrayDestinations","_tam","_road","_veh","_vehCrew","_groupVeh","_grupo","_grupoP","_distanceX","_spawnPoint"];
+private ["_soldiers","_vehiclesX","_groups","_base","_posBase","_roads","_typeCar","_arrayAirports","_arrayDestinations","_tam","_road","_veh","_vehCrew","_groupVeh","_group","_groupP","_distanceX","_spawnPoint"];
 
 _soldiers = [];
 _vehiclesX = [];
-_grupos = [];
+_groups = [];
 _base = "";
 _roads = [];
 
-_arrayAirports = if (hayIFA) then {(airportsX + outposts) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}} else {(seaports + airportsX + outposts) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}};
+_arrayAirports = if (hasIFA) then {(airportsX + outposts) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != teamPlayer)}} else {(seaports + airportsX + outposts) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != teamPlayer)}};
 
 _arrayAirports1 = [];
 if !(isMultiplayer) then
@@ -15,7 +15,7 @@ if !(isMultiplayer) then
 	_airportX = _x;
 	_pos = getMarkerPos _airportX;
 	//if (allUnits findIf {(_x getVariable ["spawner",false]) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAirports1 pushBack _airportX};
-	if ([distanceForLandAttack,1,_pos,buenos] call A3A_fnc_distanceUnits) then {_arrayAirports1 pushBack _airportX};
+	if ([distanceForLandAttack,1,_pos,teamPlayer] call A3A_fnc_distanceUnits) then {_arrayAirports1 pushBack _airportX};
 	} forEach _arrayAirports;
 	}
 else
@@ -23,7 +23,7 @@ else
 	{
 	_airportX = _x;
 	_pos = getMarkerPos _airportX;
-	if (playableUnits findIf {(side (group _x) == buenos) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAirports1 pushBack _airportX};
+	if (playableUnits findIf {(side (group _x) == teamPlayer) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAirports1 pushBack _airportX};
 	} forEach _arrayAirports;
 	};
 if (_arrayAirports1 isEqualTo []) exitWith {};
@@ -102,10 +102,10 @@ if (_typePatrol != "AIR") then
 		}
 	else
 		{
-		_indice = airportsX find _base;
-		if (_indice != -1) then
+		_indexX = airportsX find _base;
+		if (_indexX != -1) then
 			{
-			_spawnPoint = spawnPoints select _indice;
+			_spawnPoint = spawnPoints select _indexX;
 			_posBase = getMarkerPos _spawnPoint;
 			}
 		else
@@ -123,23 +123,23 @@ _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit} forEach _vehCrew;
 _groupVeh = _vehicle select 2;
 _soldiers = _soldiers + _vehCrew;
-_grupos = _grupos + [_groupVeh];
+_groups = _groups + [_groupVeh];
 _vehiclesX = _vehiclesX + [_veh];
 
 
 if (_typeCar in vehNATOLightUnarmed) then
 	{
 	sleep 1;
-	_grupo = [_posbase, _lado, groupsNATOSentry] call A3A_fnc_spawnGroup;
-	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
-	deleteGroup _grupo;
+	_group = [_posbase, _lado, groupsNATOSentry] call A3A_fnc_spawnGroup;
+	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _group;
+	deleteGroup _group;
 	};
 if (_typeCar in vehCSATLightUnarmed) then
 	{
 	sleep 1;
-	_grupo = [_posbase, _lado, groupsCSATSentry] call A3A_fnc_spawnGroup;
-	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
-	deleteGroup _grupo;
+	_group = [_posbase, _lado, groupsCSATSentry] call A3A_fnc_spawnGroup;
+	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _group;
+	deleteGroup _group;
 	};
 
 //if (_typePatrol == "LAND") then {_veh forceFollowRoad true};
@@ -148,7 +148,7 @@ while {alive _veh} do
 	{
 	if (count _arrayDestinations < 2) exitWith {};
 	_destinationX = selectRandom _arrayDestinations;
-	if (debug) then {player globalChat format ["Patrulla AI generada. Origen: %2 destinationX %1", _destinationX, _base]; sleep 3};
+	if (debug) then {player globalChat format ["Patrulla AI generada. originX: %2 destinationX %1", _destinationX, _base]; sleep 3};
 	_posDestination = getMarkerPos _destinationX;
 	if (_typePatrol == "LAND") then
 		{
@@ -184,9 +184,9 @@ while {alive _veh} do
 _enemiesX = if (_lado == Occupants) then {} else {Occupants};
 
 {_unit = _x;
-waitUntil {sleep 1;!([distanceSPWN,1,_unit,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_unit,_enemiesX] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldiers;
+waitUntil {sleep 1;!([distanceSPWN,1,_unit,teamPlayer] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_unit,_enemiesX] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldiers;
 
 {_veh = _x;
-if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_veh,_enemiesX] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}} forEach _vehiclesX;
-{deleteGroup _x} forEach _grupos;
+if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_veh,_enemiesX] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}} forEach _vehiclesX;
+{deleteGroup _x} forEach _groups;
 AAFpatrols = AAFpatrols - 1;

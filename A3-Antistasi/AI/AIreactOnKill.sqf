@@ -1,5 +1,5 @@
-private ["_grupo","_killer","_markerX","_super","_enemy"];
-_grupo = _this select 0;
+private ["_group","_killer","_markerX","_super","_enemy"];
+_group = _this select 0;
 _killer = _this select 1;
 
 {
@@ -19,7 +19,7 @@ if (fleeing _x) then
 				if (_x == leader group _x) then
 					{
 					_super = false;
-					_markerX = (leader _grupo) getVariable "markerX";
+					_markerX = (leader _group) getVariable "markerX";
 					if (!isNil "_markerX") then
 						{
 						if (_markerX in airportsX) then {_super = true};
@@ -59,7 +59,7 @@ else
 					{
 					if (sunOrMoon < 1) then
 						{
-						if ((hayIFA and (typeOf _x in squadLeaders)) or (count (getArray (configfile >> "CfgWeapons" >> primaryWeapon _x >> "muzzles")) == 2)) then
+						if ((hasIFA and (typeOf _x in squadLeaders)) or (count (getArray (configfile >> "CfgWeapons" >> primaryWeapon _x >> "muzzles")) == 2)) then
 							{
 							[_x,_enemy] spawn A3A_fnc_useFlares;
 							};
@@ -71,15 +71,15 @@ else
 			{
 			if ((sunOrMoon <1) and !haveNV) then
 				{
-				if ((hayIFA and (typeOf _x in squadLeaders)) or (count (getArray (configfile >> "CfgWeapons" >> primaryWeapon _x >> "muzzles")) == 2)) then
+				if ((hasIFA and (typeOf _x in squadLeaders)) or (count (getArray (configfile >> "CfgWeapons" >> primaryWeapon _x >> "muzzles")) == 2)) then
 					{
 					[_x] call A3A_fnc_useFlares;
 					};
 				};
 			};
-		if (random 1 < 0.5) then {if (count units _grupo > 0) then {_x allowFleeing (1 -(_x skill "courage") + (({!([_x] call A3A_fnc_canFight)} count units _grupo)/(count units _grupo)))}};
+		if (random 1 < 0.5) then {if (count units _group > 0) then {_x allowFleeing (1 -(_x skill "courage") + (({!([_x] call A3A_fnc_canFight)} count units _group)/(count units _group)))}};
 		};
 	};
 sleep 1 + (random 1);
-} forEach units _grupo;
+} forEach units _group;
 

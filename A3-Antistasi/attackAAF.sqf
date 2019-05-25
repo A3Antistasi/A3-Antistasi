@@ -1,20 +1,20 @@
 //if ([0.5] call A3A_fnc_fogCheck) exitWith {};
-private ["_objectivesX","_markersX","_base","_objectiveX","_cuenta","_airportX","_datos","_prestigeOPFOR","_scoreLand","_scoreAir","_analyzed","_garrison","_size","_staticsX","_salir"];
+private ["_objectivesX","_markersX","_base","_objectiveX","_countX","_airportX","_dataX","_prestigeOPFOR","_scoreLand","_scoreAir","_analyzed","_garrison","_size","_staticsX","_salir"];
 
 _objectivesX = [];
 _markersX = [];
-_cuentaFacil = 0;
+_countXFacil = 0;
 _natoIsFull = false;
 _csatIsFull = false;
-_airportsX = airportsX select {([_x,false] call A3A_fnc_airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
+_airportsX = airportsX select {([_x,false] call A3A_fnc_airportCanAttack) and (lados getVariable [_x,sideUnknown] != teamPlayer)};
 _objectivesX = markersX - controlsX - outpostsFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedCities;
-if (gameMode != 1) then {_objectivesX = _objectivesX select {lados getVariable [_x,sideUnknown] == buenos}};
-//_objectivesSDK = _objectivesX select {lados getVariable [_x,sideUnknown] == buenos};
+if (gameMode != 1) then {_objectivesX = _objectivesX select {lados getVariable [_x,sideUnknown] == teamPlayer}};
+//_objectivesSDK = _objectivesX select {lados getVariable [_x,sideUnknown] == teamPlayer};
 if ((tierWar < 2) and (gameMode <= 2)) then
 	{
 	_airportsX = _airportsX select {(lados getVariable [_x,sideUnknown] == Occupants)};
 	//_objectivesX = _objectivesSDK;
-	_objectivesX = _objectivesX select {lados getVariable [_x,sideUnknown] == buenos};
+	_objectivesX = _objectivesX select {lados getVariable [_x,sideUnknown] == teamPlayer};
 	}
 else
 	{
@@ -70,7 +70,7 @@ _baseNATO = true;
 if (lados getVariable [_base,sideUnknown] == Occupants) then
 	{
 	_tmpObjectives = _objectivesX select {lados getVariable [_x,sideUnknown] != Occupants};
-	_tmpObjectives = _tmpObjectives - (citiesX select {([_x] call A3A_fnc_powerCheck) == buenos});
+	_tmpObjectives = _tmpObjectives - (citiesX select {([_x] call A3A_fnc_powerCheck) == teamPlayer});
 	}
 else
 	{
@@ -91,7 +91,7 @@ if !(_tmpObjectives isEqualTo []) then
 	_isTheSameIsland = [_x,_base] call A3A_fnc_isTheSameIsland;
 	if ([_x,true] call A3A_fnc_fogCheck >= 0.3) then
 		{
-		if (lados getVariable [_x,sideUnknown] == buenos) then
+		if (lados getVariable [_x,sideUnknown] == teamPlayer) then
 			{
 			_esSDK = true;
 			/*
@@ -128,10 +128,10 @@ if !(_tmpObjectives isEqualTo []) then
 							_garrison = garrison getVariable [_sitio,[]];
 							_staticsX = staticsToSave select {_x distance _posSite < distanceSPWN};
 							_outposts = outpostsFIA select {getMarkerPos _x distance _posSite < distanceSPWN};
-							_cuenta = ((count _garrison) + (count _outposts) + (2*(count _staticsX)));
-							if (_cuenta <= 8) then
+							_countX = ((count _garrison) + (count _outposts) + (2*(count _staticsX)));
+							if (_countX <= 8) then
 								{
-								if (!hayIFA or (_posSite distance _posBase < distanceForLandAttack)) then
+								if (!hasIFA or (_posSite distance _posBase < distanceForLandAttack)) then
 									{
 									_proceed = false;
 									_easyX pushBack [_sitio,_base];
@@ -298,7 +298,7 @@ if (count _easyX == 4) exitWith
 	{
 	{[[_x select 0,_x select 1,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];sleep 30} forEach _easyX;
 	};
-if (hayIFA and (sunOrMoon < 1)) exitWith {};
+if (hasIFA and (sunOrMoon < 1)) exitWith {};
 if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 	{
 	_arrayFinal = [];
@@ -315,18 +315,18 @@ if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 	//_objectiveFinal = selectRandom _arrayFinal;
 	_objectiveFinal = _arrayFinal selectRandomWeighted _countFinal;
 	_destinationX = _objectiveFinal select 0;
-	_origen = _objectiveFinal select 1;
+	_originX = _objectiveFinal select 1;
 	///aquí decidimos las oleadas
 	if (_waves == 1) then
 		{
-		if (lados getVariable [_destinationX,sideUnknown] == buenos) then
+		if (lados getVariable [_destinationX,sideUnknown] == teamPlayer) then
 			{
 			_waves = (round (random tierWar));
 			if (_waves == 0) then {_waves = 1};
 			}
 		else
 			{
-			if (lados getVariable [_origen,sideUnknown] == ) then
+			if (lados getVariable [_originX,sideUnknown] == ) then
 				{
 				if (_destinationX in airportsX) then
 					{
@@ -351,13 +351,13 @@ if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 		};
 	if (not(_destinationX in citiesX)) then
 		{
-		///[[_destinationX,_origen,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler;
-		[_destinationX,_origen,_waves] spawn A3A_fnc_wavedCA;
+		///[[_destinationX,_originX,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler;
+		[_destinationX,_originX,_waves] spawn A3A_fnc_wavedCA;
 		}
 	else
 		{
-		//if (lados getVariable [_origen,sideUnknown] == Occupants) then {[[_destinationX,_origen,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler} else {[[_destinationX,_origen],"A3A_fnc_CSATpunish"] call A3A_fnc_scheduler};
-		if (lados getVariable [_origen,sideUnknown] == Occupants) then {[_destinationX,_origen,_waves] spawn A3A_fnc_wavedCA} else {[_destinationX,_origen] spawn A3A_fnc_CSATpunish};
+		//if (lados getVariable [_originX,sideUnknown] == Occupants) then {[[_destinationX,_originX,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler} else {[[_destinationX,_originX],"A3A_fnc_CSATpunish"] call A3A_fnc_scheduler};
+		if (lados getVariable [_originX,sideUnknown] == Occupants) then {[_destinationX,_originX,_waves] spawn A3A_fnc_wavedCA} else {[_destinationX,_originX] spawn A3A_fnc_CSATpunish};
 		};
 	};
 

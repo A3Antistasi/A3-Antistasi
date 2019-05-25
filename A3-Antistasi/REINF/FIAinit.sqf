@@ -1,4 +1,4 @@
-private ["_unit","_muerto","_killer","_skill","_nombre","_tipo"];
+private ["_unit","_muerto","_killer","_skill","_nameX","_tipo"];
 
 _unit = _this select 0;
 
@@ -38,7 +38,7 @@ else
 	if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]};
 	if (random 40 < skillFIA) then
 		{
-		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") < 2) then {removeHeadgear _unit;_unit addHeadgear (selectRandom cascos)};
+		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") < 2) then {removeHeadgear _unit;_unit addHeadgear (selectRandom helmets)};
 		};
 	if ((_tipo in SDKMil) or (_tipo == staticCrewTeamPlayer)) then
 		{
@@ -113,7 +113,7 @@ else
 								}
 							else
 								{
-								if (hayIFA) then
+								if (hasIFA) then
 									{
 									[_unit, "LIB_PTRD", 10, 0] call BIS_fnc_addWeapon;
 									};
@@ -145,7 +145,7 @@ if (!haveRadio) then
 	};
 
 if ({if (_x in humo) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom humo,2]};
-if !(hayIFA) then
+if !(hasIFA) then
 	{
 	if ((sunOrMoon < 1) and (_tipo != SDKUnarmed)) then
 		{
@@ -216,7 +216,7 @@ if (player == leader _unit) then
 		_muerto = _this select 0;
 		[_muerto] spawn A3A_fnc_postmortem;
 		_killer = _this select 1;
-		if !(hayIFA) then {arrayids pushBackUnique (name _muerto)};
+		if !(hasIFA) then {arrayids pushBackUnique (name _muerto)};
 		if (side _killer == Occupants) then
 			{
 			_nul = [0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
@@ -238,7 +238,7 @@ if (player == leader _unit) then
 			};
 		_muerto setVariable ["spawner",nil,true];
 		}];
-	if ((typeOf _unit != SDKUnarmed) and !hayIFA) then
+	if ((typeOf _unit != SDKUnarmed) and !hasIFA) then
 		{
 		_idUnit = arrayids call BIS_Fnc_selectRandom;
 		arrayids = arrayids - [_idunit];
@@ -247,7 +247,7 @@ if (player == leader _unit) then
 	if (captive player) then {[_unit] spawn A3A_fnc_undercoverAI};
 
 	_unit setVariable ["rearming",false];
-	if ((!haveRadio) and (!hasTFAR) and (!hasACRE) and !(hayIFA)) then
+	if ((!haveRadio) and (!hasTFAR) and (!hasACRE) and !(hasIFA)) then
 		{
 		while {alive _unit} do
 			{
@@ -261,8 +261,8 @@ if (player == leader _unit) then
 					[_unit] join stragglers;
 					if ((vehicle _unit isKindOf "StaticWeapon") or (isNull (driver (vehicle _unit)))) then {unassignVehicle _unit; [_unit] orderGetIn false};
 					_unit doMove position player;
-					_tiempo = time + 900;
-					waitUntil {sleep 1;(!alive _unit) or (_unit distance player < 500) or (time > _tiempo)};
+					_timeX = time + 900;
+					waitUntil {sleep 1;(!alive _unit) or (_unit distance player < 500) or (time > _timeX)};
 					if ((_unit distance player >= 500) and (alive _unit)) then {_unit setPos (getMarkerPos respawnTeamPlayer)};
 					[_unit] join group player;
 					};
@@ -276,7 +276,7 @@ else
 		_muerto = _this select 0;
 		_killer = _this select 1;
 		[_muerto] remoteExec ["A3A_fnc_postmortem",2];
-		if ((isPlayer _killer) and (side _killer == buenos)) then
+		if ((isPlayer _killer) and (side _killer == teamPlayer)) then
 			{
 			if (!isMultiPlayer) then
 				{

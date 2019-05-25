@@ -1,10 +1,10 @@
-private ["_airportsX","_reinfPlaces","_airportX","_numero","_numGarr","_numReal","_lado","_potentials","_cuenta","_sitio","_positionX"];
-_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] != buenos) and (spawner getVariable _x == 2)};
+private ["_airportsX","_reinfPlaces","_airportX","_number","_numGarr","_numReal","_lado","_potentials","_countX","_sitio","_positionX"];
+_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] != teamPlayer) and (spawner getVariable _x == 2)};
 if (count _airportsX == 0) exitWith {};
 _reinfPlaces = [];
 {
 _airportX = _x;
-_numero = 8;
+_number = 8;
 _numGarr = [_airportX] call A3A_fnc_garrisonSize;
 _numReal = count (garrison getVariable _airportX);
 _lado = lados getVariable [_airportX,sideUnknown];
@@ -13,15 +13,15 @@ if (_numReal + 4 <= _numGarr) then
 	if (_numReal + 8 <= _numGarr) then
 		{
 		if (_lado == Occupants) then {[selectRandom groupsNATOSquad,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom groupsCSATSquad,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
-		_numero = 0;
+		_number = 0;
 		}
 	else
 		{
 		if (_lado == Occupants) then {[selectRandom groupsNATOmid,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom groupsCSATmid,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
-		_numero = 4;
+		_number = 4;
 		};
 	};
-if ((_numero >= 4) and (reinfPatrols <= 4)) then
+if ((_number >= 4) and (reinfPatrols <= 4)) then
 	{
 	_potentials = (outposts + seaports - _reinfPlaces - (killZones getVariable [_airportX,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
 	if (_potentials isEqualTo []) then
@@ -32,14 +32,14 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 	_potentials = _potentials select {((getMarkerPos _x distance2D _positionX) < distanceForAirAttack) and !(_x in forcedSpawn)};
 	if (count _potentials > 0) then
 		{
-		_cuenta = 0;
+		_countX = 0;
 		_sitio = "";
 		{
 		_numGarr = [_x] call A3A_fnc_garrisonSize;
 		_numReal = count (garrison getVariable _x);
-		if (_numGarr - _numReal > _cuenta) then
+		if (_numGarr - _numReal > _countX) then
 			{
-			_cuenta = _numGarr - _numReal;
+			_countX = _numGarr - _numReal;
 			_sitio = _x;
 			};
 		} forEach _potentials;
@@ -49,13 +49,13 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 				{
 				if ({(_x distance2D _positionX < (2*distanceSPWN)) or (_x distance2D (getMarkerPos _sitio) < (2*distanceSPWN))} count allPlayers == 0) then
 					{
-					_typeGroup = if (_lado == Occupants) then {if (_numero == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
+					_typeGroup = if (_lado == Occupants) then {if (_number == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_number == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
 					[_typeGroup,_lado,_sitio,2] remoteExec ["A3A_fnc_garrisonUpdate",2];
 					}
 				else
 					{
 					_reinfPlaces pushBack _sitio;
-					[[_sitio,_airportX,_numero,_lado],"A3A_fnc_patrolReinf"] call A3A_fnc_scheduler;
+					[[_sitio,_airportX,_number,_lado],"A3A_fnc_patrolReinf"] call A3A_fnc_scheduler;
 					};
 				};
 			};

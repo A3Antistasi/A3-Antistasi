@@ -1,9 +1,9 @@
 private _unitsX = _this;
 private _buildings = (nearestTerrainObjects [(leader (_unitsX select 0)),["House"],100]) select {count (_x buildingPos -1) > 0};
 if (_buildings isEqualTo []) exitWith {};
-private _grupo = group (_unitsX select 0);
+private _group = group (_unitsX select 0);
 private _buildingPos = [];
-private _occupiedX = _grupo getVariable ["occupiedX",[]];
+private _occupiedX = _group getVariable ["occupiedX",[]];
 private _exit = false;
 
 {
@@ -20,7 +20,7 @@ if (_exit) exitWith {};
 } forEach _buildings;
 if (_buildingPos isEqualTo []) exitWith {};
 if (count _unitsX > count _buildingPos) then {_buildingPos resize (count _unitsX)};
-_grupo setVariable ["occupiedX",_occupiedX];
+_group setVariable ["occupiedX",_occupiedX];
 {
 _pos = _buildingPos select _forEachIndex;
 if (isNil "_pos") exitWith {};

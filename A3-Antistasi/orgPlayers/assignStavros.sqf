@@ -1,4 +1,4 @@
-private ["_puntMax","_texto","_multiplier","_newRank","_selectable","_disconnected","_owner","_puntos","_datos"];
+private ["_puntMax","_texto","_multiplier","_newRank","_selectable","_disconnected","_owner","_pointsX","_dataX"];
 _puntMax = 0;
 _texto = "";
 _multiplier = 1;
@@ -23,12 +23,12 @@ if ([_x] call A3A_fnc_isMember) then
 		if (_x == theBoss) then
 			{
 			_lider = _x;
-			_datos = [_lider] call A3A_fnc_numericRank;
-			_puntMax = _datos select 0;
+			_dataX = [_lider] call A3A_fnc_numericRank;
+			_puntMax = _dataX select 0;
 			};
 		};
 	};
-} forEach (playableUnits select {(side (group _x) == buenos)});
+} forEach (playableUnits select {(side (group _x) == teamPlayer)});
 
 if (isNull _lider) then
 	{
@@ -38,14 +38,14 @@ if (isNull _lider) then
 _texto = "Promoted Players:\n\n";
 _promoted = false;
 {
-_puntos = _x getVariable ["score",0];
-_datos = [_x] call A3A_fnc_numericRank;
-_multiplier = _datos select 0;
-_newRank = _datos select 1;
+_pointsX = _x getVariable ["score",0];
+_dataX = [_x] call A3A_fnc_numericRank;
+_multiplier = _dataX select 0;
+_newRank = _dataX select 1;
 _rank = _x getVariable ["rango","PRIVATE"];
 if (_rank != "COLONEL") then
 	{
-	if (_puntos >= 50*_multiplier) then
+	if (_pointsX >= 50*_multiplier) then
 		{
 		_promoted = true;
 		[_x,_newRank] remoteExec ["A3A_fnc_ranksMP"];
@@ -79,8 +79,8 @@ if (!_proceed) exitWith {};
 
 _selectable = objNull;
 {
-_datos = [_x] call A3A_fnc_numericRank;
-_multiplier = _datos select 0;
+_dataX = [_x] call A3A_fnc_numericRank;
+_multiplier = _dataX select 0;
 if ((_multiplier > _puntMax) and (_x!=_lider)) then
 	{
 	_selectable = _x;

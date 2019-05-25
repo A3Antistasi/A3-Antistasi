@@ -13,71 +13,71 @@ if ((_engineerX getVariable ["helping",false]) or (_engineerX getVariable ["rear
 private _tipo = _this select 0;
 private _dir = getDir player;
 private _positionX = position player;
-private _coste = 0;
-private _tiempo = 60;
-private _clase = "";
+private _costs = 0;
+private _timeX = 60;
+private _classX = "";
 switch _tipo do
 	{
 	case "ST":
 		{
 		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
 			{
-			_clase = selectRandom ["Land_GarbageWashingMachine_F","Land_JunkPile_F","Land_Barricade_01_4m_F"];
+			_classX = selectRandom ["Land_GarbageWashingMachine_F","Land_JunkPile_F","Land_Barricade_01_4m_F"];
 			}
 		else
 			{
 			if (count (nearestTerrainObjects [player,["tree"],70]) > 8) then
 				{
-				_clase = "Land_WoodPile_F";
+				_classX = "Land_WoodPile_F";
 				}
 			else
 				{
-				_clase = "CraterLong_small";
+				_classX = "CraterLong_small";
 				};
 			};
 		};
 	case "MT":
 		{
-		_tiempo = 60;
+		_timeX = 60;
 		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
 			{
-			_clase = "Land_Barricade_01_10m_F";
+			_classX = "Land_Barricade_01_10m_F";
 			}
 		else
 			{
 			if (count (nearestTerrainObjects [player,["tree"],70]) > 8) then
 				{
-				_clase = "Land_WoodPile_large_F";
+				_classX = "Land_WoodPile_large_F";
 				}
 			else
 				{
-				_clase = selectRandom ["Land_BagFence_01_long_green_F","Land_SandbagBarricade_01_half_F"];
+				_classX = selectRandom ["Land_BagFence_01_long_green_F","Land_SandbagBarricade_01_half_F"];
 				};
 			};
 		};
 	case "RB":
 		{
-		_tiempo = 100;
+		_timeX = 100;
 		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
 			{
-			_clase = "Land_Tyres_F";
+			_classX = "Land_Tyres_F";
 			}
 		else
 			{
-			_clase = "Land_TimberPile_01_F";
+			_classX = "Land_TimberPile_01_F";
 			};
 		};
 	case "SB":
 		{
-		_tiempo = 60;
-		_clase = "Land_BagBunker_01_small_green_F";
-		_coste = 100;
+		_timeX = 60;
+		_classX = "Land_BagBunker_01_small_green_F";
+		_costs = 100;
 		};
 	case "CB":
 		{
-		_tiempo = 120;
-		_clase = "Land_PillboxBunker_01_big_F";
-		_coste = 300;
+		_timeX = 120;
+		_classX = "Land_PillboxBunker_01_big_F";
+		_costs = 300;
 		};
 	};
 
@@ -88,16 +88,16 @@ private _texto = "";
 if ((_tipo == "SB") or (_tipo == "CB")) then
 	{
 	if (_tipo == "SB") then {_dir = _dir + 180};
-	_resourcesFIA = if (!isMultiPlayer) then {server getVariable "resourcesFIA"} else {player getVariable "dinero"};
-	if (_coste > _resourcesFIA) then
+	_resourcesFIA = if (!isMultiPlayer) then {server getVariable "resourcesFIA"} else {player getVariable "moneyX"};
+	if (_costs > _resourcesFIA) then
 		{
 		_salir = true;
-		_texto = format ["You do not have enough money for this construction (%1 € needed)",_coste]
+		_texto = format ["You do not have enough money for this construction (%1 € needed)",_costs]
 		}
 	else
 		{
-		_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
-		nearX = [_sitios,_positionX] call BIS_fnc_nearestPosition;
+		_sites = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
+		nearX = [_sites,_positionX] call BIS_fnc_nearestPosition;
 		if (!(_positionX inArea nearX)) then
 			{
 			_salir = true;
@@ -109,7 +109,7 @@ if ((_tipo == "SB") or (_tipo == "CB")) then
 
 if (_salir) exitWith {hint format ["%1",_texto]};
 hint "Select a place to build the required asset and press SPACE to start the construction.\n\nHit ESC to exit";
-garageVeh = _clase createVehicleLocal [0,0,0];
+garageVeh = _classX createVehicleLocal [0,0,0];
 bought = 0;
 
 _displayEH = (findDisplay 46) displayAddEventHandler ["KeyDown",
@@ -242,7 +242,7 @@ if (!_isPlayer) then
 	}
 else
 	{
-	_tiempo = _tiempo / 2;
+	_timeX = _timeX / 2;
 	hint "Walk to the selected position to start building";
 	};
 
@@ -250,22 +250,22 @@ waitUntil {sleep 1;(time > _timeOut) or (_engineerX distance _positionX < 3)};
 
 if (time > _timeOut) exitWith {};
 
-if (_coste > 0) then
+if (_costs > 0) then
 	{
 	if (!isMultiPlayer) then
 		{
-		_nul = [0, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
+		_nul = [0, - _costs] remoteExec ["A3A_fnc_resourcesFIA",2];
 		}
 	else
 		{
-		[-_coste] call A3A_fnc_resourcesPlayer;
-		["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
+		[-_costs] call A3A_fnc_resourcesPlayer;
+		["moneyX",player getVariable ["moneyX",0]] call fn_SaveStat;
 		};
 	};
 
 _engineerX setVariable ["constructing",true];
 
-_timeOut = time + _tiempo;
+_timeOut = time + _timeX;
 
 if (!_isPlayer) then
 	{
@@ -295,7 +295,7 @@ if (!_isPlayer) then {{_engineerX enableAI _x} forEach ["ANIM","AUTOTARGET","FSM
 
 if (time <= _timeOut) exitWith {hint "Constructing cancelled"};
 if (!_isPlayer) then {_engineerX doFollow (leader _engineerX)};
-private _veh = createVehicle [_clase, _positionX, [], 0, "CAN_COLLIDE"];
+private _veh = createVehicle [_classX, _positionX, [], 0, "CAN_COLLIDE"];
 _veh setDir _dir;
 
 if ((_tipo == "SB") or (_tipo == "CB")) exitWith
@@ -334,7 +334,7 @@ if (_tipo == "RB") then
 
 while {alive _veh} do
 	{
-	if ((not([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
+	if ((not([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
 		{
 		deleteVehicle _veh
 		};

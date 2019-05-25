@@ -102,9 +102,9 @@ spawner setVariable [_x,2,true];
 } forEach markersX;
 private ["_sizeX","_sizeY","_size"];
 {
-//_nombre = text _x;
-_nombre = [text _x, true] call A3A_fnc_fn_location;
-if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") and (_nombre != "Sosovu01") and (_nombre != "Ipota01") and (_nombre != "hill12") and (_nombre != "V_broad22")) then//sagonisi is blacklisted in Altis for some reason. If your island has a city in a small island you should blacklist it (road patrols will try to reach it)
+//_nameX = text _x;
+_nameX = [text _x, true] call A3A_fnc_fn_location;
+if ((_nameX != "") and (_nameX != "Lakatoro01") and (_nameX != "Galili01") and (_nameX != "Sosovu01") and (_nameX != "Ipota01") and (_nameX != "hill12") and (_nameX != "V_broad22")) then//sagonisi is blacklisted in Altis for some reason. If your island has a city in a small island you should blacklist it (road patrols will try to reach it)
     {
     _sizeX = getNumber (configFile >> "CfgWorlds" >> worldName >> "Names" >> (text _x) >> "radiusA");
     _sizeY = getNumber (configFile >> "CfgWorlds" >> worldName >> "Names" >> (text _x) >> "radiusB");
@@ -125,15 +125,15 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
             _roads pushBack (getPosATL _x);
             };
         } forEach _roadsProv;
-        roadsX setVariable [_nombre,_roads];
+        roadsX setVariable [_nameX,_roads];
         }
     else
         {
-        _roads = roadsX getVariable _nombre;
-        _numCiv = server getVariable _nombre;
+        _roads = roadsX getVariable _nameX;
+        _numCiv = server getVariable _nameX;
         if (isNil "_numCiv") then
             {
-            diag_log format ["Antistasi: Error in initZones.sqf. A mi no me sale en %1",_nombre];
+            diag_log format ["Antistasi: Error in initZones.sqf. A mi no me sale en %1",_nameX];
             _numCiv = (count (nearestObjects [_pos, ["house"], _size]));
             _roadsProv = _pos nearRoads _size;
             //_roads = [];
@@ -144,42 +144,42 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
                 _roads pushBack (getPosATL _x);
                 };
             } forEach _roadsProv;
-            roadsX setVariable [_nombre,_roads];
+            roadsX setVariable [_nameX,_roads];
             };
-        if (typeName _numCiv != typeName 0) then {hint format ["Datos erróneos en %1. Son del tipo %2",_nombre, typeName _numCiv]};
-        //if (isNil "_roads") then {hint format ["A mi no me sale en %1",_nombre]};
+        if (typeName _numCiv != typeName 0) then {hint format ["dataX erróneos en %1. Son del tipo %2",_nameX, typeName _numCiv]};
+        //if (isNil "_roads") then {hint format ["A mi no me sale en %1",_nameX]};
         };
     _numVeh = round (_numCiv / 3);
     _nroads = count _roads;
     _nearRoadsFinalSorted = [_roads, [], { _pos distance _x }, "ASCEND"] call BIS_fnc_sortBy;
     _pos = _nearRoadsFinalSorted select 0;
-    if (isNil "_pos") then {diag_log format ["Falla %1",_nombre]};
-    _mrk = createmarker [format ["%1", _nombre], _pos];
+    if (isNil "_pos") then {diag_log format ["Falla %1",_nameX]};
+    _mrk = createmarker [format ["%1", _nameX], _pos];
     _mrk setMarkerSize [_size, _size];
     _mrk setMarkerShape "RECTANGLE";
     _mrk setMarkerBrush "SOLID";
     _mrk setMarkerColor colorOccupants;
-    _mrk setMarkerText _nombre;
+    _mrk setMarkerText _nameX;
     _mrk setMarkerAlpha 0;
-    citiesX pushBack _nombre;
-    spawner setVariable [_nombre,2,true];
-    _dmrk = createMarker [format ["Dum%1",_nombre], _pos];
+    citiesX pushBack _nameX;
+    spawner setVariable [_nameX,2,true];
+    _dmrk = createMarker [format ["Dum%1",_nameX], _pos];
     _dmrk setMarkerShape "ICON";
     _dmrk setMarkerType "loc_Ruin";
     _dmrk setMarkerColor colorOccupants;
     if (_nroads < _numVeh) then {_numVeh = _nroads};
     lados setVariable [_mrk,Occupants,true];
     _info = [_numCiv, _numVeh, prestigeOPFOR,prestigeBLUFOR];
-    server setVariable [_nombre,_info,true];
+    server setVariable [_nameX,_info,true];
     };
 }foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["NameCityCapital","NameCity","NameVillage","CityCenter"], 25000]);
 
 markersX = markersX + citiesX;
-lados setVariable ["Synd_HQ",buenos,true];
+lados setVariable ["Synd_HQ",teamPlayer,true];
 //if !(isMultiplayer) then {call compile preprocessFileLineNumbers "initGarrisons.sqf"};
 
 antennasDead = [];
-bancos = [];
+banks = [];
 
 _posAntennas = [];
 _posBank = [];
@@ -213,14 +213,14 @@ else
         else
             {
             antennas = nearestObjects [[worldSize /2,worldSize/2,0],["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F","Land_Vysilac_FM","Land_A_TVTower_base","Land_Telek1"], worldSize];
-            bancos = nearestObjects [[worldSize /2,worldSize/2,0],["Land_Offices_01_V1_F"],worldSize];
+            banks = nearestObjects [[worldSize /2,worldSize/2,0],["Land_Offices_01_V1_F"],worldSize];
             {
-            _mrkfin = createMarker [format ["Ant%1", _x], position _x];
-            _mrkfin setMarkerShape "ICON";
-            _mrkfin setMarkerType "loc_Transmitter";
-            _mrkfin setMarkerColor "ColorBlack";
-            _mrkfin setMarkerText "Radio Tower";
-            mrkAntennas pushBack _mrkfin;
+            _mrkFinal = createMarker [format ["Ant%1", _x], position _x];
+            _mrkFinal setMarkerShape "ICON";
+            _mrkFinal setMarkerType "loc_Transmitter";
+            _mrkFinal setMarkerColor "ColorBlack";
+            _mrkFinal setMarkerText "Radio Tower";
+            mrkAntennas pushBack _mrkFinal;
             _x addEventHandler ["Killed",
                 {
                 _antena = _this select 0;
@@ -228,7 +228,7 @@ else
                 _mrk = [mrkAntennas, _antena] call BIS_fnc_nearestPosition;
                 antennas = antennas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
                 publicVariable "antennas"; publicVariable "antennasDead";
-                ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
+                ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
                 ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",Occupants];
                 }
                 ];
@@ -252,12 +252,12 @@ if (count _posAntennas > 0) then
             else
                 {
                 antennas pushBack _antena;
-                _mrkfin = createMarker [format ["Ant%1", _i], _posAntennas select _i];
-                _mrkfin setMarkerShape "ICON";
-                _mrkfin setMarkerType "loc_Transmitter";
-                _mrkfin setMarkerColor "ColorBlack";
-                _mrkfin setMarkerText "Radio Tower";
-                mrkAntennas pushBack _mrkfin;
+                _mrkFinal = createMarker [format ["Ant%1", _i], _posAntennas select _i];
+                _mrkFinal setMarkerShape "ICON";
+                _mrkFinal setMarkerType "loc_Transmitter";
+                _mrkFinal setMarkerColor "ColorBlack";
+                _mrkFinal setMarkerText "Radio Tower";
+                mrkAntennas pushBack _mrkFinal;
                 _antena addEventHandler ["Killed",
                     {
                     _antena = _this select 0;
@@ -265,7 +265,7 @@ if (count _posAntennas > 0) then
                     _mrk = [mrkAntennas, _antena] call BIS_fnc_nearestPosition;
                     antennas = antennas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
                     publicVariable "antennas"; publicVariable "antennasDead";
-                    ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
+                    ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
                     ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",Occupants];
                     }
                 ];
@@ -282,7 +282,7 @@ if (count _posBank > 0) then
         if (count _bankProv > 0) then
             {
             _banco = _bankProv select 0;
-            bancos = bancos + [_banco];
+            banks = banks + [_banco];
             };
         };
     };
@@ -314,7 +314,7 @@ publicVariable "spawnPoints";
 publicVariable "antennas";
 publicVariable "antennasDead";
 publicVariable "mrkAntennas";
-publicVariable "bancos";
+publicVariable "banks";
 publicVariable "seaSpawn";
 publicVariable "seaAttackSpawn";
 publicVariable "defaultControlIndex";

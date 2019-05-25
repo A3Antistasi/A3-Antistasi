@@ -1,4 +1,4 @@
-private ["_unit","_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_ayudado","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_unit","_group","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_ayudado","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
 //if (_unit getVariable "inconsciente") exitWith {};
 //if (damage _unit < 0.9) exitWith {};
@@ -35,7 +35,7 @@ if (isPlayer _unit) then
 			};
 		_handled;
 		}];
-	//if (side _unit == buenos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
+	//if (side _unit == teamPlayer) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 	if (_injurer != ) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 	openMap false;
 	{
@@ -66,7 +66,7 @@ else
 			_markerX = _unit getVariable ["markerX",""];
 			if (_markerX != "") then
 				{
-				if (!([_markerX] call BIS_fnc_taskExists) and (lados getVariable [_markerX,sideUnknown] == buenos)) then {[_markerX,_injurer,buenos] remoteExec ["A3A_fnc_underAttack",2]};
+				if (!([_markerX] call BIS_fnc_taskExists) and (lados getVariable [_markerX,sideUnknown] == teamPlayer)) then {[_markerX,_injurer,teamPlayer] remoteExec ["A3A_fnc_underAttack",2]};
 				};
 			};
 		};

@@ -1,17 +1,17 @@
-private ["_tipo","_coste"];
+private ["_tipo","_costs"];
 
 _tipo = _this select 0;
 
-_coste = server getVariable _tipo;
+_costs = server getVariable _tipo;
 
-if (isNil "_coste") then
+if (isNil "_costs") then
 	{
 	diag_log format ["Antistasi Error en vehicleprice: %!",_tipo];
-	_coste = 0;
+	_costs = 0;
 	}
 else
 	{
-	_coste = round (_coste - (_coste * (0.1 * ({lados getVariable [_x,sideUnknown] == buenos} count seaports))));
+	_costs = round (_costs - (_costs * (0.1 * ({lados getVariable [_x,sideUnknown] == teamPlayer} count seaports))));
 	};
 
-_coste
+_costs

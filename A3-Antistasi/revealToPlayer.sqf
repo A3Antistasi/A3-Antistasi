@@ -23,11 +23,11 @@ if (count _this == 0) then
 	}
 else
 	{
-	private ["_grupo"];
+	private ["_group"];
 	if (player == leader group player) then
 		{
-		_grupo = _this select 0;
-		_lider = leader _grupo;
+		_group = _this select 0;
+		_lider = leader _group;
 		player reveal [_lider,4];
 		};
 	};

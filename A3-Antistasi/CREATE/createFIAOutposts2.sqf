@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_markerX","_positionX","_isRoad","_tam","_road","_veh","_grupo","_unit","_roadcon"];
+private ["_markerX","_positionX","_isRoad","_tam","_road","_veh","_group","_unit","_roadcon"];
 
 _markerX = _this select 0;
 _positionX = getMarkerPos _markerX;
@@ -38,10 +38,10 @@ if (_isRoad) then
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		sleep 1;
 		};
-	_grupo = [_positionX, buenos, _garrison,true,false] call A3A_fnc_spawnGroup;
-	//_unit = _grupo createUnit [staticCrewTeamPlayer, _positionX, [], 0, "NONE"];
+	_group = [_positionX, teamPlayer, _garrison,true,false] call A3A_fnc_spawnGroup;
+	//_unit = _group createUnit [staticCrewTeamPlayer, _positionX, [], 0, "NONE"];
 	//_unit moveInGunner _veh;
-	{[_x,_markerX] spawn A3A_fnc_FIAinitBases; if (typeOf _x == staticCrewTeamPlayer) then {_x moveInGunner _veh}} forEach units _grupo;
+	{[_x,_markerX] spawn A3A_fnc_FIAinitBases; if (typeOf _x == staticCrewTeamPlayer) then {_x moveInGunner _veh}} forEach units _group;
 	}
 else
 	{
@@ -49,16 +49,16 @@ else
 	{
 	if (random 20 <= skillFIA) then {_formatX pushBack (_x select 1)} else {_formatX pushBack (_x select 0)};
 	} forEach groupsSDKSniper;
-	_grupo = [_positionX, buenos, _formatX] call A3A_fnc_spawnGroup;
-	_grupo setBehaviour "STEALTH";
-	_grupo setCombatMode "GREEN";
-	{[_x,_markerX] spawn A3A_fnc_FIAinitBases;} forEach units _grupo;
+	_group = [_positionX, teamPlayer, _formatX] call A3A_fnc_spawnGroup;
+	_group setBehaviour "STEALTH";
+	_group setCombatMode "GREEN";
+	{[_x,_markerX] spawn A3A_fnc_FIAinitBases;} forEach units _group;
 	};
 
-waitUntil {sleep 1; ((spawner getVariable _markerX == 2)) or ({alive _x} count units _grupo == 0) or (not(_markerX in outpostsFIA))};
+waitUntil {sleep 1; ((spawner getVariable _markerX == 2)) or ({alive _x} count units _group == 0) or (not(_markerX in outpostsFIA))};
 
-if ({alive _x} count units _grupo == 0) then
-//if ({alive _x} count units _grupo == 0) then
+if ({alive _x} count units _group == 0) then
+//if ({alive _x} count units _group == 0) then
 	{
 	outpostsFIA = outpostsFIA - [_markerX]; publicVariable "outpostsFIA";
 	markersX = markersX - [_markerX]; publicVariable "markersX";
@@ -78,5 +78,5 @@ if ({alive _x} count units _grupo == 0) then
 waitUntil {sleep 1; (spawner getVariable _markerX == 2) or (not(_markerX in outpostsFIA))};
 
 if (_isRoad) then {if (!isNull _veh) then {deleteVehicle _veh}};
-{deleteVehicle _x} forEach units _grupo;
-deleteGroup _grupo;
+{deleteVehicle _x} forEach units _group;
+deleteGroup _group;

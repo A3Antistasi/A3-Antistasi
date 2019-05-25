@@ -2,12 +2,12 @@ if (!isServer) exitWith{};
 
 //debugperf = false;
 
-private ["_tiempo","_markersX","_markerX","_positionMRK","_cuenta"];
+private ["_timeX","_markersX","_markerX","_positionMRK","_countX"];
 
 waitUntil {!isNil "theBoss"};
 
-_tiempo = 1/(count markersX);
-_cuenta = 0;
+_timeX = 1/(count markersX);
+_countX = 0;
 _greenfor = [];
 _blufor = [];
 _opfor = [];
@@ -15,24 +15,24 @@ _opfor = [];
 while {true} do {
 //sleep 0.01;
 /*
-if (time - _tiempo >= 0.5) then
+if (time - _timeX >= 0.5) then
 	{
 	sleep 0.1;
-	_cuenta = _cuenta + 0.1
+	_countX = _countX + 0.1
 	}
 else
 	{
-	sleep 0.5 - (time - _tiempo);
-	_cuenta = _cuenta + (0.5 - (time-_tiempo));
+	sleep 0.5 - (time - _timeX);
+	_countX = _countX + (0.5 - (time-_timeX));
 	};
-//if (debugperf) then {hint format ["Tiempo transcurrido: %1 para %2 markersX", time - _tiempo, count markersX]};
-_tiempo = time;
+//if (debugperf) then {hint format ["timeX transcurrido: %1 para %2 markersX", time - _timeX, count markersX]};
+_timeX = time;
 */
 //sleep 1;
-_cuenta = _cuenta + 1;
-if (_cuenta > 5) then
+_countX = _countX + 1;
+if (_countX > 5) then
 	{
-	_cuenta = 0;
+	_countX = 0;
 	_spawners = allUnits select {_x getVariable ["spawner",false]};
 	_greenfor = [];
 	_blufor = [];
@@ -58,7 +58,7 @@ if (_cuenta > 5) then
 	};
 
 {
-sleep _tiempo;
+sleep _timeX;
 _markerX = _x;
 
 _positionMRK = getMarkerPos (_markerX);
@@ -130,7 +130,7 @@ if (lados getVariable [_markerX,sideUnknown] == Occupants) then
 	}
 else
 	{
-	if (lados getVariable [_markerX,sideUnknown] == buenos) then
+	if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
 		{
 		if (spawner getVariable _markerX != 0) then
 			{

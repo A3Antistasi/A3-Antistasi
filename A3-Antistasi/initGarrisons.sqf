@@ -80,7 +80,7 @@ else
     lados setVariable [_x,Occupants,true];
     };
 _nul = [_x] call A3A_fnc_createControls;
-server setVariable [_x,0,true];//fecha en fomrato dateToNumber en la que estarán idle
+server setVariable [_x,0,true];//dateX en fomrato dateToNumber en la que estarán idle
 } forEach airportsX;
 
 {

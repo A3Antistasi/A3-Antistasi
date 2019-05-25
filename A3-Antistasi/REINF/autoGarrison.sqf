@@ -1,14 +1,14 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_markerX","_destinationX","_origen","_grupos","_soldiers","_vehiclesX","_size","_grupo","_camion","_tam","_roads","_road","_pos"];
+private ["_markerX","_destinationX","_originX","_groups","_soldiers","_vehiclesX","_size","_group","_truckX","_tam","_roads","_road","_pos"];
 
 _markerX = _this select 0;
 if (not(_markerX in smallCAmrk)) exitWith {};
 
 _destinationX = getMarkerPos _markerX;
-_origen = getMarkerPos respawnTeamPlayer;
+_originX = getMarkerPos respawnTeamPlayer;
 
-_grupos = [];
+_groups = [];
 _soldiers = [];
 _vehiclesX = [];
 
@@ -22,21 +22,21 @@ _size = round (_size / _divisor);
 
 if (_size == 0) then {_size = 1};
 
-_tiposGrupo = [groupsSDKmid,groupsSDKAT,groupsSDKSquad,groupsSDKSniper];
+_typeGroup = [groupsSDKmid,groupsSDKAT,groupsSDKSquad,groupsSDKSniper];
 
 while {(_size > 0)} do
 	{
-	_typeGroup = selectRandom _tiposGrupo;
+	_typeGroup = selectRandom _typeGroup;
 	_formatX = [];
 	{
 	if (random 20 <= skillFIA) then {_formatX pushBack (_x select 1)} else {_formatX pushBack (_x select 0)};
 	} forEach _typeGroup;
-	_grupo = [_origen, buenos, _formatX,false,true] call A3A_fnc_spawnGroup;
-	if !(isNull _grupo) then
+	_group = [_originX, teamPlayer, _formatX,false,true] call A3A_fnc_spawnGroup;
+	if !(isNull _group) then
 		{
-		_grupos pushBack _grupo;
-		{[_x] spawn A3A_fnc_FIAinit; _soldiers pushBack _x} forEach units _grupo;
-		_Vwp1 = _grupo addWaypoint [_destinationX, 0];
+		_groups pushBack _group;
+		{[_x] spawn A3A_fnc_FIAinit; _soldiers pushBack _x} forEach units _group;
+		_Vwp1 = _group addWaypoint [_destinationX, 0];
 		_Vwp1 setWaypointType "MOVE";
 		_Vwp1 setWaypointBehaviour "AWARE";
 		sleep 30;
@@ -54,4 +54,4 @@ deleteVehicle _vehiculo;
 waitUntil {sleep 1; {_x distance _soldierX < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _soldierX;
 } forEach _soldiers;
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;

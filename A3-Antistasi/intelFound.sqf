@@ -76,12 +76,12 @@ if (random 100 < _chance) then
 		};
 	};
 
-_minesAAF = allmines - (detectedMines buenos);
+_minesAAF = allmines - (detectedMines teamPlayer);
 if (_lado == Occupants) then {_minesAAF = _minesAAF - (detectedMines )} else {_minesAAF = _minesAAF - (detectedMines Occupants)};
 _revealMineX = false;
 if (count _minesAAF > 0) then
 	{
-	{if (random 100 < _chance) then {buenos revealMine _x; _revealMineX = true}} forEach _minesAAF;
+	{if (random 100 < _chance) then {teamPlayer revealMine _x; _revealMineX = true}} forEach _minesAAF;
 	};
 if (_revealMineX) then {_texto = format ["%1 New Mines marked on your map<br/>",_texto];};
 

@@ -12,7 +12,7 @@ if (count antennas > 0) then
 		if ((alive _antena) and (_positionX distance _antena < 3500)) then
 			{
 			_nearX = [markersX,_antena] call BIS_fnc_nearestPosition;
-			if (not(lados getVariable [_nearX,sideUnknown] == buenos)) then {_ok = true};
+			if (not(lados getVariable [_nearX,sideUnknown] == teamPlayer)) then {_ok = true};
 			};
 		};
 	};

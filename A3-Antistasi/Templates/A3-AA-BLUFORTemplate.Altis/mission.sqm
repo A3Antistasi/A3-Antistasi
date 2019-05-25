@@ -6922,7 +6922,7 @@ class Mission
 					flags=7;
 					class Attributes
 					{
-						init="grupoPlayersCSAT = group this;this setVariable [""pvp"",true]";
+						init="groupPlayersCSAT = group this;this setVariable [""pvp"",true]";
 						isPlayable=1;
 					};
 					id=1573;

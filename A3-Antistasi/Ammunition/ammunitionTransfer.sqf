@@ -1,24 +1,24 @@
 if (!isServer) exitWith {};
-private ["_subObject","_ammunition","_origen","_destinationX"];
-_origen = _this select 0;
-if (isNull _origen) exitWith {};
+private ["_subObject","_ammunition","_originX","_destinationX"];
+_originX = _this select 0;
+if (isNull _originX) exitWith {};
 _destinationX = _this select 1;
 
 _ammunition= [];
 _items = [];
-_ammunition = magazineCargo _origen;
-_items = itemCargo _origen;
+_ammunition = magazineCargo _originX;
+_items = itemCargo _originX;
 _armas = [];
-_weaponsItemsCargo = weaponsItemsCargo _origen;
-_mochis = [];
+_weaponsItemsCargo = weaponsItemsCargo _originX;
+_backpcks = [];
 
-if (count backpackCargo _origen > 0) then
+if (count backpackCargo _originX > 0) then
 	{
 	{
-	_mochis pushBack (_x call BIS_fnc_basicBackpack);
-	} forEach backpackCargo _origen;
+	_backpcks pushBack (_x call BIS_fnc_basicBackpack);
+	} forEach backpackCargo _originX;
 	};
-_containers = everyContainer _origen;
+_containers = everyContainer _originX;
 if (count _containers > 0) then
 	{
 	for "_i" from 0 to (count _containers) - 1 do
@@ -71,7 +71,7 @@ _ammunitionFinal = [];
 _ammunitionFinalCount = [];
 if (isNil "_ammunition") then
 	{
-	diag_log format ["Error en transmisión de munición. Tenía esto: %1 y estos containers: %2, el origen era un %3 y el objeto está definido como: %4", magazineCargo _origen, everyContainer _origen,typeOf _origen,_origen];
+	diag_log format ["Error en transmisión de munición. Tenía esto: %1 y estos containers: %2, el originX era un %3 y el objeto está definido como: %4", magazineCargo _originX, everyContainer _originX,typeOf _originX,_originX];
 	}
 else
 	{
@@ -120,9 +120,9 @@ _arma = _x;
 if ((not(_arma in _backpcksFinal)) and (not(_arma in unlockedBackpacks))) then
 	{
 	_backpcksFinal pushBack _arma;
-	_backpcksFinalCount pushBack ({_x == _arma} count _mochis);
+	_backpcksFinalCount pushBack ({_x == _arma} count _backpcks);
 	};
-} forEach _mochis;
+} forEach _backpcks;
 
 if (count _backpcksFinal > 0) then
 	{
@@ -134,25 +134,25 @@ if (count _backpcksFinal > 0) then
 
 if (count _this == 3) then
 	{
-	deleteVehicle _origen;
+	deleteVehicle _originX;
 	}
 else
 	{
-	clearMagazineCargoGlobal _origen;
-	clearWeaponCargoGlobal _origen;
-	clearItemCargoGlobal _origen;
-	clearBackpackCargoGlobal _origen;
+	clearMagazineCargoGlobal _originX;
+	clearWeaponCargoGlobal _originX;
+	clearItemCargoGlobal _originX;
+	clearBackpackCargoGlobal _originX;
 	};
 
 if (_destinationX == caja) then
 	{
 	if (isMultiplayer) then {{if (_x distance caja < 10) then {[petros,"hint","Ammobox Loaded"] remoteExec ["A3A_fnc_commsMP",_x]}} forEach playableUnits} else {hint "Ammobox Loaded"};
-	if ((_origen isKindOf "ReammoBox_F") and (_origen != vehicleBox)) then {deleteVehicle _origen};
+	if ((_originX isKindOf "ReammoBox_F") and (_originX != vehicleBox)) then {deleteVehicle _originX};
 	_updated = [] call A3A_fnc_arsenalManage;
 	if (_updated != "") then
 		{
 		_updated = format ["Arsenal Updated<br/><br/>%1",_updated];
-		[petros,"income",_updated] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
+		[petros,"income",_updated] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
 		};
 	}
 else

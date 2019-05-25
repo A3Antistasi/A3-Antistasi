@@ -1,4 +1,4 @@
-private ["_muerto","_killer","_coste","_enemy","_grupo"];
+private ["_muerto","_killer","_costs","_enemy","_group"];
 _muerto = _this select 0;
 _killer = _this select 1;
 if (_muerto getVariable ["spawner",false]) then
@@ -7,9 +7,9 @@ if (_muerto getVariable ["spawner",false]) then
 	};
 
 [_muerto] spawn A3A_fnc_postmortem;
-_grupo = group _muerto;
+_group = group _muerto;
 _lado = side (group _muerto);
-if (hayACE) then
+if (hasACE) then
 	{
 	if ((isNull _killer) || (_killer == _muerto)) then
 		{
@@ -17,7 +17,7 @@ if (hayACE) then
 		};
 	};
 //if (_killer isEqualType "") then {diag_log format ["Antistasi error in A3A_fnc_AAFKilledEH, params: %1",_this]};
-if (side (group _killer) == buenos) then
+if (side (group _killer) == teamPlayer) then
 	{
 	if (isPlayer _killer) then
 		{
@@ -88,7 +88,7 @@ else
 	};
 _markerX = _muerto getVariable "markerX";
 _garrisoned = true;
-if (isNil "_markerX") then {_markerX = _muerto getVariable ["origen",""]; _garrisoned = false};
+if (isNil "_markerX") then {_markerX = _muerto getVariable ["originX",""]; _garrisoned = false};
 if (_markerX != "") then
 	{
 	if (lados getVariable [_markerX,sideUnknown] == _lado) then
@@ -97,5 +97,5 @@ if (_markerX != "") then
 		if (_garrisoned) then {[_markerX,_lado] remoteExec ["A3A_fnc_zoneCheck",2]};
 		};
 	};
-[_grupo,_killer] spawn A3A_fnc_AIreactOnKill;
+[_group,_killer] spawn A3A_fnc_AIreactOnKill;
 

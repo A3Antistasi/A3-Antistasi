@@ -1,15 +1,15 @@
-private ["_mrkDestination","_mrkOrigin","_numero","_lado","_typeGroup","_typeVehX","_indice","_spawnPoint","_pos","_timeOut","_veh","_grupo","_landPos","_Vwp0","_posOrigin","_land","_pos1","_pos2"];
+private ["_mrkDestination","_mrkOrigin","_number","_lado","_typeGroup","_typeVehX","_indexX","_spawnPoint","_pos","_timeOut","_veh","_group","_landPos","_Vwp0","_posOrigin","_land","_pos1","_pos2"];
 
 _mrkDestination = _this select 0;
 _mrkOrigin = _this select 1;
-_numero = _this select 2;
+_number = _this select 2;
 _lado = _this select 3;
-diag_log format ["Antistasi. PatrolReinf. Dest:%1, Orig:%2, Size:%3, Side: %4",_mrkDestination,_mrkOrigin,_numero,_lado];
+diag_log format ["Antistasi. PatrolReinf. Dest:%1, Orig:%2, Size:%3, Side: %4",_mrkDestination,_mrkOrigin,_number,_lado];
 _posDestination = getMarkerPos _mrkDestination;
 _posOrigin = getMarkerPos _mrkOrigin;
 
 _land = if (_posOrigin distance _posDestination > distanceForLandAttack) then {false} else {true};
-_typeGroup = if (_lado == Occupants) then {if (_numero == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
+_typeGroup = if (_lado == Occupants) then {if (_number == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_number == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
 _typeVehX = "";
 if (_land) then
 	{
@@ -18,19 +18,19 @@ if (_land) then
 else
 	{
 	_vehPool = if (_lado == Occupants) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
-	if ((_numero > 4) and (count _vehPool > 1) and !hayIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
+	if ((_number > 4) and (count _vehPool > 1) and !hasIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
 	//_vehPool = _vehPool select {(_x isKindOf "Helicopter") and (_x in vehFastRope)};
 	_typeVehX = selectRandom _vehPool;
 	};
 
 _pos = [];
 _veh = objNull;
-_grupo = grpNull;
+_group = grpNull;
 
 if (_land) then
 	{
-	_indice = airportsX find _mrkOrigin;
-	_spawnPoint = spawnPoints select _indice;
+	_indexX = airportsX find _mrkOrigin;
+	_spawnPoint = spawnPoints select _indexX;
 	_pos = getMarkerPos _spawnPoint;
 	_timeOut = 0;
 	_pos = _pos findEmptyPosition [0,100,_typeVehX];
@@ -44,8 +44,8 @@ if (_land) then
 	if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
 	_veh = _typeVehX createVehicle _pos;
 	_veh setDir (markerDir _spawnPoint);
-	_grupo = [_pos,_lado, _typeGroup] call A3A_fnc_spawnGroup;
-	_grupo addVehicle _veh;
+	_group = [_pos,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+	_group addVehicle _veh;
 	{
 	if (_x == leader _x) then {_x assignAsDriver _veh;_x moveInDriver _veh} else {_x assignAsCargo _veh;_x moveInCargo _veh};
 
@@ -57,14 +57,14 @@ if (_land) then
 		{
 		[_x] call A3A_fnc_NATOinit;
 		};
-	} forEach units _grupo;
+	} forEach units _group;
 	[_veh] call A3A_fnc_AIVEHinit;
 	[_veh,"Inf Truck."] spawn A3A_fnc_inmuneConvoy;
-	_grupo spawn A3A_fnc_attackDrillAI;
-	[_mrkOrigin,_posDestination,_grupo] call WPCreate;
-	_Vwp0 = (wayPoints _grupo) select 0;
+	_group spawn A3A_fnc_attackDrillAI;
+	[_mrkOrigin,_posDestination,_group] call WPCreate;
+	_Vwp0 = (wayPoints _group) select 0;
 	_Vwp0 setWaypointBehaviour "SAFE";
-	_Vwp0 = _grupo addWaypoint [_posDestination, count (wayPoints _grupo)];
+	_Vwp0 = _group addWaypoint [_posDestination, count (wayPoints _group)];
 	_Vwp0 setWaypointType "GETOUT";
 	_Vwp0 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] remoteExec [""A3A_fnc_garrisonUpdate"",2];[group this] spawn A3A_fnc_groupDespawner; reinfPatrols = reinfPatrols - 1; publicVariable ""reinfPatrols"";"];
 	}
@@ -93,7 +93,7 @@ else
 	} forEach units _groupVeh;
 	[_veh] call A3A_fnc_AIVEHinit;
 
-	_grupo = [_posOrigin,_lado,_typeGroup] call A3A_fnc_spawnGroup;
+	_group = [_posOrigin,_lado,_typeGroup] call A3A_fnc_spawnGroup;
 	{
 	_x assignAsCargo _veh;
 	_x moveInCargo _veh;
@@ -105,7 +105,7 @@ else
 		{
 		[_x] call A3A_fnc_NATOinit;
 		};
-	} forEach units _grupo;
+	} forEach units _group;
 	_landPos = if (_typeVehX isKindOf "Helicopter") then {[_posDestination, 0, 300, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos} else {[0,0,0]};
 	if !(_landPos isEqualTo [0,0,0]) then
 		{
@@ -116,11 +116,11 @@ else
 		_wp0 setWaypointType "TR UNLOAD";
 		_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';deleteVehicle ((group this) getVariable [""myPad"",objNull])"];
 		_wp0 setWaypointBehaviour "CARELESS";
-		_wp3 = _grupo addWaypoint [_landpos, 0];
+		_wp3 = _group addWaypoint [_landpos, 0];
 		_wp3 setWaypointType "GETOUT";
 		_wp3 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
 		_wp0 synchronizeWaypoint [_wp3];
-		_wp4 = _grupo addWaypoint [_posDestination, 1];
+		_wp4 = _group addWaypoint [_posDestination, 1];
 		_wp4 setWaypointType "MOVE";
 		_wp4 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] remoteExec [""A3A_fnc_garrisonUpdate"",2];[group this] spawn A3A_fnc_groupDespawner; reinfPatrols = reinfPatrols - 1; publicVariable ""reinfPatrols"";"];
 		_wp2 = _groupVeh addWaypoint [_posOrigin, 1];
@@ -132,34 +132,34 @@ else
 		{
 		if (_typeVehX in vehFastRope) then
 			{
-			[_veh,_grupo,_posDestination,_posOrigin,_groupVeh,true] spawn A3A_fnc_fastrope;
+			[_veh,_group,_posDestination,_posOrigin,_groupVeh,true] spawn A3A_fnc_fastrope;
 			}
 		else
 			{
-			[_veh,_grupo,_posDestination,_mrkOrigin,true] spawn A3A_fnc_airdrop;
+			[_veh,_group,_posDestination,_mrkOrigin,true] spawn A3A_fnc_airdrop;
 			};
 		};
 	};
 
 reinfPatrols = reinfPatrols + 1; publicVariable "reinfPatrols";
-_grupo setVariable ["reinfMarker",_mrkDestination];
-_grupo setVariable ["origen",_mrkOrigin];
+_group setVariable ["reinfMarker",_mrkDestination];
+_group setVariable ["originX",_mrkOrigin];
 {
 _x addEventHandler ["Killed",
 	{
 	_unit = _this select 0;
-	_grupo = group _unit;
-	if ({alive _x} count units _grupo == 0) then
+	_group = group _unit;
+	if ({alive _x} count units _group == 0) then
 		{
 		reinfPatrols = reinfPatrols - 1; publicVariable "reinfPatrols";
-		_origen = _grupo getVariable "origen";
-		_destinationX = _grupo getVariable "reinfMarker";
-		if (((lados getVariable [_origen,sideUnknown] == Occupants) and (lados getVariable [_destinationX,sideUnknown] == Occupants)) or ((lados getVariable [_origen,sideUnknown] == ) and (lados getVariable [_destinationX,sideUnknown] == ))) then
+		_originX = _group getVariable "originX";
+		_destinationX = _group getVariable "reinfMarker";
+		if (((lados getVariable [_originX,sideUnknown] == Occupants) and (lados getVariable [_destinationX,sideUnknown] == Occupants)) or ((lados getVariable [_originX,sideUnknown] == ) and (lados getVariable [_destinationX,sideUnknown] == ))) then
 			{
-			_killzones = killZones getVariable [_origen,[]];
+			_killzones = killZones getVariable [_originX,[]];
 			_killzones pushBack _destinationX;
-			killZones setVariable [_origen,_killzones,true];
+			killZones setVariable [_originX,_killzones,true];
 			}
 		};
 	}];
-} forEach units _grupo;
+} forEach units _group;

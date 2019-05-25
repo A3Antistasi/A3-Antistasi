@@ -11,7 +11,7 @@ _salir = true;
 _enemy1 = "";
 _enemy2 = "";
 
-if ((_lado == buenos) and (lados getVariable [_markerX,sideUnknown] == buenos)) then
+if ((_lado == teamPlayer) and (lados getVariable [_markerX,sideUnknown] == teamPlayer)) then
 	{
 	_salir = false;
 	_enemy1 = ;
@@ -23,7 +23,7 @@ else
 		{
 		_salir = false;
 		_enemy1 = ;
-		_enemy2 = buenos;
+		_enemy2 = teamPlayer;
 		}
 	else
 		{
@@ -31,7 +31,7 @@ else
 			{
 			_salir = false;
 			_enemy1 = Occupants;
-			_enemy2 = buenos;
+			_enemy2 = teamPlayer;
 			};
 		};
 	};

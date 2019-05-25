@@ -1,7 +1,7 @@
-private _grupo = _this;
+private _group = _this;
 private _result = objNull;
 
-_enemiesX = _grupo getVariable ["objectivesX",[]];
+_enemiesX = _group getVariable ["objectivesX",[]];
 if (count _enemiesX > 0) then
 	{
 	for "_i" from 0 to (count _enemiesX) - 1 do

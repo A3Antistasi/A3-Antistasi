@@ -4,5 +4,5 @@ deleteVehicle fuego;
 fuego = createVehicle [_typeFire,_pos, [], 0, "CAN_COLLIDE"];
 publicVariable "fuego";
 fuego allowDamage false;
-[fuego,"fuego"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian]];
+[fuego,"fuego"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian]];
 

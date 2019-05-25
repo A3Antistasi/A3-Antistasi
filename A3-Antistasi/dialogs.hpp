@@ -701,7 +701,7 @@ class buy_vehicle 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticATBuenos] spawn A3A_fnc_addFIAveh;";
+			action = "closeDialog 0;nul = [staticATteamPlayer] spawn A3A_fnc_addFIAveh;";
 		};
 
 		class HQ_button_AA: RscButton
@@ -712,7 +712,7 @@ class buy_vehicle 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticAABuenos] spawn A3A_fnc_addFIAveh;";
+			action = "closeDialog 0;nul = [staticAAteamPlayer] spawn A3A_fnc_addFIAveh;";
 		};
 	};
 };
@@ -2175,7 +2175,7 @@ class squad_recruit 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticAABuenos] spawn A3A_fnc_addFIAsquadHC";
+			action = "closeDialog 0;nul = [staticAAteamPlayer] spawn A3A_fnc_addFIAsquadHC";
 		};
 
 		class HQ_button_mortar: RscButton
@@ -2595,7 +2595,7 @@ class rounds_number {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;rondas = 1;";
+			action = "closeDialog 0;roundsX = 1;";
 		};
 		class HQ_button_CONV: RscButton
 		{
@@ -2605,7 +2605,7 @@ class rounds_number {
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;rondas = 2";
+			action = "closeDialog 0;roundsX = 2";
 		};
 		class HQ_button_DES: RscButton
 		{
@@ -2615,7 +2615,7 @@ class rounds_number {
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; rondas = 3";
+			action = "closeDialog 0; roundsX = 3";
 		};
 		class HQ_button_LOG: RscButton
 		{
@@ -2625,7 +2625,7 @@ class rounds_number {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;rondas = 5";
+			action = "closeDialog 0;roundsX = 5";
 		};
 		class HQ_button_RES: RscButton
 		{
@@ -2635,7 +2635,7 @@ class rounds_number {
 			y = 0.514003 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;rondas = 7";
+			action = "closeDialog 0;roundsX = 7";
 		};
 		class HQ_button_vehicle: RscButton
 		{
@@ -2645,7 +2645,7 @@ class rounds_number {
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;rondas = 6";
+			action = "closeDialog 0;roundsX = 6";
 		};
 		class HQ_button_fpsplus: RscButton
 		{
@@ -2655,7 +2655,7 @@ class rounds_number {
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; rondas = 4";
+			action = "closeDialog 0; roundsX = 4";
 		};
 
 		class HQ_button_AA: RscButton
@@ -2666,7 +2666,7 @@ class rounds_number {
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;rondas = 8";
+			action = "closeDialog 0;roundsX = 8";
 		};
 	};
 };

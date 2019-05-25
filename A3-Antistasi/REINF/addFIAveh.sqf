@@ -2,27 +2,27 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot bu
 
 if ([player,300] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
 
-private ["_typeVehX","_coste","_resourcesFIA","_markerX","_pos","_veh","_typeVehX"];
+private ["_typeVehX","_costs","_resourcesFIA","_markerX","_pos","_veh","_typeVehX"];
 
 _typeVehX = _this select 0;
 if (_typeVehX == "not_supported") exitWith {hint "The vehicle you requested is not supported in your current modset"};
 
-_coste = [_typeVehX] call A3A_fnc_vehiclePrice;
+_costs = [_typeVehX] call A3A_fnc_vehiclePrice;
 
 if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else
 	{
 	if (player != theBoss) then
 		{
-		_resourcesFIA = player getVariable "dinero";
+		_resourcesFIA = player getVariable "moneyX";
 		}
 	else
 		{
-		if ((_typeVehX == SDKMortar) or (_typeVehX == staticATBuenos) or (_typeVehX == staticAABuenos) or (_typeVehX == SDKMGStatic)) then {_resourcesFIA = server getVariable "resourcesFIA"} else {_resourcesFIA = player getVariable "dinero"};
+		if ((_typeVehX == SDKMortar) or (_typeVehX == staticATteamPlayer) or (_typeVehX == staticAAteamPlayer) or (_typeVehX == SDKMGStatic)) then {_resourcesFIA = server getVariable "resourcesFIA"} else {_resourcesFIA = player getVariable "moneyX"};
 		};
 	};
 
-if (_resourcesFIA < _coste) exitWith {hint format ["You do not have enough money for this vehicle: %1 € required",_coste]};
-_nearX = [markersX select {lados getVariable [_x,sideUnknown] == buenos},player] call BIS_fnc_nearestPosition;
+if (_resourcesFIA < _costs) exitWith {hint format ["You do not have enough money for this vehicle: %1 € required",_costs]};
+_nearX = [markersX select {lados getVariable [_x,sideUnknown] == teamPlayer},player] call BIS_fnc_nearestPosition;
 if !(player inArea _nearX) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
 
 garageVeh = _typeVehX createVehicleLocal [0,0,1000];
@@ -124,31 +124,31 @@ _veh setPosASL _pos;
 if (_veh isKindOf "Car") then {_veh setPlateNumber format ["%1",name player]};
 if (!isMultiplayer) then
 	{
-	[0,(-1* _coste)] spawn A3A_fnc_resourcesFIA;
+	[0,(-1* _costs)] spawn A3A_fnc_resourcesFIA;
 	}
 else
 	{
 	if (player != theBoss) then
 		{
-		[-1* _coste] call A3A_fnc_resourcesPlayer;
-		["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
-		_veh setVariable ["duenyo",getPlayerUID player,true];
+		[-1* _costs] call A3A_fnc_resourcesPlayer;
+		["moneyX",player getVariable ["moneyX",0]] call fn_SaveStat;
+		_veh setVariable ["ownerX",getPlayerUID player,true];
 		}
 	else
 		{
-		if ((_typeVehX == SDKMortar) or (_typeVehX == staticATBuenos) or (_typeVehX == staticAABuenos) or (_typeVehX == SDKMGStatic)) then
+		if ((_typeVehX == SDKMortar) or (_typeVehX == staticATteamPlayer) or (_typeVehX == staticAAteamPlayer) or (_typeVehX == SDKMGStatic)) then
 			{
-			_nul = [0,(-1* _coste)] remoteExecCall ["A3A_fnc_resourcesFIA",2]
+			_nul = [0,(-1* _costs)] remoteExecCall ["A3A_fnc_resourcesFIA",2]
 			}
 		else
 			{
-			[-1* _coste] call A3A_fnc_resourcesPlayer;
-			["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
-			_veh setVariable ["duenyo",getPlayerUID player,true];
+			[-1* _costs] call A3A_fnc_resourcesPlayer;
+			["moneyX",player getVariable ["moneyX",0]] call fn_SaveStat;
+			_veh setVariable ["ownerX",getPlayerUID player,true];
 			};
 		};
 	};
-//if ((_typeVehX == SDKMortar) or (_typeVehX == staticATBuenos) or (_typeVehX == staticAABuenos) or (_typeVehX == SDKMGStatic)) then {staticsToSave pushBackUnique _veh; publicVariable "staticsToSave"};
+//if ((_typeVehX == SDKMortar) or (_typeVehX == staticATteamPlayer) or (_typeVehX == staticAAteamPlayer) or (_typeVehX == SDKMGStatic)) then {staticsToSave pushBackUnique _veh; publicVariable "staticsToSave"};
 if (_veh isKindOf "StaticWeapon") then {staticsToSave pushBackUnique _veh; publicVariable "staticsToSave"};
 
 //hint "Vehicle Purchased";

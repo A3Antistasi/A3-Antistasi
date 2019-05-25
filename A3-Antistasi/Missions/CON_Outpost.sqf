@@ -12,7 +12,7 @@ _groupContact = grpNull;
 _tsk = "";
 _positionX = getMarkerPos _markerX;
 _timeLimit = if (_difficultX) then {30} else {90};//120
-if (hayIFA) then {_timeLimit = _timeLimit * 2};
+if (hasIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
@@ -31,9 +31,9 @@ else
 	};
 
 
-[[buenos,civilian],"CON",[_texto,_taskName,_markerX],_positionX,false,0,true,"Target",true] call BIS_fnc_taskCreate;
+[[teamPlayer,civilian],"CON",[_texto,_taskName,_markerX],_positionX,false,0,true,"Target",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["CON","CREATED"]; publicVariable "missionsX";
-waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (lados getVariable [_markerX,sideUnknown] == buenos)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (lados getVariable [_markerX,sideUnknown] == teamPlayer)};
 
 if (dateToNumber date > _dateLimitNum) then
 	{
@@ -60,7 +60,7 @@ else
 		[0,400] remoteExec ["A3A_fnc_resourcesFIA",2];
 		[-10,0,_positionX] remoteExec ["A3A_fnc_citySupportChange",2];
 		[1200] remoteExec ["A3A_fnc_timingCA",2];
-		{if (isPlayer _x) then {[20,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_positionX,buenos] call A3A_fnc_distanceUnits);
+		{if (isPlayer _x) then {[20,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
 		[20,theBoss] call A3A_fnc_playerScoreAdd;
 		}
 	else
@@ -68,7 +68,7 @@ else
 		[0,200] remoteExec ["A3A_fnc_resourcesFIA",2];
 		[-5,0,_positionX] remoteExec ["A3A_fnc_citySupportChange",2];
 		[600] remoteExec ["A3A_fnc_timingCA",2];
-		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_positionX,buenos] call A3A_fnc_distanceUnits);
+		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
 		[10,theBoss] call A3A_fnc_playerScoreAdd;
 		};
 	};

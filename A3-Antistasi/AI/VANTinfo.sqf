@@ -1,4 +1,4 @@
-private ["_veh","_markerX","_positionX","_grupos","_knownX","_grupo","_lider"];
+private ["_veh","_markerX","_positionX","_groups","_knownX","_group","_lider"];
 
 _veh = _this select 0;
 _markerX = _this select 1;
@@ -11,15 +11,15 @@ _enemiesS = if (_lado == ) then {Occupants} else {};
 while {alive _veh} do
 	{
 	_knownX = [];
-	_grupos = [];
+	_groups = [];
 	_enemiesX = [distanceSPWN,0,_positionX,_lado] call A3A_fnc_distanceUnits;
 	sleep 60;
-	_grupos = allGroups select {(leader _x in _enemiesX) and ((vehicle leader _x) != (leader _x))};
-	_knownX = allUnits select {((side _x == buenos) or (side _x == _enemiesS)) and (alive _x) and (_x distance _positionX < 500)};
+	_groups = allGroups select {(leader _x in _enemiesX) and ((vehicle leader _x) != (leader _x))};
+	_knownX = allUnits select {((side _x == teamPlayer) or (side _x == _enemiesS)) and (alive _x) and (_x distance _positionX < 500)};
 	{
-	_grupo = _x;
+	_group = _x;
 		{
-		_grupo reveal [_x,1.4];
+		_group reveal [_x,1.4];
 		} forEach _knownX;
-	} forEach _grupos;
+	} forEach _groups;
 	};

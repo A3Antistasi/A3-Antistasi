@@ -1,11 +1,11 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_vehiclesX","_grupos","_soldiers","_positionX","_pos","_size","_veh","_staticsX","_garrison","_tam","_cuenta","_grupo","_groupMortar","_tipo","_unit"];
+private ["_markerX","_vehiclesX","_groups","_soldiers","_positionX","_pos","_size","_veh","_staticsX","_garrison","_tam","_countX","_group","_groupMortar","_tipo","_unit"];
 
 _markerX = _this select 0;
 
 _vehiclesX = [];
-_grupos = [];
+_groups = [];
 _soldiers = [];
 _civs = [];
 //_typeCiv = "";
@@ -20,13 +20,13 @@ if (_markerX != "Synd_HQ") then
 	if (!(_markerX in citiesX)) then
 		{
 		_veh = createVehicle [SDKFlag, _positionX, [],0, "CAN_COLLIDE"];
-		if (hayIFA) then {_veh setFlagTexture SDKFlagTexture};
+		if (hasIFA) then {_veh setFlagTexture SDKFlagTexture};
 		_veh allowDamage false;
 		_vehiclesX pushBack _veh;
 		[_veh,"SDKFlag"] remoteExec ["A3A_fnc_flagaction",0,_veh];
-		//[_veh,"unit"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
-		//[_veh,"vehicle"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
-		//[_veh,"garage"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
+		//[_veh,"unit"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_veh];
+		//[_veh,"vehicle"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_veh];
+		//[_veh,"garage"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_veh];
 		};
 	if ((_markerX in resourcesX) or (_markerX in factories)) then
 		{
@@ -34,13 +34,13 @@ if (_markerX != "Synd_HQ") then
 			{
 			if ((daytime > 8) and (daytime < 18)) then
 				{
-				_grupo = createGroup civilian;
-				_grupos pushBack _grupo;
+				_group = createGroup civilian;
+				_groups pushBack _group;
 				for "_i" from 1 to 4 do
 					{
 					if (spawner getVariable _markerX != 2) then
 						{
-						_civ = _grupo createUnit ["C_man_w_worker_F", _positionX, [],0, "NONE"];
+						_civ = _group createUnit ["C_man_w_worker_F", _positionX, [],0, "NONE"];
 						_nul = [_civ] spawn A3A_fnc_CIVinit;
 						_civs pushBack _civ;
 						_civ setVariable ["markerX",_markerX,true];
@@ -50,31 +50,31 @@ if (_markerX != "Synd_HQ") then
 							if (({alive _x} count units group (_this select 0)) == 0) then
 								{
 								_markerX = (_this select 0) getVariable "markerX";
-								_nombre = [_markerX] call A3A_fnc_localizar;
+								_nameX = [_markerX] call A3A_fnc_localizar;
 								destroyedCities pushBackUnique _markerX;
 								publicVariable "destroyedCities";
-								["TaskFailed", ["", format ["%1 Destroyed",_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
+								["TaskFailed", ["", format ["%1 Destroyed",_nameX]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
 								};
 							}];
 						};
 					};
 				//_nul = [_markerX,_civs] spawn destroyCheck;
-				_nul = [leader _grupo, _markerX, "SAFE", "SPAWNED","NOFOLLOW", "NOSHARE","DORELAX","NOVEH2"] execVM "scripts\UPSMON.sqf";
+				_nul = [leader _group, _markerX, "SAFE", "SPAWNED","NOFOLLOW", "NOSHARE","DORELAX","NOVEH2"] execVM "scripts\UPSMON.sqf";
 				};
 			};
 		};
 	if (_markerX in seaports) then
 		{
-		[_veh,"seaport"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
+		[_veh,"seaport"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_veh];
 		};
 	};
 _staticsX = staticsToSave select {_x distance _positionX < _size};
 
 _garrison = [];
 _garrison = _garrison + (garrison getVariable [_markerX,[]]);
-_grupo = createGroup buenos;
-_grupoEst = createGroup buenos;
-_groupMortar = createGroup buenos;
+_group = createGroup teamPlayer;
+_groupEst = createGroup teamPlayer;
+_groupMortar = createGroup teamPlayer;
 {
 _index = _garrison findIf {_x in SDKMil};
 if (_index == -1) exitWith {};
@@ -86,7 +86,7 @@ if (typeOf _x == SDKMortar) then
 	}
 else
 	{
-	_unit = _grupoEst createUnit [(_garrison select _index), _positionX, [], 0, "NONE"];
+	_unit = _groupEst createUnit [(_garrison select _index), _positionX, [], 0, "NONE"];
 	_unit moveInGunner _x;
 	};
 [_unit,_markerX] call A3A_fnc_FIAinitBases;
@@ -111,35 +111,35 @@ if (staticCrewTeamPlayer in _garrison) then
 	};
 _garrison = _garrison call A3A_fnc_garrisonReorg;
 _tam = count _garrison;
-_cuenta = 0;
+_countX = 0;
 _countGroup = 0;
-while {(spawner getVariable _markerX != 2) and (_cuenta < _tam)} do
+while {(spawner getVariable _markerX != 2) and (_countX < _tam)} do
 	{
-	_tipo = _garrison select _cuenta;
-	_unit = _grupo createUnit [_tipo, _positionX, [], 0, "NONE"];
-	if (_tipo in SDKSL) then {_grupo selectLeader _unit};
+	_tipo = _garrison select _countX;
+	_unit = _group createUnit [_tipo, _positionX, [], 0, "NONE"];
+	if (_tipo in SDKSL) then {_group selectLeader _unit};
 	[_unit,_markerX] call A3A_fnc_FIAinitBases;
 	_soldiers pushBack _unit;
-	_cuenta = _cuenta + 1;
+	_countX = _countX + 1;
 	sleep 0.5;
 	if (_countGroup == 8) then
 		{
-		_grupo = createGroup buenos;
-		_grupos pushBack _grupo;
+		_group = createGroup teamPlayer;
+		_groups pushBack _group;
 		_countGroup = 0;
 		};
 	};
 
-for "_i" from 0 to (count _grupos) - 1 do
+for "_i" from 0 to (count _groups) - 1 do
 	{
-	_grupo = _grupos select _i;
+	_group = _groups select _i;
 	if (_i == 0) then
 		{
-		_nul = [leader _grupo, _markerX, "SAFE","SPAWNED","RANDOMUP","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+		_nul = [leader _group, _markerX, "SAFE","SPAWNED","RANDOMUP","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 		}
 	else
 		{
-		_nul = [leader _grupo, _markerX, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+		_nul = [leader _group, _markerX, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 		};
 	};
 waitUntil {sleep 1; (spawner getVariable _markerX == 2)};
@@ -153,7 +153,7 @@ if (alive _soldierX) then
 } forEach _soldiers;
 {deleteVehicle _x} forEach _civs;
 //if (!isNull _periodista) then {deleteVehicle _periodista};
-{deleteGroup _x} forEach _grupos;
-deleteGroup _grupoEst;
+{deleteGroup _x} forEach _groups;
+deleteGroup _groupEst;
 deleteGroup _groupMortar;
 {if (!(_x in staticsToSave)) then {deleteVehicle _x}} forEach _vehiclesX;

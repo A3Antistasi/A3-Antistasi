@@ -1,5 +1,5 @@
 if !(membershipEnabled) exitWith {hint "Server Member feature is disabled"};
-private ["_cuenta"];
+private ["_countX"];
 _texto = "In Game Members\n\n";
 _countN = 0;
 

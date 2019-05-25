@@ -1,4 +1,4 @@
-private ["_positionTel","_nearX","_cosa","_grupo","_unitsX","_salir"];
+private ["_positionTel","_nearX","_cosa","_group","_unitsX","_salir"];
 if (!visibleMap) then {openMap true};
 positionTel = [];
 _cosa = _this select 0;
@@ -18,19 +18,19 @@ _nearX = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 
 if !(_positionTel inArea _nearX) exitWith {hint "You must click near a marked zone"};
 
-if (not(lados getVariable [_nearX,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]};
+if (not(lados getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]};
 
 if ((_nearX in outpostsFIA) and !(isOnRoad getMarkerPos _nearX)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
 
 _cosa = _this select 0;
 
-_grupo = grpNull;
+_group = grpNull;
 _unitsX = objNull;
 
 if ((_cosa select 0) isEqualType grpNull) then
 	{
-	_grupo = _cosa select 0;
-	_unitsX = units _grupo;
+	_group = _cosa select 0;
+	_unitsX = units _group;
 	}
 else
 	{
@@ -45,21 +45,21 @@ if ((typeOf _x == staticCrewTeamPlayer) or (typeOf _x == SDKUnarmed) or (typeOf 
 
 if (_salir) exitWith {hint "Static crewman, prisoners, refugees or dead units cannot be added to any garrison"};
 
-if ((groupID _grupo == "MineF") or (groupID _grupo == "Watch") or (isPlayer(leader _grupo))) exitWith {hint "You cannot garrison player led, Watchpost, Roadblocks or Minefield building squads"};
+if ((groupID _group == "MineF") or (groupID _group == "Watch") or (isPlayer(leader _group))) exitWith {hint "You cannot garrison player led, Watchpost, Roadblocks or Minefield building squads"};
 
 
-if (isNull _grupo) then
+if (isNull _group) then
 	{
-	_grupo = createGroup buenos;
-	_unitsX joinSilent _grupo;
+	_group = createGroup teamPlayer;
+	_unitsX joinSilent _group;
 	//{arrayids = arrayids + [name _x]} forEach _unitsX;
 	hint "Adding units to garrison";
-	if !(hayIFA) then {{arrayids pushBackUnique (name _x)} forEach _unitsX};
+	if !(hasIFA) then {{arrayids pushBackUnique (name _x)} forEach _unitsX};
 	}
 else
 	{
-	hint format ["Adding %1 squad to garrison", groupID _grupo];
-	theBoss hcRemoveGroup _grupo;
+	hint format ["Adding %1 squad to garrison", groupID _group];
+	theBoss hcRemoveGroup _group;
 	};
 /*
 _garrison = [];
@@ -68,14 +68,14 @@ _garrison = _garrison + (garrison getVariable [_nearX,[]]);
 garrison setVariable [_nearX,_garrison,true];
 [_nearX] call A3A_fnc_mrkUpdate;
 */
-[_unitsX,buenos,_nearX,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
+[_unitsX,teamPlayer,_nearX,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
 _noBorrar = false;
 
 if (spawner getVariable _nearX != 2) then
 	{
 
-	{deleteWaypoint _x} forEach waypoints _grupo;
-	_wp = _grupo addWaypoint [(getMarkerPos _nearX), 0];
+	{deleteWaypoint _x} forEach waypoints _group;
+	_wp = _group addWaypoint [(getMarkerPos _nearX), 0];
 	_wp setWaypointType "MOVE";
 	{
 	_x setVariable ["markerX",_nearX,true];
@@ -85,7 +85,7 @@ if (spawner getVariable _nearX != 2) then
 		_markerX = _muerto getVariable "markerX";
 		if (!isNil "_markerX") then
 			{
-			if (lados getVariable [_markerX,sideUnknown] == buenos) then
+			if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
 				{
 				/*
 				_garrison = [];
@@ -100,15 +100,15 @@ if (spawner getVariable _nearX != 2) then
 					};
 				[_markerX] call A3A_fnc_mrkUpdate;
 				*/
-				[typeOf _muerto,buenos,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
+				[typeOf _muerto,teamPlayer,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
 				_muerto setVariable [_markerX,nil,true];
 				};
 			};
 		}];
 	} forEach _unitsX;
 
-	waitUntil {sleep 1; (spawner getVariable _nearX == 2 or !(lados getVariable [_nearX,sideUnknown] == buenos))};
-	if (!(lados getVariable [_nearX,sideUnknown] == buenos)) then {_noBorrar = true};
+	waitUntil {sleep 1; (spawner getVariable _nearX == 2 or !(lados getVariable [_nearX,sideUnknown] == teamPlayer))};
+	if (!(lados getVariable [_nearX,sideUnknown] == teamPlayer)) then {_noBorrar = true};
 	};
 
 if (!_noBorrar) then
@@ -119,11 +119,11 @@ if (!_noBorrar) then
 		deleteVehicle _x
 		};
 	} forEach _unitsX;
-	deleteGroup _grupo;
+	deleteGroup _group;
 	}
 else
 	{
-	//añadir el grupo al HC y quitarles variables
+	//añadir el group al HC y quitarles variables
 	{
 	if (alive _x) then
 		{
@@ -133,7 +133,7 @@ else
 			_muerto = _this select 0;
 			_killer = _this select 1;
 			[_muerto] remoteExec ["A3A_fnc_postmortem",2];
-			if ((isPlayer _killer) and (side _killer == buenos)) then
+			if ((isPlayer _killer) and (side _killer == teamPlayer)) then
 				{
 				if (!isMultiPlayer) then
 					{
@@ -157,7 +157,7 @@ else
 			}];
 		};
 	} forEach _unitsX;
-	theBoss hcSetGroup [_grupo];
-	hint format ["Group %1 is back to HC control because the zone which was pointed to garrison has been lost",groupID _grupo];
+	theBoss hcSetGroup [_group];
+	hint format ["Group %1 is back to HC control because the zone which was pointed to garrison has been lost",groupID _group];
 	};
 

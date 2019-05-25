@@ -13,7 +13,7 @@ if !(hasACEMedical) then
 	_viejo setVariable ["INCAPACITATED",false,true];
 	_nuevo setVariable ["INCAPACITATED",false,true];
 	};
-if (side group player == buenos) then
+if (side group player == teamPlayer) then
 	{
 	_owner = _viejo getVariable ["owner",_viejo];
 
@@ -23,19 +23,19 @@ if (side group player == buenos) then
 
 	_score = _viejo getVariable ["score",0];
 	_punish = _viejo getVariable ["punish",0];
-	_dinero = _viejo getVariable ["dinero",0];
-	_dinero = round (_dinero - (_dinero * 0.1));
+	_moneyX = _viejo getVariable ["moneyX",0];
+	_moneyX = round (_moneyX - (_moneyX * 0.1));
 	_eligible = _viejo getVariable ["eligible",true];
 	_rango = _viejo getVariable ["rango","PRIVATE"];
 
-	_dinero = round (_dinero - (_dinero * 0.05));
-	if (_dinero < 0) then {_dinero = 0};
+	_moneyX = round (_moneyX - (_moneyX * 0.05));
+	if (_moneyX < 0) then {_moneyX = 0};
 
 	_nuevo setVariable ["score",_score -1,true];
 	_nuevo setVariable ["owner",_nuevo,true];
 	_nuevo setVariable ["punish",_punish,true];
 	_nuevo setVariable ["respawning",false];
-	_nuevo setVariable ["dinero",_dinero,true];
+	_nuevo setVariable ["moneyX",_moneyX,true];
 	//_nuevo setUnitRank (rank _viejo);
 	_nuevo setVariable ["compromised",0];
 	_nuevo setVariable ["eligible",_eligible,true];
@@ -81,8 +81,8 @@ if (side group player == buenos) then
 				{
 				_city = [citiesX,_player] call BIS_fnc_nearestPosition;
 				_size = [_city] call A3A_fnc_sizeMarker;
-				_datos = server getVariable _city;
-				if (random 100 < _datos select 2) then
+				_dataX = server getVariable _city;
+				if (random 100 < _dataX select 2) then
 					{
 					if (_player distance getMarkerPos _city < _size * 1.5) then
 						{
@@ -119,8 +119,8 @@ if (side group player == buenos) then
 					{
 					_city = [citiesX,_playerX] call BIS_fnc_nearestPosition;
 					_size = [_city] call A3A_fnc_sizeMarker;
-					_datos = server getVariable _city;
-					if (random 100 < _datos select 2) then
+					_dataX = server getVariable _city;
+					if (random 100 < _dataX select 2) then
 						{
 						if (_playerX distance getMarkerPos _city < _size * 1.5) then
 							{
@@ -192,8 +192,8 @@ if (side group player == buenos) then
 				{
 				_city = [citiesX,_player] call BIS_fnc_nearestPosition;
 				_size = [_city] call A3A_fnc_sizeMarker;
-				_datos = server getVariable _city;
-				if (random 100 < _datos select 2) then
+				_dataX = server getVariable _city;
+				if (random 100 < _dataX select 2) then
 					{
 					if (_player distance getMarkerPos _city < _size * 1.5) then
 						{
@@ -241,6 +241,6 @@ else
 	{
 	_viejo setVariable ["spawner",nil,true];
 	_nuevo setVariable ["spawner",true,true];
-	if (hayRHS) then {[player] call A3A_fnc_RHSdress};
-	if (hayACE) then {[] call A3A_fnc_ACEpvpReDress};
+	if (hasRHS) then {[player] call A3A_fnc_RHSdress};
+	if (hasACE) then {[] call A3A_fnc_ACEpvpReDress};
 	};

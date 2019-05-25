@@ -3,7 +3,7 @@ _movido = false;
 if (petros != (leader group petros)) then
 	{
 	_movido = true;
-	groupPetros = createGroup buenos;
+	groupPetros = createGroup teamPlayer;
 	publicVariable "groupPetros";
 	[petros] join groupPetros;
 	};
@@ -31,7 +31,7 @@ else
 	flagX hideObject false;
 	};
 //fuego inflame true;
-[respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",buenos,true];
+[respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",teamPlayer,true];
 [respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",civilian,true];
 _posFire = [getPos petros, 3, getDir petros] call BIS_Fnc_relPos;
 fuego setPos _posFire;
@@ -57,5 +57,5 @@ petros setBehaviour "SAFE";
 if (isNil "placementDone") then {placementDone = true; publicVariable "placementDone"};
 chopForest = false; publicVariable "chopForest";
 sleep 5;
-[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros];
+[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros];
 

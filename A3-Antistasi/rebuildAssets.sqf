@@ -32,7 +32,7 @@ if (_sitio in outposts) then
 	_antennasDead = antennasDead select {_x inArea _sitio};
 	if (count _antennasDead > 0) then
 		{
-		if (lados getVariable [_sitio, sideUnknown] != buenos) then
+		if (lados getVariable [_sitio, sideUnknown] != teamPlayer) then
 			{
 			_salir = true;
 			_texto = format ["You cannot rebuild a Radio Tower in an Outpost which does not belong to %1",nameTeamPlayer];
@@ -52,7 +52,7 @@ if (_salir) exitWith {hint format ["%1",_texto]};
 
 if (count _antennaDead == 0) then
 	{
-	_nombre = [_sitio] call A3A_fnc_localizar;
+	_nameX = [_sitio] call A3A_fnc_localizar;
 
 	hint format ["%1 Rebuilt"];
 
@@ -70,12 +70,12 @@ else
 	_antena = createVehicle ["Land_Communication_F", _antennaDead, [], 0, "NONE"];
 	antennas pushBack _antena; publicVariable "antennas";
 	{if ([antennas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,true] spawn A3A_fnc_blackout}} forEach citiesX;
-	_mrkfin = createMarker [format ["Ant%1", count antennas], _antennaDead];
-	_mrkfin setMarkerShape "ICON";
-	_mrkfin setMarkerType "loc_Transmitter";
-	_mrkfin setMarkerColor "ColorBlack";
-	_mrkfin setMarkerText "Radio Tower";
-	mrkAntennas pushBack _mrkfin;
+	_mrkFinal = createMarker [format ["Ant%1", count antennas], _antennaDead];
+	_mrkFinal setMarkerShape "ICON";
+	_mrkFinal setMarkerType "loc_Transmitter";
+	_mrkFinal setMarkerColor "ColorBlack";
+	_mrkFinal setMarkerText "Radio Tower";
+	mrkAntennas pushBack _mrkFinal;
 	publicVariable "mrkAntennas";
 	_antena addEventHandler ["Killed",
 		{
@@ -83,7 +83,7 @@ else
 		{if ([antennas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
 		_mrk = [mrkAntennas, _antena] call BIS_fnc_nearestPosition;
 		antennas = antennas - [_antena]; antennasDead = antennasDead + [getPos _antena]; deleteMarker _mrk;
-		["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
+		["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
 		["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",Occupants];
 		publicVariable "antennas"; publicVariable "antennasDead";
 		}

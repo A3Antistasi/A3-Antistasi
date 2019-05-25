@@ -11,7 +11,7 @@ if (_unit == theBoss) then
 	{
 	if (!(_x getVariable ["esNATO",false])) then
 		{
-		if ((leader _x getVariable ["spawner",false]) and ({isPlayer _x} count (units _x) == 0) and (side _x == buenos)) then
+		if ((leader _x getVariable ["spawner",false]) and ({isPlayer _x} count (units _x) == 0) and (side _x == teamPlayer)) then
 			{
 			_uds = units _x;
 				{
@@ -59,7 +59,7 @@ if (_unit == theBoss) then
 	if (group petros == group _unit) then {[] spawn A3A_fnc_buildHQ};
 	};
 //{if (groupOwner _x ==)} forEach allGroups select {(side _x == civilian) and (!isPlayer leader _x)};
-if (side group _unit == buenos) then
+if (side group _unit == teamPlayer) then
 	{
 	if ((_hr > 0) or (_resourcesX > 0)) then {[_hr,_resourcesX] spawn A3A_fnc_resourcesFIA};
 	if (membershipEnabled and pvpEnabled) then
@@ -98,4 +98,4 @@ else
 		_unit setDamage 1;
 		};
 	};
-//diag_log format ["Datos de handledisconnect: %1",_this];
+//diag_log format ["dataX de handledisconnect: %1",_this];

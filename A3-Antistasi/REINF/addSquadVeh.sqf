@@ -1,10 +1,10 @@
-private ["_veh","_esStatic","_grupo","_maxCargo"];
+private ["_veh","_esStatic","_group","_maxCargo"];
 
 if (count hcSelected player != 1) exitWith {hint "You must select one group on the HC bar"};
 
-_grupo = (hcSelected player select 0);
+_group = (hcSelected player select 0);
 
-if ((groupID _grupo == "Watch") or (groupID _grupo == "MineF")) exitwith {hint "This group has a vehicle already and their mission depends on it"};
+if ((groupID _group == "Watch") or (groupID _group == "MineF")) exitwith {hint "This group has a vehicle already and their mission depends on it"};
 
 _veh = cursortarget;
 
@@ -18,14 +18,14 @@ if ({(alive _x) and (_x in _veh)} count allUnits > 0) exitWith {hint "Selected v
 if (_veh isKindOf "StaticWeapon") exitWith {hint "You cannot assign a Static Weapon to a Squad"};
 
 _esStatic = false;
-{if (vehicle _x isKindOf "StaticWeapon") then {_esStatic = true}} forEach units _grupo;
+{if (vehicle _x isKindOf "StaticWeapon") then {_esStatic = true}} forEach units _group;
 if (_esStatic) exitWith {hint "Static Weapon Squads cannot change of vehicle"};
 
 //_maxCargo = (_veh emptyPositions "Cargo") + (_veh emptyPositions "Commander") + (_veh emptyPositions "Gunner") + (_veh emptyPositions "Driver");
 _maxCargo = (getNumber (configFile >> "CfgVehicles" >> (_tipo) >> "transportSoldier")) + (count allTurrets [_veh, true]) + 1;
-if ({alive _x} count units _grupo > _maxCargo) exitWith {hint "The vehicle selected has no room for this squad"};
+if ({alive _x} count units _group > _maxCargo) exitWith {hint "The vehicle selected has no room for this squad"};
 
-hint format ["Vehicle Assigned to %1 Squad", groupID _grupo];
+hint format ["Vehicle Assigned to %1 Squad", groupID _group];
 
 _owner = _veh getVariable "owner";
 if (!isNil "_owner") then
@@ -38,11 +38,11 @@ if (count allTurrets [_veh, false] > 0) then
 			_veh allowCrewInImmobile true;
 			};
 
-_grupo addVehicle _veh;
-_veh setVariable ["owner",_grupo,true];
+_group addVehicle _veh;
+_veh setVariable ["owner",_group,true];
 
-leader _grupo assignAsDriver _veh;
-{[_x] orderGetIn true; [_x] allowGetIn true} forEach units _grupo;
+leader _group assignAsDriver _veh;
+{[_x] orderGetIn true; [_x] allowGetIn true} forEach units _group;
 
 
 

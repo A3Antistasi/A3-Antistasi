@@ -1,7 +1,7 @@
-private ["_veh","_grupo","_positionX","_posOrigin","_heli","_landpos","_wp","_d","_wp2","_wp3","_xRef","_yRef","_reinf","_dist"];
+private ["_veh","_group","_positionX","_posOrigin","_heli","_landpos","_wp","_d","_wp2","_wp3","_xRef","_yRef","_reinf","_dist"];
 
 _veh = _this select 0;
-_grupo = _this select 1;
+_group = _this select 1;
 _positionX = _this select 2;
 _posOrigin = _this select 3;
 _heli = _this select 4;
@@ -72,7 +72,7 @@ if (alive _veh) then
 		sleep 0.5;
 		};
 	sleep 5 + random 2;
-	} forEach units _grupo;
+	} forEach units _group;
 	};
 
 waitUntil {sleep 1; (not alive _veh) or ((count assignedCargo _veh == 0) and (count attachedObjects _veh == 0))};
@@ -84,18 +84,18 @@ _veh flyInHeight 150;
 
 if !(_reinf) then
 	{
-	_wp2 = _grupo addWaypoint [(position (leader _grupo)), 0];
+	_wp2 = _group addWaypoint [(position (leader _group)), 0];
 	_wp2 setWaypointType "MOVE";
 	_wp2 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
-	_wp2 = _grupo addWaypoint [_positionX, 1];
+	_wp2 = _group addWaypoint [_positionX, 1];
 	_wp2 setWaypointType "MOVE";
 	_wp2 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
-	_wp2 = _grupo addWaypoint [_positionX, 2];
+	_wp2 = _group addWaypoint [_positionX, 2];
 	_wp2 setWaypointType "SAD";
 	}
 else
 	{
-	_wp2 = _grupo addWaypoint [_positionX, 0];
+	_wp2 = _group addWaypoint [_positionX, 0];
 	_wp2 setWaypointType "MOVE";
 	_wp2 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] remoteExec [""A3A_fnc_garrisonUpdate"",2];[group this] spawn A3A_fnc_groupDespawner; reinfPatrols = reinfPatrols - 1; publicVariable ""reinfPatrols"";"];
 	};

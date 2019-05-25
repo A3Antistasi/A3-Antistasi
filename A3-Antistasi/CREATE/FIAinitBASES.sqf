@@ -51,7 +51,7 @@ else
 	if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]};
 	if (random 40 < skillFIA) then
 		{
-		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") < 2) then {removeHeadgear _unit;_unit addHeadgear (selectRandom cascos)};
+		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") < 2) then {removeHeadgear _unit;_unit addHeadgear (selectRandom helmets)};
 		};
 	if (_tipo in SDKMil) then
 		{
@@ -120,7 +120,7 @@ else
 							}
 						else
 							{
-							if (hayIFA) then
+							if (hasIFA) then
 								{
 								[_unit, "LIB_PTRD", 10, 0] call BIS_fnc_addWeapon;
 								};
@@ -144,7 +144,7 @@ else
 _unit selectWeapon (primaryWeapon _unit);
 
 if (!haveRadio) then {_unit unlinkItem "ItemRadio"};
-if !(hayIFA) then
+if !(hasIFA) then
 	{
 	if (sunOrMoon < 1) then
 		{
@@ -222,9 +222,9 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 	_markerX = _muerto getVariable "markerX";
 	if (!isNil "_markerX") then
 		{
-		if (lados getVariable [_markerX,sideUnknown] == buenos) then
+		if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
 			{
-			[typeOf _muerto,buenos,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
+			[typeOf _muerto,teamPlayer,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
 			_muerto setVariable [_markerX,nil,true];
 			};
 		};

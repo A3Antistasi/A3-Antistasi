@@ -6,7 +6,7 @@ _veh = cursorTarget;
 if (isNull _veh) exitWith {hint "You are not looking at a vehicle"};
 
 if (!alive _veh) exitWith {hint "You cannot add destroyed vehicles to your garage"};
-_closeX = markersX select {lados getVariable [_x,sideUnknown] == buenos};
+_closeX = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
 _closeX = _closeX select {(player inArea _x) and (_veh inArea _x)};
 
 if (_closeX isEqualTo []) exitWith {hint format ["You and the vehicle need to be in a %1 garrison surrounding in order to garage a it",nameTeamPlayer]};
@@ -27,7 +27,7 @@ if (_pool and (count vehInGarage >= (tierWar *3))) exitWith {hint "You cannot ga
 _exit = false;
 if (!_pool) then
 	{
-	_owner = _veh getVariable "duenyo";
+	_owner = _veh getVariable "ownerX";
 	if (!isNil "_owner") then
 		{
 		if (_owner isEqualType "") then
@@ -41,7 +41,7 @@ if (_exit) exitWith {hint "You are not owner of this vehicle therefore you canno
 
 if (_typeVehX isKindOf "Plane") then
 	{
-	_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == buenos) and (player inArea _x)};
+	_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == teamPlayer) and (player inArea _x)};
 	if (count _airportsX == 0) then {_exit = true};
 	};
 

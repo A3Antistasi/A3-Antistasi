@@ -44,7 +44,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","ammunition","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["outpostsFIA","minas","staticsX","countCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","ammunition","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
+["outpostsFIA","minas","staticsX","countCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","ammunition","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","membersX","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -70,8 +70,8 @@ fn_SetStat =
 				gameMode = _varValue;
 				if (gameMode != 1) then
 					{
-					malos setFriend [muyMalos,1];
-				    muyMalos setFriend [malos,1];
+					malos setFriend [,1];
+				     setFriend [malos,1];
 				    if (gameMode == 3) then {"CSAT_carrier" setMarkerAlpha 0};
 				    if (gameMode == 4) then {"NATO_carrier" setMarkerAlpha 0};
 					};
@@ -79,10 +79,10 @@ fn_SetStat =
 			};
 		if(_varName == 'bombRuns') then {bombRuns = _varValue; publicVariable "bombRuns"};
 		if(_varName == 'nextTick') then {nextTick = time + _varValue};
-		if(_varName == 'miembros') then {miembros = +_varValue; publicVariable "miembros"};
+		if(_varName == 'membersX') then {membersX = +_varValue; publicVariable "membersX"};
 		if(_varName == 'smallCAmrk') then {smallCAmrk = +_varValue};
 		if(_varName == 'mrkNATO') then {{lados setVariable [_x,malos,true]} forEach _varValue;};
-		if(_varName == 'mrkCSAT') then {{lados setVariable [_x,muyMalos,true]} forEach _varValue;};
+		if(_varName == 'mrkCSAT') then {{lados setVariable [_x,,true]} forEach _varValue;};
 		if(_varName == 'mrkSDK') then {{lados setVariable [_x,buenos,true]} forEach _varValue;};
 		if(_varName == 'controlsSDK') then
 			{
@@ -183,13 +183,13 @@ fn_SetStat =
 			if (count (_varValue select 0) == 2) then
 				{
 				{
-				_posicion = _x select 0;
+				_positionX = _x select 0;
 				_garrison = _x select 1;
-				_mrk = createMarker [format ["FIApost%1", random 1000], _posicion];
+				_mrk = createMarker [format ["FIApost%1", random 1000], _positionX];
 				_mrk setMarkerShape "ICON";
 				_mrk setMarkerType "loc_bunker";
 				_mrk setMarkerColor colourTeamPlayer;
-				if (isOnRoad _posicion) then {_mrk setMarkerText format ["%1 Roadblock",nameTeamPlayer]} else {_mrk setMarkerText format ["%1 Watchpost",nameTeamPlayer]};
+				if (isOnRoad _positionX) then {_mrk setMarkerText format ["%1 Roadblock",nameTeamPlayer]} else {_mrk setMarkerText format ["%1 Watchpost",nameTeamPlayer]};
 				spawner setVariable [_mrk,2,true];
 				if (count _garrison > 0) then {garrison setVariable [_mrk,_garrison,true]};
 				outpostsFIA pushBack _mrk;

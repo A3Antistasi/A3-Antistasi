@@ -14,16 +14,16 @@ onMapSingleClick "";
 if (!visibleMap) exitWith {};
 
 _positionTel = positionTel;
-posicionGarr = "";
+positionXGarr = "";
 
 _cercano = [markersX,_positionTel] call BIS_fnc_nearestPosition;
-_posicion = getMarkerPos _cercano;
+_positionX = getMarkerPos _cercano;
 
 if (getMarkerPos _cercano distance _positionTel > 40) exitWith {hint "You must click near a marked zone"; _nul=CreateDialog "build_menu";};
 
 if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]; _nul=CreateDialog "build_menu";};
-if ([_posicion,500] call A3A_fnc_enemyNearCheck) exitWith {hint "You cannot manage this garrison while there are enemies nearby";_nul=CreateDialog "build_menu"};
-//if (((_cercano in outpostsFIA) and !(isOnRoad _posicion)) /*or (_cercano in citiesX)*/ or (_cercano in controlsX)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
+if ([_positionX,500] call A3A_fnc_enemyNearCheck) exitWith {hint "You cannot manage this garrison while there are enemies nearby";_nul=CreateDialog "build_menu"};
+//if (((_cercano in outpostsFIA) and !(isOnRoad _positionX)) /*or (_cercano in citiesX)*/ or (_cercano in controlsX)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
 _puestoFIA = if (_cercano in outpostsFIA) then {true} else {false};
 _wPost = if (_puestoFIA and !(isOnRoad getMarkerPos _cercano)) then {true} else {false};
 _garrison = if (! _wpost) then {garrison getVariable [_cercano,[]]} else {SDKSniper};
@@ -52,7 +52,7 @@ if (_tipo == "rem") then
 		garrison setVariable [_cercano,[],true];
 		//[_cercano] call A3A_fnc_mrkUpdate;
 		//[_cercano] remoteExec ["tempMoveMrk",2];
-		{if (_x getVariable ["marcador",""] == _cercano) then {deleteVehicle _x}} forEach allUnits;
+		{if (_x getVariable ["markerX",""] == _cercano) then {deleteVehicle _x}} forEach allUnits;
 		};
 	[_cercano] call A3A_fnc_mrkUpdate;
 	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
@@ -60,8 +60,8 @@ if (_tipo == "rem") then
 	}
 else
 	{
-	posicionGarr = _cercano;
-	publicVariable "posicionGarr";
+	positionXGarr = _cercano;
+	publicVariable "positionXGarr";
 	hint format ["Info%1",[_cercano] call A3A_fnc_garrisonInfo];
 	closeDialog 0;
 	_nul=CreateDialog "garrison_recruit";

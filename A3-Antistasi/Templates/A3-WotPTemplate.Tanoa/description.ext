@@ -194,7 +194,7 @@ class CfgIdentities
     speaker="Male01ENGFRE";
     pitch=1.1;
     };
-     class amiguete
+     class friendlyX
     {
         name = "Maru";
         nameSound = "Warlock";

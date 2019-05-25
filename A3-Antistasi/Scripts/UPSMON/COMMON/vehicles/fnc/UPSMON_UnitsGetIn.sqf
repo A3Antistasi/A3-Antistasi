@@ -40,7 +40,7 @@ _vehgrpid = _vehicle getvariable ["UPSMON_grpid",0];
 _cargo = _vehicle getvariable ["UPSMON_cargo",[]];			
 
 _cargo = _cargo - _unitsin; //Para evitar duplicados
-_cargo = _cargo + _unitsin; //Añadimos a la carga
+_cargo = _cargo + _unitsin; //Aï¿½adimos a la carga
 _vehicle setVariable ["UPSMON_cargo", _cargo, false];			
 
 //Hablitamos a la IA para entrar en el vehiculo
@@ -76,7 +76,7 @@ _vehicle setVariable ["UPSMON_cargo", _cargo, false];
 } foreach _units;			
 //if (UPSMON_Debug>0 ) then {player sidechat format["%1: _vehgrpid %2 ,_Gunnercount %3, %4",_grpid,_vehgrpid,_Gunnercount,count _units]}; 	
 				
-//Si el vehiculo pertenece al grupo asignamos posiciones de piloto, sinó solo de carga
+//Si el vehiculo pertenece al grupo asignamos positionXes de piloto, sinï¿½ solo de carga
 //Make sure some AI will get in as driver (and if available as gunner(s))
 
 if ( _vehgrpid == _grpid ) then 

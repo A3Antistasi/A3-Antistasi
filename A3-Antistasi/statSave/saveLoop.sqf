@@ -16,12 +16,12 @@ if (!isDedicated) then
 			_personalGarage = [];
 			_personalGarage = _personalGarage + personalGarage;
 			["personalGarage",_personalGarage] call fn_SaveStat;
-			_resfondo = player getVariable "dinero";
+			_resourcesBackground = player getVariable "dinero";
 			{
 			_amigo = _x;
 			if ((!isPlayer _amigo) and (alive _amigo)) then
 				{
-				_resfondo = _resfondo + (server getVariable (typeOf _amigo));
+				_resourcesBackground = _resourcesBackground + (server getVariable (typeOf _amigo));
 				if (vehicle _amigo != _amigo) then
 					{
 					_veh = vehicle _amigo;
@@ -30,14 +30,14 @@ if (!isDedicated) then
 						{
 						if ((_veh isKindOf "StaticWeapon") or (driver _veh == _amigo)) then
 							{
-							_resfondo = _resfondo + ([_tipoVeh] call A3A_fnc_vehiclePrice);
-							if (count attachedObjects _veh != 0) then {{_resfondo = _resfondo + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
+							_resourcesBackground = _resourcesBackground + ([_tipoVeh] call A3A_fnc_vehiclePrice);
+							if (count attachedObjects _veh != 0) then {{_resourcesBackground = _resourcesBackground + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
 							};
 						};
 					};
 				};
 			} forEach units group player;
-			["dinero",_resfondo] call fn_SaveStat;
+			["dinero",_resourcesBackground] call fn_SaveStat;
 			};
 		savingClient = false;
 		};
@@ -52,11 +52,11 @@ if (!isDedicated) then
 	["difficultyX", skillMult] call fn_SaveStat;
 	["bombRuns", bombRuns] call fn_SaveStat;
 	["smallCAmrk", smallCAmrk] call fn_SaveStat;
-	["miembros", miembros] call fn_SaveStat;
+	["membersX", membersX] call fn_SaveStat;
 	["antenas", antennasDead] call fn_SaveStat;
 	//["mrkNATO", (markersX - controlsX) select {lados getVariable [_x,sideUnknown] == malos}] call fn_SaveStat;
 	["mrkSDK", (markersX - controlsX - outpostsFIA) select {lados getVariable [_x,sideUnknown] == buenos}] call fn_SaveStat;
-	["mrkCSAT", (markersX - controlsX) select {lados getVariable [_x,sideUnknown] == muyMalos}] call fn_SaveStat;
+	["mrkCSAT", (markersX - controlsX) select {lados getVariable [_x,sideUnknown] == }] call fn_SaveStat;
 	["posHQ", [getMarkerPos respawnTeamPlayer,getPos fuego,[getDir caja,getPos caja],[getDir mapa,getPos mapa],getPos bandera,[getDir cajaVeh,getPos cajaVeh]]] call fn_Savestat;
 	["prestigeNATO", prestigeNATO] call fn_SaveStat;
 	["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
@@ -77,10 +77,10 @@ if (!isDedicated) then
 	["weather",[fogParams,rain]] call fn_SaveStat;
 	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
 	//["firstLoad",false] call fn_SaveStat;
-private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_ammunition","_items","_mochis","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_tipoMina","_posMina","_detected","_tipos","_exists","_amigo"];
+private ["_hrfondo","_resourcesBackground","_veh","_tipoVeh","_armas","_ammunition","_items","_mochis","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_tipoMina","_posMina","_detected","_tipos","_exists","_amigo"];
 
 _hrfondo = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["spawner",false]) and ((group _x in (hcAllGroups theBoss) or (isPlayer (leader _x))) and (side group _x == buenos))} count allUnits);
-_resfondo = server getVariable "resourcesFIA";
+_resourcesBackground = server getVariable "resourcesFIA";
 /*
 _armas = [];
 _ammunition = [];
@@ -96,16 +96,16 @@ if ((_amigo getVariable ["spawner",false]) and (side group _amigo == buenos))the
 		{
 		if (((isPlayer leader _amigo) and (!isMultiplayer)) or (group _amigo in (hcAllGroups theBoss)) and (not((group _amigo) getVariable ["esNATO",false]))) then
 			{
-			_resfondo = _resfondo + (server getVariable [(typeOf _amigo),0]);
+			_resourcesBackground = _resourcesBackground + (server getVariable [(typeOf _amigo),0]);
 			_mochi = backpack _amigo;
 			if (_mochi != "") then
 				{
 				switch (_mochi) do
 					{
-					case MortStaticSDKB: {_resfondo = _resfondo + ([SDKMortar] call A3A_fnc_vehiclePrice)};
-					case AAStaticSDKB: {_resfondo = _resfondo + ([staticAABuenos] call A3A_fnc_vehiclePrice)};
-					case MGStaticSDKB: {_resfondo = _resfondo + ([SDKMGStatic] call A3A_fnc_vehiclePrice)};
-					case ATStaticSDKB: {_resfondo = _resfondo + ([staticATBuenos] call A3A_fnc_vehiclePrice)};
+					case MortStaticSDKB: {_resourcesBackground = _resourcesBackground + ([SDKMortar] call A3A_fnc_vehiclePrice)};
+					case AAStaticSDKB: {_resourcesBackground = _resourcesBackground + ([staticAABuenos] call A3A_fnc_vehiclePrice)};
+					case MGStaticSDKB: {_resourcesBackground = _resourcesBackground + ([SDKMGStatic] call A3A_fnc_vehiclePrice)};
+					case ATStaticSDKB: {_resourcesBackground = _resourcesBackground + ([staticATBuenos] call A3A_fnc_vehiclePrice)};
 					};
 				};
 			if (vehicle _amigo != _amigo) then
@@ -118,8 +118,8 @@ if ((_amigo getVariable ["spawner",false]) and (side group _amigo == buenos))the
 						{
 						if ((group _amigo in (hcAllGroups theBoss)) or (!isMultiplayer)) then
 							{
-							_resfondo = _resfondo + ([_tipoVeh] call A3A_fnc_vehiclePrice);
-							if (count attachedObjects _veh != 0) then {{_resfondo = _resfondo + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
+							_resourcesBackground = _resourcesBackground + ([_tipoVeh] call A3A_fnc_vehiclePrice);
+							if (count attachedObjects _veh != 0) then {{_resourcesBackground = _resourcesBackground + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
 							};
 						};
 					};
@@ -130,7 +130,7 @@ if ((_amigo getVariable ["spawner",false]) and (side group _amigo == buenos))the
 } forEach allUnits;
 
 
-["resourcesFIA", _resfondo] call fn_SaveStat;
+["resourcesFIA", _resourcesBackground] call fn_SaveStat;
 ["hr", _hrfondo] call fn_SaveStat;
 ["vehInGarage", _vehInGarage] call fn_SaveStat;
 
@@ -151,13 +151,13 @@ if ((_veh distance getMarkerPos respawnTeamPlayer < 50) and !(_veh in staticsToS
 
 _sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
 {
-_posicion = position _x;
-if ((alive _x) and !(surfaceIsWater _posicion) and !(isNull _x)) then
+_positionX = position _x;
+if ((alive _x) and !(surfaceIsWater _positionX) and !(isNull _x)) then
 	{
 	_arrayEst pushBack [typeOf _x,getPos _x,getDir _x];
 	/*
-	_cercano = [_sitios,_posicion] call BIS_fnc_nearestPosition;
-	if (_posicion inArea _cercano) then
+	_cercano = [_sitios,_positionX] call BIS_fnc_nearestPosition;
+	if (_positionX inArea _cercano) then
 		{
 		_arrayEst pushBack [typeOf _x,getPos _x,getDir _x]
 		};
@@ -216,9 +216,9 @@ if (_x mineDetectedBy malos) then
 	{
 	_detected pushBack malos
 	};
-if (_x mineDetectedBy muyMalos) then
+if (_x mineDetectedBy ) then
 	{
-	_detected pushBack muyMalos
+	_detected pushBack 
 	};
 _arrayMines = _arrayMines + [[_tipoMina,_posMina,_detected,_dirMina]];
 } forEach allMines;
@@ -276,5 +276,5 @@ _controlsX = controlsX select {(lados getVariable [_x,sideUnknown] == buenos) an
 ["controlsSDK",_controlsX] call fn_SaveStat;
 
 savingServer = false;
-[[petros,"hint",format ["Savegame Done.\n\nYou won't lose your stats in the event of a game update.\n\nRemember: if you want to preserve any vehicle, it must be near the HQ Flag with no AI inside.\nIf AI are inside, you will save the funds you spent on it.\n\nAI will be refunded\n\nStolen and purchased Static Weapons need to be ASSEMBLED in order to be saved. You can save disassembled Static Weapons in the ammo box.\n\nMounted Statics (Mortar/AA/AT squads) won't get saved, but you will be able to recover the cost.\n\nSame for assigned vehicles more than 50m away from HQ.\n\n%1 fund count:\nHR: %2\nMoney: %3 €",nameTeamPlayer,_hrFondo,_resFondo]],"A3A_fnc_commsMP"] call BIS_fnc_MP;
+[[petros,"hint",format ["Savegame Done.\n\nYou won't lose your stats in the event of a game update.\n\nRemember: if you want to preserve any vehicle, it must be near the HQ Flag with no AI inside.\nIf AI are inside, you will save the funds you spent on it.\n\nAI will be refunded\n\nStolen and purchased Static Weapons need to be ASSEMBLED in order to be saved. You can save disassembled Static Weapons in the ammo box.\n\nMounted Statics (Mortar/AA/AT squads) won't get saved, but you will be able to recover the cost.\n\nSame for assigned vehicles more than 50m away from HQ.\n\n%1 fund count:\nHR: %2\nMoney: %3 €",nameTeamPlayer,_hrFondo,_resourcesBackground]],"A3A_fnc_commsMP"] call BIS_fnc_MP;
 diag_log "Antistasi: Persistent Save Done";

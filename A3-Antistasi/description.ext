@@ -194,7 +194,7 @@ class CfgIdentities
     speaker="Male01GRE";
     pitch=1.1;
     };
-     class amiguete
+     class friendlyX
     {
         name = "Petros";
         nameSound = "Petros";

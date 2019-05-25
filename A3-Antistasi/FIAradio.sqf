@@ -1,9 +1,9 @@
-private ["_chance","_pos","_marcador","_return"];
+private ["_chance","_pos","_markerX","_return"];
 
 _chance = tierWar*3;
 {_pos = getPos _x;
-_marcador = [puestos,_pos] call BIS_fnc_nearestPosition;
-if ((lados getVariable [_marcador,sideUnknown] == buenos) and (alive _x)) then {_chance = _chance + 4};
+_markerX = [puestos,_pos] call BIS_fnc_nearestPosition;
+if ((lados getVariable [_markerX,sideUnknown] == buenos) and (alive _x)) then {_chance = _chance + 4};
 } forEach antenas;
 _return = false;
 if (debug) then {_chance = 100};

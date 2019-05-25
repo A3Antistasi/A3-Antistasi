@@ -86,8 +86,8 @@ else
 			}];
 		_veh addEventHandler ["GetIn",
 			{
-			_posicion = _this select 1;
-			if (_posicion == "driver") then
+			_positionX = _this select 1;
+			if (_positionX == "driver") then
 				{
 				_unit = _this select 2;
 				if ((!isPlayer _unit) and (_unit getVariable ["spawner",false]) and (side group _unit == buenos)) then
@@ -152,9 +152,9 @@ else
 					{
 					_mortero = _this select 0;
 					_datos = _mortero getVariable ["detection",[position _mortero,0]];
-					_posicion = position _mortero;
+					_positionX = position _mortero;
 					_chance = _datos select 1;
-					if ((_posicion distance (_datos select 0)) < 300) then
+					if ((_positionX distance (_datos select 0)) < 300) then
 						{
 						_chance = _chance + 2;
 						}
@@ -164,7 +164,7 @@ else
 						};
 					if (random 100 < _chance) then
 						{
-						{if ((side _x == malos) or (side _x == muyMalos)) then {_x reveal [_mortero,4]}} forEach allUnits;
+						{if ((side _x == malos) or (side _x == )) then {_x reveal [_mortero,4]}} forEach allUnits;
 						if (_mortero distance posHQ < 300) then
 							{
 							if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
@@ -185,13 +185,13 @@ else
 							_bases = airportsX select {(getMarkerPos _x distance _mortero < distanceForAirAttack) and ([_x,true] call A3A_fnc_airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
 							if (count _bases > 0) then
 								{
-								_base = [_bases,_posicion] call BIS_fnc_nearestPosition;
+								_base = [_bases,_positionX] call BIS_fnc_nearestPosition;
 								_lado = lados getVariable [_base,sideUnknown];
 								[[getPosASL _mortero,_lado,"Normal",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
 								};
 							};
 						};
-					_mortero setVariable ["detection",[_posicion,_chance]];
+					_mortero setVariable ["detection",[_positionX,_chance]];
 					}];
 				}
 			else

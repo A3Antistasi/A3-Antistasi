@@ -8,11 +8,11 @@ private _veh = objNull;
 private _lado = side _grupo;
 private _tipoVeh = 	if !(_isMortar) then
 						{
-						if (_lado == malos) then {NATOMG} else {if (_lado == muyMalos) then {CSATMG} else {SDKMGStatic}};
+						if (_lado == malos) then {NATOMG} else {if (_lado == ) then {CSATMG} else {SDKMGStatic}};
 						}
 					else
 						{
-						if (_lado == malos) then {NATOMortar} else {if (_lado == muyMalos) then {CSATMortar} else {SDKMortar}};
+						if (_lado == malos) then {NATOMortar} else {if (_lado == ) then {CSATMortar} else {SDKMortar}};
 						};
 private _mochiG = backPack _gunner;
 private _mochiA = backpack _ayudante;
@@ -82,7 +82,7 @@ while {(alive _gunner)} do
 						_gunner moveInGunner _veh;
 						[_veh] call A3A_fnc_AIVEHinit;
 						_mounted = true;
-						if (_isMortar) then {_grupo setVariable ["morteros",_gunner]};
+						if (_isMortar) then {_grupo setVariable ["mortarsX",_gunner]};
 						sleep 60;
 						};
 					};
@@ -104,7 +104,7 @@ while {(alive _gunner)} do
 						_ayudante addBackpackGlobal _mochiA;
 						deleteVehicle _veh;
 						_gunner call A3A_fnc_recallGroup;
-						if (_isMortar) then {_grupo setVariable ["morteros",objNull]};
+						if (_isMortar) then {_grupo setVariable ["mortarsX",objNull]};
 						};
 					};
 				};
@@ -125,7 +125,7 @@ while {(alive _gunner)} do
 				_ayudante addBackpackGlobal _mochiA;
 				deleteVehicle _veh;
 				_gunner call A3A_fnc_recallGroup;
-				if (_isMortar) then {_grupo setVariable ["morteros",objNull]};
+				if (_isMortar) then {_grupo setVariable ["mortarsX",objNull]};
 				};
 			};
 		};

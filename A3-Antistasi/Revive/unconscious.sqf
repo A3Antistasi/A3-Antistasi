@@ -36,7 +36,7 @@ if (isPlayer _unit) then
 		_handled;
 		}];
 	//if (side _unit == buenos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
-	if (_injurer != muyMalos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
+	if (_injurer != ) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 	openMap false;
 	{
 	if ((!isPlayer _x) and (vehicle _x != _x) and (_x distance _unit < 50)) then {unassignVehicle _x; [_x] orderGetIn false}
@@ -51,7 +51,7 @@ else
 		[_unit,"heal1"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 		//[_unit,"carry"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 		//_unit call jn_fnc_logistics_addAction;
-		if (_injurer != muyMalos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
+		if (_injurer != ) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 		}
 	else
 		{
@@ -59,14 +59,14 @@ else
 			{
 			_jugadores = true;
 			[_unit,"heal"] remoteExec ["A3A_fnc_flagaction",0,_unit];
-			if (_unit != petros) then {if (_injurer != muyMalos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true}};
+			if (_unit != petros) then {if (_injurer != ) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true}};
 			};
-		if ((_injurer  == malos) or (_injurer  == muyMalos)) then
+		if ((_injurer  == malos) or (_injurer  == )) then
 			{
-			_marcador = _unit getVariable ["marcador",""];
-			if (_marcador != "") then
+			_markerX = _unit getVariable ["markerX",""];
+			if (_markerX != "") then
 				{
-				if (!([_marcador] call BIS_fnc_taskExists) and (lados getVariable [_marcador,sideUnknown] == buenos)) then {[_marcador,_injurer,buenos] remoteExec ["A3A_fnc_underAttack",2]};
+				if (!([_markerX] call BIS_fnc_taskExists) and (lados getVariable [_markerX,sideUnknown] == buenos)) then {[_markerX,_injurer,buenos] remoteExec ["A3A_fnc_underAttack",2]};
 				};
 			};
 		};

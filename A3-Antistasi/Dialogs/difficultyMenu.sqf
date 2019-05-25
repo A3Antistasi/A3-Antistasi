@@ -43,8 +43,8 @@ hint "Choose a Game Mode";
 waitUntil {!dialog};
 if (gameMode != 1) then
 	{
-	malos setFriend [muyMalos,1];
-    muyMalos setFriend [malos,1];
+	malos setFriend [,1];
+     setFriend [malos,1];
     if (gameMode == 3) then {"CSAT_carrier" setMarkerAlpha 0};
     if (gameMode == 4) then {"NATO_carrier" setMarkerAlpha 0};
 	};

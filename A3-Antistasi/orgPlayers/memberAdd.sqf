@@ -4,7 +4,7 @@ if (!(serverCommandAvailable "#logout") and (!isServer)) exitWith {hint "Only Se
 
 if !(membershipEnabled) exitWith {hint "Server Member feature is disabled"};
 
-if (isNil "miembros") exitWith {hint "Membership feature not yet initialised. Please try again later"};
+if (isNil "membersX") exitWith {hint "Membership feature not yet initialised. Please try again later"};
 
 _target = cursortarget;
 
@@ -15,12 +15,12 @@ if ((_this select 0 == "remove") and  !([_target] call A3A_fnc_isMember)) exitWi
 
 if (_this select 0 == "add") then
 	{
-	miembros pushBackUnique _uid;
+	membersX pushBackUnique _uid;
 	hint format ["%1 has been added to the Server Members List",name _target];
 	}
 else
 	{
-	miembros = miembros - [_uid];
+	membersX = membersX - [_uid];
 	hint format ["%1 has been removed from the Server Members List",name _target];
 	};
-publicVariable "miembros";
+publicVariable "membersX";

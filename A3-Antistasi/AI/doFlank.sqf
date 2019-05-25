@@ -1,6 +1,6 @@
-private _unidades = _this select 0;
+private _unitsX = _this select 0;
 private _cercano = _this select 1;
-private _lider = leader (_unidades select 0);
+private _lider = leader (_unitsX select 0);
 
 private _ang = _lider getDir _cercano;
 private _dist = (_lider distance _cercano) * 1.3;
@@ -24,9 +24,9 @@ _x doMove _pos;
 		sleep 3;
 		};
 	};
-} forEach _unidades;
+} forEach _unitsX;
 _timeOut = time + 60;
 waitUntil {sleep 5; !([_cercano] call A3A_fnc_canFight) or (time > _timeOut)};
 {
 _x call A3A_fnc_recallGroup
-} forEach _unidades;
+} forEach _unitsX;

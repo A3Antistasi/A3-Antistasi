@@ -14,4 +14,4 @@ else
 	_x doFollow leader _x;
 	};
 } forEach _array;
-(group (_array select 0)) setVariable ["ocupadas",[]];
+(group (_array select 0)) setVariable ["occupiedX",[]];

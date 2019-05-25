@@ -1,17 +1,17 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_marcador","_posicion","_isRoad","_tam","_road","_veh","_grupo","_unit","_roadcon"];
+private ["_markerX","_positionX","_isRoad","_tam","_road","_veh","_grupo","_unit","_roadcon"];
 
-_marcador = _this select 0;
-_posicion = getMarkerPos _marcador;
+_markerX = _this select 0;
+_positionX = getMarkerPos _markerX;
 
 _isRoad = false;
-if (isOnRoad _posicion) then {_isRoad = true};
+if (isOnRoad _positionX) then {_isRoad = true};
 
 if (_isRoad) then
 	{
 	_tam = 1;
-	_garrison = garrison getVariable _marcador;
+	_garrison = garrison getVariable _markerX;
 	_veh = objNull;
 
 	if (isNil "_garrison") then
@@ -20,11 +20,11 @@ if (_isRoad) then
 		{
 		if (random 20 <= skillFIA) then {_garrison pushBack (_x select 1)} else {_garrison pushBack (_x select 0)};
 		} forEach groupsSDKAT;
-		garrison setVariable [_marcador,_garrison,true];
+		garrison setVariable [_markerX,_garrison,true];
 		};
 	while {true} do
 		{
-		_road = _posicion nearRoads _tam;
+		_road = _positionX nearRoads _tam;
 		if (count _road > 0) exitWith {};
 		_tam = _tam + 5;
 		};
@@ -38,10 +38,10 @@ if (_isRoad) then
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		sleep 1;
 		};
-	_grupo = [_posicion, buenos, _garrison,true,false] call A3A_fnc_spawnGroup;
-	//_unit = _grupo createUnit [staticCrewTeamPlayer, _posicion, [], 0, "NONE"];
+	_grupo = [_positionX, buenos, _garrison,true,false] call A3A_fnc_spawnGroup;
+	//_unit = _grupo createUnit [staticCrewTeamPlayer, _positionX, [], 0, "NONE"];
 	//_unit moveInGunner _veh;
-	{[_x,_marcador] spawn A3A_fnc_FIAinitBases; if (typeOf _x == staticCrewTeamPlayer) then {_x moveInGunner _veh}} forEach units _grupo;
+	{[_x,_markerX] spawn A3A_fnc_FIAinitBases; if (typeOf _x == staticCrewTeamPlayer) then {_x moveInGunner _veh}} forEach units _grupo;
 	}
 else
 	{
@@ -49,22 +49,22 @@ else
 	{
 	if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
 	} forEach groupsSDKSniper;
-	_grupo = [_posicion, buenos, _formato] call A3A_fnc_spawnGroup;
+	_grupo = [_positionX, buenos, _formato] call A3A_fnc_spawnGroup;
 	_grupo setBehaviour "STEALTH";
 	_grupo setCombatMode "GREEN";
-	{[_x,_marcador] spawn A3A_fnc_FIAinitBases;} forEach units _grupo;
+	{[_x,_markerX] spawn A3A_fnc_FIAinitBases;} forEach units _grupo;
 	};
 
-waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({alive _x} count units _grupo == 0) or (not(_marcador in outpostsFIA))};
+waitUntil {sleep 1; ((spawner getVariable _markerX == 2)) or ({alive _x} count units _grupo == 0) or (not(_markerX in outpostsFIA))};
 
 if ({alive _x} count units _grupo == 0) then
 //if ({alive _x} count units _grupo == 0) then
 	{
-	outpostsFIA = outpostsFIA - [_marcador]; publicVariable "outpostsFIA";
-	markersX = markersX - [_marcador]; publicVariable "markersX";
-	lados setVariable [_marcador,nil,true];
-	_nul = [5,-5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
-	deleteMarker _marcador;
+	outpostsFIA = outpostsFIA - [_markerX]; publicVariable "outpostsFIA";
+	markersX = markersX - [_markerX]; publicVariable "markersX";
+	lados setVariable [_markerX,nil,true];
+	_nul = [5,-5,_positionX] remoteExec ["A3A_fnc_citySupportChange",2];
+	deleteMarker _markerX;
 	if (_isRoad) then
 		{
 		[["TaskFailed", ["", "Roadblock Lost"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
@@ -75,7 +75,7 @@ if ({alive _x} count units _grupo == 0) then
 		};
 	};
 
-waitUntil {sleep 1; (spawner getVariable _marcador == 2) or (not(_marcador in outpostsFIA))};
+waitUntil {sleep 1; (spawner getVariable _markerX == 2) or (not(_markerX in outpostsFIA))};
 
 if (_isRoad) then {if (!isNull _veh) then {deleteVehicle _veh}};
 {deleteVehicle _x} forEach units _grupo;

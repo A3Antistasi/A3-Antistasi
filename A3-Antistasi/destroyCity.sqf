@@ -1,11 +1,11 @@
-private ["_marcador","_posicion","_size","_buildings"];
+private ["_markerX","_positionX","_size","_buildings"];
 
-_marcador = _this select 0;
+_markerX = _this select 0;
 
-_posicion = getMarkerPos _marcador;
-_size = [_marcador] call A3A_fnc_sizeMarker;
+_positionX = getMarkerPos _markerX;
+_size = [_markerX] call A3A_fnc_sizeMarker;
 
-_buildings = _posicion nearobjects ["house",_size];
+_buildings = _positionX nearobjects ["house",_size];
 
 {
 if (random 100 < 70) then
@@ -18,4 +18,4 @@ if (random 100 < 70) then
 	}
 } forEach _buildings;
 
-[_marcador,false] spawn A3A_fnc_blackout;
+[_markerX,false] spawn A3A_fnc_blackout;

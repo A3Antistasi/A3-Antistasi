@@ -25,7 +25,7 @@ if (side group player == buenos) then
 	_punish = _viejo getVariable ["punish",0];
 	_dinero = _viejo getVariable ["dinero",0];
 	_dinero = round (_dinero - (_dinero * 0.1));
-	_elegible = _viejo getVariable ["elegible",true];
+	_eligible = _viejo getVariable ["eligible",true];
 	_rango = _viejo getVariable ["rango","PRIVATE"];
 
 	_dinero = round (_dinero - (_dinero * 0.05));
@@ -38,7 +38,7 @@ if (side group player == buenos) then
 	_nuevo setVariable ["dinero",_dinero,true];
 	//_nuevo setUnitRank (rank _viejo);
 	_nuevo setVariable ["compromised",0];
-	_nuevo setVariable ["elegible",_elegible,true];
+	_nuevo setVariable ["eligible",_eligible,true];
 	_nuevo setVariable ["spawner",true,true];
 	_viejo setVariable ["spawner",nil,true];
 	[_nuevo,false] remoteExec ["setCaptive",0,_nuevo];
@@ -72,7 +72,7 @@ if (side group player == buenos) then
 		_player = _this select 0;
 		if (captive _player) then
 			{
-			if ({if (((side _x == malos) or (side _x == muyMalos)) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
+			if ({if (((side _x == malos) or (side _x == )) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
 				{
 				[_player,false] remoteExec ["setCaptive",0,_player];
 				_player setCaptive false;
@@ -110,7 +110,7 @@ if (side group player == buenos) then
 			_tipo = typeOf _containerX;
 			if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 				{
-				if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
+				if ({if (((side _x== ) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
 					{
 					[_jugador,false] remoteExec ["setCaptive",0,_jugador];
 					_jugador setCaptive false;
@@ -183,7 +183,7 @@ if (side group player == buenos) then
 		_player = _this select 0;
 		if (captive _player) then
 			{
-			if ({((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
+			if ({((side _x== ) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
 				{
 				[_player,false] remoteExec ["setCaptive",0,_player];
 				_player setCaptive false;

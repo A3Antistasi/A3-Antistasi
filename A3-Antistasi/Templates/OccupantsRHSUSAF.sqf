@@ -68,6 +68,6 @@ NVGoggles = NVGoggles + ["rhsusf_ANPVS_14"/*,"rhsusf_ANPVS_15"*/];
 itemsAAF = itemsAAF + ["rhsusf_acc_grip2","rhsusf_acc_grip2_tan","rhsusf_acc_anpeq15side_bk","rhsusf_acc_anpeq15_bk_top","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15_light","rhsusf_acc_anpeq15_bk","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15A","rhsusf_acc_ARDEC_M240","rhsusf_acc_nt4_black","rhsusf_acc_nt4_tan","rhsusf_acc_SFMB556"];
 flagNATOmrk = "flag_USA";//ok
 
-lamparaMalos = "acc_flashlight";
+lampOccupants = "acc_flashlight";
 nameOccupants = "USAF";
 if (isServer) then {"NATO_carrier" setMarkerText "USMC Carrier"};

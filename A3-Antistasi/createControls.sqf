@@ -1,10 +1,10 @@
 if (!isServer) exitWith {};
 
-private ["_marcador","_pos","_roads","_road","_posroad","_cercano","_cuenta"];
+private ["_markerX","_pos","_roads","_road","_posroad","_cercano","_cuenta"];
 
-_marcador = _this select 0;
+_markerX = _this select 0;
 
-_pos = getMarkerPos _marcador;
+_pos = getMarkerPos _markerX;
 _cuenta = 0;
 
 {if (getMarkerPos _x distance _pos < 1000) then {_cuenta = _cuenta + 1}} forEach controlsX;
@@ -35,13 +35,13 @@ if (_posroad distance _pos > 400) then
                         _mrk setMarkerColor colourTeamPlayer;
                         _mrk setMarkerText _nombre;
                         if (not debug) then {_mrk setMarkerAlpha 0};
-                        if (lados getVariable [_marcador,sideUnknown] == malos) then
+                        if (lados getVariable [_markerX,sideUnknown] == malos) then
                                 {
                                 lados setVariable [_nombre,malos,true];
                                 }
                         else
                                 {
-                                if (lados getVariable [_marcador,sideUnknown] == muyMalos) then {lados setVariable [_nombre,muyMalos,true]} else {lados setVariable [_nombre,buenos,true]};
+                                if (lados getVariable [_markerX,sideUnknown] == ) then {lados setVariable [_nombre,,true]} else {lados setVariable [_nombre,buenos,true]};
                                 };
                         controlsX pushBackUnique _nombre;
                         markersX pushBackUnique _nombre;

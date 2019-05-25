@@ -1,6 +1,6 @@
 //Mission: Capture/destroy the convoy
 if (!isServer and hasInterface) exitWith {};
-private ["_pos","_timeOut","_posbase","_posDestination","_soldados","_grupos","_vehiclesX","_POWS","_tiempofin","_fechafin","_enddateNum","_veh","_unit","_grupo","_lado","_cuenta","_nameDest","_vehPool","_spawnPoint","_tipoVeh"];
+private ["_pos","_timeOut","_posbase","_posDestination","_soldiers","_grupos","_vehiclesX","_POWS","_tiempofin","_fechafin","_enddateNum","_veh","_unit","_grupo","_lado","_cuenta","_nameDest","_vehPool","_spawnPoint","_tipoVeh"];
 _destino = _this select 0;
 _base = _this select 1;
 
@@ -12,7 +12,7 @@ _tsk = "";
 _tsk1 = "";
 _dateLimitNum = 0;
 _esFIA = false;
-_lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {};
 
 if (_lado == malos) then
 	{
@@ -25,7 +25,7 @@ if (_lado == malos) then
 _posbase = getMarkerPos _base;
 _posDestination = getMarkerPos _destino;
 
-_soldados = [];
+_soldiers = [];
 _grupos = [];
 _vehiclesX = [];
 _POWS = [];
@@ -55,7 +55,7 @@ else
 		}
 	else
 		{
-		if ((_destino in recursos) or (_destino in fabricas)) then {_typeConvoy = ["Money"]} else {_typeConvoy = ["Prisoners"]};
+		if ((_destino in resourcesX) or (_destino in factories)) then {_typeConvoy = ["Money"]} else {_typeConvoy = ["Prisoners"]};
 		if (((count (garrison getVariable [_destino,0]))/2) >= [_destino] call A3A_fnc_garrisonSize) then {_typeConvoy pushBack "reinforcementsX"};
 		};
 	};
@@ -123,7 +123,7 @@ switch (_tipoConvoy) do
 
 [[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posDestination,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
 [[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest],"Protect Convoy",_destino],_posDestination,false,0,true,"run",true] call BIS_fnc_taskCreate;
-misiones pushBack ["CONVOY","CREATED"]; publicVariable "misiones";
+missionsX pushBack ["CONVOY","CREATED"]; publicVariable "missionsX";
 sleep (_timeLimit * 60);
 
 _posOrig = [];
@@ -161,9 +161,9 @@ _vehLead allowDamage false;
 //_vehLead forceFollowRoad true;
 _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit;_x allowDamage false} forEach _vehCrew;
-//_grupoVeh = _vehicle select 2;
-_soldados = _soldados + _vehCrew;
-//_grupos pushBack _grupoVeh;
+//_groupVeh = _vehicle select 2;
+_soldiers = _soldiers + _vehCrew;
+//_grupos pushBack _groupVeh;
 _vehiclesX pushBack _vehLead;
 [_vehLead] call A3A_fnc_AIVEHinit;
 
@@ -218,7 +218,7 @@ for "_i" from 1 to _cuenta do
 	[_veh,"Convoy Escort"] spawn A3A_fnc_inmuneConvoy;
 	_vehCrew = _vehicle select 1;
 	{[_x] call A3A_fnc_NATOinit;_x allowDamage false} forEach _vehCrew;
-	_soldados = _soldados + _vehCrew;
+	_soldiers = _soldiers + _vehCrew;
 	_vehiclesX pushBack _veh;
 	[_veh] call A3A_fnc_AIVEHinit;
 	if (_i == 1) then {_veh setConvoySeparation 60} else {_veh setConvoySeparation 20};
@@ -227,9 +227,9 @@ for "_i" from 1 to _cuenta do
 		if (not(_typeVehEsc in vehTanks)) then
 			{
 			_typeGroup = [_typeVehEsc,_lado] call A3A_fnc_cargoSeats;
-			_grupoEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
-			{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
-			deleteGroup _grupoEsc;
+			_groupEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+			{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
+			deleteGroup _groupEsc;
 			};
 		}
 	else
@@ -241,9 +241,9 @@ for "_i" from 1 to _cuenta do
 				{
 				_typeGroup = selectRandom groupsFIAMid;
 				};
-			_grupoEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
-			{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
-			deleteGroup _grupoEsc;
+			_groupEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+			{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
+			deleteGroup _groupEsc;
 			};
 		};
 	};
@@ -268,9 +268,9 @@ _vehObj allowDamage false;
 if (_dificil) then {[_vehObj," Convoy Objective"] spawn A3A_fnc_inmuneConvoy} else {[_vehObj,"Convoy Objective"] spawn A3A_fnc_inmuneConvoy};
 _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit; _x allowDamage false} forEach _vehCrew;
-//_grupoVeh = _vehicle select 2;
-_soldados = _soldados + _vehCrew;
-//_grupos pushBack _grupoVeh;
+//_groupVeh = _vehicle select 2;
+_soldiers = _soldiers + _vehCrew;
+//_grupos pushBack _groupVeh;
 _vehiclesX pushBack _vehObj;
 [_vehObj] call A3A_fnc_AIVEHinit;
 //_vehObj forceFollowRoad true;
@@ -301,9 +301,9 @@ if (_tipoConvoy == "Prisoners") then
 if (_tipoConvoy == "reinforcementsX") then
 	{
 	_typeGroup = [_typeVehObj,_lado] call A3A_fnc_cargoSeats;
-	_grupoEsc = [_posbase,_lado,_typeGroup] call A3A_fnc_spawnGroup;
-	{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo;_reinforcementsX pushBack _x} forEach units _grupoEsc;
-	deleteGroup _grupoEsc;
+	_groupEsc = [_posbase,_lado,_typeGroup] call A3A_fnc_spawnGroup;
+	{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x;[_x] joinSilent _grupo;_reinforcementsX pushBack _x} forEach units _groupEsc;
+	deleteGroup _groupEsc;
 	};
 if ((_tipoConvoy == "Money") or (_tipoConvoy == "Supplies")) then
 	{
@@ -338,7 +338,7 @@ _veh allowDamage false;
 [_veh,"Convoy Escort"] spawn A3A_fnc_inmuneConvoy;
 _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit; _x allowDamage false} forEach _vehCrew;
-_soldados = _soldados + _vehCrew;
+_soldiers = _soldiers + _vehCrew;
 _vehiclesX pushBack _veh;
 [_veh] call A3A_fnc_AIVEHinit;
 //_veh forceFollowRoad true;
@@ -349,9 +349,9 @@ if (!_esFIA) then
 	if (not(_typeVehEsc in vehTanks)) then
 		{
 		_typeGroup = [_typeVehEsc,_lado] call A3A_fnc_cargoSeats;
-		_grupoEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
-		{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
-		deleteGroup _grupoEsc;
+		_groupEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+		{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
+		deleteGroup _groupEsc;
 		};
 	}
 else
@@ -363,19 +363,19 @@ else
 			{
 			_typeGroup = selectRandom groupsFIAMid;
 			};
-		_grupoEsc = [_posbase,_lado,_typeGroup] call A3A_fnc_spawnGroup;
-		{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
-		deleteGroup _grupoEsc;
+		_groupEsc = [_posbase,_lado,_typeGroup] call A3A_fnc_spawnGroup;
+		{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
+		deleteGroup _groupEsc;
 		};
 	};
 
-[_vehiclesX,_soldados] spawn
+[_vehiclesX,_soldiers] spawn
 	{
 	sleep 30;
 	{_x allowDamage true} forEach (_this select 0);
 	{_x allowDamage true; if (vehicle _x == _x) then {deleteVehicle _x}} forEach (_this select 1);
 	};
-//{_x disableAI "AUTOCOMBAT"} forEach _soldados;
+//{_x disableAI "AUTOCOMBAT"} forEach _soldiers;
 _wp0 = _grupo addWaypoint [(position _vehLead),0];
 //_wp0 = (waypoints _grupo) select 0;
 _wp0 setWaypointType "MOVE";
@@ -521,7 +521,7 @@ if (_tipoConvoy == "reinforcementsX") then
 			{
 			_tipos = [];
 			{_tipos pushBack (typeOf _x)} forEach (_reinforcementsX select {alive _x});
-			[_soldados,_lado,_destino,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
+			[_soldiers,_lado,_destino,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
 			};
 		if (_lado == malos) then {[(-1*(0.25*_cuenta)),0] remoteExec ["A3A_fnc_prestige",2]} else {[0,(-1*(0.25*_cuenta))] remoteExec ["A3A_fnc_prestige",2]};
 		};
@@ -649,14 +649,14 @@ _nul = [0,"CONVOY1"] spawn A3A_fnc_deleteTask;
 if (!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _x}
 } forEach _vehiclesX;
 {
-if (!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _x; _soldados = _soldados - [_x]}
-} forEach _soldados;
+if (!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _x; _soldiers = _soldiers - [_x]}
+} forEach _soldiers;
 
-if (count _soldados > 0) then
+if (count _soldiers > 0) then
 	{
 	{
 	waitUntil {sleep 1; (!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))};
 	deleteVehicle _x;
-	} forEach _soldados;
+	} forEach _soldiers;
 	};
 {deleteGroup _x} forEach _grupos;

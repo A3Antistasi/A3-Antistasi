@@ -1,4 +1,4 @@
-private ["_unit","_veh","_lado","_tipo","_skill","_riflefinal","_magazines","_hmd","_marcador","_revelar"];
+private ["_unit","_veh","_lado","_tipo","_skill","_riflefinal","_magazines","_hmd","_markerX","_revelar"];
 
 _unit = _this select 0;
 if (isNil "_unit") exitWith {diag_log format ["Antistasi: Error enviando a NATOinit los parámetros:%1",_this]};
@@ -12,11 +12,11 @@ _unit addEventHandler ["HandleDamage",A3A_fnc_handleDamageAAF];
 _unit addEventHandler ["killed",A3A_fnc_AAFKilledEH];
 if (count _this > 1) then
 	{
-	_marcador = _this select 1;
-	if (_marcador != "") then
+	_markerX = _this select 1;
+	if (_markerX != "") then
 		{
-		_unit setVariable ["marcador",_marcador,true];
-		if ((spawner getVariable _marcador != 0) and (vehicle _unit != _unit)) then {if (!isMultiplayer) then {_unit enableSimulation false} else {[_unit,false] remoteExec ["enableSimulationGlobal",2]}};
+		_unit setVariable ["markerX",_markerX,true];
+		if ((spawner getVariable _markerX != 0) and (vehicle _unit != _unit)) then {if (!isMultiplayer) then {_unit enableSimulation false} else {[_unit,false] remoteExec ["enableSimulationGlobal",2]}};
 		};
 	}
 else

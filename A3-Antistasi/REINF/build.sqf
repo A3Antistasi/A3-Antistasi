@@ -8,11 +8,11 @@ if (isNull _engineerX) exitWith {hint "Your squad needs an engineer to be able t
 if ((player != _engineerX) and (isPlayer _engineerX)) exitWith {hint "There is a human player engineer in your squad, ask him to construct whatever you need"};
 if ((player != leader player) and (_engineerX != player)) exitWith {hint "Only squad leaders can ask engineers to construct something"};
 if !([_engineerX] call A3A_fnc_canFight) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
-if ((_engineerX getVariable ["ayudando",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX getVariable ["constructing",false])) exitWith {hint "Your engineer is currently performing another action"};
+if ((_engineerX getVariable ["helping",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX getVariable ["constructing",false])) exitWith {hint "Your engineer is currently performing another action"};
 
 private _tipo = _this select 0;
 private _dir = getDir player;
-private _posicion = position player;
+private _positionX = position player;
 private _coste = 0;
 private _tiempo = 60;
 private _clase = "";
@@ -81,7 +81,7 @@ switch _tipo do
 		};
 	};
 
-//if ((_tipo == "RB") and !(isOnRoad _posicion)) exitWith {hint "Please select this option on a road segment"};
+//if ((_tipo == "RB") and !(isOnRoad _positionX)) exitWith {hint "Please select this option on a road segment"};
 
 private _salir = false;
 private _texto = "";
@@ -97,8 +97,8 @@ if ((_tipo == "SB") or (_tipo == "CB")) then
 	else
 		{
 		_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
-		cercano = [_sitios,_posicion] call BIS_fnc_nearestPosition;
-		if (!(_posicion inArea cercano)) then
+		cercano = [_sitios,_positionX] call BIS_fnc_nearestPosition;
+		if (!(_positionX inArea cercano)) then
 			{
 			_salir = true;
 			_texto = "You cannot build a bunker outside a controlled zone";
@@ -138,7 +138,7 @@ _displayEH = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		}];
 
 _HDEH = player addEventHandler ["HandleDamage",{bought = 1}];
-posicionSel = [0,0,0];
+positionXSel = [0,0,0];
 if (_tipo == "RB") then
 	{
 	onEachFrame
@@ -152,8 +152,8 @@ if (_tipo == "RB") then
 	   ];
 	   if (_ins isEqualTo []) exitWith {};
 	   _pos = (_ins select 0 select 0);
-	   if (_pos distance posicionSel < 0.1) exitWith {};
-	   posicionSel = _pos;
+	   if (_pos distance positionXSel < 0.1) exitWith {};
+	   positionXSel = _pos;
 	   if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
 	   if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
 	   if (surfaceIsWater _pos) exitWith {garageVeh setPosASL [0,0,0]};
@@ -179,8 +179,8 @@ else
 		   ];
 		   if (_ins isEqualTo []) exitWith {};
 		   _pos = (_ins select 0 select 0);
-		   if (_pos distance posicionSel < 0.1) exitWith {};
-		   posicionSel = _pos;
+		   if (_pos distance positionXSel < 0.1) exitWith {};
+		   positionXSel = _pos;
 		   if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
 		   if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
 		   if (surfaceIsWater _pos) exitWith {garageVeh setPosASL [0,0,0]};
@@ -205,8 +205,8 @@ else
 		   ];
 		   if (_ins isEqualTo []) exitWith {};
 		   _pos = (_ins select 0 select 0);
-		   if (_pos distance posicionSel < 0.1) exitWith {};
-		   posicionSel = _pos;
+		   if (_pos distance positionXSel < 0.1) exitWith {};
+		   positionXSel = _pos;
 		   if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
 		   if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
 		   if (surfaceIsWater _pos) exitWith {garageVeh setPosASL [0,0,0]};
@@ -224,9 +224,9 @@ waitUntil {(bought > 0) or (time > _timeOut)};
 onEachFrame {};
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", _displayEH];
 player removeEventHandler ["HandleDamage",_HDEH];
-posicionSel = nil;
-//_posicion = getPosASL veh;
-_posicion = position garageVeh;
+positionXSel = nil;
+//_positionX = getPosASL veh;
+_positionX = position garageVeh;
 _dir = getDir garageVeh;
 deleteVehicle garageVeh;
 garageVeh = nil;
@@ -238,7 +238,7 @@ _timeOut = time + 30;
 
 if (!_isPlayer) then
 	{
-	_engineerX doMove ASLToAGL _posicion
+	_engineerX doMove ASLToAGL _positionX
 	}
 else
 	{
@@ -246,7 +246,7 @@ else
 	hint "Walk to the selected position to start building";
 	};
 
-waitUntil {sleep 1;(time > _timeOut) or (_engineerX distance _posicion < 3)};
+waitUntil {sleep 1;(time > _timeOut) or (_engineerX distance _positionX < 3)};
 
 if (time > _timeOut) exitWith {};
 
@@ -278,7 +278,7 @@ _engineerX playMoveNow selectRandom medicAnims;
 _engineerX addEventHandler ["AnimDone",
 	{
 	private _engineerX = _this select 0;
-	if (([_engineerX] call A3A_fnc_canFight) and !(_engineerX getVariable ["ayudando",false]) and !(_engineerX getVariable ["rearming",false]) and (_engineerX getVariable ["constructing",false])) then
+	if (([_engineerX] call A3A_fnc_canFight) and !(_engineerX getVariable ["helping",false]) and !(_engineerX getVariable ["rearming",false]) and (_engineerX getVariable ["constructing",false])) then
 		{
 		_engineerX playMoveNow selectRandom medicAnims;
 		}
@@ -288,14 +288,14 @@ _engineerX addEventHandler ["AnimDone",
 		};
 	}];
 
-waitUntil  {sleep 5; !([_engineerX] call A3A_fnc_canFight) or (_engineerX getVariable ["ayudando",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX distance _posicion > 4) or (time > _timeOut)};
+waitUntil  {sleep 5; !([_engineerX] call A3A_fnc_canFight) or (_engineerX getVariable ["helping",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX distance _positionX > 4) or (time > _timeOut)};
 
 _engineerX setVariable ["constructing",false];
 if (!_isPlayer) then {{_engineerX enableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"]};
 
 if (time <= _timeOut) exitWith {hint "Constructing cancelled"};
 if (!_isPlayer) then {_engineerX doFollow (leader _engineerX)};
-private _veh = createVehicle [_clase, _posicion, [], 0, "CAN_COLLIDE"];
+private _veh = createVehicle [_clase, _positionX, [], 0, "CAN_COLLIDE"];
 _veh setDir _dir;
 
 if ((_tipo == "SB") or (_tipo == "CB")) exitWith

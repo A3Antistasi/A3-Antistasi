@@ -1,4 +1,4 @@
-private ["_display","_childControl","_coste","_costeHR","_unidades","_formato"];
+private ["_display","_childControl","_coste","_costeHR","_unitsX","_formato"];
 if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
 _nul = createDialog "squad_options";
 
@@ -13,7 +13,7 @@ if (str (_display) != "no display") then
 	_coste = 0;
 	_costeHR = 0;
 	//_formato = (cfgSDKInf >> (groupsSDKSquad select 0));
-	//_unidades = [_formato] call groupComposition;
+	//_unitsX = [_formato] call groupComposition;
 	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach groupsSDKSquad;
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
@@ -21,7 +21,7 @@ if (str (_display) != "no display") then
 	_coste = 0;
 	_costeHR = 0;
 	//_formato = (cfgSDKInf >> (groupsSDKmid select 0));
-	//_unidades = [_formato] call groupComposition;
+	//_unitsX = [_formato] call groupComposition;
 	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach groupsSDKSquadEng;
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
@@ -29,7 +29,7 @@ if (str (_display) != "no display") then
 	_coste = 0;
 	_costeHR = 0;
 	//_formato = (cfgSDKInf >> (groupsSDKAT select 0));
-	//_unidades = [_formato] call groupComposition;
+	//_unitsX = [_formato] call groupComposition;
 	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach groupsSDKSquadSupp;
 	_coste = _coste + ([SDKMGStatic] call A3A_fnc_vehiclePrice);
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
@@ -37,7 +37,7 @@ if (str (_display) != "no display") then
 	_ChildControl = _display displayCtrl 107;
 	_coste = 0;
 	_costeHR = 0;
-	//_unidades = [SDKSL,SDKSL];
+	//_unitsX = [SDKSL,SDKSL];
 	{_coste = _coste + (server getVariable (_x select 0)); _costeHR = _costeHR +1} forEach groupsSDKSquadSupp;
 	_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice);
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];

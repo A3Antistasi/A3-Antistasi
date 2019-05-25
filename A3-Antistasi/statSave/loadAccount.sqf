@@ -55,7 +55,7 @@ if (isServer and !_byPassServer) then
 	["distanceSPWN"] call fn_LoadStat;
 	["civPerc"] call fn_LoadStat;
 	["maxUnits"] call fn_LoadStat;
-	["miembros"] call fn_LoadStat;
+	["membersX"] call fn_LoadStat;
 	["vehInGarage"] call fn_LoadStat;
 	["destroyedBuildings"] call fn_LoadStat;
 	["idlebases"] call fn_LoadStat;
@@ -143,8 +143,8 @@ if (isServer and !_byPassServer) then
 	{
 	if (lados getVariable [_x,sideUnknown] != buenos) then
 		{
-		_posicion = getMarkerPos _x;
-		_cercano = [(markersX - controlsX - outpostsFIA),_posicion] call BIS_fnc_nearestPosition;
+		_positionX = getMarkerPos _x;
+		_cercano = [(markersX - controlsX - outpostsFIA),_positionX] call BIS_fnc_nearestPosition;
 		_lado = lados getVariable [_cercano,sideUnknown];
 		lados setVariable [_x,_lado,true];
 		};
@@ -178,7 +178,7 @@ if (isServer and !_byPassServer) then
 
 	if (!isMultiPlayer) then {player setPos getMarkerPos respawnTeamPlayer} else {{_x setPos getMarkerPos respawnTeamPlayer} forEach (playableUnits select {side _x == buenos})};
 	_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
-	tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in citiesX)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in airportsX} count _sitios)))/10));
+	tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in resourcesX) or (_x in citiesX)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in airportsX} count _sitios)))/10));
 	if (tierWar > 10) then {tierWar = 10};
 	publicVariable "tierWar";
 
@@ -215,7 +215,7 @@ if (isServer and !_byPassServer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach recursos;
+		} forEach resourcesX;
 
 		{
 		_pos = getMarkerPos _x;
@@ -228,7 +228,7 @@ if (isServer and !_byPassServer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach fabricas;
+		} forEach factories;
 
 		{
 		_pos = getMarkerPos _x;
@@ -255,7 +255,7 @@ if (isServer and !_byPassServer) then
 			};
 		} forEach puertos;
 		lados setVariable ["NATO_carrier",malos,true];
-		lados setVariable ["CSAT_carrier",muyMalos,true];
+		lados setVariable ["CSAT_carrier",,true];
 		};
 	statsLoaded = 0; publicVariable "statsLoaded";
 	placementDone = true; publicVariable "placementDone";

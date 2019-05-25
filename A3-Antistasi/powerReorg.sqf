@@ -1,16 +1,16 @@
-private ["_marcador","_ciudad","_pos","_power","_datos","_powered","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_sitio"];
+private ["_markerX","_ciudad","_pos","_power","_datos","_powered","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_sitio"];
 
-_marcador = _this select 0;
+_markerX = _this select 0;
 
 {
 _ciudad = _x;
 _pos = getMarkerPos _x;
 _power = [power,_pos] call BIS_fnc_nearestPosition;
 _powered = true;
-if (_power == _marcador) then
+if (_power == _markerX) then
 	{
 	//_datos = server getVariable _ciudad;
-	if (_marcador in destroyedCities) then
+	if (_markerX in destroyedCities) then
 		{
 		_powered = false;
 		//[-10,-10,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
@@ -18,7 +18,7 @@ if (_power == _marcador) then
 	else
 		{
 		//_powered = _datos select 4;
-		if (lados getVariable [_marcador,sideUnknown] == buenos) then
+		if (lados getVariable [_markerX,sideUnknown] == buenos) then
 			{
 			if (lados getVariable [_ciudad,sideUnknown] == buenos) then
 				{
@@ -49,22 +49,22 @@ if (_power == _marcador) then
 	};
 } forEach citiesX;
 
-_markersX = fabricas + recursos;
+_markersX = factories + resourcesX;
 {
 _sitio = _x;
 _pos = getMarkerPos _x;
 _power = [power,_pos] call BIS_fnc_nearestPosition;
 _powered = true;
-if (_power == _marcador) then
+if (_power == _markerX) then
 	{
-	if (_marcador in destroyedCities) then
+	if (_markerX in destroyedCities) then
 		{
 		_powered = false;
 		//[-10,-10,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
 		}
 	else
 		{
-		if (lados getVariable [_marcador,sideUnknown] == buenos) then
+		if (lados getVariable [_markerX,sideUnknown] == buenos) then
 			{
 			if (lados getVariable [_sitio,sideUnknown] == malos) then
 				{

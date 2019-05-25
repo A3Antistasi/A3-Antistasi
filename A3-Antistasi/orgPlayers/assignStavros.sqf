@@ -6,8 +6,8 @@ _multiplier = 1;
 _disconnected = false;
 
 _jugadores = [];
-_miembros = [];
-_elegibles = [];
+_membersX = [];
+_eligibles = [];
 
 _lider = objNull;
 
@@ -16,10 +16,10 @@ _jugadores pushBack (_x getVariable ["owner",_x]);
 if (_x != _x getVariable ["owner",_x]) then {waitUntil {_x == _x getVariable ["owner",_x]}};
 if ([_x] call A3A_fnc_isMember) then
 	{
-	_miembros pushBack _x;
-	if (_x getVariable ["elegible",true]) then
+	_membersX pushBack _x;
+	if (_x getVariable ["eligible",true]) then
 		{
-		_elegibles pushBack _x;
+		_eligibles pushBack _x;
 		if (_x == theBoss) then
 			{
 			_lider = _x;
@@ -64,18 +64,18 @@ if (_promoted) then
 	[petros,"hint",_texto] remoteExec ["A3A_fnc_commsMP"];
 	};
 
-_proceder = false;
+_proceed = false;
 
 if ((isNull _lider) or switchCom) then
 	{
-	if (count _miembros > 0) then
+	if (count _membersX > 0) then
 		{
-		_proceder = true;
-		if (count _elegibles == 0) then {_elegibles = _miembros};
+		_proceed = true;
+		if (count _eligibles == 0) then {_eligibles = _membersX};
 		};
 	};
 
-if (!_proceder) exitWith {};
+if (!_proceed) exitWith {};
 
 _selectable = objNull;
 {
@@ -86,7 +86,7 @@ if ((_multiplier > _puntMax) and (_x!=_lider)) then
 	_selectable = _x;
 	_puntMax = _multiplier;
 	};
-} forEach _elegibles;
+} forEach _eligibles;
 
 if (!isNull _selectable) then
 	{

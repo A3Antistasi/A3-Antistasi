@@ -29,7 +29,7 @@ if ((typeOf _veh in arrayCivVeh) and ({(_x getVariable ["spawner",false]) and (s
 	};
 while {alive _veh} do
 	{
-	if ((not([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) and (not([distanceSPWN,1,_veh,muyMalos] call A3A_fnc_distanceUnits)) and (not([distanceSPWN,1,_veh,malos] call A3A_fnc_distanceUnits)) and (not(_veh in staticsToSave)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
+	if ((not([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) and (not([distanceSPWN,1,_veh,] call A3A_fnc_distanceUnits)) and (not([distanceSPWN,1,_veh,malos] call A3A_fnc_distanceUnits)) and (not(_veh in staticsToSave)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
 		{
 		if (_veh in reportedVehs) then {reportedVehs = reportedVehs - [_veh]; publicVariable "reportedVehs"};
 		deleteVehicle _veh

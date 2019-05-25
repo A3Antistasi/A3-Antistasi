@@ -1,4 +1,4 @@
-private ["_camiones","_camion","_armas","_ammunition","_items","_mochis","_containers","_todo"];
+private ["_trucksX","_camion","_armas","_ammunition","_items","_mochis","_containers","_todo"];
 
 _camion = objNull;
 
@@ -9,10 +9,10 @@ if (count _this > 0) then
 	}
 else
 	{
-	_camiones = nearestObjects [caja, ["LandVehicle","ReammoBox_F"], 20];
-	_camiones = _camiones select {not (_x isKindOf "StaticWeapon")};
-	_camiones = _camiones - [caja,cajaVeh];
-	if (count _camiones < 1) then {_camion = cajaVeh} else {_camion = _camiones select 0};
+	_trucksX = nearestObjects [caja, ["LandVehicle","ReammoBox_F"], 20];
+	_trucksX = _trucksX select {not (_x isKindOf "StaticWeapon")};
+	_trucksX = _trucksX - [caja,cajaVeh];
+	if (count _trucksX < 1) then {_camion = cajaVeh} else {_camion = _trucksX select 0};
 	};
 
 if (isNull _camion) exitWith {};

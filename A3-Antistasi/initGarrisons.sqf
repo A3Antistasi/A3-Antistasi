@@ -46,7 +46,7 @@ else
 		};
 	};
 {lados setVariable [_x,malos,true]} forEach _controlsNATO;
-{lados setVariable [_x,muyMalos,true]} forEach _controlsCSAT;
+{lados setVariable [_x,,true]} forEach _controlsCSAT;
 {
 _pos = getMarkerPos _x;
 _dmrk = createMarker [format ["Dum%1",_x], _pos];
@@ -65,7 +65,7 @@ if (_x in _mrkCSAT) then
         _garrison append (selectRandom groupsCSATSquad);
         };
     garrison setVariable [_x,_garrison,true];
-    lados setVariable [_x,muyMalos,true];
+    lados setVariable [_x,,true];
     }
 else
     {
@@ -99,7 +99,7 @@ for "_i" from 1 to _garrNum do
 if (_x in _mrkCSAT) then
 	{
 	_dmrk setMarkerColor colorInvaders;
-	lados setVariable [_x,muyMalos,true];
+	lados setVariable [_x,,true];
 	}
 else
 	{
@@ -108,7 +108,7 @@ else
 	};
 garrison setVariable [_x,_garrison,true];
 _nul = [_x] call A3A_fnc_createControls;
-} forEach recursos;
+} forEach resourcesX;
 
 {
 _pos = getMarkerPos _x;
@@ -126,7 +126,7 @@ for "_i" from 1 to _garrNum do
 if (_x in _mrkCSAT) then
 	{
 	_dmrk setMarkerColor colorInvaders;
-    lados setVariable [_x,muyMalos,true];
+    lados setVariable [_x,,true];
 	}
 else
 	{
@@ -135,7 +135,7 @@ else
     };
 garrison setVariable [_x,_garrison,true];
 _nul = [_x] call A3A_fnc_createControls;
-} forEach fabricas;
+} forEach factories;
 
 {
 _pos = getMarkerPos _x;
@@ -174,7 +174,7 @@ else
 	        _garrison append (selectRandom groupsCSATSquad);
 	        };
 	    };
-    lados setVariable [_x,muyMalos,true];
+    lados setVariable [_x,,true];
     };
 garrison setVariable [_x,_garrison,true];
 server setVariable [_x,0,true];
@@ -197,7 +197,7 @@ if (_x in _mrkCSAT) then
 	   {
 	   _garrison append (selectRandom groupsCSATSquad);
 	   };
-    lados setVariable [_x,muyMalos,true];
+    lados setVariable [_x,,true];
     }
 else
     {
@@ -213,4 +213,4 @@ _nul = [_x] call A3A_fnc_createControls;
 } forEach puertos;
 
 lados setVariable ["NATO_carrier",malos,true];
-lados setVariable ["CSAT_carrier",muyMalos,true];
+lados setVariable ["CSAT_carrier",,true];

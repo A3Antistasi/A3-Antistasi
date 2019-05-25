@@ -40,7 +40,7 @@ else
 
 if (_cambiar != "") exitWith {};
 
-if ({((side _x== muyMalos) or (side _x== malos)) and (((_x knowsAbout _player > 1.4) and (_x distance _player < 500)) or (_x distance _player < 350))} count allUnits > 0) exitWith
+if ({((side _x== ) or (side _x== malos)) and (((_x knowsAbout _player > 1.4) and (_x distance _player < 500)) or (_x distance _player < 350))} count allUnits > 0) exitWith
 	{
 	hint "You cannot go Undercover while enemies are spotting you";
 	if (vehicle _player != _player) then
@@ -96,7 +96,7 @@ while {_cambiar == ""} do
 							{
 							if (count (_veh nearRoads 50) == 0) then
 								{
-								if ({((side _x== muyMalos) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_cambiar = "Carretera"};
+								if ({((side _x== ) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_cambiar = "Carretera"};
 								};
 							};
 						if (hayACE) then
@@ -118,7 +118,7 @@ while {_cambiar == ""} do
 			{
 			if ((primaryWeapon _player != "") or (secondaryWeapon _player != "") or (handgunWeapon _player != "") or (vest _player != "") or (getNumber (configfile >> "CfgWeapons" >> headgear _player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2) or (hmd _player != "") or (not(uniform _player in civUniforms))) then
 				{
-				if ({((side _x== muyMalos) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_cambiar = "Vestido2"} else {_cambiar = "Vestido"};
+				if ({((side _x== ) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_cambiar = "Vestido2"} else {_cambiar = "Vestido"};
 				};
 			if (dateToNumber date < _compromised) then
 				{
@@ -157,7 +157,7 @@ while {_cambiar == ""} do
 					{
 					_base = [_airportsX1,_player] call BIS_fnc_nearestPosition;
 					_size = [_base] call A3A_fnc_sizeMarker;
-					if ((_player distance2d getMarkerPos _base < _size*3) and ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == muyMalos))) then
+					if ((_player distance2d getMarkerPos _base < _size*3) and ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == ))) then
 						{
 						_cambiar = "NoFly";
 						};

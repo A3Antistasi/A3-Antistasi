@@ -19,6 +19,6 @@ else
 	{
 	if (sidesX getVariable [_outpost,sideUnknown] == Occupants) then {_result = true};
 	};*/
-private _lado = sidesX getVariable [_outpost,sideUnknown];
+private _sideX = sidesX getVariable [_outpost,sideUnknown];
 //_result
-_lado
+_sideX

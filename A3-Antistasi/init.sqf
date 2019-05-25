@@ -1,7 +1,7 @@
 //Arma 3 - Antistasi - Warlords of the Pacific by Barbolani
 //Do whatever you want with this code, but credit me for the thousand hours spent making this.
 enableSaving [false,false];
-mapa setObjectTexture [0,"pic.jpg"];
+mapX setObjectTexture [0,"pic.jpg"];
 if (isServer and (isNil "serverInitDone")) then {skipTime random 24};
 
 if (!isMultiPlayer) then

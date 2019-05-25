@@ -8,10 +8,10 @@ if ((groupID _group == "Watch") or (groupID _group == "MineF")) exitwith {hint "
 
 _veh = cursortarget;
 
-_tipo = typeOf _veh;
+_typeX = typeOf _veh;
 
 //if (cursortarget == "") exitWith {hint "You are not looking at anything"};
-//if ((not(_tipo in vehFIA)) and (not(_tipo in vehAAFland)) and (not(_tipo in arrayCivVeh))) exitWith {hint "You are not looking to a valid vehicle"};
+//if ((not(_typeX in vehFIA)) and (not(_typeX in vehAAFland)) and (not(_typeX in arrayCivVeh))) exitWith {hint "You are not looking to a valid vehicle"};
 
 if ((!alive _veh) or (!canMove _veh)) exitWith {hint "The selected vehicle is destroyed or cannot move"};
 if ({(alive _x) and (_x in _veh)} count allUnits > 0) exitWith {hint "Selected vehicle is not empty"};
@@ -22,7 +22,7 @@ _esStatic = false;
 if (_esStatic) exitWith {hint "Static Weapon Squads cannot change of vehicle"};
 
 //_maxCargo = (_veh emptyPositions "Cargo") + (_veh emptyPositions "Commander") + (_veh emptyPositions "Gunner") + (_veh emptyPositions "Driver");
-_maxCargo = (getNumber (configFile >> "CfgVehicles" >> (_tipo) >> "transportSoldier")) + (count allTurrets [_veh, true]) + 1;
+_maxCargo = (getNumber (configFile >> "CfgVehicles" >> (_typeX) >> "transportSoldier")) + (count allTurrets [_veh, true]) + 1;
 if ({alive _x} count units _group > _maxCargo) exitWith {hint "The vehicle selected has no room for this squad"};
 
 hint format ["Vehicle Assigned to %1 Squad", groupID _group];

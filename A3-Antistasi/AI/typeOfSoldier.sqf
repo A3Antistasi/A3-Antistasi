@@ -20,8 +20,8 @@ if ((_var isEqualTo "") or (_var isEqualTo "ATMan") or (_var isEqualTo "AAMan") 
 			{
 			if (secondaryWeapon _unit != "") then
 				{
-				private _arma = [secondaryWeapon _unit] call BIS_fnc_baseWeapon;
-				private _typeOfMags = (getArray (configFile / "CfgWeapons" / _arma / "magazines")) select 0;
+				private _weaponX = [secondaryWeapon _unit] call BIS_fnc_baseWeapon;
+				private _typeOfMags = (getArray (configFile / "CfgWeapons" / _weaponX / "magazines")) select 0;
 				private _hasAmmo = false;
 				{
 				if ((_x select 0) == _typeOfMags) exitWith {_hasAmmo = true}
@@ -34,14 +34,14 @@ if ((_var isEqualTo "") or (_var isEqualTo "ATMan") or (_var isEqualTo "AAMan") 
 				}
 			else
 				{
-				_arma = [primaryWeapon _unit] call BIS_fnc_baseWeapon;
-				if (_arma in mguns) then
+				_weaponX = [primaryWeapon _unit] call BIS_fnc_baseWeapon;
+				if (_weaponX in mguns) then
 					{
 					_result = "MGMan"
 					}
 				else
 					{
-					if (_arma in srifles) then
+					if (_weaponX in srifles) then
 						{
 						_result = "Sniper";
 						}

@@ -1,12 +1,12 @@
-private ["_morty0","_mortarX","_pos","_tipo","_b0","_b1","_morty1"];
+private ["_morty0","_mortarX","_pos","_typeX","_b0","_b1","_morty1"];
 
 _group = _this select 0;
 _morty0 = units _group select 0;
 _morty1 = units _group select 1;
-_tipo = _this select 1;
+_typeX = _this select 1;
 _b0 = MortStaticSDKB;
 _b1 = supportStaticsSDKB3;
-if (_tipo == SDKMGStatic) then
+if (_typeX == SDKMGStatic) then
 	{
 	_b0 = MGStaticSDKB;
 	_b1 = supportStaticsSDKB2;
@@ -19,8 +19,8 @@ else
 while {(alive _morty0) and (alive _morty1)} do
 	{
 	waitUntil {sleep 1; {((unitReady _x) and (alive _x))} count units _group == count units _group};
-	_pos = position _morty0 findEmptyPosition [1,30,_tipo];
-	_mortarX = _tipo createVehicle _pos;
+	_pos = position _morty0 findEmptyPosition [1,30,_typeX];
+	_mortarX = _typeX createVehicle _pos;
 	removeBackpackGlobal _morty0;
 	removeBackpackGlobal _morty1;
 	_group addVehicle _mortarX;

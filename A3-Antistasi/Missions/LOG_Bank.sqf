@@ -1,5 +1,5 @@
 //Mission: Logistics bank mission
-//el sitio de la caja es el 21
+//el siteX de la boxX es el 21
 if (!isServer and hasInterface) exitWith {};
 private ["_banco","_markerX","_difficultX","_leave","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_truckX","_countX","_mrkFinal","_mrk","_soldiers"];
 _banco = _this select 0;
@@ -37,8 +37,8 @@ _truckX addEventHandler ["GetIn",
 	{
 	if (_this select 1 == "driver") then
 		{
-		_texto = format ["Bring this truck to %1 Bank and park it in the main entrance",(_this select 0) getVariable "destinationX"];
-		_texto remoteExecCall ["hint",_this select 2];
+		_textX = format ["Bring this truck to %1 Bank and park it in the main entrance",(_this select 0) getVariable "destinationX"];
+		_textX remoteExecCall ["hint",_this select 2];
 		};
 	}];
 

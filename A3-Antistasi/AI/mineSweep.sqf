@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_costs","_group","_unit","_minesX","_tam","_roads","_truckX","_mina","_countX"];
+private ["_costs","_group","_unit","_minesX","_tam","_roads","_truckX","_mineX","_countX"];
 
 _costs = (server getVariable (SDKExp select 0)) + ([vehSDKRepair] call A3A_fnc_vehiclePrice);
 
@@ -39,7 +39,7 @@ while {alive _unit} do
 			{
 			if ((count magazineCargo _truckX > 0) and (_unit distance (getMarkerPos respawnTeamPlayer) < 50)) then
 				{
-				[_truckX,caja] remoteExec ["A3A_fnc_ammunitionTransfer",2];
+				[_truckX,boxX] remoteExec ["A3A_fnc_ammunitionTransfer",2];
 				sleep 30;
 				};
 			};
@@ -57,14 +57,14 @@ while {alive _unit} do
 			_total = count _minesX;
 			while {(alive _unit) and (_countX < _total)} do
 				{
-				_mina = _minesX select _countX;
+				_mineX = _minesX select _countX;
 				[_unit] orderGetin false;
-				_unit doMove position _mina;
+				_unit doMove position _mineX;
 				_timeOut = time + 120;
-				waitUntil {sleep 0.5; (_unit distance _mina < 8) or (!alive _unit) or (time > _timeOut)};
+				waitUntil {sleep 0.5; (_unit distance _mineX < 8) or (!alive _unit) or (time > _timeOut)};
 				if (alive _unit) then
 					{
-					_unit action ["Deactivate",_unit,_mina];
+					_unit action ["Deactivate",_unit,_mineX];
 					//_unit action ["deactivateMine", _unit];
 					sleep 3;
 					_toDelete = nearestObjects [position _unit, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 9];
@@ -72,7 +72,7 @@ while {alive _unit} do
 						{
 						_wh = _toDelete select 0;
 						if (alive _truckX) then {_truckX addMagazineCargoGlobal [((magazineCargo _wh) select 0),1]};
-						deleteVehicle _mina;
+						deleteVehicle _mineX;
 						deleteVehicle _wh;
 						};
 					_countX = _countX + 1;

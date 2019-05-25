@@ -34,8 +34,8 @@ else
 //lets keep the nearest targets for each AI airbase in the target list, so we ensure even when they are surrounded of friendly zones, they remain as target
 _nearestObjectives = [];
 {
-_lado = sidesX getVariable [_x,sideUnknown];
-_tmpTargets = _objectivesX select {sidesX getVariable [_x,sideUnknown] != _lado};
+_sideX = sidesX getVariable [_x,sideUnknown];
+_tmpTargets = _objectivesX select {sidesX getVariable [_x,sideUnknown] != _sideX};
 if !(_tmpTargets isEqualTo []) then
 	{
 	_nearestTarget = [_tmpTargets,getMarkerPos _x] call BIS_fnc_nearestPosition;
@@ -95,8 +95,8 @@ if !(_tmpObjectives isEqualTo []) then
 			{
 			_isSDK = true;
 			/*
-			_valor = if (_baseNATO) then {prestigeNATO} else {prestigeCSAT};
-			if (random 100 > _valor) then
+			_valueX = if (_baseNATO) then {prestigeNATO} else {prestigeCSAT};
+			if (random 100 > _valueX) then
 				{
 				_proceed = false
 				}
@@ -119,13 +119,13 @@ if !(_tmpObjectives isEqualTo []) then
 				{
 				if !(_x in _easyArray) then
 					{
-					_sitio = _x;
-					if (((!(_sitio in airportsX)) or (_isSDK)) and !(_base in ["NATO_carrier","CSAT_carrier"])) then
+					_siteX = _x;
+					if (((!(_siteX in airportsX)) or (_isSDK)) and !(_base in ["NATO_carrier","CSAT_carrier"])) then
 						{
 						_sideENY = if (_baseNATO) then {} else {Occupants};
 						if ({(sidesX getVariable [_x,sideUnknown] == _sideENY) and (getMarkerPos _x distance _posSite < distanceSPWN)} count airportsX == 0) then
 							{
-							_garrison = garrison getVariable [_sitio,[]];
+							_garrison = garrison getVariable [_siteX,[]];
 							_staticsX = staticsToSave select {_x distance _posSite < distanceSPWN};
 							_outposts = outpostsFIA select {getMarkerPos _x distance _posSite < distanceSPWN};
 							_countX = ((count _garrison) + (count _outposts) + (2*(count _staticsX)));
@@ -134,8 +134,8 @@ if !(_tmpObjectives isEqualTo []) then
 								if (!hasIFA or (_posSite distance _posBase < distanceForLandAttack)) then
 									{
 									_proceed = false;
-									_easyX pushBack [_sitio,_base];
-									_easyArray pushBackUnique _sitio;
+									_easyX pushBack [_siteX,_base];
+									_easyArray pushBackUnique _siteX;
 									};
 								};
 							};
@@ -263,8 +263,8 @@ if !(_tmpObjectives isEqualTo []) then
 			if (_x == _nearX) then {_times = _times * 5};
 			if (_x in _killZones) then
 				{
-				_sitio = _x;
-				_times = _times / (({_x == _sitio} count _killZones) + 1);
+				_siteX = _x;
+				_times = _times / (({_x == _siteX} count _killZones) + 1);
 				};
 			_times = round (_times);
 			_index = _objectivesFinal find _x;

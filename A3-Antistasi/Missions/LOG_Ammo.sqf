@@ -11,14 +11,14 @@ _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _positionX = getMarkerPos _markerX;
-_lado = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
+_sideX = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
 _timeLimit = if (_difficultX) then {30} else {60};
 if (hasIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_markerX] call A3A_fnc_localizar;
-_typeVehX = if (_lado == Occupants) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
+_typeVehX = if (_sideX == Occupants) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
 _size = [_markerX] call A3A_fnc_sizeMarker;
 
 _road = [_positionX] call A3A_fnc_findNearestGoodRoad;
@@ -39,7 +39,7 @@ if ((spawner getVariable _markerX != 2) and !(sidesX getVariable [_markerX,sideU
 	_truckX = _typeVehX createVehicle _pos;
 	_truckX setDir (getDir _road);
 	_truckCreated = true;
-	if (_lado == Occupants) then {[_truckX] call A3A_fnc_NATOcrate} else {[_truckX] call A3A_fnc_CSATcrate};
+	if (_sideX == Occupants) then {[_truckX] call A3A_fnc_NATOcrate} else {[_truckX] call A3A_fnc_CSATcrate};
 
 	_mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], _pos];
 	_mrk setMarkerShapeLocal "RECTANGLE";
@@ -48,9 +48,9 @@ if ((spawner getVariable _markerX != 2) and !(sidesX getVariable [_markerX,sideU
 	_mrk setMarkerColorLocal "ColorRed";
 	_mrk setMarkerBrushLocal "DiagGrid";
 	if (!debug) then {_mrk setMarkerAlphaLocal 0};
-	_typeGroup = if (_difficultX) then {if (_lado == Occupants) then {NATOSquad} else {CSATSquad}} else {if (_lado == Occupants) then {groupsNATOSentry} else {groupsCSATSentry}};
-	//_cfg = if (_lado == Occupants) then {cfgNATOInf} else {cfgCSATInf};
-	_group = [_pos,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+	_typeGroup = if (_difficultX) then {if (_sideX == Occupants) then {NATOSquad} else {CSATSquad}} else {if (_sideX == Occupants) then {groupsNATOSentry} else {groupsCSATSentry}};
+	//_cfg = if (_sideX == Occupants) then {cfgNATOInf} else {cfgCSATInf};
+	_group = [_pos,_sideX, _typeGroup] call A3A_fnc_spawnGroup;
 	sleep 1;
 	if (random 10 < 33) then
 		{
@@ -60,7 +60,7 @@ if ((spawner getVariable _markerX != 2) and !(sidesX getVariable [_markerX,sideU
 
 	_nul = [leader _group, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
 
-	_group1 = [_pos,_lado,_typeGroup] call A3A_fnc_spawnGroup;
+	_group1 = [_pos,_sideX,_typeGroup] call A3A_fnc_spawnGroup;
 	sleep 1;
 	_nul = [leader _group1, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
 
@@ -79,9 +79,9 @@ if ((spawner getVariable _markerX != 2) and !(sidesX getVariable [_markerX,sideU
 		{
 		if ({(_x getVariable ["spawner",false]) and (side group _x == teamPlayer)} count crew _truckX > 0) then
 			{
-			["TaskFailed", ["", format ["Ammotruck Stolen in an %1",_nameDest]]] remoteExec ["BIS_fnc_showNotification",_lado];
+			["TaskFailed", ["", format ["Ammotruck Stolen in an %1",_nameDest]]] remoteExec ["BIS_fnc_showNotification",_sideX];
 			};
-		[getPosASL _truckX,_lado,"",false] spawn A3A_fnc_patrolCA;
+		[getPosASL _truckX,_sideX,"",false] spawn A3A_fnc_patrolCA;
 		["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Steal or Destroy Ammotruck",_markerX],_positionX,"SUCCEEDED","rearm"] call A3A_fnc_taskUpdate;
 		[0,300*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 		[1200*_bonus] remoteExec ["A3A_fnc_timingCA",2];

@@ -18,24 +18,24 @@ if (!visibleMap) exitWith {};
 
 _positionTel = positionTel;
 
-_sitio = [markersX,_positionTel] call BIS_fnc_nearestPosition;
+_siteX = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 
-if (getMarkerPos _sitio distance _positionTel > 50) exitWith {hint "You must click near a map marker"};
+if (getMarkerPos _siteX distance _positionTel > 50) exitWith {hint "You must click near a map marker"};
 
-if ((not(_sitio in _destroyedCities)) and (!(_sitio in outposts))) exitWith {hint "You cannot rebuild that"};
+if ((not(_siteX in _destroyedCities)) and (!(_siteX in outposts))) exitWith {hint "You cannot rebuild that"};
 
 _leave = false;
 _antennaDead = [];
-_texto = "That Outpost does not have a destroyed Radio Tower";
-if (_sitio in outposts) then
+_textX = "That Outpost does not have a destroyed Radio Tower";
+if (_siteX in outposts) then
 	{
-	_antennasDead = antennasDead select {_x inArea _sitio};
+	_antennasDead = antennasDead select {_x inArea _siteX};
 	if (count _antennasDead > 0) then
 		{
-		if (sidesX getVariable [_sitio, sideUnknown] != teamPlayer) then
+		if (sidesX getVariable [_siteX, sideUnknown] != teamPlayer) then
 			{
 			_leave = true;
-			_texto = format ["You cannot rebuild a Radio Tower in an Outpost which does not belong to %1",nameTeamPlayer];
+			_textX = format ["You cannot rebuild a Radio Tower in an Outpost which does not belong to %1",nameTeamPlayer];
 			}
 		else
 			{
@@ -48,17 +48,17 @@ if (_sitio in outposts) then
 		};
 	};
 
-if (_leave) exitWith {hint format ["%1",_texto]};
+if (_leave) exitWith {hint format ["%1",_textX]};
 
 if (count _antennaDead == 0) then
 	{
-	_nameX = [_sitio] call A3A_fnc_localizar;
+	_nameX = [_siteX] call A3A_fnc_localizar;
 
 	hint format ["%1 Rebuilt"];
 
 	[0,10,_positionTel] remoteExec ["A3A_fnc_citySupportChange",2];
 	[5,0] remoteExec ["A3A_fnc_prestige",2];
-	destroyedCities = destroyedCities - [_sitio];
+	destroyedCities = destroyedCities - [_siteX];
 	publicVariable "destroyedCities";
 	}
 else

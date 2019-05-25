@@ -8,7 +8,7 @@ _ammunition= [];
 _items = [];
 _ammunition = magazineCargo _originX;
 _items = itemCargo _originX;
-_armas = [];
+_weaponsX = [];
 _weaponsItemsCargo = weaponsItemsCargo _originX;
 _backpcks = [];
 
@@ -35,35 +35,35 @@ if (!isNil "_weaponsItemsCargo") then
 	if (count _weaponsItemsCargo > 0) then
 		{
 		{
-		_armas pushBack ([(_x select 0)] call BIS_fnc_baseWeapon);
+		_weaponsX pushBack ([(_x select 0)] call BIS_fnc_baseWeapon);
 		for "_i" from 1 to (count _x) - 1 do
 			{
-			_cosa = _x select _i;
-			if (typeName _cosa == typeName "") then
+			_thingX = _x select _i;
+			if (typeName _thingX == typeName "") then
 				{
-				if (_cosa != "") then {_items pushBack _cosa};
+				if (_thingX != "") then {_items pushBack _thingX};
 				};
 			};
 		} forEach _weaponsItemsCargo;
 		};
 	};
 
-_armasFinal = [];
-_armasFinalCount = [];
+_weaponsFinal = [];
+_weaponsFinalCount = [];
 {
-_arma = _x;
-if ((not(_arma in _armasFinal)) and (not(_arma in unlockedWeapons))) then
+_weaponX = _x;
+if ((not(_weaponX in _weaponsFinal)) and (not(_weaponX in unlockedWeapons))) then
 	{
-	_armasFinal pushBack _arma;
-	_armasFinalCount pushBack ({_x == _arma} count _armas);
+	_weaponsFinal pushBack _weaponX;
+	_weaponsFinalCount pushBack ({_x == _weaponX} count _weaponsX);
 	};
-} forEach _armas;
+} forEach _weaponsX;
 
-if (count _armasFinal > 0) then
+if (count _weaponsFinal > 0) then
 	{
-	for "_i" from 0 to (count _armasFinal) - 1 do
+	for "_i" from 0 to (count _weaponsFinal) - 1 do
 		{
-		_destinationX addWeaponCargoGlobal [_armasFinal select _i,_armasFinalCount select _i];
+		_destinationX addWeaponCargoGlobal [_weaponsFinal select _i,_weaponsFinalCount select _i];
 		};
 	};
 
@@ -76,11 +76,11 @@ if (isNil "_ammunition") then
 else
 	{
 	{
-	_arma = _x;
-	if ((not(_arma in _ammunitionFinal)) and (not(_arma in unlockedMagazines))) then
+	_weaponX = _x;
+	if ((not(_weaponX in _ammunitionFinal)) and (not(_weaponX in unlockedMagazines))) then
 		{
-		_ammunitionFinal pushBack _arma;
-		_ammunitionFinalCount pushBack ({_x == _arma} count _ammunition);
+		_ammunitionFinal pushBack _weaponX;
+		_ammunitionFinalCount pushBack ({_x == _weaponX} count _ammunition);
 		};
 	} forEach  _ammunition;
 	};
@@ -97,11 +97,11 @@ if (count _ammunitionFinal > 0) then
 _itemsFinal = [];
 _itemsFinalCount = [];
 {
-_arma = _x;
-if ((not(_arma in _itemsFinal)) and (not(_arma in unlockedItems))) then
+_weaponX = _x;
+if ((not(_weaponX in _itemsFinal)) and (not(_weaponX in unlockedItems))) then
 	{
-	_itemsFinal pushBack _arma;
-	_itemsFinalCount pushBack ({_x == _arma} count _items);
+	_itemsFinal pushBack _weaponX;
+	_itemsFinalCount pushBack ({_x == _weaponX} count _items);
 	};
 } forEach _items;
 
@@ -116,11 +116,11 @@ if (count _itemsFinal > 0) then
 _backpcksFinal = [];
 _backpcksFinalCount = [];
 {
-_arma = _x;
-if ((not(_arma in _backpcksFinal)) and (not(_arma in unlockedBackpacks))) then
+_weaponX = _x;
+if ((not(_weaponX in _backpcksFinal)) and (not(_weaponX in unlockedBackpacks))) then
 	{
-	_backpcksFinal pushBack _arma;
-	_backpcksFinalCount pushBack ({_x == _arma} count _backpcks);
+	_backpcksFinal pushBack _weaponX;
+	_backpcksFinalCount pushBack ({_x == _weaponX} count _backpcks);
 	};
 } forEach _backpcks;
 
@@ -144,9 +144,9 @@ else
 	clearBackpackCargoGlobal _originX;
 	};
 
-if (_destinationX == caja) then
+if (_destinationX == boxX) then
 	{
-	if (isMultiplayer) then {{if (_x distance caja < 10) then {[petros,"hint","Ammobox Loaded"] remoteExec ["A3A_fnc_commsMP",_x]}} forEach playableUnits} else {hint "Ammobox Loaded"};
+	if (isMultiplayer) then {{if (_x distance boxX < 10) then {[petros,"hint","Ammobox Loaded"] remoteExec ["A3A_fnc_commsMP",_x]}} forEach playableUnits} else {hint "Ammobox Loaded"};
 	if ((_originX isKindOf "ReammoBox_F") and (_originX != vehicleBox)) then {deleteVehicle _originX};
 	_updated = [] call A3A_fnc_arsenalManage;
 	if (_updated != "") then

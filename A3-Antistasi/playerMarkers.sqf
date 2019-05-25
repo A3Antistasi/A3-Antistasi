@@ -1,5 +1,5 @@
-private ["_playerXes","_playerX","_mrk","_veh","_lado"];
-_lado = side group player;
+private ["_playerXes","_playerX","_mrk","_veh","_sideX"];
+_sideX = side group player;
 while {true} do
 	{
 	waitUntil {sleep 0.5; (visibleMap or visibleGPS) and ([player] call A3A_fnc_hasRadio)};
@@ -9,7 +9,7 @@ while {true} do
 		{
 		{
 		_playerX = _x getVariable ["owner",_x];
-		if ((not(_playerX in _playerXes)) and ((side group _playerX == _lado))) then
+		if ((not(_playerX in _playerXes)) and ((side group _playerX == _sideX))) then
 			{
 			_playerXes pushBack _playerX;
 			_mrk = createMarkerLocal [format ["%1",_playerX],position _playerX];
@@ -48,14 +48,14 @@ while {true} do
 					_mrk setMarkerAlphaLocal 1;
 					_mrk setMarkerPosLocal position _veh;
 					_mrk setMarkerDirLocal getDir _veh;
-					_texto = format ["%1 (%2)/",name _playerX,getText(configFile>>"CfgVehicles">>typeOf _veh>>"DisplayName")];
+					_textX = format ["%1 (%2)/",name _playerX,getText(configFile>>"CfgVehicles">>typeOf _veh>>"DisplayName")];
 					{
 					if ((_x!=_playerX) and (vehicle _x == _veh)) then
 						{
-						_texto = format ["%1%2/",_texto,name _x];
+						_textX = format ["%1%2/",_textX,name _x];
 						};
 					} forEach playableUnits;
-					_mrk setMarkerTextLocal _texto;
+					_mrk setMarkerTextLocal _textX;
 					}
 				else
 					{

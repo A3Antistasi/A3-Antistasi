@@ -28,19 +28,19 @@ _posHouse = [];
 _countX = 0;
 //_houses = nearestObjects [_positionX, ["house"], 50];
 _houses = (nearestObjects [_positionX, ["house"], 50]) select {!((typeOf _x) in UPSMON_Bld_remove)};
-_casa = "";
+_houseX = "";
 _potentials = [];
 for "_i" from 0 to (count _houses) - 1 do
 	{
-	_casa = (_houses select _i);
-	_posHouse = [_casa] call BIS_fnc_buildingPositions;
-	if (count _posHouse > 1) then {_potentials pushBack _casa};
+	_houseX = (_houses select _i);
+	_posHouse = [_houseX] call BIS_fnc_buildingPositions;
+	if (count _posHouse > 1) then {_potentials pushBack _houseX};
 	};
 
 if (count _potentials > 0) then
 	{
-	_casa = _potentials call BIS_Fnc_selectRandom;
-	_posHouse = [_casa] call BIS_fnc_buildingPositions;
+	_houseX = _potentials call BIS_Fnc_selectRandom;
+	_posHouse = [_houseX] call BIS_fnc_buildingPositions;
 	_countX = (count _posHouse) - 1;
 	if (_countX > 10) then {_countX = 10};
 	}
@@ -135,20 +135,20 @@ else
 sleep 60;
 _items = [];
 _ammunition = [];
-_armas = [];
+_weaponsX = [];
 {
 _unit = _x;
 if (_unit distance getMarkerPos respawnTeamPlayer < 150) then
 	{
-	{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
+	{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_weaponsX pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
 	{if (not(_x in unlockedMagazines)) then {_ammunition pushBack _x}} forEach magazines _unit;
 	_items = _items + (items _unit) + (primaryWeaponItems _unit) + (assignedItems _unit) + (secondaryWeaponItems _unit);
 	};
 deleteVehicle _unit;
 } forEach _POWs;
 deleteGroup _grpPOW;
-{caja addWeaponCargoGlobal [_x,1]} forEach _armas;
-{caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
-{caja addItemCargoGlobal [_x,1]} forEach _items;
+{boxX addWeaponCargoGlobal [_x,1]} forEach _weaponsX;
+{boxX addMagazineCargoGlobal [_x,1]} forEach _ammunition;
+{boxX addItemCargoGlobal [_x,1]} forEach _items;
 
 _nul = [1200,"RES"] spawn A3A_fnc_deleteTask;

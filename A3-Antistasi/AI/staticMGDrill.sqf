@@ -5,14 +5,14 @@ private _isMortar = false;
 private _group = group _gunner;
 private _mounted = false;
 private _veh = objNull;
-private _lado = side _group;
+private _sideX = side _group;
 private _typeVehX = 	if !(_isMortar) then
 						{
-						if (_lado == Occupants) then {NATOMG} else {if (_lado == ) then {CSATMG} else {SDKMGStatic}};
+						if (_sideX == Occupants) then {NATOMG} else {if (_sideX == ) then {CSATMG} else {SDKMGStatic}};
 						}
 					else
 						{
-						if (_lado == Occupants) then {NATOMortar} else {if (_lado == ) then {CSATMortar} else {SDKMortar}};
+						if (_sideX == Occupants) then {NATOMortar} else {if (_sideX == ) then {CSATMortar} else {SDKMortar}};
 						};
 private _backpckG = backPack _gunner;
 private _backpckA = backpack _helperX;

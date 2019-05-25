@@ -37,23 +37,23 @@ _hr = 0;
 _resourcesFIA = 0;
 _items = [];
 _ammunition = [];
-_armas = [];
+_weaponsX = [];
 
 {_unit = _x;
 if ([_unit] call A3A_fnc_canFight) then
 	{
 	_resourcesFIA = _resourcesFIA + (server getVariable (typeOf _unit));
 	_hr = _hr +1;
-	{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
+	{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_weaponsX pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
 	{if (not(_x in unlockedMagazines)) then {_ammunition pushBack _x}} forEach magazines _unit;
 	_items = _items + (items _unit) + (primaryWeaponItems _unit) + (assignedItems _unit) + (secondaryWeaponItems _unit) + [(hmd _unit),(headGear _unit),(vest _unit)];
 	};
 deleteVehicle _x;
 } forEach units _newGroup;
 if (!isMultiplayer) then {_nul = [_hr,_resourcesFIA] remoteExec ["A3A_fnc_resourcesFIA",2];} else {_nul = [_hr,0] remoteExec ["A3A_fnc_resourcesFIA",2]; [_resourcesFIA] call A3A_fnc_resourcesPlayer};
-{caja addWeaponCargoGlobal [_x,1]} forEach _armas;
-{caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
-{caja addItemCargoGlobal [_x,1]} forEach _items;
+{boxX addWeaponCargoGlobal [_x,1]} forEach _weaponsX;
+{boxX addMagazineCargoGlobal [_x,1]} forEach _ammunition;
+{boxX addItemCargoGlobal [_x,1]} forEach _items;
 deleteGroup _newGroup;
 
 

@@ -1,17 +1,17 @@
 if (!isServer) exitWith {};
 
-private ["_markerX","_lado","_leave","_enemy1","_enemy2","_winner"];
+private ["_markerX","_sideX","_leave","_enemy1","_enemy2","_winner"];
 
 _markerX = _this select 0;
-_lado = _this select 1;
-if ((isNil "_markerX") or (isNil "_lado")) exitWith {};
+_sideX = _this select 1;
+if ((isNil "_markerX") or (isNil "_sideX")) exitWith {};
 waitUntil {!zoneCheckInProgress};
 zoneCheckInProgress = true;
 _leave = true;
 _enemy1 = "";
 _enemy2 = "";
 
-if ((_lado == teamPlayer) and (sidesX getVariable [_markerX,sideUnknown] == teamPlayer)) then
+if ((_sideX == teamPlayer) and (sidesX getVariable [_markerX,sideUnknown] == teamPlayer)) then
 	{
 	_leave = false;
 	_enemy1 = ;
@@ -19,7 +19,7 @@ if ((_lado == teamPlayer) and (sidesX getVariable [_markerX,sideUnknown] == team
 	}
 else
 	{
-	if ((_lado == Occupants) and (sidesX getVariable [_markerX,sideUnknown] == Occupants)) then
+	if ((_sideX == Occupants) and (sidesX getVariable [_markerX,sideUnknown] == Occupants)) then
 		{
 		_leave = false;
 		_enemy1 = ;
@@ -27,7 +27,7 @@ else
 		}
 	else
 		{
-		if ((_lado == ) and (sidesX getVariable [_markerX,sideUnknown] == )) then
+		if ((_sideX == ) and (sidesX getVariable [_markerX,sideUnknown] == )) then
 			{
 			_leave = false;
 			_enemy1 = Occupants;

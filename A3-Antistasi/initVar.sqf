@@ -134,7 +134,7 @@ if ("LIB_PTRD" in arifles) then
 	{
 	hasIFA = true;
 	helmets = [];
-	humo = ["LIB_RDG","LIB_NB39"];
+	smokeX = ["LIB_RDG","LIB_NB39"];
 	}
 else
 	{
@@ -143,7 +143,7 @@ else
 	if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hasRHS = true};
 	if ("rhs_weap_m92" in arifles) then {activeGREF = true; hasRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
 	helmets = helmets select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2};
-	humo = ["SmokeShell","SmokeShellRed","SmokeShellGreen","SmokeShellBlue","SmokeShellYellow","SmokeShellPurple","SmokeShellOrange"];
+	smokeX = ["SmokeShell","SmokeShellRed","SmokeShellGreen","SmokeShellBlue","SmokeShellYellow","SmokeShellPurple","SmokeShellOrange"];
 	};
 
 titanLaunchers = if ((!hasRHS) and !hasIFA and !myCustomMod) then
@@ -212,9 +212,9 @@ else
 	};
 
 ammunitionNATO = [];
-armasNATO = [];
+weaponsNato = [];
 ammunitionCSAT = [];
-armasCSAT = [];
+weaponsCSAT = [];
 
 if (!hasIFA) then
 	{
@@ -276,15 +276,15 @@ if (count _x > 1) then
 _checked = [];
 {
 {
-_tipo = _x;
-if !(_tipo in _checked) then
+_typeX = _x;
+if !(_typeX in _checked) then
 	{
-	_checked pushBack _tipo;
-	_loadout = getUnitLoadout _tipo;
+	_checked pushBack _typeX;
+	_loadout = getUnitLoadout _typeX;
 	for "_i" from 0 to 2 do
 		{
 		_weapon = [((_loadout select _i) select 0)] call BIS_fnc_baseWeapon;
-		if !(_weapon in armasCSAT) then {armasCSAT pushBack _weapon};
+		if !(_weapon in weaponsCSAT) then {weaponsCSAT pushBack _weapon};
 		};
 	};
 } forEach _x;
@@ -292,15 +292,15 @@ if !(_tipo in _checked) then
 _checked = [];
 {
 {
-_tipo = _x;
-if !(_tipo in _checked) then
+_typeX = _x;
+if !(_typeX in _checked) then
 	{
-	_checked pushBack _tipo;
-	_loadout = getUnitLoadout _tipo;
+	_checked pushBack _typeX;
+	_loadout = getUnitLoadout _typeX;
 	for "_i" from 0 to 2 do
 		{
 		_weapon = [((_loadout select _i) select 0)] call BIS_fnc_baseWeapon;
-		if !(_weapon in armasNATO) then {armasNATO pushBack _weapon};
+		if !(_weapon in weaponsNato) then {weaponsNato pushBack _weapon};
 		};
 	};
 } forEach _x;
@@ -310,12 +310,12 @@ if !(_tipo in _checked) then
 _nameX = [_x] call BIS_fnc_baseWeapon;
 _magazines = getArray (configFile / "CfgWeapons" / _nameX / "magazines");
 ammunitionNATO pushBack (_magazines select 0);
-} forEach armasNATO;
+} forEach weaponsNato;
 {
 _nameX = [_x] call BIS_fnc_baseWeapon;
 _magazines = getArray (configFile / "CfgWeapons" / _nameX / "magazines");
 ammunitionCSAT pushBack (_magazines select 0);
-} forEach armasCSAT;
+} forEach weaponsCSAT;
 //optic, pointer and flashlight automated detection
 opticsAAF = [];
 flashLights = [];
@@ -346,7 +346,7 @@ if !(_item in (opticsAAF + flashLights + pointers)) then
 	};
 } forEach (_x call BIS_fnc_compatibleItems);
 
-} forEach (armasNATO + armasCSAT);
+} forEach (weaponsNato + weaponsCSAT);
 if (hasRHS) then
 	{
 	opticsAAF = opticsAAF select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
@@ -719,7 +719,7 @@ if (!isNil "ace_common_fnc_isModLoaded") then {
 		unlockedBackpacks pushBackUnique "ACE_TacticalLadder_Pack";
 		unlockedWeapons pushBackUnique "ACE_VMH3";
 		itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX"];
-		armasNATO = armasNATO + ["ACE_M84"];
+		weaponsNato = weaponsNato + ["ACE_M84"];
 		};
 	hasACE = true;
 	if (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak")) then {

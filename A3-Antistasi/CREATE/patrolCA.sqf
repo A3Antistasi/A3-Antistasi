@@ -1,25 +1,25 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_markerX","_isMarker","_exit","_radio","_base","_airportX","_posDestination","_soldiers","_vehiclesX","_groups","_roads","_posOrigin","_tam","_typeVehX","_vehicle","_veh","_vehCrew","_groupVeh","_landPos","_typeGroup","_group","_soldierX","_threatEval","_pos","_timeOut","_lado","_countX","_isMarker","_inWaves","_typeOfAttack","_nearX","_airportsX","_sitio","_enemiesX","_plane","_friends","_tipo","_isSDK","_weapons","_nameDest","_vehPool","_super","_spawnPoint","_pos1","_pos2"];
+private ["_markerX","_isMarker","_exit","_radio","_base","_airportX","_posDestination","_soldiers","_vehiclesX","_groups","_roads","_posOrigin","_tam","_typeVehX","_vehicle","_veh","_vehCrew","_groupVeh","_landPos","_typeGroup","_group","_soldierX","_threatEval","_pos","_timeOut","_sideX","_countX","_isMarker","_inWaves","_typeOfAttack","_nearX","_airportsX","_siteX","_enemiesX","_plane","_friends","_typeX","_isSDK","_weapons","_nameDest","_vehPool","_super","_spawnPoint","_pos1","_pos2"];
 
 _markerX = _this select 0;//[position player,Occupants,"Normal",false] spawn A3A_Fnc_patrolCA
 _airportX = _this select 1;
 _typeOfAttack = _this select 2;
 _super = if (!isMultiplayer) then {false} else {_this select 3};
 _inWaves = false;
-_lado = Occupants;
+_sideX = Occupants;
 _posOrigin = [];
 _posDestination = [];
 if ([_markerX,false] call A3A_fnc_fogCheck < 0.3) exitWith {diag_log format ["Antistasi PatrolCA: Attack on %1 exit because of heavy fog",_markerX]};
 if (_airportX isEqualType "") then
 	{
 	_inWaves = true;
-	if (sidesX getVariable [_airportX,sideUnknown] == ) then {_lado = };
+	if (sidesX getVariable [_airportX,sideUnknown] == ) then {_sideX = };
 	_posOrigin = getMarkerPos _airportX;
 	}
 else
 	{
-	_lado = _airportX;
+	_sideX = _airportX;
 	};
 
 //if ((!_inWaves) and (diag_fps < minimoFPS)) exitWith {diag_log format ["Antistasi PatrolCA: CA cancelled because of FPS %1",""]};
@@ -52,35 +52,35 @@ else
 
 if (_exit) exitWith {diag_log format ["Antistasi PatrolCA: CA cancelled because of other CA in vincity of %1",_markerX]};
 
-_enemiesX = allUnits select {_x distance _posDestination < distanceSPWN2 and (side (group _x) != _lado) and (side (group _x) != civilian) and (alive _x)};
+_enemiesX = allUnits select {_x distance _posDestination < distanceSPWN2 and (side (group _x) != _sideX) and (side (group _x) != civilian) and (alive _x)};
 
-if ((!_isMarker) and (_typeOfAttack != "Air") and (!_super) and ({sidesX getVariable [_x,sideUnknown] == _lado} count airportsX > 0)) then
+if ((!_isMarker) and (_typeOfAttack != "Air") and (!_super) and ({sidesX getVariable [_x,sideUnknown] == _sideX} count airportsX > 0)) then
 	{
-	_plane = if (_lado == Occupants) then {vehNATOPlane} else {vehCSATPlane};
+	_plane = if (_sideX == Occupants) then {vehNATOPlane} else {vehCSATPlane};
 	if ([_plane] call A3A_fnc_vehAvailable) then
 		{
-		_friends = if (_lado == Occupants) then {allUnits select {(_x distance _posDestination < 200) and (alive _x) and ((side (group _x) == _lado) or (side (group _x) == civilian))}} else {allUnits select {(_x distance _posDestination < 100) and ([_x] call A3A_fnc_canFight) and (side (group _x) == _lado)}};
+		_friends = if (_sideX == Occupants) then {allUnits select {(_x distance _posDestination < 200) and (alive _x) and ((side (group _x) == _sideX) or (side (group _x) == civilian))}} else {allUnits select {(_x distance _posDestination < 100) and ([_x] call A3A_fnc_canFight) and (side (group _x) == _sideX)}};
 		if (count _friends == 0) then
 			{
-			_tipo = "NAPALM";
+			_typeX = "NAPALM";
 			{
 			if (vehicle _x isKindOf "Tank") then
 				{
-				_tipo = "HE"
+				_typeX = "HE"
 				}
 			else
 				{
 				if (vehicle _x != _x) then
 					{
-					if !(vehicle _x isKindOf "StaticWeapon") then {_tipo = "CLUSTER"};
+					if !(vehicle _x isKindOf "StaticWeapon") then {_typeX = "CLUSTER"};
 					};
 				};
-			if (_tipo == "HE") exitWith {};
+			if (_typeX == "HE") exitWith {};
 			} forEach _enemiesX;
 			_exit = true;
 			if (!_isMarker) then {smallCApos pushBack _posDestination};
-			[_posDestination,_lado,_tipo] spawn A3A_fnc_airstrike;
-			diag_log format ["Antistasi PatrolCA: Airstrike of type %1 sent to %2",_tipo,_markerX];
+			[_posDestination,_sideX,_typeX] spawn A3A_fnc_airstrike;
+			diag_log format ["Antistasi PatrolCA: Airstrike of type %1 sent to %2",_typeX,_markerX];
 			if (!_isMarker) then
 				{
 				sleep 120;
@@ -94,10 +94,10 @@ if (_exit) exitWith {};
 _threatEvalLand = 0;
 if (!_inWaves) then
 	{
-	_threatEvalLand = [_posDestination,_lado] call A3A_fnc_landThreatEval;
-	_airportsX = airportsX select {(sidesX getVariable [_x,sideUnknown] == _lado) and ([_x,true] call A3A_fnc_airportCanAttack) and (getMarkerPos _x distance2D _posDestination < distanceForAirAttack)};
+	_threatEvalLand = [_posDestination,_sideX] call A3A_fnc_landThreatEval;
+	_airportsX = airportsX select {(sidesX getVariable [_x,sideUnknown] == _sideX) and ([_x,true] call A3A_fnc_airportCanAttack) and (getMarkerPos _x distance2D _posDestination < distanceForAirAttack)};
 	if (hasIFA and (_threatEvalLand <= 15)) then {_airportsX = _airportsX select {(getMarkerPos _x distance2D _posDestination < distanceForLandAttack)}};
-	_outposts = if (_threatEvalLand <= 15) then {outposts select {(sidesX getVariable [_x,sideUnknown] == _lado) and ([_posDestination,getMarkerPos _x] call A3A_fnc_isTheSameIsland) and (getMarkerPos _x distance _posDestination < distanceForLandAttack)  and ([_x,true] call A3A_fnc_airportCanAttack)}} else {[]};
+	_outposts = if (_threatEvalLand <= 15) then {outposts select {(sidesX getVariable [_x,sideUnknown] == _sideX) and ([_posDestination,getMarkerPos _x] call A3A_fnc_isTheSameIsland) and (getMarkerPos _x distance _posDestination < distanceForLandAttack)  and ([_x,true] call A3A_fnc_airportCanAttack)}} else {[]};
 	_airportsX = _airportsX + _outposts;
 	if (_isMarker) then
 		{
@@ -112,8 +112,8 @@ if (!_inWaves) then
 		{
 		if (!_super) then
 			{
-			_sitio = [(resourcesX + factories + airportsX + outposts + seaports),_posDestination] call BIS_fnc_nearestPosition;
-			_airportsX = _airportsX select {({_x == _sitio} count (killZones getVariable [_x,[]])) < 3};
+			_siteX = [(resourcesX + factories + airportsX + outposts + seaports),_posDestination] call BIS_fnc_nearestPosition;
+			_airportsX = _airportsX select {({_x == _siteX} count (killZones getVariable [_x,[]])) < 3};
 			};
 		};
 	if (_airportsX isEqualTo []) then
@@ -136,7 +136,7 @@ _maxUnitsSide = maxUnits;
 
 if (gameMode <3) then
 	{
-	_allUnitsSide = {(local _x) and (alive _x) and (side group _x == _lado)} count allUnits;
+	_allUnitsSide = {(local _x) and (alive _x) and (side group _x == _sideX)} count allUnits;
 	_maxUnitsSide = round (maxUnits * 0.7);
 	};
 if ((_allUnits + 4 > maxUnits) or (_allUnitsSide + 4 > _maxUnitsSide)) then {_exit = true};
@@ -179,7 +179,7 @@ if (_isMarker) then
 		{
 		_isSDK = true;
 		_nameDest = [_markerX] call A3A_fnc_localizar;
-		if (!_inWaves) then {["IntelAdded", ["", format ["QRF sent to %1",_nameDest]]] remoteExec ["BIS_fnc_showNotification",_lado]};
+		if (!_inWaves) then {["IntelAdded", ["", format ["QRF sent to %1",_nameDest]]] remoteExec ["BIS_fnc_showNotification",_sideX]};
 		};
 	}
 else
@@ -189,7 +189,7 @@ else
 
 //if (debug) then {hint format ["Nos contraatacan desde %1 o desde el airportX %2 hacia %3", _base, _airportX,_markerX]; sleep 5};
 diag_log format ["Antistasi PatrolCA: CA performed from %1 to %2.Is waved:%3.Is super:%4",_airportX,_markerX,_inWaves,_super];
-//_config = if (_lado == Occupants) then {cfgNATOInf} else {cfgCSATInf};
+//_config = if (_sideX == Occupants) then {cfgNATOInf} else {cfgCSATInf};
 
 _soldiers = [];
 _vehiclesX = [];
@@ -217,13 +217,13 @@ if (_base != "") then
 		_dir = getDir _spawnPoint;
 		};
 
-	_vehPool = if (_lado == Occupants) then {vehNATOAttack select {[_x] call A3A_fnc_vehAvailable}} else {vehCSATAttack select {[_x] call A3A_fnc_vehAvailable}};
+	_vehPool = if (_sideX == Occupants) then {vehNATOAttack select {[_x] call A3A_fnc_vehAvailable}} else {vehCSATAttack select {[_x] call A3A_fnc_vehAvailable}};
 	_road = [_posDestination] call A3A_fnc_findNearestGoodRoad;
 	if ((position _road) distance _posDestination > 150) then {_vehPool = _vehPool - vehTanks};
 	if (_isSDK) then
 		{
 		_rnd = random 100;
-		if (_lado == Occupants) then
+		if (_sideX == Occupants) then
 			{
 			if (_rnd > prestigeNATO) then
 				{
@@ -242,7 +242,7 @@ if (_base != "") then
 	_landPosBlacklist = [];
 	for "_i" from 1 to _countX do
 		{
-		if (_vehPool isEqualTo []) then {if (_lado == Occupants) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
+		if (_vehPool isEqualTo []) then {if (_sideX == Occupants) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 		_typeVehX = if (_i == 1) then
 						{
 						if (_typeOfAttack == "Normal") then
@@ -253,7 +253,7 @@ if (_base != "") then
 							{
 							if (_typeOfAttack == "Air") then
 								{
-								if (_lado == Occupants) then
+								if (_sideX == Occupants) then
 									{
 									if ([vehNATOAA] call A3A_fnc_vehAvailable) then {vehNATOAA} else {selectRandom _vehPool}
 									}
@@ -264,7 +264,7 @@ if (_base != "") then
 								}
 							else
 								{
-								if (_lado == Occupants) then
+								if (_sideX == Occupants) then
 									{
 									if ([vehNATOTank] call A3A_fnc_vehAvailable) then {vehNATOTank} else {selectRandom _vehPool}
 									}
@@ -290,7 +290,7 @@ if (_base != "") then
 			sleep 1;
 			};
 		if (count _pos == 0) then {_pos = if (_indexX == -1) then {getMarkerPos _spawnPoint} else {position _spawnPoint}};
-		_vehicle=[_pos, _dir,_typeVehX, _lado] call bis_fnc_spawnvehicle;
+		_vehicle=[_pos, _dir,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
 
 		_veh = _vehicle select 0;
 		_vehCrew = _vehicle select 1;
@@ -306,20 +306,20 @@ if (_base != "") then
 			_landPosBlacklist pushBack _landPos;
 			_typeGroup = if (_typeOfAttack == "Normal") then
 				{
-				[_typeVehX,_lado] call A3A_fnc_cargoSeats;
+				[_typeVehX,_sideX] call A3A_fnc_cargoSeats;
 				}
 			else
 				{
 				if (_typeOfAttack == "Air") then
 					{
-					if (_lado == Occupants) then {groupsNATOAA} else {groupsCSATAA}
+					if (_sideX == Occupants) then {groupsNATOAA} else {groupsCSATAA}
 					}
 				else
 					{
-					if (_lado == Occupants) then {groupsNATOAT} else {groupsCSATAT}
+					if (_sideX == Occupants) then {groupsNATOAT} else {groupsCSATAT}
 					};
 				};
-			_group = [_posOrigin,_lado,_typeGroup] call A3A_fnc_spawnGroup;
+			_group = [_posOrigin,_sideX,_typeGroup] call A3A_fnc_spawnGroup;
 			{
 			_x assignAsCargo _veh;
 			_x moveInCargo _veh;
@@ -418,11 +418,11 @@ else
 	_vehPool = [];
 	_countX = if (!_super) then {if (_isMarker) then {2} else {1}} else {round ((tierWar + difficultyCoef) / 2) + 1};
 	_typeVehX = "";
-	_vehPool = if (_lado == Occupants) then {(vehNATOAir - [vehNATOPlane]) select {[_x] call A3A_fnc_vehAvailable}} else {(vehCSATAir - [vehCSATPlane]) select {[_x] call A3A_fnc_vehAvailable}};
+	_vehPool = if (_sideX == Occupants) then {(vehNATOAir - [vehNATOPlane]) select {[_x] call A3A_fnc_vehAvailable}} else {(vehCSATAir - [vehCSATPlane]) select {[_x] call A3A_fnc_vehAvailable}};
 	if (_isSDK) then
 		{
 		_rnd = random 100;
-		if (_lado == Occupants) then
+		if (_sideX == Occupants) then
 			{
 			if (_rnd > prestigeNATO) then
 				{
@@ -437,7 +437,7 @@ else
 				};
 			};
 		};
-	if (_vehPool isEqualTo []) then {if (_lado == Occupants) then {_vehPool = [vehNATOPatrolHeli]} else {_vehPool = [vehCSATPatrolHeli]}};
+	if (_vehPool isEqualTo []) then {if (_sideX == Occupants) then {_vehPool = [vehNATOPatrolHeli]} else {_vehPool = [vehCSATPatrolHeli]}};
 	for "_i" from 1 to _countX do
 		{
 		_typeVehX = if (_i == 1) then
@@ -458,11 +458,11 @@ else
 					{
 					if (_typeOfAttack == "Air") then
 						{
-						if (_lado == Occupants) then {if ([vehNATOPlaneAA] call A3A_fnc_vehAvailable) then {vehNATOPlaneAA} else {selectRandom _vehPool}} else {if ([vehCSATPlaneAA] call A3A_fnc_vehAvailable) then {vehCSATPlaneAA} else {selectRandom _vehPool}};
+						if (_sideX == Occupants) then {if ([vehNATOPlaneAA] call A3A_fnc_vehAvailable) then {vehNATOPlaneAA} else {selectRandom _vehPool}} else {if ([vehCSATPlaneAA] call A3A_fnc_vehAvailable) then {vehCSATPlaneAA} else {selectRandom _vehPool}};
 						}
 					else
 						{
-						if (_lado == Occupants) then {if ([vehNATOPlane] call A3A_fnc_vehAvailable) then {vehNATOPlane} else {selectRandom _vehPool}} else {if ([vehCSATPlane] call A3A_fnc_vehAvailable) then {vehCSATPlane} else {selectRandom _vehPool}};
+						if (_sideX == Occupants) then {if ([vehNATOPlane] call A3A_fnc_vehAvailable) then {vehNATOPlane} else {selectRandom _vehPool}} else {if ([vehCSATPlane] call A3A_fnc_vehAvailable) then {vehCSATPlane} else {selectRandom _vehPool}};
 						};
 					};
 				}
@@ -483,7 +483,7 @@ else
 			_pos = [_pos1, 5,_ang] call BIS_fnc_relPos;
 			};
 		if (count _pos == 0) then {_pos = _posOrigin};
-		_vehicle=[_pos, _ang + 90,_typeVehX, _lado] call bis_fnc_spawnvehicle;
+		_vehicle=[_pos, _ang + 90,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
 		_veh = _vehicle select 0;
 		if (hasIFA) then {_veh setVelocityModelSpace [((velocityModelSpace _veh) select 0) + 0,((velocityModelSpace _veh) select 1) + 150,((velocityModelSpace _veh) select 2) + 50]};
 		_vehCrew = _vehicle select 1;
@@ -504,20 +504,20 @@ else
 			{
 			_typeGroup = if (_typeOfAttack == "Normal") then
 				{
-				[_typeVehX,_lado] call A3A_fnc_cargoSeats;
+				[_typeVehX,_sideX] call A3A_fnc_cargoSeats;
 				}
 			else
 				{
 				if (_typeOfAttack == "Air") then
 					{
-					if (_lado == Occupants) then {groupsNATOAA} else {groupsCSATAA}
+					if (_sideX == Occupants) then {groupsNATOAA} else {groupsCSATAA}
 					}
 				else
 					{
-					if (_lado == Occupants) then {groupsNATOAT} else {groupsCSATAT}
+					if (_sideX == Occupants) then {groupsNATOAT} else {groupsCSATAT}
 					};
 				};
-			_group = [_posOrigin,_lado,_typeGroup] call A3A_fnc_spawnGroup;
+			_group = [_posOrigin,_sideX,_typeGroup] call A3A_fnc_spawnGroup;
 			//{_x assignAsCargo _veh;_x moveInCargo _veh; [_x] call A3A_fnc_NATOinit;_soldiers pushBack _x;_x setVariable ["originX",_airportX]} forEach units _group;
 			{
 			_x assignAsCargo _veh;
@@ -611,10 +611,10 @@ if (_isMarker) then
 	{
 	_timeX = time + 3600;
 	_size = [_markerX] call A3A_fnc_sizeMarker;
-	if (_lado == Occupants) then
+	if (_sideX == Occupants) then
 		{
-		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers)) or (time > _timeX) or (sidesX getVariable [_markerX,sideUnknown] == Occupants) or (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
-		if  ((({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits)) and (not(sidesX getVariable [_markerX,sideUnknown] == Occupants))) then
+		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers)) or (time > _timeX) or (sidesX getVariable [_markerX,sideUnknown] == Occupants) or (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _sideX) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
+		if  ((({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _sideX) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits)) and (not(sidesX getVariable [_markerX,sideUnknown] == Occupants))) then
 			{
 			[Occupants,_markerX] remoteExec ["A3A_fnc_markerChange",2];
 			diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to retake %3 succesful. Retaken.",_airportX,_base,_markerX];
@@ -634,8 +634,8 @@ if (_isMarker) then
 		}
 	else
 		{
-		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))or (time > _timeX) or (sidesX getVariable [_markerX,sideUnknown] == ) or (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
-		if  ((({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits)) and (not(sidesX getVariable [_markerX,sideUnknown] == ))) then
+		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))or (time > _timeX) or (sidesX getVariable [_markerX,sideUnknown] == ) or (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _sideX) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
+		if  ((({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _sideX) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits)) and (not(sidesX getVariable [_markerX,sideUnknown] == ))) then
 			{
 			[,_markerX] remoteExec ["A3A_fnc_markerChange",2];
 			diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to retake %3 succesful. Retaken.",_airportX,_base,_markerX];
@@ -656,15 +656,15 @@ if (_isMarker) then
 	}
 else
 	{
-	_sideENY = if (_lado == Occupants) then {} else {Occupants};
+	_sideENY = if (_sideX == Occupants) then {} else {Occupants};
 	if (_typeOfAttack != "Air") then {waitUntil {sleep 1; (!([distanceSPWN1,1,_posDestination,teamPlayer] call A3A_fnc_distanceUnits) and !([distanceSPWN1,1,_posDestination,_sideENY] call A3A_fnc_distanceUnits)) or (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))}} else {waitUntil {sleep 1; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))}};
 	if (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers)) then
 		{
 		_markersX = resourcesX + factories + airportsX + outposts + seaports select {getMarkerPos _x distance _posDestination < distanceSPWN};
-		_sitio = if (_base != "") then {_base} else {_airportX};
-		_killZones = killZones getVariable [_sitio,[]];
+		_siteX = if (_base != "") then {_base} else {_airportX};
+		_killZones = killZones getVariable [_siteX,[]];
 		_killZones append _markersX;
-		killZones setVariable [_sitio,_killZones,true];
+		killZones setVariable [_siteX,_killZones,true];
 		diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to %3 failed",_airportX,_base,_markerX];
 		};
 	diag_log format ["Antistasi Debug patrolCA: Attack from %1 or %2 to %3 despawned",_airportX,_base,_markerX];

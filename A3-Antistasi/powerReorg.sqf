@@ -1,4 +1,4 @@
-private ["_markerX","_city","_pos","_power","_dataX","_powered","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_sitio"];
+private ["_markerX","_city","_pos","_power","_dataX","_powered","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_siteX"];
 
 _markerX = _this select 0;
 
@@ -51,7 +51,7 @@ if (_power == _markerX) then
 
 _markersX = factories + resourcesX;
 {
-_sitio = _x;
+_siteX = _x;
 _pos = getMarkerPos _x;
 _power = [power,_pos] call BIS_fnc_nearestPosition;
 _powered = true;
@@ -66,7 +66,7 @@ if (_power == _markerX) then
 		{
 		if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 			{
-			if (sidesX getVariable [_sitio,sideUnknown] == Occupants) then
+			if (sidesX getVariable [_siteX,sideUnknown] == Occupants) then
 				{
 				//_city = [citiesX,_pos] call BIS_fnc_nearestPosition;
 				//hint format ["You cutted off power to AAF resources near %1. They will be less productive from now",_city];
@@ -75,7 +75,7 @@ if (_power == _markerX) then
 			}
 		else
 			{
-			if (sidesX getVariable [_sitio,sideUnknown] == teamPlayer) then
+			if (sidesX getVariable [_siteX,sideUnknown] == teamPlayer) then
 				{
 				//_city = [citiesX,_pos] call BIS_fnc_nearestPosition;
 				//hint format ["AAF cutted off power supply to our resources near %1. They will be less productive from now",_city];
@@ -83,6 +83,6 @@ if (_power == _markerX) then
 				};
 			};
 		};
-	[_sitio,_powered] spawn A3A_fnc_blackout;
+	[_siteX,_powered] spawn A3A_fnc_blackout;
 	};
 } forEach _markersX;

@@ -1,6 +1,6 @@
-private ["_puntMax","_texto","_multiplier","_newRank","_selectable","_disconnected","_owner","_pointsX","_dataX"];
+private ["_puntMax","_textX","_multiplier","_newRank","_selectable","_disconnected","_owner","_pointsX","_dataX"];
 _puntMax = 0;
-_texto = "";
+_textX = "";
 _multiplier = 1;
 //_newRank = "CORPORAL";
 _disconnected = false;
@@ -35,7 +35,7 @@ if (isNull _LeaderX) then
 	_puntMax = 0;
 	_disconnected = true;
 	};
-_texto = "Promoted Players:\n\n";
+_textX = "Promoted Players:\n\n";
 _promoted = false;
 {
 _pointsX = _x getVariable ["score",0];
@@ -50,7 +50,7 @@ if (_rank != "COLONEL") then
 		_promoted = true;
 		[_x,_newRank] remoteExec ["A3A_fnc_ranksMP"];
 		_x setVariable ["rankX",_newRank,true];
-		_texto = format ["%3%1: %2.\n",name _x,_newRank,_texto];
+		_textX = format ["%3%1: %2.\n",name _x,_newRank,_textX];
 		[-1*(50*_multiplier),_x] call A3A_fnc_playerScoreAdd;
 		_multiplier = _multiplier + 1;
 		sleep 5;
@@ -60,8 +60,8 @@ if (_rank != "COLONEL") then
 
 if (_promoted) then
 	{
-	_texto = format ["%1\n\nCONGATULATIONS!!",_texto];
-	[petros,"hint",_texto] remoteExec ["A3A_fnc_commsMP"];
+	_textX = format ["%1\n\nCONGATULATIONS!!",_textX];
+	[petros,"hint",_textX] remoteExec ["A3A_fnc_commsMP"];
 	};
 
 _proceed = false;
@@ -90,8 +90,8 @@ if ((_multiplier > _puntMax) and (_x!=_LeaderX)) then
 
 if (!isNull _selectable) then
 	{
-	if (_disconnected) then {_texto = format ["Player Commander disconnected or renounced. %1 is our new leader. Greet him!", name _selectable]} else {_texto = format ["%1 is no longer leader of the our Forces.\n\n %2 is our new leader. Greet him!", name theBoss, name _selectable]};
+	if (_disconnected) then {_textX = format ["Player Commander disconnected or renounced. %1 is our new leader. Greet him!", name _selectable]} else {_textX = format ["%1 is no longer leader of the our Forces.\n\n %2 is our new leader. Greet him!", name theBoss, name _selectable]};
 	[_selectable] call A3A_fnc_theBossInit;
 	sleep 5;
-	[[petros,"hint",_texto],"A3A_fnc_commsMP"] call BIS_fnc_MP;
+	[[petros,"hint",_textX],"A3A_fnc_commsMP"] call BIS_fnc_MP;
 	};

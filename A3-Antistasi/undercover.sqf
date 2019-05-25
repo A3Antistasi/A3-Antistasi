@@ -75,10 +75,10 @@ while {_changeX == ""} do
 	else
 		{
 		_veh = vehicle _player;
-		_tipo = typeOf _veh;
+		_typeX = typeOf _veh;
 		if (_veh != _player) then
 			{
-			if (not(_tipo in _arrayCivVeh)) then
+			if (not(_typeX in _arrayCivVeh)) then
 				{
 				_changeX = "VNoCivil"
 				}
@@ -90,7 +90,7 @@ while {_changeX == ""} do
 					}
 				else
 					{
-					if ((_tipo != civHeli) and (!(_tipo in civBoats))) then
+					if ((_typeX != civHeli) and (!(_typeX in civBoats))) then
 						{
 						if !(isOnRoad position _veh) then
 							{
@@ -127,7 +127,7 @@ while {_changeX == ""} do
 			};
 		if (_changeX == "") then
 			{
-			if ((_tipo != civHeli) and (!(_tipo in civBoats))) then
+			if ((_typeX != civHeli) and (!(_typeX in civBoats))) then
 				{
 				_base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 				//_size = [_base] call A3A_fnc_sizeMarker;
@@ -153,7 +153,7 @@ while {_changeX == ""} do
 				}
 			else
 				{
-				if (_tipo == civHeli) then
+				if (_typeX == civHeli) then
 					{
 					_base = [_airportsX1,_player] call BIS_fnc_nearestPosition;
 					_size = [_base] call A3A_fnc_sizeMarker;

@@ -2711,7 +2711,7 @@ class strike_type {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;tipoArty = ""NORMAL"";";
+			action = "closeDialog 0;typeArty = ""NORMAL"";";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2721,7 +2721,7 @@ class strike_type {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; tipoArty = ""BARRAGE"";";
+			action = "closeDialog 0; typeArty = ""BARRAGE"";";
 		};
 		/*
 		class HQ_button_Gremove: RscButton

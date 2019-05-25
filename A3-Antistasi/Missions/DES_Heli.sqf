@@ -1,7 +1,7 @@
 //Mission: Destroy the helicopter
 if (!isServer and hasInterface) exitWith{};
 
-private ["_poscrash","_markerX","_positionX","_mrkFinal","_typeVehX","_effect","_heli","_vehiclesX","_soldiers","_groups","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray","_countX"];
+private ["_poscrash","_markerX","_positionX","_mrkFinal","_typeVehX","_effect","_heli","_vehiclesX","_soldiers","_groups","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_smokeX","_emitterArray","_countX"];
 
 _markerX = _this select 0;
 
@@ -12,7 +12,7 @@ _groupContact = grpNull;
 _tsk = "";
 _tsk1 = "";
 _positionX = getMarkerPos _markerX;
-_lado = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
+_sideX = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
 _posHQ = getMarkerPos respawnTeamPlayer;
 
 _timeLimit = 120;
@@ -70,7 +70,7 @@ _groups = [];
 _effect = createVehicle ["CraterLong", _poscrash, [], 0, "CAN_COLLIDE"];
 _heli = createVehicle [_typeVehX, _poscrash, [], 0, "CAN_COLLIDE"];
 _heli attachTo [_effect,[0,0,1.5]];
-_humo = "test_EmptyObjectForSmoke" createVehicle _poscrash; _humo attachTo[_heli,[0,1.5,-1]];
+_smokeX = "test_EmptyObjectForSmoke" createVehicle _poscrash; _smokeX attachTo[_heli,[0,1.5,-1]];
 _heli setDamage 0.9;
 _heli lock 2;
 _vehiclesX = _vehiclesX + [_heli,_effect];
@@ -85,8 +85,8 @@ while {true} do
 	};
 
 _road = _roads select 0;
-_typeVehX = if (_lado == Occupants) then {selectRandom vehNATOLightUnarmed} else {selectRandom vehCSATLightUnarmed};
-_vehicle=[position _road, 0,_typeVehX, _lado] call bis_fnc_spawnvehicle;
+_typeVehX = if (_sideX == Occupants) then {selectRandom vehNATOLightUnarmed} else {selectRandom vehCSATLightUnarmed};
+_vehicle=[position _road, 0,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 [_veh] call A3A_fnc_AIVEHinit;
 //[_veh,"Escort"] spawn A3A_fnc_inmuneConvoy;
@@ -98,8 +98,8 @@ _groups pushBack _groupVeh;
 _vehiclesX pushBack _veh;
 
 sleep 1;
-_typeGroup = if (_lado == Occupants) then {groupsNATOSentry} else {groupsCSATSentry};
-_group = [_positionX, _lado, _typeGroup] call A3A_fnc_spawnGroup;
+_typeGroup = if (_sideX == Occupants) then {groupsNATOSentry} else {groupsCSATSentry};
+_group = [_positionX, _sideX, _typeGroup] call A3A_fnc_spawnGroup;
 
 {_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers pushBack _x; [_x] join _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _group;
 deleteGroup _group;
@@ -113,8 +113,8 @@ _Gwp0 setWaypointType "GETOUT";
 _Vwp0 synchronizeWaypoint [_Gwp0];
 
 sleep 15;
-_typeVehX = if (_lado == Occupants) then {vehNATOTrucks select 0} else {vehCSATTrucks select 0};
-_vehicleT=[position _road, 0,_typeVehX, _lado] call bis_fnc_spawnvehicle;
+_typeVehX = if (_sideX == Occupants) then {vehNATOTrucks select 0} else {vehCSATTrucks select 0};
+_vehicleT=[position _road, 0,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
 _vehT = _vehicleT select 0;
 [_vehT] call A3A_fnc_AIVEHinit;
 //[_vehT,"Recover Truck"] spawn A3A_fnc_inmuneConvoy;
@@ -137,9 +137,9 @@ if (_vehT distance _heli < 50) then
 	if (alive _heli) then
 		{
 		_heli attachTo [_vehT,[0,-3,2]];
-		_emitterArray = _humo getVariable "effects";
+		_emitterArray = _smokeX getVariable "effects";
 		{deleteVehicle _x} forEach _emitterArray;
-		deleteVehicle _humo;
+		deleteVehicle _smokeX;
 		};
 
 	_Vwp0 = _groupVehT addWaypoint [_positionX, 1];
@@ -183,11 +183,11 @@ else
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	};
 
-if (!isNull _humo) then
+if (!isNull _smokeX) then
 	{
-	_emitterArray = _humo getVariable "effects";
+	_emitterArray = _smokeX getVariable "effects";
 	{deleteVehicle _x} forEach _emitterArray;
-	deleteVehicle _humo;
+	deleteVehicle _smokeX;
 	};
 
 _nul = [1200,"DES"] spawn A3A_fnc_deleteTask;

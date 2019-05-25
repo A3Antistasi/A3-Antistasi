@@ -12,8 +12,8 @@ if (!canMove _truckX) exitWith {_unit groupChat "It is useless to load my vehicl
 
 _objectsX = [];
 _hasBox = false;
-_arma = "";
-_armas = [];
+_weaponX = "";
+_weaponsX = [];
 _bigTimeOut = time + 120;
 _objectsX = nearestObjects [_unit, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
 if (count _objectsX == 0) exitWith {_unit groupChat "I see no corpses here to loot"};
@@ -26,17 +26,17 @@ if (_unit distance _objeto < _distanceX) then
 	{
 	if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 		{
-		_armas = weaponCargo _objeto;
-		for "_i" from 0 to (count _armas - 1) do
+		_weaponsX = weaponCargo _objeto;
+		for "_i" from 0 to (count _weaponsX - 1) do
 			{
-			_potential = _armas select _i;
+			_potential = _weaponsX select _i;
 			_basePossible = [_potential] call BIS_fnc_baseWeapon;
 			//if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers))) then
 			if ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers)) then
 				{
 				_target = _objeto;
 				_distanceX = _unit distance _objeto;
-				_arma = _potential;
+				_weaponX = _potential;
 				};
 			};
 		};
@@ -77,7 +77,7 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 	waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 	if (_unit distance _target < 3) then
 		{
-		_unit action ["TakeWeapon",_target,_arma];
+		_unit action ["TakeWeapon",_target,_weaponX];
 		sleep 3;
 		};
 	_target setVariable ["busy",false];
@@ -165,16 +165,16 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 		{
 		if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 			{
-			_armas = weaponCargo _objeto;
-			for "_i" from 0 to (count _armas - 1) do
+			_weaponsX = weaponCargo _objeto;
+			for "_i" from 0 to (count _weaponsX - 1) do
 				{
-				_potential = _armas select _i;
+				_potential = _weaponsX select _i;
 				_basePossible = [_potential] call BIS_fnc_baseWeapon;
 				if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers))) then
 					{
 					_target = _objeto;
 					_distanceX = _unit distance _objeto;
-					_arma = _potential;
+					_weaponX = _potential;
 					};
 				};
 			};

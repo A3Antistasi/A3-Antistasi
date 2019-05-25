@@ -23,8 +23,8 @@ if (count vehInGarageShow == 0) exitWith {hintC "The Garage is empty or the vehi
 _nearX = [markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer},player] call BIS_fnc_nearestPosition;
 if !(player inArea _nearX) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
 countGarage = 0;
-_tipo = vehInGarageShow select countGarage;
-garageVeh = _tipo createVehicleLocal [0,0,1000];
+_typeX = vehInGarageShow select countGarage;
+garageVeh = _typeX createVehicleLocal [0,0,1000];
 garageVeh allowDamage false;
 garageVeh enableSimulationGlobal false;
 bought = 0;
@@ -73,12 +73,12 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		if (_exchange) then
 			{
 			deleteVehicle garageVeh;
-			_tipo = vehInGarageShow select countGarage;
-			if (isNil "_tipo") then {_leave = true};
-			if (typeName _tipo != typeName "") then {_leave = true};
+			_typeX = vehInGarageShow select countGarage;
+			if (isNil "_typeX") then {_leave = true};
+			if (typeName _typeX != typeName "") then {_leave = true};
 			if (!_leave) then
 				{
-				garageVeh = _tipo createVehicleLocal [0,0,1000];
+				garageVeh = _typeX createVehicleLocal [0,0,1000];
 				garageVeh allowDamage false;
 				garageVeh enableSimulationGlobal false;
 				[format ["<t size='0.7'>%1<br/><br/><t size='0.6'>Garage Keys.<t size='0.5'><br/>Arrow Up-Down to Navigate<br/>Arrow Left-Right to rotate<br/>SPACE to Select<br/>ENTER to Exit",getText (configFile >> "CfgVehicles" >> typeOf garageVeh >> "displayName")],0,0,5,0,0,4] spawn bis_fnc_dynamicText;
@@ -124,9 +124,9 @@ onEachFrame
    if (garageVeh isKindOf "Ship") then {_pos set [2,0]; _shipX = true};
    if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
    if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
-   _agua = surfaceIsWater _pos;
-   if (_shipX and {!_agua}) exitWith {garageVeh setPosASL [0,0,0]};
-   if (!_shipX and {_agua}) exitWith {garageVeh setPosASL [0,0,0]};
+   _waterX = surfaceIsWater _pos;
+   if (_shipX and {!_waterX}) exitWith {garageVeh setPosASL [0,0,0]};
+   if (!_shipX and {_waterX}) exitWith {garageVeh setPosASL [0,0,0]};
    garageVeh setPosASL _pos;
    garageVeh setVectorUp (_ins select 0 select 1);
    };
@@ -137,7 +137,7 @@ onEachFrame {};
 positionXSel = nil;
 _pos = getPosASL garageVeh;
 _dir = getDir garageVeh;
-_tipo = typeOf garageVeh;
+_typeX = typeOf garageVeh;
 deleteVehicle garageVeh;
 if !(player inArea _nearX) then {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; bought = nil; garageVeh = nil; countGarage = nil};
 if ([player,300] call A3A_fnc_enemyNearCheck) then
@@ -150,7 +150,7 @@ bought = nil;
 //if (player distance2D _pos > 100) exitWith {hint "You have to select a closer position from you"};
 waitUntil {isNull garageVeh};
 garageVeh = nil;
-_garageVeh = createVehicle [_tipo, [0,0,1000], [], 0, "NONE"];
+_garageVeh = createVehicle [_typeX, [0,0,1000], [], 0, "NONE"];
 _garageVeh setDir _dir;
 _garageVeh setPosASL _pos;
 [_garageVeh] call A3A_fnc_AIVEHinit;

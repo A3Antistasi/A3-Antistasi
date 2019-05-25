@@ -1,38 +1,38 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_cosa","_num","_magazines"];
+private ["_thingX","_num","_magazines"];
 
-clearMagazineCargoGlobal caja;
-clearWeaponCargoGlobal caja;
-clearItemCargoGlobal caja;
-clearBackpackCargoGlobal caja;
+clearMagazineCargoGlobal boxX;
+clearWeaponCargoGlobal boxX;
+clearItemCargoGlobal boxX;
+clearBackpackCargoGlobal boxX;
 
 
 for "_i" from 0 to (1+ round random 4) do
-	{_cosa = if (random 2 < 1) then {selectRandom (armasNATO + antitankAAF)} else {selectRandom (armasCSAT + antitankAAF)};
+	{_thingX = if (random 2 < 1) then {selectRandom (weaponsNato + antitankAAF)} else {selectRandom (weaponsCSAT + antitankAAF)};
 	_num = 1+ (floor random 4);
-	caja addWeaponCargoGlobal [_cosa, _num];
-	_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
-	caja addMagazineCargoGlobal [_magazines select 0, _num * 3];
+	boxX addWeaponCargoGlobal [_thingX, _num];
+	_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
+	boxX addMagazineCargoGlobal [_magazines select 0, _num * 3];
 	};
 
 for "_i" from 0 to (1 + round random 5) do
-	{_cosa = selectRandom itemsAAF;
+	{_thingX = selectRandom itemsAAF;
 	_num = floor random 5;
-	caja addItemCargoGlobal [_cosa, _num];
+	boxX addItemCargoGlobal [_thingX, _num];
 	};
 
 for "_i" from 1 to (floor random 3) do
-	{_cosa = selectRandom minesAAF;
+	{_thingX = selectRandom minesAAF;
 	_num = 1 + (floor random 5);
-	caja addMagazineCargoGlobal [_cosa, _num];
+	boxX addMagazineCargoGlobal [_thingX, _num];
 	};
 if !(opticsAAF isEqualTo []) then
 	{
 	for "_i" from 1 to (floor random 2) do
 		{
-		_cosa = selectRandom opticsAAF;
-		caja addItemCargoGlobal [_cosa, 1 + (floor random 2)];
+		_thingX = selectRandom opticsAAF;
+		boxX addItemCargoGlobal [_thingX, 1 + (floor random 2)];
 		};
 	};
-if (hasTFAR) then {caja addBackpackCargoGlobal ["tf_rt1523g_big_bwmod",1]};
+if (hasTFAR) then {boxX addBackpackCargoGlobal ["tf_rt1523g_big_bwmod",1]};

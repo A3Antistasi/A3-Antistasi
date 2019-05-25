@@ -94,36 +94,36 @@ if (isServer and !_byPassServer) then
 	//unlockedRifles = unlockedweapons select {_x in arifles}; publicVariable "unlockedRifles";
 
 	{
-	_arma = _x;
-	if (_arma in arifles) then
+	_weaponX = _x;
+	if (_weaponX in arifles) then
 		{
-		unlockedRifles pushBack _arma;
-		if (count (getArray (configfile >> "CfgWeapons" >> _arma >> "muzzles")) == 2) then
+		unlockedRifles pushBack _weaponX;
+		if (count (getArray (configfile >> "CfgWeapons" >> _weaponX >> "muzzles")) == 2) then
 			{
-			unlockedGL pushBack _arma;
+			unlockedGL pushBack _weaponX;
 			};
 		}
 	else
 		{
-		if (_arma in mguns) then
+		if (_weaponX in mguns) then
 			{
-			unlockedMG pushBack _arma;
+			unlockedMG pushBack _weaponX;
 			}
 		else
 			{
-			if (_arma in srifles) then
+			if (_weaponX in srifles) then
 				{
-				unlockedSN pushBack _arma;
+				unlockedSN pushBack _weaponX;
 				}
 			else
 				{
-				if (_arma in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
+				if (_weaponX in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
 					{
-					unlockedAT pushBack _arma;
+					unlockedAT pushBack _weaponX;
 					}
 				else
 					{
-					if (_arma in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _arma};
+					if (_weaponX in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _weaponX};
 					};
 				};
 			};
@@ -145,8 +145,8 @@ if (isServer and !_byPassServer) then
 		{
 		_positionX = getMarkerPos _x;
 		_nearX = [(markersX - controlsX - outpostsFIA),_positionX] call BIS_fnc_nearestPosition;
-		_lado = sidesX getVariable [_nearX,sideUnknown];
-		sidesX setVariable [_x,_lado,true];
+		_sideX = sidesX getVariable [_nearX,sideUnknown];
+		sidesX setVariable [_x,_sideX,true];
 		};
 	} forEach controlsX;
 
@@ -182,10 +182,10 @@ if (isServer and !_byPassServer) then
 	if (tierWar > 10) then {tierWar = 10};
 	publicVariable "tierWar";
 
-	clearMagazineCargoGlobal caja;
-	clearWeaponCargoGlobal caja;
-	clearItemCargoGlobal caja;
-	clearBackpackCargoGlobal caja;
+	clearMagazineCargoGlobal boxX;
+	clearWeaponCargoGlobal boxX;
+	clearItemCargoGlobal boxX;
+	clearBackpackCargoGlobal boxX;
 
 	[] remoteExec ["A3A_fnc_statistics",[teamPlayer,civilian]];
 	diag_log "Antistasi: Server sided Persistent Load done";

@@ -1,4 +1,4 @@
-private ["_veh", "_costs","_tipo"];
+private ["_veh", "_costs","_typeX"];
 _veh = cursortarget;
 
 if (isNull _veh) exitWith {hint "You are not looking to any vehicle"};
@@ -19,21 +19,21 @@ if (!isNil "_owner") then
 
 if (_exit) exitWith {hint "You are not owner of this vehicle and you cannot sell it"};
 
-_tipo = typeOf _veh;
+_typeX = typeOf _veh;
 _costs = 0;
 
-if (_tipo in vehFIA) then
+if (_typeX in vehFIA) then
 	{
-	_costs = round (([_tipo] call A3A_fnc_vehiclePrice)/2)
+	_costs = round (([_typeX] call A3A_fnc_vehiclePrice)/2)
 	}
 else
 	{
-	if (_tipo in arrayCivVeh) then
+	if (_typeX in arrayCivVeh) then
 		{
 		_destinationX = _veh getVariable "destinationX";
 		if (isNil "_destinationX") then
 			{
-			if (_tipo == "C_Van_01_fuel_F") then {_costs = 50} else {_costs = 25};
+			if (_typeX == "C_Van_01_fuel_F") then {_costs = 50} else {_costs = 25};
 			}
 		else
 			{
@@ -42,31 +42,31 @@ else
 		}
 	else
 		{
-		if ((_tipo in vehNormal) or (_tipo in vehBoats) or (_tipo in vehAmmoTrucks)) then
+		if ((_typeX in vehNormal) or (_typeX in vehBoats) or (_typeX in vehAmmoTrucks)) then
 			{
 			_costs = 100;
 			}
 		else
 			{
-			if (_tipo in vehAPCs) then
+			if (_typeX in vehAPCs) then
 				{
 				_costs = 1000;
 				}
 			else
 				{
-				if (_tipo in vehPlanes) then
+				if (_typeX in vehPlanes) then
 					{
 					_costs = 4000;
 					}
 				else
 					{
-					if ((_tipo in vehAttackHelis) or (_tipo in vehTanks) or (_tipo in vehAA) or (_tipo in vehMRLS)) then
+					if ((_typeX in vehAttackHelis) or (_typeX in vehTanks) or (_typeX in vehAA) or (_typeX in vehMRLS)) then
 						{
 						_costs = 3000;
 						}
 					else
 						{
-						if (_tipo in vehTransportAir) then
+						if (_typeX in vehTransportAir) then
 							{
 							_costs = 2000;
 							};

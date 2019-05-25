@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 #include "\A3\Ui_f\hpp\defineResinclDesign.inc"
-private ["_armas","_backpcks","_items","_magazines","_arma","_magazine","_index","_backpck","_item","_optics","_nv"];
+private ["_weaponsX","_backpcks","_items","_magazines","_weaponX","_magazine","_index","_backpck","_item","_optics","_nv"];
 
 _updated = "";
 /*
@@ -10,7 +10,7 @@ _updated = "";
 	IDC_RSCDISPLAYARSENAL_TAB_CARGOMISC\
 */
 ["buttonInvToJNA"] call jn_fnc_arsenal;
-_armas = ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_PRIMARYWEAPON) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_HANDGUN) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOTHROW) + /*(jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOPUT) + */(jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_SECONDARYWEAPON)) select {_x select 1 != -1};
+_weaponsX = ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_PRIMARYWEAPON) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_HANDGUN) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOTHROW) + /*(jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOPUT) + */(jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_SECONDARYWEAPON)) select {_x select 1 != -1};
 //_magazines = ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOMAG) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL)) select {_x select 1 == -1};
 _backpcks = (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_BACKPACK) select {_x select 1 != -1};
 _items = ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_HEADGEAR) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_VEST) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GOGGLES) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_MAP) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GPS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_RADIO) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_COMPASS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_WATCH) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMACC) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMMUZZLE) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMBIPOD) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_BINOCULARS)) select {_x select 1 != -1};
@@ -21,10 +21,10 @@ _check = false;
 {
 if (_x select 1 >= minWeaps) then
 	{
-	_arma = _x select 0;
-	if !(_arma in mlaunchers) then
+	_weaponX = _x select 0;
+	if !(_weaponX in mlaunchers) then
 		{
-		_magazine = (getArray (configFile / "CfgWeapons" / _arma / "magazines") select 0);
+		_magazine = (getArray (configFile / "CfgWeapons" / _weaponX / "magazines") select 0);
 		if (!isNil "_magazine") then
 			{
 			if (not(_magazine in unlockedMagazines)) then
@@ -35,47 +35,47 @@ if (_x select 1 >= minWeaps) then
 				[_index,_magazine,-1] call jn_fnc_arsenal_addItem;
 				};
 			};
-		unlockedWeapons pushBack _arma;
-		//lockedWeapons = lockedWeapons - [_arma];
-		if (_arma in arifles) then
+		unlockedWeapons pushBack _weaponX;
+		//lockedWeapons = lockedWeapons - [_weaponX];
+		if (_weaponX in arifles) then
 			{
-			unlockedRifles pushBack _arma; publicVariable "unlockedRifles";
-			if (count (getArray (configfile >> "CfgWeapons" >> _arma >> "muzzles")) == 2) then
+			unlockedRifles pushBack _weaponX; publicVariable "unlockedRifles";
+			if (count (getArray (configfile >> "CfgWeapons" >> _weaponX >> "muzzles")) == 2) then
 				{
-				unlockedGL pushBack _arma; publicVariable "unlockedGL";
+				unlockedGL pushBack _weaponX; publicVariable "unlockedGL";
 				};
 			}
 		else
 			{
-			if (_arma in mguns) then
+			if (_weaponX in mguns) then
 				{
-				unlockedMG pushBack _arma; publicVariable "unlockedMG";
+				unlockedMG pushBack _weaponX; publicVariable "unlockedMG";
 				}
 			else
 				{
-				if (_arma in srifles) then
+				if (_weaponX in srifles) then
 					{
-					unlockedSN pushBack _arma; publicVariable "unlockedSN";
+					unlockedSN pushBack _weaponX; publicVariable "unlockedSN";
 					}
 				else
 					{
-					if (_arma in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
+					if (_weaponX in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
 						{
-						unlockedAT pushBack _arma; publicVariable "unlockedAT";
+						unlockedAT pushBack _weaponX; publicVariable "unlockedAT";
 						}
 					else
 						{
-						if (_arma in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _arma; publicVariable "unlockedAA"};
+						if (_weaponX in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _weaponX; publicVariable "unlockedAA"};
 						};
 					};
 				};
 			};
-		_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _arma >> "displayName")];
-		_index = _arma call jn_fnc_arsenal_itemType;
-		[_index,_arma,-1] call jn_fnc_arsenal_addItem;
+		_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _weaponX >> "displayName")];
+		_index = _weaponX call jn_fnc_arsenal_itemType;
+		[_index,_weaponX,-1] call jn_fnc_arsenal_addItem;
 		};
 	};
-} forEach _armas;
+} forEach _weaponsX;
 
 if (_check) then
 	{

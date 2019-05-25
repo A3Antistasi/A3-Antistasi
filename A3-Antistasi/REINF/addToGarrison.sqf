@@ -1,7 +1,7 @@
-private ["_positionTel","_nearX","_cosa","_group","_unitsX","_leave"];
+private ["_positionTel","_nearX","_thingX","_group","_unitsX","_leave"];
 if (!visibleMap) then {openMap true};
 positionTel = [];
-_cosa = _this select 0;
+_thingX = _this select 0;
 
 onMapSingleClick "positionTel = _pos";
 
@@ -22,19 +22,19 @@ if (not(sidesX getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint f
 
 if ((_nearX in outpostsFIA) and !(isOnRoad getMarkerPos _nearX)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
 
-_cosa = _this select 0;
+_thingX = _this select 0;
 
 _group = grpNull;
 _unitsX = objNull;
 
-if ((_cosa select 0) isEqualType grpNull) then
+if ((_thingX select 0) isEqualType grpNull) then
 	{
-	_group = _cosa select 0;
+	_group = _thingX select 0;
 	_unitsX = units _group;
 	}
 else
 	{
-	_unitsX = _cosa;
+	_unitsX = _thingX;
 	};
 
 _leave = false;

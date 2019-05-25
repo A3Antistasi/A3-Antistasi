@@ -14,9 +14,9 @@ respawnTeamPlayer setMarkerPos getPos petros;
 posHQ = getMarkerPos respawnTeamPlayer; publicVariable "posHQ";
 if (isMultiplayer) then
 	{
-	caja hideObjectGlobal false;
+	boxX hideObjectGlobal false;
 	vehicleBox hideObjectGlobal false;
-	mapa hideObjectGlobal false;
+	mapX hideObjectGlobal false;
 	fireX hideObjectGlobal false;
 	flagX hideObjectGlobal false;
 	}
@@ -24,9 +24,9 @@ else
 	{
 	if (_movido) then {hint "Please wait while HQ assets are moved to selected position"};
 	//sleep 5
-	caja hideObject false;
+	boxX hideObject false;
 	vehicleBox hideObject false;
-	mapa hideObject false;
+	mapX hideObject false;
 	fireX hideObject false;
 	flagX hideObject false;
 	};
@@ -38,11 +38,11 @@ fireX setPos _posFire;
 _rnd = getdir Petros;
 if (isMultiplayer) then {sleep 5};
 _pos = [_posFire, 3, _rnd] call BIS_Fnc_relPos;
-caja setPos _pos;
+boxX setPos _pos;
 _rnd = _rnd + 45;
 _pos = [_posFire, 3, _rnd] call BIS_Fnc_relPos;
-mapa setPos _pos;
-mapa setDir ([fireX, mapa] call BIS_fnc_dirTo);
+mapX setPos _pos;
+mapX setDir ([fireX, mapX] call BIS_fnc_dirTo);
 _rnd = _rnd + 45;
 _pos = [_posFire, 3, _rnd] call BIS_Fnc_relPos;
 _pos = _pos findEmptyPosition [0,50,(typeOf flagX)];

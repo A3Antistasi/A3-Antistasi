@@ -1,9 +1,9 @@
 _markerX = _this select 0;
-_tipo = _this select 1;
+_typeX = _this select 1;
 _positionX = getMarkerPos _markerX;
-if (_tipo isEqualType "") then
+if (_typeX isEqualType "") then
 	{
-	_groups = if (_tipo == staticCrewTeamPlayer) then {[]} else {allGroups select {(leader _x getVariable ["markerX",""] == _markerX) and (count units _x < 8) and (vehicle (leader _x) == leader _x)}};
+	_groups = if (_typeX == staticCrewTeamPlayer) then {[]} else {allGroups select {(leader _x getVariable ["markerX",""] == _markerX) and (count units _x < 8) and (vehicle (leader _x) == leader _x)}};
 	_group = if (_groups isEqualTo []) then
 		{
 		createGroup teamPlayer
@@ -12,10 +12,10 @@ if (_tipo isEqualType "") then
 		{
 		_groups select 0;
 		};
-	_unit = _group createUnit [_tipo, _positionX, [], 0, "NONE"];
-	//if (_tipo in SDKSL) then {_group selectLeader _unit};
+	_unit = _group createUnit [_typeX, _positionX, [], 0, "NONE"];
+	//if (_typeX in SDKSL) then {_group selectLeader _unit};
 	[_unit,_markerX] call A3A_fnc_FIAinitBases;
-	if (_tipo == staticCrewTeamPlayer) then
+	if (_typeX == staticCrewTeamPlayer) then
 		{
 		private _veh = SDKMortar createVehicle _positionX;
 		_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";

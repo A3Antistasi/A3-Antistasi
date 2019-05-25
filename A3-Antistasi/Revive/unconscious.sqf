@@ -1,4 +1,4 @@
-private ["_unit","_group","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_helped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_unit","_group","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_helped","_textX","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
 //if (_unit getVariable "inconsciente") exitWith {};
 //if (damage _unit < 0.9) exitWith {};
@@ -104,25 +104,25 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 			_helpX = [_unit] call A3A_fnc_askHelp;
 			if (isNull _helpX) then
 				{
-				_texto = format ["<t size='0.6'>There is no AI near to help you.<t size='0.5'><br/>Hit R to Respawn"];
+				_textX = format ["<t size='0.6'>There is no AI near to help you.<t size='0.5'><br/>Hit R to Respawn"];
 				}
 			else
 				{
-				if (_helpX != _unit) then {_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX]} else {_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
+				if (_helpX != _unit) then {_textX = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX]} else {_textX = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
 				};
 			}
 		else
 			{
 			if (!isNil "_helpX") then
 				{
-				if (!isNull _helpX) then {_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX]} else {_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
+				if (!isNull _helpX) then {_textX = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX]} else {_textX = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
 				}
 			else
 				{
-				_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn";
+				_textX = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn";
 				};
 			};
-		[_texto,0,0,3,0,0,4] spawn bis_fnc_dynamicText;
+		[_textX,0,0,3,0,0,4] spawn bis_fnc_dynamicText;
 		if (_unit getVariable "respawning") exitWith {};
 		}
 	else

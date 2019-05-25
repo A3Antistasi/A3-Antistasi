@@ -19,7 +19,7 @@ sleep 0.05;
 if (!alive _npc  || !canmove _npc ) exitwith{};
 if 	( _sleep == 0 ) then {_sleep = 0.1};	
 	
-//Restauramos valores por defecto de movimiento
+//Restauramos values por defecto de movimiento
 if 	(((group _npc) getvariable "UPSMON_Grpstatus") select 0 == "FORTIFY") then 
 {	
 	dostop _npc ;

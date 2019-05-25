@@ -41,7 +41,7 @@ if (isServer and !_byPassServer) then
 	["destroyedCities"] call fn_LoadStat;
 	["minas"] call fn_LoadStat;
 	["countCA"] call fn_LoadStat;
-	["antenas"] call fn_LoadStat;
+	["antennas"] call fn_LoadStat;
 	["prestigeNATO"] call fn_LoadStat;
 	["prestigeCSAT"] call fn_LoadStat;
 	["hr"] call fn_LoadStat;
@@ -144,8 +144,8 @@ if (isServer and !_byPassServer) then
 	if (lados getVariable [_x,sideUnknown] != buenos) then
 		{
 		_positionX = getMarkerPos _x;
-		_cercano = [(markersX - controlsX - outpostsFIA),_positionX] call BIS_fnc_nearestPosition;
-		_lado = lados getVariable [_cercano,sideUnknown];
+		_nearX = [(markersX - controlsX - outpostsFIA),_positionX] call BIS_fnc_nearestPosition;
+		_lado = lados getVariable [_nearX,sideUnknown];
 		lados setVariable [_x,_lado,true];
 		};
 	} forEach controlsX;
@@ -154,7 +154,7 @@ if (isServer and !_byPassServer) then
 	{
 	if (lados getVariable [_x,sideUnknown] == sideUnknown) then
 		{
-		lados setVariable [_x,malos,true];
+		lados setVariable [_x,Occupants,true];
 		};
 	} forEach markersX;
 
@@ -178,7 +178,7 @@ if (isServer and !_byPassServer) then
 
 	if (!isMultiPlayer) then {player setPos getMarkerPos respawnTeamPlayer} else {{_x setPos getMarkerPos respawnTeamPlayer} forEach (playableUnits select {side _x == buenos})};
 	_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
-	tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in resourcesX) or (_x in citiesX)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in airportsX} count _sitios)))/10));
+	tierWar = 1 + (floor (((5*({(_x in outposts) or (_x in resourcesX) or (_x in citiesX)} count _sitios)) + (10*({_x in seaports} count _sitios)) + (20*({_x in airportsX} count _sitios)))/10));
 	if (tierWar > 10) then {tierWar = 10};
 	publicVariable "tierWar";
 
@@ -240,7 +240,7 @@ if (isServer and !_byPassServer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach puestos;
+		} forEach outposts;
 
 		{
 		_pos = getMarkerPos _x;
@@ -253,8 +253,8 @@ if (isServer and !_byPassServer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach puertos;
-		lados setVariable ["NATO_carrier",malos,true];
+		} forEach seaports;
+		lados setVariable ["NATO_carrier",Occupants,true];
 		lados setVariable ["CSAT_carrier",,true];
 		};
 	statsLoaded = 0; publicVariable "statsLoaded";

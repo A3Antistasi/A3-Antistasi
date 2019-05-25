@@ -1,31 +1,31 @@
 //if (!isMultiplayer) exitWith {};
-if ((side player == malos) or (side player == )) exitWith {};
-private ["_puntos","_jugador","_puntosJ","_dineroJ"];
+if ((side player == Occupants) or (side player == )) exitWith {};
+private ["_puntos","_playerX","_puntosJ","_moneyJ"];
 _puntos = _this select 0;
-_jugador = _this select 1;
+_playerX = _this select 1;
 
-if (!isPlayer _jugador) exitWith {};
+if (!isPlayer _playerX) exitWith {};
 
-//if (rank _jugador == "COLONEL") exitWith {};
-_jugador = _jugador getVariable ["owner",_jugador];
-//if (typeName _jugador == typeName "") exitWith {diag_log format ["Antistasi Error: Intento de asignar puntos a un %1 siendo en realidad %2",_jugador, _this select 1]};
+//if (rank _playerX == "COLONEL") exitWith {};
+_playerX = _playerX getVariable ["owner",_playerX];
+//if (typeName _playerX == typeName "") exitWith {diag_log format ["Antistasi Error: Intento de asignar puntos a un %1 siendo en realidad %2",_playerX, _this select 1]};
 if (isMultiplayer) exitWith
 	{
-	_puntosJ = _jugador getVariable ["score",0];
-	_dineroJ = _jugador getVariable ["dinero",0];
+	_puntosJ = _playerX getVariable ["score",0];
+	_moneyJ = _playerX getVariable ["dinero",0];
 	if (_puntos > 0) then
 		{
-		_dineroJ = _dineroJ + (_puntos * 10);
-		_jugador setVariable ["dinero",_dineroJ,true];
+		_moneyJ = _moneyJ + (_puntos * 10);
+		_playerX setVariable ["dinero",_moneyJ,true];
 		if (_puntos > 1) then
 			{
 			_texto = format ["<br/><br/><br/><br/><br/><br/>Money +%1 €",_puntos*10];
-			[petros,"income",_texto] remoteExec ["A3A_fnc_commsMP",_jugador];
-			//[] remoteExec ["A3A_fnc_statistics",_jugador];
+			[petros,"income",_texto] remoteExec ["A3A_fnc_commsMP",_playerX];
+			//[] remoteExec ["A3A_fnc_statistics",_playerX];
 			};
 		};
 	_puntos = _puntos + _puntosJ;
-	_jugador setVariable ["score",_puntos,true];
+	_playerX setVariable ["score",_puntos,true];
 	};
 
 if (_puntos > 0) then

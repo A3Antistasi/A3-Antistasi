@@ -1,4 +1,4 @@
-private ["_unit","_veh","_lado","_tipo","_skill","_riflefinal","_magazines","_hmd","_markerX","_revelar"];
+private ["_unit","_veh","_lado","_tipo","_skill","_riflefinal","_magazines","_hmd","_markerX","_revealX"];
 
 _unit = _this select 0;
 if (isNil "_unit") exitWith {diag_log format ["Antistasi: Error enviando a NATOinit los parámetros:%1",_this]};
@@ -58,7 +58,7 @@ else
 _skill = (tierWar + difficultyCoef) * 0.1 * skillMult;
 if ((faction _unit != factionGEN) and (faction _unit != factionFIA)) then
 	{
-	if (side _unit == malos) then
+	if (side _unit == Occupants) then
 		{
 		_skill = _skill + 0.1;
 		}
@@ -220,19 +220,19 @@ else
 	{
 	_unit unlinkItem "ItemRadio";
 	};
-_revelar = false;
+_revealX = false;
 if (vehicle _unit != _unit) then
 	{
 	if (_unit == gunner (vehicle _unit)) then
 		{
-		_revelar = true;
+		_revealX = true;
 		};
 	}
 else
 	{
-	if ((secondaryWeapon _unit) in mlaunchers) then {_revelar = true};
+	if ((secondaryWeapon _unit) in mlaunchers) then {_revealX = true};
 	};
-if (_revelar) then
+if (_revealX) then
 	{
 	{
 	_unit reveal [_x,1.5];

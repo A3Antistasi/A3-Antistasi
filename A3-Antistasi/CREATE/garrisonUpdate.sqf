@@ -28,7 +28,7 @@ waitUntil {!garrisonIsChanging};
 {if (isNil _x) exitWith {_exit = true}} forEach ["_tipo","_lado","_markerX","_modo"];
 if (_exit) exitWith {diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_markerX,_modo]};
 garrisonIsChanging = true;
-if ((_lado == malos) and (!(lados getVariable [_markerX,sideUnknown] == malos))) exitWith {garrisonIsChanging = false};
+if ((_lado == Occupants) and (!(lados getVariable [_markerX,sideUnknown] == Occupants))) exitWith {garrisonIsChanging = false};
 if ((_lado == ) and (!(lados getVariable [_markerX,sideUnknown] == ))) exitWith {garrisonIsChanging = false};
 if ((_lado == buenos) and (!(lados getVariable [_markerX,sideUnknown] == buenos))) exitWith {garrisonIsChanging = false};
 _garrison = [];

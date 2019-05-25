@@ -5,18 +5,18 @@ private ["_morty","_ayudante"];
 private _grupo = group _morty;
 while {true} do
 	{
-	_enemigo = _grupo call A3A_fnc_nearEnemy;
-	if (isNull _enemigo) exitWith {};
-	if (_enemigo distance _morty > 50) exitWith {};
+	_enemyX = _grupo call A3A_fnc_nearEnemy;
+	if (isNull _enemyX) exitWith {};
+	if (_enemyX distance _morty > 50) exitWith {};
 	if ((!alive _morty) or (!alive _ayudante)) exitWith {};
 	sleep 30;
 	};
 if ((!alive _morty) or (!alive _ayudante)) exitWith {};
-private _tipoVeh = if (side _morty == malos) then {NATOMortar} else {CSATMortar};
+private _typeVehX = if (side _morty == Occupants) then {NATOMortar} else {CSATMortar};
 private _pos = [];
 while {true} do
 	{
-	_pos = position _morty findEmptyPosition [1,30,_tipoVeh];
+	_pos = position _morty findEmptyPosition [1,30,_typeVehX];
 	if !(_pos isEqualTo []) exitWith {};
 	if ((!alive _morty) or (!alive _ayudante)) exitWith {};
 	sleep 30;
@@ -57,14 +57,14 @@ if ((alive _ayudante) and !(alive _morty)) then
 
 if ((!alive _morty) or (!alive _ayudante)) exitWith {};
 
-private _mortero = _tipoVeh createVehicle _pos;
+private _mortarX = _typeVehX createVehicle _pos;
 removeBackpackGlobal _morty;
 removeBackpackGlobal _ayudante;
-_grupo addVehicle _mortero;
-_morty assignAsGunner _mortero;
+_grupo addVehicle _mortarX;
+_morty assignAsGunner _mortarX;
 [_morty] orderGetIn true;
 [_morty] allowGetIn true;
-_nul = [_mortero] call A3A_fnc_AIVEHinit;
+_nul = [_mortarX] call A3A_fnc_AIVEHinit;
 _movable = _grupo getVariable ["movable",[]];
 _movable pushBack _ayudante;
 _grupo setVariable ["movable",_movable];
@@ -73,11 +73,11 @@ _flankers pushBack _ayudante;
 _grupo setVariable ["flankers",_flankers];
 _ayudante call A3A_fnc_recallGroup;
 
-waitUntil {sleep 1; (vehicle _morty == _mortero) or !(alive _morty) or !(alive _mortero)};
+waitUntil {sleep 1; (vehicle _morty == _mortarX) or !(alive _morty) or !(alive _mortarX)};
 
 if !(alive _morty) exitWith {};
 
-if !(alive _mortero) exitWith {_morty call A3A_fnc_recallGroup};
+if !(alive _mortarX) exitWith {_morty call A3A_fnc_recallGroup};
 
 _grupo setVariable ["mortarsX",_morty];
 

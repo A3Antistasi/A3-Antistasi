@@ -55,7 +55,7 @@ if (!isMultiPlayer) then
     addMissionEventHandler ["BuildingChanged",
         {
         _building = _this select 0;
-        if !(_building in antenas) then
+        if !(_building in antennas) then
             {
             if (_this select 2) then
                 {

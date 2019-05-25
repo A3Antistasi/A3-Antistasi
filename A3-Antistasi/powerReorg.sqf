@@ -1,15 +1,15 @@
-private ["_markerX","_ciudad","_pos","_power","_datos","_powered","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_sitio"];
+private ["_markerX","_city","_pos","_power","_datos","_powered","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_sitio"];
 
 _markerX = _this select 0;
 
 {
-_ciudad = _x;
+_city = _x;
 _pos = getMarkerPos _x;
 _power = [power,_pos] call BIS_fnc_nearestPosition;
 _powered = true;
 if (_power == _markerX) then
 	{
-	//_datos = server getVariable _ciudad;
+	//_datos = server getVariable _city;
 	if (_markerX in destroyedCities) then
 		{
 		_powered = false;
@@ -20,15 +20,15 @@ if (_power == _markerX) then
 		//_powered = _datos select 4;
 		if (lados getVariable [_markerX,sideUnknown] == buenos) then
 			{
-			if (lados getVariable [_ciudad,sideUnknown] == buenos) then
+			if (lados getVariable [_city,sideUnknown] == buenos) then
 				{
-				//hint format ["You achieved to bring power to %1, more people there supports our cause",_ciudad];
+				//hint format ["You achieved to bring power to %1, more people there supports our cause",_city];
 				//[-10,10,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
 				_nul = [5,0] remoteExec ["A3A_fnc_prestige",2];
 				}
 			else
 				{
-				//hint format ["You cutted off power to %1, less people support AAF there",_ciudad];
+				//hint format ["You cutted off power to %1, less people support AAF there",_city];
 				//[-10,0,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
 				_nul = [-5,0] remoteExec ["A3A_fnc_prestige",2];
 				_powered = false;
@@ -36,16 +36,16 @@ if (_power == _markerX) then
 			}
 		else
 			{
-			if (lados getVariable [_ciudad,sideUnknown] == buenos) then
+			if (lados getVariable [_city,sideUnknown] == buenos) then
 				{
-				//hint format ["AAF has cut off power to %1, less people there supports our cause",_ciudad];
+				//hint format ["AAF has cut off power to %1, less people there supports our cause",_city];
 				//[0,-10,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
 				_nul = [5,0] remoteExec ["A3A_fnc_prestige",2];
 				_powered = false;
 				};
 			};
 		};
-	[_ciudad,_powered] spawn A3A_fnc_blackout;
+	[_city,_powered] spawn A3A_fnc_blackout;
 	};
 } forEach citiesX;
 
@@ -66,10 +66,10 @@ if (_power == _markerX) then
 		{
 		if (lados getVariable [_markerX,sideUnknown] == buenos) then
 			{
-			if (lados getVariable [_sitio,sideUnknown] == malos) then
+			if (lados getVariable [_sitio,sideUnknown] == Occupants) then
 				{
-				//_ciudad = [citiesX,_pos] call BIS_fnc_nearestPosition;
-				//hint format ["You cutted off power to AAF resources near %1. They will be less productive from now",_ciudad];
+				//_city = [citiesX,_pos] call BIS_fnc_nearestPosition;
+				//hint format ["You cutted off power to AAF resources near %1. They will be less productive from now",_city];
 				_powered = false;
 				};
 			}
@@ -77,8 +77,8 @@ if (_power == _markerX) then
 			{
 			if (lados getVariable [_sitio,sideUnknown] == buenos) then
 				{
-				//_ciudad = [citiesX,_pos] call BIS_fnc_nearestPosition;
-				//hint format ["AAF cutted off power supply to our resources near %1. They will be less productive from now",_ciudad];
+				//_city = [citiesX,_pos] call BIS_fnc_nearestPosition;
+				//hint format ["AAF cutted off power supply to our resources near %1. They will be less productive from now",_city];
 				_powered = false;
 				};
 			};

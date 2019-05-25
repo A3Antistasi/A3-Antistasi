@@ -45,11 +45,11 @@ if (_isRoad) then
 	}
 else
 	{
-	_formato = [];
+	_formatX = [];
 	{
-	if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
+	if (random 20 <= skillFIA) then {_formatX pushBack (_x select 1)} else {_formatX pushBack (_x select 0)};
 	} forEach groupsSDKSniper;
-	_grupo = [_positionX, buenos, _formato] call A3A_fnc_spawnGroup;
+	_grupo = [_positionX, buenos, _formatX] call A3A_fnc_spawnGroup;
 	_grupo setBehaviour "STEALTH";
 	_grupo setCombatMode "GREEN";
 	{[_x,_markerX] spawn A3A_fnc_FIAinitBases;} forEach units _grupo;

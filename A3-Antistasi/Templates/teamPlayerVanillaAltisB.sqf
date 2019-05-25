@@ -30,7 +30,7 @@ SDKFlag = "Flag_FIA_F";
 SDKFlagTexture = "\A3\Data_F\Flags\Flag_FIA_CO.paa";
 typePetros = "B_G_officer_F";
 
-soporteStaticSDKB = "B_HMG_01_support_F";
+supportStaticSDKB = "B_HMG_01_support_F";
 ATStaticSDKB = "B_AT_01_weapon_F";
 MGStaticSDKB = "B_HMG_01_high_weapon_F";
 supportStaticsSDKB2 = "B_HMG_01_support_high_F";

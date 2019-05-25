@@ -1,6 +1,6 @@
 private _engineerX = _this select 0;
 _engineerX setVariable ["maneuvering",true];
-private _cercano = _this select 1;
+private _nearX = _this select 1;
 private _building = _this select 2;
 _building setVariable ["assaulted",true];
 _engineerX disableAI "TARGET";

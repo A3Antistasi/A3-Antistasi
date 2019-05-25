@@ -8,7 +8,7 @@ _vehiclesX = [];
 _grupos = [];
 _soldiers = [];
 _civs = [];
-//_tipoCiv = "";
+//_typeCiv = "";
 _positionX = getMarkerPos (_markerX);
 _pos = [];
 _unit = objNull;
@@ -63,7 +63,7 @@ if (_markerX != "Synd_HQ") then
 				};
 			};
 		};
-	if (_markerX in puertos) then
+	if (_markerX in seaports) then
 		{
 		[_veh,"seaport"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
 		};
@@ -145,8 +145,8 @@ for "_i" from 0 to (count _grupos) - 1 do
 waitUntil {sleep 1; (spawner getVariable _markerX == 2)};
 
 {
-_soldado = _x;
-if (alive _soldado) then
+_soldierX = _x;
+if (alive _soldierX) then
 	{
 	deleteVehicle _x
 	};

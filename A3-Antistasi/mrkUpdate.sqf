@@ -10,16 +10,16 @@ if (lados getVariable [_markerX,sideUnknown] == buenos) then
 	if (_markerX in airportsX) then
 		{
 		_texto = format ["%2 Airbase%1",_texto,nameTeamPlayer];
-		[_mrkD,format ["%1 Airbase",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[malos,],true];
+		[_mrkD,format ["%1 Airbase",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[Occupants,],true];
 		//_mrkD setMarkerText format ["SDK Airbase%1",_texto];
 		if (markerType _mrkD != "flag_Syndicat") then {_mrkD setMarkerType "flag_Syndicat"};
 		}
 	else
 		{
-		if (_markerX in puestos) then
+		if (_markerX in outposts) then
 			{
 			_texto = format ["%2 Outpost%1",_texto,nameTeamPlayer];
-			[_mrkD,format ["%1 Outpost",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[malos,],true];
+			[_mrkD,format ["%1 Outpost",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[Occupants,],true];
 			}
 		else
 			{
@@ -35,7 +35,7 @@ if (lados getVariable [_markerX,sideUnknown] == buenos) then
             		}
             	else
             		{
-            		if (_markerX in puertos) then {_texto = format ["Sea Port%1",_texto]};
+            		if (_markerX in seaports) then {_texto = format ["Sea Port%1",_texto]};
             		};
 			 	};
 			};
@@ -44,7 +44,7 @@ if (lados getVariable [_markerX,sideUnknown] == buenos) then
 	}
 else
 	{
-	if (lados getVariable [_markerX,sideUnknown] == malos) then
+	if (lados getVariable [_markerX,sideUnknown] == Occupants) then
 		{
 		if (_markerX in airportsX) then
 			{_mrkD setMarkerText format ["%1 Airbase",nameOccupants];
@@ -52,7 +52,7 @@ else
 			}
 		else
 			{
-			if (_markerX in puestos) then
+			if (_markerX in outposts) then
 				{
 				_mrkD setMarkerText format ["%1 Outpost",nameOccupants]
 				};
@@ -62,7 +62,7 @@ else
 	else
 		{
 		if (_markerX in airportsX) then {_mrkD setMarkerText format ["%1 Airbase",nameInvaders];_mrkD setMarkerType flagCSATmrk} else {
-		if (_markerX in puestos) then {_mrkD setMarkerText format ["%1 Outpost",nameInvaders]}};
+		if (_markerX in outposts) then {_mrkD setMarkerText format ["%1 Outpost",nameInvaders]}};
 		_mrkD setMarkerColor colorInvaders;
 		};
 	if (_markerX in resourcesX) then
@@ -77,7 +77,7 @@ else
     		}
     	else
     		{
-    		if (_markerX in puertos) then
+    		if (_markerX in seaports) then
     			{
     			if (markerText _mrkD != "Sea Port") then {_mrkD setMarkerText "Sea Port"};
     			};

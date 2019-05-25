@@ -1,4 +1,4 @@
-private ["_positionTel","_cercano","_cosa","_grupo","_unitsX","_salir"];
+private ["_positionTel","_nearX","_cosa","_grupo","_unitsX","_salir"];
 if (!visibleMap) then {openMap true};
 positionTel = [];
 _cosa = _this select 0;
@@ -14,13 +14,13 @@ if (!visibleMap) exitWith {};
 
 _positionTel = positionTel;
 
-_cercano = [markersX,_positionTel] call BIS_fnc_nearestPosition;
+_nearX = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 
-if !(_positionTel inArea _cercano) exitWith {hint "You must click near a marked zone"};
+if !(_positionTel inArea _nearX) exitWith {hint "You must click near a marked zone"};
 
-if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]};
+if (not(lados getVariable [_nearX,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]};
 
-if ((_cercano in outpostsFIA) and !(isOnRoad getMarkerPos _cercano)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
+if ((_nearX in outpostsFIA) and !(isOnRoad getMarkerPos _nearX)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
 
 _cosa = _this select 0;
 
@@ -63,22 +63,22 @@ else
 	};
 /*
 _garrison = [];
-_garrison = _garrison + (garrison getVariable [_cercano,[]]);
+_garrison = _garrison + (garrison getVariable [_nearX,[]]);
 {_garrison pushBack (typeOf _x)} forEach _unitsX;
-garrison setVariable [_cercano,_garrison,true];
-[_cercano] call A3A_fnc_mrkUpdate;
+garrison setVariable [_nearX,_garrison,true];
+[_nearX] call A3A_fnc_mrkUpdate;
 */
-[_unitsX,buenos,_cercano,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
+[_unitsX,buenos,_nearX,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
 _noBorrar = false;
 
-if (spawner getVariable _cercano != 2) then
+if (spawner getVariable _nearX != 2) then
 	{
 
 	{deleteWaypoint _x} forEach waypoints _grupo;
-	_wp = _grupo addWaypoint [(getMarkerPos _cercano), 0];
+	_wp = _grupo addWaypoint [(getMarkerPos _nearX), 0];
 	_wp setWaypointType "MOVE";
 	{
-	_x setVariable ["markerX",_cercano,true];
+	_x setVariable ["markerX",_nearX,true];
 	_x addEventHandler ["killed",
 		{
 		_muerto = _this select 0;
@@ -107,8 +107,8 @@ if (spawner getVariable _cercano != 2) then
 		}];
 	} forEach _unitsX;
 
-	waitUntil {sleep 1; (spawner getVariable _cercano == 2 or !(lados getVariable [_cercano,sideUnknown] == buenos))};
-	if (!(lados getVariable [_cercano,sideUnknown] == buenos)) then {_noBorrar = true};
+	waitUntil {sleep 1; (spawner getVariable _nearX == 2 or !(lados getVariable [_nearX,sideUnknown] == buenos))};
+	if (!(lados getVariable [_nearX,sideUnknown] == buenos)) then {_noBorrar = true};
 	};
 
 if (!_noBorrar) then
@@ -143,7 +143,7 @@ else
 				}
 			else
 				{
-				if (side _killer == malos) then
+				if (side _killer == Occupants) then
 					{
 					_nul = [0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 					[-0.25,0] remoteExec ["A3A_fnc_prestige",2];

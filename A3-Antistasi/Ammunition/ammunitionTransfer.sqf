@@ -1,8 +1,8 @@
 if (!isServer) exitWith {};
-private ["_subCosa","_ammunition","_origen","_destino"];
+private ["_subObject","_ammunition","_origen","_destinationX"];
 _origen = _this select 0;
 if (isNull _origen) exitWith {};
-_destino = _this select 1;
+_destinationX = _this select 1;
 
 _ammunition= [];
 _items = [];
@@ -23,8 +23,8 @@ if (count _containers > 0) then
 	{
 	for "_i" from 0 to (count _containers) - 1 do
 		{
-		_subCosa = magazineCargo ((_containers select _i) select 1);
-		if (!isNil "_subCosa") then {_ammunition = _ammunition + _subCosa} else {diag_log format ["Error from %1",magazineCargo (_containers select _i)]};
+		_subObject = magazineCargo ((_containers select _i) select 1);
+		if (!isNil "_subObject") then {_ammunition = _ammunition + _subObject} else {diag_log format ["Error from %1",magazineCargo (_containers select _i)]};
 		//_ammunition = _ammunition + (magazineCargo ((_containers select _i) select 1));
 		_items = _items + (itemCargo ((_containers select _i) select 1));
 		_weaponsItemsCargo = _weaponsItemsCargo + weaponsItemsCargo ((_containers select _i) select 1);
@@ -63,7 +63,7 @@ if (count _armasFinal > 0) then
 	{
 	for "_i" from 0 to (count _armasFinal) - 1 do
 		{
-		_destino addWeaponCargoGlobal [_armasFinal select _i,_armasFinalCount select _i];
+		_destinationX addWeaponCargoGlobal [_armasFinal select _i,_armasFinalCount select _i];
 		};
 	};
 
@@ -90,7 +90,7 @@ if (count _ammunitionFinal > 0) then
 	{
 	for "_i" from 0 to (count _ammunitionFinal) - 1 do
 		{
-		_destino addMagazineCargoGlobal [_ammunitionFinal select _i,_ammunitionFinalCount select _i];
+		_destinationX addMagazineCargoGlobal [_ammunitionFinal select _i,_ammunitionFinalCount select _i];
 		};
 	};
 
@@ -109,7 +109,7 @@ if (count _itemsFinal > 0) then
 	{
 	for "_i" from 0 to (count _itemsFinal) - 1 do
 		{
-		_destino addItemCargoGlobal [_itemsFinal select _i,_itemsFinalCount select _i];
+		_destinationX addItemCargoGlobal [_itemsFinal select _i,_itemsFinalCount select _i];
 		};
 	};
 
@@ -128,7 +128,7 @@ if (count _backpcksFinal > 0) then
 	{
 	for "_i" from 0 to (count _backpcksFinal) - 1 do
 		{
-		_destino addBackpackCargoGlobal [_backpcksFinal select _i,_backpcksFinalCount select _i];
+		_destinationX addBackpackCargoGlobal [_backpcksFinal select _i,_backpcksFinalCount select _i];
 		};
 	};
 
@@ -144,10 +144,10 @@ else
 	clearBackpackCargoGlobal _origen;
 	};
 
-if (_destino == caja) then
+if (_destinationX == caja) then
 	{
 	if (isMultiplayer) then {{if (_x distance caja < 10) then {[petros,"hint","Ammobox Loaded"] remoteExec ["A3A_fnc_commsMP",_x]}} forEach playableUnits} else {hint "Ammobox Loaded"};
-	if ((_origen isKindOf "ReammoBox_F") and (_origen != cajaVeh)) then {deleteVehicle _origen};
+	if ((_origen isKindOf "ReammoBox_F") and (_origen != vehicleBox)) then {deleteVehicle _origen};
 	_updated = [] call A3A_fnc_arsenalManage;
 	if (_updated != "") then
 		{
@@ -157,5 +157,5 @@ if (_destino == caja) then
 	}
 else
 	{
-	[petros,"hint","Truck Loaded"] remoteExec ["A3A_fnc_commsMP",driver _destino];
+	[petros,"hint","Truck Loaded"] remoteExec ["A3A_fnc_commsMP",driver _destinationX];
 	};

@@ -10,7 +10,7 @@ if (gameMode == 1) then
     _controlsNATO = controlsX;
 	if (worldName == "Tanoa") then
 	    {
-	    _mrkCSAT = ["airport_1","puerto_5","puesto_10","control_20"];
+	    _mrkCSAT = ["airport_1","seaport_5","outpost_10","control_20"];
 	    _controlsNATO = _controlsNATO - ["control_20"];
 	    _controlsCSAT = ["control_20"];
 	    }
@@ -18,7 +18,7 @@ if (gameMode == 1) then
 	    {
 	    if (worldName == "Altis") then
 	        {
-	        _mrkCSAT = ["airport_2","puerto_4","puesto_5","control_52","control_33"];
+	        _mrkCSAT = ["airport_2","seaport_4","outpost_5","control_52","control_33"];
 	        _controlsNATO = _controlsNATO - ["control_52","control_33"];
 	    	_controlsCSAT = ["control_52","control_33"];
 	        }
@@ -26,7 +26,7 @@ if (gameMode == 1) then
             {
             if (worldName == "chernarus_summer") then
                 {
-                _mrkCSAT = ["puesto_21"];
+                _mrkCSAT = ["outpost_21"];
                 };
             };
 	    };
@@ -45,7 +45,7 @@ else
 		_controlsNATO = controlsX;
 		};
 	};
-{lados setVariable [_x,malos,true]} forEach _controlsNATO;
+{lados setVariable [_x,Occupants,true]} forEach _controlsNATO;
 {lados setVariable [_x,,true]} forEach _controlsCSAT;
 {
 _pos = getMarkerPos _x;
@@ -77,7 +77,7 @@ else
         _garrison append (selectRandom groupsNATOSquad);
         };
     garrison setVariable [_x,_garrison,true];
-    lados setVariable [_x,malos,true];
+    lados setVariable [_x,Occupants,true];
     };
 _nul = [_x] call A3A_fnc_createControls;
 server setVariable [_x,0,true];//fecha en fomrato dateToNumber en la que estarán idle
@@ -104,7 +104,7 @@ if (_x in _mrkCSAT) then
 else
 	{
 	_dmrk setMarkerColor colorOccupants;
-	lados setVariable [_x,malos,true];
+	lados setVariable [_x,Occupants,true];
 	};
 garrison setVariable [_x,_garrison,true];
 _nul = [_x] call A3A_fnc_createControls;
@@ -131,7 +131,7 @@ if (_x in _mrkCSAT) then
 else
 	{
 	_dmrk setMarkerColor colorOccupants;
-    lados setVariable [_x,malos,true];
+    lados setVariable [_x,Occupants,true];
     };
 garrison setVariable [_x,_garrison,true];
 _nul = [_x] call A3A_fnc_createControls;
@@ -154,7 +154,7 @@ if !(_x in _mrkCSAT) then
         {
         _garrison append (selectRandom groupsFIASquad);
         };
-    lados setVariable [_x,malos,true];
+    lados setVariable [_x,Occupants,true];
     }
 else
     {
@@ -179,7 +179,7 @@ else
 garrison setVariable [_x,_garrison,true];
 server setVariable [_x,0,true];
 _nul = [_x] call A3A_fnc_createControls;
-} forEach puestos;
+} forEach outposts;
 
 {
 _pos = getMarkerPos _x;
@@ -206,11 +206,11 @@ else
         {
         _garrison append (selectRandom groupsNATOSquad);
         };
-    lados setVariable [_x,malos,true];
+    lados setVariable [_x,Occupants,true];
     };
 garrison setVariable [_x,_garrison,true];
 _nul = [_x] call A3A_fnc_createControls;
-} forEach puertos;
+} forEach seaports;
 
-lados setVariable ["NATO_carrier",malos,true];
+lados setVariable ["NATO_carrier",Occupants,true];
 lados setVariable ["CSAT_carrier",,true];

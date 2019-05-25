@@ -6,7 +6,7 @@ _unit = _this select 0;
 //_unit setVariable ["inconsciente",true,true];
 _bleedOut = time + 300;//300
 _isPlayer = false;
-_jugadores = false;
+_playerXes = false;
 _inPlayerGroup = false;
 _unit setBleedingremaining 300;
 _injurer = _this select 1;
@@ -57,11 +57,11 @@ else
 		{
 		if ({if ((isPlayer _x) and (_x distance _unit < distanceSPWN2)) exitWith {1}} count allUnits != 0) then
 			{
-			_jugadores = true;
+			_playerXes = true;
 			[_unit,"heal"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 			if (_unit != petros) then {if (_injurer != ) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true}};
 			};
-		if ((_injurer  == malos) or (_injurer  == )) then
+		if ((_injurer  == Occupants) or (_injurer  == )) then
 			{
 			_markerX = _unit getVariable ["markerX",""];
 			if (_markerX != "") then
@@ -76,7 +76,7 @@ _unit setFatigue 1;
 sleep 2;
 if (_isPlayer) then
 	{
-	if (hayTFAR) then
+	if (hasTFAR) then
 		{
 		_saveVolume = player getVariable ["tf_globalVolume", 1.0];
 		player setVariable ["tf_unable_to_use_radio", true, true];
@@ -148,7 +148,7 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 if (_isPlayer) then
 	{
 	(findDisplay 46) displayRemoveEventHandler ["KeyDown", respawnMenu];
-	if (hayTFAR) then
+	if (hasTFAR) then
 		{
 		player setVariable ["tf_unable_to_use_radio", false, true];
 		player setVariable ["tf_globalVolume", _saveVolume];
@@ -159,7 +159,7 @@ if (_isPlayer) then
 else
 	{
 	_unit stop false;
-	if (_inPlayerGroup or _jugadores) then
+	if (_inPlayerGroup or _playerXes) then
 		{
 		[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 		};

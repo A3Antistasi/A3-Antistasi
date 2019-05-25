@@ -9,7 +9,7 @@ if (isNil "_display") exitWith {};
 waitUntil {sleep 0.5;!(isNil "theBoss")};
 _setText = _display displayCtrl 1001;
 _setText ctrlSetBackgroundColor [0,0,0,0];
-_nombreC = "None";
+_nameC = "None";
 if (!isMultiplayer) then
 	{
 	_texto = format ["<t size='0.60'>" + "HR: %1 | %9 Money: %2 € | Airstrikes: %5 | %7 Aggr: %3 | %8 Aggr: %4 | War Level: %6 | Undercover Mode: %10", server getVariable "hr", server getVariable "resourcesFIA",floor prestigeNATO,floor prestigeCSAT,floor bombRuns,tierWar,nameOccupants,nameInvaders,nameTeamPlayer,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false]))];
@@ -18,8 +18,8 @@ else
 	{
 	if (player != theBoss) then
 		{
-		if (isPlayer theBoss) then {_nombreC = name theBoss} else {_nombreC = "None"};
-		_texto = format ["<t size='0.560'>" + "Commander: %3 | Rank: %2 | HR: %1 | Your Money: %4 € | %8 Aggr: %5 | %9 Aggr: %6 | War Level: %7 | Undercover Mode: %10", server getVariable "hr", rank player, _nombreC, player getVariable "dinero",floor prestigeNATO, floor prestigeCSAT,tierWar,nameOccupants,nameInvaders,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false]))];
+		if (isPlayer theBoss) then {_nameC = name theBoss} else {_nameC = "None"};
+		_texto = format ["<t size='0.560'>" + "Commander: %3 | Rank: %2 | HR: %1 | Your Money: %4 € | %8 Aggr: %5 | %9 Aggr: %6 | War Level: %7 | Undercover Mode: %10", server getVariable "hr", rank player, _nameC, player getVariable "dinero",floor prestigeNATO, floor prestigeCSAT,tierWar,nameOccupants,nameInvaders,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false]))];
 		}
 	else
 		{

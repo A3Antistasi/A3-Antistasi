@@ -22,11 +22,11 @@ while {_attempts < 37} do
 	_pos = [_posbase, _distanceX, _ang] call BIS_Fnc_relPos;
 	if (!surfaceIsWater _pos) then
 		{
-		_cercano = [markersX,_pos] call BIS_fnc_nearestPosition;
-		if (spawner getVariable _cercano == 2) then
+		_nearX = [markersX,_pos] call BIS_fnc_nearestPosition;
+		if (spawner getVariable _nearX == 2) then
 			{
-			_size = [_cercano] call A3A_fnc_sizeMarker;
-			if ((_pos distance (getMarkerPos _cercano)) > (_size + 100)) then
+			_size = [_nearX] call A3A_fnc_sizeMarker;
+			if ((_pos distance (getMarkerPos _nearX)) > (_size + 100)) then
 				{
 				_road = [_pos,101] call BIS_fnc_nearestRoad;
 				if (isNull _road) then
@@ -49,7 +49,7 @@ if (_fallo) exitWith {false};
 for "_i" from 1 to 60 do
 	{
 	_mina = createMine ["APERSMine",_pos,[],100];
-	if (lados getVariable [_markerX,sideUnknown] == malos) then {malos revealMine _mina} else { revealMine _mina};
+	if (lados getVariable [_markerX,sideUnknown] == Occupants) then {Occupants revealMine _mina} else { revealMine _mina};
 	};
 
 //[-4000] remoteExec ["resourcesAAF",2];

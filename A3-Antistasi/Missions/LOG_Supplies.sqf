@@ -1,17 +1,17 @@
 //Mission: Logistic supplies
 if (!isServer and hasInterface) exitWith{};
-private ["_markerX","_dificil","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_camion","_cuenta"];
+private ["_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_camion","_cuenta"];
 
 _markerX = _this select 0;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _positionX = getMarkerPos _markerX;
 
-_timeLimit = if (_dificil) then {30} else {60};
+_timeLimit = if (_difficultX) then {30} else {60};
 if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
@@ -28,7 +28,7 @@ _camion allowDamage false;
 _camion call jn_fnc_logistics_addAction;
 _camion addAction ["Delivery infos",
 	{
-		_text = format ["Deliver this box to %1, unload it to start distributing to people",(_this select 0) getVariable "destino"]; //This need a rework
+		_text = format ["Deliver this box to %1, unload it to start distributing to people",(_this select 0) getVariable "destinationX"]; //This need a rework
 		_text remoteExecCall ["hint",_this select 2];	//This need a rework
 	},
 	nil,
@@ -40,12 +40,12 @@ _camion addAction ["Delivery infos",
 ];
 [_camion] call A3A_fnc_AIVEHinit;
 //{_x reveal _camion} forEach (allPlayers - (entities "HeadlessClient_F"));
-_camion setVariable ["destino",_nameDest,true];
+_camion setVariable ["destinationX",_nameDest,true];
 
 [_camion,"Supply Box"] spawn A3A_fnc_inmuneConvoy;
 
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ((_camion distance _positionX < 40) and (isNull attachedTo _camion)) or (isNull _camion)};
-_bonus = if (_dificil) then {2} else {1};
+_bonus = if (_difficultX) then {2} else {1};
 if ((dateToNumber date > _dateLimitNum) or (isNull _camion)) then
 	{
 	["LOG",[_taskDescription,"City Supplies",_markerX],_positionX,"FAILED","Heal"] call A3A_fnc_taskUpdate;
@@ -55,8 +55,8 @@ if ((dateToNumber date > _dateLimitNum) or (isNull _camion)) then
 else
 	{
 	_cuenta = 120*_bonus;//120
-	[[_positionX,malos,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
-	["TaskFailed", ["", format ["%2 deploying supplies in %1",_nameDest,nameTeamPlayer]]] remoteExec ["BIS_fnc_showNotification",malos];
+	[[_positionX,Occupants,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
+	["TaskFailed", ["", format ["%2 deploying supplies in %1",_nameDest,nameTeamPlayer]]] remoteExec ["BIS_fnc_showNotification",Occupants];
 	{_amigo = _x;
 	if (captive _amigo) then
 		{
@@ -64,7 +64,7 @@ else
 		_amigo setCaptive false;
 		};
 	{
-	if ((side _x == malos) and (_x distance _positionX < distanceSPWN)) then
+	if ((side _x == Occupants) and (_x distance _positionX < distanceSPWN)) then
 		{
 		if (_x distance _positionX < 300) then {_x doMove _positionX} else {_x reveal [_amigo,4]};
 		};
@@ -73,18 +73,18 @@ else
 	} forEach ([300,0,_camion,buenos] call A3A_fnc_distanceUnits);
 	while {(_cuenta > 0)/* or (_camion distance _positionX < 40)*/ and (dateToNumber date < _dateLimitNum) and !(isNull _camion)} do
 		{
-		while {(_cuenta > 0) and (_camion distance _positionX < 40) and ({[_x] call A3A_fnc_canFight} count ([80,0,_camion,buenos] call A3A_fnc_distanceUnits) == count ([80,0,_camion,buenos] call A3A_fnc_distanceUnits)) and ({(side _x == malos) and (_x distance _camion < 50)} count allUnits == 0) and (dateToNumber date < _dateLimitNum) and (isNull attachedTo _camion)} do
+		while {(_cuenta > 0) and (_camion distance _positionX < 40) and ({[_x] call A3A_fnc_canFight} count ([80,0,_camion,buenos] call A3A_fnc_distanceUnits) == count ([80,0,_camion,buenos] call A3A_fnc_distanceUnits)) and ({(side _x == Occupants) and (_x distance _camion < 50)} count allUnits == 0) and (dateToNumber date < _dateLimitNum) and (isNull attachedTo _camion)} do
 			{
-			_formato = format ["%1", _cuenta];
-			{if (isPlayer _x) then {[petros,"countdown",_formato] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,buenos] call A3A_fnc_distanceUnits);
+			_formatX = format ["%1", _cuenta];
+			{if (isPlayer _x) then {[petros,"countdown",_formatX] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,buenos] call A3A_fnc_distanceUnits);
 			sleep 1;
 			_cuenta = _cuenta - 1;
 			};
 		if (_cuenta > 0) then
 			{
 			_cuenta = 120*_bonus;//120
-			if (((_camion distance _positionX > 40) or (not([80,1,_camion,buenos] call A3A_fnc_distanceUnits)) or ({(side _x == malos) and (_x distance _camion < 50)} count allUnits != 0)) and (alive _camion)) then {{[petros,"hint","Don't get the truck far from the city center, and stay close to it, and clean all BLUFOR presence in the surroundings or count will restart"] remoteExec ["A3A_fnc_commsMP",_x]} forEach ([100,0,_camion,buenos] call A3A_fnc_distanceUnits)};
-			waitUntil {sleep 1; ((_camion distance _positionX < 40) and ([80,1,_camion,buenos] call A3A_fnc_distanceUnits) and ({(side _x == malos) and (_x distance _camion < 50)} count allUnits == 0)) or (dateToNumber date > _dateLimitNum) or (isNull _camion)};
+			if (((_camion distance _positionX > 40) or (not([80,1,_camion,buenos] call A3A_fnc_distanceUnits)) or ({(side _x == Occupants) and (_x distance _camion < 50)} count allUnits != 0)) and (alive _camion)) then {{[petros,"hint","Don't get the truck far from the city center, and stay close to it, and clean all BLUFOR presence in the surroundings or count will restart"] remoteExec ["A3A_fnc_commsMP",_x]} forEach ([100,0,_camion,buenos] call A3A_fnc_distanceUnits)};
+			waitUntil {sleep 1; ((_camion distance _positionX < 40) and ([80,1,_camion,buenos] call A3A_fnc_distanceUnits) and ({(side _x == Occupants) and (_x distance _camion < 50)} count allUnits == 0)) or (dateToNumber date > _dateLimitNum) or (isNull _camion)};
 			};
 		if (_cuenta < 1) exitWith {};
 		};

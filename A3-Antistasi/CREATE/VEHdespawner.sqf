@@ -9,8 +9,8 @@ if ((typeOf _veh in arrayCivVeh) and ({(_x getVariable ["spawner",false]) and (s
 	{
 	_pos = position _veh;
 	[0,-1,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
-	_ciudad = [citiesX, _pos] call BIS_fnc_nearestPosition;
-	_datos = server getVariable _ciudad;
+	_city = [citiesX, _pos] call BIS_fnc_nearestPosition;
+	_datos = server getVariable _city;
 	_prestigeOPFOR = _datos select 2;
 	sleep 5;
 	if (random 100 < _prestigeOPFOR) then
@@ -22,14 +22,14 @@ if ((typeOf _veh in arrayCivVeh) and ({(_x getVariable ["spawner",false]) and (s
 			_amigo setCaptive false;
 			};
 		{
-		if ((side _x == malos) and (_x distance _pos < distanceSPWN)) then {_x reveal [_amigo,4]};
+		if ((side _x == Occupants) and (_x distance _pos < distanceSPWN)) then {_x reveal [_amigo,4]};
 		} forEach allUnits;
 		} forEach crew _veh;
 		};
 	};
 while {alive _veh} do
 	{
-	if ((not([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) and (not([distanceSPWN,1,_veh,] call A3A_fnc_distanceUnits)) and (not([distanceSPWN,1,_veh,malos] call A3A_fnc_distanceUnits)) and (not(_veh in staticsToSave)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
+	if ((not([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) and (not([distanceSPWN,1,_veh,] call A3A_fnc_distanceUnits)) and (not([distanceSPWN,1,_veh,Occupants] call A3A_fnc_distanceUnits)) and (not(_veh in staticsToSave)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
 		{
 		if (_veh in reportedVehs) then {reportedVehs = reportedVehs - [_veh]; publicVariable "reportedVehs"};
 		deleteVehicle _veh

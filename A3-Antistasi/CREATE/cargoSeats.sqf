@@ -12,7 +12,7 @@ if ((_cargoSeats >= 2) and (_cargoSeats < 4)) then
 	{
 	switch (_lado) do
 		{
-		case malos: {_return = groupsNATOSentry};
+		case Occupants: {_return = groupsNATOSentry};
 		case : {_return = groupsCSATSentry};
 		};
 	}
@@ -22,7 +22,7 @@ else
 		{
 		switch (_lado) do
 			{
-			case malos: {_return = selectRandom groupsNATOmid};
+			case Occupants: {_return = selectRandom groupsNATOmid};
 			case : {_return = selectRandom groupsCSATmid};
 			};
 		}
@@ -30,7 +30,7 @@ else
 		{
 		switch (_lado) do
 			{
-			case malos:
+			case Occupants:
 				{
 				_return = selectRandom groupsNATOSquad;
 				if (_cargoSeats > 8) then

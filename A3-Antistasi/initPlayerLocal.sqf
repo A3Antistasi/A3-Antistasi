@@ -37,7 +37,7 @@ if (isMultiplayer) then
 	cutText ["Starting Mission","BLACK IN",0];
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
-	if (hayTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
+	if (hasTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
 	tkPunish = if (paramsArray select 5 == 1) then {true} else {false};
 	if ((side player == buenos) and tkPunish) then
 		{
@@ -142,7 +142,7 @@ if (player getVariable ["pvp",false]) exitWith
 				};
 			};
 		};
-	if (side player == malos) then
+	if (side player == Occupants) then
 		{
 		if (activeUSAF) then {[player] call A3A_fnc_RHSdress};
 		}
@@ -173,7 +173,7 @@ if (player getVariable ["pvp",false]) exitWith
 		if ((_caja == NATOAmmoBox) or (_caja == CSATAmmoBox)) then {_override = true};
 		_override
 		}];
-	_nombre = if (side player == malos) then {nameOccupants} else {nameInvaders};
+	_nombre = if (side player == Occupants) then {nameOccupants} else {nameInvaders};
 	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 	waituntil {!isnull (finddisplay 46)};
 	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
@@ -224,20 +224,20 @@ player addEventHandler ["FIRED",
 	_player = _this select 0;
 	if (captive _player) then
 		{
-		//if ({((side _x== ) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
-		if ({if (((side _x == malos) or (side _x == )) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
+		//if ({((side _x== ) or (side _x== Occupants)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
+		if ({if (((side _x == Occupants) or (side _x == )) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
 			{
 			[_player,false] remoteExec ["setCaptive",0,_player];
 			_player setCaptive false;
 			}
 		else
 			{
-			_ciudad = [citiesX,_player] call BIS_fnc_nearestPosition;
-			_size = [_ciudad] call A3A_fnc_sizeMarker;
-			_datos = server getVariable _ciudad;
+			_city = [citiesX,_player] call BIS_fnc_nearestPosition;
+			_size = [_city] call A3A_fnc_sizeMarker;
+			_datos = server getVariable _city;
 			if (random 100 < _datos select 2) then
 				{
-				if (_player distance getMarkerPos _ciudad < _size * 1.5) then
+				if (_player distance getMarkerPos _city < _size * 1.5) then
 					{
 					[_player,false] remoteExec ["setCaptive",0,_player];
 					_player setCaptive false;
@@ -253,31 +253,31 @@ player addEventHandler ["FIRED",
 	];
 player addEventHandler ["InventoryOpened",
 	{
-	private ["_jugador","_containerX","_tipo"];
+	private ["_playerX","_containerX","_tipo"];
 	_control = false;
-	_jugador = _this select 0;
-	if (captive _jugador) then
+	_playerX = _this select 0;
+	if (captive _playerX) then
 		{
 		_containerX = _this select 1;
 		_tipo = typeOf _containerX;
 		if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 			{
-			if ({if (((side _x== ) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
+			if ({if (((side _x== ) or (side _x== Occupants)) and (_x knowsAbout _playerX > 1.4)) exitWith {1}} count allUnits > 0) then
 				{
-				[_jugador,false] remoteExec ["setCaptive",0,_jugador];
-				_jugador setCaptive false;
+				[_playerX,false] remoteExec ["setCaptive",0,_playerX];
+				_playerX setCaptive false;
 				}
 			else
 				{
-				_ciudad = [citiesX,_jugador] call BIS_fnc_nearestPosition;
-				_size = [_ciudad] call A3A_fnc_sizeMarker;
-				_datos = server getVariable _ciudad;
+				_city = [citiesX,_playerX] call BIS_fnc_nearestPosition;
+				_size = [_city] call A3A_fnc_sizeMarker;
+				_datos = server getVariable _city;
 				if (random 100 < _datos select 2) then
 					{
-					if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
+					if (_playerX distance getMarkerPos _city < _size * 1.5) then
 						{
-						[_jugador,false] remoteExec ["setCaptive",0,_jugador];
-						_jugador setCaptive false;
+						[_playerX,false] remoteExec ["setCaptive",0,_playerX];
+						_playerX setCaptive false;
 						};
 					};
 				};
@@ -317,19 +317,19 @@ player addEventHandler ["HandleHeal",
 	_player = _this select 0;
 	if (captive _player) then
 		{
-		if ({((side _x== ) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
+		if ({((side _x== ) or (side _x== Occupants)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
 			{
 			[_player,false] remoteExec ["setCaptive",0,_player];
 			_player setCaptive false;
 			}
 		else
 			{
-			_ciudad = [citiesX,_player] call BIS_fnc_nearestPosition;
-			_size = [_ciudad] call A3A_fnc_sizeMarker;
-			_datos = server getVariable _ciudad;
+			_city = [citiesX,_player] call BIS_fnc_nearestPosition;
+			_size = [_city] call A3A_fnc_sizeMarker;
+			_datos = server getVariable _city;
 			if (random 100 < _datos select 2) then
 				{
-				if (_player distance getMarkerPos _ciudad < _size * 1.5) then
+				if (_player distance getMarkerPos _city < _size * 1.5) then
 					{
 					[_player,false] remoteExec ["setCaptive",0,_player];
 					_player setCaptive false;
@@ -453,7 +453,7 @@ if (_isJip) then
 		else
 			{
 			hint "Welcome Guest\n\nYou have joined this server as guest";
-			//if ((count playableUnits == maxPlayers) and (({[_x] call A3A_fnc_isMember} count playableUnits) < count membersX) and (serverName in servidoresOficiales)) then {["serverFull",false,1,false,false] call BIS_fnc_endMission};
+			//if ((count playableUnits == maxPlayers) and (({[_x] call A3A_fnc_isMember} count playableUnits) < count membersX) and (serverName in officialServers)) then {["serverFull",false,1,false,false] call BIS_fnc_endMission};
 			};
 		}
 	else
@@ -554,7 +554,7 @@ waitUntil {scriptDone _titulo};
 
 _texto = [];
 
-if ((hayTFAR) or (hayACRE)) then
+if ((hasTFAR) or (hasACRE)) then
 	{
 	_texto = ["TFAR or ACRE Detected\n\nAntistasi detects TFAR or ACRE in the server config.\nAll players will start with addon default radios.\nDefault revive system will shut down radios while players are inconscious.\n\n"];
 	};
@@ -566,12 +566,12 @@ if (hayRHS) then
 	{
 	_texto = _texto + ["RHS Detected\n\nAntistasi detects RHS in the server config.\nDepending on the modules will have the following effects.\n\nAFRF: Replaces CSAT by a mix of russian units\n\nUSAF: Replaces NATO by a mix of US units\n\nGREF: Recruited AI will count with RHS as basic weapons, replaces FIA with Chdk units. Adds some civilian trucks"];
 	};
-if (hayFFAA) then
+if (hasFFAA) then
 	{
 	_texto = _texto + ["FFAA Detected\n\nAntistasi detects FFAA in the server config.\nFIA Faction will be replaced by Spanish Armed Forces"];
 	};
 
-if (hayTFAR or hayACE or hayRHS or hayACRE or hayFFAA) then
+if (hasTFAR or hayACE or hayRHS or hasACRE or hasFFAA) then
 	{
 	[_texto] spawn
 		{
@@ -595,15 +595,15 @@ if ((!isServer) and (isMultiplayer)) then {caja call jn_fnc_arsenal_init};
 caja allowDamage false;
 caja addAction ["Transfer Vehicle cargo to Ammobox", "[] call A3A_fnc_empty"];
 caja addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
-bandera addAction ["HQ Management", {[] execVM "Dialogs\dialogHQ.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
-bandera allowDamage false;
-bandera addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
-bandera addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
-if (isMultiplayer) then {bandera addAction ["Personal Garage", {nul = [true] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"]};
-bandera addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
-cajaVeh allowDamage false;
-cajaveh addAction ["Heal, Repair and Rearm", "healandrepair.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
-cajaveh addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
+flagX addAction ["HQ Management", {[] execVM "Dialogs\dialogHQ.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
+flagX allowDamage false;
+flagX addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+flagX addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+if (isMultiplayer) then {flagX addAction ["Personal Garage", {nul = [true] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"]};
+flagX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
+vehicleBox allowDamage false;
+vehicleBox addAction ["Heal, Repair and Rearm", "healandrepair.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+vehicleBox addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 
 fuego allowDamage false;
 fuego addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)"];

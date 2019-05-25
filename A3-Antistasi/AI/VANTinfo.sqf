@@ -6,7 +6,7 @@ _lado = _this select 2;
 
 _positionX = getMarkerPos _markerX;
 
-_enemiesS = if (_lado == ) then {malos} else {};
+_enemiesS = if (_lado == ) then {Occupants} else {};
 
 while {alive _veh} do
 	{

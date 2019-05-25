@@ -44,7 +44,7 @@ if (_medico != _unit) then
 		};
 	if ((isPlayer _unit) and !(isMultiplayer))  then
 		{
-		if (([_medico] call A3A_fnc_canFight) and (_medico distance _unit > 3) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false]) and (allUnits findIf {((side _x == malos) or (side _x == )) and (_x distance2D _unit < 50)} == -1)) then {_medico setPos position _unit};
+		if (([_medico] call A3A_fnc_canFight) and (_medico distance _unit > 3) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["carryX",false]) and (allUnits findIf {((side _x == Occupants) or (side _x == )) and (_x distance2D _unit < 50)} == -1)) then {_medico setPos position _unit};
 		};
 	if ((_unit distance _medico <= 3) and (alive _unit) and ([_medico] call A3A_fnc_canFight) and (_medico == vehicle _medico) and (_medico == _unit getVariable ["ayudado",objNull]) and (isNull attachedTo _unit) and !(_medico getVariable ["cancelRevive",false])) then
 		{
@@ -54,7 +54,7 @@ if (_medico != _unit) then
 			{if (([_x] call A3A_fnc_canFight) and (_x distance _medico < 50) and !(_x getVariable ["helping",false]) and (!isPlayer _x)) then {[_x,_enemy] call A3A_fnc_suppressingFire}} forEach units (group _medico);
 			if (count _coverX == 3) then
 				{
-				//if (_isPlayer) then {_unit setVariable ["llevado",true,true]};
+				//if (_isPlayer) then {_unit setVariable ["carryX",true,true]};
 				_medico setUnitPos "MIDDLE";
 				_medico playAction "grabDrag";
 				sleep 0.1;
@@ -143,7 +143,7 @@ if (_medico != _unit) then
 						_unit setUnconscious true;
 						};
 					};
-				//if (_isPlayer) then {_unit setVariable ["llevado",false,true]};
+				//if (_isPlayer) then {_unit setVariable ["carryX",false,true]};
 				}
 			else
 				{

@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_markerX","_pos","_roads","_road","_posroad","_cercano","_cuenta"];
+private ["_markerX","_pos","_roads","_road","_posroad","_nearX","_cuenta"];
 
 _markerX = _this select 0;
 
@@ -24,8 +24,8 @@ if (_posroad distance _pos > 400) then
         _roadsCon = roadsConnectedto _road;
         if (count _roadsCon > 0) then
                 {
-        	_cercano = [controlsX,_posroad] call BIS_fnc_nearestPosition;
-        	if (getMarkerPos _cercano distance _posroad > 1000) then
+        	_nearX = [controlsX,_posroad] call BIS_fnc_nearestPosition;
+        	if (getMarkerPos _nearX distance _posroad > 1000) then
         		{
         		_nombre = format ["control_%1", count controlsX];
         		_mrk = createmarker [format ["%1", _nombre], _posroad];
@@ -35,9 +35,9 @@ if (_posroad distance _pos > 400) then
                         _mrk setMarkerColor colourTeamPlayer;
                         _mrk setMarkerText _nombre;
                         if (not debug) then {_mrk setMarkerAlpha 0};
-                        if (lados getVariable [_markerX,sideUnknown] == malos) then
+                        if (lados getVariable [_markerX,sideUnknown] == Occupants) then
                                 {
-                                lados setVariable [_nombre,malos,true];
+                                lados setVariable [_nombre,Occupants,true];
                                 }
                         else
                                 {

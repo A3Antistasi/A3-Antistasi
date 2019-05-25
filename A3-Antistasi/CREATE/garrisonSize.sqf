@@ -13,7 +13,7 @@ if (_markerX in airportsX) then
 	}
 else
 	{
-	if (_markerX in puestos) then
+	if (_markerX in outposts) then
 		{
 		_nveh = round (_size/50);
 		_buildings = nearestObjects [getMarkerPos _markerX,(["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"]) + listMilBld, _size];
@@ -24,7 +24,7 @@ else
 		}
 	else
 		{
-		_nveh = if (lados getVariable [_markerX,sideUnknown] == malos) then {round (_size/70)} else {round (_size/50)};
+		_nveh = if (lados getVariable [_markerX,sideUnknown] == Occupants) then {round (_size/70)} else {round (_size/50)};
 		};
 	if (_frontierX) then {_nveh = _nveh + 1};
 	};

@@ -30,7 +30,7 @@ SDKFlag = "Flag_Syndikat_F";
 SDKFlagTexture = "\A3\Data_F\Flags\Flag_Altis_CO.paa";
 typePetros = "rhsgref_ins_g_squadleader";
 
-soporteStaticSDKB = "RHS_SPG9_Tripod_Bag";
+supportStaticSDKB = "RHS_SPG9_Tripod_Bag";
 ATStaticSDKB = "RHS_SPG9_Gun_Bag";
 MGStaticSDKB = "RHS_DShkM_Gun_Bag";
 supportStaticsSDKB2 = "RHS_DShkM_TripodHigh_Bag";
@@ -51,7 +51,7 @@ lampsSDK = ["rhs_acc_2dpZenit","acc_flashlight"];
 ATMineMag = "rhs_mine_tm62m_mag";
 APERSMineMag = "rhs_mine_pmn2_mag";
 
-if (hayFFAA) then
+if (hasFFAA) then
 	{
 	call compile preProcessFileLineNumbers "Templates\OccupantsFFAA.sqf"
 	}

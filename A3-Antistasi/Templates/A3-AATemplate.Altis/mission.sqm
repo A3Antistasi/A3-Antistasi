@@ -253,7 +253,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={20082.896,101.02,6728.3408};
-			name="puesto_38";
+			name="outpost_38";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -267,7 +267,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={17436.436,13.962,13169.224};
-			name="puesto_39";
+			name="outpost_39";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -402,7 +402,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={23077.313,48.254002,7284.8511};
-			name="puesto";
+			name="outpost";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -416,7 +416,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={14819.295,7.0902076,11126.992};
-			name="puesto_1";
+			name="outpost_1";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -429,7 +429,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={16660.588,2.5780001,12298.751};
-			name="puerto";
+			name="seaport";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorBlue";
@@ -443,7 +443,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={15389.049,0,15864.561};
-			name="puerto_1";
+			name="seaport_1";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorBlue";
@@ -457,7 +457,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={19350.746,195.49754,9679.0977};
-			name="puesto_2";
+			name="outpost_2";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -470,7 +470,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={16833.541,5.0973067,12054.586};
-			name="puesto_3";
+			name="outpost_3";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -501,7 +501,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={20926.391,0,19235.641};
-			name="puesto_37";
+			name="outpost_37";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -515,7 +515,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={23586.021,93.648003,21100.33};
-			name="puesto_36";
+			name="outpost_36";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -529,7 +529,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={21912.703,17.296,20971.66};
-			name="puesto_4";
+			name="outpost_4";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -543,7 +543,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={28323.035,14.583267,25749.648};
-			name="puesto_5";
+			name="outpost_5";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -556,7 +556,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={25263.297,85.166588,21820.773};
-			name="puesto_6";
+			name="outpost_6";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -596,7 +596,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={12844.26,0,16716.455};
-			name="puesto_31";
+			name="outpost_31";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -610,7 +610,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={14200.564,74.147003,21215.023};
-			name="puesto_34";
+			name="outpost_34";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -624,7 +624,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={16586.598,35.237,19008.227};
-			name="puesto_13";
+			name="outpost_13";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -638,7 +638,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={20599.352,37.049549,18815.156};
-			name="puesto_8";
+			name="outpost_8";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -651,7 +651,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={20606,0,20106};
-			name="puesto_9";
+			name="outpost_9";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -665,7 +665,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={9922.4473,243.521,19379.301};
-			name="puesto_28";
+			name="outpost_28";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -679,7 +679,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={12294.162,123.994,8894.8789};
-			name="puesto_40";
+			name="outpost_40";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -693,7 +693,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={8289.9717,75.940002,10061.621};
-			name="puesto_41";
+			name="outpost_41";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -707,7 +707,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={5354.9028,44.962002,14242.35};
-			name="puesto_42";
+			name="outpost_42";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -748,7 +748,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={12472.775,74.417038,15193.172};
-			name="puesto_11";
+			name="outpost_11";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -761,7 +761,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={3912.4871,50.217579,12297.194};
-			name="puesto_14";
+			name="outpost_14";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -774,7 +774,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={18082.393,18.409126,19178.787};
-			name="puesto_18";
+			name="outpost_18";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -787,7 +787,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={9708.7832,2.6216881,22289.277};
-			name="puesto_19";
+			name="outpost_19";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -800,7 +800,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={3203.3042,0,12914.091};
-			name="puerto_2";
+			name="seaport_2";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorBlue";
@@ -933,7 +933,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={18727.076,209.287,10210.982};
-			name="puesto_20";
+			name="outpost_20";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -946,7 +946,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={17860.234,88.914497,11745.42};
-			name="puesto_21";
+			name="outpost_21";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -959,7 +959,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={6840,0,16106};
-			name="puesto_22";
+			name="outpost_22";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -973,7 +973,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={26420.232,66.039474,22140.607};
-			name="puesto_24";
+			name="outpost_24";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -986,7 +986,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={10011.299,16.417982,11235.339};
-			name="puesto_25";
+			name="outpost_25";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -999,7 +999,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={4554.5698,261.159,15435.746};
-			name="puesto_26";
+			name="outpost_26";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1012,7 +1012,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={8388.5381,180.12085,18246.57};
-			name="puesto_27";
+			name="outpost_27";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1110,7 +1110,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={20687.721,0,19462.354};
-			name="puerto_3";
+			name="seaport_3";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorBlue";
@@ -1124,7 +1124,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={27607.93,3.9330001,24590.338};
-			name="puerto_4";
+			name="seaport_4";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorBlue";
@@ -1286,7 +1286,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={16083.18,15.853616,17002.723};
-			name="puesto_10";
+			name="outpost_10";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1299,7 +1299,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={15190.24,0,17350.156};
-			name="puesto_23";
+			name="outpost_23";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -1313,7 +1313,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={3091.5129,0,13202.973};
-			name="puesto_29";
+			name="outpost_29";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1327,7 +1327,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={6562,0,22681};
-			name="puesto_30";
+			name="outpost_30";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1341,7 +1341,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={8850,0,23454};
-			name="puesto_32";
+			name="outpost_32";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1355,7 +1355,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={5474.7119,0,14994.167};
-			name="puesto_33";
+			name="outpost_33";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1369,7 +1369,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={4828,0,21933};
-			name="puesto_7";
+			name="outpost_7";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -1396,7 +1396,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={8915,0,7477};
-			name="puesto_15";
+			name="outpost_15";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1410,7 +1410,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={13786,0,6390};
-			name="puesto_16";
+			name="outpost_16";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1424,7 +1424,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={4274.7739,0,20685.521};
-			name="puesto_35";
+			name="outpost_35";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -1469,7 +1469,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="cajaVeh";
+				name="vehicleBox";
 			};
 			id=935;
 			type="Box_East_AmmoVeh_F";
@@ -3911,7 +3911,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={9212.1348,272.14499,19287.506};
-			name="puesto_12";
+			name="outpost_12";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -4767,7 +4767,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={14289.93,19.299,16295.807};
-			name="puesto_17";
+			name="outpost_17";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGUER";
@@ -5659,7 +5659,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="bandera";
+				name="flagX";
 			};
 			id=1370;
 			type="Flag_Altis_F";

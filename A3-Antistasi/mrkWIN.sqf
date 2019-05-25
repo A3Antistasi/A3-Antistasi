@@ -1,29 +1,29 @@
-private ["_bandera","_pos","_markerX","_positionX","_size","_powerpl","_revealX"];
+private ["_flagX","_pos","_markerX","_positionX","_size","_powerpl","_revealX"];
 
-_bandera = _this select 0;
-_jugador = _this select 1;
+_flagX = _this select 0;
+_playerX = _this select 1;
 
-_pos = getPos _bandera;
+_pos = getPos _flagX;
 _markerX = [markersX,_pos] call BIS_fnc_nearestPosition;
 if (lados getVariable [_markerX,sideUnknown] == buenos) exitWith {};
 _positionX = getMarkerPos _markerX;
 _size = [_markerX] call A3A_fnc_sizeMarker;
 
-if ((!isNull _jugador) and (captive _jugador)) exitWith {hint "You cannot Capture the Flag while Undercover"};
+if ((!isNull _playerX) and (captive _playerX)) exitWith {hint "You cannot Capture the Flag while Undercover"};
 if ((_markerX in airportsX) and (tierWar < 3)) exitWith {hint "You cannot capture Airports until you reach War Level 3"};
 _revealX = [];
-if (!isNull _jugador) then
+if (!isNull _playerX) then
 	{
 	if (_size > 300) then {_size = 300};
 	_revealX = [];
 	{
-	if (((side _x == malos) or (side _x == )) and ([_x,_markerX] call A3A_fnc_canConquer)) then {_revealX pushBack _x};
+	if (((side _x == Occupants) or (side _x == )) and ([_x,_markerX] call A3A_fnc_canConquer)) then {_revealX pushBack _x};
 	} forEach allUnits;
-	if (player == _jugador) then
+	if (player == _playerX) then
 		{
-		_jugador playMove "MountSide";
+		_playerX playMove "MountSide";
 		sleep 8;
-		_jugador playMove "";
+		_playerX playMove "";
 		{player reveal _x} forEach _revealX;
 		//[_markerX] call A3A_fnc_intelFound;
 		};
@@ -41,5 +41,5 @@ if (isPlayer _x) then
 	}
 } forEach ([_size,0,_positionX,buenos] call A3A_fnc_distanceUnits);
 
-//_lado = if (lados getVariable [_markerX,sideUnknown] == malos) then {malos} else {};
+//_lado = if (lados getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
 [buenos,_markerX] remoteExec ["A3A_fnc_markerChange",2];

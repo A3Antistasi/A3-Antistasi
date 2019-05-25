@@ -10,13 +10,13 @@ if (_rearming) exitWith {_unit groupChat "I am currently rearming. Cancelling.";
 if (_unit == gunner _camion) exitWith {_unit groupChat "I cannot rearm right now. I'm manning this gun"};
 if (!canMove _camion) exitWith {_unit groupChat "It is useless to load my vehicle, as it needs repairs"};
 
-_objetos = [];
-_hayCaja = false;
+_objectsX = [];
+_hasBox = false;
 _arma = "";
 _armas = [];
 _bigTimeOut = time + 120;
-_objetos = nearestObjects [_unit, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
-if (count _objetos == 0) exitWith {_unit groupChat "I see no corpses here to loot"};
+_objectsX = nearestObjects [_unit, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
+if (count _objectsX == 0) exitWith {_unit groupChat "I see no corpses here to loot"};
 
 _target = objNull;
 _distanceX = 51;
@@ -29,19 +29,19 @@ if (_unit distance _objeto < _distanceX) then
 		_armas = weaponCargo _objeto;
 		for "_i" from 0 to (count _armas - 1) do
 			{
-			_posible = _armas select _i;
-			_basePossible = [_posible] call BIS_fnc_baseWeapon;
-			//if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers))) then
-			if ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers)) then
+			_potential = _armas select _i;
+			_basePossible = [_potential] call BIS_fnc_baseWeapon;
+			//if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers))) then
+			if ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers)) then
 				{
 				_target = _objeto;
 				_distanceX = _unit distance _objeto;
-				_arma = _posible;
+				_arma = _potential;
 				};
 			};
 		};
 	};
-} forEach _objetos;
+} forEach _objectsX;
 
 if (isNull _target) exitWith {_unit groupChat "There is nothing to loot"};
 _target setVariable ["busy",true];
@@ -86,18 +86,18 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 		{
 		_magazines = getArray (configFile / "CfgWeapons" / _tempPrimary / "magazines");
 		_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
-		_hayCaja = false;
+		_hasBox = false;
 		_distanceX = 51;
 		{
 		_muerto = _x;
 		if (({_x in _magazines} count (magazines _muerto) > 0) and (_unit distance _muerto < _distanceX)) then
 			{
 			_target = _muerto;
-			_hayCaja = true;
+			_hasBox = true;
 			_distanceX = _muerto distance _unit;
 			};
 		} forEach _muertos;
-		if ((_hayCaja) and (_unit getVariable "rearming")) then
+		if ((_hasBox) and (_unit getVariable "rearming")) then
 			{
 			_unit stop false;
 			_target setVariable ["busy",true];
@@ -168,18 +168,18 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 			_armas = weaponCargo _objeto;
 			for "_i" from 0 to (count _armas - 1) do
 				{
-				_posible = _armas select _i;
-				_basePossible = [_posible] call BIS_fnc_baseWeapon;
-				if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers))) then
+				_potential = _armas select _i;
+				_basePossible = [_potential] call BIS_fnc_baseWeapon;
+				if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers))) then
 					{
 					_target = _objeto;
 					_distanceX = _unit distance _objeto;
-					_arma = _posible;
+					_arma = _potential;
 					};
 				};
 			};
 		};
-	} forEach _objetos;
+	} forEach _objectsX;
 	};
 if (!_continuar) then
 	{

@@ -1,6 +1,6 @@
 if (count hcSelected player == 0) exitWith {hint "You must select an artillery group"};
 
-private ["_grupos","_artyArray","_artyRoundsArr","_hayMuni","_areReady","_hayArty","_areAlive","_soldado","_veh","_typeAmmunition","_tipoArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_pieza","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forzado","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
+private ["_grupos","_artyArray","_artyRoundsArr","_hasAmmo","_areReady","_hasArty","_areAlive","_soldierX","_veh","_typeAmmunition","_tipoArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_pieza","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forcedX","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
 
 _grupos = hcSelected player;
 _unitsX = [];
@@ -11,19 +11,19 @@ typeAmmunition = nil;
 _artyArray = [];
 _artyRoundsArr = [];
 
-_hayMuni = 0;
+_hasAmmo = 0;
 _areReady = false;
-_hayArty = false;
+_hasArty = false;
 _areAlive = false;
 
 {
-_soldado = _x;
-_veh = vehicle _soldado;
-if ((_veh != _soldado) and (not(_veh in _artyArray))) then
+_soldierX = _x;
+_veh = vehicle _soldierX;
+if ((_veh != _soldierX) and (not(_veh in _artyArray))) then
 	{
 	if (( "Artillery" in (getArray (configfile >> "CfgVehicles" >> typeOf _veh >> "availableForSupportTypes")))) then
 		{
-		_hayArty = true;
+		_hasArty = true;
 		if ((canFire _veh) and (alive _veh) and (isNil "typeAmmunition")) then
 			{
 			_areAlive = true;
@@ -39,11 +39,11 @@ if ((_veh != _soldado) and (not(_veh in _artyArray))) then
 				{
 				if (_x select 0 == _typeAmmunition) then
 					{
-					_hayMuni = _hayMuni + 1;
+					_hasAmmo = _hasAmmo + 1;
 					};
 				} forEach magazinesAmmo _veh;
 				};
-			if (_hayMuni > 0) then
+			if (_hasAmmo > 0) then
 				{
 				if (unitReady _veh) then
 					{
@@ -57,9 +57,9 @@ if ((_veh != _soldado) and (not(_veh in _artyArray))) then
 	};
 } forEach _unitsX;
 
-if (!_hayArty) exitWith {hint "You must select an artillery group or it is a Mobile Mortar and it's moving"};
+if (!_hasArty) exitWith {hint "You must select an artillery group or it is a Mobile Mortar and it's moving"};
 if (!_areAlive) exitWith {hint "All elements in this Batery cannot fire or are disabled"};
-if ((_hayMuni < 2) and (!_areReady)) exitWith {hint "The Battery has no ammo to fire. Reload it on HQ"};
+if ((_hasAmmo < 2) and (!_areReady)) exitWith {hint "The Battery has no ammo to fire. Reload it on HQ"};
 if (!_areReady) exitWith {hint "Selected Battery is busy right now"};
 if (_typeAmmunition == "not_supported") exitWith {hint "Your current modset doesent support this strike type"};
 if (isNil "_typeAmmunition") exitWith {};
@@ -169,11 +169,11 @@ else
 
 _markerX = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 _size = [_markerX] call A3A_fnc_sizeMarker;
-_forzado = false;
+_forcedX = false;
 
 if ((not(_markerX in forcedSpawn)) and (_positionTel distance (getMarkerPos _markerX) < _size) and ((spawner getVariable _markerX != 0))) then
 	{
-	_forzado = true;
+	_forcedX = true;
 	forcedSpawn pushBack _markerX;
 	publicVariable "forcedSpawn";
 	};
@@ -268,7 +268,7 @@ sleep 10;
 deleteMarkerLocal _mrkfin;
 if (_tipoArty == "BARRAGE") then {deleteMarkerLocal _mrkfin2};
 
-if (_forzado) then
+if (_forcedX) then
 	{
 	sleep 20;
 	if (_markerX in forcedSpawn) then

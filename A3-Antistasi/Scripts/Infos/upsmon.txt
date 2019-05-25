@@ -159,7 +159,7 @@ Historial de modificaciones:
 //		
 // 	Modificaciones:
 //		KRON_UPS_Maxwaiting pasa a ser una variable excluvia para patrullas, indica el tiempo m�ximo a esperar
-//		para llegar al destino y buscar otro
+//		para llegar al destinationX y buscar otro
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.0
 //    	Added
@@ -170,11 +170,11 @@ Historial de modificaciones:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.0.0
 // 	Added
-// 		Control de movimiento de la IA, ahora gestionan mejor los tiempos, hacen coverturas de movimiento, avanzan con m�s precauci�n cuando est�n cerca del enemigo.
+// 		Control de movimiento de la IA, ahora gestionan mejor los tiempos, hacen coverturas de movimiento, avanzan con m�s precauci�n cuando est�n cerca del enemyX.
 // 		A�adidas algunas animaciones para darle pinceladas de dramatismo a los movimientos de la IA
 // 
 // 	Modificaciones:
-// 		Modificaci�n control de detecci�n de movimientos de otros grupos ahora no requiere la lectura de objetos, con lo que mejora el rendimiento.
+// 		Modificaci�n control de detecci�n de movimientos de otros grupos ahora no requiere la lectura de objectsX, con lo que mejora el rendimiento.
 // 		Adaptado sistema de scripts para poder controlar los grupos de IA y a�adir mejoras que requieran la interacci�n de los grupos.
 //-------------------------------------------------------------------------------
 //Version: 3.0.8
@@ -194,8 +194,8 @@ Historial de modificaciones:
 // 	Modificaciones
 //		Corregidos bugs varios, entre ellos uno que ralentizaba la acci�n de los grupos
 //		Set de par�metros modificados para un comportamiento m�s �ptimo y realista
-//		deshabilitado KRON_UPS_intowndist por comportamientos extra�os con algunos objetos builiding
-//		Ahora la IA selecciona los caminos con m�s coverX, a ser posible
+//		deshabilitado KRON_UPS_intowndist por comportamientos extra�os con algunos objectsX builiding
+//		Ahora la IA selecciona los caminos con m�s coverX, a ser potential
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.5
 //    	Added
@@ -230,7 +230,7 @@ Historial de modificaciones:
 //		Las unitsX tendr�n una predisposici�n a mantener la posici�n si tienen el rol NOMOVE
 // 	Modificaciones
 //		Se ha corregido la formula par definir los puntos de flanqueo tx = sin x * dist * (signo cos x).
-//		Las unitsX con rol NOMOVE tienden a mantener la posici�n cuanto m�s alejados est�n del enemigo
+//		Las unitsX con rol NOMOVE tienden a mantener la posici�n cuanto m�s alejados est�n del enemyX
 //		Se ha mejorado el rendimiento.
 //
 //-------------------------------------------------------------------------------------------------------------

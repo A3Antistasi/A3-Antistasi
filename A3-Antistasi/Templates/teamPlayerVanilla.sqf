@@ -32,7 +32,7 @@ SDKFlag = "Flag_Syndikat_F";
 SDKFlagTexture = "\A3\Data_F_exp\Flags\Flag_Synd_CO.paa";
 typePetros = "I_C_Soldier_Camo_F";
 
-soporteStaticSDKB = "I_HMG_01_support_F";
+supportStaticSDKB = "I_HMG_01_support_F";
 ATStaticSDKB = "I_AT_01_weapon_F";
 MGStaticSDKB = "I_HMG_01_high_weapon_F";
 supportStaticsSDKB2 = "I_HMG_01_support_high_F";
@@ -51,7 +51,7 @@ lampsSDK = ["acc_flashlight"];
 ATMineMag = "ATMine_Range_Mag";
 APERSMineMag = "APERSMine_Range_Mag";
 
-if (hayFFAA) then
+if (hasFFAA) then
 	{
 	call compile preProcessFileLineNumbers "Templates\OccupantsFFAA.sqf"
 	}

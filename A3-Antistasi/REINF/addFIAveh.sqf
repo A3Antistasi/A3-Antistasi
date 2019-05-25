@@ -2,12 +2,12 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot bu
 
 if ([player,300] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
 
-private ["_tipoVeh","_coste","_resourcesFIA","_markerX","_pos","_veh","_tipoVeh"];
+private ["_typeVehX","_coste","_resourcesFIA","_markerX","_pos","_veh","_typeVehX"];
 
-_tipoveh = _this select 0;
-if (_tipoVeh == "not_supported") exitWith {hint "The vehicle you requested is not supported in your current modset"};
+_typeVehX = _this select 0;
+if (_typeVehX == "not_supported") exitWith {hint "The vehicle you requested is not supported in your current modset"};
 
-_coste = [_tipoVeh] call A3A_fnc_vehiclePrice;
+_coste = [_typeVehX] call A3A_fnc_vehiclePrice;
 
 if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else
 	{
@@ -17,15 +17,15 @@ if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} els
 		}
 	else
 		{
-		if ((_tipoVeh == SDKMortar) or (_tipoVeh == staticATBuenos) or (_tipoVeh == staticAABuenos) or (_tipoVeh == SDKMGStatic)) then {_resourcesFIA = server getVariable "resourcesFIA"} else {_resourcesFIA = player getVariable "dinero"};
+		if ((_typeVehX == SDKMortar) or (_typeVehX == staticATBuenos) or (_typeVehX == staticAABuenos) or (_typeVehX == SDKMGStatic)) then {_resourcesFIA = server getVariable "resourcesFIA"} else {_resourcesFIA = player getVariable "dinero"};
 		};
 	};
 
 if (_resourcesFIA < _coste) exitWith {hint format ["You do not have enough money for this vehicle: %1 € required",_coste]};
-_cercano = [markersX select {lados getVariable [_x,sideUnknown] == buenos},player] call BIS_fnc_nearestPosition;
-if !(player inArea _cercano) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
+_nearX = [markersX select {lados getVariable [_x,sideUnknown] == buenos},player] call BIS_fnc_nearestPosition;
+if !(player inArea _nearX) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
 
-garageVeh = _tipoVeh createVehicleLocal [0,0,1000];
+garageVeh = _typeVehX createVehicleLocal [0,0,1000];
 garageVeh allowDamage false;
 garageVeh enableSimulationGlobal false;
 bought = 0;
@@ -104,20 +104,20 @@ onEachFrame
    garageVeh setVectorUp (_ins select 0 select 1);
    };
  };
-waitUntil {(bought > 0) or !(player inArea _cercano)};
+waitUntil {(bought > 0) or !(player inArea _nearX)};
 onEachFrame {};
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", garageKeys];
 positionXSel = nil;
 _pos = getPosASL garageVeh;
 _dir = getDir garageVeh;
 deleteVehicle garageVeh;
-if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to buy a vehicle";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; bought = nil;garageVeh = nil};
+if !(player inArea _nearX) then {hint "You need to be close to one of your garrisons to be able to buy a vehicle";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; bought = nil;garageVeh = nil};
 if ([player,300] call A3A_fnc_enemyNearCheck) then {bought = 0; hint "You cannot buy vehicles with enemies nearby"};
 if (bought != 2) exitWith {bought = nil;garageVeh = nil};
 waitUntil {isNull garageVeh};
 garageVeh = nil;
 bought = nil;
-_veh = createVehicle [_tipoVeh, [0,0,1000], [], 0, "NONE"];
+_veh = createVehicle [_typeVehX, [0,0,1000], [], 0, "NONE"];
 _veh setDir _dir;
 _veh setPosASL _pos;
 [_veh] call A3A_fnc_AIVEHinit;
@@ -136,7 +136,7 @@ else
 		}
 	else
 		{
-		if ((_tipoVeh == SDKMortar) or (_tipoVeh == staticATBuenos) or (_tipoVeh == staticAABuenos) or (_tipoVeh == SDKMGStatic)) then
+		if ((_typeVehX == SDKMortar) or (_typeVehX == staticATBuenos) or (_typeVehX == staticAABuenos) or (_typeVehX == SDKMGStatic)) then
 			{
 			_nul = [0,(-1* _coste)] remoteExecCall ["A3A_fnc_resourcesFIA",2]
 			}
@@ -148,7 +148,7 @@ else
 			};
 		};
 	};
-//if ((_tipoVeh == SDKMortar) or (_tipoVeh == staticATBuenos) or (_tipoVeh == staticAABuenos) or (_tipoVeh == SDKMGStatic)) then {staticsToSave pushBackUnique _veh; publicVariable "staticsToSave"};
+//if ((_typeVehX == SDKMortar) or (_typeVehX == staticATBuenos) or (_typeVehX == staticAABuenos) or (_typeVehX == SDKMGStatic)) then {staticsToSave pushBackUnique _veh; publicVariable "staticsToSave"};
 if (_veh isKindOf "StaticWeapon") then {staticsToSave pushBackUnique _veh; publicVariable "staticsToSave"};
 
 //hint "Vehicle Purchased";

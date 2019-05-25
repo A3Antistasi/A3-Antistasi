@@ -14,7 +14,7 @@ _unit setUnitPos "UP";
 _loadOut = getUnitLoadout _unit;
 _unit setUnitLoadout (selectRandom arrayCivs);
 
-//_airportsX = airportsX + puestos;// + (controlsX select {isOnRoad getMarkerPos _x});
+//_airportsX = airportsX + outposts;// + (controlsX select {isOnRoad getMarkerPos _x});
 while {(captive _lider) and (captive _unit)} do
 	{
 	sleep 1;

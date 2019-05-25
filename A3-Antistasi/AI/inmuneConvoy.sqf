@@ -10,14 +10,14 @@ if ((_text == "Convoy Objective") or (_text == "Mission Vehicle") or (_text == "
 
 waitUntil {sleep 1; (not(isNull driver _veh)) or _convoy};
 
-if (debug) then {revelar = true};
+if (debug) then {revealX = true};
 
 _veh setVariable ["revelado",false];
 while {alive _veh} do
 	{
 	if (!(_veh getVariable ["revelado",false])) then
 		{
-		if ((buenos knowsAbout _veh > 1.4) or revelar or _convoy) then
+		if ((buenos knowsAbout _veh > 1.4) or revealX or _convoy) then
 			{
 			_veh setVariable ["revelado",true,true];
 			[_veh,_text] remoteExec  ["A3A_fnc_vehicleMarkers",[buenos,civilian]];
@@ -25,7 +25,7 @@ while {alive _veh} do
 		}
 	else
 		{
-		if ((buenos knowsAbout _veh <= 1.4) and !(revelar) and !(_convoy)) then
+		if ((buenos knowsAbout _veh <= 1.4) and !(revealX) and !(_convoy)) then
 			{
 			_veh setVariable ["revelado",false,true];
 			};

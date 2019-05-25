@@ -217,7 +217,7 @@ if (player == leader _unit) then
 		[_muerto] spawn A3A_fnc_postmortem;
 		_killer = _this select 1;
 		if !(hayIFA) then {arrayids pushBackUnique (name _muerto)};
-		if (side _killer == malos) then
+		if (side _killer == Occupants) then
 			{
 			_nul = [0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 			[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
@@ -247,7 +247,7 @@ if (player == leader _unit) then
 	if (captive player) then {[_unit] spawn A3A_fnc_undercoverAI};
 
 	_unit setVariable ["rearming",false];
-	if ((!haveRadio) and (!hayTFAR) and (!hayACRE) and !(hayIFA)) then
+	if ((!haveRadio) and (!hasTFAR) and (!hasACRE) and !(hayIFA)) then
 		{
 		while {alive _unit} do
 			{
@@ -286,7 +286,7 @@ else
 			}
 		else
 			{
-			if (side _killer == malos) then
+			if (side _killer == Occupants) then
 				{
 				_nul = [0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 				[-0.25,0] remoteExec ["A3A_fnc_prestige",2];

@@ -1,18 +1,18 @@
 //Mission: Destroy the helicopter
 if (!isServer and hasInterface) exitWith{};
 
-private ["_poscrash","_markerX","_positionX","_mrkfin","_tipoveh","_efecto","_heli","_vehiclesX","_soldiers","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray","_cuenta"];
+private ["_poscrash","_markerX","_positionX","_mrkfin","_typeVehX","_efecto","_heli","_vehiclesX","_soldiers","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray","_cuenta"];
 
 _markerX = _this select 0;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _tsk1 = "";
 _positionX = getMarkerPos _markerX;
-_lado = if (lados getVariable [_markerX,sideUnknown] == malos) then {malos} else {};
+_lado = if (lados getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
 _posHQ = getMarkerPos respawnTeamPlayer;
 
 _timeLimit = 120;
@@ -20,7 +20,7 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 _ang = random 360;
 _cuenta = 0;
-_dist = if (_dificil) then {2000} else {3000};
+_dist = if (_difficultX) then {2000} else {3000};
 while {true} do
 	{
 	_poscrashOrig = _positionX getPos [_dist,_ang];
@@ -34,10 +34,10 @@ while {true} do
 		};
 	};
 
-_tipoVeh = selectRandom (vehPlanes + vehAttackHelis + vehTransportAir);
+_typeVehX = selectRandom (vehPlanes + vehAttackHelis + vehTransportAir);
 
 _posCrashMrk = [_poscrash,random 500,random 360] call BIS_fnc_relPos;
-_posCrash = _posCrashOrig findEmptyPosition [0,100,_tipoVeh];
+_posCrash = _posCrashOrig findEmptyPosition [0,100,_typeVehX];
 if (count _posCrash == 0) then
 	{
 	if (!isMultiplayer) then {{ _x hideObject true } foreach (nearestTerrainObjects [_posCrashOrig,["tree","bush"],50])} else {{[_x,true] remoteExec ["hideObjectGlobal",2]} foreach (nearestTerrainObjects [_posCrashOrig,["tree","bush"],50])};
@@ -51,7 +51,7 @@ _mrkfin setMarkerShape "ICON";
 
 _nombrebase = [_markerX] call A3A_fnc_localizar;
 /*
-if (!_dificil) then
+if (!_difficultX) then
 	{
 	[[buenos,civilian],"DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,false,0,true,"Destroy",true] call BIS_fnc_taskCreate
 	}
@@ -68,7 +68,7 @@ _soldiers = [];
 _grupos = [];
 
 _efecto = createVehicle ["CraterLong", _poscrash, [], 0, "CAN_COLLIDE"];
-_heli = createVehicle [_tipoVeh, _poscrash, [], 0, "CAN_COLLIDE"];
+_heli = createVehicle [_typeVehX, _poscrash, [], 0, "CAN_COLLIDE"];
 _heli attachTo [_efecto,[0,0,1.5]];
 _humo = "test_EmptyObjectForSmoke" createVehicle _poscrash; _humo attachTo[_heli,[0,1.5,-1]];
 _heli setDamage 0.9;
@@ -85,8 +85,8 @@ while {true} do
 	};
 
 _road = _roads select 0;
-_tipoVeh = if (_lado == malos) then {selectRandom vehNATOLightUnarmed} else {selectRandom vehCSATLightUnarmed};
-_vehicle=[position _road, 0,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+_typeVehX = if (_lado == Occupants) then {selectRandom vehNATOLightUnarmed} else {selectRandom vehCSATLightUnarmed};
+_vehicle=[position _road, 0,_typeVehX, _lado] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 [_veh] call A3A_fnc_AIVEHinit;
 //[_veh,"Escort"] spawn A3A_fnc_inmuneConvoy;
@@ -98,7 +98,7 @@ _grupos pushBack _groupVeh;
 _vehiclesX pushBack _veh;
 
 sleep 1;
-_typeGroup = if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry};
+_typeGroup = if (_lado == Occupants) then {groupsNATOSentry} else {groupsCSATSentry};
 _grupo = [_positionX, _lado, _typeGroup] call A3A_fnc_spawnGroup;
 
 {_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers pushBack _x; [_x] join _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
@@ -113,8 +113,8 @@ _Gwp0 setWaypointType "GETOUT";
 _Vwp0 synchronizeWaypoint [_Gwp0];
 
 sleep 15;
-_tipoVeh = if (_lado == malos) then {vehNATOTrucks select 0} else {vehCSATTrucks select 0};
-_vehicleT=[position _road, 0,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+_typeVehX = if (_lado == Occupants) then {vehNATOTrucks select 0} else {vehCSATTrucks select 0};
+_vehicleT=[position _road, 0,_typeVehX, _lado] call bis_fnc_spawnvehicle;
 _vehT = _vehicleT select 0;
 [_vehT] call A3A_fnc_AIVEHinit;
 //[_vehT,"Recover Truck"] spawn A3A_fnc_inmuneConvoy;
@@ -161,7 +161,7 @@ if (_vehT distance _heli < 50) then
 
 waitUntil {sleep 1; (not alive _heli) or (_vehT distance _positionX < 100) or (dateToNumber date > _dateLimitNum)};
 
-_bonus = if (_dificil) then {2} else {1};
+_bonus = if (_difficultX) then {2} else {1};
 
 if (not alive _heli) then
 	{

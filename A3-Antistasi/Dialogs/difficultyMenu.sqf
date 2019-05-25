@@ -21,7 +21,7 @@ if !(skillMult == 1) then
 			[_index,_magazine,-1] call jn_fnc_arsenal_addItem;
 			};
 		unlockedWeapons pushBack sniperRifle;
-		if !(hayTFAR) then
+		if !(hasTFAR) then
 			{
 			_index = "ItemRadio" call jn_fnc_arsenal_itemType;
 			[_index,"ItemRadio",-1] call jn_fnc_arsenal_addItem;
@@ -43,8 +43,8 @@ hint "Choose a Game Mode";
 waitUntil {!dialog};
 if (gameMode != 1) then
 	{
-	malos setFriend [,1];
-     setFriend [malos,1];
+	Occupants setFriend [,1];
+     setFriend [Occupants,1];
     if (gameMode == 3) then {"CSAT_carrier" setMarkerAlpha 0};
     if (gameMode == 4) then {"NATO_carrier" setMarkerAlpha 0};
 	};

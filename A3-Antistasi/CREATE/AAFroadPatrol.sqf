@@ -6,7 +6,7 @@ _grupos = [];
 _base = "";
 _roads = [];
 
-_arrayAirports = if (hayIFA) then {(airportsX + puestos) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}} else {(puertos + airportsX + puestos) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}};
+_arrayAirports = if (hayIFA) then {(airportsX + outposts) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}} else {(seaports + airportsX + outposts) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}};
 
 _arrayAirports1 = [];
 if !(isMultiplayer) then
@@ -30,11 +30,11 @@ if (_arrayAirports1 isEqualTo []) exitWith {};
 
 _base = selectRandom _arrayAirports1;
 _typeCar = "";
-_lado = malos;
+_lado = Occupants;
 _typePatrol = "LAND";
-if (lados getVariable [_base,sideUnknown] == malos) then
+if (lados getVariable [_base,sideUnknown] == Occupants) then
 	{
-	if ((_base in puertos) and ([vehNATOBoat] call A3A_fnc_vehAvailable)) then
+	if ((_base in seaports) and ([vehNATOBoat] call A3A_fnc_vehAvailable)) then
 		{
 		_typeCar = vehNATOBoat;
 		_typePatrol = "SEA";
@@ -55,7 +55,7 @@ if (lados getVariable [_base,sideUnknown] == malos) then
 else
 	{
 	_lado = ;
-	if ((_base in puertos) and ([vehCSATBoat] call A3A_fnc_vehAvailable)) then
+	if ((_base in seaports) and ([vehCSATBoat] call A3A_fnc_vehAvailable)) then
 		{
 		_typeCar = vehCSATBoat;
 		_typePatrol = "SEA";
@@ -147,9 +147,9 @@ if (_typeCar in vehCSATLightUnarmed) then
 while {alive _veh} do
 	{
 	if (count _arrayDestinations < 2) exitWith {};
-	_destino = selectRandom _arrayDestinations;
-	if (debug) then {player globalChat format ["Patrulla AI generada. Origen: %2 Destino %1", _destino, _base]; sleep 3};
-	_posDestination = getMarkerPos _destino;
+	_destinationX = selectRandom _arrayDestinations;
+	if (debug) then {player globalChat format ["Patrulla AI generada. Origen: %2 destinationX %1", _destinationX, _base]; sleep 3};
+	_posDestination = getMarkerPos _destinationX;
 	if (_typePatrol == "LAND") then
 		{
 		_road = [_posDestination] call A3A_fnc_findNearestGoodRoad;
@@ -181,7 +181,7 @@ while {alive _veh} do
 		};
 	};
 
-_enemiesX = if (_lado == malos) then {} else {malos};
+_enemiesX = if (_lado == Occupants) then {} else {Occupants};
 
 {_unit = _x;
 waitUntil {sleep 1;!([distanceSPWN,1,_unit,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_unit,_enemiesX] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldiers;

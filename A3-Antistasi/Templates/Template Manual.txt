@@ -46,7 +46,7 @@ SDKFlag = "Flag_Syndikat_F";//flag of the rebel faction
 SDKFlagTexture = "\A3\Data_F_exp\Flags\Flag_Synd_CO.paa";//texture of the flag, in case rebels take an enemy flag
 typePetros = "I_C_Soldier_Camo_F";//petros or maru model
 
-soporteStaticSDKB = "I_HMG_01_support_F";//static support backpack, place "not_supported" if your mod lacks of it
+supportStaticSDKB = "I_HMG_01_support_F";//static support backpack, place "not_supported" if your mod lacks of it
 ATStaticSDKB = "I_AT_01_weapon_F";//static support backpack, place "not_supported" if your mod lacks of it
 MGStaticSDKB = "I_HMG_01_high_weapon_F";//static support backpack, place "not_supported" if your mod lacks of it
 supportStaticsSDKB2 = "I_HMG_01_support_high_F";//static support backpack, place "not_supported" if your mod lacks of it
@@ -68,7 +68,7 @@ APERSMineMag = "APERSMine_Range_Mag";//mines which will be deployed in the minef
 //here comes the Tier 1 (police) and Tier 2 (PMC) enemy stuff. If your mod does not have enough classes in other sides, then just use the most basic classnames of those flactions.
 //the following is fot Tier 2. In the template, as we use Sindykat as rebels, we may use Blufor or Greenfor FIA as PMC.
 
-if (hayFFAA) then//FFAA mod template loading, ignore it.
+if (hasFFAA) then//FFAA mod template loading, ignore it.
 	{
 	call compile preProcessFileLineNumbers "Templates\OccupantsFFAA.sqf"
 	}

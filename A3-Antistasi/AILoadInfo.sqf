@@ -18,7 +18,7 @@ for "_i" from 0 to (count hcArray) - 1 do
 		switch (side _x) do
 			{
 			case buenos: {_indep = _indep + 1};
-			case malos: {_west = _west + 1};
+			case Occupants: {_west = _west + 1};
 			case : {_east = _east + 1};
 			case civilian: {_civ = _civ + 1};
 			};

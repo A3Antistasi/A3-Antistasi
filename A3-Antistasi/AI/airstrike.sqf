@@ -14,7 +14,7 @@ if (_markerX isEqualType "") then
 	};
 _tipo = _this select 2;
 
-_typePlane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
+_typePlane = if (_lado == Occupants) then {vehNATOPlane} else {vehCSATPlane};
 
 _ang = random 360;
 _angorig = _ang + 180;
@@ -46,10 +46,10 @@ if (_isMarker) then
 	}
 else
 	{
-	_amigos = if (_lado == malos) then {allUnits select {(_x distance _positionX < 300) and (alive _x) and ((side _x == malos) or (side _x == civilian))}} else {allUnits select {(_x distance _positionX < 300) and (alive _x) and (side _x == )}};
+	_amigos = if (_lado == Occupants) then {allUnits select {(_x distance _positionX < 300) and (alive _x) and ((side _x == Occupants) or (side _x == civilian))}} else {allUnits select {(_x distance _positionX < 300) and (alive _x) and (side _x == )}};
 	if (count _amigos == 0) then
 		{
-		_enemiesX = if (_lado == malos) then {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (alive _x)}};
+		_enemiesX = if (_lado == Occupants) then {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (alive _x)}};
 		if (count _enemiesX > 0) then
 			{
 			_mediaX = 0;

@@ -25,7 +25,7 @@ _Gunnercount = 0;
 _Commandercount = 0;
 _Drivercount = 0;
 	
-//Buscamos objetos closeX
+//Buscamos objectsX closeX
 _OcloseX = _npc nearentities [["StaticWeapon"], _distance];
 		
 {

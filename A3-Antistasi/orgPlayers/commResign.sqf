@@ -1,9 +1,9 @@
-_jugador = player getVariable ["owner",player];
+_playerX = player getVariable ["owner",player];
 
-if (_jugador getVariable ["eligible",true]) then
+if (_playerX getVariable ["eligible",true]) then
 	{
-	_jugador setVariable ["eligible",false,true];
-	if (_jugador == theBoss) then
+	_playerX setVariable ["eligible",false,true];
+	if (_playerX == theBoss) then
 		{
 		hint "You resign of being Commander. Other will take the command if there is someone suitable for it.";
 		sleep 3;
@@ -17,5 +17,5 @@ if (_jugador getVariable ["eligible",true]) then
 else
 	{
 	hint "You are now eligible to be Commander of our forces.";
-	_jugador setVariable ["eligible",true,true];
+	_playerX setVariable ["eligible",true,true];
 	};

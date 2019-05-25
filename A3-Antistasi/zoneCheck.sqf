@@ -15,11 +15,11 @@ if ((_lado == buenos) and (lados getVariable [_markerX,sideUnknown] == buenos)) 
 	{
 	_salir = false;
 	_enemy1 = ;
-	_enemy2 = malos;
+	_enemy2 = Occupants;
 	}
 else
 	{
-	if ((_lado == malos) and (lados getVariable [_markerX,sideUnknown] == malos)) then
+	if ((_lado == Occupants) and (lados getVariable [_markerX,sideUnknown] == Occupants)) then
 		{
 		_salir = false;
 		_enemy1 = ;
@@ -30,7 +30,7 @@ else
 		if ((_lado == ) and (lados getVariable [_markerX,sideUnknown] == )) then
 			{
 			_salir = false;
-			_enemy1 = malos;
+			_enemy1 = Occupants;
 			_enemy2 = buenos;
 			};
 		};

@@ -5,25 +5,25 @@ private ["_pos","_camion","_truckCreated","_grupo","_grupo1","_mrk"];
 
 _markerX = _this select 0;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _positionX = getMarkerPos _markerX;
-_lado = if (lados getVariable [_markerX,sideUnknown] == malos) then {malos} else {};
-_timeLimit = if (_dificil) then {30} else {60};
+_lado = if (lados getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {};
+_timeLimit = if (_difficultX) then {30} else {60};
 if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_markerX] call A3A_fnc_localizar;
-_tipoVeh = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
+_typeVehX = if (_lado == Occupants) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
 _size = [_markerX] call A3A_fnc_sizeMarker;
 
 _road = [_positionX] call A3A_fnc_findNearestGoodRoad;
 _pos = position _road;
-_pos = _pos findEmptyPosition [1,60,_tipoVeh];
+_pos = _pos findEmptyPosition [1,60,_typeVehX];
 if (count _pos == 0) then {_pos = position _road};
 
 [[buenos,civilian],"LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Steal or Destroy Ammotruck",_markerX],_pos,false,0,true,"rearm",true] call BIS_fnc_taskCreate;
@@ -31,15 +31,15 @@ _truckCreated = false;
 missionsX pushBack ["LOG","CREATED"]; publicVariable "missionsX";
 
 waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or ((spawner getVariable _markerX != 2) and !(lados getVariable [_markerX,sideUnknown] == buenos))};
-_bonus = if (_dificil) then {2} else {1};
+_bonus = if (_difficultX) then {2} else {1};
 if ((spawner getVariable _markerX != 2) and !(lados getVariable [_markerX,sideUnknown] == buenos)) then
 	{
 	//sleep 10;
 
-	_camion = _tipoVeh createVehicle _pos;
+	_camion = _typeVehX createVehicle _pos;
 	_camion setDir (getDir _road);
 	_truckCreated = true;
-	if (_lado == malos) then {[_camion] call A3A_fnc_NATOcrate} else {[_camion] call A3A_fnc_CSATcrate};
+	if (_lado == Occupants) then {[_camion] call A3A_fnc_NATOcrate} else {[_camion] call A3A_fnc_CSATcrate};
 
 	_mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], _pos];
 	_mrk setMarkerShapeLocal "RECTANGLE";
@@ -48,8 +48,8 @@ if ((spawner getVariable _markerX != 2) and !(lados getVariable [_markerX,sideUn
 	_mrk setMarkerColorLocal "ColorRed";
 	_mrk setMarkerBrushLocal "DiagGrid";
 	if (!debug) then {_mrk setMarkerAlphaLocal 0};
-	_typeGroup = if (_dificil) then {if (_lado == malos) then {NATOSquad} else {CSATSquad}} else {if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry}};
-	//_cfg = if (_lado == malos) then {cfgNATOInf} else {cfgCSATInf};
+	_typeGroup = if (_difficultX) then {if (_lado == Occupants) then {NATOSquad} else {CSATSquad}} else {if (_lado == Occupants) then {groupsNATOSentry} else {groupsCSATSentry}};
+	//_cfg = if (_lado == Occupants) then {cfgNATOInf} else {cfgCSATInf};
 	_grupo = [_pos,_lado, _typeGroup] call A3A_fnc_spawnGroup;
 	sleep 1;
 	if (random 10 < 33) then

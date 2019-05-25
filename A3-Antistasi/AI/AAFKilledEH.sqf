@@ -52,7 +52,7 @@ if (side (group _killer) == buenos) then
 		};
 	if (count weapons _muerto < 1) then
 		{
-		if (_lado == malos) then
+		if (_lado == Occupants) then
 			{
 			[0,-2,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 			[1,0] remoteExec ["A3A_fnc_prestige",2];
@@ -65,7 +65,7 @@ if (side (group _killer) == buenos) then
 	else
 		{
 		[-1,1,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
-		if (_lado == malos) then
+		if (_lado == Occupants) then
 			{
 			[0.1,0] remoteExec ["A3A_fnc_prestige",2];
 			}
@@ -77,7 +77,7 @@ if (side (group _killer) == buenos) then
 	}
 else
 	{
-	if (_lado == malos) then
+	if (_lado == Occupants) then
 		{
 		[-0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 		}

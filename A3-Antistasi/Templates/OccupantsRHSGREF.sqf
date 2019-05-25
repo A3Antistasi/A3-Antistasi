@@ -54,13 +54,13 @@ NATOSpecOp = ["rhsgref_ins_g_grenadier","rhsgref_ins_g_spotter","rhsgref_ins_g_g
 factionMaleOccupants = "";
 groupsNATOSquad = [NATOSquad,["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_specialist_aa","rhsgref_ins_g_specialist_aa","rhsgref_ins_g_medic"],["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_grenadier_rpg","rhsgref_ins_g_medic","rhsgref_ins_g_grenadier_rpg"],["rhsgref_ins_g_grenadier","rhsgref_ins_g_machinegunner","rhsgref_ins_g_machinegunner","rhsgref_ins_g_rifleman","rhsgref_ins_g_rifleman_RPG26","rhsgref_ins_g_medic","rhsgref_ins_g_engineer","rhsgref_ins_g_saboteur"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///
 
-soporteStaticNATOB = "RHS_SPG9_Tripod_Bag";
+supportStaticNATOB = "RHS_SPG9_Tripod_Bag";
 ATStaticNATOB = "RHS_SPG9_Gun_Bag";
 MGStaticNATOB = "RHS_DShkM_Gun_Bag";
-soporteStaticNATOB2 = "RHS_DShkM_TripodHigh_Bag";
+supportStaticNATOB2 = "RHS_DShkM_TripodHigh_Bag";
 AAStaticNATOB = "no_exists";
 MortStaticNATOB = "RHS_Podnos_Gun_Bag";
-soporteStaticNATOB3 = "RHS_Podnos_Bipod_Bag";
+supportStaticNATOB3 = "RHS_Podnos_Bipod_Bag";
 
 armasNATO append ["rhs_weap_akm_gp25","rhs_weap_pkm","rhs_weap_akms","rhs_weap_ak103","rhs_weap_akm","rhs_weap_aks74_2","rhs_weap_aks74u"];//possible weapons that spawn in NATO ammoboxes
 humo = humo + ["rhs_mag_an_m8hc","rhs_mag_m18_purple","rhs_mag_m18_red","rhs_mag_m18_green","rhs_mag_m18_yellow","rhs_mag_rdg2_white"];

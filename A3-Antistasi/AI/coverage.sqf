@@ -1,19 +1,19 @@
-private ["_unit","_enemigo","_small","_big","_objeto","_posBehind","_objetos","_roads","_tipo","_p1","_p2","_ancho","_grueso","_alto","_posEnemy","_pos","_arr","_grupo"];
+private ["_unit","_enemyX","_small","_big","_objeto","_posBehind","_objectsX","_roads","_tipo","_p1","_p2","_ancho","_grueso","_alto","_posEnemy","_pos","_arr","_grupo"];
 _unit = _this select 0;
-_enemigo = _this select 1;
+_enemyX = _this select 1;
 _small= [];
 _big = [];
 _objeto = objNull;
 _pos = [];
-_posBehind = (position _unit) getPos [5,_enemigo getDir _unit];
+_posBehind = (position _unit) getPos [5,_enemyX getDir _unit];
 _grupo = group _unit;
-_objetos = (nearestObjects [_posBehind, [], 30]) select {!(_x in (_grupo getVariable ["usedForCover",[]]))};
+_objectsX = (nearestObjects [_posBehind, [], 30]) select {!(_x in (_grupo getVariable ["usedForCover",[]]))};
 _roads = _posBehind nearRoads 30;
 {
 _tipo = typeOf _x;
 if !(_tipo in ["#crater","#crateronvehicle","#soundonvehicle","#particlesource","#lightpoint","#slop","#mark","HoneyBee","Mosquito","HouseFly","FxWindPollen1","ButterFly_random","Snake_random_F","Rabbit_F","FxWindGrass2","FxWindLeaf1","FxWindGrass1","FxWindLeaf3","FxWindLeaf2"]) then
 	{
-	if (!(_x isKindOf "Man") && {!(_x isKindOf "Bird")} && {!(_x isKindOf "BulletCore")} && {!(_x isKindOf "Grenade")} && {!(_x isKindOf "WeaponHolder")} && {(_x distance _enemigo > 5)}) then
+	if (!(_x isKindOf "Man") && {!(_x isKindOf "Bird")} && {!(_x isKindOf "BulletCore")} && {!(_x isKindOf "Grenade")} && {!(_x isKindOf "WeaponHolder")} && {(_x distance _enemyX > 5)}) then
 		{
 		_p1 = (boundingBoxReal _x) select 0;
 		_p2 = (boundingBoxReal _x) select 1;
@@ -33,7 +33,7 @@ if !(_tipo in ["#crater","#crateronvehicle","#soundonvehicle","#particlesource",
 			}
 		};
 	};
-} foreach ((_objetos) - (_roads));
+} foreach ((_objectsX) - (_roads));
 
 if ((count _big == 0) and (count _small == 0)) exitWith {[]};
 
@@ -59,6 +59,6 @@ if !(_objeto isKindOf "House") then
 			};
 		};
 	};
-_posEnemy = position _enemigo;
+_posEnemy = position _enemyX;
 _pos = _posEnemy getPos [(_objeto distance _posEnemy) + 2, _posEnemy getDir _objeto];
 _pos

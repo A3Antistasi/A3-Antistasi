@@ -34,7 +34,7 @@ while {visibleMap} do
 		_positionTel = positionTel;
 		_sitio = [markersX, _positionTel] call BIS_Fnc_nearestPosition;
 		_texto = "Click on the zone";
-		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == buenos) then {nameTeamPlayer} else {if (lados getVariable [_sitio,sideUnknown] == malos) then {nameOccupants} else {nameInvaders}};
+		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == buenos) then {nameTeamPlayer} else {if (lados getVariable [_sitio,sideUnknown] == Occupants) then {nameOccupants} else {nameInvaders}};
 		if (_sitio == "Synd_HQ") then
 			{
 			_texto = format ["%2 HQ%1",[_sitio] call A3A_fnc_garrisonInfo,nameTeamPlayer];
@@ -53,10 +53,10 @@ while {visibleMap} do
 			switch (_power) do
 				{
 				case buenos: {_result = format ["%1",nameTeamPlayer]};
-				case malos: {_result = format ["%1",nameOccupants]};
+				case Occupants: {_result = format ["%1",nameOccupants]};
 				case : {_result = format ["%1",nameInvaders]};
 				};
-			/*_ant1 = [antenas,_positionX] call BIS_fnc_nearestPosition;
+			/*_ant1 = [antennas,_positionX] call BIS_fnc_nearestPosition;
 			_ant2 = [antennasDead, _positionX] call BIS_fnc_nearestPosition;
 			if (_ant1 distance _positionX > _ant2 distance _positionX) then
 				{
@@ -64,14 +64,14 @@ while {visibleMap} do
 				}
 			else
 				{
-				_puesto = [markersX,_ant1] call BIS_fnc_NearestPosition;
+				_outpost = [markersX,_ant1] call BIS_fnc_NearestPosition;
 				if (lados getVariable [_sitio,sideUnknown] == buenos) then
 					{
-					if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == ) then {_result = "NONE"}};
+					if (lados getVariable [_outpost,sideUnknown] == buenos) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_outpost,sideUnknown] == ) then {_result = "NONE"}};
 					}
 				else
 					{
-					if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == ) then {_result = "NONE"}};
+					if (lados getVariable [_outpost,sideUnknown] == buenos) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_outpost,sideUnknown] == ) then {_result = "NONE"}};
 					};
 				};
 			*/
@@ -122,7 +122,7 @@ while {visibleMap} do
 				};
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 			};
-		if (_sitio in puestos) then
+		if (_sitio in outposts) then
 			{
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
@@ -137,7 +137,7 @@ while {visibleMap} do
 				_texto = format ["%2 Grand Outpost%1",[_sitio] call A3A_fnc_garrisonInfo,_nameFaction];
 				};
 			};
-		if (_sitio in puertos) then
+		if (_sitio in seaports) then
 			{
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{

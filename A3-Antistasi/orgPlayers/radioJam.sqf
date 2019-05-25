@@ -7,15 +7,15 @@ _interference = 1;
 _sendInterference = 1;
 while {true} do
 	{
-	private _antenas = [];
+	private _antennas = [];
 	{
-	_puesto = [puestos,_x] call BIS_fnc_nearestPosition;
-	if (lados getVariable [_puesto,sideUnknown] != _lado) then {_antenas pushBack _x};
-	} forEach antenas;
-	if (_lado != buenos) then {_antenas pushBack [cajaVeh]};
-	if !(_antenas isEqualTo []) then
+	_outpost = [outposts,_x] call BIS_fnc_nearestPosition;
+	if (lados getVariable [_outpost,sideUnknown] != _lado) then {_antennas pushBack _x};
+	} forEach antennas;
+	if (_lado != buenos) then {_antennas pushBack [vehicleBox]};
+	if !(_antennas isEqualTo []) then
 		{
-		_jammer = [_antenas,player] call BIS_fnc_nearestPosition;
+		_jammer = [_antennas,player] call BIS_fnc_nearestPosition;
 		_dist = player distance _jammer;
 	    _distPercent = _dist / _rad;
 

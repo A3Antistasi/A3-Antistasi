@@ -210,7 +210,7 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 			_killer addRating 1000;
 			};
 		};
-	if (side _killer == malos) then
+	if (side _killer == Occupants) then
 		{
 		[0,-0.25,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 		[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
@@ -229,19 +229,19 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 			};
 		};
 	}];
-_revelar = false;
+_revealX = false;
 if (vehicle _unit != _unit) then
 	{
 	if (_unit == gunner (vehicle _unit)) then
 		{
-		_revelar = true;
+		_revealX = true;
 		};
 	}
 else
 	{
-	if ((secondaryWeapon _unit) in mlaunchers) then {_revelar = true};
+	if ((secondaryWeapon _unit) in mlaunchers) then {_revealX = true};
 	};
-if (_revelar) then
+if (_revealX) then
 	{
 	{
 	_unit reveal [_x,1.5];

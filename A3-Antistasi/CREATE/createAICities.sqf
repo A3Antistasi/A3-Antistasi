@@ -27,18 +27,18 @@ if (_markerX in destroyedCities) then
 	}
 else
 	{
-	if (_lado == malos) then
+	if (_lado == Occupants) then
 		{
 		_num = round (_num * (_prestigeOPFOR + _prestigeBLUFOR)/100);
 		_frontierX = [_markerX] call A3A_fnc_isFrontline;
 		if (_frontierX) then
 			{
 			_num = _num * 2;
-			_params = [_positionX, malos, groupsNATOSentry];
+			_params = [_positionX, Occupants, groupsNATOSentry];
 			}
 		else
 			{
-			_params = [_positionX, malos, gruposNATOGen];
+			_params = [_positionX, Occupants, gruposNATOGen];
 			};
 		}
 	else
@@ -85,7 +85,7 @@ waitUntil {sleep 1;((spawner getVariable _markerX == 2)) or ({[_x,_markerX] call
 
 if (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers == 0) and (_esAAF)) then
 	{
-	[[_positionX,malos,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
+	[[_positionX,Occupants,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
 	};
 
 waitUntil {sleep 1;(spawner getVariable _markerX == 2)};

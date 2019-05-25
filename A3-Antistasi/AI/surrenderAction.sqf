@@ -6,7 +6,7 @@ if (typeOf _unit == "Fin_random_F") exitWith {};
 
 _unit setVariable ["surrendered",true];
 
-if (side _unit == malos) then
+if (side _unit == Occupants) then
 	{
 	_nul = [-2,0,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
 	}

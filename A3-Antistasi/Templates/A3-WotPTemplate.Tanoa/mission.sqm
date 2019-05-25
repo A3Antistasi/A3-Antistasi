@@ -530,7 +530,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="cajaVeh";
+				name="vehicleBox";
 			};
 			id=5;
 			type="Box_East_AmmoVeh_F";
@@ -767,7 +767,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={11047.521,0,11493.96};
-			name="puesto";
+			name="outpost";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=150;
@@ -779,7 +779,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={5362.8491,-1.1167467e-034,10066.243};
-			name="puerto";
+			name="seaport";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=150;
@@ -858,7 +858,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				name="bandera";
+				name="flagX";
 			};
 			id=175;
 			type="Flag_Syndikat_F";
@@ -906,7 +906,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={10024.743,409.87,11764.187};
-			name="puesto_1";
+			name="outpost_1";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=100;
@@ -917,7 +917,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={7487.0332,1.782996e+012,9652.8242};
-			name="puesto_2";
+			name="outpost_2";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=80;
@@ -929,7 +929,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={6002.6899,-1.3937988,10428.126};
-			name="puesto_3";
+			name="outpost_3";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=50;
@@ -941,7 +941,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={12872.614,0,8574.2529};
-			name="puesto_4";
+			name="outpost_4";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=50;
@@ -953,7 +953,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={6628.6401,1.8181432e+019,7856.3931};
-			name="puesto_5";
+			name="outpost_5";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=50;
@@ -966,7 +966,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={11021.631,0.00085260975,4213.5781};
-			name="puesto_6";
+			name="outpost_6";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=51;
@@ -979,7 +979,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={4696.688,0,3163.7839};
-			name="puesto_7";
+			name="outpost_7";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=50;
@@ -992,7 +992,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={2672.458,-2.3528927e-037,2583.1741};
-			name="puesto_8";
+			name="outpost_8";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=50;
@@ -1005,7 +1005,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={2394.196,4.4619592e-021,7234.3418};
-			name="puesto_9";
+			name="outpost_9";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=70;
@@ -1017,7 +1017,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={2683.05,-1.8818665,12316.963};
-			name="puesto_10";
+			name="outpost_10";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=50;
@@ -1030,7 +1030,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={9911.6035,0,13569.66};
-			name="puerto_1";
+			name="seaport_1";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=150;
@@ -1042,7 +1042,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={13334.84,0,12379.788};
-			name="puerto_2";
+			name="seaport_2";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=200;
@@ -1055,7 +1055,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={11774.358,0.85009766,2744.5486};
-			name="puerto_3";
+			name="seaport_3";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=150;
@@ -1067,7 +1067,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={5594.9302,1.39,3996.4902};
-			name="puerto_4";
+			name="seaport_4";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=100;
@@ -1079,7 +1079,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={1741.0649,-3.6915083,11959.301};
-			name="puerto_5";
+			name="seaport_5";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=80;
@@ -1092,7 +1092,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={12112.718,3.5088818,2484.3416};
-			name="puesto_11";
+			name="outpost_11";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=125;
@@ -1920,7 +1920,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={7304.584,-1.755221e-033,12805.312};
-			name="puesto_12";
+			name="outpost_12";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=80;
@@ -2208,7 +2208,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={11021.728,4.3460913e+018,8474.5137};
-			name="puesto_13";
+			name="outpost_13";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=100;
@@ -4732,7 +4732,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={9031.6006,162.623,13302.634};
-			name="puesto_14";
+			name="outpost_14";
 			markerType="RECTANGLE";
 			type="rectangle";
 			a=75;

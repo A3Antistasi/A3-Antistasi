@@ -14,20 +14,20 @@ _airportsX = airportsX select {(lados getVariable [_x,sideUnknown] != buenos) an
 if (count _airportsX == 0) exitWith {};
 _airportX = [_airportsX,_positionX] call BIS_fnc_nearestPosition;
 _posOrigin = getMarkerPos _airportX;
-_lado = if (lados getVariable [_airportX,sideUnknown] == malos) then {malos} else {};
+_lado = if (lados getVariable [_airportX,sideUnknown] == Occupants) then {Occupants} else {};
 _tsk1 = "";
 _tsk = "";
 [[buenos,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_positionX,true,10,true,"Defend",true] call BIS_fnc_taskCreate;
 [[_lado],"DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros, nameTeamPlayer],format ["Kill %1",name petros],respawnTeamPlayer],_positionX,true,10,true,"Attack",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["DEF_HQ","CREATED"]; publicVariable "missionsX";
-_tiposVeh = if (_lado == malos) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
+_tiposVeh = if (_lado == Occupants) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
 _tiposVeh = _tiposVeh select {[_x] call A3A_fnc_vehAvailable};
 
 if (count _tiposVeh > 0) then
 	{
-	_tipoVeh = selectRandom _tiposVeh;
+	_typeVehX = selectRandom _tiposVeh;
 	//_pos = [_positionX, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
-	_vehicle=[_posOrigin, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
+	_vehicle=[_posOrigin, 0, _typeVehX, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
@@ -41,14 +41,14 @@ if (count _tiposVeh > 0) then
 	//[_heli,"Air Attack"] spawn A3A_fnc_inmuneConvoy;
 	sleep 30;
 	};
-_tiposVeh = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
-_typeGroup = if (_lado == malos) then {NATOSpecOp} else {CSATSpecOp};
+_tiposVeh = if (_lado == Occupants) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
+_typeGroup = if (_lado == Occupants) then {NATOSpecOp} else {CSATSpecOp};
 
 for "_i" from 0 to (round random 2) do
 	{
-	_tipoVeh = selectRandom _tiposVeh;
+	_typeVehX = selectRandom _tiposVeh;
 	//_pos = [_positionX, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
-	_vehicle=[_posOrigin, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
+	_vehicle=[_posOrigin, 0, _typeVehX, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;

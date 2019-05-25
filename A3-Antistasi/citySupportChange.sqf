@@ -1,12 +1,12 @@
-private ["_opfor","_blufor","_pos","_ciudad","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR"];
+private ["_opfor","_blufor","_pos","_city","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR"];
 
 waitUntil {!cityIsSupportChanging};
 cityIsSupportChanging = true;
 _opfor = _this select 0;
 _blufor = _this select 1;
 _pos = _this select 2;
-if (typeName _pos == typeName "") then {_ciudad = _pos} else {_ciudad = [citiesX, _pos] call BIS_fnc_nearestPosition};
-_datos = server getVariable _ciudad;
+if (typeName _pos == typeName "") then {_city = _pos} else {_city = [citiesX, _pos] call BIS_fnc_nearestPosition};
+_datos = server getVariable _city;
 if (!(_datos isEqualType [])) exitWith {citySupportChanging = true; diag_log format ["Antistasi Error in citysupportchange.sqf. Passed %1 as reference",_pos]};
 _numCiv = _datos select 0;
 _numVeh = _datos select 1;
@@ -32,6 +32,6 @@ if (_prestigeBLUFOR < 0) then {_prestigeBLUFOR = 0};
 
 _datos = [_numCiv, _numVeh,_prestigeOPFOR,_prestigeBLUFOR];
 
-server setVariable [_ciudad,_datos,true];
+server setVariable [_city,_datos,true];
 cityIsSupportChanging = false;
 true

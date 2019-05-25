@@ -12,7 +12,7 @@ while {true} do
 	nextTick = time + 600;
 	waitUntil {sleep 15; time >= nextTick};
 	if (isMultiplayer) then {waitUntil {sleep 10; isPlayer theBoss}};
-	_suppBoost = 1+ ({lados getVariable [_x,sideUnknown] == buenos} count puertos);
+	_suppBoost = 1+ ({lados getVariable [_x,sideUnknown] == buenos} count seaports);
 	_recAddSDK = 25;//0
 	_hrAddBLUFOR = 0;//0
 	_popFIA = 0;
@@ -21,75 +21,75 @@ while {true} do
 	_popTotal = 0;
 	_bonusFIA = 1 + (0.25*({(lados getVariable [_x,sideUnknown] == buenos) and !(_x in destroyedCities)} count factories));
 	{
-	_ciudad = _x;
-	_recAddCiudadSDK = 0;
+	_city = _x;
+	_recAddCitySDK = 0;
 	_hrAddCity = 0;
-	_datos = server getVariable _ciudad;
+	_datos = server getVariable _city;
 	_numCiv = _datos select 0;
 	_numVeh = _datos select 1;
 	//_roads = _datos select 2;
 	_prestigeNATO = _datos select 2;
 	_prestigeSDK = _datos select 3;
-	_power = [_ciudad] call A3A_fnc_powerCheck;
+	_power = [_city] call A3A_fnc_powerCheck;
 	_popTotal = _popTotal + _numCiv;
 	_popFIA = _popFIA + (_numCiv * (_prestigeSDK / 100));
 	_popAAF = _popAAF + (_numCiv * (_prestigeNATO / 100));
 	_multiplyingRec = if (_power != buenos) then {0.5} else {1};
 	//if (not _power) then {_multiplyingRec = 0.5};
 
-	if (_ciudad in destroyedCities) then
+	if (_city in destroyedCities) then
 		{
-		_recAddCiudadSDK = 0;
+		_recAddCitySDK = 0;
 		_hrAddCity = 0;
 		_popCSAT = _popCSAT + _numCIV;
 		}
 	else
 		{
-		_recAddCiudadSDK = ((_numciv * _multiplyingRec*(_prestigeSDK / 100))/3);
+		_recAddCitySDK = ((_numciv * _multiplyingRec*(_prestigeSDK / 100))/3);
 		_hrAddCity = (_numciv * (_prestigeSDK / 10000));///20000 originalmente
 		switch (_power) do
 			{
-			case buenos: {[-1,_suppBoost,_ciudad] spawn A3A_fnc_citySupportChange};
-			case malos: {[1,-1,_ciudad] spawn A3A_fnc_citySupportChange};
-			case : {[-1,-1,_ciudad] spawn A3A_fnc_citySupportChange};
+			case buenos: {[-1,_suppBoost,_city] spawn A3A_fnc_citySupportChange};
+			case Occupants: {[1,-1,_city] spawn A3A_fnc_citySupportChange};
+			case : {[-1,-1,_city] spawn A3A_fnc_citySupportChange};
 			};
-		if (lados getVariable [_ciudad,sideUnknown] == malos) then
+		if (lados getVariable [_city,sideUnknown] == Occupants) then
 			{
-			_recAddCiudadSDK = (_recAddCiudadSDK/2);
+			_recAddCitySDK = (_recAddCitySDK/2);
 			_hrAddCity = (_hrAddCity/2);
 			};
 		};
-	_recAddSDK = _recAddSDK + _recAddCiudadSDK;
+	_recAddSDK = _recAddSDK + _recAddCitySDK;
 	_hrAddBLUFOR = _hrAddBLUFOR + _hrAddCity;
 	// revuelta civil!!
-	if ((_prestigeNATO < _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == malos)) then
+	if ((_prestigeNATO < _prestigeSDK) and (lados getVariable [_city,sideUnknown] == Occupants)) then
 		{
-		["TaskSucceeded", ["", format ["%1 joined %2",[_ciudad, false] call A3A_fnc_fn_location,nameTeamPlayer]]] remoteExec ["BIS_fnc_showNotification",buenos];
-		lados setVariable [_ciudad,buenos,true];
+		["TaskSucceeded", ["", format ["%1 joined %2",[_city, false] call A3A_fnc_fn_location,nameTeamPlayer]]] remoteExec ["BIS_fnc_showNotification",buenos];
+		lados setVariable [_city,buenos,true];
 		_nul = [5,0] remoteExec ["A3A_fnc_prestige",2];
-		_mrkD = format ["Dum%1",_ciudad];
+		_mrkD = format ["Dum%1",_city];
 		_mrkD setMarkerColor colourTeamPlayer;
-		garrison setVariable [_ciudad,[],true];
+		garrison setVariable [_city,[],true];
 		sleep 5;
-		{_nul = [_ciudad,_x] spawn A3A_fnc_deleteControls} forEach controlsX;
+		{_nul = [_city,_x] spawn A3A_fnc_deleteControls} forEach controlsX;
 		if ((!(["CONVOY"] call BIS_fnc_taskExists)) and (!bigAttackInProgress)) then
 			{
-			_base = [_ciudad] call A3A_fnc_findBasesForConvoy;
+			_base = [_city] call A3A_fnc_findBasesForConvoy;
 			if (_base != "") then
 				{
-				[[_ciudad,_base],"CONVOY"] call A3A_fnc_scheduler;
+				[[_city,_base],"CONVOY"] call A3A_fnc_scheduler;
 				};
 			};
 		[] call A3A_fnc_tierCheck;
 		};
-	if ((_prestigeNATO > _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == buenos)) then
+	if ((_prestigeNATO > _prestigeSDK) and (lados getVariable [_city,sideUnknown] == buenos)) then
 		{
-		["TaskFailed", ["", format ["%1 joined %2",[_ciudad, false] call A3A_fnc_fn_location,nameOccupants]]] remoteExec ["BIS_fnc_showNotification",buenos];
-		lados setVariable [_ciudad,malos,true];
+		["TaskFailed", ["", format ["%1 joined %2",[_city, false] call A3A_fnc_fn_location,nameOccupants]]] remoteExec ["BIS_fnc_showNotification",buenos];
+		lados setVariable [_city,Occupants,true];
 		_nul = [-5,0] remoteExec ["A3A_fnc_prestige",2];
-		_mrkD = format ["Dum%1",_ciudad];
+		_mrkD = format ["Dum%1",_city];
 		_mrkD setMarkerColor colorOccupants;
-		garrison setVariable [_ciudad,[],true];
+		garrison setVariable [_city,[],true];
 		sleep 5;
 		[] call A3A_fnc_tierCheck;
 		};
@@ -162,15 +162,15 @@ while {true} do
 		_potentials = [];
 		{
 		_markerX = [markersX, _x] call BIS_fnc_nearestPosition;
-		if ((lados getVariable [_markerX,sideUnknown] == malos) and (spawner getVariable _markerX == 2)) exitWith
+		if ((lados getVariable [_markerX,sideUnknown] == Occupants) and (spawner getVariable _markerX == 2)) exitWith
 			{
 			_potentials pushBack [_markerX,_x];
 			};
 		} forEach antennasDead;
 		if (count _potentials > 0) then
 			{
-			_posible = selectRandom _potentials;
-			[[_posible select 0,_posible select 1],"REP_Antenna"] call A3A_fnc_scheduler;
+			_potential = selectRandom _potentials;
+			[[_potential select 0,_potential select 1],"REP_Antenna"] call A3A_fnc_scheduler;
 			};
 		}
 	else

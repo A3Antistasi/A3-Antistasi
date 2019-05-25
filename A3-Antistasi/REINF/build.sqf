@@ -97,12 +97,12 @@ if ((_tipo == "SB") or (_tipo == "CB")) then
 	else
 		{
 		_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
-		cercano = [_sitios,_positionX] call BIS_fnc_nearestPosition;
-		if (!(_positionX inArea cercano)) then
+		nearX = [_sitios,_positionX] call BIS_fnc_nearestPosition;
+		if (!(_positionX inArea nearX)) then
 			{
 			_salir = true;
 			_texto = "You cannot build a bunker outside a controlled zone";
-			cercano = nil;
+			nearX = nil;
 			};
 		};
 	};
@@ -185,7 +185,7 @@ else
 		   if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
 		   if (surfaceIsWater _pos) exitWith {garageVeh setPosASL [0,0,0]};
 		   if (isOnRoad ASLToAGL _pos) exitWith {garageVeh setPosASL [0,0,0]};
-		   if !(_pos inArea cercano) exitWith {garageVeh setPosASL [0,0,0]};
+		   if !(_pos inArea nearX) exitWith {garageVeh setPosASL [0,0,0]};
 		   garageVeh setPosASL _pos;
 		   garageVeh setVectorUp (_ins select 0 select 1);
 		   garageVeh setDir (getDir player);
@@ -230,7 +230,7 @@ _positionX = position garageVeh;
 _dir = getDir garageVeh;
 deleteVehicle garageVeh;
 garageVeh = nil;
-cercano = nil;
+nearX = nil;
 if (bought <= 1) exitWith {hint "Construction cancelled"; bought = nil};
 bought = nil;
 private _isPlayer = if (player == _engineerX) then {true} else {false};

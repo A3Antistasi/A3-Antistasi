@@ -1,16 +1,16 @@
-private ["_camion","_objetos","_todo","_proceed","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
+private ["_camion","_objectsX","_todo","_proceed","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
 
 _camion = vehicle player;
-_objetos = [];
+_objectsX = [];
 _todo = [];
 _proceed = false;
 
 [driver _camion,"remove"] remoteExec ["A3A_fnc_flagaction",driver _camion];
 
-_objetos = nearestObjects [_camion, ["ReammoBox_F"], 20];
+_objectsX = nearestObjects [_camion, ["ReammoBox_F"], 20];
 
-if (count _objetos == 0) exitWith {};
-_caja = _objetos select 0;
+if (count _objectsX == 0) exitWith {};
+_caja = _objectsX select 0;
 
 if ((_caja == caja) and (player!=theBoss)) exitWith {hint "Only the Commander can transfer this ammobox content to any truck"; [driver _camion,"camion"] remoteExec ["A3A_fnc_flagaction",driver _camion]};
 

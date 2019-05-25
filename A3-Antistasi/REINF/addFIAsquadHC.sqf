@@ -3,14 +3,14 @@ if (player != theBoss) exitWith {hint "Only our Commander has access to this fun
 //if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
 if (markerAlpha respawnTeamPlayer == 0) exitWith {hint "You cant recruit a new squad while you are moving your HQ"};
 if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
-_chequeo = false;
+_checkX = false;
 {
-	if (((side _x == ) or (side _x == malos)) and (_x distance petros < 500) and ([_x] call A3A_fnc_canFight) and !(isPlayer _x)) exitWith {_chequeo = true};
+	if (((side _x == ) or (side _x == Occupants)) and (_x distance petros < 500) and ([_x] call A3A_fnc_canFight) and !(isPlayer _x)) exitWith {_checkX = true};
 } forEach allUnits;
 
-if (_chequeo) exitWith {Hint "You cannot Recruit Squads with enemies near your HQ"};
+if (_checkX) exitWith {Hint "You cannot Recruit Squads with enemies near your HQ"};
 
-private ["_typeGroup","_esinf","_tipoVeh","_coste","_costeHR","_exit","_formato","_pos","_hr","_resourcesFIA","_grupo","_roads","_road","_grupo","_camion","_vehicle","_mortero","_morty"];
+private ["_typeGroup","_esinf","_typeVehX","_coste","_costHR","_exit","_formatX","_pos","_hr","_resourcesFIA","_grupo","_roads","_road","_grupo","_camion","_vehicle","_mortarX","_morty"];
 
 
 _typeGroup = _this select 0;
@@ -31,10 +31,10 @@ if (activeGREF) then
 if (_exit) exitWith {};
 garageVeh = objNull;
 _esinf = false;
-_tipoVeh = "";
+_typeVehX = "";
 _coste = 0;
-_costeHR = 0;
-_formato = [];
+_costHR = 0;
+_formatX = [];
 _format = "Squd-";
 
 _hr = server getVariable "hr";
@@ -46,8 +46,8 @@ if (_typeGroup isEqualType []) then
 	{
 	{
 	_typeUnit = if (random 20 <= skillFIA) then {_x select 1} else {_x select 0};
-	_formato pushBack _typeUnit;
-	_coste = _coste + (server getVariable _typeUnit); _costeHR = _costeHR +1
+	_formatX pushBack _typeUnit;
+	_coste = _coste + (server getVariable _typeUnit); _costHR = _costHR +1
 	} forEach _typeGroup;
 	if (count _this > 1) then
 		{
@@ -60,12 +60,12 @@ if (_typeGroup isEqualType []) then
 else
 	{
 	_coste = _coste + (2*(server getVariable staticCrewTeamPlayer)) + ([_typeGroup] call A3A_fnc_vehiclePrice);
-	_costeHR = 2;
+	_costHR = 2;
 	//if (_typeGroup == SDKMortar) then {_coste = _coste + ([vehSDKBike] call A3A_fnc_vehiclePrice)} else {_coste = _coste + ([vehSDKTruck] call A3A_fnc_vehiclePrice)};
 	if ((_typeGroup == SDKMortar) or (_typeGroup == SDKMGStatic)) then
 		{
 		_esInf = true;
-		_formato = [staticCrewTeamPlayer,staticCrewTeamPlayer];
+		_formatX = [staticCrewTeamPlayer,staticCrewTeamPlayer];
 		}
 	else
 		{
@@ -74,13 +74,13 @@ else
 	};
 if ((_withBackpck != "") and hayIFA) exitWith {hint "Your current modset does not support packing / unpacking static weapons"; garageVeh = nil};
 
-if (_hr < _costeHR) then {_exit = true;hint format ["You do not have enough HR for this request (%1 required)",_costeHR]};
+if (_hr < _costHR) then {_exit = true;hint format ["You do not have enough HR for this request (%1 required)",_costHR]};
 
 if (_resourcesFIA < _coste) then {_exit = true;hint format ["You do not have enough money for this request (%1 € required)",_coste]};
 
 if (_exit) exitWith {garageVeh = nil};
 
-_nul = [- _costeHR, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
+_nul = [- _costHR, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 
 _pos = getMarkerPos respawnTeamPlayer;
 
@@ -91,7 +91,7 @@ if (_esinf) then
 	_pos = [(getMarkerPos respawnTeamPlayer), 30, random 360] call BIS_Fnc_relPos;
 	if (_typeGroup isEqualType []) then
 		{
-		_grupo = [_pos, buenos, _formato,true] call A3A_fnc_spawnGroup;
+		_grupo = [_pos, buenos, _formatX,true] call A3A_fnc_spawnGroup;
 		//if (_typeGroup isEqualTo groupsSDKSquad) then {_format = "Squd-"};
 		if (_typeGroup isEqualTo groupsSDKmid) then {_format = "Tm-"};
 		if (_typeGroup isEqualTo groupsSDKAT) then {_format = "AT-"};
@@ -115,7 +115,7 @@ if (_esinf) then
 		}
 	else
 		{
-		_grupo = [_pos, buenos, _formato,true] call A3A_fnc_spawnGroup;
+		_grupo = [_pos, buenos, _formatX,true] call A3A_fnc_spawnGroup;
 		_grupo setVariable ["staticAutoT",false,true];
 		if (_typeGroup == SDKMortar) then {_format = "Mort-"};
 		if (_typeGroup == SDKMGStatic) then {_format = "MG-"};
@@ -138,18 +138,18 @@ else
 		};
 	_camion = _vehicle select 0;
 	_grupo = _vehicle select 2;
-	//_mortero attachTo [_camion,[0,-1.5,0.2]];
-	//_mortero setDir (getDir _camion + 180);
+	//_mortarX attachTo [_camion,[0,-1.5,0.2]];
+	//_mortarX setDir (getDir _camion + 180);
 
 	if ((!activeGREF) and (_typeGroup == staticAABuenos)) then
 		{
 		_pos = _pos findEmptyPosition [1,30,SDKMortar];
 		_morty = _grupo createUnit [staticCrewTeamPlayer, _pos, [],0, "NONE"];
-		_mortero = _typeGroup createVehicle _pos;
-		_nul = [_mortero] call A3A_fnc_AIVEHinit;
-		_mortero attachTo [_camion,[0,-1.5,0.2]];
-		_mortero setDir (getDir _camion + 180);
-		_morty moveInGunner _mortero;
+		_mortarX = _typeGroup createVehicle _pos;
+		_nul = [_mortarX] call A3A_fnc_AIVEHinit;
+		_mortarX attachTo [_camion,[0,-1.5,0.2]];
+		_mortarX setDir (getDir _camion + 180);
+		_morty moveInGunner _mortarX;
 		};
 	if (_typeGroup == vehSDKAT) then {_grupo setGroupId [format ["M.AT-%1",{side (leader _x) == buenos} count allGroups]]};
 	if (_typeGroup == staticAABuenos) then {_grupo setGroupId [format ["M.AA-%1",{side (leader _x) == buenos} count allGroups]]};
@@ -168,23 +168,23 @@ hint format ["Group %1 at your command.\n\nGroups are managed from the High Comm
 if (!_esinf) exitWith {garageVeh = nil};
 if !(_bypassAI) then {_grupo spawn A3A_fnc_attackDrillAI};
 
-if (count _formato == 2) then
+if (count _formatX == 2) then
 	{
-	_tipoVeh = vehSDKBike;
+	_typeVehX = vehSDKBike;
 	}
 else
 	{
-	if (count _formato > 4) then
+	if (count _formatX > 4) then
 		{
-		_tipoVeh = vehSDKTruck;
+		_typeVehX = vehSDKTruck;
 		}
 	else
 		{
-		_tipoVeh = vehSDKLightUnarmed;
+		_typeVehX = vehSDKLightUnarmed;
 		};
 	};
 
-_coste = [_tipoVeh] call A3A_fnc_vehiclePrice;
+_coste = [_typeVehX] call A3A_fnc_vehiclePrice;
 private ["_display","_childControl"];
 if (_coste > server getVariable "resourcesFIA") exitWith {garageVeh = nil};
 
@@ -213,12 +213,12 @@ vehQuery = nil;
 //_resourcesFIA = server getVariable "resourcesFIA";
 //if (_resourcesFIA < _coste) exitWith {hint format ["You do not have enough money for this vehicle: %1 € required",_coste]};
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
-_mortero = _tipoVeh createVehicle _pos;
-_nul = [_mortero] call A3A_fnc_AIVEHinit;
-_grupo addVehicle _mortero;
-_mortero setVariable ["owner",_grupo,true];
+_mortarX = _typeVehX createVehicle _pos;
+_nul = [_mortarX] call A3A_fnc_AIVEHinit;
+_grupo addVehicle _mortarX;
+_mortarX setVariable ["owner",_grupo,true];
 _nul = [0, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
-leader _grupo assignAsDriver _mortero;
+leader _grupo assignAsDriver _mortarX;
 {[_x] orderGetIn true; [_x] allowGetIn true} forEach units _grupo;
 hint "Vehicle Purchased";
 petros directSay "SentGenBaseUnlockVehicle";

@@ -12,18 +12,18 @@ if (_numReal + 4 <= _numGarr) then
 	{
 	if (_numReal + 8 <= _numGarr) then
 		{
-		if (_lado == malos) then {[selectRandom groupsNATOSquad,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom groupsCSATSquad,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
+		if (_lado == Occupants) then {[selectRandom groupsNATOSquad,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom groupsCSATSquad,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
 		_numero = 0;
 		}
 	else
 		{
-		if (_lado == malos) then {[selectRandom groupsNATOmid,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom groupsCSATmid,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
+		if (_lado == Occupants) then {[selectRandom groupsNATOmid,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]} else {[selectRandom groupsCSATmid,_lado,_airportX,0] remoteExec ["A3A_fnc_garrisonUpdate",2]};
 		_numero = 4;
 		};
 	};
 if ((_numero >= 4) and (reinfPatrols <= 4)) then
 	{
-	_potentials = (puestos + puertos - _reinfPlaces - (killZones getVariable [_airportX,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
+	_potentials = (outposts + seaports - _reinfPlaces - (killZones getVariable [_airportX,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
 	if (_potentials isEqualTo []) then
 		{
 		_potentials = (resourcesX + factories - _reinfPlaces - (killZones getVariable [_airportX,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
@@ -49,7 +49,7 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 				{
 				if ({(_x distance2D _positionX < (2*distanceSPWN)) or (_x distance2D (getMarkerPos _sitio) < (2*distanceSPWN))} count allPlayers == 0) then
 					{
-					_typeGroup = if (_lado == malos) then {if (_numero == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
+					_typeGroup = if (_lado == Occupants) then {if (_numero == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
 					[_typeGroup,_lado,_sitio,2] remoteExec ["A3A_fnc_garrisonUpdate",2];
 					}
 				else

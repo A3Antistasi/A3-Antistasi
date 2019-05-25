@@ -35,17 +35,17 @@ while {(count (waypoints _grupo)) > 0} do
 while {true} do
 	{
 	if ((!alive _lider) or (!alive _camion) or (!alive _chico) or (!alive _static) or (!someAmmo _static) or (!canMove _camion) or (not(_grupo getVariable "staticAutoT"))) exitWith {};
-	_enemigo = assignedTarget _static;
-	if (!isNull _enemigo) then
+	_enemyX = assignedTarget _static;
+	if (!isNull _enemyX) then
 		{
-		_dirRel = [_enemigo,_camion] call BIS_fnc_dirTo;
+		_dirRel = [_enemyX,_camion] call BIS_fnc_dirTo;
 		_dirCam = getDir _camion;
 		_dirMax = ((_dirRel + 45) % 360);
 		_dirMin = ((_dirRel - 45) % 360);
 		if ((_dirCam > _dirMax) or (_dirCam < _dirMin)) then
 			{
-			_mts = 5*(round (0.28*(speed _enemigo)));
-			_exitpos = [getPos _enemigo, _mts, getDir _enemigo] call BIS_Fnc_relPos;
+			_mts = 5*(round (0.28*(speed _enemyX)));
+			_exitpos = [getPos _enemyX, _mts, getDir _enemyX] call BIS_Fnc_relPos;
 			_dirRel = [_exitPos,_camion] call BIS_fnc_dirTo;
 			_pos = [_exitPos,(40+(_exitPos distance _camion)),_dirRel] call BIS_fnc_relPos;
 			_camion stop false;

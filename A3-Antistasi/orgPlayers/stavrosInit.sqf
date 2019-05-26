@@ -1,13 +1,13 @@
-private ["_unit","_groups","_oldUnit","_oldProviders","_HQ","_providerModule","_used"];
+private ["_unit","_grupos","_oldUnit","_oldProviders","_HQ","_providerModule","_used"];
 _unit = _this select 0;
-_groups = hcAllGroups theBoss;
+_grupos = hcAllGroups theBoss;
 _oldUnit = theBoss;
 
-if (!isNil "_groups") then
+if (!isNil "_grupos") then
   {
   {
   _oldUnit hcRemoveGroup _x;
-  } forEach _groups;
+  } forEach _grupos;
   };
 _oldUnit synchronizeObjectsRemove [HC_commanderX];
 //apoyo synchronizeObjectsRemove [_oldUnit];
@@ -18,9 +18,9 @@ publicVariable "theBoss";
 theBoss synchronizeObjectsAdd [HC_commanderX];
 HC_commanderX synchronizeObjectsAdd [theBoss];
 //apoyo synchronizeObjectsAdd [theBoss];
-if (!isNil "_groups") then
+if (!isNil "_grupos") then
 	{
-  	{_unit hcSetGroup [_x]} forEach _groups;
+  	{_unit hcSetGroup [_x]} forEach _grupos;
   	}
 else
 	{
@@ -29,7 +29,7 @@ else
 		{
 		_unit hcSetGroup [_x];
 		};
-	if ((leader _x getVariable ["spawner",false]) and (!isPlayer leader _x) and (side _x == teamPlayer)) then
+	if ((leader _x getVariable ["spawner",false]) and (!isPlayer leader _x) and (side _x == buenos)) then
 		{
 		_unit hcSetGroup [_x];
 		};
@@ -40,4 +40,4 @@ if (isNull _oldUnit) then
 	{
 	[_oldUnit,[group _oldUnit]] remoteExec ["hcSetGroup",_oldUnit];
 	};
-[] remoteExec ["A3A_fnc_statistics",[teamPlayer,civilian]];
+[] remoteExec ["A3A_fnc_statistics",[buenos,civilian]];

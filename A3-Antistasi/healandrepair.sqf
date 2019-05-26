@@ -2,7 +2,7 @@
 private ["_posHQ"];
 _posHQ = getMarkerPos respawnTeamPlayer;
 
-{if ((side group _x == teamPlayer) and (_x distance _posHQ < 50)) then
+{if ((side group _x == buenos) and (_x distance _posHQ < 50)) then
 	{
 	if (hasACEMedical) then
 		{

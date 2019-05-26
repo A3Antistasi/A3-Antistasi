@@ -74,7 +74,7 @@ if (visiblemap) then
 		{
 		if (getMarkerPos _x distance _positionTel < distanceSPWN) then
 			{
-			sidesX setVariable [_x,teamPlayer,true];
+			lados setVariable [_x,buenos,true];
 			};
 		} forEach controlsX;
 		petros setPos _positionTel;
@@ -85,11 +85,11 @@ if (visiblemap) then
 		{
 		if (getMarkerPos _x distance _positionTel < distanceSPWN) then
 			{
-			sidesX setVariable [_x,teamPlayer,true];
+			lados setVariable [_x,buenos,true];
 			};
 		} forEach _controlsX;
-		_old = petros;
-		groupPetros = createGroup teamPlayer;
+		_viejo = petros;
+		groupPetros = createGroup buenos;
 		publicVariable "groupPetros";
         petros = groupPetros createUnit [typePetros, _positionTel, [], 0, "NONE"];
         groupPetros setGroupId ["Maru","GroupColor4"];
@@ -97,9 +97,9 @@ if (visiblemap) then
         if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
         petros disableAI "MOVE";
         petros disableAI "AUTOTARGET";
-        if (group _old == groupPetros) then {[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros]};
+        if (group _viejo == groupPetros) then {[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]};
         _nul= [] execVM "initPetros.sqf";
-        deleteVehicle _old;
+        deleteVehicle _viejo;
         publicVariable "petros";
 		};
 	respawnTeamPlayer setMarkerPos _positionTel;
@@ -107,38 +107,38 @@ if (visiblemap) then
 	[respawnTeamPlayer,0] remoteExec ["setMarkerAlphaLocal",[malos,muyMalos]];
 	if (isMultiplayer) then {hint "Please wait while moving HQ Assets to selected position";sleep 5};
 	_pos = [_positionTel, 3, getDir petros] call BIS_Fnc_relPos;
-	fireX setPos _pos;
+	fuego setPos _pos;
 	_rnd = getdir Petros;
 	if (isMultiplayer) then {sleep 5};
-	_pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
+	_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
 	caja setPos _pos;
 	_rnd = _rnd + 45;
-	_pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
+	_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
 	mapa setPos _pos;
-	mapa setDir ([fireX, mapa] call BIS_fnc_dirTo);
+	mapa setDir ([fuego, mapa] call BIS_fnc_dirTo);
 	_rnd = _rnd + 45;
-	_pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
-	flagX setPos _pos;
+	_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
+	bandera setPos _pos;
 	_rnd = _rnd + 45;
-	_pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
-	vehicleBox setPos _pos;
-	if (isNil "placementDone") then {if (isMultiplayer) then {{if ((side _x == teamPlayer) or (side _x == civilian)) then {_x setPos getPos petros}} forEach playableUnits} else {theBoss setPos (getMarkerPos respawnTeamPlayer)}};
+	_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
+	cajaVeh setPos _pos;
+	if (isNil "placementDone") then {if (isMultiplayer) then {{if ((side _x == buenos) or (side _x == civilian)) then {_x setPos getPos petros}} forEach playableUnits} else {theBoss setPos (getMarkerPos respawnTeamPlayer)}};
 	theBoss allowDamage true;
 	if (isMultiplayer) then
 		{
 		caja hideObjectGlobal false;
-		vehicleBox hideObjectGlobal false;
+		cajaVeh hideObjectGlobal false;
 		mapa hideObjectGlobal false;
-		fireX hideObjectGlobal false;
-		flagX hideObjectGlobal false;
+		fuego hideObjectGlobal false;
+		bandera hideObjectGlobal false;
 		}
 	else
 		{
 		caja hideObject false;
-		vehicleBox hideObject false;
+		cajaVeh hideObject false;
 		mapa hideObject false;
-		fireX hideObject false;
-		flagX hideObject false;
+		fuego hideObject false;
+		bandera hideObject false;
 		};
 	openmap [false,false];
 	};

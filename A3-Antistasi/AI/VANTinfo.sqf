@@ -17,9 +17,9 @@ while {alive _veh} do
 	_grupos = allGroups select {(leader _x in _enemigos) and ((vehicle leader _x) != (leader _x))};
 	_knownX = allUnits select {((side _x == buenos) or (side _x == _enemiesS)) and (alive _x) and (_x distance _posicion < 500)};
 	{
-	_group = _x;
+	_grupo = _x;
 		{
-		_group reveal [_x,1.4];
+		_grupo reveal [_x,1.4];
 		} forEach _knownX;
-	} forEach _groups;
+	} forEach _grupos;
 	};

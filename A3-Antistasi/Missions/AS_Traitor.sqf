@@ -3,8 +3,8 @@ if (!isServer and hasInterface) exitWith{};
 
 _marcador = _this select 0;
 
-_difficultX = if (random 10 < tierWar) then {true} else {false};
-_leave = false;
+_dificil = if (random 10 < tierWar) then {true} else {false};
+_salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -12,8 +12,8 @@ _tsk1 = "";
 
 _posicion = getMarkerPos _marcador;
 
-_timeLimit = if (_difficultX) then {30} else {60};
-if (hasIFA) then {_timeLimit = _timeLimit * 2};
+_timeLimit = if (_dificil) then {30} else {60};
+if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
@@ -23,31 +23,31 @@ _poscasa = [];
 _casa = _casas select 0;
 while {count _poscasa < 3} do
 	{
-	_casa = _houses call BIS_Fnc_selectRandom;
-	_posHouse = _casa buildingPos -1;
-	if (count _posHouse < 3) then {_houses = _houses - [_casa]};
+	_casa = _casas call BIS_Fnc_selectRandom;
+	_poscasa = _casa buildingPos -1;
+	if (count _poscasa < 3) then {_casas = _casas - [_casa]};
 	};
 
-_max = (count _posHouse) - 1;
+_max = (count _poscasa) - 1;
 _rnd = floor random _max;
-_posTraitor = _posHouse select _rnd;
-_posSol1 = _posHouse select (_rnd + 1);
+_posTraitor = _poscasa select _rnd;
+_posSol1 = _poscasa select (_rnd + 1);
 _posSol2 = (_casa buildingExit 0);
 
 _nameDest = [_marcador] call A3A_fnc_localizar;
 
-_groupTraitor = createGroup Occupants;
+_groupTraitor = createGroup malos;
 
 _arrayAirports = airportsX select {lados getVariable [_x,sideUnknown] == malos};
 _base = [_arrayAirports, _posicion] call BIS_Fnc_nearestPosition;
 _posBase = getMarkerPos _base;
 
-_traitor = _groupTraitor createUnit [NATOOfficer2, _posTraitor, [], 0, "NONE"];
-_traitor allowDamage false;
-_traitor setPos _posTraitor;
+_traidor = _groupTraitor createUnit [NATOOfficer2, _posTraitor, [], 0, "NONE"];
+_traidor allowDamage false;
+_traidor setPos _posTraitor;
 _sol1 = _groupTraitor createUnit [NATOBodyG, _posSol1, [], 0, "NONE"];
 _sol2 = _groupTraitor createUnit [NATOBodyG, _posSol2, [], 0, "NONE"];
-_groupTraitor selectLeader _traitor;
+_groupTraitor selectLeader _traidor;
 
 _posTsk = (position _casa) getPos [random 100, random 360];
 
@@ -83,7 +83,7 @@ _veh allowDamage false;
 _veh setDir _dirVeh;
 sleep 15;
 _veh allowDamage true;
-_traitor allowDamage true;
+_traidor allowDamage true;
 _nul = [_veh] call A3A_fnc_AIVEHinit;
 {_x disableAI "MOVE"; _x setUnitPos "UP"} forEach units _groupTraitor;
 
@@ -103,16 +103,16 @@ if (random 10 < 2.5) then
 	_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
 	[_perro] spawn A3A_fnc_guardDog;
 	};
-_nul = [leader _group, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-{[_x,""] call A3A_fnc_NATOinit} forEach units _group;
+_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
 
-waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traitor) or ({_traitor knowsAbout _x > 1.4} count ([500,0,_traitor,teamPlayer] call A3A_fnc_distanceUnits) > 0)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traidor) or ({_traidor knowsAbout _x > 1.4} count ([500,0,_traidor,buenos] call A3A_fnc_distanceUnits) > 0)};
 
-if ({_traitor knowsAbout _x > 1.4} count ([500,0,_traitor,teamPlayer] call A3A_fnc_distanceUnits) > 0) then
+if ({_traidor knowsAbout _x > 1.4} count ([500,0,_traidor,buenos] call A3A_fnc_distanceUnits) > 0) then
 	{
 	{_x enableAI "MOVE"} forEach units _groupTraitor;
-	_traitor assignAsDriver _veh;
-	[_traitor] orderGetin true;
+	_traidor assignAsDriver _veh;
+	[_traidor] orderGetin true;
 	_wp0 = _groupTraitor addWaypoint [_posVeh, 0];
 	_wp0 setWaypointType "GETIN";
 	_wp1 = _groupTraitor addWaypoint [_posBase,1];
@@ -121,9 +121,9 @@ if ({_traitor knowsAbout _x > 1.4} count ([500,0,_traitor,teamPlayer] call A3A_f
 	_wp1 setWaypointSpeed "FULL";
 	};
 
-waitUntil  {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traitor) or (_traitor distance _posBase < 20)};
+waitUntil  {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traidor) or (_traidor distance _posBase < 20)};
 
-if (not alive _traitor) then
+if (not alive _traidor) then
 	{
 	["AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Kill the Traitor",_marcador],_traidor,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_marcador],getPos _casa,"FAILED"] call A3A_fnc_taskUpdate;
@@ -181,7 +181,7 @@ else
 			{
 			if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
 				{
-				[[Occupants],"A3A_fnc_attackHQ"] remoteExec ["A3A_fnc_scheduler",2];
+				[[malos],"A3A_fnc_attackHQ"] remoteExec ["A3A_fnc_scheduler",2];
 				};
 			}
 		else
@@ -197,16 +197,16 @@ else
 
 _nul = [1200,"AS"] spawn A3A_fnc_deleteTask;
 _nul = [10,"AS1"] spawn A3A_fnc_deleteTask;
-if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
 
 {
-waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 deleteVehicle _x
 } forEach units _groupTraitor;
 deleteGroup _groupTraitor;
 
 {
-waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 deleteVehicle _x
-} forEach units _group;
-deleteGroup _group;
+} forEach units _grupo;
+deleteGroup _grupo;

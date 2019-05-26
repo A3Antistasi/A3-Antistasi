@@ -59,7 +59,7 @@ else
 					{
 					if (sunOrMoon < 1) then
 						{
-						if ((hasIFA and (typeOf _x in squadLeaders)) or (count (getArray (configfile >> "CfgWeapons" >> primaryWeapon _x >> "muzzles")) == 2)) then
+						if ((hayIFA and (typeOf _x in squadLeaders)) or (count (getArray (configfile >> "CfgWeapons" >> primaryWeapon _x >> "muzzles")) == 2)) then
 							{
 							[_x,_enemy] spawn A3A_fnc_useFlares;
 							};
@@ -71,14 +71,15 @@ else
 			{
 			if ((sunOrMoon <1) and !haveNV) then
 				{
-				if ((hasIFA and (typeOf _x in squadLeaders)) or (count (getArray (configfile >> "CfgWeapons" >> primaryWeapon _x >> "muzzles")) == 2)) then
+				if ((hayIFA and (typeOf _x in squadLeaders)) or (count (getArray (configfile >> "CfgWeapons" >> primaryWeapon _x >> "muzzles")) == 2)) then
 					{
 					[_x] call A3A_fnc_useFlares;
 					};
 				};
 			};
-		if (random 1 < 0.5) then {if (count units _group > 0) then {_x allowFleeing (1 -(_x skill "courage") + (({!([_x] call A3A_fnc_canFight)} count units _group)/(count units _group)))}};
+		if (random 1 < 0.5) then {if (count units _grupo > 0) then {_x allowFleeing (1 -(_x skill "courage") + (({!([_x] call A3A_fnc_canFight)} count units _grupo)/(count units _grupo)))}};
 		};
 	};
 sleep 1 + (random 1);
-} forEach units _group;
+} forEach units _grupo;
+

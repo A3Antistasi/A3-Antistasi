@@ -7,7 +7,7 @@ _dateNum = if (_isMarker) then {server getVariable [_sitio,0]} else {timer getVa
 if (_dateNum < dateToNumber date) then {_dateNum = dateToNumber date};
 if (!_isMarker) then
 	{
-	if (side _sitio == Occupants) then
+	if (side _sitio == malos) then
 		{
 		_time = round (_time * 1.5)
 		}

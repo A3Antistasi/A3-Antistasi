@@ -2,8 +2,8 @@ SDKMortar = "LIB_M2_60";
 SDKMortarHEMag = "LIB_8Rnd_60mmHE_M2";
 SDKMortarSmokeMag = "not_supported";
 SDKMGStatic = "LIB_M1919_M2";
-staticATteamPlayer = "LIB_Pak40";
-staticAAteamPlayer = "LIB_FlaK_30";
+staticATBuenos = "LIB_Pak40";
+staticAABuenos = "LIB_FlaK_30";
 
 staticCrewTeamPlayer = "LIB_US_Bomber_Crew";
 SDKUnarmed = "I_G_Survivor_F";
@@ -27,10 +27,10 @@ vehSDKPlane = "LIB_US_NAC_P39";
 vehSDKBoat = "I_C_Boat_Transport_01_F";
 vehSDKRepair = "LIB_US_GMC_Parm";
 SDKFlag = "Flag_Syndikat_F";
-SDKFlagTexture = "ak.jpg"; if (isServer) then {flagX setFlagTexture SDKFlagTexture};
+SDKFlagTexture = "ak.jpg"; if (isServer) then {bandera setFlagTexture SDKFlagTexture};
 typePetros = "LIB_WP_Sierzant";
 
-supportStaticSDKB = "not_supported";
+soporteStaticSDKB = "not_supported";
 ATStaticSDKB = "not_supported";
 MGStaticSDKB = "not_supported";
 supportStaticsSDKB2 = "not_supported";
@@ -56,7 +56,7 @@ if (gameMode != 4) then
 	vehFIAArmedCar = "LIB_Kfz1_MG42_camo";
 	vehFIATruck = "LIB_OpelBlitz_Open_Y_Camo_w";
 	vehFIACar = "LIB_Kfz1_hood_w";
-	groupsFIASmall = [["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],[FIAMarksman,FIARifleman]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
+	gruposFIASmall = [["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier"],[FIAMarksman,FIARifleman]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
 	groupsFIAMid = [["LIB_DAK_Soldier_2","LIB_DAK_Soldier_3","LIB_DAK_Soldier_2","LIB_DAK_Soldier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier_3","LIB_DAK_AT_soldier","LIB_DAK_AT_grenadier"],["LIB_DAK_Soldier_2","LIB_DAK_Soldier_3","LIB_DAK_Soldier","LIB_DAK_Sniper"]];
 	FIASquad = ["LIB_DAK_NCO_2","LIB_DAK_Soldier_2","LIB_DAK_Soldier_3","LIB_DAK_Soldier_3","LIB_DAK_AT_grenadier","LIB_DAK_AT_soldier","LIB_DAK_radioman","LIB_DAK_medic"];//"IRG_InfSquad";///
 	groupsFIASquad = [FIASquad,["LIB_DAK_NCO_2","LIB_DAK_Soldier_2","LIB_DAK_Soldier_3","LIB_DAK_Soldier_3","LIB_DAK_AT_grenadier","LIB_DAK_Sniper","LIB_DAK_radioman","LIB_DAK_medic"]];
@@ -69,7 +69,7 @@ else
 	vehFIAArmedCar = "LIB_Scout_m3_w";
 	vehFIATruck = "LIB_Zis5v_w";
 	vehFIACar = "LIB_Willys_MB_w";
-	groupsFIASmall = [[FIARifleman,FIARifleman],[FIAMarksman,FIARifleman]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
+	gruposFIASmall = [[FIARifleman,FIARifleman],[FIAMarksman,FIARifleman]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
 	groupsFIAMid = [["LIB_NKVD_p_officer","LIB_NKVD_smgunner","LIB_NKVD_LC_rifleman","LIB_NKVD_rifleman"]];
 	FIASquad = ["LIB_NKVD_lieutenant","LIB_NKVD_smgunner","LIB_NKVD_smgunner","LIB_NKVD_p_officer","LIB_NKVD_p_officer","LIB_NKVD_LC_rifleman","LIB_NKVD_rifleman","LIB_SOV_medic"];//"IRG_InfSquad";///
 	groupsFIASquad = [FIASquad];
@@ -79,7 +79,7 @@ else
 vehPoliceCar = "LIB_Kfz1_sernyt";
 policeOfficer = "SG_sturmpanzer_unterofficer";
 policeGrunt = "SG_sturmpanzer_crew";
-groupsNATOGen = [policeOfficer,policeGrunt];
+gruposNATOGen = [policeOfficer,policeGrunt];
 nameTeamPlayer = "AK";
 
 factionGEN = "SG_STURMPANZER";

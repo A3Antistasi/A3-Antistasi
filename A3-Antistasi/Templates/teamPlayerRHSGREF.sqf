@@ -2,8 +2,8 @@ SDKMortar = "rhsgref_ins_g_2b14";
 SDKMortarHEMag = "rhs_mag_3vo18_10";
 SDKMortarSmokeMag = "rhs_mag_d832du_10";
 SDKMGStatic = "rhsgref_ins_g_DSHKM";
-staticATteamPlayer = "rhsgref_ins_g_SPG9M";
-staticAAteamPlayer = "rhsgref_ins_g_ZU23";
+staticATBuenos = "rhsgref_ins_g_SPG9M";
+staticAABuenos = "rhsgref_ins_g_ZU23";
 
 staticCrewTeamPlayer = "rhsgref_ins_g_militiaman_mosin";
 SDKUnarmed = "I_G_Survivor_F";
@@ -30,7 +30,7 @@ SDKFlag = "Flag_Syndikat_F";
 SDKFlagTexture = "\A3\Data_F\Flags\Flag_Altis_CO.paa";
 typePetros = "rhsgref_ins_g_squadleader";
 
-supportStaticSDKB = "RHS_SPG9_Tripod_Bag";
+soporteStaticSDKB = "RHS_SPG9_Tripod_Bag";
 ATStaticSDKB = "RHS_SPG9_Gun_Bag";
 MGStaticSDKB = "RHS_DShkM_Gun_Bag";
 supportStaticsSDKB2 = "RHS_DShkM_TripodHigh_Bag";
@@ -51,7 +51,7 @@ lampsSDK = ["rhs_acc_2dpZenit","acc_flashlight"];
 ATMineMag = "rhs_mine_tm62m_mag";
 APERSMineMag = "rhs_mine_pmn2_mag";
 
-if (hasFFAA) then
+if (hayFFAA) then
 	{
 	call compile preProcessFileLineNumbers "Templates\OccupantsFFAA.sqf"
 	}
@@ -65,7 +65,7 @@ else
 		vehFIATruck = "rhsgref_cdf_b_ural_open";
 		vehFIACar = "rhsgref_hidf_m998_4dr";
 
-		groupsFIASmall = [["rhsgref_hidf_grenadier","rhsgref_hidf_rifleman"],["rhsgref_hidf_marksman","rhsgref_hidf_rifleman"]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
+		gruposFIASmall = [["rhsgref_hidf_grenadier","rhsgref_hidf_rifleman"],["rhsgref_hidf_marksman","rhsgref_hidf_rifleman"]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
 		groupsFIAMid = [["rhsgref_hidf_teamleader","rhsgref_hidf_machinegunner","rhsgref_hidf_machinegunner_assist","rhsgref_hidf_grenadier"],["rhsgref_hidf_teamleader","rhsgref_hidf_rifleman_m72","rhsgref_hidf_rifleman_m72","rhsgref_hidf_grenadier"]];//["IRG_InfAssault","IRG_InfTeam","IRG_InfTeam_AT"];///
 		FIASquad = ["rhsgref_hidf_squadleader","rhsgref_hidf_machinegunner","rhsgref_hidf_machinegunner_assist","rhsgref_hidf_rifleman","rhsgref_hidf_rifleman_m72","rhsgref_hidf_rifleman_m72","rhsgref_hidf_grenadier","rhsgref_hidf_medic"];//"IRG_InfSquad";///
 		groupsFIASquad = [FIASquad];
@@ -79,7 +79,7 @@ else
 		vehFIATruck = "rhs_zil131_open_msv";
 		vehFIACar = "rhs_uaz_open_MSV_01";
 
-		groupsFIASmall = [["rhs_msv_emr_grenadier",FIARifleman],[FIAMarksman,FIARifleman]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
+		gruposFIASmall = [["rhs_msv_emr_grenadier",FIARifleman],[FIAMarksman,FIARifleman]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
 		groupsFIAMid = [["rhsgref_hidf_teamleader","rhs_msv_emr_machinegunner",FIARifleman,"rhs_msv_emr_grenadier"],["rhsgref_hidf_teamleader","rhs_msv_emr_machinegunner",FIARifleman,"rhs_msv_emr_at"],["rhsgref_hidf_teamleader","rhs_msv_emr_machinegunner",FIARifleman,"rhs_msv_emr_engineer"]];//["IRG_InfAssault","IRG_InfTeam","IRG_InfTeam_AT"];///
 		FIASquad = ["rhs_msv_emr_officer","rhs_msv_emr_grenadier","rhs_msv_emr_machinegunner","rhs_msv_emr_rifleman","rhs_msv_emr_marksman","rhs_msv_emr_engineer","rhs_msv_emr_at","rhs_msv_emr_medic"];//"IRG_InfSquad";///
 		groupsFIASquad = [FIASquad];
@@ -90,7 +90,7 @@ else
 vehPoliceCar = "B_GEN_OFFROAD_01_gen_F";
 policeOfficer = "B_GEN_Commander_F";
 policeGrunt = "B_GEN_Soldier_F";
-groupsNATOGen = [policeOfficer,policeGrunt];
+gruposNATOGen = [policeOfficer,policeGrunt];
 nameTeamPlayer = "ChDKZ";
 
 factionGEN = "BLU_GEN_F";

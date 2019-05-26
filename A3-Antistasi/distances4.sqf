@@ -4,13 +4,13 @@ debugperf = false;
 
 private ["_tiempo","_markersX","_marcador","_positionMRK"];
 
-_timeX = time;
+_tiempo = time;
 
 while {true} do {
 //sleep 0.01;
-if (time - _timeX >= 0.5) then {sleep 0.1} else {sleep 0.5 - (time - _timeX)};
-if (debugperf) then {hint format ["timeX transcurrido: %1 para %2 markersX", time - _timeX, count markersX]};
-_timeX = time;
+if (time - _tiempo >= 0.5) then {sleep 0.1} else {sleep 0.5 - (time - _tiempo)};
+if (debugperf) then {hint format ["Tiempo transcurrido: %1 para %2 markersX", time - _tiempo, count markersX]};
+_tiempo = time;
 
 waitUntil {!isNil "theBoss"};
 

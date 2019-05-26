@@ -27,7 +27,7 @@ if (_marcador in destroyedCities) then
 	}
 else
 	{
-	if (_lado == Occupants) then
+	if (_lado == malos) then
 		{
 		_num = round (_num * (_prestigeOPFOR + _prestigeBLUFOR)/100);
 		_frontera = [_marcador] call A3A_fnc_isFrontline;
@@ -55,7 +55,7 @@ if (_num < 1) then {_num = 1};
 _cuenta = 0;
 while {(spawner getVariable _marcador != 2) and (_cuenta < _num)} do
 	{
-	_group = _params call A3A_fnc_spawnGroup;
+	_grupo = _params call A3A_fnc_spawnGroup;
 	sleep 1;
 	if (_esAAF) then
 		{

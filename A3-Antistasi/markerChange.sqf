@@ -25,17 +25,17 @@ if ((!(_marcador in citiesX)) and (spawner getVariable _marcador != 2)) then
 	_banderas = nearestObjects [_posicion, ["FlagCarrier"], _size];
 	_bandera = _banderas select 0;
 	};
-if (isNil "_flagX") then {_flagX = objNull};
-//[_flagX,"remove"] remoteExec ["A3A_fnc_flagaction",0,_flagX];
+if (isNil "_bandera") then {_bandera = objNull};
+//[_bandera,"remove"] remoteExec ["A3A_fnc_flagaction",0,_bandera];
 
-if (_looser == teamPlayer) then
+if (_looser == buenos) then
 	{
 	_texto = format ["%1 ",nameTeamPlayer];
 	[] call A3A_fnc_tierCheck;
 	}
 else
 	{
-	if (_looser == Occupants) then
+	if (_looser == malos) then
 		{
 		_texto = format ["%1 ",nameOccupants];
 		}
@@ -65,7 +65,7 @@ _sides = _sides - [_winner,_looser];
 _other = _sides select 0;
 if (_marcador in airportsX) then
 	{
-	if (_winner == teamPlayer) then
+	if (_winner == buenos) then
 		{
 		[0,10,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 		if (_looser == malos) then
@@ -91,7 +91,7 @@ if (_marcador in airportsX) then
 			{
 			[-10,-10,_posicion] remoteExec ["A3A_fnc_citySupportChange",2]
 			};
-		if (_looser == teamPlayer) then
+		if (_looser == buenos) then
 			{
 			_prestigeOccupants = -10;
 			_prestigeInvaders = -10;
@@ -104,17 +104,17 @@ if (_marcador in airportsX) then
 	};
 if (_marcador in puestos) then
 	{
-	if !(_winner == teamPlayer) then
+	if !(_winner == buenos) then
 		{
 		server setVariable [_marcador,dateToNumber date,true];
 		if (_looser == buenos) then
 			{
-			if (_winner == Occupants) then {_prestigeOccupants = -5} else {_prestigeInvaders = -5};
+			if (_winner == malos) then {_prestigeOccupants = -5} else {_prestigeInvaders = -5};
 			};
 		}
 	else
 		{
-		if (_looser == Occupants) then {_prestigeOccupants = 5;_prestigeInvaders = 2} else {_prestigeOccupants = 2;_prestigeInvaders = 5};
+		if (_looser == malos) then {_prestigeOccupants = 5;_prestigeInvaders = 2} else {_prestigeOccupants = 2;_prestigeInvaders = 5};
 		};
 	["TaskSucceeded", ["", "Outpost Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Outpost Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
@@ -123,16 +123,16 @@ if (_marcador in puestos) then
 	};
 if (_marcador in puertos) then
 	{
-	if !(_winner == teamPlayer) then
+	if !(_winner == buenos) then
 		{
-		if (_looser == teamPlayer) then
+		if (_looser == buenos) then
 			{
-			if (_winner == Occupants) then {_prestigeOccupants = -5} else {_prestigeInvaders = -5};
+			if (_winner == malos) then {_prestigeOccupants = -5} else {_prestigeInvaders = -5};
 			};
 		}
 	else
 		{
-		if (_looser == Occupants) then {_prestigeOccupants = 5;_prestigeInvaders = 2} else {_prestigeOccupants = 2;_prestigeInvaders = 5};
+		if (_looser == malos) then {_prestigeOccupants = 5;_prestigeInvaders = 2} else {_prestigeOccupants = 2;_prestigeInvaders = 5};
 		};
 	["TaskSucceeded", ["", "Seaport Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Seaport Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
@@ -155,11 +155,11 @@ if (_marcador in recursos) then
 if (_winner == buenos) then
 	{
 	[] call A3A_fnc_tierCheck;
-	if (!isNull _flagX) then
+	if (!isNull _bandera) then
 		{
-		//[_flagX,"remove"] remoteExec ["A3A_fnc_flagaction",0,_flagX];
-		[_flagX,"SDKFlag"] remoteExec ["A3A_fnc_flagaction",0,_flagX];
-		[_flagX,SDKFlagTexture] remoteExec ["setFlagTexture",_flagX];
+		//[_bandera,"remove"] remoteExec ["A3A_fnc_flagaction",0,_bandera];
+		[_bandera,"SDKFlag"] remoteExec ["A3A_fnc_flagaction",0,_bandera];
+		[_bandera,SDKFlagTexture] remoteExec ["setFlagTexture",_bandera];
 		sleep 2;
 		//[_bandera,"unit"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera];
 		//[_bandera,"vehicle"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera];
@@ -176,30 +176,30 @@ if (_winner == buenos) then
 	}
 else
 	{
-	if (!isNull _flagX) then
+	if (!isNull _bandera) then
 		{
-		if (_looser == teamPlayer) then
+		if (_looser == buenos) then
 			{
-			[_flagX,"remove"] remoteExec ["A3A_fnc_flagaction",0,_flagX];
+			[_bandera,"remove"] remoteExec ["A3A_fnc_flagaction",0,_bandera];
 			sleep 2;
-			[_flagX,"take"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_flagX];
+			[_bandera,"take"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera];
 			};
-		if (_winner == Occupants) then
+		if (_winner == malos) then
 			{
-			[_flagX,NATOFlagTexture] remoteExec ["setFlagTexture",_flagX];
+			[_bandera,NATOFlagTexture] remoteExec ["setFlagTexture",_bandera];
 			}
 		else
 			{
-			[_flagX,CSATFlagTexture] remoteExec ["setFlagTexture",_flagX];
+			[_bandera,CSATFlagTexture] remoteExec ["setFlagTexture",_bandera];
 			};
 		};
-	if (_looser == teamPlayer) then
+	if (_looser == buenos) then
 		{
 		[_prestigeOccupants,_prestigeInvaders] spawn A3A_fnc_prestige;
 		if ((random 10 < ((tierWar + difficultyCoef)/4)) and !(["DEF_HQ"] call BIS_fnc_taskExists) and (isPlayer theBoss)) then {[[],"A3A_fnc_attackHQ"] remoteExec ["A3A_fnc_scheduler",2]};
 		};
 	};
-if ((_winner != teamPlayer) and (_looser != teamPlayer)) then
+if ((_winner != buenos) and (_looser != buenos)) then
 	{
 	if (_marcador in puestos) then
 		{

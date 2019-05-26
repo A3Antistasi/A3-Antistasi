@@ -1,4 +1,4 @@
-private _group = _this;
+private _grupo = _this;
 private _result = objNull;
 
 _enemigos = _grupo getVariable ["objectivesX",[]];

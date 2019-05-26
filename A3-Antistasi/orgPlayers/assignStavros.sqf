@@ -1,4 +1,4 @@
-private ["_puntMax","_texto","_multiplier","_newRank","_selectable","_disconnected","_owner","_pointsX","_dataX"];
+private ["_puntMax","_texto","_multiplier","_newRank","_selectable","_disconnected","_owner","_puntos","_datos"];
 _puntMax = 0;
 _texto = "";
 _multiplier = 1;
@@ -9,10 +9,10 @@ _jugadores = [];
 _miembros = [];
 _elegibles = [];
 
-_LeaderX = objNull;
+_lider = objNull;
 
 {
-_playerXes pushBack (_x getVariable ["owner",_x]);
+_jugadores pushBack (_x getVariable ["owner",_x]);
 if (_x != _x getVariable ["owner",_x]) then {waitUntil {_x == _x getVariable ["owner",_x]}};
 if ([_x] call A3A_fnc_isMember) then
 	{
@@ -22,15 +22,15 @@ if ([_x] call A3A_fnc_isMember) then
 		_elegibles pushBack _x;
 		if (_x == theBoss) then
 			{
-			_LeaderX = _x;
-			_dataX = [_LeaderX] call A3A_fnc_numericRank;
-			_puntMax = _dataX select 0;
+			_lider = _x;
+			_datos = [_lider] call A3A_fnc_numericRank;
+			_puntMax = _datos select 0;
 			};
 		};
 	};
-} forEach (playableUnits select {(side (group _x) == teamPlayer)});
+} forEach (playableUnits select {(side (group _x) == buenos)});
 
-if (isNull _LeaderX) then
+if (isNull _lider) then
 	{
 	_puntMax = 0;
 	_disconnected = true;
@@ -38,25 +38,25 @@ if (isNull _LeaderX) then
 _texto = "Promoted Players:\n\n";
 _promoted = false;
 {
-_pointsX = _x getVariable ["score",0];
-_dataX = [_x] call A3A_fnc_numericRank;
-_multiplier = _dataX select 0;
-_newRank = _dataX select 1;
-_rank = _x getVariable ["rankX","PRIVATE"];
+_puntos = _x getVariable ["score",0];
+_datos = [_x] call A3A_fnc_numericRank;
+_multiplier = _datos select 0;
+_newRank = _datos select 1;
+_rank = _x getVariable ["rango","PRIVATE"];
 if (_rank != "COLONEL") then
 	{
-	if (_pointsX >= 50*_multiplier) then
+	if (_puntos >= 50*_multiplier) then
 		{
 		_promoted = true;
 		[_x,_newRank] remoteExec ["A3A_fnc_ranksMP"];
-		_x setVariable ["rankX",_newRank,true];
+		_x setVariable ["rango",_newRank,true];
 		_texto = format ["%3%1: %2.\n",name _x,_newRank,_texto];
 		[-1*(50*_multiplier),_x] call A3A_fnc_playerScoreAdd;
 		_multiplier = _multiplier + 1;
 		sleep 5;
 		};
 	};
-} forEach _playerXes;
+} forEach _jugadores;
 
 if (_promoted) then
 	{
@@ -66,7 +66,7 @@ if (_promoted) then
 
 _proceder = false;
 
-if ((isNull _LeaderX) or switchCom) then
+if ((isNull _lider) or switchCom) then
 	{
 	if (count _miembros > 0) then
 		{
@@ -79,9 +79,9 @@ if (!_proceder) exitWith {};
 
 _selectable = objNull;
 {
-_dataX = [_x] call A3A_fnc_numericRank;
-_multiplier = _dataX select 0;
-if ((_multiplier > _puntMax) and (_x!=_LeaderX)) then
+_datos = [_x] call A3A_fnc_numericRank;
+_multiplier = _datos select 0;
+if ((_multiplier > _puntMax) and (_x!=_lider)) then
 	{
 	_selectable = _x;
 	_puntMax = _multiplier;

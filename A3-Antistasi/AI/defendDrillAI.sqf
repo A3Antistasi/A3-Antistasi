@@ -9,8 +9,8 @@ private _lado = side _grupo;
 private _friendlies = if (_lado == malos) then {[malos,civilian]} else {[_lado]};
 private _morteros = [];
 private _mgs = [];
-private _movable = [leader _group];
-private _baseOfFire = [leader _group];
+private _movable = [leader _grupo];
+private _baseOfFire = [leader _grupo];
 
 {
 if (alive _x) then
@@ -38,7 +38,7 @@ if (alive _x) then
 			};
 		};
 	};
-} forEach (units _group);
+} forEach (units _grupo);
 
 if (count _morteros == 1) then
 	{
@@ -55,7 +55,7 @@ if (count _morteros == 1) then
 	};
 if (count _mgs == 1) then
 	{
-	_mgs append ((units _group) select {_x getVariable ["typeOfSoldier",""] == "StaticBase"});
+	_mgs append ((units _grupo) select {_x getVariable ["typeOfSoldier",""] == "StaticBase"});
 	if (count _mgs == 2) then
 		{
 		_mgs spawn A3A_fnc_staticMGDrill;
@@ -76,7 +76,7 @@ if (_modo == "FORTIFY") then
 	{
 	_buildingsX = _buildingsX call BIS_fnc_arrayShuffle;
 	_bldPos = [];
-	_countX = count _movable;
+	_cuenta = count _movable;
 	_exit = false;
 	{
 	_edificio = _x;
@@ -85,26 +85,26 @@ if (_modo == "FORTIFY") then
 	if ([_x] call isOnRoof) then
 		{
 		_bldPos pushBack _x;
-		if (count _bldPos == _countX) then {_exit = true};
+		if (count _bldPos == _cuenta) then {_exit = true};
 		};
 	} forEach (_edificio buildingPos -1);
 	} forEach _buildingsX;
 	};
 while {true} do
 	{
-	if (({alive _x} count (_group getVariable ["movable",[]]) == 0) or (isNull _group)) exitWith {};
+	if (({alive _x} count (_grupo getVariable ["movable",[]]) == 0) or (isNull _grupo)) exitWith {};
 
-	_objectivesX = _group call A3A_fnc_enemyList;
-	_group setVariable ["objectivesX",_objectivesX];
+	_objectivesX = _grupo call A3A_fnc_enemyList;
+	_grupo setVariable ["objectivesX",_objectivesX];
 	if !(_objectivesX isEqualTo []) then
 		{
 		_aire = objNull;
-		_tanksX = objNull;
+		_tanques = objNull;
 		{
 		_eny = assignedVehicle (_x select 4);
 		if (_eny isKindOf "Tank") then
 			{
-			_tanksX = _eny;
+			_tanques = _eny;
 			}
 		else
 			{
@@ -116,10 +116,10 @@ while {true} do
 					};
 				};
 			};
-		if (!(isNull _aire) and !(isNull _tanksX)) exitWith {};
+		if (!(isNull _aire) and !(isNull _tanques)) exitWith {};
 		} forEach _objectivesX;
-		_LeaderX = leader _group;
-		_allNearFriends = allUnits select {(_x distance _LeaderX < (distanceSPWN/2)) and (side _x in _friendlies) and ([_x] call A3A_fnc_canFight)};
+		_lider = leader _grupo;
+		_allNearFriends = allUnits select {(_x distance _lider < (distanceSPWN/2)) and (side _x in _friendlies) and ([_x] call A3A_fnc_canFight)};
 		{
 		_unit = _x;
 		{
@@ -130,10 +130,10 @@ while {true} do
 			if (_know < 1.2) then {_unit reveal [_objetivo,(_know + 0.2)]};
 			};
 		} forEach _objectivesX;
-		} forEach (_allNearFriends select {_x == leader _x}) - [_LeaderX];
+		} forEach (_allNearFriends select {_x == leader _x}) - [_lider];
 		_numNearFriends = count _allNearFriends;
 		_aire = objNull;
-		_tanksX = objNull;
+		_tanques = objNull;
 		_numObjectives = count _objectivesX;
 		_tarea = _grupo getVariable ["tarea","Patrol"];
 		_cercano = _grupo call A3A_fnc_nearEnemy;
@@ -143,24 +143,24 @@ while {true} do
 			{
 			if ({(_x call A3A_fnc_typeOfSoldier == "AAMan") or (_x call A3A_fnc_typeOfSoldier == "StaticGunner")} count _allNearFriends == 0) then
 				{
-				if (_lado != teamPlayer) then {[[getPosASL _LeaderX,_lado,"Air",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
+				if (_lado != buenos) then {[[getPosASL _lider,_lado,"Air",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
 				};
 			//_nuevaTarea = ["Hide",_soldados - (_soldados select {(_x call A3A_fnc_typeOfSoldier == "AAMan") or (_x getVariable ["typeOfSoldier",""] == "StaticGunner")})];
 			_grupo setVariable ["tarea","Hide"];
 			_tarea = "Hide";
 			};
-		if !(isNull _tanksX) then
+		if !(isNull _tanques) then
 			{
 			if ({_x call A3A_fnc_typeOfSoldier == "ATMan"} count _allFriendlies == 0) then
 				{
 				_mortero = _grupo getVariable ["morteros",objNull];
 				if (!(isNull _mortero) and ([_mortero] call A3A_fnc_canFight)) then
 					{
-					if ({if (_x distance _tanksX < 100) exitWith {1}} count _allNearFriends == 0) then {[_mortarX,getPosASL _tanksX,4] spawn A3A_fnc_mortarSupport};
+					if ({if (_x distance _tanques < 100) exitWith {1}} count _allNearFriends == 0) then {[_mortero,getPosASL _tanques,4] spawn A3A_fnc_mortarSupport};
 					}
 				else
 					{
-					if (_lado != teamPlayer) then {[[getPosASL _LeaderX,_lado,"Tank",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
+					if (_lado != buenos) then {[[getPosASL _lider,_lado,"Tank",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
 					};
 				};
 			//_nuevaTarea = ["Hide",_soldados - (_soldados select {(_x getVariable ["typeOfSoldier",""] == "ATMan")})];
@@ -169,25 +169,25 @@ while {true} do
 			};
 		if (_numObjectives > 2*_numNearFriends) then
 			{
-			if !(isNull _nearX) then
+			if !(isNull _cercano) then
 				{
 				if (_lado != buenos) then {[[getPosASL _lider,_lado,"Normal",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};
 				_mortero = _grupo getVariable ["morteros",objNull];
 				if (!(isNull _mortero) and ([_mortero] call A3A_fnc_canFight)) then
 					{
-					if ({if (_x distance _nearX < 100) exitWith {1}} count _allNearFriends == 0) then {[_mortarX,getPosASL _nearX,1] spawn A3A_fnc_mortarSupport};
+					if ({if (_x distance _cercano < 100) exitWith {1}} count _allNearFriends == 0) then {[_mortero,getPosASL _cercano,1] spawn A3A_fnc_mortarSupport};
 					};
 				};
-			_group setVariable ["tarea","Hide"];
+			_grupo setVariable ["tarea","Hide"];
 			_tarea = "Hide";
 			};
 
 
 		if (_tarea == "Patrol") then
 			{
-			if ((_nearX distance _LeaderX < 150) and !(isNull _nearX)) then
+			if ((_cercano distance _lider < 150) and !(isNull _cercano)) then
 				{
-				_group setVariable ["tarea","Assault"];
+				_grupo setVariable ["tarea","Assault"];
 				_tarea = "Assault";
 				}
 			else
@@ -197,7 +197,7 @@ while {true} do
 					_mortero = _grupo getVariable ["morteros",objNull];
 					if (!(isNull _mortero) and ([_mortero] call A3A_fnc_canFight)) then
 						{
-						if ({if (_x distance _nearX < 100) exitWith {1}} count _allNearFriends == 0) then {[_mortarX,getPosASL _nearX,1] spawn A3A_fnc_mortarSupport};
+						if ({if (_x distance _cercano < 100) exitWith {1}} count _allNearFriends == 0) then {[_mortero,getPosASL _cercano,1] spawn A3A_fnc_mortarSupport};
 						};
 					};
 				};
@@ -205,20 +205,20 @@ while {true} do
 
 		if (_tarea == "Assault") then
 			{
-			if (_nearX distance _LeaderX < 50) then
+			if (_cercano distance _lider < 50) then
 				{
-				_group setVariable ["tarea","AssaultClose"];
+				_grupo setVariable ["tarea","AssaultClose"];
 				_tarea = "AssaultClose";
 				}
 			else
 				{
-				if (_nearX distance _LeaderX > 150) then
+				if (_cercano distance _lider > 150) then
 					{
-					_group setVariable ["tarea","Patrol"];
+					_grupo setVariable ["tarea","Patrol"];
 					}
 				else
 					{
-					if !(isNull _nearX) then
+					if !(isNull _cercano) then
 						{
 						{
 						[_x,_cercano] call A3A_fnc_suppressingFire;
@@ -226,7 +226,7 @@ while {true} do
 						_mortero = _grupo getVariable ["morteros",objNull];
 						if (!(isNull _mortero) and ([_mortero] call A3A_fnc_canFight)) then
 							{
-							if ({if (_x distance _nearX < 100) exitWith {1}} count _allNearFriends == 0) then {[_mortarX,getPosASL _nearX,1] spawn A3A_fnc_mortarSupport};
+							if ({if (_x distance _cercano < 100) exitWith {1}} count _allNearFriends == 0) then {[_mortero,getPosASL _cercano,1] spawn A3A_fnc_mortarSupport};
 							};
 						};
 					};
@@ -235,48 +235,48 @@ while {true} do
 
 		if (_tarea == "AssaultClose") then
 			{
-			if (_nearX distance _LeaderX > 150) then
+			if (_cercano distance _lider > 150) then
 				{
-				_group setVariable ["tarea","Patrol"];
+				_grupo setVariable ["tarea","Patrol"];
 				}
 			else
 				{
-				if (_nearX distance _LeaderX > 50) then
+				if (_cercano distance _lider > 50) then
 					{
-					_group setVariable ["tarea","Assault"];
+					_grupo setVariable ["tarea","Assault"];
 					}
 				else
 					{
-					if !(isNull _nearX) then
+					if !(isNull _cercano) then
 						{
-						_flankers = (_group getVariable ["flankers",[]]) select {([_x] call A3A_fnc_canFight) and !(_x getVariable ["maneuvering",false])};
+						_flankers = (_grupo getVariable ["flankers",[]]) select {([_x] call A3A_fnc_canFight) and !(_x getVariable ["maneuvering",false])};
 						if (count _flankers != 0) then
 							{
 							{
-							[_x,_x,_nearX] spawn A3A_fnc_chargeWithSmoke;
-							} forEach ((_group getVariable ["baseOfFire",[]]) select {([_x] call A3A_fnc_canFight) and (_x getVariable ["typeOfSoldier",""] == "Normal")});
-							if ([getPosASL _nearX] call A3A_fnc_isBuildingPosition) then
+							[_x,_x,_cercano] spawn A3A_fnc_chargeWithSmoke;
+							} forEach ((_grupo getVariable ["baseOfFire",[]]) select {([_x] call A3A_fnc_canFight) and (_x getVariable ["typeOfSoldier",""] == "Normal")});
+							if ([getPosASL _cercano] call A3A_fnc_isBuildingPosition) then
 								{
 								_engineerX = objNull;
-								_building = nearestBuilding _nearX;
+								_building = nearestBuilding _cercano;
 								if !(_building getVariable ["assaulted",false]) then
 									{
 									{
-									if ((_x call A3A_fnc_typeOfSoldier == "Engineer") and {_x != leader _x} and {!(_x getVariable ["maneuvering",true])} and {_x distance _nearX < 50} and {[_x] call A3A_fnc_canFight}) exitWith {_engineerX = _x};
-									} forEach (_group getVariable ["baseOfFire",[]]);
+									if ((_x call A3A_fnc_typeOfSoldier == "Engineer") and {_x != leader _x} and {!(_x getVariable ["maneuvering",true])} and {_x distance _cercano < 50} and {[_x] call A3A_fnc_canFight}) exitWith {_engineerX = _x};
+									} forEach (_grupo getVariable ["baseOfFire",[]]);
 									if !(isNull _engineerX) then
 										{
-										[_engineerX,_nearX,_building] spawn A3A_fnc_destroyBuilding;
+										[_engineerX,_cercano,_building] spawn A3A_fnc_destroyBuilding;
 										}
 									else
 										{
-										[[_flankers,_nearX] call BIS_fnc_nearestPosition,_nearX,_building] spawn A3A_fnc_assaultBuilding;
+										[[_flankers,_cercano] call BIS_fnc_nearestPosition,_cercano,_building] spawn A3A_fnc_assaultBuilding;
 										};
 									};
 								}
 							else
 								{
-								[_flankers,_nearX] spawn A3A_fnc_doFlank;
+								[_flankers,_cercano] spawn A3A_fnc_doFlank;
 								};
 							};
 						};
@@ -286,33 +286,33 @@ while {true} do
 
 		if (_tarea == "Hide") then
 			{
-			if ((isNull _tanksX) and {isNull _aire} and {_numObjectives <= 2*_numNearFriends}) then
+			if ((isNull _tanques) and {isNull _aire} and {_numObjectives <= 2*_numNearFriends}) then
 				{
-				_group setVariable ["tarea","Patrol"];
+				_grupo setVariable ["tarea","Patrol"];
 				}
 			else
 				{
-				_movable = (_group getVariable ["movable",[]]) select {[_x] call A3A_fnc_canFight and !(_x getVariable ["maneuvering",false])};
+				_movable = (_grupo getVariable ["movable",[]]) select {[_x] call A3A_fnc_canFight and !(_x getVariable ["maneuvering",false])};
 				_movable spawn A3A_fnc_hideInBuilding;
 				};
 			};
 		}
 	else
 		{
-		if (_group getVariable ["tarea","Patrol"] != "Patrol") then
+		if (_grupo getVariable ["tarea","Patrol"] != "Patrol") then
 			{
-			if (_group getVariable ["tarea","Patrol"] == "Hide") then {_group call A3A_fnc_recallGroup};
-			_group setVariable ["tarea","Patrol"];
+			if (_grupo getVariable ["tarea","Patrol"] == "Hide") then {_grupo call A3A_fnc_recallGroup};
+			_grupo setVariable ["tarea","Patrol"];
 			};
-		if (side _group == teamPlayer) then
+		if (side _grupo == buenos) then
 			{
-			if (time >= _group getVariable ["autoRearm",time]) then
+			if (time >= _grupo getVariable ["autoRearm",time]) then
 				{
-				_group setVariable ["autoRearm",time + 120];
-				{[_x] spawn A3A_fnc_autoRearm; sleep 1} forEach ((_group getVariable ["movable",[]]) select {[_x] call A3A_fnc_canFight and !(_x getVariable ["maneuvering",false])});
+				_grupo setVariable ["autoRearm",time + 120];
+				{[_x] spawn A3A_fnc_autoRearm; sleep 1} forEach ((_grupo getVariable ["movable",[]]) select {[_x] call A3A_fnc_canFight and !(_x getVariable ["maneuvering",false])});
 				};
 			};
 		};
-	diag_log format ["Tarea:%1.Movable:%2.Base:%3.Flankers:%4",_group getVariable "tarea",_group getVariable "movable",_group getVariable "baseOfFire",_group getVariable "flankers"];
+	diag_log format ["Tarea:%1.Movable:%2.Base:%3.Flankers:%4",_grupo getVariable "tarea",_grupo getVariable "movable",_grupo getVariable "baseOfFire",_grupo getVariable "flankers"];
 	sleep 30;
 	};

@@ -1,9 +1,9 @@
-private ["_timeX","_tsk"];
+private ["_tiempo","_tsk"];
 
-_timeX = _this select 0;
+_tiempo = _this select 0;
 _tsk = _this select 1;
 if (isNil "_tsk") exitWith {};
-if (_timeX > 0) then {sleep ((_timeX/2) + random _timeX)};
+if (_tiempo > 0) then {sleep ((_tiempo/2) + random _tiempo)};
 
 if (count misiones > 0) then
 	{

@@ -8,7 +8,7 @@ if !(skillMult == 1) then
 		{
 		server setVariable ["hr",25,true];
 		server setVariable ["resourcesFIA",5000,true];
-		vehInGarage = [vehSDKTruck,vehSDKTruck,SDKMortar,SDKMGStatic,staticAAteamPlayer];
+		vehInGarage = [vehSDKTruck,vehSDKTruck,SDKMortar,SDKMGStatic,staticAABuenos];
 		minWeaps = 15;
 		_index = sniperRifle call jn_fnc_arsenal_itemType;
 		[_index,sniperRifle,-1] call jn_fnc_arsenal_addItem;
@@ -21,7 +21,7 @@ if !(skillMult == 1) then
 			[_index,_magazine,-1] call jn_fnc_arsenal_addItem;
 			};
 		unlockedWeapons pushBack sniperRifle;
-		if !(hasTFAR) then
+		if !(hayTFAR) then
 			{
 			_index = "ItemRadio" call jn_fnc_arsenal_itemType;
 			[_index,"ItemRadio",-1] call jn_fnc_arsenal_addItem;

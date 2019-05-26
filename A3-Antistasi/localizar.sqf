@@ -1,4 +1,4 @@
-private ["_pos","_sitio","_city","_texto"];
+private ["_pos","_sitio","_ciudad","_texto"];
 
 _sitio = _this select 0;
 
@@ -24,11 +24,11 @@ else
 		{
 		if (isOnRoad getMarkerPos _sitio) then
 			{
-			_texto = format ["Roadblock near %1",_city]
+			_texto = format ["Roadblock near %1",_ciudad]
 			}
 		else
 			{
-			_texto = format ["Forest near %1",_city]
+			_texto = format ["Forest near %1",_ciudad]
 			};
 		}
 	else{

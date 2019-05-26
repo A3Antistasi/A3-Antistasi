@@ -5,8 +5,8 @@ private ["_unit","_marcador","_posicion","_cuenta"];
 
 _marcador = _this select 0;
 
-_difficultX = if (random 10 < tierWar) then {true} else {false};
-_leave = false;
+_dificil = if (random 10 < tierWar) then {true} else {false};
+_salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -14,8 +14,8 @@ _posicion = getMarkerPos _marcador;
 
 _POWs = [];
 
-_timeLimit = if (_difficultX) then {30} else {120};//120
-if (hasIFA) then {_timeLimit = _timeLimit * 2};
+_timeLimit = if (_dificil) then {30} else {120};//120
+if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
@@ -46,17 +46,17 @@ if (count _posibles > 0) then
 	}
 else
 	{
-	_countX = round random 10;
-	for "_i" from 0 to _countX do
+	_cuenta = round random 10;
+	for "_i" from 0 to _cuenta do
 		{
 		_postmp = [_posicion, 5, random 360] call BIS_Fnc_relPos;
 		_poscasa pushBack _postmp;
 		};
 	};
-_grpPOW = createGroup teamPlayer;
-for "_i" from 0 to _countX do
+_grpPOW = createGroup buenos;
+for "_i" from 0 to _cuenta do
 	{
-	_unit = _grpPOW createUnit [SDKUnarmed, (_posHouse select _i), [], 0, "NONE"];
+	_unit = _grpPOW createUnit [SDKUnarmed, (_poscasa select _i), [], 0, "NONE"];
 	_unit allowDamage false;
 	[_unit,true] remoteExec ["setCaptive",0,_unit];
 	_unit setCaptive true;
@@ -72,7 +72,7 @@ for "_i" from 0 to _countX do
 	sleep 1;
 	//if (alive _unit) then {_unit playMove "UnaErcPoslechVelitele1";};
 	_POWS pushBack _unit;
-	[_unit,"prisonerX"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_unit];
+	[_unit,"prisonerX"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
 	[_unit] call A3A_fnc_reDress;
 	};
 
@@ -109,7 +109,7 @@ if (dateToNumber date > _dateLimitNum) then
 
 waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 50)} count _POWs > 0)};
 
-_bonus = if (_difficultX) then {2} else {1};
+_bonus = if (_dificil) then {2} else {1};
 
 if ({alive _x} count _POWs == 0) then
 	{

@@ -1,7 +1,7 @@
 private _morty = _this select 0;
-private _mortarX = vehicle _morty;
-if (_mortarX == _morty) exitWith {};
-if (!alive _mortarX) exitWith
+private _mortero = vehicle _morty;
+if (_mortero == _morty) exitWith {};
+if (!alive _mortero) exitWith
 	{
 	(group _morty) setVariable ["morteros",objNull];
 	};

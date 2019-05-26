@@ -3,8 +3,8 @@
 params ["_distanceX","_modo","_referencia","_variable"];
 
 _distanceX = _this select 0;//la distanceX requisito, normalmente distanceSPWN)
-_modo = _this select 1;//lo que devuelve la función, 0 un array, un número mayor un boolean cuando la countX llegue a ese número.
-_referencia = _this select 2; // posición en formatX array u objeto
+_modo = _this select 1;//lo que devuelve la función, 0 un array, un número mayor un boolean cuando la cuenta llegue a ese número.
+_referencia = _this select 2; // posición en formato array u objeto
 _variable = _this select 3;//side
 private _result = false;
 private _allUnits = allUnits select {_x getVariable ["spawner",false]};

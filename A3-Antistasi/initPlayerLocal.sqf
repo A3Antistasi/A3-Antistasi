@@ -37,9 +37,9 @@ if (isMultiplayer) then
 	cutText ["Starting Mission","BLACK IN",0];
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
-	if (hasTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
+	if (hayTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
 	tkPunish = if (paramsArray select 5 == 1) then {true} else {false};
-	if ((side player == teamPlayer) and tkPunish) then
+	if ((side player == buenos) and tkPunish) then
 		{
 		player addEventHandler ["Fired",
 			{
@@ -62,8 +62,8 @@ if (isMultiplayer) then
 else
 	{
 	theBoss = player;
-	group = group player;
-	if (worldName == "Tanoa") then {group setGroupId ["Pulu","GroupColor4"]} else {group setGroupId ["Stavros","GroupColor4"]};
+	grupo = group player;
+	if (worldName == "Tanoa") then {grupo setGroupId ["Pulu","GroupColor4"]} else {grupo setGroupId ["Stavros","GroupColor4"]};
 	player setIdentity "protagonista";
 	player setUnitRank "COLONEL";
 	player hcSetGroup [group player];
@@ -92,16 +92,16 @@ _introShot =
     ]
     ] spawn BIS_fnc_establishingShot;
 
-_titulo = if (worldName == "Tanoa") then {["Warlords of the Pacific","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText} else {if (hasIFA) then {["Armia Krajowa","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText} else {["Antistasi","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText}};
+_titulo = if (worldName == "Tanoa") then {["Warlords of the Pacific","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText} else {if (hayIFA) then {["Armia Krajowa","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText} else {["Antistasi","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText}};
 disableUserInput false;
 player addWeaponGlobal "itemmap";
-if !(hasIFA) then {player addWeaponGlobal "itemgps"};
+if !(hayIFA) then {player addWeaponGlobal "itemgps"};
 player setVariable ["spawner",true,true];
 if (isMultiplayer) then
 	{
 	if (paramsArray select 8 == 1) then {[] execVM "playerMarkers.sqf"};
 	};
-if (!hasACE) then
+if (!hayACE) then
 	{
 	[player] execVM "Revive\initRevive.sqf";
 	tags = [] execVM "tags.sqf";
@@ -130,7 +130,7 @@ if (player getVariable ["pvp",false]) exitWith
 			}
 		else
 			{
-			if ({(side group _x != teamPlayer)} count playableUnits > {(side group _x == teamPlayer)} count playableUnits) then
+			if ({(side group _x != buenos)} count playableUnits > {(side group _x == buenos)} count playableUnits) then
 				{
 				["noPvP",false,1,false,false] call BIS_fnc_endMission;
 				diag_log "Antistasi: PvP player kicked because PvP players number is equal to non PvP";
@@ -142,7 +142,7 @@ if (player getVariable ["pvp",false]) exitWith
 				};
 			};
 		};
-	if (side player == Occupants) then
+	if (side player == malos) then
 		{
 		if (activeUSAF) then {[player] call A3A_fnc_RHSdress};
 		}
@@ -150,7 +150,7 @@ if (player getVariable ["pvp",false]) exitWith
 		{
 		if (activeAFRF) then {[player] call A3A_fnc_RHSdress};
 		};
-	if (hasACE) then {[] call A3A_fnc_ACEpvpReDress};
+	if (hayACE) then {[] call A3A_fnc_ACEpvpReDress};
 	respawnTeamPlayer setMarkerAlphaLocal 0;
 	player addEventHandler ["GetInMan",
 		{
@@ -173,8 +173,8 @@ if (player getVariable ["pvp",false]) exitWith
 		if ((_caja == NATOAmmoBox) or (_caja == CSATAmmoBox)) then {_override = true};
 		_override
 		}];
-	_nameX = if (side player == Occupants) then {nameOccupants} else {nameInvaders};
-	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,_nameX]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
+	_nombre = if (side player == malos) then {nameOccupants} else {nameInvaders};
+	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 	waituntil {!isnull (finddisplay 46)};
 	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
@@ -209,10 +209,10 @@ if (player getVariable ["pvp",false]) exitWith
 
 player setVariable ["owner",player,true];
 player setVariable ["punish",0,true];
-player setVariable ["moneyX",100,true];
-player setVariable ["rankX",rank player,true];
+player setVariable ["dinero",100,true];
+player setVariable ["rango",rank player,true];
 
-stragglers = creategroup teamPlayer;
+stragglers = creategroup buenos;
 (group player) enableAttack false;
 player setUnitTrait ["camouflageCoef",0.8];
 player setUnitTrait ["audibleCoef",0.8];
@@ -232,12 +232,12 @@ player addEventHandler ["FIRED",
 			}
 		else
 			{
-			_city = [citiesX,_player] call BIS_fnc_nearestPosition;
-			_size = [_city] call A3A_fnc_sizeMarker;
-			_dataX = server getVariable _city;
-			if (random 100 < _dataX select 2) then
+			_ciudad = [citiesX,_player] call BIS_fnc_nearestPosition;
+			_size = [_ciudad] call A3A_fnc_sizeMarker;
+			_datos = server getVariable _ciudad;
+			if (random 100 < _datos select 2) then
 				{
-				if (_player distance getMarkerPos _city < _size * 1.5) then
+				if (_player distance getMarkerPos _ciudad < _size * 1.5) then
 					{
 					[_player,false] remoteExec ["setCaptive",0,_player];
 					_player setCaptive false;
@@ -253,10 +253,10 @@ player addEventHandler ["FIRED",
 	];
 player addEventHandler ["InventoryOpened",
 	{
-	private ["_playerX","_containerX","_tipo"];
+	private ["_jugador","_containerX","_tipo"];
 	_control = false;
-	_playerX = _this select 0;
-	if (captive _playerX) then
+	_jugador = _this select 0;
+	if (captive _jugador) then
 		{
 		_containerX = _this select 1;
 		_tipo = typeOf _containerX;
@@ -264,20 +264,20 @@ player addEventHandler ["InventoryOpened",
 			{
 			if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
 				{
-				[_playerX,false] remoteExec ["setCaptive",0,_playerX];
-				_playerX setCaptive false;
+				[_jugador,false] remoteExec ["setCaptive",0,_jugador];
+				_jugador setCaptive false;
 				}
 			else
 				{
-				_city = [citiesX,_playerX] call BIS_fnc_nearestPosition;
-				_size = [_city] call A3A_fnc_sizeMarker;
-				_dataX = server getVariable _city;
-				if (random 100 < _dataX select 2) then
+				_ciudad = [citiesX,_jugador] call BIS_fnc_nearestPosition;
+				_size = [_ciudad] call A3A_fnc_sizeMarker;
+				_datos = server getVariable _ciudad;
+				if (random 100 < _datos select 2) then
 					{
-					if (_playerX distance getMarkerPos _city < _size * 1.5) then
+					if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
 						{
-						[_playerX,false] remoteExec ["setCaptive",0,_playerX];
-						_playerX setCaptive false;
+						[_jugador,false] remoteExec ["setCaptive",0,_jugador];
+						_jugador setCaptive false;
 						};
 					};
 				};
@@ -324,12 +324,12 @@ player addEventHandler ["HandleHeal",
 			}
 		else
 			{
-			_city = [citiesX,_player] call BIS_fnc_nearestPosition;
-			_size = [_city] call A3A_fnc_sizeMarker;
-			_dataX = server getVariable _city;
-			if (random 100 < _dataX select 2) then
+			_ciudad = [citiesX,_player] call BIS_fnc_nearestPosition;
+			_size = [_ciudad] call A3A_fnc_sizeMarker;
+			_datos = server getVariable _ciudad;
+			if (random 100 < _datos select 2) then
 				{
-				if (_player distance getMarkerPos _city < _size * 1.5) then
+				if (_player distance getMarkerPos _ciudad < _size * 1.5) then
 					{
 					[_player,false] remoteExec ["setCaptive",0,_player];
 					_player setCaptive false;
@@ -351,7 +351,7 @@ player addEventHandler ["WeaponAssembled",
 			publicVariable "staticsToSave";
 			[_veh] call A3A_fnc_AIVEHinit;
 			};
-		_markersX = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
+		_markersX = markersX select {lados getVariable [_x,sideUnknown] == buenos};
 		_pos = position _veh;
 		if (_markersX findIf {_pos inArea _x} != -1) then {hint "Static weapon has been deployed for use in a nearby zone, and will be used by garrison militia if you leave it here the next time the zone spawns"};
 		}
@@ -381,7 +381,7 @@ player addEventHandler ["GetInMan",
 		{
 		if !([player] call A3A_fnc_isMember) then
 			{
-			_owner = _veh getVariable "ownerX";
+			_owner = _veh getVariable "duenyo";
 			if (!isNil "_owner") then
 				{
 				if (_owner isEqualType "") then
@@ -412,7 +412,7 @@ player addEventHandler ["GetInMan",
 if (isMultiplayer) then
 	{
 	["InitializePlayer", [player]] call BIS_fnc_dynamicGroups;//Exec on client
-	["InitializeGroup", [player,teamPlayer,true]] call BIS_fnc_dynamicGroups;
+	["InitializeGroup", [player,buenos,true]] call BIS_fnc_dynamicGroups;
 	membershipEnabled = if (paramsArray select 3 == 1) then {true} else {false};
 	personalGarage = [];
 	if (membershipEnabled) then
@@ -424,8 +424,8 @@ if (isMultiplayer) then
 				miembros pushBack (getPlayerUID player);
 				publicVariable "miembros";
 				};
-			_nonMembers = {(side group _x == teamPlayer) and !([_x] call A3A_fnc_isMember)} count playableUnits;
-			if (_nonMembers >= (playableSlotsNumber teamPlayer) - bookedSlots) then {["memberSlots",false,1,false,false] call BIS_fnc_endMission};
+			_nonMembers = {(side group _x == buenos) and !([_x] call A3A_fnc_isMember)} count playableUnits;
+			if (_nonMembers >= (playableSlotsNumber buenos) - bookedSlots) then {["memberSlots",false,1,false,false] call BIS_fnc_endMission};
 			if (memberDistance != 16000) then {[] execVM "orgPlayers\nonMemberDistance.sqf"};
 			};
 		};
@@ -459,7 +459,7 @@ if (_isJip) then
 	else
 		{
 		hint format ["Welcome back %1", name player];
-		if ({([_x] call A3A_fnc_isMember) and (side (group _x) == teamPlayer)} count playableUnits == 1) then
+		if ({([_x] call A3A_fnc_isMember) and (side (group _x) == buenos)} count playableUnits == 1) then
 			{
 			[player] call A3A_fnc_theBossInit;
 			[] remoteExec ["A3A_fnc_assigntheBoss",2];
@@ -554,24 +554,24 @@ waitUntil {scriptDone _titulo};
 
 _texto = [];
 
-if ((hasTFAR) or (hasACRE)) then
+if ((hayTFAR) or (hayACRE)) then
 	{
 	_texto = ["TFAR or ACRE Detected\n\nAntistasi detects TFAR or ACRE in the server config.\nAll players will start with addon default radios.\nDefault revive system will shut down radios while players are inconscious.\n\n"];
 	};
-if (hasACE) then
+if (hayACE) then
 	{
 	_texto = _texto + ["ACE 3 Detected\n\nAntistasi detects ACE modules in the server config.\nACE items added to arsenal and ammoboxes. Default AI control is disabled\nIf ACE Medical is used, default revive system will be disabled.\nIf ACE Hearing is used, default earplugs will be disabled."];
 	};
-if (hasRHS) then
+if (hayRHS) then
 	{
 	_texto = _texto + ["RHS Detected\n\nAntistasi detects RHS in the server config.\nDepending on the modules will have the following effects.\n\nAFRF: Replaces CSAT by a mix of russian units\n\nUSAF: Replaces NATO by a mix of US units\n\nGREF: Recruited AI will count with RHS as basic weapons, replaces FIA with Chdk units. Adds some civilian trucks"];
 	};
-if (hasFFAA) then
+if (hayFFAA) then
 	{
 	_texto = _texto + ["FFAA Detected\n\nAntistasi detects FFAA in the server config.\nFIA Faction will be replaced by Spanish Armed Forces"];
 	};
 
-if (hasTFAR or hasACE or hasRHS or hasACRE or hasFFAA) then
+if (hayTFAR or hayACE or hayRHS or hayACRE or hayFFAA) then
 	{
 	[_texto] spawn
 		{
@@ -595,24 +595,24 @@ if ((!isServer) and (isMultiplayer)) then {caja call jn_fnc_arsenal_init};
 caja allowDamage false;
 caja addAction ["Transfer Vehicle cargo to Ammobox", "[] call A3A_fnc_empty"];
 caja addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
-flagX addAction ["HQ Management", {[] execVM "Dialogs\dialogHQ.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
-flagX allowDamage false;
-flagX addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
-flagX addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
-if (isMultiplayer) then {flagX addAction ["Personal Garage", {nul = [true] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"]};
-flagX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
-vehicleBox allowDamage false;
-vehicleBox addAction ["Heal, Repair and Rearm", "healandrepair.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
-vehicleBox addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
+bandera addAction ["HQ Management", {[] execVM "Dialogs\dialogHQ.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
+bandera allowDamage false;
+bandera addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+bandera addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+if (isMultiplayer) then {bandera addAction ["Personal Garage", {nul = [true] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"]};
+bandera addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
+cajaVeh allowDamage false;
+cajaveh addAction ["Heal, Repair and Rearm", "healandrepair.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+cajaveh addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 
-fireX allowDamage false;
-fireX addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)"];
-fireX addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","_this == theBoss"];
-fireX addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this) and (side (group _this) == teamPlayer)"];
-fireX addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)"];
+fuego allowDamage false;
+fuego addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)"];
+fuego addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","_this == theBoss"];
+fuego addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this) and (side (group _this) == buenos)"];
+fuego addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)"];
 mapa allowDamage false;
-mapa addAction ["Game Options", {hint format ["Antistasi - %2\n\nVersion: %1\n\nDifficulty: %3\nUnlock Weapon Number: %4\nLimited Fast Travel: %5",antistasiVersion,worldName,if (skillMult == 1) then {"Normal"} else {if (skillMult == 0.5) then {"Easy"} else {"Hard"}},minWeaps,if (limitedFT) then {"Yes"} else {"No"}]; nul=CreateDialog "game_options";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
-mapa addAction ["Map Info", {nul = [] execVM "cityinfo.sqf";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
+mapa addAction ["Game Options", {hint format ["Antistasi - %2\n\nVersion: %1\n\nDifficulty: %3\nUnlock Weapon Number: %4\nLimited Fast Travel: %5",antistasiVersion,worldName,if (skillMult == 1) then {"Normal"} else {if (skillMult == 0.5) then {"Easy"} else {"Hard"}},minWeaps,if (limitedFT) then {"Yes"} else {"No"}]; nul=CreateDialog "game_options";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+mapa addAction ["Map Info", {nul = [] execVM "cityinfo.sqf";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
 mapa addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 if (isMultiplayer) then {mapa addAction ["AI Load Info", "[] remoteExec [""A3A_fnc_AILoadInfo"",2]",nil,0,false,true,"","(_this == theBoss)"]};
 _nul = [player] execVM "OrgPlayers\unitTraits.sqf";

@@ -12,21 +12,21 @@ petros setBehaviour "AWARE";
 if (isMultiplayer) then
 	{
 	caja hideObjectGlobal true;
-	vehicleBox hideObjectGlobal true;
+	cajaVeh hideObjectGlobal true;
 	mapa hideObjectGlobal true;
-	fireX hideObjectGlobal true;
-	flagX hideObjectGlobal true;
+	fuego hideObjectGlobal true;
+	bandera hideObjectGlobal true;
 	}
 else
 	{
 	caja hideObject true;
-	vehicleBox hideObject true;
+	cajaVeh hideObject true;
 	mapa hideObject true;
-	fireX hideObject true;
-	flagX hideObject true;
+	fuego hideObject true;
+	bandera hideObject true;
 	};
 
-fireX inflame false;
+fuego inflame false;
 
 //respawnTeamPlayer setMarkerPos [0,0,0];
 respawnTeamPlayer setMarkerAlpha 0;
@@ -34,7 +34,7 @@ _garrison = garrison getVariable ["Synd_HQ", []];
 _posicion = getMarkerPos "Synd_HQ";
 if (count _garrison > 0) then
 	{
-	_costs = 0;
+	_coste = 0;
 	_hr = 0;
 	if ({(alive _x) and (!captive _x) and ((side _x == malos) or (side _x == muyMalos)) and (_x distance _posicion < 500)} count allUnits > 0) then
 		{
@@ -50,9 +50,9 @@ if (count _garrison > 0) then
 				{
 				if (typeOf _x in soldiersSDK) then
 					{
-					if (typeOf _x == staticCrewTeamPlayer) then {_costs = _costs - ([SDKMortar] call A3A_fnc_vehiclePrice)};
+					if (typeOf _x == staticCrewTeamPlayer) then {_coste = _coste - ([SDKMortar] call A3A_fnc_vehiclePrice)};
 					_hr = _hr - 1;
-					_costs = _costs - (server getVariable (typeOf _x));
+					_coste = _coste - (server getVariable (typeOf _x));
 					};
 				};
 			if (typeOf (vehicle _x) == SDKMortar) then {deleteVehicle vehicle _x};
@@ -61,13 +61,13 @@ if (count _garrison > 0) then
 		} forEach allUnits;
 		};
 	{
-	if (_x == staticCrewTeamPlayer) then {_costs = _costs + ([SDKMortar] call A3A_fnc_vehiclePrice)};
+	if (_x == staticCrewTeamPlayer) then {_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice)};
 	_hr = _hr + 1;
-	_costs = _costs + (server getVariable _x);
+	_coste = _coste + (server getVariable _x);
 	} forEach _garrison;
-	[_hr,_costs] remoteExec ["A3A_fnc_resourcesFIA",2];
+	[_hr,_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 	garrison setVariable ["Synd_HQ",[],true];
-	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_costs,_hr];
+	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
 	};
 
 sleep 5;

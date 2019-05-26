@@ -29,7 +29,7 @@ _lider = leader _nuevoGrp;
 
 {_x domove getMarkerPos respawnTeamPlayer} forEach units _nuevogrp;
 
-_timeX = time + 120;
+_tiempo = time + 120;
 
 waitUntil {sleep 1; (time > _tiempo) or ({(_x distance getMarkerPos respawnTeamPlayer < 50) and (alive _x)} count units _nuevogrp == {alive _x} count units _nuevogrp)};
 
@@ -55,3 +55,5 @@ if (!isMultiplayer) then {_nul = [_hr,_resourcesFIA] remoteExec ["A3A_fnc_resour
 {caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
 {caja addItemCargoGlobal [_x,1]} forEach _items;
 deleteGroup _nuevogrp;
+
+

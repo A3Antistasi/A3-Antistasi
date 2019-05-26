@@ -5,8 +5,8 @@ private ["_marcador"];
 
 _marcador = _this select 0;
 
-_difficultX = if (random 10 < tierWar) then {true} else {false};
-_leave = false;
+_dificil = if (random 10 < tierWar) then {true} else {false};
+_salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";

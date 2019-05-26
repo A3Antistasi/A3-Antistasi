@@ -1,5 +1,5 @@
 
-private ["_texto","_dataX","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_power","_busy","_sitio","_positionTel","_garrison"];
+private ["_texto","_datos","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_power","_busy","_sitio","_positionTel","_garrison"];
 positionTel = [];
 
 _popFIA = 0;
@@ -7,10 +7,10 @@ _popAAF = 0;
 _popCSAT = 0;
 _pop = 0;
 {
-_dataX = server getVariable _x;
-_numCiv = _dataX select 0;
-_prestigeOPFOR = _dataX select 2;
-_prestigeBLUFOR = _dataX select 3;
+_datos = server getVariable _x;
+_numCiv = _datos select 0;
+_prestigeOPFOR = _datos select 2;
+_prestigeBLUFOR = _datos select 3;
 _popFIA = _popFIA + (_numCiv * (_prestigeBLUFOR / 100));
 _popAAF = _popAAF + (_numCiv * (_prestigeOPFOR / 100));
 _pop = _pop + _numCiv;
@@ -34,18 +34,18 @@ while {visibleMap} do
 		_positionTel = positionTel;
 		_sitio = [markersX, _positionTel] call BIS_Fnc_nearestPosition;
 		_texto = "Click on the zone";
-		_nameFaction = if (sidesX getVariable [_sitio,sideUnknown] == teamPlayer) then {nameTeamPlayer} else {if (sidesX getVariable [_sitio,sideUnknown] == Occupants) then {nameOccupants} else {nameInvaders}};
+		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == buenos) then {nameTeamPlayer} else {if (lados getVariable [_sitio,sideUnknown] == malos) then {nameOccupants} else {nameInvaders}};
 		if (_sitio == "Synd_HQ") then
 			{
 			_texto = format ["%2 HQ%1",[_sitio] call A3A_fnc_garrisonInfo,nameTeamPlayer];
 			};
 		if (_sitio in citiesX) then
 			{
-			_dataX = server getVariable _sitio;
+			_datos = server getVariable _sitio;
 
-			_numCiv = _dataX select 0;
-			_prestigeOPFOR = _dataX select 2;
-			_prestigeBLUFOR = _dataX select 3;
+			_numCiv = _datos select 0;
+			_prestigeOPFOR = _datos select 2;
+			_prestigeBLUFOR = _datos select 3;
 			_power = [_sitio] call A3A_fnc_powerCheck;
 			_texto = format ["%1\n\nPop %2\n%6 Support: %3 %5\n%7 Support: %4 %5",[_sitio,false] call A3A_fnc_fn_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%",nameOccupants,nameTeamPlayer];
 			_posicion = getMarkerPos _sitio;
@@ -64,8 +64,8 @@ while {visibleMap} do
 				}
 			else
 				{
-				_outpost = [markersX,_ant1] call BIS_fnc_NearestPosition;
-				if (sidesX getVariable [_sitio,sideUnknown] == teamPlayer) then
+				_puesto = [markersX,_ant1] call BIS_fnc_NearestPosition;
+				if (lados getVariable [_sitio,sideUnknown] == buenos) then
 					{
 					if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == muyMalos) then {_result = "NONE"}};
 					}
@@ -77,11 +77,11 @@ while {visibleMap} do
 			*/
 			_texto = format ["%1\nInfluence: %2",_texto,_result];
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
-			if (sidesX getVariable [_sitio,sideUnknown] == teamPlayer) then {_texto = format ["%1\n%2",_texto,[_sitio] call A3A_fnc_garrisonInfo]};
+			if (lados getVariable [_sitio,sideUnknown] == buenos) then {_texto = format ["%1\n%2",_texto,[_sitio] call A3A_fnc_garrisonInfo]};
 			};
 		if (_sitio in airportsX) then
 			{
-			if (not(sidesX getVariable [_sitio,sideUnknown] == teamPlayer)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Airport",_nameFaction];
 				_busy = [_sitio,true] call A3A_fnc_airportCanAttack;
@@ -96,7 +96,7 @@ while {visibleMap} do
 			};
 		if (_sitio in recursos) then
 			{
-			if (not(sidesX getVariable [_sitio,sideUnknown] == teamPlayer)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Resources",_nameFaction];
 				_garrison = count (garrison getVariable _sitio);
@@ -110,7 +110,7 @@ while {visibleMap} do
 			};
 		if (_sitio in fabricas) then
 			{
-			if (not(sidesX getVariable [_sitio,sideUnknown] == teamPlayer)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Factory",_nameFaction];
 				_garrison = count (garrison getVariable _sitio);
@@ -122,9 +122,9 @@ while {visibleMap} do
 				};
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 			};
-		if (_sitio in outposts) then
+		if (_sitio in puestos) then
 			{
-			if (not(sidesX getVariable [_sitio,sideUnknown] == teamPlayer)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Grand Outpost",_nameFaction];
 				_busy = [_sitio,true] call A3A_fnc_airportCanAttack;
@@ -137,9 +137,9 @@ while {visibleMap} do
 				_texto = format ["%2 Grand Outpost%1",[_sitio] call A3A_fnc_garrisonInfo,_nameFaction];
 				};
 			};
-		if (_sitio in seaports) then
+		if (_sitio in puertos) then
 			{
-			if (not(sidesX getVariable [_sitio,sideUnknown] == teamPlayer)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Seaport",_nameFaction];
 				_garrison = count (garrison getVariable _sitio);
@@ -166,3 +166,11 @@ while {visibleMap} do
 	positionTel = [];
 	};
 onMapSingleClick "";
+
+
+
+
+
+
+
+

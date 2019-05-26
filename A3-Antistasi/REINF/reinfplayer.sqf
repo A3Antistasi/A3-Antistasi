@@ -1,5 +1,5 @@
 if (not([player] call A3A_fnc_isMember)) exitWith {hint "Only Server Members can recruit AI units"};
-private ["_checkX","_hr","_typeUnit","_costs","_resourcesFIA","_unit"];
+private ["_chequeo","_hr","_typeUnit","_coste","_resourcesFIA","_unit"];
 
 //if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
 
@@ -16,10 +16,10 @@ _hr = server getVariable "hr";
 if (_hr < 1) exitWith {hint "You do not have enough HR for this request"};
 _arraytypeUnit = _this select 0;
 _typeUnit = _arraytypeUnit select 0;
-_costs = server getVariable _typeUnit;
-if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else {_resourcesFIA = player getVariable "moneyX";};
+_coste = server getVariable _typeUnit;
+if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else {_resourcesFIA = player getVariable "dinero";};
 
-if (_costs > _resourcesFIA) exitWith {hint format ["You do not have enough money for this kind of unit (%1 € needed)",_costs]};
+if (_coste > _resourcesFIA) exitWith {hint format ["You do not have enough money for this kind of unit (%1 € needed)",_coste]};
 
 
 if ((count units group player) + (count units stragglers) > 9) exitWith {hint "Your squad is full or you have too many scattered units with no radio contact"};
@@ -28,13 +28,13 @@ _unit = group player createUnit [_typeUnit, position player, [], 0, "NONE"];
 
 if (!isMultiPlayer) then
 	{
-	_nul = [-1, - _costs] remoteExec ["A3A_fnc_resourcesFIA",2];
+	_nul = [-1, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 	}
 else
 	{
 	_nul = [-1, 0] remoteExec ["A3A_fnc_resourcesFIA",2];
-	[- _costs] call A3A_fnc_resourcesPlayer;
-	["moneyX",player getVariable ["moneyX",0]] call fn_SaveStat;
+	[- _coste] call A3A_fnc_resourcesPlayer;
+	["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
 	hint "Soldier Recruited.\n\nRemember: if you use the group menu to switch groups you will lose control of your recruited AI";
 	};
 

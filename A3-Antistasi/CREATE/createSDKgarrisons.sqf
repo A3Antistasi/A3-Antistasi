@@ -24,9 +24,9 @@ if (_marcador != "Synd_HQ") then
 		_veh allowDamage false;
 		_vehiclesX pushBack _veh;
 		[_veh,"SDKFlag"] remoteExec ["A3A_fnc_flagaction",0,_veh];
-		//[_veh,"unit"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_veh];
-		//[_veh,"vehicle"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_veh];
-		//[_veh,"garage"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_veh];
+		//[_veh,"unit"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
+		//[_veh,"vehicle"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
+		//[_veh,"garage"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
 		};
 	if ((_marcador in recursos) or (_marcador in fabricas)) then
 		{
@@ -34,8 +34,8 @@ if (_marcador != "Synd_HQ") then
 			{
 			if ((daytime > 8) and (daytime < 18)) then
 				{
-				_group = createGroup civilian;
-				_groups pushBack _group;
+				_grupo = createGroup civilian;
+				_grupos pushBack _grupo;
 				for "_i" from 1 to 4 do
 					{
 					if (spawner getVariable _marcador != 2) then
@@ -53,7 +53,7 @@ if (_marcador != "Synd_HQ") then
 								_nombre = [_marcador] call A3A_fnc_localizar;
 								destroyedCities pushBackUnique _marcador;
 								publicVariable "destroyedCities";
-								["TaskFailed", ["", format ["%1 Destroyed",_nameX]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
+								["TaskFailed", ["", format ["%1 Destroyed",_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 								};
 							}];
 						};
@@ -65,7 +65,7 @@ if (_marcador != "Synd_HQ") then
 		};
 	if (_marcador in puertos) then
 		{
-		[_veh,"seaport"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_veh];
+		[_veh,"seaport"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
 		};
 	};
 _staticsX = staticsToSave select {_x distance _posicion < _size};
@@ -111,7 +111,7 @@ if (staticCrewTeamPlayer in _garrison) then
 	};
 _garrison = _garrison call A3A_fnc_garrisonReorg;
 _tam = count _garrison;
-_countX = 0;
+_cuenta = 0;
 _countGroup = 0;
 while {(spawner getVariable _marcador != 2) and (_cuenta < _tam)} do
 	{
@@ -124,15 +124,15 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _tam)} do
 	sleep 0.5;
 	if (_countGroup == 8) then
 		{
-		_group = createGroup teamPlayer;
-		_groups pushBack _group;
+		_grupo = createGroup buenos;
+		_grupos pushBack _grupo;
 		_countGroup = 0;
 		};
 	};
 
-for "_i" from 0 to (count _groups) - 1 do
+for "_i" from 0 to (count _grupos) - 1 do
 	{
-	_group = _groups select _i;
+	_grupo = _grupos select _i;
 	if (_i == 0) then
 		{
 		_nul = [leader _grupo, _marcador, "SAFE","SPAWNED","RANDOMUP","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
@@ -145,15 +145,15 @@ for "_i" from 0 to (count _groups) - 1 do
 waitUntil {sleep 1; (spawner getVariable _marcador == 2)};
 
 {
-_soldierX = _x;
-if (alive _soldierX) then
+_soldado = _x;
+if (alive _soldado) then
 	{
 	deleteVehicle _x
 	};
 } forEach _soldados;
 {deleteVehicle _x} forEach _civs;
 //if (!isNull _periodista) then {deleteVehicle _periodista};
-{deleteGroup _x} forEach _groups;
-deleteGroup _groupEst;
+{deleteGroup _x} forEach _grupos;
+deleteGroup _grupoEst;
 deleteGroup _groupMortar;
 {if (!(_x in staticsToSave)) then {deleteVehicle _x}} forEach _vehiclesX;

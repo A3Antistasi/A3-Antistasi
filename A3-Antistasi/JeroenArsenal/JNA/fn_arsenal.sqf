@@ -2436,14 +2436,14 @@ switch _mode do {
 			};
 		}else{
 			_itemsUnifrom pushBack ["FirstAidKit",2];
-			if(hasACE) then {
+			if(hayACE) then {
 				_itemsUnifrom pushBack ["ACE_EarPlugs",1];
 				_itemsUnifrom pushBack ["ACE_MapTools",1];
 				_itemsUnifrom pushBack ["ACE_CableTie",2];
 			};
 		};
 
-		if ((hasACE) AND (sunOrMoon <1)) then {
+		if ((hayACE) AND (sunOrMoon <1)) then {
 			_itemsUnifrom pushback ["ACE_HandFlare_Red",1];
 			_itemsUnifrom pushback ["ACE_Chemlight_HiRed",1];
 			_itemsUnifrom pushBack ["ACE_Flashlight_MX991",1];
@@ -2511,7 +2511,7 @@ switch _mode do {
 
 		if(player getUnitTrait "Engineer")then {
 					_itemsBackpack pushback ["Toolkit",1];
-					if(hasACE) then {
+					if(hayACE) then {
 						_itemsbackpack pushback ["ACE_Clacker",1];
 						_itemsbackpack pushback ["ACE_SpraypaintRed",4];
 					};

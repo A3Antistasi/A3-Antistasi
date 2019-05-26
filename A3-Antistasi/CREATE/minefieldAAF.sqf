@@ -16,35 +16,35 @@ _attempts = 1;
 _distanceX = 500;
 
 _pos = [];
-_failure = true;
+_fallo = true;
 while {_attempts < 37} do
 	{
 	_pos = [_posbase, _distanceX, _ang] call BIS_Fnc_relPos;
 	if (!surfaceIsWater _pos) then
 		{
-		_nearX = [markersX,_pos] call BIS_fnc_nearestPosition;
-		if (spawner getVariable _nearX == 2) then
+		_cercano = [markersX,_pos] call BIS_fnc_nearestPosition;
+		if (spawner getVariable _cercano == 2) then
 			{
-			_size = [_nearX] call A3A_fnc_sizeMarker;
-			if ((_pos distance (getMarkerPos _nearX)) > (_size + 100)) then
+			_size = [_cercano] call A3A_fnc_sizeMarker;
+			if ((_pos distance (getMarkerPos _cercano)) > (_size + 100)) then
 				{
 				_road = [_pos,101] call BIS_fnc_nearestRoad;
 				if (isNull _road) then
 					{
 					if ({_x distance _pos < 100} count allMines == 0) then
 						{
-						_failure = false;
+						_fallo = false;
 						};
 					};
 				};
 			};
 		};
-	if (!_failure) exitWith {};
+	if (!_fallo) exitWith {};
 	_attempts = _attempts + 1;
 	_ang = _ang - 10;
 	};
 
-if (_failure) exitWith {false};
+if (_fallo) exitWith {false};
 
 for "_i" from 1 to 60 do
 	{

@@ -4,7 +4,7 @@ private ["_grupo","_veh","_texto","_unidades"];
 
 /*
 _esStatic = false;
-{if (vehicle _x isKindOf "StaticWeapon") exitWith {_esStatic = true}} forEach units _group;
+{if (vehicle _x isKindOf "StaticWeapon") exitWith {_esStatic = true}} forEach units _grupo;
 if (_esStatic) exitWith {hint "Static Weapon squad vehicles cannot be managed"};
 */
 
@@ -12,11 +12,11 @@ if (_this select 0 == "mount") exitWith
 	{
 	_texto = "";
 	{
-	_group = _x;
+	_grupo = _x;
 	_veh = objNull;
 	{
 	_owner = _x getVariable "owner";
-	if (!isNil "_owner") then {if (_owner == _group) exitWith {_veh = _x}};
+	if (!isNil "_owner") then {if (_owner == _grupo) exitWith {_veh = _x}};
 	} forEach vehicles;
 	if !(isNull _veh) then
 		{
@@ -24,22 +24,22 @@ if (_this select 0 == "mount") exitWith
 		if (count allTurrets [_veh, false] > 0) then {_transporte = false};
 		if (_transporte) then
 			{
-			if (leader _group in _veh) then
+			if (leader _grupo in _veh) then
 				{
-				_texto = format ["%2%1 dismounting\n",groupID _group,_texto];
-				{[_x] orderGetIn false; [_x] allowGetIn false} forEach units _group;
+				_texto = format ["%2%1 dismounting\n",groupID _grupo,_texto];
+				{[_x] orderGetIn false; [_x] allowGetIn false} forEach units _grupo;
 				}
 			else
 				{
-				_texto = format ["%2%1 boarding\n",groupID _group,_texto];
-				{[_x] orderGetIn true; [_x] allowGetIn true} forEach units _group;
+				_texto = format ["%2%1 boarding\n",groupID _grupo,_texto];
+				{[_x] orderGetIn true; [_x] allowGetIn true} forEach units _grupo;
 				};
 			}
 		else
 			{
-			if (leader _group in _veh) then
+			if (leader _grupo in _veh) then
 				{
-				_texto = format ["%2%1 dismounting\n",groupID _group,_texto];
+				_texto = format ["%2%1 dismounting\n",groupID _grupo,_texto];
 				if (canMove _veh) then
 					{
 					{[_x] orderGetIn false; [_x] allowGetIn false} forEach assignedCargo _veh;
@@ -47,13 +47,13 @@ if (_this select 0 == "mount") exitWith
 				else
 					{
 					_veh allowCrewInImmobile false;
-					{[_x] orderGetIn false; [_x] allowGetIn false} forEach units _group;
+					{[_x] orderGetIn false; [_x] allowGetIn false} forEach units _grupo;
 					}
 				}
 			else
 				{
-				_texto = format ["%2%1 boarding\n",groupID _group,_texto];
-				{[_x] orderGetIn true; [_x] allowGetIn true} forEach units _group;
+				_texto = format ["%2%1 boarding\n",groupID _grupo,_texto];
+				{[_x] orderGetIn true; [_x] allowGetIn true} forEach units _grupo;
 				};
 			};
 		};
@@ -83,7 +83,7 @@ else
 _veh = objNull;
 {
 _owner = _x getVariable "owner";
-if (!isNil "_owner") then {if (_owner == _group) exitWith {_veh = _x}};
+if (!isNil "_owner") then {if (_owner == _grupo) exitWith {_veh = _x}};
 } forEach vehicles;
 if (isNull _veh) then
 	{

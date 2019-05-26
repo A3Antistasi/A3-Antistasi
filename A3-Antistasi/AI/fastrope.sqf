@@ -72,7 +72,7 @@ if (alive _veh) then
 		sleep 0.5;
 		};
 	sleep 5 + random 2;
-	} forEach units _group;
+	} forEach units _grupo;
 	};
 
 waitUntil {sleep 1; (not alive _veh) or ((count assignedCargo _veh == 0) and (count attachedObjects _veh == 0))};
@@ -84,7 +84,7 @@ _veh flyInHeight 150;
 
 if !(_reinf) then
 	{
-	_wp2 = _group addWaypoint [(position (leader _group)), 0];
+	_wp2 = _grupo addWaypoint [(position (leader _grupo)), 0];
 	_wp2 setWaypointType "MOVE";
 	_wp2 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
 	_wp2 = _grupo addWaypoint [_posicion, 1];

@@ -1,7 +1,7 @@
-private ["_tipo","_costs","_group","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_exists","_positionTel","_isRoad","_typeGroup","_resourcesFIA","_hrFIA"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_exists","_positionTel","_isRoad","_typeGroup","_resourcesFIA","_hrFIA"];
 
 if (["outpostsFIA"] call BIS_fnc_taskExists) exitWith {hint "We can only deploy / delete one Observation Post or Roadblock at a time."};
-if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hasIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
+if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
 
 _tipo = _this select 0;
 
@@ -22,7 +22,7 @@ _pos = [];
 if ((_tipo == "delete") and (count outpostsFIA < 1)) exitWith {hint "No Posts or Roadblocks deployed to delete"};
 if ((_tipo == "delete") and ({(alive _x) and (!captive _x) and ((side _x == malos) or (side _x == muyMalos)) and (_x distance _positionTel < 500)} count allUnits > 0)) exitWith {hint "You cannot delete a Post while enemies are near it"};
 
-_costs = 0;
+_coste = 0;
 _hr = 0;
 
 if (_tipo != "delete") then
@@ -34,7 +34,7 @@ if (_tipo != "delete") then
 	if (_isRoad) then
 		{
 		_typeGroup = groupsSDKAT;
-		_costs = _costs + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice) + (server getVariable staticCrewTeamPlayer);
+		_coste = _coste + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice) + (server getVariable staticCrewTeamPlayer);
 		_hr = _hr + 1;
 		};
 
@@ -53,11 +53,11 @@ else
 _resourcesFIA = server getVariable "resourcesFIA";
 _hrFIA = server getVariable "hr";
 
-if (((_resourcesFIA < _costs) or (_hrFIA < _hr)) and (_tipo!= "delete")) exitWith {hint format ["You lack of resources to build this Outpost or Roadblock \n %1 HR and %2 € needed",_hr,_costs]};
+if (((_resourcesFIA < _coste) or (_hrFIA < _hr)) and (_tipo!= "delete")) exitWith {hint format ["You lack of resources to build this Outpost or Roadblock \n %1 HR and %2 € needed",_hr,_coste]};
 
 if (_tipo != "delete") then
 	{
-	[-_hr,-_costs] remoteExec ["A3A_fnc_resourcesFIA",2];
+	[-_hr,-_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 	};
 
  [[_tipo,_positionTel],"A3A_fnc_createOutpostsFIA"] call BIS_fnc_MP

@@ -15,7 +15,7 @@ if (!isMultiPlayer) then
     [] execVM "briefing.sqf";
     diag_log format ["Antistasi SP. InitVar done. Version: %1",antistasiVersion];
     _nul = [] execVM "musica.sqf";
-    {if (/*(side _x == teamPlayer) and */(_x != commanderX) and (_x != Petros)) then {_grupete = group _x; deleteVehicle _x; deleteGroup _grupete}} forEach allUnits;
+    {if (/*(side _x == buenos) and */(_x != commanderX) and (_x != Petros)) then {_grupete = group _x; deleteVehicle _x; deleteGroup _grupete}} forEach allUnits;
     _serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
     if(isNil "_serverHasID") then
         {
@@ -38,7 +38,7 @@ if (!isMultiPlayer) then
     membershipEnabled = false;
     switchCom = false;
     tkPunish = false;
-    distanceMission = if (hasIFA) then {2000} else {4000};
+    distanceMission = if (hayIFA) then {2000} else {4000};
     skillMult = 1;
     minWeaps = 24;
     civTraffic = 1;
@@ -55,7 +55,7 @@ if (!isMultiPlayer) then
     addMissionEventHandler ["BuildingChanged",
         {
         _building = _this select 0;
-        if !(_building in antennas) then
+        if !(_building in antenas) then
             {
             if (_this select 2) then
                 {
@@ -64,5 +64,5 @@ if (!isMultiPlayer) then
             };
         }];
     deleteMarker "respawn_east";
-    if (teamPlayer == independent) then {deleteMarker "respawn_west"} else {deleteMarker "respawn_guerrila"};
+    if (buenos == independent) then {deleteMarker "respawn_west"} else {deleteMarker "respawn_guerrila"};
     };

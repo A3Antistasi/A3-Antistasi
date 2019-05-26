@@ -3,8 +3,8 @@ if (!isServer and hasInterface) exitWith{};
 
 _marcador = _this select 0;
 
-_difficultX = if (random 10 < tierWar) then {true} else {false};
-_leave = false;
+_dificil = if (random 10 < tierWar) then {true} else {false};
+_salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -12,8 +12,8 @@ _tsk = "";
 _lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _posicion = getMarkerPos _marcador;
 
-_timeLimit = if (_difficultX) then {15} else {30};//120
-if (hasIFA) then {_timeLimit = _timeLimit * 2};
+_timeLimit = if (_dificil) then {15} else {30};//120
+if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
@@ -36,15 +36,15 @@ if (_dificil) then
 		};
 	};
 
-_grp selectLeader _official;
+_grp selectLeader _oficial;
 sleep 1;
 _nul = [leader _grp, _marcador, "SAFE", "SPAWNED", "NOVEH", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 
 {_nul = [_x,""] call A3A_fnc_NATOinit; _x allowFleeing 0} forEach units _grp;
 
-waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _official)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _oficial)};
 
-if (not alive _official) then
+if (not alive _oficial) then
 	{
 	["AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"Kill the Officer",_marcador],_posicion,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	if (_dificil) then

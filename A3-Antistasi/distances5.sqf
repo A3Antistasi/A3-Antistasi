@@ -6,8 +6,8 @@ private ["_tiempo","_markersX","_marcador","_positionMRK","_cuenta"];
 
 waitUntil {!isNil "theBoss"};
 
-_timeX = 1/(count markersX);
-_countX = 0;
+_tiempo = 1/(count markersX);
+_cuenta = 0;
 _greenfor = [];
 _blufor = [];
 _opfor = [];
@@ -15,31 +15,31 @@ _opfor = [];
 while {true} do {
 //sleep 0.01;
 /*
-if (time - _timeX >= 0.5) then
+if (time - _tiempo >= 0.5) then
 	{
 	sleep 0.1;
-	_countX = _countX + 0.1
+	_cuenta = _cuenta + 0.1
 	}
 else
 	{
-	sleep 0.5 - (time - _timeX);
-	_countX = _countX + (0.5 - (time-_timeX));
+	sleep 0.5 - (time - _tiempo);
+	_cuenta = _cuenta + (0.5 - (time-_tiempo));
 	};
-//if (debugperf) then {hint format ["timeX transcurrido: %1 para %2 markersX", time - _timeX, count markersX]};
-_timeX = time;
+//if (debugperf) then {hint format ["Tiempo transcurrido: %1 para %2 markersX", time - _tiempo, count markersX]};
+_tiempo = time;
 */
 //sleep 1;
-_countX = _countX + 1;
-if (_countX > 5) then
+_cuenta = _cuenta + 1;
+if (_cuenta > 5) then
 	{
-	_countX = 0;
+	_cuenta = 0;
 	_spawners = allUnits select {_x getVariable ["spawner",false]};
 	_greenfor = [];
 	_blufor = [];
 	_opfor = [];
 	{
 	_lado = side (group _x);
-	if (_lado == Occupants) then
+	if (_lado == malos) then
 		{
 		_blufor pushBack _x;
 		}

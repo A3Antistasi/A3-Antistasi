@@ -22,11 +22,11 @@ if ((_var isEqualTo "") or (_var isEqualTo "ATMan") or (_var isEqualTo "AAMan") 
 				{
 				private _arma = [secondaryWeapon _unit] call BIS_fnc_baseWeapon;
 				private _typeOfMags = (getArray (configFile / "CfgWeapons" / _arma / "magazines")) select 0;
-				private _hasAmmo = false;
+				private _hayMuni = false;
 				{
-				if ((_x select 0) == _typeOfMags) exitWith {_hasAmmo = true}
+				if ((_x select 0) == _typeOfMags) exitWith {_hayMuni = true}
 				} forEach magazinesAmmoFull _unit;
-				if (_hasAmmo) then
+				if (_hayMuni) then
 					{
 					private _ammo = gettext (configFile >> "CfgMagazines" >> _typeOfMags >> "ammo");
 					if ((getNumber (configfile >> "CfgAmmo" >> _ammo >> "airLock")) == 0) then {_result = "ATMan"} else {_reuslt = "AAMan"};

@@ -22,17 +22,17 @@ _size = round (_size / _divisor);
 
 if (_size == 0) then {_size = 1};
 
-_typeGroup = [groupsSDKmid,groupsSDKAT,groupsSDKSquad,groupsSDKSniper];
+_tiposGrupo = [groupsSDKmid,groupsSDKAT,groupsSDKSquad,groupsSDKSniper];
 
 while {(_size > 0)} do
 	{
-	_typeGroup = selectRandom _typeGroup;
-	_formatX = [];
+	_typeGroup = selectRandom _tiposGrupo;
+	_formato = [];
 	{
-	if (random 20 <= skillFIA) then {_formatX pushBack (_x select 1)} else {_formatX pushBack (_x select 0)};
+	if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
 	} forEach _typeGroup;
-	_group = [_originX, teamPlayer, _formatX,false,true] call A3A_fnc_spawnGroup;
-	if !(isNull _group) then
+	_grupo = [_origen, buenos, _formato,false,true] call A3A_fnc_spawnGroup;
+	if !(isNull _grupo) then
 		{
 		_grupos pushBack _grupo;
 		{[_x] spawn A3A_fnc_FIAinit; _soldados pushBack _x} forEach units _grupo;

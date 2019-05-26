@@ -5,24 +5,24 @@ if (!isNil "_inside") exitWith {};
 
 _veh setVariable ["inDespawner",true,true];
 
-if ((typeOf _veh in arrayCivVeh) and ({(_x getVariable ["spawner",false]) and (side group _x == teamPlayer)} count crew _veh > 0) and (_veh distance getMarkerPos respawnTeamPlayer > 50)) then
+if ((typeOf _veh in arrayCivVeh) and ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0) and (_veh distance getMarkerPos respawnTeamPlayer > 50)) then
 	{
 	_pos = position _veh;
 	[0,-1,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
-	_city = [citiesX, _pos] call BIS_fnc_nearestPosition;
-	_dataX = server getVariable _city;
-	_prestigeOPFOR = _dataX select 2;
+	_ciudad = [citiesX, _pos] call BIS_fnc_nearestPosition;
+	_datos = server getVariable _ciudad;
+	_prestigeOPFOR = _datos select 2;
 	sleep 5;
 	if (random 100 < _prestigeOPFOR) then
 		{
-		{_friendX = _x;
-		if ((captive _friendX) and (isPlayer _friendX)) then
+		{_amigo = _x;
+		if ((captive _amigo) and (isPlayer _amigo)) then
 			{
-			[_friendX,false] remoteExec ["setCaptive",0,_friendX];
-			_friendX setCaptive false;
+			[_amigo,false] remoteExec ["setCaptive",0,_amigo];
+			_amigo setCaptive false;
 			};
 		{
-		if ((side _x == Occupants) and (_x distance _pos < distanceSPWN)) then {_x reveal [_friendX,4]};
+		if ((side _x == malos) and (_x distance _pos < distanceSPWN)) then {_x reveal [_amigo,4]};
 		} forEach allUnits;
 		} forEach crew _veh;
 		};

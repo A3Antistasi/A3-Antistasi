@@ -1,4 +1,4 @@
-private ["_unit","_group","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_helped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_unit","_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_ayudado","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
 _injurer = _this select 1;
 //if (_unit getVariable "inconsciente") exitWith {};
@@ -6,9 +6,9 @@ _injurer = _this select 1;
 //if (!local _unit) exitWith {};
 //_unit setVariable ["inconsciente",true,true];
 _bleedOut = if (surfaceIsWater (position _unit)) then {time + 60} else {time + 300};//300
-_playerXes = false;
+_jugadores = false;
 _lado = side (group _unit);
-if ((side _injurer == teamPlayer) and (_lado == Occupants)) then
+if ((side _injurer == buenos) and (_lado == malos)) then
 	{
 	_marcador = _unit getVariable ["marcador",""];
 	if (_marcador != "") then
@@ -19,7 +19,7 @@ if ((side _injurer == teamPlayer) and (_lado == Occupants)) then
 
 if ({if ((isPlayer _x) and (_x distance _unit < distanceSPWN2)) exitWith {1}} count allUnits != 0) then
 	{
-	_playerXes = true;
+	_jugadores = true;
 	[_unit,"heal"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 	[_unit,true] remoteExec ["setCaptive"];
 	_unit setCaptive true;
@@ -27,19 +27,19 @@ if ({if ((isPlayer _x) and (_x distance _unit < distanceSPWN2)) exitWith {1}} co
 	};
 
 _unit setFatigue 1;
-_group = group _unit;
-[_group,_injurer] spawn A3A_fnc_AIreactOnKill;
+_grupo = group _unit;
+[_grupo,_injurer] spawn A3A_fnc_AIreactOnKill;
 
 while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (alive _unit)} do
 	{
 	if (random 10 < 1) then {playSound3D [(injuredSounds call BIS_fnc_selectRandom),_unit,false, getPosASL _unit, 1, 1, 50];};
-	_helped = _unit getVariable ["helped",objNull];
-	if (isNull _helped) then {[_unit] call A3A_fnc_askHelp;};
+	_ayudado = _unit getVariable ["ayudado",objNull];
+	if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
 	sleep 3;
 	};
 
 _unit stop false;
-if (_playerXes) then
+if (_jugadores) then
 	{
 	[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 	};
@@ -47,7 +47,7 @@ if (_playerXes) then
 
 if (time >= _bleedOut) exitWith
 	{
-	if (side _injurer == teamPlayer) then
+	if (side _injurer == buenos) then
 		{
 		if (isPlayer _injurer) then
 			{
@@ -61,7 +61,7 @@ if (time >= _bleedOut) exitWith
 		[-1,1,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
 		switch (_lado) do
 			{
-			case Occupants:
+			case malos:
 				{
 				[0.1,0] remoteExec ["A3A_fnc_prestige",2];
 				};

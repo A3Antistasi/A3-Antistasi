@@ -1,14 +1,14 @@
 _unit = _this select 0;
-_playerX = _this select 1;
+_jugador = _this select 1;
 
-[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_unit];
+[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
 
 if (!alive _unit) exitWith {};
 
-_playerX globalChat "You imperialist! Tell me what you know!";
+_jugador globalChat "You imperialist! Tell me what you know!";
 _chance = 0;
 _lado = side (group _unit);
-if (_lado == Occupants) then
+if (_lado == malos) then
 	{
 	_chance = 100 - prestigeNATO;
 	}

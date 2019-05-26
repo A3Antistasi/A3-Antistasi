@@ -2,9 +2,9 @@ if (!isMultiplayer) exitWith {};
 if (!(isNil "serverInitDone")) exitWith {};
 diag_log "Antistasi MP Server init";
 caja allowDamage false;
-flagX allowDamage false;
-vehicleBox allowDamage false;
-fireX allowDamage false;
+bandera allowDamage false;
+cajaVeh allowDamage false;
+fuego allowDamage false;
 mapa allowDamage false;
 _serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
 if(isNil "_serverHasID") then
@@ -33,7 +33,7 @@ _nul = call compile preprocessFileLineNumbers "initVar.sqf";
 initVar = true; publicVariable "initVar";
 savingServer = true;
 diag_log format ["Antistasi MP. InitVar done. Version: %1",antistasiVersion];
-bookedSlots = floor (((paramsArray select 12)/100) * (playableSlotsNumber teamPlayer)); publicVariable "bookedSlots";
+bookedSlots = floor (((paramsArray select 12)/100) * (playableSlotsNumber buenos)); publicVariable "bookedSlots";
 _nul = call compile preprocessFileLineNumbers "initFuncs.sqf";
 diag_log "Antistasi MP Server. Funcs init finished";
 _nul = call compile preprocessFileLineNumbers "initZones.sqf";
@@ -95,7 +95,7 @@ if (loadLastSave) then
         };
     theBoss = objNull;
     {
-    if (([_x] call A3A_fnc_isMember) and (side _x == teamPlayer)) exitWith
+    if (([_x] call A3A_fnc_isMember) and (side _x == buenos)) exitWith
         {
         theBoss = _x;
         //_x setRank "CORPORAL";
@@ -113,7 +113,7 @@ else
         {
         {miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
         {
-        if (([_x] call A3A_fnc_isMember) and (side _x == teamPlayer)) exitWith {theBoss = _x};
+        if (([_x] call A3A_fnc_isMember) and (side _x == buenos)) exitWith {theBoss = _x};
         } forEach playableUnits;
        }
     else
@@ -145,7 +145,7 @@ addMissionEventHandler ["HandleDisconnect",{_this call A3A_fnc_onPlayerDisconnec
 addMissionEventHandler ["BuildingChanged",
         {
         _building = _this select 0;
-        if !(_building in antennas) then
+        if !(_building in antenas) then
             {
             if (_this select 2) then
                 {

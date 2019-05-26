@@ -2,7 +2,7 @@ if (isDedicated) exitWith {};
 
 _chance = 8;
 if (debug) then {_chance = 100};
-_lado = Occupants;
+_lado = malos;
 if (count _this == 1) then
 	{
 	_marcador = _this select 0;
@@ -22,7 +22,7 @@ _texto = format ["<t size='0.6' color='#C1C0BB'>Intel Found.<br/> <t size='0.5' 
 
 if (random 100 < _chance) then
 	{
-	if (_lado == Occupants) then
+	if (_lado == malos) then
 		{
 		if ([vehNATOPlane] call A3A_fnc_vehAvailable) then {_texto = format ["%1 %2 Planes Available<br/>",_texto,nameOccupants]} else {_texto = format ["%1 %2 Planes Unavailable<br/>",_texto,nameOccupants]}
 		}
@@ -33,7 +33,7 @@ if (random 100 < _chance) then
 	};
 if (random 100 < _chance) then
 	{
-	if (_lado == Occupants) then
+	if (_lado == malos) then
 		{
 		if ({[_x] call A3A_fnc_vehAvailable} count vehNATOAttackHelis > 0) then {_texto = format ["%1 %2 Attack Helis Available<br/>",_texto,nameOccupants]} else {_texto = format ["%1 %2 Attack Helis Unavailable<br/>",_texto,nameOccupants]}
 		}
@@ -44,7 +44,7 @@ if (random 100 < _chance) then
 	};
 if (random 100 < _chance) then
 	{
-	if (_lado == Occupants) then
+	if (_lado == malos) then
 		{
 		if ({[_x] call A3A_fnc_vehAvailable} count vehNATOAPC > 0) then {_texto = format ["%1 %2 APCs Available<br/>",_texto,nameOccupants]} else {_texto = format ["%1 %2 APCs Unavailable<br/>",_texto,nameOccupants]}
 		}
@@ -55,7 +55,7 @@ if (random 100 < _chance) then
 	};
 if (random 100 < _chance) then
 	{
-	if (_lado == Occupants) then
+	if (_lado == malos) then
 		{
 		if ([vehNATOTank] call A3A_fnc_vehAvailable) then {_texto = format ["%1 %2 Tanks Available<br/>",_texto,nameOccupants]} else {_texto = format ["%1 %2 Tanks Unavailable<br/>",_texto,nameOccupants]}
 		}
@@ -66,7 +66,7 @@ if (random 100 < _chance) then
 	};
 if (random 100 < _chance) then
 	{
-	if (_lado == Occupants) then
+	if (_lado == malos) then
 		{
 		if ([vehNATOAA] call A3A_fnc_vehAvailable) then {_texto = format ["%1 %2 AA Tanks Available<br/>",_texto,nameOccupants]} else {_texto = format ["%1 %2 AA Tanks Unavailable<br/>",_texto,nameOccupants]}
 		}

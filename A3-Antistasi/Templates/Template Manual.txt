@@ -18,8 +18,8 @@ SDKMortar = "I_G_Mortar_01_F";//rebel mortar
 SDKMortarHEMag = "8Rnd_82mm_Mo_shells";// the mortar shells, used in arty scripts
 SDKMortarSmokeMag = "8Rnd_82mm_Mo_Smoke_white";// smoke shells, used in arty scripts
 SDKMGStatic = "I_HMG_01_high_F";//rebel static MG
-staticATteamPlayer = "I_Static_AT_F";//rebel static AT
-staticAAteamPlayer = "I_Static_AA_F";//rebel static AA
+staticATBuenos = "I_Static_AT_F";//rebel static AT
+staticAABuenos = "I_Static_AA_F";//rebel static AA
 
 staticCrewTeamPlayer = "I_G_Soldier_unarmed_F";// static crew classname, has to be unique, if the mod does not have a cre model, use this and some script will replace his clothing
 SDKUnarmed = "I_G_Survivor_F";//unarmed prisoner model, it has to be unique, if the mod does not have an unarmed model, use this and some script will replace his clothing 
@@ -46,7 +46,7 @@ SDKFlag = "Flag_Syndikat_F";//flag of the rebel faction
 SDKFlagTexture = "\A3\Data_F_exp\Flags\Flag_Synd_CO.paa";//texture of the flag, in case rebels take an enemy flag
 typePetros = "I_C_Soldier_Camo_F";//petros or maru model
 
-supportStaticSDKB = "I_HMG_01_support_F";//static support backpack, place "not_supported" if your mod lacks of it
+soporteStaticSDKB = "I_HMG_01_support_F";//static support backpack, place "not_supported" if your mod lacks of it
 ATStaticSDKB = "I_AT_01_weapon_F";//static support backpack, place "not_supported" if your mod lacks of it
 MGStaticSDKB = "I_HMG_01_high_weapon_F";//static support backpack, place "not_supported" if your mod lacks of it
 supportStaticsSDKB2 = "I_HMG_01_support_high_F";//static support backpack, place "not_supported" if your mod lacks of it
@@ -68,7 +68,7 @@ APERSMineMag = "APERSMine_Range_Mag";//mines which will be deployed in the minef
 //here comes the Tier 1 (police) and Tier 2 (PMC) enemy stuff. If your mod does not have enough classes in other sides, then just use the most basic classnames of those flactions.
 //the following is fot Tier 2. In the template, as we use Sindykat as rebels, we may use Blufor or Greenfor FIA as PMC.
 
-if (hasFFAA) then//FFAA mod template loading, ignore it.
+if (hayFFAA) then//FFAA mod template loading, ignore it.
 	{
 	call compile preProcessFileLineNumbers "Templates\OccupantsFFAA.sqf"
 	}
@@ -81,7 +81,7 @@ else
 		vehFIAArmedCar = "B_G_Offroad_01_armed_F";//PMC MG car (mainly for convoys and roadblocks)
 		vehFIATruck = "B_G_van_01_transport_F";//PMC truck
 		vehFIACar = "B_G_Offroad_01_F";//PMC car
-		groupsFIASmall = [["B_G_Soldier_GL_F","B_G_Soldier_F"],["B_G_Soldier_M_F","B_G_Soldier_F"],["B_G_Sharpshooter_F","B_G_Soldier_M_F"]];//those are the ones you find patrolling outside garrisons. You may put several times the same config so those will have more chance to spawn
+		gruposFIASmall = [["B_G_Soldier_GL_F","B_G_Soldier_F"],["B_G_Soldier_M_F","B_G_Soldier_F"],["B_G_Sharpshooter_F","B_G_Soldier_M_F"]];//those are the ones you find patrolling outside garrisons. You may put several times the same config so those will have more chance to spawn
 		groupsFIAMid = [["B_G_Soldier_SL_F","B_G_Sharpshooter_F","B_G_Soldier_AR_F","B_G_Soldier_A_F"],["B_G_Soldier_TL_F","B_G_Soldier_AR_F","B_G_Soldier_GL_F","B_G_Soldier_LAT_F"],["B_G_Soldier_TL_F","B_G_Soldier_LAT_F","B_G_Soldier_LAT_F","B_G_Soldier_LAT_F"]];
 		FIASquad = ["B_G_soldier_SL_F","B_G_soldier_F","B_G_soldier_LAT_F","B_G_Soldier_M_F","B_G_soldier_TL_F","B_G_soldier_AR_F","B_G_Soldier_A_F","B_G_medic_F"];//"IRG_InfSquad";///
 		groupsFIASquad = [FIASquad,["B_G_soldier_SL_F","B_G_soldier_LAT_F","B_G_Soldier_M_F","B_G_soldier_TL_F","B_G_Soldier_A_F","B_G_medic_F","B_support_MG_F","B_support_AMG_F"]];
@@ -94,7 +94,7 @@ else
 		vehFIAArmedCar = "O_G_Offroad_01_armed_F";
 		vehFIATruck = "O_G_van_01_transport_F";
 		vehFIACar = "O_G_Offroad_01_F";
-		groupsFIASmall = [["O_G_Soldier_GL_F","O_G_Soldier_F"],["O_G_Soldier_M_F","O_G_Soldier_F"],["O_G_Sharpshooter_F","O_G_Soldier_M_F"]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
+		gruposFIASmall = [["O_G_Soldier_GL_F","O_G_Soldier_F"],["O_G_Soldier_M_F","O_G_Soldier_F"],["O_G_Sharpshooter_F","O_G_Soldier_M_F"]];//["IRG_InfSentry","IRG_ReconSentry","IRG_SniperTeam_M"];///
 		groupsFIAMid = [["O_G_Soldier_SL_F","O_G_Sharpshooter_F","O_G_Soldier_AR_F","O_G_Soldier_A_F"],["O_G_Soldier_TL_F","O_G_Soldier_AR_F","O_G_Soldier_GL_F","O_G_Soldier_LAT_F"],["O_G_Soldier_TL_F","O_G_Soldier_LAT_F","O_G_Soldier_LAT_F","O_G_Soldier_LAT_F"]];
 		FIASquad = ["O_G_soldier_SL_F","O_G_soldier_F","O_G_soldier_LAT_F","O_G_Soldier_M_F","O_G_soldier_TL_F","O_G_soldier_AR_F","O_G_Soldier_A_F","O_G_medic_F"];//"IRG_InfSquad";///
 		groupsFIASquad = [FIASquad,["O_G_soldier_SL_F","O_G_soldier_LAT_F","O_G_Soldier_M_F","O_G_soldier_TL_F","O_G_Soldier_A_F","O_G_medic_F","O_support_MG_F","O_support_AMG_F"]];
@@ -105,7 +105,7 @@ else
 vehPoliceCar = "B_GEN_OFFROAD_01_gen_F";
 policeOfficer = "B_GEN_Commander_F";
 policeGrunt = "B_GEN_Soldier_F";
-groupsNATOGen = [policeOfficer,policeGrunt];
+gruposNATOGen = [policeOfficer,policeGrunt];
 nameTeamPlayer = if (worldName == "Tanoa") then {"SDK"} else {"FIA"};
 
 factionGEN = "BLU_GEN_F";

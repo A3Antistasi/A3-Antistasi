@@ -22,100 +22,94 @@ switch _tipo do
 		{
 		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
 			{
-			_classX = selectRandom ["Land_GarbageWashingMachine_F","Land_JunkPile_F","Land_Barricade_01_4m_F"];
+			_clase = selectRandom ["Land_GarbageWashingMachine_F","Land_JunkPile_F","Land_Barricade_01_4m_F"];
 			}
 		else
 			{
 			if (count (nearestTerrainObjects [player,["tree"],70]) > 8) then
 				{
-				_classX = "Land_WoodPile_F";
+				_clase = "Land_WoodPile_F";
 				}
 			else
 				{
-				_classX = "CraterLong_small";
+				_clase = "CraterLong_small";
 				};
 			};
 		};
 	case "MT":
 		{
-		_timeX = 60;
+		_tiempo = 60;
 		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
 			{
-			_classX = "Land_Barricade_01_10m_F";
+			_clase = "Land_Barricade_01_10m_F";
 			}
 		else
 			{
 			if (count (nearestTerrainObjects [player,["tree"],70]) > 8) then
 				{
-				_classX = "Land_WoodPile_large_F";
+				_clase = "Land_WoodPile_large_F";
 				}
 			else
 				{
-				_classX = selectRandom ["Land_BagFence_01_long_green_F","Land_SandbagBarricade_01_half_F"];
+				_clase = selectRandom ["Land_BagFence_01_long_green_F","Land_SandbagBarricade_01_half_F"];
 				};
 			};
 		};
 	case "RB":
 		{
-		_timeX = 100;
+		_tiempo = 100;
 		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
 			{
-			_classX = "Land_Tyres_F";
+			_clase = "Land_Tyres_F";
 			}
 		else
 			{
-			_classX = "Land_TimberPile_01_F";
+			_clase = "Land_TimberPile_01_F";
 			};
 		};
 	case "SB":
 		{
-		_timeX = 60;
-		_classX = "Land_BagBunker_01_small_green_F";
-		_costs = 100;
+		_tiempo = 60;
+		_clase = "Land_BagBunker_01_small_green_F";
+		_coste = 100;
 		};
 	case "CB":
 		{
-		_timeX = 120;
-		_classX = "Land_PillboxBunker_01_big_F";
-		_costs = 300;
+		_tiempo = 120;
+		_clase = "Land_PillboxBunker_01_big_F";
+		_coste = 300;
 		};
 	};
 
 //if ((_tipo == "RB") and !(isOnRoad _posicion)) exitWith {hint "Please select this option on a road segment"};
 
-private _leave = false;
+private _salir = false;
 private _texto = "";
 if ((_tipo == "SB") or (_tipo == "CB")) then
 	{
 	if (_tipo == "SB") then {_dir = _dir + 180};
-	_resourcesFIA = if (!isMultiPlayer) then {server getVariable "resourcesFIA"} else {player getVariable "moneyX"};
-	if (_costs > _resourcesFIA) then
+	_resourcesFIA = if (!isMultiPlayer) then {server getVariable "resourcesFIA"} else {player getVariable "dinero"};
+	if (_coste > _resourcesFIA) then
 		{
-		_leave = true;
-		_texto = format ["You do not have enough money for this construction (%1 € needed)",_costs]
+		_salir = true;
+		_texto = format ["You do not have enough money for this construction (%1 € needed)",_coste]
 		}
 	else
 		{
-<<<<<<< HEAD
-		_sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
-		nearX = [_sites,_positionX] call BIS_fnc_nearestPosition;
-		if (!(_positionX inArea nearX)) then
-=======
 		_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
 		cercano = [_sitios,_posicion] call BIS_fnc_nearestPosition;
 		if (!(_posicion inArea cercano)) then
->>>>>>> parent of 751e0c4... Translation pack 13
 			{
-			_leave = true;
+			_salir = true;
 			_texto = "You cannot build a bunker outside a controlled zone";
-			nearX = nil;
+			cercano = nil;
 			};
 		};
 	};
 
-if (_leave) exitWith {hint format ["%1",_texto]};
+if (_salir) exitWith {hint format ["%1",_texto]};
 hint "Select a place to build the required asset and press SPACE to start the construction.\n\nHit ESC to exit";
-garageVeh = _classX createVehicleLocal [0,0,0];
+garageVeh = _clase createVehicleLocal [0,0,0];
 bought = 0;
 
 _displayEH = (findDisplay 46) displayAddEventHandler ["KeyDown",
@@ -191,7 +185,7 @@ else
 		   if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
 		   if (surfaceIsWater _pos) exitWith {garageVeh setPosASL [0,0,0]};
 		   if (isOnRoad ASLToAGL _pos) exitWith {garageVeh setPosASL [0,0,0]};
-		   if !(_pos inArea nearX) exitWith {garageVeh setPosASL [0,0,0]};
+		   if !(_pos inArea cercano) exitWith {garageVeh setPosASL [0,0,0]};
 		   garageVeh setPosASL _pos;
 		   garageVeh setVectorUp (_ins select 0 select 1);
 		   garageVeh setDir (getDir player);
@@ -236,7 +230,7 @@ _posicion = position garageVeh;
 _dir = getDir garageVeh;
 deleteVehicle garageVeh;
 garageVeh = nil;
-nearX = nil;
+cercano = nil;
 if (bought <= 1) exitWith {hint "Construction cancelled"; bought = nil};
 bought = nil;
 private _isPlayer = if (player == _engineerX) then {true} else {false};
@@ -248,7 +242,7 @@ if (!_isPlayer) then
 	}
 else
 	{
-	_timeX = _timeX / 2;
+	_tiempo = _tiempo / 2;
 	hint "Walk to the selected position to start building";
 	};
 
@@ -256,22 +250,22 @@ waitUntil {sleep 1;(time > _timeOut) or (_engineerX distance _posicion < 3)};
 
 if (time > _timeOut) exitWith {};
 
-if (_costs > 0) then
+if (_coste > 0) then
 	{
 	if (!isMultiPlayer) then
 		{
-		_nul = [0, - _costs] remoteExec ["A3A_fnc_resourcesFIA",2];
+		_nul = [0, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 		}
 	else
 		{
-		[-_costs] call A3A_fnc_resourcesPlayer;
-		["moneyX",player getVariable ["moneyX",0]] call fn_SaveStat;
+		[-_coste] call A3A_fnc_resourcesPlayer;
+		["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
 		};
 	};
 
 _engineerX setVariable ["constructing",true];
 
-_timeOut = time + _timeX;
+_timeOut = time + _tiempo;
 
 if (!_isPlayer) then
 	{
@@ -301,11 +295,7 @@ if (!_isPlayer) then {{_engineerX enableAI _x} forEach ["ANIM","AUTOTARGET","FSM
 
 if (time <= _timeOut) exitWith {hint "Constructing cancelled"};
 if (!_isPlayer) then {_engineerX doFollow (leader _engineerX)};
-<<<<<<< HEAD
-private _veh = createVehicle [_classX, _positionX, [], 0, "CAN_COLLIDE"];
-=======
 private _veh = createVehicle [_clase, _posicion, [], 0, "CAN_COLLIDE"];
->>>>>>> parent of 751e0c4... Translation pack 13
 _veh setDir _dir;
 
 if ((_tipo == "SB") or (_tipo == "CB")) exitWith
@@ -344,7 +334,7 @@ if (_tipo == "RB") then
 
 while {alive _veh} do
 	{
-	if ((not([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
+	if ((not([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
 		{
 		deleteVehicle _veh
 		};

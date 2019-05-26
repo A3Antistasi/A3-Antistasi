@@ -11,7 +11,7 @@ if (_unit == theBoss) then
 	{
 	if (!(_x getVariable ["esNATO",false])) then
 		{
-		if ((leader _x getVariable ["spawner",false]) and ({isPlayer _x} count (units _x) == 0) and (side _x == teamPlayer)) then
+		if ((leader _x getVariable ["spawner",false]) and ({isPlayer _x} count (units _x) == 0) and (side _x == buenos)) then
 			{
 			_uds = units _x;
 				{
@@ -23,7 +23,7 @@ if (_unit == theBoss) then
 				if (!isNull (assignedVehicle _x)) then
 					{
 					_veh = assignedVehicle _x;
-					_typeVehX = typeOf _veh;
+					_tipoVeh = typeOf _veh;
 					if ((_veh isKindOf "StaticWeapon") and (not(_veh in staticsToSave))) then
 						{
 						_recursos = _recursos + ([_tipoVeh] call A3A_fnc_vehiclePrice) + ([typeOf (vehicle leader _x)] call A3A_fnc_vehiclePrice);
@@ -59,7 +59,7 @@ if (_unit == theBoss) then
 	if (group petros == group _unit) then {[] spawn A3A_fnc_buildHQ};
 	};
 //{if (groupOwner _x ==)} forEach allGroups select {(side _x == civilian) and (!isPlayer leader _x)};
-if (side group _unit == teamPlayer) then
+if (side group _unit == buenos) then
 	{
 	if ((_hr > 0) or (_recursos > 0)) then {[_hr,_recursos] spawn A3A_fnc_resourcesFIA};
 	if (membershipEnabled and pvpEnabled) then
@@ -98,4 +98,4 @@ else
 		_unit setDamage 1;
 		};
 	};
-//diag_log format ["dataX de handledisconnect: %1",_this];
+//diag_log format ["Datos de handledisconnect: %1",_this];

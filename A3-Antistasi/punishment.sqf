@@ -1,16 +1,16 @@
 
-private ["_countX","_foolish","_timeX","_punish"];
+private ["_cuenta","_tonto","_tiempo","_punish"];
 if (isDedicated) exitWith {};
 
 if (!isMultiplayer) exitWith {};
 
-_foolish = _this select 0;
-_timeX = _this select 1;
+_tonto = _this select 0;
+_tiempo = _this select 1;
 
-if (player!= _foolish) exitWith {};
+if (player!= _tonto) exitWith {};
 
-_punish = _foolish getVariable ["punish",0];
-_punish = _punish + _timeX;
+_punish = _tonto getVariable ["punish",0];
+_punish = _punish + _tiempo;
 
 disableUserInput true;
 player removeMagazines (primaryWeapon player);
@@ -26,12 +26,12 @@ hint "This is a COOP game and you are welcome to do so";
 sleep 5;
 hint "If you are bored, I think there is a new episode on SpongeBob Square Pants today";
 sleep 5;
-_countX = _punish;
-while {_countX > 0} do
+_cuenta = _punish;
+while {_cuenta > 0} do
 	{
-	hint format ["Now watch the sights for the following %1 seconds.\n\nPlease be thankful this is a game. In reality you could be sentenced to death by a firing squad, this little punish is not that bad.", _countX];
+	hint format ["Now watch the sights for the following %1 seconds.\n\nPlease be thankful this is a game. In reality you could be sentenced to death by a firing squad, this little punish is not that bad.", _cuenta];
 	sleep 1;
-	_countX = _countX -1;
+	_cuenta = _cuenta -1;
 	};
 hint "Enough then";
 disableUserInput false;

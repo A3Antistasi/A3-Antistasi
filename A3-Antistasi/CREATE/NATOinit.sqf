@@ -34,7 +34,7 @@ else
 				_driver = driver _veh;
 				if (!isNull _driver) then
 					{
-					if (side group _driver != teamPlayer) then
+					if (side group _driver != buenos) then
 						{
 						if !(_unit getVariable ["spawner",false]) then
 							{
@@ -58,7 +58,7 @@ else
 _skill = (tierWar + difficultyCoef) * 0.1 * skillMult;
 if ((faction _unit != factionGEN) and (faction _unit != factionFIA)) then
 	{
-	if (side _unit == Occupants) then
+	if (side _unit == malos) then
 		{
 		_skill = _skill + 0.1;
 		}
@@ -83,7 +83,7 @@ else
 	else
 		{
 		_skill = _skill min 0.2;
-		if ((tierWar > 1) and !hasIFA) then
+		if ((tierWar > 1) and !hayIFA) then
 			{
 			_rifleFinal = primaryWeapon _unit;
 			_magazines = getArray (configFile / "CfgWeapons" / _rifleFinal / "magazines");
@@ -108,11 +108,11 @@ if (not(_tipo in sniperUnits)) then
 	};
 
 _hmd = hmd _unit;
-if !(hasIFA) then
+if !(hayIFA) then
 	{
 	if (sunOrMoon < 1) then
 		{
-		if (!hasRHS) then
+		if (!hayRHS) then
 			{
 			if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders) and (_unit != leader (group _unit))) then
 				{
@@ -194,7 +194,7 @@ if !(hasIFA) then
 		}
 	else
 		{
-		if (!hasRHS) then
+		if (!hayRHS) then
 			{
 			if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders)) then
 				{
@@ -220,19 +220,19 @@ else
 	{
 	_unit unlinkItem "ItemRadio";
 	};
-_revealX = false;
+_revelar = false;
 if (vehicle _unit != _unit) then
 	{
 	if (_unit == gunner (vehicle _unit)) then
 		{
-		_revealX = true;
+		_revelar = true;
 		};
 	}
 else
 	{
-	if ((secondaryWeapon _unit) in mlaunchers) then {_revealX = true};
+	if ((secondaryWeapon _unit) in mlaunchers) then {_revelar = true};
 	};
-if (_revealX) then
+if (_revelar) then
 	{
 	{
 	_unit reveal [_x,1.5];

@@ -1,4 +1,4 @@
-private ["_unit","_group","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_helped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_unit","_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_ayudado","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
 //if (_unit getVariable "inconsciente") exitWith {};
 //if (damage _unit < 0.9) exitWith {};
@@ -6,7 +6,7 @@ _unit = _this select 0;
 //_unit setVariable ["inconsciente",true,true];
 _bleedOut = time + 300;//300
 _isPlayer = false;
-_playerXes = false;
+_jugadores = false;
 _inPlayerGroup = false;
 _unit setBleedingremaining 300;
 _injurer = _this select 1;
@@ -57,7 +57,7 @@ else
 		{
 		if ({if ((isPlayer _x) and (_x distance _unit < distanceSPWN2)) exitWith {1}} count allUnits != 0) then
 			{
-			_playerXes = true;
+			_jugadores = true;
 			[_unit,"heal"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 			if (_unit != petros) then {if (_injurer != muyMalos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true}};
 			};
@@ -76,7 +76,7 @@ _unit setFatigue 1;
 sleep 2;
 if (_isPlayer) then
 	{
-	if (hasTFAR) then
+	if (hayTFAR) then
 		{
 		_saveVolume = player getVariable ["tf_globalVolume", 1.0];
 		player setVariable ["tf_unable_to_use_radio", true, true];
@@ -98,24 +98,24 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 	if (random 10 < 1) then {playSound3D [(injuredSounds call BIS_fnc_selectRandom),_unit,false, getPosASL _unit, 1, 1, 50];};
 	if (_isPlayer) then
 		{
-		_helped = _unit getVariable ["helped",objNull];
-		if (isNull _helped) then
+		_ayudado = _unit getVariable ["ayudado",objNull];
+		if (isNull _ayudado) then
 			{
-			_helpX = [_unit] call A3A_fnc_askHelp;
-			if (isNull _helpX) then
+			_ayuda = [_unit] call A3A_fnc_askHelp;
+			if (isNull _ayuda) then
 				{
 				_texto = format ["<t size='0.6'>There is no AI near to help you.<t size='0.5'><br/>Hit R to Respawn"];
 				}
 			else
 				{
-				if (_helpX != _unit) then {_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX]} else {_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
+				if (_ayuda != _unit) then {_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _ayuda]} else {_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
 				};
 			}
 		else
 			{
-			if (!isNil "_helpX") then
+			if (!isNil "_ayuda") then
 				{
-				if (!isNull _helpX) then {_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX]} else {_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
+				if (!isNull _ayuda) then {_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _ayuda]} else {_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn"};
 				}
 			else
 				{
@@ -131,14 +131,14 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 			{
 			if (autoheal) then
 				{
-				_helped = _unit getVariable ["helped",objNull];
-				if (isNull _helped) then {[_unit] call A3A_fnc_askHelp;};
+				_ayudado = _unit getVariable ["ayudado",objNull];
+				if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
 				};
 			}
 		else
 			{
-			_helped = _unit getVariable ["helped",objNull];
-			if (isNull _helped) then {[_unit] call A3A_fnc_askHelp;};
+			_ayudado = _unit getVariable ["ayudado",objNull];
+			if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
 			};
 		};
 	sleep 3;
@@ -148,7 +148,7 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 if (_isPlayer) then
 	{
 	(findDisplay 46) displayRemoveEventHandler ["KeyDown", respawnMenu];
-	if (hasTFAR) then
+	if (hayTFAR) then
 		{
 		player setVariable ["tf_unable_to_use_radio", false, true];
 		player setVariable ["tf_globalVolume", _saveVolume];
@@ -159,7 +159,7 @@ if (_isPlayer) then
 else
 	{
 	_unit stop false;
-	if (_inPlayerGroup or _playerXes) then
+	if (_inPlayerGroup or _jugadores) then
 		{
 		[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 		};

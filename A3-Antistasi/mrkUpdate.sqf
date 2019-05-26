@@ -40,7 +40,7 @@ if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			 	};
 			};
 		};
-	[_mrkD,_texto] remoteExec ["setMarkerTextLocal",[teamPlayer,civilian],true];
+	[_mrkD,_texto] remoteExec ["setMarkerTextLocal",[buenos,civilian],true];
 	}
 else
 	{
@@ -84,3 +84,4 @@ else
     		};
 	 	};
 	};
+

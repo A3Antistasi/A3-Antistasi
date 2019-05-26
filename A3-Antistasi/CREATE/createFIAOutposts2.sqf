@@ -45,9 +45,9 @@ if (_isRoad) then
 	}
 else
 	{
-	_formatX = [];
+	_formato = [];
 	{
-	if (random 20 <= skillFIA) then {_formatX pushBack (_x select 1)} else {_formatX pushBack (_x select 0)};
+	if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
 	} forEach groupsSDKSniper;
 	_grupo = [_posicion, buenos, _formato] call A3A_fnc_spawnGroup;
 	_grupo setBehaviour "STEALTH";
@@ -57,8 +57,8 @@ else
 
 waitUntil {sleep 1; ((spawner getVariable _marcador == 2)) or ({alive _x} count units _grupo == 0) or (not(_marcador in outpostsFIA))};
 
-if ({alive _x} count units _group == 0) then
-//if ({alive _x} count units _group == 0) then
+if ({alive _x} count units _grupo == 0) then
+//if ({alive _x} count units _grupo == 0) then
 	{
 	outpostsFIA = outpostsFIA - [_marcador]; publicVariable "outpostsFIA";
 	markersX = markersX - [_marcador]; publicVariable "markersX";
@@ -78,5 +78,5 @@ if ({alive _x} count units _group == 0) then
 waitUntil {sleep 1; (spawner getVariable _marcador == 2) or (not(_marcador in outpostsFIA))};
 
 if (_isRoad) then {if (!isNull _veh) then {deleteVehicle _veh}};
-{deleteVehicle _x} forEach units _group;
-deleteGroup _group;
+{deleteVehicle _x} forEach units _grupo;
+deleteGroup _grupo;

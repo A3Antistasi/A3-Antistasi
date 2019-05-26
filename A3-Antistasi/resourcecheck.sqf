@@ -12,7 +12,7 @@ while {true} do
 	nextTick = time + 600;
 	waitUntil {sleep 15; time >= nextTick};
 	if (isMultiplayer) then {waitUntil {sleep 10; isPlayer theBoss}};
-	_suppBoost = 1+ ({sidesX getVariable [_x,sideUnknown] == teamPlayer} count seaports);
+	_suppBoost = 1+ ({lados getVariable [_x,sideUnknown] == buenos} count puertos);
 	_recAddSDK = 25;//0
 	_hrAddBLUFOR = 0;//0
 	_popFIA = 0;
@@ -21,31 +21,31 @@ while {true} do
 	_popTotal = 0;
 	_bonusFIA = 1 + (0.25*({(lados getVariable [_x,sideUnknown] == buenos) and !(_x in destroyedCities)} count fabricas));
 	{
-	_city = _x;
-	_recAddCitySDK = 0;
+	_ciudad = _x;
+	_recAddCiudadSDK = 0;
 	_hrAddCity = 0;
-	_dataX = server getVariable _city;
-	_numCiv = _dataX select 0;
-	_numVeh = _dataX select 1;
-	//_roads = _dataX select 2;
-	_prestigeNATO = _dataX select 2;
-	_prestigeSDK = _dataX select 3;
-	_power = [_city] call A3A_fnc_powerCheck;
+	_datos = server getVariable _ciudad;
+	_numCiv = _datos select 0;
+	_numVeh = _datos select 1;
+	//_roads = _datos select 2;
+	_prestigeNATO = _datos select 2;
+	_prestigeSDK = _datos select 3;
+	_power = [_ciudad] call A3A_fnc_powerCheck;
 	_popTotal = _popTotal + _numCiv;
 	_popFIA = _popFIA + (_numCiv * (_prestigeSDK / 100));
 	_popAAF = _popAAF + (_numCiv * (_prestigeNATO / 100));
-	_multiplyingRec = if (_power != teamPlayer) then {0.5} else {1};
+	_multiplyingRec = if (_power != buenos) then {0.5} else {1};
 	//if (not _power) then {_multiplyingRec = 0.5};
 
-	if (_city in destroyedCities) then
+	if (_ciudad in destroyedCities) then
 		{
-		_recAddCitySDK = 0;
+		_recAddCiudadSDK = 0;
 		_hrAddCity = 0;
 		_popCSAT = _popCSAT + _numCIV;
 		}
 	else
 		{
-		_recAddCitySDK = ((_numciv * _multiplyingRec*(_prestigeSDK / 100))/3);
+		_recAddCiudadSDK = ((_numciv * _multiplyingRec*(_prestigeSDK / 100))/3);
 		_hrAddCity = (_numciv * (_prestigeSDK / 10000));///20000 originalmente
 		switch (_power) do
 			{
@@ -53,53 +53,53 @@ while {true} do
 			case malos: {[1,-1,_ciudad] spawn A3A_fnc_citySupportChange};
 			case muyMalos: {[-1,-1,_ciudad] spawn A3A_fnc_citySupportChange};
 			};
-		if (sidesX getVariable [_city,sideUnknown] == Occupants) then
+		if (lados getVariable [_ciudad,sideUnknown] == malos) then
 			{
-			_recAddCitySDK = (_recAddCitySDK/2);
+			_recAddCiudadSDK = (_recAddCiudadSDK/2);
 			_hrAddCity = (_hrAddCity/2);
 			};
 		};
-	_recAddSDK = _recAddSDK + _recAddCitySDK;
+	_recAddSDK = _recAddSDK + _recAddCiudadSDK;
 	_hrAddBLUFOR = _hrAddBLUFOR + _hrAddCity;
 	// revuelta civil!!
-	if ((_prestigeNATO < _prestigeSDK) and (sidesX getVariable [_city,sideUnknown] == Occupants)) then
+	if ((_prestigeNATO < _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == malos)) then
 		{
-		["TaskSucceeded", ["", format ["%1 joined %2",[_city, false] call A3A_fnc_fn_location,nameTeamPlayer]]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
-		sidesX setVariable [_city,teamPlayer,true];
+		["TaskSucceeded", ["", format ["%1 joined %2",[_ciudad, false] call A3A_fnc_fn_location,nameTeamPlayer]]] remoteExec ["BIS_fnc_showNotification",buenos];
+		lados setVariable [_ciudad,buenos,true];
 		_nul = [5,0] remoteExec ["A3A_fnc_prestige",2];
-		_mrkD = format ["Dum%1",_city];
+		_mrkD = format ["Dum%1",_ciudad];
 		_mrkD setMarkerColor colourTeamPlayer;
-		garrison setVariable [_city,[],true];
+		garrison setVariable [_ciudad,[],true];
 		sleep 5;
-		{_nul = [_city,_x] spawn A3A_fnc_deleteControls} forEach controlsX;
+		{_nul = [_ciudad,_x] spawn A3A_fnc_deleteControls} forEach controlsX;
 		if ((!(["CONVOY"] call BIS_fnc_taskExists)) and (!bigAttackInProgress)) then
 			{
-			_base = [_city] call A3A_fnc_findBasesForConvoy;
+			_base = [_ciudad] call A3A_fnc_findBasesForConvoy;
 			if (_base != "") then
 				{
-				[[_city,_base],"CONVOY"] call A3A_fnc_scheduler;
+				[[_ciudad,_base],"CONVOY"] call A3A_fnc_scheduler;
 				};
 			};
 		[] call A3A_fnc_tierCheck;
 		};
-	if ((_prestigeNATO > _prestigeSDK) and (sidesX getVariable [_city,sideUnknown] == teamPlayer)) then
+	if ((_prestigeNATO > _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == buenos)) then
 		{
-		["TaskFailed", ["", format ["%1 joined %2",[_city, false] call A3A_fnc_fn_location,nameOccupants]]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
-		sidesX setVariable [_city,Occupants,true];
+		["TaskFailed", ["", format ["%1 joined %2",[_ciudad, false] call A3A_fnc_fn_location,nameOccupants]]] remoteExec ["BIS_fnc_showNotification",buenos];
+		lados setVariable [_ciudad,malos,true];
 		_nul = [-5,0] remoteExec ["A3A_fnc_prestige",2];
-		_mrkD = format ["Dum%1",_city];
+		_mrkD = format ["Dum%1",_ciudad];
 		_mrkD setMarkerColor colorOccupants;
-		garrison setVariable [_city,[],true];
+		garrison setVariable [_ciudad,[],true];
 		sleep 5;
 		[] call A3A_fnc_tierCheck;
 		};
 	} forEach citiesX;
 	if (_popCSAT > (_popTotal / 3)) then {["destroyedCities",false,true] remoteExec ["BIS_fnc_endMission"]};
-	if ((_popFIA > _popAAF) and ({sidesX getVariable [_x,sideUnknown] == teamPlayer} count airportsX == count airportsX)) then {["end1",true,true,true,true] remoteExec ["BIS_fnc_endMission",0]};
+	if ((_popFIA > _popAAF) and ({lados getVariable [_x,sideUnknown] == buenos} count airportsX == count airportsX)) then {["end1",true,true,true,true] remoteExec ["BIS_fnc_endMission",0]};
 	/*
 	{
 	_fabrica = _x;
-	if (sidesX getVariable [_fabrica,sideUnknown] == teamPlayer) then
+	if (lados getVariable [_fabrica,sideUnknown] == buenos) then
 		{
 		if (not(_fabrica in destroyedCities)) then {_bonusFIA = _bonusFIA + 0.25};
 		};
@@ -107,7 +107,7 @@ while {true} do
 	*/
 	{
 	_recurso = _x;
-	if (sidesX getVariable [_recurso,sideUnknown] == teamPlayer) then
+	if (lados getVariable [_recurso,sideUnknown] == buenos) then
 		{
 		if (not(_recurso in destroyedCities)) then {_recAddSDK = _recAddSDK + (300 * _bonusFIA)};
 		};
@@ -120,18 +120,18 @@ while {true} do
 	//_updated = false;
 	_updated = [] call A3A_fnc_arsenalManage;
 	if (_updated != "") then {_texto = format ["%1<br/>Arsenal Updated<br/><br/>%2",_texto,_updated]};
-	[petros,"taxRep",_texto] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
+	[petros,"taxRep",_texto] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
 	_hrAddBLUFOR = _hrAddBLUFOR + (server getVariable "hr");
 	_recAddSDK = _recAddSDK + (server getVariable "resourcesFIA");
 	server setVariable ["hr",_hrAddBLUFOR,true];
 	server setVariable ["resourcesFIA",_recAddSDK,true];
-	bombRuns = bombRuns + (({sidesX getVariable [_x,sideUnknown] == teamPlayer} count airportsX) * 0.25);
-	[petros,"taxRep",_texto] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
+	bombRuns = bombRuns + (({lados getVariable [_x,sideUnknown] == buenos} count airportsX) * 0.25);
+	[petros,"taxRep",_texto] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
 	[] call A3A_fnc_economicsAI;
 	if (isMultiplayer) then
 		{
 		[] spawn A3A_fnc_assigntheBoss;
-		difficultyCoef = floor ((({side group _x == teamPlayer} count playableUnits) - ({side group _x != teamPlayer} count playableUnits)) / 5);
+		difficultyCoef = floor ((({side group _x == buenos} count playableUnits) - ({side group _x != buenos} count playableUnits)) / 5);
 		publicVariable "difficultyCoef";
 		};
 	if ((!bigAttackInProgress) and (random 100 < 50)) then {[] call A3A_fnc_missionRequestAUTO};
@@ -183,11 +183,11 @@ while {true} do
 			{
 			_changingX = true;
 			destroyedCities = destroyedCities - [_x];
-			_nameX = [_x] call A3A_fnc_localizar;
-			["TaskSucceeded", ["", format ["%1 Rebuilt",_nameX]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
+			_nombre = [_x] call A3A_fnc_localizar;
+			["TaskSucceeded", ["", format ["%1 Rebuilt",_nombre]]] remoteExec ["BIS_fnc_showNotification",[buenos,civilian]];
 			sleep 2;
 			};
-		} forEach (destroyedCities - citiesX) select {sidesX getVariable [_x,sideUnknown] != teamPlayer};
+		} forEach (destroyedCities - citiesX) select {lados getVariable [_x,sideUnknown] != buenos};
 		if (_changingX) then {publicVariable "destroyedCities"};
 		};
 	if (isDedicated) then
@@ -206,9 +206,9 @@ while {true} do
 							{
 							if (primaryWeapon _x == "") then
 								{
-								_group = group _x;
+								_grupo = group _x;
 								deleteVehicle _x;
-								if ({alive _x} count units _group == 0) then {deleteGroup _group};
+								if ({alive _x} count units _grupo == 0) then {deleteGroup _grupo};
 								};
 							};
 						};

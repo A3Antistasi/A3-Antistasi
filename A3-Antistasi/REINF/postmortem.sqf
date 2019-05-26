@@ -1,10 +1,10 @@
 _muerto = _this select 0;
 sleep cleantime;
 deleteVehicle _muerto;
-_group = group _muerto;
-if (!isNull _group) then
+_grupo = group _muerto;
+if (!isNull _grupo) then
 	{
-	if ({alive _x} count units _group == 0) then {deleteGroup _group};
+	if ({alive _x} count units _grupo == 0) then {deleteGroup _grupo};
 	}
 else
 	{

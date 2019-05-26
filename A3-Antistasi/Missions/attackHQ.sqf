@@ -3,14 +3,14 @@ if (!isServer and hasInterface) exitWith{};
 
 _posicion = getMarkerPos respawnTeamPlayer;
 
-_pilots = [];
+_pilotos = [];
 _vehiclesX = [];
 _grupos = [];
 _soldados = [];
 
 if ({(_x distance _posicion < 500) and (typeOf _x == staticAABuenos)} count staticsToSave > 4) exitWith {};
 
-_airportsX = airportsX select {(sidesX getVariable [_x,sideUnknown] != teamPlayer) and (spawner getVariable _x == 2)};
+_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] != buenos) and (spawner getVariable _x == 2)};
 if (count _airportsX == 0) exitWith {};
 _airportX = [_airportsX,_posicion] call BIS_fnc_nearestPosition;
 _posOrigin = getMarkerPos _airportX;
@@ -31,8 +31,8 @@ if (count _tiposVeh > 0) then
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
-	_pilots = _pilots + _heliCrew;
-	_groups pushBack _groupHeli;
+	_pilotos = _pilotos + _heliCrew;
+	_grupos pushBack _groupHeli;
 	_vehiclesX pushBack _heli;
 	{[_x] call A3A_fnc_NATOinit} forEach _heliCrew;
 	[_heli] call A3A_fnc_AIVEHinit;
@@ -41,8 +41,8 @@ if (count _tiposVeh > 0) then
 	//[_heli,"Air Attack"] spawn A3A_fnc_inmuneConvoy;
 	sleep 30;
 	};
-_tiposVeh = if (_lado == Occupants) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
-_typeGroup = if (_lado == Occupants) then {NATOSpecOp} else {CSATSpecOp};
+_tiposVeh = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
+_typeGroup = if (_lado == malos) then {NATOSpecOp} else {CSATSpecOp};
 
 for "_i" from 0 to (round random 2) do
 	{
@@ -52,8 +52,8 @@ for "_i" from 0 to (round random 2) do
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
-	_pilots = _pilots + _heliCrew;
-	_groups pushBack _groupHeli;
+	_pilotos = _pilotos + _heliCrew;
+	_grupos pushBack _groupHeli;
 	_vehiclesX pushBack _heli;
 
 	{_x setBehaviour "CARELESS";} forEach units _groupHeli;
@@ -96,7 +96,7 @@ _nul = [0,"DEF_HQ1"] spawn A3A_fnc_deleteTask;
 
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
 } forEach _vehiclesX;
 {
 _veh = _x;
@@ -104,24 +104,24 @@ if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distanc
 } forEach _soldados;
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilots = _pilots - [_x]};
-} forEach _pilots;
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
+} forEach _pilotos;
 
 if (count _soldados > 0) then
 	{
 	{
 	_veh = _x;
-	waitUntil {sleep 1; !([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
 	} forEach _soldados;
 	};
 
-if (count _pilots > 0) then
+if (count _pilotos > 0) then
 	{
 	{
 	_veh = _x;
-	waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
-	} forEach _pilots;
+	} forEach _pilotos;
 	};
-{deleteGroup _x} forEach _groups;
+{deleteGroup _x} forEach _grupos;

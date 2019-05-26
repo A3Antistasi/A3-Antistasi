@@ -8,15 +8,15 @@ _mrkDestination = _this select 1;
 _lado = _this select 2;
 _sidesOccupants = _lado call BIS_fnc_enemySides;
 _posDestination = getMarkerPos _mrkDestination;
-_typeVehX = if (_lado == Occupants) then {vehNATOMRLS} else {vehCSATMRLS};
+_tipoVeh = if (_lado == malos) then {vehNATOMRLS} else {vehCSATMRLS};
 
-if !([_typeVehX] call A3A_fnc_vehAvailable) exitWith {};
+if !([_tipoVeh] call A3A_fnc_vehAvailable) exitWith {};
 
 _tipoMuni = if (_lado == malos) then {vehNATOMRLSMags} else {vehCSATMRLSMags};
 
 _pos = [_posOrigin, 50,100, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 
-_vehicle=[_pos, random 360,_typeVehX, _lado] call bis_fnc_spawnvehicle;
+_vehicle=[_pos, random 360,_tipoveh, _lado] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit} forEach _vehCrew;
@@ -43,11 +43,11 @@ if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) selec
 			_objectivesX = allUnits select {(side (group _x) in _sidesOccupants) and (_x distance _posDestination <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (_x == leader group _x)};
 			if (count _objectivesX > 0) then
 				{
-				_countX = 0;
+				_cuenta = 0;
 				{
-				_potential = _x;
-				_countGroup = {(alive _x) and (!captive _x)} count units group _potential;
-				if (_countGroup > _countX) then
+				_posible = _x;
+				_countGroup = {(alive _x) and (!captive _x)} count units group _posible;
+				if (_countGroup > _cuenta) then
 					{
 					if ((_lado == muyMalos) or ({(side (group _x) == civilian) and (_x distance _posible < 50)} count allUnits == 0)) then
 						{
@@ -72,11 +72,11 @@ if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) selec
 		};
 	};
 
-if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _veh};
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _veh};
 
 {
 _veh = _x;
-waitUntil {sleep 1; !([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+waitUntil {sleep 1; !([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 deleteVehicle _veh;
 } forEach _vehCrew;
 

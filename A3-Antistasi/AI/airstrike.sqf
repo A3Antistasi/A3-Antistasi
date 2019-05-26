@@ -14,7 +14,7 @@ if (_marcador isEqualType "") then
 	};
 _tipo = _this select 2;
 
-_typePlane = if (_lado == Occupants) then {vehNATOPlane} else {vehCSATPlane};
+_typePlane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
 
 _ang = random 360;
 _angorig = _ang + 180;
@@ -93,7 +93,7 @@ else
 if (_exit) exitWith {};
 _planefn = [_origpos, _ang, _typePlane, _lado] call bis_fnc_spawnvehicle;
 _plane = _planefn select 0;
-if (hasIFA) then {_plane setVelocityModelSpace [((velocityModelSpace _plane) select 0) + 0,((velocityModelSpace _plane) select 1) + 150,((velocityModelSpace _plane) select 2) + 50]};
+if (hayIFA) then {_plane setVelocityModelSpace [((velocityModelSpace _plane) select 0) + 0,((velocityModelSpace _plane) select 1) + 150,((velocityModelSpace _plane) select 2) + 50]};
 _planeCrew = _planefn select 1;
 _groupPlane = _planefn select 2;
 {_x setVariable ["spawner",true,true]} forEach _planeCrew;
@@ -132,3 +132,4 @@ else
 	};
 {deleteVehicle _x} forEach _planeCrew;
 deleteGroup _groupPlane;
+

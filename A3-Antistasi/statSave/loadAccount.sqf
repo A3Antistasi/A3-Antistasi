@@ -10,7 +10,7 @@ else
 	{
 	if (!isDedicated) then
 		{
-		if (side player == teamPlayer) then
+		if (side player == buenos) then
 			{
 			waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
 			["loadoutPlayer"] call fn_LoadStat;
@@ -20,7 +20,7 @@ else
 				["scorePlayer"] call fn_LoadStat;
 				["rankPlayer"] call fn_LoadStat;
 				};
-			["moneyX"] call fn_LoadStat;
+			["dinero"] call fn_LoadStat;
 			["personalGarage"] call fn_LoadStat;
 			diag_log "Antistasi: MP Personal player stats loaded";
 			[] spawn A3A_fnc_statistics;
@@ -39,13 +39,13 @@ if (isServer and !_byPassServer) then
 	["difficultyX"] call fn_LoadStat;
 	["gameMode"] call fn_LoadStat;
 	["destroyedCities"] call fn_LoadStat;
-	["minesX"] call fn_LoadStat;
+	["minas"] call fn_LoadStat;
 	["countCA"] call fn_LoadStat;
-	["antennas"] call fn_LoadStat;
+	["antenas"] call fn_LoadStat;
 	["prestigeNATO"] call fn_LoadStat;
 	["prestigeCSAT"] call fn_LoadStat;
 	["hr"] call fn_LoadStat;
-	["dateX"] call fn_LoadStat;
+	["fecha"] call fn_LoadStat;
 	["weather"] call fn_LoadStat;
 	["prestigeOPFOR"] call fn_LoadStat;
 	["prestigeBLUFOR"] call fn_LoadStat;
@@ -129,7 +129,7 @@ if (isServer and !_byPassServer) then
 			};
 		};
 	} forEach unlockedWeapons;
-	if (hasIFA) then {unlockedRifles = unlockedRifles - ["LIB_M2_Flamethrower","LIB_PTRD"]};
+	if (hayIFA) then {unlockedRifles = unlockedRifles - ["LIB_M2_Flamethrower","LIB_PTRD"]};
 
 	publicVariable "unlockedRifles";
 	publicVariable "unlockedMG";
@@ -141,7 +141,7 @@ if (isServer and !_byPassServer) then
 	if (!haveRadio) then {if ("ItemRadio" in unlockedItems) then {haveRadio = true; publicVariable "haveRadio"}};
 
 	{
-	if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
+	if (lados getVariable [_x,sideUnknown] != buenos) then
 		{
 		_posicion = getMarkerPos _x;
 		_cercano = [(markersX - controlsX - outpostsFIA),_posicion] call BIS_fnc_nearestPosition;
@@ -152,9 +152,9 @@ if (isServer and !_byPassServer) then
 
 
 	{
-	if (sidesX getVariable [_x,sideUnknown] == sideUnknown) then
+	if (lados getVariable [_x,sideUnknown] == sideUnknown) then
 		{
-		sidesX setVariable [_x,Occupants,true];
+		lados setVariable [_x,malos,true];
 		};
 	} forEach markersX;
 
@@ -187,7 +187,7 @@ if (isServer and !_byPassServer) then
 	clearItemCargoGlobal caja;
 	clearBackpackCargoGlobal caja;
 
-	[] remoteExec ["A3A_fnc_statistics",[teamPlayer,civilian]];
+	[] remoteExec ["A3A_fnc_statistics",[buenos,civilian]];
 	diag_log "Antistasi: Server sided Persistent Load done";
 
 	["tasks"] call fn_LoadStat;
@@ -198,7 +198,7 @@ if (isServer and !_byPassServer) then
 		_dmrk = createMarker [format ["Dum%1",_x], _pos];
 		_dmrk setMarkerShape "ICON";
 		[_x] call A3A_fnc_mrkUpdate;
-		if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
+		if (lados getVariable [_x,sideUnknown] != buenos) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
@@ -211,7 +211,7 @@ if (isServer and !_byPassServer) then
 		_dmrk setMarkerType "loc_rock";
 		_dmrk setMarkerText "Resources";
 		[_x] call A3A_fnc_mrkUpdate;
-		if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
+		if (lados getVariable [_x,sideUnknown] != buenos) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
@@ -224,7 +224,7 @@ if (isServer and !_byPassServer) then
 		_dmrk setMarkerType "u_installation";
 		_dmrk setMarkerText "Factory";
 		[_x] call A3A_fnc_mrkUpdate;
-		if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
+		if (lados getVariable [_x,sideUnknown] != buenos) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
@@ -236,11 +236,11 @@ if (isServer and !_byPassServer) then
 		_dmrk setMarkerShape "ICON";
 		_dmrk setMarkerType "loc_bunker";
 		[_x] call A3A_fnc_mrkUpdate;
-		if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
+		if (lados getVariable [_x,sideUnknown] != buenos) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach outposts;
+		} forEach puestos;
 
 		{
 		_pos = getMarkerPos _x;
@@ -249,7 +249,7 @@ if (isServer and !_byPassServer) then
 		_dmrk setMarkerType "b_naval";
 		_dmrk setMarkerText "Sea Port";
 		[_x] call A3A_fnc_mrkUpdate;
-		if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
+		if (lados getVariable [_x,sideUnknown] != buenos) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};

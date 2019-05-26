@@ -44,7 +44,7 @@ _loadActionID = _object addAction [
 		};
 		if (_cargo isKindOf "Man") then
 			{
-			if (([_cargo] call A3A_fnc_canFight) or !(isNull (_cargo getVariable ["helped",objNull])) or !(isNull attachedTo _cargo)) then
+			if (([_cargo] call A3A_fnc_canFight) or !(isNull (_cargo getVariable ["ayudado",objNull])) or !(isNull attachedTo _cargo)) then
 				{
 				hint format ["%1 is being helped or no longer needs your help",name _cargo];
 				_exit = true;

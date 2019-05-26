@@ -4,8 +4,8 @@ private ["_marcador","_dificil","_salir","_contactX","_groupContact","_tsk","_po
 
 _marcador = _this select 0;
 
-_difficultX = if (random 10 < tierWar) then {true} else {false};
-_leave = false;
+_dificil = if (random 10 < tierWar) then {true} else {false};
+_salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -20,9 +20,9 @@ _poscasa = [];
 _casa = _casas select 0;
 while {count _poscasa < 3} do
 	{
-	_casa = selectRandom _houses;
-	_posHouse = _casa buildingPos -1;
-	if (count _posHouse < 3) then {_houses = _houses - [_casa]};
+	_casa = selectRandom _casas;
+	_poscasa = _casa buildingPos -1;
+	if (count _poscasa < 3) then {_casas = _casas - [_casa]};
 	};
 
 
@@ -49,8 +49,8 @@ for "_i" from 1 to (((count _poscasa) - 1) min 15) do
 	_unit allowFleeing 0;
 	_unit setSkill 0;
 	_POWs pushBack _unit;
-	[_unit,"refugee"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_unit];
-	if (_lado == Occupants) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
+	[_unit,"refugee"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
+	if (_lado == malos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 	[_unit] call A3A_fnc_reDress;
 	sleep 0.5;
 	};
@@ -61,7 +61,7 @@ sleep 5;
 
 sleep 30;
 _mrk = "";
-_group = grpNull;
+_grupo = grpNull;
 _veh = objNull;
 _grupo1 = grpNull;
 if (_lado == muyMalos) then
@@ -70,7 +70,7 @@ if (_lado == muyMalos) then
 		{
 		private ["_casa"];
 		_casa = _this select 0;
-		if (_difficultX) then {sleep 300} else {sleep 300 + (random 1800)};
+		if (_dificil) then {sleep 300} else {sleep 300 + (random 1800)};
 		if (["RES"] call BIS_fnc_taskExists) then
 			{
 			_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == muyMalos) and ([_x,true] call A3A_fnc_airportCanAttack)};
@@ -119,38 +119,38 @@ else
 	_mrk setMarkerColorLocal "ColorRed";
 	_mrk setMarkerBrushLocal "DiagGrid";
 	_mrk setMarkerAlphaLocal 0;
-	if ((random 100 < prestigeNATO) or (_difficultX)) then
+	if ((random 100 < prestigeNATO) or (_dificil)) then
 		{
-		_group = [getPos _casa,Occupants, NATOSquad] call A3A_fnc_spawnGroup;
+		_grupo = [getPos _casa,malos, NATOSquad] call A3A_fnc_spawnGroup;
 		sleep 1;
 		}
 	else
 		{
-		_group = createGroup Occupants;
-		_group = [getPos _casa,Occupants,[policeOfficer,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt]] call A3A_fnc_spawnGroup;
+		_grupo = createGroup malos;
+		_grupo = [getPos _casa,malos,[policeOfficer,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt]] call A3A_fnc_spawnGroup;
 		};
 	if (random 10 < 2.5) then
 		{
 		_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
 		[_perro] spawn A3A_fnc_guardDog;
 		};
-	_nul = [leader _group, _mrk, "SAFE","SPAWNED", "NOVEH2","RANDOM", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-	{[_x,""] call A3A_fnc_NATOinit} forEach units _group;
-	_group1 = [_casa buildingExit 0, Occupants, groupsNATOGen] call A3A_fnc_spawnGroup;
+	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2","RANDOM", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+	{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
+	_grupo1 = [_casa buildingExit 0, malos, gruposNATOGen] call A3A_fnc_spawnGroup;
 	};
 
-_bonus = if (_difficultX) then {2} else {1};
+_bonus = if (_dificil) then {2} else {1};
 
-if (_lado == Occupants) then
+if (_lado == malos) then
 	{
 	waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 50)} count _POWs > 0) or (dateToNumber date > _dateLimitNum)};
 	if ({(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 50)} count _POWs > 0) then
 		{
 		sleep 5;
 		["RES",[_texto,"Refugees Evac",_nameDest],_posTsk,"SUCCEEDED","run"] call A3A_fnc_taskUpdate;
-		_countX = {(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 150)} count _POWs;
-		_hr = _countX;
-		_resourcesFIA = 100 * _countX;
+		_cuenta = {(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 150)} count _POWs;
+		_hr = _cuenta;
+		_resourcesFIA = 100 * _cuenta;
 		[_hr,_resourcesFIA*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 		[3,0] remoteExec ["A3A_fnc_prestige",2];
 		{if (_x distance getMarkerPos respawnTeamPlayer < 500) then {[_cuenta*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
@@ -174,9 +174,9 @@ else
 	else
 		{
 		["RES",[_texto,"Refugees Evac",_nameDest],_posTsk,"SUCCEEDED","run"] call A3A_fnc_taskUpdate;
-		_countX = {(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 150)} count _POWs;
-		_hr = _countX;
-		_resourcesFIA = 100 * _countX;
+		_cuenta = {(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 150)} count _POWs;
+		_hr = _cuenta;
+		_resourcesFIA = 100 * _cuenta;
 		[_hr,_resourcesFIA*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 		{if (_x distance getMarkerPos respawnTeamPlayer < 500) then {[_cuenta*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[round (_cuenta*_bonus/2),theBoss] call A3A_fnc_playerScoreAdd;
@@ -203,27 +203,27 @@ deleteGroup _grupoPOW;
 {caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
 {caja addItemCargoGlobal [_x,1]} forEach _items;
 
-if (_lado == Occupants) then
+if (_lado == malos) then
 	{
 	deleteMarkerLocal _mrk;
-	if (!isNull _veh) then {if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}};
+	if (!isNull _veh) then {if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}};
 	{
-	waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 	deleteVehicle _x;
-	} forEach units _group;
-	deleteGroup _group;
-	if (!isNull _group1) then
+	} forEach units _grupo;
+	deleteGroup _grupo;
+	if (!isNull _grupo1) then
 		{
 		{
-		waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits)};
+		waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
 		deleteVehicle _x;
-		} forEach units _group1;
-		deleteGroup _group1;
+		} forEach units _grupo1;
+		deleteGroup _grupo1;
 		};
 	};
 //sleep (540 + random 1200);
 
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
-//deleteMarker _mrkFinal;
+//deleteMarker _mrkfin;
 
 _nul = [1200,"RES"] spawn A3A_fnc_deleteTask;

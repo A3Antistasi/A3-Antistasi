@@ -12,9 +12,9 @@ _vehiclesX = [];
 _soldados = [];
 _pilotos = [];
 _conquered = false;
-_group = grpNull;
-_isFIA = false;
-_leave = false;
+_grupo = grpNull;
+_esFIA = false;
+_salir = false;
 
 _isControl = if (isOnRoad _posicion) then {true} else {false};
 
@@ -22,11 +22,11 @@ if (_isControl) then
 	{
 	if (gameMode != 4) then
 		{
-		if (_lado == Occupants) then
+		if (_lado == malos) then
 			{
 			if ((random 10 > (tierWar + difficultyCoef)) and (!([_marcador] call A3A_fnc_isFrontline))) then
 				{
-				_isFIA = true;
+				_esFIA = true;
 				}
 			};
 		}
@@ -36,7 +36,7 @@ if (_isControl) then
 			{
 			if ((random 10 > (tierWar + difficultyCoef)) and (!([_marcador] call A3A_fnc_isFrontline))) then
 				{
-				_isFIA = true;
+				_esFIA = true;
 				}
 			};
 		};
@@ -54,10 +54,10 @@ if (_isControl) then
 	_dirveh = [_roads select 0, _roadscon select 0] call BIS_fnc_DirTo;
 	if ((isNull (_roads select 0)) or (isNull (_roadscon select 0))) then {diag_log format ["Antistasi Roadblock error report: %1 position is bad",_marcador]};
 
-	if (!_isFIA) then
+	if (!_esFIA) then
 		{
-		_groupE = grpNull;
-		if !(hasIFA) then
+		_grupoE = grpNull;
+		if !(hayIFA) then
 			{
 			_pos = [getPos (_roads select 0), 7, _dirveh + 270] call BIS_Fnc_relPos;
 			_bunker = "Land_BagBunker_01_Small_green_F" createVehicle _pos;
@@ -82,8 +82,8 @@ if (_isControl) then
 			_bunker setDir _dirveh + 180;
 			_pos = getPosATL _bunker;
 			_pos = [getPos _bunker, 6, getDir _bunker] call BIS_fnc_relPos;
-			_typeVehX = if (_lado == Occupants) then {NATOFlag} else {CSATFlag};
-			_veh = createVehicle [_typeVehX, _pos, [],0, "CAN_COLLIDE"];
+			_tipoVeh = if (_lado == malos) then {NATOFlag} else {CSATFlag};
+			_veh = createVehicle [_tipoVeh, _pos, [],0, "CAN_COLLIDE"];
 			_vehiclesX pushBack _veh;
 			_veh = _tipoVeh createVehicle _posicion;
 			_vehiclesX pushBack _veh;
@@ -100,10 +100,10 @@ if (_isControl) then
 		_grupo = if !(hayIFA) then {[_posicion,_lado, _typeGroup,false,true] call A3A_fnc_spawnGroup} else {[_posicion,_lado, _typeGroup] call A3A_fnc_spawnGroup};
 		if !(isNull _grupo) then
 			{
-			if !(hasIFA) then
+			if !(hayIFA) then
 				{
-				{[_x] join _group} forEach units _groupE;
-				deleteGroup _groupE;
+				{[_x] join _grupo} forEach units _grupoE;
+				deleteGroup _grupoE;
 				};
 			if (random 10 < 2.5) then
 				{
@@ -116,8 +116,8 @@ if (_isControl) then
 		}
 	else
 		{
-		_typeVehX = if !(hasIFA) then {vehFIAArmedCar} else {vehFIACar};
-		_veh = _typeVehX createVehicle getPos (_roads select 0);
+		_tipoVeh = if !(hayIFA) then {vehFIAArmedCar} else {vehFIACar};
+		_veh = _tipoVeh createVehicle getPos (_roads select 0);
 		_veh setDir _dirveh + 90;
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		_vehiclesX pushBack _veh;
@@ -143,7 +143,7 @@ else
 		if (lados getVariable [_marcador,sideUnknown] == malos) then
 			{
 			_cfg = NATOSpecOp;
-			_lado = Occupants;
+			_lado = malos;
 			};
 		_size = [_marcador] call A3A_fnc_sizeMarker;
 		if ({if (_x inArea _marcador) exitWith {1}} count allMines == 0) then
@@ -168,14 +168,14 @@ else
 			{[_x] joinSilent _grupo; _pilotos pushBack _x} forEach units _grupoUAV;
 			deleteGroup _grupoUAV;
 			};
-		{[_x,""] call A3A_fnc_NATOinit} forEach units _group;
+		{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
 		}
 	else
 		{
-		_leave = true;
+		_salir = true;
 		};
 	};
-if (_leave) exitWith {};
+if (_salir) exitWith {};
 _spawnStatus = 0;
 while {(spawner getVariable _marcador != 2) and ({[_x,_marcador] call A3A_fnc_canConquer} count _soldados > 0)} do
 	{
@@ -219,7 +219,7 @@ if (spawner getVariable _marcador != 2) then
 	_allUnits = allUnits select {(side _x != civilian) and (side _x != _lado) and (alive _x) and (!captive _x)};
 	_closest = [_allUnits,_posicion] call BIS_fnc_nearestPosition;
 	_winner = side _closest;
-	_loser = Occupants;
+	_loser = malos;
 	if (_isControl) then
 		{
 		["TaskSucceeded", ["", "Roadblock Destroyed"]] remoteExec ["BIS_fnc_showNotification",_winner];
@@ -259,7 +259,7 @@ waitUntil {sleep 1;(spawner getVariable _marcador == 2)};
 {_veh = _x;
 if (not(_veh in staticsToSave)) then
 	{
-	if ((!([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits))) then {deleteVehicle _x}
+	if ((!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))) then {deleteVehicle _x}
 	};
 } forEach _vehiclesX;
 {
@@ -296,7 +296,7 @@ if (_conquered) then
 	else
 		{
 		/*
-		if ((!_isControl) and (_winner == teamPlayer)) then
+		if ((!_isControl) and (_winner == buenos)) then
 			{
 			_size = [_marcador] call A3A_fnc_sizeMarker;
 			for "_i" from 1 to 60 do
@@ -308,3 +308,4 @@ if (_conquered) then
 		*/
 		};
 	};
+

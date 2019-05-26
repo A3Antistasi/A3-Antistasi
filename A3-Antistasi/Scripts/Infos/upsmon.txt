@@ -36,7 +36,7 @@ Historial de modificaciones:
 //		Improved AI response under Supress fire in combat situation
 //		Avoid hurt soldiers than can not stand to get in vehicles and buildings
 //		Avoid to patrol in damaged buildings
-//		avoid bugged classXs such as "BIS_alice_emptydoor";
+//		avoid bugged clases such as "BIS_alice_emptydoor";
 //		AI try to get in combat vehicles
 //		Performance optimization.
 //		Realistic reaction of squads depending on distance to target
@@ -68,7 +68,7 @@ Historial de modificaciones:
 // 	Modified:
 //		Bug #9666 fixed:AI Cheats with UPSMON - Groups always Flank Real Position instead of last known
 //		Bug #9662 fixed: Reinforcement Group returning home, does not get out of Vehicles (if used)
-//		Bug #9639 fixed: Reinforcement Group can get stuck if Transportvehicle back to Patrolmarker gets destroyed//
+//		Bug #9639 fixed: Reinforcement Group can get stuck if Transportvehicle back to Patrolmarker gets destroyed//		
 //		Set DIAMOND formation when exiting vehicle
 //		bug with NOSLOW solved.
 //		solved other bugs such as no patrol without enemies.
@@ -97,7 +97,7 @@ Historial de modificaciones:
 // 	Modified:
 //		Fixed Bug that do not sent reinforcement if parameter "reinforcement"
 //		Fixed bug with random 1 ocasiolly has been returned more than 1.
-//		Fixed bug that eventually do not change dead leader
+//		Fixed bug that eventually do not change dead leader		
 //-------------------------------------------------------------------------------------------------------------
 //Version: 5.0.1
 //   	Added
@@ -111,8 +111,8 @@ Historial de modificaciones:
 //Version: 5.0.0
 //   	Added
 //		KRON_UPS_flyInHeight: Height that heli will fly this input will be randomiced in a 10%
-//		KRON_UPS_paradropdist: Max distance to target for doing paradrop, will be randomiced between 0 and 100% of this value.
-//		parameter "fortify" makes leader order to take positions on nearly buildings at distance 100 meters near leader,
+//		KRON_UPS_paradropdist: Max distance to target for doing paradrop, will be randomiced between 0 and 100% of this value. 
+//		parameter "fortify" makes leader order to take positions on nearly buildings at distance 100 meters near leader, 
 //				squads with fortify  will ignore "MOVE" rol.
 // 	Modified:
 //		Fixed bug that eventually stoped hely when paradrops done.
@@ -126,7 +126,7 @@ Historial de modificaciones:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.2.5
 //    	Added
-//		Air transport
+//		Air transport 
 //		Paratroop air transported units
 //		Improved comunications
 // 	Modificaciones:
@@ -148,34 +148,34 @@ Historial de modificaciones:
 //		Las escuadras con rol "NOMOVE" tienden a asegurar la posici�n y a hacer mayor uso de los buildingsX del entorno.
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.3
-//
+//		
 // 	Modificaciones:
 //		corregidos los problemas al entrar en vehiclesX, que hac�a que casi siempre alguno se quedara fuera
 //		Optimizado el rendimiento.
 //		Modificada la actitud e la IA en combate, se ha dado m�s especializaci�n en funci�n de la situaci�n.
-//
+//		
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.2
-//
+//		
 // 	Modificaciones:
-//		KRON_UPS_Maxwaiting pasa a ser una variable excluvia para patrullas, indica el timeX m�ximo a esperar
-//		para llegar al destinationX y buscar otro
+//		KRON_UPS_Maxwaiting pasa a ser una variable excluvia para patrullas, indica el tiempo m�ximo a esperar
+//		para llegar al destino y buscar otro
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.0
 //    	Added
 //             Habilitado b�squeda y uso de veh�culos de transporte, cuando la IA est� lejos del objetivo busca vehiclesX con capacidad cerca, ahora ya puedes definir tu base con vehiclesX, que si la IA los necesita los coge.
-//
+//		
 // 	Modificaciones:
 //		Adaptadas ciertas partes de c�digo para ser usadas en modo multihilo, mejorando los resultados y el rendimiento en general.
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.0.0
 // 	Added
-// 		Control de movimiento de la IA, ahora gestionan mejor los timeXs, hacen coverturas de movimiento, avanzan con m�s precauci�n cuando est�n cerca del enemyX.
+// 		Control de movimiento de la IA, ahora gestionan mejor los tiempos, hacen coverturas de movimiento, avanzan con m�s precauci�n cuando est�n cerca del enemigo.
 // 		A�adidas algunas animaciones para darle pinceladas de dramatismo a los movimientos de la IA
-//
+// 
 // 	Modificaciones:
-// 		Modificaci�n control de detecci�n de movimientos de otros groups ahora no requiere la lectura de objectsX, con lo que mejora el rendimiento.
-// 		Adaptado sistema de scripts para poder controlar los groups de IA y a�adir mejoras que requieran la interacci�n de los groups.
+// 		Modificaci�n control de detecci�n de movimientos de otros grupos ahora no requiere la lectura de objetos, con lo que mejora el rendimiento.
+// 		Adaptado sistema de scripts para poder controlar los grupos de IA y a�adir mejoras que requieran la interacci�n de los grupos.
 //-------------------------------------------------------------------------------
 //Version: 3.0.8
 // 	Modificaciones:
@@ -184,26 +184,26 @@ Historial de modificaciones:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.7
 //    	Added
-//
+//             
 // 	Modificaciones:
-//		Corregido bud que en dedicado fijaba el objetivo siempre en lugar de los flancos
+//		Corregido bud que en dedicado fijaba el objetivo siempre en lugar de los flancos		
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.6
 //    	Added
-//
+//             
 // 	Modificaciones
-//		Corregidos bugs varios, entre ellos uno que ralentizaba la acci�n de los groups
+//		Corregidos bugs varios, entre ellos uno que ralentizaba la acci�n de los grupos
 //		Set de par�metros modificados para un comportamiento m�s �ptimo y realista
-//		deshabilitado KRON_UPS_intowndist por comportamientos extra�os con algunos objectsX builiding
-//		Ahora la IA selecciona los caminos con m�s coverX, a ser potential
+//		deshabilitado KRON_UPS_intowndist por comportamientos extra�os con algunos objetos builiding
+//		Ahora la IA selecciona los caminos con m�s coverX, a ser posible
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.5
 //    	Added
-//
+//             
 // 	Modificaciones
 //		Corregido bug que evitaba enviar los reinforcementsX
 //		La distanceX de comunicaci�n de objectivesX aumenta en funci�n del rol, los nomove * 1.5
-//
+//	
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.4
 //    	Added
@@ -211,7 +211,7 @@ Historial de modificaciones:
 //             A�adido control anti snipers, si la IA se ve atacada y no sabe de donde se mueve de sitio
 // 	Modificaciones
 //		Se ajusta el �ngulo de flanqueo en funci�n de la distanceX al objetivo
-//
+//	
 //-------------------------------------------------------------------------------------------------------------
 //
 //  Modified: Monsada (SMM) 03.11.2009
@@ -225,7 +225,7 @@ Historial de modificaciones:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.2
 //    	Added
-//		Se ha a�adido la opci�n de reinforcementsX, ahora se pueden definir unas unidades de reinforcementsX alejados de la zona que se enviar�n al detectar enemigos enemigos
+//		Se ha a�adido la opci�n de reinforcementsX, ahora se pueden definir unas unidades de reinforcementsX alejados de la zona que se enviar�n al detectar enemigos enemigos 
 //		si KRON_UPS_reinforcement es true, se puede usar un marcador a modo de alarma para alimentar esta variable cuando se desee.
 //		Las unidades tendr�n una predisposici�n a mantener la posici�n si tienen el rol NOMOVE
 // 	Modificaciones
@@ -239,7 +239,7 @@ Historial de modificaciones:
 //		Sistema de combate urbano.  La Ia ajusta el flanjeo y sus movimientos al tipo de superficie.
 //	Modificaciones
 //		Ahora los pelotones verifican la presencia de aliados para determinar otras rutas de flanqueo.
-//		Se ha substituido el algoritmo de determinaci�n de posiciones de flanqueo por un bug con las funciones cos y sin
+//		Se ha substituido el algoritmo de determinaci�n de posiciones de flanqueo por un bug con las funciones cos y sin 
 //		que retornan aleatoriamente valores positivos o negativos con el mismo �ngulo.
 //
 //-------------------------------------------------------------------------------------------------------------

@@ -64,11 +64,11 @@ if (_weaponTypeSpecific == "AccessoryBipod") then
 		{
 		if (_item in (aceBasicMedItems + aceAdvMedItems)) then {_weaponTypeSpecific = "FirstAidKit"};
 		};
-	if (hasACE) then
+	if (hayACE) then
 		{
 		if (_item in aceItems) then {_weaponTypeSpecific = "FirstAidKit"};
 		};
-	if (hasACRE) then
+	if (hayACRE) then
 		{
 		if (_item in ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"]) then {_weaponTypeSpecific = "FirstAidKit"};
 		};

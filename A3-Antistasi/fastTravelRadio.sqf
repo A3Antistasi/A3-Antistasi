@@ -5,32 +5,32 @@ _markersX = markersX + [respawnTeamPlayer];
 _esHC = false;
 
 if (count hcSelected player > 1) exitWith {hint "You can select one group only to Fast Travel"};
-if (count hcSelected player == 1) then {_group = hcSelected player select 0; _esHC = true} else {_group = group player};
+if (count hcSelected player == 1) then {_grupo = hcSelected player select 0; _esHC = true} else {_grupo = group player};
 _checkForPlayer = false;
 if ((!_esHC) and limitedFT) then {_checkForPlayer = true};
-_jefe = leader _group;
+_jefe = leader _grupo;
 
-if ((_jefe != player) and (!_esHC)) then {_group = player};
+if ((_jefe != player) and (!_esHC)) then {_grupo = player};
 
-if (({isPlayer _x} count units _group > 1) and (_esHC)) exitWith {hint "You cannot Fast Travel groups commanded by players"};
+if (({isPlayer _x} count units _grupo > 1) and (_esHC)) exitWith {hint "You cannot Fast Travel groups commanded by players"};
 
 if (player != player getVariable ["owner",player]) exitWith {hint "You cannot Fast Travel while you are controlling AI"};
 
-_checkX = false;
+_chequeo = false;
 //_distanceX = 500 - (([_jefe,false] call A3A_fnc_fogCheck) * 450);
 _distanceX = 500;
 
-{if ([_x,_distanceX] call A3A_fnc_enemyNearCheck) exitWith {_checkX = true}} forEach units _group;
+{if ([_x,_distanceX] call A3A_fnc_enemyNearCheck) exitWith {_chequeo = true}} forEach units _grupo;
 
-if (_checkX) exitWith {Hint "You cannot Fast Travel with enemies near the group"};
+if (_chequeo) exitWith {Hint "You cannot Fast Travel with enemies near the group"};
 
 {if ((vehicle _x!= _x) and ((isNull (driver vehicle _x)) or (!canMove vehicle _x) or (vehicle _x isKindOf "Boat"))) then
 	{
-	if (not(vehicle _x isKindOf "StaticWeapon")) then {_checkX = true};
+	if (not(vehicle _x isKindOf "StaticWeapon")) then {_chequeo = true};
 	}
-} forEach units _group;
+} forEach units _grupo;
 
-if (_checkX) exitWith {Hint "You cannot Fast Travel if you don't have a driver in all your vehicles or your vehicles are damaged and cannot move or your group is in a boat"};
+if (_chequeo) exitWith {Hint "You cannot Fast Travel if you don't have a driver in all your vehicles or your vehicles are damaged and cannot move or your group is in a boat"};
 
 positionTel = [];
 
@@ -76,10 +76,10 @@ if (count _positionTel > 0) then
 		if (limitedFT) then
 			{
 			_vehicles = [];
-			{if (vehicle _x != _x) then {_vehicles pushBackUnique (vehicle _x)}} forEach units _group;
+			{if (vehicle _x != _x) then {_vehicles pushBackUnique (vehicle _x)}} forEach units _grupo;
 			{if ((vehicle _x) in _vehicles) exitWith {_checkForPlayer = true}} forEach playableUnits;
 			};
-		if (_checkForPlayer and ((_base != "SYND_HQ") and !(_base in airportsX))) exitWith {hint format ["%1 Fast Travel has been cancelled because some player has boarded their vehicle and the destination is not HQ or an Airbase",groupID _group]};
+		if (_checkForPlayer and ((_base != "SYND_HQ") and !(_base in airportsX))) exitWith {hint format ["%1 Fast Travel has been cancelled because some player has boarded their vehicle and the destination is not HQ or an Airbase",groupID _grupo]};
 		{
 		_unit = _x;
 		if ((!isPlayer _unit) or (_unit == player)) then
@@ -126,12 +126,12 @@ if (count _positionTel > 0) then
 				};
 			};
 			//_unit hideObject false;
-		} forEach units _group;
+		} forEach units _grupo;
 		//if (!_esHC) then {sleep _distanceX};
-		if (!_esHC) then {disableUserInput false;cutText ["You arrived to destination","BLACK IN",1]} else {hint format ["Group %1 arrived to destination",groupID _group]};
-		if (_forcedX) then {forcedSpawn = forcedSpawn - [_base]};
+		if (!_esHC) then {disableUserInput false;cutText ["You arrived to destination","BLACK IN",1]} else {hint format ["Group %1 arrived to destination",groupID _grupo]};
+		if (_forzado) then {forcedSpawn = forcedSpawn - [_base]};
 		sleep 5;
-		{_x allowDamage true} forEach units _group;
+		{_x allowDamage true} forEach units _grupo;
 		}
 	else
 		{

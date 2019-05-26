@@ -1,7 +1,7 @@
 private ["_bandera","_pos","_marcador","_posicion","_size","_powerpl","_arevelar"];
 
-_flagX = _this select 0;
-_playerX = _this select 1;
+_bandera = _this select 0;
+_jugador = _this select 1;
 
 _pos = getPos _bandera;
 _marcador = [markersX,_pos] call BIS_fnc_nearestPosition;
@@ -19,9 +19,9 @@ if (!isNull _jugador) then
 	{
 	if (((side _x == malos) or (side _x == muyMalos)) and ([_x,_marcador] call A3A_fnc_canConquer)) then {_arevelar pushBack _x};
 	} forEach allUnits;
-	if (player == _playerX) then
+	if (player == _jugador) then
 		{
-		_playerX playMove "MountSide";
+		_jugador playMove "MountSide";
 		sleep 8;
 		_jugador playMove "";
 		{player reveal _x} forEach _arevelar;

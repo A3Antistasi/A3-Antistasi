@@ -1,4 +1,4 @@
-private ["_muerto","_killer","_costs","_enemy","_group"];
+private ["_muerto","_killer","_coste","_enemy","_grupo"];
 _muerto = _this select 0;
 _killer = _this select 1;
 if (_muerto getVariable ["spawner",false]) then
@@ -7,9 +7,9 @@ if (_muerto getVariable ["spawner",false]) then
 	};
 
 [_muerto] spawn A3A_fnc_postmortem;
-_group = group _muerto;
+_grupo = group _muerto;
 _lado = side (group _muerto);
-if (hasACE) then
+if (hayACE) then
 	{
 	if ((isNull _killer) || (_killer == _muerto)) then
 		{
@@ -17,7 +17,7 @@ if (hasACE) then
 		};
 	};
 //if (_killer isEqualType "") then {diag_log format ["Antistasi error in A3A_fnc_AAFKilledEH, params: %1",_this]};
-if (side (group _killer) == teamPlayer) then
+if (side (group _killer) == buenos) then
 	{
 	if (isPlayer _killer) then
 		{
@@ -52,7 +52,7 @@ if (side (group _killer) == teamPlayer) then
 		};
 	if (count weapons _muerto < 1) then
 		{
-		if (_lado == Occupants) then
+		if (_lado == malos) then
 			{
 			[0,-2,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 			[1,0] remoteExec ["A3A_fnc_prestige",2];
@@ -65,7 +65,7 @@ if (side (group _killer) == teamPlayer) then
 	else
 		{
 		[-1,1,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
-		if (_lado == Occupants) then
+		if (_lado == malos) then
 			{
 			[0.1,0] remoteExec ["A3A_fnc_prestige",2];
 			}
@@ -77,7 +77,7 @@ if (side (group _killer) == teamPlayer) then
 	}
 else
 	{
-	if (_lado == Occupants) then
+	if (_lado == malos) then
 		{
 		[-0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 		}
@@ -97,4 +97,5 @@ if (_marcador != "") then
 		if (_garrisoned) then {[_marcador,_lado] remoteExec ["A3A_fnc_zoneCheck",2]};
 		};
 	};
-[_group,_killer] spawn A3A_fnc_AIreactOnKill;
+[_grupo,_killer] spawn A3A_fnc_AIreactOnKill;
+

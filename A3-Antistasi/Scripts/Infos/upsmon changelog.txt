@@ -5,7 +5,7 @@ Corrected: -Error in the respawn module
 === 6.0.9.5 ========================================================================
 Corrected: -Variable error in Ambush module.
 			-Errors when units leave UPSMON loop.
-
+			
 === 6.0.9.4 ========================================================================
 
 Corrected:-Missing the Retreat function (thanks geloxo)
@@ -26,13 +26,13 @@ added: -You can now use UPSMON_Creategroup to create random group with UPSMON pa
 
 Corrected:-corrections in the UPSMON manual.
 === 6.0.9 ========================================================================
-Added:-New parameter "DORELAX", it must be use with civilian group.
+Added:-New parameter "DORELAX", it must be use with civilian group.  	
 	-New parameter "NOARTILLERY", the group will not call artillery support.
 	-AI can mount static if there are a gunner and assistant in the group.
 	-AI can rearm themself (only for infantry), check the file UPSMON_Init to activate it.
 	-Equipment of each units in the group is saved for Template, respawn and clone module.
 
-Corrected: -If multiple groups are linked to the marker and only one of them has the "SHOWMARKER",
+Corrected: -If multiple groups are linked to the marker and only one of them has the "SHOWMARKER", 
 			then the marker will be visible
 		-Group with Random parameter will not occupy building outside the marker area (specially if the marker area is an ellips or a rectangle)
 		-"TRACK" parameter is re-added.
@@ -62,8 +62,8 @@ Modified:  -Ambush are now spawn to their ambush position (More usefull when you
 Corrected: -Debug message that can be shown without Debug on (i hope it's the last).
            -delete UPSMON group should be faster ({_x setvariable ["UPSMON_Deletegroup",true];} foreach units _UPSMONgroup).
 	   -"init:" parameter (for sp at least)
-	   -Template module (there weren't spawning the template)
-	   -Paradrop units.
+	   -Template module (there weren't spawning the template) 
+	   -Paradrop units. 
 
 === 6.0.7.1 ==================================================================================
 Corrected: -Debug message that can be show without Debug on (thanks grumpy)
@@ -88,7 +88,7 @@ Corrected:-error variable _pause
 	  -unit wont take vehicle if vehicle is locked for player or unlock
 
 Added: You can delete an UPSMON group: {_x setvariable ["UPSMON_Deletegroup",true];} foreach units _UPSMONgroup
-
+	  
 === 6.0.6.4 ==================================================================================
 
 -The compatibility problem between UPSMON ambush module and bcombat is solved.
@@ -111,14 +111,14 @@ Some little corrections.
 Added: -Mine Parameter
 	   -MineType Parameter
 	   -RadioRange parameter
-
+	   
 === 6.0.3 ====================================================================================
 Modified: Tweaks on fortify module
 	  Tweaks on Combat behaviour module
 
 === 6.0.2 ====================================================================================
 Added: -Improvement on Fortify module
-       -Improvement on Combat behaviour
+       -Improvement on Combat behaviour	
        -new Parameter "AmbushDistance"
 
 
@@ -129,7 +129,7 @@ Modified:
 === 6.0.1 ====================================================================================
 Added: -New Artillery module system
        -New Surrender module
-       -New Retreat module
+       -New Retreat module 	
        -new Parameter "AmbushDir"
        -new Parameter "Noveh2"
 
@@ -143,9 +143,9 @@ Modified:
 
 Added:
 
-Modified:
+Modified:	
 	  - Solved bug: parameter "random" does not work with vehicles. (r: by Lenestar)
-	  - Fix small bug with "ambush". Sometimes AI do not react to nearest target.
+	  - Fix small bug with "ambush". Sometimes AI do not react to nearest target. 
 	  - Small changes to the default numbers in Init_UPSMON.sqf
 
 === 5.0.9 ====================================================================================
@@ -153,28 +153,28 @@ Modified:
 Added:
 	  - "noveh" - the group will not search for vehicles (untill in fight and only for combat vehicles). (code improved by: Nordin)
 	  - Counter of civilians killed by players (array): KILLED_CIV_COUNTER [Total, by West, by East, by Resistance, the Killer] (works with civilians placed in editor or spawned by UPSMON)
-      - When player kills a civilian display globalchat info WHO (Player) did it. In "Init_UPSMON.sqf" R_WHO_IS_CIV_KILLER_INFO = 1, Set O to disable this feature.
-	  - Add UPSMON version info in DEBUG display.
+      - When player kills a civilian display globalchat info WHO (Player) did it. In "Init_UPSMON.sqf" R_WHO_IS_CIV_KILLER_INFO = 1, Set O to disable this feature.				
+	  - Add UPSMON version info in DEBUG display.  
 
-Modified:
+Modified:	
       - CBA is NOT required any more !
-      - Turning off ACE Wounds is now optional. (see Init_UPSMON.sqf to set it ON or OFF)
-	  - Solved bug: Self wounds or friendly fire is treated as damages made by the enemy forces. (NOTE: If the killer is not recognize, AI will use smoke)
+      - Turning off ACE Wounds is now optional. (see Init_UPSMON.sqf to set it ON or OFF)  
+	  - Solved bug: Self wounds or friendly fire is treated as damages made by the enemy forces. (NOTE: If the killer is not recognize, AI will use smoke)	
       - Solved bug: MON_HeliStuckcontrol runs too often as bad speed read.
-	  - Improved: Combat behaviour (now in close distance AI often in COMBAT mode)
+	  - Improved: Combat behaviour (now in close distance AI often in COMBAT mode) 
 	  - Improved: Stuck control for vehicles and units.
-      - Improved: Respawn for vehicles (multiple times vehicle respawn allowed)
-	  - First parameter coud be Unit or Group. (Make sure when the script starts such GROUP's leader or the UNIT is present 100%).
-      - Improved Artillery module (code improved by: shay_gman) http://dev-heaven.net/projects/upsmon/wiki/Artillery_module
+      - Improved: Respawn for vehicles (multiple times vehicle respawn allowed)	  
+	  - First parameter coud be Unit or Group. (Make sure when the script starts such GROUP's leader or the UNIT is present 100%).  
+      - Improved Artillery module (code improved by: shay_gman) http://dev-heaven.net/projects/upsmon/wiki/Artillery_module	
       - Change: armor vehicles using limited speed no matter range when placed directly from editor with default crew. Now the speed depends on the distance to the new targetpos (r.by Demonized)
       - Fixed small code bugs: ex: {exit=true;}; should be: {_exit=true;};
 	  - Solved bug: Respawn for vehicles not working. (r.by Demonized)
       - Solved bug 99%: reinforcement AI after getting out of the combat vehicle, often the vehicle did not move.	(r.by seba1976)
-
+	  
 Misc:
 	  - HMMWV_M998A2_SOV_DES_EP1 added to bugged vehicles for Vanilia players. http://dev-heaven.net/issues/18314
 
-============================================================================================
+============================================================================================	  
 === 5.0.8   ================================================================================
 
 Added:
@@ -190,7 +190,7 @@ Modified:
       Solved bug: AI reinforcement have problem to get into helicopters.
       Solved bug: group "nowp" have problem to generate target when no other groups around
       Solved bug: AI do not paradrop around positions of the enemy. (stuck)
-      Solved bug: Helicopters paradrop and fly too low.
+      Solved bug: Helicopters paradrop and fly too low.       
 
 ===============================================================================================
 // -----------------------------------------------------------------------------
@@ -214,7 +214,7 @@ Modified:
 //		Improved AI response under Supress fire in combat situation
 //		Avoid hurt soldiers than can not stand to get in vehicles and buildings
 //		Avoid to patrol in damaged buildings
-//		avoid bugged classXs such as "BIS_alice_emptydoor";
+//		avoid bugged clases such as "BIS_alice_emptydoor";
 //		AI try to get in combat vehicles
 //		Performance optimization.
 //		Realistic reaction of squads depending on distance to target
@@ -246,7 +246,7 @@ Modified:
 // 	Modified:
 //		Bug #9666 fixed:AI Cheats with UPSMON - Groups always Flank Real Position instead of last known
 //		Bug #9662 fixed: Reinforcement Group returning home, does not get out of Vehicles (if used)
-//		Bug #9639 fixed: Reinforcement Group can get stuck if Transportvehicle back to Patrolmarker gets destroyed//
+//		Bug #9639 fixed: Reinforcement Group can get stuck if Transportvehicle back to Patrolmarker gets destroyed//		
 //		Set DIAMOND formation when exiting vehicle
 //		bug with NOSLOW solved.
 //		solved other bugs such as no patrol without enemies.
@@ -275,7 +275,7 @@ Modified:
 // 	Modified:
 //		Fixed Bug that do not sent reinforcement if parameter "reinforcement"
 //		Fixed bug with random 1 ocasiolly has been returned more than 1.
-//		Fixed bug that eventually do not change dead leader
+//		Fixed bug that eventually do not change dead leader		
 //-------------------------------------------------------------------------------------------------------------
 //Version: 5.0.1
 //   	Added
@@ -289,8 +289,8 @@ Modified:
 //Version: 5.0.0
 //   	Added
 //		KRON_UPS_flyInHeight: Height that heli will fly this input will be randomiced in a 10%
-//		KRON_UPS_paradropdist: Max distance to target for doing paradrop, will be randomiced between 0 and 100% of this value.
-//		parameter "fortify" makes leader order to take positions on nearly buildings at distance 100 meters near leader,
+//		KRON_UPS_paradropdist: Max distance to target for doing paradrop, will be randomiced between 0 and 100% of this value. 
+//		parameter "fortify" makes leader order to take positions on nearly buildings at distance 100 meters near leader, 
 //				squads with fortify  will ignore "MOVE" rol.
 // 	Modified:
 //		Fixed bug that eventually stoped hely when paradrops done.
@@ -304,7 +304,7 @@ Modified:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.2.5
 //    	Added
-//		Air transport
+//		Air transport 
 //		Paratroop air transported units
 //		Improved comunications
 // 	Modificaciones:
@@ -326,34 +326,34 @@ Modified:
 //		Las escuadras con rol "NOMOVE" tienden a asegurar la posici�n y a hacer mayor uso de los buildingsX del entorno.
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.3
-//
+//		
 // 	Modificaciones:
 //		corregidos los problemas al entrar en vehiclesX, que hac�a que casi siempre alguno se quedara fuera
 //		Optimizado el rendimiento.
 //		Modificada la actitud e la IA en combate, se ha dado m�s especializaci�n en funci�n de la situaci�n.
-//
+//		
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.2
-//
+//		
 // 	Modificaciones:
-//		KRON_UPS_Maxwaiting pasa a ser una variable excluvia para patrullas, indica el timeX m�ximo a esperar
-//		para llegar al destinationX y buscar otro
+//		KRON_UPS_Maxwaiting pasa a ser una variable excluvia para patrullas, indica el tiempo m�ximo a esperar
+//		para llegar al destino y buscar otro
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.0
 //    	Added
 //             Habilitado b�squeda y uso de veh�culos de transporte, cuando la IA est� lejos del objetivo busca vehiclesX con capacidad cerca, ahora ya puedes definir tu base con vehiclesX, que si la IA los necesita los coge.
-//
+//		
 // 	Modificaciones:
 //		Adaptadas ciertas partes de c�digo para ser usadas en modo multihilo, mejorando los resultados y el rendimiento en general.
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.0.0
 // 	Added
-// 		Control de movimiento de la IA, ahora gestionan mejor los timeXs, hacen coverturas de movimiento, avanzan con m�s precauci�n cuando est�n cerca del enemyX.
+// 		Control de movimiento de la IA, ahora gestionan mejor los tiempos, hacen coverturas de movimiento, avanzan con m�s precauci�n cuando est�n cerca del enemigo.
 // 		A�adidas algunas animaciones para darle pinceladas de dramatismo a los movimientos de la IA
-//
+// 
 // 	Modificaciones:
-// 		Modificaci�n control de detecci�n de movimientos de otros groups ahora no requiere la lectura de objectsX, con lo que mejora el rendimiento.
-// 		Adaptado sistema de scripts para poder controlar los groups de IA y a�adir mejoras que requieran la interacci�n de los groups.
+// 		Modificaci�n control de detecci�n de movimientos de otros grupos ahora no requiere la lectura de objetos, con lo que mejora el rendimiento.
+// 		Adaptado sistema de scripts para poder controlar los grupos de IA y a�adir mejoras que requieran la interacci�n de los grupos.
 //-------------------------------------------------------------------------------
 //Version: 3.0.8
 // 	Modificaciones:
@@ -362,26 +362,26 @@ Modified:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.7
 //    	Added
-//
+//             
 // 	Modificaciones:
-//		Corregido bud que en dedicado fijaba el objetivo siempre en lugar de los flancos
+//		Corregido bud que en dedicado fijaba el objetivo siempre en lugar de los flancos		
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.6
 //    	Added
-//
+//             
 // 	Modificaciones
-//		Corregidos bugs varios, entre ellos uno que ralentizaba la acci�n de los groups
+//		Corregidos bugs varios, entre ellos uno que ralentizaba la acci�n de los grupos
 //		Set de par�metros modificados para un comportamiento m�s �ptimo y realista
-//		deshabilitado KRON_UPS_intowndist por comportamientos extra�os con algunos objectsX builiding
-//		Ahora la IA selecciona los caminos con m�s coverX, a ser potential
+//		deshabilitado KRON_UPS_intowndist por comportamientos extra�os con algunos objetos builiding
+//		Ahora la IA selecciona los caminos con m�s coverX, a ser posible
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.5
 //    	Added
-//
+//             
 // 	Modificaciones
 //		Corregido bug que evitaba enviar los reinforcementsX
 //		La distanceX de comunicaci�n de objectivesX aumenta en funci�n del rol, los nomove * 1.5
-//
+//	
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.4
 //    	Added
@@ -389,7 +389,7 @@ Modified:
 //             A�adido control anti snipers, si la IA se ve atacada y no sabe de donde se mueve de sitio
 // 	Modificaciones
 //		Se ajusta el �ngulo de flanqueo en funci�n de la distanceX al objetivo
-//
+//	
 //-------------------------------------------------------------------------------------------------------------
 //
 //  Modified: Monsada (SMM) 03.11.2009
@@ -403,7 +403,7 @@ Modified:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.2
 //    	Added
-//		Se ha a�adido la opci�n de reinforcementsX, ahora se pueden definir unas unidades de reinforcementsX alejados de la zona que se enviar�n al detectar enemigos enemigos
+//		Se ha a�adido la opci�n de reinforcementsX, ahora se pueden definir unas unidades de reinforcementsX alejados de la zona que se enviar�n al detectar enemigos enemigos 
 //		si KRON_UPS_reinforcement es true, se puede usar un marcador a modo de alarma para alimentar esta variable cuando se desee.
 //		Las unidades tendr�n una predisposici�n a mantener la posici�n si tienen el rol NOMOVE
 // 	Modificaciones
@@ -417,7 +417,7 @@ Modified:
 //		Sistema de combate urbano.  La Ia ajusta el flanjeo y sus movimientos al tipo de superficie.
 //	Modificaciones
 //		Ahora los pelotones verifican la presencia de aliados para determinar otras rutas de flanqueo.
-//		Se ha substituido el algoritmo de determinaci�n de posiciones de flanqueo por un bug con las funciones cos y sin
+//		Se ha substituido el algoritmo de determinaci�n de posiciones de flanqueo por un bug con las funciones cos y sin 
 //		que retornan aleatoriamente valores positivos o negativos con el mismo �ngulo.
 //
 //-------------------------------------------------------------------------------------------------------------

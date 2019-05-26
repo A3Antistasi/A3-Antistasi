@@ -51,7 +51,7 @@ else
 	if (_unit skill "aimingAccuracy" > 0.35) then {_unit setSkill ["aimingAccuracy",0.35]};
 	if (random 40 < skillFIA) then
 		{
-		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") < 2) then {removeHeadgear _unit;_unit addHeadgear (selectRandom helmets)};
+		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") < 2) then {removeHeadgear _unit;_unit addHeadgear (selectRandom cascos)};
 		};
 	if (_tipo in SDKMil) then
 		{
@@ -120,7 +120,7 @@ else
 							}
 						else
 							{
-							if (hasIFA) then
+							if (hayIFA) then
 								{
 								[_unit, "LIB_PTRD", 10, 0] call BIS_fnc_addWeapon;
 								};
@@ -144,7 +144,7 @@ else
 _unit selectWeapon (primaryWeapon _unit);
 
 if (!haveRadio) then {_unit unlinkItem "ItemRadio"};
-if !(hasIFA) then
+if !(hayIFA) then
 	{
 	if (sunOrMoon < 1) then
 		{
@@ -210,7 +210,7 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 			_killer addRating 1000;
 			};
 		};
-	if (side _killer == Occupants) then
+	if (side _killer == malos) then
 		{
 		[0,-0.25,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 		[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
@@ -229,19 +229,19 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 			};
 		};
 	}];
-_revealX = false;
+_revelar = false;
 if (vehicle _unit != _unit) then
 	{
 	if (_unit == gunner (vehicle _unit)) then
 		{
-		_revealX = true;
+		_revelar = true;
 		};
 	}
 else
 	{
-	if ((secondaryWeapon _unit) in mlaunchers) then {_revealX = true};
+	if ((secondaryWeapon _unit) in mlaunchers) then {_revelar = true};
 	};
-if (_revealX) then
+if (_revelar) then
 	{
 	{
 	_unit reveal [_x,1.5];

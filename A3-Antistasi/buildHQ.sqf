@@ -3,7 +3,7 @@ _movido = false;
 if (petros != (leader group petros)) then
 	{
 	_movido = true;
-	groupPetros = createGroup teamPlayer;
+	groupPetros = createGroup buenos;
 	publicVariable "groupPetros";
 	[petros] join groupPetros;
 	};
@@ -15,23 +15,23 @@ posHQ = getMarkerPos respawnTeamPlayer; publicVariable "posHQ";
 if (isMultiplayer) then
 	{
 	caja hideObjectGlobal false;
-	vehicleBox hideObjectGlobal false;
+	cajaVeh hideObjectGlobal false;
 	mapa hideObjectGlobal false;
-	fireX hideObjectGlobal false;
-	flagX hideObjectGlobal false;
+	fuego hideObjectGlobal false;
+	bandera hideObjectGlobal false;
 	}
 else
 	{
 	if (_movido) then {hint "Please wait while HQ assets are moved to selected position"};
 	//sleep 5
 	caja hideObject false;
-	vehicleBox hideObject false;
+	cajaVeh hideObject false;
 	mapa hideObject false;
-	fireX hideObject false;
-	flagX hideObject false;
+	fuego hideObject false;
+	bandera hideObject false;
 	};
-//fireX inflame true;
-[respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",teamPlayer,true];
+//fuego inflame true;
+[respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",buenos,true];
 [respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",civilian,true];
 _posFuego = [getPos petros, 3, getDir petros] call BIS_Fnc_relPos;
 fuego setPos _posFuego;
@@ -42,12 +42,12 @@ caja setPos _pos;
 _rnd = _rnd + 45;
 _pos = [_posFuego, 3, _rnd] call BIS_Fnc_relPos;
 mapa setPos _pos;
-mapa setDir ([fireX, mapa] call BIS_fnc_dirTo);
+mapa setDir ([fuego, mapa] call BIS_fnc_dirTo);
 _rnd = _rnd + 45;
 _pos = [_posFuego, 3, _rnd] call BIS_Fnc_relPos;
 _pos = _pos findEmptyPosition [0,50,(typeOf bandera)];
 if (_pos isEqualTo []) then {_pos = getPos petros};
-flagX setPos _pos;
+bandera setPos _pos;
 _rnd = _rnd + 45;
 _pos = [_posFuego, 3, _rnd] call BIS_Fnc_relPos;
 cajaVeh setPos _pos;
@@ -57,4 +57,5 @@ petros setBehaviour "SAFE";
 if (isNil "placementDone") then {placementDone = true; publicVariable "placementDone"};
 chopForest = false; publicVariable "chopForest";
 sleep 5;
-[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros];
+[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros];
+

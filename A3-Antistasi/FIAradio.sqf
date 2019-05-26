@@ -12,11 +12,11 @@ if (random 100 < _chance) then
 	{
 	if (count _this == 0) then
 		{
-		if (not revealX) then
+		if (not revelar) then
 			{
-			["TaskSucceeded", ["", "Enemy Comms Intercepted"]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
-			revealX = true; publicVariable "revealX";
-			[] remoteExec ["A3A_fnc_revealToPlayer",teamPlayer];
+			["TaskSucceeded", ["", "Enemy Comms Intercepted"]] remoteExec ["BIS_fnc_showNotification",buenos];
+			revelar = true; publicVariable "revelar";
+			[] remoteExec ["A3A_fnc_revealToPlayer",buenos];
 			};
 		}
 	else
@@ -28,10 +28,10 @@ else
 	{
 	if (count _this == 0) then
 		{
-		if (revealX) then
+		if (revelar) then
 			{
-			["TaskFailed", ["", "Enemy Comms Lost"]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
-			revealX = false; publicVariable "revealX";
+			["TaskFailed", ["", "Enemy Comms Lost"]] remoteExec ["BIS_fnc_showNotification",buenos];
+			revelar = false; publicVariable "revelar";
 			};
 		};
 	};

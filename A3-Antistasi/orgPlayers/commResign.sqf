@@ -1,4 +1,4 @@
-_playerX = player getVariable ["owner",player];
+_jugador = player getVariable ["owner",player];
 
 if (_jugador getVariable ["elegible",true]) then
 	{

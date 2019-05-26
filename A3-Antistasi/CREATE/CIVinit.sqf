@@ -43,14 +43,14 @@ _EHkilledIdx = _unit addEventHandler ["killed",
 			};
 		_multiplier = 1;
 		if (typeOf _muerto == "C_journalist_F") then {_multiplier = 10};
-		if (side _killer == teamPlayer) then
+		if (side _killer == buenos) then
 			{
 			_nul = [1*_multiplier,0] remoteExec ["A3A_fnc_prestige",2];
 			_nul = [1,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 			}
 		else
 			{
-			if (side _killer == Occupants) then
+			if (side _killer == malos) then
 				{
 				//_nul = [-1*_multiplier,0] remoteExec ["A3A_fnc_prestige",2];
 				_nul = [0,1,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];

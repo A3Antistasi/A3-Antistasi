@@ -1,5 +1,5 @@
-private _group = _this;
-private _array = if (_group isEqualType grpNull) then {((units _group) - [_group getVariable ["mortarX",objNull]])} else {[_group]};
+private _grupo = _this;
+private _array = if (_grupo isEqualType grpNull) then {((units _grupo) - [_grupo getVariable ["mortero",objNull]])} else {[_grupo]};
 {
 _x forceSpeed -1;
 _x setVariable ["maneuvering",false];

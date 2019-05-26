@@ -6,11 +6,11 @@ if (_tipo isEqualType "") then
 	_grupos = if (_tipo == staticCrewTeamPlayer) then {[]} else {allGroups select {(leader _x getVariable ["marcador",""] == _marcador) and (count units _x < 8) and (vehicle (leader _x) == leader _x)}};
 	_grupo = if (_grupos isEqualTo []) then
 		{
-		createGroup teamPlayer
+		createGroup buenos
 		}
 	else
 		{
-		_groups select 0;
+		_grupos select 0;
 		};
 	_unit = _grupo createUnit [_tipo, _posicion, [], 0, "NONE"];
 	//if (_tipo in SDKSL) then {_grupo selectLeader _unit};
@@ -23,7 +23,7 @@ if (_tipo isEqualType "") then
 		_unit moveInGunner _veh;
 		[_veh] call A3A_fnc_AIVEHinit;
 		};
-	if (_groups isEqualTo []) then
+	if (_grupos isEqualTo []) then
 		{
 		_nul = [leader _grupo, _marcador, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 		};
@@ -34,10 +34,10 @@ if (_tipo isEqualType "") then
 		waitUntil {sleep 1; (spawner getVariable _marcador == 2)};
 		if (alive _unit) then
 			{
-			private _group = group _unit;
+			private _grupo = group _unit;
 			if (typeOf _unit == staticCrewTeamPlayer) then {deleteVehicle (vehicle _unit)};
 			deleteVehicle _unit;
-			if (count units _group == 0) then {deleteGroup _group};
+			if (count units _grupo == 0) then {deleteGroup _grupo};
 			};
 		};
 	};

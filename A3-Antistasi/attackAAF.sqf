@@ -3,18 +3,18 @@ private ["_objectivesX","_markersX","_base","_objetivo","_cuenta","_airportX","_
 
 _objectivesX = [];
 _markersX = [];
-_countXFacil = 0;
+_cuentaFacil = 0;
 _natoIsFull = false;
 _csatIsFull = false;
-_airportsX = airportsX select {([_x,false] call A3A_fnc_airportCanAttack) and (sidesX getVariable [_x,sideUnknown] != teamPlayer)};
+_airportsX = airportsX select {([_x,false] call A3A_fnc_airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
 _objectivesX = markersX - controlsX - outpostsFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedCities;
-if (gameMode != 1) then {_objectivesX = _objectivesX select {sidesX getVariable [_x,sideUnknown] == teamPlayer}};
-//_objectivesSDK = _objectivesX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
+if (gameMode != 1) then {_objectivesX = _objectivesX select {lados getVariable [_x,sideUnknown] == buenos}};
+//_objectivesSDK = _objectivesX select {lados getVariable [_x,sideUnknown] == buenos};
 if ((tierWar < 2) and (gameMode <= 2)) then
 	{
-	_airportsX = _airportsX select {(sidesX getVariable [_x,sideUnknown] == Occupants)};
+	_airportsX = _airportsX select {(lados getVariable [_x,sideUnknown] == malos)};
 	//_objectivesX = _objectivesSDK;
-	_objectivesX = _objectivesX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
+	_objectivesX = _objectivesX select {lados getVariable [_x,sideUnknown] == buenos};
 	}
 else
 	{
@@ -34,8 +34,8 @@ else
 //lets keep the nearest targets for each AI airbase in the target list, so we ensure even when they are surrounded of friendly zones, they remain as target
 _nearestObjectives = [];
 {
-_lado = sidesX getVariable [_x,sideUnknown];
-_tmpTargets = _objectivesX select {sidesX getVariable [_x,sideUnknown] != _lado};
+_lado = lados getVariable [_x,sideUnknown];
+_tmpTargets = _objectivesX select {lados getVariable [_x,sideUnknown] != _lado};
 if !(_tmpTargets isEqualTo []) then
 	{
 	_nearestTarget = [_tmpTargets,getMarkerPos _x] call BIS_fnc_nearestPosition;
@@ -46,8 +46,8 @@ if !(_tmpTargets isEqualTo []) then
 _objectivesXProv = _objectivesX - airportsX - _nearestObjectives;
 {
 _posObj = getMarkerPos _x;
-_sideObj = sidesX getVariable [_x,sideUnknown];
-if (((markersX - controlsX - citiesX - outpostsFIA) select {sidesX getVariable [_x,sideUnknown] != _sideObj}) findIf {getMarkerPos _x distance2D _posObj < 2000} == -1) then {_objectivesX = _objectivesX - [_x]};
+_ladoObj = lados getVariable [_x,sideUnknown];
+if (((markersX - controlsX - citiesX - outpostsFIA) select {lados getVariable [_x,sideUnknown] != _ladoObj}) findIf {getMarkerPos _x distance2D _posObj < 2000} == -1) then {_objectivesX = _objectivesX - [_x]};
 } forEach _objectivesXProv;
 
 if (_objectivesX isEqualTo []) exitWith {};
@@ -55,7 +55,7 @@ _objectivesFinal = [];
 _basesFinal = [];
 _countFinal = [];
 _objectiveFinal = [];
-_easyX = [];
+_faciles = [];
 _easyArray = [];
 _seaportCSAT = if ({(lados getVariable [_x,sideUnknown] == muyMalos)} count puertos >0) then {true} else {false};
 _seaportNATO = if ({(lados getVariable [_x,sideUnknown] == malos)} count puertos >0) then {true} else {false};
@@ -67,10 +67,10 @@ _posBase = getMarkerPos _base;
 _killZones = killZones getVariable [_base,[]];
 _tmpObjectives = [];
 _baseNATO = true;
-if (sidesX getVariable [_base,sideUnknown] == Occupants) then
+if (lados getVariable [_base,sideUnknown] == malos) then
 	{
-	_tmpObjectives = _objectivesX select {sidesX getVariable [_x,sideUnknown] != Occupants};
-	_tmpObjectives = _tmpObjectives - (citiesX select {([_x] call A3A_fnc_powerCheck) == teamPlayer});
+	_tmpObjectives = _objectivesX select {lados getVariable [_x,sideUnknown] != malos};
+	_tmpObjectives = _tmpObjectives - (citiesX select {([_x] call A3A_fnc_powerCheck) == buenos});
 	}
 else
 	{
@@ -82,7 +82,7 @@ else
 _tmpObjectives = _tmpObjectives select {getMarkerPos _x distance2D _posBase < distanceForAirAttack};
 if !(_tmpObjectives isEqualTo []) then
 	{
-	_nearX = [_tmpObjectives,_base] call BIS_fnc_nearestPosition;
+	_cercano = [_tmpObjectives,_base] call BIS_fnc_nearestPosition;
 	{
 	_esCiudad = if (_x in citiesX) then {true} else {false};
 	_proceder = true;
@@ -91,9 +91,9 @@ if !(_tmpObjectives isEqualTo []) then
 	_isTheSameIsland = [_x,_base] call A3A_fnc_isTheSameIsland;
 	if ([_x,true] call A3A_fnc_fogCheck >= 0.3) then
 		{
-		if (sidesX getVariable [_x,sideUnknown] == teamPlayer) then
+		if (lados getVariable [_x,sideUnknown] == buenos) then
 			{
-			_isSDK = true;
+			_esSDK = true;
 			/*
 			_valor = if (_baseNATO) then {prestigeNATO} else {prestigeCSAT};
 			if (random 100 > _valor) then
@@ -120,7 +120,7 @@ if !(_tmpObjectives isEqualTo []) then
 				if !(_x in _easyArray) then
 					{
 					_sitio = _x;
-					if (((!(_sitio in airportsX)) or (_isSDK)) and !(_base in ["NATO_carrier","CSAT_carrier"])) then
+					if (((!(_sitio in airportsX)) or (_esSDK)) and !(_base in ["NATO_carrier","CSAT_carrier"])) then
 						{
 						_ladoEny = if (_baseNATO) then {muyMalos} else {malos};
 						if ({(lados getVariable [_x,sideUnknown] == _ladoEny) and (getMarkerPos _x distance _posSitio < distanceSPWN)} count airportsX == 0) then
@@ -152,9 +152,9 @@ if !(_tmpObjectives isEqualTo []) then
 			if ({lados getVariable [_x,sideUnknown] == malos} count airportsX <= 1) then {_times = 2};
 			if (!_esCiudad) then
 				{
-				if ((_x in outposts) or (_x in seaports)) then
+				if ((_x in puestos) or (_x in puertos)) then
 					{
-					if (!_isSDK) then
+					if (!_esSDK) then
 						{
 						if (({[_x] call A3A_fnc_vehAvailable} count vehNATOAttack > 0) or ({[_x] call A3A_fnc_vehAvailable} count vehNATOAttackHelis > 0)) then {_times = 2*_times} else {_times = 0};
 						}
@@ -167,7 +167,7 @@ if !(_tmpObjectives isEqualTo []) then
 					{
 					if (_x in airportsX) then
 						{
-						if (!_isSDK) then
+						if (!_esSDK) then
 							{
 							if (([vehNATOPlane] call A3A_fnc_vehAvailable) or (!([vehCSATAA] call A3A_fnc_vehAvailable))) then {_times = 5*_times} else {_times = 0};
 							}
@@ -178,7 +178,7 @@ if !(_tmpObjectives isEqualTo []) then
 						}
 					else
 						{
-						if ((!_isSDK) and _natoIsFull) then {_times = 0};
+						if ((!_esSDK) and _natoIsFull) then {_times = 0};
 						};
 					};
 				};
@@ -193,9 +193,9 @@ if !(_tmpObjectives isEqualTo []) then
 			_times = 2;
 			if (!_esCiudad) then
 				{
-				if ((_x in outposts) or (_x in seaports)) then
+				if ((_x in puestos) or (_x in puertos)) then
 					{
-					if (!_isSDK) then
+					if (!_esSDK) then
 						{
 						if (({[_x] call A3A_fnc_vehAvailable} count vehCSATAttack > 0) or ({[_x] call A3A_fnc_vehAvailable} count vehCSATAttackHelis > 0)) then {_times = 2*_times} else {_times = 0};
 						}
@@ -208,7 +208,7 @@ if !(_tmpObjectives isEqualTo []) then
 					{
 					if (_x in airportsX) then
 						{
-						if (!_isSDK) then
+						if (!_esSDK) then
 							{
 							if (([vehCSATPlane] call A3A_fnc_vehAvailable) or (!([vehNATOAA] call A3A_fnc_vehAvailable))) then {_times = 5*_times} else {_times = 0};
 							}
@@ -219,7 +219,7 @@ if !(_tmpObjectives isEqualTo []) then
 						}
 					else
 						{
-						if ((!_isSDK) and _csatIsFull) then {_times = 0};
+						if ((!_esSDK) and _csatIsFull) then {_times = 0};
 						};
 					}
 				};
@@ -249,7 +249,7 @@ if !(_tmpObjectives isEqualTo []) then
 				};
 			if (!_esCiudad) then
 				{
-				_isSea = false;
+				_esMar = false;
 				if ((_baseNATO and _seaportNATO) or (!_baseNATO and _seaportCSAT)) then
 					{
 					for "_i" from 0 to 3 do
@@ -258,9 +258,9 @@ if !(_tmpObjectives isEqualTo []) then
 						if (surfaceIsWater _pos) exitWith {_esMar = true};
 						};
 					};
-				if (_isSea) then {_times = _times * 2};
+				if (_esMar) then {_times = _times * 2};
 				};
-			if (_x == _nearX) then {_times = _times * 5};
+			if (_x == _cercano) then {_times = _times * 5};
 			if (_x in _killZones) then
 				{
 				_sitio = _x;
@@ -288,18 +288,18 @@ if !(_tmpObjectives isEqualTo []) then
 				};
 			};
 		};
-	if (count _easyX == 4) exitWith {};
+	if (count _faciles == 4) exitWith {};
 	} forEach _tmpObjectives;
 	};
-if (count _easyX == 4) exitWith {};
+if (count _faciles == 4) exitWith {};
 } forEach _airportsX;
 
-if (count _easyX == 4) exitWith
+if (count _faciles == 4) exitWith
 	{
-	{[[_x select 0,_x select 1,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];sleep 30} forEach _easyX;
+	{[[_x select 0,_x select 1,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];sleep 30} forEach _faciles;
 	};
-if (hasIFA and (sunOrMoon < 1)) exitWith {};
-if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
+if (hayIFA and (sunOrMoon < 1)) exitWith {};
+if ((count _objectivesFinal > 0) and (count _faciles < 3)) then
 	{
 	_arrayFinal = [];
 	/*{
@@ -314,12 +314,12 @@ if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 		};
 	//_objectiveFinal = selectRandom _arrayFinal;
 	_objectiveFinal = _arrayFinal selectRandomWeighted _countFinal;
-	_destinationX = _objectiveFinal select 0;
-	_originX = _objectiveFinal select 1;
+	_destino = _objectiveFinal select 0;
+	_origen = _objectiveFinal select 1;
 	///aquí decidimos las oleadas
 	if (_waves == 1) then
 		{
-		if (sidesX getVariable [_destinationX,sideUnknown] == teamPlayer) then
+		if (lados getVariable [_destino,sideUnknown] == buenos) then
 			{
 			_waves = (round (random tierWar));
 			if (_waves == 0) then {_waves = 1};
@@ -328,13 +328,13 @@ if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 			{
 			if (lados getVariable [_origen,sideUnknown] == muyMalos) then
 				{
-				if (_destinationX in airportsX) then
+				if (_destino in airportsX) then
 					{
 					_waves = 2 + round (random tierWar);
 					}
 				else
 					{
-					if (!(_destinationX in citiesX)) then
+					if (!(_destino in citiesX)) then
 						{
 						_waves = 1 + round (random (tierWar)/2);
 						};
@@ -342,26 +342,26 @@ if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 				}
 			else
 				{
-				if (!(_destinationX in citiesX)) then
+				if (!(_destino in citiesX)) then
 					{
 					_waves = 1 + round (random ((tierWar - 3)/2));
 					};
 				};
 			};
 		};
-	if (not(_destinationX in citiesX)) then
+	if (not(_destino in citiesX)) then
 		{
-		///[[_destinationX,_originX,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler;
-		[_destinationX,_originX,_waves] spawn A3A_fnc_wavedCA;
+		///[[_destino,_origen,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler;
+		[_destino,_origen,_waves] spawn A3A_fnc_wavedCA;
 		}
 	else
 		{
-		//if (sidesX getVariable [_originX,sideUnknown] == Occupants) then {[[_destinationX,_originX,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler} else {[[_destinationX,_originX],"A3A_fnc_CSATpunish"] call A3A_fnc_scheduler};
-		if (sidesX getVariable [_originX,sideUnknown] == Occupants) then {[_destinationX,_originX,_waves] spawn A3A_fnc_wavedCA} else {[_destinationX,_originX] spawn A3A_fnc_CSATpunish};
+		//if (lados getVariable [_origen,sideUnknown] == malos) then {[[_destino,_origen,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler} else {[[_destino,_origen],"A3A_fnc_CSATpunish"] call A3A_fnc_scheduler};
+		if (lados getVariable [_origen,sideUnknown] == malos) then {[_destino,_origen,_waves] spawn A3A_fnc_wavedCA} else {[_destino,_origen] spawn A3A_fnc_CSATpunish};
 		};
 	};
 
 if (_waves == 1) then
 	{
-	{[[_x select 0,_x select 1,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]} forEach _easyX;
+	{[[_x select 0,_x select 1,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]} forEach _faciles;
 	};

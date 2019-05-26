@@ -51,7 +51,7 @@ for "_i" from 1 to _var3 do
 	_num = 1 + (floor random 5);
 	_crate addMagazineCargoGlobal [_cosa, _num];
 	};
-if !(hasIFA) then
+if !(hayIFA) then
 	{
 	for "_i" from 1 to _var4 do
 		{
@@ -86,7 +86,7 @@ if !(hasIFA) then
 			_crate addBackpackCargoGlobal ["B_Carryall_oli",round (random 2)];
 			};
 		};
-	if (hasACE) then
+	if (hayACE) then
 		{
 		_crate addMagazineCargoGlobal ["ACE_HuntIR_M203", 3];
 		//_crate addBackpackCargoGlobal ["ACE_HuntIR_Box",1];

@@ -1,4 +1,4 @@
-private ["_veh","_lado","_return","_totalSeats","_crewSeats","_cargoSeats","_countX"];
+private ["_veh","_lado","_return","_totalSeats","_crewSeats","_cargoSeats","_cuenta"];
 _veh = _this select 0;
 _lado = _this select 1;
 
@@ -30,13 +30,13 @@ else
 		{
 		switch (_lado) do
 			{
-			case Occupants:
+			case malos:
 				{
 				_return = selectRandom groupsNATOSquad;
 				if (_cargoSeats > 8) then
 					{
-					_countX = _cargoSeats - (count _return);
-					for "_i" from 1 to _countX do
+					_cuenta = _cargoSeats - (count _return);
+					for "_i" from 1 to _cuenta do
 						{
 						if (random 10 < (tierWar + difficultyCoef)) then {_return pushBack NATOGrunt};
 						};
@@ -47,8 +47,8 @@ else
 				_return = selectRandom groupsCSATSquad;
 				if (_cargoSeats > 8) then
 					{
-					_countX = _cargoSeats - (count _return);
-					for "_i" from 1 to _countX do
+					_cuenta = _cargoSeats - (count _return);
+					for "_i" from 1 to _cuenta do
 						{
 						if (random 10 < (tierWar + difficultyCoef)) then {_return pushBack CSATGrunt};
 						};

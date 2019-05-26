@@ -1,6 +1,6 @@
 private _variable = _this select 0;
 private _description = _this select 1;
-private _destinationX = _this select 2;
+private _destino = _this select 2;
 private _state = _this select 3;
 _singleDestination = true;
 if !([_variable] call BIS_fnc_taskExists) exitWith {};
@@ -12,15 +12,15 @@ if (((_descriptionOld select 1) select 0) != (_description select 1)) then
 	[_variable,_description] call BIS_fnc_taskSetDescription;
 	};
 private _destinationOld = _variable call BIS_fnc_taskDestination;
-if (typeName _destinationX != typeName _destinationOld) then
+if (typeName _destino != typeName _destinationOld) then
 	{
-	[_variable,_destinationX] call BIS_fnc_taskSetDestination;
+	[_variable,_destino] call BIS_fnc_taskSetDestination;
 	}
 else
 	{
-	if !(_destinationX isEqualTo _destinationOld) then
+	if !(_destino isEqualTo _destinationOld) then
 		{
-		[_variable,_destinationX] call BIS_fnc_taskSetDestination;
+		[_variable,_destino] call BIS_fnc_taskSetDestination;
 		};
 	};
 if (count _this > 4) then

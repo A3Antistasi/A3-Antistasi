@@ -20,13 +20,13 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 	_lado = malos;
 	if ((random 10 >= (tierWar + difficultyCoef)) and !(_frontera) and !(_marcador in forcedSpawn)) then
 		{
-		_isFIA = true;
+		_esFIA = true;
 		};
 	};
 
 _antena = objNull;
 
-if (_lado == Occupants) then
+if (_lado == malos) then
 	{
 	if (_marcador in puestos) then
 		{
@@ -57,20 +57,20 @@ if (_tam < ([_marcador] call A3A_fnc_garrisonSize)) then
 	}
 else
 	{
-	if ({if ((getMarkerPos _x inArea _mrk) and (sidesX getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count markersX > 0) then {_patrol = false};
+	if ({if ((getMarkerPos _x inArea _mrk) and (lados getVariable [_x,sideUnknown] != _lado)) exitWIth {1}} count markersX > 0) then {_patrol = false};
 	};
 if (_patrol) then
 	{
 	_cuenta = 0;
 	while {(spawner getVariable _marcador !=2) and (_cuenta < 4)} do
 		{
-		_arraygroups = if (_lado == Occupants) then
+		_arrayGrupos = if (_lado == malos) then
 			{
-			if (!_isFIA) then {groupsNATOsmall} else {groupsFIASmall};
+			if (!_esFIA) then {gruposNATOsmall} else {gruposFIASmall};
 			}
 		else
 			{
-			groupsCSATsmall
+			gruposCSATsmall
 			};
 		if ([_marcador,false] call A3A_fnc_fogCheck < 0.3) then {_arrayGrupos = _arrayGrupos - sniperGroups};
 		_typeGroup = selectRandom _arrayGrupos;
@@ -89,7 +89,7 @@ if (_patrol) then
 			_grupos pushBack _grupo;
 			{[_x,_marcador] call A3A_fnc_NATOinit; _soldados pushBack _x} forEach units _grupo;
 			};
-		_countX = _countX +1;
+		_cuenta = _cuenta +1;
 		};
 	};
 
@@ -121,7 +121,7 @@ _bandera allowDamage false;
 _vehiclesX pushBack _bandera;
 
 _caja = objNull;
-if (_lado == Occupants) then
+if (_lado == malos) then
 	{
 	_caja = NATOAmmoBox createVehicle _posicion;
 	_nul = [_caja] call A3A_fnc_NATOcrate;
@@ -138,8 +138,8 @@ _roads = _posicion nearRoads _size;
 
 if ((_marcador in puertos) and (spawner getVariable _marcador!=2) and !hayIFA) then
 	{
-	_typeVehX = if (_lado == Occupants) then {vehNATOBoat} else {vehCSATBoat};
-	if ([_typeVehX] call A3A_fnc_vehAvailable) then
+	_tipoVeh = if (_lado == malos) then {vehNATOBoat} else {vehCSATBoat};
+	if ([_tipoVeh] call A3A_fnc_vehAvailable) then
 		{
 		_mrkMar = seaSpawn select {getMarkerPos _x inArea _marcador};
 		_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_tipoVeh];
@@ -171,10 +171,10 @@ else
 				_roadcon = objNull;
 				{if ((position _x) distance _posicion > _dist) then {_roadcon = _x}} forEach _roadscon;
 				_dirveh = [_roadcon, _road] call BIS_fnc_DirTo;
-				if (!_isFIA) then
+				if (!_esFIA) then
 					{
-					_group = createGroup _lado;
-					_groups pushBack _group;
+					_grupo = createGroup _lado;
+					_grupos pushBack _grupo;
 					_pos = [getPos _road, 7, _dirveh + 270] call BIS_Fnc_relPos;
 					_bunker = "Land_BagBunker_01_Small_green_F" createVehicle _pos;
 					_vehiclesX pushBack _bunker;
@@ -218,8 +218,8 @@ if (count _roads != 0) then
 	_pos = _posicion findEmptyPosition [5,_size,"I_Truck_02_covered_F"];//donde pone 5 antes ponía 10
 	if (count _pos > 0) then
 		{
-		_typeVehX = if (_lado == Occupants) then {if (!_isFIA) then {vehNATOTrucks} else {[vehFIATruck]}} else {vehCSATTrucks};
-		_veh = createVehicle [selectRandom _typeVehX, _pos, [], 0, "NONE"];
+		_tipoVeh = if (_lado == malos) then {if (!_esFIA) then {vehNATOTrucks} else {[vehFIATruck]}} else {vehCSATTrucks};
+		_veh = createVehicle [selectRandom _tipoVeh, _pos, [], 0, "NONE"];
 		_veh setDir random 360;
 		_vehiclesX pushBack _veh;
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
@@ -227,13 +227,13 @@ if (count _roads != 0) then
 		};
 	};
 
-_countX = 0;
+_cuenta = 0;
 
 if ((!isNull _antena) and (spawner getVariable _marcador!=2)) then
 	{
 	if ((typeOf _antena == "Land_TTowerBig_1_F") or (typeOf _antena == "Land_TTowerBig_2_F")) then
 		{
-		_group = createGroup _lado;
+		_grupo = createGroup _lado;
 		_pos = getPosATL _antena;
 		_dir = getDir _antena;
 		_posF = _pos getPos [2,_dir];
@@ -258,12 +258,12 @@ if ((!isNull _antena) and (spawner getVariable _marcador!=2)) then
 
 _array = [];
 _subArray = [];
-_countX = 0;
+_cuenta = 0;
 _tam = _tam -1;
-while {_countX <= _tam} do
+while {_cuenta <= _tam} do
 	{
-	_array pushBack (_garrison select [_countX,7]);
-	_countX = _countX + 8;
+	_array pushBack (_garrison select [_cuenta,7]);
+	_cuenta = _cuenta + 8;
 	};
 for "_i" from 0 to (count _array - 1) do
 	{
@@ -291,10 +291,10 @@ if (alive _x) then
 	};
 } forEach _soldados;
 //if (!isNull _periodista) then {deleteVehicle _periodista};
-{deleteGroup _x} forEach _groups;
+{deleteGroup _x} forEach _grupos;
 {
 if (!(_x in staticsToSave)) then
 	{
-	if ((!([distanceSPWN-_size,1,_x,teamPlayer] call A3A_fnc_distanceUnits))) then {deleteVehicle _x}
+	if ((!([distanceSPWN-_size,1,_x,buenos] call A3A_fnc_distanceUnits))) then {deleteVehicle _x}
 	};
 } forEach _vehiclesX;

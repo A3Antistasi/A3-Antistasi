@@ -13,7 +13,7 @@ _heli = group driver _veh;
 _dist = 500;
 _distEng = if (_veh isKindOf "Helicopter") then {1000} else {5000};
 _distExit = if (_veh isKindOf "Helicopter") then {400} else {1000};
-_orig = getMarkerPos _originX;
+_orig = getMarkerPos _origen;
 
 
 _engagepos = [];
@@ -63,7 +63,7 @@ _wp3 setWaypointType "MOVE";
 _wp3 setWaypointSpeed "NORMAL";
 _wp3 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
 
-{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _group;
+{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
 waitUntil {sleep 1; (currentWaypoint _heli == 3) or (not alive _veh) or (!canMove _veh)};
 
 //[_veh] call A3A_fnc_entriesLand;
@@ -78,15 +78,15 @@ if (alive _veh) then
    	moveOut _x;
    	sleep 1;
    	_x spawn {sleep 5; _this allowDamage true};
-  	} forEach units _group;
+  	} forEach units _grupo;
 	};
 
 
 if !(_reinf) then
    {
-   _posLeader = position (leader _group);
+   _posLeader = position (leader _grupo);
    _posLeader set [2,0];
-   _wp5 = _group addWaypoint [_posLeader,0];
+   _wp5 = _grupo addWaypoint [_posLeader,0];
    _wp5 setWaypointType "MOVE";
    _wp5 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
    _wp4 = _grupo addWaypoint [_posicion, 1];

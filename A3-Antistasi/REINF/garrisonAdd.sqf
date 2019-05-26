@@ -8,20 +8,20 @@ _resourcesFIA = server getVariable "resourcesFIA";
 
 _tipo = _this select 0;
 
-_costs = 0;
+_coste = 0;
 
 if (_tipo isEqualType "") then
 	{
-	_costs = server getVariable _tipo;
-	_costs = _costs + ([SDKMortar] call A3A_fnc_vehiclePrice);
+	_coste = server getVariable _tipo;
+	_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice);
 	}
 else
 	{
 	_tipo = if (random 20 <= skillFIA) then {_tipo select 1} else {_tipo select 0};
-	_costs = server getVariable _tipo;
+	_coste = server getVariable _tipo;
 	};
 
-if (_costs > _resourcesFIA) exitWith {hint format ["You do not have enough money for this kind of unit (%1 € needed)",_costs]};
+if (_coste > _resourcesFIA) exitWith {hint format ["You do not have enough money for this kind of unit (%1 € needed)",_coste]};
 
 _marcador = posicionGarr;
 
@@ -53,3 +53,4 @@ if (lados getVariable [_marcador,sideUnknown] == buenos) then
 		[_marcador,_tipo] remoteExec ["A3A_fnc_createSDKGarrisonsTemp",2];
 		};
 	};
+

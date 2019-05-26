@@ -18,7 +18,7 @@ _distance = _this select 1;
 _OcloseX = [];
 _bodies = objNull;
 		
-//Buscamos objectsX closeX
+//Buscamos objetos closeX
 _OcloseX = nearestObjects [_npc,["Man"],_distance];
 			
 {	

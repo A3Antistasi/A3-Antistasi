@@ -12,8 +12,8 @@ _frontera = _this select 3;
 _vehiclesX = [];
 _soldados = [];
 
-_group = createGroup _lado;
-_typeUnit = if (_lado==Occupants) then {staticCrewOccupants} else {staticCrewInvaders};
+_grupo = createGroup _lado;
+_tipoUnit = if (_lado==malos) then {staticCrewOccupants} else {staticCrewInvaders};
 
 for "_i" from 0 to (count _buildings) - 1 do
 	{
@@ -33,8 +33,8 @@ for "_i" from 0 to (count _buildings) - 1 do
 	_tipoB = typeOf _building;
 	if ((_tipoB == "Land_HelipadSquare_F") and (!_frontera)) then
 		{
-		_typeVehX = if (_lado == Occupants) then {vehNATOPatrolHeli} else {vehCSATPatrolHeli};
-		_veh = createVehicle [_typeVehX, position _building, [],0, "CAN_COLLIDE"];
+		_tipoVeh = if (_lado == malos) then {vehNATOPatrolHeli} else {vehCSATPatrolHeli};
+		_veh = createVehicle [_tipoVeh, position _building, [],0, "CAN_COLLIDE"];
 		_veh setDir (getDir _building);
 		_vehiclesX pushBack _veh;
 		}
@@ -42,8 +42,8 @@ for "_i" from 0 to (count _buildings) - 1 do
 		{
 		if 	((_tipoB == "Land_Cargo_HQ_V1_F") or (_tipoB == "Land_Cargo_HQ_V2_F") or (_tipoB == "Land_Cargo_HQ_V3_F")) then
 			{
-			_typeVehX = if (_lado == Occupants) then {staticAAOccupants} else {staticAAInvaders};
-			_veh = createVehicle [_typeVehX, (_building buildingPos 8), [],0, "CAN_COLLIDE"];
+			_tipoVeh = if (_lado == malos) then {staticAAOccupants} else {staticAAInvaders};
+			_veh = createVehicle [_tipoVeh, (_building buildingPos 8), [],0, "CAN_COLLIDE"];
 			_veh setPosATL [(getPos _building select 0),(getPos _building select 1),(getPosATL _veh select 2)];
 			_veh setDir (getDir _building);
 			_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
@@ -56,8 +56,8 @@ for "_i" from 0 to (count _buildings) - 1 do
 			{
 			if 	((_tipoB == "Land_Cargo_Patrol_V1_F") or (_tipoB == "Land_Cargo_Patrol_V2_F") or (_tipoB == "Land_Cargo_Patrol_V3_F")) then
 				{
-				_typeVehX = if (_lado == Occupants) then {NATOMG} else {CSATMG};
-				_veh = createVehicle [_typeVehX, (_building buildingPos 1), [], 0, "CAN_COLLIDE"];
+				_tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
+				_veh = createVehicle [_tipoVeh, (_building buildingPos 1), [], 0, "CAN_COLLIDE"];
 				_ang = (getDir _building) - 180;
 				_pos = [getPosATL _veh, 2.5, _ang] call BIS_Fnc_relPos;
 				_veh setPosATL _pos;

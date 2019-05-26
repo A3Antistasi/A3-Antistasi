@@ -45,7 +45,7 @@ If ("car" in _typeofgrp || "tank" in _typeofgrp) then
 	_dist = 100;
 };
 						
-//La distanceX de flanqueo no puede ser superior a la distanceX del objectiveX o nos pordría pillar por la espalda
+//La distanceX de flanqueo no puede ser superior a la distanceX del objetivo o nos pordría pillar por la espalda
 _flankdist = if ((_flankdist) > _distance) then {_dist  + 50} else {_flankdist};
 _flankdist = if ((_flankdist) < _dist) then {_dist} else {_flankdist};
 _pool = [];

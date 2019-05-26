@@ -106,7 +106,7 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 			};
 		_handled;
 		}];
-positionXSel = [0,0,0];
+posicionSel = [0,0,0];
 onEachFrame
  {
  if !(isNull garageVeh) then
@@ -118,10 +118,10 @@ onEachFrame
    ];
    if (_ins isEqualTo []) exitWith {};
    _pos = (_ins select 0 select 0);
-   if (_pos distance positionXSel < 0.1) exitWith {};
-   positionXSel = _pos;
-   _shipX = false;
-   if (garageVeh isKindOf "Ship") then {_pos set [2,0]; _shipX = true};
+   if (_pos distance posicionSel < 0.1) exitWith {};
+   posicionSel = _pos;
+   _barco = false;
+   if (garageVeh isKindOf "Ship") then {_pos set [2,0]; _barco = true};
    if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
    if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
    _agua = surfaceIsWater _pos;
@@ -134,7 +134,7 @@ onEachFrame
 waitUntil {(bought > 0) or !(player inArea _nearX)};
 onEachFrame {};
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", garageKeys];
-positionXSel = nil;
+posicionSel = nil;
 _pos = getPosASL garageVeh;
 _dir = getDir garageVeh;
 _tipo = typeOf garageVeh;

@@ -1,16 +1,16 @@
 // usage: Activate via radio trigger, on act: [] execVM "airstrike.sqf";
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_positionX","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_lado","_isMarker","_typePlane","_exit","_timeOut","_size","_buildings","_friends","_enemiesX","_mediaX","_mediaY","_pos","_countX","_distantNum","_distantX","_planefn","_planeCrew","_groupPlane","_tipo"];
+private ["_marcador","_posicion","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_lado","_isMarker","_typePlane","_exit","_timeOut","_size","_buildings","_amigos","_enemigos","_mediaX","_mediaY","_pos","_cuenta","_distantNum","_distantX","_planefn","_planeCrew","_groupPlane","_tipo"];
 
-_markerX = _this select 0;
+_marcador = _this select 0;
 _lado = _this select 1;
-_positionX = _markerX;
+_posicion = _marcador;
 _isMarker = false;
-if (_markerX isEqualType "") then
+if (_marcador isEqualType "") then
 	{
 	_isMarker = true;
-	_positionX = getMarkerPos _markerX;
+	_posicion = getMarkerPos _marcador;
 	};
 _tipo = _this select 2;
 
@@ -26,31 +26,31 @@ _exit = false;
 if (_isMarker) then
 	{
 	_timeOut = time + 600;
-	waitUntil {sleep 1; (spawner getVariable _markerX == 0) or (time > _timeOut)};
-	if (_markerX in airportsX) then
+	waitUntil {sleep 1; (spawner getVariable _marcador == 0) or (time > _timeOut)};
+	if (_marcador in airportsX) then
 		{
-		_size = [_markerX] call A3A_fnc_sizeMarker;
-		_buildings = nearestObjects [_positionX, ["Land_LandMark_F","Land_runway_edgelight"], _size / 2];
+		_size = [_marcador] call A3A_fnc_sizeMarker;
+		_buildings = nearestObjects [_posicion, ["Land_LandMark_F","Land_runway_edgelight"], _size / 2];
 		if (count _buildings > 1) then
 			{
-			_positionX = getPos (_buildings select 0);
+			_posicion = getPos (_buildings select 0);
 			_pos2 = getPos (_buildings select 1);
-			_ang = [_positionX, _pos2] call BIS_fnc_DirTo;
+			_ang = [_posicion, _pos2] call BIS_fnc_DirTo;
 			_angOrig = _ang + 180;
 			}
 		};
-	_pos1 = [_positionX, 400, _angorig] call BIS_Fnc_relPos;
-	_origpos = [_positionX, 3*distanceSPWN, _angorig] call BIS_fnc_relPos;
-	_pos2 = [_positionX, 200, _ang] call BIS_Fnc_relPos;
-	_finpos = [_positionX, 3*distanceSPWN, _ang] call BIS_fnc_relPos;
+	_pos1 = [_posicion, 400, _angorig] call BIS_Fnc_relPos;
+	_origpos = [_posicion, 3*distanceSPWN, _angorig] call BIS_fnc_relPos;
+	_pos2 = [_posicion, 200, _ang] call BIS_Fnc_relPos;
+	_finpos = [_posicion, 3*distanceSPWN, _ang] call BIS_fnc_relPos;
 	}
 else
 	{
-	_friends = if (_lado == Occupants) then {allUnits select {(_x distance _positionX < 300) and (alive _x) and ((side _x == Occupants) or (side _x == civilian))}} else {allUnits select {(_x distance _positionX < 300) and (alive _x) and (side _x == Invaders)}};
-	if (count _friends == 0) then
+	_amigos = if (_lado == malos) then {allUnits select {(_x distance _posicion < 300) and (alive _x) and ((side _x == malos) or (side _x == civilian))}} else {allUnits select {(_x distance _posicion < 300) and (alive _x) and (side _x == muyMalos)}};
+	if (count _amigos == 0) then
 		{
-		_enemiesX = if (_lado == Occupants) then {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (alive _x)}};
-		if (count _enemiesX > 0) then
+		_enemigos = if (_lado == malos) then {allUnits select {_x distance _posicion < 300 and (side _x != _lado) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _posicion < 300 and (side _x != _lado) and (alive _x)}};
+		if (count _enemigos > 0) then
 			{
 			_mediaX = 0;
 			_mediaY = 0;
@@ -58,26 +58,26 @@ else
 			_pos = position _x;
 			_mediaX = _mediaX + (_pos select 0);
 			_mediaY = _mediaY + (_pos select 1);
-			} forEach _enemiesX;
-			_countX = count _enemiesX;
-			_mediaX = _mediaX / _countX;
-			_mediaY = _mediaY / _countX;
-			_positionX = [_mediaX,_mediaY,0];
+			} forEach _enemigos;
+			_cuenta = count _enemigos;
+			_mediaX = _mediaX / _cuenta;
+			_mediaY = _mediaY / _cuenta;
+			_posicion = [_mediaX,_mediaY,0];
 			_distantNum = 0;
 			_distantX = objNull;
 			{
-			if (_x distance2D _positionX > _distantNum) then
+			if (_x distance2D _posicion > _distantNum) then
 				{
-				_distantNum = _x distance2D _positionX;
+				_distantNum = _x distance2D _posicion;
 				_distantX = _x;
 				}
-			} forEach _enemiesX;
-			_ang = [_positionX, _distantX] call BIS_fnc_DirTo;
+			} forEach _enemigos;
+			_ang = [_posicion, _distantX] call BIS_fnc_DirTo;
 			_angOrig = _ang + 180;
-			_pos1 = [_positionX, 200, _angorig] call BIS_Fnc_relPos;
-			_origpos = [_positionX, 4500, _angorig] call BIS_fnc_relPos;
-			_pos2 = [_positionX, 200, _ang] call BIS_Fnc_relPos;
-			_finpos = [_positionX, 4500, _ang] call BIS_fnc_relPos;
+			_pos1 = [_posicion, 200, _angorig] call BIS_Fnc_relPos;
+			_origpos = [_posicion, 4500, _angorig] call BIS_fnc_relPos;
+			_pos2 = [_posicion, 200, _ang] call BIS_Fnc_relPos;
+			_finpos = [_posicion, 4500, _ang] call BIS_fnc_relPos;
 			}
 		else
 			{

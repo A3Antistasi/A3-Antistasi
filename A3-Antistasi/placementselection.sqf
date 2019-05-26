@@ -18,8 +18,8 @@ hintC_arr_EH = findDisplay 72 displayAddEventHandler ["unload",
 		};
 	}];
 
-private ["_positionTel","_markerX","_markersX"];
-_markersX = markersX select {sidesX getVariable [_x,sideUnknown] != teamPlayer};
+private ["_positionTel","_marcador","_markersX"];
+_markersX = markersX select {lados getVariable [_x,sideUnknown] != buenos};
 _positionTel = [];
 if (isNil "placementDone") then
 	{
@@ -50,21 +50,21 @@ while {true} do
 	onMapSingleClick "";
 	if (not visiblemap) exitWith {};
 	_positionTel = positionTel;
-	_markerX = [_markersX,_positionTel] call BIS_fnc_nearestPosition;
-	if (getMarkerPos _markerX distance _positionTel < 500) then {hint "Place selected is very close to enemy zones.\n\n Please select another position"};
+	_marcador = [_markersX,_positionTel] call BIS_fnc_nearestPosition;
+	if (getMarkerPos _marcador distance _positionTel < 500) then {hint "Place selected is very close to enemy zones.\n\n Please select another position"};
 	if (surfaceIsWater _positionTel) then {hint "Selected position cannot be in water"};
-	_enemiesX = false;
+	_enemigos = false;
 	if (!isNil "placementDone") then
 		{
 		{
-		if ((side _x == Occupants) or (side _x == Invaders)) then
+		if ((side _x == malos) or (side _x == muyMalos)) then
 			{
-			if (_x distance _positionTel < 500) then {_enemiesX = true};
+			if (_x distance _positionTel < 500) then {_enemigos = true};
 			};
 		} forEach allUnits;
 		};
-	if (_enemiesX) then {hint "There are enemies in the surroundings of that area, please select another."};
-	if ((getMarkerPos _markerX distance _positionTel >= 500) and (!surfaceIsWater _positionTel) and (!_enemiesX)) exitWith {};
+	if (_enemigos) then {hint "There are enemies in the surroundings of that area, please select another."};
+	if ((getMarkerPos _marcador distance _positionTel >= 500) and (!surfaceIsWater _positionTel) and (!_enemigos)) exitWith {};
 	sleep 0.1;
 	};
 if (visiblemap) then
@@ -93,7 +93,7 @@ if (visiblemap) then
 		publicVariable "groupPetros";
         petros = groupPetros createUnit [typePetros, _positionTel, [], 0, "NONE"];
         groupPetros setGroupId ["Maru","GroupColor4"];
-        petros setIdentity "friendlyX";
+        petros setIdentity "amiguete";
         if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
         petros disableAI "MOVE";
         petros disableAI "AUTOTARGET";
@@ -103,8 +103,8 @@ if (visiblemap) then
         publicVariable "petros";
 		};
 	respawnTeamPlayer setMarkerPos _positionTel;
-	[respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",[teamPlayer,civilian]];
-	[respawnTeamPlayer,0] remoteExec ["setMarkerAlphaLocal",[Occupants,Invaders]];
+	[respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",[buenos,civilian]];
+	[respawnTeamPlayer,0] remoteExec ["setMarkerAlphaLocal",[malos,muyMalos]];
 	if (isMultiplayer) then {hint "Please wait while moving HQ Assets to selected position";sleep 5};
 	_pos = [_positionTel, 3, getDir petros] call BIS_Fnc_relPos;
 	fireX setPos _pos;

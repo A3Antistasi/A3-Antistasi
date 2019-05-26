@@ -47,7 +47,7 @@ for "_i" from 0 to _var2 do
 	if (!(_cosa in unlockedMagazines)) then {_crate addMagazineCargoGlobal [_cosa, 10]};
 	};
 for "_i" from 1 to _var3 do
-	{_cosa = selectRandom minesAAF;
+	{_cosa = selectRandom minasAAF;
 	_num = 1 + (floor random 5);
 	_crate addMagazineCargoGlobal [_cosa, _num];
 	};

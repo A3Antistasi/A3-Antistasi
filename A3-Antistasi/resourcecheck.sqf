@@ -19,7 +19,7 @@ while {true} do
 	_popAAF = 0;
 	_popCSAT = 0;
 	_popTotal = 0;
-	_bonusFIA = 1 + (0.25*({(sidesX getVariable [_x,sideUnknown] == teamPlayer) and !(_x in destroyedCities)} count factories));
+	_bonusFIA = 1 + (0.25*({(lados getVariable [_x,sideUnknown] == buenos) and !(_x in destroyedCities)} count fabricas));
 	{
 	_city = _x;
 	_recAddCitySDK = 0;
@@ -49,9 +49,9 @@ while {true} do
 		_hrAddCity = (_numciv * (_prestigeSDK / 10000));///20000 originalmente
 		switch (_power) do
 			{
-			case teamPlayer: {[-1,_suppBoost,_city] spawn A3A_fnc_citySupportChange};
-			case Occupants: {[1,-1,_city] spawn A3A_fnc_citySupportChange};
-			case Invaders: {[-1,-1,_city] spawn A3A_fnc_citySupportChange};
+			case buenos: {[-1,_suppBoost,_ciudad] spawn A3A_fnc_citySupportChange};
+			case malos: {[1,-1,_ciudad] spawn A3A_fnc_citySupportChange};
+			case muyMalos: {[-1,-1,_ciudad] spawn A3A_fnc_citySupportChange};
 			};
 		if (sidesX getVariable [_city,sideUnknown] == Occupants) then
 			{
@@ -103,7 +103,7 @@ while {true} do
 		{
 		if (not(_fabrica in destroyedCities)) then {_bonusFIA = _bonusFIA + 0.25};
 		};
-	} forEach factories;
+	} forEach fabricas;
 	*/
 	{
 	_recurso = _x;
@@ -111,7 +111,7 @@ while {true} do
 		{
 		if (not(_recurso in destroyedCities)) then {_recAddSDK = _recAddSDK + (300 * _bonusFIA)};
 		};
-	} forEach resourcesX;
+	} forEach recursos;
 	_hrAddBLUFOR = (round _hrAddBLUFOR);
 	_recAddSDK = (round _recAddSDK);
 
@@ -159,18 +159,18 @@ while {true} do
 	sleep 3;
 	if ((count antennasDead > 0) and (not(["REP"] call BIS_fnc_taskExists))) then
 		{
-		_potentials = [];
+		_posibles = [];
 		{
-		_markerX = [markersX, _x] call BIS_fnc_nearestPosition;
-		if ((sidesX getVariable [_markerX,sideUnknown] == Occupants) and (spawner getVariable _markerX == 2)) exitWith
+		_marcador = [markersX, _x] call BIS_fnc_nearestPosition;
+		if ((lados getVariable [_marcador,sideUnknown] == malos) and (spawner getVariable _marcador == 2)) exitWith
 			{
-			_potentials pushBack [_markerX,_x];
+			_posibles pushBack [_marcador,_x];
 			};
 		} forEach antennasDead;
-		if (count _potentials > 0) then
+		if (count _posibles > 0) then
 			{
-			_potential = selectRandom _potentials;
-			[[_potential select 0,_potential select 1],"REP_Antenna"] call A3A_fnc_scheduler;
+			_posible = selectRandom _posibles;
+			[[_posible select 0,_posible select 1],"REP_Antenna"] call A3A_fnc_scheduler;
 			};
 		}
 	else
@@ -178,7 +178,7 @@ while {true} do
 		_changingX = false;
 		{
 		_chance = 5;
-		if ((_x in resourcesX) and (sidesX getVariable [_x,sideUnknown] == Invaders)) then {_chace = 20};
+		if ((_x in recursos) and (lados getVariable [_x,sideUnknown] == muyMalos)) then {_chace = 20};
 		if (random 100 < _chance) then
 			{
 			_changingX = true;

@@ -1,4 +1,4 @@
-private ["_roads","_pos","_positionX","_group"];
+private ["_roads","_pos","_posicion","_grupo"];
 
 _markersX = markersX + [respawnTeamPlayer];
 
@@ -48,7 +48,7 @@ if (count _positionTel > 0) then
 	{
 	_base = [_markersX, _positionTel] call BIS_Fnc_nearestPosition;
 	if (_checkForPlayer and ((_base != "SYND_HQ") and !(_base in airportsX))) exitWith {hint "Player groups are only allowed to Fast Travel to HQ or Airbases"};
-	if ((sidesX getVariable [_base,sideUnknown] == Occupants) or (sidesX getVariable [_base,sideUnknown] == Invaders)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
+	if ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == muyMalos)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
 	//if (_base in outpostsFIA) exitWith {hint "You cannot Fast Travel to roadblocks and watchposts"; openMap [false,false]};
 
@@ -56,12 +56,12 @@ if (count _positionTel > 0) then
 
 	if (_positionTel distance getMarkerPos _base < 50) then
 		{
-		_positionX = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
-		_distanceX = round (((position _jefe) distance _positionX)/200);
-		//if (!_esHC) then {disableUserInput true; cutText ["Fast traveling, please wait","BLACK",2]; sleep 2;} else {hcShowBar false;hcShowBar true;hint format ["Moving group %1 to destination",groupID _group]; sleep _distanceX;};
-		_forcedX = false;
-		if (!isMultiplayer) then {if (not(_base in forcedSpawn)) then {_forcedX = true; forcedSpawn = forcedSpawn + [_base]}};
-		if (!_esHC) then {disableUserInput true; cutText [format ["Fast traveling, travel time: %1s , please wait", _distanceX],"BLACK",1]; sleep 1;} else {hcShowBar false;hcShowBar true;hint format ["Moving group %1 to destination",groupID _group]; sleep _distanceX;};
+		_posicion = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
+		_distanceX = round (((position _jefe) distance _posicion)/200);
+		//if (!_esHC) then {disableUserInput true; cutText ["Fast traveling, please wait","BLACK",2]; sleep 2;} else {hcShowBar false;hcShowBar true;hint format ["Moving group %1 to destination",groupID _grupo]; sleep _distanceX;};
+		_forzado = false;
+		if (!isMultiplayer) then {if (not(_base in forcedSpawn)) then {_forzado = true; forcedSpawn = forcedSpawn + [_base]}};
+		if (!_esHC) then {disableUserInput true; cutText [format ["Fast traveling, travel time: %1s , please wait", _distanceX],"BLACK",1]; sleep 1;} else {hcShowBar false;hcShowBar true;hint format ["Moving group %1 to destination",groupID _grupo]; sleep _distanceX;};
  		if (!_esHC) then
  			{
  			_timePassed = 0;
@@ -94,7 +94,7 @@ if (count _positionTel > 0) then
 					_tam = 10;
 					while {true} do
 						{
-						_roads = _positionX nearRoads _tam;
+						_roads = _posicion nearRoads _tam;
 						if (count _roads > 0) exitWith {};
 						_tam = _tam + 10;
 						};
@@ -104,7 +104,7 @@ if (count _positionTel > 0) then
 					};
 				if ((vehicle _unit isKindOf "StaticWeapon") and (!isPlayer (leader _unit))) then
 					{
-					_pos = _positionX findEmptyPosition [10,100,typeOf (vehicle _unit)];
+					_pos = _posicion findEmptyPosition [10,100,typeOf (vehicle _unit)];
 					vehicle _unit setPosATL _pos;
 					};
 				}
@@ -112,16 +112,16 @@ if (count _positionTel > 0) then
 				{
 				if (!(_unit getVariable ["INCAPACITATED",false])) then
 					{
-					_positionX = _positionX findEmptyPosition [1,50,typeOf _unit];
-					_unit setPosATL _positionX;
+					_posicion = _posicion findEmptyPosition [1,50,typeOf _unit];
+					_unit setPosATL _posicion;
 					if (isPlayer leader _unit) then {_unit setVariable ["rearming",false]};
 					_unit doWatch objNull;
 					_unit doFollow leader _unit;
 					}
 				else
 					{
-					_positionX = _positionX findEmptyPosition [1,50,typeOf _unit];
-					_unit setPosATL _positionX;
+					_posicion = _posicion findEmptyPosition [1,50,typeOf _unit];
+					_unit setPosATL _posicion;
 					};
 				};
 			};

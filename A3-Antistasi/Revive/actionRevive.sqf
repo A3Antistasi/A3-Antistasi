@@ -53,7 +53,7 @@ if (_player) then
 	{
 	_cured setVariable ["helped",_medicX,true];
 	};
-_medicX setVariable ["helping",true];
+_medicX setVariable ["ayudando",true];
 if (not("FirstAidKit" in (items _medicX))) then
 	{
 	_medicX addItem "FirstAidKit";
@@ -88,7 +88,7 @@ if (!_player) then
 	}
 else
 	{
-	_actionX = _medicX addAction ["Cancel Revive", {(_this select 1) setVariable ["cancelRevive",true]},nil,6,true,true,"","(_this getVariable [""helping"",false]) and (isPlayer _this)"];
+	_accion = _medicX addAction ["Cancel Revive", {(_this select 1) setVariable ["cancelRevive",true]},nil,6,true,true,"","(_this getVariable [""ayudando"",false]) and (isPlayer _this)"];
 	};
 _medicX addEventHandler ["AnimDone",
 	{
@@ -118,17 +118,17 @@ _medicX addEventHandler ["AnimDone",
 waitUntil {sleep 0.5; (_medicX getVariable ["animsDone",true])};
 _medicX setVariable ["animsDone",nil];
 _medicX setVariable ["timeToHeal",nil];
-_medicX setVariable ["cured",nil];
-_medicX setVariable ["helping",false];
+_medicX setVariable ["curado",nil];
+_medicX setVariable ["ayudando",false];
 if (!_player) then
 	{
 	{_medicX enableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"];
 	}
 else
 	{
-	_medicX removeAction _actionX;
-	_cured setVariable ["helped",objNull,true];
-	_medicX setVariable ["helping",false];
+	_medicX removeAction _accion;
+	_curado setVariable ["ayudado",objNull,true];
+	_medicX setVariable ["ayudando",false];
 	};
 if (_medicX getVariable ["cancelRevive",false]) exitWith
 	{
@@ -149,8 +149,8 @@ if (!([_medicX] call A3A_fnc_canFight) or (_medicX != vehicle _medicX) or (_medi
 
 if (_medicX getVariable ["success",true]) then
 	{
-	_lado = side (group _cured);
-	if ((_lado != side (group _medicX)) and ((_lado == Occupants) or (_lado == Invaders))) then
+	_lado = side (group _curado);
+	if ((_lado != side (group _medicX)) and ((_lado == malos) or (_lado == muyMalos))) then
 		{
 		_cured setVariable ["surrendered",true,true];
 		sleep 2;

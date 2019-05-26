@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_mrkOrigin","_pos","_lado","_countX","_mrkDestination","_veh","_posOrigin","_sidesOccupants","_posDestination","_typeVehX","_typeAmmunition","_size","_vehicle","_vehCrew","_groupVeh","_roundsX","_objectiveX","_objectivesX","_timeX"];
+private ["_mrkOrigin","_pos","_lado","_cuenta","_mrkDestination","_veh","_posOrigin","_sidesOccupants","_posDestination","_tipoVeh","_tipoMuni","_size","_vehicle","_vehCrew","_grupoVeh","_rondas","_objetivo","_objectivesX","_tiempo"];
 
 _mrkOrigin = _this select 0;
 _posOrigin = if (_mrkOrigin isEqualType "") then {getMarkerPos _mrkOrigin} else {_mrkOrigin};
@@ -12,7 +12,7 @@ _typeVehX = if (_lado == Occupants) then {vehNATOMRLS} else {vehCSATMRLS};
 
 if !([_typeVehX] call A3A_fnc_vehAvailable) exitWith {};
 
-_typeAmmunition = if (_lado == Occupants) then {vehNATOMRLSMags} else {vehCSATMRLSMags};
+_tipoMuni = if (_lado == malos) then {vehNATOMRLSMags} else {vehCSATMRLSMags};
 
 _pos = [_posOrigin, 50,100, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 
@@ -21,22 +21,22 @@ _veh = _vehicle select 0;
 _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit} forEach _vehCrew;
 [_veh] call A3A_fnc_AIVEHinit;
-_groupVeh = _vehicle select 2;
+_grupoVeh = _vehicle select 2;
 _size = [_mrkDestination] call A3A_fnc_sizeMarker;
 
 if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) select 0)]) then
 	{
-	while {(alive _veh) and ({_x select 0 == _typeAmmunition} count magazinesAmmo _veh > 0) and (_mrkDestination in forcedSpawn)} do
+	while {(alive _veh) and ({_x select 0 == _tipoMuni} count magazinesAmmo _veh > 0) and (_mrkDestination in forcedSpawn)} do
 		{
-		_objectiveX = objNull;
-		_roundsX = 1;
+		_objetivo = objNull;
+		_rondas = 1;
 		_objectivesX = vehicles select {(side (group driver _x) in _sidesOccupants) and (_x distance _posDestination <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (speed _x < 1)};
 		if (count _objectivesX > 0) then
 			{
 			{
-			if (typeOf _x in vehAttack) exitWith {_objectiveX = _x; _roundsX = 4};
+			if (typeOf _x in vehAttack) exitWith {_objetivo = _x; _rondas = 4};
 			} forEach _objectivesX;
-			if (isNull _objectiveX) then {_objectiveX = selectRandom _objectivesX};
+			if (isNull _objetivo) then {_objetivo = selectRandom _objectivesX};
 			}
 		else
 			{
@@ -49,20 +49,20 @@ if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) selec
 				_countGroup = {(alive _x) and (!captive _x)} count units group _potential;
 				if (_countGroup > _countX) then
 					{
-					if ((_lado == Invaders) or ({(side (group _x) == civilian) and (_x distance _potential < 50)} count allUnits == 0)) then
+					if ((_lado == muyMalos) or ({(side (group _x) == civilian) and (_x distance _posible < 50)} count allUnits == 0)) then
 						{
-						_objectiveX = _potential;
-						if (_countGroup > 6) then {_roundsX = 2};
+						_objetivo = _posible;
+						if (_countGroup > 6) then {_rondas = 2};
 						};
 					};
 				} forEach _objectivesX;
 				};
 			};
-		if (!isNull _objectiveX) then
+		if (!isNull _objetivo) then
 			{
-			_veh commandArtilleryFire [position _objectiveX,_typeAmmunition,_roundsX];
-			_timeX = _veh getArtilleryETA [position _objectiveX, ((getArtilleryAmmo [_veh]) select 0)];
-			sleep 9 + ((_roundsX - 1) * 3);
+			_veh commandArtilleryFire [position _objetivo,_tipoMuni,_rondas];
+			_tiempo = _veh getArtilleryETA [position _objetivo, ((getArtilleryAmmo [_veh]) select 0)];
+			sleep 9 + ((_rondas - 1) * 3);
 			}
 		else
 			{
@@ -80,4 +80,4 @@ waitUntil {sleep 1; !([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnit
 deleteVehicle _veh;
 } forEach _vehCrew;
 
-deleteGroup _groupVeh;
+deleteGroup _grupoVeh;

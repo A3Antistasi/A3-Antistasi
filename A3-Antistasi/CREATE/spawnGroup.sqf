@@ -1,8 +1,8 @@
-params ["_positionX","_lado","_tipos",["_override",false],["_canBypass",false]];
-//private ["_group","_countX","_countRanks","_LeaderX","_unitsX","_index","_positionX","_lado","_tipos","_override","_canBypass"];
-private ["_group","_countX","_countRanks","_LeaderX","_unitsX","_index"];
+params ["_posicion","_lado","_tipos",["_override",false],["_canBypass",false]];
+//private ["_grupo","_cuenta","_countRanks","_lider","_unidades","_index","_posicion","_lado","_tipos","_override","_canBypass"];
+private ["_grupo","_cuenta","_countRanks","_lider","_unidades","_index"];
 
-/*_positionX = _this select 0;
+/*_posicion = _this select 0;
 _lado = _this select 1;
 _tipos = _this select 2;
 _override = if (count _this >3) then {_this select 3} else {false};
@@ -38,7 +38,7 @@ for "_i" from 0 to (_countX - 1) do
 	{
 	if ((_i == 0) or (((_allUnits + 1) < maxUnits) and ((_allUnitsSide + 1) < _maxUnitsSide)) or _override) then
 		{
-		_unit = _group createUnit [(_tipos select _i), _positionX, [], 0, "NONE"];
+		_unit = _grupo createUnit [(_tipos select _i), _posicion, [], 0, "NONE"];
 		_unit allowDamage false;
 		_allUnits = _allUnits + 1;
 		_allUnitsSide = _allUnitsSide + 1;
@@ -50,12 +50,8 @@ for "_i" from 0 to (_countX - 1) do
 		sleep 0.5;
 		};
 	};
-//_unitsX = units _group;
-//_index = _unitsX findIf {(typeOf _x in squadLeaders)};
-//if (_index == -1) then {_group selectLeader (_unitsX select 0)} else {_group selectLeader (_unitsX select _index)};
-{_x allowDamage true} forEach units _group;
-_group
-
-
-
-
+//_unidades = units _grupo;
+//_index = _unidades findIf {(typeOf _x in squadLeaders)};
+//if (_index == -1) then {_grupo selectLeader (_unidades select 0)} else {_grupo selectLeader (_unidades select _index)};
+{_x allowDamage true} forEach units _grupo;
+_grupo

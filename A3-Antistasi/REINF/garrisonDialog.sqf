@@ -14,19 +14,19 @@ onMapSingleClick "";
 if (!visibleMap) exitWith {};
 
 _positionTel = positionTel;
-positionXGarr = "";
+posicionGarr = "";
 
-_nearX = [markersX,_positionTel] call BIS_fnc_nearestPosition;
-_positionX = getMarkerPos _nearX;
+_cercano = [markersX,_positionTel] call BIS_fnc_nearestPosition;
+_posicion = getMarkerPos _cercano;
 
 if (getMarkerPos _nearX distance _positionTel > 40) exitWith {hint "You must click near a marked zone"; _nul=CreateDialog "build_menu";};
 
-if (not(sidesX getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]; _nul=CreateDialog "build_menu";};
-if ([_positionX,500] call A3A_fnc_enemyNearCheck) exitWith {hint "You cannot manage this garrison while there are enemies nearby";_nul=CreateDialog "build_menu"};
-//if (((_nearX in outpostsFIA) and !(isOnRoad _positionX)) /*or (_nearX in citiesX)*/ or (_nearX in controlsX)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
-_outpostFIA = if (_nearX in outpostsFIA) then {true} else {false};
-_wPost = if (_outpostFIA and !(isOnRoad getMarkerPos _nearX)) then {true} else {false};
-_garrison = if (! _wpost) then {garrison getVariable [_nearX,[]]} else {SDKSniper};
+if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]; _nul=CreateDialog "build_menu";};
+if ([_posicion,500] call A3A_fnc_enemyNearCheck) exitWith {hint "You cannot manage this garrison while there are enemies nearby";_nul=CreateDialog "build_menu"};
+//if (((_cercano in outpostsFIA) and !(isOnRoad _posicion)) /*or (_cercano in citiesX)*/ or (_cercano in controlsX)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
+_puestoFIA = if (_cercano in outpostsFIA) then {true} else {false};
+_wPost = if (_puestoFIA and !(isOnRoad getMarkerPos _cercano)) then {true} else {false};
+_garrison = if (! _wpost) then {garrison getVariable [_cercano,[]]} else {SDKSniper};
 
 if (_tipo == "rem") then
 	{
@@ -49,10 +49,10 @@ if (_tipo == "rem") then
 		}
 	else
 		{
-		garrison setVariable [_nearX,[],true];
-		//[_nearX] call A3A_fnc_mrkUpdate;
-		//[_nearX] remoteExec ["tempMoveMrk",2];
-		{if (_x getVariable ["markerX",""] == _nearX) then {deleteVehicle _x}} forEach allUnits;
+		garrison setVariable [_cercano,[],true];
+		//[_cercano] call A3A_fnc_mrkUpdate;
+		//[_cercano] remoteExec ["tempMoveMrk",2];
+		{if (_x getVariable ["marcador",""] == _cercano) then {deleteVehicle _x}} forEach allUnits;
 		};
 	[_nearX] call A3A_fnc_mrkUpdate;
 	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_costs,_hr];
@@ -60,9 +60,9 @@ if (_tipo == "rem") then
 	}
 else
 	{
-	positionXGarr = _nearX;
-	publicVariable "positionXGarr";
-	hint format ["Info%1",[_nearX] call A3A_fnc_garrisonInfo];
+	posicionGarr = _cercano;
+	publicVariable "posicionGarr";
+	hint format ["Info%1",[_cercano] call A3A_fnc_garrisonInfo];
 	closeDialog 0;
 	_nul=CreateDialog "garrison_recruit";
 	sleep 1;

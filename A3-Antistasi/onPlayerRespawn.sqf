@@ -21,32 +21,32 @@ if (side group player == teamPlayer) then
 
 	_nul = [0,-1,getPos _old] remoteExec ["A3A_fnc_citySupportChange",2];
 
-	_score = _old getVariable ["score",0];
-	_punish = _old getVariable ["punish",0];
-	_moneyX = _old getVariable ["moneyX",0];
-	_moneyX = round (_moneyX - (_moneyX * 0.1));
-	_eligible = _old getVariable ["eligible",true];
-	_rankX = _old getVariable ["rankX","PRIVATE"];
+	_score = _viejo getVariable ["score",0];
+	_punish = _viejo getVariable ["punish",0];
+	_dinero = _viejo getVariable ["dinero",0];
+	_dinero = round (_dinero - (_dinero * 0.1));
+	_elegible = _viejo getVariable ["elegible",true];
+	_rango = _viejo getVariable ["rango","PRIVATE"];
 
 	_moneyX = round (_moneyX - (_moneyX * 0.05));
 	if (_moneyX < 0) then {_moneyX = 0};
 
-	_new setVariable ["score",_score -1,true];
-	_new setVariable ["owner",_new,true];
-	_new setVariable ["punish",_punish,true];
-	_new setVariable ["respawning",false];
-	_new setVariable ["moneyX",_moneyX,true];
-	//_new setUnitRank (rank _old);
-	_new setVariable ["compromised",0];
-	_new setVariable ["eligible",_eligible,true];
-	_new setVariable ["spawner",true,true];
-	_old setVariable ["spawner",nil,true];
-	[_new,false] remoteExec ["setCaptive",0,_new];
-	_new setCaptive false;
-	_new setRank (_rankX);
-	_new setVariable ["rankX",_rankX,true];
-	_new setUnitTrait ["camouflageCoef",0.8];
-	_new setUnitTrait ["audibleCoef",0.8];
+	_nuevo setVariable ["score",_score -1,true];
+	_nuevo setVariable ["owner",_nuevo,true];
+	_nuevo setVariable ["punish",_punish,true];
+	_nuevo setVariable ["respawning",false];
+	_nuevo setVariable ["dinero",_dinero,true];
+	//_nuevo setUnitRank (rank _viejo);
+	_nuevo setVariable ["compromised",0];
+	_nuevo setVariable ["elegible",_elegible,true];
+	_nuevo setVariable ["spawner",true,true];
+	_viejo setVariable ["spawner",nil,true];
+	[_nuevo,false] remoteExec ["setCaptive",0,_nuevo];
+	_nuevo setCaptive false;
+	_nuevo setRank (_rango);
+	_nuevo setVariable ["rango",_rango,true];
+	_nuevo setUnitTrait ["camouflageCoef",0.8];
+	_nuevo setUnitTrait ["audibleCoef",0.8];
 	{
     _new addOwnedMine _x;
     } count (getAllOwnedMines (_old));
@@ -72,7 +72,7 @@ if (side group player == teamPlayer) then
 		_player = _this select 0;
 		if (captive _player) then
 			{
-			if ({if (((side _x == Occupants) or (side _x == Invaders)) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
+			if ({if (((side _x == malos) or (side _x == muyMalos)) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
 				{
 				[_player,false] remoteExec ["setCaptive",0,_player];
 				_player setCaptive false;
@@ -110,7 +110,7 @@ if (side group player == teamPlayer) then
 			_tipo = typeOf _containerX;
 			if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 				{
-				if ({if (((side _x== Invaders) or (side _x== Occupants)) and (_x knowsAbout _playerX > 1.4)) exitWith {1}} count allUnits > 0) then
+				if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
 					{
 					[_playerX,false] remoteExec ["setCaptive",0,_playerX];
 					_playerX setCaptive false;
@@ -183,7 +183,7 @@ if (side group player == teamPlayer) then
 		_player = _this select 0;
 		if (captive _player) then
 			{
-			if ({((side _x== Invaders) or (side _x== Occupants)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
+			if ({((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
 				{
 				[_player,false] remoteExec ["setCaptive",0,_player];
 				_player setCaptive false;

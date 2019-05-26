@@ -48,17 +48,17 @@ while {visibleMap} do
 			_prestigeBLUFOR = _dataX select 3;
 			_power = [_sitio] call A3A_fnc_powerCheck;
 			_texto = format ["%1\n\nPop %2\n%6 Support: %3 %5\n%7 Support: %4 %5",[_sitio,false] call A3A_fnc_fn_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%",nameOccupants,nameTeamPlayer];
-			_positionX = getMarkerPos _sitio;
+			_posicion = getMarkerPos _sitio;
 			_result = "NONE";
 			switch (_power) do
 				{
-				case teamPlayer: {_result = format ["%1",nameTeamPlayer]};
-				case Occupants: {_result = format ["%1",nameOccupants]};
-				case Invaders: {_result = format ["%1",nameInvaders]};
+				case buenos: {_result = format ["%1",nameTeamPlayer]};
+				case malos: {_result = format ["%1",nameOccupants]};
+				case muyMalos: {_result = format ["%1",nameInvaders]};
 				};
-			/*_ant1 = [antennas,_positionX] call BIS_fnc_nearestPosition;
-			_ant2 = [antennasDead, _positionX] call BIS_fnc_nearestPosition;
-			if (_ant1 distance _positionX > _ant2 distance _positionX) then
+			/*_ant1 = [antenas,_posicion] call BIS_fnc_nearestPosition;
+			_ant2 = [antennasDead, _posicion] call BIS_fnc_nearestPosition;
+			if (_ant1 distance _posicion > _ant2 distance _posicion) then
 				{
 				_result = "NONE";
 				}
@@ -67,11 +67,11 @@ while {visibleMap} do
 				_outpost = [markersX,_ant1] call BIS_fnc_NearestPosition;
 				if (sidesX getVariable [_sitio,sideUnknown] == teamPlayer) then
 					{
-					if (sidesX getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (sidesX getVariable [_outpost,sideUnknown] == Invaders) then {_result = "NONE"}};
+					if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == muyMalos) then {_result = "NONE"}};
 					}
 				else
 					{
-					if (sidesX getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (sidesX getVariable [_outpost,sideUnknown] == Invaders) then {_result = "NONE"}};
+					if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == muyMalos) then {_result = "NONE"}};
 					};
 				};
 			*/
@@ -94,7 +94,7 @@ while {visibleMap} do
 				_texto = format ["%2 Airport%1",[_sitio] call A3A_fnc_garrisonInfo,_nameFaction];
 				};
 			};
-		if (_sitio in resourcesX) then
+		if (_sitio in recursos) then
 			{
 			if (not(sidesX getVariable [_sitio,sideUnknown] == teamPlayer)) then
 				{
@@ -108,7 +108,7 @@ while {visibleMap} do
 				};
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 			};
-		if (_sitio in factories) then
+		if (_sitio in fabricas) then
 			{
 			if (not(sidesX getVariable [_sitio,sideUnknown] == teamPlayer)) then
 				{

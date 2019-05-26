@@ -1,13 +1,13 @@
 if (!isServer and hasInterface) exitWith {false};
-private ["_markerX","_base","_posbase","_posMarker","_angOrig","_ang","_attempts","_distanceX","_pos","_failure","_mina"];
+private ["_marcador","_base","_posbase","_posMarker","_angOrig","_ang","_attempts","_distanceX","_pos","_fallo","_mina"];
 
-_markerX = _this select 0;
+_marcador = _this select 0;
 
 _base = _this select 1;
 
 if (spawner getVariable _base != 2) exitWith {false};
 _posbase = getMarkerPos _base;
-_posMarker = getMarkerPos _markerX;
+_posMarker = getMarkerPos _marcador;
 _angOrig = [_posbase,_posMarker] call BIS_fnc_dirTo;
 _angOrig = _angOrig - 45;
 _ang = _angOrig + random 90;
@@ -49,7 +49,7 @@ if (_failure) exitWith {false};
 for "_i" from 1 to 60 do
 	{
 	_mina = createMine ["APERSMine",_pos,[],100];
-	if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants revealMine _mina} else {Invaders revealMine _mina};
+	if (lados getVariable [_marcador,sideUnknown] == malos) then {malos revealMine _mina} else {muyMalos revealMine _mina};
 	};
 
 //[-4000] remoteExec ["resourcesAAF",2];

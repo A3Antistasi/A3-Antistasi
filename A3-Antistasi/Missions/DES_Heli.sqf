@@ -1,9 +1,9 @@
 //Mission: Destroy the helicopter
 if (!isServer and hasInterface) exitWith{};
 
-private ["_poscrash","_markerX","_positionX","_mrkFinal","_typeVehX","_effect","_heli","_vehiclesX","_soldiers","_groups","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray","_countX"];
+private ["_poscrash","_marcador","_posicion","_mrkfin","_tipoveh","_efecto","_heli","_vehiclesX","_soldados","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray","_cuenta"];
 
-_markerX = _this select 0;
+_marcador = _this select 0;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
 _leave = false;
@@ -11,8 +11,8 @@ _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _tsk1 = "";
-_positionX = getMarkerPos _markerX;
-_lado = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {Invaders};
+_posicion = getMarkerPos _marcador;
+_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
 _posHQ = getMarkerPos respawnTeamPlayer;
 
 _timeLimit = 120;
@@ -23,7 +23,7 @@ _countX = 0;
 _dist = if (_difficultX) then {2000} else {3000};
 while {true} do
 	{
-	_poscrashOrig = _positionX getPos [_dist,_ang];
+	_poscrashOrig = _posicion getPos [_dist,_ang];
 	if ((!surfaceIsWater _poscrashOrig) and (_poscrashOrig distance _posHQ < 4000)) exitWith {};
 	_ang = _ang + 1;
 	_countX = _countX + 1;
@@ -49,7 +49,7 @@ _mrkFinal setMarkerShape "ICON";
 //_mrkFinal setMarkerColor "ColorRed";
 //_mrkFinal setMarkerText "Destroy Downed Chopper";
 
-_nameBase = [_markerX] call A3A_fnc_localizar;
+_nombrebase = [_marcador] call A3A_fnc_localizar;
 /*
 if (!_difficultX) then
 	{
@@ -59,13 +59,13 @@ else
 	{
 	["DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nameBase],"Destroy Air",_mrkFinal],_posCrashMrk,"CREATED","Destroy"] call A3A_fnc_taskUpdate;
 	};*/
-//missionsX pushBack _tsk; publicVariable "missionsX";
-[[teamPlayer,civilian],"DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nameBase],"Destroy Air",_mrkFinal],_posCrashMrk,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
-[[teamPlayer,civilian],"DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nameBase],"Helicopter Down",_mrkFinal],_posCrash,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
-missionsX pushBack ["DES","CREATED"]; publicVariable "missionsX";
+//misiones pushBack _tsk; publicVariable "misiones";
+[[buenos,civilian],"DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
+[[buenos,civilian],"DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
+misiones pushBack ["DES","CREATED"]; publicVariable "misiones";
 _vehiclesX = [];
-_soldiers = [];
-_groups = [];
+_soldados = [];
+_grupos = [];
 
 _effect = createVehicle ["CraterLong", _poscrash, [], 0, "CAN_COLLIDE"];
 _heli = createVehicle [_typeVehX, _poscrash, [], 0, "CAN_COLLIDE"];
@@ -79,7 +79,7 @@ _tam = 100;
 
 while {true} do
 	{
-	_roads = _positionX nearRoads _tam;
+	_roads = _posicion nearRoads _tam;
 	if (count _roads > 0) exitWith {};
 	_tam = _tam + 50;
 	};
@@ -92,20 +92,20 @@ _veh = _vehicle select 0;
 //[_veh,"Escort"] spawn A3A_fnc_inmuneConvoy;
 _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit} forEach _vehCrew;
-_groupVeh = _vehicle select 2;
-_soldiers = _soldiers + _vehCrew;
-_groups pushBack _groupVeh;
+_grupoVeh = _vehicle select 2;
+_soldados = _soldados + _vehCrew;
+_grupos pushBack _grupoVeh;
 _vehiclesX pushBack _veh;
 
 sleep 1;
-_typeGroup = if (_lado == Occupants) then {groupsNATOSentry} else {groupsCSATSentry};
-_group = [_positionX, _lado, _typeGroup] call A3A_fnc_spawnGroup;
+_typeGroup = if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry};
+_grupo = [_posicion, _lado, _typeGroup] call A3A_fnc_spawnGroup;
 
-{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers pushBack _x; [_x] join _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _group;
-deleteGroup _group;
+{_x assignAsCargo _veh; _x moveInCargo _veh; _soldados pushBack _x; [_x] join _grupoveh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
+deleteGroup _grupo;
 //[_veh] spawn smokeCover;
 
-_Vwp0 = _groupVeh addWaypoint [_poscrash, 0];
+_Vwp0 = _grupoVeh addWaypoint [_poscrash, 0];
 _Vwp0 setWaypointType "TR UNLOAD";
 _Vwp0 setWaypointBehaviour "SAFE";
 _Gwp0 = _group addWaypoint [_poscrash, 0];
@@ -120,12 +120,12 @@ _vehT = _vehicleT select 0;
 //[_vehT,"Recover Truck"] spawn A3A_fnc_inmuneConvoy;
 _vehCrewT = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit} forEach _vehCrewT;
-_groupVehT = _vehicleT select 2;
-_soldiers = _soldiers + _vehCrewT;
-_groups pushBack _groupVehT;
+_grupoVehT = _vehicleT select 2;
+_soldados = _soldados + _vehCrewT;
+_grupos pushBack _grupoVehT;
 _vehiclesX pushBack _vehT;
 
-_Vwp0 = _groupVehT addWaypoint [_poscrash, 0];
+_Vwp0 = _grupoVehT addWaypoint [_poscrash, 0];
 _Vwp0 setWaypointType "MOVE";
 _Vwp0 setWaypointBehaviour "SAFE";
 waitUntil {sleep 1; (not alive _heli) or (_vehT distance _heli < 50) or (dateToNumber date > _dateLimitNum)};
@@ -142,24 +142,24 @@ if (_vehT distance _heli < 50) then
 		deleteVehicle _humo;
 		};
 
-	_Vwp0 = _groupVehT addWaypoint [_positionX, 1];
+	_Vwp0 = _grupoVehT addWaypoint [_posicion, 1];
 	_Vwp0 setWaypointType "MOVE";
 	_Vwp0 setWaypointBehaviour "SAFE";
 
-	_Vwp0 = _groupVeh addWaypoint [_poscrash, 0];
+	_Vwp0 = _grupoVeh addWaypoint [_poscrash, 0];
 	_Vwp0 setWaypointType "LOAD";
 	_Vwp0 setWaypointBehaviour "SAFE";
 	_Gwp0 = _group addWaypoint [_poscrash, 0];
 	_Gwp0 setWaypointType "GETIN";
 	_Vwp0 synchronizeWaypoint [_Gwp0];
 
-	_Vwp0 = _groupVeh addWaypoint [_positionX, 2];
+	_Vwp0 = _grupoVeh addWaypoint [_posicion, 2];
 	_Vwp0 setWaypointType "MOVE";
 	_Vwp0 setWaypointBehaviour "SAFE";
 
 	};
 
-waitUntil {sleep 1; (not alive _heli) or (_vehT distance _positionX < 100) or (dateToNumber date > _dateLimitNum)};
+waitUntil {sleep 1; (not alive _heli) or (_vehT distance _posicion < 100) or (dateToNumber date > _dateLimitNum)};
 
 _bonus = if (_difficultX) then {2} else {1};
 
@@ -168,7 +168,7 @@ if (not alive _heli) then
 	["DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nameBase],"Destroy Air",_mrkFinal],_posCrashMrk,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
 	[0,300*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 	if (typeOf _heli in vehCSATAir) then {[0,3] remoteExec ["A3A_fnc_prestige",2]} else {[3,0] remoteExec ["A3A_fnc_prestige",2]};
-	//[-3,3,_positionX] remoteExec ["A3A_fnc_citySupportChange",2];
+	//[-3,3,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 	[1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 	{if (_x distance _heli < 500) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 	[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
@@ -176,9 +176,9 @@ if (not alive _heli) then
 	}
 else
 	{
-	["DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nameBase],"Destroy Air",_mrkFinal],_posCrashMrk,"FAILED","Destroy"] call A3A_fnc_taskUpdate;
-	["DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nameBase],"Helicopter Down",_mrkFinal],_posCrash,"SUCCEEDED","Defend"] call A3A_fnc_taskUpdate;
-	//[3,0,_positionX] remoteExec ["A3A_fnc_citySupportChange",2];
+	["DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"FAILED","Destroy"] call A3A_fnc_taskUpdate;
+	["DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,"SUCCEEDED","Defend"] call A3A_fnc_taskUpdate;
+	//[3,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 	[-600*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	};
@@ -196,8 +196,8 @@ deleteMarker _mrkFinal;
 {
 waitUntil {sleep 1;(!([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits))};
 deleteVehicle _x} forEach _vehiclesX;
-{deleteVehicle _x} forEach _soldiers;
-{deleteGroup _x} forEach _groups;
+{deleteVehicle _x} forEach _soldados;
+{deleteGroup _x} forEach _grupos;
 
 //sleep (600 + random 1200);
 

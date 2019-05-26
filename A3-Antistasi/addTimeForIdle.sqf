@@ -13,7 +13,7 @@ if (!_isMarker) then
 		}
 	else
 		{
-		if ({sidesX getVariable [_x,sideUnknown] == Invaders} count airportsX == 1) then {_time = 0};
+		if ({lados getVariable [_x,sideUnknown] == muyMalos} count airportsX == 1) then {_time = 0};
 		};
 	};
 _dateArray = numberToDate [2035,_dateNum];

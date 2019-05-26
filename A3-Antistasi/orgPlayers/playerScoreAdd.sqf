@@ -1,8 +1,8 @@
 //if (!isMultiplayer) exitWith {};
-if ((side player == Occupants) or (side player == Invaders)) exitWith {};
-private ["_pointsX","_playerX","_pointsXJ","_moneyJ"];
-_pointsX = _this select 0;
-_playerX = _this select 1;
+if ((side player == malos) or (side player == muyMalos)) exitWith {};
+private ["_puntos","_jugador","_puntosJ","_dineroJ"];
+_puntos = _this select 0;
+_jugador = _this select 1;
 
 if (!isPlayer _playerX) exitWith {};
 

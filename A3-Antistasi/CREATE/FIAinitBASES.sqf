@@ -3,12 +3,12 @@ private ["_unit","_skill"];
 _unit = _this select 0;
 if (isNil "_unit") exitWith {};
 if (isNull _unit) exitWith {diag_log format ["Antistasi: Error enviando a NATOinit los parámetros:%1",_this]};
-_markerX = "";
+_marcador = "";
 if (count _this > 1) then
 	{
-	_markerX = _this select 1;
-	_unit setVariable ["markerX",_markerX,true];
-	if ((spawner getVariable _markerX != 0) and (vehicle _unit != _unit)) then
+	_marcador = _this select 1;
+	_unit setVariable ["marcador",_marcador,true];
+	if ((spawner getVariable _marcador != 0) and (vehicle _unit != _unit)) then
 		{
 		if (!isMultiplayer) then
 			{
@@ -26,7 +26,7 @@ _unit allowFleeing 0;
 _tipo = typeOf _unit;
 //_skill = if (_tipo in sdkTier1) then {0.1 + (skillFIA * 0.2)} else {if (_tipo in sdkTier2) then {0.2 + (skillFIA * 0.2)} else {0.3 + (skillFIA * 0.2)}};
 _skill = 0.1 + (skillFIA * 0.05 * skillMult);
-if ((_markerX == "Synd_HQ") and (isMultiplayer)) then {_skill = 1};
+if ((_marcador == "Synd_HQ") and (isMultiplayer)) then {_skill = 1};
 _unit setSkill _skill;
 if (!activeGREF) then {if (not((uniform _unit) in uniformsSDK)) then {[_unit] call A3A_fnc_reDress}};
 if (_tipo in SDKSniper) then
@@ -37,8 +37,8 @@ if (_tipo in SDKSniper) then
 		if (count unlockedOptics > 0) then
 			{
 			_compatibleX = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
-			_potentials = unlockedOptics select {_x in _compatibleX};
-			if (count _potentials > 0) then {_unit addPrimaryWeaponItem (_potentials select 0)};
+			_posibles = unlockedOptics select {_x in _compatibleX};
+			if (count _posibles > 0) then {_unit addPrimaryWeaponItem (_posibles select 0)};
 			};
 		}
 	else
@@ -217,15 +217,15 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 		}
 	else
 		{
-		if (side _killer == Invaders) then {[0,-0.25] remoteExec ["A3A_fnc_prestige",2]};
+		if (side _killer == muyMalos) then {[0,-0.25] remoteExec ["A3A_fnc_prestige",2]};
 		};
-	_markerX = _muerto getVariable "markerX";
-	if (!isNil "_markerX") then
+	_marcador = _muerto getVariable "marcador";
+	if (!isNil "_marcador") then
 		{
-		if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
+		if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			{
-			[typeOf _muerto,teamPlayer,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
-			_muerto setVariable [_markerX,nil,true];
+			[typeOf _muerto,buenos,_marcador,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
+			_muerto setVariable [_marcador,nil,true];
 			};
 		};
 	}];

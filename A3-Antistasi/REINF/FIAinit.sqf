@@ -24,8 +24,8 @@ if (_tipo in SDKSniper) then
 		if (count unlockedOptics > 0) then
 			{
 			_compatibleX = [primaryWeapon _unit] call BIS_fnc_compatibleItems;
-			_potentials = unlockedOptics select {_x in _compatibleX};
-			if (count _potentials > 0) then {_unit addPrimaryWeaponItem (_potentials select 0)};
+			_posibles = unlockedOptics select {_x in _compatibleX};
+			if (count _posibles > 0) then {_unit addPrimaryWeaponItem (_posibles select 0)};
 			};
 		}
 	else
@@ -224,7 +224,7 @@ if (player == leader _unit) then
 			}
 		else
 			{
-			if (side _killer == Invaders) then
+			if (side _killer == muyMalos) then
 				{
 				[0,-0.25] remoteExec ["A3A_fnc_prestige",2]
 				}
@@ -293,7 +293,7 @@ else
 				}
 			else
 				{
-				if (side _killer == Invaders) then
+				if (side _killer == muyMalos) then
 					{
 					[0,-0.25] remoteExec ["A3A_fnc_prestige",2]
 					}

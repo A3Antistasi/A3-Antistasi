@@ -1,14 +1,14 @@
-private ["_unit","_enemyX","_small","_big","_objeto","_posBehind","_objectsX","_roads","_tipo","_p1","_p2","_ancho","_grueso","_alto","_posEnemy","_pos","_arr","_group"];
+private ["_unit","_enemigo","_small","_big","_objeto","_posAtras","_objetos","_roads","_tipo","_p1","_p2","_ancho","_grueso","_alto","_posEnemy","_pos","_arr","_grupo"];
 _unit = _this select 0;
 _enemyX = _this select 1;
 _small= [];
 _big = [];
 _objeto = objNull;
 _pos = [];
-_posBehind = (position _unit) getPos [5,_enemyX getDir _unit];
-_group = group _unit;
-_objectsX = (nearestObjects [_posBehind, [], 30]) select {!(_x in (_group getVariable ["usedForCover",[]]))};
-_roads = _posBehind nearRoads 30;
+_posAtras = (position _unit) getPos [5,_enemigo getDir _unit];
+_grupo = group _unit;
+_objetos = (nearestObjects [_posAtras, [], 30]) select {!(_x in (_grupo getVariable ["usedForCover",[]]))};
+_roads = _posAtras nearRoads 30;
 {
 _tipo = typeOf _x;
 if !(_tipo in ["#crater","#crateronvehicle","#soundonvehicle","#particlesource","#lightpoint","#slop","#mark","HoneyBee","Mosquito","HouseFly","FxWindPollen1","ButterFly_random","Snake_random_F","Rabbit_F","FxWindGrass2","FxWindLeaf1","FxWindGrass1","FxWindLeaf3","FxWindLeaf2"]) then

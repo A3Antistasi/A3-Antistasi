@@ -20,7 +20,7 @@ _positionTel = positionTel;
 _pos = [];
 
 if ((_tipo == "delete") and (count outpostsFIA < 1)) exitWith {hint "No Posts or Roadblocks deployed to delete"};
-if ((_tipo == "delete") and ({(alive _x) and (!captive _x) and ((side _x == Occupants) or (side _x == Invaders)) and (_x distance _positionTel < 500)} count allUnits > 0)) exitWith {hint "You cannot delete a Post while enemies are near it"};
+if ((_tipo == "delete") and ({(alive _x) and (!captive _x) and ((side _x == malos) or (side _x == muyMalos)) and (_x distance _positionTel < 500)} count allUnits > 0)) exitWith {hint "You cannot delete a Post while enemies are near it"};
 
 _costs = 0;
 _hr = 0;
@@ -38,9 +38,9 @@ if (_tipo != "delete") then
 		_hr = _hr + 1;
 		};
 
-	//_formatX = (configfile >> "CfgGroups" >> "teamPlayer" >> "Guerilla" >> "Infantry" >> _typeGroup);
-	//_unitsX = [_formatX] call groupComposition;
-	{_costs = _costs + (server getVariable (_x select 0)); _hr = _hr +1} forEach _typeGroup;
+	//_formato = (configfile >> "CfgGroups" >> "buenos" >> "Guerilla" >> "Infantry" >> _typeGroup);
+	//_unidades = [_formato] call groupComposition;
+	{_coste = _coste + (server getVariable (_x select 0)); _hr = _hr +1} forEach _typeGroup;
 	}
 else
 	{

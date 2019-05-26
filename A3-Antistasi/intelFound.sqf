@@ -5,11 +5,11 @@ if (debug) then {_chance = 100};
 _lado = Occupants;
 if (count _this == 1) then
 	{
-	_markerX = _this select 0;
-	if (_markerX isEqualType "") then
+	_marcador = _this select 0;
+	if (_marcador isEqualType "") then
 		{
-		if (_markerX in airportsX) then {_chance = 30} else {_chance = 15};
-		if (sidesX getVariable [_markerX,sideUnknown] == Invaders) then {_lado = Invaders};
+		if (_marcador in airportsX) then {_chance = 30} else {_chance = 15};
+		if (lados getVariable [_marcador,sideUnknown] == muyMalos) then {_lado = muyMalos};
 		}
 	else
 		{
@@ -76,12 +76,12 @@ if (random 100 < _chance) then
 		};
 	};
 
-_minesAAF = allmines - (detectedMines teamPlayer);
-if (_lado == Occupants) then {_minesAAF = _minesAAF - (detectedMines Invaders)} else {_minesAAF = _minesAAF - (detectedMines Occupants)};
+_minasAAF = allmines - (detectedMines buenos);
+if (_lado == malos) then {_minasAAF = _minasAAF - (detectedMines muyMalos)} else {_minasAAF = _minasAAF - (detectedMines malos)};
 _revealMineX = false;
-if (count _minesAAF > 0) then
+if (count _minasAAF > 0) then
 	{
-	{if (random 100 < _chance) then {teamPlayer revealMine _x; _revealMineX = true}} forEach _minesAAF;
+	{if (random 100 < _chance) then {buenos revealMine _x; _revealMineX = true}} forEach _minasAAF;
 	};
 if (_revealMineX) then {_texto = format ["%1 New Mines marked on your map<br/>",_texto];};
 

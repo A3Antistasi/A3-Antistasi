@@ -1,4 +1,4 @@
-private ["_unit","_enemiesX"];
+private ["_unit","_enemigos"];
 
 _unit = _this select 0;
 
@@ -57,7 +57,7 @@ _EHkilledIdx = _unit addEventHandler ["killed",
 				}
 			else
 				{
-				if (side _killer == Invaders) then
+				if (side _killer == muyMalos) then
 					{
 					//_nul = [2*_multiplier,0] remoteExec ["A3A_fnc_prestige",2];
 					_nul = [-1,1,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];

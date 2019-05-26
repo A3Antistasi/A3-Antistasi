@@ -51,7 +51,7 @@ petros addMPEventHandler ["mpkilled",
     _killer = _this select 1;
     if (isServer) then
         {
-        if ((side _killer == Invaders) or (side _killer == Occupants) and !(isPlayer _killer) and !(isNull _killer)) then
+        if ((side _killer == muyMalos) or (side _killer == malos) and !(isPlayer _killer) and !(isNull _killer)) then
              {
             _nul = [] spawn
                 {
@@ -81,7 +81,7 @@ petros addMPEventHandler ["mpkilled",
             petros = groupPetros createUnit [typePetros, position _old, [], 0, "NONE"];
             publicVariable "petros";
             groupPetros setGroupIdGlobal ["Petros","GroupColor4"];
-            petros setIdentity "friendlyX";
+            petros setIdentity "amiguete";
             if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
             petros disableAI "MOVE";
             petros disableAI "AUTOTARGET";

@@ -1,6 +1,6 @@
-private _unitsX = _this select 0;
-private _nearX = _this select 1;
-private _LeaderX = leader (_unitsX select 0);
+private _unidades = _this select 0;
+private _cercano = _this select 1;
+private _lider = leader (_unidades select 0);
 
 private _ang = _LeaderX getDir _nearX;
 private _dist = (_LeaderX distance _nearX) * 1.3;
@@ -24,9 +24,9 @@ _x doMove _pos;
 		sleep 3;
 		};
 	};
-} forEach _unitsX;
+} forEach _unidades;
 _timeOut = time + 60;
 waitUntil {sleep 5; !([_nearX] call A3A_fnc_canFight) or (time > _timeOut)};
 {
 _x call A3A_fnc_recallGroup
-} forEach _unitsX;
+} forEach _unidades;

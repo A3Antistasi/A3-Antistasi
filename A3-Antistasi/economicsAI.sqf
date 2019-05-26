@@ -104,4 +104,4 @@ if (_currentItems < _maxItems) then
 	{
 	timer setVariable [_tipo,_currentItems + (0.2 * _accelerator),true];
 	};
-} forEach [Occupants,Invaders];
+} forEach [malos,muyMalos];

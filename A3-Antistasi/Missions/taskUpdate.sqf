@@ -37,16 +37,16 @@ _stateOld = _variable call BIS_fnc_taskState;
 if ((_stateOld != _state) or !(_singleDestination)) then
 	{
 	[_variable,_state] call BIS_fnc_taskSetState;
-	if (count missionsX > 0) then
+	if (count misiones > 0) then
 		{
-		for "_i" from 0 to (count missionsX -1) do
+		for "_i" from 0 to (count misiones -1) do
 			{
-			_missionX = (missionsX select _i) select 0;
-			if (_missionX == _variable) exitWith
+			_mision = (misiones select _i) select 0;
+			if (_mision == _variable) exitWith
 				{
-				missionsX deleteAt _i;
-				missionsX pushBack [_variable,_state];
-				publicVariable "missionsX"
+				misiones deleteAt _i;
+				misiones pushBack [_variable,_state];
+				publicVariable "misiones"
 				};
 			};
 		};

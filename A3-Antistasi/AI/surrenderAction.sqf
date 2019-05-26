@@ -62,12 +62,12 @@ if (_unit getVariable ["spawner",false]) then
 	_unit setVariable ["spawner",nil,true]
 	};
 
-_markerX = _unit getVariable "markerX";
+_marcador = _unit getVariable "marcador";
 
-if (!isNil "_markerX") then
+if (!isNil "_marcador") then
 	{
 	_lado = side (group _unit);
-	[_markerX,_lado] remoteExec ["A3A_fnc_zoneCheck",2];
+	[_marcador,_lado] remoteExec ["A3A_fnc_zoneCheck",2];
 	};
 [_unit] spawn A3A_fnc_postmortem;
 [_caja] spawn A3A_fnc_postmortem;

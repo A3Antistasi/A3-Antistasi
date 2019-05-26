@@ -34,13 +34,13 @@ switch _tipoEst do
 	case SDKMortar: {_typeB1 = MortStaticSDKB; _typeB2 = supportStaticsSDKB3};
 	};
 
-_positionX1 = [_playerX, 1, (getDir _playerX) - 90] call BIS_fnc_relPos;
-_positionX2 = [_playerX, 1, (getDir _playerX) + 90] call BIS_fnc_relPos;
+_posicion1 = [_jugador, 1, (getDir _jugador) - 90] call BIS_fnc_relPos;
+_posicion2 = [_jugador, 1, (getDir _jugador) + 90] call BIS_fnc_relPos;
 
 deleteVehicle _estatica;
 
-_bag1 = _typeB1 createVehicle _positionX1;
-_bag2 = _typeB2 createVehicle _positionX2;
+_bag1 = _tipoB1 createVehicle _posicion1;
+_bag2 = _tipoB2 createVehicle _posicion2;
 
 [_bag1] call A3A_fnc_AIVEHinit;
 [_bag2] call A3A_fnc_AIVEHinit;

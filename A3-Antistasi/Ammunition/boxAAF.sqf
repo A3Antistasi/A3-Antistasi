@@ -23,7 +23,7 @@ for "_i" from 0 to (1 + round random 5) do
 	};
 
 for "_i" from 1 to (floor random 3) do
-	{_cosa = selectRandom minesAAF;
+	{_cosa = selectRandom minasAAF;
 	_num = 1 + (floor random 5);
 	caja addMagazineCargoGlobal [_cosa, _num];
 	};

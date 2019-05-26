@@ -1,41 +1,41 @@
-private ["_markerX","_mrkD"];
+private ["_marcador","_mrkD"];
 
-_markerX = _this select 0;
+_marcador = _this select 0;
 
-_mrkD = format ["Dum%1",_markerX];
-if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
+_mrkD = format ["Dum%1",_marcador];
+if (lados getVariable [_marcador,sideUnknown] == buenos) then
 	{
-	_texto = if (count (garrison getVariable [_markerX,[]]) > 0) then {format [": %1", count (garrison getVariable [_markerX,[]])]} else {""};
+	_texto = if (count (garrison getVariable [_marcador,[]]) > 0) then {format [": %1", count (garrison getVariable [_marcador,[]])]} else {""};
 	if (markerColor _mrkD != colourTeamPlayer) then {_mrkD setMarkerColor colourTeamPlayer};
-	if (_markerX in airportsX) then
+	if (_marcador in airportsX) then
 		{
 		_texto = format ["%2 Airbase%1",_texto,nameTeamPlayer];
-		[_mrkD,format ["%1 Airbase",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[Occupants,Invaders],true];
+		[_mrkD,format ["%1 Airbase",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[malos,muyMalos],true];
 		//_mrkD setMarkerText format ["SDK Airbase%1",_texto];
 		if (markerType _mrkD != "flag_Syndicat") then {_mrkD setMarkerType "flag_Syndicat"};
 		}
 	else
 		{
-		if (_markerX in outposts) then
+		if (_marcador in puestos) then
 			{
 			_texto = format ["%2 Outpost%1",_texto,nameTeamPlayer];
-			[_mrkD,format ["%1 Outpost",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[Occupants,Invaders],true];
+			[_mrkD,format ["%1 Outpost",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[malos,muyMalos],true];
 			}
 		else
 			{
-			 if (_markerX in resourcesX) then
+			 if (_marcador in recursos) then
 			 	{
 			 	_texto = format ["Resouces%1",_texto];
 			 	}
 			 else
 			 	{
-			 	if (_markerX in factories) then
+			 	if (_marcador in fabricas) then
             		{
             		_texto = format ["Factory%1",_texto];
             		}
             	else
             		{
-            		if (_markerX in seaports) then {_texto = format ["Sea Port%1",_texto]};
+            		if (_marcador in puertos) then {_texto = format ["Sea Port%1",_texto]};
             		};
 			 	};
 			};
@@ -44,15 +44,15 @@ if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 	}
 else
 	{
-	if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then
+	if (lados getVariable [_marcador,sideUnknown] == malos) then
 		{
-		if (_markerX in airportsX) then
+		if (_marcador in airportsX) then
 			{_mrkD setMarkerText format ["%1 Airbase",nameOccupants];
 			_mrkD setMarkerType flagNATOmrk
 			}
 		else
 			{
-			if (_markerX in outposts) then
+			if (_marcador in puestos) then
 				{
 				_mrkD setMarkerText format ["%1 Outpost",nameOccupants]
 				};
@@ -61,23 +61,23 @@ else
 		}
 	else
 		{
-		if (_markerX in airportsX) then {_mrkD setMarkerText format ["%1 Airbase",nameInvaders];_mrkD setMarkerType flagCSATmrk} else {
-		if (_markerX in outposts) then {_mrkD setMarkerText format ["%1 Outpost",nameInvaders]}};
+		if (_marcador in airportsX) then {_mrkD setMarkerText format ["%1 Airbase",nameInvaders];_mrkD setMarkerType flagCSATmrk} else {
+		if (_marcador in puestos) then {_mrkD setMarkerText format ["%1 Outpost",nameInvaders]}};
 		_mrkD setMarkerColor colorInvaders;
 		};
-	if (_markerX in resourcesX) then
+	if (_marcador in recursos) then
 	 	{
 	 	if (markerText _mrkD != "Resources") then {_mrkD setMarkerText "Resouces"};
 	 	}
 	 else
 	 	{
-	 	if (_markerX in factories) then
+	 	if (_marcador in fabricas) then
     		{
     		if (markerText _mrkD != "Factory") then {_mrkD setMarkerText "Factory"};
     		}
     	else
     		{
-    		if (_markerX in seaports) then
+    		if (_marcador in puertos) then
     			{
     			if (markerText _mrkD != "Sea Port") then {_mrkD setMarkerText "Sea Port"};
     			};

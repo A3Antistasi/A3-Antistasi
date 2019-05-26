@@ -1,4 +1,4 @@
-private ["_tipo","_costs","_positionTel","_quantity","_quantityMax"];
+private ["_tipo","_coste","_positionTel","_cantidad","_quantityMax"];
 
 if (["Mines"] call BIS_fnc_taskExists) exitWith {hint "We can only deploy one minefield at a time."};
 
@@ -24,7 +24,7 @@ if (_tipo == "delete") exitWith
 #include "\A3\Ui_f\hpp\defineResinclDesign.inc"
 
 _pool = jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOPUT;
-_quantity = 0;
+_cantidad = 0;
 _quantityMax = 40;
 _tipoM =APERSMineMag;
 if (_tipo == "ATMine") then
@@ -34,10 +34,10 @@ if (_tipo == "ATMine") then
 	};
 
 {
-if (_x select 0 == _tipoM) exitWith {_quantity = _x select 1}
+if (_x select 0 == _tipoM) exitWith {_cantidad = _x select 1}
 } forEach _pool;
 
-if (_quantity < 5) exitWith {hint "You need at least 5 mines of this type to build a Minefield"};
+if (_cantidad < 5) exitWith {hint "You need at least 5 mines of this type to build a Minefield"};
 
 if (!visibleMap) then {openMap true};
 positionTel = [];
@@ -52,9 +52,9 @@ if (!visibleMap) exitWith {};
 
 _positionTel = positionTel;
 
-if (_quantity > _quantityMax) then
+if (_cantidad > _quantityMax) then
 	{
-	_quantity = _quantityMax;
+	_cantidad = _quantityMax;
 	};
 
-[[_tipo,_positionTel,_quantity],"A3A_fnc_buildMinefield"] remoteExec ["A3A_fnc_scheduler",2];
+[[_tipo,_positionTel,_cantidad],"A3A_fnc_buildMinefield"] remoteExec ["A3A_fnc_scheduler",2];

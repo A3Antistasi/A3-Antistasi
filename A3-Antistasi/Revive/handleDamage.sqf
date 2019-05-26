@@ -71,7 +71,7 @@ if (_part == "") then
 		{
 		if (_dam > 0.25) then
 			{
-			if (_unit getVariable ["helping",false]) then
+			if (_unit getVariable ["ayudando",false]) then
 				{
 				_unit setVariable ["cancelRevive",true];
 				};

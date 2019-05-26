@@ -17,9 +17,9 @@ for "_i" from 0 to (count hcArray) - 1 do
 		_total = _total + 1;
 		switch (side _x) do
 			{
-			case teamPlayer: {_indep = _indep + 1};
-			case Occupants: {_west = _west + 1};
-			case Invaders: {_east = _east + 1};
+			case buenos: {_indep = _indep + 1};
+			case malos: {_west = _west + 1};
+			case muyMalos: {_east = _east + 1};
 			case civilian: {_civ = _civ + 1};
 			};
 		};

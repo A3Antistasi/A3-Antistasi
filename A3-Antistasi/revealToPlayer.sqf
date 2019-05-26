@@ -9,8 +9,8 @@ if (count _this == 0) then
 			if ([player] call A3A_fnc_hasRadio) then
 				{
 				{
-				_LeaderX = leader _x;
-				if (((side _LeaderX == Invaders) or (side _LeaderX == Occupants)) and (vehicle _LeaderX != _LeaderX) and (player knowsAbout _LeaderX < 1.5)) then
+				_lider = leader _x;
+				if (((side _lider == muyMalos) or (side _lider == malos)) and (vehicle _lider != _lider) and (player knowsAbout _lider < 1.5)) then
 					{
 					player reveal [_LeaderX,4];
 					sleep 1;

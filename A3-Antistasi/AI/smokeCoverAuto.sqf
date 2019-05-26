@@ -21,11 +21,11 @@ else
 	if !(hasIFA) then
 		{
 		private ["_pos","_humo"];
-		_typeSmoke = selectRandom humo;
+		_tipoHumo = selectRandom humo;
 		for "_i" from 0 to 8 do
 			{
 			_pos = position _veh getPos [(28 + random 2),_i*40];
-			_humo = _typeSmoke createVehicle [_pos select 0, _pos select 1,getPos _veh select 2];
+			_humo = _tipoHumo createVehicle [_pos select 0, _pos select 1,getPos _veh select 2];
 			};
 		};
 	};

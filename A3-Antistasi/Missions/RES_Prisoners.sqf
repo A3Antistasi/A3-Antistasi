@@ -1,16 +1,16 @@
 //Mission: Rescue the prisoners
 if (!isServer and hasInterface) exitWith{};
 
-private ["_unit","_markerX","_positionX","_countX"];
+private ["_unit","_marcador","_posicion","_cuenta"];
 
-_markerX = _this select 0;
+_marcador = _this select 0;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
 _leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
-_positionX = getMarkerPos _markerX;
+_posicion = getMarkerPos _marcador;
 
 _POWs = [];
 
@@ -19,38 +19,38 @@ if (hasIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
-_nameDest = [_markerX] call A3A_fnc_localizar;
+_nameDest = [_marcador] call A3A_fnc_localizar;
 
-[[teamPlayer,civilian],"RES",[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"POW Rescue",_markerX],_positionX,false,0,true,"run",true] call BIS_fnc_taskCreate;
+[[buenos,civilian],"RES",[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"POW Rescue",_marcador],_posicion,false,0,true,"run",true] call BIS_fnc_taskCreate;
 //_blacklistbld = ["Land_Cargo_HQ_V1_F", "Land_Cargo_HQ_V2_F","Land_Cargo_HQ_V3_F","Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower_V1_No2_F","Land_Cargo_Tower_V1_No3_F","Land_Cargo_Tower_V1_No4_F","Land_Cargo_Tower_V1_No5_F","Land_Cargo_Tower_V1_No6_F","Land_Cargo_Tower_V1_No7_F","Land_Cargo_Tower_V2_F","Land_Cargo_Patrol_V1_F","Land_Cargo_Patrol_V2_F","Land_Cargo_Patrol_V3_F"];
-missionsX pushBack ["RES","CREATED"]; publicVariable "missionsX";
-_posHouse = [];
-_countX = 0;
-//_houses = nearestObjects [_positionX, ["house"], 50];
-_houses = (nearestObjects [_positionX, ["house"], 50]) select {!((typeOf _x) in UPSMON_Bld_remove)};
+misiones pushBack ["RES","CREATED"]; publicVariable "misiones";
+_poscasa = [];
+_cuenta = 0;
+//_casas = nearestObjects [_posicion, ["house"], 50];
+_casas = (nearestObjects [_posicion, ["house"], 50]) select {!((typeOf _x) in UPSMON_Bld_remove)};
 _casa = "";
-_potentials = [];
-for "_i" from 0 to (count _houses) - 1 do
+_posibles = [];
+for "_i" from 0 to (count _casas) - 1 do
 	{
-	_casa = (_houses select _i);
-	_posHouse = [_casa] call BIS_fnc_buildingPositions;
-	if (count _posHouse > 1) then {_potentials pushBack _casa};
+	_casa = (_casas select _i);
+	_poscasa = [_casa] call BIS_fnc_buildingPositions;
+	if (count _poscasa > 1) then {_posibles pushBack _casa};
 	};
 
-if (count _potentials > 0) then
+if (count _posibles > 0) then
 	{
-	_casa = _potentials call BIS_Fnc_selectRandom;
-	_posHouse = [_casa] call BIS_fnc_buildingPositions;
-	_countX = (count _posHouse) - 1;
-	if (_countX > 10) then {_countX = 10};
+	_casa = _posibles call BIS_Fnc_selectRandom;
+	_poscasa = [_casa] call BIS_fnc_buildingPositions;
+	_cuenta = (count _poscasa) - 1;
+	if (_cuenta > 10) then {_cuenta = 10};
 	}
 else
 	{
 	_countX = round random 10;
 	for "_i" from 0 to _countX do
 		{
-		_postmp = [_positionX, 5, random 360] call BIS_Fnc_relPos;
-		_posHouse pushBack _postmp;
+		_postmp = [_posicion, 5, random 360] call BIS_Fnc_relPos;
+		_poscasa pushBack _postmp;
 		};
 	};
 _grpPOW = createGroup teamPlayer;
@@ -84,7 +84,7 @@ waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distan
 
 if (dateToNumber date > _dateLimitNum) then
 	{
-	if (spawner getVariable _markerX == 2) then
+	if (spawner getVariable _marcador == 2) then
 		{
 		{
 		if (group _x == _grpPOW) then
@@ -101,7 +101,7 @@ if (dateToNumber date > _dateLimitNum) then
 			[_x,false] remoteExec ["setCaptive",0,_x];
 			_x setCaptive false;
 			_x enableAI "MOVE";
-			_x doMove _positionX;
+			_x doMove _posicion;
 			};
 		} forEach _POWS;
 		};
@@ -113,22 +113,22 @@ _bonus = if (_difficultX) then {2} else {1};
 
 if ({alive _x} count _POWs == 0) then
 	{
-	["RES",[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"POW Rescue",_markerX],_positionX,"FAILED","run"] call A3A_fnc_taskUpdate;
+	["RES",[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"POW Rescue",_marcador],_posicion,"FAILED","run"] call A3A_fnc_taskUpdate;
 	{[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false} forEach _POWs;
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	}
 else
 	{
 	sleep 5;
-	["RES",[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"POW Rescue",_markerX],_positionX,"SUCCEEDED","run"] call A3A_fnc_taskUpdate;
-	_countX = {(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 150)} count _POWs;
-	_hr = 2 * (_countX);
-	_resourcesFIA = 100 * _countX*_bonus;
+	["RES",[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"POW Rescue",_marcador],_posicion,"SUCCEEDED","run"] call A3A_fnc_taskUpdate;
+	_cuenta = {(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 150)} count _POWs;
+	_hr = 2 * (_cuenta);
+	_resourcesFIA = 100 * _cuenta*_bonus;
 	[_hr,_resourcesFIA] remoteExec ["A3A_fnc_resourcesFIA",2];
-	[0,10*_bonus,_positionX] remoteExec ["A3A_fnc_citySupportChange",2];
-	//[_countX,0] remoteExec ["A3A_fnc_prestige",2];
-	{if (_x distance getMarkerPos respawnTeamPlayer < 500) then {[_countX,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-	[round (_countX*_bonus/2),theBoss] call A3A_fnc_playerScoreAdd;
+	[0,10*_bonus,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+	//[_cuenta,0] remoteExec ["A3A_fnc_prestige",2];
+	{if (_x distance getMarkerPos respawnTeamPlayer < 500) then {[_cuenta,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+	[round (_cuenta*_bonus/2),theBoss] call A3A_fnc_playerScoreAdd;
 	{[_x] join _grpPOW; [_x] orderGetin false} forEach _POWs;
 	};
 

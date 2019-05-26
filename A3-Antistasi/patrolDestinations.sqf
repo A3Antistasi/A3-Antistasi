@@ -1,8 +1,8 @@
-private ["_markersX","_array","_pos","_markerX","_destinationsX","_positionX"];
+private ["_markersX","_array","_pos","_marcador","_destinationsX","_posicion"];
 
 _markersX = _this select 0;
-_positionX = _this select 1;
-_array = (_markersX - controlsX) select {getMarkerPos _x distance2D _positionX < distanceForLandAttack};
+_posicion = _this select 1;
+_array = (_markersX - controlsX) select {getMarkerPos _x distance2D _posicion < distanceForLandAttack};
 _destinationsX = [];
 if !(isMultiplayer) then
 	{

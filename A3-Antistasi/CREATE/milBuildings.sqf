@@ -1,23 +1,23 @@
-private ["_positionX","_size","_buildings","_group","_typeUnit","_lado","_building","_tipoB","_frontierX","_typeVehX","_veh","_vehiclesX","_soldiers","_pos","_ang","_markerX","_unit","_return"];
-_markerX = _this select 0;
-_positionX = getMarkerPos _markerX;
+private ["_posicion","_size","_buildings","_grupo","_tipoUnit","_lado","_building","_tipoB","_frontera","_tipoVeh","_veh","_vehiclesX","_soldados","_pos","_ang","_marcador","_unit","_return"];
+_marcador = _this select 0;
+_posicion = getMarkerPos _marcador;
 _size = _this select 1;
-_buildings = nearestObjects [_positionX, listMilBld, _size * 1.2, true];
+_buildings = nearestObjects [_posicion, listMilBld, _size * 1.2, true];
 
 if (count _buildings == 0) exitWith {[grpNull,[],[]]};
 
 _lado = _this select 2;
-_frontierX = _this select 3;
+_frontera = _this select 3;
 
 _vehiclesX = [];
-_soldiers = [];
+_soldados = [];
 
 _group = createGroup _lado;
 _typeUnit = if (_lado==Occupants) then {staticCrewOccupants} else {staticCrewInvaders};
 
 for "_i" from 0 to (count _buildings) - 1 do
 	{
-	if (spawner getVariable _markerX == 2) exitWith {};
+	if (spawner getVariable _marcador == 2) exitWith {};
 	_building = _buildings select _i;
 	/*
 	if !(_building getVariable ["conEH",false]) then
@@ -31,7 +31,7 @@ for "_i" from 0 to (count _buildings) - 1 do
 			];
 		};*/
 	_tipoB = typeOf _building;
-	if ((_tipoB == "Land_HelipadSquare_F") and (!_frontierX)) then
+	if ((_tipoB == "Land_HelipadSquare_F") and (!_frontera)) then
 		{
 		_typeVehX = if (_lado == Occupants) then {vehNATOPatrolHeli} else {vehCSATPatrolHeli};
 		_veh = createVehicle [_typeVehX, position _building, [],0, "CAN_COLLIDE"];
@@ -46,10 +46,10 @@ for "_i" from 0 to (count _buildings) - 1 do
 			_veh = createVehicle [_typeVehX, (_building buildingPos 8), [],0, "CAN_COLLIDE"];
 			_veh setPosATL [(getPos _building select 0),(getPos _building select 1),(getPosATL _veh select 2)];
 			_veh setDir (getDir _building);
-			_unit = _group createUnit [_typeUnit, _positionX, [], 0, "NONE"];
-			[_unit,_markerX] call A3A_fnc_NATOinit;
+			_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+			[_unit,_marcador] call A3A_fnc_NATOinit;
 			_unit moveInGunner _veh;
-			_soldiers pushBack _unit;
+			_soldados pushBack _unit;
 			_vehiclesX pushBack _veh;
 			}
 		else
@@ -62,33 +62,33 @@ for "_i" from 0 to (count _buildings) - 1 do
 				_pos = [getPosATL _veh, 2.5, _ang] call BIS_Fnc_relPos;
 				_veh setPosATL _pos;
 				_veh setDir (getDir _building) - 180;
-				_unit = _group createUnit [_typeUnit, _positionX, [], 0, "NONE"];
-				[_unit,_markerX] call A3A_fnc_NATOinit;
+				_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+				[_unit,_marcador] call A3A_fnc_NATOinit;
 				_unit moveInGunner _veh;
-				_soldiers pushBack _unit;
+				_soldados pushBack _unit;
 				_vehiclesX pushBack _veh;
 				}
 			else
 				{
 				if 	(_tipoB in listbld) then
 					{
-					_typeVehX = if (_lado == Occupants) then {NATOMG} else {CSATMG};
-					_veh = createVehicle [_typeVehX, (_building buildingPos 11), [], 0, "CAN_COLLIDE"];
-					_unit = _group createUnit [_typeUnit, _positionX, [], 0, "NONE"];
-					[_unit,_markerX] call A3A_fnc_NATOinit;
+					_tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
+					_veh = createVehicle [_tipoVeh, (_building buildingPos 11), [], 0, "CAN_COLLIDE"];
+					_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+					[_unit,_marcador] call A3A_fnc_NATOinit;
 					_unit moveInGunner _veh;
-					_soldiers pushBack _unit;
+					_soldados pushBack _unit;
 					_vehiclesX pushBack _veh;
 					sleep 0.5;
-					_veh = createVehicle [_typeVehX, (_building buildingPos 13), [], 0, "CAN_COLLIDE"];
-					_unit = _group createUnit [_typeUnit, _positionX, [], 0, "NONE"];
-					[_unit,_markerX] call A3A_fnc_NATOinit;
+					_veh = createVehicle [_tipoVeh, (_building buildingPos 13), [], 0, "CAN_COLLIDE"];
+					_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
+					[_unit,_marcador] call A3A_fnc_NATOinit;
 					_unit moveInGunner _veh;
-					_soldiers pushBack _unit;
+					_soldados pushBack _unit;
 					_vehiclesX pushBack _veh;
 					};
 				};
 			};
 		};
 	};
-[_group,_vehiclesX,_soldiers]
+[_grupo,_vehiclesX,_soldados]

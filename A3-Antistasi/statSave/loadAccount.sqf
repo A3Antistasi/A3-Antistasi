@@ -55,7 +55,7 @@ if (isServer and !_byPassServer) then
 	["distanceSPWN"] call fn_LoadStat;
 	["civPerc"] call fn_LoadStat;
 	["maxUnits"] call fn_LoadStat;
-	["membersX"] call fn_LoadStat;
+	["miembros"] call fn_LoadStat;
 	["vehInGarage"] call fn_LoadStat;
 	["destroyedBuildings"] call fn_LoadStat;
 	["idlebases"] call fn_LoadStat;
@@ -143,10 +143,10 @@ if (isServer and !_byPassServer) then
 	{
 	if (sidesX getVariable [_x,sideUnknown] != teamPlayer) then
 		{
-		_positionX = getMarkerPos _x;
-		_nearX = [(markersX - controlsX - outpostsFIA),_positionX] call BIS_fnc_nearestPosition;
-		_lado = sidesX getVariable [_nearX,sideUnknown];
-		sidesX setVariable [_x,_lado,true];
+		_posicion = getMarkerPos _x;
+		_cercano = [(markersX - controlsX - outpostsFIA),_posicion] call BIS_fnc_nearestPosition;
+		_lado = lados getVariable [_cercano,sideUnknown];
+		lados setVariable [_x,_lado,true];
 		};
 	} forEach controlsX;
 
@@ -176,9 +176,9 @@ if (isServer and !_byPassServer) then
 	["staticsX"] call fn_LoadStat;//tiene que ser el último para que el sleep del borrado del contenido no haga que despawneen
 
 
-	if (!isMultiPlayer) then {player setPos getMarkerPos respawnTeamPlayer} else {{_x setPos getMarkerPos respawnTeamPlayer} forEach (playableUnits select {side _x == teamPlayer})};
-	_sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
-	tierWar = 1 + (floor (((5*({(_x in outposts) or (_x in resourcesX) or (_x in citiesX)} count _sites)) + (10*({_x in seaports} count _sites)) + (20*({_x in airportsX} count _sites)))/10));
+	if (!isMultiPlayer) then {player setPos getMarkerPos respawnTeamPlayer} else {{_x setPos getMarkerPos respawnTeamPlayer} forEach (playableUnits select {side _x == buenos})};
+	_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
+	tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in recursos) or (_x in citiesX)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in airportsX} count _sitios)))/10));
 	if (tierWar > 10) then {tierWar = 10};
 	publicVariable "tierWar";
 
@@ -215,7 +215,7 @@ if (isServer and !_byPassServer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach resourcesX;
+		} forEach recursos;
 
 		{
 		_pos = getMarkerPos _x;
@@ -228,7 +228,7 @@ if (isServer and !_byPassServer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach factories;
+		} forEach fabricas;
 
 		{
 		_pos = getMarkerPos _x;
@@ -253,9 +253,9 @@ if (isServer and !_byPassServer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach seaports;
-		sidesX setVariable ["NATO_carrier",Occupants,true];
-		sidesX setVariable ["CSAT_carrier",Invaders,true];
+		} forEach puertos;
+		lados setVariable ["NATO_carrier",malos,true];
+		lados setVariable ["CSAT_carrier",muyMalos,true];
 		};
 	statsLoaded = 0; publicVariable "statsLoaded";
 	placementDone = true; publicVariable "placementDone";

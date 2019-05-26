@@ -1,8 +1,8 @@
 _checkX = false;
 _lado = side (group player);
-_enemyFaction = if (_lado == Occupants) then {Invaders} else {Occupants};
-{_enemyX = _x;
-if (((side _enemyX == _enemyFaction) or (side _enemyX == teamPlayer)) and (_enemyX distance player < 500) and (not(captive _enemyX))) exitWith {_checkX = true};
+_enemyFaction = if (_lado == malos) then {muyMalos} else {malos};
+{_enemigo = _x;
+if (((side _enemigo == _enemyFaction) or (side _enemigo == buenos)) and (_enemigo distance player < 500) and (not(captive _enemigo))) exitWith {_chequeo = true};
 } forEach allUnits;
 
 if (_checkX) exitWith {Hint "You cannot Fast Travel while enemies are nearby"};
@@ -50,12 +50,12 @@ if (count _positionTel > 0) then
 
 	if (_positionTel distance getMarkerPos _base < 50) then
 		{
-		_positionX = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
-		_distanceX = round (((position player) distance _positionX)/200);
+		_posicion = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
+		_distanceX = round (((position player) distance _posicion)/200);
 		disableUserInput true;
 		cutText ["Fast traveling, please wait","BLACK",2];
 		sleep 2;
-		(vehicle player) setPos _positionX;
+		(vehicle player) setPos _posicion;
 		player allowDamage false;
 		sleep _distanceX;
 		disableUserInput false;

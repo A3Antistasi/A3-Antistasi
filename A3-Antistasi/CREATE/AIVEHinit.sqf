@@ -86,8 +86,8 @@ else
 			}];
 		_veh addEventHandler ["GetIn",
 			{
-			_positionX = _this select 1;
-			if (_positionX == "driver") then
+			_posicion = _this select 1;
+			if (_posicion == "driver") then
 				{
 				_unit = _this select 2;
 				if ((!isPlayer _unit) and (_unit getVariable ["spawner",false]) and (side group _unit == teamPlayer)) then
@@ -150,11 +150,11 @@ else
 					};
 				_veh addEventHandler ["Fired",
 					{
-					_mortarX = _this select 0;
-					_dataX = _mortarX getVariable ["detection",[position _mortarX,0]];
-					_positionX = position _mortarX;
-					_chance = _dataX select 1;
-					if ((_positionX distance (_dataX select 0)) < 300) then
+					_mortero = _this select 0;
+					_datos = _mortero getVariable ["detection",[position _mortero,0]];
+					_posicion = position _mortero;
+					_chance = _datos select 1;
+					if ((_posicion distance (_datos select 0)) < 300) then
 						{
 						_chance = _chance + 2;
 						}
@@ -164,8 +164,8 @@ else
 						};
 					if (random 100 < _chance) then
 						{
-						{if ((side _x == Occupants) or (side _x == Invaders)) then {_x reveal [_mortarX,4]}} forEach allUnits;
-						if (_mortarX distance posHQ < 300) then
+						{if ((side _x == malos) or (side _x == muyMalos)) then {_x reveal [_mortero,4]}} forEach allUnits;
+						if (_mortero distance posHQ < 300) then
 							{
 							if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
 								{
@@ -185,13 +185,13 @@ else
 							_bases = airportsX select {(getMarkerPos _x distance _mortarX < distanceForAirAttack) and ([_x,true] call A3A_fnc_airportCanAttack) and (sidesX getVariable [_x,sideUnknown] != teamPlayer)};
 							if (count _bases > 0) then
 								{
-								_base = [_bases,_positionX] call BIS_fnc_nearestPosition;
-								_lado = sidesX getVariable [_base,sideUnknown];
-								[[getPosASL _mortarX,_lado,"Normal",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
+								_base = [_bases,_posicion] call BIS_fnc_nearestPosition;
+								_lado = lados getVariable [_base,sideUnknown];
+								[[getPosASL _mortero,_lado,"Normal",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
 								};
 							};
 						};
-					_mortarX setVariable ["detection",[_positionX,_chance]];
+					_mortero setVariable ["detection",[_posicion,_chance]];
 					}];
 				}
 			else

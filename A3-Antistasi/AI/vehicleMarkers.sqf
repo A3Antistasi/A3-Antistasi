@@ -48,7 +48,7 @@ else
 		}
 	else
 		{
-		if (_side == Invaders) then
+		if (_side == muyMalos) then
 			{
 			_formatX = "o";
 			_color = colorInvaders;

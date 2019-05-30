@@ -7,7 +7,7 @@ _disconnected = false;
 
 _jugadores = [];
 _miembros = [];
-_elegibles = [];
+_eligibles = [];
 
 _lider = objNull;
 
@@ -17,9 +17,9 @@ if (_x != _x getVariable ["owner",_x]) then {waitUntil {_x == _x getVariable ["o
 if ([_x] call A3A_fnc_isMember) then
 	{
 	_miembros pushBack _x;
-	if (_x getVariable ["elegible",true]) then
+	if (_x getVariable ["eligible",true]) then
 		{
-		_elegibles pushBack _x;
+		_eligibles pushBack _x;
 		if (_x == theBoss) then
 			{
 			_lider = _x;
@@ -71,7 +71,7 @@ if ((isNull _lider) or switchCom) then
 	if (count _miembros > 0) then
 		{
 		_proceder = true;
-		if (count _elegibles == 0) then {_elegibles = _miembros};
+		if (count _eligibles == 0) then {_eligibles = _miembros};
 		};
 	};
 
@@ -86,7 +86,7 @@ if ((_multiplier > _puntMax) and (_x!=_lider)) then
 	_selectable = _x;
 	_puntMax = _multiplier;
 	};
-} forEach _elegibles;
+} forEach _eligibles;
 
 if (!isNull _selectable) then
 	{

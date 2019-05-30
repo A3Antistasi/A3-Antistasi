@@ -49,7 +49,7 @@ if (_power == _marcador) then
 	};
 } forEach citiesX;
 
-_markersX = fabricas + recursos;
+_markersX = factories + recursos;
 {
 _sitio = _x;
 _pos = getMarkerPos _x;

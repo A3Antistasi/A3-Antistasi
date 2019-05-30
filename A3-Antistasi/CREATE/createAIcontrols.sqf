@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_marcador","_posicion","_vehiclesX","_soldados","_tam","_bunker","_grupoE","_unit","_typeGroup","_grupo","_timeLimit","_dateLimit","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_isControl","_tam","_tipoVeh","_tipoUnit","_markersX","_frontera","_uav","_grupoUAV","_allUnits","_closest","_winner","_timeLimit","_dateLimit","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
+private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_marcador","_posicion","_vehiclesX","_soldados","_tam","_bunker","_grupoE","_unit","_typeGroup","_grupo","_timeLimit","_dateLimit","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_isControl","_tam","_tipoVeh","_tipoUnit","_markersX","_frontierX","_uav","_grupoUAV","_allUnits","_closest","_winner","_timeLimit","_dateLimit","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
 
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;
@@ -136,8 +136,8 @@ else
 	{
 	_markersX = markersX select {(getMarkerPos _x distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
 	_markersX = _markersX - ["Synd_HQ"] - outpostsFIA;
-	_frontera = if (count _markersX > 0) then {true} else {false};
-	if (_frontera) then
+	_frontierX = if (count _markersX > 0) then {true} else {false};
+	if (_frontierX) then
 		{
 		_cfg = CSATSpecOp;
 		if (lados getVariable [_marcador,sideUnknown] == malos) then

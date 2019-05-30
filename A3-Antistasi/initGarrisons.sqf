@@ -135,7 +135,7 @@ else
     };
 garrison setVariable [_x,_garrison,true];
 _nul = [_x] call A3A_fnc_createControls;
-} forEach fabricas;
+} forEach factories;
 
 {
 _pos = getMarkerPos _x;

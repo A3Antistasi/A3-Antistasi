@@ -138,7 +138,7 @@ if (_marcador in puertos) then
 	["TaskFailed", ["", "Seaport Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
 	["TaskUpdated",["",format ["%1 lost a Seaport",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];
 	};
-if (_marcador in fabricas) then
+if (_marcador in factories) then
 	{
 	["TaskSucceeded", ["", "Factory Taken"]] remoteExec ["BIS_fnc_showNotification",_winner];
 	["TaskFailed", ["", "Factory Lost"]] remoteExec ["BIS_fnc_showNotification",_looser];
@@ -203,7 +203,7 @@ if ((_winner != buenos) and (_looser != buenos)) then
 	{
 	if (_marcador in puestos) then
 		{
-		_closeX = (puertos + recursos + fabricas) select {((getMarkerPos _x) distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
+		_closeX = (puertos + recursos + factories) select {((getMarkerPos _x) distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
 		if (_looser == malos) then  {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == malos}} else {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == muyMalos}};
 		{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _closeX;
 		}
@@ -212,7 +212,7 @@ if ((_winner != buenos) and (_looser != buenos)) then
 		if (_marcador in airportsX) then
 			{
 			_closeX = (puertos + puestos) select {((getMarkerPos _x) distance _posicion < distanceSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
-			_closeX append ((fabricas + recursos) select {(lados getVariable [_x,sideUnknown] != buenos) and (lados getVariable [_x,sideUnknown] != _winner) and ([airportsX,_x] call BIS_fnc_nearestPosition == _marcador)});
+			_closeX append ((factories + recursos) select {(lados getVariable [_x,sideUnknown] != buenos) and (lados getVariable [_x,sideUnknown] != _winner) and ([airportsX,_x] call BIS_fnc_nearestPosition == _marcador)});
 			if (_looser == malos) then  {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == malos}} else {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == muyMalos}};
 			{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _closeX;
 			};

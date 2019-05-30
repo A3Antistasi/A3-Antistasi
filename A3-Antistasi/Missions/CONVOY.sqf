@@ -1,6 +1,6 @@
 //Mission: Capture/destroy the convoy
 if (!isServer and hasInterface) exitWith {};
-private ["_pos","_timeOut","_posbase","_posDestination","_soldados","_grupos","_vehiclesX","_POWS","_tiempofin","_fechafin","_enddateNum","_veh","_unit","_grupo","_lado","_cuenta","_nameDest","_vehPool","_spawnPoint","_tipoVeh"];
+private ["_pos","_timeOut","_posbase","_posDestination","_soldados","_grupos","_vehiclesX","_POWS","_tiempofin","_dateFinal","_enddateNum","_veh","_unit","_grupo","_lado","_cuenta","_nameDest","_vehPool","_spawnPoint","_tipoVeh"];
 _destino = _this select 0;
 _base = _this select 1;
 
@@ -37,8 +37,8 @@ _typeConvoy = [];
 _posHQ = getMarkerPos respawnTeamPlayer;
 
 _tiempofin = 120;
-_fechafin = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempofin];
-_enddateNum = dateToNumber _fechafin;
+_dateFinal = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempofin];
+_enddateNum = dateToNumber _dateFinal;
 
 private ["_tsk","_grpPOW","_pos"];
 
@@ -55,7 +55,7 @@ else
 		}
 	else
 		{
-		if ((_destino in recursos) or (_destino in fabricas)) then {_typeConvoy = ["Money"]} else {_typeConvoy = ["Prisoners"]};
+		if ((_destino in recursos) or (_destino in factories)) then {_typeConvoy = ["Money"]} else {_typeConvoy = ["Prisoners"]};
 		if (((count (garrison getVariable [_destino,0]))/2) >= [_destino] call A3A_fnc_garrisonSize) then {_typeConvoy pushBack "reinforcementsX"};
 		};
 	};
@@ -227,9 +227,9 @@ for "_i" from 1 to _cuenta do
 		if (not(_typeVehEsc in vehTanks)) then
 			{
 			_typeGroup = [_typeVehEsc,_lado] call A3A_fnc_cargoSeats;
-			_grupoEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
-			{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
-			deleteGroup _grupoEsc;
+			_groupEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+			{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
+			deleteGroup _groupEsc;
 			};
 		}
 	else
@@ -241,9 +241,9 @@ for "_i" from 1 to _cuenta do
 				{
 				_typeGroup = selectRandom groupsFIAMid;
 				};
-			_grupoEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
-			{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
-			deleteGroup _grupoEsc;
+			_groupEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+			{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
+			deleteGroup _groupEsc;
 			};
 		};
 	};
@@ -301,9 +301,9 @@ if (_typeConvoyX == "Prisoners") then
 if (_typeConvoyX == "reinforcementsX") then
 	{
 	_typeGroup = [_typeVehObj,_lado] call A3A_fnc_cargoSeats;
-	_grupoEsc = [_posbase,_lado,_typeGroup] call A3A_fnc_spawnGroup;
-	{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo;_reinforcementsX pushBack _x} forEach units _grupoEsc;
-	deleteGroup _grupoEsc;
+	_groupEsc = [_posbase,_lado,_typeGroup] call A3A_fnc_spawnGroup;
+	{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo;_reinforcementsX pushBack _x} forEach units _groupEsc;
+	deleteGroup _groupEsc;
 	};
 if ((_typeConvoyX == "Money") or (_typeConvoyX == "Supplies")) then
 	{
@@ -349,9 +349,9 @@ if (!_esFIA) then
 	if (not(_typeVehEsc in vehTanks)) then
 		{
 		_typeGroup = [_typeVehEsc,_lado] call A3A_fnc_cargoSeats;
-		_grupoEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
-		{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
-		deleteGroup _grupoEsc;
+		_groupEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+		{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
+		deleteGroup _groupEsc;
 		};
 	}
 else
@@ -363,9 +363,9 @@ else
 			{
 			_typeGroup = selectRandom groupsFIAMid;
 			};
-		_grupoEsc = [_posbase,_lado,_typeGroup] call A3A_fnc_spawnGroup;
-		{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _grupoEsc;
-		deleteGroup _grupoEsc;
+		_groupEsc = [_posbase,_lado,_typeGroup] call A3A_fnc_spawnGroup;
+		{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
+		deleteGroup _groupEsc;
 		};
 	};
 

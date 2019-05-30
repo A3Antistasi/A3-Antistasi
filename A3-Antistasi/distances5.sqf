@@ -84,7 +84,7 @@ if (lados getVariable [_marcador,sideUnknown] == malos) then
 					{
 					if (_marcador in controlsX) then {[[_marcador],"A3A_fnc_createAIcontrols"] call A3A_fnc_scheduler} else {
 					if (_marcador in airportsX) then {[[_marcador],"A3A_fnc_createAIAirplane"] call A3A_fnc_scheduler} else {
-					if (((_marcador in recursos) or (_marcador in fabricas))) then {[[_marcador],"A3A_fnc_createAIResources"] call A3A_fnc_scheduler} else {
+					if (((_marcador in recursos) or (_marcador in factories))) then {[[_marcador],"A3A_fnc_createAIResources"] call A3A_fnc_scheduler} else {
 					if ((_marcador in puestos) or (_marcador in puertos)) then {[[_marcador],"A3A_fnc_createAIOutposts"] call A3A_fnc_scheduler};};};};
 					};
 				};
@@ -200,7 +200,7 @@ else
 					spawner setVariable [_marcador,0,true];
 					if (_marcador in controlsX) then {[[_marcador],"A3A_fnc_createAIcontrols"] call A3A_fnc_scheduler} else {
 					if (_marcador in airportsX) then {[[_marcador],"A3A_fnc_createAIAirplane"] call A3A_fnc_scheduler} else {
-					if (((_marcador in recursos) or (_marcador in fabricas))) then {[[_marcador],"A3A_fnc_createAIResources"] call A3A_fnc_scheduler} else {
+					if (((_marcador in recursos) or (_marcador in factories))) then {[[_marcador],"A3A_fnc_createAIResources"] call A3A_fnc_scheduler} else {
 					if ((_marcador in puestos) or (_marcador in puertos)) then {[[_marcador],"A3A_fnc_createAIOutposts"] call A3A_fnc_scheduler};};};};
 					};
 				}

@@ -12,9 +12,9 @@ while {alive _veh} do
 	{
 	_knownX = [];
 	_grupos = [];
-	_enemigos = [distanceSPWN,0,_posicion,_lado] call A3A_fnc_distanceUnits;
+	_enemiesX = [distanceSPWN,0,_posicion,_lado] call A3A_fnc_distanceUnits;
 	sleep 60;
-	_grupos = allGroups select {(leader _x in _enemigos) and ((vehicle leader _x) != (leader _x))};
+	_grupos = allGroups select {(leader _x in _enemiesX) and ((vehicle leader _x) != (leader _x))};
 	_knownX = allUnits select {((side _x == buenos) or (side _x == _enemiesS)) and (alive _x) and (_x distance _posicion < 500)};
 	{
 	_grupo = _x;

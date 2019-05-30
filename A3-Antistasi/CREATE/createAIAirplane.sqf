@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_marcador","_vehiclesX","_grupos","_soldados","_posicion","_busy","_buildings","_pos1","_pos2","_grupo","_cuenta","_tipoVeh","_veh","_unit","_arrayVehAAF","_nVeh","_frontera","_size","_ang","_mrk","_typeGroup","_bandera","_perro","_tipoUnit","_garrison","_lado","_cfg","_max","_vehicle","_vehCrew","_grupoVeh","_roads","_dist","_road","_roadscon","_roadcon","_dirveh","_bunker","_typeGroup","_posiciones","_posMG","_posMort","_posTank"];
+private ["_pos","_marcador","_vehiclesX","_grupos","_soldados","_posicion","_busy","_buildings","_pos1","_pos2","_grupo","_cuenta","_tipoVeh","_veh","_unit","_arrayVehAAF","_nVeh","_frontierX","_size","_ang","_mrk","_typeGroup","_bandera","_perro","_tipoUnit","_garrison","_lado","_cfg","_max","_vehicle","_vehCrew","_grupoVeh","_roads","_dist","_road","_roadscon","_roadcon","_dirveh","_bunker","_typeGroup","_posiciones","_posMG","_posMort","_posTank"];
 _marcador = _this select 0;
 
 _vehiclesX = [];
@@ -13,7 +13,7 @@ _pos = [];
 _size = [_marcador] call A3A_fnc_sizeMarker;
 //_garrison = garrison getVariable _marcador;
 
-_frontera = [_marcador] call A3A_fnc_isFrontline;
+_frontierX = [_marcador] call A3A_fnc_isFrontline;
 _busy = if (dateToNumber date > server getVariable _marcador) then {false} else {true};
 _nVeh = round (_size/60);
 
@@ -50,7 +50,7 @@ if (spawner getVariable _marcador != 2) then
 		};
 	};
 
-if ((spawner getVariable _marcador != 2) and _frontera) then
+if ((spawner getVariable _marcador != 2) and _frontierX) then
 	{
 	_roads = _posicion nearRoads _size;
 	if (count _roads != 0) then
@@ -228,7 +228,7 @@ if (spawner getVariable _marcador != 2) then
 	};
 } forEach _posAT;
 
-_ret = [_marcador,_size,_lado,_frontera] call A3A_fnc_milBuildings;
+_ret = [_marcador,_size,_lado,_frontierX] call A3A_fnc_milBuildings;
 _grupos pushBack (_ret select 0);
 _vehiclesX append (_ret select 1);
 _soldados append (_ret select 2);

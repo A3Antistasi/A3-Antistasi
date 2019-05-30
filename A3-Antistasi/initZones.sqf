@@ -14,7 +14,7 @@ if (worldName == "Tanoa") then
     airportsX = ["airport","airport_1","airport_2","airport_3","airport_4"];//airports
     spawnPoints = ["spawnPoint","spawnPoint_1","spawnPoint_2","spawnPoint_3","spawnPoint_4"];
     recursos = ["resource","resource_1","resource_2","resource_3","resource_4","resource_5","resource_6","resource_7"];//economic resources
-    fabricas = ["factory","factory_1","factory_2","factory_3","factory_4"];//factories
+    factories = ["factory","factory_1","factory_2","factory_3","factory_4"];//factories
     puestos = ["puesto","puesto_1","puesto_2","puesto_3","puesto_4","puesto_5","puesto_6","puesto_7","puesto_8","puesto_9","puesto_10","puesto_11","puesto_12","puesto_13","puesto_14"];//any small zone with mil buildings
     puertos = ["puerto","puerto_1","puerto_2","puerto_3","puerto_4","puerto_5"];//seaports, adding a lot will affect economics, 5 is ok
     controlsX = ["control","control_1","control_2","control_3","control_4","control_5","control_6","control_7","control_8","control_9","control_10","control_11","control_12","control_13","control_14","control_15","control_16","control_17","control_18","control_19","control_20","control_21","control_22","control_23","control_24","control_25","control_26","control_27","control_28","control_29","control_30","control_31","control_32","control_33","control_34","control_35","control_36","control_37","control_38","control_39","control_40","control_41","control_42","control_43","control_44","control_45","control_46","control_47","control_48","control_49","control_50","control_51"];//use this for points where you want a roadblock (logic/strategic points, such as crossroads, airport or bases entrances etc..) game will add some more automatically
@@ -29,7 +29,7 @@ else
         airportsX = ["airport","airport_1","airport_2","airport_3","airport_4","airport_5"];//airports
         spawnPoints = ["spawnPoint","spawnPoint_1","spawnPoint_2","spawnPoint_3","spawnPoint_4","spawnPoint_5"];
         recursos = ["resource","resource_1","resource_2","resource_3","resource_4","resource_5","resource_6","resource_7"];//economic resources
-        fabricas = ["factory","factory_1","factory_2","factory_3","factory_4","factory_5","factory_6","factory_7","factory_8","factory_9","factory_10","factory_11"];//factories
+        factories = ["factory","factory_1","factory_2","factory_3","factory_4","factory_5","factory_6","factory_7","factory_8","factory_9","factory_10","factory_11"];//factories
         puestos = ["puesto","puesto_1","puesto_2","puesto_3","puesto_4","puesto_5","puesto_6","puesto_7","puesto_8","puesto_9","puesto_10","puesto_11","puesto_12","puesto_13","puesto_14","puesto_15","puesto_16","puesto_17","puesto_18","puesto_19","puesto_20","puesto_21","puesto_22","puesto_23","puesto_24","puesto_25","puesto_26","puesto_27","puesto_28","puesto_29","puesto_30","puesto_31","puesto_32","puesto_33","puesto_34","puesto_35","puesto_36","puesto_37","puesto_38","puesto_39","puesto_40","puesto_41","puesto_42"];
         puertos = ["puerto","puerto_1","puerto_2","puerto_3","puerto_4"];//seaports, adding a lot will affect economics, 5 is ok
         controlsX = ["control","control_1","control_2","control_3","control_4","control_5","control_6","control_7","control_8","control_9","control_10","control_11","control_12","control_13","control_14","control_15","control_16","control_17","control_18","control_19","control_20","control_21","control_22","control_23","control_24","control_25","control_26","control_27","control_28","control_29","control_30","control_31","control_32","control_33","control_34","control_35","control_36","control_37","control_38","control_39","control_40","control_41","control_42","control_43","control_44","control_45","control_46","control_47","control_48","control_49","control_50","control_51","control_52","control_53","control_54","control_55","control_56","control_57","control_58"];//use this for points where you want a roadblock (logic/strategic points, such as crossroads, airport or bases entrances etc..) game will add some more automatically
@@ -62,7 +62,7 @@ else
             airportsX = ["airport","airport_1","airport_2"];
             spawnPoints = ["spawnPoint","spawnPoint_1","spawnPoint_2"];
             recursos = ["resource","resource_1","resource_2","resource_3","resource_4","resource_5","resource_6","resource_7","resource_8","resource_9"];
-            fabricas = ["factory","factory_1","factory_2","factory_3","factory_4"];
+            factories = ["factory","factory_1","factory_2","factory_3","factory_4"];
             puestos = ["puesto","puesto_1","puesto_2","puesto_3","puesto_4","puesto_5","puesto_6","puesto_7","puesto_8","puesto_9","puesto_10","puesto_11","puesto_12","puesto_13","puesto_14","puesto_15","puesto_16","puesto_17","puesto_18","puesto_19","puesto_20","puesto_21"];
             puertos = ["puerto","puerto_1","puerto_2","puerto_3","puerto_4"];
             controlsX = ["control","control_1","control_2","control_3","control_4","control_5","control_6","control_7","control_8","control_9","control_10","control_11","control_12","control_13","control_14","control_15","control_16","control_17","control_18","control_19","control_20","control_21","control_22","control_23","control_24","control_25","control_26","control_27","control_28","control_29","control_30","control_31","control_32","control_33","control_34","control_35","control_36","control_37","control_38","control_39","control_40"];
@@ -96,7 +96,7 @@ defaultControlIndex = (count controlsX) - 1;
 outpostsFIA = [];
 destroyedCities = [];
 garrison setVariable ["Synd_HQ",[],true];
-markersX = airportsX + recursos + fabricas + puestos + puertos + controlsX + ["Synd_HQ"];
+markersX = airportsX + recursos + factories + puestos + puertos + controlsX + ["Synd_HQ"];
 {_x setMarkerAlpha 0;
 spawner setVariable [_x,2,true];
 } forEach markersX;
@@ -302,7 +302,7 @@ publicVariable "markersX";
 publicVariable "citiesX";
 publicVariable "airportsX";
 publicVariable "recursos";
-publicVariable "fabricas";
+publicVariable "factories";
 publicVariable "puestos";
 publicVariable "controlsX";
 publicVariable "puertos";

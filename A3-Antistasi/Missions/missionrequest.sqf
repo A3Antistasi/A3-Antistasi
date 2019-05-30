@@ -31,8 +31,8 @@ if (_tipo == "AS") then
 					{
 					_markersX = markersX select {(getMarkerPos _x distance _pos < distanceSPWN) and (lados getVariable [_x,sideUnknown] == buenos)};
 					_markersX = _markersX - ["Synd_HQ"];
-					_frontera = if (count _markersX > 0) then {true} else {false};
-					if (_frontera) then
+					_frontierX = if (count _markersX > 0) then {true} else {false};
+					if (_frontierX) then
 						{
 						_posibles pushBack _sitio;
 						};
@@ -208,7 +208,7 @@ if (_tipo == "CONVOY") then
 	{
 	if (!bigAttackInProgress) then
 		{
-		_sitios = (airportsX + recursos + fabricas + puertos + puestos - blackListDest) + (citiesX select {count (garrison getVariable [_x,[]]) < 10});
+		_sitios = (airportsX + recursos + factories + puertos + puestos - blackListDest) + (citiesX select {count (garrison getVariable [_x,[]]) < 10});
 		_sitios = _sitios select {(lados getVariable [_x,sideUnknown] != buenos) and !(_x in blackListDest)};
 		if (count _sitios > 0) then
 			{

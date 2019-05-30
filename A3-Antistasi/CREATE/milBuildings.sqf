@@ -1,4 +1,4 @@
-private ["_posicion","_size","_buildings","_grupo","_tipoUnit","_lado","_building","_tipoB","_frontera","_tipoVeh","_veh","_vehiclesX","_soldados","_pos","_ang","_marcador","_unit","_return"];
+private ["_posicion","_size","_buildings","_grupo","_tipoUnit","_lado","_building","_tipoB","_frontierX","_tipoVeh","_veh","_vehiclesX","_soldados","_pos","_ang","_marcador","_unit","_return"];
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;
 _size = _this select 1;
@@ -7,7 +7,7 @@ _buildings = nearestObjects [_posicion, listMilBld, _size * 1.2, true];
 if (count _buildings == 0) exitWith {[grpNull,[],[]]};
 
 _lado = _this select 2;
-_frontera = _this select 3;
+_frontierX = _this select 3;
 
 _vehiclesX = [];
 _soldados = [];
@@ -31,7 +31,7 @@ for "_i" from 0 to (count _buildings) - 1 do
 			];
 		};*/
 	_tipoB = typeOf _building;
-	if ((_tipoB == "Land_HelipadSquare_F") and (!_frontera)) then
+	if ((_tipoB == "Land_HelipadSquare_F") and (!_frontierX)) then
 		{
 		_tipoVeh = if (_lado == malos) then {vehNATOPatrolHeli} else {vehCSATPatrolHeli};
 		_veh = createVehicle [_tipoVeh, position _building, [],0, "CAN_COLLIDE"];

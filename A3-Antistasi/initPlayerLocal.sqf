@@ -27,7 +27,7 @@ if (!hasInterface) exitWith
 _isJip = _this select 1;
 if (isMultiplayer) then
 	{
-	if (side player == buenos) then {player setVariable ["elegible",true,true]};
+	if (side player == buenos) then {player setVariable ["eligible",true,true]};
 	musicON = false;
 	//waitUntil {scriptdone _introshot};
 	disableUserInput true;

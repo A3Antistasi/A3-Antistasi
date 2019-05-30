@@ -53,18 +53,18 @@ while {true} do
 	_marcador = [_markersX,_positionTel] call BIS_fnc_nearestPosition;
 	if (getMarkerPos _marcador distance _positionTel < 500) then {hint "Place selected is very close to enemy zones.\n\n Please select another position"};
 	if (surfaceIsWater _positionTel) then {hint "Selected position cannot be in water"};
-	_enemigos = false;
+	_enemiesX = false;
 	if (!isNil "placementDone") then
 		{
 		{
 		if ((side _x == malos) or (side _x == muyMalos)) then
 			{
-			if (_x distance _positionTel < 500) then {_enemigos = true};
+			if (_x distance _positionTel < 500) then {_enemiesX = true};
 			};
 		} forEach allUnits;
 		};
-	if (_enemigos) then {hint "There are enemies in the surroundings of that area, please select another."};
-	if ((getMarkerPos _marcador distance _positionTel >= 500) and (!surfaceIsWater _positionTel) and (!_enemigos)) exitWith {};
+	if (_enemiesX) then {hint "There are enemies in the surroundings of that area, please select another."};
+	if ((getMarkerPos _marcador distance _positionTel >= 500) and (!surfaceIsWater _positionTel) and (!_enemiesX)) exitWith {};
 	sleep 0.1;
 	};
 if (visiblemap) then

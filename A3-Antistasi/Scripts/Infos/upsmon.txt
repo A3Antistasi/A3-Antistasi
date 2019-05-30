@@ -137,7 +137,7 @@ Historial de modificaciones:
 //    	Added
 //		Se ha a�adido ataque frontal
 //		Formaciones de combate en funci�n de la situaci�n
-//		La IA puede entrar en los buildingsX a tomar posiciones de defensa y en ataque puede patrullarlos en busca de enemigos o posiciones de fuego.
+//		La IA puede entrar en los buildingsX a tomar posiciones de defensa y en ataque puede patrullarlos en busca de enemiesX o posiciones de fuego.
 // 	Modificaciones:
 //		Mejorado el sistema para localizar, asignar y entrar en vehiclesX,.
 //		Optimizado el rendimiento. Se ha mejorado para que se pueda ejecutar cada 20s.
@@ -207,7 +207,7 @@ Historial de modificaciones:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.4
 //    	Added
-//   		A�adidos par�metros para asignar enemigos y aliados a la resistencia
+//   		A�adidos par�metros para asignar enemiesX y aliados a la resistencia
 //             A�adido control anti snipers, si la IA se ve atacada y no sabe de donde se mueve de sitio
 // 	Modificaciones
 //		Se ajusta el �ngulo de flanqueo en funci�n de la distanceX al objetivo
@@ -218,14 +218,14 @@ Historial de modificaciones:
 //Version: 3.0.3
 //    	Added
 //   		Multiple targets, now IA can have multiple open targets
-//		La IA ahora usa tamien los buildingsX para buscar enemigos, protegerse dentro o atacar desde all�.
+//		La IA ahora usa tamien los buildingsX para buscar enemiesX, protegerse dentro o atacar desde all�.
 // 	Modificaciones
 //		La IA pierde el objetivo si lo pierde de vista y est� a m�s de la distanceX KRON_UPS_sharedist
 //
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.2
 //    	Added
-//		Se ha a�adido la opci�n de reinforcementsX, ahora se pueden definir unas unidades de reinforcementsX alejados de la zona que se enviar�n al detectar enemigos enemigos 
+//		Se ha a�adido la opci�n de reinforcementsX, ahora se pueden definir unas unidades de reinforcementsX alejados de la zona que se enviar�n al detectar enemiesX enemiesX 
 //		si KRON_UPS_reinforcement es true, se puede usar un marcador a modo de alarma para alimentar esta variable cuando se desee.
 //		Las unidades tendr�n una predisposici�n a mantener la posici�n si tienen el rol NOMOVE
 // 	Modificaciones

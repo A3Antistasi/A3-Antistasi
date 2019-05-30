@@ -13,7 +13,7 @@ while {true} do
 	_soldados = _soldados select {[_x] call A3A_fnc_canFight};
 	if (_soldados isEqualTo []) exitWith {};
 	_exit = false;
-	_enemigos = [];
+	_enemiesX = [];
 	{
 	_soldado = _x;
 	{
@@ -25,18 +25,18 @@ while {true} do
 		{
 		if ((_x distance _soldado < (distanceSPWN/2)) and {[_x] call A3A_fnc_canFight} and {side group _x in _eny} and {vehicle _x == _x}) then
 			{
-			_enemigos pushBackUnique _x;
+			_enemiesX pushBackUnique _x;
 			};
 		};
 	} forEach (allUnits - _soldados);
 	} forEach _soldados;
 	if (_exit) exitWith {};
-	if !(_enemigos isEqualTo []) then
+	if !(_enemiesX isEqualTo []) then
 		{
-		_chanceToKill = 50 * ((count _soldados) / (count _enemigos));
+		_chanceToKill = 50 * ((count _soldados) / (count _enemiesX));
 		if (random 100 <= _chanceToKill) then
 			{
-			(selectRandom _enemigos) setDamage 1;
+			(selectRandom _enemiesX) setDamage 1;
 			}
 		else
 			{

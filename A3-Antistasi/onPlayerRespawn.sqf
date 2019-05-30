@@ -25,7 +25,7 @@ if (side group player == buenos) then
 	_punish = _viejo getVariable ["punish",0];
 	_dinero = _viejo getVariable ["dinero",0];
 	_dinero = round (_dinero - (_dinero * 0.1));
-	_elegible = _viejo getVariable ["elegible",true];
+	_eligible = _viejo getVariable ["eligible",true];
 	_rango = _viejo getVariable ["rango","PRIVATE"];
 
 	_dinero = round (_dinero - (_dinero * 0.05));
@@ -38,7 +38,7 @@ if (side group player == buenos) then
 	_nuevo setVariable ["dinero",_dinero,true];
 	//_nuevo setUnitRank (rank _viejo);
 	_nuevo setVariable ["compromised",0];
-	_nuevo setVariable ["elegible",_elegible,true];
+	_nuevo setVariable ["eligible",_eligible,true];
 	_nuevo setVariable ["spawner",true,true];
 	_viejo setVariable ["spawner",nil,true];
 	[_nuevo,false] remoteExec ["setCaptive",0,_nuevo];

@@ -108,7 +108,7 @@ while {visibleMap} do
 				};
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 			};
-		if (_sitio in fabricas) then
+		if (_sitio in factories) then
 			{
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{

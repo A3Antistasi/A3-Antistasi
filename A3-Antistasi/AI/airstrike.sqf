@@ -1,7 +1,7 @@
 // usage: Activate via radio trigger, on act: [] execVM "airstrike.sqf";
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_posicion","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_lado","_isMarker","_typePlane","_exit","_timeOut","_size","_buildings","_amigos","_enemigos","_mediaX","_mediaY","_pos","_cuenta","_distantNum","_distantX","_planefn","_planeCrew","_groupPlane","_tipo"];
+private ["_marcador","_posicion","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_lado","_isMarker","_typePlane","_exit","_timeOut","_size","_buildings","_amigos","_enemiesX","_mediaX","_mediaY","_pos","_cuenta","_distantNum","_distantX","_planefn","_planeCrew","_groupPlane","_tipo"];
 
 _marcador = _this select 0;
 _lado = _this select 1;
@@ -49,8 +49,8 @@ else
 	_amigos = if (_lado == malos) then {allUnits select {(_x distance _posicion < 300) and (alive _x) and ((side _x == malos) or (side _x == civilian))}} else {allUnits select {(_x distance _posicion < 300) and (alive _x) and (side _x == muyMalos)}};
 	if (count _amigos == 0) then
 		{
-		_enemigos = if (_lado == malos) then {allUnits select {_x distance _posicion < 300 and (side _x != _lado) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _posicion < 300 and (side _x != _lado) and (alive _x)}};
-		if (count _enemigos > 0) then
+		_enemiesX = if (_lado == malos) then {allUnits select {_x distance _posicion < 300 and (side _x != _lado) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _posicion < 300 and (side _x != _lado) and (alive _x)}};
+		if (count _enemiesX > 0) then
 			{
 			_mediaX = 0;
 			_mediaY = 0;
@@ -58,8 +58,8 @@ else
 			_pos = position _x;
 			_mediaX = _mediaX + (_pos select 0);
 			_mediaY = _mediaY + (_pos select 1);
-			} forEach _enemigos;
-			_cuenta = count _enemigos;
+			} forEach _enemiesX;
+			_cuenta = count _enemiesX;
 			_mediaX = _mediaX / _cuenta;
 			_mediaY = _mediaY / _cuenta;
 			_posicion = [_mediaX,_mediaY,0];
@@ -71,7 +71,7 @@ else
 				_distantNum = _x distance2D _posicion;
 				_distantX = _x;
 				}
-			} forEach _enemigos;
+			} forEach _enemiesX;
 			_ang = [_posicion, _distantX] call BIS_fnc_DirTo;
 			_angOrig = _ang + 180;
 			_pos1 = [_posicion, 200, _angorig] call BIS_Fnc_relPos;

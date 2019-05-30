@@ -1,4 +1,4 @@
-private ["_unit","_enemigos"];
+private ["_unit","_enemiesX"];
 
 _unit = _this select 0;
 

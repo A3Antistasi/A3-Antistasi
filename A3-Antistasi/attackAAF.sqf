@@ -84,7 +84,7 @@ if !(_tmpObjectives isEqualTo []) then
 	{
 	_cercano = [_tmpObjectives,_base] call BIS_fnc_nearestPosition;
 	{
-	_esCiudad = if (_x in citiesX) then {true} else {false};
+	_isCity = if (_x in citiesX) then {true} else {false};
 	_proceder = true;
 	_posSitio = getMarkerPos _x;
 	_esSDK = false;
@@ -113,7 +113,7 @@ if !(_tmpObjectives isEqualTo []) then
 		};
 	if (_proceder) then
 		{
-		if (!_esCiudad) then
+		if (!_isCity) then
 			{
 			if !(_x in _killZones) then
 				{
@@ -150,7 +150,7 @@ if !(_tmpObjectives isEqualTo []) then
 		if (_baseNATO) then
 			{
 			if ({lados getVariable [_x,sideUnknown] == malos} count airportsX <= 1) then {_times = 2};
-			if (!_esCiudad) then
+			if (!_isCity) then
 				{
 				if ((_x in puestos) or (_x in puertos)) then
 					{
@@ -191,7 +191,7 @@ if !(_tmpObjectives isEqualTo []) then
 		else
 			{
 			_times = 2;
-			if (!_esCiudad) then
+			if (!_isCity) then
 				{
 				if ((_x in puestos) or (_x in puertos)) then
 					{
@@ -231,7 +231,7 @@ if !(_tmpObjectives isEqualTo []) then
 			};
 		if (_times > 0) then
 			{
-			if ((!_esSDK) and (!_esCiudad)) then
+			if ((!_esSDK) and (!_isCity)) then
 				{
 				//_times = _times + (floor((garrison getVariable [_x,0])/8))
 				_numGarr = [_x] call A3A_fnc_garrisonSize;
@@ -241,13 +241,13 @@ if !(_tmpObjectives isEqualTo []) then
 				{
 				if (_posSitio distance _posBase < distanceForLandAttack) then
 					{
-					if  (!_esCiudad) then
+					if  (!_isCity) then
 						{
 						_times = _times * 4
 						};
 					};
 				};
-			if (!_esCiudad) then
+			if (!_isCity) then
 				{
 				_esMar = false;
 				if ((_baseNATO and _seaportNATO) or (!_baseNATO and _seaportCSAT)) then

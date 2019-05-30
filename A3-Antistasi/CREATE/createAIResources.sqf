@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_vehiclesX","_grupos","_soldados","_civs","_posicion","_pos","_typeGroup","_tipociv","_size","_mrk","_ang","_cuenta","_grupo","_veh","_civ","_frontera","_bandera","_perro","_garrison","_lado","_cfg","_esFIA","_roads","_dist","_road","_roadscon","_roadcon","_dirveh","_bunker","_tipoVeh","_tipoUnit","_unit","_typeGroup","_stance"];
+private ["_marcador","_vehiclesX","_grupos","_soldados","_civs","_posicion","_pos","_typeGroup","_tipociv","_size","_mrk","_ang","_cuenta","_grupo","_veh","_civ","_frontierX","_bandera","_perro","_garrison","_lado","_cfg","_esFIA","_roads","_dist","_road","_roadscon","_roadcon","_dirveh","_bunker","_tipoVeh","_tipoUnit","_unit","_typeGroup","_stance"];
 
 _marcador = _this select 0;
 
@@ -13,7 +13,7 @@ _soldados = [];
 _grupos = [];
 _vehiclesX = [];
 
-_frontera = [_marcador] call A3A_fnc_isFrontline;
+_frontierX = [_marcador] call A3A_fnc_isFrontline;
 
 _lado = muyMalos;
 
@@ -21,7 +21,7 @@ _esFIA = false;
 if (lados getVariable [_marcador,sideUnknown] == malos) then
 	{
 	_lado = malos;
-	if ((random 10 <= (tierWar + difficultyCoef)) and !(_frontera)) then
+	if ((random 10 <= (tierWar + difficultyCoef)) and !(_frontierX)) then
 		{
 		_esFIA = true;
 		};
@@ -35,7 +35,7 @@ _roadcon = objNull;
 {if ((position _x) distance _posicion > _dist) then {_roadcon = _x}} forEach _roadscon;
 _dirveh = [_roadcon, _road] call BIS_fnc_DirTo;
 
-if ((spawner getVariable _marcador != 2) and _frontera) then
+if ((spawner getVariable _marcador != 2) and _frontierX) then
 	{
 	if (count _roads != 0) then
 		{

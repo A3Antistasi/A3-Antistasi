@@ -19,7 +19,7 @@ while {true} do
 	_popAAF = 0;
 	_popCSAT = 0;
 	_popTotal = 0;
-	_bonusFIA = 1 + (0.25*({(lados getVariable [_x,sideUnknown] == buenos) and !(_x in destroyedCities)} count fabricas));
+	_bonusFIA = 1 + (0.25*({(lados getVariable [_x,sideUnknown] == buenos) and !(_x in destroyedCities)} count factories));
 	{
 	_ciudad = _x;
 	_resourcesAddCitySDK = 0;
@@ -103,7 +103,7 @@ while {true} do
 		{
 		if (not(_fabrica in destroyedCities)) then {_bonusFIA = _bonusFIA + 0.25};
 		};
-	} forEach fabricas;
+	} forEach factories;
 	*/
 	{
 	_recurso = _x;

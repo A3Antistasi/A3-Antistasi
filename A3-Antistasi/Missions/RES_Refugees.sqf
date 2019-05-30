@@ -37,10 +37,10 @@ _posTsk = if (_lado == malos) then {(position _casa) getPos [random 100, random 
 
 [[buenos,civilian],"RES",[_texto,"Refugees Evac",_nameDest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
 misiones pushBack ["RES","CREATED"]; publicVariable "misiones";
-_grupoPOW = createGroup buenos;
+_groupPOW = createGroup buenos;
 for "_i" from 1 to (((count _poscasa) - 1) min 15) do
 	{
-	_unit = _grupoPOW createUnit [SDKUnarmed, _poscasa select _i, [], 0, "NONE"];
+	_unit = _groupPOW createUnit [SDKUnarmed, _poscasa select _i, [], 0, "NONE"];
 	_unit allowdamage false;
 	_unit disableAI "MOVE";
 	_unit disableAI "AUTOTARGET";
@@ -155,7 +155,7 @@ if (_lado == malos) then
 		[3,0] remoteExec ["A3A_fnc_prestige",2];
 		{if (_x distance getMarkerPos respawnTeamPlayer < 500) then {[_cuenta*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[round (_cuenta*_bonus/2),theBoss] call A3A_fnc_playerScoreAdd;
-		{[_x] join _grupoPOW; [_x] orderGetin false} forEach _POWs;
+		{[_x] join _groupPOW; [_x] orderGetin false} forEach _POWs;
 		}
 	else
 		{
@@ -180,7 +180,7 @@ else
 		[_hr,_resourcesFIA*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 		{if (_x distance getMarkerPos respawnTeamPlayer < 500) then {[_cuenta*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[round (_cuenta*_bonus/2),theBoss] call A3A_fnc_playerScoreAdd;
-		{[_x] join _grupoPOW; [_x] orderGetin false} forEach _POWs;
+		{[_x] join _groupPOW; [_x] orderGetin false} forEach _POWs;
 		};
 	};
 
@@ -198,7 +198,7 @@ if (_unit distance getMarkerPos respawnTeamPlayer < 150) then
 	};
 deleteVehicle _unit;
 } forEach _POWs;
-deleteGroup _grupoPOW;
+deleteGroup _groupPOW;
 {caja addWeaponCargoGlobal [_x,1]} forEach _armas;
 {caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
 {caja addItemCargoGlobal [_x,1]} forEach _items;

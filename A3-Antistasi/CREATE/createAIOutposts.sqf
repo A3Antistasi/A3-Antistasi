@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith{};
-private ["_marcador","_vehiclesX","_grupos","_soldados","_posicion","_pos","_size","_frontera","_lado","_cfg","_esFIA","_garrison","_antena","_tam","_buildings","_mrk","_cuenta","_typeGroup","_grupo","_tipoUnit","_tipoVeh","_veh","_unit","_bandera","_caja","_roads","_mrkMar","_vehicle","_vehCrew","_grupoVeh","_dist","_road","_roadCon","_dirVeh","_bunker","_dir","_posF"];
+private ["_marcador","_vehiclesX","_grupos","_soldados","_posicion","_pos","_size","_frontierX","_lado","_cfg","_esFIA","_garrison","_antena","_tam","_buildings","_mrk","_cuenta","_typeGroup","_grupo","_tipoUnit","_tipoVeh","_veh","_unit","_bandera","_caja","_roads","_mrkMar","_vehicle","_vehCrew","_grupoVeh","_dist","_road","_roadCon","_dirVeh","_bunker","_dir","_posF"];
 _marcador = _this select 0;
 
 _vehiclesX = [];
@@ -12,13 +12,13 @@ _pos = [];
 
 _size = [_marcador] call A3A_fnc_sizeMarker;
 
-_frontera = [_marcador] call A3A_fnc_isFrontline;
+_frontierX = [_marcador] call A3A_fnc_isFrontline;
 _lado = muyMalos;
 _esFIA = false;
 if (lados getVariable [_marcador,sideUnknown] == malos) then
 	{
 	_lado = malos;
-	if ((random 10 >= (tierWar + difficultyCoef)) and !(_frontera) and !(_marcador in forcedSpawn)) then
+	if ((random 10 >= (tierWar + difficultyCoef)) and !(_frontierX) and !(_marcador in forcedSpawn)) then
 		{
 		_esFIA = true;
 		};
@@ -93,7 +93,7 @@ if (_patrol) then
 		};
 	};
 
-if ((_frontera) and (spawner getVariable _marcador!=2) and (_marcador in puestos)) then
+if ((_frontierX) and (spawner getVariable _marcador!=2) and (_marcador in puestos)) then
 	{
 	_grupo = createGroup _lado;
 	_tipoUnit = if (_lado==malos) then {staticCrewOccupants} else {staticCrewInvaders};
@@ -109,7 +109,7 @@ if ((_frontera) and (spawner getVariable _marcador!=2) and (_marcador in puestos
 	sleep 1;
 	};
 
-_ret = [_marcador,_size,_lado,_frontera] call A3A_fnc_milBuildings;
+_ret = [_marcador,_size,_lado,_frontierX] call A3A_fnc_milBuildings;
 _grupos pushBack (_ret select 0);
 _vehiclesX append (_ret select 1);
 _soldados append (_ret select 2);
@@ -158,7 +158,7 @@ if ((_marcador in puertos) and (spawner getVariable _marcador!=2) and !hayIFA) t
 	}
 else
 	{
-	if (_frontera) then
+	if (_frontierX) then
 		{
 		if (spawner getVariable _marcador!=2) then
 			{

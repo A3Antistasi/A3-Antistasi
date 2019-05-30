@@ -29,7 +29,7 @@ if (lados getVariable [_marcador,sideUnknown] == buenos) then
 			 	}
 			 else
 			 	{
-			 	if (_marcador in fabricas) then
+			 	if (_marcador in factories) then
             		{
             		_texto = format ["Factory%1",_texto];
             		}
@@ -71,7 +71,7 @@ else
 	 	}
 	 else
 	 	{
-	 	if (_marcador in fabricas) then
+	 	if (_marcador in factories) then
     		{
     		if (markerText _mrkD != "Factory") then {_mrkD setMarkerText "Factory"};
     		}

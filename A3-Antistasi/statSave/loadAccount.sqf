@@ -228,7 +228,7 @@ if (isServer and !_byPassServer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach fabricas;
+		} forEach factories;
 
 		{
 		_pos = getMarkerPos _x;

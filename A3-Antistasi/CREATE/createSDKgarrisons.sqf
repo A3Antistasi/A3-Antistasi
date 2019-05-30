@@ -28,7 +28,7 @@ if (_marcador != "Synd_HQ") then
 		//[_veh,"vehicle"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
 		//[_veh,"garage"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_veh];
 		};
-	if ((_marcador in recursos) or (_marcador in fabricas)) then
+	if ((_marcador in recursos) or (_marcador in factories)) then
 		{
 		if (not(_marcador in destroyedCities)) then
 			{

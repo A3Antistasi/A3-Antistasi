@@ -181,12 +181,12 @@ while {alive _veh} do
 		};
 	};
 
-_enemigos = if (_lado == malos) then {muyMalos} else {malos};
+_enemiesX = if (_lado == malos) then {muyMalos} else {malos};
 
 {_unit = _x;
-waitUntil {sleep 1;!([distanceSPWN,1,_unit,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_unit,_enemigos] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldados;
+waitUntil {sleep 1;!([distanceSPWN,1,_unit,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_unit,_enemiesX] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldados;
 
 {_veh = _x;
-if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_veh,_enemigos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}} forEach _vehiclesX;
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_veh,_enemiesX] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}} forEach _vehiclesX;
 {deleteGroup _x} forEach _grupos;
 AAFpatrols = AAFpatrols - 1;

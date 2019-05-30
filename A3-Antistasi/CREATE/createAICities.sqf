@@ -1,7 +1,7 @@
 //NOTA: TAMBIÉN LO USO PARA FIA
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_grupos","_soldados","_posicion","_num","_datos","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontera","_array","_cuenta","_grupo","_perro","_grp","_lado"];
+private ["_marcador","_grupos","_soldados","_posicion","_num","_datos","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontierX","_array","_cuenta","_grupo","_perro","_grp","_lado"];
 _marcador = _this select 0;
 
 _grupos = [];
@@ -30,8 +30,8 @@ else
 	if (_lado == malos) then
 		{
 		_num = round (_num * (_prestigeOPFOR + _prestigeBLUFOR)/100);
-		_frontera = [_marcador] call A3A_fnc_isFrontline;
-		if (_frontera) then
+		_frontierX = [_marcador] call A3A_fnc_isFrontline;
+		if (_frontierX) then
 			{
 			_num = _num * 2;
 			_params = [_posicion, malos, groupsNATOSentry];

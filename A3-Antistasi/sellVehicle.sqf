@@ -30,8 +30,8 @@ else
 	{
 	if (_tipo in arrayCivVeh) then
 		{
-		_destino = _veh getVariable "destino";
-		if (isNil "_destino") then
+		_destinationX = _veh getVariable "destinationX";
+		if (isNil "_destinationX") then
 			{
 			if (_tipo == "C_Van_01_fuel_F") then {_coste = 50} else {_coste = 25};
 			}

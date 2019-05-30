@@ -153,11 +153,11 @@ _x addEventHandler ["Killed",
 		{
 		reinfPatrols = reinfPatrols - 1; publicVariable "reinfPatrols";
 		_origen = _grupo getVariable "origen";
-		_destino = _grupo getVariable "reinfMarker";
-		if (((lados getVariable [_origen,sideUnknown] == malos) and (lados getVariable [_destino,sideUnknown] == malos)) or ((lados getVariable [_origen,sideUnknown] == Invaders) and (lados getVariable [_destino,sideUnknown] == Invaders))) then
+		_destinationX = _grupo getVariable "reinfMarker";
+		if (((lados getVariable [_origen,sideUnknown] == malos) and (lados getVariable [_destinationX,sideUnknown] == malos)) or ((lados getVariable [_origen,sideUnknown] == Invaders) and (lados getVariable [_destinationX,sideUnknown] == Invaders))) then
 			{
 			_killzones = killZones getVariable [_origen,[]];
-			_killzones pushBack _destino;
+			_killzones pushBack _destinationX;
 			killZones setVariable [_origen,_killzones,true];
 			}
 		};

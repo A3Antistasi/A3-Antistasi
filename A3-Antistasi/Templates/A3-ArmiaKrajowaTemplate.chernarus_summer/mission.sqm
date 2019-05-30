@@ -1644,7 +1644,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				name="bandera";
+				name="flagX";
 			};
 			id=110;
 			type="Flag_Syndikat_F";
@@ -1661,7 +1661,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="cajaVeh";
+				name="vehicleBox";
 			};
 			id=243;
 			type="CUP_hromada_beden_dekorativniX";

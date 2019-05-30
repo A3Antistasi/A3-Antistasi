@@ -15,20 +15,20 @@ posHQ = getMarkerPos respawnTeamPlayer; publicVariable "posHQ";
 if (isMultiplayer) then
 	{
 	caja hideObjectGlobal false;
-	cajaVeh hideObjectGlobal false;
+	vehicleBox hideObjectGlobal false;
 	mapa hideObjectGlobal false;
 	fuego hideObjectGlobal false;
-	bandera hideObjectGlobal false;
+	flagX hideObjectGlobal false;
 	}
 else
 	{
 	if (_movido) then {hint "Please wait while HQ assets are moved to selected position"};
 	//sleep 5
 	caja hideObject false;
-	cajaVeh hideObject false;
+	vehicleBox hideObject false;
 	mapa hideObject false;
 	fuego hideObject false;
-	bandera hideObject false;
+	flagX hideObject false;
 	};
 //fuego inflame true;
 [respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",buenos,true];
@@ -45,12 +45,12 @@ mapa setPos _pos;
 mapa setDir ([fuego, mapa] call BIS_fnc_dirTo);
 _rnd = _rnd + 45;
 _pos = [_posFire, 3, _rnd] call BIS_Fnc_relPos;
-_pos = _pos findEmptyPosition [0,50,(typeOf bandera)];
+_pos = _pos findEmptyPosition [0,50,(typeOf flagX)];
 if (_pos isEqualTo []) then {_pos = getPos petros};
-bandera setPos _pos;
+flagX setPos _pos;
 _rnd = _rnd + 45;
 _pos = [_posFire, 3, _rnd] call BIS_Fnc_relPos;
-cajaVeh setPos _pos;
+vehicleBox setPos _pos;
 //if (_movido) then {_nul = [] call A3A_fnc_empty};
 petros setBehaviour "SAFE";
 "Synd_HQ" setMarkerPos getPos petros;

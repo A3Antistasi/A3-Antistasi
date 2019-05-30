@@ -1,5 +1,5 @@
 if (not([player] call A3A_fnc_isMember)) exitWith {hint "Only Server Members can recruit AI units"};
-private ["_chequeo","_hr","_typeUnit","_coste","_resourcesFIA","_unit"];
+private ["_checkX","_hr","_typeUnit","_coste","_resourcesFIA","_unit"];
 
 //if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
 

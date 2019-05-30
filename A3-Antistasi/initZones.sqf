@@ -190,7 +190,7 @@ if (worldName == "Tanoa") then
     _posAntennas = [[6617.95,7853.57,0.200073],[7486.67,9651.9,1.52588e-005],[6005.47,10420.9,0.20298],[2437.25,7224.06,0.0264893],[4701.6,3165.23,0.0633469],[11008.8,4211.16,-0.00154114],[10114.3,11743.1,9.15527e-005],[10949.8,11517.3,0.14209],[11153.3,11435.2,0.210876],[12889.2,8578.86,0.228729],[2682.94,2592.64,-0.000686646],[2690.54,12323,0.0372467],[2965.33,13087.1,0.191544],[13775.8,10976.8,0.170441]];
     _blacklistPos = [8,12];
     _posBank = [[5893.41,10253.1,-0.687263],[9507.5,13572.9,0.133848]];//same as RT for Bank buildings, select the biggest buildings in your island, and make a DB with their positions.
-    antenas = [antena];
+    antennas = [antena];
     _posAntennas pushBack (getPos antena);
     }
 else
@@ -200,7 +200,7 @@ else
         _posAntennas = [[14451.5,16338,0.000354767],[15346.7,15894,-3.8147e-005],[16085.1,16998,7.08781],[17856.7,11734.1,0.863045],[9496.2,19318.5,0.601898],[9222.87,19249.1,0.0348206],[20944.9,19280.9,0.201118],[20642.7,20107.7,0.236603],[18709.3,10222.5,0.716034],[6840.97,16163.4,0.0137177],[19319.8,9717.04,0.215622],[19351.9,9693.04,0.639175],[10316.6,8703.94,0.0508652],[8268.76,10051.6,0.0100708],[4583.61,15401.1,0.262543],[4555.65,15383.2,0.0271606],[4263.82,20664.1,-0.0102234],[26274.6,22188.1,0.0139847],[26455.4,22166.3,0.0223694]];
         _blacklistPos = [1,4,7,8,9,10,12,15,17];
         _posBank = [[16586.6,12834.5,-0.638584],[16545.8,12784.5,-0.485485],[16633.3,12807,-0.635017],[3717.34,13391.2,-0.164862],[3692.49,13158.3,-0.0462074],[3664.31,12826.5,-0.379545],[3536.99,13006.6,-0.508585],[3266.42,12969.9,-0.549738]];
-        antenas = [];
+        antennas = [];
         }
     else
         {
@@ -208,11 +208,11 @@ else
             {
             _posAntennas = [[6444.13,6545.83,-0.106628],[5264.35,5314.45,0.0291748],[4968.53,9964.4,0],[3715.81,5984.25,0],[6563.69,3405.56,0.0547104],[4548.22,3131.85,0.570232],[13010.1,5964.96,-0.0164185],[3029.57,2350.28,0.0183334],[13477.6,3345.84,0.0729446],[12937,12763.6,0.164017]];
             _blackListPos = [1,7];
-            antenas = [];
+            antennas = [];
             }
         else
             {
-            antenas = nearestObjects [[worldSize /2,worldSize/2,0],["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F","Land_Vysilac_FM","Land_A_TVTower_base","Land_Telek1"], worldSize];
+            antennas = nearestObjects [[worldSize /2,worldSize/2,0],["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F","Land_Vysilac_FM","Land_A_TVTower_base","Land_Telek1"], worldSize];
             bancos = nearestObjects [[worldSize /2,worldSize/2,0],["Land_Offices_01_V1_F"],worldSize];
             {
             _mrkfin = createMarker [format ["Ant%1", _x], position _x];
@@ -224,15 +224,15 @@ else
             _x addEventHandler ["Killed",
                 {
                 _antena = _this select 0;
-                {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
+                {if ([antennas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
                 _mrk = [mrkAntennas, _antena] call BIS_fnc_nearestPosition;
-                antenas = antenas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
-                publicVariable "antenas"; publicVariable "antennasDead";
+                antennas = antennas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
+                publicVariable "antennas"; publicVariable "antennasDead";
                 ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
                 ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
                 }
                 ];
-            } forEach antenas;
+            } forEach antennas;
             };
         };
     };
@@ -251,7 +251,7 @@ if (count _posAntennas > 0) then
                 }
             else
                 {
-                antenas pushBack _antena;
+                antennas pushBack _antena;
                 _mrkfin = createMarker [format ["Ant%1", _i], _posAntennas select _i];
                 _mrkfin setMarkerShape "ICON";
                 _mrkfin setMarkerType "loc_Transmitter";
@@ -261,10 +261,10 @@ if (count _posAntennas > 0) then
                 _antena addEventHandler ["Killed",
                     {
                     _antena = _this select 0;
-                    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
+                    {if ([antennas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
                     _mrk = [mrkAntennas, _antena] call BIS_fnc_nearestPosition;
-                    antenas = antenas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
-                    publicVariable "antenas"; publicVariable "antennasDead";
+                    antennas = antennas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
+                    publicVariable "antennas"; publicVariable "antennasDead";
                     ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
                     ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
                     }
@@ -311,7 +311,7 @@ publicVariable "forcedSpawn";
 publicVariable "outpostsFIA";
 publicVariable "seaMarkers";
 publicVariable "spawnPoints";
-publicVariable "antenas";
+publicVariable "antennas";
 publicVariable "antennasDead";
 publicVariable "mrkAntennas";
 publicVariable "bancos";

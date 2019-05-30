@@ -10,7 +10,7 @@ if (captive _carrierX) then {[_carrierX,false] remoteExec ["setCaptive",0,_carri
 _carrierX playMoveNow "AcinPknlMstpSrasWrflDnon";
 [_llevado,"AinjPpneMrunSnonWnonDb"] remoteExec ["switchMove"];
 //_llevado setVariable ["llevado",true,true];
-_llevado setVariable ["ayudado",_carrierX,true];
+_llevado setVariable ["helped",_carrierX,true];
 [_llevado,"remove"] remoteExec ["A3A_fnc_flagaction",0,_llevado];
 _llevado attachTo [_carrierX, [0,1.1,0.092]];
 _llevado setDir 180;
@@ -33,4 +33,4 @@ if (_llevado getVariable ["INCAPACITATED",false]) then
 //_llevado setVariable ["llevado",false,true];
 [_llevado,"heal1"] remoteExec ["A3A_fnc_flagaction",0,_llevado];
 sleep 5;
-_llevado setVariable ["ayudado",objNull,true];
+_llevado setVariable ["helped",objNull,true];

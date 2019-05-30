@@ -41,7 +41,7 @@ if (isServer and !_byPassServer) then
 	["destroyedCities"] call fn_LoadStat;
 	["minas"] call fn_LoadStat;
 	["countCA"] call fn_LoadStat;
-	["antenas"] call fn_LoadStat;
+	["antennas"] call fn_LoadStat;
 	["prestigeNATO"] call fn_LoadStat;
 	["prestigeCSAT"] call fn_LoadStat;
 	["hr"] call fn_LoadStat;
@@ -144,8 +144,8 @@ if (isServer and !_byPassServer) then
 	if (lados getVariable [_x,sideUnknown] != buenos) then
 		{
 		_positionX = getMarkerPos _x;
-		_cercano = [(markersX - controlsX - outpostsFIA),_positionX] call BIS_fnc_nearestPosition;
-		_lado = lados getVariable [_cercano,sideUnknown];
+		_nearX = [(markersX - controlsX - outpostsFIA),_positionX] call BIS_fnc_nearestPosition;
+		_lado = lados getVariable [_nearX,sideUnknown];
 		lados setVariable [_x,_lado,true];
 		};
 	} forEach controlsX;

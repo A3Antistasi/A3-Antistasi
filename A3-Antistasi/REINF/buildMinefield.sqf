@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_tipo","_quantity","_tipoMuni","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_camion"];
+private ["_tipo","_quantity","_typeAmmunition","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_camion"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
@@ -10,11 +10,11 @@ _coste = (2*(server getVariable (SDKExp select 0))) + ([vehSDKTruck] call A3A_fn
 
 if (_tipo == "ATMine") then
 	{
-	_tipoMuni = ATMineMag;
+	_typeAmmunition = ATMineMag;
 	};
 if (_tipo == "APERSMine") then
 	{
-	_tipoMuni = APERSMineMag;
+	_typeAmmunition = APERSMineMag;
 	};
 
 /*
@@ -25,7 +25,7 @@ _newCantMagazines = [];
 
 for "_i" from 0 to (count _typeMagazines) - 1 do
 	{
-	if ((_typeMagazines select _i) != _tipoMuni) then
+	if ((_typeMagazines select _i) != _typeAmmunition) then
 		{
 		_newCantMagazines pushBack (_cantMagazines select _i);
 		}
@@ -48,8 +48,8 @@ for "_i" from 0 to (count _typeMagazines) - 1 do
 
 #include "\A3\Ui_f\hpp\defineResinclDesign.inc"
 
-_index = _tipoMuni call jn_fnc_arsenal_itemType;
-[_index,_tipoMuni,_quantity] call jn_fnc_arsenal_removeItem;
+_index = _typeAmmunition call jn_fnc_arsenal_itemType;
+[_index,_typeAmmunition,_quantity] call jn_fnc_arsenal_removeItem;
 
 _mrk = createMarker [format ["Minefield%1", random 1000], _positionTel];
 _mrk setMarkerShape "ELLIPSE";

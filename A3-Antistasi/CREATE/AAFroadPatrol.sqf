@@ -1,6 +1,6 @@
-private ["_soldados","_vehiclesX","_grupos","_base","_posBase","_roads","_typeCar","_arrayAirports","_arrayDestinations","_tam","_road","_veh","_vehCrew","_groupVeh","_grupo","_grupoP","_distanceX","_spawnPoint"];
+private ["_soldiers","_vehiclesX","_grupos","_base","_posBase","_roads","_typeCar","_arrayAirports","_arrayDestinations","_tam","_road","_veh","_vehCrew","_groupVeh","_grupo","_grupoP","_distanceX","_spawnPoint"];
 
-_soldados = [];
+_soldiers = [];
 _vehiclesX = [];
 _grupos = [];
 _base = "";
@@ -122,7 +122,7 @@ _veh = _vehicle select 0;
 _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit} forEach _vehCrew;
 _groupVeh = _vehicle select 2;
-_soldados = _soldados + _vehCrew;
+_soldiers = _soldiers + _vehCrew;
 _grupos = _grupos + [_groupVeh];
 _vehiclesX = _vehiclesX + [_veh];
 
@@ -131,14 +131,14 @@ if (_typeCar in vehNATOLightUnarmed) then
 	{
 	sleep 1;
 	_grupo = [_posbase, _lado, groupsNATOSentry] call A3A_fnc_spawnGroup;
-	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
+	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
 	};
 if (_typeCar in vehCSATLightUnarmed) then
 	{
 	sleep 1;
 	_grupo = [_posbase, _lado, groupsCSATSentry] call A3A_fnc_spawnGroup;
-	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
+	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
 	};
 
@@ -147,9 +147,9 @@ if (_typeCar in vehCSATLightUnarmed) then
 while {alive _veh} do
 	{
 	if (count _arrayDestinations < 2) exitWith {};
-	_destino = selectRandom _arrayDestinations;
-	if (debug) then {player globalChat format ["Patrulla AI generada. Origen: %2 Destino %1", _destino, _base]; sleep 3};
-	_posDestination = getMarkerPos _destino;
+	_destinationX = selectRandom _arrayDestinations;
+	if (debug) then {player globalChat format ["Patrulla AI generada. Origen: %2 destinationX %1", _destinationX, _base]; sleep 3};
+	_posDestination = getMarkerPos _destinationX;
 	if (_typePatrol == "LAND") then
 		{
 		_road = [_posDestination] call A3A_fnc_findNearestGoodRoad;
@@ -161,7 +161,7 @@ while {alive _veh} do
 	_Vwp0 setWaypointSpeed "LIMITED";
 	_veh setFuel 1;
 
-	waitUntil {sleep 60; (_veh distance _posDestination < _distanceX) or ({[_x] call A3A_fnc_canFight} count _soldados == 0) or (!canMove _veh)};
+	waitUntil {sleep 60; (_veh distance _posDestination < _distanceX) or ({[_x] call A3A_fnc_canFight} count _soldiers == 0) or (!canMove _veh)};
 	if !(_veh distance _posDestination < _distanceX) exitWith {};
 	if (_typePatrol == "AIR") then
 		{
@@ -184,7 +184,7 @@ while {alive _veh} do
 _enemiesX = if (_lado == malos) then {Invaders} else {malos};
 
 {_unit = _x;
-waitUntil {sleep 1;!([distanceSPWN,1,_unit,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_unit,_enemiesX] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldados;
+waitUntil {sleep 1;!([distanceSPWN,1,_unit,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_unit,_enemiesX] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldiers;
 
 {_veh = _x;
 if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_veh,_enemiesX] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}} forEach _vehiclesX;

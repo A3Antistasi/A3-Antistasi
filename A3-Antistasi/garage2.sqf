@@ -1,4 +1,4 @@
-private ["_vehInGarage","_chequeo"];
+private ["_vehInGarage","_checkX"];
 
 pool = !(_this select 0);
 if (pool and (not([player] call A3A_fnc_isMember))) exitWith {hint "You cannot access the Garage as you are guest in this server"};
@@ -20,8 +20,8 @@ else
 	};
 } forEach (if (pool) then {vehInGarage} else {personalGarage});
 if (count vehInGarageShow == 0) exitWith {hintC "The Garage is empty or the vehicles you have are not suitable to recover in the place you are.\n\nAir vehicles need to be recovered near Airport flags."};
-_cercano = [markersX select {lados getVariable [_x,sideUnknown] == buenos},player] call BIS_fnc_nearestPosition;
-if !(player inArea _cercano) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
+_nearX = [markersX select {lados getVariable [_x,sideUnknown] == buenos},player] call BIS_fnc_nearestPosition;
+if !(player inArea _nearX) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
 countGarage = 0;
 _tipo = vehInGarageShow select countGarage;
 garageVeh = _tipo createVehicleLocal [0,0,1000];
@@ -131,7 +131,7 @@ onEachFrame
    garageVeh setVectorUp (_ins select 0 select 1);
    };
  };
-waitUntil {(bought > 0) or !(player inArea _cercano)};
+waitUntil {(bought > 0) or !(player inArea _nearX)};
 onEachFrame {};
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", garageKeys];
 positionXSel = nil;
@@ -139,7 +139,7 @@ _pos = getPosASL garageVeh;
 _dir = getDir garageVeh;
 _tipo = typeOf garageVeh;
 deleteVehicle garageVeh;
-if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; bought = nil; garageVeh = nil; countGarage = nil};
+if !(player inArea _nearX) then {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; bought = nil; garageVeh = nil; countGarage = nil};
 if ([player,300] call A3A_fnc_enemyNearCheck) then
 	{
 	hint "You cannot manage the Garage with enemies nearby";

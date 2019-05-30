@@ -12,18 +12,18 @@ petros setBehaviour "AWARE";
 if (isMultiplayer) then
 	{
 	caja hideObjectGlobal true;
-	cajaVeh hideObjectGlobal true;
+	vehicleBox hideObjectGlobal true;
 	mapa hideObjectGlobal true;
 	fuego hideObjectGlobal true;
-	bandera hideObjectGlobal true;
+	flagX hideObjectGlobal true;
 	}
 else
 	{
 	caja hideObject true;
-	cajaVeh hideObject true;
+	vehicleBox hideObject true;
 	mapa hideObject true;
 	fuego hideObject true;
-	bandera hideObject true;
+	flagX hideObject true;
 	};
 
 fuego inflame false;

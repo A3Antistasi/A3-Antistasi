@@ -14,7 +14,7 @@ if (str (_display) != "no display") then
 	_ChildControl = _display displayCtrl 110;
 	{
 	_subVeh = _x;
-	if ((_subVeh distance bandera < 10) and (_subVeh!=caja) and (_subVeh!=mapa) and (_subVeh!=cajaveh)) then {_veh = _subVeh}
+	if ((_subVeh distance flagX < 10) and (_subVeh!=caja) and (_subVeh!=mapa) and (_subVeh!=vehicleBox)) then {_veh = _subVeh}
 	} forEach vehicles;
 
 	if (isNil "_veh") then

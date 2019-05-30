@@ -1,4 +1,4 @@
-private ["_unit","_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_ayudado","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_unit","_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_helped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
 //if (_unit getVariable "inconsciente") exitWith {};
 //if (damage _unit < 0.9) exitWith {};
@@ -98,8 +98,8 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 	if (random 10 < 1) then {playSound3D [(injuredSounds call BIS_fnc_selectRandom),_unit,false, getPosASL _unit, 1, 1, 50];};
 	if (_isPlayer) then
 		{
-		_ayudado = _unit getVariable ["ayudado",objNull];
-		if (isNull _ayudado) then
+		_helped = _unit getVariable ["helped",objNull];
+		if (isNull _helped) then
 			{
 			_ayuda = [_unit] call A3A_fnc_askHelp;
 			if (isNull _ayuda) then
@@ -131,14 +131,14 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 			{
 			if (autoheal) then
 				{
-				_ayudado = _unit getVariable ["ayudado",objNull];
-				if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
+				_helped = _unit getVariable ["helped",objNull];
+				if (isNull _helped) then {[_unit] call A3A_fnc_askHelp;};
 				};
 			}
 		else
 			{
-			_ayudado = _unit getVariable ["ayudado",objNull];
-			if (isNull _ayudado) then {[_unit] call A3A_fnc_askHelp;};
+			_helped = _unit getVariable ["helped",objNull];
+			if (isNull _helped) then {[_unit] call A3A_fnc_askHelp;};
 			};
 		};
 	sleep 3;

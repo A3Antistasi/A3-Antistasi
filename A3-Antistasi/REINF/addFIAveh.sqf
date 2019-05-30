@@ -22,8 +22,8 @@ if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} els
 	};
 
 if (_resourcesFIA < _coste) exitWith {hint format ["You do not have enough money for this vehicle: %1 € required",_coste]};
-_cercano = [markersX select {lados getVariable [_x,sideUnknown] == buenos},player] call BIS_fnc_nearestPosition;
-if !(player inArea _cercano) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
+_nearX = [markersX select {lados getVariable [_x,sideUnknown] == buenos},player] call BIS_fnc_nearestPosition;
+if !(player inArea _nearX) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
 
 garageVeh = _tipoVeh createVehicleLocal [0,0,1000];
 garageVeh allowDamage false;
@@ -104,14 +104,14 @@ onEachFrame
    garageVeh setVectorUp (_ins select 0 select 1);
    };
  };
-waitUntil {(bought > 0) or !(player inArea _cercano)};
+waitUntil {(bought > 0) or !(player inArea _nearX)};
 onEachFrame {};
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", garageKeys];
 positionXSel = nil;
 _pos = getPosASL garageVeh;
 _dir = getDir garageVeh;
 deleteVehicle garageVeh;
-if !(player inArea _cercano) then {hint "You need to be close to one of your garrisons to be able to buy a vehicle";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; bought = nil;garageVeh = nil};
+if !(player inArea _nearX) then {hint "You need to be close to one of your garrisons to be able to buy a vehicle";["",0,0,5,0,0,4] spawn bis_fnc_dynamicText; bought = nil;garageVeh = nil};
 if ([player,300] call A3A_fnc_enemyNearCheck) then {bought = 0; hint "You cannot buy vehicles with enemies nearby"};
 if (bought != 2) exitWith {bought = nil;garageVeh = nil};
 waitUntil {isNull garageVeh};

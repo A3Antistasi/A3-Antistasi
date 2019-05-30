@@ -83,7 +83,7 @@ if (_tipo == "CON") then
 if (_tipo == "DES") then
 	{
 	_sitios = airportsX select {lados getVariable [_x,sideUnknown] != buenos};
-	_sitios = _sitios + antenas;
+	_sitios = _sitios + antennas;
 	if (count _sitios > 0) then
 		{
 		for "_i" from 0 to ((count _sitios) - 1) do
@@ -98,8 +98,8 @@ if (_tipo == "DES") then
 					}
 				else
 					{
-					_cercano = [markersX, getPos _sitio] call BIS_fnc_nearestPosition;
-					if (lados getVariable [_cercano,sideUnknown] == malos) then {_potentials pushBack _sitio};
+					_nearX = [markersX, getPos _sitio] call BIS_fnc_nearestPosition;
+					if (lados getVariable [_nearX,sideUnknown] == malos) then {_potentials pushBack _sitio};
 					};
 				};
 			};
@@ -116,7 +116,7 @@ if (_tipo == "DES") then
 		{
 		_sitio = _potentials call BIS_fnc_selectRandom;
 		if (_sitio in airportsX) then {if (random 10 < 8) then {[[_sitio],"DES_Vehicle"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"DES_Heli"] remoteExec ["A3A_fnc_scheduler",2]}};
-		if (_sitio in antenas) then {[[_sitio],"DES_antenna"] remoteExec ["A3A_fnc_scheduler",2]}
+		if (_sitio in antennas) then {[[_sitio],"DES_antenna"] remoteExec ["A3A_fnc_scheduler",2]}
 		};
 	};
 if (_tipo == "LOG") then

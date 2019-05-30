@@ -5,7 +5,7 @@ private ["_unit","_markerX","_positionX","_cuenta"];
 
 _markerX = _this select 0;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
@@ -14,7 +14,7 @@ _positionX = getMarkerPos _markerX;
 
 _POWs = [];
 
-_timeLimit = if (_dificil) then {30} else {120};//120
+_timeLimit = if (_difficultX) then {30} else {120};//120
 if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
@@ -109,7 +109,7 @@ if (dateToNumber date > _dateLimitNum) then
 
 waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 50)} count _POWs > 0)};
 
-_bonus = if (_dificil) then {2} else {1};
+_bonus = if (_difficultX) then {2} else {1};
 
 if ({alive _x} count _POWs == 0) then
 	{

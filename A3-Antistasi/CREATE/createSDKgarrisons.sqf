@@ -1,12 +1,12 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_vehiclesX","_grupos","_soldados","_positionX","_pos","_size","_veh","_staticsX","_garrison","_tam","_cuenta","_grupo","_groupMortar","_tipo","_unit"];
+private ["_markerX","_vehiclesX","_grupos","_soldiers","_positionX","_pos","_size","_veh","_staticsX","_garrison","_tam","_cuenta","_grupo","_groupMortar","_tipo","_unit"];
 
 _markerX = _this select 0;
 
 _vehiclesX = [];
 _grupos = [];
-_soldados = [];
+_soldiers = [];
 _civs = [];
 //_tipoCiv = "";
 _positionX = getMarkerPos (_markerX);
@@ -90,7 +90,7 @@ else
 	_unit moveInGunner _x;
 	};
 [_unit,_markerX] call A3A_fnc_FIAinitBases;
-_soldados pushBack _unit;
+_soldiers pushBack _unit;
 _garrison deleteAT _index;
 } forEach _staticsX;
 
@@ -105,7 +105,7 @@ if (staticCrewTeamPlayer in _garrison) then
 	_unit assignAsGunner _veh;
 	_unit moveInGunner _veh;
 	[_veh] call A3A_fnc_AIVEHinit;
-	_soldados pushBack _unit;
+	_soldiers pushBack _unit;
 	} forEach (_garrison select {_x == staticCrewTeamPlayer});
 	_garrison = _garrison - [staticCrewTeamPlayer];
 	};
@@ -119,7 +119,7 @@ while {(spawner getVariable _markerX != 2) and (_cuenta < _tam)} do
 	_unit = _grupo createUnit [_tipo, _positionX, [], 0, "NONE"];
 	if (_tipo in SDKSL) then {_grupo selectLeader _unit};
 	[_unit,_markerX] call A3A_fnc_FIAinitBases;
-	_soldados pushBack _unit;
+	_soldiers pushBack _unit;
 	_cuenta = _cuenta + 1;
 	sleep 0.5;
 	if (_countGroup == 8) then
@@ -150,7 +150,7 @@ if (alive _soldado) then
 	{
 	deleteVehicle _x
 	};
-} forEach _soldados;
+} forEach _soldiers;
 {deleteVehicle _x} forEach _civs;
 //if (!isNull _periodista) then {deleteVehicle _periodista};
 {deleteGroup _x} forEach _grupos;

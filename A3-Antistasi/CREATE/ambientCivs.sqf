@@ -16,18 +16,18 @@ while {true} do
 		{
 		_mrk setMarkerPosLocal (position player);
 		_reset = true;
-		_aborrar = [];
+		_abuse = [];
 		{
 		_civ = _x;
 		if (!(alive _civ) or ({_civ distance _x <= 300} count (allPlayers - (entities "HeadlessClient_F")) == 0)) then
 			{
 			_grupo = group _x;
-			_aborrar pushBack _x;
+			_abuse pushBack _x;
 			deleteVehicle _x;
 			if ({alive _x} count (units _grupo) == 0) then {deleteGroup _grupo};
 			};
 		} forEach _civs;
-		_civs = _civs - _aborrar;
+		_civs = _civs - _abuse;
 		};
 	_allCivs = allUnits select {(alive _x) and (side _x == civilian)};
 	if ((count _allCivs < civPerc) and ({(local _x) and (simulationEnabled _x) and (alive _x)} count allUnits < maxUnits)) then

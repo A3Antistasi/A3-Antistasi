@@ -1,9 +1,9 @@
-private ["_bandera","_pos","_markerX","_positionX","_size","_powerpl","_revealX"];
+private ["_flagX","_pos","_markerX","_positionX","_size","_powerpl","_revealX"];
 
-_bandera = _this select 0;
+_flagX = _this select 0;
 _jugador = _this select 1;
 
-_pos = getPos _bandera;
+_pos = getPos _flagX;
 _markerX = [markersX,_pos] call BIS_fnc_nearestPosition;
 if (lados getVariable [_markerX,sideUnknown] == buenos) exitWith {};
 _positionX = getMarkerPos _markerX;

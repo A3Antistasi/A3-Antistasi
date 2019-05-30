@@ -1,13 +1,13 @@
-private ["_markerX","_control","_cercano","_pos"];
+private ["_markerX","_control","_nearX","_pos"];
 
 _markerX = _this select 0;
 _control = _this select 1;
 
 _pos = getMarkerPos _control;
 
-_cercano = [(markersX - controlsX),_pos] call BIS_fnc_nearestPosition;
+_nearX = [(markersX - controlsX),_pos] call BIS_fnc_nearestPosition;
 
-if (_cercano == _markerX) then
+if (_nearX == _markerX) then
 	{
 	waitUntil {sleep 1;(spawner getVariable _control == 2)};
 	_lado = lados getVariable [_markerX,sideUnknown];

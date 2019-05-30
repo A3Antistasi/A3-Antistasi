@@ -53,11 +53,11 @@ if (!isDedicated) then
 	["bombRuns", bombRuns] call fn_SaveStat;
 	["smallCAmrk", smallCAmrk] call fn_SaveStat;
 	["membersX", membersX] call fn_SaveStat;
-	["antenas", antennasDead] call fn_SaveStat;
+	["antennas", antennasDead] call fn_SaveStat;
 	//["mrkNATO", (markersX - controlsX) select {lados getVariable [_x,sideUnknown] == malos}] call fn_SaveStat;
 	["mrkSDK", (markersX - controlsX - outpostsFIA) select {lados getVariable [_x,sideUnknown] == buenos}] call fn_SaveStat;
 	["mrkCSAT", (markersX - controlsX) select {lados getVariable [_x,sideUnknown] == Invaders}] call fn_SaveStat;
-	["posHQ", [getMarkerPos respawnTeamPlayer,getPos fuego,[getDir caja,getPos caja],[getDir mapa,getPos mapa],getPos bandera,[getDir cajaVeh,getPos cajaVeh]]] call fn_Savestat;
+	["posHQ", [getMarkerPos respawnTeamPlayer,getPos fuego,[getDir caja,getPos caja],[getDir mapa,getPos mapa],getPos flagX,[getDir vehicleBox,getPos vehicleBox]]] call fn_Savestat;
 	["prestigeNATO", prestigeNATO] call fn_SaveStat;
 	["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
 	["fecha", date] call fn_SaveStat;
@@ -147,7 +147,7 @@ if ((_veh distance getMarkerPos respawnTeamPlayer < 50) and !(_veh in staticsToS
 		_arrayEst pushBack [_tipoVeh,_posVeh,_dirVeh];
 		};
 	};
-} forEach vehicles - [caja,bandera,fuego,cajaveh,mapa];
+} forEach vehicles - [caja,flagX,fuego,vehicleBox,mapa];
 
 _sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
 {
@@ -156,8 +156,8 @@ if ((alive _x) and !(surfaceIsWater _positionX) and !(isNull _x)) then
 	{
 	_arrayEst pushBack [typeOf _x,getPos _x,getDir _x];
 	/*
-	_cercano = [_sitios,_positionX] call BIS_fnc_nearestPosition;
-	if (_positionX inArea _cercano) then
+	_nearX = [_sitios,_positionX] call BIS_fnc_nearestPosition;
+	if (_positionX inArea _nearX) then
 		{
 		_arrayEst pushBack [typeOf _x,getPos _x,getDir _x]
 		};
@@ -206,7 +206,7 @@ _arrayMines = [];
 {
 _typeMine = typeOf _x;
 _posMine = getPos _x;
-_dirMina = getDir _x;
+_dirMine = getDir _x;
 _detected = [];
 if (_x mineDetectedBy buenos) then
 	{
@@ -220,7 +220,7 @@ if (_x mineDetectedBy Invaders) then
 	{
 	_detected pushBack Invaders
 	};
-_arrayMines = _arrayMines + [[_typeMine,_posMine,_detected,_dirMina]];
+_arrayMines = _arrayMines + [[_typeMine,_posMine,_detected,_dirMine]];
 } forEach allMines;
 
 ["minas", _arrayMines] call fn_SaveStat;

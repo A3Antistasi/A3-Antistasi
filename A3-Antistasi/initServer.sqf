@@ -2,8 +2,8 @@ if (!isMultiplayer) exitWith {};
 if (!(isNil "serverInitDone")) exitWith {};
 diag_log "Antistasi MP Server init";
 caja allowDamage false;
-bandera allowDamage false;
-cajaVeh allowDamage false;
+flagX allowDamage false;
+vehicleBox allowDamage false;
 fuego allowDamage false;
 mapa allowDamage false;
 _serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
@@ -145,7 +145,7 @@ addMissionEventHandler ["HandleDisconnect",{_this call A3A_fnc_onPlayerDisconnec
 addMissionEventHandler ["BuildingChanged",
         {
         _building = _this select 0;
-        if !(_building in antenas) then
+        if !(_building in antennas) then
             {
             if (_this select 2) then
                 {

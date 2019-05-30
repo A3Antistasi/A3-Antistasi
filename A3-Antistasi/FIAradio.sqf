@@ -4,7 +4,7 @@ _chance = tierWar*3;
 {_pos = getPos _x;
 _markerX = [puestos,_pos] call BIS_fnc_nearestPosition;
 if ((lados getVariable [_markerX,sideUnknown] == buenos) and (alive _x)) then {_chance = _chance + 4};
-} forEach antenas;
+} forEach antennas;
 _return = false;
 if (debug) then {_chance = 100};
 

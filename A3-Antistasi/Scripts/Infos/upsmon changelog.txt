@@ -337,7 +337,7 @@ Modified:
 //		
 // 	Modificaciones:
 //		KRON_UPS_Maxwaiting pasa a ser una variable excluvia para patrullas, indica el tiempo m�ximo a esperar
-//		para llegar al destino y buscar otro
+//		para llegar al destinationX y buscar otro
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.0
 //    	Added
@@ -403,12 +403,12 @@ Modified:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.2
 //    	Added
-//		Se ha a�adido la opci�n de reinforcementsX, ahora se pueden definir unas unidades de reinforcementsX alejados de la zona que se enviar�n al detectar enemiesX enemiesX 
+//		Se ha a�adido la opci�n de reinforcementsX, ahora se pueden definir unas unitsX de reinforcementsX alejados de la zona que se enviar�n al detectar enemiesX enemiesX 
 //		si KRON_UPS_reinforcement es true, se puede usar un markerX a modo de alarma para alimentar esta variable cuando se desee.
-//		Las unidades tendr�n una predisposici�n a mantener la posici�n si tienen el rol NOMOVE
+//		Las unitsX tendr�n una predisposici�n a mantener la posici�n si tienen el rol NOMOVE
 // 	Modificaciones
 //		Se ha corregido la formula par definir los puntos de flanqueo tx = sin x * dist * (signo cos x).
-//		Las unidades con rol NOMOVE tienden a mantener la posici�n cuanto m�s alejados est�n del enemigo
+//		Las unitsX con rol NOMOVE tienden a mantener la posici�n cuanto m�s alejados est�n del enemigo
 //		Se ha mejorado el rendimiento.
 //
 //-------------------------------------------------------------------------------------------------------------

@@ -82,7 +82,7 @@ else
 _tmpObjectives = _tmpObjectives select {getMarkerPos _x distance2D _posBase < distanceForAirAttack};
 if !(_tmpObjectives isEqualTo []) then
 	{
-	_cercano = [_tmpObjectives,_base] call BIS_fnc_nearestPosition;
+	_nearX = [_tmpObjectives,_base] call BIS_fnc_nearestPosition;
 	{
 	_isCity = if (_x in citiesX) then {true} else {false};
 	_proceed = true;
@@ -260,7 +260,7 @@ if !(_tmpObjectives isEqualTo []) then
 					};
 				if (_esMar) then {_times = _times * 2};
 				};
-			if (_x == _cercano) then {_times = _times * 5};
+			if (_x == _nearX) then {_times = _times * 5};
 			if (_x in _killZones) then
 				{
 				_sitio = _x;
@@ -314,12 +314,12 @@ if ((count _objectivesFinal > 0) and (count _faciles < 3)) then
 		};
 	//_objectiveFinal = selectRandom _arrayFinal;
 	_objectiveFinal = _arrayFinal selectRandomWeighted _countFinal;
-	_destino = _objectiveFinal select 0;
+	_destinationX = _objectiveFinal select 0;
 	_origen = _objectiveFinal select 1;
 	///aquí decidimos las oleadas
 	if (_waves == 1) then
 		{
-		if (lados getVariable [_destino,sideUnknown] == buenos) then
+		if (lados getVariable [_destinationX,sideUnknown] == buenos) then
 			{
 			_waves = (round (random tierWar));
 			if (_waves == 0) then {_waves = 1};
@@ -328,13 +328,13 @@ if ((count _objectivesFinal > 0) and (count _faciles < 3)) then
 			{
 			if (lados getVariable [_origen,sideUnknown] == Invaders) then
 				{
-				if (_destino in airportsX) then
+				if (_destinationX in airportsX) then
 					{
 					_waves = 2 + round (random tierWar);
 					}
 				else
 					{
-					if (!(_destino in citiesX)) then
+					if (!(_destinationX in citiesX)) then
 						{
 						_waves = 1 + round (random (tierWar)/2);
 						};
@@ -342,22 +342,22 @@ if ((count _objectivesFinal > 0) and (count _faciles < 3)) then
 				}
 			else
 				{
-				if (!(_destino in citiesX)) then
+				if (!(_destinationX in citiesX)) then
 					{
 					_waves = 1 + round (random ((tierWar - 3)/2));
 					};
 				};
 			};
 		};
-	if (not(_destino in citiesX)) then
+	if (not(_destinationX in citiesX)) then
 		{
-		///[[_destino,_origen,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler;
-		[_destino,_origen,_waves] spawn A3A_fnc_wavedCA;
+		///[[_destinationX,_origen,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler;
+		[_destinationX,_origen,_waves] spawn A3A_fnc_wavedCA;
 		}
 	else
 		{
-		//if (lados getVariable [_origen,sideUnknown] == malos) then {[[_destino,_origen,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler} else {[[_destino,_origen],"A3A_fnc_CSATpunish"] call A3A_fnc_scheduler};
-		if (lados getVariable [_origen,sideUnknown] == malos) then {[_destino,_origen,_waves] spawn A3A_fnc_wavedCA} else {[_destino,_origen] spawn A3A_fnc_CSATpunish};
+		//if (lados getVariable [_origen,sideUnknown] == malos) then {[[_destinationX,_origen,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler} else {[[_destinationX,_origen],"A3A_fnc_CSATpunish"] call A3A_fnc_scheduler};
+		if (lados getVariable [_origen,sideUnknown] == malos) then {[_destinationX,_origen,_waves] spawn A3A_fnc_wavedCA} else {[_destinationX,_origen] spawn A3A_fnc_CSATpunish};
 		};
 	};
 

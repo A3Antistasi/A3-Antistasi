@@ -6,7 +6,7 @@ _positionX = getMarkerPos respawnTeamPlayer;
 _pilotos = [];
 _vehiclesX = [];
 _grupos = [];
-_soldados = [];
+_soldiers = [];
 
 if ({(_x distance _positionX < 500) and (typeOf _x == staticAABuenos)} count staticsToSave > 4) exitWith {};
 
@@ -58,14 +58,14 @@ for "_i" from 0 to (round random 2) do
 
 	{_x setBehaviour "CARELESS";} forEach units _groupHeli;
 	_grupo = [_posOrigin, _lado, _typeGroup] call A3A_fnc_spawnGroup;
-	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldados pushBack _x; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
+	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers pushBack _x; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	_grupos pushBack _grupo;
 	//[_heli,"Air Transport"] spawn A3A_fnc_inmuneConvoy;
 	[_heli,_grupo,_positionX,_posOrigin,_groupHeli] spawn A3A_fnc_fastrope;
 	sleep 10;
 	};
 
-waitUntil {sleep 1;({[_x] call A3A_fnc_canFight} count _soldados < {!([_x] call A3A_fnc_canFight)} count _soldados) or (_positionX distance getMarkerPos respawnTeamPlayer > 999) or (!alive petros)};
+waitUntil {sleep 1;({[_x] call A3A_fnc_canFight} count _soldiers < {!([_x] call A3A_fnc_canFight)} count _soldiers) or (_positionX distance getMarkerPos respawnTeamPlayer > 999) or (!alive petros)};
 
 if (!alive petros) then
 	{
@@ -100,20 +100,20 @@ if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distanc
 } forEach _vehiclesX;
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldados = _soldados - [_x]};
-} forEach _soldados;
+if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldiers = _soldiers - [_x]};
+} forEach _soldiers;
 {
 _veh = _x;
 if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
 } forEach _pilotos;
 
-if (count _soldados > 0) then
+if (count _soldiers > 0) then
 	{
 	{
 	_veh = _x;
 	waitUntil {sleep 1; !([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
-	} forEach _soldados;
+	} forEach _soldiers;
 	};
 
 if (count _pilotos > 0) then

@@ -35,7 +35,7 @@ _blds = [getposATL _npc,"RANDOMA",_distance,"",false] call UPSMON_GetNearestBuil
 	
 if (count _blds==0) exitwith {_units};
 	
-//Movemos a la unidades a los buildingsX closeX.
+//Movemos a la unitsX a los buildingsX closeX.
 _units = [_units,_blds,_wait] call UPSMON_moveBuildings;
 	
 _units

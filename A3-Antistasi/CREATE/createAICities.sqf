@@ -1,11 +1,11 @@
 //NOTA: TAMBIÉN LO USO PARA FIA
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_grupos","_soldados","_positionX","_num","_datos","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontierX","_array","_cuenta","_grupo","_perro","_grp","_lado"];
+private ["_markerX","_grupos","_soldiers","_positionX","_num","_datos","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontierX","_array","_cuenta","_grupo","_perro","_grp","_lado"];
 _markerX = _this select 0;
 
 _grupos = [];
-_soldados = [];
+_soldiers = [];
 
 _positionX = getMarkerPos (_markerX);
 
@@ -73,22 +73,22 @@ while {(spawner getVariable _markerX != 2) and (_cuenta < _num)} do
 if ((_esAAF) or (_markerX in destroyedCities)) then
 	{
 	{_grp = _x;
-	{[_x,""] call A3A_fnc_NATOinit; _soldados pushBack _x} forEach units _grp;} forEach _grupos;
+	{[_x,""] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _grp;} forEach _grupos;
 	}
 else
 	{
 	{_grp = _x;
-	{[_x] spawn A3A_fnc_FIAinitBases; _soldados pushBack _x} forEach units _grp;} forEach _grupos;
+	{[_x] spawn A3A_fnc_FIAinitBases; _soldiers pushBack _x} forEach units _grp;} forEach _grupos;
 	};
 
-waitUntil {sleep 1;((spawner getVariable _markerX == 2)) or ({[_x,_markerX] call A3A_fnc_canConquer} count _soldados == 0)};
+waitUntil {sleep 1;((spawner getVariable _markerX == 2)) or ({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers == 0)};
 
-if (({[_x,_markerX] call A3A_fnc_canConquer} count _soldados == 0) and (_esAAF)) then
+if (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers == 0) and (_esAAF)) then
 	{
 	[[_positionX,malos,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
 	};
 
 waitUntil {sleep 1;(spawner getVariable _markerX == 2)};
 
-{if (alive _x) then {deleteVehicle _x}} forEach _soldados;
+{if (alive _x) then {deleteVehicle _x}} forEach _soldiers;
 {deleteGroup _x} forEach _grupos;

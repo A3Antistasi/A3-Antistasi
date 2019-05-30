@@ -1,10 +1,10 @@
 private ["_unit","_medico","_timeOut","_curado","_isPlayer","_smoked","_enemy","_coverX","_dummyGrp","_dummy"];
 _unit = _this select 0;///no usar canfight porque algunas tienen setcaptive true y te va a liar todo
-if !(isNull (_unit getVariable ["ayudado",objNull])) exitWith {};
+if !(isNull (_unit getVariable ["helped",objNull])) exitWith {};
 _medico = _this select 1;
 if (isPlayer _medico) exitWith {};
 if (_medico getVariable ["helping",false]) exitWith {};
-_unit setVariable ["ayudado",_medico];
+_unit setVariable ["helped",_medico];
 _medico setVariable ["helping",true];
 _medico setVariable ["maneuvering",true];
 _curado = false;
@@ -39,14 +39,14 @@ if (_medico != _unit) then
 	_medico doMove getPosATL _unit;
 	while {true} do
 		{
-		if (!([_medico] call A3A_fnc_canFight) or (!alive _unit) or (_medico distance _unit <= 3) or (_timeOut < time) or (_unit != vehicle _unit) or (_medico != vehicle _medico) or (_medico != _unit getVariable ["ayudado",objNull]) or !(isNull attachedTo _unit) or (_medico getVariable ["cancelRevive",false])) exitWith {};
+		if (!([_medico] call A3A_fnc_canFight) or (!alive _unit) or (_medico distance _unit <= 3) or (_timeOut < time) or (_unit != vehicle _unit) or (_medico != vehicle _medico) or (_medico != _unit getVariable ["helped",objNull]) or !(isNull attachedTo _unit) or (_medico getVariable ["cancelRevive",false])) exitWith {};
 		sleep 1;
 		};
 	if ((isPlayer _unit) and !(isMultiplayer))  then
 		{
-		if (([_medico] call A3A_fnc_canFight) and (_medico distance _unit > 3) and (_medico == _unit getVariable ["ayudado",objNull]) and !(_unit getVariable ["llevado",false]) and (allUnits findIf {((side _x == malos) or (side _x == Invaders)) and (_x distance2D _unit < 50)} == -1)) then {_medico setPos position _unit};
+		if (([_medico] call A3A_fnc_canFight) and (_medico distance _unit > 3) and (_medico == _unit getVariable ["helped",objNull]) and !(_unit getVariable ["llevado",false]) and (allUnits findIf {((side _x == malos) or (side _x == Invaders)) and (_x distance2D _unit < 50)} == -1)) then {_medico setPos position _unit};
 		};
-	if ((_unit distance _medico <= 3) and (alive _unit) and ([_medico] call A3A_fnc_canFight) and (_medico == vehicle _medico) and (_medico == _unit getVariable ["ayudado",objNull]) and (isNull attachedTo _unit) and !(_medico getVariable ["cancelRevive",false])) then
+	if ((_unit distance _medico <= 3) and (alive _unit) and ([_medico] call A3A_fnc_canFight) and (_medico == vehicle _medico) and (_medico == _unit getVariable ["helped",objNull]) and (isNull attachedTo _unit) and !(_medico getVariable ["cancelRevive",false])) then
 		{
 		if ((_unit getVariable ["INCAPACITATED",false]) and (!isNull _enemy) and (_timeOut >= time) and (_medico != _unit)) then
 			{
@@ -180,7 +180,7 @@ if (_medico != _unit) then
 			_medico doFollow leader group _unit;
 			};
 		};
-	if (_medico == _unit getVariable ["ayudado",objNull]) then {_unit setVariable ["ayudado",objNull]};
+	if (_medico == _unit getVariable ["helped",objNull]) then {_unit setVariable ["helped",objNull]};
 	_medico setUnitPos "AUTO";
 	if (_medico getVariable ["cancelRevive",false]) then
 		{
@@ -197,7 +197,7 @@ else
 		_medico action ["HealSoldierSelf",_medico];
 		sleep 10;
 		};
-	_unit setVariable ["ayudado",objNull];
+	_unit setVariable ["helped",objNull];
 	_curado = true;
 	};
 if (_medico getVariable ["cancelRevive",false]) then

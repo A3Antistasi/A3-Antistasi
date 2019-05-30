@@ -118,27 +118,27 @@ if (visiblemap) then
 	mapa setDir ([fuego, mapa] call BIS_fnc_dirTo);
 	_rnd = _rnd + 45;
 	_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
-	bandera setPos _pos;
+	flagX setPos _pos;
 	_rnd = _rnd + 45;
 	_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
-	cajaVeh setPos _pos;
+	vehicleBox setPos _pos;
 	if (isNil "placementDone") then {if (isMultiplayer) then {{if ((side _x == buenos) or (side _x == civilian)) then {_x setPos getPos petros}} forEach playableUnits} else {theBoss setPos (getMarkerPos respawnTeamPlayer)}};
 	theBoss allowDamage true;
 	if (isMultiplayer) then
 		{
 		caja hideObjectGlobal false;
-		cajaVeh hideObjectGlobal false;
+		vehicleBox hideObjectGlobal false;
 		mapa hideObjectGlobal false;
 		fuego hideObjectGlobal false;
-		bandera hideObjectGlobal false;
+		flagX hideObjectGlobal false;
 		}
 	else
 		{
 		caja hideObject false;
-		cajaVeh hideObject false;
+		vehicleBox hideObject false;
 		mapa hideObject false;
 		fuego hideObject false;
-		bandera hideObject false;
+		flagX hideObject false;
 		};
 	openmap [false,false];
 	};

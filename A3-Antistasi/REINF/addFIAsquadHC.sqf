@@ -3,14 +3,14 @@ if (player != theBoss) exitWith {hint "Only our Commander has access to this fun
 //if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
 if (markerAlpha respawnTeamPlayer == 0) exitWith {hint "You cant recruit a new squad while you are moving your HQ"};
 if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
-_chequeo = false;
+_checkX = false;
 {
-	if (((side _x == Invaders) or (side _x == malos)) and (_x distance petros < 500) and ([_x] call A3A_fnc_canFight) and !(isPlayer _x)) exitWith {_chequeo = true};
+	if (((side _x == Invaders) or (side _x == malos)) and (_x distance petros < 500) and ([_x] call A3A_fnc_canFight) and !(isPlayer _x)) exitWith {_checkX = true};
 } forEach allUnits;
 
-if (_chequeo) exitWith {Hint "You cannot Recruit Squads with enemies near your HQ"};
+if (_checkX) exitWith {Hint "You cannot Recruit Squads with enemies near your HQ"};
 
-private ["_typeGroup","_esinf","_tipoVeh","_coste","_costeHR","_exit","_formato","_pos","_hr","_resourcesFIA","_grupo","_roads","_road","_grupo","_camion","_vehicle","_mortero","_morty"];
+private ["_typeGroup","_esinf","_tipoVeh","_coste","_costHR","_exit","_formato","_pos","_hr","_resourcesFIA","_grupo","_roads","_road","_grupo","_camion","_vehicle","_mortero","_morty"];
 
 
 _typeGroup = _this select 0;
@@ -33,7 +33,7 @@ garageVeh = objNull;
 _esinf = false;
 _tipoVeh = "";
 _coste = 0;
-_costeHR = 0;
+_costHR = 0;
 _formato = [];
 _format = "Squd-";
 
@@ -47,7 +47,7 @@ if (_typeGroup isEqualType []) then
 	{
 	_typeUnit = if (random 20 <= skillFIA) then {_x select 1} else {_x select 0};
 	_formato pushBack _typeUnit;
-	_coste = _coste + (server getVariable _typeUnit); _costeHR = _costeHR +1
+	_coste = _coste + (server getVariable _typeUnit); _costHR = _costHR +1
 	} forEach _typeGroup;
 	if (count _this > 1) then
 		{
@@ -60,7 +60,7 @@ if (_typeGroup isEqualType []) then
 else
 	{
 	_coste = _coste + (2*(server getVariable staticCrewTeamPlayer)) + ([_typeGroup] call A3A_fnc_vehiclePrice);
-	_costeHR = 2;
+	_costHR = 2;
 	//if (_typeGroup == SDKMortar) then {_coste = _coste + ([vehSDKBike] call A3A_fnc_vehiclePrice)} else {_coste = _coste + ([vehSDKTruck] call A3A_fnc_vehiclePrice)};
 	if ((_typeGroup == SDKMortar) or (_typeGroup == SDKMGStatic)) then
 		{
@@ -74,13 +74,13 @@ else
 	};
 if ((_withBackpck != "") and hayIFA) exitWith {hint "Your current modset does not support packing / unpacking static weapons"; garageVeh = nil};
 
-if (_hr < _costeHR) then {_exit = true;hint format ["You do not have enough HR for this request (%1 required)",_costeHR]};
+if (_hr < _costHR) then {_exit = true;hint format ["You do not have enough HR for this request (%1 required)",_costHR]};
 
 if (_resourcesFIA < _coste) then {_exit = true;hint format ["You do not have enough money for this request (%1 € required)",_coste]};
 
 if (_exit) exitWith {garageVeh = nil};
 
-_nul = [- _costeHR, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
+_nul = [- _costHR, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 
 _pos = getMarkerPos respawnTeamPlayer;
 

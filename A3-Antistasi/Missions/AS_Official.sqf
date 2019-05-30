@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith{};
 
 _markerX = _this select 0;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
@@ -12,7 +12,7 @@ _tsk = "";
 _lado = if (lados getVariable [_markerX,sideUnknown] == malos) then {malos} else {Invaders};
 _positionX = getMarkerPos _markerX;
 
-_timeLimit = if (_dificil) then {15} else {30};//120
+_timeLimit = if (_difficultX) then {15} else {30};//120
 if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
@@ -28,7 +28,7 @@ _tipo = if (_lado == malos) then {NATOOfficer} else {CSATOfficer};
 _oficial = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
 _tipo = if (_lado == malos) then {NATOBodyG} else {CSATBodyG};
 _piloto = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
-if (_dificil) then
+if (_difficultX) then
 	{
 	for "_i" from 1 to 4 do
 		{
@@ -47,7 +47,7 @@ waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _oficial)}
 if (not alive _oficial) then
 	{
 	["AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"Kill the Officer",_markerX],_positionX,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-	if (_dificil) then
+	if (_difficultX) then
 		{
 		[0,600] remoteExec ["A3A_fnc_resourcesFIA",2];
 		[2400] remoteExec ["A3A_fnc_timingCA",2];
@@ -68,7 +68,7 @@ if (not alive _oficial) then
 else
 	{
 	["AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"Kill the Officer",_markerX],_positionX,"FAILED"] call A3A_fnc_taskUpdate;
-	if (_dificil) then
+	if (_difficultX) then
 		{
 		[-1200] remoteExec ["A3A_fnc_timingCA",2];
 		[-20,theBoss] call A3A_fnc_playerScoreAdd;

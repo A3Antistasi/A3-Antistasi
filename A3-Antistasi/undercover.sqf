@@ -3,9 +3,9 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot go
 _player = player getVariable ["owner",player];
 if (captive _player) exitWith {hint "You are Undercover already"};
 
-private ["_compromised","_cambiar","_airportsX","_arrayCivVeh","_player","_size","_base"];
+private ["_compromised","_changeX","_airportsX","_arrayCivVeh","_player","_size","_base"];
 
-_cambiar = "";
+_changeX = "";
 _airportsX = airportsX + puestos + (controlsX select {isOnRoad (getMarkerPos _x)});
 _airportsX1 = airportsX;
 _arrayCivVeh = arrayCivVeh + [civHeli] + civBoats;
@@ -16,12 +16,12 @@ if (vehicle _player != _player) then
 	if (not(typeOf(vehicle _player) in _arrayCivVeh)) then
 		{
 		hint "You are not in a civilian vehicle";
-		_cambiar = "Init"
+		_changeX = "Init"
 		};
 	if (vehicle _player in reportedVehs) then
 		{
 		hint "This vehicle has been reported to the enemy. Change or renew your vehicle in the Garage to go Undercover";
-		_cambiar = "Init";
+		_changeX = "Init";
 		};
 	}
 else
@@ -29,16 +29,16 @@ else
 	if ((primaryWeapon _player != "") or (secondaryWeapon _player != "") or (handgunWeapon _player != "") or (vest _player != "") or (getNumber (configfile >> "CfgWeapons" >> headgear _player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2) or (hmd _player != "") or (not(uniform _player in civUniforms))) then
 		{
 		hint "You cannot go Undercover while:\n\nA weapon is visible\nWearing a vest\nWearing a helmet\nWearing NVGs\nWearing a mil uniform";
-		_cambiar = "Init";
+		_changeX = "Init";
 		};
 	if (dateToNumber date < _compromised) then
 		{
 		hint "You have been reported in the last 30 minutes therefore you cannot go Undercover";
-		_cambiar = "Init";
+		_changeX = "Init";
 		};
 	};
 
-if (_cambiar != "") exitWith {};
+if (_changeX != "") exitWith {};
 
 if ({((side _x== Invaders) or (side _x== malos)) and (((_x knowsAbout _player > 1.4) and (_x distance _player < 500)) or (_x distance _player < 350))} count allUnits > 0) exitWith
 	{
@@ -65,12 +65,12 @@ if (_player == leader group _player) then
 	{if ((!isplayer _x) and (local _x) and (_x getVariable ["owner",_x] == _player)) then {[_x] spawn A3A_fnc_undercoverAI}} forEach units group _player;
 	};
 _isInControl = false;
-while {_cambiar == ""} do
+while {_changeX == ""} do
 	{
 	sleep 1;
 	if (!captive _player) then
 		{
-		_cambiar = "Reported";
+		_changeX = "Reported";
 		}
 	else
 		{
@@ -80,13 +80,13 @@ while {_cambiar == ""} do
 			{
 			if (not(_tipo in _arrayCivVeh)) then
 				{
-				_cambiar = "VNoCivil"
+				_changeX = "VNoCivil"
 				}
 			else
 				{
 				if (_veh in reportedVehs) then
 					{
-					_cambiar = "VCompromised"
+					_changeX = "VCompromised"
 					}
 				else
 					{
@@ -96,18 +96,18 @@ while {_cambiar == ""} do
 							{
 							if (count (_veh nearRoads 50) == 0) then
 								{
-								if ({((side _x== Invaders) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_cambiar = "Carretera"};
+								if ({((side _x== Invaders) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_changeX = "Carretera"};
 								};
 							};
 						if (hayACE) then
 							{
 			  				if (((position _player nearObjects ["DemoCharge_Remote_Ammo", 5]) select 0) mineDetectedBy malos) then
 								{
-								_cambiar = "SpotBombTruck";
+								_changeX = "SpotBombTruck";
 								};
 							if (((position _player nearObjects ["SatchelCharge_Remote_Ammo", 5]) select 0) mineDetectedBy malos) then
 								{
-								_cambiar = "SpotBombTruck";
+								_changeX = "SpotBombTruck";
 								};
 							};
 						};
@@ -118,14 +118,14 @@ while {_cambiar == ""} do
 			{
 			if ((primaryWeapon _player != "") or (secondaryWeapon _player != "") or (handgunWeapon _player != "") or (vest _player != "") or (getNumber (configfile >> "CfgWeapons" >> headgear _player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2) or (hmd _player != "") or (not(uniform _player in civUniforms))) then
 				{
-				if ({((side _x== Invaders) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_cambiar = "Vestido2"} else {_cambiar = "Vestido"};
+				if ({((side _x== Invaders) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_changeX = "Vestido2"} else {_changeX = "Vestido"};
 				};
 			if (dateToNumber date < _compromised) then
 				{
-				_cambiar = "Compromised";
+				_changeX = "Compromised";
 				};
 			};
-		if (_cambiar == "") then
+		if (_changeX == "") then
 			{
 			if ((_tipo != civHeli) and (!(_tipo in civBoats))) then
 				{
@@ -138,7 +138,7 @@ while {_cambiar == ""} do
 						_aggro = if (lados getVariable [_base,sideUnknown] == malos) then {prestigeNATO} else {prestigeCSAT};
 						if (random 100 < _aggro) then
 							{
-							_cambiar = "Control";
+							_changeX = "Control";
 							}
 						else
 							{
@@ -159,7 +159,7 @@ while {_cambiar == ""} do
 					_size = [_base] call A3A_fnc_sizeMarker;
 					if ((_player distance2d getMarkerPos _base < _size*3) and ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == Invaders))) then
 						{
-						_cambiar = "NoFly";
+						_changeX = "NoFly";
 						};
 					};
 				};
@@ -176,7 +176,7 @@ if (vehicle _player != _player) then
 
 ["Undercover OFF",0,0,4,0,0,4] spawn bis_fnc_dynamicText;
 [] spawn A3A_fnc_statistics;
-switch _cambiar do
+switch _changeX do
 	{
 	case "Reported":
 		{

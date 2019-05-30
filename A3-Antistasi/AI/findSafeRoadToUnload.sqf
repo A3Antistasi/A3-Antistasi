@@ -1,12 +1,12 @@
-private ["_destino","_origen","_tam","_dif","_roads","_road","_dist","_result","_safe","_blackList","_roadsTmp","_ok"];
+private ["_destinationX","_origen","_tam","_dif","_roads","_road","_dist","_result","_safe","_blackList","_roadsTmp","_ok"];
 
-_destino = _this select 0;
+_destinationX = _this select 0;
 _origen = _this select 1;
 _safe = _this select 2;
 _blacklist = _this select 3;
 if (count _blackList == 0) then {_blackList = [[0,0,0]]};
 _tam = if (!_safe) then {400} else {50};
-_dif = (_destino select 2) - (_origen select 2);
+_dif = (_destinationX select 2) - (_origen select 2);
 
 if (_dif > 0) then
 	{
@@ -16,7 +16,7 @@ if (_dif > 0) then
 _roads = [];
 while {count _roads == 0} do
 	{
-	_roadsTmp = (_destino nearRoads _tam) select {(surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")};
+	_roadsTmp = (_destinationX nearRoads _tam) select {(surfaceType (position _x)!= "#GdtForest") and (surfaceType (position _x)!= "#GdtRock") and (surfaceType (position _x)!= "#GdtGrassTall")};
 	{
 	_road = _x;
 	_ok = true;
@@ -45,13 +45,13 @@ if (!_safe) then
 	}
 else
 	{
-	_roads = [_roads,[],{_destino distance _x},"DESCEND"] call BIS_fnc_sortBy;
+	_roads = [_roads,[],{_destinationX distance _x},"DESCEND"] call BIS_fnc_sortBy;
 	/*
-	_dist = _destino distance (position _road);
+	_dist = _destinationX distance (position _road);
 	{
-	if ((_destino distance (position _x)) < _dist) then
+	if ((_destinationX distance (position _x)) < _dist) then
 		{
-		_dist = _destino distance (position _x);
+		_dist = _destinationX distance (position _x);
 		_road = _x;
 		};
 	} forEach _roads - [_road];

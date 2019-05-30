@@ -2528,7 +2528,7 @@ class mortar_type {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;tipoMuni = SDKMortarHEMag;";
+			action = "closeDialog 0; typeAmmunition = SDKMortarHEMag;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2538,7 +2538,7 @@ class mortar_type {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; tipoMuni = SDKMortarSmokeMag;";
+			action = "closeDialog 0; typeAmmunition = SDKMortarSmokeMag;";
 		};
 		/*
 		class HQ_button_Gremove: RscButton
@@ -2711,7 +2711,7 @@ class strike_type {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;tipoArty = ""NORMAL"";";
+			action = "closeDialog 0;typeArty = ""NORMAL"";";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2721,7 +2721,7 @@ class strike_type {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; tipoArty = ""BARRAGE"";";
+			action = "closeDialog 0; typeArty = ""BARRAGE"";";
 		};
 		/*
 		class HQ_button_Gremove: RscButton
@@ -2838,7 +2838,7 @@ class mbt_type {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;tipoMuni = ""32Rnd_155mm_Mo_shells"";";
+			action = "closeDialog 0; typeAmmunition = ""32Rnd_155mm_Mo_shells"";";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -2848,7 +2848,7 @@ class mbt_type {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; tipoMuni = ""2Rnd_155mm_Mo_LG"";";
+			action = "closeDialog 0; typeAmmunition = ""2Rnd_155mm_Mo_LG"";";
 		};
 
 		class HQ_button_Gremove: RscButton
@@ -2859,7 +2859,7 @@ class mbt_type {
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; tipoMuni = ""6Rnd_155mm_Mo_smoke"";";
+			action = "closeDialog 0; typeAmmunition = ""6Rnd_155mm_Mo_smoke"";";
 		};
 	};
 };

@@ -44,7 +44,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","ammunition","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["outpostsFIA","minas","staticsX","countCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","ammunition","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","membersX","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
+["outpostsFIA","minas","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","ammunition","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","membersX","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -168,8 +168,8 @@ fn_SetStat =
 				{_x revealMine _mina} forEach _detected;
 				if (count (_varvalue select _i) > 3) then//borrar esto en febrero
 					{
-					_dirMina = _varvalue select _i select 3;
-					_mina setDir _dirMina;
+					_dirMine = _varvalue select _i select 3;
+					_mina setDir _dirMine;
 					};
 				};
 			};
@@ -198,22 +198,22 @@ fn_SetStat =
 				};
 			};
 
-		if(_varName == 'antenas') then
+		if(_varName == 'antennas') then
 			{
 			antennasDead = +_varvalue;
 			for "_i" from 0 to (count _varvalue - 1) do
 			    {
 			    _posAnt = _varvalue select _i;
 			    _mrk = [mrkAntennas, _posAnt] call BIS_fnc_nearestPosition;
-			    _antena = [antenas,_mrk] call BIS_fnc_nearestPosition;
-			    {if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
-			    antenas = antenas - [_antena];
+			    _antena = [antennas,_mrk] call BIS_fnc_nearestPosition;
+			    {if ([antennas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
+			    antennas = antennas - [_antena];
 			    _antena removeAllEventHandlers "Killed";
 			    _antena setDamage [1,false];
 			    deleteMarker _mrk;
 			    };
 			antennasDead = _varvalue;
-			publicVariable "antenas";
+			publicVariable "antennas";
 			publicVariable "antennasDead";
 			};
 		if(_varname == 'prestigeOPFOR') then
@@ -288,9 +288,9 @@ fn_SetStat =
 				caja setPos ((_varValue select 2) select 1);
 				mapa setDir ((_varValue select 3) select 0);
 				mapa setPos ((_varValue select 3) select 1);
-				bandera setPos (_varValue select 4);
-				cajaVeh setDir ((_varValue select 5) select 0);
-				cajaVeh setPos ((_varValue select 5) select 1);
+				flagX setPos (_varValue select 4);
+				vehicleBox setDir ((_varValue select 5) select 0);
+				vehicleBox setPos ((_varValue select 5) select 1);
 				};
 			{_x setPos _posHQ} forEach (playableUnits select {side _x == buenos});
 			};

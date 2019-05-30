@@ -39,7 +39,7 @@ if (_tipo != "delete") then
 		};
 
 	//_formato = (configfile >> "CfgGroups" >> "buenos" >> "Guerilla" >> "Infantry" >> _typeGroup);
-	//_unidades = [_formato] call groupComposition;
+	//_unitsX = [_formato] call groupComposition;
 	{_coste = _coste + (server getVariable (_x select 0)); _hr = _hr +1} forEach _typeGroup;
 	}
 else

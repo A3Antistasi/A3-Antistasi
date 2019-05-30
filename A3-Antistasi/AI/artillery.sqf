@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_mrkOrigin","_pos","_lado","_cuenta","_mrkDestination","_veh","_posOrigin","_sidesOccupants","_posDestination","_tipoVeh","_tipoMuni","_size","_vehicle","_vehCrew","_groupVeh","_rondas","_objectiveX","_objectivesX","_tiempo"];
+private ["_mrkOrigin","_pos","_lado","_cuenta","_mrkDestination","_veh","_posOrigin","_sidesOccupants","_posDestination","_tipoVeh","_typeAmmunition","_size","_vehicle","_vehCrew","_groupVeh","_rondas","_objectiveX","_objectivesX","_tiempo"];
 
 _mrkOrigin = _this select 0;
 _posOrigin = if (_mrkOrigin isEqualType "") then {getMarkerPos _mrkOrigin} else {_mrkOrigin};
@@ -12,7 +12,7 @@ _tipoVeh = if (_lado == malos) then {vehNATOMRLS} else {vehCSATMRLS};
 
 if !([_tipoVeh] call A3A_fnc_vehAvailable) exitWith {};
 
-_tipoMuni = if (_lado == malos) then {vehNATOMRLSMags} else {vehCSATMRLSMags};
+_typeAmmunition = if (_lado == malos) then {vehNATOMRLSMags} else {vehCSATMRLSMags};
 
 _pos = [_posOrigin, 50,100, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 
@@ -26,7 +26,7 @@ _size = [_mrkDestination] call A3A_fnc_sizeMarker;
 
 if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) select 0)]) then
 	{
-	while {(alive _veh) and ({_x select 0 == _tipoMuni} count magazinesAmmo _veh > 0) and (_mrkDestination in forcedSpawn)} do
+	while {(alive _veh) and ({_x select 0 == _typeAmmunition} count magazinesAmmo _veh > 0) and (_mrkDestination in forcedSpawn)} do
 		{
 		_objectiveX = objNull;
 		_rondas = 1;
@@ -60,7 +60,7 @@ if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) selec
 			};
 		if (!isNull _objectiveX) then
 			{
-			_veh commandArtilleryFire [position _objectiveX,_tipoMuni,_rondas];
+			_veh commandArtilleryFire [position _objectiveX,_typeAmmunition,_rondas];
 			_tiempo = _veh getArtilleryETA [position _objectiveX, ((getArtilleryAmmo [_veh]) select 0)];
 			sleep 9 + ((_rondas - 1) * 3);
 			}

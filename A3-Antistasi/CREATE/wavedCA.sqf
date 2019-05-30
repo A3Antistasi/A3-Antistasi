@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigin","_airportX","_nameDest","_tiempo","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_cuenta","_tsk1","_spawnPoint","_vehPool"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigin","_airportX","_nameDest","_tiempo","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_cuenta","_tsk1","_spawnPoint","_vehPool"];
 
 bigAttackInProgress = true;
 publicVariable "bigAttackInProgress";
@@ -63,7 +63,7 @@ _tiempo = time + 3600;
 
 while {(_waves > 0)} do
 	{
-	_soldados = [];
+	_soldiers = [];
 	_nVeh = 3 + (round random 1);
 	_posOriginLand = [];
 	_pos = [];
@@ -121,7 +121,7 @@ while {(_waves > 0)} do
 		_cuenta = 1;
 		_landPosBlacklist = [];
 		_spawnedSquad = false;
-		while {(_cuenta <= _nVeh) and (count _soldados <= 80)} do
+		while {(_cuenta <= _nVeh) and (count _soldiers <= 80)} do
 			{
 			if (_vehPool isEqualTo []) then
 				{
@@ -165,7 +165,7 @@ while {(_waves > 0)} do
 				{[_x] call A3A_fnc_NATOinit} forEach _vehCrew;
 				[_veh] call A3A_fnc_AIVEHinit;
 				_groupVeh = _vehicle select 2;
-				_soldados append _vehCrew;
+				_soldiers append _vehCrew;
 				_soldiersTotal append _vehCrew;
 				_grupos pushBack _groupVeh;
 				_vehiclesX pushBack _veh;
@@ -181,7 +181,7 @@ while {(_waves > 0)} do
 					_x moveInCargo _veh;
 					if (vehicle _x == _veh) then
 						{
-						_soldados pushBack _x;
+						_soldiers pushBack _x;
 						_soldiersTotal pushBack _x;
 						[_x] call A3A_fnc_NATOinit;
 						_x setVariable ["origen",_mrkOrigin];
@@ -278,7 +278,7 @@ while {(_waves > 0)} do
 			_vehPool = _vehPool select {[_x] call A3A_fnc_vehAvailable};
 			_cuenta = 0;
 			_spawnedSquad = false;
-			while {(_cuenta < 3) and (count _soldados <= 80)} do
+			while {(_cuenta < 3) and (count _soldiers <= 80)} do
 				{
 				_tipoVeh = if (_vehPool isEqualTo []) then {if (_lado == malos) then {vehNATORBoat} else {vehCSATRBoat}} else {selectRandom _vehPool};
 				_proceed = true;
@@ -333,7 +333,7 @@ while {(_waves > 0)} do
 						_x moveInCargo _veh;
 						if (vehicle _x == _veh) then
 							{
-							_soldados pushBack _x;
+							_soldiers pushBack _x;
 							_soldiersTotal pushBack _x;
 							[_x] call A3A_fnc_NATOinit;
 							_x setVariable ["origen",_mrkOrigin];
@@ -464,7 +464,7 @@ while {(_waves > 0)} do
 			_pos = [_pos1, 5,_ang] call BIS_fnc_relPos;
 			};
 		_spawnedSquad = false;
-		while {(_cuenta <= _nVeh) and (count _soldados <= 80)} do
+		while {(_cuenta <= _nVeh) and (count _soldiers <= 80)} do
 			{
 			_proceed = true;
 			if (_cuenta == _nveh) then {if (_lado == malos) then {_vehPool = _vehPool select {_x in vehNATOTransportHelis}} else {_vehPool = _vehPool select {_x in vehCSATTransportHelis}}};
@@ -513,7 +513,7 @@ while {(_waves > 0)} do
 					_x moveInCargo _veh;
 					if (vehicle _x == _veh) then
 						{
-						_soldados pushBack _x;
+						_soldiers pushBack _x;
 						_soldiersTotal pushBack _x;
 						[_x] call A3A_fnc_NATOinit;
 						_x setVariable ["origen",_mrkOrigin];
@@ -660,15 +660,15 @@ while {(_waves > 0)} do
 		["TaskSucceeded", ["", "Attack Destination Updated"]] remoteExec ["BIS_fnc_showNotification",buenos];
 		["AttackAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nameOrigin,_nameENY],format ["%1 Attack",_nameENY],_mrkDestination],getMarkerPos _mrkDestination,"CREATED"] call A3A_fnc_taskUpdate;
 		};
-	_solMax = round ((count _soldados)*0.6);
+	_solMax = round ((count _soldiers)*0.6);
 	_waves = _waves -1;
 	_firstWave = false;
-	diag_log format ["Antistasi: Reached end of spawning attack, wave %1. Vehicles: %2. Wave Units: %3. Total units: %4 ",_waves, count _vehiclesX, count _soldados, count _soldiersTotal];
-	if (lados getVariable [_mrkDestination,sideUnknown] != buenos) then {_soldados spawn A3A_fnc_remoteBattle};
+	diag_log format ["Antistasi: Reached end of spawning attack, wave %1. Vehicles: %2. Wave Units: %3. Total units: %4 ",_waves, count _vehiclesX, count _soldiers, count _soldiersTotal];
+	if (lados getVariable [_mrkDestination,sideUnknown] != buenos) then {_soldiers spawn A3A_fnc_remoteBattle};
 	if (_lado == malos) then
 		{
-		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldados) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestination,sideUnknown] == malos) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
-		if  ((({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits)) or (lados getVariable [_mrkDestination,sideUnknown] == malos)) then
+		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestination,sideUnknown] == malos) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
+		if  ((({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits)) or (lados getVariable [_mrkDestination,sideUnknown] == malos)) then
 			{
 			_waves = 0;
 			if ((!(lados getVariable [_mrkDestination,sideUnknown] == malos)) and !(_mrkDestination in citiesX)) then {[malos,_mrkDestination] remoteExec ["A3A_fnc_markerChange",2]};
@@ -722,9 +722,9 @@ while {(_waves > 0)} do
 		}
 	else
 		{
-		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldados) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestination,sideUnknown] == Invaders) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
-		//diag_log format ["1:%1,2:%2,3:%3,4:%4",(({!([_x] call A3A_fnc_canFight)} count _soldados) >= _solMax),(time > _tiempo),(lados getVariable [_mrkDestination,sideUnknown] == Invaders),(({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))];
-		if  ((({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits)) or (lados getVariable [_mrkDestination,sideUnknown] == Invaders))  then
+		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestination,sideUnknown] == Invaders) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
+		//diag_log format ["1:%1,2:%2,3:%3,4:%4",(({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax),(time > _tiempo),(lados getVariable [_mrkDestination,sideUnknown] == Invaders),(({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))];
+		if  ((({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits)) or (lados getVariable [_mrkDestination,sideUnknown] == Invaders))  then
 			{
 			_waves = 0;
 			if (not(lados getVariable [_mrkDestination,sideUnknown] == Invaders)) then {[Invaders,_mrkDestination] remoteExec ["A3A_fnc_markerChange",2]};

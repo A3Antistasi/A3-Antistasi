@@ -12,7 +12,7 @@ _fuegos = [];
 while {time < _timeOut} do
 	{
 	_units = nearestobjects [_pos, _argumentX, 70];
-	if (isServer) then {_units = _units - [mapa,bandera,cajaVeh,caja]};
+	if (isServer) then {_units = _units - [mapa,flagX,vehicleBox,caja]};
 	{
 	if (local _x) then
 		{

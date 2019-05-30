@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_winner","_markerX","_looser","_positionX","_other","_bandera","_flagsX","_dist","_texto","_sides"];
+private ["_winner","_markerX","_looser","_positionX","_other","_flagX","_flagsX","_dist","_texto","_sides"];
 
 _winner = _this select 0;
 _markerX = _this select 1;
@@ -17,16 +17,16 @@ _other = "";
 _texto = "";
 _prestigeOccupants = 0;
 _prestigeInvaders = 0;
-_bandera = objNull;
+_flagX = objNull;
 _size = [_markerX] call A3A_fnc_sizeMarker;
 
 if ((!(_markerX in citiesX)) and (spawner getVariable _markerX != 2)) then
 	{
 	_flagsX = nearestObjects [_positionX, ["FlagCarrier"], _size];
-	_bandera = _flagsX select 0;
+	_flagX = _flagsX select 0;
 	};
-if (isNil "_bandera") then {_bandera = objNull};
-//[_bandera,"remove"] remoteExec ["A3A_fnc_flagaction",0,_bandera];
+if (isNil "_flagX") then {_flagX = objNull};
+//[_flagX,"remove"] remoteExec ["A3A_fnc_flagaction",0,_flagX];
 
 if (_looser == buenos) then
 	{
@@ -55,9 +55,9 @@ if (_winner == buenos) then
 	}
 else
 	{
-	_soldados = [];
-	{_soldados pushBack (typeOf _x)} forEach (allUnits select {(_x distance _positionX < (_size*3)) and (_x getVariable ["spawner",false]) and (side group _x == _winner) and (vehicle _x == _x) and (alive _x)});
-	[_soldados,_winner,_markerX,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
+	_soldiers = [];
+	{_soldiers pushBack (typeOf _x)} forEach (allUnits select {(_x distance _positionX < (_size*3)) and (_x getVariable ["spawner",false]) and (side group _x == _winner) and (vehicle _x == _x) and (alive _x)});
+	[_soldiers,_winner,_markerX,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
 	};
 
 _nul = [_markerX] call A3A_fnc_mrkUpdate;
@@ -155,16 +155,16 @@ if (_markerX in resourcesX) then
 if (_winner == buenos) then
 	{
 	[] call A3A_fnc_tierCheck;
-	if (!isNull _bandera) then
+	if (!isNull _flagX) then
 		{
-		//[_bandera,"remove"] remoteExec ["A3A_fnc_flagaction",0,_bandera];
-		[_bandera,"SDKFlag"] remoteExec ["A3A_fnc_flagaction",0,_bandera];
-		[_bandera,SDKFlagTexture] remoteExec ["setFlagTexture",_bandera];
+		//[_flagX,"remove"] remoteExec ["A3A_fnc_flagaction",0,_flagX];
+		[_flagX,"SDKFlag"] remoteExec ["A3A_fnc_flagaction",0,_flagX];
+		[_flagX,SDKFlagTexture] remoteExec ["setFlagTexture",_flagX];
 		sleep 2;
-		//[_bandera,"unit"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera];
-		//[_bandera,"vehicle"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera];
-		//[_bandera,"garage"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera];
-		if (_markerX in puertos) then {[_bandera,"seaport"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera]};
+		//[_flagX,"unit"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_flagX];
+		//[_flagX,"vehicle"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_flagX];
+		//[_flagX,"garage"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_flagX];
+		if (_markerX in puertos) then {[_flagX,"seaport"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_flagX]};
 		};
 	[_prestigeOccupants,_prestigeInvaders] spawn A3A_fnc_prestige;
 	waitUntil {sleep 1; ((spawner getVariable _markerX == 2)) or ({((side group _x) in [_looser,_other]) and (_x getVariable ["spawner",false]) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits > 3*({(side _x == buenos) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
@@ -176,21 +176,21 @@ if (_winner == buenos) then
 	}
 else
 	{
-	if (!isNull _bandera) then
+	if (!isNull _flagX) then
 		{
 		if (_looser == buenos) then
 			{
-			[_bandera,"remove"] remoteExec ["A3A_fnc_flagaction",0,_bandera];
+			[_flagX,"remove"] remoteExec ["A3A_fnc_flagaction",0,_flagX];
 			sleep 2;
-			[_bandera,"take"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_bandera];
+			[_flagX,"take"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_flagX];
 			};
 		if (_winner == malos) then
 			{
-			[_bandera,NATOFlagTexture] remoteExec ["setFlagTexture",_bandera];
+			[_flagX,NATOFlagTexture] remoteExec ["setFlagTexture",_flagX];
 			}
 		else
 			{
-			[_bandera,CSATFlagTexture] remoteExec ["setFlagTexture",_bandera];
+			[_flagX,CSATFlagTexture] remoteExec ["setFlagTexture",_flagX];
 			};
 		};
 	if (_looser == buenos) then

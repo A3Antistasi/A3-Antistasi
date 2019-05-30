@@ -1,11 +1,11 @@
 //Mission: Destroy the helicopter
 if (!isServer and hasInterface) exitWith{};
 
-private ["_poscrash","_markerX","_positionX","_mrkfin","_tipoveh","_efecto","_heli","_vehiclesX","_soldados","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray","_cuenta"];
+private ["_poscrash","_markerX","_positionX","_mrkfin","_tipoveh","_efecto","_heli","_vehiclesX","_soldiers","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray","_cuenta"];
 
 _markerX = _this select 0;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
@@ -20,7 +20,7 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 _ang = random 360;
 _cuenta = 0;
-_dist = if (_dificil) then {2000} else {3000};
+_dist = if (_difficultX) then {2000} else {3000};
 while {true} do
 	{
 	_poscrashOrig = _positionX getPos [_dist,_ang];
@@ -51,7 +51,7 @@ _mrkfin setMarkerShape "ICON";
 
 _nombrebase = [_markerX] call A3A_fnc_localizar;
 /*
-if (!_dificil) then
+if (!_difficultX) then
 	{
 	[[buenos,civilian],"DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,false,0,true,"Destroy",true] call BIS_fnc_taskCreate
 	}
@@ -64,7 +64,7 @@ else
 [[buenos,civilian],"DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["DES","CREATED"]; publicVariable "missionsX";
 _vehiclesX = [];
-_soldados = [];
+_soldiers = [];
 _grupos = [];
 
 _efecto = createVehicle ["CraterLong", _poscrash, [], 0, "CAN_COLLIDE"];
@@ -93,7 +93,7 @@ _veh = _vehicle select 0;
 _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit} forEach _vehCrew;
 _groupVeh = _vehicle select 2;
-_soldados = _soldados + _vehCrew;
+_soldiers = _soldiers + _vehCrew;
 _grupos pushBack _groupVeh;
 _vehiclesX pushBack _veh;
 
@@ -101,7 +101,7 @@ sleep 1;
 _typeGroup = if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry};
 _grupo = [_positionX, _lado, _typeGroup] call A3A_fnc_spawnGroup;
 
-{_x assignAsCargo _veh; _x moveInCargo _veh; _soldados pushBack _x; [_x] join _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
+{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers pushBack _x; [_x] join _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 deleteGroup _grupo;
 //[_veh] spawn smokeCover;
 
@@ -121,7 +121,7 @@ _vehT = _vehicleT select 0;
 _vehCrewT = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit} forEach _vehCrewT;
 _groupVehT = _vehicleT select 2;
-_soldados = _soldados + _vehCrewT;
+_soldiers = _soldiers + _vehCrewT;
 _grupos pushBack _groupVehT;
 _vehiclesX pushBack _vehT;
 
@@ -161,7 +161,7 @@ if (_vehT distance _heli < 50) then
 
 waitUntil {sleep 1; (not alive _heli) or (_vehT distance _positionX < 100) or (dateToNumber date > _dateLimitNum)};
 
-_bonus = if (_dificil) then {2} else {1};
+_bonus = if (_difficultX) then {2} else {1};
 
 if (not alive _heli) then
 	{
@@ -196,7 +196,7 @@ deleteMarker _mrkfin;
 {
 waitUntil {sleep 1;(!([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits))};
 deleteVehicle _x} forEach _vehiclesX;
-{deleteVehicle _x} forEach _soldados;
+{deleteVehicle _x} forEach _soldiers;
 {deleteGroup _x} forEach _grupos;
 
 //sleep (600 + random 1200);

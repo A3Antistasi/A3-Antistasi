@@ -72,9 +72,9 @@ if (dateToNumber date > _dateLimitNum) then
 	_antena = nearestBuilding _positionX;
 	if (isMultiplayer) then {[_antena,true] remoteExec ["hideObjectGlobal",2]} else {_antena hideObject true};
 	_antena = createVehicle ["Land_Communication_F", _positionX, [], 0, "NONE"];
-	antenas pushBack _antena; publicVariable "antenas";
-	{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,true] spawn A3A_fnc_blackout}} forEach citiesX;
-	_mrkfin = createMarker [format ["Ant%1", count antenas], _positionX];
+	antennas pushBack _antena; publicVariable "antennas";
+	{if ([antennas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,true] spawn A3A_fnc_blackout}} forEach citiesX;
+	_mrkfin = createMarker [format ["Ant%1", count antennas], _positionX];
 	_mrkfin setMarkerShape "ICON";
 	_mrkfin setMarkerType "loc_Transmitter";
 	_mrkfin setMarkerColor "ColorBlack";
@@ -84,12 +84,12 @@ if (dateToNumber date > _dateLimitNum) then
 	_antena addEventHandler ["Killed",
 		{
 		_antena = _this select 0;
-		{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
+		{if ([antennas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
 		_mrk = [mrkAntennas, _antena] call BIS_fnc_nearestPosition;
-		antenas = antenas - [_antena]; antennasDead = antennasDead + [getPos _antena]; deleteMarker _mrk;
+		antennas = antennas - [_antena]; antennasDead = antennasDead + [getPos _antena]; deleteMarker _mrk;
 		["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
 		["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
-		publicVariable "antenas"; publicVariable "antennasDead";
+		publicVariable "antennas"; publicVariable "antennasDead";
 		}
 		];
 	};

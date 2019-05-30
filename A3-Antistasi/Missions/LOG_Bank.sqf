@@ -1,11 +1,11 @@
 //Mission: Logistics bank mission
 //el sitio de la caja es el 21
 if (!isServer and hasInterface) exitWith {};
-private ["_banco","_markerX","_dificil","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_camion","_cuenta","_mrkfin","_mrk","_soldados"];
+private ["_banco","_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_camion","_cuenta","_mrkfin","_mrk","_soldiers"];
 _banco = _this select 0;
 _markerX = [citiesX,_banco] call BIS_fnc_nearestPosition;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
@@ -14,7 +14,7 @@ _positionX = getPosASL _banco;
 
 _posbase = getMarkerPos respawnTeamPlayer;
 
-_timeLimit = if (_dificil) then {60} else {120};
+_timeLimit = if (_difficultX) then {60} else {120};
 if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
@@ -32,12 +32,12 @@ _pos = (getMarkerPos respawnTeamPlayer) findEmptyPosition [1,50,"C_Van_01_box_F"
 _camion = "C_Van_01_box_F" createVehicle _pos;
 {_x reveal _camion} forEach (allPlayers - (entities "HeadlessClient_F"));
 [_camion] call A3A_fnc_AIVEHinit;
-_camion setVariable ["destino",_nameDest,true];
+_camion setVariable ["destinationX",_nameDest,true];
 _camion addEventHandler ["GetIn",
 	{
 	if (_this select 1 == "driver") then
 		{
-		_texto = format ["Bring this truck to %1 Bank and park it in the main entrance",(_this select 0) getVariable "destino"];
+		_texto = format ["Bring this truck to %1 Bank and park it in the main entrance",(_this select 0) getVariable "destinationX"];
 		_texto remoteExecCall ["hint",_this select 2];
 		};
 	}];
@@ -55,20 +55,20 @@ _mrk setMarkerBrushLocal "DiagGrid";
 _mrk setMarkerAlphaLocal 0;
 
 _grupos = [];
-_soldados = [];
+_soldiers = [];
 for "_i" from 1 to 4 do
 	{
-	_grupo = if (_dificil) then {[_positionX,malos, groupsNATOSentry] call A3A_fnc_spawnGroup} else {[_positionX,malos, gruposNATOGen] call A3A_fnc_spawnGroup};
+	_grupo = if (_difficultX) then {[_positionX,malos, groupsNATOSentry] call A3A_fnc_spawnGroup} else {[_positionX,malos, gruposNATOGen] call A3A_fnc_spawnGroup};
 	sleep 1;
 	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "FORTIFY"] execVM "scripts\UPSMON.sqf";
-	{[_x,""] call A3A_fnc_NATOinit; _soldados pushBack _x} forEach units _grupo;
+	{[_x,""] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _grupo;
 	_grupos pushBack _grupo;
 	};
 
 _positionX = _banco buildingPos 1;
 
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (!alive _camion) or (_camion distance _positionX < 7)};
-_bonus = if (_dificil) then {2} else {1};
+_bonus = if (_difficultX) then {2} else {1};
 if ((dateToNumber date > _dateLimitNum) or (!alive _camion)) then
 	{
 	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkfin],_positionX,"FAILED","Interact"] call A3A_fnc_taskUpdate;

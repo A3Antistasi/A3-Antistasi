@@ -1,6 +1,6 @@
 //if (!isMultiplayer) exitWith {};
 if ((side player == malos) or (side player == Invaders)) exitWith {};
-private ["_puntos","_jugador","_puntosJ","_dineroJ"];
+private ["_puntos","_jugador","_puntosJ","_moneyJ"];
 _puntos = _this select 0;
 _jugador = _this select 1;
 
@@ -12,11 +12,11 @@ _jugador = _jugador getVariable ["owner",_jugador];
 if (isMultiplayer) exitWith
 	{
 	_puntosJ = _jugador getVariable ["score",0];
-	_dineroJ = _jugador getVariable ["dinero",0];
+	_moneyJ = _jugador getVariable ["dinero",0];
 	if (_puntos > 0) then
 		{
-		_dineroJ = _dineroJ + (_puntos * 10);
-		_jugador setVariable ["dinero",_dineroJ,true];
+		_moneyJ = _moneyJ + (_puntos * 10);
+		_jugador setVariable ["dinero",_moneyJ,true];
 		if (_puntos > 1) then
 			{
 			_texto = format ["<br/><br/><br/><br/><br/><br/>Money +%1 €",_puntos*10];

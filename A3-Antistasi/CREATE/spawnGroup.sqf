@@ -1,6 +1,6 @@
 params ["_positionX","_lado","_tipos",["_override",false],["_canBypass",false]];
-//private ["_grupo","_cuenta","_countRanks","_lider","_unidades","_index","_positionX","_lado","_tipos","_override","_canBypass"];
-private ["_grupo","_cuenta","_countRanks","_lider","_unidades","_index"];
+//private ["_grupo","_cuenta","_countRanks","_lider","_unitsX","_index","_positionX","_lado","_tipos","_override","_canBypass"];
+private ["_grupo","_cuenta","_countRanks","_lider","_unitsX","_index"];
 
 /*_positionX = _this select 0;
 _lado = _this select 1;
@@ -50,9 +50,9 @@ for "_i" from 0 to (_cuenta - 1) do
 		sleep 0.5;
 		};
 	};
-//_unidades = units _grupo;
-//_index = _unidades findIf {(typeOf _x in squadLeaders)};
-//if (_index == -1) then {_grupo selectLeader (_unidades select 0)} else {_grupo selectLeader (_unidades select _index)};
+//_unitsX = units _grupo;
+//_index = _unitsX findIf {(typeOf _x in squadLeaders)};
+//if (_index == -1) then {_grupo selectLeader (_unitsX select 0)} else {_grupo selectLeader (_unitsX select _index)};
 {_x allowDamage true} forEach units _grupo;
 _grupo
 

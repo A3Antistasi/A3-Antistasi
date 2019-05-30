@@ -1,17 +1,17 @@
 //Mission: Logistic supplies
 if (!isServer and hasInterface) exitWith{};
-private ["_markerX","_dificil","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_camion","_cuenta"];
+private ["_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_camion","_cuenta"];
 
 _markerX = _this select 0;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _positionX = getMarkerPos _markerX;
 
-_timeLimit = if (_dificil) then {30} else {60};
+_timeLimit = if (_difficultX) then {30} else {60};
 if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
@@ -28,7 +28,7 @@ _camion allowDamage false;
 _camion call jn_fnc_logistics_addAction;
 _camion addAction ["Delivery infos",
 	{
-		_text = format ["Deliver this box to %1, unload it to start distributing to people",(_this select 0) getVariable "destino"]; //This need a rework
+		_text = format ["Deliver this box to %1, unload it to start distributing to people",(_this select 0) getVariable "destinationX"]; //This need a rework
 		_text remoteExecCall ["hint",_this select 2];	//This need a rework
 	},
 	nil,
@@ -40,12 +40,12 @@ _camion addAction ["Delivery infos",
 ];
 [_camion] call A3A_fnc_AIVEHinit;
 //{_x reveal _camion} forEach (allPlayers - (entities "HeadlessClient_F"));
-_camion setVariable ["destino",_nameDest,true];
+_camion setVariable ["destinationX",_nameDest,true];
 
 [_camion,"Supply Box"] spawn A3A_fnc_inmuneConvoy;
 
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ((_camion distance _positionX < 40) and (isNull attachedTo _camion)) or (isNull _camion)};
-_bonus = if (_dificil) then {2} else {1};
+_bonus = if (_difficultX) then {2} else {1};
 if ((dateToNumber date > _dateLimitNum) or (isNull _camion)) then
 	{
 	["LOG",[_taskDescription,"City Supplies",_markerX],_positionX,"FAILED","Heal"] call A3A_fnc_taskUpdate;

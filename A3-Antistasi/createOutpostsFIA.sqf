@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unidades","_formato"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unitsX","_formato"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;

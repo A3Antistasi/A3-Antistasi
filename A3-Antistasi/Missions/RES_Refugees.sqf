@@ -1,10 +1,10 @@
 //Mission: Rescue the refugees
 if (!isServer and hasInterface) exitWith{};
-private ["_markerX","_dificil","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_casa","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_cuenta"];
+private ["_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_casa","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_cuenta"];
 
 _markerX = _this select 0;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
@@ -27,7 +27,7 @@ while {count _poscasa < 3} do
 
 
 _nameDest = [_markerX] call A3A_fnc_localizar;
-_timeLimit = if (_dificil) then {30} else {60};
+_timeLimit = if (_difficultX) then {30} else {60};
 if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
@@ -70,7 +70,7 @@ if (_lado == Invaders) then
 		{
 		private ["_casa"];
 		_casa = _this select 0;
-		if (_dificil) then {sleep 300} else {sleep 300 + (random 1800)};
+		if (_difficultX) then {sleep 300} else {sleep 300 + (random 1800)};
 		if (["RES"] call BIS_fnc_taskExists) then
 			{
 			_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == Invaders) and ([_x,true] call A3A_fnc_airportCanAttack)};
@@ -119,7 +119,7 @@ else
 	_mrk setMarkerColorLocal "ColorRed";
 	_mrk setMarkerBrushLocal "DiagGrid";
 	_mrk setMarkerAlphaLocal 0;
-	if ((random 100 < prestigeNATO) or (_dificil)) then
+	if ((random 100 < prestigeNATO) or (_difficultX)) then
 		{
 		_grupo = [getPos _casa,malos, NATOSquad] call A3A_fnc_spawnGroup;
 		sleep 1;
@@ -139,7 +139,7 @@ else
 	_grupo1 = [_casa buildingExit 0, malos, gruposNATOGen] call A3A_fnc_spawnGroup;
 	};
 
-_bonus = if (_dificil) then {2} else {1};
+_bonus = if (_difficultX) then {2} else {1};
 
 if (_lado == malos) then
 	{

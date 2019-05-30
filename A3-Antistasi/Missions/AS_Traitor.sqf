@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith{};
 
 _markerX = _this select 0;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
@@ -12,7 +12,7 @@ _tsk1 = "";
 
 _positionX = getMarkerPos _markerX;
 
-_timeLimit = if (_dificil) then {30} else {60};
+_timeLimit = if (_difficultX) then {30} else {60};
 if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
@@ -127,7 +127,7 @@ if (not alive _traidor) then
 	{
 	["AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Kill the Traitor",_markerX],_traidor,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _casa,"FAILED"] call A3A_fnc_taskUpdate;
-	if (_dificil) then
+	if (_difficultX) then
 		{
 		[4,0] remoteExec ["A3A_fnc_prestige",2];
 		[0,600] remoteExec ["A3A_fnc_resourcesFIA",2];
@@ -168,7 +168,7 @@ else
 	{
 	["AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Kill the Traitor",_markerX],_traidor,"FAILED"] call A3A_fnc_taskUpdate;
 	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _casa,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-	if (_dificil) then {[-10,theBoss] call A3A_fnc_playerScoreAdd} else {[-10,theBoss] call A3A_fnc_playerScoreAdd};
+	if (_difficultX) then {[-10,theBoss] call A3A_fnc_playerScoreAdd} else {[-10,theBoss] call A3A_fnc_playerScoreAdd};
 	if (dateToNumber date > _dateLimitNum) then
 		{
 		_hrT = server getVariable "hr";

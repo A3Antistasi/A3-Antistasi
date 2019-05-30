@@ -6,7 +6,7 @@ private ["_antena","_positionX","_timeLimit","_markerX","_nameDest","_mrkfin","_
 _antena = _this select 0;
 _markerX = [markersX,_antena] call BIS_fnc_nearestPosition;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
@@ -14,7 +14,7 @@ _tsk = "";
 _nameDest = [_markerX] call A3A_fnc_localizar;
 _positionX = getPos _antena;
 
-_timeLimit = if (_dificil) then {30} else {120};
+_timeLimit = if (_difficultX) then {30} else {120};
 if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
@@ -26,7 +26,7 @@ _mrkfin setMarkerShape "ICON";
 missionsX pushBack ["DES","CREATED"]; publicVariable "missionsX";
 waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (not alive _antena) or (not(lados getVariable [_markerX,sideUnknown] == malos))};
 
-_bonus = if (_dificil) then {2} else {1};
+_bonus = if (_difficultX) then {2} else {1};
 
 if (dateToNumber date > _dateLimitNum) then
 	{

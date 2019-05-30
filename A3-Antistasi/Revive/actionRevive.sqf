@@ -51,7 +51,7 @@ if !(_curado getVariable ["INCAPACITATED",false]) exitWith
 if (surfaceIsWater (position _curado)) exitWith {if (_player) then {hint format ["You cannot heal %1 in the water",name _curado]};_healed};
 if (_player) then
 	{
-	_curado setVariable ["ayudado",_medicX,true];
+	_curado setVariable ["helped",_medicX,true];
 	};
 _medicX setVariable ["helping",true];
 if (not("FirstAidKit" in (items _medicX))) then
@@ -127,7 +127,7 @@ if (!_player) then
 else
 	{
 	_medicX removeAction _accion;
-	_curado setVariable ["ayudado",objNull,true];
+	_curado setVariable ["helped",objNull,true];
 	_medicX setVariable ["helping",false];
 	};
 if (_medicX getVariable ["cancelRevive",false]) exitWith

@@ -11,13 +11,13 @@ if (_presente) exitWith {hint "You cannot rest while enemies are near our units"
 if (["AttackAAF"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while the enemy is counterattacking"};
 if (["DEF_HQ"] call BIS_fnc_taskExists) exitWith {hint "You cannot rest while your HQ is under attack"};
 
-_chequeo = false;
+_checkX = false;
 _posHQ = getMarkerPos respawnTeamPlayer;
 {
-if ((_x distance _posHQ > 100) and (side _x == buenos)) then {_chequeo = true};
+if ((_x distance _posHQ > 100) and (side _x == buenos)) then {_checkX = true};
 } forEach (allPlayers - (entities "HeadlessClient_F"));
 
-if (_chequeo) exitWith {hint "All players must be in a 100m radius from HQ to be able to rest"};
+if (_checkX) exitWith {hint "All players must be in a 100m radius from HQ to be able to rest"};
 
 [[],"A3A_fnc_resourcecheckSkipTime"] call BIS_fnc_MP;
 

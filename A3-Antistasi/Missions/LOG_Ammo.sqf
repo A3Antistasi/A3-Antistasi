@@ -5,14 +5,14 @@ private ["_pos","_camion","_truckCreated","_grupo","_grupo1","_mrk"];
 
 _markerX = _this select 0;
 
-_dificil = if (random 10 < tierWar) then {true} else {false};
+_difficultX = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _positionX = getMarkerPos _markerX;
 _lado = if (lados getVariable [_markerX,sideUnknown] == malos) then {malos} else {Invaders};
-_timeLimit = if (_dificil) then {30} else {60};
+_timeLimit = if (_difficultX) then {30} else {60};
 if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
@@ -31,7 +31,7 @@ _truckCreated = false;
 missionsX pushBack ["LOG","CREATED"]; publicVariable "missionsX";
 
 waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or ((spawner getVariable _markerX != 2) and !(lados getVariable [_markerX,sideUnknown] == buenos))};
-_bonus = if (_dificil) then {2} else {1};
+_bonus = if (_difficultX) then {2} else {1};
 if ((spawner getVariable _markerX != 2) and !(lados getVariable [_markerX,sideUnknown] == buenos)) then
 	{
 	//sleep 10;
@@ -48,7 +48,7 @@ if ((spawner getVariable _markerX != 2) and !(lados getVariable [_markerX,sideUn
 	_mrk setMarkerColorLocal "ColorRed";
 	_mrk setMarkerBrushLocal "DiagGrid";
 	if (!debug) then {_mrk setMarkerAlphaLocal 0};
-	_typeGroup = if (_dificil) then {if (_lado == malos) then {NATOSquad} else {CSATSquad}} else {if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry}};
+	_typeGroup = if (_difficultX) then {if (_lado == malos) then {NATOSquad} else {CSATSquad}} else {if (_lado == malos) then {groupsNATOSentry} else {groupsCSATSentry}};
 	//_cfg = if (_lado == malos) then {cfgNATOInf} else {cfgCSATInf};
 	_grupo = [_pos,_lado, _typeGroup] call A3A_fnc_spawnGroup;
 	sleep 1;

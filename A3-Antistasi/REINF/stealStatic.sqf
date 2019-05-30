@@ -1,4 +1,4 @@
-private ["_staticX","_cercano","_jugador"];
+private ["_staticX","_nearX","_jugador"];
 
 _staticX = _this select 0;
 _jugador = _this select 1;
@@ -11,9 +11,9 @@ if ((alive assignedGunner _staticX) and (!isPlayer (assignedGunner _staticX))) e
 
 if (activeGREF and ((typeOf _staticX == staticATBuenos) or (typeOf _staticX == staticAABuenos))) exitWith {hint "This weapon cannot be dissassembled"};
 
-_cercano = [markersX,_staticX] call BIS_fnc_nearestPosition;
+_nearX = [markersX,_staticX] call BIS_fnc_nearestPosition;
 
-if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
+if (not(lados getVariable [_nearX,sideUnknown] == buenos)) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
 
 _staticX setOwner (owner _jugador);
 

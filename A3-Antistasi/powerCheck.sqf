@@ -1,10 +1,10 @@
 private ["_markerX","_result","_positionX"];
 _markerX = _this select 0;
 //if (!(_markerX in citiesX)) exitWith {true; diag_log format ["Error en cálculo de Antena para %1",_markerX]};
-if (count antenas == 0) exitWith {sideUnknown};
+if (count antennas == 0) exitWith {sideUnknown};
 //_result = false;
 _positionX = getMarkerPos _markerX;
-_ant1 = [antenas,_positionX] call BIS_fnc_nearestPosition;
+_ant1 = [antennas,_positionX] call BIS_fnc_nearestPosition;
 _ant2 = [antennasDead, _positionX] call BIS_fnc_nearestPosition;
 
 if (_ant1 distance _positionX > _ant2 distance _positionX) exitWith {sideUnknown};

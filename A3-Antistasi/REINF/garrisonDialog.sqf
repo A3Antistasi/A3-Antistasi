@@ -24,8 +24,8 @@ if (getMarkerPos _cercano distance _positionTel > 40) exitWith {hint "You must c
 if (not(lados getVariable [_cercano,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]; _nul=CreateDialog "build_menu";};
 if ([_posicion,500] call A3A_fnc_enemyNearCheck) exitWith {hint "You cannot manage this garrison while there are enemies nearby";_nul=CreateDialog "build_menu"};
 //if (((_cercano in outpostsFIA) and !(isOnRoad _posicion)) /*or (_cercano in citiesX)*/ or (_cercano in controlsX)) exitWith {hint "You cannot manage garrisons on this kind of zone"; _nul=CreateDialog "garrison_menu"};
-_puestoFIA = if (_cercano in outpostsFIA) then {true} else {false};
-_wPost = if (_puestoFIA and !(isOnRoad getMarkerPos _cercano)) then {true} else {false};
+_outpostFIA = if (_cercano in outpostsFIA) then {true} else {false};
+_wPost = if (_outpostFIA and !(isOnRoad getMarkerPos _cercano)) then {true} else {false};
 _garrison = if (! _wpost) then {garrison getVariable [_cercano,[]]} else {SDKSniper};
 
 if (_tipo == "rem") then
@@ -34,12 +34,12 @@ if (_tipo == "rem") then
 	_coste = 0;
 	_hr = 0;
 	{
-	if (_x == staticCrewTeamPlayer) then {if (_puestoFIA) then {_coste = _coste + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice)} else {_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice)}};
+	if (_x == staticCrewTeamPlayer) then {if (_outpostFIA) then {_coste = _coste + ([vehSDKLightArmed] call A3A_fnc_vehiclePrice)} else {_coste = _coste + ([SDKMortar] call A3A_fnc_vehiclePrice)}};
 	_hr = _hr + 1;
 	_coste = _coste + (server getVariable [_x,0]);
 	} forEach _garrison;
 	[_hr,_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
-	if (_puestoFIA) then
+	if (_outpostFIA) then
 		{
 		garrison setVariable [_cercano,nil,true];
 		outpostsFIA = outpostsFIA - [_cercano]; publicVariable "outpostsFIA";

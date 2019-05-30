@@ -3,9 +3,9 @@ _unit = _this select 0;///no usar canfight porque algunas tienen setcaptive true
 if !(isNull (_unit getVariable ["ayudado",objNull])) exitWith {};
 _medico = _this select 1;
 if (isPlayer _medico) exitWith {};
-if (_medico getVariable ["ayudando",false]) exitWith {};
+if (_medico getVariable ["helping",false]) exitWith {};
 _unit setVariable ["ayudado",_medico];
-_medico setVariable ["ayudando",true];
+_medico setVariable ["helping",true];
 _medico setVariable ["maneuvering",true];
 _curado = false;
 _isPlayer = if ({isPlayer _x} count units group _unit >0) then {true} else {false};
@@ -51,7 +51,7 @@ if (_medico != _unit) then
 		if ((_unit getVariable ["INCAPACITATED",false]) and (!isNull _enemy) and (_timeOut >= time) and (_medico != _unit)) then
 			{
 			_coverX = [_unit,_enemy] call A3A_fnc_coverage;
-			{if (([_x] call A3A_fnc_canFight) and (_x distance _medico < 50) and !(_x getVariable ["ayudando",false]) and (!isPlayer _x)) then {[_x,_enemy] call A3A_fnc_suppressingFire}} forEach units (group _medico);
+			{if (([_x] call A3A_fnc_canFight) and (_x distance _medico < 50) and !(_x getVariable ["helping",false]) and (!isPlayer _x)) then {[_x,_enemy] call A3A_fnc_suppressingFire}} forEach units (group _medico);
 			if (count _coverX == 3) then
 				{
 				//if (_isPlayer) then {_unit setVariable ["llevado",true,true]};
@@ -205,6 +205,6 @@ if (_medico getVariable ["cancelRevive",false]) then
 	_medico setVariable ["cancelRevive",false];
 	sleep 15;
 	};
-_medico setVariable ["ayudando",false];
+_medico setVariable ["helping",false];
 _medico setVariable ["maneuvering",false];
 _curado

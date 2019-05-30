@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_winner","_marcador","_looser","_posicion","_other","_bandera","_banderas","_dist","_texto","_sides"];
+private ["_winner","_marcador","_looser","_posicion","_other","_bandera","_flagsX","_dist","_texto","_sides"];
 
 _winner = _this select 0;
 _marcador = _this select 1;
@@ -22,8 +22,8 @@ _size = [_marcador] call A3A_fnc_sizeMarker;
 
 if ((!(_marcador in citiesX)) and (spawner getVariable _marcador != 2)) then
 	{
-	_banderas = nearestObjects [_posicion, ["FlagCarrier"], _size];
-	_bandera = _banderas select 0;
+	_flagsX = nearestObjects [_posicion, ["FlagCarrier"], _size];
+	_bandera = _flagsX select 0;
 	};
 if (isNil "_bandera") then {_bandera = objNull};
 //[_bandera,"remove"] remoteExec ["A3A_fnc_flagaction",0,_bandera];

@@ -77,7 +77,7 @@ if (!isDedicated) then
 	["weather",[fogParams,rain]] call fn_SaveStat;
 	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
 	//["firstLoad",false] call fn_SaveStat;
-private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_ammunition","_items","_mochis","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_typeMine","_posMina","_detected","_tipos","_exists","_amigo"];
+private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_ammunition","_items","_mochis","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_typeMine","_posMine","_detected","_tipos","_exists","_amigo"];
 
 _hrfondo = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["spawner",false]) and ((group _x in (hcAllGroups theBoss) or (isPlayer (leader _x))) and (side group _x == buenos))} count allUnits);
 _resfondo = server getVariable "resourcesFIA";
@@ -205,7 +205,7 @@ _arrayMrkMF = _arrayMrkMF + [_posMineF];
 _arrayMines = [];
 {
 _typeMine = typeOf _x;
-_posMina = getPos _x;
+_posMine = getPos _x;
 _dirMina = getDir _x;
 _detected = [];
 if (_x mineDetectedBy buenos) then
@@ -220,7 +220,7 @@ if (_x mineDetectedBy muyMalos) then
 	{
 	_detected pushBack muyMalos
 	};
-_arrayMines = _arrayMines + [[_typeMine,_posMina,_detected,_dirMina]];
+_arrayMines = _arrayMines + [[_typeMine,_posMine,_detected,_dirMina]];
 } forEach allMines;
 
 ["minas", _arrayMines] call fn_SaveStat;

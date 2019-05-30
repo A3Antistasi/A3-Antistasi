@@ -8,7 +8,7 @@ if (isNull _engineerX) exitWith {hint "Your squad needs an engineer to be able t
 if ((player != _engineerX) and (isPlayer _engineerX)) exitWith {hint "There is a human player engineer in your squad, ask him to construct whatever you need"};
 if ((player != leader player) and (_engineerX != player)) exitWith {hint "Only squad leaders can ask engineers to construct something"};
 if !([_engineerX] call A3A_fnc_canFight) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
-if ((_engineerX getVariable ["ayudando",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX getVariable ["constructing",false])) exitWith {hint "Your engineer is currently performing another action"};
+if ((_engineerX getVariable ["helping",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX getVariable ["constructing",false])) exitWith {hint "Your engineer is currently performing another action"};
 
 private _tipo = _this select 0;
 private _dir = getDir player;
@@ -278,7 +278,7 @@ _engineerX playMoveNow selectRandom medicAnims;
 _engineerX addEventHandler ["AnimDone",
 	{
 	private _engineerX = _this select 0;
-	if (([_engineerX] call A3A_fnc_canFight) and !(_engineerX getVariable ["ayudando",false]) and !(_engineerX getVariable ["rearming",false]) and (_engineerX getVariable ["constructing",false])) then
+	if (([_engineerX] call A3A_fnc_canFight) and !(_engineerX getVariable ["helping",false]) and !(_engineerX getVariable ["rearming",false]) and (_engineerX getVariable ["constructing",false])) then
 		{
 		_engineerX playMoveNow selectRandom medicAnims;
 		}
@@ -288,7 +288,7 @@ _engineerX addEventHandler ["AnimDone",
 		};
 	}];
 
-waitUntil  {sleep 5; !([_engineerX] call A3A_fnc_canFight) or (_engineerX getVariable ["ayudando",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX distance _posicion > 4) or (time > _timeOut)};
+waitUntil  {sleep 5; !([_engineerX] call A3A_fnc_canFight) or (_engineerX getVariable ["helping",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX distance _posicion > 4) or (time > _timeOut)};
 
 _engineerX setVariable ["constructing",false];
 if (!_isPlayer) then {{_engineerX enableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"]};

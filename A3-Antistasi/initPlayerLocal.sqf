@@ -618,7 +618,7 @@ if (isMultiplayer) then {mapa addAction ["AI Load Info", "[] remoteExec [""A3A_f
 _nul = [player] execVM "OrgPlayers\unitTraits.sqf";
 groupPetros = group petros;
 groupPetros setGroupIdGlobal ["Petros","GroupColor4"];
-petros setIdentity "amiguete";
+petros setIdentity "friendlyX";
 petros setName "Petros";
 petros disableAI "MOVE";
 petros disableAI "AUTOTARGET";

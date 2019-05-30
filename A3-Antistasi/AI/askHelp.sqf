@@ -1,4 +1,4 @@
-private ["_unit","_distanceX","_hasMedic","_medico","_units","_ayudando","_askingForHelp"];
+private ["_unit","_distanceX","_hasMedic","_medico","_units","_helping","_askingForHelp"];
 _unit = _this select 0;
 _ayudado = _unit getVariable ["ayudado",objNull];
 if (!isNull _ayudado) exitWith {};
@@ -28,8 +28,8 @@ else
 			{
 			if (([_x] call A3A_fnc_canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < 81) and !(_x getVariable ["maneuvering",false])) then
 				{
-				//_ayudando = _x getVariable "ayudando";
-				if (!(_x getVariable ["ayudando",false]) and (!(_x getVariable ["rearming",false]))) then
+				//_helping = _x getVariable "helping";
+				if (!(_x getVariable ["helping",false]) and (!(_x getVariable ["rearming",false]))) then
 					{
 					_medico = _x;
 					_distanceX = _x distance _unit;
@@ -48,8 +48,8 @@ else
 				{
 				if (([_x] call A3A_fnc_canFight) and ("FirstAidKit" in (items _x)) and (vehicle _x == _x) and (_x distance _unit < _distanceX) and !(_x getVariable ["maneuvering",false])) then
 					{
-					//_ayudando = _x getVariable "ayudando";
-					if (!(_x getVariable ["ayudando",false]) and (!(_x getVariable ["rearming",false]))) then
+					//_helping = _x getVariable "helping";
+					if (!(_x getVariable ["helping",false]) and (!(_x getVariable ["rearming",false]))) then
 						{
 						_medico = _x;
 						_distanceX = _x distance _unit;

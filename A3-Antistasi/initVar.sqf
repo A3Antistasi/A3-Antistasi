@@ -212,9 +212,9 @@ else
 	};
 
 ammunitionNATO = [];
-armasNATO = [];
+weaponsNato = [];
 ammunitionCSAT = [];
-armasCSAT = [];
+weaponsCSAT = [];
 
 if (!hayIFA) then
 	{
@@ -284,7 +284,7 @@ if !(_tipo in _checked) then
 	for "_i" from 0 to 2 do
 		{
 		_weapon = [((_loadout select _i) select 0)] call BIS_fnc_baseWeapon;
-		if !(_weapon in armasCSAT) then {armasCSAT pushBack _weapon};
+		if !(_weapon in weaponsCSAT) then {weaponsCSAT pushBack _weapon};
 		};
 	};
 } forEach _x;
@@ -300,7 +300,7 @@ if !(_tipo in _checked) then
 	for "_i" from 0 to 2 do
 		{
 		_weapon = [((_loadout select _i) select 0)] call BIS_fnc_baseWeapon;
-		if !(_weapon in armasNATO) then {armasNATO pushBack _weapon};
+		if !(_weapon in weaponsNato) then {weaponsNato pushBack _weapon};
 		};
 	};
 } forEach _x;
@@ -310,12 +310,12 @@ if !(_tipo in _checked) then
 _nombre = [_x] call BIS_fnc_baseWeapon;
 _magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
 ammunitionNATO pushBack (_magazines select 0);
-} forEach armasNATO;
+} forEach weaponsNato;
 {
 _nombre = [_x] call BIS_fnc_baseWeapon;
 _magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
 ammunitionCSAT pushBack (_magazines select 0);
-} forEach armasCSAT;
+} forEach weaponsCSAT;
 //optic, pointer and flashlight automated detection
 opticsAAF = [];
 flashLights = [];
@@ -346,7 +346,7 @@ if !(_item in (opticsAAF + flashLights + pointers)) then
 	};
 } forEach (_x call BIS_fnc_compatibleItems);
 
-} forEach (armasNATO + armasCSAT);
+} forEach (weaponsNato + weaponsCSAT);
 if (hayRHS) then
 	{
 	opticsAAF = opticsAAF select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
@@ -719,7 +719,7 @@ if (!isNil "ace_common_fnc_isModLoaded") then {
 		unlockedBackpacks pushBackUnique "ACE_TacticalLadder_Pack";
 		unlockedWeapons pushBackUnique "ACE_VMH3";
 		itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX"];
-		armasNATO = armasNATO + ["ACE_M84"];
+		weaponsNato = weaponsNato + ["ACE_M84"];
 		};
 	hayACE = true;
 	if (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak")) then {

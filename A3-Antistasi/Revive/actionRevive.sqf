@@ -53,7 +53,7 @@ if (_player) then
 	{
 	_curado setVariable ["ayudado",_medicX,true];
 	};
-_medicX setVariable ["ayudando",true];
+_medicX setVariable ["helping",true];
 if (not("FirstAidKit" in (items _medicX))) then
 	{
 	_medicX addItem "FirstAidKit";
@@ -88,7 +88,7 @@ if (!_player) then
 	}
 else
 	{
-	_accion = _medicX addAction ["Cancel Revive", {(_this select 1) setVariable ["cancelRevive",true]},nil,6,true,true,"","(_this getVariable [""ayudando"",false]) and (isPlayer _this)"];
+	_accion = _medicX addAction ["Cancel Revive", {(_this select 1) setVariable ["cancelRevive",true]},nil,6,true,true,"","(_this getVariable [""helping"",false]) and (isPlayer _this)"];
 	};
 _medicX addEventHandler ["AnimDone",
 	{
@@ -119,7 +119,7 @@ waitUntil {sleep 0.5; (_medicX getVariable ["animsDone",true])};
 _medicX setVariable ["animsDone",nil];
 _medicX setVariable ["timeToHeal",nil];
 _medicX setVariable ["curado",nil];
-_medicX setVariable ["ayudando",false];
+_medicX setVariable ["helping",false];
 if (!_player) then
 	{
 	{_medicX enableAI _x} forEach ["ANIM","AUTOTARGET","FSM","MOVE","TARGET"];
@@ -128,7 +128,7 @@ else
 	{
 	_medicX removeAction _accion;
 	_curado setVariable ["ayudado",objNull,true];
-	_medicX setVariable ["ayudando",false];
+	_medicX setVariable ["helping",false];
 	};
 if (_medicX getVariable ["cancelRevive",false]) exitWith
 	{

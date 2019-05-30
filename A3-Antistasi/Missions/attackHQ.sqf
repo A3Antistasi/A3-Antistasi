@@ -20,12 +20,12 @@ _tsk = "";
 [[buenos,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_posicion,true,10,true,"Defend",true] call BIS_fnc_taskCreate;
 [[_lado],"DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros, nameTeamPlayer],format ["Kill %1",name petros],respawnTeamPlayer],_posicion,true,10,true,"Attack",true] call BIS_fnc_taskCreate;
 misiones pushBack ["DEF_HQ","CREATED"]; publicVariable "misiones";
-_tiposVeh = if (_lado == malos) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
-_tiposVeh = _tiposVeh select {[_x] call A3A_fnc_vehAvailable};
+_typesVeh = if (_lado == malos) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
+_typesVeh = _typesVeh select {[_x] call A3A_fnc_vehAvailable};
 
-if (count _tiposVeh > 0) then
+if (count _typesVeh > 0) then
 	{
-	_tipoVeh = selectRandom _tiposVeh;
+	_tipoVeh = selectRandom _typesVeh;
 	//_pos = [_posicion, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
 	_vehicle=[_posOrigin, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
@@ -41,12 +41,12 @@ if (count _tiposVeh > 0) then
 	//[_heli,"Air Attack"] spawn A3A_fnc_inmuneConvoy;
 	sleep 30;
 	};
-_tiposVeh = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
+_typesVeh = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
 _typeGroup = if (_lado == malos) then {NATOSpecOp} else {CSATSpecOp};
 
 for "_i" from 0 to (round random 2) do
 	{
-	_tipoVeh = selectRandom _tiposVeh;
+	_tipoVeh = selectRandom _typesVeh;
 	//_pos = [_posicion, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
 	_vehicle=[_posOrigin, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;

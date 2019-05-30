@@ -81,7 +81,7 @@ petros addMPEventHandler ["mpkilled",
             petros = groupPetros createUnit [typePetros, position _viejo, [], 0, "NONE"];
             publicVariable "petros";
             groupPetros setGroupIdGlobal ["Petros","GroupColor4"];
-            petros setIdentity "amiguete";
+            petros setIdentity "friendlyX";
             if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
             petros disableAI "MOVE";
             petros disableAI "AUTOTARGET";

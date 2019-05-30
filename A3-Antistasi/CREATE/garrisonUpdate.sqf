@@ -1,15 +1,15 @@
 if (!isServer) exitWith {};
-private ["_tipo","_lado","_marcador","_modo","_garrison","_subTipo"];
+private ["_tipo","_lado","_marcador","_modo","_garrison","_subType"];
 _tipo = _this select 0;
 if (_tipo isEqualType []) then
 	{
 	if ((_tipo select 0) isEqualType objNull) then
 		{
-		_subTipo = [];
+		_subType = [];
 		{
-		_subTipo pushBack (typeOf _x);
+		_subType pushBack (typeOf _x);
 		} forEach _tipo;
-		_tipo = _subTipo;
+		_tipo = _subType;
 		};
 	}
 else

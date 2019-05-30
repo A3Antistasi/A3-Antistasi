@@ -3,8 +3,8 @@ _camion = _this select 1;
 
 if ((isPlayer _unit) or (player != leader group player)) exitWith {};
 if !([_unit] call A3A_fnc_canFight) exitWith {};
-//_ayudando = _unit getVariable "ayudando";
-if (_unit getVariable ["ayudando",false]) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
+//_helping = _unit getVariable "helping";
+if (_unit getVariable ["helping",false]) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
 _rearming = _unit getVariable "rearming";
 if (_rearming) exitWith {_unit groupChat "I am currently rearming. Cancelling."; _unit setVariable ["rearming",false]};
 if (_unit == gunner _camion) exitWith {_unit groupChat "I cannot rearm right now. I'm manning this gun"};

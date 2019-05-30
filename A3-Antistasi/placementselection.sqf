@@ -93,7 +93,7 @@ if (visiblemap) then
 		publicVariable "groupPetros";
         petros = groupPetros createUnit [typePetros, _positionTel, [], 0, "NONE"];
         groupPetros setGroupId ["Maru","GroupColor4"];
-        petros setIdentity "amiguete";
+        petros setIdentity "friendlyX";
         if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
         petros disableAI "MOVE";
         petros disableAI "AUTOTARGET";

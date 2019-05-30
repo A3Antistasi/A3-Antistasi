@@ -162,8 +162,8 @@ fn_SetStat =
 					case "APERSTripMine_Wire_Ammo": {_typeMine = "APERSTripMine"};
 					case "ClaymoreDirectionalMine_Remote_Ammo": {_typeMine = "Claymore_F"};
 					};
-				_posMina = _varvalue select _i select 1;
-				_mina = createMine [_typeMine, _posMina, [], 0];
+				_posMine = _varvalue select _i select 1;
+				_mina = createMine [_typeMine, _posMine, [], 0];
 				_detected = _varvalue select _i select 2;
 				{_x revealMine _mina} forEach _detected;
 				if (count (_varvalue select _i) > 3) then//borrar esto en febrero

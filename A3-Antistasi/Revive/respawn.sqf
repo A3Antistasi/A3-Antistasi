@@ -22,7 +22,7 @@ private ["_posicion","_tam","_roads","_road","_pos"];
 _posicion = getMarkerPos respawnTeamPlayer;
 if (lifeState _unit == "INCAPACITATED") then {_unit setUnconscious false};
 _unit setVariable ["ayudado",objNull];
-_unit setVariable ["ayudando",false];
+_unit setVariable ["helping",false];
 _unit setDamage 0;
 _unit setVariable ["compromised",0];
 _unit setVariable ["disguised",false];

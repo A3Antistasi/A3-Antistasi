@@ -31,10 +31,10 @@ for "_i" from 0 to (count _typeMagazines) - 1 do
 		}
 	else
 		{
-		_cuantasHay = (_cantMagazines select _i);
-		_cuantasHay = _cuantasHay - _cantidad;
-		if (_cuantasHay < 0) then {_cuentasHay = 0};
-		_newCantMagazines pushBack _cuantasHay;
+		_hasQuantity = (_cantMagazines select _i);
+		_hasQuantity = _hasQuantity - _cantidad;
+		if (_hasQuantity < 0) then {_cuentasHay = 0};
+		_newCantMagazines pushBack _hasQuantity;
 		};
 	};
 

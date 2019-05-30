@@ -453,7 +453,7 @@ if (_isJip) then
 		else
 			{
 			hint "Welcome Guest\n\nYou have joined this server as guest";
-			//if ((count playableUnits == maxPlayers) and (({[_x] call A3A_fnc_isMember} count playableUnits) < count miembros) and (serverName in servidoresOficiales)) then {["serverFull",false,1,false,false] call BIS_fnc_endMission};
+			//if ((count playableUnits == maxPlayers) and (({[_x] call A3A_fnc_isMember} count playableUnits) < count miembros) and (serverName in officialServers)) then {["serverFull",false,1,false,false] call BIS_fnc_endMission};
 			};
 		}
 	else

@@ -96,7 +96,7 @@ if (!_inWaves) then
 	{
 	_threatEvalLand = [_posDestination,_lado] call A3A_fnc_landThreatEval;
 	_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == _lado) and ([_x,true] call A3A_fnc_airportCanAttack) and (getMarkerPos _x distance2D _posDestination < distanceForAirAttack)};
-	if (hayIFA and (_threatEvalLand <= 15)) then {_airportsX = _areopuertos select {(getMarkerPos _x distance2D _posDestination < distanceForLandAttack)}};
+	if (hayIFA and (_threatEvalLand <= 15)) then {_airportsX = _airportsX select {(getMarkerPos _x distance2D _posDestination < distanceForLandAttack)}};
 	_puestos = if (_threatEvalLand <= 15) then {puestos select {(lados getVariable [_x,sideUnknown] == _lado) and ([_posDestination,getMarkerPos _x] call A3A_fnc_isTheSameIsland) and (getMarkerPos _x distance _posDestination < distanceForLandAttack)  and ([_x,true] call A3A_fnc_airportCanAttack)}} else {[]};
 	_airportsX = _airportsX + _puestos;
 	if (_isMarker) then

@@ -51,13 +51,13 @@ CSATSpecOp = ["rhs_vmf_recon_sergeant","rhs_vmf_recon_rifleman_scout","rhs_vmf_r
 factionMaleInvaders = "rhs_faction_vmf";
 groupsCSATSquad = [CSATSquad,["rhs_vdv_mflora_sergeant","rhs_vdv_mflora_junior_sergeant","rhs_vdv_mflora_machinegunner","rhs_vdv_mflora_rifleman","rhs_vdv_mflora_marksman","rhs_vdv_mflora_machinegunner_assistant","rhs_vdv_mflora_LAT","rhs_vdv_mflora_medic"],["rhs_vdv_mflora_sergeant","rhs_vdv_mflora_junior_sergeant","rhs_vdv_mflora_machinegunner","rhs_vdv_mflora_rifleman","rhs_vdv_mflora_marksman","rhs_vdv_mflora_machinegunner_assistant","rhs_vdv_mflora_aa","rhs_vdv_mflora_medic"]];//[CSATSquad,"O_T_InfSquad_Weapons"];///
 
-soporteStaticCSATB = "RHS_Kord_Tripod_Bag";
+supportStaticCSATB = "RHS_Kord_Tripod_Bag";
 ATStaticCSATB = "RHS_Kornet_Gun_Bag";
 MGStaticCSATB = "RHS_Kord_Gun_Bag";
-soporteStaticCSATB2 = "RHS_Kornet_Tripod_Bag";
+supportStaticCSATB2 = "RHS_Kornet_Tripod_Bag";
 AAStaticCSATB = "O_AA_01_weapon_F";
 MortStaticCSATB = "RHS_Podnos_Gun_Bag";
-soporteStaticCSATB3 = "RHS_Podnos_Bipod_Bag";
+supportStaticCSATB3 = "RHS_Podnos_Bipod_Bag";
 
 armasCSAT append ["rhs_weap_ak103","rhs_weap_ak104_npz","rhs_weap_ak105_npz","arifle_AK12_F","arifle_AK12_GL_F","rhs_weap_ak74_2","rhs_weap_ak74_gp25","rhs_weap_ak74m_2mag","rhs_weap_ak74m_gp25_1p29","rhs_weap_ak74n_gp25","rhs_weap_akm","rhs_weap_akm_gp25","rhs_weap_asval","rhs_weap_svdp","rhs_weap_svds","rhs_weap_t5000","rhs_weap_vss","rhs_weap_aks74u","rhs_weap_rpg26","rhs_weap_rpg7","hgun_Pistol_heavy_01_F","rhs_weap_igla","rhs_weap_pya","rhs_weap_pkm","rhs_weap_pkp","rhs_weap_makarov_pm","rhs_weap_rpg7_pgo","rhs_weap_rshg2"];
 ammunitionCSAT append ["rhs_mag_nspn_yellow","rhs_mag_nspn_red","rhs_mag_nspn_green"];
@@ -66,7 +66,7 @@ NVGoggles = NVGoggles + ["rhs_1PN138"];
 //opticsAAF = opticsAAF + ["rhs_acc_1p29","rhs_acc_1p63","rhs_acc_rakursPM","rhs_acc_1p78","rhs_acc_1pn93_1","rhs_acc_1pn93_2","rhs_acc_dh520x56","rhs_acc_ekp1","rhs_acc_pgo7v","rhs_acc_pgo7v2","rhs_acc_pgo7v3","rhs_acc_pkas","rhs_acc_pso1m2","rhs_acc_pso1m21"];
 itemsAAF = itemsAAF + ["rhs_acc_2dpZenit","rhs_acc_2dpZenit_ris","rhs_acc_uuk","rhs_acc_dtk1l","rhs_acc_ak5","rhs_acc_dtk","rhs_acc_dtk1983","rhs_acc_dtk1","rhs_acc_dtk1p","rhs_acc_dtk2","rhs_acc_dtk3","rhs_acc_dtk4short","rhs_acc_dtk4screws","rhs_acc_dtk4long","rhs_item_flightrecorder","rhs_acc_pbs1","rhs_acc_pbs4","rhs_acc_perst1ik","rhs_acc_perst1ik_ris","rhs_acc_perst3","rhs_acc_perst3_top","rhs_acc_perst3_2dp_h","rhs_acc_perst3_2dp_light_h","rhs_acc_pgs64","rhs_acc_pgs64_74u","rhs_acc_pgs64_74un","rhs_acc_grip_rk2","rhs_acc_grip_rk6","rhs_acc_tgpa","rhs_acc_tgpv"];
 
-lamparaMuyMalos = "rhs_acc_2dpZenit";
+lampInvaders = "rhs_acc_2dpZenit";
 flagCSATmrk = "rhs_flag_vmf";
 nameInvaders = "AFRF";
 if (isServer) then {"CSAT_carrier" setMarkerText "Russian Carrier"};

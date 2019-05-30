@@ -53,13 +53,13 @@ NATOSpecOp = ["B_CTRG_Soldier_TL_tna_F","B_CTRG_Soldier_M_tna_F","B_CTRG_Soldier
 factionMaleOccupants = "BLU_CTRG_F";
 groupsNATOSquad = [NATOSquad,["B_soldier_SL_F",NATOGrunt,"B_soldier_TL_F","B_soldier_AR_F","B_soldier_A_F","B_support_Mort_F","B_support_AMort_F","B_medic_F"],["B_soldier_SL_F",NATOGrunt,"B_soldier_TL_F","B_soldier_AR_F","B_soldier_A_F","B_support_MG_F","B_support_AMG_F","B_medic_F"],["B_soldier_SL_F",NATOGrunt,"B_soldier_TL_F","B_soldier_AR_F","B_soldier_A_F","B_soldier_AA_F","B_soldier_AAA_F","B_medic_F"],["B_soldier_SL_F",NATOGrunt,"B_soldier_TL_F","B_soldier_AR_F","B_soldier_A_F","B_soldier_AT_F","B_soldier_AAT_F","B_medic_F"],["B_soldier_SL_F",NATOGrunt,"B_soldier_TL_F","B_soldier_AR_F","B_soldier_A_F","B_engineer_F","B_engineer_F","B_medic_F"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///"B_engineer_F"
 
-soporteStaticNATOB = "B_HMG_01_support_F";
+supportStaticNATOB = "B_HMG_01_support_F";
 ATStaticNATOB = "B_AT_01_weapon_F";
 MGStaticNATOB = "B_HMG_01_high_weapon_F";
-soporteStaticNATOB2 = "B_HMG_01_support_high_F";
+supportStaticNATOB2 = "B_HMG_01_support_high_F";
 AAStaticNATOB = "B_AA_01_weapon_F";
 MortStaticNATOB = "B_Mortar_01_weapon_F";
-soporteStaticNATOB3 = "B_Mortar_01_support_F";
+supportStaticNATOB3 = "B_Mortar_01_support_F";
 
 armasNATO append ["launch_NLAW_F","srifle_GM6_F","srifle_LRR_F","srifle_EBR_F","arifle_MX_GL_F","arifle_MX_F","arifle_MX_SW_F","arifle_MXC_F","arifle_MXM_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_snd_F","MMG_02_sand_F"];//possible weapons that spawn in NATO ammoboxes
 ammunitionNATO append ["30Rnd_65x39_Caseless_mag","30Rnd_65x39_caseless_mag_Tracer","100Rnd_65x39_Caseless_mag","100Rnd_65x39_caseless_mag_Tracer","20Rnd_762x51_Mag","7Rnd_408_Mag","30Rnd_45ACP_Mag_SMG_01","30Rnd_45ACP_Mag_SMG_01_tracer_green","11Rnd_45ACP_Mag","1Rnd_HE_Grenade_shell","UGL_FlareWhite_F","UGL_FlareGreen_F","1Rnd_Smoke_Grenade_shell","3Rnd_HE_Grenade_shell","HandGrenade","20Rnd_762x51_Mag","10Rnd_338_Mag","130Rnd_338_Mag"];//possible ammo that spawn in NATO ammoboxes

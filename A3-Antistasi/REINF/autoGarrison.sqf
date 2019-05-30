@@ -22,11 +22,11 @@ _size = round (_size / _divisor);
 
 if (_size == 0) then {_size = 1};
 
-_tiposGrupo = [groupsSDKmid,groupsSDKAT,groupsSDKSquad,groupsSDKSniper];
+_typesGroup = [groupsSDKmid,groupsSDKAT,groupsSDKSquad,groupsSDKSniper];
 
 while {(_size > 0)} do
 	{
-	_typeGroup = selectRandom _tiposGrupo;
+	_typeGroup = selectRandom _typesGroup;
 	_formato = [];
 	{
 	if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};

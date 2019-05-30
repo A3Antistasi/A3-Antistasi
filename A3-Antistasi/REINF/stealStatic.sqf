@@ -20,15 +20,15 @@ _estatica setOwner (owner _jugador);
 _tipoEst = typeOf _estatica;
 
 _tipoB1 = ATStaticSDKB;
-_tipoB2 = soporteStaticSDKB;
+_tipoB2 = supportStaticSDKB;
 
 switch _tipoEst do
 	{
-	case staticATOccupants: {_tipoB1 = ATStaticNATOB; _tipoB2 = soporteStaticNATOB};
-	case staticATInvaders: {_tipoB1 = ATStaticCSATB; _tipoB2 = soporteStaticCSATB};
-	case NATOMortar: {_tipoB1 = MortStaticNATOB; _tipoB2 = soporteStaticNATOB3};
-	case NATOMG: {_tipoB1 = MGStaticNATOB; _tipoB2 = soporteStaticNATOB2};
-	case CSATMG: {_tipoB1 = MGStaticCSATB; _tipoB2 = soporteStaticCSATB2};
+	case staticATOccupants: {_tipoB1 = ATStaticNATOB; _tipoB2 = supportStaticNATOB};
+	case staticATInvaders: {_tipoB1 = ATStaticCSATB; _tipoB2 = supportStaticCSATB};
+	case NATOMortar: {_tipoB1 = MortStaticNATOB; _tipoB2 = supportStaticNATOB3};
+	case NATOMG: {_tipoB1 = MGStaticNATOB; _tipoB2 = supportStaticNATOB2};
+	case CSATMG: {_tipoB1 = MGStaticCSATB; _tipoB2 = supportStaticCSATB2};
 	case SDKMGStatic: {_tipoB1 = MGStaticSDKB; _tipoB2 = supportStaticsSDKB2;};
 	case staticAABuenos: {_tipoB1 = AAStaticSDKB};
 	case SDKMortar: {_tipoB1 = MortStaticSDKB; _tipoB2 = supportStaticsSDKB3};

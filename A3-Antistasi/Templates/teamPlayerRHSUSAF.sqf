@@ -30,7 +30,7 @@ SDKFlag = "Flag_FIA_F";
 SDKFlagTexture = "\A3\Data_F\Flags\Flag_FIA_CO.paa";
 typePetros = "rhsgref_cdf_b_reg_general";
 
-soporteStaticSDKB = "RHS_SPG9_Tripod_Bag";
+supportStaticSDKB = "RHS_SPG9_Tripod_Bag";
 ATStaticSDKB = "RHS_SPG9_Gun_Bag";
 MGStaticSDKB = "RHS_DShkM_Gun_Bag";
 supportStaticsSDKB2 = "RHS_DShkM_TripodHigh_Bag";

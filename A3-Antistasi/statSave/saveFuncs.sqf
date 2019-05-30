@@ -152,18 +152,18 @@ fn_SetStat =
 			{
 			for "_i" from 0 to (count _varvalue) - 1 do
 				{
-				_tipoMina = _varvalue select _i select 0;
-				switch _tipoMina do
+				_typeMine = _varvalue select _i select 0;
+				switch _typeMine do
 					{
-					case "APERSMine_Range_Ammo": {_tipoMina = "APERSMine"};
-					case "ATMine_Range_Ammo": {_tipoMina = "ATMine"};
-					case "APERSBoundingMine_Range_Ammo": {_tipoMina = "APERSBoundingMine"};
-					case "SLAMDirectionalMine_Wire_Ammo": {_tipoMina = "SLAMDirectionalMine"};
-					case "APERSTripMine_Wire_Ammo": {_tipoMina = "APERSTripMine"};
-					case "ClaymoreDirectionalMine_Remote_Ammo": {_tipoMina = "Claymore_F"};
+					case "APERSMine_Range_Ammo": {_typeMine = "APERSMine"};
+					case "ATMine_Range_Ammo": {_typeMine = "ATMine"};
+					case "APERSBoundingMine_Range_Ammo": {_typeMine = "APERSBoundingMine"};
+					case "SLAMDirectionalMine_Wire_Ammo": {_typeMine = "SLAMDirectionalMine"};
+					case "APERSTripMine_Wire_Ammo": {_typeMine = "APERSTripMine"};
+					case "ClaymoreDirectionalMine_Remote_Ammo": {_typeMine = "Claymore_F"};
 					};
 				_posMina = _varvalue select _i select 1;
-				_mina = createMine [_tipoMina, _posMina, [], 0];
+				_mina = createMine [_typeMine, _posMina, [], 0];
 				_detected = _varvalue select _i select 2;
 				{_x revealMine _mina} forEach _detected;
 				if (count (_varvalue select _i) > 3) then//borrar esto en febrero

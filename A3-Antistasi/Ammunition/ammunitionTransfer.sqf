@@ -48,22 +48,22 @@ if (!isNil "_weaponsItemsCargo") then
 		};
 	};
 
-_armasFinal = [];
-_armasFinalCount = [];
+_weaponsFinal = [];
+_weaponsFinalCount = [];
 {
 _arma = _x;
-if ((not(_arma in _armasFinal)) and (not(_arma in unlockedWeapons))) then
+if ((not(_arma in _weaponsFinal)) and (not(_arma in unlockedWeapons))) then
 	{
-	_armasFinal pushBack _arma;
-	_armasFinalCount pushBack ({_x == _arma} count _armas);
+	_weaponsFinal pushBack _arma;
+	_weaponsFinalCount pushBack ({_x == _arma} count _armas);
 	};
 } forEach _armas;
 
-if (count _armasFinal > 0) then
+if (count _weaponsFinal > 0) then
 	{
-	for "_i" from 0 to (count _armasFinal) - 1 do
+	for "_i" from 0 to (count _weaponsFinal) - 1 do
 		{
-		_destino addWeaponCargoGlobal [_armasFinal select _i,_armasFinalCount select _i];
+		_destino addWeaponCargoGlobal [_weaponsFinal select _i,_weaponsFinalCount select _i];
 		};
 	};
 

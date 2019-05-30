@@ -60,7 +60,7 @@ else
 		};
 	};
 
-_tipoConvoy = selectRandom _typeConvoy;
+_typeConvoyX = selectRandom _typeConvoy;
 
 _timeLimit = if (_dificil) then {0} else {round random 10};// tiempo para que salga el convoy, deberíamos poner un round random 15
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
@@ -75,7 +75,7 @@ _taskTitle = "";
 _taskIcon = "";
 _taskState1 = "CREATED";
 
-switch (_tipoConvoy) do
+switch (_typeConvoyX) do
 	{
 	case "ammunition":
 		{
@@ -276,8 +276,8 @@ _vehiclesX pushBack _vehObj;
 //_vehObj forceFollowRoad true;
 _vehObj setConvoySeparation 50;
 
-if (_tipoConvoy == "Armor") then {_vehObj lock 3};// else {_vehObj forceFollowRoad true};
-if (_tipoConvoy == "Prisoners") then
+if (_typeConvoyX == "Armor") then {_vehObj lock 3};// else {_vehObj forceFollowRoad true};
+if (_typeConvoyX == "Prisoners") then
 	{
 	_grpPOW = createGroup buenos;
 	_grupos pushBack _grpPOW;
@@ -298,14 +298,14 @@ if (_tipoConvoy == "Prisoners") then
 		[_unit] call A3A_fnc_reDress;
 		};
 	};
-if (_tipoConvoy == "reinforcementsX") then
+if (_typeConvoyX == "reinforcementsX") then
 	{
 	_typeGroup = [_typeVehObj,_lado] call A3A_fnc_cargoSeats;
 	_grupoEsc = [_posbase,_lado,_typeGroup] call A3A_fnc_spawnGroup;
 	{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x;[_x] joinSilent _grupo;_reinforcementsX pushBack _x} forEach units _grupoEsc;
 	deleteGroup _grupoEsc;
 	};
-if ((_tipoConvoy == "Money") or (_tipoConvoy == "Supplies")) then
+if ((_typeConvoyX == "Money") or (_typeConvoyX == "Supplies")) then
 	{
 	reportedVehs pushBack _vehObj;
 	publicVariable "reportedVehs";
@@ -387,7 +387,7 @@ _wp0 setWaypointType "MOVE";
 
 _bonus = if (_dificil) then {2} else {1};
 
-if (_tipoConvoy == "ammunition") then
+if (_typeConvoyX == "ammunition") then
 	{
 	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posDestination < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
 	if ((_vehObj distance _posDestination < 100) or (dateToNumber date >_enddateNum)) then
@@ -420,7 +420,7 @@ if (_tipoConvoy == "ammunition") then
 		};
 	};
 
-if (_tipoConvoy == "Armor") then
+if (_typeConvoyX == "Armor") then
 	{
 	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posDestination < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
 	if ((_vehObj distance _posDestination < 100) or (dateToNumber date > _enddateNum)) then
@@ -451,7 +451,7 @@ if (_tipoConvoy == "Armor") then
 		};
 	};
 
-if (_tipoConvoy == "Prisoners") then
+if (_typeConvoyX == "Prisoners") then
 	{
 	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posDestination < 300) or (not alive driver _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj == buenos))) or ({alive _x} count _POWs == 0)};
 	if ((_vehObj distance _posDestination < 100) or ({alive _x} count _POWs == 0) or (dateToNumber date > _enddateNum)) then
@@ -496,7 +496,7 @@ if (_tipoConvoy == "Prisoners") then
 		};
 	};
 
-if (_tipoConvoy == "reinforcementsX") then
+if (_typeConvoyX == "reinforcementsX") then
 	{
 	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posDestination < 300) or ({(!alive _x) or (captive _x)} count _reinforcementsX == count _reinforcementsX)};
 	if ({(!alive _x) or (captive _x)} count _reinforcementsX == count _reinforcementsX) then
@@ -527,7 +527,7 @@ if (_tipoConvoy == "reinforcementsX") then
 		};
 	};
 
-if (_tipoConvoy == "Money") then
+if (_typeConvoyX == "Money") then
 	{
 	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posDestination < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
 	if ((dateToNumber date > _enddateNum) or (_vehObj distance _posDestination < 100) or (not alive _vehObj)) then
@@ -578,7 +578,7 @@ if (_tipoConvoy == "Money") then
 	publicVariable "reportedVehs";
 	};
 
-if (_tipoConvoy == "Supplies") then
+if (_typeConvoyX == "Supplies") then
 	{
 	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posDestination < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == buenos))};
 	if (not alive _vehObj) then
@@ -636,7 +636,7 @@ _wp0 setWaypointBehaviour "SAFE";
 _wp0 setWaypointSpeed "LIMITED";
 _wp0 setWaypointFormation "COLUMN";
 
-if (_tipoConvoy == "Prisoners") then
+if (_typeConvoyX == "Prisoners") then
 	{
 	{
 	deleteVehicle _x;

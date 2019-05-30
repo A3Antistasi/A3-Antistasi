@@ -30,7 +30,7 @@ SDKFlag = "Flag_Syndikat_F";
 SDKFlagTexture = "ak.jpg"; if (isServer) then {bandera setFlagTexture SDKFlagTexture};
 typePetros = "LIB_WP_Sierzant";
 
-soporteStaticSDKB = "not_supported";
+supportStaticSDKB = "not_supported";
 ATStaticSDKB = "not_supported";
 MGStaticSDKB = "not_supported";
 supportStaticsSDKB2 = "not_supported";

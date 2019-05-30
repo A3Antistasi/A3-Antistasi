@@ -51,13 +51,13 @@ CSATSpecOp = ["LIB_SOV_scout_p_officer","LIB_SOV_scout_sergeant","LIB_SOV_scout_
 factionMaleInvaders = "";
 groupsCSATSquad = [CSATSquad,["LIB_SOV_sergeant","LIB_SOV_mgunner","LIB_SOV_LC_rifleman_summer","LIB_SOV_sapper","LIB_SOV_smgunner_summer","LIB_SOV_AT_soldier","LIB_SOV_assault_smgunner","LIB_SOV_medic"]];//[CSATSquad,"O_T_InfSquad_Weapons"];///"O_T_Engineer_F"
 
-soporteStaticCSATB = "not_supported";
+supportStaticCSATB = "not_supported";
 ATStaticCSATB = "not_supported";
 MGStaticCSATB = "not_supported";
-soporteStaticCSATB2 = "not_supported";
+supportStaticCSATB2 = "not_supported";
 AAStaticCSATB = "not_supported";
 MortStaticCSATB = "not_supported";
-soporteStaticCSATB3 = "not_supported";
+supportStaticCSATB3 = "not_supported";
 
 armasCSAT append ["LIB_SVT_40","LIB_M9130","LIB_DP28","LIB_PPSh41_m","LIB_PPSh41_d","LIB_M9130PU","LIB_RPzB","LIB_FLARE_PISTOL","LIB_TT33"];
 ammunitionCSAT append ["LIB_10Rnd_762x54","LIB_5Rnd_762x54","LIB_1Rnd_flare_red","LIB_F1","LIB_1Rnd_flare_green","LIB_1Rnd_flare_yellow","LIB_Rg42","LIB_47Rnd_762x54","LIB_35Rnd_762x25","LIB_8Rnd_762x25","LIB_71Rnd_762x25","LIB_1Rnd_RPzB","LIB_Rpg6","LIB_RDG"];

@@ -22,7 +22,7 @@ while {true} do
 	_bonusFIA = 1 + (0.25*({(lados getVariable [_x,sideUnknown] == buenos) and !(_x in destroyedCities)} count fabricas));
 	{
 	_ciudad = _x;
-	_recAddCiudadSDK = 0;
+	_resourcesAddCitySDK = 0;
 	_hrAddCity = 0;
 	_datos = server getVariable _ciudad;
 	_numCiv = _datos select 0;
@@ -39,13 +39,13 @@ while {true} do
 
 	if (_ciudad in destroyedCities) then
 		{
-		_recAddCiudadSDK = 0;
+		_resourcesAddCitySDK = 0;
 		_hrAddCity = 0;
 		_popCSAT = _popCSAT + _numCIV;
 		}
 	else
 		{
-		_recAddCiudadSDK = ((_numciv * _multiplyingRec*(_prestigeSDK / 100))/3);
+		_resourcesAddCitySDK = ((_numciv * _multiplyingRec*(_prestigeSDK / 100))/3);
 		_hrAddCity = (_numciv * (_prestigeSDK / 10000));///20000 originalmente
 		switch (_power) do
 			{
@@ -55,11 +55,11 @@ while {true} do
 			};
 		if (lados getVariable [_ciudad,sideUnknown] == malos) then
 			{
-			_recAddCiudadSDK = (_recAddCiudadSDK/2);
+			_resourcesAddCitySDK = (_resourcesAddCitySDK/2);
 			_hrAddCity = (_hrAddCity/2);
 			};
 		};
-	_recAddSDK = _recAddSDK + _recAddCiudadSDK;
+	_recAddSDK = _recAddSDK + _resourcesAddCitySDK;
 	_hrAddBLUFOR = _hrAddBLUFOR + _hrAddCity;
 	// revuelta civil!!
 	if ((_prestigeNATO < _prestigeSDK) and (lados getVariable [_ciudad,sideUnknown] == malos)) then

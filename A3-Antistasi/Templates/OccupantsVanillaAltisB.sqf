@@ -52,13 +52,13 @@ factionMaleOccupants = "";
 groupsNATOSquad = [NATOSquad,["B_soldier_SL_F",NATOGrunt,"I_soldier_TL_F","I_soldier_AR_F","I_soldier_A_F","I_support_Mort_F","I_support_AMort_F","I_medic_F"],["I_soldier_SL_F",NATOGrunt,"I_soldier_TL_F","I_soldier_AR_F","I_soldier_A_F","I_support_MG_F","I_support_AMG_F","I_medic_F"],["I_soldier_SL_F",NATOGrunt,"I_soldier_TL_F","I_soldier_AR_F","I_soldier_A_F","I_soldier_AA_F","I_soldier_AAA_F","I_medic_F"],["I_soldier_SL_F",NATOGrunt,"I_soldier_TL_F","I_soldier_AR_F","I_soldier_A_F","I_soldier_AT_F","I_soldier_AAT_F","I_medic_F"],["I_soldier_SL_F",NATOGrunt,"I_soldier_TL_F","I_soldier_AR_F","I_soldier_A_F","I_engineer_F","I_engineer_F","I_medic_F"]]; //[NATOSquad,"B_T_InfSquad_Weapons"];///"B_engineer_F"
 
 
-soporteStaticNATOB = "I_HMG_01_support_F";
+supportStaticNATOB = "I_HMG_01_support_F";
 ATStaticNATOB = "I_AT_01_weapon_F";
 MGStaticNATOB = "I_HMG_01_high_weapon_F";
-soporteStaticNATOB2 = "I_HMG_01_support_high_F";
+supportStaticNATOB2 = "I_HMG_01_support_high_F";
 AAStaticNATOB = "I_AA_01_weapon_F";
 MortStaticNATOB = "I_Mortar_01_weapon_F";
-soporteStaticNATOB3 = "I_Mortar_01_support_F";
+supportStaticNATOB3 = "I_Mortar_01_support_F";
 
 armasNATO append ["launch_NLAW_F","arifle_Mk20_F","arifle_Mk20C_F","LMG_Mk200_F","arifle_Mk20_GL_F","srifle_EBR_F","arifle_SDAR_F","srifle_GM6_F"];
 ammunitionNATO append ["30Rnd_556x45_Stanag","200Rnd_65x39_cased_Box","20Rnd_556x45_UW_mag","20Rnd_762x51_Mag","5Rnd_127x108_Mag","1Rnd_HE_Grenade_shell","UGL_FlareWhite_F","UGL_FlareGreen_F","1Rnd_Smoke_Grenade_shell","3Rnd_HE_Grenade_shell","HandGrenade"];//possible ammo that spawn in NATO ammoboxes

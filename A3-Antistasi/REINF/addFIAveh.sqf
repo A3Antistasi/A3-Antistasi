@@ -2,7 +2,7 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot bu
 
 if ([player,300] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
 
-private ["_tipoVeh","_coste","_resourcesFIA","_marcador","_pos","_veh","_tipoVeh"];
+private ["_tipoVeh","_coste","_resourcesFIA","_markerX","_pos","_veh","_tipoVeh"];
 
 _tipoveh = _this select 0;
 if (_tipoVeh == "not_supported") exitWith {hint "The vehicle you requested is not supported in your current modset"};
@@ -79,7 +79,7 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 			};
 		_handled;
 		}];
-posicionSel = [0,0,0];
+positionXSel = [0,0,0];
 onEachFrame
  {
  if !(isNull garageVeh) then
@@ -91,8 +91,8 @@ onEachFrame
    ];
    if (_ins isEqualTo []) exitWith {};
    _pos = (_ins select 0 select 0);
-   if (_pos distance posicionSel < 0.1) exitWith {};
-   posicionSel = _pos;
+   if (_pos distance positionXSel < 0.1) exitWith {};
+   positionXSel = _pos;
    _barco = false;
    if (garageVeh isKindOf "Ship") then {_pos set [2,0]; _barco = true};
    if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
@@ -107,7 +107,7 @@ onEachFrame
 waitUntil {(bought > 0) or !(player inArea _cercano)};
 onEachFrame {};
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", garageKeys];
-posicionSel = nil;
+positionXSel = nil;
 _pos = getPosASL garageVeh;
 _dir = getDir garageVeh;
 deleteVehicle garageVeh;

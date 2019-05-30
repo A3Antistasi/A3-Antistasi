@@ -86,11 +86,11 @@ else
 	_vehicle=[_pos, _ang + 90,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
 	_veh = _vehicle select 0;
 	_vehCrew = _vehicle select 1;
-	_grupoVeh = _vehicle select 2;
+	_groupVeh = _vehicle select 2;
 	{
 	[_x] call A3A_fnc_NATOinit;
 	_x addEventHandler ["Killed",{deleteVehicle (group (_this select 0) getVariable ["myPad",objNull])}];
-	} forEach units _grupoVeh;
+	} forEach units _groupVeh;
 	[_veh] call A3A_fnc_AIVEHinit;
 
 	_grupo = [_posOrigin,_lado,_typeGroup] call A3A_fnc_spawnGroup;
@@ -111,8 +111,8 @@ else
 		{
 		_landPos set [2, 0];
 		_pad = createVehicle ["Land_HelipadEmpty_F", _landpos, [], 0, "NONE"];
-		_grupoVeh setVariable ["myPad",_pad];
-		_wp0 = _grupoVeh addWaypoint [_landpos, 0];
+		_groupVeh setVariable ["myPad",_pad];
+		_wp0 = _groupVeh addWaypoint [_landpos, 0];
 		_wp0 setWaypointType "TR UNLOAD";
 		_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';deleteVehicle ((group this) getVariable [""myPad"",objNull])"];
 		_wp0 setWaypointBehaviour "CARELESS";
@@ -123,16 +123,16 @@ else
 		_wp4 = _grupo addWaypoint [_posDestination, 1];
 		_wp4 setWaypointType "MOVE";
 		_wp4 setWaypointStatements ["true","nul = [(thisList select {alive _x}),side this,(group this) getVariable [""reinfMarker"",""""],0] remoteExec [""A3A_fnc_garrisonUpdate"",2];[group this] spawn A3A_fnc_groupDespawner; reinfPatrols = reinfPatrols - 1; publicVariable ""reinfPatrols"";"];
-		_wp2 = _grupoVeh addWaypoint [_posOrigin, 1];
+		_wp2 = _groupVeh addWaypoint [_posOrigin, 1];
 		_wp2 setWaypointType "MOVE";
 		_wp2 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
-		[_grupoVeh,1] setWaypointBehaviour "AWARE";
+		[_groupVeh,1] setWaypointBehaviour "AWARE";
 		}
 	else
 		{
 		if (_tipoVeh in vehFastRope) then
 			{
-			[_veh,_grupo,_posDestination,_posOrigin,_grupoVeh,true] spawn A3A_fnc_fastrope;
+			[_veh,_grupo,_posDestination,_posOrigin,_groupVeh,true] spawn A3A_fnc_fastrope;
 			}
 		else
 			{
@@ -154,7 +154,7 @@ _x addEventHandler ["Killed",
 		reinfPatrols = reinfPatrols - 1; publicVariable "reinfPatrols";
 		_origen = _grupo getVariable "origen";
 		_destino = _grupo getVariable "reinfMarker";
-		if (((lados getVariable [_origen,sideUnknown] == malos) and (lados getVariable [_destino,sideUnknown] == malos)) or ((lados getVariable [_origen,sideUnknown] == muyMalos) and (lados getVariable [_destino,sideUnknown] == muyMalos))) then
+		if (((lados getVariable [_origen,sideUnknown] == malos) and (lados getVariable [_destino,sideUnknown] == malos)) or ((lados getVariable [_origen,sideUnknown] == Invaders) and (lados getVariable [_destino,sideUnknown] == Invaders))) then
 			{
 			_killzones = killZones getVariable [_origen,[]];
 			_killzones pushBack _destino;

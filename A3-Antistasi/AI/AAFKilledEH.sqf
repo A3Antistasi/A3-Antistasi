@@ -86,15 +86,15 @@ else
 		[0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 		};
 	};
-_marcador = _muerto getVariable "marcador";
+_markerX = _muerto getVariable "markerX";
 _garrisoned = true;
-if (isNil "_marcador") then {_marcador = _muerto getVariable ["origen",""]; _garrisoned = false};
-if (_marcador != "") then
+if (isNil "_markerX") then {_markerX = _muerto getVariable ["origen",""]; _garrisoned = false};
+if (_markerX != "") then
 	{
-	if (lados getVariable [_marcador,sideUnknown] == _lado) then
+	if (lados getVariable [_markerX,sideUnknown] == _lado) then
 		{
-		[typeOf _muerto,_lado,_marcador,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
-		if (_garrisoned) then {[_marcador,_lado] remoteExec ["A3A_fnc_zoneCheck",2]};
+		[typeOf _muerto,_lado,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
+		if (_garrisoned) then {[_markerX,_lado] remoteExec ["A3A_fnc_zoneCheck",2]};
 		};
 	};
 [_grupo,_killer] spawn A3A_fnc_AIreactOnKill;

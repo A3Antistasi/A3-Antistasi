@@ -1,21 +1,21 @@
 //Mission: Rescue the refugees
 if (!isServer and hasInterface) exitWith{};
-private ["_marcador","_dificil","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_posicion","_casa","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_cuenta"];
+private ["_markerX","_dificil","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_casa","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_cuenta"];
 
-_marcador = _this select 0;
+_markerX = _this select 0;
 
 _dificil = if (random 10 < tierWar) then {true} else {false};
 _salir = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
-_posicion = getMarkerPos _marcador;
+_positionX = getMarkerPos _markerX;
 
 _POWs = [];
 
-_tam = [_marcador] call A3A_fnc_sizeMarker;
-//_casas = nearestObjects [_posicion, ["house"], _tam];
-_casas = (nearestObjects [_posicion, ["house"], _tam]) select {!((typeOf _x) in UPSMON_Bld_remove)};
+_tam = [_markerX] call A3A_fnc_sizeMarker;
+//_casas = nearestObjects [_positionX, ["house"], _tam];
+_casas = (nearestObjects [_positionX, ["house"], _tam]) select {!((typeOf _x) in UPSMON_Bld_remove)};
 _poscasa = [];
 _casa = _casas select 0;
 while {count _poscasa < 3} do
@@ -26,17 +26,17 @@ while {count _poscasa < 3} do
 	};
 
 
-_nameDest = [_marcador] call A3A_fnc_localizar;
+_nameDest = [_markerX] call A3A_fnc_localizar;
 _timeLimit = if (_dificil) then {30} else {60};
 if (hayIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
-_lado = if (lados getVariable [_marcador,sideUnknown] == malos) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_markerX,sideUnknown] == malos) then {malos} else {Invaders};
 _texto = if (_lado == malos) then {format ["A group of smugglers have been arrested in %1 and they are about to be sent to prison. Go there and free them in order to make them join our cause. Do this before %2:%3",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4]} else {format ["A group of %3 supportes are hidden in %1 awaiting for evacuation. We have to find them before %2 does it. If not, there will be a certain death for them. Bring them back to HQ",_nameDest,nameInvaders,nameTeamPlayer]};
 _posTsk = if (_lado == malos) then {(position _casa) getPos [random 100, random 360]} else {position _casa};
 
 [[buenos,civilian],"RES",[_texto,"Refugees Evac",_nameDest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
-misiones pushBack ["RES","CREATED"]; publicVariable "misiones";
+missionsX pushBack ["RES","CREATED"]; publicVariable "missionsX";
 _groupPOW = createGroup buenos;
 for "_i" from 1 to (((count _poscasa) - 1) min 15) do
 	{
@@ -64,7 +64,7 @@ _mrk = "";
 _grupo = grpNull;
 _veh = objNull;
 _grupo1 = grpNull;
-if (_lado == muyMalos) then
+if (_lado == Invaders) then
 	{
 	_nul = [_casa] spawn
 		{
@@ -73,7 +73,7 @@ if (_lado == muyMalos) then
 		if (_dificil) then {sleep 300} else {sleep 300 + (random 1800)};
 		if (["RES"] call BIS_fnc_taskExists) then
 			{
-			_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == muyMalos) and ([_x,true] call A3A_fnc_airportCanAttack)};
+			_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == Invaders) and ([_x,true] call A3A_fnc_airportCanAttack)};
 			if (count _airportsX > 0) then
 				{
 				_airportX = [_airportsX, position casa] call BIS_fnc_nearestPosition;
@@ -131,7 +131,7 @@ else
 		};
 	if (random 10 < 2.5) then
 		{
-		_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
+		_perro = _grupo createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
 		[_perro] spawn A3A_fnc_guardDog;
 		};
 	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2","RANDOM", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";

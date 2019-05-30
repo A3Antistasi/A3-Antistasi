@@ -78,30 +78,30 @@ if (spawner getVariable _cercano != 2) then
 	_wp = _grupo addWaypoint [(getMarkerPos _cercano), 0];
 	_wp setWaypointType "MOVE";
 	{
-	_x setVariable ["marcador",_cercano,true];
+	_x setVariable ["markerX",_cercano,true];
 	_x addEventHandler ["killed",
 		{
 		_muerto = _this select 0;
-		_marcador = _muerto getVariable "marcador";
-		if (!isNil "_marcador") then
+		_markerX = _muerto getVariable "markerX";
+		if (!isNil "_markerX") then
 			{
-			if (lados getVariable [_marcador,sideUnknown] == buenos) then
+			if (lados getVariable [_markerX,sideUnknown] == buenos) then
 				{
 				/*
 				_garrison = [];
-				_garrison = _garrison + (garrison getVariable [_marcador,[]]);
+				_garrison = _garrison + (garrison getVariable [_markerX,[]]);
 				if (_garrison isEqualType []) then
 					{
 					for "_i" from 0 to (count _garrison -1) do
 						{
 						if (typeOf _muerto == (_garrison select _i)) exitWith {_garrison deleteAt _i};
 						};
-					garrison setVariable [_marcador,_garrison,true];
+					garrison setVariable [_markerX,_garrison,true];
 					};
-				[_marcador] call A3A_fnc_mrkUpdate;
+				[_markerX] call A3A_fnc_mrkUpdate;
 				*/
-				[typeOf _muerto,buenos,_marcador,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
-				_muerto setVariable [_marcador,nil,true];
+				[typeOf _muerto,buenos,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
+				_muerto setVariable [_markerX,nil,true];
 				};
 			};
 		}];
@@ -127,7 +127,7 @@ else
 	{
 	if (alive _x) then
 		{
-		_x setVariable ["marcador",nil,true];
+		_x setVariable ["markerX",nil,true];
 		_x removeAllEventHandlers "killed";
 		_x addEventHandler ["killed", {
 			_muerto = _this select 0;
@@ -150,7 +150,7 @@ else
 					}
 				else
 					{
-					if (side _killer == muyMalos) then {[0,-0.25] remoteExec ["A3A_fnc_prestige",2]};
+					if (side _killer == Invaders) then {[0,-0.25] remoteExec ["A3A_fnc_prestige",2]};
 					};
 				};
 			_muerto setVariable ["spawner",nil,true];

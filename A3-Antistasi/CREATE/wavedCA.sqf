@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_grupoVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_grupouav","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigin","_airportX","_nameDest","_tiempo","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_cuenta","_tsk1","_spawnPoint","_vehPool"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigin","_airportX","_nameDest","_tiempo","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_cuenta","_tsk1","_spawnPoint","_vehPool"];
 
 bigAttackInProgress = true;
 publicVariable "bigAttackInProgress";
@@ -26,22 +26,22 @@ _nameDest = [_mrkDestination] call A3A_fnc_localizar;
 _nameOrigin = [_mrkOrigin] call A3A_fnc_localizar;
 
 _lado = lados getVariable [_mrkOrigin,sideUnknown];
-_ladosTsk = [buenos,civilian,muyMalos];
-_ladosTsk1 = [malos];
+_sideTsk = [buenos,civilian,Invaders];
+_sideTsk1 = [malos];
 _nameENY = nameOccupants;
 //_config = cfgNATOInf;
-if (_lado == muyMalos) then
+if (_lado == Invaders) then
 	{
 	_nameENY = nameInvaders;
 	//_config = cfgCSATInf;
-	_ladosTsk = [buenos,civilian,malos];
-	_ladosTsk1 = [muyMalos];
+	_sideTsk = [buenos,civilian,malos];
+	_sideTsk1 = [Invaders];
 	};
 _esSDK = if (lados getVariable [_mrkDestination,sideUnknown] == buenos) then {true} else {false};
 _SDKShown = false;
 if (_esSDK) then
 	{
-	_ladosTsk = [buenos,civilian,malos,muyMalos] - [_lado];
+	_sideTsk = [buenos,civilian,malos,Invaders] - [_lado];
 	}
 else
 	{
@@ -53,11 +53,11 @@ forcedSpawn pushBack _mrkDestination; publicVariable "forcedSpawn";
 diag_log format ["Antistasi: Side attacker: %1. Side defender (false, the other AI side):  %2",_lado,_esSDK];
 _nameDest = [_mrkDestination] call A3A_fnc_localizar;
 
-[_ladosTsk,"AttackAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nameOrigin,_nameENY],format ["%1 Attack",_nameENY],_mrkOrigin],getMarkerPos _mrkOrigin,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
-[_ladosTsk1,"AttackAAF1",[format ["We are attacking %2 from the %1. Help the operation if you can",_nameOrigin,_nameDest],format ["%1 Attack",_nameENY],_mrkDestination],getMarkerPos _mrkDestination,false,0,true,"Attack",true] call BIS_fnc_taskCreate;
-//_tsk = ["AttackAAF",_ladosTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nameOrigin,_nameENY],format ["%1 Attack",_nameENY],_mrkOrigin],getMarkerPos _mrkOrigin,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
-//misiones pushbackUnique "AttackAAF"; publicVariable "misiones";
-//_tsk1 = ["AttackAAF1",_ladosTsk1,[format ["We are attacking %2 from the %1. Help the operation if you can",_nameOrigin,_nameDest],format ["%1 Attack",_nameENY],_mrkDestination],getMarkerPos _mrkDestination,"CREATED",10,true,true,"Attack"] call BIS_fnc_setTask;
+[_sideTsk,"AttackAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nameOrigin,_nameENY],format ["%1 Attack",_nameENY],_mrkOrigin],getMarkerPos _mrkOrigin,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
+[_sideTsk1,"AttackAAF1",[format ["We are attacking %2 from the %1. Help the operation if you can",_nameOrigin,_nameDest],format ["%1 Attack",_nameENY],_mrkDestination],getMarkerPos _mrkDestination,false,0,true,"Attack",true] call BIS_fnc_taskCreate;
+//_tsk = ["AttackAAF",_sideTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nameOrigin,_nameENY],format ["%1 Attack",_nameENY],_mrkOrigin],getMarkerPos _mrkOrigin,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
+//missionsX pushbackUnique "AttackAAF"; publicVariable "missionsX";
+//_tsk1 = ["AttackAAF1",_sideTsk1,[format ["We are attacking %2 from the %1. Help the operation if you can",_nameOrigin,_nameDest],format ["%1 Attack",_nameENY],_mrkDestination],getMarkerPos _mrkDestination,"CREATED",10,true,true,"Attack"] call BIS_fnc_setTask;
 
 _tiempo = time + 3600;
 
@@ -132,7 +132,7 @@ while {(_waves > 0)} do
 				{
 				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
 				};
-			_proceder = true;
+			_proceed = true;
 			if ((_tipoVeh in (vehNATOTrucks+vehCSATTrucks)) and _spawnedSquad) then
 				{
 				_allUnits = {(local _x) and (alive _x)} count allUnits;
@@ -144,9 +144,9 @@ while {(_waves > 0)} do
 					_allUnitsSide = {(local _x) and (alive _x) and (side group _x == _lado)} count allUnits;
 					_maxUnitsSide = round (maxUnits * 0.7);
 					};
-				if ((_allUnits + 4 > maxUnits) or (_allUnitsSide + 4 > _maxUnitsSide)) then {_proceder = false};
+				if ((_allUnits + 4 > maxUnits) or (_allUnitsSide + 4 > _maxUnitsSide)) then {_proceed = false};
 				};
-			if (_proceder) then
+			if (_proceed) then
 				{
 				_timeOut = 0;
 				_pos = _pos findEmptyPosition [0,100,_tipoveh];
@@ -164,10 +164,10 @@ while {(_waves > 0)} do
 				_vehCrew = _vehicle select 1;
 				{[_x] call A3A_fnc_NATOinit} forEach _vehCrew;
 				[_veh] call A3A_fnc_AIVEHinit;
-				_grupoVeh = _vehicle select 2;
+				_groupVeh = _vehicle select 2;
 				_soldados append _vehCrew;
 				_soldiersTotal append _vehCrew;
-				_grupos pushBack _grupoVeh;
+				_grupos pushBack _groupVeh;
 				_vehiclesX pushBack _veh;
 				_landPos = [_posDestination,_pos,false,_landPosBlacklist] call A3A_fnc_findSafeRoadToUnload;
 				if (not(_tipoVeh in vehTanks)) then
@@ -193,18 +193,18 @@ while {(_waves > 0)} do
 					} forEach units _grupo;
 					if (not(_tipoVeh in vehTrucks)) then
 						{
-						{_x disableAI "MINEDETECTION"} forEach (units _grupoVeh);
-						(units _grupo) joinSilent _grupoVeh;
+						{_x disableAI "MINEDETECTION"} forEach (units _groupVeh);
+						(units _grupo) joinSilent _groupVeh;
 						deleteGroup _grupo;
-						_grupoVeh spawn A3A_fnc_attackDrillAI;
-						[_posOriginLand,_landPos,_grupoVeh] call WPCreate;
-						_Vwp0 = (wayPoints _grupoVeh) select 0;
+						_groupVeh spawn A3A_fnc_attackDrillAI;
+						[_posOriginLand,_landPos,_groupVeh] call WPCreate;
+						_Vwp0 = (wayPoints _groupVeh) select 0;
 						_Vwp0 setWaypointBehaviour "SAFE";
-						_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
+						_Vwp0 = _groupVeh addWaypoint [_landPos, count (wayPoints _groupVeh)];
 						_Vwp0 setWaypointType "TR UNLOAD";
 						//_Vwp0 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
 						_Vwp0 setWayPointCompletionRadius (10*_cuenta);
-						_Vwp1 = _grupoVeh addWaypoint [_posDestination, 1];
+						_Vwp1 = _groupVeh addWaypoint [_posDestination, 1];
 						_Vwp1 setWaypointType "SAD";
 						_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 						_Vwp1 setWaypointBehaviour "COMBAT";
@@ -213,31 +213,31 @@ while {(_waves > 0)} do
 						}
 					else
 						{
-						(units _grupo) joinSilent _grupoVeh;
+						(units _grupo) joinSilent _groupVeh;
 						deleteGroup _grupo;
-						_grupoVeh selectLeader (units _grupoVeh select 1);
-						_grupoVeh spawn A3A_fnc_attackDrillAI;
-						[_posOriginLand,_landPos,_grupoVeh] call WPCreate;
-						_Vwp0 = (wayPoints _grupoVeh) select 0;
+						_groupVeh selectLeader (units _groupVeh select 1);
+						_groupVeh spawn A3A_fnc_attackDrillAI;
+						[_posOriginLand,_landPos,_groupVeh] call WPCreate;
+						_Vwp0 = (wayPoints _groupVeh) select 0;
 						_Vwp0 setWaypointBehaviour "SAFE";
-						_Vwp0 = _grupoVeh addWaypoint [_landPos, count (wayPoints _grupoVeh)];
+						_Vwp0 = _groupVeh addWaypoint [_landPos, count (wayPoints _groupVeh)];
 						_Vwp0 setWaypointType "GETOUT";
 						//_Vwp0 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
-						_Vwp1 = _grupoVeh addWaypoint [_posDestination, count (wayPoints _grupoVeh)];
+						_Vwp1 = _groupVeh addWaypoint [_posDestination, count (wayPoints _groupVeh)];
 						_Vwp1 setWaypointType "SAD";
 						[_veh,"Inf Truck."] spawn A3A_fnc_inmuneConvoy;
 						};
 					}
 				else
 					{
-					{_x disableAI "MINEDETECTION"} forEach (units _grupoVeh);
-					[_posOriginLand,_posDestination,_grupoVeh] call WPCreate;
-					_Vwp0 = (wayPoints _grupoVeh) select 0;
+					{_x disableAI "MINEDETECTION"} forEach (units _groupVeh);
+					[_posOriginLand,_posDestination,_groupVeh] call WPCreate;
+					_Vwp0 = (wayPoints _groupVeh) select 0;
 					_Vwp0 setWaypointBehaviour "SAFE";
-					_Vwp0 = _grupoVeh addWaypoint [_posDestination, count (wayPoints _grupoVeh)];
+					_Vwp0 = _groupVeh addWaypoint [_posDestination, count (wayPoints _groupVeh)];
 					_Vwp0 setWaypointType "MOVE";
 					_Vwp0 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
-					_Vwp0 = _grupoVeh addWaypoint [_posDestination, count (wayPoints _grupoVeh)];
+					_Vwp0 = _groupVeh addWaypoint [_posDestination, count (wayPoints _groupVeh)];
 					_Vwp0 setWaypointType "SAD";
 					[_veh,"Tank"] spawn A3A_fnc_inmuneConvoy;
 					_veh allowCrewInImmobile true;
@@ -281,7 +281,7 @@ while {(_waves > 0)} do
 			while {(_cuenta < 3) and (count _soldados <= 80)} do
 				{
 				_tipoVeh = if (_vehPool isEqualTo []) then {if (_lado == malos) then {vehNATORBoat} else {vehCSATRBoat}} else {selectRandom _vehPool};
-				_proceder = true;
+				_proceed = true;
 				if ((_tipoVeh == vehNATOBoat) or (_tipoVeh == vehCSATBoat)) then
 					{
 					_landPos = [_posDestination, 10, 1000, 10, 2, 0.3, 0] call BIS_Fnc_findSafePos;
@@ -298,7 +298,7 @@ while {(_waves > 0)} do
 						};
 					if (((_allUnits + 4 > maxUnits) or (_allUnitsSide + 4 > _maxUnitsSide)) and _spawnedSquad) then
 						{
-						_proceder = false
+						_proceed = false
 						}
 					else
 						{
@@ -306,21 +306,21 @@ while {(_waves > 0)} do
 						_landPos = [_posDestination, 10, 1000, 10, 2, 0.3, 1] call BIS_Fnc_findSafePos;
 						};
 					};
-				if ((count _landPos > 0) and _proceder) then
+				if ((count _landPos > 0) and _proceed) then
 					{
 					_vehicle=[_pos, random 360,_tipoveh, _lado] call bis_fnc_spawnvehicle;
 
 					_veh = _vehicle select 0;
 					_vehCrew = _vehicle select 1;
-					_grupoVeh = _vehicle select 2;
+					_groupVeh = _vehicle select 2;
 					_pilotos append _vehCrew;
-					_grupos pushBack _grupoVeh;
+					_grupos pushBack _groupVeh;
 					_vehiclesX pushBack _veh;
-					{[_x] call A3A_fnc_NATOinit} forEach units _grupoVeh;
+					{[_x] call A3A_fnc_NATOinit} forEach units _groupVeh;
 					[_veh] call A3A_fnc_AIVEHinit;
 					if ((_tipoVeh == vehNATOBoat) or (_tipoVeh == vehCSATBoat)) then
 						{
-						_wp0 = _grupoVeh addWaypoint [_landpos, 0];
+						_wp0 = _groupVeh addWaypoint [_landpos, 0];
 						_wp0 setWaypointType "SAD";
 						//[_veh,"Boat"] spawn A3A_fnc_inmuneConvoy;
 						}
@@ -346,11 +346,11 @@ while {(_waves > 0)} do
 						if (_tipoVeh in vehAPCs) then
 							{
 							_grupos pushBack _grupo;
-							_Vwp = _grupoVeh addWaypoint [_landPos, 0];
+							_Vwp = _groupVeh addWaypoint [_landPos, 0];
 							_Vwp setWaypointBehaviour "SAFE";
 							_Vwp setWaypointType "TR UNLOAD";
 							_Vwp setWaypointSpeed "FULL";
-							_Vwp1 = _grupoVeh addWaypoint [_posDestination, 1];
+							_Vwp1 = _groupVeh addWaypoint [_posDestination, 1];
 							_Vwp1 setWaypointType "SAD";
 							_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 							_Vwp1 setWaypointBehaviour "COMBAT";
@@ -366,15 +366,15 @@ while {(_waves > 0)} do
 							}
 						else
 							{
-							(units _grupo) joinSilent _grupoVeh;
+							(units _grupo) joinSilent _groupVeh;
 							deleteGroup _grupo;
-							_grupoVeh selectLeader (units _grupoVeh select 1);
-							_Vwp = _grupoVeh addWaypoint [_landPos, 0];
+							_groupVeh selectLeader (units _groupVeh select 1);
+							_Vwp = _groupVeh addWaypoint [_landPos, 0];
 							_Vwp setWaypointBehaviour "SAFE";
 							_Vwp setWaypointSpeed "FULL";
 							_Vwp setWaypointType "GETOUT";
 							_Vwp setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
-							_Vwp1 = _grupoVeh addWaypoint [_posDestination, 1];
+							_Vwp1 = _groupVeh addWaypoint [_posDestination, 1];
 							_Vwp1 setWaypointType "SAD";
 							_Vwp1 setWaypointBehaviour "COMBAT";
 							//[_veh,"Boat"] spawn A3A_fnc_inmuneConvoy;
@@ -390,9 +390,9 @@ while {(_waves > 0)} do
 	if ([_mrkDestination,true] call A3A_fnc_fogCheck >= 0.3) then
 		{
 		if ((_posOrigin distance _posDestination < distanceForLandAttack) and !(_mrkDestination in blackListDest)) then {sleep ((_posOrigin distance _posDestination)/30)};
-		_posSuelo = [_posOrigin select 0,_posOrigin select 1,0];
+		_posGround = [_posOrigin select 0,_posOrigin select 1,0];
 		_posOrigin set [2,300];
-		_grupoUav = grpNull;
+		_groupUAV = grpNull;
 		if !(hayIFA) then
 			{
 			_tipoVeh = if (_lado == malos) then {vehNATOUAV} else {vehCSATUAV};
@@ -403,11 +403,11 @@ while {(_waves > 0)} do
 			[_uav,_mrkDestination,_lado] spawn A3A_fnc_VANTinfo;
 			createVehicleCrew _uav;
 			_pilotos append (crew _uav);
-			_grupouav = group (crew _uav select 0);
-			_grupos pushBack _grupouav;
-			{[_x] call A3A_fnc_NATOinit} forEach units _grupoUav;
+			_groupUAV = group (crew _uav select 0);
+			_grupos pushBack _groupUAV;
+			{[_x] call A3A_fnc_NATOinit} forEach units _groupUAV;
 			[_uav] call A3A_fnc_AIVEHinit;
-			_uwp0 = _grupouav addWayPoint [_posDestination,0];
+			_uwp0 = _groupUAV addWayPoint [_posDestination,0];
 			_uwp0 setWaypointBehaviour "AWARE";
 			_uwp0 setWaypointType "SAD";
 			if (not(_mrkDestination in airportsX)) then {_uav removeMagazines "6Rnd_LG_scalpel"};
@@ -415,9 +415,9 @@ while {(_waves > 0)} do
 			}
 		else
 			{
-			_grupoUav = createGroup _lado;
+			_groupUAV = createGroup _lado;
 			//_posOrigin set [2,2000];
-			_uwp0 = _grupouav addWayPoint [_posDestination,0];
+			_uwp0 = _groupUAV addWayPoint [_posDestination,0];
 			_uwp0 setWaypointBehaviour "AWARE";
 			_uwp0 setWaypointType "SAD";
 			};
@@ -466,7 +466,7 @@ while {(_waves > 0)} do
 		_spawnedSquad = false;
 		while {(_cuenta <= _nVeh) and (count _soldados <= 80)} do
 			{
-			_proceder = true;
+			_proceed = true;
 			if (_cuenta == _nveh) then {if (_lado == malos) then {_vehPool = _vehPool select {_x in vehNATOTransportHelis}} else {_vehPool = _vehPool select {_x in vehCSATTransportHelis}}};
 			_tipoVeh = if !(_vehPool isEqualTo []) then {selectRandom _vehPool} else {if (_lado == malos) then {vehNATOPatrolHeli} else {vehCSATPatrolHeli}};
 			if ((_tipoVeh in vehTransportAir) and !(_spawnedSquad)) then
@@ -481,32 +481,32 @@ while {(_waves > 0)} do
 					};
 				if ((_allUnits + 4 > maxUnits) or (_allUnitsSide + 4 > _maxUnitsSide)) then
 					{
-					_proceder = false
+					_proceed = false
 					};
 				};
-			if (_proceder) then
+			if (_proceed) then
 				{
 				_vehicle=[_pos, _ang + 90,_tipoveh, _lado] call bis_fnc_spawnvehicle;
 				_veh = _vehicle select 0;
 				if (hayIFA) then {_veh setVelocityModelSpace [((velocityModelSpace _veh) select 0) + 0,((velocityModelSpace _veh) select 1) + 150,((velocityModelSpace _veh) select 2) + 50]};
 				_vehCrew = _vehicle select 1;
-				_grupoVeh = _vehicle select 2;
+				_groupVeh = _vehicle select 2;
 				_pilotos append _vehCrew;
 				_vehiclesX pushBack _veh;
-				{[_x] call A3A_fnc_NATOinit} forEach units _grupoVeh;
+				{[_x] call A3A_fnc_NATOinit} forEach units _groupVeh;
 				[_veh] call A3A_fnc_AIVEHinit;
 				if (not (_tipoVeh in vehTransportAir)) then
 					{
-					(units _grupoVeh) joinSilent _grupoUav;
-					deleteGroup _grupoVeh;
+					(units _groupVeh) joinSilent _groupUAV;
+					deleteGroup _groupVeh;
 					//[_veh,"Air Attack"] spawn A3A_fnc_inmuneConvoy;
 					}
 				else
 					{
-					_grupos pushBack _grupoVeh;
+					_grupos pushBack _groupVeh;
 					_typeGroup = [_tipoVeh,_lado] call A3A_fnc_cargoSeats;
 					_grupo = grpNull;
-					if !(_spawnedSquad) then {_grupo = [_posSuelo,_lado, _typeGroup,true,false] call A3A_fnc_spawnGroup;_spawnedSquad = true} else {_grupo = [_posSuelo,_lado, _typeGroup] call A3A_fnc_spawnGroup};
+					if !(_spawnedSquad) then {_grupo = [_posGround,_lado, _typeGroup,true,false] call A3A_fnc_spawnGroup;_spawnedSquad = true} else {_grupo = [_posGround,_lado, _typeGroup] call A3A_fnc_spawnGroup};
 					_grupos pushBack _grupo;
 					{
 					_x assignAsCargo _veh;
@@ -536,7 +536,7 @@ while {(_waves > 0)} do
 							_landPos set [2, 0];
 							_pad = createVehicle ["Land_HelipadEmpty_F", _landPos, [], 0, "NONE"];
 							_vehiclesX pushBack _pad;
-							_wp0 = _grupoVeh addWaypoint [_landpos, 0];
+							_wp0 = _groupVeh addWaypoint [_landpos, 0];
 							_wp0 setWaypointType "TR UNLOAD";
 							_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';[vehicle this] call A3A_fnc_smokeCoverAuto"];
 							_wp0 setWaypointBehaviour "CARELESS";
@@ -552,18 +552,18 @@ while {(_waves > 0)} do
 							//_wp4 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 							_wp4 = _grupo addWaypoint [_posDestination, 1];
 							//_wp4 setWaypointType "SAD";
-							_wp2 = _grupoVeh addWaypoint [_posOrigin, 1];
+							_wp2 = _groupVeh addWaypoint [_posOrigin, 1];
 							_wp2 setWaypointType "MOVE";
 							_wp2 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
-							[_grupoVeh,1] setWaypointBehaviour "AWARE";
+							[_groupVeh,1] setWaypointBehaviour "AWARE";
 							}
 						else
 							{
-							{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _grupoVeh;
+							{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _groupVeh;
 							if ((_tipoVeh in vehFastRope) and ((count(garrison getVariable _mrkDestination)) < 10)) then
 								{
 								//_grupo setVariable ["mrkAttack",_mrkDestination];
-								[_veh,_grupo,_posDestination,_posOrigin,_grupoVeh] spawn A3A_fnc_fastrope;
+								[_veh,_grupo,_posDestination,_posOrigin,_groupVeh] spawn A3A_fnc_fastrope;
 								}
 							else
 								{
@@ -618,14 +618,14 @@ while {(_waves > 0)} do
 		}
 	else
 		{
-		if (((not(_mrkDestination in recursos)) and (not(_mrkDestination in puertos)) and (_mrkOrigin != "CSAT_carrier")) or hayIFA) then
+		if (((not(_mrkDestination in resourcesX)) and (not(_mrkDestination in puertos)) and (_mrkOrigin != "CSAT_carrier")) or hayIFA) then
 			{
 			if !(_posOriginLand isEqualTo []) then {[_posOriginLand,_mrkDestination,_lado] spawn A3A_fnc_artillery} else {[_mrkOrigin,_mrkDestination,_lado] spawn A3A_fnc_artillery};
 			diag_log "Antistasi: Arty Spawned";
 			if (([_plane] call A3A_fnc_vehAvailable) and (_firstWave)) then
 				{
 				sleep 60;
-				_rnd = if (_mrkDestination in airportsX) then {if ({lados getVariable [_x,sideUnknown] == muyMalos} count airportsX == 1) then {8} else {round random 4}} else {round random 2};
+				_rnd = if (_mrkDestination in airportsX) then {if ({lados getVariable [_x,sideUnknown] == Invaders} count airportsX == 1) then {8} else {round random 4}} else {round random 2};
 				for "_i" from 0 to _rnd do
 					{
 					if ([_plane] call A3A_fnc_vehAvailable) then
@@ -722,21 +722,21 @@ while {(_waves > 0)} do
 		}
 	else
 		{
-		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldados) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestination,sideUnknown] == muyMalos) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
-		//diag_log format ["1:%1,2:%2,3:%3,4:%4",(({!([_x] call A3A_fnc_canFight)} count _soldados) >= _solMax),(time > _tiempo),(lados getVariable [_mrkDestination,sideUnknown] == muyMalos),(({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))];
-		if  ((({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits)) or (lados getVariable [_mrkDestination,sideUnknown] == muyMalos))  then
+		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldados) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestination,sideUnknown] == Invaders) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
+		//diag_log format ["1:%1,2:%2,3:%3,4:%4",(({!([_x] call A3A_fnc_canFight)} count _soldados) >= _solMax),(time > _tiempo),(lados getVariable [_mrkDestination,sideUnknown] == Invaders),(({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))];
+		if  ((({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldados) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits)) or (lados getVariable [_mrkDestination,sideUnknown] == Invaders))  then
 			{
 			_waves = 0;
-			if (not(lados getVariable [_mrkDestination,sideUnknown] == muyMalos)) then {[muyMalos,_mrkDestination] remoteExec ["A3A_fnc_markerChange",2]};
+			if (not(lados getVariable [_mrkDestination,sideUnknown] == Invaders)) then {[Invaders,_mrkDestination] remoteExec ["A3A_fnc_markerChange",2]};
 			["AttackAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nameOrigin,_nameENY],format ["%1 Attack",_nameENY],_mrkOrigin],getMarkerPos _mrkOrigin,"FAILED"] call A3A_fnc_taskUpdate;
 			["AttackAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nameOrigin,_nameDest],format ["%1 Attack",_nameENY],_mrkDestination],getMarkerPos _mrkDestination,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 			};
 		sleep 10;
-		if (!(lados getVariable [_mrkDestination,sideUnknown] == muyMalos)) then
+		if (!(lados getVariable [_mrkDestination,sideUnknown] == Invaders)) then
 			{
 			_tiempo = time + 3600;
 			diag_log format ["Antistasi debug wavedCA: Wave number %1 on wavedCA lost",_waves];
-			if (lados getVariable [_mrkOrigin,sideUnknown] == muyMalos) then
+			if (lados getVariable [_mrkOrigin,sideUnknown] == Invaders) then
 				{
 				_killZones = killZones getVariable [_mrkOrigin,[]];
 				_killZones append [_mrkDestination,_mrkDestination,_mrkDestination];
@@ -757,7 +757,7 @@ while {(_waves > 0)} do
 				if (_posOriginLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
 				};
 
-			if ((_waves <= 0) or (lados getVariable [_mrkOrigin,sideUnknown] != muyMalos)) then
+			if ((_waves <= 0) or (lados getVariable [_mrkOrigin,sideUnknown] != Invaders)) then
 				{
 				{_x doMove _posOrigin} forEach _soldiersTotal;
 				if (_waves <= 0) then {[_mrkDestination,_mrkOrigin] call A3A_fnc_minefieldAAF};
@@ -772,7 +772,7 @@ while {(_waves > 0)} do
 
 
 
-//_tsk = ["AttackAAF",_ladosTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nameOrigin,_nameENY],"AAF Attack",_mrkOrigin],getMarkerPos _mrkOrigin,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
+//_tsk = ["AttackAAF",_sideTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nameOrigin,_nameENY],"AAF Attack",_mrkOrigin],getMarkerPos _mrkOrigin,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
 if (_esSDK) then
 	{
 	if (!(lados getVariable [_mrkDestination,sideUnknown] == buenos)) then

@@ -40,8 +40,8 @@ _nul = call compile preprocessFileLineNumbers "initZones.sqf";
 diag_log "Antistasi MP Server. Zones init finished";
 if (gameMode != 1) then
     {
-    malos setFriend [muyMalos,1];
-    muyMalos setFriend [malos,1];
+    malos setFriend [Invaders,1];
+    Invaders setFriend [malos,1];
     if (gameMode == 3) then {"CSAT_carrier" setMarkerAlpha 0};
     if (gameMode == 4) then {"NATO_carrier" setMarkerAlpha 0};
     };
@@ -65,8 +65,8 @@ if (loadLastSave) then
     {
 
     diag_log "Antistasi: Persitent Load selected";
-    ["miembros"] call fn_LoadStat;
-    if (isNil "miembros") then
+    ["membersX"] call fn_LoadStat;
+    if (isNil "membersX") then
         {
         loadLastSave = false;
         diag_log "Antistasi: Persitent Load selected but there is no older session";
@@ -79,19 +79,19 @@ if (loadLastSave) then
     waitUntil {!isNil"statsLoaded"};
     if (!isNil "as_fnc_getExternalMemberListUIDs") then
         {
-        miembros = [];
-        {miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
-        publicVariable "miembros";
+        membersX = [];
+        {membersX pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
+        publicVariable "membersX";
         };
-    if (membershipEnabled and (miembros isEqualTo [])) then
+    if (membershipEnabled and (membersX isEqualTo [])) then
         {
         [petros,"hint","Membership is enabled but members list is empty. Current players will be added to the member list"] remoteExec ["A3A_fnc_commsMP"];
         diag_log "Antistasi: Persitent Load done but membership enabled with members array empty";
-        miembros = [];
+        membersX = [];
         {
-        miembros pushBack (getPlayerUID _x);
+        membersX pushBack (getPlayerUID _x);
         } forEach playableUnits;
-        publicVariable "miembros";
+        publicVariable "membersX";
         };
     theBoss = objNull;
     {
@@ -108,10 +108,10 @@ if (loadLastSave) then
 else
     {
     theBoss = objNull;
-    miembros = [];
+    membersX = [];
     if (!isNil "as_fnc_getExternalMemberListUIDs") then
         {
-        {miembros pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
+        {membersX pushBackUnique _x} forEach (call as_fnc_getExternalMemberListUIDs);
         {
         if (([_x] call A3A_fnc_isMember) and (side _x == buenos)) exitWith {theBoss = _x};
         } forEach playableUnits;
@@ -124,10 +124,10 @@ else
         theBoss = commanderX;
         theBoss setRank "CORPORAL";
         [theBoss,"CORPORAL"] remoteExec ["A3A_fnc_ranksMP"];
-        if (membershipEnabled) then {miembros = [getPlayerUID theBoss]} else {miembros = []};
+        if (membershipEnabled) then {membersX = [getPlayerUID theBoss]} else {membersX = []};
         };
     publicVariable "theBoss";
-    publicVariable "miembros";
+    publicVariable "membersX";
     [] execVM "Ammunition\boxAAF.sqf";
     };
 diag_log "Antistasi MP Server. Players are in";

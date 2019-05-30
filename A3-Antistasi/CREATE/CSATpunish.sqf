@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {};
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanques","_road","_veh","_vehCrew","_grupoVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_grupouav","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_nul","_pos","_timeOut"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanques","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_nul","_pos","_timeOut"];
 _mrkDestination = _this select 0;
 _mrkOrigin = _this select 1;
 bigAttackInProgress = true;
@@ -15,7 +15,7 @@ _civiles = [];
 _nameDest = [_mrkDestination] call A3A_fnc_localizar;
 [[buenos,civilian,malos],"AttackAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest,nameInvaders],format ["%1 Punishment",nameInvaders],_mrkDestination],getMarkerPos _mrkDestination,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 
-_nul = [_mrkOrigin,_mrkDestination,muyMalos] spawn A3A_fnc_artillery;
+_nul = [_mrkOrigin,_mrkDestination,Invaders] spawn A3A_fnc_artillery;
 _lado = if (lados getVariable [_mrkDestination,sideUnknown] == malos) then {malos} else {buenos};
 _tiempo = time + 3600;
 
@@ -32,7 +32,7 @@ for "_i" from 1 to 3 do
 		sleep 1;
 		};
 	if (count _pos == 0) then {_pos = _posOrigin};
-	_vehicle=[_pos, 0, _tipoveh, muyMalos] call bis_fnc_spawnvehicle;
+	_vehicle=[_pos, 0, _tipoveh, Invaders] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	{[_x] call A3A_fnc_NATOinit} forEach _heliCrew;
@@ -52,8 +52,8 @@ for "_i" from 1 to 3 do
 	else
 		{
 		{_x setBehaviour "CARELESS";} forEach units _groupHeli;
-		_typeGroup = [_tipoVeh,muyMalos] call A3A_fnc_cargoSeats;
-		_grupo = [_posOrigin, muyMalos, _typeGroup] call A3A_fnc_spawnGroup;
+		_typeGroup = [_tipoVeh,Invaders] call A3A_fnc_cargoSeats;
+		_grupo = [_posOrigin, Invaders, _typeGroup] call A3A_fnc_spawnGroup;
 		{_x assignAsCargo _heli;_x moveInCargo _heli; _soldados pushBack _x; [_x] call A3A_fnc_NATOinit; _x setVariable ["origen",_mrkOrigin]} forEach units _grupo;
 		_grupos pushBack _grupo;
 		//[_heli,"CSAT Air Transport"] spawn A3A_fnc_inmuneConvoy;
@@ -111,7 +111,7 @@ _size = [_mrkDestination] call A3A_fnc_sizeMarker;
 //_groupCivil = if (_lado == buenos) then {createGroup buenos} else {createGroup malos};
 _groupCivil = createGroup buenos;
 _grupos pushBack _groupCivil;
-//[muyMalos,[civilian,0]] remoteExec ["setFriend",2];
+//[Invaders,[civilian,0]] remoteExec ["setFriend",2];
 _tipoUnit = if (_lado == buenos) then {SDKUnarmed} else {NATOUnarmed};
 for "_i" from 0 to _numCiv do
 	{
@@ -142,7 +142,7 @@ for "_i" from 0 to round random 2 do
 	{
 	if ([vehCSATPlane] call A3A_fnc_vehAvailable) then
 		{
-		_nul = [_mrkDestination,muyMalos,"NAPALM"] spawn A3A_fnc_airstrike;
+		_nul = [_mrkDestination,Invaders,"NAPALM"] spawn A3A_fnc_airstrike;
 		sleep 30;
 		};
 	};
@@ -179,13 +179,13 @@ else
 	for "_i" from 1 to 60 do
 		{
 		_mina = createMine ["APERSMine",_posDestination,[],_size];
-		muyMalos revealMine _mina;
+		Invaders revealMine _mina;
 		};
 	[_mrkDestination] call A3A_fnc_destroyCity;
 	};
 
 sleep 15;
-//[muyMalos,[civilian,1]] remoteExec ["setFriend",2];
+//[Invaders,[civilian,1]] remoteExec ["setFriend",2];
 _nul = [0,"AttackAAF"] spawn A3A_fnc_deleteTask;
 [7200] remoteExec ["A3A_fnc_timingCA",2];
 {

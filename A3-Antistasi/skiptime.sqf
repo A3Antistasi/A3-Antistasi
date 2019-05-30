@@ -2,7 +2,7 @@ if (player!= theBoss) exitWith {hint "Only the Commander can order to rest"};
 _presente = false;
 
 {
-if ((side _x == malos) or (side _x == muyMalos)) then
+if ((side _x == malos) or (side _x == Invaders)) then
 	{
 	if ([500,1,_x,buenos] call A3A_fnc_distanceUnits) then {_presente = true};
 	};

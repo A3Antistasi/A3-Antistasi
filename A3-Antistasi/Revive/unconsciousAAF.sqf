@@ -10,10 +10,10 @@ _jugadores = false;
 _lado = side (group _unit);
 if ((side _injurer == buenos) and (_lado == malos)) then
 	{
-	_marcador = _unit getVariable ["marcador",""];
-	if (_marcador != "") then
+	_markerX = _unit getVariable ["markerX",""];
+	if (_markerX != "") then
 		{
-		if (!([_marcador] call BIS_fnc_taskExists) and (lados getVariable [_marcador,sideUnknown] == malos)) then {[_marcador,side _injurer,_lado] remoteExec ["A3A_fnc_underAttack",2]};
+		if (!([_markerX] call BIS_fnc_taskExists) and (lados getVariable [_markerX,sideUnknown] == malos)) then {[_markerX,side _injurer,_lado] remoteExec ["A3A_fnc_underAttack",2]};
 		};
 	};
 
@@ -65,7 +65,7 @@ if (time >= _bleedOut) exitWith
 				{
 				[0.1,0] remoteExec ["A3A_fnc_prestige",2];
 				};
-			case muyMalos:
+			case Invaders:
 				{
 				[0,0.25] remoteExec ["A3A_fnc_prestige",2];
 				};

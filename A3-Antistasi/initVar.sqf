@@ -31,7 +31,7 @@ maxUnits = 140;
 
 buenos = side group petros;
 malos = if (buenos == independent) then {west} else {independent};
-muyMalos = east;
+Invaders = east;
 
 colourTeamPlayer = if (buenos == independent) then {"colorGUER"} else {"colorBLUFOR"};
 colorOccupants = if (buenos == independent) then {"colorBLUFOR"} else {"colorGUER"};
@@ -170,7 +170,7 @@ else
 	{
 	if (hayIFA) then {["LIB_Shg24"]} else {[]};
 	};//possible Titan rockets that spawn in  ammoboxes
-minasAAF = if ((!hayRHS) and !hayIFA and !myCustomMod) then
+minesAAF = if ((!hayRHS) and !hayIFA and !myCustomMod) then
 	{
 	["SLAMDirectionalMine_Wire_Mag","SatchelCharge_Remote_Mag","ClaymoreDirectionalMine_Remote_Mag", "ATMine_Range_Mag","APERSTripMine_Wire_Mag","APERSMine_Range_Mag", "APERSBoundingMine_Range_Mag"]
 	}
@@ -545,7 +545,7 @@ haveNV = false;
 zoneCheckInProgress = false;
 garrisonIsChanging = false;
 playerHasBeenPvP = [];
-misiones = []; publicVariable "misiones";
+missionsX = []; publicVariable "missionsX";
 movingMarker = false;
 if !(hayIFA) then
 	{

@@ -27,7 +27,7 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 [[buenos,civilian],"outpostsFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
 //_tsk = ["outpostsFIA",[buenos,civilian],["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
-//misiones pushBackUnique _tsk; publicVariable "misiones";
+//missionsX pushBackUnique _tsk; publicVariable "missionsX";
 _formato = [];
 {
 if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};

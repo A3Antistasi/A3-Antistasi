@@ -1,11 +1,11 @@
-private ["_size","_frontierX","_marcador","_nVeh","_buildings"];
-_marcador = _this select 0;
-_size = [_marcador] call A3A_fnc_sizeMarker;
-_frontierX = [_marcador] call A3A_fnc_isFrontline;
+private ["_size","_frontierX","_markerX","_nVeh","_buildings"];
+_markerX = _this select 0;
+_size = [_markerX] call A3A_fnc_sizeMarker;
+_frontierX = [_markerX] call A3A_fnc_isFrontline;
 
 _nVeh = 0;
 
-if (_marcador in airportsX) then
+if (_markerX in airportsX) then
 	{
 	_nveh = _nveh + round (_size/60);
 	if (_frontierX) then {_nveh = _nveh * 2};
@@ -13,10 +13,10 @@ if (_marcador in airportsX) then
 	}
 else
 	{
-	if (_marcador in puestos) then
+	if (_markerX in puestos) then
 		{
 		_nveh = round (_size/50);
-		_buildings = nearestObjects [getMarkerPos _marcador,(["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"]) + listMilBld, _size];
+		_buildings = nearestObjects [getMarkerPos _markerX,(["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"]) + listMilBld, _size];
 		if (count _buildings > 0) then
 			{
 			_nveh = _nveh + 1;
@@ -24,7 +24,7 @@ else
 		}
 	else
 		{
-		_nveh = if (lados getVariable [_marcador,sideUnknown] == malos) then {round (_size/70)} else {round (_size/50)};
+		_nveh = if (lados getVariable [_markerX,sideUnknown] == malos) then {round (_size/70)} else {round (_size/50)};
 		};
 	if (_frontierX) then {_nveh = _nveh + 1};
 	};

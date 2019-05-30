@@ -1,9 +1,9 @@
-private ["_camion","_objetos","_todo","_proceder","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
+private ["_camion","_objetos","_todo","_proceed","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
 
 _camion = vehicle player;
 _objetos = [];
 _todo = [];
-_proceder = false;
+_proceed = false;
 
 [driver _camion,"remove"] remoteExec ["A3A_fnc_flagaction",driver _camion];
 
@@ -62,7 +62,7 @@ _cuenta = count _todo;
 if (_cuenta < 1) then
 	{
 	hint "Closest Ammobox is empty";
-	_proceder = true;
+	_proceed = true;
 	};
 
 if (_cuenta > 0) then
@@ -84,14 +84,14 @@ if (_cuenta > 0) then
 		if (_cuenta == 0) then
 			{
 			[_caja,_camion] remoteExec ["A3A_fnc_ammunitionTransfer",2];
-			_proceder = true;
+			_proceed = true;
 			};
 		if ((_camion != vehicle player) or (speed _camion != 0)) then
 				{
 				hint "Transfer cancelled due to movement of Truck or Player";
-				_proceder = true;
+				_proceed = true;
 				};
 		};
 	};
 
-if (_proceder) then {[driver _camion,"camion"] remoteExec ["A3A_fnc_flagaction",driver _camion]};
+if (_proceed) then {[driver _camion,"camion"] remoteExec ["A3A_fnc_flagaction",driver _camion]};

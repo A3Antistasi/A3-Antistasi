@@ -58,11 +58,11 @@ _mrk setMarkerType "hd_warning";
 _mrk setMarkerColor "ColorRed";
 _mrk setMarkerBrush "DiagGrid";
 _mrk setMarkerText _texto;
-[_mrk,0] remoteExec ["setMarkerAlpha",[malos,muyMalos]];
+[_mrk,0] remoteExec ["setMarkerAlpha",[malos,Invaders]];
 
 [[buenos,civilian],"Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_quantity],"Minefield Deploy",_mrk],_positionTel,false,0,true,"map",true] call BIS_fnc_taskCreate;
 //_tsk = ["Mines",[buenos,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_quantity],"Minefield Deploy",_mrk],_positionTel,"CREATED",5,true,true,"map"] call BIS_fnc_setTask;
-//misiones pushBack _tsk; publicVariable "misiones";
+//missionsX pushBack _tsk; publicVariable "missionsX";
 
 _grupo = createGroup buenos;
 

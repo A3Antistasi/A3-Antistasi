@@ -1,5 +1,5 @@
 if (!isServer) exitWith {};
-private ["_tipo","_lado","_marcador","_modo","_garrison","_subType"];
+private ["_tipo","_lado","_markerX","_modo","_garrison","_subType"];
 _tipo = _this select 0;
 if (_tipo isEqualType []) then
 	{
@@ -17,22 +17,22 @@ else
 	if (_tipo isEqualType objNull) then {_tipo = typeOf _tipo};
 	};
 _lado = _this select 1;
-_marcador = _this select 2;
-if !(_marcador isEqualType "") exitWith {diag_log format ["Antistasi error: En garrison update hemos enviado algo que no es marcador. Params: %1",_this]};
+_markerX = _this select 2;
+if !(_markerX isEqualType "") exitWith {diag_log format ["Antistasi error: En garrison update hemos enviado algo que no es markerX. Params: %1",_this]};
 _modo = _this select 3;//-1 to remove 1 unbit (killed EHs etc). 1 add 1 single classname / object. 2 adds a hole array and admits classnames or objects
 _exit = false;
-//diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_marcador,_modo];
-{if (isNil _x) exitWith {_exit = true}} forEach ["_tipo","_lado","_marcador","_modo"];
-if (_exit) exitWith {diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_marcador,_modo]};
+//diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_markerX,_modo];
+{if (isNil _x) exitWith {_exit = true}} forEach ["_tipo","_lado","_markerX","_modo"];
+if (_exit) exitWith {diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_markerX,_modo]};
 waitUntil {!garrisonIsChanging};
-{if (isNil _x) exitWith {_exit = true}} forEach ["_tipo","_lado","_marcador","_modo"];
-if (_exit) exitWith {diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_marcador,_modo]};
+{if (isNil _x) exitWith {_exit = true}} forEach ["_tipo","_lado","_markerX","_modo"];
+if (_exit) exitWith {diag_log format ["Antistasi: Error en garrisonUpdate al enviar mal datos: %1,%2,%3,%4",_tipo,_lado,_markerX,_modo]};
 garrisonIsChanging = true;
-if ((_lado == malos) and (!(lados getVariable [_marcador,sideUnknown] == malos))) exitWith {garrisonIsChanging = false};
-if ((_lado == muyMalos) and (!(lados getVariable [_marcador,sideUnknown] == muyMalos))) exitWith {garrisonIsChanging = false};
-if ((_lado == buenos) and (!(lados getVariable [_marcador,sideUnknown] == buenos))) exitWith {garrisonIsChanging = false};
+if ((_lado == malos) and (!(lados getVariable [_markerX,sideUnknown] == malos))) exitWith {garrisonIsChanging = false};
+if ((_lado == Invaders) and (!(lados getVariable [_markerX,sideUnknown] == Invaders))) exitWith {garrisonIsChanging = false};
+if ((_lado == buenos) and (!(lados getVariable [_markerX,sideUnknown] == buenos))) exitWith {garrisonIsChanging = false};
 _garrison = [];
-_garrison = _garrison + (garrison getVariable [_marcador,[]]);
+_garrison = _garrison + (garrison getVariable [_markerX,[]]);
 if (_modo == -1) then
 	{
 	for "_i" from 0 to (count _garrison -1) do
@@ -45,6 +45,6 @@ else
 	if (_modo == 1) then {_garrison pushBack _tipo} else {_garrison append _tipo};
 	};
 if (isNil "_garrison") exitWith {garrisonIsChanging = false};
-garrison setVariable [_marcador,_garrison,true];
-if (_lado == buenos) then {[_marcador] call A3A_fnc_mrkUpdate};
+garrison setVariable [_markerX,_garrison,true];
+if (_lado == buenos) then {[_markerX] call A3A_fnc_mrkUpdate};
 garrisonIsChanging = false;

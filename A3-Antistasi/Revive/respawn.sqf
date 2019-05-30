@@ -18,8 +18,8 @@ if (isMultiplayer) exitWith
 	//if (captive _unit) then {[_unit,false] remoteExec ["setCaptive"]};
 	_unit setDamage 1;
 	};
-private ["_posicion","_tam","_roads","_road","_pos"];
-_posicion = getMarkerPos respawnTeamPlayer;
+private ["_positionX","_tam","_roads","_road","_pos"];
+_positionX = getMarkerPos respawnTeamPlayer;
 if (lifeState _unit == "INCAPACITATED") then {_unit setUnconscious false};
 _unit setVariable ["ayudado",objNull];
 _unit setVariable ["helping",false];
@@ -44,7 +44,7 @@ if ((_x != vehicle _x) and (driver vehicle _x == _x)) then
 	_tam = 10;
 	while {true} do
 		{
-		_roads = _posicion nearRoads _tam;
+		_roads = _positionX nearRoads _tam;
 		if (count _roads > 0) exitWith {};
 		_tam = _tam + 10;
 		};
@@ -56,7 +56,7 @@ else
 	{
 	if ([_x] call A3A_fnc_canFight) then
 		{
-		_x setPosATL _posicion;
+		_x setPosATL _positionX;
 		_x setVariable ["rearming",false];
 		_x doWatch objNull;
 		_x doFollow leader _x;
@@ -78,7 +78,7 @@ if (_hmd != "") then
 {_unit removeWeaponGlobal _x} forEach weapons _unit;
 removeBackpack _unit;
 removeVest _unit;
-_unit setPosATL _posicion;
+_unit setPosATL _positionX;
 _unit setCaptive false;
 _unit setUnconscious false;
 _unit playMoveNow "AmovPpneMstpSnonWnonDnon_healed";

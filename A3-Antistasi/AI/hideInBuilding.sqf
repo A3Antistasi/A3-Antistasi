@@ -3,16 +3,16 @@ private _buildings = (nearestTerrainObjects [(leader (_unidades select 0)),["Hou
 if (_buildings isEqualTo []) exitWith {};
 private _grupo = group (_unidades select 0);
 private _buildingPos = [];
-private _ocupadas = _grupo getVariable ["ocupadas",[]];
+private _occupiedX = _grupo getVariable ["occupiedX",[]];
 private _exit = false;
 
 {
 _bld = _x;
 {
-if !(_x in _ocupadas) then
+if !(_x in _occupiedX) then
 	{
 	_buildingPos pushBack _x;
-	_ocupadas pushBack _x;
+	_occupiedX pushBack _x;
 	if (count _unidades == count _buildingPos) exitWith {_exit = true};
 	};
 } forEach (_bld buildingPos -1);
@@ -20,7 +20,7 @@ if (_exit) exitWith {};
 } forEach _buildings;
 if (_buildingPos isEqualTo []) exitWith {};
 if (count _unidades > count _buildingPos) then {_buildingPos resize (count _unidades)};
-_grupo setVariable ["ocupadas",_ocupadas];
+_grupo setVariable ["occupiedX",_occupiedX];
 {
 _pos = _buildingPos select _forEachIndex;
 if (isNil "_pos") exitWith {};

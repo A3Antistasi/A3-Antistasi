@@ -1,8 +1,8 @@
-private ["_posicion","_size","_buildings","_grupo","_tipoUnit","_lado","_building","_tipoB","_frontierX","_tipoVeh","_veh","_vehiclesX","_soldados","_pos","_ang","_marcador","_unit","_return"];
-_marcador = _this select 0;
-_posicion = getMarkerPos _marcador;
+private ["_positionX","_size","_buildings","_grupo","_tipoUnit","_lado","_building","_tipoB","_frontierX","_tipoVeh","_veh","_vehiclesX","_soldados","_pos","_ang","_markerX","_unit","_return"];
+_markerX = _this select 0;
+_positionX = getMarkerPos _markerX;
 _size = _this select 1;
-_buildings = nearestObjects [_posicion, listMilBld, _size * 1.2, true];
+_buildings = nearestObjects [_positionX, listMilBld, _size * 1.2, true];
 
 if (count _buildings == 0) exitWith {[grpNull,[],[]]};
 
@@ -17,7 +17,7 @@ _tipoUnit = if (_lado==malos) then {staticCrewOccupants} else {staticCrewInvader
 
 for "_i" from 0 to (count _buildings) - 1 do
 	{
-	if (spawner getVariable _marcador == 2) exitWith {};
+	if (spawner getVariable _markerX == 2) exitWith {};
 	_building = _buildings select _i;
 	/*
 	if !(_building getVariable ["conEH",false]) then
@@ -46,8 +46,8 @@ for "_i" from 0 to (count _buildings) - 1 do
 			_veh = createVehicle [_tipoVeh, (_building buildingPos 8), [],0, "CAN_COLLIDE"];
 			_veh setPosATL [(getPos _building select 0),(getPos _building select 1),(getPosATL _veh select 2)];
 			_veh setDir (getDir _building);
-			_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-			[_unit,_marcador] call A3A_fnc_NATOinit;
+			_unit = _grupo createUnit [_tipoUnit, _positionX, [], 0, "NONE"];
+			[_unit,_markerX] call A3A_fnc_NATOinit;
 			_unit moveInGunner _veh;
 			_soldados pushBack _unit;
 			_vehiclesX pushBack _veh;
@@ -62,8 +62,8 @@ for "_i" from 0 to (count _buildings) - 1 do
 				_pos = [getPosATL _veh, 2.5, _ang] call BIS_Fnc_relPos;
 				_veh setPosATL _pos;
 				_veh setDir (getDir _building) - 180;
-				_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-				[_unit,_marcador] call A3A_fnc_NATOinit;
+				_unit = _grupo createUnit [_tipoUnit, _positionX, [], 0, "NONE"];
+				[_unit,_markerX] call A3A_fnc_NATOinit;
 				_unit moveInGunner _veh;
 				_soldados pushBack _unit;
 				_vehiclesX pushBack _veh;
@@ -74,15 +74,15 @@ for "_i" from 0 to (count _buildings) - 1 do
 					{
 					_tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
 					_veh = createVehicle [_tipoVeh, (_building buildingPos 11), [], 0, "CAN_COLLIDE"];
-					_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-					[_unit,_marcador] call A3A_fnc_NATOinit;
+					_unit = _grupo createUnit [_tipoUnit, _positionX, [], 0, "NONE"];
+					[_unit,_markerX] call A3A_fnc_NATOinit;
 					_unit moveInGunner _veh;
 					_soldados pushBack _unit;
 					_vehiclesX pushBack _veh;
 					sleep 0.5;
 					_veh = createVehicle [_tipoVeh, (_building buildingPos 13), [], 0, "CAN_COLLIDE"];
-					_unit = _grupo createUnit [_tipoUnit, _posicion, [], 0, "NONE"];
-					[_unit,_marcador] call A3A_fnc_NATOinit;
+					_unit = _grupo createUnit [_tipoUnit, _positionX, [], 0, "NONE"];
+					[_unit,_markerX] call A3A_fnc_NATOinit;
 					_unit moveInGunner _veh;
 					_soldados pushBack _unit;
 					_vehiclesX pushBack _veh;

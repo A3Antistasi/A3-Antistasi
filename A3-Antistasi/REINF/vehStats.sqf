@@ -68,7 +68,7 @@ _texto = format ["%1 Status\n\nAlive members: %2\nAble to combat: %3\nCurrent ta
 if ({[_x] call A3A_fnc_isMedic} count _unidades > 0) then {_texto = format ["%1Operative Medic\n",_texto]} else {_texto = format ["%1No operative Medic\n",_texto]};
 if ({_x call A3A_fnc_typeOfSoldier == "ATMan"} count _unidades > 0) then {_texto = format ["%1With AT capabilities\n",_texto]};
 if ({_x call A3A_fnc_typeOfSoldier == "AAMan"} count _unidades > 0) then {_texto = format ["%1With AA capabilities\n",_texto]};
-if (!(isNull(_grupo getVariable ["morteros",objNull])) or ({_x call A3A_fnc_typeOfSoldier == "StaticMortar"} count _unidades > 0)) then
+if (!(isNull(_grupo getVariable ["mortarsX",objNull])) or ({_x call A3A_fnc_typeOfSoldier == "StaticMortar"} count _unidades > 0)) then
 	{
 	if ({vehicle _x isKindOf "StaticWeapon"} count _unidades > 0) then {_texto = format ["%1Mortar is deployed\n",_texto]} else {_texto = format ["%1Mortar not deployed\n",_texto]};
 	}

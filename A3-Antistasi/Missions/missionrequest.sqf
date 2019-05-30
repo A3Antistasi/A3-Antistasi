@@ -1,11 +1,11 @@
 if (!isServer) exitWith {};
 
-private ["_tipo","_posbase","_posibles","_sitios","_exists","_sitio","_pos","_ciudad"];
+private ["_tipo","_posbase","_potentials","_sitios","_exists","_sitio","_pos","_ciudad"];
 
 _tipo = _this select 0;
 
 _posbase = getMarkerPos respawnTeamPlayer;
-_posibles = [];
+_potentials = [];
 _sitios = [];
 _exists = false;
 
@@ -20,7 +20,7 @@ if (_tipo == "AS") then
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if ((count _sitios > 0) and ({lados getVariable [_x,sideUnknown] == malos} count airportsX > 0)) then
 		{
-		//_posibles = _sitios select {((getMarkerPos _x distance _posbase < distanceMission) and (not(spawner getVariable _x)))};
+		//_potentials = _sitios select {((getMarkerPos _x distance _posbase < distanceMission) and (not(spawner getVariable _x)))};
 		for "_i" from 0 to ((count _sitios) - 1) do
 			{
 			_sitio = _sitios select _i;
@@ -34,17 +34,17 @@ if (_tipo == "AS") then
 					_frontierX = if (count _markersX > 0) then {true} else {false};
 					if (_frontierX) then
 						{
-						_posibles pushBack _sitio;
+						_potentials pushBack _sitio;
 						};
 					}
 				else
 					{
-					if (spawner getVariable _sitio == 2) then {_posibles pushBack _sitio};
+					if (spawner getVariable _sitio == 2) then {_potentials pushBack _sitio};
 					};
 				};
 			};
 		};
-	if (count _posibles == 0) then
+	if (count _potentials == 0) then
 		{
 		if (!_silencio) then
 			{
@@ -54,19 +54,19 @@ if (_tipo == "AS") then
 		}
 	else
 		{
-		_sitio = selectRandom _posibles;
+		_sitio = selectRandom _potentials;
 		if (_sitio in airportsX) then {[[_sitio],"AS_Official"] remoteExec ["A3A_fnc_scheduler",2]} else {if (_sitio in citiesX) then {[[_sitio],"AS_Traitor"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"AS_SpecOP"] remoteExec ["A3A_fnc_scheduler",2]}};
 		};
 	};
 if (_tipo == "CON") then
 	{
-	_sitios = (controlsX select {(isOnRoad (getMarkerPos _x))})+ puestos + recursos;
+	_sitios = (controlsX select {(isOnRoad (getMarkerPos _x))})+ puestos + resourcesX;
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
-		_posibles = _sitios select {(getMarkerPos _x distance _posbase < distanceMission)};
+		_potentials = _sitios select {(getMarkerPos _x distance _posbase < distanceMission)};
 		};
-	if (count _posibles == 0) then
+	if (count _potentials == 0) then
 		{
 		if (!_silencio) then
 			{
@@ -76,7 +76,7 @@ if (_tipo == "CON") then
 		}
 	else
 		{
-		_sitio = selectRandom _posibles;
+		_sitio = selectRandom _potentials;
 		[[_sitio],"CON_Outpost"] remoteExec ["A3A_fnc_scheduler",2];
 		};
 	};
@@ -94,17 +94,17 @@ if (_tipo == "DES") then
 				{
 				if (_sitio in markersX) then
 					{
-					if (spawner getVariable _sitio == 2) then {_posibles pushBack _sitio};
+					if (spawner getVariable _sitio == 2) then {_potentials pushBack _sitio};
 					}
 				else
 					{
 					_cercano = [markersX, getPos _sitio] call BIS_fnc_nearestPosition;
-					if (lados getVariable [_cercano,sideUnknown] == malos) then {_posibles pushBack _sitio};
+					if (lados getVariable [_cercano,sideUnknown] == malos) then {_potentials pushBack _sitio};
 					};
 				};
 			};
 		};
-	if (count _posibles == 0) then
+	if (count _potentials == 0) then
 		{
 		if (!_silencio) then
 			{
@@ -114,7 +114,7 @@ if (_tipo == "DES") then
 		}
 	else
 		{
-		_sitio = _posibles call BIS_fnc_selectRandom;
+		_sitio = _potentials call BIS_fnc_selectRandom;
 		if (_sitio in airportsX) then {if (random 10 < 8) then {[[_sitio],"DES_Vehicle"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"DES_Heli"] remoteExec ["A3A_fnc_scheduler",2]}};
 		if (_sitio in antenas) then {[[_sitio],"DES_antenna"] remoteExec ["A3A_fnc_scheduler",2]}
 		};
@@ -146,22 +146,22 @@ if (_tipo == "LOG") then
 					_prestigeBLUFOR = _datos select 3;
 					if (_prestigeOPFOR + _prestigeBLUFOR < 90) then
 						{
-						_posibles pushBack _sitio;
+						_potentials pushBack _sitio;
 						};
 					}
 				else
 					{
-					if ([_pos,_posbase] call A3A_fnc_isTheSameIsland) then {_posibles pushBack _sitio};
+					if ([_pos,_posbase] call A3A_fnc_isTheSameIsland) then {_potentials pushBack _sitio};
 					};
 				};
 			if (_sitio in bancos) then
 				{
 				_ciudad = [citiesX, _pos] call BIS_fnc_nearestPosition;
-				if (lados getVariable [_ciudad,sideUnknown] == buenos) then {_posibles = _posibles - [_sitio]};
+				if (lados getVariable [_ciudad,sideUnknown] == buenos) then {_potentials = _potentials - [_sitio]};
 				};
 			};
 		};
-	if (count _posibles == 0) then
+	if (count _potentials == 0) then
 		{
 		if (!_silencio) then
 			{
@@ -171,7 +171,7 @@ if (_tipo == "LOG") then
 		}
 	else
 		{
-		_sitio = _posibles call BIS_fnc_selectRandom;
+		_sitio = _potentials call BIS_fnc_selectRandom;
 		if (_sitio in citiesX) then {[[_sitio],"LOG_Supplies"] remoteExec ["A3A_fnc_scheduler",2]};
 		if (_sitio in puestos) then {[[_sitio],"LOG_Ammo"] remoteExec ["A3A_fnc_scheduler",2]};
 		if (_sitio in bancos) then {[[_sitio],"LOG_Bank"] remoteExec ["A3A_fnc_scheduler",2]};
@@ -187,10 +187,10 @@ if (_tipo == "RES") then
 			{
 			_sitio = _sitios select _i;
 			_pos = getMarkerPos _sitio;
-			if (_sitio in citiesX) then {if (_pos distance _posbase < distanceMission) then {_posibles pushBack _sitio}} else {if ((_pos distance _posbase < distanceMission) and (spawner getVariable _sitio == 2)) then {_posibles = _posibles + [_sitio]}};
+			if (_sitio in citiesX) then {if (_pos distance _posbase < distanceMission) then {_potentials pushBack _sitio}} else {if ((_pos distance _posbase < distanceMission) and (spawner getVariable _sitio == 2)) then {_potentials = _potentials + [_sitio]}};
 			};
 		};
-	if (count _posibles == 0) then
+	if (count _potentials == 0) then
 		{
 		if (!_silencio) then
 			{
@@ -200,7 +200,7 @@ if (_tipo == "RES") then
 		}
 	else
 		{
-		_sitio = _posibles call BIS_fnc_selectRandom;
+		_sitio = _potentials call BIS_fnc_selectRandom;
 		if (_sitio in citiesX) then {[[_sitio],"RES_Refugees"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_sitio],"RES_Prisoners"] remoteExec ["A3A_fnc_scheduler",2]};
 		};
 	};
@@ -208,7 +208,7 @@ if (_tipo == "CONVOY") then
 	{
 	if (!bigAttackInProgress) then
 		{
-		_sitios = (airportsX + recursos + factories + puertos + puestos - blackListDest) + (citiesX select {count (garrison getVariable [_x,[]]) < 10});
+		_sitios = (airportsX + resourcesX + factories + puertos + puestos - blackListDest) + (citiesX select {count (garrison getVariable [_x,[]]) < 10});
 		_sitios = _sitios select {(lados getVariable [_x,sideUnknown] != buenos) and !(_x in blackListDest)};
 		if (count _sitios > 0) then
 			{
@@ -228,18 +228,18 @@ if (_tipo == "CONVOY") then
 							_prestigeBLUFOR = _datos select 3;
 							if (_prestigeOPFOR + _prestigeBLUFOR < 90) then
 								{
-								_posibles pushBack _sitio;
+								_potentials pushBack _sitio;
 								};
 							}
 						}
 					else
 						{
-						if (((lados getVariable [_sitio,sideUnknown] == malos) and (lados getVariable [_base,sideUnknown] == malos)) or ((lados getVariable [_sitio,sideUnknown] == muyMalos) and (lados getVariable [_base,sideUnknown] == muyMalos))) then {_posibles pushBack _sitio};
+						if (((lados getVariable [_sitio,sideUnknown] == malos) and (lados getVariable [_base,sideUnknown] == malos)) or ((lados getVariable [_sitio,sideUnknown] == Invaders) and (lados getVariable [_base,sideUnknown] == Invaders))) then {_potentials pushBack _sitio};
 						};
 					};
 				};
 			};
-		if (count _posibles == 0) then
+		if (count _potentials == 0) then
 			{
 			if (!_silencio) then
 				{
@@ -249,7 +249,7 @@ if (_tipo == "CONVOY") then
 			}
 		else
 			{
-			_sitio = _posibles call BIS_fnc_selectRandom;
+			_sitio = _potentials call BIS_fnc_selectRandom;
 			_base = [_sitio] call A3A_fnc_findBasesForConvoy;
 			[[_sitio,_base],"CONVOY"] remoteExec ["A3A_fnc_scheduler",2];
 			};
@@ -261,4 +261,4 @@ if (_tipo == "CONVOY") then
 		};
 	};
 
-if ((count _posibles > 0) and (!_silencio)) then {[petros,"globalChat","I have a mission for you"] remoteExec ["A3A_fnc_commsMP",theBoss]};
+if ((count _potentials > 0) and (!_silencio)) then {[petros,"globalChat","I have a mission for you"] remoteExec ["A3A_fnc_commsMP",theBoss]};

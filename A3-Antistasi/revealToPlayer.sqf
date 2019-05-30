@@ -10,7 +10,7 @@ if (count _this == 0) then
 				{
 				{
 				_lider = leader _x;
-				if (((side _lider == muyMalos) or (side _lider == malos)) and (vehicle _lider != _lider) and (player knowsAbout _lider < 1.5)) then
+				if (((side _lider == Invaders) or (side _lider == malos)) and (vehicle _lider != _lider) and (player knowsAbout _lider < 1.5)) then
 					{
 					player reveal [_lider,4];
 					sleep 1;

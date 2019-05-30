@@ -51,7 +51,7 @@ while {true} do
 			{
 			case buenos: {[-1,_suppBoost,_ciudad] spawn A3A_fnc_citySupportChange};
 			case malos: {[1,-1,_ciudad] spawn A3A_fnc_citySupportChange};
-			case muyMalos: {[-1,-1,_ciudad] spawn A3A_fnc_citySupportChange};
+			case Invaders: {[-1,-1,_ciudad] spawn A3A_fnc_citySupportChange};
 			};
 		if (lados getVariable [_ciudad,sideUnknown] == malos) then
 			{
@@ -111,7 +111,7 @@ while {true} do
 		{
 		if (not(_recurso in destroyedCities)) then {_recAddSDK = _recAddSDK + (300 * _bonusFIA)};
 		};
-	} forEach recursos;
+	} forEach resourcesX;
 	_hrAddBLUFOR = (round _hrAddBLUFOR);
 	_recAddSDK = (round _recAddSDK);
 
@@ -159,17 +159,17 @@ while {true} do
 	sleep 3;
 	if ((count antennasDead > 0) and (not(["REP"] call BIS_fnc_taskExists))) then
 		{
-		_posibles = [];
+		_potentials = [];
 		{
-		_marcador = [markersX, _x] call BIS_fnc_nearestPosition;
-		if ((lados getVariable [_marcador,sideUnknown] == malos) and (spawner getVariable _marcador == 2)) exitWith
+		_markerX = [markersX, _x] call BIS_fnc_nearestPosition;
+		if ((lados getVariable [_markerX,sideUnknown] == malos) and (spawner getVariable _markerX == 2)) exitWith
 			{
-			_posibles pushBack [_marcador,_x];
+			_potentials pushBack [_markerX,_x];
 			};
 		} forEach antennasDead;
-		if (count _posibles > 0) then
+		if (count _potentials > 0) then
 			{
-			_posible = selectRandom _posibles;
+			_posible = selectRandom _potentials;
 			[[_posible select 0,_posible select 1],"REP_Antenna"] call A3A_fnc_scheduler;
 			};
 		}
@@ -178,7 +178,7 @@ while {true} do
 		_changingX = false;
 		{
 		_chance = 5;
-		if ((_x in recursos) and (lados getVariable [_x,sideUnknown] == muyMalos)) then {_chace = 20};
+		if ((_x in resourcesX) and (lados getVariable [_x,sideUnknown] == Invaders)) then {_chace = 20};
 		if (random 100 < _chance) then
 			{
 			_changingX = true;

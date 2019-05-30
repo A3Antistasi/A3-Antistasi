@@ -31,12 +31,12 @@ fuego inflame false;
 //respawnTeamPlayer setMarkerPos [0,0,0];
 respawnTeamPlayer setMarkerAlpha 0;
 _garrison = garrison getVariable ["Synd_HQ", []];
-_posicion = getMarkerPos "Synd_HQ";
+_positionX = getMarkerPos "Synd_HQ";
 if (count _garrison > 0) then
 	{
 	_coste = 0;
 	_hr = 0;
-	if ({(alive _x) and (!captive _x) and ((side _x == malos) or (side _x == muyMalos)) and (_x distance _posicion < 500)} count allUnits > 0) then
+	if ({(alive _x) and (!captive _x) and ((side _x == malos) or (side _x == Invaders)) and (_x distance _positionX < 500)} count allUnits > 0) then
 		{
 		hint "HQ Garrison will stay here and hold the enemy";
 		}
@@ -44,7 +44,7 @@ if (count _garrison > 0) then
 		{
 		_size = ["Synd_HQ"] call A3A_fnc_sizeMarker;
 		{
-		if ((side group _x == buenos) and (not(_x getVariable ["spawner",false])) and (_x distance _posicion < _size) and (_x != petros)) then
+		if ((side group _x == buenos) and (not(_x getVariable ["spawner",false])) and (_x distance _positionX < _size) and (_x != petros)) then
 			{
 			if (!alive _x) then
 				{

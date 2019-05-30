@@ -1,6 +1,6 @@
 if (count hcSelected player == 0) exitWith {hint "You must select an artillery group"};
 
-private ["_grupos","_artyArray","_artyRoundsArr","_hayMuni","_areReady","_hayArty","_areAlive","_soldado","_veh","_tipoMuni","_tipoArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_pieza","_isInRange","_positionTel2","_rounds","_roundsMax","_marcador","_size","_forzado","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
+private ["_grupos","_artyArray","_artyRoundsArr","_hayMuni","_areReady","_hayArty","_areAlive","_soldado","_veh","_tipoMuni","_tipoArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_pieza","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forzado","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
 
 _grupos = hcSelected player;
 _unidades = [];
@@ -167,14 +167,14 @@ else
 	_roundsMax = _rounds;
 	};
 
-_marcador = [markersX,_positionTel] call BIS_fnc_nearestPosition;
-_size = [_marcador] call A3A_fnc_sizeMarker;
+_markerX = [markersX,_positionTel] call BIS_fnc_nearestPosition;
+_size = [_markerX] call A3A_fnc_sizeMarker;
 _forzado = false;
 
-if ((not(_marcador in forcedSpawn)) and (_positionTel distance (getMarkerPos _marcador) < _size) and ((spawner getVariable _marcador != 0))) then
+if ((not(_markerX in forcedSpawn)) and (_positionTel distance (getMarkerPos _markerX) < _size) and ((spawner getVariable _markerX != 0))) then
 	{
 	_forzado = true;
-	forcedSpawn pushBack _marcador;
+	forcedSpawn pushBack _markerX;
 	publicVariable "forcedSpawn";
 	};
 
@@ -271,9 +271,9 @@ if (_tipoArty == "BARRAGE") then {deleteMarkerLocal _mrkfin2};
 if (_forzado) then
 	{
 	sleep 20;
-	if (_marcador in forcedSpawn) then
+	if (_markerX in forcedSpawn) then
 		{
-		forcedSpawn = forcedSpawn - [_marcador];
+		forcedSpawn = forcedSpawn - [_markerX];
 		publicVariable "forcedSpawn";
 		};
 	};

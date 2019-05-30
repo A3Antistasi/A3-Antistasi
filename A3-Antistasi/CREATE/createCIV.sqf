@@ -1,17 +1,17 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiclesX","_civsPatrol","_gruposPatrol","_vehPatrol","_tipoCiv","_tipoVeh","_dirVeh","_cuenta","_grupo","_size","_road","_tipociv","_tipoVeh","_dirVeh","_posicion","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_burst","_grupoP","_wp","_wp1"];
+private ["_markerX","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiclesX","_civsPatrol","_gruposPatrol","_vehPatrol","_tipoCiv","_tipoVeh","_dirVeh","_cuenta","_grupo","_size","_road","_tipociv","_tipoVeh","_dirVeh","_positionX","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_burst","_grupoP","_wp","_wp1"];
 
-_marcador = _this select 0;
+_markerX = _this select 0;
 
-if (_marcador in destroyedCities) exitWith {};
+if (_markerX in destroyedCities) exitWith {};
 
-_datos = server getVariable _marcador;
+_datos = server getVariable _markerX;
 
 _numCiv = _datos select 0;
 _numVeh = _datos select 1;
 //_roads = _datos select 2;
-_roads = roadsX getVariable _marcador;//
+_roads = roadsX getVariable _markerX;//
 //_prestigeOPFOR = _datos select 3;
 //_prestigeBLUFOR = _datos select 4;
 
@@ -24,15 +24,15 @@ _vehiclesX = [];
 _civsPatrol = [];
 _gruposPatrol = [];
 _vehPatrol = [];
-_size = [_marcador] call A3A_fnc_sizeMarker;
+_size = [_markerX] call A3A_fnc_sizeMarker;
 
 _tipociv = "";
 _tipoVeh = "";
 _dirVeh = 0;
 
-_posicion = getMarkerPos (_marcador);
+_positionX = getMarkerPos (_markerX);
 
-_area = [_marcador] call A3A_fnc_sizeMarker;
+_area = [_markerX] call A3A_fnc_sizeMarker;
 
 _roads = _roads call BIS_fnc_arrayShuffle;
 
@@ -45,7 +45,7 @@ if (_numCiv < 1) then {_numCiv = 1};
 _cuenta = 0;
 _max = count _roads;
 
-while {(spawner getVariable _marcador != 2) and (_cuenta < _numVeh) and (_cuenta < _max)} do
+while {(spawner getVariable _markerX != 2) and (_cuenta < _numVeh) and (_cuenta < _max)} do
 	{
 	_p1 = _roads select _cuenta;
 	_road = roadAt _p1;
@@ -76,12 +76,12 @@ while {(spawner getVariable _marcador != 2) and (_cuenta < _numVeh) and (_cuenta
 	_cuenta = _cuenta + 1;
 	};
 
-_mrkMar = if !(hayIFA) then {seaSpawn select {getMarkerPos _x inArea _marcador}} else {[]};
+_mrkMar = if !(hayIFA) then {seaSpawn select {getMarkerPos _x inArea _markerX}} else {[]};
 if (count _mrkMar > 0) then
 	{
 	for "_i" from 0 to (round (random 3)) do
 		{
-		if (spawner getVariable _marcador != 2) then
+		if (spawner getVariable _markerX != 2) then
 			{
 			_tipoVeh = selectRandom civBoats;
 			_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_tipoVeh];
@@ -94,12 +94,12 @@ if (count _mrkMar > 0) then
 		};
 	};
 
-if ((random 100 < ((prestigeNATO) + (prestigeCSAT))) and (spawner getVariable _marcador != 2)) then
+if ((random 100 < ((prestigeNATO) + (prestigeCSAT))) and (spawner getVariable _markerX != 2)) then
 	{
 	_pos = [];
 	while {true} do
 		{
-		_pos = [_posicion, round (random _area), random 360] call BIS_Fnc_relPos;
+		_pos = [_positionX, round (random _area), random 360] call BIS_Fnc_relPos;
 		if (!surfaceIsWater _pos) exitWith {};
 		};
 	_grupo = createGroup civilian;
@@ -107,13 +107,13 @@ if ((random 100 < ((prestigeNATO) + (prestigeCSAT))) and (spawner getVariable _m
 	_civ = _grupo createUnit ["C_journalist_F", _pos, [],0, "NONE"];
 	_nul = [_civ] spawn A3A_fnc_CIVinit;
 	_civs pushBack _civ;
-	_nul = [_civ, _marcador, "SAFE", "SPAWNED","NOFOLLOW", "NOVEH2","NOSHARE","DoRelax"] execVM "scripts\UPSMON.sqf";
+	_nul = [_civ, _markerX, "SAFE", "SPAWNED","NOFOLLOW", "NOVEH2","NOSHARE","DoRelax"] execVM "scripts\UPSMON.sqf";
 	};
 
 
-if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
+if ([_markerX,false] call A3A_fnc_fogCheck > 0.2) then
 	{
-	_patrolCities = [_marcador] call A3A_fnc_citiesToCivPatrol;
+	_patrolCities = [_markerX] call A3A_fnc_citiesToCivPatrol;
 
 	_countPatrol = 0;
 
@@ -122,7 +122,7 @@ if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 
 	for "_i" from 1 to _burst do
 		{
-		while {(spawner getVariable _marcador != 2) and (_countPatrol < (count _patrolCities - 1) and (_cuenta < _max))} do
+		while {(spawner getVariable _markerX != 2) and (_countPatrol < (count _patrolCities - 1) and (_cuenta < _max))} do
 			{
 			//_p1 = getPos (_roads select _cuenta);
 			_p1 = _roads select _cuenta;
@@ -167,10 +167,10 @@ if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 					_wp setWaypointType "MOVE";
 					_wp setWaypointSpeed "FULL";
 					_wp setWaypointTimeout [30, 45, 60];
-					_wp = _grupoP addWaypoint [_posicion,1];
+					_wp = _grupoP addWaypoint [_positionX,1];
 					_wp setWaypointType "MOVE";
 					_wp setWaypointTimeout [30, 45, 60];
-					_wp1 = _grupoP addWaypoint [_posicion,2];
+					_wp1 = _grupoP addWaypoint [_positionX,2];
 					_wp1 setWaypointType "CYCLE";
 					_wp1 synchronizeWaypoint [_wp];
 					};
@@ -181,7 +181,7 @@ if ([_marcador,false] call A3A_fnc_fogCheck > 0.2) then
 		};
 	};
 
-waitUntil {sleep 1;(spawner getVariable _marcador == 2)};
+waitUntil {sleep 1;(spawner getVariable _markerX == 2)};
 
 {deleteVehicle _x} forEach _civs;
 {deleteGroup _x} forEach _grupos;

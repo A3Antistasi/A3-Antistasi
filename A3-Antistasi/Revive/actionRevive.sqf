@@ -150,7 +150,7 @@ if (!([_medicX] call A3A_fnc_canFight) or (_medicX != vehicle _medicX) or (_medi
 if (_medicX getVariable ["success",true]) then
 	{
 	_lado = side (group _curado);
-	if ((_lado != side (group _medicX)) and ((_lado == malos) or (_lado == muyMalos))) then
+	if ((_lado != side (group _medicX)) and ((_lado == malos) or (_lado == Invaders))) then
 		{
 		_curado setVariable ["surrendered",true,true];
 		sleep 2;

@@ -1,27 +1,27 @@
 //Mission: Repair the antenna
 if (!isServer and hasInterface) exitWith{};
 
-private ["_marcador","_posicion","_dateLimit","_dateLimitNum","_nameDest","_truckCreated","_size","_pos","_veh","_grupo","_unit"];
+private ["_markerX","_positionX","_dateLimit","_dateLimitNum","_nameDest","_truckCreated","_size","_pos","_veh","_grupo","_unit"];
 
-_marcador = _this select 0;
-_posicion = _this select 1;
+_markerX = _this select 0;
+_positionX = _this select 1;
 
 _timeLimit = 60;
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
-_nameDest = [_marcador] call A3A_fnc_localizar;
+_nameDest = [_markerX] call A3A_fnc_localizar;
 
-[[buenos,civilian],"REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Tower Rebuild Disrupt",_marcador],_posicion,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
-misiones pushBack ["REP","CREATED"]; publicVariable "misiones";
+[[buenos,civilian],"REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Tower Rebuild Disrupt",_markerX],_positionX,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
+missionsX pushBack ["REP","CREATED"]; publicVariable "missionsX";
 _truckCreated = false;
 
-waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (spawner getVariable _marcador != 2)};
+waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (spawner getVariable _markerX != 2)};
 
-if (spawner getVariable _marcador != 2) then
+if (spawner getVariable _markerX != 2) then
 	{
 	_truckCreated = true;
-	_size = [_marcador] call A3A_fnc_sizeMarker;
-	_road = [_posicion] call A3A_fnc_findNearestGoodRoad;
+	_size = [_markerX] call A3A_fnc_sizeMarker;
+	_road = [_positionX] call A3A_fnc_findNearestGoodRoad;
 	_pos = position _road;
 	_pos = _pos findEmptyPosition [1,60,"B_T_Truck_01_repair_F"];
 	_veh = createVehicle [vehNATORepairTruck, _pos, [], 0, "NONE"];
@@ -44,7 +44,7 @@ if (spawner getVariable _marcador != 2) then
 
 	if (not alive _veh) then
 		{
-		["REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Tower Rebuild Disrupt",_marcador],_posicion,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
+		["REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Tower Rebuild Disrupt",_markerX],_positionX,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
 		[2,0] remoteExec ["A3A_fnc_prestige",2];
 		[1200] remoteExec ["A3A_fnc_timingCA",2];
 		{if (_x distance _veh < 500) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
@@ -53,9 +53,9 @@ if (spawner getVariable _marcador != 2) then
 	};
 if (dateToNumber date > _dateLimitNum) then
 	{
-	if (lados getVariable [_marcador,sideUnknown] == buenos) then
+	if (lados getVariable [_markerX,sideUnknown] == buenos) then
 		{
-		["REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Tower Rebuild Disrupt",_marcador],_posicion,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
+		["REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Tower Rebuild Disrupt",_markerX],_positionX,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
 		[2,0] remoteExec ["A3A_fnc_prestige",2];
 		[1200] remoteExec ["A3A_fnc_timingCA",2];
 		{if (_x distance _veh < 500) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
@@ -63,18 +63,18 @@ if (dateToNumber date > _dateLimitNum) then
 		}
 	else
 		{
-		["REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Tower Rebuild Disrupt",_marcador],_posicion,"FAILED","Destroy"] call A3A_fnc_taskUpdate;
-		//[5,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+		["REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Tower Rebuild Disrupt",_markerX],_positionX,"FAILED","Destroy"] call A3A_fnc_taskUpdate;
+		//[5,0,_positionX] remoteExec ["A3A_fnc_citySupportChange",2];
 		[-600] remoteExec ["A3A_fnc_timingCA",2];
 		[-10,theBoss] call A3A_fnc_playerScoreAdd;
 		};
-	antennasDead = antennasDead - [_posicion]; publicVariable "antennasDead";
-	_antena = nearestBuilding _posicion;
+	antennasDead = antennasDead - [_positionX]; publicVariable "antennasDead";
+	_antena = nearestBuilding _positionX;
 	if (isMultiplayer) then {[_antena,true] remoteExec ["hideObjectGlobal",2]} else {_antena hideObject true};
-	_antena = createVehicle ["Land_Communication_F", _posicion, [], 0, "NONE"];
+	_antena = createVehicle ["Land_Communication_F", _positionX, [], 0, "NONE"];
 	antenas pushBack _antena; publicVariable "antenas";
 	{if ([antenas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,true] spawn A3A_fnc_blackout}} forEach citiesX;
-	_mrkfin = createMarker [format ["Ant%1", count antenas], _posicion];
+	_mrkfin = createMarker [format ["Ant%1", count antenas], _positionX];
 	_mrkfin setMarkerShape "ICON";
 	_mrkfin setMarkerType "loc_Transmitter";
 	_mrkfin setMarkerColor "ColorBlack";
@@ -96,7 +96,7 @@ if (dateToNumber date > _dateLimitNum) then
 
 _nul = [0,"REP"] spawn A3A_fnc_deleteTask;
 
-waitUntil {sleep 1; (spawner getVariable _marcador == 2)};
+waitUntil {sleep 1; (spawner getVariable _markerX == 2)};
 
 if (_truckCreated) then
 	{

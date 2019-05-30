@@ -1,4 +1,4 @@
-private ["_pos","_rnd","_posFuego"];
+private ["_pos","_rnd","_posFire"];
 _movido = false;
 if (petros != (leader group petros)) then
 	{
@@ -33,23 +33,23 @@ else
 //fuego inflame true;
 [respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",buenos,true];
 [respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",civilian,true];
-_posFuego = [getPos petros, 3, getDir petros] call BIS_Fnc_relPos;
-fuego setPos _posFuego;
+_posFire = [getPos petros, 3, getDir petros] call BIS_Fnc_relPos;
+fuego setPos _posFire;
 _rnd = getdir Petros;
 if (isMultiplayer) then {sleep 5};
-_pos = [_posFuego, 3, _rnd] call BIS_Fnc_relPos;
+_pos = [_posFire, 3, _rnd] call BIS_Fnc_relPos;
 caja setPos _pos;
 _rnd = _rnd + 45;
-_pos = [_posFuego, 3, _rnd] call BIS_Fnc_relPos;
+_pos = [_posFire, 3, _rnd] call BIS_Fnc_relPos;
 mapa setPos _pos;
 mapa setDir ([fuego, mapa] call BIS_fnc_dirTo);
 _rnd = _rnd + 45;
-_pos = [_posFuego, 3, _rnd] call BIS_Fnc_relPos;
+_pos = [_posFire, 3, _rnd] call BIS_Fnc_relPos;
 _pos = _pos findEmptyPosition [0,50,(typeOf bandera)];
 if (_pos isEqualTo []) then {_pos = getPos petros};
 bandera setPos _pos;
 _rnd = _rnd + 45;
-_pos = [_posFuego, 3, _rnd] call BIS_Fnc_relPos;
+_pos = [_posFire, 3, _rnd] call BIS_Fnc_relPos;
 cajaVeh setPos _pos;
 //if (_movido) then {_nul = [] call A3A_fnc_empty};
 petros setBehaviour "SAFE";

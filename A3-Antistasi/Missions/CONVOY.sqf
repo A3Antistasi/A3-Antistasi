@@ -12,7 +12,7 @@ _tsk = "";
 _tsk1 = "";
 _dateLimitNum = 0;
 _esFIA = false;
-_lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {muyMalos};
+_lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {Invaders};
 
 if (_lado == malos) then
 	{
@@ -55,7 +55,7 @@ else
 		}
 	else
 		{
-		if ((_destino in recursos) or (_destino in factories)) then {_typeConvoy = ["Money"]} else {_typeConvoy = ["Prisoners"]};
+		if ((_destino in resourcesX) or (_destino in factories)) then {_typeConvoy = ["Money"]} else {_typeConvoy = ["Prisoners"]};
 		if (((count (garrison getVariable [_destino,0]))/2) >= [_destino] call A3A_fnc_garrisonSize) then {_typeConvoy pushBack "reinforcementsX"};
 		};
 	};
@@ -123,7 +123,7 @@ switch (_typeConvoyX) do
 
 [[buenos,civilian],"CONVOY",[_texto,_taskTitle,_destino],_posDestination,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
 [[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest],"Protect Convoy",_destino],_posDestination,false,0,true,"run",true] call BIS_fnc_taskCreate;
-misiones pushBack ["CONVOY","CREATED"]; publicVariable "misiones";
+missionsX pushBack ["CONVOY","CREATED"]; publicVariable "missionsX";
 sleep (_timeLimit * 60);
 
 _posOrig = [];
@@ -161,9 +161,9 @@ _vehLead allowDamage false;
 //_vehLead forceFollowRoad true;
 _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit;_x allowDamage false} forEach _vehCrew;
-//_grupoVeh = _vehicle select 2;
+//_groupVeh = _vehicle select 2;
 _soldados = _soldados + _vehCrew;
-//_grupos pushBack _grupoVeh;
+//_grupos pushBack _groupVeh;
 _vehiclesX pushBack _vehLead;
 [_vehLead] call A3A_fnc_AIVEHinit;
 
@@ -268,9 +268,9 @@ _vehObj allowDamage false;
 if (_dificil) then {[_vehObj," Convoy Objective"] spawn A3A_fnc_inmuneConvoy} else {[_vehObj,"Convoy Objective"] spawn A3A_fnc_inmuneConvoy};
 _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit; _x allowDamage false} forEach _vehCrew;
-//_grupoVeh = _vehicle select 2;
+//_groupVeh = _vehicle select 2;
 _soldados = _soldados + _vehCrew;
-//_grupos pushBack _grupoVeh;
+//_grupos pushBack _groupVeh;
 _vehiclesX pushBack _vehObj;
 [_vehObj] call A3A_fnc_AIVEHinit;
 //_vehObj forceFollowRoad true;

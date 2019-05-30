@@ -72,7 +72,7 @@ if (side group player == buenos) then
 		_player = _this select 0;
 		if (captive _player) then
 			{
-			if ({if (((side _x == malos) or (side _x == muyMalos)) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
+			if ({if (((side _x == malos) or (side _x == Invaders)) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
 				{
 				[_player,false] remoteExec ["setCaptive",0,_player];
 				_player setCaptive false;
@@ -110,7 +110,7 @@ if (side group player == buenos) then
 			_tipo = typeOf _containerX;
 			if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 				{
-				if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
+				if ({if (((side _x== Invaders) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
 					{
 					[_jugador,false] remoteExec ["setCaptive",0,_jugador];
 					_jugador setCaptive false;
@@ -183,7 +183,7 @@ if (side group player == buenos) then
 		_player = _this select 0;
 		if (captive _player) then
 			{
-			if ({((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
+			if ({((side _x== Invaders) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
 				{
 				[_player,false] remoteExec ["setCaptive",0,_player];
 				_player setCaptive false;

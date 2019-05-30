@@ -1,4 +1,4 @@
-private ["_soldados","_vehiclesX","_grupos","_base","_posBase","_roads","_typeCar","_arrayAirports","_arrayDestinations","_tam","_road","_veh","_vehCrew","_grupoVeh","_grupo","_grupoP","_distanceX","_spawnPoint"];
+private ["_soldados","_vehiclesX","_grupos","_base","_posBase","_roads","_typeCar","_arrayAirports","_arrayDestinations","_tam","_road","_veh","_vehCrew","_groupVeh","_grupo","_grupoP","_distanceX","_spawnPoint"];
 
 _soldados = [];
 _vehiclesX = [];
@@ -54,7 +54,7 @@ if (lados getVariable [_base,sideUnknown] == malos) then
 	}
 else
 	{
-	_lado = muyMalos;
+	_lado = Invaders;
 	if ((_base in puertos) and ([vehCSATBoat] call A3A_fnc_vehAvailable)) then
 		{
 		_typeCar = vehCSATBoat;
@@ -121,9 +121,9 @@ _veh = _vehicle select 0;
 [_veh,"Patrol"] spawn A3A_fnc_inmuneConvoy;
 _vehCrew = _vehicle select 1;
 {[_x] call A3A_fnc_NATOinit} forEach _vehCrew;
-_grupoVeh = _vehicle select 2;
+_groupVeh = _vehicle select 2;
 _soldados = _soldados + _vehCrew;
-_grupos = _grupos + [_grupoVeh];
+_grupos = _grupos + [_groupVeh];
 _vehiclesX = _vehiclesX + [_veh];
 
 
@@ -131,14 +131,14 @@ if (_typeCar in vehNATOLightUnarmed) then
 	{
 	sleep 1;
 	_grupo = [_posbase, _lado, groupsNATOSentry] call A3A_fnc_spawnGroup;
-	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _grupoveh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
+	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
 	};
 if (_typeCar in vehCSATLightUnarmed) then
 	{
 	sleep 1;
 	_grupo = [_posbase, _lado, groupsCSATSentry] call A3A_fnc_spawnGroup;
-	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _grupoveh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
+	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldados pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
 	};
 
@@ -155,7 +155,7 @@ while {alive _veh} do
 		_road = [_posDestination] call A3A_fnc_findNearestGoodRoad;
 		_posDestination = position _road;
 		};
-	_Vwp0 = _grupoVeh addWaypoint [_posDestination, 0];
+	_Vwp0 = _groupVeh addWaypoint [_posDestination, 0];
 	_Vwp0 setWaypointType "MOVE";
 	_Vwp0 setWaypointBehaviour "SAFE";
 	_Vwp0 setWaypointSpeed "LIMITED";
@@ -181,7 +181,7 @@ while {alive _veh} do
 		};
 	};
 
-_enemiesX = if (_lado == malos) then {muyMalos} else {malos};
+_enemiesX = if (_lado == malos) then {Invaders} else {malos};
 
 {_unit = _x;
 waitUntil {sleep 1;!([distanceSPWN,1,_unit,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_unit,_enemiesX] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldados;

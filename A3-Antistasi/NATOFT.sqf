@@ -1,6 +1,6 @@
 _chequeo = false;
 _lado = side (group player);
-_enemyFaction = if (_lado == malos) then {muyMalos} else {malos};
+_enemyFaction = if (_lado == malos) then {Invaders} else {malos};
 {_enemigo = _x;
 if (((side _enemigo == _enemyFaction) or (side _enemigo == buenos)) and (_enemigo distance player < 500) and (not(captive _enemigo))) exitWith {_chequeo = true};
 } forEach allUnits;
@@ -50,12 +50,12 @@ if (count _positionTel > 0) then
 
 	if (_positionTel distance getMarkerPos _base < 50) then
 		{
-		_posicion = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
-		_distanceX = round (((position player) distance _posicion)/200);
+		_positionX = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
+		_distanceX = round (((position player) distance _positionX)/200);
 		disableUserInput true;
 		cutText ["Fast traveling, please wait","BLACK",2];
 		sleep 2;
-		(vehicle player) setPos _posicion;
+		(vehicle player) setPos _positionX;
 		player allowDamage false;
 		sleep _distanceX;
 		disableUserInput false;

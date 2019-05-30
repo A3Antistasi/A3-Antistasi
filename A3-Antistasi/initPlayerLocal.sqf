@@ -73,14 +73,14 @@ else
 [] execVM "CREATE\ambientCivs.sqf";
 private ["_colourTeamPlayer", "_colorInvaders"];
 _colourTeamPlayer = buenos call BIS_fnc_sideColor;
-_colorInvaders = muyMalos call BIS_fnc_sideColor;
-_posicion = if (side player == side (group petros)) then {position petros} else {getMarkerPos "respawn_west"};
+_colorInvaders = Invaders call BIS_fnc_sideColor;
+_positionX = if (side player == side (group petros)) then {position petros} else {getMarkerPos "respawn_west"};
 {
 _x set [3, 0.33]
 } forEach [_colourTeamPlayer, _colorInvaders];
 _introShot =
 	[
-    _posicion, // Target position
+    _positionX, // Target position
     format ["%1",worldName], // SITREP text
     50, //  altitude
     50, //  radius
@@ -224,8 +224,8 @@ player addEventHandler ["FIRED",
 	_player = _this select 0;
 	if (captive _player) then
 		{
-		//if ({((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
-		if ({if (((side _x == malos) or (side _x == muyMalos)) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
+		//if ({((side _x== Invaders) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
+		if ({if (((side _x == malos) or (side _x == Invaders)) and (_x distance player < 300)) exitWith {1}} count allUnits > 0) then
 			{
 			[_player,false] remoteExec ["setCaptive",0,_player];
 			_player setCaptive false;
@@ -262,7 +262,7 @@ player addEventHandler ["InventoryOpened",
 		_tipo = typeOf _containerX;
 		if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 			{
-			if ({if (((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
+			if ({if (((side _x== Invaders) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
 				{
 				[_jugador,false] remoteExec ["setCaptive",0,_jugador];
 				_jugador setCaptive false;
@@ -317,7 +317,7 @@ player addEventHandler ["HandleHeal",
 	_player = _this select 0;
 	if (captive _player) then
 		{
-		if ({((side _x== muyMalos) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
+		if ({((side _x== Invaders) or (side _x== malos)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
 			{
 			[_player,false] remoteExec ["setCaptive",0,_player];
 			_player setCaptive false;
@@ -421,8 +421,8 @@ if (isMultiplayer) then
 			{
 			if (isServer) then
 				{
-				miembros pushBack (getPlayerUID player);
-				publicVariable "miembros";
+				membersX pushBack (getPlayerUID player);
+				publicVariable "membersX";
 				};
 			_nonMembers = {(side group _x == buenos) and !([_x] call A3A_fnc_isMember)} count playableUnits;
 			if (_nonMembers >= (playableSlotsNumber buenos) - bookedSlots) then {["memberSlots",false,1,false,false] call BIS_fnc_endMission};
@@ -446,14 +446,14 @@ if (_isJip) then
 		{
 		if ((serverCommandAvailable "#logout") or (isServer)) then
 			{
-			miembros pushBack (getPlayerUID player);
-			publicVariable "miembros";
+			membersX pushBack (getPlayerUID player);
+			publicVariable "membersX";
 			hint "You are not in the member's list, but as you are Server Admin, you have been added up. Welcome!"
 			}
 		else
 			{
 			hint "Welcome Guest\n\nYou have joined this server as guest";
-			//if ((count playableUnits == maxPlayers) and (({[_x] call A3A_fnc_isMember} count playableUnits) < count miembros) and (serverName in officialServers)) then {["serverFull",false,1,false,false] call BIS_fnc_endMission};
+			//if ((count playableUnits == maxPlayers) and (({[_x] call A3A_fnc_isMember} count playableUnits) < count membersX) and (serverName in officialServers)) then {["serverFull",false,1,false,false] call BIS_fnc_endMission};
 			};
 		}
 	else
@@ -465,8 +465,8 @@ if (_isJip) then
 			[] remoteExec ["A3A_fnc_assigntheBoss",2];
 			};
 		};
-	waitUntil {!(isNil "misiones")};
-	if (count misiones > 0) then
+	waitUntil {!(isNil "missionsX")};
+	if (count missionsX > 0) then
 		{
 		{
 		_tsk = _x select 0;
@@ -482,7 +482,7 @@ if (_isJip) then
 				[_tsk,_state] call bis_fnc_taskSetState;
 				};
 			};
-		} forEach misiones;
+		} forEach missionsX;
 		};
 	if (isNil "placementDone") then
 		{
@@ -528,7 +528,7 @@ else
 		    	}
 		    else
 		    	{
-		    	miembros = [];
+		    	membersX = [];
 		    	player setUnitTrait ["medic",true];
 		    	player setUnitTrait ["engineer",true];
 		    	 _nul = [] execVM "Dialogs\firstLoad.sqf";

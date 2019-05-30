@@ -1,4 +1,4 @@
-private ["_grupo","_killer","_marcador","_super","_enemy"];
+private ["_grupo","_killer","_markerX","_super","_enemy"];
 _grupo = _this select 0;
 _killer = _this select 1;
 
@@ -19,10 +19,10 @@ if (fleeing _x) then
 				if (_x == leader group _x) then
 					{
 					_super = false;
-					_marcador = (leader _grupo) getVariable "marcador";
-					if (!isNil "_marcador") then
+					_markerX = (leader _grupo) getVariable "markerX";
+					if (!isNil "_markerX") then
 						{
-						if (_marcador in airportsX) then {_super = true};
+						if (_markerX in airportsX) then {_super = true};
 						};
 					if (vehicle _killer == _killer) then
 						{

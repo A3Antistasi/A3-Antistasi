@@ -26,15 +26,15 @@ if (_tipo == "delete") exitWith
 _pool = jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOPUT;
 _quantity = 0;
 _quantityMax = 40;
-_typeM =APERSMineMag;
+_tipoM =APERSMineMag;
 if (_tipo == "ATMine") then
 	{
 	_quantityMax = 20;
-	_typeM = ATMineMag;
+	_tipoM = ATMineMag;
 	};
 
 {
-if (_x select 0 == _typeM) exitWith {_quantity = _x select 1}
+if (_x select 0 == _tipoM) exitWith {_quantity = _x select 1}
 } forEach _pool;
 
 if (_quantity < 5) exitWith {hint "You need at least 5 mines of this type to build a Minefield"};

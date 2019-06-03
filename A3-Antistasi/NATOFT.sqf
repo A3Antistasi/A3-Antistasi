@@ -40,7 +40,7 @@ if (count _positionTel > 0) then
 
 	if ((lados getVariable [_base,sideUnknown] == buenos) or (_base in _mrkENY)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
-	if ((!(_base in airportsX)) and (!(_base in seaports)) and (!(_base in seaports)) and (_base != _mrkRespawn)) exitWith {hint "You can only Fast Travel to Airbases, Outposts and Seaports"; openMap [false,false]};
+	if ((!(_base in airportsX)) and (!(_base in puertos)) and (!(_base in puestos)) and (_base != _mrkRespawn)) exitWith {hint "You can only Fast Travel to Airbases, Outposts and Seaports"; openMap [false,false]};
 
 	{
 		if (((side (group _x) == buenos) or (side (group _x) == _enemyFaction)) and (_x distance (getMarkerPos _base) < 500) and (not(captive _x))) then {_checkX = true};

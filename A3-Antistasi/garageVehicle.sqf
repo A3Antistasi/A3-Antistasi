@@ -1,4 +1,4 @@
-private ["_pool","_veh","_typeVehX"];
+private ["_pool","_veh","_tipoVeh"];
 _pool = false;
 if (_this select 0) then {_pool = true};
 _veh = cursorTarget;
@@ -15,7 +15,7 @@ if (_closeX isEqualTo []) exitWith {hint format ["You and the vehicle need to be
 
 if ({alive _x} count (crew vehicle _veh) > 0) exitWith { hint "In order to store a vehicle, its crew must disembark."};
 
-_typeVehX = typeOf _veh;
+_tipoVeh = typeOf _veh;
 
 if (_veh isKindOf "Man") exitWith {hint "Are you kidding?"};
 
@@ -39,7 +39,7 @@ if (!_pool) then
 
 if (_exit) exitWith {hint "You are not owner of this vehicle therefore you cannot garage it"};
 
-if (_typeVehX isKindOf "Plane") then
+if (_tipoVeh isKindOf "Plane") then
 	{
 	_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == buenos) and (player inArea _x)};
 	if (count _airportsX == 0) then {_exit = true};
@@ -54,12 +54,12 @@ if (_veh in reportedVehs) then {reportedVehs = reportedVehs - [_veh]; publicVari
 if (_veh isKindOf "StaticWeapon") then {deleteVehicle _veh};
 if (_pool) then
 	{
-	vehInGarage = vehInGarage + [_typeVehX];
+	vehInGarage = vehInGarage + [_tipoVeh];
 	publicVariable "vehInGarage";
 	hint format ["Vehicle added to %1 Garage",nameTeamPlayer];
 	}
 else
 	{
-	personalGarage = personalGarage + [_typeVehX];
+	personalGarage = personalGarage + [_tipoVeh];
 	hint "Vehicle added to Personal Garage";
 	};

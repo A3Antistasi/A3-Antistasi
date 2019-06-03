@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_markerX","_positionX","_vehiclesX","_soldiers","_tam","_bunker","_grupoE","_unit","_typeGroup","_grupo","_timeLimit","_dateLimit","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_isControl","_tam","_typeVehX","_typeUnit","_markersX","_frontierX","_uav","_groupUAV","_allUnits","_closest","_winner","_timeLimit","_dateLimit","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
+private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_markerX","_positionX","_vehiclesX","_soldiers","_tam","_bunker","_grupoE","_unit","_typeGroup","_grupo","_timeLimit","_dateLimit","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_isControl","_tam","_tipoVeh","_typeUnit","_markersX","_frontierX","_uav","_groupUAV","_allUnits","_closest","_winner","_timeLimit","_dateLimit","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
 
 _markerX = _this select 0;
 _positionX = getMarkerPos _markerX;
@@ -64,8 +64,8 @@ if (_isControl) then
 			_vehiclesX pushBack _bunker;
 			_bunker setDir _dirveh;
 			_pos = getPosATL _bunker;
-			_typeVehX = if (_lado == malos) then {NATOMG} else {CSATMG};
-			_veh = _typeVehX createVehicle _positionX;
+			_tipoVeh = if (_lado == malos) then {NATOMG} else {CSATMG};
+			_veh = _tipoVeh createVehicle _positionX;
 			_vehiclesX pushBack _veh;
 			_veh setPosATL _pos;
 			_veh setDir _dirVeh;
@@ -82,10 +82,10 @@ if (_isControl) then
 			_bunker setDir _dirveh + 180;
 			_pos = getPosATL _bunker;
 			_pos = [getPos _bunker, 6, getDir _bunker] call BIS_fnc_relPos;
-			_typeVehX = if (_lado == malos) then {NATOFlag} else {CSATFlag};
-			_veh = createVehicle [_typeVehX, _pos, [],0, "CAN_COLLIDE"];
+			_tipoVeh = if (_lado == malos) then {NATOFlag} else {CSATFlag};
+			_veh = createVehicle [_tipoVeh, _pos, [],0, "CAN_COLLIDE"];
 			_vehiclesX pushBack _veh;
-			_veh = _typeVehX createVehicle _positionX;
+			_veh = _tipoVeh createVehicle _positionX;
 			_vehiclesX pushBack _veh;
 			_veh setPosATL _pos;
 			_veh setDir _dirVeh;
@@ -116,8 +116,8 @@ if (_isControl) then
 		}
 	else
 		{
-		_typeVehX = if !(hayIFA) then {vehFIAArmedCar} else {vehFIACar};
-		_veh = _typeVehX createVehicle getPos (_roads select 0);
+		_tipoVeh = if !(hayIFA) then {vehFIAArmedCar} else {vehFIACar};
+		_veh = _tipoVeh createVehicle getPos (_roads select 0);
 		_veh setDir _dirveh + 90;
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		_vehiclesX pushBack _veh;
@@ -160,8 +160,8 @@ else
 			{
 			sleep 1;
 			{_soldiers pushBack _x} forEach units _grupo;
-			_typeVehX = if (_lado == malos) then {vehNATOUAVSmall} else {vehCSATUAVSmall};
-			_uav = createVehicle [_typeVehX, _positionX, [], 0, "FLY"];
+			_tipoVeh = if (_lado == malos) then {vehNATOUAVSmall} else {vehCSATUAVSmall};
+			_uav = createVehicle [_tipoVeh, _positionX, [], 0, "FLY"];
 			createVehicleCrew _uav;
 			_vehiclesX pushBack _uav;
 			_groupUAV = group (crew _uav select 1);

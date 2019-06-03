@@ -1,4 +1,4 @@
-private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_arma","_weaponsX","_rearming","_basePossible","_hmd","_casco","_camion","_autoLoot","_itemsUnit"];
+private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_arma","_armas","_rearming","_basePossible","_hmd","_casco","_camion","_autoLoot","_itemsUnit"];
 
 _unit = _this select 0;
 
@@ -18,7 +18,7 @@ _Sweapon = secondaryWeapon _unit;
 _objectsX = [];
 _hasBox = false;
 _arma = "";
-_weaponsX = [];
+_armas = [];
 _distanceX = 51;
 _objectsX = nearestObjects [_unit, ["ReammoBox_F","LandVehicle","WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
 if (caja in _objectsX) then {_objectsX = _objectsX - [caja]};
@@ -36,17 +36,17 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 			{
 			if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 				{
-				_weaponsX = weaponCargo _objeto;
-				for "_i" from 0 to (count _weaponsX - 1) do
+				_armas = weaponCargo _objeto;
+				for "_i" from 0 to (count _armas - 1) do
 					{
-					_potential = _weaponsX select _i;
-					_basePossible = [_potential] call BIS_fnc_baseWeapon;
+					_posible = _armas select _i;
+					_basePossible = [_posible] call BIS_fnc_baseWeapon;
 					if ((not(_basePossible in ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","LMG_03_F"])) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns))) then
 						{
 						_target = _objeto;
 						_hasBox = true;
 						_distanceX = _unit distance _objeto;
-						_arma = _potential;
+						_arma = _posible;
 						};
 					};
 				};
@@ -150,16 +150,16 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 			{
 			if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 				{
-				_weaponsX = weaponCargo _objeto;
-				for "_i" from 0 to (count _weaponsX - 1) do
+				_armas = weaponCargo _objeto;
+				for "_i" from 0 to (count _armas - 1) do
 					{
-					_potential = _weaponsX select _i;
-					if ((_potential in mlaunchers) or (_potential in rlaunchers)) then
+					_posible = _armas select _i;
+					if ((_posible in mlaunchers) or (_posible in rlaunchers)) then
 						{
 						_target = _objeto;
 						_hasBox = true;
 						_distanceX = _unit distance _objeto;
-						_arma = _potential;
+						_arma = _posible;
 						};
 					};
 				};

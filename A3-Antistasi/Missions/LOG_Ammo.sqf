@@ -18,12 +18,12 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_markerX] call A3A_fnc_localizar;
-_typeVehX = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
+_tipoVeh = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
 _size = [_markerX] call A3A_fnc_sizeMarker;
 
 _road = [_positionX] call A3A_fnc_findNearestGoodRoad;
 _pos = position _road;
-_pos = _pos findEmptyPosition [1,60,_typeVehX];
+_pos = _pos findEmptyPosition [1,60,_tipoVeh];
 if (count _pos == 0) then {_pos = position _road};
 
 [[buenos,civilian],"LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Steal or Destroy Ammotruck",_markerX],_pos,false,0,true,"rearm",true] call BIS_fnc_taskCreate;
@@ -36,7 +36,7 @@ if ((spawner getVariable _markerX != 2) and !(lados getVariable [_markerX,sideUn
 	{
 	//sleep 10;
 
-	_camion = _typeVehX createVehicle _pos;
+	_camion = _tipoVeh createVehicle _pos;
 	_camion setDir (getDir _road);
 	_truckCreated = true;
 	if (_lado == malos) then {[_camion] call A3A_fnc_NATOcrate} else {[_camion] call A3A_fnc_CSATcrate};

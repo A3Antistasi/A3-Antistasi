@@ -17,12 +17,12 @@ if (_playerX distance2D _positionX > _size) exitWith {hint "This asset needs to 
 
 _cosa removeAction _id;
 _cosa attachTo [_playerX,[0,2,1]];
-actionX = _playerX addAction ["Drop Here", {{detach _x} forEach attachedObjects player; player removeAction actionX},nil,0,false,true,"",""];
+accion = _playerX addAction ["Drop Here", {{detach _x} forEach attachedObjects player; player removeAction accion},nil,0,false,true,"",""];
 
 waitUntil {sleep 1; (count attachedObjects _playerX == 0) or (vehicle _playerX != _playerX) or (_playerX distance2D _positionX > (_size-3)) or !([_playerX] call A3A_fnc_canFight) or (!isPlayer _playerX)};
 
 {detach _x} forEach attachedObjects _playerX;
-player removeAction actionX;
+player removeAction accion;
 /*
 for "_i" from 0 to (_playerX addAction ["",""]) do
 	{

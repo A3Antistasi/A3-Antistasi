@@ -60,7 +60,7 @@ if (_tipo == "AS") then
 	};
 if (_tipo == "CON") then
 	{
-	_sitios = (controlsX select {(isOnRoad (getMarkerPos _x))})+ seaports + resourcesX;
+	_sitios = (controlsX select {(isOnRoad (getMarkerPos _x))})+ puestos + resourcesX;
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
@@ -121,9 +121,9 @@ if (_tipo == "DES") then
 	};
 if (_tipo == "LOG") then
 	{
-	_sitios = seaports + citiesX - destroyedCities;
+	_sitios = puestos + citiesX - destroyedCities;
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
-	if (random 100 < 20) then {_sitios = _sitios + banks};
+	if (random 100 < 20) then {_sitios = _sitios + bancos};
 	if (count _sitios > 0) then
 		{
 		for "_i" from 0 to ((count _sitios) - 1) do
@@ -154,7 +154,7 @@ if (_tipo == "LOG") then
 					if ([_pos,_posbase] call A3A_fnc_isTheSameIsland) then {_potentials pushBack _sitio};
 					};
 				};
-			if (_sitio in banks) then
+			if (_sitio in bancos) then
 				{
 				_ciudad = [citiesX, _pos] call BIS_fnc_nearestPosition;
 				if (lados getVariable [_ciudad,sideUnknown] == buenos) then {_potentials = _potentials - [_sitio]};
@@ -173,13 +173,13 @@ if (_tipo == "LOG") then
 		{
 		_sitio = _potentials call BIS_fnc_selectRandom;
 		if (_sitio in citiesX) then {[[_sitio],"LOG_Supplies"] remoteExec ["A3A_fnc_scheduler",2]};
-		if (_sitio in seaports) then {[[_sitio],"LOG_Ammo"] remoteExec ["A3A_fnc_scheduler",2]};
-		if (_sitio in banks) then {[[_sitio],"LOG_Bank"] remoteExec ["A3A_fnc_scheduler",2]};
+		if (_sitio in puestos) then {[[_sitio],"LOG_Ammo"] remoteExec ["A3A_fnc_scheduler",2]};
+		if (_sitio in bancos) then {[[_sitio],"LOG_Bank"] remoteExec ["A3A_fnc_scheduler",2]};
 		};
 	};
 if (_tipo == "RES") then
 	{
-	_sitios = airportsX + seaports + citiesX;
+	_sitios = airportsX + puestos + citiesX;
 	_sitios = _sitios select {lados getVariable [_x,sideUnknown] != buenos};
 	if (count _sitios > 0) then
 		{
@@ -208,7 +208,7 @@ if (_tipo == "CONVOY") then
 	{
 	if (!bigAttackInProgress) then
 		{
-		_sitios = (airportsX + resourcesX + factories + seaports + seaports - blackListDest) + (citiesX select {count (garrison getVariable [_x,[]]) < 10});
+		_sitios = (airportsX + resourcesX + factories + puertos + puestos - blackListDest) + (citiesX select {count (garrison getVariable [_x,[]]) < 10});
 		_sitios = _sitios select {(lados getVariable [_x,sideUnknown] != buenos) and !(_x in blackListDest)};
 		if (count _sitios > 0) then
 			{

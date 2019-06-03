@@ -17,12 +17,12 @@ if (not(lados getVariable [_nearX,sideUnknown] == buenos)) exitWith {hint "You h
 
 _staticX setOwner (owner _playerX);
 
-_typeStaticX = typeOf _staticX;
+_tipoEst = typeOf _staticX;
 
 _tipoB1 = ATStaticSDKB;
 _tipoB2 = supportStaticSDKB;
 
-switch _typeStaticX do
+switch _tipoEst do
 	{
 	case staticATOccupants: {_tipoB1 = ATStaticNATOB; _tipoB2 = supportStaticNATOB};
 	case staticATInvaders: {_tipoB1 = ATStaticCSATB; _tipoB2 = supportStaticCSATB};

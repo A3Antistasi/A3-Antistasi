@@ -96,12 +96,12 @@ while {true} do
 		if !(_objectivesX isEqualTo []) then
 			{
 			_aire = objNull;
-			_tanksX = objNull;
+			_tanques = objNull;
 			{
 			_eny = assignedVehicle (_x select 4);
 			if (_eny isKindOf "Tank") then
 				{
-				_tanksX = _eny;
+				_tanques = _eny;
 				}
 			else
 				{
@@ -113,7 +113,7 @@ while {true} do
 						};
 					};
 				};
-			if (!(isNull _aire) and !(isNull _tanksX)) exitWith {};
+			if (!(isNull _aire) and !(isNull _tanques)) exitWith {};
 			} forEach _objectivesX;
 			_lider = leader _grupo;
 			_allNearFriends = allUnits select {(_x distance _lider < (distanceSPWN/2)) and (side group _x in _friendlies)};
@@ -130,7 +130,7 @@ while {true} do
 			} forEach (_allNearFriends select {_x == leader _x}) - [_lider];
 			_numNearFriends = count _allNearFriends;
 			//_aire = objNull;
-			//_tanksX = objNull;
+			//_tanques = objNull;
 			_numObjectives = count _objectivesX;
 			_tarea = _grupo getVariable ["tarea","Patrol"];
 			_nearX = _grupo call A3A_fnc_nearEnemy;
@@ -146,14 +146,14 @@ while {true} do
 				_grupo setVariable ["tarea","Hide"];
 				_tarea = "Hide";
 				};
-			if !(isNull _tanksX) then
+			if !(isNull _tanques) then
 				{
 				if (_allNearFriends findIf {_x call A3A_fnc_typeOfSoldier == "ATMan"} == -1) then
 					{
 					_mortarX = _grupo getVariable ["mortarsX",objNull];
 					if (!(isNull _mortarX) and ([_mortarX] call A3A_fnc_canFight)) then
 						{
-						if ({if (_x distance _tanksX < 100) exitWith {1}} count _allNearFriends == 0) then {[_mortarX,getPosASL _tanksX,4] spawn A3A_fnc_mortarSupport};
+						if ({if (_x distance _tanques < 100) exitWith {1}} count _allNearFriends == 0) then {[_mortarX,getPosASL _tanques,4] spawn A3A_fnc_mortarSupport};
 						}
 					else
 						{
@@ -331,7 +331,7 @@ while {true} do
 
 			if (_tarea == "Hide") then
 				{
-				if ((isNull _tanksX) and {isNull _aire} and {_numObjectives <= 2*_numNearFriends}) then
+				if ((isNull _tanques) and {isNull _aire} and {_numObjectives <= 2*_numNearFriends}) then
 					{
 					_grupo setVariable ["tarea","Patrol"];
 					}

@@ -3,7 +3,7 @@ File: UPSMON_doStop.sqf
 Author: MONSADA
 
 Description:
-	Funciï¿½n que detiene al soldierX y lo hace esperar x segundos
+	Función que detiene al soldado y lo hace esperar x segundos
 Parameter(s):
 	<--- unit
 	<--- Wait time

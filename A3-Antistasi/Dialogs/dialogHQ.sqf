@@ -1,4 +1,4 @@
-private ["_display","_childControl","_veh","_texto","_coste","_typeVehX"];
+private ["_display","_childControl","_veh","_texto","_coste","_tipoVeh"];
 _nul = createDialog "HQ_menu";
 
 sleep 1;
@@ -23,19 +23,19 @@ if (str (_display) != "no display") then
 		}
 	else
 		{
-		_typeVehX = typeOf _veh;
+		_tipoVeh = typeOf _veh;
 		_coste = 0;
 
-		if (_typeVehX in vehFIA) then {_coste = round (([_typeVehX] call A3A_fnc_vehiclePrice)/2); _texto = "Fia Vehicle."};
+		if (_tipoVeh in vehFIA) then {_coste = round (([_tipoVeh] call A3A_fnc_vehiclePrice)/2); _texto = "Fia Vehicle."};
 
-		if (_typeVehX in arrayCivVeh) then
+		if (_tipoVeh in arrayCivVeh) then
 			{
-			if (_typeVehX == "C_Van_01_fuel_F") then {_coste = 50} else {_coste = 25};
+			if (_tipoVeh == "C_Van_01_fuel_F") then {_coste = 50} else {_coste = 25};
 			_texto = "Civ Vehicle."
 			};
-		if (_typeVehX in vehAAFAT) then
+		if (_tipoVeh in vehAAFAT) then
 			{
-			if ((_typeVehX == "I_APC_tracked_03_cannon_F") or (_typeVehX == "I_APC_Wheeled_03_cannon_F")) then
+			if ((_tipoVeh == "I_APC_tracked_03_cannon_F") or (_tipoVeh == "I_APC_Wheeled_03_cannon_F")) then
 				{
 				_coste = 1000;
 				}
@@ -45,7 +45,7 @@ if (str (_display) != "no display") then
 				};
 			_texto = "AAF Tank";
 			};
-		if (_typeVehX in vehAAFnormal) then {_coste = 300; _texto = "AAF Normal Vehicle."};
+		if (_tipoVeh in vehAAFnormal) then {_coste = 300; _texto = "AAF Normal Vehicle."};
 		if (_coste == 0) then
 			{
 			_texto = "The closest vehicle is not suitable in our marketplace"

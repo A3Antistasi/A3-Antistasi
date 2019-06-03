@@ -373,7 +373,7 @@ Modified:
 //		Corregidos bugs varios, entre ellos uno que ralentizaba la acci�n de los grupos
 //		Set de par�metros modificados para un comportamiento m�s �ptimo y realista
 //		deshabilitado KRON_UPS_intowndist por comportamientos extra�os con algunos objectsX builiding
-//		Ahora la IA selecciona los caminos con m�s coverX, a ser potential
+//		Ahora la IA selecciona los caminos con m�s coverX, a ser posible
 //-------------------------------------------------------------------------------------------------------------
 //Version: 3.0.5
 //    	Added

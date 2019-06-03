@@ -25,9 +25,9 @@ _typesVeh = _typesVeh select {[_x] call A3A_fnc_vehAvailable};
 
 if (count _typesVeh > 0) then
 	{
-	_typeVehX = selectRandom _typesVeh;
+	_tipoVeh = selectRandom _typesVeh;
 	//_pos = [_positionX, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
-	_vehicle=[_posOrigin, 0, _typeVehX, _lado] call bis_fnc_spawnvehicle;
+	_vehicle=[_posOrigin, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
@@ -46,9 +46,9 @@ _typeGroup = if (_lado == malos) then {NATOSpecOp} else {CSATSpecOp};
 
 for "_i" from 0 to (round random 2) do
 	{
-	_typeVehX = selectRandom _typesVeh;
+	_tipoVeh = selectRandom _typesVeh;
 	//_pos = [_positionX, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
-	_vehicle=[_posOrigin, 0, _typeVehX, _lado] call bis_fnc_spawnvehicle;
+	_vehicle=[_posOrigin, 0, _tipoVeh, _lado] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;

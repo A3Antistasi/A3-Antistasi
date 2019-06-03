@@ -10,7 +10,7 @@ _checkX = false;
 
 if (_checkX) exitWith {Hint "You cannot Recruit Squads with enemies near your HQ"};
 
-private ["_typeGroup","_esinf","_typeVehX","_coste","_costHR","_exit","_formatX","_pos","_hr","_resourcesFIA","_grupo","_roads","_road","_grupo","_camion","_vehicle","_mortarX","_morty"];
+private ["_typeGroup","_esinf","_tipoVeh","_coste","_costHR","_exit","_formatX","_pos","_hr","_resourcesFIA","_grupo","_roads","_road","_grupo","_camion","_vehicle","_mortarX","_morty"];
 
 
 _typeGroup = _this select 0;
@@ -31,7 +31,7 @@ if (activeGREF) then
 if (_exit) exitWith {};
 garageVeh = objNull;
 _esinf = false;
-_typeVehX = "";
+_tipoVeh = "";
 _coste = 0;
 _costHR = 0;
 _formatX = [];
@@ -170,21 +170,21 @@ if !(_bypassAI) then {_grupo spawn A3A_fnc_attackDrillAI};
 
 if (count _formatX == 2) then
 	{
-	_typeVehX = vehSDKBike;
+	_tipoVeh = vehSDKBike;
 	}
 else
 	{
 	if (count _formatX > 4) then
 		{
-		_typeVehX = vehSDKTruck;
+		_tipoVeh = vehSDKTruck;
 		}
 	else
 		{
-		_typeVehX = vehSDKLightUnarmed;
+		_tipoVeh = vehSDKLightUnarmed;
 		};
 	};
 
-_coste = [_typeVehX] call A3A_fnc_vehiclePrice;
+_coste = [_tipoVeh] call A3A_fnc_vehiclePrice;
 private ["_display","_childControl"];
 if (_coste > server getVariable "resourcesFIA") exitWith {garageVeh = nil};
 
@@ -213,7 +213,7 @@ vehQuery = nil;
 //_resourcesFIA = server getVariable "resourcesFIA";
 //if (_resourcesFIA < _coste) exitWith {hint format ["You do not have enough money for this vehicle: %1 € required",_coste]};
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
-_mortarX = _typeVehX createVehicle _pos;
+_mortarX = _tipoVeh createVehicle _pos;
 _nul = [_mortarX] call A3A_fnc_AIVEHinit;
 _grupo addVehicle _mortarX;
 _mortarX setVariable ["owner",_grupo,true];

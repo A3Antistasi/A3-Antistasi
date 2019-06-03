@@ -229,19 +229,19 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 			};
 		};
 	}];
-_revealX = false;
+_revelar = false;
 if (vehicle _unit != _unit) then
 	{
 	if (_unit == gunner (vehicle _unit)) then
 		{
-		_revealX = true;
+		_revelar = true;
 		};
 	}
 else
 	{
-	if ((secondaryWeapon _unit) in mlaunchers) then {_revealX = true};
+	if ((secondaryWeapon _unit) in mlaunchers) then {_revelar = true};
 	};
-if (_revealX) then
+if (_revelar) then
 	{
 	{
 	_unit reveal [_x,1.5];

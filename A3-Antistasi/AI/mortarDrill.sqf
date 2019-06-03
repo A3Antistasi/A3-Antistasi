@@ -12,11 +12,11 @@ while {true} do
 	sleep 30;
 	};
 if ((!alive _morty) or (!alive _helperX)) exitWith {};
-private _typeVehX = if (side _morty == malos) then {NATOMortar} else {CSATMortar};
+private _tipoVeh = if (side _morty == malos) then {NATOMortar} else {CSATMortar};
 private _pos = [];
 while {true} do
 	{
-	_pos = position _morty findEmptyPosition [1,30,_typeVehX];
+	_pos = position _morty findEmptyPosition [1,30,_tipoVeh];
 	if !(_pos isEqualTo []) exitWith {};
 	if ((!alive _morty) or (!alive _helperX)) exitWith {};
 	sleep 30;
@@ -57,7 +57,7 @@ if ((alive _helperX) and !(alive _morty)) then
 
 if ((!alive _morty) or (!alive _helperX)) exitWith {};
 
-private _mortarX = _typeVehX createVehicle _pos;
+private _mortarX = _tipoVeh createVehicle _pos;
 removeBackpackGlobal _morty;
 removeBackpackGlobal _helperX;
 _grupo addVehicle _mortarX;

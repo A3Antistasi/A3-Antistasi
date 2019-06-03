@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith{};
-private ["_markerX","_vehiclesX","_grupos","_soldiers","_positionX","_pos","_size","_frontierX","_lado","_cfg","_esFIA","_garrison","_antena","_tam","_buildings","_mrk","_cuenta","_typeGroup","_grupo","_typeUnit","_typeVehX","_veh","_unit","_flagX","_caja","_roads","_mrkMar","_vehicle","_vehCrew","_groupVeh","_dist","_road","_roadCon","_dirVeh","_bunker","_dir","_posF"];
+private ["_markerX","_vehiclesX","_grupos","_soldiers","_positionX","_pos","_size","_frontierX","_lado","_cfg","_esFIA","_garrison","_antena","_tam","_buildings","_mrk","_cuenta","_typeGroup","_grupo","_typeUnit","_tipoVeh","_veh","_unit","_flagX","_caja","_roads","_mrkMar","_vehicle","_vehCrew","_groupVeh","_dist","_road","_roadCon","_dirVeh","_bunker","_dir","_posF"];
 _markerX = _this select 0;
 
 _vehiclesX = [];
@@ -28,7 +28,7 @@ _antena = objNull;
 
 if (_lado == malos) then
 	{
-	if (_markerX in seaports) then
+	if (_markerX in puestos) then
 		{
 		_buildings = nearestObjects [_positionX,["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"], _size];
 		if (count _buildings > 0) then
@@ -93,13 +93,13 @@ if (_patrol) then
 		};
 	};
 
-if ((_frontierX) and (spawner getVariable _markerX!=2) and (_markerX in seaports)) then
+if ((_frontierX) and (spawner getVariable _markerX!=2) and (_markerX in puestos)) then
 	{
 	_grupo = createGroup _lado;
 	_typeUnit = if (_lado==malos) then {staticCrewOccupants} else {staticCrewInvaders};
-	_typeVehX = if (_lado == malos) then {NATOMortar} else {CSATMortar};
+	_tipoVeh = if (_lado == malos) then {NATOMortar} else {CSATMortar};
 	_pos = [_positionX] call A3A_fnc_mortarPos;
-	_veh = _typeVehX createVehicle _pos;
+	_veh = _tipoVeh createVehicle _pos;
 	_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
 	_unit = _grupo createUnit [_typeUnit, _positionX, [], 0, "NONE"];
 	[_unit,_markerX] call A3A_fnc_NATOinit;
@@ -114,8 +114,8 @@ _grupos pushBack (_ret select 0);
 _vehiclesX append (_ret select 1);
 _soldiers append (_ret select 2);
 
-_typeVehX = if (_lado == malos) then {NATOFlag} else {CSATFlag};
-_flagX = createVehicle [_typeVehX, _positionX, [],0, "CAN_COLLIDE"];
+_tipoVeh = if (_lado == malos) then {NATOFlag} else {CSATFlag};
+_flagX = createVehicle [_tipoVeh, _positionX, [],0, "CAN_COLLIDE"];
 _flagX allowDamage false;
 [_flagX,"take"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_flagX];
 _vehiclesX pushBack _flagX;
@@ -136,14 +136,14 @@ _caja call jn_fnc_logistics_addAction;
 {_nul = [_x] call A3A_fnc_AIVEHinit;} forEach _vehiclesX;
 _roads = _positionX nearRoads _size;
 
-if ((_markerX in seaports) and (spawner getVariable _markerX!=2) and !hayIFA) then
+if ((_markerX in puertos) and (spawner getVariable _markerX!=2) and !hayIFA) then
 	{
-	_typeVehX = if (_lado == malos) then {vehNATOBoat} else {vehCSATBoat};
-	if ([_typeVehX] call A3A_fnc_vehAvailable) then
+	_tipoVeh = if (_lado == malos) then {vehNATOBoat} else {vehCSATBoat};
+	if ([_tipoVeh] call A3A_fnc_vehAvailable) then
 		{
 		_mrkMar = seaSpawn select {getMarkerPos _x inArea _markerX};
-		_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_typeVehX];
-		_vehicle=[_pos, 0,_typeVehX, _lado] call bis_fnc_spawnvehicle;
+		_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_tipoVeh];
+		_vehicle=[_pos, 0,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
 		_veh = _vehicle select 0;
 		[_veh] call A3A_fnc_AIVEHinit;
 		_vehCrew = _vehicle select 1;
@@ -180,8 +180,8 @@ else
 					_vehiclesX pushBack _bunker;
 					_bunker setDir _dirveh;
 					_pos = getPosATL _bunker;
-					_typeVehX = if (_lado==malos) then {staticATOccupants} else {staticATInvaders};
-					_veh = _typeVehX createVehicle _positionX;
+					_tipoVeh = if (_lado==malos) then {staticATOccupants} else {staticATInvaders};
+					_veh = _tipoVeh createVehicle _positionX;
 					_vehiclesX pushBack _veh;
 					_veh setPos _pos;
 					_veh setDir _dirVeh + 180;
@@ -218,8 +218,8 @@ if (count _roads != 0) then
 	_pos = _positionX findEmptyPosition [5,_size,"I_Truck_02_covered_F"];//donde pone 5 antes ponía 10
 	if (count _pos > 0) then
 		{
-		_typeVehX = if (_lado == malos) then {if (!_esFIA) then {vehNATOTrucks} else {[vehFIATruck]}} else {vehCSATTrucks};
-		_veh = createVehicle [selectRandom _typeVehX, _pos, [], 0, "NONE"];
+		_tipoVeh = if (_lado == malos) then {if (!_esFIA) then {vehNATOTrucks} else {[vehFIATruck]}} else {vehCSATTrucks};
+		_veh = createVehicle [selectRandom _tipoVeh, _pos, [], 0, "NONE"];
 		_veh setDir random 360;
 		_vehiclesX pushBack _veh;
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
@@ -274,7 +274,7 @@ for "_i" from 0 to (count _array - 1) do
 	};
 
 
-if (_markerX in seaports) then
+if (_markerX in puertos) then
 	{
 	_caja addItemCargo ["V_RebreatherIA",round random 5];
 	_caja addItemCargo ["G_I_Diving",round random 5];

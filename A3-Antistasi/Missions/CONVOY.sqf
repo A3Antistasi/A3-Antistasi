@@ -1,6 +1,6 @@
 //Mission: Capture/destroy the convoy
 if (!isServer and hasInterface) exitWith {};
-private ["_pos","_timeOut","_posbase","_posDestination","_soldiers","_grupos","_vehiclesX","_POWS","_tiempofin","_dateFinal","_enddateNum","_veh","_unit","_grupo","_lado","_cuenta","_nameDest","_vehPool","_spawnPoint","_typeVehX"];
+private ["_pos","_timeOut","_posbase","_posDestination","_soldiers","_grupos","_vehiclesX","_POWS","_tiempofin","_dateFinal","_enddateNum","_veh","_unit","_grupo","_lado","_cuenta","_nameDest","_vehPool","_spawnPoint","_tipoVeh"];
 _destinationX = _this select 0;
 _base = _this select 1;
 
@@ -42,10 +42,10 @@ _enddateNum = dateToNumber _dateFinal;
 
 private ["_tsk","_grpPOW","_pos"];
 
-if ((_destinationX in airportsX) or (_destinationX in seaports)) then
+if ((_destinationX in airportsX) or (_destinationX in puestos)) then
 	{
 	_typeConvoy = ["ammunition","Armor"];
-	if (_destinationX in seaports) then {if (((count (garrison getVariable [_destinationX,0]))/2) >= [_destinationX] call A3A_fnc_garrisonSize) then {_typeConvoy pushBack "reinforcementsX"}};
+	if (_destinationX in puestos) then {if (((count (garrison getVariable [_destinationX,0]))/2) >= [_destinationX] call A3A_fnc_garrisonSize) then {_typeConvoy pushBack "reinforcementsX"}};
 	}
 else
 	{
@@ -143,18 +143,18 @@ else
 	};
 _grupo = createGroup _lado;
 _grupos pushBack _grupo;
-_typeVehX = if (_lado == malos) then {if (!_esFIA) then {selectRandom vehNATOLightArmed} else {vehPoliceCar}} else {selectRandom vehCSATLightArmed};
+_tipoVeh = if (_lado == malos) then {if (!_esFIA) then {selectRandom vehNATOLightArmed} else {vehPoliceCar}} else {selectRandom vehCSATLightArmed};
 _timeOut = 0;
-_pos = _posOrig findEmptyPosition [0,100,_typeVehX];
+_pos = _posOrig findEmptyPosition [0,100,_tipoveh];
 while {_timeOut < 60} do
 	{
 	if (count _pos > 0) exitWith {};
 	_timeOut = _timeOut + 1;
-	_pos = _posOrig findEmptyPosition [0,100,_typeVehX];
+	_pos = _posOrig findEmptyPosition [0,100,_tipoveh];
 	sleep 1;
 	};
 if (count _pos == 0) then {_pos = _posOrig};
-_vehicle=[_pos,_dir,_typeVehX, _grupo] call bis_fnc_spawnvehicle;
+_vehicle=[_pos,_dir,_tipoVeh, _grupo] call bis_fnc_spawnvehicle;
 _vehLead = _vehicle select 0;
 _vehLead allowDamage false;
 [_vehLead,"Convoy Lead"] spawn A3A_fnc_inmuneConvoy;
@@ -198,17 +198,17 @@ for "_i" from 1 to _cuenta do
 	_typeVehEsc = selectRandom _vehPool;
 	if (not([_typeVehEsc] call A3A_fnc_vehAvailable)) then
 		{
-		_typeVehX = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
-		_vehPool = _vehPool - [_typeVehX];
+		_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+		_vehPool = _vehPool - [_tipoVeh];
 		if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 		};
 	_timeOut = 0;
-	_pos = _posOrig findEmptyPosition [10,100,_typeVehX];
+	_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 	while {_timeOut < 60} do
 		{
 		if (count _pos > 0) exitWith {};
 		_timeOut = _timeOut + 1;
-		_pos = _posOrig findEmptyPosition [10,100,_typeVehX];
+		_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 		sleep 1;
 		};
 	if (count _pos == 0) then {_pos = _posOrig};
@@ -251,12 +251,12 @@ for "_i" from 1 to _cuenta do
 sleep 2;
 
 _timeOut = 0;
-_pos = _posOrig findEmptyPosition [10,100,_typeVehX];
+_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 while {_timeOut < 60} do
 	{
 	if (count _pos > 0) exitWith {};
 	_timeOut = _timeOut + 1;
-	_pos = _posOrig findEmptyPosition [10,100,_typeVehX];
+	_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 	sleep 1;
 	};
 if (count _pos == 0) then {_pos = _posOrig};
@@ -316,17 +316,17 @@ sleep 2;
 _typeVehEsc = selectRandom _vehPool;
 if (not([_typeVehEsc] call A3A_fnc_vehAvailable)) then
 	{
-	_typeVehX = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
-	_vehPool = _vehPool - [_typeVehX];
+	_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+	_vehPool = _vehPool - [_tipoVeh];
 	if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 	};
 _timeOut = 0;
-_pos = _posOrig findEmptyPosition [10,100,_typeVehX];
+_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 while {_timeOut < 60} do
 	{
 	if (count _pos > 0) exitWith {};
 	_timeOut = _timeOut + 1;
-	_pos = _posOrig findEmptyPosition [10,100,_typeVehX];
+	_pos = _posOrig findEmptyPosition [10,100,_tipoveh];
 	sleep 1;
 	};
 if (count _pos == 0) then {_pos = _posOrig};
@@ -519,8 +519,8 @@ if (_typeConvoyX == "reinforcementsX") then
 		[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 		if (lados getVariable [_destinationX,sideUnknown] != buenos) then
 			{
-			_typesX = [];
-			{_typesX pushBack (typeOf _x)} forEach (_reinforcementsX select {alive _x});
+			_tipos = [];
+			{_tipos pushBack (typeOf _x)} forEach (_reinforcementsX select {alive _x});
 			[_soldiers,_lado,_destinationX,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
 			};
 		if (_lado == malos) then {[(-1*(0.25*_cuenta)),0] remoteExec ["A3A_fnc_prestige",2]} else {[0,(-1*(0.25*_cuenta))] remoteExec ["A3A_fnc_prestige",2]};

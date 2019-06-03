@@ -13,7 +13,7 @@ if (_markerX in airportsX) then
 	}
 else
 	{
-	if (_markerX in seaports) then
+	if (_markerX in puestos) then
 		{
 		_nveh = round (_size/50);
 		_buildings = nearestObjects [getMarkerPos _markerX,(["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"]) + listMilBld, _size];

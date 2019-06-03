@@ -5,14 +5,14 @@ _multiplier = 1;
 //_newRank = "CORPORAL";
 _disconnected = false;
 
-_jugadores = [];
+_playersX = [];
 _membersX = [];
 _eligibles = [];
 
 _lider = objNull;
 
 {
-_jugadores pushBack (_x getVariable ["owner",_x]);
+_playersX pushBack (_x getVariable ["owner",_x]);
 if (_x != _x getVariable ["owner",_x]) then {waitUntil {_x == _x getVariable ["owner",_x]}};
 if ([_x] call A3A_fnc_isMember) then
 	{
@@ -56,7 +56,7 @@ if (_rank != "COLONEL") then
 		sleep 5;
 		};
 	};
-} forEach _jugadores;
+} forEach _playersX;
 
 if (_promoted) then
 	{

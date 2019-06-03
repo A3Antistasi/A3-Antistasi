@@ -59,8 +59,8 @@ if (count _positionTel > 0) then
 		_positionX = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
 		_distanceX = round (((position _jefe) distance _positionX)/200);
 		//if (!_esHC) then {disableUserInput true; cutText ["Fast traveling, please wait","BLACK",2]; sleep 2;} else {hcShowBar false;hcShowBar true;hint format ["Moving group %1 to destination",groupID _grupo]; sleep _distanceX;};
-		_forzado = false;
-		if (!isMultiplayer) then {if (not(_base in forcedSpawn)) then {_forzado = true; forcedSpawn = forcedSpawn + [_base]}};
+		_forcedX = false;
+		if (!isMultiplayer) then {if (not(_base in forcedSpawn)) then {_forcedX = true; forcedSpawn = forcedSpawn + [_base]}};
 		if (!_esHC) then {disableUserInput true; cutText [format ["Fast traveling, travel time: %1s , please wait", _distanceX],"BLACK",1]; sleep 1;} else {hcShowBar false;hcShowBar true;hint format ["Moving group %1 to destination",groupID _grupo]; sleep _distanceX;};
  		if (!_esHC) then
  			{
@@ -129,7 +129,7 @@ if (count _positionTel > 0) then
 		} forEach units _grupo;
 		//if (!_esHC) then {sleep _distanceX};
 		if (!_esHC) then {disableUserInput false;cutText ["You arrived to destination","BLACK IN",1]} else {hint format ["Group %1 arrived to destination",groupID _grupo]};
-		if (_forzado) then {forcedSpawn = forcedSpawn - [_base]};
+		if (_forcedX) then {forcedSpawn = forcedSpawn - [_base]};
 		sleep 5;
 		{_x allowDamage true} forEach units _grupo;
 		}

@@ -27,11 +27,11 @@ _typesGroup = [groupsSDKmid,groupsSDKAT,groupsSDKSquad,groupsSDKSniper];
 while {(_size > 0)} do
 	{
 	_typeGroup = selectRandom _typesGroup;
-	_formato = [];
+	_formatX = [];
 	{
-	if (random 20 <= skillFIA) then {_formato pushBack (_x select 1)} else {_formato pushBack (_x select 0)};
+	if (random 20 <= skillFIA) then {_formatX pushBack (_x select 1)} else {_formatX pushBack (_x select 0)};
 	} forEach _typeGroup;
-	_grupo = [_origen, buenos, _formato,false,true] call A3A_fnc_spawnGroup;
+	_grupo = [_origen, buenos, _formatX,false,true] call A3A_fnc_spawnGroup;
 	if !(isNull _grupo) then
 		{
 		_grupos pushBack _grupo;

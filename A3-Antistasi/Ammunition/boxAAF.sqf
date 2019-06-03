@@ -35,4 +35,4 @@ if !(opticsAAF isEqualTo []) then
 		caja addItemCargoGlobal [_cosa, 1 + (floor random 2)];
 		};
 	};
-if (hayTFAR) then {caja addBackpackCargoGlobal ["tf_rt1523g_big_bwmod",1]};
+if (hasTFAR) then {caja addBackpackCargoGlobal ["tf_rt1523g_big_bwmod",1]};

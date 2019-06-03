@@ -46,8 +46,8 @@ if !(_tmpTargets isEqualTo []) then
 _objectivesXProv = _objectivesX - airportsX - _nearestObjectives;
 {
 _posObj = getMarkerPos _x;
-_ladoObj = lados getVariable [_x,sideUnknown];
-if (((markersX - controlsX - citiesX - outpostsFIA) select {lados getVariable [_x,sideUnknown] != _ladoObj}) findIf {getMarkerPos _x distance2D _posObj < 2000} == -1) then {_objectivesX = _objectivesX - [_x]};
+_sideObjective = lados getVariable [_x,sideUnknown];
+if (((markersX - controlsX - citiesX - outpostsFIA) select {lados getVariable [_x,sideUnknown] != _sideObjective}) findIf {getMarkerPos _x distance2D _posObj < 2000} == -1) then {_objectivesX = _objectivesX - [_x]};
 } forEach _objectivesXProv;
 
 if (_objectivesX isEqualTo []) exitWith {};
@@ -55,7 +55,7 @@ _objectivesFinal = [];
 _basesFinal = [];
 _countFinal = [];
 _objectiveFinal = [];
-_faciles = [];
+_easyX = [];
 _easyArray = [];
 _seaportCSAT = if ({(lados getVariable [_x,sideUnknown] == Invaders)} count puertos >0) then {true} else {false};
 _seaportNATO = if ({(lados getVariable [_x,sideUnknown] == malos)} count puertos >0) then {true} else {false};
@@ -122,8 +122,8 @@ if !(_tmpObjectives isEqualTo []) then
 					_sitio = _x;
 					if (((!(_sitio in airportsX)) or (_esSDK)) and !(_base in ["NATO_carrier","CSAT_carrier"])) then
 						{
-						_ladoEny = if (_baseNATO) then {Invaders} else {malos};
-						if ({(lados getVariable [_x,sideUnknown] == _ladoEny) and (getMarkerPos _x distance _posSite < distanceSPWN)} count airportsX == 0) then
+						_sideEnemy = if (_baseNATO) then {Invaders} else {malos};
+						if ({(lados getVariable [_x,sideUnknown] == _sideEnemy) and (getMarkerPos _x distance _posSite < distanceSPWN)} count airportsX == 0) then
 							{
 							_garrison = garrison getVariable [_sitio,[]];
 							_staticsX = staticsToSave select {_x distance _posSite < distanceSPWN};
@@ -134,7 +134,7 @@ if !(_tmpObjectives isEqualTo []) then
 								if (!hayIFA or (_posSite distance _posBase < distanceForLandAttack)) then
 									{
 									_proceed = false;
-									_faciles pushBack [_sitio,_base];
+									_easyX pushBack [_sitio,_base];
 									_easyArray pushBackUnique _sitio;
 									};
 								};
@@ -288,18 +288,18 @@ if !(_tmpObjectives isEqualTo []) then
 				};
 			};
 		};
-	if (count _faciles == 4) exitWith {};
+	if (count _easyX == 4) exitWith {};
 	} forEach _tmpObjectives;
 	};
-if (count _faciles == 4) exitWith {};
+if (count _easyX == 4) exitWith {};
 } forEach _airportsX;
 
-if (count _faciles == 4) exitWith
+if (count _easyX == 4) exitWith
 	{
-	{[[_x select 0,_x select 1,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];sleep 30} forEach _faciles;
+	{[[_x select 0,_x select 1,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];sleep 30} forEach _easyX;
 	};
 if (hayIFA and (sunOrMoon < 1)) exitWith {};
-if ((count _objectivesFinal > 0) and (count _faciles < 3)) then
+if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 	{
 	_arrayFinal = [];
 	/*{
@@ -363,5 +363,5 @@ if ((count _objectivesFinal > 0) and (count _faciles < 3)) then
 
 if (_waves == 1) then
 	{
-	{[[_x select 0,_x select 1,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]} forEach _faciles;
+	{[[_x select 0,_x select 1,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]} forEach _easyX;
 	};

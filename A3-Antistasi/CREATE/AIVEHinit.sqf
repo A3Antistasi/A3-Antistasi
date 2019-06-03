@@ -150,9 +150,9 @@ else
 					};
 				_veh addEventHandler ["Fired",
 					{
-					_mortero = _this select 0;
-					_datos = _mortero getVariable ["detection",[position _mortero,0]];
-					_positionX = position _mortero;
+					_mortarX = _this select 0;
+					_datos = _mortarX getVariable ["detection",[position _mortarX,0]];
+					_positionX = position _mortarX;
 					_chance = _datos select 1;
 					if ((_positionX distance (_datos select 0)) < 300) then
 						{
@@ -164,12 +164,12 @@ else
 						};
 					if (random 100 < _chance) then
 						{
-						{if ((side _x == malos) or (side _x == Invaders)) then {_x reveal [_mortero,4]}} forEach allUnits;
-						if (_mortero distance posHQ < 300) then
+						{if ((side _x == malos) or (side _x == Invaders)) then {_x reveal [_mortarX,4]}} forEach allUnits;
+						if (_mortarX distance posHQ < 300) then
 							{
 							if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
 								{
-								_lider = leader (gunner _mortero);
+								_lider = leader (gunner _mortarX);
 								if (!isPlayer _lider) then
 									{
 									[[],"A3A_fnc_attackHQ"] remoteExec ["A3A_fnc_scheduler",2];
@@ -182,16 +182,16 @@ else
 							}
 						else
 							{
-							_bases = airportsX select {(getMarkerPos _x distance _mortero < distanceForAirAttack) and ([_x,true] call A3A_fnc_airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
+							_bases = airportsX select {(getMarkerPos _x distance _mortarX < distanceForAirAttack) and ([_x,true] call A3A_fnc_airportCanAttack) and (lados getVariable [_x,sideUnknown] != buenos)};
 							if (count _bases > 0) then
 								{
 								_base = [_bases,_positionX] call BIS_fnc_nearestPosition;
 								_lado = lados getVariable [_base,sideUnknown];
-								[[getPosASL _mortero,_lado,"Normal",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
+								[[getPosASL _mortarX,_lado,"Normal",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
 								};
 							};
 						};
-					_mortero setVariable ["detection",[_positionX,_chance]];
+					_mortarX setVariable ["detection",[_positionX,_chance]];
 					}];
 				}
 			else

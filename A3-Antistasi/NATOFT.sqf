@@ -1,8 +1,8 @@
 _checkX = false;
 _lado = side (group player);
 _enemyFaction = if (_lado == malos) then {Invaders} else {malos};
-{_enemigo = _x;
-if (((side _enemigo == _enemyFaction) or (side _enemigo == buenos)) and (_enemigo distance player < 500) and (not(captive _enemigo))) exitWith {_checkX = true};
+{_enemyX = _x;
+if (((side _enemyX == _enemyFaction) or (side _enemyX == buenos)) and (_enemyX distance player < 500) and (not(captive _enemyX))) exitWith {_checkX = true};
 } forEach allUnits;
 
 if (_checkX) exitWith {Hint "You cannot Fast Travel while enemies are nearby"};

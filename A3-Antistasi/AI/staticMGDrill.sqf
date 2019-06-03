@@ -21,7 +21,7 @@ while {(alive _gunner)} do
 	if (!(alive _helperX) and !(_mounted)) exitWith {};
 	if (!(isNull _veh) and !(alive _veh)) exitWith {};
 	_objectivesX = _grupo getVariable ["objectivesX",[]];
-	_enemigo = objNull;
+	_enemyX = objNull;
 	if (!(_objectivesX isEqualTo []) and (((_objectivesX select 0) select 4) distance _gunner > 150))  then
 		{
 		if !(_isMortar) then
@@ -32,18 +32,18 @@ while {(alive _gunner)} do
 				{
 				if  (([objNull, "VIEW"] checkVisibility [eyePos _eny, eyePos _gunner]) > 0) then
 					{
-					_enemigo = _eny;
+					_enemyX = _eny;
 					};
 				};
-			if !(isNull _enemigo) exitWith {};
+			if !(isNull _enemyX) exitWith {};
 			} forEach _objectivesX;
 			}
 		else
 			{
-			_enemigo = ((_objectivesX select 0) select 4);
+			_enemyX = ((_objectivesX select 0) select 4);
 			};
 		};
-	if !(isNull _enemigo) then
+	if !(isNull _enemyX) then
 		{
 		if !(_mounted) then
 			{

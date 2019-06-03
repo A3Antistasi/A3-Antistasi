@@ -1,6 +1,6 @@
 //Mission: Rescue the refugees
 if (!isServer and hasInterface) exitWith{};
-private ["_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_casa","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_cuenta"];
+private ["_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_casa","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_cuenta"];
 
 _markerX = _this select 0;
 
@@ -16,13 +16,13 @@ _POWs = [];
 _tam = [_markerX] call A3A_fnc_sizeMarker;
 //_casas = nearestObjects [_positionX, ["house"], _tam];
 _casas = (nearestObjects [_positionX, ["house"], _tam]) select {!((typeOf _x) in UPSMON_Bld_remove)};
-_poscasa = [];
+_posHouse = [];
 _casa = _casas select 0;
-while {count _poscasa < 3} do
+while {count _posHouse < 3} do
 	{
 	_casa = selectRandom _casas;
-	_poscasa = _casa buildingPos -1;
-	if (count _poscasa < 3) then {_casas = _casas - [_casa]};
+	_posHouse = _casa buildingPos -1;
+	if (count _posHouse < 3) then {_casas = _casas - [_casa]};
 	};
 
 
@@ -38,9 +38,9 @@ _posTsk = if (_lado == malos) then {(position _casa) getPos [random 100, random 
 [[buenos,civilian],"RES",[_texto,"Refugees Evac",_nameDest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["RES","CREATED"]; publicVariable "missionsX";
 _groupPOW = createGroup buenos;
-for "_i" from 1 to (((count _poscasa) - 1) min 15) do
+for "_i" from 1 to (((count _posHouse) - 1) min 15) do
 	{
-	_unit = _groupPOW createUnit [SDKUnarmed, _poscasa select _i, [], 0, "NONE"];
+	_unit = _groupPOW createUnit [SDKUnarmed, _posHouse select _i, [], 0, "NONE"];
 	_unit allowdamage false;
 	_unit disableAI "MOVE";
 	_unit disableAI "AUTOTARGET";

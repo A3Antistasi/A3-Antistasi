@@ -52,9 +52,9 @@ while {true} do
 						{
 						if (count units _grupo > 2) then {_grupo = createGroup civilian};
 						};
-					_posCasa = selectRandom (_casa buildingPos -1);
-					_civ = _grupo createUnit [selectRandom arrayCivs, _posCasa, [],0, "NONE"];
-					_civ setPosATL _posCasa;
+					_posHouse = selectRandom (_casa buildingPos -1);
+					_civ = _grupo createUnit [selectRandom arrayCivs, _posHouse, [],0, "NONE"];
+					_civ setPosATL _posHouse;
 					[_civ] spawn A3A_fnc_CIVinit;
 					_civs pushBack _civ;
 					if (_civ == leader _civ) then {_nul = [_civ, "ambientCiv", "SAFE", "SPAWNED","NOFOLLOW", "NOVEH2","NOSHARE","DoRelax"] execVM "scripts\UPSMON.sqf"};

@@ -1,7 +1,7 @@
 //Mission: Logistics bank mission
 //el sitio de la caja es el 21
 if (!isServer and hasInterface) exitWith {};
-private ["_banco","_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_camion","_cuenta","_mrkfin","_mrk","_soldiers"];
+private ["_banco","_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_camion","_cuenta","_mrkfin","_mrk","_soldiers"];
 _banco = _this select 0;
 _markerX = [citiesX,_banco] call BIS_fnc_nearestPosition;
 
@@ -94,8 +94,8 @@ else
 		{
 		while {(_cuenta > 0) and (_camion distance _positionX < 7) and (alive _camion)} do
 			{
-			_formato = format ["%1", _cuenta];
-			{if (isPlayer _x) then {[petros,"countdown",_formato] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,buenos] call A3A_fnc_distanceUnits);
+			_formatX = format ["%1", _cuenta];
+			{if (isPlayer _x) then {[petros,"countdown",_formatX] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,buenos] call A3A_fnc_distanceUnits);
 			sleep 1;
 			_cuenta = _cuenta - 1;
 			};

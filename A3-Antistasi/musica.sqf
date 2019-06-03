@@ -78,7 +78,7 @@ while {musicON} do
 	{
 	sleep 3;
 	_newstance = behaviour player;
-	//hint format ["El jugador está en esta stance: %1", _newstance]; sleep 3;
+	//hint format ["El playerX está en esta stance: %1", _newstance]; sleep 3;
 	if ((_newstance != _stance) or (cambioMUS)) then
 		{
 		removeAllMusicEventHandlers "MusicStop";

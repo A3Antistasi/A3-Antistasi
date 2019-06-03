@@ -24,7 +24,7 @@ _nameDest = [_markerX] call A3A_fnc_localizar;
 [[buenos,civilian],"RES",[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"POW Rescue",_markerX],_positionX,false,0,true,"run",true] call BIS_fnc_taskCreate;
 //_blacklistbld = ["Land_Cargo_HQ_V1_F", "Land_Cargo_HQ_V2_F","Land_Cargo_HQ_V3_F","Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower_V1_No2_F","Land_Cargo_Tower_V1_No3_F","Land_Cargo_Tower_V1_No4_F","Land_Cargo_Tower_V1_No5_F","Land_Cargo_Tower_V1_No6_F","Land_Cargo_Tower_V1_No7_F","Land_Cargo_Tower_V2_F","Land_Cargo_Patrol_V1_F","Land_Cargo_Patrol_V2_F","Land_Cargo_Patrol_V3_F"];
 missionsX pushBack ["RES","CREATED"]; publicVariable "missionsX";
-_poscasa = [];
+_posHouse = [];
 _cuenta = 0;
 //_casas = nearestObjects [_positionX, ["house"], 50];
 _casas = (nearestObjects [_positionX, ["house"], 50]) select {!((typeOf _x) in UPSMON_Bld_remove)};
@@ -33,15 +33,15 @@ _potentials = [];
 for "_i" from 0 to (count _casas) - 1 do
 	{
 	_casa = (_casas select _i);
-	_poscasa = [_casa] call BIS_fnc_buildingPositions;
-	if (count _poscasa > 1) then {_potentials pushBack _casa};
+	_posHouse = [_casa] call BIS_fnc_buildingPositions;
+	if (count _posHouse > 1) then {_potentials pushBack _casa};
 	};
 
 if (count _potentials > 0) then
 	{
 	_casa = _potentials call BIS_Fnc_selectRandom;
-	_poscasa = [_casa] call BIS_fnc_buildingPositions;
-	_cuenta = (count _poscasa) - 1;
+	_posHouse = [_casa] call BIS_fnc_buildingPositions;
+	_cuenta = (count _posHouse) - 1;
 	if (_cuenta > 10) then {_cuenta = 10};
 	}
 else
@@ -50,13 +50,13 @@ else
 	for "_i" from 0 to _cuenta do
 		{
 		_postmp = [_positionX, 5, random 360] call BIS_Fnc_relPos;
-		_poscasa pushBack _postmp;
+		_posHouse pushBack _postmp;
 		};
 	};
 _grpPOW = createGroup buenos;
 for "_i" from 0 to _cuenta do
 	{
-	_unit = _grpPOW createUnit [SDKUnarmed, (_poscasa select _i), [], 0, "NONE"];
+	_unit = _grpPOW createUnit [SDKUnarmed, (_posHouse select _i), [], 0, "NONE"];
 	_unit allowDamage false;
 	[_unit,true] remoteExec ["setCaptive",0,_unit];
 	_unit setCaptive true;

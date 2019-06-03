@@ -1,36 +1,36 @@
-private ["_carrierX","_llevado","_timeOut","_action"];
-_llevado = _this select 0;
+private ["_carrierX","_carryX","_timeOut","_action"];
+_carryX = _this select 0;
 _carrierX = _this select 1;
 
-//if (_llevado getVariable ["llevado",false]) exitWith {hint "This soldier is being carried and you cannot help him"};
-if (!alive _llevado) exitWith {hint format ["%1 is dead",name _llevado]};
-if !(_llevado getVariable ["INCAPACITATED",false]) exitWith {hint format ["%1 no longer needs your help",name _llevado]};
-if !(isNull attachedTo _llevado) exitWith {hint format ["%1 is being carried or transported and you cannot carry him",name _llevado]};
+//if (_carryX getVariable ["carryX",false]) exitWith {hint "This soldier is being carried and you cannot help him"};
+if (!alive _carryX) exitWith {hint format ["%1 is dead",name _carryX]};
+if !(_carryX getVariable ["INCAPACITATED",false]) exitWith {hint format ["%1 no longer needs your help",name _carryX]};
+if !(isNull attachedTo _carryX) exitWith {hint format ["%1 is being carried or transported and you cannot carry him",name _carryX]};
 if (captive _carrierX) then {[_carrierX,false] remoteExec ["setCaptive",0,_carrierX]; _carrierX setCaptive false};
 _carrierX playMoveNow "AcinPknlMstpSrasWrflDnon";
-[_llevado,"AinjPpneMrunSnonWnonDb"] remoteExec ["switchMove"];
-//_llevado setVariable ["llevado",true,true];
-_llevado setVariable ["helped",_carrierX,true];
-[_llevado,"remove"] remoteExec ["A3A_fnc_flagaction",0,_llevado];
-_llevado attachTo [_carrierX, [0,1.1,0.092]];
-_llevado setDir 180;
+[_carryX,"AinjPpneMrunSnonWnonDb"] remoteExec ["switchMove"];
+//_carryX setVariable ["carryX",true,true];
+_carryX setVariable ["helped",_carrierX,true];
+[_carryX,"remove"] remoteExec ["A3A_fnc_flagaction",0,_carryX];
+_carryX attachTo [_carrierX, [0,1.1,0.092]];
+_carryX setDir 180;
 _timeOut = time + 60;
-_action = _carrierX addAction [format ["Release %1",name _llevado], {{detach _x} forEach (attachedObjects player)},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
+_action = _carrierX addAction [format ["Release %1",name _carryX], {{detach _x} forEach (attachedObjects player)},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
 
-waitUntil {sleep 0.5; (!alive _llevado) or !([_carrierX] call A3A_fnc_canFight) or !(_llevado getVariable ["INCAPACITATED",false]) or ({!isNull _x} count attachedObjects _carrierX == 0) or (time > _timeOut) or (vehicle _carrierX != _carrierX)};
+waitUntil {sleep 0.5; (!alive _carryX) or !([_carrierX] call A3A_fnc_canFight) or !(_carryX getVariable ["INCAPACITATED",false]) or ({!isNull _x} count attachedObjects _carrierX == 0) or (time > _timeOut) or (vehicle _carrierX != _carrierX)};
 
 _carrierX removeAction _action;
-if (count attachedObjects _carrierX != 0) then {detach _llevado};
+if (count attachedObjects _carrierX != 0) then {detach _carryX};
 _carrierX playMove "amovpknlmstpsraswrfldnon";
 sleep 2;
-_llevado playMoveNow "";
-if (_llevado getVariable ["INCAPACITATED",false]) then
+_carryX playMoveNow "";
+if (_carryX getVariable ["INCAPACITATED",false]) then
 	{
-	[_llevado,false] remoteExec ["setUnconscious",_llevado];
-	waitUntil {sleep 0.1; lifeState _llevado != "INCAPACITATED"};
-	[_llevado,true] remoteExec ["setUnconscious",_llevado];
+	[_carryX,false] remoteExec ["setUnconscious",_carryX];
+	waitUntil {sleep 0.1; lifeState _carryX != "INCAPACITATED"};
+	[_carryX,true] remoteExec ["setUnconscious",_carryX];
 	};
-//_llevado setVariable ["llevado",false,true];
-[_llevado,"heal1"] remoteExec ["A3A_fnc_flagaction",0,_llevado];
+//_carryX setVariable ["carryX",false,true];
+[_carryX,"heal1"] remoteExec ["A3A_fnc_flagaction",0,_carryX];
 sleep 5;
-_llevado setVariable ["helped",objNull,true];
+_carryX setVariable ["helped",objNull,true];

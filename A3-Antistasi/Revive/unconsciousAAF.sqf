@@ -6,7 +6,7 @@ _injurer = _this select 1;
 //if (!local _unit) exitWith {};
 //_unit setVariable ["inconsciente",true,true];
 _bleedOut = if (surfaceIsWater (position _unit)) then {time + 60} else {time + 300};//300
-_jugadores = false;
+_playersX = false;
 _lado = side (group _unit);
 if ((side _injurer == buenos) and (_lado == malos)) then
 	{
@@ -19,7 +19,7 @@ if ((side _injurer == buenos) and (_lado == malos)) then
 
 if ({if ((isPlayer _x) and (_x distance _unit < distanceSPWN2)) exitWith {1}} count allUnits != 0) then
 	{
-	_jugadores = true;
+	_playersX = true;
 	[_unit,"heal"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 	[_unit,true] remoteExec ["setCaptive"];
 	_unit setCaptive true;
@@ -39,7 +39,7 @@ while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (a
 	};
 
 _unit stop false;
-if (_jugadores) then
+if (_playersX) then
 	{
 	[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 	};

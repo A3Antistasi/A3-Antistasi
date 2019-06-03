@@ -1,7 +1,7 @@
-private ["_staticX","_nearX","_jugador"];
+private ["_staticX","_nearX","_playerX"];
 
 _staticX = _this select 0;
-_jugador = _this select 1;
+_playerX = _this select 1;
 
 if (!alive _staticX) exitWith {hint "You cannot steal a destroyed static weapon"};
 
@@ -15,7 +15,7 @@ _nearX = [markersX,_staticX] call BIS_fnc_nearestPosition;
 
 if (not(lados getVariable [_nearX,sideUnknown] == buenos)) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
 
-_staticX setOwner (owner _jugador);
+_staticX setOwner (owner _playerX);
 
 _tipoEst = typeOf _staticX;
 
@@ -34,8 +34,8 @@ switch _tipoEst do
 	case SDKMortar: {_tipoB1 = MortStaticSDKB; _tipoB2 = supportStaticsSDKB3};
 	};
 
-_positionX1 = [_jugador, 1, (getDir _jugador) - 90] call BIS_fnc_relPos;
-_positionX2 = [_jugador, 1, (getDir _jugador) + 90] call BIS_fnc_relPos;
+_positionX1 = [_playerX, 1, (getDir _playerX) - 90] call BIS_fnc_relPos;
+_positionX2 = [_playerX, 1, (getDir _playerX) + 90] call BIS_fnc_relPos;
 
 deleteVehicle _staticX;
 

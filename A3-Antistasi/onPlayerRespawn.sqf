@@ -65,7 +65,7 @@ if (side group player == buenos) then
 	removeBackpackGlobal _nuevo;
 	removeVest _nuevo;
 	if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems _nuevo))) then {_nuevo unlinkItem "ItemGPS"};
-	if ((!hayTFAR) and (!hayACRE) and ("ItemRadio" in (assignedItems player)) and (!haveRadio)) then {player unlinkItem "ItemRadio"};
+	if ((!hasTFAR) and (!hasACRE) and ("ItemRadio" in (assignedItems player)) and (!haveRadio)) then {player unlinkItem "ItemRadio"};
 	if (!isPlayer (leader group player)) then {(group player) selectLeader player};
 	player addEventHandler ["FIRED",
 		{
@@ -101,31 +101,31 @@ if (side group player == buenos) then
 
 	player addEventHandler ["InventoryOpened",
 		{
-		private ["_jugador","_containerX","_tipo"];
+		private ["_playerX","_containerX","_tipo"];
 		_control = false;
-		_jugador = _this select 0;
-		if (captive _jugador) then
+		_playerX = _this select 0;
+		if (captive _playerX) then
 			{
 			_containerX = _this select 1;
 			_tipo = typeOf _containerX;
 			if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 				{
-				if ({if (((side _x== Invaders) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
+				if ({if (((side _x== Invaders) or (side _x== malos)) and (_x knowsAbout _playerX > 1.4)) exitWith {1}} count allUnits > 0) then
 					{
-					[_jugador,false] remoteExec ["setCaptive",0,_jugador];
-					_jugador setCaptive false;
+					[_playerX,false] remoteExec ["setCaptive",0,_playerX];
+					_playerX setCaptive false;
 					}
 				else
 					{
-					_ciudad = [citiesX,_jugador] call BIS_fnc_nearestPosition;
+					_ciudad = [citiesX,_playerX] call BIS_fnc_nearestPosition;
 					_size = [_ciudad] call A3A_fnc_sizeMarker;
 					_datos = server getVariable _ciudad;
 					if (random 100 < _datos select 2) then
 						{
-						if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
+						if (_playerX distance getMarkerPos _ciudad < _size * 1.5) then
 							{
-							[_jugador,false] remoteExec ["setCaptive",0,_jugador];
-							_jugador setCaptive false;
+							[_playerX,false] remoteExec ["setCaptive",0,_playerX];
+							_playerX setCaptive false;
 							};
 						};
 					};

@@ -21,7 +21,7 @@ if !(skillMult == 1) then
 			[_index,_magazine,-1] call jn_fnc_arsenal_addItem;
 			};
 		unlockedWeapons pushBack sniperRifle;
-		if !(hayTFAR) then
+		if !(hasTFAR) then
 			{
 			_index = "ItemRadio" call jn_fnc_arsenal_itemType;
 			[_index,"ItemRadio",-1] call jn_fnc_arsenal_addItem;

@@ -6,13 +6,13 @@ if (player != player getVariable "owner") exitWith {hint "You cannot access the 
 
 if ([player,300] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot manage the Garage with enemies nearby"};
 vehInGarageShow = [];
-_hayAire = false;
+_hasAir = false;
 _airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == buenos) and (player inArea _x)};
-if (count _airportsX > 0) then {_hayAire = true};
+if (count _airportsX > 0) then {_hasAir = true};
 {
 if ((_x in vehPlanes)) then
 	{
-	if (_hayAire) then {vehInGarageShow pushBack _x};
+	if (_hasAir) then {vehInGarageShow pushBack _x};
 	}
 else
 	{

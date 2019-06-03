@@ -1,6 +1,6 @@
 //Mission: Logistic supplies
 if (!isServer and hasInterface) exitWith{};
-private ["_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_posCasa","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_camion","_cuenta"];
+private ["_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_camion","_cuenta"];
 
 _markerX = _this select 0;
 
@@ -75,8 +75,8 @@ else
 		{
 		while {(_cuenta > 0) and (_camion distance _positionX < 40) and ({[_x] call A3A_fnc_canFight} count ([80,0,_camion,buenos] call A3A_fnc_distanceUnits) == count ([80,0,_camion,buenos] call A3A_fnc_distanceUnits)) and ({(side _x == malos) and (_x distance _camion < 50)} count allUnits == 0) and (dateToNumber date < _dateLimitNum) and (isNull attachedTo _camion)} do
 			{
-			_formato = format ["%1", _cuenta];
-			{if (isPlayer _x) then {[petros,"countdown",_formato] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,buenos] call A3A_fnc_distanceUnits);
+			_formatX = format ["%1", _cuenta];
+			{if (isPlayer _x) then {[petros,"countdown",_formatX] remoteExec ["A3A_fnc_commsMP",_x]}} forEach ([80,0,_camion,buenos] call A3A_fnc_distanceUnits);
 			sleep 1;
 			_cuenta = _cuenta - 1;
 			};

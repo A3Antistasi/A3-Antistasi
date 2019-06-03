@@ -37,7 +37,7 @@ if (isMultiplayer) then
 	cutText ["Starting Mission","BLACK IN",0];
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
-	if (hayTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
+	if (hasTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
 	tkPunish = if (paramsArray select 5 == 1) then {true} else {false};
 	if ((side player == buenos) and tkPunish) then
 		{
@@ -253,31 +253,31 @@ player addEventHandler ["FIRED",
 	];
 player addEventHandler ["InventoryOpened",
 	{
-	private ["_jugador","_containerX","_tipo"];
+	private ["_playerX","_containerX","_tipo"];
 	_control = false;
-	_jugador = _this select 0;
-	if (captive _jugador) then
+	_playerX = _this select 0;
+	if (captive _playerX) then
 		{
 		_containerX = _this select 1;
 		_tipo = typeOf _containerX;
 		if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_tipo == NATOAmmoBox) or (_tipo == CSATAmmoBox)) then
 			{
-			if ({if (((side _x== Invaders) or (side _x== malos)) and (_x knowsAbout _jugador > 1.4)) exitWith {1}} count allUnits > 0) then
+			if ({if (((side _x== Invaders) or (side _x== malos)) and (_x knowsAbout _playerX > 1.4)) exitWith {1}} count allUnits > 0) then
 				{
-				[_jugador,false] remoteExec ["setCaptive",0,_jugador];
-				_jugador setCaptive false;
+				[_playerX,false] remoteExec ["setCaptive",0,_playerX];
+				_playerX setCaptive false;
 				}
 			else
 				{
-				_ciudad = [citiesX,_jugador] call BIS_fnc_nearestPosition;
+				_ciudad = [citiesX,_playerX] call BIS_fnc_nearestPosition;
 				_size = [_ciudad] call A3A_fnc_sizeMarker;
 				_datos = server getVariable _ciudad;
 				if (random 100 < _datos select 2) then
 					{
-					if (_jugador distance getMarkerPos _ciudad < _size * 1.5) then
+					if (_playerX distance getMarkerPos _ciudad < _size * 1.5) then
 						{
-						[_jugador,false] remoteExec ["setCaptive",0,_jugador];
-						_jugador setCaptive false;
+						[_playerX,false] remoteExec ["setCaptive",0,_playerX];
+						_playerX setCaptive false;
 						};
 					};
 				};
@@ -554,7 +554,7 @@ waitUntil {scriptDone _titulo};
 
 _texto = [];
 
-if ((hayTFAR) or (hayACRE)) then
+if ((hasTFAR) or (hasACRE)) then
 	{
 	_texto = ["TFAR or ACRE Detected\n\nAntistasi detects TFAR or ACRE in the server config.\nAll players will start with addon default radios.\nDefault revive system will shut down radios while players are inconscious.\n\n"];
 	};
@@ -566,12 +566,12 @@ if (hayRHS) then
 	{
 	_texto = _texto + ["RHS Detected\n\nAntistasi detects RHS in the server config.\nDepending on the modules will have the following effects.\n\nAFRF: Replaces CSAT by a mix of russian units\n\nUSAF: Replaces NATO by a mix of US units\n\nGREF: Recruited AI will count with RHS as basic weapons, replaces FIA with Chdk units. Adds some civilian trucks"];
 	};
-if (hayFFAA) then
+if (hasFFAA) then
 	{
 	_texto = _texto + ["FFAA Detected\n\nAntistasi detects FFAA in the server config.\nFIA Faction will be replaced by Spanish Armed Forces"];
 	};
 
-if (hayTFAR or hayACE or hayRHS or hayACRE or hayFFAA) then
+if (hasTFAR or hayACE or hayRHS or hasACRE or hasFFAA) then
 	{
 	[_texto] spawn
 		{

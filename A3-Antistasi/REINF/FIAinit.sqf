@@ -247,7 +247,7 @@ if (player == leader _unit) then
 	if (captive player) then {[_unit] spawn A3A_fnc_undercoverAI};
 
 	_unit setVariable ["rearming",false];
-	if ((!haveRadio) and (!hayTFAR) and (!hayACRE) and !(hayIFA)) then
+	if ((!haveRadio) and (!hasTFAR) and (!hasACRE) and !(hayIFA)) then
 		{
 		while {alive _unit} do
 			{

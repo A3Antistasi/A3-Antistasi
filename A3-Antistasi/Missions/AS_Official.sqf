@@ -25,7 +25,7 @@ missionsX pushBack ["AS","CREATED"]; publicVariable "missionsX";
 _grp = createGroup _lado;
 
 _tipo = if (_lado == malos) then {NATOOfficer} else {CSATOfficer};
-_oficial = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
+_official = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
 _tipo = if (_lado == malos) then {NATOBodyG} else {CSATBodyG};
 _piloto = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
 if (_difficultX) then
@@ -36,15 +36,15 @@ if (_difficultX) then
 		};
 	};
 
-_grp selectLeader _oficial;
+_grp selectLeader _official;
 sleep 1;
 _nul = [leader _grp, _markerX, "SAFE", "SPAWNED", "NOVEH", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 
 {_nul = [_x,""] call A3A_fnc_NATOinit; _x allowFleeing 0} forEach units _grp;
 
-waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _oficial)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _official)};
 
-if (not alive _oficial) then
+if (not alive _official) then
 	{
 	["AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"Kill the Officer",_markerX],_positionX,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	if (_difficultX) then

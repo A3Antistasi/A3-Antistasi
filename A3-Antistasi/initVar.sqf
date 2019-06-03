@@ -126,7 +126,7 @@ if (not(_nombre in _alreadyPlaced)) then
 activeAFRF = false;
 activeUSAF = false;
 activeGREF = false;
-hayFFAA = false;
+hasFFAA = false;
 hayIFA = false;
 myCustomMod = false;
 
@@ -139,7 +139,7 @@ if ("LIB_PTRD" in arifles) then
 else
 	{
 	if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hayRHS = true};
-	if ("ffaa_armas_hkg36k_normal" in arifles) then {hayFFAA = true};
+	if ("ffaa_armas_hkg36k_normal" in arifles) then {hasFFAA = true};
 	if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hayRHS = true};
 	if ("rhs_weap_m92" in arifles) then {activeGREF = true; hayRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
 	cascos = cascos select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2};
@@ -628,15 +628,15 @@ garageIsUsed = false;
 vehInGarage = [];
 destroyedBuildings = []; //publicVariable "destroyedBuildings";
 reportedVehs = [];
-hayTFAR = false;
-hayACRE = false;
+hasTFAR = false;
+hasACRE = false;
 hayACE = false;
 hasACEhearing = false;
 hasACEMedical = false;
 //TFAR detection and config.
 if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
     {
-    hayTFAR = true;
+    hasTFAR = true;
     haveRadio = true;
     unlockedItems = unlockedItems + ["tf_microdagr","tf_anprc148jem"];//making this items Arsenal available.["tf_anprc152"]
     tf_no_auto_long_range_radio = true; publicVariable "tf_no_auto_long_range_radio";//set to false and players will start with LR radio, uncomment the last line of so.
@@ -741,7 +741,7 @@ if (!isNil "ace_common_fnc_isModLoaded") then {
 };
 if (isClass(configFile >> "cfgPatches" >> "acre_main")) then
 	{
-	hayACRE = true;
+	hasACRE = true;
 	haveRadio = true;
 	unlockedItems = unlockedItems + ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"];
 	};
@@ -782,8 +782,8 @@ publicVariable "garageIsUsed";
 publicVariable "vehInGarage";
 publicVariable "reportedVehs";
 publicVariable "hayACE";
-publicVariable "hayTFAR";
-publicVariable "hayACRE";
+publicVariable "hasTFAR";
+publicVariable "hasACRE";
 publicVariable "hasACEhearing";
 publicVariable "hasACEMedical";
 publicVariable "revelar";

@@ -102,7 +102,7 @@ fn_SetStat =
 				removeBackpackGlobal player;
 				removeVest player;
 				if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems player))) then {player unlinkItem "ItemGPS"};
-				if ((!hayTFAR) and (!hayACRE) and ("ItemRadio" in (assignedItems player)) and (not("ItemRadio" in unlockedItems))) then {player unlinkItem "ItemRadio"};
+				if ((!hasTFAR) and (!hasACRE) and ("ItemRadio" in (assignedItems player)) and (not("ItemRadio" in unlockedItems))) then {player unlinkItem "ItemRadio"};
 				["loadoutPlayer", getUnitLoadout player] call fn_SaveStat;
 				};
 			player setUnitLoadout _pepe;

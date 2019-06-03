@@ -19,19 +19,19 @@ _dateLimitNum = dateToNumber _dateLimit;
 
 _tam = [_markerX] call A3A_fnc_sizeMarker;
 _casas = (nearestObjects [_positionX, ["house"], _tam]) select {!((typeOf _x) in UPSMON_Bld_remove)};
-_poscasa = [];
+_posHouse = [];
 _casa = _casas select 0;
-while {count _poscasa < 3} do
+while {count _posHouse < 3} do
 	{
 	_casa = _casas call BIS_Fnc_selectRandom;
-	_poscasa = _casa buildingPos -1;
-	if (count _poscasa < 3) then {_casas = _casas - [_casa]};
+	_posHouse = _casa buildingPos -1;
+	if (count _posHouse < 3) then {_casas = _casas - [_casa]};
 	};
 
-_max = (count _poscasa) - 1;
+_max = (count _posHouse) - 1;
 _rnd = floor random _max;
-_posTraitor = _poscasa select _rnd;
-_posSol1 = _poscasa select (_rnd + 1);
+_posTraitor = _posHouse select _rnd;
+_posSol1 = _posHouse select (_rnd + 1);
 _posSol2 = (_casa buildingExit 0);
 
 _nameDest = [_markerX] call A3A_fnc_localizar;

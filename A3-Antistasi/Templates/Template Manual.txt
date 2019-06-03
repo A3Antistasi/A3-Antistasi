@@ -68,7 +68,7 @@ APERSMineMag = "APERSMine_Range_Mag";//mines which will be deployed in the minef
 //here comes the Tier 1 (police) and Tier 2 (PMC) enemy stuff. If your mod does not have enough classes in other sides, then just use the most basic classnames of those flactions.
 //the following is fot Tier 2. In the template, as we use Sindykat as rebels, we may use Blufor or Greenfor FIA as PMC.
 
-if (hayFFAA) then//FFAA mod template loading, ignore it.
+if (hasFFAA) then//FFAA mod template loading, ignore it.
 	{
 	call compile preProcessFileLineNumbers "Templates\OccupantsFFAA.sqf"
 	}

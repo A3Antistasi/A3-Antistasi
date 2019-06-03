@@ -4,11 +4,11 @@ _texto = "In Game Members\n\n";
 _countN = 0;
 
 {
-_jugador = _x getVariable ["owner",objNull];
-if (!isNull _jugador) then
+_playerX = _x getVariable ["owner",objNull];
+if (!isNull _playerX) then
 	{
-	//_uid = getPlayerUID _jugador;
-	if ([_jugador] call A3A_fnc_isMember) then {_texto = format ["%1%2\n",_texto,name _jugador]} else {_countN = _countN + 1};
+	//_uid = getPlayerUID _playerX;
+	if ([_playerX] call A3A_fnc_isMember) then {_texto = format ["%1%2\n",_texto,name _playerX]} else {_countN = _countN + 1};
 	};
 } forEach playableUnits;
 

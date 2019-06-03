@@ -6,7 +6,7 @@ _convoy = false;
 if ((_text == "Convoy Objective") or (_text == "Mission Vehicle") or (_text == "Supply Box")) then {_convoy = true};
 _side = side (group (driver _veh));
 _tipo = "_unknown";
-_formato = "";
+_formatX = "";
 _color = colorOccupants;
 if (_veh isKindOf "Truck") then {_tipo = "_motor_inf"}
 	else
@@ -36,27 +36,27 @@ if (_veh isKindOf "Truck") then {_tipo = "_motor_inf"}
 
 if ((_side == buenos) or (_side == sideUnknown)) then
 	{
-	_enemigo = false;
-	_formato = "n";
+	_enemyX = false;
+	_formatX = "n";
 	_color = colourTeamPlayer;
 	}
 else
 	{
 	if (_side == malos) then
 		{
-		_formato = "b";
+		_formatX = "b";
 		}
 	else
 		{
 		if (_side == Invaders) then
 			{
-			_formato = "o";
+			_formatX = "o";
 			_color = colorInvaders;
 			};
 		};
 	};
 
-_tipo = format ["%1%2",_formato,_tipo];
+_tipo = format ["%1%2",_formatX,_tipo];
 
 if ((side group (driver _veh) != buenos) and (side driver _veh != sideUnknown)) then {["TaskSucceeded", ["", format ["%1 Spotted",_text]]] spawn BIS_fnc_showNotification};
 

@@ -1,4 +1,4 @@
-private ["_mrkDestination","_mrkOrigin","_numero","_lado","_typeGroup","_tipoVeh","_indice","_spawnPoint","_pos","_timeOut","_veh","_grupo","_landPos","_Vwp0","_posOrigin","_land","_pos1","_pos2"];
+private ["_mrkDestination","_mrkOrigin","_numero","_lado","_typeGroup","_typeVehX","_indice","_spawnPoint","_pos","_timeOut","_veh","_grupo","_landPos","_Vwp0","_posOrigin","_land","_pos1","_pos2"];
 
 _mrkDestination = _this select 0;
 _mrkOrigin = _this select 1;
@@ -10,17 +10,17 @@ _posOrigin = getMarkerPos _mrkOrigin;
 
 _land = if (_posOrigin distance _posDestination > distanceForLandAttack) then {false} else {true};
 _typeGroup = if (_lado == malos) then {if (_numero == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
-_tipoVeh = "";
+_typeVehX = "";
 if (_land) then
 	{
-	if (_lado == malos) then {_tipoVeh = selectRandom vehNATOTrucks} else {_tipoVeh = selectRandom vehCSATTrucks};
+	if (_lado == malos) then {_typeVehX = selectRandom vehNATOTrucks} else {_typeVehX = selectRandom vehCSATTrucks};
 	}
 else
 	{
 	_vehPool = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
 	if ((_numero > 4) and (count _vehPool > 1) and !hayIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
 	//_vehPool = _vehPool select {(_x isKindOf "Helicopter") and (_x in vehFastRope)};
-	_tipoVeh = selectRandom _vehPool;
+	_typeVehX = selectRandom _vehPool;
 	};
 
 _pos = [];
@@ -33,16 +33,16 @@ if (_land) then
 	_spawnPoint = spawnPoints select _indice;
 	_pos = getMarkerPos _spawnPoint;
 	_timeOut = 0;
-	_pos = _pos findEmptyPosition [0,100,_tipoVeh];
+	_pos = _pos findEmptyPosition [0,100,_typeVehX];
 	while {_timeOut < 60} do
 		{
 		if (count _pos > 0) exitWith {};
 		_timeOut = _timeOut + 1;
-		_pos = _pos findEmptyPosition [0,100,_tipoveh];
+		_pos = _pos findEmptyPosition [0,100,_typeVehX];
 		sleep 1;
 		};
 	if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
-	_veh = _tipoVeh createVehicle _pos;
+	_veh = _typeVehX createVehicle _pos;
 	_veh setDir (markerDir _spawnPoint);
 	_grupo = [_pos,_lado, _typeGroup] call A3A_fnc_spawnGroup;
 	_grupo addVehicle _veh;
@@ -83,7 +83,7 @@ else
 		};
 	if (count _pos == 0) then {_pos = _posOrigin};
 
-	_vehicle=[_pos, _ang + 90,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+	_vehicle=[_pos, _ang + 90,_typeVehX, _lado] call bis_fnc_spawnvehicle;
 	_veh = _vehicle select 0;
 	_vehCrew = _vehicle select 1;
 	_groupVeh = _vehicle select 2;
@@ -106,7 +106,7 @@ else
 		[_x] call A3A_fnc_NATOinit;
 		};
 	} forEach units _grupo;
-	_landPos = if (_tipoVeh isKindOf "Helicopter") then {[_posDestination, 0, 300, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos} else {[0,0,0]};
+	_landPos = if (_typeVehX isKindOf "Helicopter") then {[_posDestination, 0, 300, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos} else {[0,0,0]};
 	if !(_landPos isEqualTo [0,0,0]) then
 		{
 		_landPos set [2, 0];
@@ -130,7 +130,7 @@ else
 		}
 	else
 		{
-		if (_tipoVeh in vehFastRope) then
+		if (_typeVehX in vehFastRope) then
 			{
 			[_veh,_grupo,_posDestination,_posOrigin,_groupVeh,true] spawn A3A_fnc_fastrope;
 			}

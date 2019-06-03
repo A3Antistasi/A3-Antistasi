@@ -85,7 +85,7 @@ if (lados getVariable [_markerX,sideUnknown] == malos) then
 					if (_markerX in controlsX) then {[[_markerX],"A3A_fnc_createAIcontrols"] call A3A_fnc_scheduler} else {
 					if (_markerX in airportsX) then {[[_markerX],"A3A_fnc_createAIAirplane"] call A3A_fnc_scheduler} else {
 					if (((_markerX in resourcesX) or (_markerX in factories))) then {[[_markerX],"A3A_fnc_createAIResources"] call A3A_fnc_scheduler} else {
-					if ((_markerX in puestos) or (_markerX in puertos)) then {[[_markerX],"A3A_fnc_createAIOutposts"] call A3A_fnc_scheduler};};};};
+					if ((_markerX in outposts) or (_markerX in seaports)) then {[[_markerX],"A3A_fnc_createAIOutposts"] call A3A_fnc_scheduler};};};};
 					};
 				};
 			}
@@ -201,7 +201,7 @@ else
 					if (_markerX in controlsX) then {[[_markerX],"A3A_fnc_createAIcontrols"] call A3A_fnc_scheduler} else {
 					if (_markerX in airportsX) then {[[_markerX],"A3A_fnc_createAIAirplane"] call A3A_fnc_scheduler} else {
 					if (((_markerX in resourcesX) or (_markerX in factories))) then {[[_markerX],"A3A_fnc_createAIResources"] call A3A_fnc_scheduler} else {
-					if ((_markerX in puestos) or (_markerX in puertos)) then {[[_markerX],"A3A_fnc_createAIOutposts"] call A3A_fnc_scheduler};};};};
+					if ((_markerX in outposts) or (_markerX in seaports)) then {[[_markerX],"A3A_fnc_createAIOutposts"] call A3A_fnc_scheduler};};};};
 					};
 				}
 			else

@@ -1,70 +1,70 @@
 if (isDedicated) exitWith {};
-private ["_nuevo","_viejo"];
-_nuevo = _this select 0;
-_viejo = _this select 1;
+private ["_newUnit","_oldUnit"];
+_newUnit = _this select 0;
+_oldUnit = _this select 1;
 
-if (isNull _viejo) exitWith {};
+if (isNull _oldUnit) exitWith {};
 
 waitUntil {alive player};
 
-_nul = [_viejo] spawn A3A_fnc_postmortem;
+_nul = [_oldUnit] spawn A3A_fnc_postmortem;
 if !(hasACEMedical) then
 	{
-	_viejo setVariable ["INCAPACITATED",false,true];
-	_nuevo setVariable ["INCAPACITATED",false,true];
+	_oldUnit setVariable ["INCAPACITATED",false,true];
+	_newUnit setVariable ["INCAPACITATED",false,true];
 	};
 if (side group player == buenos) then
 	{
-	_owner = _viejo getVariable ["owner",_viejo];
+	_owner = _oldUnit getVariable ["owner",_oldUnit];
 
-	if (_owner != _viejo) exitWith {hint "Died while remote controlling AI"; selectPlayer _owner; disableUserInput false; deleteVehicle _nuevo};
+	if (_owner != _oldUnit) exitWith {hint "Died while remote controlling AI"; selectPlayer _owner; disableUserInput false; deleteVehicle _newUnit};
 
-	_nul = [0,-1,getPos _viejo] remoteExec ["A3A_fnc_citySupportChange",2];
+	_nul = [0,-1,getPos _oldUnit] remoteExec ["A3A_fnc_citySupportChange",2];
 
-	_score = _viejo getVariable ["score",0];
-	_punish = _viejo getVariable ["punish",0];
-	_dinero = _viejo getVariable ["dinero",0];
+	_score = _oldUnit getVariable ["score",0];
+	_punish = _oldUnit getVariable ["punish",0];
+	_dinero = _oldUnit getVariable ["dinero",0];
 	_dinero = round (_dinero - (_dinero * 0.1));
-	_eligible = _viejo getVariable ["eligible",true];
-	_rango = _viejo getVariable ["rango","PRIVATE"];
+	_eligible = _oldUnit getVariable ["eligible",true];
+	_rango = _oldUnit getVariable ["rango","PRIVATE"];
 
 	_dinero = round (_dinero - (_dinero * 0.05));
 	if (_dinero < 0) then {_dinero = 0};
 
-	_nuevo setVariable ["score",_score -1,true];
-	_nuevo setVariable ["owner",_nuevo,true];
-	_nuevo setVariable ["punish",_punish,true];
-	_nuevo setVariable ["respawning",false];
-	_nuevo setVariable ["dinero",_dinero,true];
-	//_nuevo setUnitRank (rank _viejo);
-	_nuevo setVariable ["compromised",0];
-	_nuevo setVariable ["eligible",_eligible,true];
-	_nuevo setVariable ["spawner",true,true];
-	_viejo setVariable ["spawner",nil,true];
-	[_nuevo,false] remoteExec ["setCaptive",0,_nuevo];
-	_nuevo setCaptive false;
-	_nuevo setRank (_rango);
-	_nuevo setVariable ["rango",_rango,true];
-	_nuevo setUnitTrait ["camouflageCoef",0.8];
-	_nuevo setUnitTrait ["audibleCoef",0.8];
+	_newUnit setVariable ["score",_score -1,true];
+	_newUnit setVariable ["owner",_newUnit,true];
+	_newUnit setVariable ["punish",_punish,true];
+	_newUnit setVariable ["respawning",false];
+	_newUnit setVariable ["dinero",_dinero,true];
+	//_newUnit setUnitRank (rank _oldUnit);
+	_newUnit setVariable ["compromised",0];
+	_newUnit setVariable ["eligible",_eligible,true];
+	_newUnit setVariable ["spawner",true,true];
+	_oldUnit setVariable ["spawner",nil,true];
+	[_newUnit,false] remoteExec ["setCaptive",0,_newUnit];
+	_newUnit setCaptive false;
+	_newUnit setRank (_rango);
+	_newUnit setVariable ["rango",_rango,true];
+	_newUnit setUnitTrait ["camouflageCoef",0.8];
+	_newUnit setUnitTrait ["audibleCoef",0.8];
 	{
-    _nuevo addOwnedMine _x;
-    } count (getAllOwnedMines (_viejo));
+    _newUnit addOwnedMine _x;
+    } count (getAllOwnedMines (_oldUnit));
 
-	//if (!hasACEMedical) then {[_nuevo] call A3A_fnc_initRevive};
+	//if (!hasACEMedical) then {[_newUnit] call A3A_fnc_initRevive};
 	disableUserInput false;
-	//_nuevo enableSimulation true;
-	if (_viejo == theBoss) then
+	//_newUnit enableSimulation true;
+	if (_oldUnit == theBoss) then
 		{
-		[_nuevo] call A3A_fnc_theBossInit;
+		[_newUnit] call A3A_fnc_theBossInit;
 		};
 
 
-	removeAllItemsWithMagazines _nuevo;
-	{_nuevo removeWeaponGlobal _x} forEach weapons _nuevo;
-	removeBackpackGlobal _nuevo;
-	removeVest _nuevo;
-	if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems _nuevo))) then {_nuevo unlinkItem "ItemGPS"};
+	removeAllItemsWithMagazines _newUnit;
+	{_newUnit removeWeaponGlobal _x} forEach weapons _newUnit;
+	removeBackpackGlobal _newUnit;
+	removeVest _newUnit;
+	if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems _newUnit))) then {_newUnit unlinkItem "ItemGPS"};
 	if ((!hasTFAR) and (!hasACRE) and ("ItemRadio" in (assignedItems player)) and (!haveRadio)) then {player unlinkItem "ItemRadio"};
 	if (!isPlayer (leader group player)) then {(group player) selectLeader player};
 	player addEventHandler ["FIRED",
@@ -239,8 +239,8 @@ if (side group player == buenos) then
 	}
 else
 	{
-	_viejo setVariable ["spawner",nil,true];
-	_nuevo setVariable ["spawner",true,true];
+	_oldUnit setVariable ["spawner",nil,true];
+	_newUnit setVariable ["spawner",true,true];
 	if (hayRHS) then {[player] call A3A_fnc_RHSdress};
 	if (hayACE) then {[] call A3A_fnc_ACEpvpReDress};
 	};

@@ -1,7 +1,7 @@
 // usage: Activate via radio trigger, on act: [] execVM "airstrike.sqf";
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_positionX","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_lado","_isMarker","_typePlane","_exit","_timeOut","_size","_buildings","_amigos","_enemiesX","_mediaX","_mediaY","_pos","_cuenta","_distantNum","_distantX","_planefn","_planeCrew","_groupPlane","_tipo"];
+private ["_markerX","_positionX","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_lado","_isMarker","_typePlane","_exit","_timeOut","_size","_buildings","_friendlies","_enemiesX","_mediaX","_mediaY","_pos","_cuenta","_distantNum","_distantX","_planefn","_planeCrew","_groupPlane","_tipo"];
 
 _markerX = _this select 0;
 _lado = _this select 1;
@@ -46,8 +46,8 @@ if (_isMarker) then
 	}
 else
 	{
-	_amigos = if (_lado == malos) then {allUnits select {(_x distance _positionX < 300) and (alive _x) and ((side _x == malos) or (side _x == civilian))}} else {allUnits select {(_x distance _positionX < 300) and (alive _x) and (side _x == Invaders)}};
-	if (count _amigos == 0) then
+	_friendlies = if (_lado == malos) then {allUnits select {(_x distance _positionX < 300) and (alive _x) and ((side _x == malos) or (side _x == civilian))}} else {allUnits select {(_x distance _positionX < 300) and (alive _x) and (side _x == Invaders)}};
+	if (count _friendlies == 0) then
 		{
 		_enemiesX = if (_lado == malos) then {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (side _x != civilian) and (alive _x)}} else {allUnits select {_x distance _positionX < 300 and (side _x != _lado) and (alive _x)}};
 		if (count _enemiesX > 0) then

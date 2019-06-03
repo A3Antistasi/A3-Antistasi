@@ -22,12 +22,12 @@ _sitio = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 
 if (getMarkerPos _sitio distance _positionTel > 50) exitWith {hint "You must click near a map marker"};
 
-if ((not(_sitio in _destroyedCities)) and (!(_sitio in puestos))) exitWith {hint "You cannot rebuild that"};
+if ((not(_sitio in _destroyedCities)) and (!(_sitio in outposts))) exitWith {hint "You cannot rebuild that"};
 
 _salir = false;
 _antennaDead = [];
 _texto = "That Outpost does not have a destroyed Radio Tower";
-if (_sitio in puestos) then
+if (_sitio in outposts) then
 	{
 	_antennasDead = antennasDead select {_x inArea _sitio};
 	if (count _antennasDead > 0) then

@@ -187,19 +187,19 @@ else
 sleep 60;
 _items = [];
 _ammunition = [];
-_armas = [];
+_weaponsX = [];
 {
 _unit = _x;
 if (_unit distance getMarkerPos respawnTeamPlayer < 150) then
 	{
-	{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_armas pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
+	{if (not(([_x] call BIS_fnc_baseWeapon) in unlockedWeapons)) then {_weaponsX pushBack ([_x] call BIS_fnc_baseWeapon)}} forEach weapons _unit;
 	{if (not(_x in unlockedMagazines)) then {_ammunition pushBack _x}} forEach magazines _unit;
 	_items = _items + (items _unit) + (primaryWeaponItems _unit) + (assignedItems _unit) + (secondaryWeaponItems _unit);
 	};
 deleteVehicle _unit;
 } forEach _POWs;
 deleteGroup _groupPOW;
-{caja addWeaponCargoGlobal [_x,1]} forEach _armas;
+{caja addWeaponCargoGlobal [_x,1]} forEach _weaponsX;
 {caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
 {caja addItemCargoGlobal [_x,1]} forEach _items;
 

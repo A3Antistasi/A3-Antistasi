@@ -6,7 +6,7 @@ if (captive _player) exitWith {hint "You are Undercover already"};
 private ["_compromised","_changeX","_airportsX","_arrayCivVeh","_player","_size","_base"];
 
 _changeX = "";
-_airportsX = airportsX + puestos + (controlsX select {isOnRoad (getMarkerPos _x)});
+_airportsX = airportsX + outposts + (controlsX select {isOnRoad (getMarkerPos _x)});
 _airportsX1 = airportsX;
 _arrayCivVeh = arrayCivVeh + [civHeli] + civBoats;
 _compromised = _player getVariable "compromised";
@@ -118,7 +118,7 @@ while {_changeX == ""} do
 			{
 			if ((primaryWeapon _player != "") or (secondaryWeapon _player != "") or (handgunWeapon _player != "") or (vest _player != "") or (getNumber (configfile >> "CfgWeapons" >> headgear _player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2) or (hmd _player != "") or (not(uniform _player in civUniforms))) then
 				{
-				if ({((side _x== Invaders) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_changeX = "Vestido2"} else {_changeX = "Vestido"};
+				if ({((side _x== Invaders) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_changeX = "clothes2"} else {_changeX = "clothes"};
 				};
 			if (dateToNumber date < _compromised) then
 				{
@@ -204,8 +204,8 @@ switch _changeX do
 		hint "You went too far away from any roads and have been spotted";
 		reportedVehs pushBackUnique (vehicle _player); publicVariable "reportedVehs";
 		};
-	case "Vestido": {hint "You cannot stay Undercover while:\n\nA weapon is visible\nWearing a vest\nWearing a helmet\nWearing NVGs\nWearing a mil uniform"};
-	case "Vestido2":
+	case "clothes": {hint "You cannot stay Undercover while:\n\nA weapon is visible\nWearing a vest\nWearing a helmet\nWearing NVGs\nWearing a mil uniform"};
+	case "clothes2":
 		{
 		hint "You cannot stay Undercover while showing:\n\nA weapon is visible\nWearing a vest\nWearing a helmet\nWearing NVGs\nWearing a mil uniform\n\nThe enemy added you to their Wanted List";
 		_player setVariable ["compromised",dateToNumber [date select 0, date select 1, date select 2, date select 3, (date select 4) + 30]];

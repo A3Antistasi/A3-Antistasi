@@ -2,7 +2,7 @@ if (isDedicated) exitWith {};
 private ["_lider"];
 if (count _this == 0) then
 	{
-	while {revelar} do
+	while {revealX} do
 		{
 		if (player == leader group player) then
 			{

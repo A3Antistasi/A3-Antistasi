@@ -25,12 +25,12 @@ if (!isDedicated) then
 				if (vehicle _amigo != _amigo) then
 					{
 					_veh = vehicle _amigo;
-					_tipoVeh = typeOf _veh;
+					_typeVehX = typeOf _veh;
 					if (not(_veh in staticsToSave)) then
 						{
 						if ((_veh isKindOf "StaticWeapon") or (driver _veh == _amigo)) then
 							{
-							_resourcesBackground = _resourcesBackground + ([_tipoVeh] call A3A_fnc_vehiclePrice);
+							_resourcesBackground = _resourcesBackground + ([_typeVehX] call A3A_fnc_vehiclePrice);
 							if (count attachedObjects _veh != 0) then {{_resourcesBackground = _resourcesBackground + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
 							};
 						};
@@ -77,12 +77,12 @@ if (!isDedicated) then
 	["weather",[fogParams,rain]] call fn_SaveStat;
 	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
 	//["firstLoad",false] call fn_SaveStat;
-private ["_hrBackground","_resourcesBackground","_veh","_tipoVeh","_armas","_ammunition","_items","_mochis","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_typeMine","_posMine","_detected","_tipos","_exists","_amigo"];
+private ["_hrBackground","_resourcesBackground","_veh","_typeVehX","_weaponsX","_ammunition","_items","_mochis","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_pospuesto","_typeMine","_posMine","_detected","_typesX","_exists","_amigo"];
 
 _hrBackground = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["spawner",false]) and ((group _x in (hcAllGroups theBoss) or (isPlayer (leader _x))) and (side group _x == buenos))} count allUnits);
 _resourcesBackground = server getVariable "resourcesFIA";
 /*
-_armas = [];
+_weaponsX = [];
 _ammunition = [];
 _items = [];
 _mochis = [];*/
@@ -111,14 +111,14 @@ if ((_amigo getVariable ["spawner",false]) and (side group _amigo == buenos))the
 			if (vehicle _amigo != _amigo) then
 				{
 				_veh = vehicle _amigo;
-				_tipoVeh = typeOf _veh;
+				_typeVehX = typeOf _veh;
 				if (not(_veh in staticsToSave)) then
 					{
 					if ((_veh isKindOf "StaticWeapon") or (driver _veh == _amigo)) then
 						{
 						if ((group _amigo in (hcAllGroups theBoss)) or (!isMultiplayer)) then
 							{
-							_resourcesBackground = _resourcesBackground + ([_tipoVeh] call A3A_fnc_vehiclePrice);
+							_resourcesBackground = _resourcesBackground + ([_typeVehX] call A3A_fnc_vehiclePrice);
 							if (count attachedObjects _veh != 0) then {{_resourcesBackground = _resourcesBackground + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
 							};
 						};
@@ -137,14 +137,14 @@ if ((_amigo getVariable ["spawner",false]) and (side group _amigo == buenos))the
 _arrayEst = [];
 {
 _veh = _x;
-_tipoVeh = typeOf _veh;
-if ((_veh distance getMarkerPos respawnTeamPlayer < 50) and !(_veh in staticsToSave) and !(_tipoVeh in ["ACE_SandbagObject","Land_PaperBox_01_open_boxes_F","Land_PaperBox_01_open_empty_F"])) then
+_typeVehX = typeOf _veh;
+if ((_veh distance getMarkerPos respawnTeamPlayer < 50) and !(_veh in staticsToSave) and !(_typeVehX in ["ACE_SandbagObject","Land_PaperBox_01_open_boxes_F","Land_PaperBox_01_open_empty_F"])) then
 	{
-	if (((not (_veh isKindOf "StaticWeapon")) and (not (_veh isKindOf "ReammoBox")) and (not (_veh isKindOf "FlagCarrier")) and (not(_veh isKindOf "Building"))) and (not (_tipoVeh == "C_Van_01_box_F")) and (count attachedObjects _veh == 0) and (alive _veh) and ({(alive _x) and (!isPlayer _x)} count crew _veh == 0) and (not(_tipoVeh == "WeaponHolderSimulated"))) then
+	if (((not (_veh isKindOf "StaticWeapon")) and (not (_veh isKindOf "ReammoBox")) and (not (_veh isKindOf "FlagCarrier")) and (not(_veh isKindOf "Building"))) and (not (_typeVehX == "C_Van_01_box_F")) and (count attachedObjects _veh == 0) and (alive _veh) and ({(alive _x) and (!isPlayer _x)} count crew _veh == 0) and (not(_typeVehX == "WeaponHolderSimulated"))) then
 		{
 		_posVeh = getPos _veh;
 		_dirVeh = getDir _veh;
-		_arrayEst pushBack [_tipoVeh,_posVeh,_dirVeh];
+		_arrayEst pushBack [_typeVehX,_posVeh,_dirVeh];
 		};
 	};
 } forEach vehicles - [caja,flagX,fuego,vehicleBox,mapa];
@@ -236,25 +236,25 @@ _arrayOutpostsFIA pushBack [_pospuesto,garrison getVariable [_x,[]]];
 
 if (!isDedicated) then
 	{
-	_tipos = [];
+	_typesX = [];
 	{
 	if ([_x] call BIS_fnc_taskExists) then
 		{
 		_state = [_x] call BIS_fnc_taskState;
 		if (_state == "CREATED") then
 			{
-			_tipos pushBackUnique _x;
+			_typesX pushBackUnique _x;
 			};
 		};
 	} forEach ["AS","CON","DES","LOG","RES","CONVOY","DEF_HQ","AttackAAF"];
 
-	["tasks",_tipos] call fn_SaveStat;
+	["tasks",_typesX] call fn_SaveStat;
 	};
 
 _datos = [];
 {
 _datos pushBack [_x,server getVariable _x];
-} forEach airportsX + puestos;
+} forEach airportsX + outposts;
 
 ["idlebases",_datos] call fn_SaveStat;
 
@@ -268,7 +268,7 @@ _datos pushBack [_x,timer getVariable _x];
 _datos = [];
 {
 _datos pushBack [_x,killZones getVariable [_x,[]]];
-} forEach airportsX + puestos;
+} forEach airportsX + outposts;
 
 ["killZones",_datos] call fn_SaveStat;
 

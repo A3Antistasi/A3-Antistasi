@@ -6,7 +6,7 @@ private _grupo = group _gunner;
 private _mounted = false;
 private _veh = objNull;
 private _lado = side _grupo;
-private _tipoVeh = 	if !(_isMortar) then
+private _typeVehX = 	if !(_isMortar) then
 						{
 						if (_lado == malos) then {NATOMG} else {if (_lado == Invaders) then {CSATMG} else {SDKMGStatic}};
 						}
@@ -71,7 +71,7 @@ while {(alive _gunner)} do
 					_gunner setVariable ["timeToBuild",nil];
 					if ([_gunner] call A3A_fnc_canFight) then
 						{
-						private _veh = _tipoVeh createVehicle [0,0,1000];
+						private _veh = _typeVehX createVehicle [0,0,1000];
 						_veh setPos position (_gunner);
 						removeBackpackGlobal _gunner;
 						removeBackpackGlobal _helperX;

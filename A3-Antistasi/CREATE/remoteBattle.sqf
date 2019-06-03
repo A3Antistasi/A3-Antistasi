@@ -15,15 +15,15 @@ while {true} do
 	_exit = false;
 	_enemiesX = [];
 	{
-	_soldado = _x;
+	_soldierX = _x;
 	{
-	if ((_x distance _soldado < (2*distanceSPWN)) and (isPlayer _x)) then
+	if ((_x distance _soldierX < (2*distanceSPWN)) and (isPlayer _x)) then
 		{
 		_exit = true
 		}
 	else
 		{
-		if ((_x distance _soldado < (distanceSPWN/2)) and {[_x] call A3A_fnc_canFight} and {side group _x in _eny} and {vehicle _x == _x}) then
+		if ((_x distance _soldierX < (distanceSPWN/2)) and {[_x] call A3A_fnc_canFight} and {side group _x in _eny} and {vehicle _x == _x}) then
 			{
 			_enemiesX pushBackUnique _x;
 			};

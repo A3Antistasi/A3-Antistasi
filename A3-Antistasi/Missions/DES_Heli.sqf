@@ -1,7 +1,7 @@
 //Mission: Destroy the helicopter
 if (!isServer and hasInterface) exitWith{};
 
-private ["_poscrash","_markerX","_positionX","_mrkfin","_tipoveh","_efecto","_heli","_vehiclesX","_soldiers","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray","_cuenta"];
+private ["_poscrash","_markerX","_positionX","_mrkfin","_typeVehX","_efecto","_heli","_vehiclesX","_soldiers","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray","_cuenta"];
 
 _markerX = _this select 0;
 
@@ -34,10 +34,10 @@ while {true} do
 		};
 	};
 
-_tipoVeh = selectRandom (vehPlanes + vehAttackHelis + vehTransportAir);
+_typeVehX = selectRandom (vehPlanes + vehAttackHelis + vehTransportAir);
 
 _posCrashMrk = [_poscrash,random 500,random 360] call BIS_fnc_relPos;
-_posCrash = _posCrashOrig findEmptyPosition [0,100,_tipoVeh];
+_posCrash = _posCrashOrig findEmptyPosition [0,100,_typeVehX];
 if (count _posCrash == 0) then
 	{
 	if (!isMultiplayer) then {{ _x hideObject true } foreach (nearestTerrainObjects [_posCrashOrig,["tree","bush"],50])} else {{[_x,true] remoteExec ["hideObjectGlobal",2]} foreach (nearestTerrainObjects [_posCrashOrig,["tree","bush"],50])};
@@ -68,7 +68,7 @@ _soldiers = [];
 _grupos = [];
 
 _efecto = createVehicle ["CraterLong", _poscrash, [], 0, "CAN_COLLIDE"];
-_heli = createVehicle [_tipoVeh, _poscrash, [], 0, "CAN_COLLIDE"];
+_heli = createVehicle [_typeVehX, _poscrash, [], 0, "CAN_COLLIDE"];
 _heli attachTo [_efecto,[0,0,1.5]];
 _humo = "test_EmptyObjectForSmoke" createVehicle _poscrash; _humo attachTo[_heli,[0,1.5,-1]];
 _heli setDamage 0.9;
@@ -85,8 +85,8 @@ while {true} do
 	};
 
 _road = _roads select 0;
-_tipoVeh = if (_lado == malos) then {selectRandom vehNATOLightUnarmed} else {selectRandom vehCSATLightUnarmed};
-_vehicle=[position _road, 0,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+_typeVehX = if (_lado == malos) then {selectRandom vehNATOLightUnarmed} else {selectRandom vehCSATLightUnarmed};
+_vehicle=[position _road, 0,_typeVehX, _lado] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 [_veh] call A3A_fnc_AIVEHinit;
 //[_veh,"Escort"] spawn A3A_fnc_inmuneConvoy;
@@ -113,8 +113,8 @@ _Gwp0 setWaypointType "GETOUT";
 _Vwp0 synchronizeWaypoint [_Gwp0];
 
 sleep 15;
-_tipoVeh = if (_lado == malos) then {vehNATOTrucks select 0} else {vehCSATTrucks select 0};
-_vehicleT=[position _road, 0,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+_typeVehX = if (_lado == malos) then {vehNATOTrucks select 0} else {vehCSATTrucks select 0};
+_vehicleT=[position _road, 0,_typeVehX, _lado] call bis_fnc_spawnvehicle;
 _vehT = _vehicleT select 0;
 [_vehT] call A3A_fnc_AIVEHinit;
 //[_vehT,"Recover Truck"] spawn A3A_fnc_inmuneConvoy;

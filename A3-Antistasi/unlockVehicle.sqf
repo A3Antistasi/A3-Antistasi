@@ -1,4 +1,4 @@
-private ["_pool","_veh","_tipoVeh"];
+private ["_pool","_veh","_typeVehX"];
 
 _veh = cursorTarget;
 

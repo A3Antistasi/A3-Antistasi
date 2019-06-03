@@ -23,7 +23,7 @@ if (_numReal + 4 <= _numGarr) then
 	};
 if ((_numero >= 4) and (reinfPatrols <= 4)) then
 	{
-	_potentials = (puestos + puertos - _reinfPlaces - (killZones getVariable [_airportX,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
+	_potentials = (outposts + seaports - _reinfPlaces - (killZones getVariable [_airportX,[]])) select {lados getVariable [_x,sideUnknown] == _lado};
 	if (_potentials isEqualTo []) then
 		{
 		_potentials = (resourcesX + factories - _reinfPlaces - (killZones getVariable [_airportX,[]])) select {lados getVariable [_x,sideUnknown] == _lado};

@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiclesX","_civsPatrol","_gruposPatrol","_vehPatrol","_tipoCiv","_tipoVeh","_dirVeh","_cuenta","_grupo","_size","_road","_tipociv","_tipoVeh","_dirVeh","_positionX","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_burst","_grupoP","_wp","_wp1"];
+private ["_markerX","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_grupos","_vehiclesX","_civsPatrol","_gruposPatrol","_vehPatrol","_typeCiv","_typeVehX","_dirVeh","_cuenta","_grupo","_size","_road","_typeVehX","_dirVeh","_positionX","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_burst","_grupoP","_wp","_wp1"];
 
 _markerX = _this select 0;
 
@@ -26,8 +26,8 @@ _gruposPatrol = [];
 _vehPatrol = [];
 _size = [_markerX] call A3A_fnc_sizeMarker;
 
-_tipociv = "";
-_tipoVeh = "";
+_typeCiv = "";
+_typeVehX = "";
 _dirVeh = 0;
 
 _positionX = getMarkerPos (_markerX);
@@ -57,7 +57,7 @@ while {(spawner getVariable _markerX != 2) and (_cuenta < _numVeh) and (_cuenta 
 			_p2 = getPos (_roadcon select 0);
 			_dirveh = [_p1,_p2] call BIS_fnc_DirTo;
 			_pos = [_p1, 3, _dirveh + 90] call BIS_Fnc_relPos;
-			_tipoveh = selectRandom arrayCivVeh;
+			_typeVehX = selectRandom arrayCivVeh;
 			/*
 			_mrk = createmarker [format ["%1", count vehicles], _p1];
 		    _mrk setMarkerSize [5, 5];
@@ -66,7 +66,7 @@ while {(spawner getVariable _markerX != 2) and (_cuenta < _numVeh) and (_cuenta 
 		    _mrk setMarkerColor colourTeamPlayer;
 		    //_mrk setMarkerText _nombre;
 		    */
-			_veh = _tipoveh createVehicle _pos;
+			_veh = _typeVehX createVehicle _pos;
 			_veh setDir _dirveh;
 			_vehiclesX pushBack _veh;
 			_nul = [_veh] spawn A3A_fnc_civVEHinit;
@@ -83,9 +83,9 @@ if (count _mrkMar > 0) then
 		{
 		if (spawner getVariable _markerX != 2) then
 			{
-			_tipoVeh = selectRandom civBoats;
-			_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_tipoVeh];
-			_veh = _tipoveh createVehicle _pos;
+			_typeVehX = selectRandom civBoats;
+			_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_typeVehX];
+			_veh = _typeVehX createVehicle _pos;
 			_veh setDir (random 360);
 			_vehiclesX pushBack _veh;
 			[_veh] spawn A3A_fnc_civVEHinit;
@@ -139,8 +139,8 @@ if ([_markerX,false] call A3A_fnc_fogCheck > 0.2) then
 					//_p1 = getPos (_roads select _cuenta);
 					_p2 = getPos (_roadcon select 0);
 					_dirveh = [_p1,_p2] call BIS_fnc_DirTo;
-					_tipoveh = arrayCivVeh call BIS_Fnc_selectRandom;
-					_veh = _tipoveh createVehicle _p1;
+					_typeVehX = arrayCivVeh call BIS_Fnc_selectRandom;
+					_veh = _typeVehX createVehicle _p1;
 					_veh setDir _dirveh;
 					_veh addEventHandler ["HandleDamage",{if (((_this select 1) find "wheel" != -1) and (_this select 4=="") and (!isPlayer driver (_this select 0))) then {0;} else {(_this select 2);};}];
 					_veh addEventHandler ["HandleDamage",
@@ -148,15 +148,15 @@ if ([_markerX,false] call A3A_fnc_fogCheck > 0.2) then
 						_veh = _this select 0;
 						if (side(_this select 3) == buenos) then
 							{
-							_condu = driver _veh;
-							if (side _condu == civilian) then {_condu leaveVehicle _veh};
+							_driverX = driver _veh;
+							if (side _driverX == civilian) then {_driverX leaveVehicle _veh};
 							};
 						}
 						];
 					//_veh forceFollowRoad true;
 					_vehPatrol = _vehPatrol + [_veh];
-					_tipociv = selectRandom arrayCivs;
-					_civ = _grupoP createUnit [_tipociv, _p1, [],0, "NONE"];
+					_typeCiv = selectRandom arrayCivs;
+					_civ = _grupoP createUnit [_typeCiv, _p1, [],0, "NONE"];
 					_nul = [_civ] spawn A3A_fnc_CIVinit;
 					_civsPatrol = _civsPatrol + [_civ];
 					_civ moveInDriver _veh;

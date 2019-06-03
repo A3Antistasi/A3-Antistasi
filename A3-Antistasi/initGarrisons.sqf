@@ -179,7 +179,7 @@ else
 garrison setVariable [_x,_garrison,true];
 server setVariable [_x,0,true];
 _nul = [_x] call A3A_fnc_createControls;
-} forEach puestos;
+} forEach outposts;
 
 {
 _pos = getMarkerPos _x;
@@ -210,7 +210,7 @@ else
     };
 garrison setVariable [_x,_garrison,true];
 _nul = [_x] call A3A_fnc_createControls;
-} forEach puertos;
+} forEach seaports;
 
 lados setVariable ["NATO_carrier",malos,true];
 lados setVariable ["CSAT_carrier",Invaders,true];

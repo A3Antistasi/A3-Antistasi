@@ -18,8 +18,8 @@ else
 	if (_sitio in airportsX) then {_texto = format ["%1 Airbase",_ciudad]};
 	if (_sitio in resourcesX) then {_texto = format ["Resource near %1",_ciudad]};
 	if (_sitio in factories) then {_texto = format ["Factory near %1",_ciudad]};
-	if (_sitio in puestos) then {_texto = format ["Outpost near %1",_ciudad]};
-	if (_sitio in puertos) then {_texto = format ["Seaport near %1",_ciudad]};
+	if (_sitio in outposts) then {_texto = format ["Outpost near %1",_ciudad]};
+	if (_sitio in seaports) then {_texto = format ["Seaport near %1",_ciudad]};
 	if (_sitio in controlsX) then
 		{
 		if (isOnRoad getMarkerPos _sitio) then

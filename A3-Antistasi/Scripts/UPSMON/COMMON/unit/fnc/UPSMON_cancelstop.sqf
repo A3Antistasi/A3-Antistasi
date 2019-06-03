@@ -3,7 +3,7 @@ File: UPSMON_cancelstop.sqf
 Author: MONSADA
 
 Description:
-	Función que detiene al soldado y lo hace esperar x segundos
+	Funciï¿½n que detiene al soldierX y lo hace esperar x segundos
 Parameter(s):
 
 Returns:

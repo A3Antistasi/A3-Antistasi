@@ -15,14 +15,14 @@ _nameDest = [_markerX] call A3A_fnc_localizar;
 _positionX = getPos _antena;
 
 _timeLimit = if (_difficultX) then {30} else {120};
-if (hayIFA) then {_timeLimit = _timeLimit * 2};
+if (hasIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
 _mrkfin = createMarker [format ["DES%1", random 100], _positionX];
 _mrkfin setMarkerShape "ICON";
 
-[[buenos,civilian],"DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt %4 Propaganda Nework. Do it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Destroy Radio Tower",_mrkfin],_positionX,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
+[[teamPlayer,civilian],"DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt %4 Propaganda Nework. Do it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Destroy Radio Tower",_mrkfin],_positionX,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["DES","CREATED"]; publicVariable "missionsX";
 waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (not alive _antena) or (not(lados getVariable [_markerX,sideUnknown] == malos))};
 

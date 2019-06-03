@@ -13,14 +13,14 @@ _tsk = "";
 _positionX = getMarkerPos _markerX;
 _lado = if (lados getVariable [_markerX,sideUnknown] == malos) then {malos} else {Invaders};
 _timeLimit = if (_difficultX) then {30} else {120};
-if (hayIFA) then {_timeLimit = _timeLimit * 2};
+if (hasIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 _nameDest = [_markerX] call A3A_fnc_localizar;
 
 _typeVehX = if (_lado == malos) then {vehNATOAA} else {vehCSATAA};
 
-[[buenos,civilian],"DES",[format ["We know an enemy armor (%4) is stationed in %1. It is a good chance to destroy or steal it before it causes more damage. Do it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,getText (configFile >> "CfgVehicles" >> (_typeVehX) >> "displayName")],"Steal or Destroy Armor",_markerX],_positionX,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
+[[teamPlayer,civilian],"DES",[format ["We know an enemy armor (%4) is stationed in %1. It is a good chance to destroy or steal it before it causes more damage. Do it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,getText (configFile >> "CfgVehicles" >> (_typeVehX) >> "displayName")],"Steal or Destroy Armor",_markerX],_positionX,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
 _truckCreated = false;
 missionsX pushBack ["DES","CREATED"]; publicVariable "missionsX";
 
@@ -55,17 +55,17 @@ if (spawner getVariable _markerX == 0) then
 		}
 	else
 		{
-		waitUntil {sleep 1;({leader _grupo knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _grupo,buenos] call A3A_fnc_distanceUnits) > 0) or (dateToNumber date > _dateLimitNum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0)};
+		waitUntil {sleep 1;({leader _grupo knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _grupo,teamPlayer] call A3A_fnc_distanceUnits) > 0) or (dateToNumber date > _dateLimitNum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == teamPlayer)} count crew _veh > 0)};
 
-		if ({leader _grupo knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _grupo,buenos] call A3A_fnc_distanceUnits) > 0) then {_grupo addVehicle _veh;};
+		if ({leader _grupo knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _grupo,teamPlayer] call A3A_fnc_distanceUnits) > 0) then {_grupo addVehicle _veh;};
 		};
 
-	waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0)};
+	waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == teamPlayer)} count crew _veh > 0)};
 
-	if ((not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0)) then
+	if ((not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == teamPlayer)} count crew _veh > 0)) then
 		{
 		["DES",[format ["We know an enemy armor (%4) is stationed in a %1. It is a good chance to steal or destroy it before it causes more damage. Do it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,getText (configFile >> "CfgVehicles" >> (_typeVehX) >> "displayName")],"Steal or Destroy Armor",_markerX],_positionX,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
-		if ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0) then
+		if ({(_x getVariable ["spawner",false]) and (side group _x == teamPlayer)} count crew _veh > 0) then
 			{
 			["TaskFailed", ["", format ["AA Stolen in %1",_nameDest]]] remoteExec ["BIS_fnc_showNotification",_lado];
 			};
@@ -93,5 +93,5 @@ if (_truckCreated) then
 	{
 	{deleteVehicle _x} forEach units _grupo;
 	deleteGroup _grupo;
-	if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
+	if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
 	};

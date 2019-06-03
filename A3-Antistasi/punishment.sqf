@@ -1,5 +1,5 @@
 
-private ["_cuenta","_tonto","_tiempo","_punish"];
+private ["_countX","_tonto","_tiempo","_punish"];
 if (isDedicated) exitWith {};
 
 if (!isMultiplayer) exitWith {};
@@ -26,12 +26,12 @@ hint "This is a COOP game and you are welcome to do so";
 sleep 5;
 hint "If you are bored, I think there is a new episode on SpongeBob Square Pants today";
 sleep 5;
-_cuenta = _punish;
-while {_cuenta > 0} do
+_countX = _punish;
+while {_countX > 0} do
 	{
-	hint format ["Now watch the sights for the following %1 seconds.\n\nPlease be thankful this is a game. In reality you could be sentenced to death by a firing squad, this little punish is not that bad.", _cuenta];
+	hint format ["Now watch the sights for the following %1 seconds.\n\nPlease be thankful this is a game. In reality you could be sentenced to death by a firing squad, this little punish is not that bad.", _countX];
 	sleep 1;
-	_cuenta = _cuenta -1;
+	_countX = _countX -1;
 	};
 hint "Enough then";
 disableUserInput false;

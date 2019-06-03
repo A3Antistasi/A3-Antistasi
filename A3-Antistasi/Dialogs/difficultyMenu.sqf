@@ -8,7 +8,7 @@ if !(skillMult == 1) then
 		{
 		server setVariable ["hr",25,true];
 		server setVariable ["resourcesFIA",5000,true];
-		vehInGarage = [vehSDKTruck,vehSDKTruck,SDKMortar,SDKMGStatic,staticAABuenos];
+		vehInGarage = [vehSDKTruck,vehSDKTruck,SDKMortar,SDKMGStatic,staticAAteamPlayer];
 		minWeaps = 15;
 		_index = sniperRifle call jn_fnc_arsenal_itemType;
 		[_index,sniperRifle,-1] call jn_fnc_arsenal_addItem;

@@ -34,7 +34,7 @@ while {visibleMap} do
 		_positionTel = positionTel;
 		_sitio = [markersX, _positionTel] call BIS_Fnc_nearestPosition;
 		_texto = "Click on the zone";
-		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == buenos) then {nameTeamPlayer} else {if (lados getVariable [_sitio,sideUnknown] == malos) then {nameOccupants} else {nameInvaders}};
+		_nameFaction = if (lados getVariable [_sitio,sideUnknown] == teamPlayer) then {nameTeamPlayer} else {if (lados getVariable [_sitio,sideUnknown] == malos) then {nameOccupants} else {nameInvaders}};
 		if (_sitio == "Synd_HQ") then
 			{
 			_texto = format ["%2 HQ%1",[_sitio] call A3A_fnc_garrisonInfo,nameTeamPlayer];
@@ -52,7 +52,7 @@ while {visibleMap} do
 			_result = "NONE";
 			switch (_power) do
 				{
-				case buenos: {_result = format ["%1",nameTeamPlayer]};
+				case teamPlayer: {_result = format ["%1",nameTeamPlayer]};
 				case malos: {_result = format ["%1",nameOccupants]};
 				case Invaders: {_result = format ["%1",nameInvaders]};
 				};
@@ -65,23 +65,23 @@ while {visibleMap} do
 			else
 				{
 				_puesto = [markersX,_ant1] call BIS_fnc_NearestPosition;
-				if (lados getVariable [_sitio,sideUnknown] == buenos) then
+				if (lados getVariable [_sitio,sideUnknown] == teamPlayer) then
 					{
-					if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == Invaders) then {_result = "NONE"}};
+					if (lados getVariable [_puesto,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == Invaders) then {_result = "NONE"}};
 					}
 				else
 					{
-					if (lados getVariable [_puesto,sideUnknown] == buenos) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == Invaders) then {_result = "NONE"}};
+					if (lados getVariable [_puesto,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == Invaders) then {_result = "NONE"}};
 					};
 				};
 			*/
 			_texto = format ["%1\nInfluence: %2",_texto,_result];
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
-			if (lados getVariable [_sitio,sideUnknown] == buenos) then {_texto = format ["%1\n%2",_texto,[_sitio] call A3A_fnc_garrisonInfo]};
+			if (lados getVariable [_sitio,sideUnknown] == teamPlayer) then {_texto = format ["%1\n%2",_texto,[_sitio] call A3A_fnc_garrisonInfo]};
 			};
 		if (_sitio in airportsX) then
 			{
-			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == teamPlayer)) then
 				{
 				_texto = format ["%1 Airport",_nameFaction];
 				_busy = [_sitio,true] call A3A_fnc_airportCanAttack;
@@ -96,7 +96,7 @@ while {visibleMap} do
 			};
 		if (_sitio in resourcesX) then
 			{
-			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == teamPlayer)) then
 				{
 				_texto = format ["%1 Resources",_nameFaction];
 				_garrison = count (garrison getVariable _sitio);
@@ -110,7 +110,7 @@ while {visibleMap} do
 			};
 		if (_sitio in factories) then
 			{
-			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == teamPlayer)) then
 				{
 				_texto = format ["%1 Factory",_nameFaction];
 				_garrison = count (garrison getVariable _sitio);
@@ -124,7 +124,7 @@ while {visibleMap} do
 			};
 		if (_sitio in outposts) then
 			{
-			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == teamPlayer)) then
 				{
 				_texto = format ["%1 Grand Outpost",_nameFaction];
 				_busy = [_sitio,true] call A3A_fnc_airportCanAttack;
@@ -139,7 +139,7 @@ while {visibleMap} do
 			};
 		if (_sitio in seaports) then
 			{
-			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
+			if (not(lados getVariable [_sitio,sideUnknown] == teamPlayer)) then
 				{
 				_texto = format ["%1 Seaport",_nameFaction];
 				_garrison = count (garrison getVariable _sitio);

@@ -52,7 +52,7 @@ for "_i" from 1 to _var3 do
 	_crate addMagazineCargoGlobal [_cosa, _num];
 	};
 
-if !(hayIFA) then
+if !(hasIFA) then
 	{
 	for "_i" from 1 to _var4 do
 		{

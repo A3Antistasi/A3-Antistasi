@@ -34,7 +34,7 @@ if (_veh isKindOf "Truck") then {_tipo = "_motor_inf"}
 			};
 		};
 
-if ((_side == buenos) or (_side == sideUnknown)) then
+if ((_side == teamPlayer) or (_side == sideUnknown)) then
 	{
 	_enemyX = false;
 	_formatX = "n";
@@ -58,7 +58,7 @@ else
 
 _tipo = format ["%1%2",_formatX,_tipo];
 
-if ((side group (driver _veh) != buenos) and (side driver _veh != sideUnknown)) then {["TaskSucceeded", ["", format ["%1 Spotted",_text]]] spawn BIS_fnc_showNotification};
+if ((side group (driver _veh) != teamPlayer) and (side driver _veh != sideUnknown)) then {["TaskSucceeded", ["", format ["%1 Spotted",_text]]] spawn BIS_fnc_showNotification};
 
 _mrkfin = createMarkerLocal [format ["%2%1", random 100,_text], position _veh];
 _mrkfin setMarkerShapeLocal "ICON";

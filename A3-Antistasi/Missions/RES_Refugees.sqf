@@ -1,6 +1,6 @@
 //Mission: Rescue the refugees
 if (!isServer and hasInterface) exitWith{};
-private ["_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_ciudad","_tam","_positionX","_casa","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_cuenta"];
+private ["_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_casa","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_countX"];
 
 _markerX = _this select 0;
 
@@ -28,16 +28,16 @@ while {count _posHouse < 3} do
 
 _nameDest = [_markerX] call A3A_fnc_localizar;
 _timeLimit = if (_difficultX) then {30} else {60};
-if (hayIFA) then {_timeLimit = _timeLimit * 2};
+if (hasIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 _lado = if (lados getVariable [_markerX,sideUnknown] == malos) then {malos} else {Invaders};
 _texto = if (_lado == malos) then {format ["A group of smugglers have been arrested in %1 and they are about to be sent to prison. Go there and free them in order to make them join our cause. Do this before %2:%3",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4]} else {format ["A group of %3 supportes are hidden in %1 awaiting for evacuation. We have to find them before %2 does it. If not, there will be a certain death for them. Bring them back to HQ",_nameDest,nameInvaders,nameTeamPlayer]};
 _posTsk = if (_lado == malos) then {(position _casa) getPos [random 100, random 360]} else {position _casa};
 
-[[buenos,civilian],"RES",[_texto,"Refugees Evac",_nameDest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
+[[teamPlayer,civilian],"RES",[_texto,"Refugees Evac",_nameDest],_posTsk,false,0,true,"run",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["RES","CREATED"]; publicVariable "missionsX";
-_groupPOW = createGroup buenos;
+_groupPOW = createGroup teamPlayer;
 for "_i" from 1 to (((count _posHouse) - 1) min 15) do
 	{
 	_unit = _groupPOW createUnit [SDKUnarmed, _posHouse select _i, [], 0, "NONE"];
@@ -49,7 +49,7 @@ for "_i" from 1 to (((count _posHouse) - 1) min 15) do
 	_unit allowFleeing 0;
 	_unit setSkill 0;
 	_POWs pushBack _unit;
-	[_unit,"refugee"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
+	[_unit,"refugee"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_unit];
 	if (_lado == malos) then {[_unit,true] remoteExec ["setCaptive",0,_unit]; _unit setCaptive true};
 	[_unit] call A3A_fnc_reDress;
 	sleep 0.5;
@@ -136,7 +136,7 @@ else
 		};
 	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2","RANDOM", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 	{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
-	_grupo1 = [_casa buildingExit 0, malos, gruposNATOGen] call A3A_fnc_spawnGroup;
+	_grupo1 = [_casa buildingExit 0, malos, groupsNATOGen] call A3A_fnc_spawnGroup;
 	};
 
 _bonus = if (_difficultX) then {2} else {1};
@@ -148,13 +148,13 @@ if (_lado == malos) then
 		{
 		sleep 5;
 		["RES",[_texto,"Refugees Evac",_nameDest],_posTsk,"SUCCEEDED","run"] call A3A_fnc_taskUpdate;
-		_cuenta = {(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 150)} count _POWs;
-		_hr = _cuenta;
-		_resourcesFIA = 100 * _cuenta;
+		_countX = {(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 150)} count _POWs;
+		_hr = _countX;
+		_resourcesFIA = 100 * _countX;
 		[_hr,_resourcesFIA*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 		[3,0] remoteExec ["A3A_fnc_prestige",2];
-		{if (_x distance getMarkerPos respawnTeamPlayer < 500) then {[_cuenta*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-		[round (_cuenta*_bonus/2),theBoss] call A3A_fnc_playerScoreAdd;
+		{if (_x distance getMarkerPos respawnTeamPlayer < 500) then {[_countX*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+		[round (_countX*_bonus/2),theBoss] call A3A_fnc_playerScoreAdd;
 		{[_x] join _groupPOW; [_x] orderGetin false} forEach _POWs;
 		}
 	else
@@ -174,12 +174,12 @@ else
 	else
 		{
 		["RES",[_texto,"Refugees Evac",_nameDest],_posTsk,"SUCCEEDED","run"] call A3A_fnc_taskUpdate;
-		_cuenta = {(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 150)} count _POWs;
-		_hr = _cuenta;
-		_resourcesFIA = 100 * _cuenta;
+		_countX = {(alive _x) and (_x distance getMarkerPos respawnTeamPlayer < 150)} count _POWs;
+		_hr = _countX;
+		_resourcesFIA = 100 * _countX;
 		[_hr,_resourcesFIA*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
-		{if (_x distance getMarkerPos respawnTeamPlayer < 500) then {[_cuenta*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
-		[round (_cuenta*_bonus/2),theBoss] call A3A_fnc_playerScoreAdd;
+		{if (_x distance getMarkerPos respawnTeamPlayer < 500) then {[_countX*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+		[round (_countX*_bonus/2),theBoss] call A3A_fnc_playerScoreAdd;
 		{[_x] join _groupPOW; [_x] orderGetin false} forEach _POWs;
 		};
 	};
@@ -206,16 +206,16 @@ deleteGroup _groupPOW;
 if (_lado == malos) then
 	{
 	deleteMarkerLocal _mrk;
-	if (!isNull _veh) then {if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}};
+	if (!isNull _veh) then {if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh}};
 	{
-	waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits)};
 	deleteVehicle _x;
 	} forEach units _grupo;
 	deleteGroup _grupo;
 	if (!isNull _grupo1) then
 		{
 		{
-		waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
+		waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits)};
 		deleteVehicle _x;
 		} forEach units _grupo1;
 		deleteGroup _grupo1;

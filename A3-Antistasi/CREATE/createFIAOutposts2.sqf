@@ -38,7 +38,7 @@ if (_isRoad) then
 		_nul = [_veh] call A3A_fnc_AIVEHinit;
 		sleep 1;
 		};
-	_grupo = [_positionX, buenos, _garrison,true,false] call A3A_fnc_spawnGroup;
+	_grupo = [_positionX, teamPlayer, _garrison,true,false] call A3A_fnc_spawnGroup;
 	//_unit = _grupo createUnit [staticCrewTeamPlayer, _positionX, [], 0, "NONE"];
 	//_unit moveInGunner _veh;
 	{[_x,_markerX] spawn A3A_fnc_FIAinitBases; if (typeOf _x == staticCrewTeamPlayer) then {_x moveInGunner _veh}} forEach units _grupo;
@@ -49,7 +49,7 @@ else
 	{
 	if (random 20 <= skillFIA) then {_formatX pushBack (_x select 1)} else {_formatX pushBack (_x select 0)};
 	} forEach groupsSDKSniper;
-	_grupo = [_positionX, buenos, _formatX] call A3A_fnc_spawnGroup;
+	_grupo = [_positionX, teamPlayer, _formatX] call A3A_fnc_spawnGroup;
 	_grupo setBehaviour "STEALTH";
 	_grupo setCombatMode "GREEN";
 	{[_x,_markerX] spawn A3A_fnc_FIAinitBases;} forEach units _grupo;

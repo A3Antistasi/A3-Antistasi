@@ -3,7 +3,7 @@ private ["_unit","_playerX"];
 _unit = _this select 0;
 _playerX = _this select 1;
 
-[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_unit];
+[_unit,"remove"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_unit];
 //removeAllActions _unit;
 
 _playerX globalChat "You are free. Come with us!";

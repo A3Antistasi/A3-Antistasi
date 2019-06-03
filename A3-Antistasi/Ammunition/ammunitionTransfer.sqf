@@ -152,7 +152,7 @@ if (_destinationX == caja) then
 	if (_updated != "") then
 		{
 		_updated = format ["Arsenal Updated<br/><br/>%1",_updated];
-		[petros,"income",_updated] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
+		[petros,"income",_updated] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
 		};
 	}
 else

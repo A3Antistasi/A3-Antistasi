@@ -1,4 +1,4 @@
-private ["_mrkDestination","_mrkOrigin","_numero","_lado","_typeGroup","_typeVehX","_indice","_spawnPoint","_pos","_timeOut","_veh","_grupo","_landPos","_Vwp0","_posOrigin","_land","_pos1","_pos2"];
+private ["_mrkDestination","_mrkOrigin","_numero","_lado","_typeGroup","_typeVehX","_indexX","_spawnPoint","_pos","_timeOut","_veh","_grupo","_landPos","_Vwp0","_posOrigin","_land","_pos1","_pos2"];
 
 _mrkDestination = _this select 0;
 _mrkOrigin = _this select 1;
@@ -18,7 +18,7 @@ if (_land) then
 else
 	{
 	_vehPool = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
-	if ((_numero > 4) and (count _vehPool > 1) and !hayIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
+	if ((_numero > 4) and (count _vehPool > 1) and !hasIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
 	//_vehPool = _vehPool select {(_x isKindOf "Helicopter") and (_x in vehFastRope)};
 	_typeVehX = selectRandom _vehPool;
 	};
@@ -29,8 +29,8 @@ _grupo = grpNull;
 
 if (_land) then
 	{
-	_indice = airportsX find _mrkOrigin;
-	_spawnPoint = spawnPoints select _indice;
+	_indexX = airportsX find _mrkOrigin;
+	_spawnPoint = spawnPoints select _indexX;
 	_pos = getMarkerPos _spawnPoint;
 	_timeOut = 0;
 	_pos = _pos findEmptyPosition [0,100,_typeVehX];

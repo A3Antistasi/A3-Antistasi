@@ -5710,7 +5710,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="grupoPlayersNATO = group this; this setVariable [""pvp"",true]";
+						init="groupPlayersNATO = group this; this setVariable [""pvp"",true]";
 						isPlayable=1;
 					};
 					id=1407;
@@ -7490,7 +7490,7 @@ class Mission
 					flags=7;
 					class Attributes
 					{
-						init="grupoPlayersCSAT = group this;this setVariable [""pvp"",true]";
+						init="groupPlayersCSAT = group this;this setVariable [""pvp"",true]";
 						isPlayable=1;
 					};
 					id=1488;

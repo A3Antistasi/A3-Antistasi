@@ -175,7 +175,7 @@ if ((_nombre != "") and (_nombre != "Lakatoro01") and (_nombre != "Galili01") an
 }foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["NameCityCapital","NameCity","NameVillage","CityCenter"], 25000]);
 
 markersX = markersX + citiesX;
-lados setVariable ["Synd_HQ",buenos,true];
+lados setVariable ["Synd_HQ",teamPlayer,true];
 //if !(isMultiplayer) then {call compile preprocessFileLineNumbers "initGarrisons.sqf"};
 
 antennasDead = [];
@@ -228,7 +228,7 @@ else
                 _mrk = [mrkAntennas, _antena] call BIS_fnc_nearestPosition;
                 antennas = antennas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
                 publicVariable "antennas"; publicVariable "antennasDead";
-                ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
+                ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
                 ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
                 }
                 ];
@@ -265,7 +265,7 @@ if (count _posAntennas > 0) then
                     _mrk = [mrkAntennas, _antena] call BIS_fnc_nearestPosition;
                     antennas = antennas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
                     publicVariable "antennas"; publicVariable "antennasDead";
-                    ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
+                    ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
                     ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
                     }
                 ];

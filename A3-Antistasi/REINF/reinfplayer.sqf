@@ -17,7 +17,7 @@ if (_hr < 1) exitWith {hint "You do not have enough HR for this request"};
 _arraytypeUnit = _this select 0;
 _typeUnit = _arraytypeUnit select 0;
 _coste = server getVariable _typeUnit;
-if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else {_resourcesFIA = player getVariable "dinero";};
+if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else {_resourcesFIA = player getVariable "moneyX";};
 
 if (_coste > _resourcesFIA) exitWith {hint format ["You do not have enough money for this kind of unit (%1 € needed)",_coste]};
 
@@ -34,7 +34,7 @@ else
 	{
 	_nul = [-1, 0] remoteExec ["A3A_fnc_resourcesFIA",2];
 	[- _coste] call A3A_fnc_resourcesPlayer;
-	["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
+	["moneyX",player getVariable ["moneyX",0]] call fn_SaveStat;
 	hint "Soldier Recruited.\n\nRemember: if you use the group menu to switch groups you will lose control of your recruited AI";
 	};
 

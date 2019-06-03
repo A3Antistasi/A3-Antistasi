@@ -3,7 +3,7 @@ private ["_markerX","_mrkD"];
 _markerX = _this select 0;
 
 _mrkD = format ["Dum%1",_markerX];
-if (lados getVariable [_markerX,sideUnknown] == buenos) then
+if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
 	{
 	_texto = if (count (garrison getVariable [_markerX,[]]) > 0) then {format [": %1", count (garrison getVariable [_markerX,[]])]} else {""};
 	if (markerColor _mrkD != colourTeamPlayer) then {_mrkD setMarkerColor colourTeamPlayer};
@@ -40,7 +40,7 @@ if (lados getVariable [_markerX,sideUnknown] == buenos) then
 			 	};
 			};
 		};
-	[_mrkD,_texto] remoteExec ["setMarkerTextLocal",[buenos,civilian],true];
+	[_mrkD,_texto] remoteExec ["setMarkerTextLocal",[teamPlayer,civilian],true];
 	}
 else
 	{

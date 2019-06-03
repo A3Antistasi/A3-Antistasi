@@ -1,10 +1,10 @@
 //NOTA: TAMBIÉN LO USO PARA FIA
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_grupos","_soldiers","_positionX","_num","_datos","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontierX","_array","_cuenta","_grupo","_perro","_grp","_lado"];
+private ["_markerX","_groups","_soldiers","_positionX","_num","_datos","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontierX","_array","_countX","_grupo","_perro","_grp","_lado"];
 _markerX = _this select 0;
 
-_grupos = [];
+_groups = [];
 _soldiers = [];
 
 _positionX = getMarkerPos (_markerX);
@@ -38,7 +38,7 @@ else
 			}
 		else
 			{
-			_params = [_positionX, malos, gruposNATOGen];
+			_params = [_positionX, malos, groupsNATOGen];
 			};
 		}
 	else
@@ -47,13 +47,13 @@ else
 		_num = round (_num * (_prestigeBLUFOR/100));
 		_array = [];
 		{if (random 20 < skillFIA) then {_array pushBack (_x select 0)} else {_array pushBack (_x select 1)}} forEach groupsSDKSentry;
-		_params = [_positionX, buenos, _array];
+		_params = [_positionX, teamPlayer, _array];
 		};
 	};
 if (_num < 1) then {_num = 1};
 
-_cuenta = 0;
-while {(spawner getVariable _markerX != 2) and (_cuenta < _num)} do
+_countX = 0;
+while {(spawner getVariable _markerX != 2) and (_countX < _num)} do
 	{
 	_grupo = _params call A3A_fnc_spawnGroup;
 	sleep 1;
@@ -66,19 +66,19 @@ while {(spawner getVariable _markerX != 2) and (_cuenta < _num)} do
 			};
 		};
 	_nul = [leader _grupo, _markerX, "SAFE", "RANDOM", "SPAWNED","NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-	_grupos pushBack _grupo;
-	_cuenta = _cuenta + 1;
+	_groups pushBack _grupo;
+	_countX = _countX + 1;
 	};
 
 if ((_esAAF) or (_markerX in destroyedCities)) then
 	{
 	{_grp = _x;
-	{[_x,""] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _grp;} forEach _grupos;
+	{[_x,""] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _grp;} forEach _groups;
 	}
 else
 	{
 	{_grp = _x;
-	{[_x] spawn A3A_fnc_FIAinitBases; _soldiers pushBack _x} forEach units _grp;} forEach _grupos;
+	{[_x] spawn A3A_fnc_FIAinitBases; _soldiers pushBack _x} forEach units _grp;} forEach _groups;
 	};
 
 waitUntil {sleep 1;((spawner getVariable _markerX == 2)) or ({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers == 0)};
@@ -91,4 +91,4 @@ if (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers == 0) and (_esAAF))
 waitUntil {sleep 1;(spawner getVariable _markerX == 2)};
 
 {if (alive _x) then {deleteVehicle _x}} forEach _soldiers;
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;

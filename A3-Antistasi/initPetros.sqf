@@ -64,7 +64,7 @@ petros addMPEventHandler ["mpkilled",
                };
             if (!isPlayer theBoss) then
                 {
-                {["petrosDead",false,1,false,false] remoteExec ["BIS_fnc_endMission",_x]} forEach (playableUnits select {(side _x != buenos) and (side _x != civilian)})
+                {["petrosDead",false,1,false,false] remoteExec ["BIS_fnc_endMission",_x]} forEach (playableUnits select {(side _x != teamPlayer) and (side _x != civilian)})
                 }
             else
                 {
@@ -76,7 +76,7 @@ petros addMPEventHandler ["mpkilled",
         else
             {
             _oldPetros = petros;
-            groupPetros = createGroup buenos;
+            groupPetros = createGroup teamPlayer;
             publicVariable "groupPetros";
             petros = groupPetros createUnit [typePetros, position _oldPetros, [], 0, "NONE"];
             publicVariable "petros";
@@ -85,7 +85,7 @@ petros addMPEventHandler ["mpkilled",
             if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
             petros disableAI "MOVE";
             petros disableAI "AUTOTARGET";
-            if (group _oldPetros == groupPetros) then {[Petros,"mission"]remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]};
+            if (group _oldPetros == groupPetros) then {[Petros,"mission"]remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros]};
             [] execVM "initPetros.sqf";
             deleteVehicle _oldPetros;
             };

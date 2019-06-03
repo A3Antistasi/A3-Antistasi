@@ -1,7 +1,7 @@
 // usage: Activate via radio trigger, on act: [] execVM "airstrike.sqf";
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_positionX","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_lado","_isMarker","_typePlane","_exit","_timeOut","_size","_buildings","_friendlies","_enemiesX","_mediaX","_mediaY","_pos","_cuenta","_distantNum","_distantX","_planefn","_planeCrew","_groupPlane","_tipo"];
+private ["_markerX","_positionX","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_lado","_isMarker","_typePlane","_exit","_timeOut","_size","_buildings","_friendlies","_enemiesX","_mediaX","_mediaY","_pos","_countX","_distantNum","_distantX","_planefn","_planeCrew","_groupPlane","_tipo"];
 
 _markerX = _this select 0;
 _lado = _this select 1;
@@ -59,9 +59,9 @@ else
 			_mediaX = _mediaX + (_pos select 0);
 			_mediaY = _mediaY + (_pos select 1);
 			} forEach _enemiesX;
-			_cuenta = count _enemiesX;
-			_mediaX = _mediaX / _cuenta;
-			_mediaY = _mediaY / _cuenta;
+			_countX = count _enemiesX;
+			_mediaX = _mediaX / _countX;
+			_mediaY = _mediaY / _countX;
 			_positionX = [_mediaX,_mediaY,0];
 			_distantNum = 0;
 			_distantX = objNull;
@@ -93,7 +93,7 @@ else
 if (_exit) exitWith {};
 _planefn = [_origpos, _ang, _typePlane, _lado] call bis_fnc_spawnvehicle;
 _plane = _planefn select 0;
-if (hayIFA) then {_plane setVelocityModelSpace [((velocityModelSpace _plane) select 0) + 0,((velocityModelSpace _plane) select 1) + 150,((velocityModelSpace _plane) select 2) + 50]};
+if (hasIFA) then {_plane setVelocityModelSpace [((velocityModelSpace _plane) select 0) + 0,((velocityModelSpace _plane) select 1) + 150,((velocityModelSpace _plane) select 2) + 50]};
 _planeCrew = _planefn select 1;
 _groupPlane = _planefn select 2;
 {_x setVariable ["spawner",true,true]} forEach _planeCrew;

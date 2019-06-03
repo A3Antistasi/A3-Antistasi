@@ -41,8 +41,8 @@ if ((_stateOld != _state) or !(_singleDestination)) then
 		{
 		for "_i" from 0 to (count missionsX -1) do
 			{
-			_mision = (missionsX select _i) select 0;
-			if (_mision == _variable) exitWith
+			_missionX = (missionsX select _i) select 0;
+			if (_missionX == _variable) exitWith
 				{
 				missionsX deleteAt _i;
 				missionsX pushBack [_variable,_state];

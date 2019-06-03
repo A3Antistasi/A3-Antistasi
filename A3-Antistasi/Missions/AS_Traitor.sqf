@@ -13,7 +13,7 @@ _tsk1 = "";
 _positionX = getMarkerPos _markerX;
 
 _timeLimit = if (_difficultX) then {30} else {60};
-if (hayIFA) then {_timeLimit = _timeLimit * 2};
+if (hasIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
@@ -51,7 +51,7 @@ _groupTraitor selectLeader _traitor;
 
 _posTsk = (position _casa) getPos [random 100, random 360];
 
-[[buenos,civilian],"AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Kill the Traitor",_markerX],_posTsk,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
+[[teamPlayer,civilian],"AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Kill the Traitor",_markerX],_posTsk,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
 [[malos],"AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _casa,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["AS","CREATED"]; publicVariable "missionsX";
 {_nul = [_x,""] call A3A_fnc_NATOinit; _x allowFleeing 0} forEach units _groupTraitor;
@@ -106,9 +106,9 @@ if (random 10 < 2.5) then
 _nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 {[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
 
-waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traitor) or ({_traitor knowsAbout _x > 1.4} count ([500,0,_traitor,buenos] call A3A_fnc_distanceUnits) > 0)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traitor) or ({_traitor knowsAbout _x > 1.4} count ([500,0,_traitor,teamPlayer] call A3A_fnc_distanceUnits) > 0)};
 
-if ({_traitor knowsAbout _x > 1.4} count ([500,0,_traitor,buenos] call A3A_fnc_distanceUnits) > 0) then
+if ({_traitor knowsAbout _x > 1.4} count ([500,0,_traitor,teamPlayer] call A3A_fnc_distanceUnits) > 0) then
 	{
 	{_x enableAI "MOVE"} forEach units _groupTraitor;
 	_traitor assignAsDriver _veh;
@@ -142,7 +142,7 @@ if (not alive _traitor) then
 			{
 			[20,_x] call A3A_fnc_playerScoreAdd;
 			};
-		} forEach ([_tam,0,_positionX,buenos] call A3A_fnc_distanceUnits);
+		} forEach ([_tam,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
 		[10,theBoss] call A3A_fnc_playerScoreAdd;
 		}
 	else
@@ -160,7 +160,7 @@ if (not alive _traitor) then
 			{
 			[10,_x] call A3A_fnc_playerScoreAdd;
 			};
-		} forEach ([_tam,0,_positionX,buenos] call A3A_fnc_distanceUnits);
+		} forEach ([_tam,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
 		[5,theBoss] call A3A_fnc_playerScoreAdd;
 		};
 	}
@@ -197,16 +197,16 @@ else
 
 _nul = [1200,"AS"] spawn A3A_fnc_deleteTask;
 _nul = [10,"AS1"] spawn A3A_fnc_deleteTask;
-if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
+if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
 
 {
-waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits)};
 deleteVehicle _x
 } forEach units _groupTraitor;
 deleteGroup _groupTraitor;
 
 {
-waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits)};
 deleteVehicle _x
 } forEach units _grupo;
 deleteGroup _grupo;

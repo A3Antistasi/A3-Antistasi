@@ -1,7 +1,7 @@
 private ["_unit","_part","_dam","_injurer","_grupo"];
 _dam = _this select 2;
 _injurer = _this select 3;
-if (side _injurer == buenos) then
+if (side _injurer == teamPlayer) then
 	{
 	_unit = _this select 0;
 	_part = _this select 1;

@@ -14,8 +14,8 @@ private _typeVehX = 	if !(_isMortar) then
 						{
 						if (_lado == malos) then {NATOMortar} else {if (_lado == Invaders) then {CSATMortar} else {SDKMortar}};
 						};
-private _mochiG = backPack _gunner;
-private _mochiA = backpack _helperX;
+private _backpckG = backPack _gunner;
+private _backpckA = backpack _helperX;
 while {(alive _gunner)} do
 	{
 	if (!(alive _helperX) and !(_mounted)) exitWith {};
@@ -100,8 +100,8 @@ while {(alive _gunner)} do
 					if (alive _gunner) then
 						{
 						_mounted = false;
-						_gunner addBackpackGlobal _mochiG;
-						_helperX addBackpackGlobal _mochiA;
+						_gunner addBackpackGlobal _backpckG;
+						_helperX addBackpackGlobal _backpckA;
 						deleteVehicle _veh;
 						_gunner call A3A_fnc_recallGroup;
 						if (_isMortar) then {_grupo setVariable ["mortarsX",objNull]};
@@ -121,8 +121,8 @@ while {(alive _gunner)} do
 				_veh = vehicle _gunner;
 				moveOut _gunner;
 				_mounted = false;
-				_gunner addBackpackGlobal _mochiG;
-				_helperX addBackpackGlobal _mochiA;
+				_gunner addBackpackGlobal _backpckG;
+				_helperX addBackpackGlobal _backpckA;
 				deleteVehicle _veh;
 				_gunner call A3A_fnc_recallGroup;
 				if (_isMortar) then {_grupo setVariable ["mortarsX",objNull]};

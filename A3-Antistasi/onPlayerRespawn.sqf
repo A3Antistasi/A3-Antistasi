@@ -13,7 +13,7 @@ if !(hasACEMedical) then
 	_oldUnit setVariable ["INCAPACITATED",false,true];
 	_newUnit setVariable ["INCAPACITATED",false,true];
 	};
-if (side group player == buenos) then
+if (side group player == teamPlayer) then
 	{
 	_owner = _oldUnit getVariable ["owner",_oldUnit];
 
@@ -23,19 +23,19 @@ if (side group player == buenos) then
 
 	_score = _oldUnit getVariable ["score",0];
 	_punish = _oldUnit getVariable ["punish",0];
-	_dinero = _oldUnit getVariable ["dinero",0];
-	_dinero = round (_dinero - (_dinero * 0.1));
+	_moneyX = _oldUnit getVariable ["moneyX",0];
+	_moneyX = round (_moneyX - (_moneyX * 0.1));
 	_eligible = _oldUnit getVariable ["eligible",true];
 	_rango = _oldUnit getVariable ["rango","PRIVATE"];
 
-	_dinero = round (_dinero - (_dinero * 0.05));
-	if (_dinero < 0) then {_dinero = 0};
+	_moneyX = round (_moneyX - (_moneyX * 0.05));
+	if (_moneyX < 0) then {_moneyX = 0};
 
 	_newUnit setVariable ["score",_score -1,true];
 	_newUnit setVariable ["owner",_newUnit,true];
 	_newUnit setVariable ["punish",_punish,true];
 	_newUnit setVariable ["respawning",false];
-	_newUnit setVariable ["dinero",_dinero,true];
+	_newUnit setVariable ["moneyX",_moneyX,true];
 	//_newUnit setUnitRank (rank _oldUnit);
 	_newUnit setVariable ["compromised",0];
 	_newUnit setVariable ["eligible",_eligible,true];
@@ -79,12 +79,12 @@ if (side group player == buenos) then
 				}
 			else
 				{
-				_ciudad = [citiesX,_player] call BIS_fnc_nearestPosition;
-				_size = [_ciudad] call A3A_fnc_sizeMarker;
-				_datos = server getVariable _ciudad;
+				_city = [citiesX,_player] call BIS_fnc_nearestPosition;
+				_size = [_city] call A3A_fnc_sizeMarker;
+				_datos = server getVariable _city;
 				if (random 100 < _datos select 2) then
 					{
-					if (_player distance getMarkerPos _ciudad < _size * 1.5) then
+					if (_player distance getMarkerPos _city < _size * 1.5) then
 						{
 						[_player,false] remoteExec ["setCaptive",0,_player];
 						_player setCaptive false;
@@ -117,12 +117,12 @@ if (side group player == buenos) then
 					}
 				else
 					{
-					_ciudad = [citiesX,_playerX] call BIS_fnc_nearestPosition;
-					_size = [_ciudad] call A3A_fnc_sizeMarker;
-					_datos = server getVariable _ciudad;
+					_city = [citiesX,_playerX] call BIS_fnc_nearestPosition;
+					_size = [_city] call A3A_fnc_sizeMarker;
+					_datos = server getVariable _city;
 					if (random 100 < _datos select 2) then
 						{
-						if (_playerX distance getMarkerPos _ciudad < _size * 1.5) then
+						if (_playerX distance getMarkerPos _city < _size * 1.5) then
 							{
 							[_playerX,false] remoteExec ["setCaptive",0,_playerX];
 							_playerX setCaptive false;
@@ -190,12 +190,12 @@ if (side group player == buenos) then
 				}
 			else
 				{
-				_ciudad = [citiesX,_player] call BIS_fnc_nearestPosition;
-				_size = [_ciudad] call A3A_fnc_sizeMarker;
-				_datos = server getVariable _ciudad;
+				_city = [citiesX,_player] call BIS_fnc_nearestPosition;
+				_size = [_city] call A3A_fnc_sizeMarker;
+				_datos = server getVariable _city;
 				if (random 100 < _datos select 2) then
 					{
-					if (_player distance getMarkerPos _ciudad < _size * 1.5) then
+					if (_player distance getMarkerPos _city < _size * 1.5) then
 						{
 						[_player,false] remoteExec ["setCaptive",0,_player];
 						_player setCaptive false;
@@ -241,6 +241,6 @@ else
 	{
 	_oldUnit setVariable ["spawner",nil,true];
 	_newUnit setVariable ["spawner",true,true];
-	if (hayRHS) then {[player] call A3A_fnc_RHSdress};
-	if (hayACE) then {[] call A3A_fnc_ACEpvpReDress};
+	if (hasRHS) then {[player] call A3A_fnc_RHSdress};
+	if (hasACE) then {[] call A3A_fnc_ACEpvpReDress};
 	};

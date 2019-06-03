@@ -5,19 +5,19 @@ _positionX = getMarkerPos respawnTeamPlayer;
 
 _pilotos = [];
 _vehiclesX = [];
-_grupos = [];
+_groups = [];
 _soldiers = [];
 
-if ({(_x distance _positionX < 500) and (typeOf _x == staticAABuenos)} count staticsToSave > 4) exitWith {};
+if ({(_x distance _positionX < 500) and (typeOf _x == staticAAteamPlayer)} count staticsToSave > 4) exitWith {};
 
-_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] != buenos) and (spawner getVariable _x == 2)};
+_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] != teamPlayer) and (spawner getVariable _x == 2)};
 if (count _airportsX == 0) exitWith {};
 _airportX = [_airportsX,_positionX] call BIS_fnc_nearestPosition;
 _posOrigin = getMarkerPos _airportX;
 _lado = if (lados getVariable [_airportX,sideUnknown] == malos) then {malos} else {Invaders};
 _tsk1 = "";
 _tsk = "";
-[[buenos,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_positionX,true,10,true,"Defend",true] call BIS_fnc_taskCreate;
+[[teamPlayer,civilian],"DEF_HQ",[format ["Enemy knows our HQ coordinates. They have sent a SpecOp Squad in order to kill %1. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track",name petros],format ["Defend %1",name petros],respawnTeamPlayer],_positionX,true,10,true,"Defend",true] call BIS_fnc_taskCreate;
 [[_lado],"DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros, nameTeamPlayer],format ["Kill %1",name petros],respawnTeamPlayer],_positionX,true,10,true,"Attack",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["DEF_HQ","CREATED"]; publicVariable "missionsX";
 _typesVeh = if (_lado == malos) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
@@ -32,7 +32,7 @@ if (count _typesVeh > 0) then
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
 	_pilotos = _pilotos + _heliCrew;
-	_grupos pushBack _groupHeli;
+	_groups pushBack _groupHeli;
 	_vehiclesX pushBack _heli;
 	{[_x] call A3A_fnc_NATOinit} forEach _heliCrew;
 	[_heli] call A3A_fnc_AIVEHinit;
@@ -53,13 +53,13 @@ for "_i" from 0 to (round random 2) do
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
 	_pilotos = _pilotos + _heliCrew;
-	_grupos pushBack _groupHeli;
+	_groups pushBack _groupHeli;
 	_vehiclesX pushBack _heli;
 
 	{_x setBehaviour "CARELESS";} forEach units _groupHeli;
 	_grupo = [_posOrigin, _lado, _typeGroup] call A3A_fnc_spawnGroup;
 	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers pushBack _x; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
-	_grupos pushBack _grupo;
+	_groups pushBack _grupo;
 	//[_heli,"Air Transport"] spawn A3A_fnc_inmuneConvoy;
 	[_heli,_grupo,_positionX,_posOrigin,_groupHeli] spawn A3A_fnc_fastrope;
 	sleep 10;
@@ -86,7 +86,7 @@ else
 		[0,3] remoteExec ["A3A_fnc_prestige",2];
 		[0,300] remoteExec ["A3A_fnc_resourcesFIA",2];
 		//[-5,5,_positionX] remoteExec ["A3A_fnc_citySupportChange",2];
-		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_positionX,buenos] call A3A_fnc_distanceUnits);
+		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
 		};
 	};
 
@@ -96,22 +96,22 @@ _nul = [0,"DEF_HQ1"] spawn A3A_fnc_deleteTask;
 
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
+if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
 } forEach _vehiclesX;
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldiers = _soldiers - [_x]};
+if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldiers = _soldiers - [_x]};
 } forEach _soldiers;
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
+if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
 } forEach _pilotos;
 
 if (count _soldiers > 0) then
 	{
 	{
 	_veh = _x;
-	waitUntil {sleep 1; !([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
 	} forEach _soldiers;
 	};
@@ -120,8 +120,8 @@ if (count _pilotos > 0) then
 	{
 	{
 	_veh = _x;
-	waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
 	} forEach _pilotos;
 	};
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;

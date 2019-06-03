@@ -16,7 +16,7 @@ else
 		}
 	else
 		{
-		if (hayIFA) then
+		if (hasIFA) then
 			{
 			{if (typeOf _x in SDKGL) exitWith {_result = true}} forEach (units (group _unit));
 			};

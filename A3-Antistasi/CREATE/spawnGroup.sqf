@@ -1,6 +1,6 @@
 params ["_positionX","_lado","_typesX",["_override",false],["_canBypass",false]];
-//private ["_grupo","_cuenta","_countRanks","_lider","_unitsX","_index","_positionX","_lado","_typesX","_override","_canBypass"];
-private ["_grupo","_cuenta","_countRanks","_lider","_unitsX","_index"];
+//private ["_grupo","_countX","_countRanks","_lider","_unitsX","_index","_positionX","_lado","_typesX","_override","_canBypass"];
+private ["_grupo","_countX","_countRanks","_lider","_unitsX","_index"];
 
 /*_positionX = _this select 0;
 _lado = _this select 1;
@@ -24,17 +24,17 @@ if (_canBypass) then
 if (_canBypass) exitWith {grpNull};
 _grupo = createGroup _lado;
 _rangos = ["LIEUTENANT","SERGEANT","CORPORAL"];
-_cuenta = count _typesX;
-if (_cuenta < 4) then
+_countX = count _typesX;
+if (_countX < 4) then
 	{
 	_rangos = _rangos - ["LIEUTENANT","SERGEANT"];
 	}
 else
 	{
-	if (_cuenta < 8) then {_rangos = _rangos - ["LIEUTENANT"]};
+	if (_countX < 8) then {_rangos = _rangos - ["LIEUTENANT"]};
 	};
 _countRanks = (count _rangos - 1);
-for "_i" from 0 to (_cuenta - 1) do
+for "_i" from 0 to (_countX - 1) do
 	{
 	if ((_i == 0) or (((_allUnits + 1) < maxUnits) and ((_allUnitsSide + 1) < _maxUnitsSide)) or _override) then
 		{

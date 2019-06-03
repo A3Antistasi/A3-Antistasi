@@ -1,12 +1,12 @@
 if (count hcSelected player == 0) exitWith {hint "You must select an artillery group"};
 
-private ["_grupos","_artyArray","_artyRoundsArr","_hasAmmunition","_areReady","_hasArtillery","_areAlive","_soldierX","_veh","_typeAmmunition","_typeArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_piece","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forcedX","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
+private ["_groups","_artyArray","_artyRoundsArr","_hasAmmunition","_areReady","_hasArtillery","_areAlive","_soldierX","_veh","_typeAmmunition","_typeArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_piece","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forcedX","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_countX","_pos","_ang"];
 
-_grupos = hcSelected player;
+_groups = hcSelected player;
 _unitsX = [];
 {_grupo = _x;
 {_unitsX pushBack _x} forEach units _grupo;
-} forEach _grupos;
+} forEach _groups;
 typeAmmunition = nil;
 _artyArray = [];
 _artyRoundsArr = [];
@@ -179,7 +179,7 @@ if ((not(_markerX in forcedSpawn)) and (_positionTel distance (getMarkerPos _mar
 	};
 
 _texto = format ["Requesting fire support on Grid %1. %2 Rounds", mapGridPosition _positionTel, round _rounds];
-[theBoss,"sideChat",_texto] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
+[theBoss,"sideChat",_texto] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
 
 if (_typeArty == "BARRAGE") then
 	{
@@ -193,13 +193,13 @@ if (_typeArty == "BARRAGE") then
 	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
 	_tiempo = time + _eta;
 	_texto = format ["Acknowledged. Fire mission is inbound. ETA %1 secs for the first impact",round _eta];
-	[petros,"sideChat",_texto]remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
+	[petros,"sideChat",_texto]remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
 	[_tiempo] spawn
 		{
 		private ["_tiempo"];
 		_tiempo = _this select 0;
 		waitUntil {sleep 1; time > _tiempo};
-		[petros,"sideChat","Splash. Out"] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
+		[petros,"sideChat","Splash. Out"] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
 		};
 	};
 
@@ -210,9 +210,9 @@ for "_i" from 0 to (count _artyArrayDef1) - 1 do
 	if (_rounds > 0) then
 		{
 		_piece = _artyArrayDef1 select _i;
-		_cuenta = _artyRoundsArr1 select _i;
-		//hint format ["Rondas que faltan: %1, rondas que tiene %2",_rounds,_cuenta];
-		if (_cuenta >= _rounds) then
+		_countX = _artyRoundsArr1 select _i;
+		//hint format ["Rondas que faltan: %1, rondas que tiene %2",_rounds,_countX];
+		if (_countX >= _rounds) then
 			{
 			if (_typeArty != "BARRAGE") then
 				{
@@ -233,18 +233,18 @@ for "_i" from 0 to (count _artyArrayDef1) - 1 do
 			{
 			if (_typeArty != "BARRAGE") then
 				{
-				_piece commandArtilleryFire [[_pos,random 10,random 360] call BIS_fnc_relPos,_typeAmmunition,_cuenta];
+				_piece commandArtilleryFire [[_pos,random 10,random 360] call BIS_fnc_relPos,_typeAmmunition,_countX];
 				}
 			else
 				{
-				for "_r" from 1 to _cuenta do
+				for "_r" from 1 to _countX do
 					{
 					_piece commandArtilleryFire [_pos,_typeAmmunition,1];
 					sleep 2;
 					_pos = [_pos,10,_ang + 5 - (random 10)] call BIS_fnc_relPos;
 					};
 				};
-			_rounds = _rounds - _cuenta;
+			_rounds = _rounds - _countX;
 			};
 		};
 	};
@@ -256,13 +256,13 @@ if (_typeArty != "BARRAGE") then
 	_tiempo = time + _eta - 5;
 	if (isNil "_tiempo") exitWith {diag_log format ["Antistasi: Error en artySupport.sqf. Params: %1,%2,%3,%4",_artyArrayDef1 select 0,_positionTel,((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0),(_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)]]};
 	_texto = format ["Acknowledged. Fire mission is inbound. %2 Rounds fired. ETA %1 secs",round _eta,_roundsMax - _rounds];
-	[petros,"sideChat",_texto] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
+	[petros,"sideChat",_texto] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
 	};
 
 if (_typeArty != "BARRAGE") then
 	{
 	waitUntil {sleep 1; time > _tiempo};
-	[petros,"sideChat","Splash. Out"] remoteExec ["A3A_fnc_commsMP",[buenos,civilian]];
+	[petros,"sideChat","Splash. Out"] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
 	};
 sleep 10;
 deleteMarkerLocal _mrkfin;

@@ -4,7 +4,7 @@ waitUntil {sleep 10;{([_x] call A3A_fnc_canFight) and (vehicle _x == _x)} count 
 
 if ({[_x] call A3A_fnc_canFight} count _soldiers == 0) exitWith {};
 private _lado = side (group (_soldiers select 0));
-private _eny = [buenos];
+private _eny = [teamPlayer];
 if (_lado == malos) then {_eny pushBack Invaders} else {_eny pushBack malos};
 
 while {true} do

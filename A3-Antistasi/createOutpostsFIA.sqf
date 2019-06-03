@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unitsX","_formatX"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_unitsX","_formatX"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
@@ -25,20 +25,20 @@ _mrk setMarkerShape "ICON";
 
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
 _dateLimitNum = dateToNumber _dateLimit;
-[[buenos,civilian],"outpostsFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
-//_tsk = ["outpostsFIA",[buenos,civilian],["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
+[[teamPlayer,civilian],"outpostsFIA",["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,false,0,true,"Move",true] call BIS_fnc_taskCreate;
+//_tsk = ["outpostsFIA",[teamPlayer,civilian],["We are sending a team to establish a Watchpost/Roadblock. Use HC to send the team to their destination","Post \ Roadblock Deploy",_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
 //missionsX pushBackUnique _tsk; publicVariable "missionsX";
 _formatX = [];
 {
 if (random 20 <= skillFIA) then {_formatX pushBack (_x select 1)} else {_formatX pushBack (_x select 0)};
 } forEach _typeGroup;
-_grupo = [getMarkerPos respawnTeamPlayer, buenos, _formatX] call A3A_fnc_spawnGroup;
+_grupo = [getMarkerPos respawnTeamPlayer, teamPlayer, _formatX] call A3A_fnc_spawnGroup;
 _grupo setGroupId ["Post"];
 _road = [getMarkerPos respawnTeamPlayer] call A3A_fnc_findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
-_camion = _typeVehX createVehicle _pos;
+_truckX = _typeVehX createVehicle _pos;
 //_nul = [_grupo] spawn dismountFIA;
-_grupo addVehicle _camion;
+_grupo addVehicle _truckX;
 {[_x] call A3A_fnc_FIAinit} forEach units _grupo;
 leader _grupo setBehaviour "SAFE";
 (units _grupo) orderGetIn true;
@@ -60,7 +60,7 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) the
 		waitUntil {!(isPlayer leader _grupo)};
 		};
 	outpostsFIA = outpostsFIA + [_mrk]; publicVariable "outpostsFIA";
-	lados setVariable [_mrk,buenos,true];
+	lados setVariable [_mrk,teamPlayer,true];
 	markersX = markersX + [_mrk];
 	publicVariable "markersX";
 	spawner setVariable [_mrk,2,true];
@@ -89,7 +89,7 @@ else
 
 theBoss hcRemoveGroup _grupo;
 {deleteVehicle _x} forEach units _grupo;
-deleteVehicle _camion;
+deleteVehicle _truckX;
 deleteGroup _grupo;
 sleep 15;
 

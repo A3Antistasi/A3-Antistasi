@@ -1,6 +1,6 @@
 if (!hasInterface) exitWith {};
 if (isNil "initVar") exitWith {};
-if ((side player != buenos) and (side player != civilian)) exitWith {};
+if ((side player != teamPlayer) and (side player != civilian)) exitWith {};
 private ["_unit","_tipo","_texto","_display","_setText"];
 
 _unit = _this select 0;

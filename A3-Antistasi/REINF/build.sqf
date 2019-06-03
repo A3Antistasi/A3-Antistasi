@@ -88,7 +88,7 @@ private _texto = "";
 if ((_tipo == "SB") or (_tipo == "CB")) then
 	{
 	if (_tipo == "SB") then {_dir = _dir + 180};
-	_resourcesFIA = if (!isMultiPlayer) then {server getVariable "resourcesFIA"} else {player getVariable "dinero"};
+	_resourcesFIA = if (!isMultiPlayer) then {server getVariable "resourcesFIA"} else {player getVariable "moneyX"};
 	if (_coste > _resourcesFIA) then
 		{
 		_salir = true;
@@ -96,7 +96,7 @@ if ((_tipo == "SB") or (_tipo == "CB")) then
 		}
 	else
 		{
-		_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
+		_sitios = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
 		nearX = [_sitios,_positionX] call BIS_fnc_nearestPosition;
 		if (!(_positionX inArea nearX)) then
 			{
@@ -259,7 +259,7 @@ if (_coste > 0) then
 	else
 		{
 		[-_coste] call A3A_fnc_resourcesPlayer;
-		["dinero",player getVariable ["dinero",0]] call fn_SaveStat;
+		["moneyX",player getVariable ["moneyX",0]] call fn_SaveStat;
 		};
 	};
 
@@ -334,7 +334,7 @@ if (_tipo == "RB") then
 
 while {alive _veh} do
 	{
-	if ((not([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
+	if ((not([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
 		{
 		deleteVehicle _veh
 		};

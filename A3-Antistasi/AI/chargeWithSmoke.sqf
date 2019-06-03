@@ -35,7 +35,7 @@ if (_muzzle !="") then
 	}
 else
 	{
-	if (side _unit != buenos) then
+	if (side _unit != teamPlayer) then
 		{
 		if (fleeing _unit) then {[_unit,_enemy] call A3A_fnc_suppressingFire};
 		};

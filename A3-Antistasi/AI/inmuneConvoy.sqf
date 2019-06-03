@@ -17,15 +17,15 @@ while {alive _veh} do
 	{
 	if (!(_veh getVariable ["revelado",false])) then
 		{
-		if ((buenos knowsAbout _veh > 1.4) or revealX or _convoy) then
+		if ((teamPlayer knowsAbout _veh > 1.4) or revealX or _convoy) then
 			{
 			_veh setVariable ["revelado",true,true];
-			[_veh,_text] remoteExec  ["A3A_fnc_vehicleMarkers",[buenos,civilian]];
+			[_veh,_text] remoteExec  ["A3A_fnc_vehicleMarkers",[teamPlayer,civilian]];
 			};
 		}
 	else
 		{
-		if ((buenos knowsAbout _veh <= 1.4) and !(revealX) and !(_convoy)) then
+		if ((teamPlayer knowsAbout _veh <= 1.4) and !(revealX) and !(_convoy)) then
 			{
 			_veh setVariable ["revelado",false,true];
 			};

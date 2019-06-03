@@ -120,7 +120,7 @@ if (lados getVariable [_markerX,sideUnknown] == malos) then
 	}
 else
 	{
-	if (lados getVariable [_markerX,sideUnknown] == buenos) then
+	if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
 		{
 		if (spawner getVariable _markerX != 0) then
 			{

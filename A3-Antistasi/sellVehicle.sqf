@@ -7,7 +7,7 @@ if (_veh distance getMarkerPos respawnTeamPlayer > 50) exitWith {hint "Vehicle m
 
 if ({isPlayer _x} count crew _veh > 0) exitWith {hint "In order to sell, vehicle must be empty."};
 
-_owner = _veh getVariable "duenyo";
+_owner = _veh getVariable "ownerX";
 _exit = false;
 if (!isNil "_owner") then
 	{

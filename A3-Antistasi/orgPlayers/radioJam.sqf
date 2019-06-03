@@ -12,7 +12,7 @@ while {true} do
 	_puesto = [outposts,_x] call BIS_fnc_nearestPosition;
 	if (lados getVariable [_puesto,sideUnknown] != _lado) then {_antennas pushBack _x};
 	} forEach antennas;
-	if (_lado != buenos) then {_antennas pushBack [vehicleBox]};
+	if (_lado != teamPlayer) then {_antennas pushBack [vehicleBox]};
 	if !(_antennas isEqualTo []) then
 		{
 		_jammer = [_antennas,player] call BIS_fnc_nearestPosition;

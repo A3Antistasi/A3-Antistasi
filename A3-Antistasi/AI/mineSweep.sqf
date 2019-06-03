@@ -1,12 +1,12 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_coste","_grupo","_unit","_minas","_tam","_roads","_camion","_mina","_cuenta"];
+private ["_coste","_grupo","_unit","_minas","_tam","_roads","_truckX","_mina","_countX"];
 
 _coste = (server getVariable (SDKExp select 0)) + ([vehSDKRepair] call A3A_fnc_vehiclePrice);
 
 [-1,-1*_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
 
-_grupo = createGroup buenos;
+_grupo = createGroup teamPlayer;
 
 _unit = _grupo createUnit [(SDKExp select 0), getMarkerPos respawnTeamPlayer, [], 0, "NONE"];
 _grupo setGroupId ["MineSw"];
@@ -15,14 +15,14 @@ sleep 1;
 _road = [getMarkerPos respawnTeamPlayer] call A3A_fnc_findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 
-_camion = vehSDKRepair createVehicle _pos;
+_truckX = vehSDKRepair createVehicle _pos;
 
-[_camion] call A3A_fnc_AIVEHinit;
+[_truckX] call A3A_fnc_AIVEHinit;
 [_unit] spawn A3A_fnc_FIAinit;
 clearMagazineCargo unitBackpack _unit;
 _unit addItemToBackpack "MineDetector";
 
-_grupo addVehicle _camion;
+_grupo addVehicle _truckX;
 [_unit] orderGetIn true;
 // Add Mine Detector to detect invisible APERS
 clearMagazineCargo (unitBackpack _unit);
@@ -35,15 +35,15 @@ while {alive _unit} do
 	waitUntil {sleep 1;(!alive _unit) or (unitReady _unit)};
 	if (alive _unit) then
 		{
-		if (alive _camion) then
+		if (alive _truckX) then
 			{
-			if ((count magazineCargo _camion > 0) and (_unit distance (getMarkerPos respawnTeamPlayer) < 50)) then
+			if ((count magazineCargo _truckX > 0) and (_unit distance (getMarkerPos respawnTeamPlayer) < 50)) then
 				{
-				[_camion,caja] remoteExec ["A3A_fnc_ammunitionTransfer",2];
+				[_truckX,caja] remoteExec ["A3A_fnc_ammunitionTransfer",2];
 				sleep 30;
 				};
 			};
-		_minas = (detectedMines buenos) select {(_x distance _unit) < 100};
+		_minas = (detectedMines teamPlayer) select {(_x distance _unit) < 100};
 		if (count _minas == 0) then
 			{
 			waitUntil {sleep 1;(!alive _unit) or (!unitReady _unit)};
@@ -53,11 +53,11 @@ while {alive _unit} do
 			moveOut _unit;
 			[_unit] orderGetin false;
 			_minas = [_minas,[],{_unit distance _x},"ASCEND"] call BIS_fnc_sortBy;
-			_cuenta = 0;
+			_countX = 0;
 			_total = count _minas;
-			while {(alive _unit) and (_cuenta < _total)} do
+			while {(alive _unit) and (_countX < _total)} do
 				{
-				_mina = _minas select _cuenta;
+				_mina = _minas select _countX;
 				[_unit] orderGetin false;
 				_unit doMove position _mina;
 				_timeOut = time + 120;
@@ -71,11 +71,11 @@ while {alive _unit} do
 					if (count _toDelete > 0) then
 						{
 						_wh = _toDelete select 0;
-						if (alive _camion) then {_camion addMagazineCargoGlobal [((magazineCargo _wh) select 0),1]};
+						if (alive _truckX) then {_truckX addMagazineCargoGlobal [((magazineCargo _wh) select 0),1]};
 						deleteVehicle _mina;
 						deleteVehicle _wh;
 						};
-					_cuenta = _cuenta + 1;
+					_countX = _countX + 1;
 					};
 				};
 			if(alive _unit) then

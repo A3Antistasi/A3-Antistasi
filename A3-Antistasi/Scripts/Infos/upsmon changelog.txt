@@ -352,8 +352,8 @@ Modified:
 // 		A�adidas algunas animaciones para darle pinceladas de dramatismo a los movimientos de la IA
 // 
 // 	Modificaciones:
-// 		Modificaci�n control de detecci�n de movimientos de otros grupos ahora no requiere la lectura de objectsX, con lo que mejora el rendimiento.
-// 		Adaptado sistema de scripts para poder controlar los grupos de IA y a�adir mejoras que requieran la interacci�n de los grupos.
+// 		Modificaci�n control de detecci�n de movimientos de otros groups ahora no requiere la lectura de objectsX, con lo que mejora el rendimiento.
+// 		Adaptado sistema de scripts para poder controlar los groups de IA y a�adir mejoras que requieran la interacci�n de los groups.
 //-------------------------------------------------------------------------------
 //Version: 3.0.8
 // 	Modificaciones:
@@ -370,7 +370,7 @@ Modified:
 //    	Added
 //             
 // 	Modificaciones
-//		Corregidos bugs varios, entre ellos uno que ralentizaba la acci�n de los grupos
+//		Corregidos bugs varios, entre ellos uno que ralentizaba la acci�n de los groups
 //		Set de par�metros modificados para un comportamiento m�s �ptimo y realista
 //		deshabilitado KRON_UPS_intowndist por comportamientos extra�os con algunos objectsX builiding
 //		Ahora la IA selecciona los caminos con m�s coverX, a ser potential
@@ -396,7 +396,7 @@ Modified:
 //Version: 3.0.3
 //    	Added
 //   		Multiple targets, now IA can have multiple open targets
-//		La IA ahora usa tamien los buildingsX para buscar enemiesX, protegerse dentro o atacar desde all�.
+//		La IA ahora usa tamien los buildingsX para buscar enemiesX, protegerse within o atacar desde all�.
 // 	Modificaciones
 //		La IA pierde el objectiveX si lo pierde de vista y est� a m�s de la distanceX KRON_UPS_sharedist
 //

@@ -7,7 +7,7 @@ if (player != player getVariable "owner") exitWith {hint "You cannot access the 
 if ([player,300] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot manage the Garage with enemies nearby"};
 vehInGarageShow = [];
 _hasAir = false;
-_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == buenos) and (player inArea _x)};
+_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == teamPlayer) and (player inArea _x)};
 if (count _airportsX > 0) then {_hasAir = true};
 {
 if ((_x in vehPlanes)) then
@@ -20,7 +20,7 @@ else
 	};
 } forEach (if (pool) then {vehInGarage} else {personalGarage});
 if (count vehInGarageShow == 0) exitWith {hintC "The Garage is empty or the vehicles you have are not suitable to recover in the place you are.\n\nAir vehicles need to be recovered near Airport flags."};
-_nearX = [markersX select {lados getVariable [_x,sideUnknown] == buenos},player] call BIS_fnc_nearestPosition;
+_nearX = [markersX select {lados getVariable [_x,sideUnknown] == teamPlayer},player] call BIS_fnc_nearestPosition;
 if !(player inArea _nearX) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
 countGarage = 0;
 _tipo = vehInGarageShow select countGarage;
@@ -34,7 +34,7 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
 		_handled = false;
 		_salir = false;
-		_cambio = false;
+		_exchange = false;
 		_bought = false;
 		if (_this select 1 == 57) then
 			{
@@ -49,14 +49,14 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		if (_this select 1 == 200) then
 			{
 			if (countGarage + 1 > (count vehInGarageShow) - 1) then {countGarage = 0} else {countGarage = countGarage + 1};
-			_cambio = true;
+			_exchange = true;
 			_handled = true;
 			//["",0,0,0.34,0,0,4] spawn bis_fnc_dynamicText;
 			};
 		if (_this select 1 == 208) then
 			{
 			if (countGarage - 1 < 0) then {countGarage = (count vehInGarageShow) - 1} else {countGarage = countGarage - 1};
-			_cambio = true;
+			_exchange = true;
 			_handled = true;
 			//["",0,0,0.34,0,0,4] spawn bis_fnc_dynamicText;
 			};
@@ -70,7 +70,7 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 			garageVeh setDir (getDir garageVeh - 1);
 			_handled = true;
 			};
-		if (_cambio) then
+		if (_exchange) then
 			{
 			deleteVehicle garageVeh;
 			_tipo = vehInGarageShow select countGarage;
@@ -174,7 +174,7 @@ else
 	} forEach personalGarage;
 	personalGarage = _newArr;
 	["personalGarage",_newArr] call fn_SaveStat;
-	_garageVeh setVariable ["duenyo",getPlayerUID player,true];
+	_garageVeh setVariable ["ownerX",getPlayerUID player,true];
 	};
 countGarage = nil;
 if (_garageVeh isKindOf "StaticWeapon") then {staticsToSave pushBack _garageVeh; publicVariable "staticsToSave"};

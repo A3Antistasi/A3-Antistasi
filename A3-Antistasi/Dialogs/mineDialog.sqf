@@ -2,7 +2,7 @@ private ["_tipo","_coste","_positionTel","_quantity","_quantityMax"];
 
 if (["Mines"] call BIS_fnc_taskExists) exitWith {hint "We can only deploy one minefield at a time."};
 
-if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hayIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
+if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(hasIFA) then {hint "You need a radio in your inventory to be able to give orders to other squads"} else {hint "You need a Radio Man in your group to be able to give orders to other squads"}};
 
 _tipo = _this select 0;
 

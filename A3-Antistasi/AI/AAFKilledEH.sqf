@@ -9,7 +9,7 @@ if (_muerto getVariable ["spawner",false]) then
 [_muerto] spawn A3A_fnc_postmortem;
 _grupo = group _muerto;
 _lado = side (group _muerto);
-if (hayACE) then
+if (hasACE) then
 	{
 	if ((isNull _killer) || (_killer == _muerto)) then
 		{
@@ -17,7 +17,7 @@ if (hayACE) then
 		};
 	};
 //if (_killer isEqualType "") then {diag_log format ["Antistasi error in A3A_fnc_AAFKilledEH, params: %1",_this]};
-if (side (group _killer) == buenos) then
+if (side (group _killer) == teamPlayer) then
 	{
 	if (isPlayer _killer) then
 		{

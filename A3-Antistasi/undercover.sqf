@@ -53,7 +53,7 @@ if ({((side _x== Invaders) or (side _x== malos)) and (((_x knowsAbout _player > 
 
 _base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 _size = [_base] call A3A_fnc_sizeMarker;
-if ((_player distance getMarkerPos _base < _size*2) and (not(lados getVariable [_base,sideUnknown] == buenos))) exitWith {hint "You cannot go Undercover near Airports, Outposts or Roadblocks"};
+if ((_player distance getMarkerPos _base < _size*2) and (not(lados getVariable [_base,sideUnknown] == teamPlayer))) exitWith {hint "You cannot go Undercover near Airports, Outposts or Roadblocks"};
 
 ["Undercover ON",0,0,4,0,0,4] spawn bis_fnc_dynamicText;
 
@@ -99,7 +99,7 @@ while {_changeX == ""} do
 								if ({((side _x== Invaders) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_changeX = "Carretera"};
 								};
 							};
-						if (hayACE) then
+						if (hasACE) then
 							{
 			  				if (((position _player nearObjects ["DemoCharge_Remote_Ammo", 5]) select 0) mineDetectedBy malos) then
 								{
@@ -131,7 +131,7 @@ while {_changeX == ""} do
 				{
 				_base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 				//_size = [_base] call A3A_fnc_sizeMarker;
-				if ((_player inArea _base) and (lados getVariable [_base,sideUnknown] != buenos)) then
+				if ((_player inArea _base) and (lados getVariable [_base,sideUnknown] != teamPlayer)) then
 					{
 					if !(_isInControl) then
 						{

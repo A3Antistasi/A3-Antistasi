@@ -701,7 +701,7 @@ class buy_vehicle 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticATBuenos] spawn A3A_fnc_addFIAveh;";
+			action = "closeDialog 0;nul = [staticATteamPlayer] spawn A3A_fnc_addFIAveh;";
 		};
 
 		class HQ_button_AA: RscButton
@@ -712,7 +712,7 @@ class buy_vehicle 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticAABuenos] spawn A3A_fnc_addFIAveh;";
+			action = "closeDialog 0;nul = [staticAAteamPlayer] spawn A3A_fnc_addFIAveh;";
 		};
 	};
 };
@@ -2175,7 +2175,7 @@ class squad_recruit 			{
 			y = 0.612025 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul = [staticAABuenos] spawn A3A_fnc_addFIAsquadHC";
+			action = "closeDialog 0;nul = [staticAAteamPlayer] spawn A3A_fnc_addFIAsquadHC";
 		};
 
 		class HQ_button_mortar: RscButton

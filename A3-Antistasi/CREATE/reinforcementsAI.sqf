@@ -1,5 +1,5 @@
-private ["_airportsX","_reinfPlaces","_airportX","_numero","_numGarr","_numReal","_lado","_potentials","_cuenta","_sitio","_positionX"];
-_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] != buenos) and (spawner getVariable _x == 2)};
+private ["_airportsX","_reinfPlaces","_airportX","_numero","_numGarr","_numReal","_lado","_potentials","_countX","_sitio","_positionX"];
+_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] != teamPlayer) and (spawner getVariable _x == 2)};
 if (count _airportsX == 0) exitWith {};
 _reinfPlaces = [];
 {
@@ -32,14 +32,14 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 	_potentials = _potentials select {((getMarkerPos _x distance2D _positionX) < distanceForAirAttack) and !(_x in forcedSpawn)};
 	if (count _potentials > 0) then
 		{
-		_cuenta = 0;
+		_countX = 0;
 		_sitio = "";
 		{
 		_numGarr = [_x] call A3A_fnc_garrisonSize;
 		_numReal = count (garrison getVariable _x);
-		if (_numGarr - _numReal > _cuenta) then
+		if (_numGarr - _numReal > _countX) then
 			{
-			_cuenta = _numGarr - _numReal;
+			_countX = _numGarr - _numReal;
 			_sitio = _x;
 			};
 		} forEach _potentials;

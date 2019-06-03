@@ -34,7 +34,7 @@ else
 				_driver = driver _veh;
 				if (!isNull _driver) then
 					{
-					if (side group _driver != buenos) then
+					if (side group _driver != teamPlayer) then
 						{
 						if !(_unit getVariable ["spawner",false]) then
 							{
@@ -83,7 +83,7 @@ else
 	else
 		{
 		_skill = _skill min 0.2;
-		if ((tierWar > 1) and !hayIFA) then
+		if ((tierWar > 1) and !hasIFA) then
 			{
 			_rifleFinal = primaryWeapon _unit;
 			_magazines = getArray (configFile / "CfgWeapons" / _rifleFinal / "magazines");
@@ -108,11 +108,11 @@ if (not(_tipo in sniperUnits)) then
 	};
 
 _hmd = hmd _unit;
-if !(hayIFA) then
+if !(hasIFA) then
 	{
 	if (sunOrMoon < 1) then
 		{
-		if (!hayRHS) then
+		if (!hasRHS) then
 			{
 			if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders) and (_unit != leader (group _unit))) then
 				{
@@ -194,7 +194,7 @@ if !(hayIFA) then
 		}
 	else
 		{
-		if (!hayRHS) then
+		if (!hasRHS) then
 			{
 			if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders)) then
 				{

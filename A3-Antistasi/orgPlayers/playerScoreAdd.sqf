@@ -12,11 +12,11 @@ _playerX = _playerX getVariable ["owner",_playerX];
 if (isMultiplayer) exitWith
 	{
 	_puntosJ = _playerX getVariable ["score",0];
-	_moneyJ = _playerX getVariable ["dinero",0];
+	_moneyJ = _playerX getVariable ["moneyX",0];
 	if (_puntos > 0) then
 		{
 		_moneyJ = _moneyJ + (_puntos * 10);
-		_playerX setVariable ["dinero",_moneyJ,true];
+		_playerX setVariable ["moneyX",_moneyJ,true];
 		if (_puntos > 1) then
 			{
 			_texto = format ["<br/><br/><br/><br/><br/><br/>Money +%1 €",_puntos*10];

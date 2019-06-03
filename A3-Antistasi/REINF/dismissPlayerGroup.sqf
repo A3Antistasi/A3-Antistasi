@@ -11,14 +11,14 @@ if (_units isEqualTo []) exitWith {};
 if (_units findIf {!([_x] call A3A_fnc_canFight)} != -1) exitWith {hint "You cannot disband supressed, undercover or unconscious units"};
 player globalChat "Get out of my sight you useless scum!";
 
-_newGroup = createGroup buenos;
-//if ({isPlayer _x} count units group player == 1) then {_ai = true; _newGroup = createGroup buenos};
+_newGroup = createGroup teamPlayer;
+//if ({isPlayer _x} count units group player == 1) then {_ai = true; _newGroup = createGroup teamPlayer};
 
 {
 if (typeOf _x != SDKUnarmed) then
 	{
 	[_x] join _newGroup;
-	if !(hayIFA) then {arrayids = arrayids + [name _x]};
+	if !(hasIFA) then {arrayids = arrayids + [name _x]};
 	};
 } forEach _units;
 

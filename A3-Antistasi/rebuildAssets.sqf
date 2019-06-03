@@ -32,7 +32,7 @@ if (_sitio in outposts) then
 	_antennasDead = antennasDead select {_x inArea _sitio};
 	if (count _antennasDead > 0) then
 		{
-		if (lados getVariable [_sitio, sideUnknown] != buenos) then
+		if (lados getVariable [_sitio, sideUnknown] != teamPlayer) then
 			{
 			_salir = true;
 			_texto = format ["You cannot rebuild a Radio Tower in an Outpost which does not belong to %1",nameTeamPlayer];
@@ -83,7 +83,7 @@ else
 		{if ([antennas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
 		_mrk = [mrkAntennas, _antena] call BIS_fnc_nearestPosition;
 		antennas = antennas - [_antena]; antennasDead = antennasDead + [getPos _antena]; deleteMarker _mrk;
-		["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",buenos];
+		["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
 		["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
 		publicVariable "antennas"; publicVariable "antennasDead";
 		}

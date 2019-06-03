@@ -18,7 +18,7 @@ if ({"SmokeLauncher" in (_veh weaponsTurret _x)} count (allTurrets _veh) > 0) th
 	}
 else
 	{
-	if !(hayIFA) then
+	if !(hasIFA) then
 		{
 		private ["_pos","_humo"];
 		_typeSmoke = selectRandom humo;

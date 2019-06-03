@@ -9,8 +9,8 @@ if (count missionsX > 0) then
 	{
 	for "_i" from 0 to (count missionsX -1) do
 		{
-		_mision = (missionsX select _i) select 0;
-		if (_mision == _tsk) exitWith {missionsX deleteAt _i; publicVariable "missionsX"};
+		_missionX = (missionsX select _i) select 0;
+		if (_missionX == _tsk) exitWith {missionsX deleteAt _i; publicVariable "missionsX"};
 		};
 	};
 

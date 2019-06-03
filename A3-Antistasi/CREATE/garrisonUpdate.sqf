@@ -30,7 +30,7 @@ if (_exit) exitWith {diag_log format ["Antistasi: Error en garrisonUpdate al env
 garrisonIsChanging = true;
 if ((_lado == malos) and (!(lados getVariable [_markerX,sideUnknown] == malos))) exitWith {garrisonIsChanging = false};
 if ((_lado == Invaders) and (!(lados getVariable [_markerX,sideUnknown] == Invaders))) exitWith {garrisonIsChanging = false};
-if ((_lado == buenos) and (!(lados getVariable [_markerX,sideUnknown] == buenos))) exitWith {garrisonIsChanging = false};
+if ((_lado == teamPlayer) and (!(lados getVariable [_markerX,sideUnknown] == teamPlayer))) exitWith {garrisonIsChanging = false};
 _garrison = [];
 _garrison = _garrison + (garrison getVariable [_markerX,[]]);
 if (_modo == -1) then
@@ -46,5 +46,5 @@ else
 	};
 if (isNil "_garrison") exitWith {garrisonIsChanging = false};
 garrison setVariable [_markerX,_garrison,true];
-if (_lado == buenos) then {[_markerX] call A3A_fnc_mrkUpdate};
+if (_lado == teamPlayer) then {[_markerX] call A3A_fnc_mrkUpdate};
 garrisonIsChanging = false;

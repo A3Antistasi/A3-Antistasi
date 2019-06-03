@@ -1,8 +1,8 @@
 if (player != theBoss) exitWith {hint "Only Commander has the ability to control HC units"};
 
-_grupos = _this select 0;
+_groups = _this select 0;
 
-_grupo = _grupos select 0;
+_grupo = _groups select 0;
 _unit = leader _grupo;
 
 if !([_unit] call A3A_fnc_canFight) exitWith {hint "You cannot control an unconscious or dead unit"};

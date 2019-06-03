@@ -3,14 +3,14 @@ _tipo = _this select 1;
 _positionX = getMarkerPos _markerX;
 if (_tipo isEqualType "") then
 	{
-	_grupos = if (_tipo == staticCrewTeamPlayer) then {[]} else {allGroups select {(leader _x getVariable ["markerX",""] == _markerX) and (count units _x < 8) and (vehicle (leader _x) == leader _x)}};
-	_grupo = if (_grupos isEqualTo []) then
+	_groups = if (_tipo == staticCrewTeamPlayer) then {[]} else {allGroups select {(leader _x getVariable ["markerX",""] == _markerX) and (count units _x < 8) and (vehicle (leader _x) == leader _x)}};
+	_grupo = if (_groups isEqualTo []) then
 		{
-		createGroup buenos
+		createGroup teamPlayer
 		}
 	else
 		{
-		_grupos select 0;
+		_groups select 0;
 		};
 	_unit = _grupo createUnit [_tipo, _positionX, [], 0, "NONE"];
 	//if (_tipo in SDKSL) then {_grupo selectLeader _unit};
@@ -23,7 +23,7 @@ if (_tipo isEqualType "") then
 		_unit moveInGunner _veh;
 		[_veh] call A3A_fnc_AIVEHinit;
 		};
-	if (_grupos isEqualTo []) then
+	if (_groups isEqualTo []) then
 		{
 		_nul = [leader _grupo, _markerX, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 		};

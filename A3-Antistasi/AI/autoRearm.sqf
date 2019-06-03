@@ -1,4 +1,4 @@
-private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_arma","_weaponsX","_rearming","_basePossible","_hmd","_casco","_camion","_autoLoot","_itemsUnit"];
+private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_arma","_weaponsX","_rearming","_basePossible","_hmd","_casco","_truckX","_autoLoot","_itemsUnit"];
 
 _unit = _this select 0;
 
@@ -79,10 +79,10 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 	sleep 3;
 	};
 _hasBox = false;
-_cuenta = 4;
-if (_Pweapon in mguns) then {_cuenta = 2};
+_countX = 4;
+if (_Pweapon in mguns) then {_countX = 2};
 _magazines = getArray (configFile / "CfgWeapons" / _Pweapon / "magazines");
-if ({_x in _magazines} count (magazines _unit) < _cuenta) then
+if ({_x in _magazines} count (magazines _unit) < _countX) then
 	{
 	_necesita = true;
 	_hasBox = false;
@@ -124,7 +124,7 @@ if ((_hasBox) and (_unit getVariable "rearming")) then
 	if (_unit distance _target < 3) then
 		{
 		_unit action ["rearm",_target];
-		if ({_x in _magazines} count (magazines _unit) >= _cuenta) then
+		if ({_x in _magazines} count (magazines _unit) >= _countX) then
 			{
 			if (_inPlayerGroup) then {_unit groupChat "Rearmed"};
 			}
@@ -336,7 +336,7 @@ if (hmd _unit == "") then
 		};
 	};
 _hasBox = false;
-if (not(headgear _unit in cascos)) then
+if (not(headgear _unit in helmets)) then
 	{
 	_necesita = true;
 	_hasBox = false;
@@ -344,7 +344,7 @@ if (not(headgear _unit in cascos)) then
 	_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 	{
 	_muerto = _x;
-	if (((headgear _muerto) in cascos) and (_unit distance _muerto < _distanceX)) then
+	if (((headgear _muerto) in helmets) and (_unit distance _muerto < _distanceX)) then
 		{
 		_target = _muerto;
 		_hasBox = true;

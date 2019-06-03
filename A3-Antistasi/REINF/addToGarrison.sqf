@@ -18,7 +18,7 @@ _nearX = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 
 if !(_positionTel inArea _nearX) exitWith {hint "You must click near a marked zone"};
 
-if (not(lados getVariable [_nearX,sideUnknown] == buenos)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]};
+if (not(lados getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]};
 
 if ((_nearX in outpostsFIA) and !(isOnRoad getMarkerPos _nearX)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
 
@@ -50,11 +50,11 @@ if ((groupID _grupo == "MineF") or (groupID _grupo == "Watch") or (isPlayer(lead
 
 if (isNull _grupo) then
 	{
-	_grupo = createGroup buenos;
+	_grupo = createGroup teamPlayer;
 	_unitsX joinSilent _grupo;
 	//{arrayids = arrayids + [name _x]} forEach _unitsX;
 	hint "Adding units to garrison";
-	if !(hayIFA) then {{arrayids pushBackUnique (name _x)} forEach _unitsX};
+	if !(hasIFA) then {{arrayids pushBackUnique (name _x)} forEach _unitsX};
 	}
 else
 	{
@@ -68,7 +68,7 @@ _garrison = _garrison + (garrison getVariable [_nearX,[]]);
 garrison setVariable [_nearX,_garrison,true];
 [_nearX] call A3A_fnc_mrkUpdate;
 */
-[_unitsX,buenos,_nearX,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
+[_unitsX,teamPlayer,_nearX,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
 _noBorrar = false;
 
 if (spawner getVariable _nearX != 2) then
@@ -85,7 +85,7 @@ if (spawner getVariable _nearX != 2) then
 		_markerX = _muerto getVariable "markerX";
 		if (!isNil "_markerX") then
 			{
-			if (lados getVariable [_markerX,sideUnknown] == buenos) then
+			if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
 				{
 				/*
 				_garrison = [];
@@ -100,15 +100,15 @@ if (spawner getVariable _nearX != 2) then
 					};
 				[_markerX] call A3A_fnc_mrkUpdate;
 				*/
-				[typeOf _muerto,buenos,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
+				[typeOf _muerto,teamPlayer,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
 				_muerto setVariable [_markerX,nil,true];
 				};
 			};
 		}];
 	} forEach _unitsX;
 
-	waitUntil {sleep 1; (spawner getVariable _nearX == 2 or !(lados getVariable [_nearX,sideUnknown] == buenos))};
-	if (!(lados getVariable [_nearX,sideUnknown] == buenos)) then {_noBorrar = true};
+	waitUntil {sleep 1; (spawner getVariable _nearX == 2 or !(lados getVariable [_nearX,sideUnknown] == teamPlayer))};
+	if (!(lados getVariable [_nearX,sideUnknown] == teamPlayer)) then {_noBorrar = true};
 	};
 
 if (!_noBorrar) then
@@ -133,7 +133,7 @@ else
 			_muerto = _this select 0;
 			_killer = _this select 1;
 			[_muerto] remoteExec ["A3A_fnc_postmortem",2];
-			if ((isPlayer _killer) and (side _killer == buenos)) then
+			if ((isPlayer _killer) and (side _killer == teamPlayer)) then
 				{
 				if (!isMultiPlayer) then
 					{

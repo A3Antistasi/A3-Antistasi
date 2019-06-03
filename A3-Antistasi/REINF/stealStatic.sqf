@@ -9,11 +9,11 @@ if (alive gunner _staticX) exitWith {hint "You cannot steal a static weapon when
 
 if ((alive assignedGunner _staticX) and (!isPlayer (assignedGunner _staticX))) exitWith {hint "The gunner of this static weapon is still alive"};
 
-if (activeGREF and ((typeOf _staticX == staticATBuenos) or (typeOf _staticX == staticAABuenos))) exitWith {hint "This weapon cannot be dissassembled"};
+if (activeGREF and ((typeOf _staticX == staticATteamPlayer) or (typeOf _staticX == staticAAteamPlayer))) exitWith {hint "This weapon cannot be dissassembled"};
 
 _nearX = [markersX,_staticX] call BIS_fnc_nearestPosition;
 
-if (not(lados getVariable [_nearX,sideUnknown] == buenos)) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
+if (not(lados getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
 
 _staticX setOwner (owner _playerX);
 
@@ -30,7 +30,7 @@ switch _typeStaticX do
 	case NATOMG: {_tipoB1 = MGStaticNATOB; _tipoB2 = supportStaticNATOB2};
 	case CSATMG: {_tipoB1 = MGStaticCSATB; _tipoB2 = supportStaticCSATB2};
 	case SDKMGStatic: {_tipoB1 = MGStaticSDKB; _tipoB2 = supportStaticsSDKB2;};
-	case staticAABuenos: {_tipoB1 = AAStaticSDKB};
+	case staticAAteamPlayer: {_tipoB1 = AAStaticSDKB};
 	case SDKMortar: {_tipoB1 = MortStaticSDKB; _tipoB2 = supportStaticsSDKB3};
 	};
 

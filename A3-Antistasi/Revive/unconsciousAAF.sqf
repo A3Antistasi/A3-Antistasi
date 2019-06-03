@@ -1,4 +1,4 @@
-private ["_unit","_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_helped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_unit","_grupo","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_helped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
 _injurer = _this select 1;
 //if (_unit getVariable "inconsciente") exitWith {};
@@ -8,7 +8,7 @@ _injurer = _this select 1;
 _bleedOut = if (surfaceIsWater (position _unit)) then {time + 60} else {time + 300};//300
 _playersX = false;
 _lado = side (group _unit);
-if ((side _injurer == buenos) and (_lado == malos)) then
+if ((side _injurer == teamPlayer) and (_lado == malos)) then
 	{
 	_markerX = _unit getVariable ["markerX",""];
 	if (_markerX != "") then
@@ -47,7 +47,7 @@ if (_playersX) then
 
 if (time >= _bleedOut) exitWith
 	{
-	if (side _injurer == buenos) then
+	if (side _injurer == teamPlayer) then
 		{
 		if (isPlayer _injurer) then
 			{

@@ -28,7 +28,7 @@ if ([_x] call A3A_fnc_isMember) then
 			};
 		};
 	};
-} forEach (playableUnits select {(side (group _x) == buenos)});
+} forEach (playableUnits select {(side (group _x) == teamPlayer)});
 
 if (isNull _lider) then
 	{

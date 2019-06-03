@@ -1,22 +1,22 @@
 if (!isServer and hasInterface) exitWith {};
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanksX","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_nul","_pos","_timeOut"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanksX","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_nul","_pos","_timeOut"];
 _mrkDestination = _this select 0;
 _mrkOrigin = _this select 1;
 bigAttackInProgress = true;
 publicVariable "bigAttackInProgress";
 _posDestination = getMarkerPos _mrkDestination;
 _posOrigin = getMarkerPos _mrkOrigin;
-_grupos = [];
+_groups = [];
 _soldiers = [];
 _pilotos = [];
 _vehiclesX = [];
 _civiles = [];
 
 _nameDest = [_mrkDestination] call A3A_fnc_localizar;
-[[buenos,civilian,malos],"AttackAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest,nameInvaders],format ["%1 Punishment",nameInvaders],_mrkDestination],getMarkerPos _mrkDestination,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
+[[teamPlayer,civilian,malos],"AttackAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest,nameInvaders],format ["%1 Punishment",nameInvaders],_mrkDestination],getMarkerPos _mrkDestination,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 
 _nul = [_mrkOrigin,_mrkDestination,Invaders] spawn A3A_fnc_artillery;
-_lado = if (lados getVariable [_mrkDestination,sideUnknown] == malos) then {malos} else {buenos};
+_lado = if (lados getVariable [_mrkDestination,sideUnknown] == malos) then {malos} else {teamPlayer};
 _tiempo = time + 3600;
 
 for "_i" from 1 to 3 do
@@ -39,7 +39,7 @@ for "_i" from 1 to 3 do
 	[_heli] call A3A_fnc_AIVEHinit;
 	_groupHeli = _vehicle select 2;
 	_pilotos = _pilotos + _heliCrew;
-	_grupos pushBack _groupHeli;
+	_groups pushBack _groupHeli;
 	_vehiclesX pushBack _heli;
 	//_heli lock 3;
 	if (not(_typeVehX in vehCSATTransportHelis)) then
@@ -55,7 +55,7 @@ for "_i" from 1 to 3 do
 		_typeGroup = [_typeVehX,Invaders] call A3A_fnc_cargoSeats;
 		_grupo = [_posOrigin, Invaders, _typeGroup] call A3A_fnc_spawnGroup;
 		{_x assignAsCargo _heli;_x moveInCargo _heli; _soldiers pushBack _x; [_x] call A3A_fnc_NATOinit; _x setVariable ["origen",_mrkOrigin]} forEach units _grupo;
-		_grupos pushBack _grupo;
+		_groups pushBack _grupo;
 		//[_heli,"CSAT Air Transport"] spawn A3A_fnc_inmuneConvoy;
 
 		if (not(_typeVehX in vehFastRope)) then
@@ -108,11 +108,11 @@ if (lados getVariable [_mrkDestination,sideUnknown] == malos) then {[[_posDestin
 if (_numCiv < 8) then {_numCiv = 8};
 
 _size = [_mrkDestination] call A3A_fnc_sizeMarker;
-//_groupCivil = if (_lado == buenos) then {createGroup buenos} else {createGroup malos};
-_groupCivil = createGroup buenos;
-_grupos pushBack _groupCivil;
+//_groupCivil = if (_lado == teamPlayer) then {createGroup teamPlayer} else {createGroup malos};
+_groupCivil = createGroup teamPlayer;
+_groups pushBack _groupCivil;
 //[Invaders,[civilian,0]] remoteExec ["setFriend",2];
-_typeUnit = if (_lado == buenos) then {SDKUnarmed} else {NATOUnarmed};
+_typeUnit = if (_lado == teamPlayer) then {SDKUnarmed} else {NATOUnarmed};
 for "_i" from 0 to _numCiv do
 	{
 	while {true} do
@@ -154,12 +154,12 @@ if ((({not (captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or (
 	{_x doMove [0,0,0]} forEach _soldiers;
 	//["AttackAAF", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
 	["AttackAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest,nameInvaders],format ["%1 Punishment",nameInvaders],_mrkDestination],getMarkerPos _mrkDestination,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-	if ({(side _x == buenos) and (_x distance _posDestination < _size * 2)} count allUnits >= {(side _x == malos) and (_x distance _posDestination < _size * 2)} count allUnits) then
+	if ({(side _x == teamPlayer) and (_x distance _posDestination < _size * 2)} count allUnits >= {(side _x == malos) and (_x distance _posDestination < _size * 2)} count allUnits) then
 		{
 		if (lados getVariable [_mrkDestination,sideUnknown] == malos) then {[-15,15,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]} else {[-5,15,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]};
 		[-5,0] remoteExec ["A3A_fnc_prestige",2];
 		{[-10,10,_x] remoteExec ["A3A_fnc_citySupportChange",2]} forEach citiesX;
-		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_posDestination,buenos] call A3A_fnc_distanceUnits);
+		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_posDestination,teamPlayer] call A3A_fnc_distanceUnits);
 		[10,theBoss] call A3A_fnc_playerScoreAdd;
 		}
 	else
@@ -190,15 +190,15 @@ _nul = [0,"AttackAAF"] spawn A3A_fnc_deleteTask;
 [7200] remoteExec ["A3A_fnc_timingCA",2];
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
+if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
 } forEach _vehiclesX;
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldiers = _soldiers - [_x]};
+if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldiers = _soldiers - [_x]};
 } forEach _soldiers;
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
+if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
 } forEach _pilotos;
 
 bigAttackInProgress = false;
@@ -208,7 +208,7 @@ if (count _soldiers > 0) then
 	{
 	{
 	_veh = _x;
-	waitUntil {sleep 1; !([distanceSPWN,1,_veh,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
 	} forEach _soldiers;
 	};
@@ -217,11 +217,11 @@ if (count _pilotos > 0) then
 	{
 	{
 	_veh = _x;
-	waitUntil {sleep 1; !([distanceSPWN,1,_x,buenos] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
 	} forEach _pilotos;
 	};
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;
 
 waitUntil {sleep 1; (spawner getVariable _mrkDestination == 2)};
 

@@ -137,11 +137,11 @@ if (_check) then
 
 if (!haveNV) then
 	{
-	_cuenta = 0;
+	_countX = 0;
 	{
-	_cuenta = _cuenta + (_x select 1);
+	_countX = _countX + (_x select 1);
 	} forEach _nv;
-	if (_cuenta >= minWeaps) then
+	if (_countX >= minWeaps) then
 		{
 		unlockedItems = unlockedItems + NVGoggles;
 		haveNV = true; publicVariable "haveNV";

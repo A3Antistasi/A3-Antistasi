@@ -56,9 +56,9 @@ if (alive _x) then
 		switch (_mochi) do
 			{
 			case MortStaticSDKB: {_resourcesFIA = _resourcesFIA + ([SDKMortar] call A3A_fnc_vehiclePrice)};
-			case AAStaticSDKB: {_resourcesFIA = _resourcesFIA + ([staticAABuenos] call A3A_fnc_vehiclePrice)};
+			case AAStaticSDKB: {_resourcesFIA = _resourcesFIA + ([staticAAteamPlayer] call A3A_fnc_vehiclePrice)};
 			case MGStaticSDKB: {_resourcesFIA = _resourcesFIA + ([SDKMGStatic] call A3A_fnc_vehiclePrice)};
-			case ATStaticSDKB: {_resourcesFIA = _resourcesFIA + ([staticATBuenos] call A3A_fnc_vehiclePrice)};
+			case ATStaticSDKB: {_resourcesFIA = _resourcesFIA + ([staticATteamPlayer] call A3A_fnc_vehiclePrice)};
 			};
 		};
 	};

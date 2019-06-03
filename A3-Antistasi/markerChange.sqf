@@ -102,7 +102,7 @@ if (_markerX in airportsX) then
 	["TaskUpdated",["",format ["%1 lost an Airbase",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];
 	killZones setVariable [_markerX,[],true];
 	};
-if (_markerX in puestos) then
+if (_markerX in seaports) then
 	{
 	if !(_winner == buenos) then
 		{
@@ -121,7 +121,7 @@ if (_markerX in puestos) then
 	["TaskUpdated",["",format ["%1 lost an Outpost",_texto]]] remoteExec ["BIS_fnc_showNotification",_other];
 	killZones setVariable [_markerX,[],true];
 	};
-if (_markerX in puertos) then
+if (_markerX in seaports) then
 	{
 	if !(_winner == buenos) then
 		{
@@ -164,7 +164,7 @@ if (_winner == buenos) then
 		//[_flagX,"unit"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_flagX];
 		//[_flagX,"vehicle"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_flagX];
 		//[_flagX,"garage"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_flagX];
-		if (_markerX in puertos) then {[_flagX,"seaport"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_flagX]};
+		if (_markerX in seaports) then {[_flagX,"seaport"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],_flagX]};
 		};
 	[_prestigeOccupants,_prestigeInvaders] spawn A3A_fnc_prestige;
 	waitUntil {sleep 1; ((spawner getVariable _markerX == 2)) or ({((side group _x) in [_looser,_other]) and (_x getVariable ["spawner",false]) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits > 3*({(side _x == buenos) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
@@ -201,9 +201,9 @@ else
 	};
 if ((_winner != buenos) and (_looser != buenos)) then
 	{
-	if (_markerX in puestos) then
+	if (_markerX in seaports) then
 		{
-		_closeX = (puertos + resourcesX + factories) select {((getMarkerPos _x) distance _positionX < distanceSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
+		_closeX = (seaports + resourcesX + factories) select {((getMarkerPos _x) distance _positionX < distanceSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
 		if (_looser == malos) then  {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == malos}} else {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == Invaders}};
 		{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _closeX;
 		}
@@ -211,7 +211,7 @@ if ((_winner != buenos) and (_looser != buenos)) then
 		{
 		if (_markerX in airportsX) then
 			{
-			_closeX = (puertos + puestos) select {((getMarkerPos _x) distance _positionX < distanceSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
+			_closeX = (seaports + seaports) select {((getMarkerPos _x) distance _positionX < distanceSPWN) and (lados getVariable [_x,sideUnknown] != buenos)};
 			_closeX append ((factories + resourcesX) select {(lados getVariable [_x,sideUnknown] != buenos) and (lados getVariable [_x,sideUnknown] != _winner) and ([airportsX,_x] call BIS_fnc_nearestPosition == _markerX)});
 			if (_looser == malos) then  {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == malos}} else {_closeX = _closeX select {lados getVariable [_x,sideUnknown] == Invaders}};
 			{[_winner,_x] spawn A3A_fnc_markerChange; sleep 5} forEach _closeX;

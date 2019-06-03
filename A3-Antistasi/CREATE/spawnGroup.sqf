@@ -1,10 +1,10 @@
-params ["_positionX","_lado","_tipos",["_override",false],["_canBypass",false]];
-//private ["_grupo","_cuenta","_countRanks","_lider","_unitsX","_index","_positionX","_lado","_tipos","_override","_canBypass"];
+params ["_positionX","_lado","_typesX",["_override",false],["_canBypass",false]];
+//private ["_grupo","_cuenta","_countRanks","_lider","_unitsX","_index","_positionX","_lado","_typesX","_override","_canBypass"];
 private ["_grupo","_cuenta","_countRanks","_lider","_unitsX","_index"];
 
 /*_positionX = _this select 0;
 _lado = _this select 1;
-_tipos = _this select 2;
+_typesX = _this select 2;
 _override = if (count _this >3) then {_this select 3} else {false};
 _canBypass = if (count _this > 4) then {_this select 4} else {false};*/
 
@@ -24,7 +24,7 @@ if (_canBypass) then
 if (_canBypass) exitWith {grpNull};
 _grupo = createGroup _lado;
 _rangos = ["LIEUTENANT","SERGEANT","CORPORAL"];
-_cuenta = count _tipos;
+_cuenta = count _typesX;
 if (_cuenta < 4) then
 	{
 	_rangos = _rangos - ["LIEUTENANT","SERGEANT"];
@@ -38,7 +38,7 @@ for "_i" from 0 to (_cuenta - 1) do
 	{
 	if ((_i == 0) or (((_allUnits + 1) < maxUnits) and ((_allUnitsSide + 1) < _maxUnitsSide)) or _override) then
 		{
-		_unit = _grupo createUnit [(_tipos select _i), _positionX, [], 0, "NONE"];
+		_unit = _grupo createUnit [(_typesX select _i), _positionX, [], 0, "NONE"];
 		_unit allowDamage false;
 		_allUnits = _allUnits + 1;
 		_allUnitsSide = _allUnitsSide + 1;
@@ -46,7 +46,7 @@ for "_i" from 0 to (_cuenta - 1) do
 			{
 			_unit setRank (_rangos select _i);
 			};
-		if ((_tipos select _i) in squadLeaders) then {_grupo selectLeader _unit};
+		if ((_typesX select _i) in squadLeaders) then {_grupo selectLeader _unit};
 		sleep 0.5;
 		};
 	};

@@ -12,7 +12,7 @@ while {true} do
 	nextTick = time + 600;
 	waitUntil {sleep 15; time >= nextTick};
 	if (isMultiplayer) then {waitUntil {sleep 10; isPlayer theBoss}};
-	_suppBoost = 1+ ({lados getVariable [_x,sideUnknown] == buenos} count puertos);
+	_suppBoost = 1+ ({lados getVariable [_x,sideUnknown] == buenos} count seaports);
 	_recAddSDK = 25;//0
 	_hrAddBLUFOR = 0;//0
 	_popFIA = 0;
@@ -169,8 +169,8 @@ while {true} do
 		} forEach antennasDead;
 		if (count _potentials > 0) then
 			{
-			_posible = selectRandom _potentials;
-			[[_posible select 0,_posible select 1],"REP_Antenna"] call A3A_fnc_scheduler;
+			_potential = selectRandom _potentials;
+			[[_potential select 0,_potential select 1],"REP_Antenna"] call A3A_fnc_scheduler;
 			};
 		}
 	else

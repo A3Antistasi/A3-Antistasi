@@ -2,10 +2,10 @@
 _lado = _x;
 _accelerator = if (_lado == malos) then {if (tierWar == 1) then {0} else {1+((tierWar + difficultyCoef)/20)}} else {1.2+((tierWar + difficultyCoef)/20)};
 _airbases = {lados getVariable [_x,sideUnknown] == _lado} count airportsX;
-_puestos =  {lados getVariable [_x,sideUnknown] == _lado} count puestos;
-_puertos = {lados getVariable [_x,sideUnknown] == _lado} count puertos;
+_seaports =  {lados getVariable [_x,sideUnknown] == _lado} count seaports;
+_seaports = {lados getVariable [_x,sideUnknown] == _lado} count seaports;
 //at
-_maxItems = (_puestos * 0.2) + (_airbases * 0.5);
+_maxItems = (_seaports * 0.2) + (_airbases * 0.5);
 _tipo = if (_lado == malos) then {staticATOccupants} else {staticATInvaders};
 _currentItems = timer getVariable [_tipo,0];
 if (_currentItems < _maxItems) then
@@ -21,7 +21,7 @@ if (_currentItems < _maxItems) then
 	timer setVariable [_tipo,_currentItems + (0.1 * _accelerator),true];
 	};
 //apcs
-_maxItems = (_puestos * 0.3) + (_airbases * 2);
+_maxItems = (_seaports * 0.3) + (_airbases * 2);
 _tipo = if (_lado == malos) then {vehNATOAPC} else {vehCSATAPC};
 if !(_tipo isEqualTo []) then
 	{
@@ -33,7 +33,7 @@ if !(_tipo isEqualTo []) then
 		};
 	};
 //tanks
-_maxItems = (_puestos * 0.5) + (_airbases * 2);
+_maxItems = (_seaports * 0.5) + (_airbases * 2);
 _tipo = if (_lado == malos) then {vehNATOTank} else {vehCSATTank};
 _currentItems = timer getVariable [_tipo,0];
 if (_currentItems < _maxItems) then
@@ -49,7 +49,7 @@ if (_currentItems < _maxItems) then
 	timer setVariable [_tipo,_currentItems + (0.1 * _accelerator),true];
 	};
 //ATTACK BOATS
-_maxItems = _puertos;
+_maxItems = _seaports;
 _tipo = if (_lado == malos) then {vehNATOBoat} else {vehCSATBoat};
 _currentItems = timer getVariable [_tipo,0];
 if (_currentItems < _maxItems) then
@@ -97,7 +97,7 @@ if !(_tipo isEqualTo []) then
 		};
 	};
 //ARTY
-_maxItems = _airbases + (_puestos * 0.2);
+_maxItems = _airbases + (_seaports * 0.2);
 _tipo = if (_lado == malos) then {vehNATOMRLS} else {vehCSATMRLS};
 _currentItems = timer getVariable [_tipo,0];
 if (_currentItems < _maxItems) then

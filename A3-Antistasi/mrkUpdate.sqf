@@ -16,7 +16,7 @@ if (lados getVariable [_markerX,sideUnknown] == buenos) then
 		}
 	else
 		{
-		if (_markerX in puestos) then
+		if (_markerX in seaports) then
 			{
 			_texto = format ["%2 Outpost%1",_texto,nameTeamPlayer];
 			[_mrkD,format ["%1 Outpost",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[malos,Invaders],true];
@@ -35,7 +35,7 @@ if (lados getVariable [_markerX,sideUnknown] == buenos) then
             		}
             	else
             		{
-            		if (_markerX in puertos) then {_texto = format ["Sea Port%1",_texto]};
+            		if (_markerX in seaports) then {_texto = format ["Sea Port%1",_texto]};
             		};
 			 	};
 			};
@@ -52,7 +52,7 @@ else
 			}
 		else
 			{
-			if (_markerX in puestos) then
+			if (_markerX in seaports) then
 				{
 				_mrkD setMarkerText format ["%1 Outpost",nameOccupants]
 				};
@@ -62,7 +62,7 @@ else
 	else
 		{
 		if (_markerX in airportsX) then {_mrkD setMarkerText format ["%1 Airbase",nameInvaders];_mrkD setMarkerType flagCSATmrk} else {
-		if (_markerX in puestos) then {_mrkD setMarkerText format ["%1 Outpost",nameInvaders]}};
+		if (_markerX in seaports) then {_mrkD setMarkerText format ["%1 Outpost",nameInvaders]}};
 		_mrkD setMarkerColor colorInvaders;
 		};
 	if (_markerX in resourcesX) then
@@ -77,7 +77,7 @@ else
     		}
     	else
     		{
-    		if (_markerX in puertos) then
+    		if (_markerX in seaports) then
     			{
     			if (markerText _mrkD != "Sea Port") then {_mrkD setMarkerText "Sea Port"};
     			};

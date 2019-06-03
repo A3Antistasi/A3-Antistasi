@@ -178,7 +178,7 @@ if (isServer and !_byPassServer) then
 
 	if (!isMultiPlayer) then {player setPos getMarkerPos respawnTeamPlayer} else {{_x setPos getMarkerPos respawnTeamPlayer} forEach (playableUnits select {side _x == buenos})};
 	_sitios = markersX select {lados getVariable [_x,sideUnknown] == buenos};
-	tierWar = 1 + (floor (((5*({(_x in puestos) or (_x in resourcesX) or (_x in citiesX)} count _sitios)) + (10*({_x in puertos} count _sitios)) + (20*({_x in airportsX} count _sitios)))/10));
+	tierWar = 1 + (floor (((5*({(_x in seaports) or (_x in resourcesX) or (_x in citiesX)} count _sitios)) + (10*({_x in seaports} count _sitios)) + (20*({_x in airportsX} count _sitios)))/10));
 	if (tierWar > 10) then {tierWar = 10};
 	publicVariable "tierWar";
 
@@ -240,7 +240,7 @@ if (isServer and !_byPassServer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach puestos;
+		} forEach seaports;
 
 		{
 		_pos = getMarkerPos _x;
@@ -253,7 +253,7 @@ if (isServer and !_byPassServer) then
 			{
 			_nul = [_x] call A3A_fnc_createControls;
 			};
-		} forEach puertos;
+		} forEach seaports;
 		lados setVariable ["NATO_carrier",malos,true];
 		lados setVariable ["CSAT_carrier",Invaders,true];
 		};

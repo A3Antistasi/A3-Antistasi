@@ -1,4 +1,4 @@
-private ["_veh","_text","_mrkfin","_pos","_side","_tipo","_newPos","_road","_amigos"];
+private ["_veh","_text","_mrkfin","_pos","_side","_tipo","_newPos","_road","_friends"];
 
 _veh = _this select 0;
 _text = _this select 1;
@@ -66,7 +66,7 @@ _mrkfin setMarkerTypeLocal _tipo;
 _mrkfin setMarkerColorLocal _color;
 _mrkfin setMarkerTextLocal _text;
 
-while {(alive _veh) and !(isNull _veh) and (revelar or _convoy or (_veh getVariable ["revelado",false]))} do
+while {(alive _veh) and !(isNull _veh) and (revealX or _convoy or (_veh getVariable ["revelado",false]))} do
 	{
 	_pos = getPos _veh;
 	_mrkfin setMarkerPosLocal _pos;

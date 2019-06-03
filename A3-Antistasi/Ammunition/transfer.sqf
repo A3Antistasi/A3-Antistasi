@@ -1,4 +1,4 @@
-private ["_camion","_objectsX","_todo","_proceed","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
+private ["_camion","_objectsX","_todo","_proceed","_caja","_weaponsX","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
 
 _camion = vehicle player;
 _objectsX = [];
@@ -15,7 +15,7 @@ _caja = _objectsX select 0;
 if ((_caja == caja) and (player!=theBoss)) exitWith {hint "Only the Commander can transfer this ammobox content to any truck"; [driver _camion,"camion"] remoteExec ["A3A_fnc_flagaction",driver _camion]};
 
 
-_armas = weaponCargo _caja;
+_weaponsX = weaponCargo _caja;
 _ammunition = magazineCargo _caja;
 _items = itemCargo _caja;
 _mochis = [];
@@ -23,7 +23,7 @@ _mochis = [];
 if (count weaponsItemsCargo _camion > 0) then
 	{
 	{
-	_armas pushBack ([(_x select 0)] call BIS_fnc_baseWeapon);
+	_weaponsX pushBack ([(_x select 0)] call BIS_fnc_baseWeapon);
 	for "_i" from 1 to (count _x) - 1 do
 		{
 		_cosa = _x select _i;
@@ -50,13 +50,13 @@ if (count _containers > 0) then
 	{
 	for "_i" from 0 to (count _containers - 1) do
 		{
-		_armas = _armas + weaponCargo ((_containers select _i) select 1);
+		_weaponsX = _weaponsX + weaponCargo ((_containers select _i) select 1);
 		_ammunition = _ammunition + magazineCargo ((_containers select _i) select 1);
 		_items = _items + itemCargo ((_containers select _i) select 1);
 		};
 	};
 */
-_todo = _armas + _ammunition + _items + _mochis;
+_todo = _weaponsX + _ammunition + _items + _mochis;
 _cuenta = count _todo;
 
 if (_cuenta < 1) then

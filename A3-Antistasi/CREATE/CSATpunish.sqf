@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {};
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanques","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_nul","_pos","_timeOut"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanksX","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_nul","_pos","_timeOut"];
 _mrkDestination = _this select 0;
 _mrkOrigin = _this select 1;
 bigAttackInProgress = true;
@@ -21,18 +21,18 @@ _tiempo = time + 3600;
 
 for "_i" from 1 to 3 do
 	{
-	_tipoveh = if (_i != 3) then {selectRandom (vehCSATAir select {[_x] call A3A_fnc_vehAvailable})} else {selectRandom (vehCSATTransportHelis select {[_x] call A3A_fnc_vehAvailable})};
+	_typeVehX = if (_i != 3) then {selectRandom (vehCSATAir select {[_x] call A3A_fnc_vehAvailable})} else {selectRandom (vehCSATTransportHelis select {[_x] call A3A_fnc_vehAvailable})};
 	_timeOut = 0;
-	_pos = _posOrigin findEmptyPosition [0,100,_tipoveh];
+	_pos = _posOrigin findEmptyPosition [0,100,_typeVehX];
 	while {_timeOut < 60} do
 		{
 		if (count _pos > 0) exitWith {};
 		_timeOut = _timeOut + 1;
-		_pos = _posOrigin findEmptyPosition [0,100,_tipoveh];
+		_pos = _posOrigin findEmptyPosition [0,100,_typeVehX];
 		sleep 1;
 		};
 	if (count _pos == 0) then {_pos = _posOrigin};
-	_vehicle=[_pos, 0, _tipoveh, Invaders] call bis_fnc_spawnvehicle;
+	_vehicle=[_pos, 0, _typeVehX, Invaders] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	{[_x] call A3A_fnc_NATOinit} forEach _heliCrew;
@@ -42,7 +42,7 @@ for "_i" from 1 to 3 do
 	_grupos pushBack _groupHeli;
 	_vehiclesX pushBack _heli;
 	//_heli lock 3;
-	if (not(_tipoveh in vehCSATTransportHelis)) then
+	if (not(_typeVehX in vehCSATTransportHelis)) then
 		{
 		{[_x] call A3A_fnc_NATOinit} forEach _heliCrew;
 		_wp1 = _groupHeli addWaypoint [_posDestination, 0];
@@ -52,13 +52,13 @@ for "_i" from 1 to 3 do
 	else
 		{
 		{_x setBehaviour "CARELESS";} forEach units _groupHeli;
-		_typeGroup = [_tipoVeh,Invaders] call A3A_fnc_cargoSeats;
+		_typeGroup = [_typeVehX,Invaders] call A3A_fnc_cargoSeats;
 		_grupo = [_posOrigin, Invaders, _typeGroup] call A3A_fnc_spawnGroup;
 		{_x assignAsCargo _heli;_x moveInCargo _heli; _soldiers pushBack _x; [_x] call A3A_fnc_NATOinit; _x setVariable ["origen",_mrkOrigin]} forEach units _grupo;
 		_grupos pushBack _grupo;
 		//[_heli,"CSAT Air Transport"] spawn A3A_fnc_inmuneConvoy;
 
-		if (not(_tipoVeh in vehFastRope)) then
+		if (not(_typeVehX in vehFastRope)) then
 			{
 
 			_landPos = _posDestination getPos [(random 500) + 300, random 360];

@@ -11,13 +11,13 @@ _isRoad = isOnRoad _positionTel;
 
 _texto = format ["%1 Observation Post",nameTeamPlayer];
 _typeGroup = groupsSDKSniper;
-_tipoVeh = vehSDKBike;
+_typeVehX = vehSDKBike;
 private _tsk = "";
 if (_isRoad) then
 	{
 	_texto = format ["%1 Roadblock",nameTeamPlayer];
 	_typeGroup = groupsSDKAT;
-	_tipoVeh = vehSDKTruck;
+	_typeVehX = vehSDKTruck;
 	};
 
 _mrk = createMarker [format ["FIAPost%1", random 1000], _positionTel];
@@ -36,7 +36,7 @@ _grupo = [getMarkerPos respawnTeamPlayer, buenos, _formatX] call A3A_fnc_spawnGr
 _grupo setGroupId ["Post"];
 _road = [getMarkerPos respawnTeamPlayer] call A3A_fnc_findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
-_camion = _tipoVeh createVehicle _pos;
+_camion = _typeVehX createVehicle _pos;
 //_nul = [_grupo] spawn dismountFIA;
 _grupo addVehicle _camion;
 {[_x] call A3A_fnc_FIAinit} forEach units _grupo;

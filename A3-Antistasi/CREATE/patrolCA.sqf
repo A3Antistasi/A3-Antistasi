@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_markerX","_isMarker","_exit","_radio","_base","_airportX","_posDestination","_soldiers","_vehiclesX","_grupos","_roads","_posOrigin","_tam","_tipoVeh","_vehicle","_veh","_vehCrew","_groupVeh","_landPos","_typeGroup","_grupo","_soldado","_threatEval","_pos","_timeOut","_lado","_cuenta","_isMarker","_inWaves","_typeOfAttack","_nearX","_airportsX","_sitio","_enemiesX","_plane","_amigos","_tipo","_esSDK","_weapons","_nameDest","_vehPool","_super","_spawnPoint","_pos1","_pos2"];
+private ["_markerX","_isMarker","_exit","_radio","_base","_airportX","_posDestination","_soldiers","_vehiclesX","_grupos","_roads","_posOrigin","_tam","_typeVehX","_vehicle","_veh","_vehCrew","_groupVeh","_landPos","_typeGroup","_grupo","_soldierX","_threatEval","_pos","_timeOut","_lado","_cuenta","_isMarker","_inWaves","_typeOfAttack","_nearX","_airportsX","_sitio","_enemiesX","_plane","_friends","_tipo","_esSDK","_weapons","_nameDest","_vehPool","_super","_spawnPoint","_pos1","_pos2"];
 
 _markerX = _this select 0;//[position player,malos,"Normal",false] spawn A3A_Fnc_patrolCA
 _airportX = _this select 1;
@@ -59,8 +59,8 @@ if ((!_isMarker) and (_typeOfAttack != "Air") and (!_super) and ({lados getVaria
 	_plane = if (_lado == malos) then {vehNATOPlane} else {vehCSATPlane};
 	if ([_plane] call A3A_fnc_vehAvailable) then
 		{
-		_amigos = if (_lado == malos) then {allUnits select {(_x distance _posDestination < 200) and (alive _x) and ((side (group _x) == _lado) or (side (group _x) == civilian))}} else {allUnits select {(_x distance _posDestination < 100) and ([_x] call A3A_fnc_canFight) and (side (group _x) == _lado)}};
-		if (count _amigos == 0) then
+		_friends = if (_lado == malos) then {allUnits select {(_x distance _posDestination < 200) and (alive _x) and ((side (group _x) == _lado) or (side (group _x) == civilian))}} else {allUnits select {(_x distance _posDestination < 100) and ([_x] call A3A_fnc_canFight) and (side (group _x) == _lado)}};
+		if (count _friends == 0) then
 			{
 			_tipo = "NAPALM";
 			{
@@ -97,13 +97,13 @@ if (!_inWaves) then
 	_threatEvalLand = [_posDestination,_lado] call A3A_fnc_landThreatEval;
 	_airportsX = airportsX select {(lados getVariable [_x,sideUnknown] == _lado) and ([_x,true] call A3A_fnc_airportCanAttack) and (getMarkerPos _x distance2D _posDestination < distanceForAirAttack)};
 	if (hayIFA and (_threatEvalLand <= 15)) then {_airportsX = _airportsX select {(getMarkerPos _x distance2D _posDestination < distanceForLandAttack)}};
-	_puestos = if (_threatEvalLand <= 15) then {puestos select {(lados getVariable [_x,sideUnknown] == _lado) and ([_posDestination,getMarkerPos _x] call A3A_fnc_isTheSameIsland) and (getMarkerPos _x distance _posDestination < distanceForLandAttack)  and ([_x,true] call A3A_fnc_airportCanAttack)}} else {[]};
-	_airportsX = _airportsX + _puestos;
+	_seaports = if (_threatEvalLand <= 15) then {seaports select {(lados getVariable [_x,sideUnknown] == _lado) and ([_posDestination,getMarkerPos _x] call A3A_fnc_isTheSameIsland) and (getMarkerPos _x distance _posDestination < distanceForLandAttack)  and ([_x,true] call A3A_fnc_airportCanAttack)}} else {[]};
+	_airportsX = _airportsX + _seaports;
 	if (_isMarker) then
 		{
 		if (_markerX in blackListDest) then
 			{
-			_airportsX = _airportsX - puestos;
+			_airportsX = _airportsX - seaports;
 			};
 		_airportsX = _airportsX - [_markerX];
 		_airportsX = _airportsX select {({_x == _markerX} count (killZones getVariable [_x,[]])) < 3};
@@ -112,7 +112,7 @@ if (!_inWaves) then
 		{
 		if (!_super) then
 			{
-			_sitio = [(resourcesX + factories + airportsX + puestos + puertos),_posDestination] call BIS_fnc_nearestPosition;
+			_sitio = [(resourcesX + factories + airportsX + seaports + seaports),_posDestination] call BIS_fnc_nearestPosition;
 			_airportsX = _airportsX select {({_x == _sitio} count (killZones getVariable [_x,[]])) < 3};
 			};
 		};
@@ -199,7 +199,7 @@ _roads = [];
 if (_base != "") then
 	{
 	_airportX = "";
-	if (_base in puestos) then {[_base,60] call A3A_fnc_addTimeForIdle} else {[_base,30] call A3A_fnc_addTimeForIdle};
+	if (_base in seaports) then {[_base,60] call A3A_fnc_addTimeForIdle} else {[_base,30] call A3A_fnc_addTimeForIdle};
 	_indice = airportsX find _base;
 	_spawnPoint = objNull;
 	_pos = [];
@@ -243,7 +243,7 @@ if (_base != "") then
 	for "_i" from 1 to _cuenta do
 		{
 		if (_vehPool isEqualTo []) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
-		_tipoVeh = if (_i == 1) then
+		_typeVehX = if (_i == 1) then
 						{
 						if (_typeOfAttack == "Normal") then
 							{
@@ -281,16 +281,16 @@ if (_base != "") then
 						};
 		//_road = _roads select 0;
 		_timeOut = 0;
-		_pos = _pos findEmptyPosition [0,100,_tipoVeh];
+		_pos = _pos findEmptyPosition [0,100,_typeVehX];
 		while {_timeOut < 60} do
 			{
 			if (count _pos > 0) exitWith {};
 			_timeOut = _timeOut + 1;
-			_pos = _pos findEmptyPosition [0,100,_tipoVeh];
+			_pos = _pos findEmptyPosition [0,100,_typeVehX];
 			sleep 1;
 			};
 		if (count _pos == 0) then {_pos = if (_indice == -1) then {getMarkerPos _spawnPoint} else {position _spawnPoint}};
-		_vehicle=[_pos, _dir,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+		_vehicle=[_pos, _dir,_typeVehX, _lado] call bis_fnc_spawnvehicle;
 
 		_veh = _vehicle select 0;
 		_vehCrew = _vehicle select 1;
@@ -301,12 +301,12 @@ if (_base != "") then
 		_grupos pushBack _groupVeh;
 		_vehiclesX pushBack _veh;
 		_landPos = [_posDestination,_pos,false,_landPosBlacklist] call A3A_fnc_findSafeRoadToUnload;
-		if ((not(_tipoVeh in vehTanks)) and (not(_tipoVeh in vehAA))) then
+		if ((not(_typeVehX in vehTanks)) and (not(_typeVehX in vehAA))) then
 			{
 			_landPosBlacklist pushBack _landPos;
 			_typeGroup = if (_typeOfAttack == "Normal") then
 				{
-				[_tipoVeh,_lado] call A3A_fnc_cargoSeats;
+				[_typeVehX,_lado] call A3A_fnc_cargoSeats;
 				}
 			else
 				{
@@ -334,7 +334,7 @@ if (_base != "") then
 				deleteVehicle _x;
 				};
 			} forEach units _grupo;
-			if (not(_tipoVeh in vehTrucks)) then
+			if (not(_typeVehX in vehTrucks)) then
 				{
 				{_x disableAI "MINEDETECTION"} forEach (units _groupVeh);
 				(units _grupo) joinSilent _groupVeh;
@@ -417,7 +417,7 @@ else
 	[_airportX,20] call A3A_fnc_addTimeForIdle;
 	_vehPool = [];
 	_cuenta = if (!_super) then {if (_isMarker) then {2} else {1}} else {round ((tierWar + difficultyCoef) / 2) + 1};
-	_tipoVeh = "";
+	_typeVehX = "";
 	_vehPool = if (_lado == malos) then {(vehNATOAir - [vehNATOPlane]) select {[_x] call A3A_fnc_vehAvailable}} else {(vehCSATAir - [vehCSATPlane]) select {[_x] call A3A_fnc_vehAvailable}};
 	if (_esSDK) then
 		{
@@ -440,7 +440,7 @@ else
 	if (_vehPool isEqualTo []) then {if (_lado == malos) then {_vehPool = [vehNATOPatrolHeli]} else {_vehPool = [vehCSATPatrolHeli]}};
 	for "_i" from 1 to _cuenta do
 		{
-		_tipoVeh = if (_i == 1) then
+		_typeVehX = if (_i == 1) then
 				{
 				if (_typeOfAttack == "Normal") then
 					{
@@ -483,7 +483,7 @@ else
 			_pos = [_pos1, 5,_ang] call BIS_fnc_relPos;
 			};
 		if (count _pos == 0) then {_pos = _posOrigin};
-		_vehicle=[_pos, _ang + 90,_tipoVeh, _lado] call bis_fnc_spawnvehicle;
+		_vehicle=[_pos, _ang + 90,_typeVehX, _lado] call bis_fnc_spawnvehicle;
 		_veh = _vehicle select 0;
 		if (hayIFA) then {_veh setVelocityModelSpace [((velocityModelSpace _veh) select 0) + 0,((velocityModelSpace _veh) select 1) + 150,((velocityModelSpace _veh) select 2) + 50]};
 		_vehCrew = _vehicle select 1;
@@ -493,7 +493,7 @@ else
 		_vehiclesX pushBack _veh;
 		{[_x] call A3A_fnc_NATOinit} forEach units _groupVeh;
 		[_veh] call A3A_fnc_AIVEHinit;
-		if (not (_tipoVeh in vehTransportAir)) then
+		if (not (_typeVehX in vehTransportAir)) then
 			{
 			_Hwp0 = _groupVeh addWaypoint [_posDestination, 0];
 			_Hwp0 setWaypointBehaviour "AWARE";
@@ -504,7 +504,7 @@ else
 			{
 			_typeGroup = if (_typeOfAttack == "Normal") then
 				{
-				[_tipoVeh,_lado] call A3A_fnc_cargoSeats;
+				[_typeVehX,_lado] call A3A_fnc_cargoSeats;
 				}
 			else
 				{
@@ -547,7 +547,7 @@ else
 					{
 					if (_esSDK) then
 						{
-						if (((count(garrison getVariable [_markerX,[]])) < 10) and (_tipoVeh in vehFastRope)) then
+						if (((count(garrison getVariable [_markerX,[]])) < 10) and (_typeVehX in vehFastRope)) then
 							{
 							_proceed = false;
 							//_grupo setVariable ["mrkAttack",_markerX];
@@ -590,7 +590,7 @@ else
 					}
 				else
 					{
-					if (_tipoVeh in vehFastRope) then
+					if (_typeVehX in vehFastRope) then
 						{
 						[_veh,_grupo,_posDestination,_posOrigin,_groupVeh] spawn A3A_fnc_fastrope;
 						}
@@ -660,7 +660,7 @@ else
 	if (_typeOfAttack != "Air") then {waitUntil {sleep 1; (!([distanceSPWN1,1,_posDestination,buenos] call A3A_fnc_distanceUnits) and !([distanceSPWN1,1,_posDestination,_sideEnemy] call A3A_fnc_distanceUnits)) or (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))}} else {waitUntil {sleep 1; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))}};
 	if (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers)) then
 		{
-		_markersX = resourcesX + factories + airportsX + puestos + puertos select {getMarkerPos _x distance _posDestination < distanceSPWN};
+		_markersX = resourcesX + factories + airportsX + seaports + seaports select {getMarkerPos _x distance _posDestination < distanceSPWN};
 		_sitio = if (_base != "") then {_base} else {_airportX};
 		_killZones = killZones getVariable [_sitio,[]];
 		_killZones append _markersX;

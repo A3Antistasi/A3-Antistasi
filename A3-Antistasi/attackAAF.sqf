@@ -57,8 +57,8 @@ _countFinal = [];
 _objectiveFinal = [];
 _easyX = [];
 _easyArray = [];
-_seaportCSAT = if ({(lados getVariable [_x,sideUnknown] == Invaders)} count puertos >0) then {true} else {false};
-_seaportNATO = if ({(lados getVariable [_x,sideUnknown] == malos)} count puertos >0) then {true} else {false};
+_seaportCSAT = if ({(lados getVariable [_x,sideUnknown] == Invaders)} count seaports >0) then {true} else {false};
+_seaportNATO = if ({(lados getVariable [_x,sideUnknown] == malos)} count seaports >0) then {true} else {false};
 _waves = 1;
 
 {
@@ -127,8 +127,8 @@ if !(_tmpObjectives isEqualTo []) then
 							{
 							_garrison = garrison getVariable [_sitio,[]];
 							_staticsX = staticsToSave select {_x distance _posSite < distanceSPWN};
-							_puestos = outpostsFIA select {getMarkerPos _x distance _posSite < distanceSPWN};
-							_cuenta = ((count _garrison) + (count _puestos) + (2*(count _staticsX)));
+							_seaports = outpostsFIA select {getMarkerPos _x distance _posSite < distanceSPWN};
+							_cuenta = ((count _garrison) + (count _seaports) + (2*(count _staticsX)));
 							if (_cuenta <= 8) then
 								{
 								if (!hayIFA or (_posSite distance _posBase < distanceForLandAttack)) then
@@ -152,7 +152,7 @@ if !(_tmpObjectives isEqualTo []) then
 			if ({lados getVariable [_x,sideUnknown] == malos} count airportsX <= 1) then {_times = 2};
 			if (!_isCity) then
 				{
-				if ((_x in puestos) or (_x in puertos)) then
+				if ((_x in seaports) or (_x in seaports)) then
 					{
 					if (!_esSDK) then
 						{
@@ -193,7 +193,7 @@ if !(_tmpObjectives isEqualTo []) then
 			_times = 2;
 			if (!_isCity) then
 				{
-				if ((_x in puestos) or (_x in puertos)) then
+				if ((_x in seaports) or (_x in seaports)) then
 					{
 					if (!_esSDK) then
 						{

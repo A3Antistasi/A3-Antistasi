@@ -1,5 +1,5 @@
 if (!isServer) exitWith {};
-private ["_subCosa","_ammunition","_origen","_destinationX"];
+private ["_subObject","_ammunition","_origen","_destinationX"];
 _origen = _this select 0;
 if (isNull _origen) exitWith {};
 _destinationX = _this select 1;
@@ -8,7 +8,7 @@ _ammunition= [];
 _items = [];
 _ammunition = magazineCargo _origen;
 _items = itemCargo _origen;
-_armas = [];
+_weaponsX = [];
 _weaponsItemsCargo = weaponsItemsCargo _origen;
 _mochis = [];
 
@@ -23,8 +23,8 @@ if (count _containers > 0) then
 	{
 	for "_i" from 0 to (count _containers) - 1 do
 		{
-		_subCosa = magazineCargo ((_containers select _i) select 1);
-		if (!isNil "_subCosa") then {_ammunition = _ammunition + _subCosa} else {diag_log format ["Error from %1",magazineCargo (_containers select _i)]};
+		_subObject = magazineCargo ((_containers select _i) select 1);
+		if (!isNil "_subObject") then {_ammunition = _ammunition + _subObject} else {diag_log format ["Error from %1",magazineCargo (_containers select _i)]};
 		//_ammunition = _ammunition + (magazineCargo ((_containers select _i) select 1));
 		_items = _items + (itemCargo ((_containers select _i) select 1));
 		_weaponsItemsCargo = _weaponsItemsCargo + weaponsItemsCargo ((_containers select _i) select 1);
@@ -35,7 +35,7 @@ if (!isNil "_weaponsItemsCargo") then
 	if (count _weaponsItemsCargo > 0) then
 		{
 		{
-		_armas pushBack ([(_x select 0)] call BIS_fnc_baseWeapon);
+		_weaponsX pushBack ([(_x select 0)] call BIS_fnc_baseWeapon);
 		for "_i" from 1 to (count _x) - 1 do
 			{
 			_cosa = _x select _i;
@@ -55,9 +55,9 @@ _arma = _x;
 if ((not(_arma in _weaponsFinal)) and (not(_arma in unlockedWeapons))) then
 	{
 	_weaponsFinal pushBack _arma;
-	_weaponsFinalCount pushBack ({_x == _arma} count _armas);
+	_weaponsFinalCount pushBack ({_x == _arma} count _weaponsX);
 	};
-} forEach _armas;
+} forEach _weaponsX;
 
 if (count _weaponsFinal > 0) then
 	{

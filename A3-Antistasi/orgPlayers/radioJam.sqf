@@ -9,7 +9,7 @@ while {true} do
 	{
 	private _antennas = [];
 	{
-	_puesto = [puestos,_x] call BIS_fnc_nearestPosition;
+	_puesto = [seaports,_x] call BIS_fnc_nearestPosition;
 	if (lados getVariable [_puesto,sideUnknown] != _lado) then {_antennas pushBack _x};
 	} forEach antennas;
 	if (_lado != buenos) then {_antennas pushBack [vehicleBox]};

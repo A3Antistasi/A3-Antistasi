@@ -6,7 +6,7 @@ _grupos = [];
 _base = "";
 _roads = [];
 
-_arrayAirports = if (hayIFA) then {(airportsX + puestos) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}} else {(puertos + airportsX + puestos) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}};
+_arrayAirports = if (hayIFA) then {(airportsX + seaports) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}} else {(seaports + airportsX + seaports) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != buenos)}};
 
 _arrayAirports1 = [];
 if !(isMultiplayer) then
@@ -34,7 +34,7 @@ _lado = malos;
 _typePatrol = "LAND";
 if (lados getVariable [_base,sideUnknown] == malos) then
 	{
-	if ((_base in puertos) and ([vehNATOBoat] call A3A_fnc_vehAvailable)) then
+	if ((_base in seaports) and ([vehNATOBoat] call A3A_fnc_vehAvailable)) then
 		{
 		_typeCar = vehNATOBoat;
 		_typePatrol = "SEA";
@@ -55,7 +55,7 @@ if (lados getVariable [_base,sideUnknown] == malos) then
 else
 	{
 	_lado = Invaders;
-	if ((_base in puertos) and ([vehCSATBoat] call A3A_fnc_vehAvailable)) then
+	if ((_base in seaports) and ([vehCSATBoat] call A3A_fnc_vehAvailable)) then
 		{
 		_typeCar = vehCSATBoat;
 		_typePatrol = "SEA";

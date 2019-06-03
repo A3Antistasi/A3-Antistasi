@@ -50,8 +50,8 @@ waitUntil {sleep 1;((not(_markerX in smallCAmrk)) or (lados getVariable [_marker
 waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _vehiculo;
 } forEach _vehiclesX;*/
-{_soldado = _x;
-waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
-deleteVehicle _soldado;
+{_soldierX = _x;
+waitUntil {sleep 1; {_x distance _soldierX < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+deleteVehicle _soldierX;
 } forEach _soldiers;
 {deleteGroup _x} forEach _grupos;

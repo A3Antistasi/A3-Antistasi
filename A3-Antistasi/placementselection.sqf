@@ -88,7 +88,7 @@ if (visiblemap) then
 			lados setVariable [_x,buenos,true];
 			};
 		} forEach _controlsX;
-		_viejo = petros;
+		_old = petros;
 		groupPetros = createGroup buenos;
 		publicVariable "groupPetros";
         petros = groupPetros createUnit [typePetros, _positionTel, [], 0, "NONE"];
@@ -97,9 +97,9 @@ if (visiblemap) then
         if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
         petros disableAI "MOVE";
         petros disableAI "AUTOTARGET";
-        if (group _viejo == groupPetros) then {[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]};
+        if (group _old == groupPetros) then {[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[buenos,civilian],petros]};
         _nul= [] execVM "initPetros.sqf";
-        deleteVehicle _viejo;
+        deleteVehicle _old;
         publicVariable "petros";
 		};
 	respawnTeamPlayer setMarkerPos _positionTel;

@@ -1,8 +1,8 @@
-private ["_curado","_medicX","_healed","_player","_timer","_lado","_accion"];
+private ["_curado","_medicX","_healed","_player","_timer","_lado","_actionX"];
 
 _curado = _this select 0;
 _medicX = _this select 1;
-_accion = 0;
+_actionX = 0;
 _healed = false;
 _player = isPlayer _medicX;
 _inPlayerGroup = if !(_player) then {if ({isPlayer _x} count (units group _medicX) > 0) then {true} else {false}} else {false};
@@ -88,7 +88,7 @@ if (!_player) then
 	}
 else
 	{
-	_accion = _medicX addAction ["Cancel Revive", {(_this select 1) setVariable ["cancelRevive",true]},nil,6,true,true,"","(_this getVariable [""helping"",false]) and (isPlayer _this)"];
+	_actionX = _medicX addAction ["Cancel Revive", {(_this select 1) setVariable ["cancelRevive",true]},nil,6,true,true,"","(_this getVariable [""helping"",false]) and (isPlayer _this)"];
 	};
 _medicX addEventHandler ["AnimDone",
 	{
@@ -126,7 +126,7 @@ if (!_player) then
 	}
 else
 	{
-	_medicX removeAction _accion;
+	_medicX removeAction _actionX;
 	_curado setVariable ["helped",objNull,true];
 	_medicX setVariable ["helping",false];
 	};

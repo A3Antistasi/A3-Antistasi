@@ -4,7 +4,7 @@ _markerX = _this select 0;
 _pos = getMarkerPos _markerX;
 _lado = lados getVariable [_markerX,sideUnknown];
 
-_airportsAAF = (airportsX + puestos) select {(spawner getVariable _x == 2) and (dateToNumber date > server getVariable _x) and ([_x,_markerX] call A3A_fnc_isTheSameIsland) and (!(_x in forcedSpawn)) and (lados getVariable [_x,sideUnknown] == _lado) and !(_x in blackListDest) and (getMarkerPos _x distance _pos > distanceSPWN)};
+_airportsAAF = (airportsX + seaports) select {(spawner getVariable _x == 2) and (dateToNumber date > server getVariable _x) and ([_x,_markerX] call A3A_fnc_isTheSameIsland) and (!(_x in forcedSpawn)) and (lados getVariable [_x,sideUnknown] == _lado) and !(_x in blackListDest) and (getMarkerPos _x distance _pos > distanceSPWN)};
 if (_markerX in citiesX) then {_airportsAAF = _airportsAAF select {lados getVariable [_x,sideUnknown] == malos}};
 _airportsX = [];
 _base = "";

@@ -122,7 +122,7 @@ while {visibleMap} do
 				};
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 			};
-		if (_sitio in puestos) then
+		if (_sitio in seaports) then
 			{
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
@@ -137,7 +137,7 @@ while {visibleMap} do
 				_texto = format ["%2 Grand Outpost%1",[_sitio] call A3A_fnc_garrisonInfo,_nameFaction];
 				};
 			};
-		if (_sitio in puertos) then
+		if (_sitio in seaports) then
 			{
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{

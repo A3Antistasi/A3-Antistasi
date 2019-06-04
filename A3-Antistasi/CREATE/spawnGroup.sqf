@@ -23,17 +23,17 @@ if (_canBypass) then
 	};
 if (_canBypass) exitWith {grpNull};
 _grupo = createGroup _lado;
-_rangos = ["LIEUTENANT","SERGEANT","CORPORAL"];
+_ranks = ["LIEUTENANT","SERGEANT","CORPORAL"];
 _countX = count _typesX;
 if (_countX < 4) then
 	{
-	_rangos = _rangos - ["LIEUTENANT","SERGEANT"];
+	_ranks = _ranks - ["LIEUTENANT","SERGEANT"];
 	}
 else
 	{
-	if (_countX < 8) then {_rangos = _rangos - ["LIEUTENANT"]};
+	if (_countX < 8) then {_ranks = _ranks - ["LIEUTENANT"]};
 	};
-_countRanks = (count _rangos - 1);
+_countRanks = (count _ranks - 1);
 for "_i" from 0 to (_countX - 1) do
 	{
 	if ((_i == 0) or (((_allUnits + 1) < maxUnits) and ((_allUnitsSide + 1) < _maxUnitsSide)) or _override) then
@@ -44,7 +44,7 @@ for "_i" from 0 to (_countX - 1) do
 		_allUnitsSide = _allUnitsSide + 1;
 		if (_i <= _countRanks) then
 			{
-			_unit setRank (_rangos select _i);
+			_unit setRank (_ranks select _i);
 			};
 		if ((_typesX select _i) in squadLeaders) then {_grupo selectLeader _unit};
 		sleep 0.5;

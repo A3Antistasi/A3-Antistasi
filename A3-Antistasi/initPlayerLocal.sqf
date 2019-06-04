@@ -173,8 +173,8 @@ if (player getVariable ["pvp",false]) exitWith
 		if ((_caja == NATOAmmoBox) or (_caja == CSATAmmoBox)) then {_override = true};
 		_override
 		}];
-	_nombre = if (side player == malos) then {nameOccupants} else {nameInvaders};
-	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,_nombre]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
+	_nameX = if (side player == malos) then {nameOccupants} else {nameInvaders};
+	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,_nameX]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
 	waituntil {!isnull (finddisplay 46)};
 	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{

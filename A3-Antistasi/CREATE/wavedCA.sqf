@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigin","_airportX","_nameDest","_tiempo","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_countX","_tsk1","_spawnPoint","_vehPool"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilots","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_pilot","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigin","_airportX","_nameDest","_timeX","_solMax","_nul","_coste","_tipo","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_lado","_waves","_countX","_tsk1","_spawnPoint","_vehPool"];
 
 bigAttackInProgress = true;
 publicVariable "bigAttackInProgress";
@@ -18,7 +18,7 @@ _posOrigin = getMarkerPos _mrkOrigin;
 
 _groups = [];
 _soldiersTotal = [];
-_pilotos = [];
+_pilots = [];
 _vehiclesX = [];
 _forced = [];
 
@@ -59,7 +59,7 @@ _nameDest = [_mrkDestination] call A3A_fnc_localizar;
 //missionsX pushbackUnique "AttackAAF"; publicVariable "missionsX";
 //_tsk1 = ["AttackAAF1",_sideTsk1,[format ["We are attacking %2 from the %1. Help the operation if you can",_nameOrigin,_nameDest],format ["%1 Attack",_nameENY],_mrkDestination],getMarkerPos _mrkDestination,"CREATED",10,true,true,"Attack"] call BIS_fnc_setTask;
 
-_tiempo = time + 3600;
+_timeX = time + 3600;
 
 while {(_waves > 0)} do
 	{
@@ -84,9 +84,9 @@ while {(_waves > 0)} do
 			_outposts = outposts select {(lados getVariable [_x,sideUnknown] == _lado) and (getMarkerPos _x distance _posDestination < distanceForLandAttack)  and ([_x,false] call A3A_fnc_airportCanAttack)};
 			if !(_outposts isEqualTo []) then
 				{
-				_puesto = selectRandom _outposts;
-				_posOriginLand = getMarkerPos _puesto;
-				//[_puesto,60] call A3A_fnc_addTimeForIdle;
+				_outpost = selectRandom _outposts;
+				_posOriginLand = getMarkerPos _outpost;
+				//[_outpost,60] call A3A_fnc_addTimeForIdle;
 				_spawnPoint = [_posOriginLand] call A3A_fnc_findNearestGoodRoad;
 				_pos = position _spawnPoint;
 				_dir = getDir _spawnPoint;
@@ -184,7 +184,7 @@ while {(_waves > 0)} do
 						_soldiers pushBack _x;
 						_soldiersTotal pushBack _x;
 						[_x] call A3A_fnc_NATOinit;
-						_x setVariable ["origen",_mrkOrigin];
+						_x setVariable ["originX",_mrkOrigin];
 						}
 					else
 						{
@@ -313,7 +313,7 @@ while {(_waves > 0)} do
 					_veh = _vehicle select 0;
 					_vehCrew = _vehicle select 1;
 					_groupVeh = _vehicle select 2;
-					_pilotos append _vehCrew;
+					_pilots append _vehCrew;
 					_groups pushBack _groupVeh;
 					_vehiclesX pushBack _veh;
 					{[_x] call A3A_fnc_NATOinit} forEach units _groupVeh;
@@ -336,7 +336,7 @@ while {(_waves > 0)} do
 							_soldiers pushBack _x;
 							_soldiersTotal pushBack _x;
 							[_x] call A3A_fnc_NATOinit;
-							_x setVariable ["origen",_mrkOrigin];
+							_x setVariable ["originX",_mrkOrigin];
 							}
 						else
 							{
@@ -402,7 +402,7 @@ while {(_waves > 0)} do
 			//[_uav,"UAV"] spawn A3A_fnc_inmuneConvoy;
 			[_uav,_mrkDestination,_lado] spawn A3A_fnc_VANTinfo;
 			createVehicleCrew _uav;
-			_pilotos append (crew _uav);
+			_pilots append (crew _uav);
 			_groupUAV = group (crew _uav select 0);
 			_groups pushBack _groupUAV;
 			{[_x] call A3A_fnc_NATOinit} forEach units _groupUAV;
@@ -491,7 +491,7 @@ while {(_waves > 0)} do
 				if (hasIFA) then {_veh setVelocityModelSpace [((velocityModelSpace _veh) select 0) + 0,((velocityModelSpace _veh) select 1) + 150,((velocityModelSpace _veh) select 2) + 50]};
 				_vehCrew = _vehicle select 1;
 				_groupVeh = _vehicle select 2;
-				_pilotos append _vehCrew;
+				_pilots append _vehCrew;
 				_vehiclesX pushBack _veh;
 				{[_x] call A3A_fnc_NATOinit} forEach units _groupVeh;
 				[_veh] call A3A_fnc_AIVEHinit;
@@ -516,7 +516,7 @@ while {(_waves > 0)} do
 						_soldiers pushBack _x;
 						_soldiersTotal pushBack _x;
 						[_x] call A3A_fnc_NATOinit;
-						_x setVariable ["origen",_mrkOrigin];
+						_x setVariable ["originX",_mrkOrigin];
 						}
 					else
 						{
@@ -667,7 +667,7 @@ while {(_waves > 0)} do
 	if (lados getVariable [_mrkDestination,sideUnknown] != teamPlayer) then {_soldiers spawn A3A_fnc_remoteBattle};
 	if (_lado == malos) then
 		{
-		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestination,sideUnknown] == malos) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
+		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax) or (time > _timeX) or (lados getVariable [_mrkDestination,sideUnknown] == malos) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
 		if  ((({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits)) or (lados getVariable [_mrkDestination,sideUnknown] == malos)) then
 			{
 			_waves = 0;
@@ -688,7 +688,7 @@ while {(_waves > 0)} do
 		sleep 10;
 		if (!(lados getVariable [_mrkDestination,sideUnknown] == malos)) then
 			{
-			_tiempo = time + 3600;
+			_timeX = time + 3600;
 			if (lados getVariable [_mrkOrigin,sideUnknown] == malos) then
 				{
 				_killZones = killZones getVariable [_mrkOrigin,[]];
@@ -722,8 +722,8 @@ while {(_waves > 0)} do
 		}
 	else
 		{
-		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax) or (time > _tiempo) or (lados getVariable [_mrkDestination,sideUnknown] == Invaders) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
-		//diag_log format ["1:%1,2:%2,3:%3,4:%4",(({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax),(time > _tiempo),(lados getVariable [_mrkDestination,sideUnknown] == Invaders),(({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))];
+		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax) or (time > _timeX) or (lados getVariable [_mrkDestination,sideUnknown] == Invaders) or (({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))};
+		//diag_log format ["1:%1,2:%2,3:%3,4:%4",(({!([_x] call A3A_fnc_canFight)} count _soldiers) >= _solMax),(time > _timeX),(lados getVariable [_mrkDestination,sideUnknown] == Invaders),(({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits))];
 		if  ((({[_x,_mrkDestination] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_mrkDestination] call A3A_fnc_canConquer)} count allUnits)) or (lados getVariable [_mrkDestination,sideUnknown] == Invaders))  then
 			{
 			_waves = 0;
@@ -734,7 +734,7 @@ while {(_waves > 0)} do
 		sleep 10;
 		if (!(lados getVariable [_mrkDestination,sideUnknown] == Invaders)) then
 			{
-			_tiempo = time + 3600;
+			_timeX = time + 3600;
 			diag_log format ["Antistasi debug wavedCA: Wave number %1 on wavedCA lost",_waves];
 			if (lados getVariable [_mrkOrigin,sideUnknown] == Invaders) then
 				{
@@ -798,8 +798,8 @@ forcedSpawn = forcedSpawn - [_mrkDestination]; publicVariable "forcedSpawn";
 
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
-} forEach _pilotos;
+if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilots = _pilots - [_x]};
+} forEach _pilots;
 {
 _veh = _x;
 if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x};
@@ -809,7 +809,7 @@ _veh = _x;
 if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _soldiersTotal = _soldiersTotal - [_x]};
 } forEach _soldiersTotal;
 
-if (count _pilotos > 0) then
+if (count _pilots > 0) then
 	{
 	{
 	[_x] spawn
@@ -819,7 +819,7 @@ if (count _pilotos > 0) then
 		waitUntil {sleep 1; !([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 		deleteVehicle _veh;
 		};
-	} forEach _pilotos;
+	} forEach _pilots;
 	};
 
 if (count _soldiersTotal > 0) then

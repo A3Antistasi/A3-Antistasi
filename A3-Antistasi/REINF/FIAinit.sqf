@@ -1,4 +1,4 @@
-private ["_unit","_muerto","_killer","_skill","_nombre","_tipo"];
+private ["_unit","_muerto","_killer","_skill","_nameX","_tipo"];
 
 _unit = _this select 0;
 
@@ -261,8 +261,8 @@ if (player == leader _unit) then
 					[_unit] join stragglers;
 					if ((vehicle _unit isKindOf "StaticWeapon") or (isNull (driver (vehicle _unit)))) then {unassignVehicle _unit; [_unit] orderGetIn false};
 					_unit doMove position player;
-					_tiempo = time + 900;
-					waitUntil {sleep 1;(!alive _unit) or (_unit distance player < 500) or (time > _tiempo)};
+					_timeX = time + 900;
+					waitUntil {sleep 1;(!alive _unit) or (_unit distance player < 500) or (time > _timeX)};
 					if ((_unit distance player >= 500) and (alive _unit)) then {_unit setPos (getMarkerPos respawnTeamPlayer)};
 					[_unit] join group player;
 					};

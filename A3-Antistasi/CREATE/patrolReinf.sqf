@@ -1,15 +1,15 @@
-private ["_mrkDestination","_mrkOrigin","_numero","_lado","_typeGroup","_typeVehX","_indexX","_spawnPoint","_pos","_timeOut","_veh","_grupo","_landPos","_Vwp0","_posOrigin","_land","_pos1","_pos2"];
+private ["_mrkDestination","_mrkOrigin","_numberX","_lado","_typeGroup","_typeVehX","_indexX","_spawnPoint","_pos","_timeOut","_veh","_grupo","_landPos","_Vwp0","_posOrigin","_land","_pos1","_pos2"];
 
 _mrkDestination = _this select 0;
 _mrkOrigin = _this select 1;
-_numero = _this select 2;
+_numberX = _this select 2;
 _lado = _this select 3;
-diag_log format ["Antistasi. PatrolReinf. Dest:%1, Orig:%2, Size:%3, Side: %4",_mrkDestination,_mrkOrigin,_numero,_lado];
+diag_log format ["Antistasi. PatrolReinf. Dest:%1, Orig:%2, Size:%3, Side: %4",_mrkDestination,_mrkOrigin,_numberX,_lado];
 _posDestination = getMarkerPos _mrkDestination;
 _posOrigin = getMarkerPos _mrkOrigin;
 
 _land = if (_posOrigin distance _posDestination > distanceForLandAttack) then {false} else {true};
-_typeGroup = if (_lado == malos) then {if (_numero == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numero == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
+_typeGroup = if (_lado == malos) then {if (_numberX == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numberX == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
 _typeVehX = "";
 if (_land) then
 	{
@@ -18,7 +18,7 @@ if (_land) then
 else
 	{
 	_vehPool = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
-	if ((_numero > 4) and (count _vehPool > 1) and !hasIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
+	if ((_numberX > 4) and (count _vehPool > 1) and !hasIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
 	//_vehPool = _vehPool select {(_x isKindOf "Helicopter") and (_x in vehFastRope)};
 	_typeVehX = selectRandom _vehPool;
 	};
@@ -143,7 +143,7 @@ else
 
 reinfPatrols = reinfPatrols + 1; publicVariable "reinfPatrols";
 _grupo setVariable ["reinfMarker",_mrkDestination];
-_grupo setVariable ["origen",_mrkOrigin];
+_grupo setVariable ["originX",_mrkOrigin];
 {
 _x addEventHandler ["Killed",
 	{
@@ -152,13 +152,13 @@ _x addEventHandler ["Killed",
 	if ({alive _x} count units _grupo == 0) then
 		{
 		reinfPatrols = reinfPatrols - 1; publicVariable "reinfPatrols";
-		_origen = _grupo getVariable "origen";
+		_originX = _grupo getVariable "originX";
 		_destinationX = _grupo getVariable "reinfMarker";
-		if (((lados getVariable [_origen,sideUnknown] == malos) and (lados getVariable [_destinationX,sideUnknown] == malos)) or ((lados getVariable [_origen,sideUnknown] == Invaders) and (lados getVariable [_destinationX,sideUnknown] == Invaders))) then
+		if (((lados getVariable [_originX,sideUnknown] == malos) and (lados getVariable [_destinationX,sideUnknown] == malos)) or ((lados getVariable [_originX,sideUnknown] == Invaders) and (lados getVariable [_destinationX,sideUnknown] == Invaders))) then
 			{
-			_killzones = killZones getVariable [_origen,[]];
+			_killzones = killZones getVariable [_originX,[]];
 			_killzones pushBack _destinationX;
-			killZones setVariable [_origen,_killzones,true];
+			killZones setVariable [_originX,_killzones,true];
 			}
 		};
 	}];

@@ -64,7 +64,7 @@ while {(spawner getVariable _markerX != 2) and (_countX < _numVeh) and (_countX 
 		    _mrk setMarkerShape "RECTANGLE";
 		    _mrk setMarkerBrush "SOLID";
 		    _mrk setMarkerColor colourTeamPlayer;
-		    //_mrk setMarkerText _nombre;
+		    //_mrk setMarkerText _nameX;
 		    */
 			_veh = _typeVehX createVehicle _pos;
 			_veh setDir _dirveh;

@@ -1,6 +1,6 @@
 //Mission: Capture/destroy the convoy
 if (!isServer and hasInterface) exitWith {};
-private ["_pos","_timeOut","_posbase","_posDestination","_soldiers","_groups","_vehiclesX","_POWS","_tiempofin","_dateFinal","_enddateNum","_veh","_unit","_grupo","_lado","_countX","_nameDest","_vehPool","_spawnPoint","_typeVehX"];
+private ["_pos","_timeOut","_posbase","_posDestination","_soldiers","_groups","_vehiclesX","_POWS","_timeXfin","_dateFinal","_enddateNum","_veh","_unit","_grupo","_lado","_countX","_nameDest","_vehPool","_spawnPoint","_typeVehX"];
 _destinationX = _this select 0;
 _base = _this select 1;
 
@@ -36,8 +36,8 @@ _typeGroup = "";
 _typeConvoy = [];
 _posHQ = getMarkerPos respawnTeamPlayer;
 
-_tiempofin = 120;
-_dateFinal = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempofin];
+_timeXfin = 120;
+_dateFinal = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeXfin];
 _enddateNum = dateToNumber _dateFinal;
 
 private ["_tsk","_grpPOW","_pos"];
@@ -62,7 +62,7 @@ else
 
 _typeConvoyX = selectRandom _typeConvoy;
 
-_timeLimit = if (_difficultX) then {0} else {round random 10};// tiempo para que salga el convoy, deberíamos poner un round random 15
+_timeLimit = if (_difficultX) then {0} else {round random 10};// timeX para que salga el convoy, deberíamos poner un round random 15
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 

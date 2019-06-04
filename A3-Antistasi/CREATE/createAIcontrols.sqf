@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_markerX","_positionX","_vehiclesX","_soldiers","_tam","_bunker","_groupE","_unit","_typeGroup","_grupo","_timeLimit","_dateLimit","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_isControl","_tam","_typeVehX","_typeUnit","_markersX","_frontierX","_uav","_groupUAV","_allUnits","_closest","_winner","_timeLimit","_dateLimit","_dateLimitNum","_size","_base","_mina","_loser","_lado"];
+private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_markerX","_positionX","_vehiclesX","_soldiers","_tam","_bunker","_groupE","_unit","_typeGroup","_grupo","_timeLimit","_dateLimit","_dateLimitNum","_base","_perro","_lado","_cfg","_esFIA","_salir","_isControl","_tam","_typeVehX","_typeUnit","_markersX","_frontierX","_uav","_groupUAV","_allUnits","_closest","_winner","_timeLimit","_dateLimit","_dateLimitNum","_size","_base","_mineX","_loser","_lado"];
 
 _markerX = _this select 0;
 _positionX = getMarkerPos _markerX;
@@ -10,7 +10,7 @@ if ((_lado == teamPlayer) or (_lado == sideUnknown)) exitWith {};
 if ({if ((lados getVariable [_x,sideUnknown] != _lado) and (_positionX inArea _x)) exitWith {1}} count markersX >1) exitWith {};
 _vehiclesX = [];
 _soldiers = [];
-_pilotos = [];
+_pilots = [];
 _conquered = false;
 _grupo = grpNull;
 _esFIA = false;
@@ -150,8 +150,8 @@ else
 			{
 			for "_i" from 1 to 60 do
 				{
-				_mina = createMine ["APERSMine",_positionX,[],_size];
-				if (_lado == malos) then {malos revealMine _mina} else {Invaders revealMine _mina};
+				_mineX = createMine ["APERSMine",_positionX,[],_size];
+				if (_lado == malos) then {malos revealMine _mineX} else {Invaders revealMine _mineX};
 				};
 			};
 		_grupo = [_positionX,_lado, _cfg] call A3A_fnc_spawnGroup;
@@ -165,7 +165,7 @@ else
 			createVehicleCrew _uav;
 			_vehiclesX pushBack _uav;
 			_groupUAV = group (crew _uav select 1);
-			{[_x] joinSilent _grupo; _pilotos pushBack _x} forEach units _groupUAV;
+			{[_x] joinSilent _grupo; _pilots pushBack _x} forEach units _groupUAV;
 			deleteGroup _groupUAV;
 			};
 		{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
@@ -268,7 +268,7 @@ if (alive _x) then
 	if (_x != vehicle _x) then {deleteVehicle (vehicle _x)};
 	deleteVehicle _x
 	}
-} forEach (_soldiers + _pilotos);
+} forEach (_soldiers + _pilots);
 deleteGroup _grupo;
 
 if (_conquered) then
@@ -301,8 +301,8 @@ if (_conquered) then
 			_size = [_markerX] call A3A_fnc_sizeMarker;
 			for "_i" from 1 to 60 do
 				{
-				_mina = createMine ["APERSMine",_positionX,[],_size];
-				if (_loser == malos) then {malos revealMine _mina} else {Invaders revealMine _mina};
+				_mineX = createMine ["APERSMine",_positionX,[],_size];
+				if (_loser == malos) then {malos revealMine _mineX} else {Invaders revealMine _mineX};
 				};
 			};
 		*/

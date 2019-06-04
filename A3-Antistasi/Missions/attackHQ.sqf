@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith{};
 
 _positionX = getMarkerPos respawnTeamPlayer;
 
-_pilotos = [];
+_pilots = [];
 _vehiclesX = [];
 _groups = [];
 _soldiers = [];
@@ -31,7 +31,7 @@ if (count _typesVeh > 0) then
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
-	_pilotos = _pilotos + _heliCrew;
+	_pilots = _pilots + _heliCrew;
 	_groups pushBack _groupHeli;
 	_vehiclesX pushBack _heli;
 	{[_x] call A3A_fnc_NATOinit} forEach _heliCrew;
@@ -52,7 +52,7 @@ for "_i" from 0 to (round random 2) do
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
-	_pilotos = _pilotos + _heliCrew;
+	_pilots = _pilots + _heliCrew;
 	_groups pushBack _groupHeli;
 	_vehiclesX pushBack _heli;
 
@@ -104,8 +104,8 @@ if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x dis
 } forEach _soldiers;
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
-} forEach _pilotos;
+if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilots = _pilots - [_x]};
+} forEach _pilots;
 
 if (count _soldiers > 0) then
 	{
@@ -116,12 +116,12 @@ if (count _soldiers > 0) then
 	} forEach _soldiers;
 	};
 
-if (count _pilotos > 0) then
+if (count _pilots > 0) then
 	{
 	{
 	_veh = _x;
 	waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
-	} forEach _pilotos;
+	} forEach _pilots;
 	};
 {deleteGroup _x} forEach _groups;

@@ -27,12 +27,12 @@ _grp = createGroup _lado;
 _tipo = if (_lado == malos) then {NATOOfficer} else {CSATOfficer};
 _official = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
 _tipo = if (_lado == malos) then {NATOBodyG} else {CSATBodyG};
-_piloto = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
+_pilot = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
 if (_difficultX) then
 	{
 	for "_i" from 1 to 4 do
 		{
-		_piloto = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
+		_pilot = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
 		};
 	};
 

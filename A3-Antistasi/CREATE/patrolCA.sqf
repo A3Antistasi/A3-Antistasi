@@ -327,7 +327,7 @@ if (_base != "") then
 				{
 				_soldiers pushBack _x;
 				[_x] call A3A_fnc_NATOinit;
-				_x setVariable ["origen",_base];
+				_x setVariable ["originX",_base];
 				}
 			else
 				{
@@ -518,7 +518,7 @@ else
 					};
 				};
 			_grupo = [_posOrigin,_lado,_typeGroup] call A3A_fnc_spawnGroup;
-			//{_x assignAsCargo _veh;_x moveInCargo _veh; [_x] call A3A_fnc_NATOinit;_soldiers pushBack _x;_x setVariable ["origen",_airportX]} forEach units _grupo;
+			//{_x assignAsCargo _veh;_x moveInCargo _veh; [_x] call A3A_fnc_NATOinit;_soldiers pushBack _x;_x setVariable ["originX",_airportX]} forEach units _grupo;
 			{
 			_x assignAsCargo _veh;
 			_x moveInCargo _veh;
@@ -526,7 +526,7 @@ else
 				{
 				_soldiers pushBack _x;
 				[_x] call A3A_fnc_NATOinit;
-				_x setVariable ["origen",_airportX];
+				_x setVariable ["originX",_airportX];
 				}
 			else
 				{
@@ -609,11 +609,11 @@ else
 
 if (_isMarker) then
 	{
-	_tiempo = time + 3600;
+	_timeX = time + 3600;
 	_size = [_markerX] call A3A_fnc_sizeMarker;
 	if (_lado == malos) then
 		{
-		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers)) or (time > _tiempo) or (lados getVariable [_markerX,sideUnknown] == malos) or (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
+		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers)) or (time > _timeX) or (lados getVariable [_markerX,sideUnknown] == malos) or (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
 		if  ((({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits)) and (not(lados getVariable [_markerX,sideUnknown] == malos))) then
 			{
 			[malos,_markerX] remoteExec ["A3A_fnc_markerChange",2];
@@ -634,7 +634,7 @@ if (_isMarker) then
 		}
 	else
 		{
-		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))or (time > _tiempo) or (lados getVariable [_markerX,sideUnknown] == Invaders) or (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
+		waitUntil {sleep 5; (({!([_x] call A3A_fnc_canFight)} count _soldiers) >= 3*({([_x] call A3A_fnc_canFight)} count _soldiers))or (time > _timeX) or (lados getVariable [_markerX,sideUnknown] == Invaders) or (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits))};
 		if  ((({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers) > 3*({(side _x != _lado) and (side _x != civilian) and ([_x,_markerX] call A3A_fnc_canConquer)} count allUnits)) and (not(lados getVariable [_markerX,sideUnknown] == Invaders))) then
 			{
 			[Invaders,_markerX] remoteExec ["A3A_fnc_markerChange",2];

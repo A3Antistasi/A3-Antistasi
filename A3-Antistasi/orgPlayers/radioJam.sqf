@@ -9,8 +9,8 @@ while {true} do
 	{
 	private _antennas = [];
 	{
-	_puesto = [outposts,_x] call BIS_fnc_nearestPosition;
-	if (lados getVariable [_puesto,sideUnknown] != _lado) then {_antennas pushBack _x};
+	_outpost = [outposts,_x] call BIS_fnc_nearestPosition;
+	if (lados getVariable [_outpost,sideUnknown] != _lado) then {_antennas pushBack _x};
 	} forEach antennas;
 	if (_lado != teamPlayer) then {_antennas pushBack [vehicleBox]};
 	if !(_antennas isEqualTo []) then

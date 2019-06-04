@@ -3,7 +3,7 @@ private ["_veh","_grupo","_markerX","_positionX","_heli","_engagepos","_landpos"
 _veh = _this select 0;
 _grupo = _this select 1;
 _markerX = _this select 2;
-_origen = _this select 3;
+_originX = _this select 3;
 _reinf = if (count _this > 4) then {_this select 4} else {false};
 
 _positionX = _markerX;
@@ -13,7 +13,7 @@ _heli = group driver _veh;
 _dist = 500;
 _distEng = if (_veh isKindOf "Helicopter") then {1000} else {5000};
 _distExit = if (_veh isKindOf "Helicopter") then {400} else {1000};
-_orig = getMarkerPos _origen;
+_orig = getMarkerPos _originX;
 
 
 _engagepos = [];

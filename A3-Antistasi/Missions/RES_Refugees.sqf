@@ -224,6 +224,6 @@ if (_lado == malos) then
 //sleep (540 + random 1200);
 
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
-//deleteMarker _mrkfin;
+//deleteMarker _mrkFinal;
 
 _nul = [1200,"RES"] spawn A3A_fnc_deleteTask;

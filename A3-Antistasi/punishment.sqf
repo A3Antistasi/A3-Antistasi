@@ -1,16 +1,16 @@
 
-private ["_countX","_tonto","_tiempo","_punish"];
+private ["_countX","_tonto","_timeX","_punish"];
 if (isDedicated) exitWith {};
 
 if (!isMultiplayer) exitWith {};
 
 _tonto = _this select 0;
-_tiempo = _this select 1;
+_timeX = _this select 1;
 
 if (player!= _tonto) exitWith {};
 
 _punish = _tonto getVariable ["punish",0];
-_punish = _punish + _tiempo;
+_punish = _punish + _timeX;
 
 disableUserInput true;
 player removeMagazines (primaryWeapon player);

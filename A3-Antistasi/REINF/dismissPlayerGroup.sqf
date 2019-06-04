@@ -29,9 +29,9 @@ _lider = leader _newGroup;
 
 {_x domove getMarkerPos respawnTeamPlayer} forEach units _newGroup;
 
-_tiempo = time + 120;
+_timeX = time + 120;
 
-waitUntil {sleep 1; (time > _tiempo) or ({(_x distance getMarkerPos respawnTeamPlayer < 50) and (alive _x)} count units _newGroup == {alive _x} count units _newGroup)};
+waitUntil {sleep 1; (time > _timeX) or ({(_x distance getMarkerPos respawnTeamPlayer < 50) and (alive _x)} count units _newGroup == {alive _x} count units _newGroup)};
 
 _hr = 0;
 _resourcesFIA = 0;

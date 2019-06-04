@@ -12,7 +12,7 @@ if (!canMove _truckX) exitWith {_unit groupChat "It is useless to load my vehicl
 
 _objectsX = [];
 _hasBox = false;
-_arma = "";
+_weaponX = "";
 _weaponsX = [];
 _bigTimeOut = time + 120;
 _objectsX = nearestObjects [_unit, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
@@ -36,7 +36,7 @@ if (_unit distance _objeto < _distanceX) then
 				{
 				_target = _objeto;
 				_distanceX = _unit distance _objeto;
-				_arma = _potential;
+				_weaponX = _potential;
 				};
 			};
 		};
@@ -77,7 +77,7 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 	waitUntil {sleep 1; (!alive _unit) or (isNull _target) or (_unit distance _target < 3) or (_timeOut < time) or (unitReady _unit)};
 	if (_unit distance _target < 3) then
 		{
-		_unit action ["TakeWeapon",_target,_arma];
+		_unit action ["TakeWeapon",_target,_weaponX];
 		sleep 3;
 		};
 	_target setVariable ["busy",false];
@@ -174,7 +174,7 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 					{
 					_target = _objeto;
 					_distanceX = _unit distance _objeto;
-					_arma = _potential;
+					_weaponX = _potential;
 					};
 				};
 			};

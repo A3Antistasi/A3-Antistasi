@@ -336,7 +336,7 @@ Modified:
 //Version: 4.1.2
 //		
 // 	Modificaciones:
-//		KRON_UPS_Maxwaiting pasa a ser una variable excluvia para patrullas, indica el tiempo m�ximo a esperar
+//		KRON_UPS_Maxwaiting pasa a ser una variable excluvia para patrullas, indica el timeX m�ximo a esperar
 //		para llegar al destinationX y buscar otro
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.0
@@ -348,7 +348,7 @@ Modified:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.0.0
 // 	Added
-// 		Control de movimiento de la IA, ahora gestionan mejor los tiempos, hacen coverturas de movimiento, avanzan con m�s precauci�n cuando est�n cerca del enemyX.
+// 		Control de movimiento de la IA, ahora gestionan mejor los timeXs, hacen coverturas de movimiento, avanzan con m�s precauci�n cuando est�n cerca del enemyX.
 // 		A�adidas algunas animaciones para darle pinceladas de dramatismo a los movimientos de la IA
 // 
 // 	Modificaciones:
@@ -407,7 +407,7 @@ Modified:
 //		si KRON_UPS_reinforcement es true, se puede usar un markerX a modo de alarma para alimentar esta variable cuando se desee.
 //		Las unitsX tendr�n una predisposici�n a mantener la posici�n si tienen el rol NOMOVE
 // 	Modificaciones
-//		Se ha corregido la formula par definir los puntos de flanqueo tx = sin x * dist * (signo cos x).
+//		Se ha corregido la formula par definir los pointsX de flanqueo tx = sin x * dist * (signo cos x).
 //		Las unitsX con rol NOMOVE tienden a mantener la posici�n cuanto m�s alejados est�n del enemyX
 //		Se ha mejorado el rendimiento.
 //
@@ -430,7 +430,7 @@ Modified:
 // 		Improved performance (this script now runs every 15s and do not need to stress to 1 second)
 // 		Implemented comunications simulating radio to know enemy position
 //Errores corregidos y modificaciones
-//	Corregida la funci�n KRON_distancePosSqr que no devolvia la distanceX correcta entre dos puntos
+//	Corregida la funci�n KRON_distancePosSqr que no devolvia la distanceX correcta entre dos pointsX
 //	Corregido bug que no alimentaba correctamente el objectiveXcompartido cuando este fallecia
 //	Corregido control de la distanceX al objectiveX que hacia que la IA no flanquera
 //    Algoritmo de control de acci�n y movimiento modificado

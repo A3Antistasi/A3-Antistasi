@@ -10,7 +10,7 @@ if (gameMode == 1) then
     _controlsNATO = controlsX;
 	if (worldName == "Tanoa") then
 	    {
-	    _mrkCSAT = ["airport_1","puerto_5","puesto_10","control_20"];
+	    _mrkCSAT = ["airport_1","seaport_5","outpost_10","control_20"];
 	    _controlsNATO = _controlsNATO - ["control_20"];
 	    _controlsCSAT = ["control_20"];
 	    }
@@ -18,7 +18,7 @@ if (gameMode == 1) then
 	    {
 	    if (worldName == "Altis") then
 	        {
-	        _mrkCSAT = ["airport_2","puerto_4","puesto_5","control_52","control_33"];
+	        _mrkCSAT = ["airport_2","seaport_4","outpost_5","control_52","control_33"];
 	        _controlsNATO = _controlsNATO - ["control_52","control_33"];
 	    	_controlsCSAT = ["control_52","control_33"];
 	        }
@@ -26,7 +26,7 @@ if (gameMode == 1) then
             {
             if (worldName == "chernarus_summer") then
                 {
-                _mrkCSAT = ["puesto_21"];
+                _mrkCSAT = ["outpost_21"];
                 };
             };
 	    };

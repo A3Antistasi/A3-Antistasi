@@ -1,6 +1,6 @@
 if (count hcSelected player == 0) exitWith {hint "You must select an artillery group"};
 
-private ["_groups","_artyArray","_artyRoundsArr","_hasAmmunition","_areReady","_hasArtillery","_areAlive","_soldierX","_veh","_typeAmmunition","_typeArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_piece","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forcedX","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_countX","_pos","_ang"];
+private ["_groups","_artyArray","_artyRoundsArr","_hasAmmunition","_areReady","_hasArtillery","_areAlive","_soldierX","_veh","_typeAmmunition","_typeArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_piece","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forcedX","_texto","_mrkFinal","_mrkFinal2","_timeX","_eta","_countX","_pos","_ang"];
 
 _groups = hcSelected player;
 _unitsX = [];
@@ -115,14 +115,14 @@ for "_i" from 0 to (count _artyArray) - 1 do
 
 if (count _artyArrayDef1 == 0) exitWith {hint "The position you marked is out of bounds for that Battery"};
 
-_mrkfin = createMarkerLocal [format ["Arty%1", random 100], _positionTel];
-_mrkfin setMarkerShapeLocal "ICON";
-_mrkfin setMarkerTypeLocal "hd_destroy";
-_mrkfin setMarkerColorLocal "ColorRed";
+_mrkFinal = createMarkerLocal [format ["Arty%1", random 100], _positionTel];
+_mrkFinal setMarkerShapeLocal "ICON";
+_mrkFinal setMarkerTypeLocal "hd_destroy";
+_mrkFinal setMarkerColorLocal "ColorRed";
 
 if (_typeArty == "BARRAGE") then
 	{
-	_mrkfin setMarkerTextLocal "Atry Barrage Begin";
+	_mrkFinal setMarkerTextLocal "Atry Barrage Begin";
 	positionTel = [];
 
 	hint "Select the position to finish the barrage";
@@ -136,7 +136,7 @@ if (_typeArty == "BARRAGE") then
 	_positionTel2 = positionTel;
 	};
 
-if ((_typeArty == "BARRAGE") and (isNil "_positionTel2")) exitWith {deleteMarkerLocal _mrkfin};
+if ((_typeArty == "BARRAGE") and (isNil "_positionTel2")) exitWith {deleteMarkerLocal _mrkFinal};
 
 if (_typeArty != "BARRAGE") then
 	{
@@ -147,19 +147,19 @@ if (_typeArty != "BARRAGE") then
 		}
 	else
 		{
-		rondas = 1;
+		roundsX = 1;
 		};
-	waitUntil {!dialog or (!isNil "rondas")};
+	waitUntil {!dialog or (!isNil "roundsX")};
 	};
 
-if ((isNil "rondas") and (_typeArty != "BARRAGE")) exitWith {deleteMarkerLocal _mrkfin};
+if ((isNil "roundsX") and (_typeArty != "BARRAGE")) exitWith {deleteMarkerLocal _mrkFinal};
 
 if (_typeArty != "BARRAGE") then
 	{
-	_mrkfin setMarkerTextLocal "Arty Strike";
-	_rounds = rondas;
+	_mrkFinal setMarkerTextLocal "Arty Strike";
+	_rounds = roundsX;
 	_roundsMax = _rounds;
-	rondas = nil;
+	roundsX = nil;
 	}
 else
 	{
@@ -183,22 +183,22 @@ _texto = format ["Requesting fire support on Grid %1. %2 Rounds", mapGridPositio
 
 if (_typeArty == "BARRAGE") then
 	{
-	_mrkfin2 = createMarkerLocal [format ["Arty%1", random 100], _positionTel2];
-	_mrkfin2 setMarkerShapeLocal "ICON";
-	_mrkfin2 setMarkerTypeLocal "hd_destroy";
-	_mrkfin2 setMarkerColorLocal "ColorRed";
-	_mrkfin2 setMarkerTextLocal "Arty Barrage End";
+	_mrkFinal2 = createMarkerLocal [format ["Arty%1", random 100], _positionTel2];
+	_mrkFinal2 setMarkerShapeLocal "ICON";
+	_mrkFinal2 setMarkerTypeLocal "hd_destroy";
+	_mrkFinal2 setMarkerColorLocal "ColorRed";
+	_mrkFinal2 setMarkerTextLocal "Arty Barrage End";
 	_ang = [_positionTel,_positionTel2] call BIS_fnc_dirTo;
 	sleep 5;
 	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
-	_tiempo = time + _eta;
+	_timeX = time + _eta;
 	_texto = format ["Acknowledged. Fire mission is inbound. ETA %1 secs for the first impact",round _eta];
 	[petros,"sideChat",_texto]remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
-	[_tiempo] spawn
+	[_timeX] spawn
 		{
-		private ["_tiempo"];
-		_tiempo = _this select 0;
-		waitUntil {sleep 1; time > _tiempo};
+		private ["_timeX"];
+		_timeX = _this select 0;
+		waitUntil {sleep 1; time > _timeX};
 		[petros,"sideChat","Splash. Out"] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
 		};
 	};
@@ -211,7 +211,7 @@ for "_i" from 0 to (count _artyArrayDef1) - 1 do
 		{
 		_piece = _artyArrayDef1 select _i;
 		_countX = _artyRoundsArr1 select _i;
-		//hint format ["Rondas que faltan: %1, rondas que tiene %2",_rounds,_countX];
+		//hint format ["roundsX que faltan: %1, roundsX que tiene %2",_rounds,_countX];
 		if (_countX >= _rounds) then
 			{
 			if (_typeArty != "BARRAGE") then
@@ -253,20 +253,20 @@ if (_typeArty != "BARRAGE") then
 	{
 	sleep 5;
 	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
-	_tiempo = time + _eta - 5;
-	if (isNil "_tiempo") exitWith {diag_log format ["Antistasi: Error en artySupport.sqf. Params: %1,%2,%3,%4",_artyArrayDef1 select 0,_positionTel,((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0),(_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)]]};
+	_timeX = time + _eta - 5;
+	if (isNil "_timeX") exitWith {diag_log format ["Antistasi: Error en artySupport.sqf. Params: %1,%2,%3,%4",_artyArrayDef1 select 0,_positionTel,((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0),(_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)]]};
 	_texto = format ["Acknowledged. Fire mission is inbound. %2 Rounds fired. ETA %1 secs",round _eta,_roundsMax - _rounds];
 	[petros,"sideChat",_texto] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
 	};
 
 if (_typeArty != "BARRAGE") then
 	{
-	waitUntil {sleep 1; time > _tiempo};
+	waitUntil {sleep 1; time > _timeX};
 	[petros,"sideChat","Splash. Out"] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
 	};
 sleep 10;
-deleteMarkerLocal _mrkfin;
-if (_typeArty == "BARRAGE") then {deleteMarkerLocal _mrkfin2};
+deleteMarkerLocal _mrkFinal;
+if (_typeArty == "BARRAGE") then {deleteMarkerLocal _mrkFinal2};
 
 if (_forcedX) then
 	{

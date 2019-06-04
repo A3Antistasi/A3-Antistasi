@@ -46,11 +46,11 @@ _eh2 = _unit addEventHandler ["HandleDamage",
 	}];
 selectPlayer _unit;
 
-_tiempo = 60;
+_timeX = 60;
 
 _unit addAction ["Return Control to AI",{selectPlayer leader (group (_this select 0))}];
 
-waitUntil {sleep 1; hint format ["Time to return control to AI: %1", _tiempo]; _tiempo = _tiempo - 1; (_tiempo == -1) or (isPlayer (leader group player))};
+waitUntil {sleep 1; hint format ["Time to return control to AI: %1", _timeX]; _timeX = _timeX - 1; (_timeX == -1) or (isPlayer (leader group player))};
 
 removeAllActions _unit;
 selectPlayer (_unit getVariable ["owner",_unit]);

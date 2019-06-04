@@ -122,10 +122,10 @@ for "_i" from 0 to ((count _finalArray) - 1) do
 	{
 	_grupo addWaypoint [getMarkerPos (_finalArray select _i), _i];
 	/*
-	_mrkfin = createMarker [format ["DES%1", random 100], getMarkerPos (_finalArray select _i)];
-	_mrkfin setMarkerShape "ICON";
-	_mrkfin setMarkerType "hd_destroy";
-	_mrkfin setMarkerColor "ColorRed";
-	_mrkfin setMarkerText format ["%1",_i];
+	_mrkFinal = createMarker [format ["DES%1", random 100], getMarkerPos (_finalArray select _i)];
+	_mrkFinal setMarkerShape "ICON";
+	_mrkFinal setMarkerType "hd_destroy";
+	_mrkFinal setMarkerColor "ColorRed";
+	_mrkFinal setMarkerText format ["%1",_i];
 	*/
 	};

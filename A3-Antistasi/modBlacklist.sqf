@@ -1,10 +1,10 @@
-_mal = false;
+_bad = false;
 
-if (missionNamespace getVariable ["MCC_isMode",false]) then {_mal = true};
-if (isClass (configfile >> "CfgVehicles" >> "ALiVE_require")) then {_mal = true};
-if ("asr_ai3_main" in activatedAddons) then {_mal = true};
-if ((!isMultiPlayer) and hasACEMedical) then {_mal = true};
-if (_mal) then
+if (missionNamespace getVariable ["MCC_isMode",false]) then {_bad = true};
+if (isClass (configfile >> "CfgVehicles" >> "ALiVE_require")) then {_bad = true};
+if ("asr_ai3_main" in activatedAddons) then {_bad = true};
+if ((!isMultiPlayer) and hasACEMedical) then {_bad = true};
+if (_bad) then
 	{
 	if (isServer) then
 		{

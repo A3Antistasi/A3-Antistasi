@@ -76,7 +76,7 @@ _vehicle setVariable ["UPSMON_cargo", _cargo, false];
 } foreach _units;			
 //if (UPSMON_Debug>0 ) then {player sidechat format["%1: _vehgrpid %2 ,_Gunnercount %3, %4",_grpid,_vehgrpid,_Gunnercount,count _units]}; 	
 				
-//Si el vehiculo pertenece al grupo asignamos positionsX de piloto, sin� solo de carga
+//Si el vehiculo pertenece al grupo asignamos positionsX de pilot, sin� solo de carga
 //Make sure some AI will get in as driver (and if available as gunner(s))
 
 if ( _vehgrpid == _grpid ) then 

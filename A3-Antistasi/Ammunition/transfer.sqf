@@ -1,4 +1,4 @@
-private ["_truckX","_objectsX","_todo","_proceed","_caja","_weaponsX","_ammunition","_items","_mochis","_containers","_countX","_exists"];
+private ["_truckX","_objectsX","_todo","_proceed","_caja","_weaponsX","_ammunition","_items","_backpcks","_containers","_countX","_exists"];
 
 _truckX = vehicle player;
 _objectsX = [];
@@ -18,7 +18,7 @@ if ((_caja == caja) and (player!=theBoss)) exitWith {hint "Only the Commander ca
 _weaponsX = weaponCargo _caja;
 _ammunition = magazineCargo _caja;
 _items = itemCargo _caja;
-_mochis = [];
+_backpcks = [];
 /*
 if (count weaponsItemsCargo _truckX > 0) then
 	{
@@ -42,7 +42,7 @@ if (count weaponsItemsCargo _truckX > 0) then
 if (count backpackCargo _caja > 0) then
 	{
 	{
-	_mochis pushBack (_x call BIS_fnc_basicBackpack);
+	_backpcks pushBack (_x call BIS_fnc_basicBackpack);
 	} forEach backpackCargo _caja;
 	};
 _containers = everyContainer _caja;
@@ -56,7 +56,7 @@ if (count _containers > 0) then
 		};
 	};
 */
-_todo = _weaponsX + _ammunition + _items + _mochis;
+_todo = _weaponsX + _ammunition + _items + _backpcks;
 _countX = count _todo;
 
 if (_countX < 1) then

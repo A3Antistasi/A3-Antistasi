@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {};
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanksX","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_nul","_pos","_timeOut"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilots","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanksX","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_pilot","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_timeX","_solMax","_nul","_pos","_timeOut"];
 _mrkDestination = _this select 0;
 _mrkOrigin = _this select 1;
 bigAttackInProgress = true;
@@ -8,7 +8,7 @@ _posDestination = getMarkerPos _mrkDestination;
 _posOrigin = getMarkerPos _mrkOrigin;
 _groups = [];
 _soldiers = [];
-_pilotos = [];
+_pilots = [];
 _vehiclesX = [];
 _civiles = [];
 
@@ -17,7 +17,7 @@ _nameDest = [_mrkDestination] call A3A_fnc_localizar;
 
 _nul = [_mrkOrigin,_mrkDestination,Invaders] spawn A3A_fnc_artillery;
 _lado = if (lados getVariable [_mrkDestination,sideUnknown] == malos) then {malos} else {teamPlayer};
-_tiempo = time + 3600;
+_timeX = time + 3600;
 
 for "_i" from 1 to 3 do
 	{
@@ -38,7 +38,7 @@ for "_i" from 1 to 3 do
 	{[_x] call A3A_fnc_NATOinit} forEach _heliCrew;
 	[_heli] call A3A_fnc_AIVEHinit;
 	_groupHeli = _vehicle select 2;
-	_pilotos = _pilotos + _heliCrew;
+	_pilots = _pilots + _heliCrew;
 	_groups pushBack _groupHeli;
 	_vehiclesX pushBack _heli;
 	//_heli lock 3;
@@ -54,7 +54,7 @@ for "_i" from 1 to 3 do
 		{_x setBehaviour "CARELESS";} forEach units _groupHeli;
 		_typeGroup = [_typeVehX,Invaders] call A3A_fnc_cargoSeats;
 		_grupo = [_posOrigin, Invaders, _typeGroup] call A3A_fnc_spawnGroup;
-		{_x assignAsCargo _heli;_x moveInCargo _heli; _soldiers pushBack _x; [_x] call A3A_fnc_NATOinit; _x setVariable ["origen",_mrkOrigin]} forEach units _grupo;
+		{_x assignAsCargo _heli;_x moveInCargo _heli; _soldiers pushBack _x; [_x] call A3A_fnc_NATOinit; _x setVariable ["originX",_mrkOrigin]} forEach units _grupo;
 		_groups pushBack _grupo;
 		//[_heli,"CSAT Air Transport"] spawn A3A_fnc_inmuneConvoy;
 
@@ -147,9 +147,9 @@ for "_i" from 0 to round random 2 do
 		};
 	};
 
-waitUntil {sleep 5; (({not (captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or ({alive _x} count _soldiers < round (_solMax / 3)) or (({(_x distance _posDestination < _size*2) and (not(vehicle _x isKindOf "Air")) and (alive _x) and (!captive _x)} count _soldiers) > 4*({(alive _x) and (_x distance _posDestination < _size*2)} count _civiles)) or (time > _tiempo)};
+waitUntil {sleep 5; (({not (captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or ({alive _x} count _soldiers < round (_solMax / 3)) or (({(_x distance _posDestination < _size*2) and (not(vehicle _x isKindOf "Air")) and (alive _x) and (!captive _x)} count _soldiers) > 4*({(alive _x) and (_x distance _posDestination < _size*2)} count _civiles)) or (time > _timeX)};
 
-if ((({not (captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or ({alive _x} count _soldiers < round (_solMax / 3)) or (time > _tiempo)) then
+if ((({not (captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or ({alive _x} count _soldiers < round (_solMax / 3)) or (time > _timeX)) then
 	{
 	{_x doMove [0,0,0]} forEach _soldiers;
 	//["AttackAAF", "SUCCEEDED",true] spawn BIS_fnc_taskSetState;
@@ -178,8 +178,8 @@ else
 	publicVariable "destroyedCities";
 	for "_i" from 1 to 60 do
 		{
-		_mina = createMine ["APERSMine",_posDestination,[],_size];
-		Invaders revealMine _mina;
+		_mineX = createMine ["APERSMine",_posDestination,[],_size];
+		Invaders revealMine _mineX;
 		};
 	[_mrkDestination] call A3A_fnc_destroyCity;
 	};
@@ -198,8 +198,8 @@ if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x dis
 } forEach _soldiers;
 {
 _veh = _x;
-if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilotos = _pilotos - [_x]};
-} forEach _pilotos;
+if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)) then {deleteVehicle _x; _pilots = _pilots - [_x]};
+} forEach _pilots;
 
 bigAttackInProgress = false;
 publicVariable "bigAttackInProgress";
@@ -213,13 +213,13 @@ if (count _soldiers > 0) then
 	} forEach _soldiers;
 	};
 
-if (count _pilotos > 0) then
+if (count _pilots > 0) then
 	{
 	{
 	_veh = _x;
 	waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits) and (({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)};
 	deleteVehicle _veh;
-	} forEach _pilotos;
+	} forEach _pilots;
 	};
 {deleteGroup _x} forEach _groups;
 

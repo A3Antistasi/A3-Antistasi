@@ -14,7 +14,7 @@ private _tipo = _this select 0;
 private _dir = getDir player;
 private _positionX = position player;
 private _coste = 0;
-private _tiempo = 60;
+private _timeX = 60;
 private _clase = "";
 switch _tipo do
 	{
@@ -38,7 +38,7 @@ switch _tipo do
 		};
 	case "MT":
 		{
-		_tiempo = 60;
+		_timeX = 60;
 		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
 			{
 			_clase = "Land_Barricade_01_10m_F";
@@ -57,7 +57,7 @@ switch _tipo do
 		};
 	case "RB":
 		{
-		_tiempo = 100;
+		_timeX = 100;
 		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
 			{
 			_clase = "Land_Tyres_F";
@@ -69,13 +69,13 @@ switch _tipo do
 		};
 	case "SB":
 		{
-		_tiempo = 60;
+		_timeX = 60;
 		_clase = "Land_BagBunker_01_small_green_F";
 		_coste = 100;
 		};
 	case "CB":
 		{
-		_tiempo = 120;
+		_timeX = 120;
 		_clase = "Land_PillboxBunker_01_big_F";
 		_coste = 300;
 		};
@@ -96,8 +96,8 @@ if ((_tipo == "SB") or (_tipo == "CB")) then
 		}
 	else
 		{
-		_sitios = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
-		nearX = [_sitios,_positionX] call BIS_fnc_nearestPosition;
+		_sites = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
+		nearX = [_sites,_positionX] call BIS_fnc_nearestPosition;
 		if (!(_positionX inArea nearX)) then
 			{
 			_salir = true;
@@ -242,7 +242,7 @@ if (!_isPlayer) then
 	}
 else
 	{
-	_tiempo = _tiempo / 2;
+	_timeX = _timeX / 2;
 	hint "Walk to the selected position to start building";
 	};
 
@@ -265,7 +265,7 @@ if (_coste > 0) then
 
 _engineerX setVariable ["constructing",true];
 
-_timeOut = time + _tiempo;
+_timeOut = time + _timeX;
 
 if (!_isPlayer) then
 	{

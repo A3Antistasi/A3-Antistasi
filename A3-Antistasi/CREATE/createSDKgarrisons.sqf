@@ -50,10 +50,10 @@ if (_markerX != "Synd_HQ") then
 							if (({alive _x} count units group (_this select 0)) == 0) then
 								{
 								_markerX = (_this select 0) getVariable "markerX";
-								_nombre = [_markerX] call A3A_fnc_localizar;
+								_nameX = [_markerX] call A3A_fnc_localizar;
 								destroyedCities pushBackUnique _markerX;
 								publicVariable "destroyedCities";
-								["TaskFailed", ["", format ["%1 Destroyed",_nombre]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
+								["TaskFailed", ["", format ["%1 Destroyed",_nameX]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
 								};
 							}];
 						};

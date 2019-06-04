@@ -315,7 +315,7 @@ if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 	//_objectiveFinal = selectRandom _arrayFinal;
 	_objectiveFinal = _arrayFinal selectRandomWeighted _countFinal;
 	_destinationX = _objectiveFinal select 0;
-	_origen = _objectiveFinal select 1;
+	_originX = _objectiveFinal select 1;
 	///aquí decidimos las oleadas
 	if (_waves == 1) then
 		{
@@ -326,7 +326,7 @@ if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 			}
 		else
 			{
-			if (lados getVariable [_origen,sideUnknown] == Invaders) then
+			if (lados getVariable [_originX,sideUnknown] == Invaders) then
 				{
 				if (_destinationX in airportsX) then
 					{
@@ -351,13 +351,13 @@ if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 		};
 	if (not(_destinationX in citiesX)) then
 		{
-		///[[_destinationX,_origen,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler;
-		[_destinationX,_origen,_waves] spawn A3A_fnc_wavedCA;
+		///[[_destinationX,_originX,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler;
+		[_destinationX,_originX,_waves] spawn A3A_fnc_wavedCA;
 		}
 	else
 		{
-		//if (lados getVariable [_origen,sideUnknown] == malos) then {[[_destinationX,_origen,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler} else {[[_destinationX,_origen],"A3A_fnc_CSATpunish"] call A3A_fnc_scheduler};
-		if (lados getVariable [_origen,sideUnknown] == malos) then {[_destinationX,_origen,_waves] spawn A3A_fnc_wavedCA} else {[_destinationX,_origen] spawn A3A_fnc_CSATpunish};
+		//if (lados getVariable [_originX,sideUnknown] == malos) then {[[_destinationX,_originX,_waves],"A3A_fnc_wavedCA"] call A3A_fnc_scheduler} else {[[_destinationX,_originX],"A3A_fnc_CSATpunish"] call A3A_fnc_scheduler};
+		if (lados getVariable [_originX,sideUnknown] == malos) then {[_destinationX,_originX,_waves] spawn A3A_fnc_wavedCA} else {[_destinationX,_originX] spawn A3A_fnc_CSATpunish};
 		};
 	};
 

@@ -90,9 +90,9 @@ switch (gameMode) do
 player createDiaryRecord ["Diary",["Loose",format ["You will loose the game if %1 has murdered 1/3 of the total population.",nameInvaders]]];
 player createDiaryRecord ["Diary",["Win","You will win the game when most of the population supports Faction and you have conquered all the Airbases"]];
 
-_nombreMiss = if (hasIFA) then {"Armia Krajowa"} else {if (worldName == "Tanoa") then {"Warlords of the Pacific"} else {"Antistasi"}};
+_nameXMiss = if (hasIFA) then {"Armia Krajowa"} else {if (worldName == "Tanoa") then {"Warlords of the Pacific"} else {"Antistasi"}};
 
-player createDiaryRecord ["Diary",["Welcome",format ["Welcome to Arma 3 - %1. This mission aims to simulate guerilla combat, tactics and strategic situations. It is not a quick and easy mod, it is long term, step-by-step mission with LOTS of features and enhanced AI.",_nombreMiss]]];
+player createDiaryRecord ["Diary",["Welcome",format ["Welcome to Arma 3 - %1. This mission aims to simulate guerilla combat, tactics and strategic situations. It is not a quick and easy mod, it is long term, step-by-step mission with LOTS of features and enhanced AI.",_nameXMiss]]];
 }
 else
 {

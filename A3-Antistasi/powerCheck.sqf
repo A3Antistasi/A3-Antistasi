@@ -9,16 +9,16 @@ _ant2 = [antennasDead, _positionX] call BIS_fnc_nearestPosition;
 
 if (_ant1 distance _positionX > _ant2 distance _positionX) exitWith {sideUnknown};
 
-_puesto = [markersX,_ant1] call BIS_fnc_NearestPosition;
+_outpost = [markersX,_ant1] call BIS_fnc_NearestPosition;
 /*
 if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
 	{
-	if (lados getVariable [_puesto,sideUnknown] == teamPlayer) then {_result = true};
+	if (lados getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = true};
 	}
 else
 	{
-	if (lados getVariable [_puesto,sideUnknown] == malos) then {_result = true};
+	if (lados getVariable [_outpost,sideUnknown] == malos) then {_result = true};
 	};*/
-private _lado = lados getVariable [_puesto,sideUnknown];
+private _lado = lados getVariable [_outpost,sideUnknown];
 //_result
 _lado

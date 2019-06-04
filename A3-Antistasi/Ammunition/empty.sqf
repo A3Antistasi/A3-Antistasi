@@ -1,4 +1,4 @@
-private ["_trucksX","_truckX","_weaponsX","_ammunition","_items","_mochis","_containers","_todo"];
+private ["_trucksX","_truckX","_weaponsX","_ammunition","_items","_backpcks","_containers","_todo"];
 
 _truckX = objNull;
 
@@ -20,9 +20,9 @@ if (isNull _truckX) exitWith {};
 _weaponsX = weaponCargo _truckX;
 _ammunition = magazineCargo _truckX;
 _items = itemCargo _truckX;
-_mochis = backpackCargo _truckX;
+_backpcks = backpackCargo _truckX;
 
-_todo = _weaponsX + _ammunition + _items + _mochis;
+_todo = _weaponsX + _ammunition + _items + _backpcks;
 
 if (count _todo < 1) exitWith
 	{

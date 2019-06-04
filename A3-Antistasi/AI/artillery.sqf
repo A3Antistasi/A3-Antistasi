@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_mrkOrigin","_pos","_lado","_countX","_mrkDestination","_veh","_posOrigin","_sidesOccupants","_posDestination","_typeVehX","_typeAmmunition","_size","_vehicle","_vehCrew","_groupVeh","_rondas","_objectiveX","_objectivesX","_tiempo"];
+private ["_mrkOrigin","_pos","_lado","_countX","_mrkDestination","_veh","_posOrigin","_sidesOccupants","_posDestination","_typeVehX","_typeAmmunition","_size","_vehicle","_vehCrew","_groupVeh","_roundsX","_objectiveX","_objectivesX","_timeX"];
 
 _mrkOrigin = _this select 0;
 _posOrigin = if (_mrkOrigin isEqualType "") then {getMarkerPos _mrkOrigin} else {_mrkOrigin};
@@ -29,12 +29,12 @@ if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) selec
 	while {(alive _veh) and ({_x select 0 == _typeAmmunition} count magazinesAmmo _veh > 0) and (_mrkDestination in forcedSpawn)} do
 		{
 		_objectiveX = objNull;
-		_rondas = 1;
+		_roundsX = 1;
 		_objectivesX = vehicles select {(side (group driver _x) in _sidesOccupants) and (_x distance _posDestination <= _size * 2) and (_lado knowsAbout _x >= 1.4) and (speed _x < 1)};
 		if (count _objectivesX > 0) then
 			{
 			{
-			if (typeOf _x in vehAttack) exitWith {_objectiveX = _x; _rondas = 4};
+			if (typeOf _x in vehAttack) exitWith {_objectiveX = _x; _roundsX = 4};
 			} forEach _objectivesX;
 			if (isNull _objectiveX) then {_objectiveX = selectRandom _objectivesX};
 			}
@@ -52,7 +52,7 @@ if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) selec
 					if ((_lado == Invaders) or ({(side (group _x) == civilian) and (_x distance _potential < 50)} count allUnits == 0)) then
 						{
 						_objectiveX = _potential;
-						if (_countGroup > 6) then {_rondas = 2};
+						if (_countGroup > 6) then {_roundsX = 2};
 						};
 					};
 				} forEach _objectivesX;
@@ -60,9 +60,9 @@ if (_posDestination inRangeOfArtillery [[_veh], ((getArtilleryAmmo [_veh]) selec
 			};
 		if (!isNull _objectiveX) then
 			{
-			_veh commandArtilleryFire [position _objectiveX,_typeAmmunition,_rondas];
-			_tiempo = _veh getArtilleryETA [position _objectiveX, ((getArtilleryAmmo [_veh]) select 0)];
-			sleep 9 + ((_rondas - 1) * 3);
+			_veh commandArtilleryFire [position _objectiveX,_typeAmmunition,_roundsX];
+			_timeX = _veh getArtilleryETA [position _objectiveX, ((getArtilleryAmmo [_veh]) select 0)];
+			sleep 9 + ((_roundsX - 1) * 3);
 			}
 		else
 			{

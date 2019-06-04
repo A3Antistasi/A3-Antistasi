@@ -2,11 +2,11 @@ if (!isServer) exitWith{};
 
 //debugperf = false;
 
-private ["_tiempo","_markersX","_markerX","_positionMRK","_countX"];
+private ["_timeX","_markersX","_markerX","_positionMRK","_countX"];
 
 waitUntil {!isNil "theBoss"};
 
-_tiempo = 1/(count markersX);
+_timeX = 1/(count markersX);
 _countX = 0;
 _greenfor = [];
 _blufor = [];
@@ -15,18 +15,18 @@ _opfor = [];
 while {true} do {
 //sleep 0.01;
 /*
-if (time - _tiempo >= 0.5) then
+if (time - _timeX >= 0.5) then
 	{
 	sleep 0.1;
 	_countX = _countX + 0.1
 	}
 else
 	{
-	sleep 0.5 - (time - _tiempo);
-	_countX = _countX + (0.5 - (time-_tiempo));
+	sleep 0.5 - (time - _timeX);
+	_countX = _countX + (0.5 - (time-_timeX));
 	};
-//if (debugperf) then {hint format ["Tiempo transcurrido: %1 para %2 markersX", time - _tiempo, count markersX]};
-_tiempo = time;
+//if (debugperf) then {hint format ["timeX transcurrido: %1 para %2 markersX", time - _timeX, count markersX]};
+_timeX = time;
 */
 //sleep 1;
 _countX = _countX + 1;
@@ -58,7 +58,7 @@ if (_countX > 5) then
 	};
 
 {
-sleep _tiempo;
+sleep _timeX;
 _markerX = _x;
 
 _positionMRK = getMarkerPos (_markerX);

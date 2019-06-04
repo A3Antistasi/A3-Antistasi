@@ -1,4 +1,4 @@
-private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_arma","_weaponsX","_rearming","_basePossible","_hmd","_casco","_truckX","_autoLoot","_itemsUnit"];
+private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_weaponX","_weaponsX","_rearming","_basePossible","_hmd","_casco","_truckX","_autoLoot","_itemsUnit"];
 
 _unit = _this select 0;
 
@@ -17,7 +17,7 @@ _Sweapon = secondaryWeapon _unit;
 
 _objectsX = [];
 _hasBox = false;
-_arma = "";
+_weaponX = "";
 _weaponsX = [];
 _distanceX = 51;
 _objectsX = nearestObjects [_unit, ["ReammoBox_F","LandVehicle","WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
@@ -46,7 +46,7 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 						_target = _objeto;
 						_hasBox = true;
 						_distanceX = _unit distance _objeto;
-						_arma = _potential;
+						_weaponX = _potential;
 						};
 					};
 				};
@@ -64,9 +64,9 @@ if ((_Pweapon in initialRifles) or (_Pweapon == "")) then
 		if ((unitReady _unit) and ([_unit] call A3A_fnc_canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
 		if (_unit distance _target < 3) then
 			{
-			_unit action ["TakeWeapon",_target,_arma];
+			_unit action ["TakeWeapon",_target,_weaponX];
 			sleep 5;
-			if (primaryWeapon _unit == _arma) then
+			if (primaryWeapon _unit == _weaponX) then
 				{
 				if (_inPlayerGroup) then {_unit groupChat "I have a better weapon now"};
 				if (_target isKindOf "ReammoBox_F") then {_unit action ["rearm",_target]};
@@ -159,7 +159,7 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 						_target = _objeto;
 						_hasBox = true;
 						_distanceX = _unit distance _objeto;
-						_arma = _potential;
+						_weaponX = _potential;
 						};
 					};
 				};
@@ -177,9 +177,9 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 		if ((unitReady _unit) and ([_unit] call A3A_fnc_canFight) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
 		if (_unit distance _target < 3) then
 			{
-			_unit action ["TakeWeapon",_target,_arma];
+			_unit action ["TakeWeapon",_target,_weaponX];
 			sleep 3;
-			if (secondaryWeapon _unit == _arma) then
+			if (secondaryWeapon _unit == _weaponX) then
 				{
 				if (_inPlayerGroup) then {_unit groupChat "I have a secondary weapon now"};
 				if (_target isKindOf "ReammoBox_F") then {sleep 3;_unit action ["rearm",_target]};
@@ -409,12 +409,12 @@ if ({_x == "FirstAidKit"} count (items _unit) < _minFA) then
 		};
 	};
 _hasBox = false;
-_numero = getNumber (configfile >> "CfgWeapons" >> vest cursortarget >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor");
+_numberX = getNumber (configfile >> "CfgWeapons" >> vest cursortarget >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor");
 _distanceX = 50;
 _muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 {
 _muerto = _x;
-if ((getNumber (configfile >> "CfgWeapons" >> vest _muerto >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor") > _numero) and (_unit distance _muerto < _distanceX)) then
+if ((getNumber (configfile >> "CfgWeapons" >> vest _muerto >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor") > _numberX) and (_unit distance _muerto < _distanceX)) then
 	{
 	_target = _muerto;
 	_hasBox = true;

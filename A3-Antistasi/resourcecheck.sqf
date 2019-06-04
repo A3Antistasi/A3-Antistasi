@@ -183,8 +183,8 @@ while {true} do
 			{
 			_changingX = true;
 			destroyedCities = destroyedCities - [_x];
-			_nombre = [_x] call A3A_fnc_localizar;
-			["TaskSucceeded", ["", format ["%1 Rebuilt",_nombre]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
+			_nameX = [_x] call A3A_fnc_localizar;
+			["TaskSucceeded", ["", format ["%1 Rebuilt",_nameX]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
 			sleep 2;
 			};
 		} forEach (destroyedCities - citiesX) select {lados getVariable [_x,sideUnknown] != teamPlayer};

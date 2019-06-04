@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {false};
-private ["_markerX","_base","_posbase","_posMarker","_angOrig","_ang","_attempts","_distanceX","_pos","_fallo","_mina"];
+private ["_markerX","_base","_posbase","_posMarker","_angOrig","_ang","_attempts","_distanceX","_pos","_fallo","_mineX"];
 
 _markerX = _this select 0;
 
@@ -48,8 +48,8 @@ if (_fallo) exitWith {false};
 
 for "_i" from 1 to 60 do
 	{
-	_mina = createMine ["APERSMine",_pos,[],100];
-	if (lados getVariable [_markerX,sideUnknown] == malos) then {malos revealMine _mina} else {Invaders revealMine _mina};
+	_mineX = createMine ["APERSMine",_pos,[],100];
+	if (lados getVariable [_markerX,sideUnknown] == malos) then {malos revealMine _mineX} else {Invaders revealMine _mineX};
 	};
 
 //[-4000] remoteExec ["resourcesAAF",2];

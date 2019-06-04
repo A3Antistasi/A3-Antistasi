@@ -1,5 +1,5 @@
 if (player != theBoss) exitWith {hint "Only Player Commander is allowed to move HQ assets"};
-private ["_cosa","_playerX","_id","_sitios","_markerX","_size","_positionX"];
+private ["_cosa","_playerX","_id","_sites","_markerX","_size","_positionX"];
 
 _cosa = _this select 0;
 _playerX = _this select 1;
@@ -9,8 +9,8 @@ if (!(isNull attachedTo _cosa)) exitWith {hint "The asset you want to move is be
 if (vehicle _playerX != _playerX) exitWith {hint "You cannot move HQ assets while in a vehicle"};
 
 if ({!(isNull _x)} count (attachedObjects _playerX) != 0) exitWith {hint "You have other things attached, you cannot move this"};
-_sitios = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
-_markerX = [_sitios,_playerX] call BIS_fnc_nearestPosition;
+_sites = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
+_markerX = [_sites,_playerX] call BIS_fnc_nearestPosition;
 _size = [_markerX] call A3A_fnc_sizeMarker;
 _positionX = getMarkerPos _markerX;
 if (_playerX distance2D _positionX > _size) exitWith {hint "This asset needs to be closer to it relative zone center to be able to be moved"};

@@ -1,8 +1,8 @@
 private ["_pos","_rnd","_posFire"];
-_movido = false;
+_movedX = false;
 if (petros != (leader group petros)) then
 	{
-	_movido = true;
+	_movedX = true;
 	groupPetros = createGroup teamPlayer;
 	publicVariable "groupPetros";
 	[petros] join groupPetros;
@@ -22,7 +22,7 @@ if (isMultiplayer) then
 	}
 else
 	{
-	if (_movido) then {hint "Please wait while HQ assets are moved to selected position"};
+	if (_movedX) then {hint "Please wait while HQ assets are moved to selected position"};
 	//sleep 5
 	caja hideObject false;
 	vehicleBox hideObject false;
@@ -51,7 +51,7 @@ flagX setPos _pos;
 _rnd = _rnd + 45;
 _pos = [_posFire, 3, _rnd] call BIS_Fnc_relPos;
 vehicleBox setPos _pos;
-//if (_movido) then {_nul = [] call A3A_fnc_empty};
+//if (_movedX) then {_nul = [] call A3A_fnc_empty};
 petros setBehaviour "SAFE";
 "Synd_HQ" setMarkerPos getPos petros;
 if (isNil "placementDone") then {placementDone = true; publicVariable "placementDone"};

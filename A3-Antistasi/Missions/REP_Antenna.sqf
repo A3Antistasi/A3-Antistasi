@@ -74,12 +74,12 @@ if (dateToNumber date > _dateLimitNum) then
 	_antena = createVehicle ["Land_Communication_F", _positionX, [], 0, "NONE"];
 	antennas pushBack _antena; publicVariable "antennas";
 	{if ([antennas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,true] spawn A3A_fnc_blackout}} forEach citiesX;
-	_mrkfin = createMarker [format ["Ant%1", count antennas], _positionX];
-	_mrkfin setMarkerShape "ICON";
-	_mrkfin setMarkerType "loc_Transmitter";
-	_mrkfin setMarkerColor "ColorBlack";
-	_mrkfin setMarkerText "Radio Tower";
-	mrkAntennas pushBack _mrkfin;
+	_mrkFinal = createMarker [format ["Ant%1", count antennas], _positionX];
+	_mrkFinal setMarkerShape "ICON";
+	_mrkFinal setMarkerType "loc_Transmitter";
+	_mrkFinal setMarkerColor "ColorBlack";
+	_mrkFinal setMarkerText "Radio Tower";
+	mrkAntennas pushBack _mrkFinal;
 	publicVariable "mrkAntennas";
 	_antena addEventHandler ["Killed",
 		{

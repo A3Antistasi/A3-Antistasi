@@ -1,7 +1,7 @@
 //Mission: Logistics bank mission
 //el sitio de la caja es el 21
 if (!isServer and hasInterface) exitWith {};
-private ["_banco","_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_truckX","_countX","_mrkfin","_mrk","_soldiers"];
+private ["_banco","_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_truckX","_countX","_mrkFinal","_mrk","_soldiers"];
 _banco = _this select 0;
 _markerX = [citiesX,_banco] call BIS_fnc_nearestPosition;
 
@@ -20,12 +20,12 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _city = [citiesX, _positionX] call BIS_fnc_nearestPosition;
-_mrkfin = createMarker [format ["LOG%1", random 100], _positionX];
+_mrkFinal = createMarker [format ["LOG%1", random 100], _positionX];
 _nameDest = [_city] call A3A_fnc_localizar;
-_mrkfin setMarkerShape "ICON";
-//_mrkfin setMarkerType "hd_destroy";
-//_mrkfin setMarkerColor "ColorBlue";
-//_mrkfin setMarkerText "Bank";
+_mrkFinal setMarkerShape "ICON";
+//_mrkFinal setMarkerType "hd_destroy";
+//_mrkFinal setMarkerColor "ColorBlue";
+//_mrkFinal setMarkerText "Bank";
 
 _pos = (getMarkerPos respawnTeamPlayer) findEmptyPosition [1,50,"C_Van_01_box_F"];
 
@@ -44,7 +44,7 @@ _truckX addEventHandler ["GetIn",
 
 [_truckX,"Mission Vehicle"] spawn A3A_fnc_inmuneConvoy;
 
-[[teamPlayer,civilian],"LOG",[format ["We know Gendarmes are guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkfin],_positionX,false,0,true,"Interact",true] call BIS_fnc_taskCreate;
+[[teamPlayer,civilian],"LOG",[format ["We know Gendarmes are guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkFinal],_positionX,false,0,true,"Interact",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["LOG","CREATED"]; publicVariable "missionsX";
 _mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], _positionX];
 _mrk setMarkerShapeLocal "RECTANGLE";
@@ -71,7 +71,7 @@ waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (!alive _truckX) or (
 _bonus = if (_difficultX) then {2} else {1};
 if ((dateToNumber date > _dateLimitNum) or (!alive _truckX)) then
 	{
-	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkfin],_positionX,"FAILED","Interact"] call A3A_fnc_taskUpdate;
+	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkFinal],_positionX,"FAILED","Interact"] call A3A_fnc_taskUpdate;
 	[-1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	}
@@ -81,11 +81,11 @@ else
 	[[_positionX,malos,"",true],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
 	[10*_bonus,-20*_bonus,_markerX] remoteExec ["A3A_fnc_citySupportChange",2];
 	["TaskFailed", ["", format ["Bank of %1 being assaulted",_nameDest]]] remoteExec ["BIS_fnc_showNotification",malos];
-	{_amigo = _x;
-	if (_amigo distance _truckX < 300) then
+	{_friendX = _x;
+	if (_friendX distance _truckX < 300) then
 		{
-		if ((captive _amigo) and (isPlayer _amigo)) then {[_amigo,false] remoteExec ["setCaptive",0,_amigo]; _amigo setCaptive false};
-		{if (side _x == malos) then {_x reveal [_amigo,4]};
+		if ((captive _friendX) and (isPlayer _friendX)) then {[_friendX,false] remoteExec ["setCaptive",0,_friendX]; _friendX setCaptive false};
+		{if (side _x == malos) then {_x reveal [_friendX,4]};
 		} forEach allUnits;
 		};
 	} forEach ([distanceSPWN,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
@@ -122,7 +122,7 @@ else
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (!alive _truckX) or (_truckX distance _posbase < 50)};
 if ((_truckX distance _posbase < 50) and (dateToNumber date < _dateLimitNum)) then
 	{
-	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkfin],_positionX,"SUCCEEDED","Interact"] call A3A_fnc_taskUpdate;
+	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkFinal],_positionX,"SUCCEEDED","Interact"] call A3A_fnc_taskUpdate;
 	[0,5000*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 	[10*_bonus,0] remoteExec ["A3A_fnc_prestige",2];
 	[1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
@@ -134,7 +134,7 @@ if ((_truckX distance _posbase < 50) and (dateToNumber date < _dateLimitNum)) th
 	};
 if (!alive _truckX) then
 	{
-	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkfin],_positionX,"FAILED","Interact"] call A3A_fnc_taskUpdate;
+	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],"Bank Robbery",_mrkFinal],_positionX,"FAILED","Interact"] call A3A_fnc_taskUpdate;
 	[1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	};
@@ -154,4 +154,4 @@ deleteGroup _x;
 //sleep (600 + random 1200);
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
 deleteMarker _mrk;
-deleteMarker _mrkfin;
+deleteMarker _mrkFinal;

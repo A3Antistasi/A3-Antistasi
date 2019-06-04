@@ -1,4 +1,4 @@
-private ["_veh","_text","_mrkfin","_pos","_side","_tipo","_newPos","_road","_friendlies"];
+private ["_veh","_text","_mrkFinal","_pos","_side","_tipo","_newPos","_road","_friendlies"];
 
 _veh = _this select 0;
 _text = _this select 1;
@@ -60,17 +60,17 @@ _tipo = format ["%1%2",_formatX,_tipo];
 
 if ((side group (driver _veh) != teamPlayer) and (side driver _veh != sideUnknown)) then {["TaskSucceeded", ["", format ["%1 Spotted",_text]]] spawn BIS_fnc_showNotification};
 
-_mrkfin = createMarkerLocal [format ["%2%1", random 100,_text], position _veh];
-_mrkfin setMarkerShapeLocal "ICON";
-_mrkfin setMarkerTypeLocal _tipo;
-_mrkfin setMarkerColorLocal _color;
-_mrkfin setMarkerTextLocal _text;
+_mrkFinal = createMarkerLocal [format ["%2%1", random 100,_text], position _veh];
+_mrkFinal setMarkerShapeLocal "ICON";
+_mrkFinal setMarkerTypeLocal _tipo;
+_mrkFinal setMarkerColorLocal _color;
+_mrkFinal setMarkerTextLocal _text;
 
 while {(alive _veh) and !(isNull _veh) and (revealX or _convoy or (_veh getVariable ["revelado",false]))} do
 	{
 	_pos = getPos _veh;
-	_mrkfin setMarkerPosLocal _pos;
+	_mrkFinal setMarkerPosLocal _pos;
 	sleep 60;
 	};
-deleteMarkerLocal _mrkfin;
+deleteMarkerLocal _mrkFinal;
 //if (alive _veh) then {_veh setVariable ["revelado",false,true]};

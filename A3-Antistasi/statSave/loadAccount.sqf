@@ -39,7 +39,7 @@ if (isServer and !_byPassServer) then
 	["difficultyX"] call fn_LoadStat;
 	["gameMode"] call fn_LoadStat;
 	["destroyedCities"] call fn_LoadStat;
-	["minas"] call fn_LoadStat;
+	["minesX"] call fn_LoadStat;
 	["countCA"] call fn_LoadStat;
 	["antennas"] call fn_LoadStat;
 	["prestigeNATO"] call fn_LoadStat;
@@ -94,36 +94,36 @@ if (isServer and !_byPassServer) then
 	//unlockedRifles = unlockedweapons select {_x in arifles}; publicVariable "unlockedRifles";
 
 	{
-	_arma = _x;
-	if (_arma in arifles) then
+	_weaponX = _x;
+	if (_weaponX in arifles) then
 		{
-		unlockedRifles pushBack _arma;
-		if (count (getArray (configfile >> "CfgWeapons" >> _arma >> "muzzles")) == 2) then
+		unlockedRifles pushBack _weaponX;
+		if (count (getArray (configfile >> "CfgWeapons" >> _weaponX >> "muzzles")) == 2) then
 			{
-			unlockedGL pushBack _arma;
+			unlockedGL pushBack _weaponX;
 			};
 		}
 	else
 		{
-		if (_arma in mguns) then
+		if (_weaponX in mguns) then
 			{
-			unlockedMG pushBack _arma;
+			unlockedMG pushBack _weaponX;
 			}
 		else
 			{
-			if (_arma in srifles) then
+			if (_weaponX in srifles) then
 				{
-				unlockedSN pushBack _arma;
+				unlockedSN pushBack _weaponX;
 				}
 			else
 				{
-				if (_arma in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
+				if (_weaponX in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
 					{
-					unlockedAT pushBack _arma;
+					unlockedAT pushBack _weaponX;
 					}
 				else
 					{
-					if (_arma in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _arma};
+					if (_weaponX in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _weaponX};
 					};
 				};
 			};
@@ -177,8 +177,8 @@ if (isServer and !_byPassServer) then
 
 
 	if (!isMultiPlayer) then {player setPos getMarkerPos respawnTeamPlayer} else {{_x setPos getMarkerPos respawnTeamPlayer} forEach (playableUnits select {side _x == teamPlayer})};
-	_sitios = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
-	tierWar = 1 + (floor (((5*({(_x in outposts) or (_x in resourcesX) or (_x in citiesX)} count _sitios)) + (10*({_x in seaports} count _sitios)) + (20*({_x in airportsX} count _sitios)))/10));
+	_sites = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
+	tierWar = 1 + (floor (((5*({(_x in outposts) or (_x in resourcesX) or (_x in citiesX)} count _sites)) + (10*({_x in seaports} count _sites)) + (20*({_x in airportsX} count _sites)))/10));
 	if (tierWar > 10) then {tierWar = 10};
 	publicVariable "tierWar";
 

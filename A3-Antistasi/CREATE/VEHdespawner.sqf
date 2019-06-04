@@ -15,14 +15,14 @@ if ((typeOf _veh in arrayCivVeh) and ({(_x getVariable ["spawner",false]) and (s
 	sleep 5;
 	if (random 100 < _prestigeOPFOR) then
 		{
-		{_amigo = _x;
-		if ((captive _amigo) and (isPlayer _amigo)) then
+		{_friendX = _x;
+		if ((captive _friendX) and (isPlayer _friendX)) then
 			{
-			[_amigo,false] remoteExec ["setCaptive",0,_amigo];
-			_amigo setCaptive false;
+			[_friendX,false] remoteExec ["setCaptive",0,_friendX];
+			_friendX setCaptive false;
 			};
 		{
-		if ((side _x == malos) and (_x distance _pos < distanceSPWN)) then {_x reveal [_amigo,4]};
+		if ((side _x == malos) and (_x distance _pos < distanceSPWN)) then {_x reveal [_friendX,4]};
 		} forEach allUnits;
 		} forEach crew _veh;
 		};

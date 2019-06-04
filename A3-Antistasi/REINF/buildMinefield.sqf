@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_tipo","_quantity","_typeAmmunition","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_truckX"];
+private ["_tipo","_quantity","_typeAmmunition","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mineX","_tipo","_truckX"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
@@ -111,8 +111,8 @@ if ((_truckX distance _positionTel < 50) and ({alive _x} count units _grupo > 0)
 		deleteVehicle _truckX;
 		for "_i" from 1 to _quantity do
 			{
-			_mina = createMine [_tipo,_positionTel,[],100];
-			teamPlayer revealMine _mina;
+			_mineX = createMine [_tipo,_positionTel,[],100];
+			teamPlayer revealMine _mineX;
 			};
 		["Mines",[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_quantity],"Minefield Deploy",_mrk],_positionTel,"SUCCEEDED","Map"] call A3A_fnc_taskUpdate;
 		sleep 15;

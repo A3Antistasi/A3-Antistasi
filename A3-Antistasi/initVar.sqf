@@ -48,8 +48,8 @@ for "_i" from 0 to (count _cfgMagazines) -1 do
 	_magazine = _cfgMagazines select _i;
 	if (isClass _magazine) then
 		{
-		_nombre = configName (_magazine);
-		allMagazines pushBack _nombre;
+		_nameX = configName (_magazine);
+		allMagazines pushBack _nameX;
 		};
 	};
 
@@ -100,24 +100,24 @@ _allItems = "
 
 _alreadyPlaced = [];
 {
-_nombre = configName _x;
-_nombre = [_nombre] call BIS_fnc_baseWeapon;
-if (not(_nombre in _alreadyPlaced)) then
+_nameX = configName _x;
+_nameX = [_nameX] call BIS_fnc_baseWeapon;
+if (not(_nameX in _alreadyPlaced)) then
 	{
-	_magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
-	_alreadyPlaced pushBack _nombre;
-	_weapon = [_nombre] call BIS_fnc_itemType;
+	_magazines = getArray (configFile / "CfgWeapons" / _nameX / "magazines");
+	_alreadyPlaced pushBack _nameX;
+	_weapon = [_nameX] call BIS_fnc_itemType;
 	_weaponType = _weapon select 1;
 	switch (_weaponType) do
 		{
-		case "AssaultRifle": {arifles pushBack _nombre};
-		case "MachineGun": {mguns pushBack _nombre};
-		case "SniperRifle": {srifles pushBack _nombre};
-		case "Handgun": {hguns pushBack _nombre};
-		case "MissileLauncher": {mlaunchers pushBack _nombre};
-		case "RocketLauncher": {rlaunchers pushBack _nombre};
-		case "Headgear": {helmets pushBack _nombre};
-		//case "Vest": {vests pushBack _nombre};
+		case "AssaultRifle": {arifles pushBack _nameX};
+		case "MachineGun": {mguns pushBack _nameX};
+		case "SniperRifle": {srifles pushBack _nameX};
+		case "Handgun": {hguns pushBack _nameX};
+		case "MissileLauncher": {mlaunchers pushBack _nameX};
+		case "RocketLauncher": {rlaunchers pushBack _nameX};
+		case "Headgear": {helmets pushBack _nameX};
+		//case "Vest": {vests pushBack _nameX};
 		};
 
 	};
@@ -307,13 +307,13 @@ if !(_tipo in _checked) then
 } forEach groupsNATOmid + [NATOSpecOp] + groupsNATOSquad;
 
 {
-_nombre = [_x] call BIS_fnc_baseWeapon;
-_magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
+_nameX = [_x] call BIS_fnc_baseWeapon;
+_magazines = getArray (configFile / "CfgWeapons" / _nameX / "magazines");
 ammunitionNATO pushBack (_magazines select 0);
 } forEach weaponsNato;
 {
-_nombre = [_x] call BIS_fnc_baseWeapon;
-_magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
+_nameX = [_x] call BIS_fnc_baseWeapon;
+_magazines = getArray (configFile / "CfgWeapons" / _nameX / "magazines");
 ammunitionCSAT pushBack (_magazines select 0);
 } forEach weaponsCSAT;
 //optic, pointer and flashlight automated detection
@@ -618,7 +618,7 @@ if !(_vest isEqualTo []) then {unlockedItems pushBackUnique (_vest select 0)};
 } forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewTeamPlayer]];
 
 unlockedBackpacks = if !(hasIFA) then {["B_FieldPack_oli","B_FieldPack_blk","B_FieldPack_ocamo","B_FieldPack_oucamo","B_FieldPack_cbr"]} else {["B_LIB_US_M2Flamethrower","B_LIB_SOV_RA_MGAmmoBag_Empty"]}; //Initial Arsenal available backpacks
-//lockedMochis = lockedMochis - unlockedBackpacks;
+//lockedbackpcks = lockedbackpcks - unlockedBackpacks;
 unlockedOptics = [];
 unlockedMG = [];
 unlockedGL = [];

@@ -1,4 +1,4 @@
-private ["_unit","_grupo","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_helped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_unit","_grupo","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_helped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
 _injurer = _this select 1;
 //if (_unit getVariable "inconsciente") exitWith {};

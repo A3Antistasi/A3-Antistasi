@@ -64,14 +64,14 @@ while {visibleMap} do
 				}
 			else
 				{
-				_puesto = [markersX,_ant1] call BIS_fnc_NearestPosition;
+				_outpost = [markersX,_ant1] call BIS_fnc_NearestPosition;
 				if (lados getVariable [_sitio,sideUnknown] == teamPlayer) then
 					{
-					if (lados getVariable [_puesto,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == Invaders) then {_result = "NONE"}};
+					if (lados getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_outpost,sideUnknown] == Invaders) then {_result = "NONE"}};
 					}
 				else
 					{
-					if (lados getVariable [_puesto,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_puesto,sideUnknown] == Invaders) then {_result = "NONE"}};
+					if (lados getVariable [_outpost,sideUnknown] == teamPlayer) then {_result = format ["%1",nameTeamPlayer]} else {if (lados getVariable [_outpost,sideUnknown] == Invaders) then {_result = "NONE"}};
 					};
 				};
 			*/

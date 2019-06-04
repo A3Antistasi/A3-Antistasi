@@ -41,10 +41,10 @@ fn_LoadStat =
 	"backpackPlayer",
 	"mrkNATO",
 	"mrkSDK",
-	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","ammunition","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
+	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","backpcks","ammunition","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["outpostsFIA","minas","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","ammunition","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","moneyX","membersX","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
+["outpostsFIA","minesX","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","backpcks","ammunition","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","moneyX","membersX","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -148,7 +148,7 @@ fn_SetStat =
 			[nearestBuilding _x,[1,false]] remoteExec ["setDamage"];
 			} forEach destroyedBuildings;
 			};
-		if(_varName == 'minas') then
+		if(_varName == 'minesX') then
 			{
 			for "_i" from 0 to (count _varvalue) - 1 do
 				{
@@ -163,13 +163,13 @@ fn_SetStat =
 					case "ClaymoreDirectionalMine_Remote_Ammo": {_typeMine = "Claymore_F"};
 					};
 				_posMine = _varvalue select _i select 1;
-				_mina = createMine [_typeMine, _posMine, [], 0];
+				_mineX = createMine [_typeMine, _posMine, [], 0];
 				_detected = _varvalue select _i select 2;
-				{_x revealMine _mina} forEach _detected;
+				{_x revealMine _mineX} forEach _detected;
 				if (count (_varvalue select _i) > 3) then//borrar esto en febrero
 					{
 					_dirMine = _varvalue select _i select 3;
-					_mina setDir _dirMine;
+					_mineX setDir _dirMine;
 					};
 				};
 			};

@@ -88,7 +88,7 @@ else
 	};
 _markerX = _muerto getVariable "markerX";
 _garrisoned = true;
-if (isNil "_markerX") then {_markerX = _muerto getVariable ["origen",""]; _garrisoned = false};
+if (isNil "_markerX") then {_markerX = _muerto getVariable ["originX",""]; _garrisoned = false};
 if (_markerX != "") then
 	{
 	if (lados getVariable [_markerX,sideUnknown] == _lado) then

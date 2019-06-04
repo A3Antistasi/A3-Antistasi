@@ -1,4 +1,4 @@
-private ["_puntMax","_texto","_multiplier","_newRank","_selectable","_disconnected","_owner","_puntos","_datos"];
+private ["_puntMax","_texto","_multiplier","_newRank","_selectable","_disconnected","_owner","_pointsX","_datos"];
 _puntMax = 0;
 _texto = "";
 _multiplier = 1;
@@ -38,14 +38,14 @@ if (isNull _lider) then
 _texto = "Promoted Players:\n\n";
 _promoted = false;
 {
-_puntos = _x getVariable ["score",0];
+_pointsX = _x getVariable ["score",0];
 _datos = [_x] call A3A_fnc_numericRank;
 _multiplier = _datos select 0;
 _newRank = _datos select 1;
 _rank = _x getVariable ["rango","PRIVATE"];
 if (_rank != "COLONEL") then
 	{
-	if (_puntos >= 50*_multiplier) then
+	if (_pointsX >= 50*_multiplier) then
 		{
 		_promoted = true;
 		[_x,_newRank] remoteExec ["A3A_fnc_ranksMP"];

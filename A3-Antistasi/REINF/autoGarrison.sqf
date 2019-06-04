@@ -1,12 +1,12 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_markerX","_destinationX","_origen","_groups","_soldiers","_vehiclesX","_size","_grupo","_truckX","_tam","_roads","_road","_pos"];
+private ["_markerX","_destinationX","_originX","_groups","_soldiers","_vehiclesX","_size","_grupo","_truckX","_tam","_roads","_road","_pos"];
 
 _markerX = _this select 0;
 if (not(_markerX in smallCAmrk)) exitWith {};
 
 _destinationX = getMarkerPos _markerX;
-_origen = getMarkerPos respawnTeamPlayer;
+_originX = getMarkerPos respawnTeamPlayer;
 
 _groups = [];
 _soldiers = [];
@@ -31,7 +31,7 @@ while {(_size > 0)} do
 	{
 	if (random 20 <= skillFIA) then {_formatX pushBack (_x select 1)} else {_formatX pushBack (_x select 0)};
 	} forEach _typeGroup;
-	_grupo = [_origen, teamPlayer, _formatX,false,true] call A3A_fnc_spawnGroup;
+	_grupo = [_originX, teamPlayer, _formatX,false,true] call A3A_fnc_spawnGroup;
 	if !(isNull _grupo) then
 		{
 		_groups pushBack _grupo;

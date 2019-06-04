@@ -35,14 +35,14 @@ if !([_engineerX] call A3A_fnc_canFight) exitWith
 
 private _side = side _engineerX;
 _engineerX playActionNow "PutDown";
-private _mina = "SatchelCharge_Remote_Ammo" createVehicle (getposATL _engineerX);
+private _mineX = "SatchelCharge_Remote_Ammo" createVehicle (getposATL _engineerX);
 private _mag = (magazines _engineerX select {(_x call BIS_fnc_itemType) select 0 == "Mine"}) select 0;
 _engineerX removeMagazineGlobal _mag;
 if (_engineerX != leader _engineerX) then {_engineerX doMove (getPos (leader _engineerX))} else {_engineerX call A3A_fnc_recallGroup};
 private _timeOut = time + 60;
 waitUntil {sleep 5; ({(side _x == _side) and (_x distance _building < 20)} count allUnits == 0) or (time > _timeOut) or !(alive _engineerX)};
 
-if (time <= _timeOut) then {_mina setDamage 1};
+if (time <= _timeOut) then {_mineX setDamage 1};
 _engineerX enableAI "TARGET";
 _engineerX enableAI "AUTOTARGET";
 _engineerX enableAI "SUPPRESSION";

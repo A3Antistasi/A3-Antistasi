@@ -9,9 +9,9 @@ if (count _this > 0) then
 	}
 else
 	{
-	_trucksX = nearestObjects [caja, ["LandVehicle","ReammoBox_F"], 20];
+	_trucksX = nearestObjects [boxX, ["LandVehicle","ReammoBox_F"], 20];
 	_trucksX = _trucksX select {not (_x isKindOf "StaticWeapon")};
-	_trucksX = _trucksX - [caja,vehicleBox];
+	_trucksX = _trucksX - [boxX,vehicleBox];
 	if (count _trucksX < 1) then {_truckX = vehicleBox} else {_truckX = _trucksX select 0};
 	};
 
@@ -30,4 +30,4 @@ if (count _todo < 1) exitWith
 	if (count _this == 2) then {deleteVehicle _truckX};
 	};
 
-if (count _this == 2) then {[_truckX,caja,true] remoteExec ["A3A_fnc_ammunitionTransfer",2]} else {[_truckX,caja] remoteExec ["A3A_fnc_ammunitionTransfer",2]}
+if (count _this == 2) then {[_truckX,boxX,true] remoteExec ["A3A_fnc_ammunitionTransfer",2]} else {[_truckX,boxX] remoteExec ["A3A_fnc_ammunitionTransfer",2]}

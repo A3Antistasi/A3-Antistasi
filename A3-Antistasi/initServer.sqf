@@ -1,11 +1,11 @@
 if (!isMultiplayer) exitWith {};
 if (!(isNil "serverInitDone")) exitWith {};
 diag_log "Antistasi MP Server init";
-caja allowDamage false;
+boxX allowDamage false;
 flagX allowDamage false;
 vehicleBox allowDamage false;
-fuego allowDamage false;
-mapa allowDamage false;
+fireX allowDamage false;
+mapX allowDamage false;
 _serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
 if(isNil "_serverHasID") then
     {
@@ -40,8 +40,8 @@ _nul = call compile preprocessFileLineNumbers "initZones.sqf";
 diag_log "Antistasi MP Server. Zones init finished";
 if (gameMode != 1) then
     {
-    malos setFriend [Invaders,1];
-    Invaders setFriend [malos,1];
+    Occupants setFriend [Invaders,1];
+    Invaders setFriend [Occupants,1];
     if (gameMode == 3) then {"CSAT_carrier" setMarkerAlpha 0};
     if (gameMode == 4) then {"NATO_carrier" setMarkerAlpha 0};
     };

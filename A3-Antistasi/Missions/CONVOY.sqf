@@ -1,24 +1,24 @@
 //Mission: Capture/destroy the convoy
 if (!isServer and hasInterface) exitWith {};
-private ["_pos","_timeOut","_posbase","_posDestination","_soldiers","_groups","_vehiclesX","_POWS","_timeXfin","_dateFinal","_enddateNum","_veh","_unit","_grupo","_lado","_countX","_nameDest","_vehPool","_spawnPoint","_typeVehX"];
+private ["_pos","_timeOut","_posbase","_posDestination","_soldiers","_groups","_vehiclesX","_POWS","_timeXfin","_dateFinal","_enddateNum","_veh","_unit","_grupo","_sideX","_countX","_nameDest","_vehPool","_spawnPoint","_typeVehX"];
 _destinationX = _this select 0;
 _base = _this select 1;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _tsk1 = "";
 _dateLimitNum = 0;
-_esFIA = false;
-_lado = if (lados getVariable [_base,sideUnknown] == malos) then {malos} else {Invaders};
+_isFIA = false;
+_sideX = if (sidesX getVariable [_base,sideUnknown] == Occupants) then {Occupants} else {Invaders};
 
-if (_lado == malos) then
+if (_sideX == Occupants) then
 	{
 	if ((random 10 >= tierWar) and !(_difficultX)) then
 		{
-		_esFIA = true;
+		_isFIA = true;
 		};
 	};
 
@@ -51,7 +51,7 @@ else
 	{
 	if (_destinationX in citiesX) then
 		{
-		if (lados getVariable [_destinationX,sideUnknown] == malos) then {_typeConvoy = ["Supplies"]} else {_typeConvoy = ["Supplies"]}
+		if (sidesX getVariable [_destinationX,sideUnknown] == Occupants) then {_typeConvoy = ["Supplies"]} else {_typeConvoy = ["Supplies"]}
 		}
 	else
 		{
@@ -69,7 +69,7 @@ _dateLimitNum = dateToNumber _dateLimit;
 _nameDest = [_destinationX] call A3A_fnc_localizar;
 _nameOrigin = [_base] call A3A_fnc_localizar;
 [_base,30] call A3A_fnc_addTimeForIdle;
-_texto = "";
+_textX = "";
 _taskState = "CREATED";
 _taskTitle = "";
 _taskIcon = "";
@@ -79,50 +79,50 @@ switch (_typeConvoyX) do
 	{
 	case "ammunition":
 		{
-		_texto = format ["A convoy from %1 is about to depart at %2:%3. It will provide ammunition to %4. Try to intercept it. Steal or destroy that truck before it reaches it's destination.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest];
+		_textX = format ["A convoy from %1 is about to depart at %2:%3. It will provide ammunition to %4. Try to intercept it. Steal or destroy that truck before it reaches it's destination.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest];
 		_taskTitle = "Ammo Convoy";
 		_taskIcon = "rearm";
-		_typeVehObj = if (_lado == malos) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
+		_typeVehObj = if (_sideX == Occupants) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
 		};
 	case "Armor":
 		{
-		_texto = format ["A convoy from %1 is about to depart at %2:%3. It will reinforce %4 with armored vehicles. Try to intercept it. Steal or destroy that thing before it reaches it's destination.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest];
+		_textX = format ["A convoy from %1 is about to depart at %2:%3. It will reinforce %4 with armored vehicles. Try to intercept it. Steal or destroy that thing before it reaches it's destination.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest];
 		_taskTitle = "Armored Convoy";
 		_taskIcon = "Destroy";
-		_typeVehObj = if (_lado == malos) then {vehNATOAA} else {vehCSATAA};
+		_typeVehObj = if (_sideX == Occupants) then {vehNATOAA} else {vehCSATAA};
 		};
 	case "Prisoners":
 		{
-		_texto = format ["A group os POW's is being transported from %1 to %4, and it's about to depart at %2:%3. Try to intercept it. Kill or capture the truck driver to make them join you and bring them to HQ. Alive if possible.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest];
+		_textX = format ["A group os POW's is being transported from %1 to %4, and it's about to depart at %2:%3. Try to intercept it. Kill or capture the truck driver to make them join you and bring them to HQ. Alive if possible.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest];
 		_taskTitle = "Prisoner Convoy";
 		_taskIcon = "run";
-		_typeVehObj = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+		_typeVehObj = if (_sideX == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
 		};
 	case "reinforcementsX":
 		{
-		_texto = format ["Reinforcements are being sent from %1 to %4 in a convoy, and it's about to depart at %2:%3. Try to intercept and kill all the troops and vehicle objective.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest];
+		_textX = format ["Reinforcements are being sent from %1 to %4 in a convoy, and it's about to depart at %2:%3. Try to intercept and kill all the troops and vehicle objective.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest];
 		_taskTitle = "Reinforcements Convoy";
 		_taskIcon = "run";
-		_typeVehObj = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+		_typeVehObj = if (_sideX == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
 		};
 	case "Money":
 		{
-		_texto = format ["A truck plenty of money is being moved from %1 to %4, and it's about to depart at %2:%3. Steal that truck and bring it to HQ. Those funds will be very welcome.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest];
+		_textX = format ["A truck plenty of money is being moved from %1 to %4, and it's about to depart at %2:%3. Steal that truck and bring it to HQ. Those funds will be very welcome.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest];
 		_taskTitle = "Money Convoy";
 		_taskIcon = "move";
 		_typeVehObj = "C_Van_01_box_F";
 		};
 	case "Supplies":
 		{
-		_texto = format ["A truck with medical supplies destination %4 it's about to depart at %2:%3 from %1. Steal that truck bring it to %4 and let people in there know it is %5 who's giving those supplies.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest,nameTeamPlayer];
+		_textX = format ["A truck with medical supplies destination %4 it's about to depart at %2:%3 from %1. Steal that truck bring it to %4 and let people in there know it is %5 who's giving those supplies.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest,nameTeamPlayer];
 		_taskTitle = "Supply Convoy";
 		_taskIcon = "heal";
 		_typeVehObj = "C_Van_01_box_F";
 		};
 	};
 
-[[teamPlayer,civilian],"CONVOY",[_texto,_taskTitle,_destinationX],_posDestination,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
-[[_lado],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest],"Protect Convoy",_destinationX],_posDestination,false,0,true,"run",true] call BIS_fnc_taskCreate;
+[[teamPlayer,civilian],"CONVOY",[_textX,_taskTitle,_destinationX],_posDestination,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
+[[_sideX],"CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest],"Protect Convoy",_destinationX],_posDestination,false,0,true,"run",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["CONVOY","CREATED"]; publicVariable "missionsX";
 sleep (_timeLimit * 60);
 
@@ -141,9 +141,9 @@ else
 	_posOrig = position _spawnPoint;
 	_dir = getDir _spawnPoint;
 	};
-_grupo = createGroup _lado;
+_grupo = createGroup _sideX;
 _groups pushBack _grupo;
-_typeVehX = if (_lado == malos) then {if (!_esFIA) then {selectRandom vehNATOLightArmed} else {vehPoliceCar}} else {selectRandom vehCSATLightArmed};
+_typeVehX = if (_sideX == Occupants) then {if (!_isFIA) then {selectRandom vehNATOLightArmed} else {vehPoliceCar}} else {selectRandom vehCSATLightArmed};
 _timeOut = 0;
 _pos = _posOrig findEmptyPosition [0,100,_typeVehX];
 while {_timeOut < 60} do
@@ -172,11 +172,11 @@ _vehLead limitSpeed 50;
 
 _countX = 1;
 if (_difficultX) then {_countX =3} else {if ([_destinationX] call A3A_fnc_isFrontline) then {_countX = (round random 2) + 1}};
-_vehPool = if (_lado == malos) then {if (!_esFIA) then {vehNATOAttack} else {[vehFIAArmedCar,vehFIATruck,vehFIACar]}} else {vehCSATAttack};
-if (!_esFIA) then
+_vehPool = if (_sideX == Occupants) then {if (!_isFIA) then {vehNATOAttack} else {[vehFIAArmedCar,vehFIATruck,vehFIACar]}} else {vehCSATAttack};
+if (!_isFIA) then
 	{
 	_rnd = random 100;
-	if (_lado == malos) then
+	if (_sideX == Occupants) then
 		{
 		if (_rnd > prestigeNATO) then
 			{
@@ -190,7 +190,7 @@ if (!_esFIA) then
 			_vehPool = _vehPool - [vehCSATTank];
 			};
 		};
-	if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
+	if (count _vehPool == 0) then {if (_sideX == Occupants) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 	};
 for "_i" from 1 to _countX do
 	{
@@ -198,9 +198,9 @@ for "_i" from 1 to _countX do
 	_typeVehEsc = selectRandom _vehPool;
 	if (not([_typeVehEsc] call A3A_fnc_vehAvailable)) then
 		{
-		_typeVehX = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+		_typeVehX = if (_sideX == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
 		_vehPool = _vehPool - [_typeVehX];
-		if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
+		if (count _vehPool == 0) then {if (_sideX == Occupants) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 		};
 	_timeOut = 0;
 	_pos = _posOrig findEmptyPosition [10,100,_typeVehX];
@@ -222,12 +222,12 @@ for "_i" from 1 to _countX do
 	_vehiclesX pushBack _veh;
 	[_veh] call A3A_fnc_AIVEHinit;
 	if (_i == 1) then {_veh setConvoySeparation 60} else {_veh setConvoySeparation 20};
-	if (!_esFIA) then
+	if (!_isFIA) then
 		{
 		if (not(_typeVehEsc in vehTanks)) then
 			{
-			_typeGroup = [_typeVehEsc,_lado] call A3A_fnc_cargoSeats;
-			_groupEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+			_typeGroup = [_typeVehEsc,_sideX] call A3A_fnc_cargoSeats;
+			_groupEsc = [_posbase,_sideX, _typeGroup] call A3A_fnc_spawnGroup;
 			{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
 			deleteGroup _groupEsc;
 			};
@@ -241,7 +241,7 @@ for "_i" from 1 to _countX do
 				{
 				_typeGroup = selectRandom groupsFIAMid;
 				};
-			_groupEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+			_groupEsc = [_posbase,_sideX, _typeGroup] call A3A_fnc_spawnGroup;
 			{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
 			deleteGroup _groupEsc;
 			};
@@ -260,7 +260,7 @@ while {_timeOut < 60} do
 	sleep 1;
 	};
 if (count _pos == 0) then {_pos = _posOrig};
-//_grupo = createGroup _lado;
+//_grupo = createGroup _sideX;
 //_groups pushBack _grupo;
 _vehicle=[_pos, _dir,_typeVehObj, _grupo] call bis_fnc_spawnvehicle;
 _vehObj = _vehicle select 0;
@@ -300,8 +300,8 @@ if (_typeConvoyX == "Prisoners") then
 	};
 if (_typeConvoyX == "reinforcementsX") then
 	{
-	_typeGroup = [_typeVehObj,_lado] call A3A_fnc_cargoSeats;
-	_groupEsc = [_posbase,_lado,_typeGroup] call A3A_fnc_spawnGroup;
+	_typeGroup = [_typeVehObj,_sideX] call A3A_fnc_cargoSeats;
+	_groupEsc = [_posbase,_sideX,_typeGroup] call A3A_fnc_spawnGroup;
 	{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x;[_x] joinSilent _grupo;_reinforcementsX pushBack _x} forEach units _groupEsc;
 	deleteGroup _groupEsc;
 	};
@@ -316,9 +316,9 @@ sleep 2;
 _typeVehEsc = selectRandom _vehPool;
 if (not([_typeVehEsc] call A3A_fnc_vehAvailable)) then
 	{
-	_typeVehX = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+	_typeVehX = if (_sideX == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
 	_vehPool = _vehPool - [_typeVehX];
-	if (count _vehPool == 0) then {if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
+	if (count _vehPool == 0) then {if (_sideX == Occupants) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 	};
 _timeOut = 0;
 _pos = _posOrig findEmptyPosition [10,100,_typeVehX];
@@ -330,7 +330,7 @@ while {_timeOut < 60} do
 	sleep 1;
 	};
 if (count _pos == 0) then {_pos = _posOrig};
-//_grupo = createGroup _lado;
+//_grupo = createGroup _sideX;
 //_groups pushBack _grupo;
 _vehicle=[_pos,_dir,_typeVehEsc, _grupo] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
@@ -344,12 +344,12 @@ _vehiclesX pushBack _veh;
 //_veh forceFollowRoad true;
 _veh setConvoySeparation 20;
 //_veh limitSpeed 50;
-if (!_esFIA) then
+if (!_isFIA) then
 	{
 	if (not(_typeVehEsc in vehTanks)) then
 		{
-		_typeGroup = [_typeVehEsc,_lado] call A3A_fnc_cargoSeats;
-		_groupEsc = [_posbase,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+		_typeGroup = [_typeVehEsc,_sideX] call A3A_fnc_cargoSeats;
+		_groupEsc = [_posbase,_sideX, _typeGroup] call A3A_fnc_spawnGroup;
 		{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
 		deleteGroup _groupEsc;
 		};
@@ -363,7 +363,7 @@ else
 			{
 			_typeGroup = selectRandom groupsFIAMid;
 			};
-		_groupEsc = [_posbase,_lado,_typeGroup] call A3A_fnc_spawnGroup;
+		_groupEsc = [_posbase,_sideX,_typeGroup] call A3A_fnc_spawnGroup;
 		{[_x] call A3A_fnc_NATOinit;_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x;[_x] joinSilent _grupo} forEach units _groupEsc;
 		deleteGroup _groupEsc;
 		};
@@ -409,8 +409,8 @@ if (_typeConvoyX == "ammunition") then
 		[1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 		{if (isPlayer _x) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_vehObj,teamPlayer] call A3A_fnc_distanceUnits);
 		[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
-		[getPosASL _vehObj,_lado,"",false] spawn A3A_fnc_patrolCA;
-		if (_lado == malos) then {[3,0] remoteExec ["A3A_fnc_prestige",2]} else {[0,3] remoteExec ["A3A_fnc_prestige",2]};
+		[getPosASL _vehObj,_sideX,"",false] spawn A3A_fnc_patrolCA;
+		if (_sideX == Occupants) then {[3,0] remoteExec ["A3A_fnc_prestige",2]} else {[0,3] remoteExec ["A3A_fnc_prestige",2]};
 		if (!alive _vehObj) then
 			{
 			_killZones = killZones getVariable [_base,[]];
@@ -440,8 +440,8 @@ if (_typeConvoyX == "Armor") then
 		[1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 		{if (isPlayer _x) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_vehObj,teamPlayer] call A3A_fnc_distanceUnits);
 		[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
-		[getPosASL _vehObj,_lado,"",false] spawn A3A_fnc_patrolCA;
-		if (_lado == malos) then {[3,0] remoteExec ["A3A_fnc_prestige",2]} else {[0,3] remoteExec ["A3A_fnc_prestige",2]};
+		[getPosASL _vehObj,_sideX,"",false] spawn A3A_fnc_patrolCA;
+		if (_sideX == Occupants) then {[3,0] remoteExec ["A3A_fnc_prestige",2]} else {[0,3] remoteExec ["A3A_fnc_prestige",2]};
 		if (!alive _vehObj) then
 			{
 			_killZones = killZones getVariable [_base,[]];
@@ -465,7 +465,7 @@ if (_typeConvoyX == "Prisoners") then
 		};
 	if ((not alive driver _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == teamPlayer))) then
 		{
-		[getPosASL _vehObj,_lado,"",false] spawn A3A_fnc_patrolCA;
+		[getPosASL _vehObj,_sideX,"",false] spawn A3A_fnc_patrolCA;
 		{[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false; _x enableAI "MOVE"; [_x] orderGetin false} forEach _POWs;
 		waitUntil {sleep 2; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance _posHQ < 50)} count _POWs > 0) or (dateToNumber date > _enddateNum)};
 		if (({alive _x} count _POWs == 0) or (dateToNumber date > _enddateNum)) then
@@ -488,7 +488,7 @@ if (_typeConvoyX == "Prisoners") then
 			_resourcesFIA = 300 * _countX;
 			[_hr,_resourcesFIA*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 			[0,10*_bonus,_posbase] remoteExec ["A3A_fnc_citySupportChange",2];
-			if (_lado == malos) then {[3,0] remoteExec ["A3A_fnc_prestige",2]} else {[-2*_countX,3] remoteExec ["A3A_fnc_prestige",2]};
+			if (_sideX == Occupants) then {[3,0] remoteExec ["A3A_fnc_prestige",2]} else {[-2*_countX,3] remoteExec ["A3A_fnc_prestige",2]};
 			{[_x] join _grppow; [_x] orderGetin false} forEach _POWs;
 			{[_countX,_x] call A3A_fnc_playerScoreAdd} forEach (allPlayers - (entities "HeadlessClient_F"));
 			[(round (_countX/2))*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
@@ -504,7 +504,7 @@ if (_typeConvoyX == "reinforcementsX") then
 		_taskState = "SUCCEEDED";
 		_taskState1 = "FAILED";
 		[0,10*_bonus,_posbase] remoteExec ["A3A_fnc_citySupportChange",2];
-		if (_lado == malos) then {[3,0] remoteExec ["A3A_fnc_prestige",2]} else {[0,3] remoteExec ["A3A_fnc_prestige",2]};
+		if (_sideX == Occupants) then {[3,0] remoteExec ["A3A_fnc_prestige",2]} else {[0,3] remoteExec ["A3A_fnc_prestige",2]};
 		{if (_x distance _vehObj < 500) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 		_killZones = killZones getVariable [_base,[]];
@@ -517,13 +517,13 @@ if (_typeConvoyX == "reinforcementsX") then
 		_countX = {alive _x} count _reinforcementsX;
 		if (_countX > 8) then {_taskState1 = "SUCCEEDED"} else {_taskState = "FAILED"};
 		[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
-		if (lados getVariable [_destinationX,sideUnknown] != teamPlayer) then
+		if (sidesX getVariable [_destinationX,sideUnknown] != teamPlayer) then
 			{
 			_typesX = [];
 			{_typesX pushBack (typeOf _x)} forEach (_reinforcementsX select {alive _x});
-			[_soldiers,_lado,_destinationX,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
+			[_soldiers,_sideX,_destinationX,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
 			};
-		if (_lado == malos) then {[(-1*(0.25*_countX)),0] remoteExec ["A3A_fnc_prestige",2]} else {[0,(-1*(0.25*_countX))] remoteExec ["A3A_fnc_prestige",2]};
+		if (_sideX == Occupants) then {[(-1*(0.25*_countX)),0] remoteExec ["A3A_fnc_prestige",2]} else {[0,(-1*(0.25*_countX))] remoteExec ["A3A_fnc_prestige",2]};
 		};
 	};
 
@@ -541,7 +541,7 @@ if (_typeConvoyX == "Money") then
 			}
 		else
 			{
-			[getPosASL _vehObj,_lado,"",false] spawn A3A_fnc_patrolCA;
+			[getPosASL _vehObj,_sideX,"",false] spawn A3A_fnc_patrolCA;
 			[1200*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 			_taskState1 = "FAILED";
 			_killZones = killZones getVariable [_base,[]];
@@ -551,7 +551,7 @@ if (_typeConvoyX == "Money") then
 		};
 	if ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == teamPlayer)) then
 		{
-		[getPosASL _vehObj,_lado,"",false] spawn A3A_fnc_patrolCA;
+		[getPosASL _vehObj,_sideX,"",false] spawn A3A_fnc_patrolCA;
 		waitUntil {sleep 2; (_vehObj distance _posHQ < 50) or (not alive _vehObj) or (dateToNumber date > _enddateNum)};
 		if ((not alive _vehObj) or (dateToNumber date > _enddateNum)) then
 			{
@@ -583,7 +583,7 @@ if (_typeConvoyX == "Supplies") then
 	waitUntil {sleep 1; (dateToNumber date > _enddateNum) or (_vehObj distance _posDestination < 300) or (not alive _vehObj) or ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == teamPlayer))};
 	if (not alive _vehObj) then
 		{
-		[getPosASL _vehObj,_lado,"",false] spawn A3A_fnc_patrolCA;
+		[getPosASL _vehObj,_sideX,"",false] spawn A3A_fnc_patrolCA;
 		_taskState = "FAILED";
 		_taskState1 = "FAILED";
 		[3,0] remoteExec ["A3A_fnc_prestige",2];
@@ -596,7 +596,7 @@ if (_typeConvoyX == "Supplies") then
 		{
 		if ((driver _vehObj getVariable ["spawner",false]) and (side group (driver _vehObj) == teamPlayer)) then
 			{
-			[getPosASL _vehObj,_lado,"",false] spawn A3A_fnc_patrolCA;
+			[getPosASL _vehObj,_sideX,"",false] spawn A3A_fnc_patrolCA;
 			waitUntil {sleep 1; (_vehObj distance _posDestination < 100) or (not alive _vehObj) or (dateToNumber date > _enddateNum)};
 			if (_vehObj distance _posDestination < 100) then
 				{
@@ -628,7 +628,7 @@ if (_typeConvoyX == "Supplies") then
 	publicVariable "reportedVehs";
 	};
 
-["CONVOY",[_texto,_taskTitle,_destinationX],_posDestination,_taskState] call A3A_fnc_taskUpdate;
+["CONVOY",[_textX,_taskTitle,_destinationX],_posDestination,_taskState] call A3A_fnc_taskUpdate;
 ["CONVOY1",[format ["A convoy from %1 to %4, it's about to depart at %2:%3. Protect it from any possible attack.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_nameDest],"Protect Convoy",_destinationX],_posDestination,_taskState1] call A3A_fnc_taskUpdate;
 _wp0 = _grupo addWaypoint [_posbase, 0];
 _wp0 setWaypointType "MOVE";

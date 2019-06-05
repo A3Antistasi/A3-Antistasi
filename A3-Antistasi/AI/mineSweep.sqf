@@ -1,10 +1,10 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_coste","_grupo","_unit","_minesX","_tam","_roads","_truckX","_mineX","_countX"];
+private ["_costs","_grupo","_unit","_minesX","_tam","_roads","_truckX","_mineX","_countX"];
 
-_coste = (server getVariable (SDKExp select 0)) + ([vehSDKRepair] call A3A_fnc_vehiclePrice);
+_costs = (server getVariable (SDKExp select 0)) + ([vehSDKRepair] call A3A_fnc_vehiclePrice);
 
-[-1,-1*_coste] remoteExec ["A3A_fnc_resourcesFIA",2];
+[-1,-1*_costs] remoteExec ["A3A_fnc_resourcesFIA",2];
 
 _grupo = createGroup teamPlayer;
 
@@ -39,7 +39,7 @@ while {alive _unit} do
 			{
 			if ((count magazineCargo _truckX > 0) and (_unit distance (getMarkerPos respawnTeamPlayer) < 50)) then
 				{
-				[_truckX,caja] remoteExec ["A3A_fnc_ammunitionTransfer",2];
+				[_truckX,boxX] remoteExec ["A3A_fnc_ammunitionTransfer",2];
 				sleep 30;
 				};
 			};

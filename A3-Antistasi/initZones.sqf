@@ -146,7 +146,7 @@ if ((_nameX != "") and (_nameX != "Lakatoro01") and (_nameX != "Galili01") and (
             } forEach _roadsProv;
             roadsX setVariable [_nameX,_roads];
             };
-        if (typeName _numCiv != typeName 0) then {hint format ["Datos erróneos en %1. Son del tipo %2",_nameX, typeName _numCiv]};
+        if (typeName _numCiv != typeName 0) then {hint format ["dataX erróneos en %1. Son del tipo %2",_nameX, typeName _numCiv]};
         //if (isNil "_roads") then {hint format ["A mi no me sale en %1",_nameX]};
         };
     _numVeh = round (_numCiv / 3);
@@ -168,14 +168,14 @@ if ((_nameX != "") and (_nameX != "Lakatoro01") and (_nameX != "Galili01") and (
     _dmrk setMarkerType "loc_Ruin";
     _dmrk setMarkerColor colorOccupants;
     if (_nroads < _numVeh) then {_numVeh = _nroads};
-    lados setVariable [_mrk,malos,true];
+    sidesX setVariable [_mrk,Occupants,true];
     _info = [_numCiv, _numVeh, prestigeOPFOR,prestigeBLUFOR];
     server setVariable [_nameX,_info,true];
     };
 }foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["NameCityCapital","NameCity","NameVillage","CityCenter"], 25000]);
 
 markersX = markersX + citiesX;
-lados setVariable ["Synd_HQ",teamPlayer,true];
+sidesX setVariable ["Synd_HQ",teamPlayer,true];
 //if !(isMultiplayer) then {call compile preprocessFileLineNumbers "initGarrisons.sqf"};
 
 antennasDead = [];
@@ -229,7 +229,7 @@ else
                 antennas = antennas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
                 publicVariable "antennas"; publicVariable "antennasDead";
                 ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
-                ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
+                ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",Occupants];
                 }
                 ];
             } forEach antennas;
@@ -266,7 +266,7 @@ if (count _posAntennas > 0) then
                     antennas = antennas - [_antena]; antennasDead pushBack (getPos _antena); deleteMarker _mrk;
                     publicVariable "antennas"; publicVariable "antennasDead";
                     ["TaskSucceeded",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",teamPlayer];
-                    ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",malos];
+                    ["TaskFailed",["", "Radio Tower Destroyed"]] remoteExec ["BIS_fnc_showNotification",Occupants];
                     }
                 ];
                 };

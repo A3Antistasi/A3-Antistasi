@@ -6,7 +6,7 @@ _groups = [];
 _base = "";
 _roads = [];
 
-_arrayAirports = if (hasIFA) then {(airportsX + outposts) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != teamPlayer)}} else {(seaports + airportsX + outposts) select {((spawner getVariable _x != 0)) and (lados getVariable [_x,sideUnknown] != teamPlayer)}};
+_arrayAirports = if (hasIFA) then {(airportsX + outposts) select {((spawner getVariable _x != 0)) and (sidesX getVariable [_x,sideUnknown] != teamPlayer)}} else {(seaports + airportsX + outposts) select {((spawner getVariable _x != 0)) and (sidesX getVariable [_x,sideUnknown] != teamPlayer)}};
 
 _arrayAirports1 = [];
 if !(isMultiplayer) then
@@ -30,9 +30,9 @@ if (_arrayAirports1 isEqualTo []) exitWith {};
 
 _base = selectRandom _arrayAirports1;
 _typeCar = "";
-_lado = malos;
+_sideX = Occupants;
 _typePatrol = "LAND";
-if (lados getVariable [_base,sideUnknown] == malos) then
+if (sidesX getVariable [_base,sideUnknown] == Occupants) then
 	{
 	if ((_base in seaports) and ([vehNATOBoat] call A3A_fnc_vehAvailable)) then
 		{
@@ -54,7 +54,7 @@ if (lados getVariable [_base,sideUnknown] == malos) then
 	}
 else
 	{
-	_lado = Invaders;
+	_sideX = Invaders;
 	if ((_base in seaports) and ([vehCSATBoat] call A3A_fnc_vehAvailable)) then
 		{
 		_typeCar = vehCSATBoat;
@@ -72,7 +72,7 @@ _posbase = getMarkerPos _base;
 
 if (_typePatrol == "AIR") then
 	{
-	_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
+	_arrayDestinations = markersX select {sidesX getVariable [_x,sideUnknown] == _sideX};
 	_distanceX = 200;
 	}
 else
@@ -84,7 +84,7 @@ else
 		}
 	else
 		{
-		_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
+		_arrayDestinations = markersX select {sidesX getVariable [_x,sideUnknown] == _sideX};
 		_arrayDestinations = [_arrayDestinations,_posBase] call A3A_fnc_patrolDestinations;
 		_distanceX = 50;
 		};
@@ -115,7 +115,7 @@ if (_typePatrol != "AIR") then
 		};
 	};
 
-_vehicle=[_posBase, 0,_typeCar, _lado] call bis_fnc_spawnvehicle;
+_vehicle=[_posBase, 0,_typeCar, _sideX] call bis_fnc_spawnvehicle;
 _veh = _vehicle select 0;
 [_veh] call A3A_fnc_AIVEHinit;
 [_veh,"Patrol"] spawn A3A_fnc_inmuneConvoy;
@@ -130,14 +130,14 @@ _vehiclesX = _vehiclesX + [_veh];
 if (_typeCar in vehNATOLightUnarmed) then
 	{
 	sleep 1;
-	_grupo = [_posbase, _lado, groupsNATOSentry] call A3A_fnc_spawnGroup;
+	_grupo = [_posbase, _sideX, groupsNATOSentry] call A3A_fnc_spawnGroup;
 	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
 	};
 if (_typeCar in vehCSATLightUnarmed) then
 	{
 	sleep 1;
-	_grupo = [_posbase, _lado, groupsCSATSentry] call A3A_fnc_spawnGroup;
+	_grupo = [_posbase, _sideX, groupsCSATSentry] call A3A_fnc_spawnGroup;
 	{_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x; [_x] joinSilent _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
 	deleteGroup _grupo;
 	};
@@ -165,7 +165,7 @@ while {alive _veh} do
 	if !(_veh distance _posDestination < _distanceX) exitWith {};
 	if (_typePatrol == "AIR") then
 		{
-		_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
+		_arrayDestinations = markersX select {sidesX getVariable [_x,sideUnknown] == _sideX};
 		}
 	else
 		{
@@ -175,13 +175,13 @@ while {alive _veh} do
 			}
 		else
 			{
-			_arrayDestinations = markersX select {lados getVariable [_x,sideUnknown] == _lado};
+			_arrayDestinations = markersX select {sidesX getVariable [_x,sideUnknown] == _sideX};
 			_arrayDestinations = [_arrayDestinations,position _veh] call A3A_fnc_patrolDestinations;
 			};
 		};
 	};
 
-_enemiesX = if (_lado == malos) then {Invaders} else {malos};
+_enemiesX = if (_sideX == Occupants) then {Invaders} else {Occupants};
 
 {_unit = _x;
 waitUntil {sleep 1;!([distanceSPWN,1,_unit,teamPlayer] call A3A_fnc_distanceUnits) and !([distanceSPWN,1,_unit,_enemiesX] call A3A_fnc_distanceUnits)};deleteVehicle _unit} forEach _soldiers;

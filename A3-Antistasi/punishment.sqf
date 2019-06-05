@@ -1,15 +1,15 @@
 
-private ["_countX","_tonto","_timeX","_punish"];
+private ["_countX","_foolish","_timeX","_punish"];
 if (isDedicated) exitWith {};
 
 if (!isMultiplayer) exitWith {};
 
-_tonto = _this select 0;
+_foolish = _this select 0;
 _timeX = _this select 1;
 
-if (player!= _tonto) exitWith {};
+if (player!= _foolish) exitWith {};
 
-_punish = _tonto getVariable ["punish",0];
+_punish = _foolish getVariable ["punish",0];
 _punish = _punish + _timeX;
 
 disableUserInput true;

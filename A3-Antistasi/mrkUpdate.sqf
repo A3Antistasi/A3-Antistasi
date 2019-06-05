@@ -3,48 +3,48 @@ private ["_markerX","_mrkD"];
 _markerX = _this select 0;
 
 _mrkD = format ["Dum%1",_markerX];
-if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 	{
-	_texto = if (count (garrison getVariable [_markerX,[]]) > 0) then {format [": %1", count (garrison getVariable [_markerX,[]])]} else {""};
+	_textX = if (count (garrison getVariable [_markerX,[]]) > 0) then {format [": %1", count (garrison getVariable [_markerX,[]])]} else {""};
 	if (markerColor _mrkD != colourTeamPlayer) then {_mrkD setMarkerColor colourTeamPlayer};
 	if (_markerX in airportsX) then
 		{
-		_texto = format ["%2 Airbase%1",_texto,nameTeamPlayer];
-		[_mrkD,format ["%1 Airbase",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[malos,Invaders],true];
-		//_mrkD setMarkerText format ["SDK Airbase%1",_texto];
+		_textX = format ["%2 Airbase%1",_textX,nameTeamPlayer];
+		[_mrkD,format ["%1 Airbase",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[Occupants,Invaders],true];
+		//_mrkD setMarkerText format ["SDK Airbase%1",_textX];
 		if (markerType _mrkD != "flag_Syndicat") then {_mrkD setMarkerType "flag_Syndicat"};
 		}
 	else
 		{
 		if (_markerX in outposts) then
 			{
-			_texto = format ["%2 Outpost%1",_texto,nameTeamPlayer];
-			[_mrkD,format ["%1 Outpost",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[malos,Invaders],true];
+			_textX = format ["%2 Outpost%1",_textX,nameTeamPlayer];
+			[_mrkD,format ["%1 Outpost",nameTeamPlayer]] remoteExec ["setMarkerTextLocal",[Occupants,Invaders],true];
 			}
 		else
 			{
 			 if (_markerX in resourcesX) then
 			 	{
-			 	_texto = format ["Resouces%1",_texto];
+			 	_textX = format ["Resouces%1",_textX];
 			 	}
 			 else
 			 	{
 			 	if (_markerX in factories) then
             		{
-            		_texto = format ["Factory%1",_texto];
+            		_textX = format ["Factory%1",_textX];
             		}
             	else
             		{
-            		if (_markerX in seaports) then {_texto = format ["Sea Port%1",_texto]};
+            		if (_markerX in seaports) then {_textX = format ["Sea Port%1",_textX]};
             		};
 			 	};
 			};
 		};
-	[_mrkD,_texto] remoteExec ["setMarkerTextLocal",[teamPlayer,civilian],true];
+	[_mrkD,_textX] remoteExec ["setMarkerTextLocal",[teamPlayer,civilian],true];
 	}
 else
 	{
-	if (lados getVariable [_markerX,sideUnknown] == malos) then
+	if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then
 		{
 		if (_markerX in airportsX) then
 			{_mrkD setMarkerText format ["%1 Airbase",nameOccupants];

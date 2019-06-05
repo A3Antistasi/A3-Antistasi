@@ -1,4 +1,4 @@
-private ["_unit","_grupo","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_helped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_unit","_grupo","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_helped","_textX","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
 _injurer = _this select 1;
 //if (_unit getVariable "inconsciente") exitWith {};
@@ -7,13 +7,13 @@ _injurer = _this select 1;
 //_unit setVariable ["inconsciente",true,true];
 _bleedOut = if (surfaceIsWater (position _unit)) then {time + 60} else {time + 300};//300
 _playersX = false;
-_lado = side (group _unit);
-if ((side _injurer == teamPlayer) and (_lado == malos)) then
+_sideX = side (group _unit);
+if ((side _injurer == teamPlayer) and (_sideX == Occupants)) then
 	{
 	_markerX = _unit getVariable ["markerX",""];
 	if (_markerX != "") then
 		{
-		if (!([_markerX] call BIS_fnc_taskExists) and (lados getVariable [_markerX,sideUnknown] == malos)) then {[_markerX,side _injurer,_lado] remoteExec ["A3A_fnc_underAttack",2]};
+		if (!([_markerX] call BIS_fnc_taskExists) and (sidesX getVariable [_markerX,sideUnknown] == Occupants)) then {[_markerX,side _injurer,_sideX] remoteExec ["A3A_fnc_underAttack",2]};
 		};
 	};
 
@@ -23,7 +23,7 @@ if ({if ((isPlayer _x) and (_x distance _unit < distanceSPWN2)) exitWith {1}} co
 	[_unit,"heal"] remoteExec ["A3A_fnc_flagaction",0,_unit];
 	[_unit,true] remoteExec ["setCaptive"];
 	_unit setCaptive true;
-	//_unit setVariable ["lado",_lado,true];
+	//_unit setVariable ["sideX",_sideX,true];
 	};
 
 _unit setFatigue 1;
@@ -59,9 +59,9 @@ if (time >= _bleedOut) exitWith
 			[_injurer,_skill + 0.05] remoteExec ["setSkill",_injurer];
 			};
 		[-1,1,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
-		switch (_lado) do
+		switch (_sideX) do
 			{
-			case malos:
+			case Occupants:
 				{
 				[0.1,0] remoteExec ["A3A_fnc_prestige",2];
 				};

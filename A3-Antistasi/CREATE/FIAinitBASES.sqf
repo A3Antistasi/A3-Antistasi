@@ -23,13 +23,13 @@ if (count _this > 1) then
 [_unit] call A3A_fnc_initRevive;
 
 _unit allowFleeing 0;
-_tipo = typeOf _unit;
-//_skill = if (_tipo in sdkTier1) then {0.1 + (skillFIA * 0.2)} else {if (_tipo in sdkTier2) then {0.2 + (skillFIA * 0.2)} else {0.3 + (skillFIA * 0.2)}};
+_typeX = typeOf _unit;
+//_skill = if (_typeX in sdkTier1) then {0.1 + (skillFIA * 0.2)} else {if (_typeX in sdkTier2) then {0.2 + (skillFIA * 0.2)} else {0.3 + (skillFIA * 0.2)}};
 _skill = 0.1 + (skillFIA * 0.05 * skillMult);
 if ((_markerX == "Synd_HQ") and (isMultiplayer)) then {_skill = 1};
 _unit setSkill _skill;
 if (!activeGREF) then {if (not((uniform _unit) in uniformsSDK)) then {[_unit] call A3A_fnc_reDress}};
-if (_tipo in SDKSniper) then
+if (_typeX in SDKSniper) then
 	{
 	if (count unlockedSN > 0) then
 		{
@@ -53,10 +53,10 @@ else
 		{
 		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") < 2) then {removeHeadgear _unit;_unit addHeadgear (selectRandom helmets)};
 		};
-	if (_tipo in SDKMil) then
+	if (_typeX in SDKMil) then
 		{
 		[_unit,unlockedRifles] call A3A_fnc_randomRifle;
-		if ((loadAbs _unit < 340) and (_tipo in SDKMil)) then
+		if ((loadAbs _unit < 340) and (_typeX in SDKMil)) then
 			{
 			if ((random 20 < skillFIA) and (count unlockedAA > 0)) then
 				{
@@ -68,7 +68,7 @@ else
 		}
 	else
 		{
-		if (_tipo in SDKMG) then
+		if (_typeX in SDKMG) then
 			{
 			if (count unlockedMG > 0) then
 				{
@@ -81,7 +81,7 @@ else
 			}
 		else
 			{
-			if (_tipo in SDKGL) then
+			if (_typeX in SDKGL) then
 				{
 				if (count unlockedGL > 0) then
 					{
@@ -95,7 +95,7 @@ else
 			else
 				{
 				[_unit,unlockedRifles] call A3A_fnc_randomRifle;
-				if (_tipo in SDKMedic) then
+				if (_typeX in SDKMedic) then
 					{
 					_unit setUnitTrait ["medic",true];
 					if ({_x == "FirstAidKit"} count (items _unit) < 10) then
@@ -105,7 +105,7 @@ else
 					}
 				else
 					{
-					if (_tipo in SDKATman) then
+					if (_typeX in SDKATman) then
 						{
 						if !(unlockedAT isEqualTo []) then
 							{
@@ -128,7 +128,7 @@ else
 						}
 					else
 						{
-						if (_tipo in squadLeaders) then
+						if (_typeX in squadLeaders) then
 							{
 							_unit setskill ["courage",_skill + 0.2];
 							_unit setskill ["commanding",_skill + 0.2];
@@ -196,7 +196,7 @@ if !(hasIFA) then
 			};
 		};
 	};
-if ({if (_x in humo) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom humo,2]};
+if ({if (_x in smokeX) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom smokeX,2]};
 
 _EHkilledIdx = _unit addEventHandler ["killed", {
 	_muerto = _this select 0;
@@ -210,7 +210,7 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 			_killer addRating 1000;
 			};
 		};
-	if (side _killer == malos) then
+	if (side _killer == Occupants) then
 		{
 		[0,-0.25,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 		[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
@@ -222,7 +222,7 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 	_markerX = _muerto getVariable "markerX";
 	if (!isNil "_markerX") then
 		{
-		if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+		if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 			{
 			[typeOf _muerto,teamPlayer,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
 			_muerto setVariable [_markerX,nil,true];

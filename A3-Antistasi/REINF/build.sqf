@@ -10,29 +10,29 @@ if ((player != leader player) and (_engineerX != player)) exitWith {hint "Only s
 if !([_engineerX] call A3A_fnc_canFight) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
 if ((_engineerX getVariable ["helping",false]) or (_engineerX getVariable ["rearming",false]) or (_engineerX getVariable ["constructing",false])) exitWith {hint "Your engineer is currently performing another action"};
 
-private _tipo = _this select 0;
+private _typeX = _this select 0;
 private _dir = getDir player;
 private _positionX = position player;
-private _coste = 0;
+private _costs = 0;
 private _timeX = 60;
-private _clase = "";
-switch _tipo do
+private _classX = "";
+switch _typeX do
 	{
 	case "ST":
 		{
 		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
 			{
-			_clase = selectRandom ["Land_GarbageWashingMachine_F","Land_JunkPile_F","Land_Barricade_01_4m_F"];
+			_classX = selectRandom ["Land_GarbageWashingMachine_F","Land_JunkPile_F","Land_Barricade_01_4m_F"];
 			}
 		else
 			{
 			if (count (nearestTerrainObjects [player,["tree"],70]) > 8) then
 				{
-				_clase = "Land_WoodPile_F";
+				_classX = "Land_WoodPile_F";
 				}
 			else
 				{
-				_clase = "CraterLong_small";
+				_classX = "CraterLong_small";
 				};
 			};
 		};
@@ -41,17 +41,17 @@ switch _tipo do
 		_timeX = 60;
 		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
 			{
-			_clase = "Land_Barricade_01_10m_F";
+			_classX = "Land_Barricade_01_10m_F";
 			}
 		else
 			{
 			if (count (nearestTerrainObjects [player,["tree"],70]) > 8) then
 				{
-				_clase = "Land_WoodPile_large_F";
+				_classX = "Land_WoodPile_large_F";
 				}
 			else
 				{
-				_clase = selectRandom ["Land_BagFence_01_long_green_F","Land_SandbagBarricade_01_half_F"];
+				_classX = selectRandom ["Land_BagFence_01_long_green_F","Land_SandbagBarricade_01_half_F"];
 				};
 			};
 		};
@@ -60,56 +60,56 @@ switch _tipo do
 		_timeX = 100;
 		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
 			{
-			_clase = "Land_Tyres_F";
+			_classX = "Land_Tyres_F";
 			}
 		else
 			{
-			_clase = "Land_TimberPile_01_F";
+			_classX = "Land_TimberPile_01_F";
 			};
 		};
 	case "SB":
 		{
 		_timeX = 60;
-		_clase = "Land_BagBunker_01_small_green_F";
-		_coste = 100;
+		_classX = "Land_BagBunker_01_small_green_F";
+		_costs = 100;
 		};
 	case "CB":
 		{
 		_timeX = 120;
-		_clase = "Land_PillboxBunker_01_big_F";
-		_coste = 300;
+		_classX = "Land_PillboxBunker_01_big_F";
+		_costs = 300;
 		};
 	};
 
-//if ((_tipo == "RB") and !(isOnRoad _positionX)) exitWith {hint "Please select this option on a road segment"};
+//if ((_typeX == "RB") and !(isOnRoad _positionX)) exitWith {hint "Please select this option on a road segment"};
 
-private _salir = false;
-private _texto = "";
-if ((_tipo == "SB") or (_tipo == "CB")) then
+private _leave = false;
+private _textX = "";
+if ((_typeX == "SB") or (_typeX == "CB")) then
 	{
-	if (_tipo == "SB") then {_dir = _dir + 180};
+	if (_typeX == "SB") then {_dir = _dir + 180};
 	_resourcesFIA = if (!isMultiPlayer) then {server getVariable "resourcesFIA"} else {player getVariable "moneyX"};
-	if (_coste > _resourcesFIA) then
+	if (_costs > _resourcesFIA) then
 		{
-		_salir = true;
-		_texto = format ["You do not have enough money for this construction (%1 € needed)",_coste]
+		_leave = true;
+		_textX = format ["You do not have enough money for this construction (%1 € needed)",_costs]
 		}
 	else
 		{
-		_sites = markersX select {lados getVariable [_x,sideUnknown] == teamPlayer};
+		_sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
 		nearX = [_sites,_positionX] call BIS_fnc_nearestPosition;
 		if (!(_positionX inArea nearX)) then
 			{
-			_salir = true;
-			_texto = "You cannot build a bunker outside a controlled zone";
+			_leave = true;
+			_textX = "You cannot build a bunker outside a controlled zone";
 			nearX = nil;
 			};
 		};
 	};
 
-if (_salir) exitWith {hint format ["%1",_texto]};
+if (_leave) exitWith {hint format ["%1",_textX]};
 hint "Select a place to build the required asset and press SPACE to start the construction.\n\nHit ESC to exit";
-garageVeh = _clase createVehicleLocal [0,0,0];
+garageVeh = _classX createVehicleLocal [0,0,0];
 bought = 0;
 
 _displayEH = (findDisplay 46) displayAddEventHandler ["KeyDown",
@@ -139,7 +139,7 @@ _displayEH = (findDisplay 46) displayAddEventHandler ["KeyDown",
 
 _HDEH = player addEventHandler ["HandleDamage",{bought = 1}];
 positionXSel = [0,0,0];
-if (_tipo == "RB") then
+if (_typeX == "RB") then
 	{
 	onEachFrame
 	 {
@@ -166,7 +166,7 @@ if (_tipo == "RB") then
 	}
 else
 	{
-	if ((_tipo == "SB") or (_tipo == "CB")) then
+	if ((_typeX == "SB") or (_typeX == "CB")) then
 		{
 		onEachFrame
 		 {
@@ -250,15 +250,15 @@ waitUntil {sleep 1;(time > _timeOut) or (_engineerX distance _positionX < 3)};
 
 if (time > _timeOut) exitWith {};
 
-if (_coste > 0) then
+if (_costs > 0) then
 	{
 	if (!isMultiPlayer) then
 		{
-		_nul = [0, - _coste] remoteExec ["A3A_fnc_resourcesFIA",2];
+		_nul = [0, - _costs] remoteExec ["A3A_fnc_resourcesFIA",2];
 		}
 	else
 		{
-		[-_coste] call A3A_fnc_resourcesPlayer;
+		[-_costs] call A3A_fnc_resourcesPlayer;
 		["moneyX",player getVariable ["moneyX",0]] call fn_SaveStat;
 		};
 	};
@@ -295,10 +295,10 @@ if (!_isPlayer) then {{_engineerX enableAI _x} forEach ["ANIM","AUTOTARGET","FSM
 
 if (time <= _timeOut) exitWith {hint "Constructing cancelled"};
 if (!_isPlayer) then {_engineerX doFollow (leader _engineerX)};
-private _veh = createVehicle [_clase, _positionX, [], 0, "CAN_COLLIDE"];
+private _veh = createVehicle [_classX, _positionX, [], 0, "CAN_COLLIDE"];
 _veh setDir _dir;
 
-if ((_tipo == "SB") or (_tipo == "CB")) exitWith
+if ((_typeX == "SB") or (_typeX == "CB")) exitWith
 	{
 	staticsToSave pushBackUnique _veh;
 	publicVariable "staticsToSave"
@@ -306,7 +306,7 @@ if ((_tipo == "SB") or (_tipo == "CB")) exitWith
 
 
 //falta inicializarlo en veh init
-if (_tipo == "RB") then
+if (_typeX == "RB") then
 	{
 	sleep 30;
 	_l1 = "#lightpoint" createVehicle getpos _veh;

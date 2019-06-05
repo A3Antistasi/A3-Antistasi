@@ -1,23 +1,23 @@
-private ["_mrkDestination","_mrkOrigin","_numberX","_lado","_typeGroup","_typeVehX","_indexX","_spawnPoint","_pos","_timeOut","_veh","_grupo","_landPos","_Vwp0","_posOrigin","_land","_pos1","_pos2"];
+private ["_mrkDestination","_mrkOrigin","_numberX","_sideX","_typeGroup","_typeVehX","_indexX","_spawnPoint","_pos","_timeOut","_veh","_grupo","_landPos","_Vwp0","_posOrigin","_land","_pos1","_pos2"];
 
 _mrkDestination = _this select 0;
 _mrkOrigin = _this select 1;
 _numberX = _this select 2;
-_lado = _this select 3;
-diag_log format ["Antistasi. PatrolReinf. Dest:%1, Orig:%2, Size:%3, Side: %4",_mrkDestination,_mrkOrigin,_numberX,_lado];
+_sideX = _this select 3;
+diag_log format ["Antistasi. PatrolReinf. Dest:%1, Orig:%2, Size:%3, Side: %4",_mrkDestination,_mrkOrigin,_numberX,_sideX];
 _posDestination = getMarkerPos _mrkDestination;
 _posOrigin = getMarkerPos _mrkOrigin;
 
 _land = if (_posOrigin distance _posDestination > distanceForLandAttack) then {false} else {true};
-_typeGroup = if (_lado == malos) then {if (_numberX == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numberX == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
+_typeGroup = if (_sideX == Occupants) then {if (_numberX == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numberX == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
 _typeVehX = "";
 if (_land) then
 	{
-	if (_lado == malos) then {_typeVehX = selectRandom vehNATOTrucks} else {_typeVehX = selectRandom vehCSATTrucks};
+	if (_sideX == Occupants) then {_typeVehX = selectRandom vehNATOTrucks} else {_typeVehX = selectRandom vehCSATTrucks};
 	}
 else
 	{
-	_vehPool = if (_lado == malos) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
+	_vehPool = if (_sideX == Occupants) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
 	if ((_numberX > 4) and (count _vehPool > 1) and !hasIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
 	//_vehPool = _vehPool select {(_x isKindOf "Helicopter") and (_x in vehFastRope)};
 	_typeVehX = selectRandom _vehPool;
@@ -44,7 +44,7 @@ if (_land) then
 	if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
 	_veh = _typeVehX createVehicle _pos;
 	_veh setDir (markerDir _spawnPoint);
-	_grupo = [_pos,_lado, _typeGroup] call A3A_fnc_spawnGroup;
+	_grupo = [_pos,_sideX, _typeGroup] call A3A_fnc_spawnGroup;
 	_grupo addVehicle _veh;
 	{
 	if (_x == leader _x) then {_x assignAsDriver _veh;_x moveInDriver _veh} else {_x assignAsCargo _veh;_x moveInCargo _veh};
@@ -83,7 +83,7 @@ else
 		};
 	if (count _pos == 0) then {_pos = _posOrigin};
 
-	_vehicle=[_pos, _ang + 90,_typeVehX, _lado] call bis_fnc_spawnvehicle;
+	_vehicle=[_pos, _ang + 90,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
 	_veh = _vehicle select 0;
 	_vehCrew = _vehicle select 1;
 	_groupVeh = _vehicle select 2;
@@ -93,7 +93,7 @@ else
 	} forEach units _groupVeh;
 	[_veh] call A3A_fnc_AIVEHinit;
 
-	_grupo = [_posOrigin,_lado,_typeGroup] call A3A_fnc_spawnGroup;
+	_grupo = [_posOrigin,_sideX,_typeGroup] call A3A_fnc_spawnGroup;
 	{
 	_x assignAsCargo _veh;
 	_x moveInCargo _veh;
@@ -154,7 +154,7 @@ _x addEventHandler ["Killed",
 		reinfPatrols = reinfPatrols - 1; publicVariable "reinfPatrols";
 		_originX = _grupo getVariable "originX";
 		_destinationX = _grupo getVariable "reinfMarker";
-		if (((lados getVariable [_originX,sideUnknown] == malos) and (lados getVariable [_destinationX,sideUnknown] == malos)) or ((lados getVariable [_originX,sideUnknown] == Invaders) and (lados getVariable [_destinationX,sideUnknown] == Invaders))) then
+		if (((sidesX getVariable [_originX,sideUnknown] == Occupants) and (sidesX getVariable [_destinationX,sideUnknown] == Occupants)) or ((sidesX getVariable [_originX,sideUnknown] == Invaders) and (sidesX getVariable [_destinationX,sideUnknown] == Invaders))) then
 			{
 			_killzones = killZones getVariable [_originX,[]];
 			_killzones pushBack _destinationX;

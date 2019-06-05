@@ -44,7 +44,7 @@ if (_medicX != _unit) then
 		};
 	if ((isPlayer _unit) and !(isMultiplayer))  then
 		{
-		if (([_medicX] call A3A_fnc_canFight) and (_medicX distance _unit > 3) and (_medicX == _unit getVariable ["helped",objNull]) and !(_unit getVariable ["carryX",false]) and (allUnits findIf {((side _x == malos) or (side _x == Invaders)) and (_x distance2D _unit < 50)} == -1)) then {_medicX setPos position _unit};
+		if (([_medicX] call A3A_fnc_canFight) and (_medicX distance _unit > 3) and (_medicX == _unit getVariable ["helped",objNull]) and !(_unit getVariable ["carryX",false]) and (allUnits findIf {((side _x == Occupants) or (side _x == Invaders)) and (_x distance2D _unit < 50)} == -1)) then {_medicX setPos position _unit};
 		};
 	if ((_unit distance _medicX <= 3) and (alive _unit) and ([_medicX] call A3A_fnc_canFight) and (_medicX == vehicle _medicX) and (_medicX == _unit getVariable ["helped",objNull]) and (isNull attachedTo _unit) and !(_medicX getVariable ["cancelRevive",false])) then
 		{

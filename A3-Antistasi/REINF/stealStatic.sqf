@@ -13,7 +13,7 @@ if (activeGREF and ((typeOf _staticX == staticATteamPlayer) or (typeOf _staticX 
 
 _nearX = [markersX,_staticX] call BIS_fnc_nearestPosition;
 
-if (not(lados getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
+if (not(sidesX getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
 
 _staticX setOwner (owner _playerX);
 

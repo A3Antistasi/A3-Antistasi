@@ -40,7 +40,7 @@ else
 
 if (_changeX != "") exitWith {};
 
-if ({((side _x== Invaders) or (side _x== malos)) and (((_x knowsAbout _player > 1.4) and (_x distance _player < 500)) or (_x distance _player < 350))} count allUnits > 0) exitWith
+if ({((side _x== Invaders) or (side _x== Occupants)) and (((_x knowsAbout _player > 1.4) and (_x distance _player < 500)) or (_x distance _player < 350))} count allUnits > 0) exitWith
 	{
 	hint "You cannot go Undercover while enemies are spotting you";
 	if (vehicle _player != _player) then
@@ -53,7 +53,7 @@ if ({((side _x== Invaders) or (side _x== malos)) and (((_x knowsAbout _player > 
 
 _base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 _size = [_base] call A3A_fnc_sizeMarker;
-if ((_player distance getMarkerPos _base < _size*2) and (not(lados getVariable [_base,sideUnknown] == teamPlayer))) exitWith {hint "You cannot go Undercover near Airports, Outposts or Roadblocks"};
+if ((_player distance getMarkerPos _base < _size*2) and (not(sidesX getVariable [_base,sideUnknown] == teamPlayer))) exitWith {hint "You cannot go Undercover near Airports, Outposts or Roadblocks"};
 
 ["Undercover ON",0,0,4,0,0,4] spawn bis_fnc_dynamicText;
 
@@ -75,10 +75,10 @@ while {_changeX == ""} do
 	else
 		{
 		_veh = vehicle _player;
-		_tipo = typeOf _veh;
+		_typeX = typeOf _veh;
 		if (_veh != _player) then
 			{
-			if (not(_tipo in _arrayCivVeh)) then
+			if (not(_typeX in _arrayCivVeh)) then
 				{
 				_changeX = "VNoCivil"
 				}
@@ -90,22 +90,22 @@ while {_changeX == ""} do
 					}
 				else
 					{
-					if ((_tipo != civHeli) and (!(_tipo in civBoats))) then
+					if ((_typeX != civHeli) and (!(_typeX in civBoats))) then
 						{
 						if !(isOnRoad position _veh) then
 							{
 							if (count (_veh nearRoads 50) == 0) then
 								{
-								if ({((side _x== Invaders) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_changeX = "Carretera"};
+								if ({((side _x== Invaders) or (side _x== Occupants)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_changeX = "Carretera"};
 								};
 							};
 						if (hasACE) then
 							{
-			  				if (((position _player nearObjects ["DemoCharge_Remote_Ammo", 5]) select 0) mineDetectedBy malos) then
+			  				if (((position _player nearObjects ["DemoCharge_Remote_Ammo", 5]) select 0) mineDetectedBy Occupants) then
 								{
 								_changeX = "SpotBombTruck";
 								};
-							if (((position _player nearObjects ["SatchelCharge_Remote_Ammo", 5]) select 0) mineDetectedBy malos) then
+							if (((position _player nearObjects ["SatchelCharge_Remote_Ammo", 5]) select 0) mineDetectedBy Occupants) then
 								{
 								_changeX = "SpotBombTruck";
 								};
@@ -118,7 +118,7 @@ while {_changeX == ""} do
 			{
 			if ((primaryWeapon _player != "") or (secondaryWeapon _player != "") or (handgunWeapon _player != "") or (vest _player != "") or (getNumber (configfile >> "CfgWeapons" >> headgear _player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2) or (hmd _player != "") or (not(uniform _player in civUniforms))) then
 				{
-				if ({((side _x== Invaders) or (side _x== malos)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_changeX = "clothes2"} else {_changeX = "clothes"};
+				if ({((side _x== Invaders) or (side _x== Occupants)) and ((_x knowsAbout _player > 1.4) or (_x distance _player < 350))} count allUnits > 0) then {_changeX = "clothes2"} else {_changeX = "clothes"};
 				};
 			if (dateToNumber date < _compromised) then
 				{
@@ -127,15 +127,15 @@ while {_changeX == ""} do
 			};
 		if (_changeX == "") then
 			{
-			if ((_tipo != civHeli) and (!(_tipo in civBoats))) then
+			if ((_typeX != civHeli) and (!(_typeX in civBoats))) then
 				{
 				_base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 				//_size = [_base] call A3A_fnc_sizeMarker;
-				if ((_player inArea _base) and (lados getVariable [_base,sideUnknown] != teamPlayer)) then
+				if ((_player inArea _base) and (sidesX getVariable [_base,sideUnknown] != teamPlayer)) then
 					{
 					if !(_isInControl) then
 						{
-						_aggro = if (lados getVariable [_base,sideUnknown] == malos) then {prestigeNATO} else {prestigeCSAT};
+						_aggro = if (sidesX getVariable [_base,sideUnknown] == Occupants) then {prestigeNATO} else {prestigeCSAT};
 						if (random 100 < _aggro) then
 							{
 							_changeX = "Control";
@@ -153,11 +153,11 @@ while {_changeX == ""} do
 				}
 			else
 				{
-				if (_tipo == civHeli) then
+				if (_typeX == civHeli) then
 					{
 					_base = [_airportsX1,_player] call BIS_fnc_nearestPosition;
 					_size = [_base] call A3A_fnc_sizeMarker;
-					if ((_player distance2d getMarkerPos _base < _size*3) and ((lados getVariable [_base,sideUnknown] == malos) or (lados getVariable [_base,sideUnknown] == Invaders))) then
+					if ((_player distance2d getMarkerPos _base < _size*3) and ((sidesX getVariable [_base,sideUnknown] == Occupants) or (sidesX getVariable [_base,sideUnknown] == Invaders))) then
 						{
 						_changeX = "NoFly";
 						};

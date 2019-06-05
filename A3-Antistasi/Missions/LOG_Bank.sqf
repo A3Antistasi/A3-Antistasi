@@ -1,12 +1,12 @@
 //Mission: Logistics bank mission
-//el sitio de la caja es el 21
+//el sitio de la boxX es el 21
 if (!isServer and hasInterface) exitWith {};
-private ["_banco","_markerX","_difficultX","_salir","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_truckX","_countX","_mrkFinal","_mrk","_soldiers"];
+private ["_banco","_markerX","_difficultX","_leave","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_truckX","_countX","_mrkFinal","_mrk","_soldiers"];
 _banco = _this select 0;
 _markerX = [citiesX,_banco] call BIS_fnc_nearestPosition;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -37,8 +37,8 @@ _truckX addEventHandler ["GetIn",
 	{
 	if (_this select 1 == "driver") then
 		{
-		_texto = format ["Bring this truck to %1 Bank and park it in the main entrance",(_this select 0) getVariable "destinationX"];
-		_texto remoteExecCall ["hint",_this select 2];
+		_textX = format ["Bring this truck to %1 Bank and park it in the main entrance",(_this select 0) getVariable "destinationX"];
+		_textX remoteExecCall ["hint",_this select 2];
 		};
 	}];
 
@@ -58,7 +58,7 @@ _groups = [];
 _soldiers = [];
 for "_i" from 1 to 4 do
 	{
-	_grupo = if (_difficultX) then {[_positionX,malos, groupsNATOSentry] call A3A_fnc_spawnGroup} else {[_positionX,malos, groupsNATOGen] call A3A_fnc_spawnGroup};
+	_grupo = if (_difficultX) then {[_positionX,Occupants, groupsNATOSentry] call A3A_fnc_spawnGroup} else {[_positionX,Occupants, groupsNATOGen] call A3A_fnc_spawnGroup};
 	sleep 1;
 	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "FORTIFY"] execVM "scripts\UPSMON.sqf";
 	{[_x,""] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _grupo;
@@ -78,14 +78,14 @@ if ((dateToNumber date > _dateLimitNum) or (!alive _truckX)) then
 else
 	{
 	_countX = 120*_bonus;//120
-	[[_positionX,malos,"",true],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
+	[[_positionX,Occupants,"",true],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
 	[10*_bonus,-20*_bonus,_markerX] remoteExec ["A3A_fnc_citySupportChange",2];
-	["TaskFailed", ["", format ["Bank of %1 being assaulted",_nameDest]]] remoteExec ["BIS_fnc_showNotification",malos];
+	["TaskFailed", ["", format ["Bank of %1 being assaulted",_nameDest]]] remoteExec ["BIS_fnc_showNotification",Occupants];
 	{_friendX = _x;
 	if (_friendX distance _truckX < 300) then
 		{
 		if ((captive _friendX) and (isPlayer _friendX)) then {[_friendX,false] remoteExec ["setCaptive",0,_friendX]; _friendX setCaptive false};
-		{if (side _x == malos) then {_x reveal [_friendX,4]};
+		{if (side _x == Occupants) then {_x reveal [_friendX,4]};
 		} forEach allUnits;
 		};
 	} forEach ([distanceSPWN,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);

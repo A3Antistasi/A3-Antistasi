@@ -1,10 +1,10 @@
-private ["_unit","_lider","_airportsX","_base","_loadOut"];
+private ["_unit","_LeaderX","_airportsX","_base","_loadOut"];
 
 _unit = _this select 0;
 if (isPlayer _unit) exitWith {};
-_lider = _unit getVariable ["owner",leader group _unit];
-if (!isPlayer _lider) exitWith {};
-if (!captive _lider) exitWith {};
+_LeaderX = _unit getVariable ["owner",leader group _unit];
+if (!isPlayer _LeaderX) exitWith {};
+if (!captive _LeaderX) exitWith {};
 if (captive _unit) exitWith {};
 [_unit,true] remoteExec ["setCaptive",0,_unit];
 _unit setCaptive true;
@@ -15,13 +15,13 @@ _loadOut = getUnitLoadout _unit;
 _unit setUnitLoadout (selectRandom arrayCivs);
 
 //_airportsX = airportsX + outposts;// + (controlsX select {isOnRoad getMarkerPos _x});
-while {(captive _lider) and (captive _unit)} do
+while {(captive _LeaderX) and (captive _unit)} do
 	{
 	sleep 1;
 	if ((vehicle _unit != _unit) and (not((typeOf vehicle _unit) in arrayCivVeh))) exitWith {};
 	//_base = [_airportsX,player] call BIS_fnc_nearestPosition;
 	//_size = [_base] call A3A_fnc_sizeMarker;
-	//if ((_unit inArea _base) and (not(lados getVariable [_base,sideUnknown] == teamPlayer))) exitWith {[_unit,false] remoteExec ["setCaptive"]};
+	//if ((_unit inArea _base) and (not(sidesX getVariable [_base,sideUnknown] == teamPlayer))) exitWith {[_unit,false] remoteExec ["setCaptive"]};
 	if ((primaryWeapon _unit != "") or (secondaryWeapon _unit != "") or (handgunWeapon _unit != "")) exitWith {};
 	};
 

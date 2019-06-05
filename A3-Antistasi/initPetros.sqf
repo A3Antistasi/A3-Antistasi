@@ -51,7 +51,7 @@ petros addMPEventHandler ["mpkilled",
     _killer = _this select 1;
     if (isServer) then
         {
-        if ((side _killer == Invaders) or (side _killer == malos) and !(isPlayer _killer) and !(isNull _killer)) then
+        if ((side _killer == Invaders) or (side _killer == Occupants) and !(isPlayer _killer) and !(isNull _killer)) then
              {
             _nul = [] spawn
                 {
@@ -69,7 +69,7 @@ petros addMPEventHandler ["mpkilled",
             else
                 {
                 {
-                if (side _x == malos) then {_x setPos (getMarkerPos respawnOccupants)};
+                if (side _x == Occupants) then {_x setPos (getMarkerPos respawnOccupants)};
                 } forEach playableUnits;
                 };
             }

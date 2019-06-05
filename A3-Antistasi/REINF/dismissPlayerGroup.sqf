@@ -25,7 +25,7 @@ if (typeOf _x != SDKUnarmed) then
 if (recruitCooldown < time) then {recruitCooldown = time + 60} else {recruitCooldown = recruitCooldown + 60};
 
 
-_lider = leader _newGroup;
+_LeaderX = leader _newGroup;
 
 {_x domove getMarkerPos respawnTeamPlayer} forEach units _newGroup;
 
@@ -51,9 +51,9 @@ if ([_unit] call A3A_fnc_canFight) then
 deleteVehicle _x;
 } forEach units _newGroup;
 if (!isMultiplayer) then {_nul = [_hr,_resourcesFIA] remoteExec ["A3A_fnc_resourcesFIA",2];} else {_nul = [_hr,0] remoteExec ["A3A_fnc_resourcesFIA",2]; [_resourcesFIA] call A3A_fnc_resourcesPlayer};
-{caja addWeaponCargoGlobal [_x,1]} forEach _weaponsX;
-{caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
-{caja addItemCargoGlobal [_x,1]} forEach _items;
+{boxX addWeaponCargoGlobal [_x,1]} forEach _weaponsX;
+{boxX addMagazineCargoGlobal [_x,1]} forEach _ammunition;
+{boxX addItemCargoGlobal [_x,1]} forEach _items;
 deleteGroup _newGroup;
 
 

@@ -98,4 +98,4 @@ else
 		_unit setDamage 1;
 		};
 	};
-//diag_log format ["Datos de handledisconnect: %1",_this];
+//diag_log format ["dataX de handledisconnect: %1",_this];

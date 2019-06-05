@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_vehiclesX","_groups","_soldiers","_positionX","_pos","_size","_veh","_staticsX","_garrison","_tam","_countX","_grupo","_groupMortar","_tipo","_unit"];
+private ["_markerX","_vehiclesX","_groups","_soldiers","_positionX","_pos","_size","_veh","_staticsX","_garrison","_tam","_countX","_grupo","_groupMortar","_typeX","_unit"];
 
 _markerX = _this select 0;
 
@@ -115,9 +115,9 @@ _countX = 0;
 _countGroup = 0;
 while {(spawner getVariable _markerX != 2) and (_countX < _tam)} do
 	{
-	_tipo = _garrison select _countX;
-	_unit = _grupo createUnit [_tipo, _positionX, [], 0, "NONE"];
-	if (_tipo in SDKSL) then {_grupo selectLeader _unit};
+	_typeX = _garrison select _countX;
+	_unit = _grupo createUnit [_typeX, _positionX, [], 0, "NONE"];
+	if (_typeX in SDKSL) then {_grupo selectLeader _unit};
 	[_unit,_markerX] call A3A_fnc_FIAinitBases;
 	_soldiers pushBack _unit;
 	_countX = _countX + 1;

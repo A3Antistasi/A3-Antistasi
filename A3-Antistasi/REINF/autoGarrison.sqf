@@ -44,7 +44,7 @@ while {(_size > 0)} do
 	_size = _size - 1;
 	};
 
-waitUntil {sleep 1;((not(_markerX in smallCAmrk)) or (lados getVariable [_markerX,sideUnknown] == malos) or (lados getVariable [_markerX,sideUnknown] == Invaders))};
+waitUntil {sleep 1;((not(_markerX in smallCAmrk)) or (sidesX getVariable [_markerX,sideUnknown] == Occupants) or (sidesX getVariable [_markerX,sideUnknown] == Invaders))};
 /*
 {_vehiculo = _x;
 waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};

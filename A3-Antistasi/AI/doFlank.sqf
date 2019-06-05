@@ -1,11 +1,11 @@
 private _unitsX = _this select 0;
 private _nearX = _this select 1;
-private _lider = leader (_unitsX select 0);
+private _LeaderX = leader (_unitsX select 0);
 
-private _ang = _lider getDir _nearX;
-private _dist = (_lider distance _nearX) * 1.3;
-private _pos1 = _lider getPos [_dist,_ang + 45];
-private _pos2 = _lider getPos [_dist,_ang - 45];
+private _ang = _LeaderX getDir _nearX;
+private _dist = (_LeaderX distance _nearX) * 1.3;
+private _pos1 = _LeaderX getPos [_dist,_ang + 45];
+private _pos2 = _LeaderX getPos [_dist,_ang - 45];
 {
 private ["_pos"];
 _x setVariable ["maneuvering",true];

@@ -4,12 +4,12 @@ if (!isServer and hasInterface) exitWith{};
 _markerX = _this select 0;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 
-_lado = if (lados getVariable [_markerX,sideUnknown] == malos) then {malos} else {Invaders};
+_sideX = if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then {Occupants} else {Invaders};
 _positionX = getMarkerPos _markerX;
 
 _timeLimit = if (_difficultX) then {15} else {30};//120
@@ -18,21 +18,21 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_markerX] call A3A_fnc_localizar;
-_naming = if (_lado == malos) then {"NATO"} else {"CSAT"};
+_naming = if (_sideX == Occupants) then {"NATO"} else {"CSAT"};
 
 [[teamPlayer,civilian],"AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_naming],"Kill the Officer",_markerX],_positionX,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["AS","CREATED"]; publicVariable "missionsX";
-_grp = createGroup _lado;
+_grp = createGroup _sideX;
 
-_tipo = if (_lado == malos) then {NATOOfficer} else {CSATOfficer};
-_official = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
-_tipo = if (_lado == malos) then {NATOBodyG} else {CSATBodyG};
-_pilot = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
+_typeX = if (_sideX == Occupants) then {NATOOfficer} else {CSATOfficer};
+_official = _grp createUnit [_typeX, _positionX, [], 0, "NONE"];
+_typeX = if (_sideX == Occupants) then {NATOBodyG} else {CSATBodyG};
+_pilot = _grp createUnit [_typeX, _positionX, [], 0, "NONE"];
 if (_difficultX) then
 	{
 	for "_i" from 1 to 4 do
 		{
-		_pilot = _grp createUnit [_tipo, _positionX, [], 0, "NONE"];
+		_pilot = _grp createUnit [_typeX, _positionX, [], 0, "NONE"];
 		};
 	};
 
@@ -63,7 +63,7 @@ if (not alive _official) then
 		[5,theBoss] call A3A_fnc_playerScoreAdd;
 		[_markerX,30] call A3A_fnc_addTimeForIdle;
 		};
-	["TaskFailed", ["", format ["Officer killed at %1",[_nameDest, false] call A3A_fnc_fn_location]]] remoteExec ["BIS_fnc_showNotification",_lado];
+	["TaskFailed", ["", format ["Officer killed at %1",[_nameDest, false] call A3A_fnc_fn_location]]] remoteExec ["BIS_fnc_showNotification",_sideX];
 	}
 else
 	{

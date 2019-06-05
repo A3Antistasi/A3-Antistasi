@@ -1,22 +1,22 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_datos","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_groups","_vehiclesX","_civsPatrol","_groupsPatrol","_vehPatrol","_typeCiv","_typeVehX","_dirVeh","_countX","_grupo","_size","_road","_typeVehX","_dirVeh","_positionX","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_burst","_groupP","_wp","_wp1"];
+private ["_markerX","_dataX","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_groups","_vehiclesX","_civsPatrol","_groupsPatrol","_vehPatrol","_typeCiv","_typeVehX","_dirVeh","_countX","_grupo","_size","_road","_typeVehX","_dirVeh","_positionX","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_burst","_groupP","_wp","_wp1"];
 
 _markerX = _this select 0;
 
 if (_markerX in destroyedCities) exitWith {};
 
-_datos = server getVariable _markerX;
+_dataX = server getVariable _markerX;
 
-_numCiv = _datos select 0;
-_numVeh = _datos select 1;
-//_roads = _datos select 2;
+_numCiv = _dataX select 0;
+_numVeh = _dataX select 1;
+//_roads = _dataX select 2;
 _roads = roadsX getVariable _markerX;//
-//_prestigeOPFOR = _datos select 3;
-//_prestigeBLUFOR = _datos select 4;
+//_prestigeOPFOR = _dataX select 3;
+//_prestigeBLUFOR = _dataX select 4;
 
-_prestigeOPFOR = _datos select 2;
-_prestigeBLUFOR = _datos select 3;
+_prestigeOPFOR = _dataX select 2;
+_prestigeBLUFOR = _dataX select 3;
 
 _civs = [];
 _groups = [];

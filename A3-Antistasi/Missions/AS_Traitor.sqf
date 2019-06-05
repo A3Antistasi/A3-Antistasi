@@ -4,7 +4,7 @@ if (!isServer and hasInterface) exitWith{};
 _markerX = _this select 0;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -18,27 +18,27 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _tam = [_markerX] call A3A_fnc_sizeMarker;
-_casas = (nearestObjects [_positionX, ["house"], _tam]) select {!((typeOf _x) in UPSMON_Bld_remove)};
+_houses = (nearestObjects [_positionX, ["house"], _tam]) select {!((typeOf _x) in UPSMON_Bld_remove)};
 _posHouse = [];
-_casa = _casas select 0;
+_houseX = _houses select 0;
 while {count _posHouse < 3} do
 	{
-	_casa = _casas call BIS_Fnc_selectRandom;
-	_posHouse = _casa buildingPos -1;
-	if (count _posHouse < 3) then {_casas = _casas - [_casa]};
+	_houseX = _houses call BIS_Fnc_selectRandom;
+	_posHouse = _houseX buildingPos -1;
+	if (count _posHouse < 3) then {_houses = _houses - [_houseX]};
 	};
 
 _max = (count _posHouse) - 1;
 _rnd = floor random _max;
 _posTraitor = _posHouse select _rnd;
 _posSol1 = _posHouse select (_rnd + 1);
-_posSol2 = (_casa buildingExit 0);
+_posSol2 = (_houseX buildingExit 0);
 
 _nameDest = [_markerX] call A3A_fnc_localizar;
 
-_groupTraitor = createGroup malos;
+_groupTraitor = createGroup Occupants;
 
-_arrayAirports = airportsX select {lados getVariable [_x,sideUnknown] == malos};
+_arrayAirports = airportsX select {sidesX getVariable [_x,sideUnknown] == Occupants};
 _base = [_arrayAirports, _positionX] call BIS_Fnc_nearestPosition;
 _posBase = getMarkerPos _base;
 
@@ -49,10 +49,10 @@ _sol1 = _groupTraitor createUnit [NATOBodyG, _posSol1, [], 0, "NONE"];
 _sol2 = _groupTraitor createUnit [NATOBodyG, _posSol2, [], 0, "NONE"];
 _groupTraitor selectLeader _traitor;
 
-_posTsk = (position _casa) getPos [random 100, random 360];
+_posTsk = (position _houseX) getPos [random 100, random 360];
 
 [[teamPlayer,civilian],"AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Kill the Traitor",_markerX],_posTsk,false,0,true,"Kill",true] call BIS_fnc_taskCreate;
-[[malos],"AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _casa,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
+[[Occupants],"AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _houseX,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["AS","CREATED"]; publicVariable "missionsX";
 {_nul = [_x,""] call A3A_fnc_NATOinit; _x allowFleeing 0} forEach units _groupTraitor;
 _posVeh = [];
@@ -61,7 +61,7 @@ _roads = [];
 _radius = 20;
 while {count _roads == 0} do
 	{
-	_roads = (getPos _casa) nearRoads _radius;
+	_roads = (getPos _houseX) nearRoads _radius;
 	_radius = _radius + 10;
 	};
 
@@ -87,7 +87,7 @@ _traitor allowDamage true;
 _nul = [_veh] call A3A_fnc_AIVEHinit;
 {_x disableAI "MOVE"; _x setUnitPos "UP"} forEach units _groupTraitor;
 
-_mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], getPos _casa];
+_mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], getPos _houseX];
 _mrk setMarkerShapeLocal "RECTANGLE";
 _mrk setMarkerSizeLocal [50,50];
 _mrk setMarkerTypeLocal "hd_warning";
@@ -96,12 +96,12 @@ _mrk setMarkerBrushLocal "DiagGrid";
 _mrk setMarkerAlphaLocal 0;
 
 _typeGroup = if (random 10 < tierWar) then {NATOSquad} else {[policeOfficer,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt]};
-_grupo = [_positionX,malos, NATOSquad] call A3A_fnc_spawnGroup;
+_grupo = [_positionX,Occupants, NATOSquad] call A3A_fnc_spawnGroup;
 sleep 1;
 if (random 10 < 2.5) then
 	{
-	_perro = _grupo createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
-	[_perro] spawn A3A_fnc_guardDog;
+	_dog = _grupo createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
+	[_dog] spawn A3A_fnc_guardDog;
 	};
 _nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 {[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
@@ -126,7 +126,7 @@ waitUntil  {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traitor)
 if (not alive _traitor) then
 	{
 	["AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Kill the Traitor",_markerX],_traitor,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _casa,"FAILED"] call A3A_fnc_taskUpdate;
+	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _houseX,"FAILED"] call A3A_fnc_taskUpdate;
 	if (_difficultX) then
 		{
 		[4,0] remoteExec ["A3A_fnc_prestige",2];
@@ -167,7 +167,7 @@ if (not alive _traitor) then
 else
 	{
 	["AS",[format ["A traitor has scheduled a meeting with %4 in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and %4 presence.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Kill the Traitor",_markerX],_traitor,"FAILED"] call A3A_fnc_taskUpdate;
-	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _casa,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+	["AS1",[format ["We arranged a meeting in %1 with a %4 contact who may have vital information about their Headquarters position. Protect him until %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameTeamPlayer],"Protect Contact",_markerX],getPos _houseX,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 	if (_difficultX) then {[-10,theBoss] call A3A_fnc_playerScoreAdd} else {[-10,theBoss] call A3A_fnc_playerScoreAdd};
 	if (dateToNumber date > _dateLimitNum) then
 		{
@@ -181,15 +181,15 @@ else
 			{
 			if (!(["DEF_HQ"] call BIS_fnc_taskExists)) then
 				{
-				[[malos],"A3A_fnc_attackHQ"] remoteExec ["A3A_fnc_scheduler",2];
+				[[Occupants],"A3A_fnc_attackHQ"] remoteExec ["A3A_fnc_scheduler",2];
 				};
 			}
 		else
 			{
-			_minesFIA = allmines - (detectedMines malos) - (detectedMines Invaders);
+			_minesFIA = allmines - (detectedMines Occupants) - (detectedMines Invaders);
 			if (count _minesFIA > 0) then
 				{
-				{if (random 100 < 30) then {malos revealMine _x;}} forEach _minesFIA;
+				{if (random 100 < 30) then {Occupants revealMine _x;}} forEach _minesFIA;
 				};
 			};
 		};

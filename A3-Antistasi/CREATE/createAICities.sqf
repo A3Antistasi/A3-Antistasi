@@ -1,7 +1,7 @@
 //NOTA: TAMBIÉN LO USO PARA FIA
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_groups","_soldiers","_positionX","_num","_datos","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontierX","_array","_countX","_grupo","_perro","_grp","_lado"];
+private ["_markerX","_groups","_soldiers","_positionX","_num","_dataX","_prestigeOPFOR","_prestigeBLUFOR","_esAAF","_params","_frontierX","_array","_countX","_grupo","_dog","_grp","_sideX"];
 _markerX = _this select 0;
 
 _groups = [];
@@ -10,15 +10,15 @@ _soldiers = [];
 _positionX = getMarkerPos (_markerX);
 
 _num = [_markerX] call A3A_fnc_sizeMarker;
-_lado = lados getVariable [_markerX,sideUnknown];
-if ({if ((getMarkerPos _x inArea _markerX) and (lados getVariable [_x,sideUnknown] != _lado)) exitWith {1}} count markersX > 0) exitWith {};
+_sideX = sidesX getVariable [_markerX,sideUnknown];
+if ({if ((getMarkerPos _x inArea _markerX) and (sidesX getVariable [_x,sideUnknown] != _sideX)) exitWith {1}} count markersX > 0) exitWith {};
 _num = round (_num / 100);
 
-_datos = server getVariable _markerX;
-//_prestigeOPFOR = _datos select 3;
-//_prestigeBLUFOR = _datos select 4;
-_prestigeOPFOR = _datos select 2;
-_prestigeBLUFOR = _datos select 3;
+_dataX = server getVariable _markerX;
+//_prestigeOPFOR = _dataX select 3;
+//_prestigeBLUFOR = _dataX select 4;
+_prestigeOPFOR = _dataX select 2;
+_prestigeBLUFOR = _dataX select 3;
 _esAAF = true;
 if (_markerX in destroyedCities) then
 	{
@@ -27,18 +27,18 @@ if (_markerX in destroyedCities) then
 	}
 else
 	{
-	if (_lado == malos) then
+	if (_sideX == Occupants) then
 		{
 		_num = round (_num * (_prestigeOPFOR + _prestigeBLUFOR)/100);
 		_frontierX = [_markerX] call A3A_fnc_isFrontline;
 		if (_frontierX) then
 			{
 			_num = _num * 2;
-			_params = [_positionX, malos, groupsNATOSentry];
+			_params = [_positionX, Occupants, groupsNATOSentry];
 			}
 		else
 			{
-			_params = [_positionX, malos, groupsNATOGen];
+			_params = [_positionX, Occupants, groupsNATOGen];
 			};
 		}
 	else
@@ -61,8 +61,8 @@ while {(spawner getVariable _markerX != 2) and (_countX < _num)} do
 		{
 		if (random 10 < 2.5) then
 			{
-			_perro = _grupo createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
-			[_perro] spawn A3A_fnc_guardDog;
+			_dog = _grupo createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
+			[_dog] spawn A3A_fnc_guardDog;
 			};
 		};
 	_nul = [leader _grupo, _markerX, "SAFE", "RANDOM", "SPAWNED","NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
@@ -85,7 +85,7 @@ waitUntil {sleep 1;((spawner getVariable _markerX == 2)) or ({[_x,_markerX] call
 
 if (({[_x,_markerX] call A3A_fnc_canConquer} count _soldiers == 0) and (_esAAF)) then
 	{
-	[[_positionX,malos,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
+	[[_positionX,Occupants,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
 	};
 
 waitUntil {sleep 1;(spawner getVariable _markerX == 2)};

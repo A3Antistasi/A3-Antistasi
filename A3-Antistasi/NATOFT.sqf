@@ -1,6 +1,6 @@
 _checkX = false;
-_lado = side (group player);
-_enemyFaction = if (_lado == malos) then {Invaders} else {malos};
+_sideX = side (group player);
+_enemyFaction = if (_sideX == Occupants) then {Invaders} else {Occupants};
 {_enemyX = _x;
 if (((side _enemyX == _enemyFaction) or (side _enemyX == teamPlayer)) and (_enemyX distance player < 500) and (not(captive _enemyX))) exitWith {_checkX = true};
 } forEach allUnits;
@@ -23,10 +23,10 @@ _positionTel = positionTel;
 
 if (count _positionTel > 0) then
 	{
-	_mrkENY = markersX select {lados getVariable [_x,sideUnknown] != _lado};
+	_mrkENY = markersX select {sidesX getVariable [_x,sideUnknown] != _sideX};
 	_markersX = +markersX;
 	_mrkRespawn = "";
-	if (_lado == malos) then
+	if (_sideX == Occupants) then
 		{
 		_markersX pushBack "respawn_west";
 		_mrkRespawn = "respawn_west";
@@ -38,7 +38,7 @@ if (count _positionTel > 0) then
 		};
 	_base = [_markersX, _positionTel] call BIS_Fnc_nearestPosition;
 
-	if ((lados getVariable [_base,sideUnknown] == teamPlayer) or (_base in _mrkENY)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
+	if ((sidesX getVariable [_base,sideUnknown] == teamPlayer) or (_base in _mrkENY)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
 	if ((!(_base in airportsX)) and (!(_base in seaports)) and (!(_base in outposts)) and (_base != _mrkRespawn)) exitWith {hint "You can only Fast Travel to Airbases, Outposts and Seaports"; openMap [false,false]};
 

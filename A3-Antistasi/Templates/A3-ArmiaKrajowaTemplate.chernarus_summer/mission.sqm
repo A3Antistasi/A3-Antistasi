@@ -1348,7 +1348,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="mapa";
+				name="mapX";
 			};
 			id=100;
 			type="MapBoard_seismic_F";
@@ -1537,7 +1537,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="fuego";
+				name="fireX";
 			};
 			id=171;
 			type="Land_Camping_Light_F";
@@ -1550,7 +1550,7 @@ class Mission
 				position[]={8403.5547,291.76572,5941.8857};
 				angles[]={6.1721487,0,0.10971793};
 			};
-			name="lados";
+			name="sidesX";
 			id=172;
 			type="Logic";
 			atlOffset=3.0517578e-005;
@@ -1701,7 +1701,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="caja";
+				name="boxX";
 			};
 			id=244;
 			type="I_supplyCrate_F";

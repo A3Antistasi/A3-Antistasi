@@ -1,4 +1,4 @@
-private ["_unit","_enemyX","_small","_big","_objeto","_posBehind","_objectsX","_roads","_tipo","_p1","_p2","_ancho","_grueso","_alto","_posEnemy","_pos","_arr","_grupo"];
+private ["_unit","_enemyX","_small","_big","_objeto","_posBehind","_objectsX","_roads","_typeX","_p1","_p2","_ancho","_grueso","_alto","_posEnemy","_pos","_arr","_grupo"];
 _unit = _this select 0;
 _enemyX = _this select 1;
 _small= [];
@@ -10,8 +10,8 @@ _grupo = group _unit;
 _objectsX = (nearestObjects [_posBehind, [], 30]) select {!(_x in (_grupo getVariable ["usedForCover",[]]))};
 _roads = _posBehind nearRoads 30;
 {
-_tipo = typeOf _x;
-if !(_tipo in ["#crater","#crateronvehicle","#soundonvehicle","#particlesource","#lightpoint","#slop","#mark","HoneyBee","Mosquito","HouseFly","FxWindPollen1","ButterFly_random","Snake_random_F","Rabbit_F","FxWindGrass2","FxWindLeaf1","FxWindGrass1","FxWindLeaf3","FxWindLeaf2"]) then
+_typeX = typeOf _x;
+if !(_typeX in ["#crater","#crateronvehicle","#soundonvehicle","#particlesource","#lightpoint","#slop","#mark","HoneyBee","Mosquito","HouseFly","FxWindPollen1","ButterFly_random","Snake_random_F","Rabbit_F","FxWindGrass2","FxWindLeaf1","FxWindGrass1","FxWindLeaf3","FxWindLeaf2"]) then
 	{
 	if (!(_x isKindOf "Man") && {!(_x isKindOf "Bird")} && {!(_x isKindOf "BulletCore")} && {!(_x isKindOf "Grenade")} && {!(_x isKindOf "WeaponHolder")} && {(_x distance _enemyX > 5)}) then
 		{
@@ -22,7 +22,7 @@ if !(_tipo in ["#crater","#crateronvehicle","#soundonvehicle","#particlesource",
 		_alto = abs ((_p2 select 2) - (_p1 select 2));
 		if (_ancho > 2 && _grueso > 0.5 && _alto > 2) then
 			{
-			if (_tipo isEqualTo "") then
+			if (_typeX isEqualTo "") then
 				{
 				_small pushback _x
 				}

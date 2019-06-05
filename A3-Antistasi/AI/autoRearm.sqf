@@ -1,4 +1,4 @@
-private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_weaponX","_weaponsX","_rearming","_basePossible","_hmd","_casco","_truckX","_autoLoot","_itemsUnit"];
+private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distanceX","_objectsX","_target","_muerto","_check","_timeOut","_weaponX","_weaponsX","_rearming","_basePossible","_hmd","_helmet","_truckX","_autoLoot","_itemsUnit"];
 
 _unit = _this select 0;
 
@@ -21,7 +21,7 @@ _weaponX = "";
 _weaponsX = [];
 _distanceX = 51;
 _objectsX = nearestObjects [_unit, ["ReammoBox_F","LandVehicle","WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
-if (caja in _objectsX) then {_objectsX = _objectsX - [caja]};
+if (boxX in _objectsX) then {_objectsX = _objectsX - [boxX]};
 
 _necesita = false;
 
@@ -355,7 +355,7 @@ if (not(headgear _unit in helmets)) then
 		{
 		_unit stop false;
 		_target setVariable ["busy",true];
-		_casco = headgear _target;
+		_helmet = headgear _target;
 		_unit doMove (getPosATL _target);
 		if (_inPlayerGroup) then {_unit groupChat "Picking a Helmet"};
 		_timeOut = time + 60;
@@ -363,7 +363,7 @@ if (not(headgear _unit in helmets)) then
 		if (_unit distance _target < 3) then
 			{
 			_unit action ["rearm",_target];
-			_unit addHeadgear _casco;
+			_unit addHeadgear _helmet;
 			removeHeadgear _target;
 			};
 		_target setVariable ["busy",false];
@@ -436,11 +436,11 @@ if ((_hasBox) and (_unit getVariable "rearming")) then
 		{_unit addItemToVest _x} forEach _itemsUnit;
 		_unit action ["rearm",_target];
 		//{_unit addItemCargoGlobal [_x,1]} forEach ((backpackItems _target) + (backpackMagazines _target));
-		_cosas = nearestObjects [_target, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 5];
-		if (count _cosas > 0) then
+		_things = nearestObjects [_target, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 5];
+		if (count _things > 0) then
 			{
-			_cosa = _cosas select 0;
-			{_cosa addItemCargoGlobal [_x,1]} forEach (vestItems _target);
+			_thingX = _things select 0;
+			{_thingX addItemCargoGlobal [_x,1]} forEach (vestItems _target);
 			};
 		removeVest _target;
 		};
@@ -475,11 +475,11 @@ if (backpack _unit == "") then
 			_unit addBackPackGlobal ((backpack _target) call BIS_fnc_basicBackpack);
 			_unit action ["rearm",_target];
 			//{_unit addItemCargoGlobal [_x,1]} forEach ((backpackItems _target) + (backpackMagazines _target));
-			_cosas = nearestObjects [_target, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 5];
-			if (count _cosas > 0) then
+			_things = nearestObjects [_target, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 5];
+			if (count _things > 0) then
 				{
-				_cosa = _cosas select 0;
-				{_cosa addItemCargoGlobal [_x,1]} forEach (backpackItems _target);
+				_thingX = _things select 0;
+				{_thingX addItemCargoGlobal [_x,1]} forEach (backpackItems _target);
 				};
 			removeBackpackGlobal _target;
 			};

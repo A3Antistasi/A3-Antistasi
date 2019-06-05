@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 #include "\A3\Ui_f\hpp\defineResinclDesign.inc"
-private ["_weaponsX","_backpcks","_items","_magazines","_weaponX","_magazine","_index","_mochi","_item","_optics","_nv"];
+private ["_weaponsX","_backpcks","_items","_magazines","_weaponX","_magazine","_index","_backpck","_item","_optics","_nv"];
 
 _updated = "";
 /*
@@ -87,11 +87,11 @@ if (_check) then
 {
 if (_x select 1 >= minWeaps) then
 	{
-	_mochi = _x select 0;
-	_index = _mochi  call jn_fnc_arsenal_itemType;
-	[_index,_mochi,-1] call jn_fnc_arsenal_addItem;
-	_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgVehicles" >> _mochi >> "displayName")];
-	unlockedBackpacks pushBack _mochi;
+	_backpck = _x select 0;
+	_index = _backpck  call jn_fnc_arsenal_itemType;
+	[_index,_backpck,-1] call jn_fnc_arsenal_addItem;
+	_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgVehicles" >> _backpck >> "displayName")];
+	unlockedBackpacks pushBack _backpck;
 	publicVariable "unlockedBackpacks";
 	};
 } forEach _backpcks;

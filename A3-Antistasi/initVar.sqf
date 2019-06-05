@@ -30,7 +30,7 @@ minOptics = 12;*/
 maxUnits = 140;
 
 teamPlayer = side group petros;
-malos = if (teamPlayer == independent) then {west} else {independent};
+Occupants = if (teamPlayer == independent) then {west} else {independent};
 Invaders = east;
 
 colourTeamPlayer = if (teamPlayer == independent) then {"colorGUER"} else {"colorBLUFOR"};
@@ -134,7 +134,7 @@ if ("LIB_PTRD" in arifles) then
 	{
 	hasIFA = true;
 	helmets = [];
-	humo = ["LIB_RDG","LIB_NB39"];
+	smokeX = ["LIB_RDG","LIB_NB39"];
 	}
 else
 	{
@@ -143,7 +143,7 @@ else
 	if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hasRHS = true};
 	if ("rhs_weap_m92" in arifles) then {activeGREF = true; hasRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
 	helmets = helmets select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2};
-	humo = ["SmokeShell","SmokeShellRed","SmokeShellGreen","SmokeShellBlue","SmokeShellYellow","SmokeShellPurple","SmokeShellOrange"];
+	smokeX = ["SmokeShell","SmokeShellRed","SmokeShellGreen","SmokeShellBlue","SmokeShellYellow","SmokeShellPurple","SmokeShellOrange"];
 	};
 
 titanLaunchers = if ((!hasRHS) and !hasIFA and !myCustomMod) then
@@ -276,11 +276,11 @@ if (count _x > 1) then
 _checked = [];
 {
 {
-_tipo = _x;
-if !(_tipo in _checked) then
+_typeX = _x;
+if !(_typeX in _checked) then
 	{
-	_checked pushBack _tipo;
-	_loadout = getUnitLoadout _tipo;
+	_checked pushBack _typeX;
+	_loadout = getUnitLoadout _typeX;
 	for "_i" from 0 to 2 do
 		{
 		_weapon = [((_loadout select _i) select 0)] call BIS_fnc_baseWeapon;
@@ -292,11 +292,11 @@ if !(_tipo in _checked) then
 _checked = [];
 {
 {
-_tipo = _x;
-if !(_tipo in _checked) then
+_typeX = _x;
+if !(_typeX in _checked) then
 	{
-	_checked pushBack _tipo;
-	_loadout = getUnitLoadout _tipo;
+	_checked pushBack _typeX;
+	_loadout = getUnitLoadout _typeX;
 	for "_i" from 0 to 2 do
 		{
 		_weapon = [((_loadout select _i) select 0)] call BIS_fnc_baseWeapon;

@@ -1,7 +1,7 @@
-private ["_positionTel","_nearX","_cosa","_grupo","_unitsX","_salir"];
+private ["_positionTel","_nearX","_thingX","_grupo","_unitsX","_leave"];
 if (!visibleMap) then {openMap true};
 positionTel = [];
-_cosa = _this select 0;
+_thingX = _this select 0;
 
 onMapSingleClick "positionTel = _pos";
 
@@ -18,32 +18,32 @@ _nearX = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 
 if !(_positionTel inArea _nearX) exitWith {hint "You must click near a marked zone"};
 
-if (not(lados getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]};
+if (not(sidesX getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {hint format ["That zone does not belong to %1",nameTeamPlayer]};
 
 if ((_nearX in outpostsFIA) and !(isOnRoad getMarkerPos _nearX)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
 
-_cosa = _this select 0;
+_thingX = _this select 0;
 
 _grupo = grpNull;
 _unitsX = objNull;
 
-if ((_cosa select 0) isEqualType grpNull) then
+if ((_thingX select 0) isEqualType grpNull) then
 	{
-	_grupo = _cosa select 0;
+	_grupo = _thingX select 0;
 	_unitsX = units _grupo;
 	}
 else
 	{
-	_unitsX = _cosa;
+	_unitsX = _thingX;
 	};
 
-_salir = false;
+_leave = false;
 
 {
-if ((typeOf _x == staticCrewTeamPlayer) or (typeOf _x == SDKUnarmed) or (typeOf _x in arrayCivs) or (!alive _x)) exitWith {_salir = true}
+if ((typeOf _x == staticCrewTeamPlayer) or (typeOf _x == SDKUnarmed) or (typeOf _x in arrayCivs) or (!alive _x)) exitWith {_leave = true}
 } forEach _unitsX;
 
-if (_salir) exitWith {hint "Static crewman, prisoners, refugees or dead units cannot be added to any garrison"};
+if (_leave) exitWith {hint "Static crewman, prisoners, refugees or dead units cannot be added to any garrison"};
 
 if ((groupID _grupo == "MineF") or (groupID _grupo == "Watch") or (isPlayer(leader _grupo))) exitWith {hint "You cannot garrison player led, Watchpost, Roadblocks or Minefield building squads"};
 
@@ -85,7 +85,7 @@ if (spawner getVariable _nearX != 2) then
 		_markerX = _muerto getVariable "markerX";
 		if (!isNil "_markerX") then
 			{
-			if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+			if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 				{
 				/*
 				_garrison = [];
@@ -107,8 +107,8 @@ if (spawner getVariable _nearX != 2) then
 		}];
 	} forEach _unitsX;
 
-	waitUntil {sleep 1; (spawner getVariable _nearX == 2 or !(lados getVariable [_nearX,sideUnknown] == teamPlayer))};
-	if (!(lados getVariable [_nearX,sideUnknown] == teamPlayer)) then {_noBorrar = true};
+	waitUntil {sleep 1; (spawner getVariable _nearX == 2 or !(sidesX getVariable [_nearX,sideUnknown] == teamPlayer))};
+	if (!(sidesX getVariable [_nearX,sideUnknown] == teamPlayer)) then {_noBorrar = true};
 	};
 
 if (!_noBorrar) then
@@ -143,7 +143,7 @@ else
 				}
 			else
 				{
-				if (side _killer == malos) then
+				if (side _killer == Occupants) then
 					{
 					_nul = [0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
 					[-0.25,0] remoteExec ["A3A_fnc_prestige",2];

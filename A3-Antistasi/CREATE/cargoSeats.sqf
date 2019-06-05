@@ -1,6 +1,6 @@
-private ["_veh","_lado","_return","_totalSeats","_crewSeats","_cargoSeats","_countX"];
+private ["_veh","_sideX","_return","_totalSeats","_crewSeats","_cargoSeats","_countX"];
 _veh = _this select 0;
-_lado = _this select 1;
+_sideX = _this select 1;
 
 _return = "";
 _totalSeats = [_veh, true] call BIS_fnc_crewCount; // Number of total seats: crew + non-FFV cargo/passengers + FFV cargo/passengers
@@ -10,9 +10,9 @@ _cargoSeats = _totalSeats - _crewSeats;
 if (_cargoSeats <= 2) exitwith {diag_log format ["Error en cargoseats al intentar buscar para un %1",_veh];_return};
 if ((_cargoSeats >= 2) and (_cargoSeats < 4)) then
 	{
-	switch (_lado) do
+	switch (_sideX) do
 		{
-		case malos: {_return = groupsNATOSentry};
+		case Occupants: {_return = groupsNATOSentry};
 		case Invaders: {_return = groupsCSATSentry};
 		};
 	}
@@ -20,17 +20,17 @@ else
 	{
 	if ((_cargoSeats >= 4) and (_cargoSeats < 8)) then
 		{
-		switch (_lado) do
+		switch (_sideX) do
 			{
-			case malos: {_return = selectRandom groupsNATOmid};
+			case Occupants: {_return = selectRandom groupsNATOmid};
 			case Invaders: {_return = selectRandom groupsCSATmid};
 			};
 		}
 	else
 		{
-		switch (_lado) do
+		switch (_sideX) do
 			{
-			case malos:
+			case Occupants:
 				{
 				_return = selectRandom groupsNATOSquad;
 				if (_cargoSeats > 8) then

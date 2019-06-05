@@ -10,6 +10,6 @@ _nearX = [(markersX - controlsX),_pos] call BIS_fnc_nearestPosition;
 if (_nearX == _markerX) then
 	{
 	waitUntil {sleep 1;(spawner getVariable _control == 2)};
-	_lado = lados getVariable [_markerX,sideUnknown];
-	lados setVariable [_control,_lado,true];
+	_sideX = sidesX getVariable [_markerX,sideUnknown];
+	sidesX setVariable [_control,_sideX,true];
 	};

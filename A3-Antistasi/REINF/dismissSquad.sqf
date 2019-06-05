@@ -1,21 +1,21 @@
 //if (!isServer) exitWith{};
-private ["_groups","_hr","_resourcesFIA","_wp","_grupo","_veh","_salir"];
+private ["_groups","_hr","_resourcesFIA","_wp","_grupo","_veh","_leave"];
 
 _groups = _this select 0;
 _hr = 0;
 _resourcesFIA = 0;
-_salir = false;
+_leave = false;
 {
-if ((groupID _x == "MineF") or (groupID _x == "Watch") or (isPlayer(leader _x))) then {_salir = true};
+if ((groupID _x == "MineF") or (groupID _x == "Watch") or (isPlayer(leader _x))) then {_leave = true};
 } forEach _groups;
 
-if (_salir) exitWith {hint "You cannot dismiss player led, Watchpost, Roadblocks or Minefield building squads"};
+if (_leave) exitWith {hint "You cannot dismiss player led, Watchpost, Roadblocks or Minefield building squads"};
 
 {
-if (_x getVariable ["esNATO",false]) then {_salir = true};
+if (_x getVariable ["esNATO",false]) then {_leave = true};
 } forEach _groups;
 
-if (_salir) exitWith {hint "You cannot dismiss NATO groups"};
+if (_leave) exitWith {hint "You cannot dismiss NATO groups"};
 
 _pos = getMarkerPos respawnTeamPlayer;
 
@@ -50,10 +50,10 @@ if (alive _x) then
 			deleteVehicle _veh;
 			};
 		};
-	_mochi = backpack _x;
-	if (_mochi != "") then
+	_backpck = backpack _x;
+	if (_backpck != "") then
 		{
-		switch (_mochi) do
+		switch (_backpck) do
 			{
 			case MortStaticSDKB: {_resourcesFIA = _resourcesFIA + ([SDKMortar] call A3A_fnc_vehiclePrice)};
 			case AAStaticSDKB: {_resourcesFIA = _resourcesFIA + ([staticAAteamPlayer] call A3A_fnc_vehiclePrice)};

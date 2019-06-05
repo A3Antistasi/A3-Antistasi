@@ -6,7 +6,7 @@ private ["_unit","_markerX","_positionX","_countX"];
 _markerX = _this select 0;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
-_salir = false;
+_leave = false;
 _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
@@ -26,21 +26,21 @@ _nameDest = [_markerX] call A3A_fnc_localizar;
 missionsX pushBack ["RES","CREATED"]; publicVariable "missionsX";
 _posHouse = [];
 _countX = 0;
-//_casas = nearestObjects [_positionX, ["house"], 50];
-_casas = (nearestObjects [_positionX, ["house"], 50]) select {!((typeOf _x) in UPSMON_Bld_remove)};
-_casa = "";
+//_houses = nearestObjects [_positionX, ["house"], 50];
+_houses = (nearestObjects [_positionX, ["house"], 50]) select {!((typeOf _x) in UPSMON_Bld_remove)};
+_houseX = "";
 _potentials = [];
-for "_i" from 0 to (count _casas) - 1 do
+for "_i" from 0 to (count _houses) - 1 do
 	{
-	_casa = (_casas select _i);
-	_posHouse = [_casa] call BIS_fnc_buildingPositions;
-	if (count _posHouse > 1) then {_potentials pushBack _casa};
+	_houseX = (_houses select _i);
+	_posHouse = [_houseX] call BIS_fnc_buildingPositions;
+	if (count _posHouse > 1) then {_potentials pushBack _houseX};
 	};
 
 if (count _potentials > 0) then
 	{
-	_casa = _potentials call BIS_Fnc_selectRandom;
-	_posHouse = [_casa] call BIS_fnc_buildingPositions;
+	_houseX = _potentials call BIS_Fnc_selectRandom;
+	_posHouse = [_houseX] call BIS_fnc_buildingPositions;
 	_countX = (count _posHouse) - 1;
 	if (_countX > 10) then {_countX = 10};
 	}
@@ -147,8 +147,8 @@ if (_unit distance getMarkerPos respawnTeamPlayer < 150) then
 deleteVehicle _unit;
 } forEach _POWs;
 deleteGroup _grpPOW;
-{caja addWeaponCargoGlobal [_x,1]} forEach _weaponsX;
-{caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
-{caja addItemCargoGlobal [_x,1]} forEach _items;
+{boxX addWeaponCargoGlobal [_x,1]} forEach _weaponsX;
+{boxX addMagazineCargoGlobal [_x,1]} forEach _ammunition;
+{boxX addItemCargoGlobal [_x,1]} forEach _items;
 
 _nul = [1200,"RES"] spawn A3A_fnc_deleteTask;

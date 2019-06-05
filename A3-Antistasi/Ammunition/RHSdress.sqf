@@ -1,7 +1,7 @@
 _unit = _this select 0;
-_tipo = typeOf _unit;
+_typeX = typeOf _unit;
 _loadout = "rhsgref_ins_g_militiaman_mosin";
-switch _tipo do
+switch _typeX do
 	{
 	case "I_G_officer_F": {_loadout = "rhsgref_ins_g_squadleader"};
 	case "I_G_Soldier_AR_F": {_loadout = "rhsgref_ins_g_machinegunner"};

@@ -9,7 +9,7 @@ if !(isMultiplayer) then
 	{
 	_destinationX = _x;
 	_pos = getMarkerPos _destinationX;
-	if (markersX findIf {(lados getVariable [_x,sideUnknown] == teamPlayer) and (getMarkerPos _x distance2d _pos < 2000)} != -1) then {_destinationsX pushBack _destinationX};
+	if (markersX findIf {(sidesX getVariable [_x,sideUnknown] == teamPlayer) and (getMarkerPos _x distance2d _pos < 2000)} != -1) then {_destinationsX pushBack _destinationX};
 	} forEach _array;
 	}
 else

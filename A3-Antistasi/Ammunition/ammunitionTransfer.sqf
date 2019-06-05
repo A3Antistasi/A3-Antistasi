@@ -38,10 +38,10 @@ if (!isNil "_weaponsItemsCargo") then
 		_weaponsX pushBack ([(_x select 0)] call BIS_fnc_baseWeapon);
 		for "_i" from 1 to (count _x) - 1 do
 			{
-			_cosa = _x select _i;
-			if (typeName _cosa == typeName "") then
+			_thingX = _x select _i;
+			if (typeName _thingX == typeName "") then
 				{
-				if (_cosa != "") then {_items pushBack _cosa};
+				if (_thingX != "") then {_items pushBack _thingX};
 				};
 			};
 		} forEach _weaponsItemsCargo;
@@ -144,9 +144,9 @@ else
 	clearBackpackCargoGlobal _originX;
 	};
 
-if (_destinationX == caja) then
+if (_destinationX == boxX) then
 	{
-	if (isMultiplayer) then {{if (_x distance caja < 10) then {[petros,"hint","Ammobox Loaded"] remoteExec ["A3A_fnc_commsMP",_x]}} forEach playableUnits} else {hint "Ammobox Loaded"};
+	if (isMultiplayer) then {{if (_x distance boxX < 10) then {[petros,"hint","Ammobox Loaded"] remoteExec ["A3A_fnc_commsMP",_x]}} forEach playableUnits} else {hint "Ammobox Loaded"};
 	if ((_originX isKindOf "ReammoBox_F") and (_originX != vehicleBox)) then {deleteVehicle _originX};
 	_updated = [] call A3A_fnc_arsenalManage;
 	if (_updated != "") then

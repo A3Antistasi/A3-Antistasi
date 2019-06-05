@@ -2,12 +2,12 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot bu
 
 if ([player,300] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
 
-private ["_typeVehX","_coste","_resourcesFIA","_markerX","_pos","_veh","_typeVehX"];
+private ["_typeVehX","_costs","_resourcesFIA","_markerX","_pos","_veh","_typeVehX"];
 
 _typeVehX = _this select 0;
 if (_typeVehX == "not_supported") exitWith {hint "The vehicle you requested is not supported in your current modset"};
 
-_coste = [_typeVehX] call A3A_fnc_vehiclePrice;
+_costs = [_typeVehX] call A3A_fnc_vehiclePrice;
 
 if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else
 	{
@@ -21,8 +21,8 @@ if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} els
 		};
 	};
 
-if (_resourcesFIA < _coste) exitWith {hint format ["You do not have enough money for this vehicle: %1 € required",_coste]};
-_nearX = [markersX select {lados getVariable [_x,sideUnknown] == teamPlayer},player] call BIS_fnc_nearestPosition;
+if (_resourcesFIA < _costs) exitWith {hint format ["You do not have enough money for this vehicle: %1 € required",_costs]};
+_nearX = [markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer},player] call BIS_fnc_nearestPosition;
 if !(player inArea _nearX) exitWith {hint "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"};
 
 garageVeh = _typeVehX createVehicleLocal [0,0,1000];
@@ -34,17 +34,17 @@ hint "Hover your mouse to the desired position. If it's safe and suitable, you w
 garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
 		_handled = false;
-		_salir = false;
+		_leave = false;
 		_bought = false;
 		[format ["<t size='0.7'>%1<br/><br/><t size='0.6'>Vehicle placement Keys.<t size='0.5'><br/>Arrow Left-Right to rotate<br/>SPACE to Select<br/>ENTER to Exit",getText (configFile >> "CfgVehicles" >> typeOf garageVeh >> "displayName")],0,0,5,0,0,4] spawn bis_fnc_dynamicText;
 		if (_this select 1 == 57) then
 			{
-			_salir = true;
+			_leave = true;
 			_bought = true;
 			};
 		if (_this select 1 == 28) then
 			{
-			_salir = true;
+			_leave = true;
 			deleteVehicle garageVeh;
 			};
 		if (_this select 1 == 205) then
@@ -57,7 +57,7 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 			garageVeh setDir (getDir garageVeh - 1);
 			_handled = true;
 			};
-		if (_salir) then
+		if (_leave) then
 			{
 			if (!_bought) then
 				{
@@ -93,13 +93,13 @@ onEachFrame
    _pos = (_ins select 0 select 0);
    if (_pos distance positionXSel < 0.1) exitWith {};
    positionXSel = _pos;
-   _barco = false;
-   if (garageVeh isKindOf "Ship") then {_pos set [2,0]; _barco = true};
+   _shipX = false;
+   if (garageVeh isKindOf "Ship") then {_pos set [2,0]; _shipX = true};
    if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
    if (_pos distance2d player > 100)exitWith {garageVeh setPosASL [0,0,0]};
-   _agua = surfaceIsWater _pos;
-   if (_barco and {!_agua}) exitWith {garageVeh setPosASL [0,0,0]};
-   if (!_barco and {_agua}) exitWith {garageVeh setPosASL [0,0,0]};
+   _water = surfaceIsWater _pos;
+   if (_shipX and {!_water}) exitWith {garageVeh setPosASL [0,0,0]};
+   if (!_shipX and {_water}) exitWith {garageVeh setPosASL [0,0,0]};
    garageVeh setPosASL _pos;
    garageVeh setVectorUp (_ins select 0 select 1);
    };
@@ -124,13 +124,13 @@ _veh setPosASL _pos;
 if (_veh isKindOf "Car") then {_veh setPlateNumber format ["%1",name player]};
 if (!isMultiplayer) then
 	{
-	[0,(-1* _coste)] spawn A3A_fnc_resourcesFIA;
+	[0,(-1* _costs)] spawn A3A_fnc_resourcesFIA;
 	}
 else
 	{
 	if (player != theBoss) then
 		{
-		[-1* _coste] call A3A_fnc_resourcesPlayer;
+		[-1* _costs] call A3A_fnc_resourcesPlayer;
 		["moneyX",player getVariable ["moneyX",0]] call fn_SaveStat;
 		_veh setVariable ["ownerX",getPlayerUID player,true];
 		}
@@ -138,11 +138,11 @@ else
 		{
 		if ((_typeVehX == SDKMortar) or (_typeVehX == staticATteamPlayer) or (_typeVehX == staticAAteamPlayer) or (_typeVehX == SDKMGStatic)) then
 			{
-			_nul = [0,(-1* _coste)] remoteExecCall ["A3A_fnc_resourcesFIA",2]
+			_nul = [0,(-1* _costs)] remoteExecCall ["A3A_fnc_resourcesFIA",2]
 			}
 		else
 			{
-			[-1* _coste] call A3A_fnc_resourcesPlayer;
+			[-1* _costs] call A3A_fnc_resourcesPlayer;
 			["moneyX",player getVariable ["moneyX",0]] call fn_SaveStat;
 			_veh setVariable ["ownerX",getPlayerUID player,true];
 			};

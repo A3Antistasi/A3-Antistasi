@@ -38,14 +38,14 @@ if (_countX > 5) then
 	_blufor = [];
 	_opfor = [];
 	{
-	_lado = side (group _x);
-	if (_lado == malos) then
+	_sideX = side (group _x);
+	if (_sideX == Occupants) then
 		{
 		_blufor pushBack _x;
 		}
 	else
 		{
-		if (_lado == Invaders) then
+		if (_sideX == Invaders) then
 			{
 			_opfor pushBack _x;
 			}
@@ -63,7 +63,7 @@ _markerX = _x;
 
 _positionMRK = getMarkerPos (_markerX);
 
-if (lados getVariable [_markerX,sideUnknown] == malos) then
+if (sidesX getVariable [_markerX,sideUnknown] == Occupants) then
 	{
 	if (spawner getVariable _markerX != 0) then
 		{
@@ -130,7 +130,7 @@ if (lados getVariable [_markerX,sideUnknown] == malos) then
 	}
 else
 	{
-	if (lados getVariable [_markerX,sideUnknown] == teamPlayer) then
+	if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 		{
 		if (spawner getVariable _markerX != 0) then
 			{

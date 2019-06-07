@@ -63,14 +63,15 @@ if ({alive _x} count units _grupo == 0) then
 	puestosFIA = puestosFIA - [_marcador]; publicVariable "puestosFIA";
 	marcadores = marcadores - [_marcador]; publicVariable "marcadores";
 	lados setVariable [_marcador,nil,true];
-	_nul = [5,-5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 	deleteMarker _marcador;
 	if (_escarretera) then
 		{
+		_nul = [5,-5,_posicion, "SDK Roadblock Lost"] remoteExec ["A3A_fnc_citySupportChange",2];
 		[["TaskFailed", ["", "Roadblock Lost"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
 		}
 	else
 		{
+		_nul = [5,-5,_posicion, "SDK Watchpost Lost"] remoteExec ["A3A_fnc_citySupportChange",2];
 		[["TaskFailed", ["", "Watchpost Lost"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
 		};
 	};

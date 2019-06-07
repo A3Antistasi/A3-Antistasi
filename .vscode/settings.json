@@ -1,0 +1,8 @@
+{
+    "logViewer.watch": [
+        {
+            "title": "RPTs",
+            "pattern": "C:\\Users\\billw\\AppData\\Local\\Arma 3\\*.rpt"
+        }
+    ]
+}

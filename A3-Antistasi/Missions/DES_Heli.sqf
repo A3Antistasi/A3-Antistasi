@@ -167,8 +167,8 @@ if (not alive _heli) then
 	["DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
 	[0,300*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 	if (typeOf _heli in vehCSATAir) then {[0,3] remoteExec ["A3A_fnc_prestige",2]} else {[3,0] remoteExec ["A3A_fnc_prestige",2]};
+	//TODO: sort timingCA here
 	//[-3,3,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
-	[1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 	{if (_x distance _heli < 500) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 	[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	["DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,"FAILED","Defend"] call A3A_fnc_taskUpdate;
@@ -177,8 +177,8 @@ else
 	{
 	["DES",[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"FAILED","Destroy"] call A3A_fnc_taskUpdate;
 	["DES1",[format ["The rebels managed to shot down a helicopter. A recovery team departing from the %1 is inbound to recover it. Cover them while they perform the whole operation",_nombrebase],"Helicopter Down",_mrkfin],_posCrash,"SUCCEEDED","Defend"] call A3A_fnc_taskUpdate;
+	// TODO: sort timingCA here
 	//[3,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
-	[-600*_bonus] remoteExec ["A3A_fnc_timingCA",2];
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	};
 

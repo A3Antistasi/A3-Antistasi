@@ -21,8 +21,9 @@ vehNATORepairTruck = "B_T_Truck_01_repair_F";
 vehNATOLight = vehNATOLightArmed + vehNATOLightUnarmed;
 vehNATOAPC = ["B_T_APC_Wheeled_01_cannon_F","B_T_APC_Tracked_01_rcws_F"];//"B_T_APC_Tracked_01_CRV_F" has no cargo seats
 vehNATOTank = "B_T_MBT_01_cannon_F";
+vehNATOAllTanks = [vehNATOTank];
 vehNATOAA = "B_T_APC_Tracked_01_AA_F";
-vehNATOAttack = vehNATOAPC + [vehNATOTank];
+vehNATOAttack = vehNATOAPC + vehNATOAllTanks;
 vehNATOBoat = "B_T_Boat_Armed_01_minigun_F";
 vehNATORBoat = "B_T_Boat_Transport_01_F";
 vehNATOBoats = [vehNATOBoat,vehNATORBoat,"B_T_APC_Wheeled_01_cannon_F"];
@@ -67,3 +68,6 @@ flagNATOmrk = "flag_NATO";
 
 nameMalos = "NATO";
 if (isServer) then {"NATO_carrier" setMarkerText "NATO Carrier"};
+
+rifleTier1NATO = "arifle_MX_F";
+rifleTier2NATO = "arifle_AK12_F";

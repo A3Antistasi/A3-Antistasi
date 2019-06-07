@@ -8,11 +8,11 @@ _unit setVariable ["surrendered",true];
 
 if (side _unit == malos) then
 	{
-	_nul = [-2,0,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
+	//_nul = [-2,0,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
 	}
 else
 	{
-	_nul = [1,0,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
+	_nul = [2,0,getPos _unit, "SDK Surrender"] remoteExec ["A3A_fnc_citySupportChange",2];
 	};
 _armas = [];
 _municion = [];

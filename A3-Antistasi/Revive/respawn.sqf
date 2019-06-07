@@ -29,7 +29,7 @@ _unit setVariable ["disfrazado",false];
 _unit setVariable ["INCAPACITATED",false];
 
 if (rating _unit < 0) then {_unit addRating (rating _unit * -1)};
-_nul = [0,-1,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
+_nul = [0,-1,getPos _unit,"Player Respawned"] remoteExec ["A3A_fnc_citySupportChange",2];
 
 _hr = round ((server getVariable "hr") * 0.1);
 _resourcesFIA = round ((server getVariable "resourcesFIA") * 0.05);

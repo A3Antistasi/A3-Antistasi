@@ -20,6 +20,7 @@ if (_part == "") then
 				{
 				_unit setVariable ["INCAPACITATED",true,true];
 				_unit setUnconscious true;
+				// ACE allows pulling people out of vehicles, so leave them in there
 				if (vehicle _unit != _unit) then
 					{
 					moveOut _unit;
@@ -48,7 +49,7 @@ if (_part == "") then
 									_sideType = getNumber (configfile >> "CfgVehicles" >> _typeSoldier >> "side");
 									if ((_sideType == 1) or (_sideType == 0)) then
 										{
-										[_injurer,60] remoteExec ["A3A_fnc_punishment",_injurer];
+										[_injurer,60] remoteExec ["A3A_fnc_castigo",_injurer];
 										};
 									};
 								};
@@ -110,6 +111,7 @@ else
 						{
 						_unit setVariable ["INCAPACITATED",true,true];
 						_unit setUnconscious true;
+						// ACE allows pulling people out of vehicles, so leave them in there
 						if (vehicle _unit != _unit) then
 							{
 							//_unit action ["getOut", vehicle _unit];
@@ -128,6 +130,7 @@ else
 						{
 						_unit setVariable ["INCAPACITATED",true,true];
 						_unit setUnconscious true;
+						// ACE allows pulling people out of vehicles, so leave them in there
 						if (vehicle _unit != _unit) then
 							{
 							moveOut _unit;

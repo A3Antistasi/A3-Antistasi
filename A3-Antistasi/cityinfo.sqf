@@ -86,7 +86,7 @@ while {visibleMap} do
 				_texto = format ["%1 Airport",_nameFaction];
 				_busy = [_sitio,true] call A3A_fnc_airportCanAttack;
 				if (_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
-				_garrison = count (garrison getVariable _sitio);
+				_garrison = count (garrison getVariable [_sitio, []]);
 				if (_garrison >= 40) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 20) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}
 			else
@@ -99,7 +99,7 @@ while {visibleMap} do
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Resources",_nameFaction];
-				_garrison = count (garrison getVariable _sitio);
+				_garrison = count (garrison getVariable [_sitio, []]);
 				if (_garrison >= 30) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 10) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}
 			else
@@ -113,7 +113,7 @@ while {visibleMap} do
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Factory",_nameFaction];
-				_garrison = count (garrison getVariable _sitio);
+				_garrison = count (garrison getVariable [_sitio, []]);
 				if (_garrison >= 16) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 8) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}
 			else
@@ -129,7 +129,7 @@ while {visibleMap} do
 				_texto = format ["%1 Grand Outpost",_nameFaction];
 				_busy = [_sitio,true] call A3A_fnc_airportCanAttack;
 				if (_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
-				_garrison = count (garrison getVariable _sitio);
+				_garrison = count (garrison getVariable [_sitio, []]);
 				if (_garrison >= 16) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 8) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}
 			else
@@ -142,7 +142,7 @@ while {visibleMap} do
 			if (not(lados getVariable [_sitio,sideUnknown] == buenos)) then
 				{
 				_texto = format ["%1 Seaport",_nameFaction];
-				_garrison = count (garrison getVariable _sitio);
+				_garrison = count (garrison getVariable [_sitio, []]);
 				if (_garrison >= 20) then {_texto = format ["%1\nGarrison: Good",_texto]} else {if (_garrison >= 8) then {_texto = format ["%1\nGarrison: Weakened",_texto]} else {_texto = format ["%1\nGarrison: Decimated",_texto]}};
 				}
 			else

@@ -8,7 +8,7 @@ _veh setVariable ["inDespawner",true,true];
 if ((typeOf _veh in arrayCivVeh) and ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _veh > 0) and (_veh distance getMarkerPos respawnBuenos > 50)) then
 	{
 	_pos = position _veh;
-	[0,-1,_pos] remoteExec ["A3A_fnc_citySupportChange",2];
+	[0,-1,_pos,"SDK Stole Car"] remoteExec ["A3A_fnc_citySupportChange",2];
 	_ciudad = [ciudades, _pos] call BIS_fnc_nearestPosition;
 	_datos = server getVariable _ciudad;
 	_prestigeOPFOR = _datos select 2;

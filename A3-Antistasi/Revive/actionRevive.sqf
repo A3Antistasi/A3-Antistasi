@@ -18,24 +18,28 @@ if !(alive _curado) exitWith
 	_healed
 	};
 if !([_curandero] call A3A_fnc_canFight) exitWith {if (_player) then {hint "You are not able to revive anyone"};_healed};
-if ((not("FirstAidKit" in (items _curandero))) and (not("FirstAidKit" in (items _curado)))) exitWith
-	{
-	if (_player) then {hint format ["You or %1 need a First Aid Kit to be able to revive",name _curado]};
-	if (_inPlayerGroup) then {_curandero groupChat "I'm out of FA kits!"};
-	_healed
-	};
-if ((not("FirstAidKit" in (items _curandero))) and !(_curandero canAdd "FirstAidKit")) exitWith
-	{
-	if (_player) then {hint format ["%1 has a First Aid Kit but you do not have enough space in your inventory to use it",name _curado]};
-	if (_inPlayerGroup) then {_curandero groupChat "I'm out of FA kits!"};
-	_healed
-	};
-if ((([_curado] call A3A_fnc_fatalWound)) and !([_curandero] call A3A_fnc_isMedic)) exitWith
-	{
-	if (_player) then {hint format ["%1 is injured by a fatal wound, only a medic can revive him",name _curado]};
-	if (_inPlayerGroup) then {_curandero groupChat format ["%1 is injured by a fatal wound, only a medic can revive him",name _curado]};
-	_healed
-	};
+
+if !(easyRevive) then {
+	if ((not("FirstAidKit" in (items _curandero))) and (not("FirstAidKit" in (items _curado)))) exitWith
+		{
+		if (_player) then {hint format ["You or %1 need a First Aid Kit to be able to revive",name _curado]};
+		if (_inPlayerGroup) then {_curandero groupChat "I'm out of FA kits!"};
+		_healed
+		};
+	if ((not("FirstAidKit" in (items _curandero))) and !(_curandero canAdd "FirstAidKit")) exitWith
+		{
+		if (_player) then {hint format ["%1 has a First Aid Kit but you do not have enough space in your inventory to use it",name _curado]};
+		if (_inPlayerGroup) then {_curandero groupChat "I'm out of FA kits!"};
+		_healed
+		};
+	if ((([_curado] call A3A_fnc_fatalWound)) and !([_curandero] call A3A_fnc_isMedic)) exitWith
+		{
+		if (_player) then {hint format ["%1 is injured by a fatal wound, only a medic can revive him",name _curado]};
+		if (_inPlayerGroup) then {_curandero groupChat format ["%1 is injured by a fatal wound, only a medic can revive him",name _curado]};
+		_healed
+		};
+};
+
 if !(isNull attachedTo _curado) exitWith
 	{
 	if (_player) then {hint format ["%1 is being carried or transported and you cannot heal him",name _curado]};
@@ -54,27 +58,29 @@ if (_player) then
 	_curado setVariable ["ayudado",_curandero,true];
 	};
 _curandero setVariable ["ayudando",true];
-if (not("FirstAidKit" in (items _curandero))) then
+if (!(easyRevive) and (not("FirstAidKit" in (items _curandero)))) then
 	{
 	_curandero addItem "FirstAidKit";
 	_curado removeItem "FirstAidKit";
 	};
-_timer = if ([_curado] call A3A_fnc_fatalWound) then
+
+_reviveDuration = if ([_curado] call A3A_fnc_fatalWound) then
 			{
-			time + 35 + (random 20)
+			35 + (random 20)
 			}
 		else
 			{
 			if ((!isMultiplayer and (isPlayer _curado)) or ([_curandero] call A3A_fnc_isMedic)) then
 				{
-				time + 10 + (random 5)
+				10 + (random 5)
 				}
 			else
 				{
-				time + 15 + (random 10)
+				15 + (random 10)
 				};
 			};
 
+_timer = time + (_reviveDuration * reviveTimeMul);
 
 _curandero setVariable ["timeToHeal",_timer];
 _curandero playMoveNow selectRandom medicAnims;

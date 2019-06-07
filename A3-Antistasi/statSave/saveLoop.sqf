@@ -48,6 +48,8 @@ if (!isDedicated) then
  savingServer = true;
  private ["_garrison"];
 	["cuentaCA", cuentaCA] call fn_SaveStat;
+	["timeSinceLastAttack", timeSinceLastAttack] call fn_SaveStat;
+	["cuentaCANonBuenos", cuentaCANonBuenos] call fn_SaveStat;
 	["gameMode", gameMode] call fn_SaveStat;
 	["dificultad", skillMult] call fn_SaveStat;
 	["bombRuns", bombRuns] call fn_SaveStat;
@@ -57,7 +59,7 @@ if (!isDedicated) then
 	//["mrkNATO", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == malos}] call fn_SaveStat;
 	["mrkSDK", (marcadores - controles - puestosFIA) select {lados getVariable [_x,sideUnknown] == buenos}] call fn_SaveStat;
 	["mrkCSAT", (marcadores - controles) select {lados getVariable [_x,sideUnknown] == muyMalos}] call fn_SaveStat;
-	["posHQ", [getMarkerPos respawnBuenos,getPos fuego,[getDir caja,getPos caja],[getDir mapa,getPos mapa],getPos bandera,[getDir cajaVeh,getPos cajaVeh]]] call fn_Savestat;
+	["posHQ", [getMarkerPos respawnBuenos,getPosATL fuego,[getDir caja,getPosATL caja],[getDir mapa,getPosATL mapa],getPosATL bandera,[getDir cajaVeh,getPosATL cajaVeh]]] call fn_Savestat;
 	["prestigeNATO", prestigeNATO] call fn_SaveStat;
 	["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
 	["fecha", date] call fn_SaveStat;
@@ -75,7 +77,7 @@ if (!isDedicated) then
 	["unlockedBackpacks", unlockedBackpacks] call fn_SaveStat;
 	*/
 	["weather",[fogParams,rain]] call fn_SaveStat;
-	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
+	//["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
 	//["firstLoad",false] call fn_SaveStat;
 private ["_hrfondo","_resfondo","_veh","_tipoVeh","_armas","_municion","_items","_mochis","_contenedores","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_ciudad","_datos","_marcadores","_garrison","_arrayMrkMF","_arrayPuestosFIA","_pospuesto","_tipoMina","_posMina","_detectada","_tipos","_exists","_amigo"];
 
@@ -142,7 +144,7 @@ if ((_veh distance getMarkerPos respawnBuenos < 50) and !(_veh in staticsToSave)
 	{
 	if (((not (_veh isKindOf "StaticWeapon")) and (not (_veh isKindOf "ReammoBox")) and (not (_veh isKindOf "FlagCarrier")) and (not(_veh isKindOf "Building"))) and (not (_tipoVeh == "C_Van_01_box_F")) and (count attachedObjects _veh == 0) and (alive _veh) and ({(alive _x) and (!isPlayer _x)} count crew _veh == 0) and (not(_tipoVeh == "WeaponHolderSimulated"))) then
 		{
-		_posVeh = getPos _veh;
+		_posVeh = getPosATL _veh;
 		_dirVeh = getDir _veh;
 		_arrayEst pushBack [_tipoVeh,_posVeh,_dirVeh];
 		};
@@ -154,7 +156,7 @@ _sitios = marcadores select {lados getVariable [_x,sideUnknown] == buenos};
 _posicion = position _x;
 if ((alive _x) and !(surfaceIsWater _posicion) and !(isNull _x)) then
 	{
-	_arrayEst pushBack [typeOf _x,getPos _x,getDir _x];
+	_arrayEst pushBack [typeOf _x,getPosATL _x,getDir _x];
 	/*
 	_cercano = [_sitios,_posicion] call BIS_fnc_nearestPosition;
 	if (_posicion inArea _cercano) then
@@ -205,7 +207,7 @@ _arrayMrkMF = _arrayMrkMF + [_posMineF];
 _arrayMinas = [];
 {
 _tipoMina = typeOf _x;
-_posMina = getPos _x;
+_posMina = getPosATL _x;
 _dirMina = getDir _x;
 _detectada = [];
 if (_x mineDetectedBy buenos) then

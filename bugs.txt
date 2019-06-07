@@ -1,0 +1,21 @@
+Easy?
+
+Can only move HQ items once.
+Once you failed to place an item (bought vehicle, garage item), from then on the items you place will not show up (perhaps when you place item n, item n-1 will show up?)
+
+Auto heal causes units to try and mount into cars?
+
+Garrison spawns as enemy if friendlies are there? AT guys?
+
+Auto medic sometimes go to get on a truck?
+
+?
+Often can't load supply crate easily, need to move vehicle all over the place, bump the crate etc.
+Auto rearmers can get stuck in rearm pose frozen.
+Sometimes revived units are stuck lying down unable to move even though revived.
+
+Flag moves down.
+
+Missions aren't synced between players correctly.
+
+Can't move items in base after moving it second time.

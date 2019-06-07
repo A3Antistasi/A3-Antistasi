@@ -11,15 +11,27 @@ CSATMG = "rhs_KORD_high_VMF";
 staticATmuyMalos = "rhs_Kornet_9M133_2_vmf";
 staticAAmuyMalos = "RHS_ZU23_MSV";
 
-vehCSATLightArmed = ["rhsgref_BRDM2_vdv","rhsgref_BRDM2_HQ_vdv","rhsgref_BRDM2_ATGM_vdv","rhs_tigr_sts_vdv"];
-vehCSATLightUnarmed = ["rhs_tigr_vdv","rhs_uaz_vdv"];
-vehCSATTrucks = ["rhs_kamaz5350_vdv","rhs_kamaz5350_open_vdv","RHS_Ural_Open_VDV_01","rhs_gaz66_vdv"];
-vehCSATAmmoTruck = "rhs_gaz66_ammo_vmf";
+//vehCSATLightArmed = ["rhsgref_BRDM2_vdv","rhsgref_BRDM2_HQ_vdv","rhsgref_BRDM2_ATGM_vdv","rhs_tigr_sts_vdv"];
+vehCSATLightArmed = ["rhsgref_BRDM2_HQ_msv", "rhs_tigr_sts_3camo_vdv", "rhs_tigr_sts_vdv", "rhsgref_BRDM2_ATGM_vdv"];
+//vehCSATLightUnarmed = ["rhs_tigr_vdv","rhs_uaz_vdv"];
+vehCSATLightUnarmed = ["rhs_tigr_vdv", "rhs_tigr_3camo_vdv", "rhs_tigr_m_vdv", "rhs_tigr_m_3camo_vdv", "rhs_uaz_vdv", "rhs_uaz_open_vdv", "rhsgref_BRDM2UM_vdv"];
+
 vehCSATLight = vehCSATLightArmed + vehCSATLightUnarmed;
-vehCSATAPC = ["rhs_bmp2d_vdv","rhs_bmp1p_vdv"];
+
+//vehCSATTrucks = ["rhs_kamaz5350_vdv","rhs_kamaz5350_open_vdv","RHS_Ural_Open_VDV_01","rhs_gaz66_vdv"];
+vehCSATTrucks = ["rhs_gaz66_vdv", "rhs_gaz66o_vdv", "rhs_kamaz5350_vdv", "rhs_kamaz5350_open_vdv", "RHS_Ural_VDV_01", "RHS_Ural_Open_VDV_01", "rhs_zil131_vdv", "rhs_zil131_open_vdv"];
+
+vehCSATAmmoTruck = "rhs_gaz66_ammo_vmf";
+
+// vehCSATAPC = ["rhs_bmp2d_vdv","rhs_bmp1p_vdv"];
+vehCSATAPC = ["rhs_bmd1", "rhs_bmd1k", "rhs_bmd1p", "rhs_bmd1pk", "rhs_bmd1r", "rhs_bmd2", "rhs_bmd2k", "rhs_bmd2m", "rhs_bmd4_vdv", "rhs_bmd4m_vdv", "rhs_bmd4ma_vdv", "rhs_bmp1_vdv", "rhs_bmp1d_vdv", "rhs_bmp1k_vdv", "rhs_bmp1p_vdv", "rhs_bmp2e_vdv", "rhs_bmp2_vdv", "rhs_bmp2d_vdv", "rhs_bmp2k_vdv", "rhs_brm1k_vdv", "rhs_prp3_vdv"];
+
 vehCSATTank = "rhs_sprut_vdv";
+vehCSATAllTanks = ["rhs_sprut_vdv", "rhs_t72ba_tv", "rhs_t72bb_tv", "rhs_t72bc_tv", "rhs_t72bd_tv", "rhs_t72be_tv", "rhs_t80", "rhs_t80a", "rhs_t80b", "rhs_t80bk", "rhs_t80bv", "rhs_t80bvk", "rhs_t80u", "rhs_t80u45m", "rhs_t80ue1", "rhs_t80uk", "rhs_t80um", "rhs_t90_tv", "rhs_t90a_tv"];
+
 vehCSATAA = "rhs_zsu234_aa";
-vehCSATAttack = vehCSATAPC + [vehCSATTank];
+vehCSATAttack = vehCSATAPC + vehCSATAllTanks;
+
 vehCSATBoat = "O_T_Boat_Armed_01_hmg_F";
 vehCSATRBoat = "O_T_Boat_Transport_01_F";
 vehCSATBoats = [vehCSATBoat,vehCSATRBoat,"rhs_btr80a_vdv"];
@@ -29,8 +41,8 @@ vehCSATPatrolHeli = "rhs_ka60_c";
 vehCSATTransportHelis = ["RHS_Mi8mt_vdv","RHS_Mi8mt_vv","RHS_Mi8mt_Cargo_vv",vehCSATPatrolHeli];
 vehCSATAttackHelis = ["RHS_Mi24V_vdv","RHS_Mi8MTV3_FAB_vdv"];
 vehCSATAir = vehCSATTransportHelis + vehCSATAttackHelis + [vehCSATPlane,vehCSATPlaneAA];
-vehCSATUAV = "rhs_pchela1t_vvs";
-vehCSATUAVSmall = "O_UAV_01_F";
+vehCSATUAV = "not_supported";
+vehCSATUAVSmall = "not_supported";
 vehCSATMRLS = "rhs_2s3_tv";
 vehCSATMRLSMags = "rhs_mag_HE_2a33";
 vehCSATNormal = vehCSATLight + vehCSATTrucks + [vehCSATAmmoTruck, "rhs_gaz66_repair_vdv","RHS_Ural_Fuel_VDV_01"];

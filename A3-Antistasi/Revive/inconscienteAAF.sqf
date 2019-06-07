@@ -5,7 +5,7 @@ _injurer = _this select 1;
 //if (damage _unit < 0.9) exitWith {};
 //if (!local _unit) exitWith {};
 //_unit setVariable ["inconsciente",true,true];
-_bleedOut = if (surfaceIsWater (position _unit)) then {time + 60} else {time + 300};//300
+_bleedOut = if (surfaceIsWater (position _unit)) then {time + (60 * bleedoutTimeMul)} else {time + (300 * bleedoutTimeMul)};//300
 _jugadores = false;
 _lado = side (group _unit);
 if ((side _injurer == buenos) and (_lado == malos)) then
@@ -58,7 +58,7 @@ if (time >= _bleedOut) exitWith
 			_skill = skill _injurer;
 			[_injurer,_skill + 0.05] remoteExec ["setSkill",_injurer];
 			};
-		[-1,1,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
+		//[-1,1,getPos _unit] remoteExec ["A3A_fnc_citySupportChange",2];
 		switch (_lado) do
 			{
 			case malos:

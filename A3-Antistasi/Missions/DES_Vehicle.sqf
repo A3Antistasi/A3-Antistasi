@@ -69,8 +69,14 @@ if (spawner getVariable _marcador == 0) then
 			["TaskFailed", ["", format ["AA Stolen in %1",_nombreDest]]] remoteExec ["BIS_fnc_showNotification",_lado];
 			};
 		[0,300*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
-		if (_lado == muyMalos) then {[0,3] remoteExec ["A3A_fnc_prestige",2]; [0,10*_bonus,_posicion] remoteExec ["A3A_fnc_citySupportChange",2]} else {[3,0] remoteExec ["A3A_fnc_prestige",2];[0,5*_bonus,_posicion] remoteExec ["A3A_fnc_citySupportChange",2]};
-		[1200*_bonus] remoteExec ["A3A_fnc_timingCA",2];
+		if (_lado == muyMalos) then {
+			[0,3] remoteExec ["A3A_fnc_prestige",2]; 
+			[0,10*_bonus,_posicion,"Mission: Destroy/Capture Armor vs CSAT Won"] remoteExec ["A3A_fnc_citySupportChange",2];
+		} else {
+			[3,0] remoteExec ["A3A_fnc_prestige",2];
+			[0,5*_bonus,_posicion,"Mission: Destroy/Capture Armor vs NATO Won"] remoteExec ["A3A_fnc_citySupportChange",2];
+		};
+		[1200*_bonus, 600, "Mission: Destroy/Capture Armor Won"] remoteExec ["A3A_fnc_timingCA",2];
 		{if (_x distance _veh < 500) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 		};
@@ -79,8 +85,8 @@ else
 	{
 	["DES",[format ["We know an enemy armor (%4) is stationed in a %1. It is a good chance to steal or destroy it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,getText (configFile >> "CfgVehicles" >> (_tipoVeh) >> "displayName")],"Steal or Destroy Armor",_marcador],_posicion,"FAILED","Destroy"] call A3A_fnc_taskUpdate;
 	[-5*_bonus,-100*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
-	[5*_bonus,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
-	[-600*_bonus] remoteExec ["A3A_fnc_timingCA",2];
+	[5*_bonus,0,_posicion,"Mission: Destroy/Capture Armor Failed"] remoteExec ["A3A_fnc_citySupportChange",2];
+	[-1200*_bonus, 600, "Mission: Destroy/Capture Armor Failed"] remoteExec ["A3A_fnc_timingCA",2];
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	};
 

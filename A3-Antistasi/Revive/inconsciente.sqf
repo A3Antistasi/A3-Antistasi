@@ -4,17 +4,17 @@ _unit = _this select 0;
 //if (damage _unit < 0.9) exitWith {};
 //if (!local _unit) exitWith {};
 //_unit setVariable ["inconsciente",true,true];
-_bleedOut = time + 300;//300
+
+_bleedOutDuration = 300 * bleedoutTimeMul;
 _isPlayer = false;
 _jugadores = false;
 _inPlayerGroup = false;
-_unit setBleedingremaining 300;
 _injurer = _this select 1;
 
 if (isPlayer _unit) then
 	{
 	_isPlayer = true;
-	if (!isMultiplayer) then {_bleedOut = time + 600};//50
+	if (!isMultiplayer) then {_bleedOutDuration = 600 * bleedoutTimeMul};//50
 	_unit spawn
 		{
 		sleep 5;
@@ -92,6 +92,8 @@ if (_isPlayer) then
 		};
 	};
 
+_bleedOut = time + _bleedOutDuration;
+_unit setBleedingremaining _bleedOutDuration;
 
 while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (alive _unit) and (!(_unit getVariable ["respawning",false]))} do
 	{

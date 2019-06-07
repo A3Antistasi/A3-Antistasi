@@ -13,5 +13,5 @@ _base = _x;
 _posbase = getMarkerPos _base;
 if ((_pos distance _posbase < distanceForLandAttack) and (({_x == _marcador} count (killZones getVariable [_base,[]])) < 3)) then {_aeropuertos pushBack _base}
 } forEach _aeropuertosAAF;
-if (count _aeropuertos > 0) then {_base = [_aeropuertos,_pos] call BIS_fnc_nearestPosition} else {_base = ""};
+if (count _aeropuertos > 0) then {_base = selectRandom _aeropuertos} else {_base = ""};
 _base

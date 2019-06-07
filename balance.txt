@@ -1,0 +1,9 @@
+OPF progress too fast: slow down attacks between OPF and BLUF. Slow down simulated battles significantly.
+DONE: Make min diff requirement to capture town.
+
+NOtes:
+Slightly slower attacks, waves too fast?
+Fix vehicle driving somehow?
+Slower changes in support.
+Scale support change rate by size of population.
+What do about Javelins?

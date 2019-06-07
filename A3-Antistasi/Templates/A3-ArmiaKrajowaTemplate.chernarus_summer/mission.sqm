@@ -1321,8 +1321,8 @@ class Mission
 			name="Synd_HQ";
 			markerType="RECTANGLE";
 			type="rectangle";
-			a=50;
-			b=50;
+			a=100;
+			b=100;
 			id=97;
 		};
 		class Item89

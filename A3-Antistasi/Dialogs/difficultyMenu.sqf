@@ -2,41 +2,41 @@ _nul=createDialog "diff_menu";
 waitUntil {dialog};
 hint "Choose a difficulty level";
 waitUntil {!dialog};
-if !(skillMult == 1) then
+if (skillMult <= 0.5) then
 	{
-	if (skillMult == 0.5) then
+	server setVariable ["hr",25,true];
+	server setVariable ["resourcesFIA",5000,true];
+	vehInGarage = [vehSDKTruck,vehSDKTruck,SDKMortar,SDKMGStatic,staticAABuenos];
+	minWeaps = 15;
+	_index = sniperRifle call jn_fnc_arsenal_itemType;
+	[_index,sniperRifle,-1] call jn_fnc_arsenal_addItem;
+	unlockedSN pushBack sniperRifle;
+	_magazine = (getArray (configFile / "CfgWeapons" / sniperRifle / "magazines") select 0);
+	if (!isNil "_magazine") then
 		{
-		server setVariable ["hr",25,true];
-		server setVariable ["resourcesFIA",5000,true];
-		vehInGarage = [vehSDKTruck,vehSDKTruck,SDKMortar,SDKMGStatic,staticAABuenos];
-		minWeaps = 15;
-		_index = sniperRifle call jn_fnc_arsenal_itemType;
-		[_index,sniperRifle,-1] call jn_fnc_arsenal_addItem;
-		unlockedSN pushBack sniperRifle;
-		_magazine = (getArray (configFile / "CfgWeapons" / sniperRifle / "magazines") select 0);
-		if (!isNil "_magazine") then
-			{
-			unlockedMagazines pushBack _magazine;
-			_index = _magazine call jn_fnc_arsenal_itemType;
-			[_index,_magazine,-1] call jn_fnc_arsenal_addItem;
-			};
-		unlockedWeapons pushBack sniperRifle;
-		if !(hayTFAR) then
-			{
-			_index = "ItemRadio" call jn_fnc_arsenal_itemType;
-			[_index,"ItemRadio",-1] call jn_fnc_arsenal_addItem;
-			unlockedItems pushBack "ItemRadio";
-			haveRadio = true;
-			};
-		}
-	else
+		unlockedMagazines pushBack _magazine;
+		_index = _magazine call jn_fnc_arsenal_itemType;
+		[_index,_magazine,-1] call jn_fnc_arsenal_addItem;
+		};
+	unlockedWeapons pushBack sniperRifle;
+	if !(hayTFAR) then
+		{
+		_index = "ItemRadio" call jn_fnc_arsenal_itemType;
+		[_index,"ItemRadio",-1] call jn_fnc_arsenal_addItem;
+		unlockedItems pushBack "ItemRadio";
+		haveRadio = true;
+		};
+	}
+else
+	{
+	if (skillMult >= 2) then 
 		{
 		server setVariable ["hr",0,true];
 		server setVariable ["resourcesFIA",200,true];
 		minWeaps = 40;
 		};
-	[] call A3A_fnc_statistics;
 	};
+[] call A3A_fnc_statistics;
 _nul= createDialog "gameMode_menu";
 waitUntil {dialog};
 hint "Choose a Game Mode";

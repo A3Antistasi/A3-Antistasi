@@ -147,7 +147,10 @@ else
 							if (({if ((isPlayer _x) and (_x distance2D _posicionMRK < distanciaSPWN)) exitWith {1};false} count allUnits > 0) or (_marcador in forcedSpawn)) then {[[_marcador],"A3A_fnc_createCIV"] call A3A_fnc_scheduler};
 							};
 						};
-					if (_marcador in puestosFIA) then {[[_marcador],"A3A_fnc_createFIApuestos2"] call A3A_fnc_scheduler} else {if (not(_marcador in controles)) then {[[_marcador],"A3A_fnc_createSDKGarrisons"] call A3A_fnc_scheduler}};
+					if (_marcador in puestosFIA) then {[[_marcador],"A3A_fnc_createFIApuestos2"] call A3A_fnc_scheduler} else {if (not(_marcador in controles)) then {
+						[_marcador] remoteExec ["A3A_fnc_createSDKGarrisons", 2];
+						//[[_marcador],"A3A_fnc_createSDKGarrisons"] call A3A_fnc_scheduler;
+						}};
 					};
 				}
 			else

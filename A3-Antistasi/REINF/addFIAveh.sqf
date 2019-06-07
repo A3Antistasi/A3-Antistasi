@@ -49,12 +49,12 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 			};
 		if (_this select 1 == 205) then
 			{
-			garageVeh setDir (getDir garageVeh + 1);
+			garageVeh setDir (getDir garageVeh + 10);
 			_handled = true;
 			};
 		if (_this select 1 == 203) then
 			{
-			garageVeh setDir (getDir garageVeh - 1);
+			garageVeh setDir (getDir garageVeh - 10);
 			_handled = true;
 			};
 		if (_salir) then
@@ -92,7 +92,6 @@ onEachFrame
    if (_ins isEqualTo []) exitWith {};
    _pos = (_ins select 0 select 0);
    if (_pos distance posicionSel < 0.1) exitWith {};
-   posicionSel = _pos;
    _barco = false;
    if (garageVeh isKindOf "Ship") then {_pos set [2,0]; _barco = true};
    if (count (_pos findEmptyPosition [0, 0, typeOf garageVeh])== 0) exitWith {garageVeh setPosASL [0,0,0]};
@@ -100,6 +99,7 @@ onEachFrame
    _agua = surfaceIsWater _pos;
    if (_barco and {!_agua}) exitWith {garageVeh setPosASL [0,0,0]};
    if (!_barco and {_agua}) exitWith {garageVeh setPosASL [0,0,0]};
+   posicionSel = _pos;
    garageVeh setPosASL _pos;
    garageVeh setVectorUp (_ins select 0 select 1);
    };

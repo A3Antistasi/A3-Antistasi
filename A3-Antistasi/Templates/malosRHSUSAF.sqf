@@ -13,16 +13,31 @@ NATOMortar = "RHS_M252_USMC_WD";
 staticATmalos = "RHS_TOW_TriPod_USMC_WD";
 staticAAmalos = "RHS_Stinger_AA_pod_D";
 
-vehNATOLightArmed = ["rhsusf_m1025_w_s_m2","rhsusf_rg33_m2_usmc_wd"];
-vehNATOLightUnarmed = ["rhsusf_m1025_w_s","rhsusf_m998_w_s_2dr","rhsusf_m998_w_s_2dr_fulltop","rhsusf_m998_w_s_4dr"];
-vehNATOTrucks = ["rhsusf_M1078A1P2_wd_open_fmtv_usarmy","rhsusf_M1078A1P2_B_wd_fmtv_usarmy","rhsusf_M1078A1P2_B_wd_open_fmtv_usarmy","rhsusf_M1083A1P2_wd_fmtv_usarmy"];
+// vehNATOLightArmed = ["rhsusf_m1025_w_s_m2","rhsusf_rg33_m2_usmc_wd"];
+vehNATOLightArmed = ["rhsusf_m1043_w_s_m2","rhsusf_m1025_w_s_m2", "rhsusf_CGRCAT1A2_M2_usmc_wd", "rhsusf_M1232_MC_M2_usmc_wd", "rhsusf_M1220_M153_M2_usarmy_wd", "rhsusf_M1220_M2_usarmy_wd", "rhsusf_M1230_M2_usarmy_wd", "rhsusf_M1232_M2_usarmy_wd", "rhsusf_M1237_M2_usarmy_wd"];
+//vehNATOLightUnarmed = ["rhsusf_m1025_w_s","rhsusf_m998_w_s_2dr","rhsusf_m998_w_s_2dr_fulltop","rhsusf_m998_w_s_4dr"];
+vehNATOLightUnarmed = ["rhsusf_M1230a1_usarmy_wd", "rhsusf_M1232_usarmy_wd", "rhsusf_CGRCAT1A2_usmc_wd", "rhsusf_mrzr4_d", "rhsusf_m1025_w", "rhsusf_m1043_w", "rhsusf_m998_w_2dr_fulltop", "rhsusf_m998_w_2dr_halftop", "rhsusf_m998_w_2dr", "rhsusf_m998_w_4dr_fulltop", "rhsusf_m998_w_4dr_halftop", "rhsusf_m998_w_4dr", "rhsusf_M1220_usarmy_wd"];
+
+vehNATOLight = vehNATOLightArmed + vehNATOLightUnarmed;
+
+//vehNATOTrucks = ["rhsusf_M1078A1P2_wd_open_fmtv_usarmy","rhsusf_M1078A1P2_B_wd_fmtv_usarmy","rhsusf_M1078A1P2_B_wd_open_fmtv_usarmy","rhsusf_M1083A1P2_wd_fmtv_usarmy"];
+vehNATOTrucks = ["rhsusf_M1078A1P2_WD_fmtv_usarmy", "rhsusf_M1078A1P2_B_WD_fmtv_usarmy", "rhsusf_M1078A1P2_B_M2_WD_fmtv_usarmy", "rhsusf_M1083A1P2_WD_fmtv_usarmy", "rhsusf_M1083A1P2_B_WD_fmtv_usarmy", "rhsusf_M1083A1P2_B_M2_WD_fmtv_usarmy", "rhsusf_M1078A1R_SOV_M2_D_fmtv_socom"];
+
 vehNATOAmmoTruck = "rhsusf_M977A4_AMMO_BKIT_usarmy_wd";
 vehNATORepairTruck = "rhsusf_M977A4_REPAIR_BKIT_usarmy_wd";
-vehNATOLight = vehNATOLightArmed + vehNATOLightUnarmed;
-vehNATOAPC = ["RHS_M2A3_BUSKIII_wd","RHS_M2A3_BUSKI_wd","RHS_M2A3_wd","RHS_M2A3_wd","RHS_M2A2_BUSKI_WD","RHS_M2A2_wd","rhsusf_m113_usarmy_M240","rhsusf_m113_usarmy_MK19"];//"B_T_APC_Tracked_01_CRV_F" has no cargo seats
+
+
+//vehNATOAPC = ["RHS_M2A3_BUSKIII_wd","RHS_M2A3_BUSKI_wd","RHS_M2A3_wd","RHS_M2A3_wd","RHS_M2A2_BUSKI_WD","RHS_M2A2_wd","rhsusf_m113_usarmy_M240","rhsusf_m113_usarmy_MK19"];//"B_T_APC_Tracked_01_CRV_F" has no cargo seats
+vehNATOAPC = ["rhsusf_m113_usarmy_supply", "rhsusf_m113_usarmy", "rhsusf_m113_usarmy_M2_90", "rhsusf_m113_usarmy_M240", "rhsusf_m113_usarmy_medical", "rhsusf_m113_usarmy_MK19", "rhsusf_m113_usarmy_MK19_90", "rhsusf_m113_usarmy_unarmed", "RHS_M2A2_wd", "RHS_M2A2_BUSKI_WD", "RHS_M2A3_wd", "RHS_M2A3_BUSKI_wd", "RHS_M2A3_BUSKIII_wd", "RHS_M6_wd", "rhsusf_M1117_W"];
+
 vehNATOTank = "rhsusf_m1a1fep_wd";
+
+vehNATOAllTanks = ["rhsusf_m1a1fep_wd", "rhsusf_m1a1aimwd_usarmy", "rhsusf_m1a1aim_tuski_wd", "rhsusf_m1a2sep1wd_usarmy", "rhsusf_m1a2sep1tuskiwd_usarmy", "rhsusf_m1a2sep1tuskiiwd_usarmy", "rhsusf_m1a1fep_wd", "rhsusf_m1a1fep_od", "rhsusf_m1a1hc_wd"];
+
 vehNATOAA = "RHS_M6";
-vehNATOAttack = vehNATOAPC + [vehNATOTank];
+
+vehNATOAttack = vehNATOAPC + vehNATOAllTanks;
+
 vehNATOBoat = "rhsusf_mkvsoc";
 vehNATORBoat = "B_T_Boat_Transport_01_F";
 vehNATOBoats = [vehNATOBoat,vehNATORBoat,"rhsusf_m113_usarmy_MK19"];
@@ -32,8 +47,8 @@ vehNATOPatrolHeli = "RHS_MELB_MH6M";
 vehNATOTransportHelis = ["RHS_UH60M_d","RHS_CH_47F",vehNATOPatrolHeli,"RHS_C130J"];
 vehNATOAttackHelis = ["RHS_MELB_AH6M_L","RHS_AH64D_wd","RHS_UH1Y"];
 vehNATOAir = vehNATOTransportHelis + vehNATOAttackHelis + [vehNATOPlane,vehNATOPlaneAA];
-vehNATOUAV = "B_UAV_02_F";//ok
-vehNATOUAVSmall = "B_UAV_01_F";
+vehNATOUAV = "not_supported";//ok
+vehNATOUAVSmall = "not_supported";
 vehNATOMRLS = "rhsusf_m109_usarmy";
 vehNATOMRLSMags = "rhs_mag_155mm_m795_28";//["Sh_155mm_AMOS","rhs_mag_155mm_m795_28",<NULL-object>,B Alpha 1-1:3 (Alberto)]
 vehNATONormal = vehNATOLight + vehNATOTrucks + [vehNATOAmmoTruck, "rhsusf_M978A4_BKIT_usarmy_wd","rhsusf_m113_usarmy_medical", vehNATORepairTruck];
@@ -71,3 +86,6 @@ flagNATOmrk = "flag_USA";//ok
 lamparaMalos = "acc_flashlight";
 nameMalos = "USAF";
 if (isServer) then {"NATO_carrier" setMarkerText "USMC Carrier"};
+
+rifleTier1NATO = "rhsusf_weap_MP7A2";
+rifleTier2NATO = "rhs_weap_hk416d10";

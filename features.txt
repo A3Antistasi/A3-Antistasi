@@ -1,0 +1,21 @@
+Improved convoys.
+    Cohension of units
+    Auto correction
+    Better combat decisions: if a vehicle is immobilized then stop, otherwise push through at increased speed
+    Restart after combat
+    Repair broken vehicles
+
+"Hidden" missions, spawn based on proximity requiring immediate action.
+    e.g. 
+    Driving through a town and refugees need evac immediately.
+    Flagged down by civilian with intel on a traitor currently escaping in vehicle.
+    Run into a convoy with logistics or intel.
+
+Real logistics
+    Convoys or airlift are used to move manpower/materiel. Could be virtual until within enemy proximity.
+
+Real intel
+    Missions to gain intel: capture high rank units, e.g. convoy or assassination like but you capture instead of kill.
+    Ambient intel from civilians - build networks in towns based on civilian support to get reports on enemy movements in the area.
+    Help from outside agents - meet shady character in secluded area, chance you need to defend them against a special forces strike team?
+

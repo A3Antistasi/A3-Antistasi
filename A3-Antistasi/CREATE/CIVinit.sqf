@@ -6,6 +6,9 @@ _unit setSkill 0;
 
 _unit disableAI "TARGET";
 _unit disableAI "AUTOTARGET";
+//Stops civilians from shouting out commands.
+[_unit, "NoVoice"] remoteExec ["setSpeaker", 0, _unit];
+
 _unit addEventHandler ["HandleDamage",
 	{
 	_dam = _this select 2;

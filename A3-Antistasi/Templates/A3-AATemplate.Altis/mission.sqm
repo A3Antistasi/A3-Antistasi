@@ -20,7 +20,7 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={3606.2888,70.012558,10238.149};
+		pos[]={3609.1719,71.796021,10227.768};
 		dir[]={0.3745389,-0.75820351,0.53371906};
 		up[]={0.43553096,0.65201873,0.62063289};
 		aside[]={0.81855947,1.73226e-007,-0.57442689};
@@ -31,15 +31,10 @@ addons[]=
 {
 	"A3_Ui_F",
 	"A3_Weapons_F_Ammoboxes",
-	"ace_rearm",
-	"ace_dragging",
 	"A3_Modules_F",
 	"A3_Characters_F",
 	"A3_Modules_F_Hc",
-	"ace_cargo",
 	"A3_Structures_F_EPB_Civ_Camping",
-	"ace_interaction",
-	"ace_explosives",
 	"A3_Structures_F_EPC_Civ_InfoBoards",
 	"A3_Structures_F_Ind_AirPort",
 	"A3_Structures_F_Mil_Cargo",
@@ -56,7 +51,7 @@ class AddonsMetaData
 {
 	class List
 	{
-		items=19;
+		items=14;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -73,117 +68,82 @@ class AddonsMetaData
 		};
 		class Item2
 		{
-			className="ace_rearm";
-			name="ACE3 - Rearm";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item3
-		{
-			className="ace_dragging";
-			name="ACE3 - Dragging";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item4
-		{
 			className="A3_Modules_F";
 			name="Arma 3 Alpha - Scripted Modules";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item5
+		class Item3
 		{
 			className="A3_Characters_F";
 			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item6
-		{
-			className="ace_cargo";
-			name="ACE3 - Cargo";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item7
+		class Item4
 		{
 			className="A3_Structures_F_EPB";
 			name="Arma 3 Adapt Episode - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item8
-		{
-			className="ace_interaction";
-			name="ACE3 - Interaction";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item9
-		{
-			className="ace_explosives";
-			name="ACE3 - Explosives";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item10
+		class Item5
 		{
 			className="A3_Structures_F_EPC";
 			name="Arma 3 Win Episode - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item11
+		class Item6
 		{
 			className="A3_Structures_F_Ind";
 			name="Arma 3 - Industrial Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item12
+		class Item7
 		{
 			className="A3_Structures_F_Mil";
 			name="Arma 3 - Military Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item13
+		class Item8
 		{
 			className="A3_Structures_F_Exp_Infrastructure";
 			name="Arma 3 Apex - Infrastructure Objects";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item14
+		class Item9
 		{
 			className="A3_Ui_F_Exp";
 			name="Arma 3 Apex - User Interface";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item15
+		class Item10
 		{
 			className="A3_Characters_F_Patrol";
 			name="Arma 3 Patrol - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item16
+		class Item11
 		{
 			className="A3_Characters_F_Exp";
 			name="Arma 3 Apex - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item17
+		class Item12
 		{
 			className="A3_Structures_F_Exp";
 			name="Arma 3 Apex - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item18
+		class Item13
 		{
 			className="A3_Modules_F_Curator";
 			name="Arma 3 Zeus Update - Scripted Modules";
@@ -201,7 +161,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="A3-Antistasi Altis Test001";
+		briefingName="A3-Antistasi Altis Translation";
 		overviewText="Build FIA Army from scratch and defeat the AAF and CSAT forces in a whole map Dynamic Mission.";
 		resistanceWest=0;
 		startWeather=0;
@@ -4802,7 +4762,7 @@ class Mission
 			name="seaSpawn_8";
 			type="mil_objective";
 			id=1186;
-			atlOffset=5.0577831;
+			atlOffset=4.5166793;
 		};
 		class Item230
 		{
@@ -7086,7 +7046,7 @@ class Mission
 			position[]={8780.8975,35.592316,12043.754};
 			name="road_1";
 			type="hd_arrow";
-			angle=223.5081;
+			angle=223.50804;
 			id=1441;
 		};
 		class Item289
@@ -7324,7 +7284,7 @@ class Mission
 			position[]={21706.1,22.576994,17678.889};
 			name="road_27";
 			type="hd_arrow";
-			angle=213.26993;
+			angle=213.26987;
 			id=1470;
 		};
 		class Item315
@@ -7432,7 +7392,7 @@ class Mission
 			position[]={26280.432,40.25845,21788.68};
 			name="road_39";
 			type="hd_arrow";
-			angle=52.545013;
+			angle=52.54501;
 			id=1482;
 		};
 		class Item327
@@ -7441,7 +7401,7 @@ class Mission
 			position[]={26493.066,20.179955,21324.83};
 			name="road_40";
 			type="hd_arrow";
-			angle=113.11626;
+			angle=113.11622;
 			id=1483;
 		};
 		class Item328

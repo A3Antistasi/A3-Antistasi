@@ -29,6 +29,7 @@ minWeaps = paramsArray select 10; publicVariable "minWeaps";
 civTraffic = paramsArray select 11; publicVariable "civTraffic";
 memberDistance = paramsArray select 13; publicVariable "memberDistance";
 limitedFT = if (paramsArray select 14 == 1) then {true} else {false}; publicVariable "limitedFT";
+unlockGuided = if (paramsArray select 15 == 1) then {true} else {false}; publicVariable "unlockGuided";
 
 // Revive parameters
 easyRevive = if (paramsArray select 15 == 1) then {false} else {true}; publicVariable "easyRevive";

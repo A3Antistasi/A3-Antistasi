@@ -43,6 +43,7 @@ if (!isMultiPlayer) then
     minWeaps = 24;
     civTraffic = 1;
     limitedFT = false;
+    unlockGuided = false;
     easyRevive = true;
     bleedoutTimeMul = 4;
     reviveTimeMul = 4;
@@ -69,5 +70,3 @@ if (!isMultiPlayer) then
     deleteMarker "respawn_east";
     if (buenos == independent) then {deleteMarker "respawn_west"} else {deleteMarker "respawn_guerrila"};
     };
-
-

@@ -20,7 +20,7 @@ private _check = false;
 {
     if (_x select 1 >= minWeaps) then {
         private _arma = _x select 0;
-        if !(_arma in mlaunchers) then {
+        if (!(_arma in mlaunchers) || unlockGuided) then
             // Unlock all mags, could unlock based on numbers instead?
             private _mags = getArray (configFile / "CfgWeapons" / _arma / "magazines");
             {
@@ -46,7 +46,7 @@ private _check = false;
                 } else {
                     if (_arma in srifles) then {
                         unlockedSN pushBack _arma; publicVariable "unlockedSN";
-                    } else { 
+                    } else {
                         if (_arma in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then {
                             unlockedAT pushBack _arma; publicVariable "unlockedAT";
                         } else {

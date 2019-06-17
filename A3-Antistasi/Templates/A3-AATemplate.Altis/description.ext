@@ -1,5 +1,8 @@
 #include "defines.hpp"
 #include "dialogs.hpp"
+#include "GOM_defines.hpp"
+#include "GOM_functions.hpp"
+#include "GOM_dialogs.hpp"
 
 author="Barbolani";
 OnLoadName = "Antistasi Altis";
@@ -61,6 +64,10 @@ class CfgSounds
         name="fire";
         sound[]={"Music\fire.ogg",db+12,1.0};
         titles[]={};
+    };
+    {
+    	sounds[] = {};
+    	#include "GOM_VTsounds.hpp"
     };
 };
 

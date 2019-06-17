@@ -4,8 +4,9 @@
 //You do not have enough balls to make any modification and after making a Bug report because something is wrong. You don't wanna be there. Believe me.
 //Not commented lines cannot be changed.
 //Don't touch them.
+//Touched
 
-antistasiVersion = "v 1.4.0.2";
+antistasiVersion = "v 1.5.0.1";
 
 
 debug = false;//debug variable, not useful for everything..

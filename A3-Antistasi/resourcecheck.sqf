@@ -232,7 +232,7 @@ while {true} do {
     if (cuentaCA == 0 /* and (diag_fps > minimoFPS)*/) then {
         diag_log format ["[resourceCheck] Spawning big attack"];
         timeSinceLastAttack = 0; publicVariable "timeSinceLastAttack";
-        [2000, 600, "Spawning big attack"] remoteExec ["A3A_fnc_timingCA", 2];
+        [3000, 600, "Spawning big attack"] remoteExec ["A3A_fnc_timingCA", 2];
         if (!bigAttackInProgress) then {
             _script = [] spawn A3A_fnc_ataqueAAF;
             waitUntil {sleep 5; scriptDone _script};

@@ -17,7 +17,7 @@ if ({alive _x} count (crew vehicle _veh) > 0) exitWith { hint "In order to store
 
 _tipoVeh = typeOf _veh;
 
-if (_veh isKindOf "Man") exitWith {hint "Are you kidding?"};
+if (_veh isKindOf "Man") exitWith {hint "We don't do that service try asking the irishman?"};
 
 if !(_veh isKindOf "AllVehicles") exitWith {hint "The vehicle you are looking cannot be stored in our Garage"};
 if (!_pool and !([player] call A3A_fnc_isMember)) exitWith {hint "Only server members have the garage feature enabled"};

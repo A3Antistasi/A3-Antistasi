@@ -1,4 +1,9 @@
-# Update
+# Update 2
+
+The translation of the variables has been completed to 99.5+%.
+Bugfixing will start.
+
+# Update 1
 
 Please note that this fork of A3-AntiStasi is momentarily undergoing the translation from spanish to english. This is done by me (Bob Murphy) as well as other members and admins of the Official A3-AntiStasi Community.
 Once the translation is completed, we will apply bug fixes and will add further content to the mission.

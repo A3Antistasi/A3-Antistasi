@@ -1,10 +1,10 @@
 //Mission: Destroy the antenna
 if (!isServer and hasInterface) exitWith{};
 
-private ["_antena","_positionX","_timeLimit","_markerX","_nameDest","_mrkFinal","_tsk"];
+private ["_antenna","_positionX","_timeLimit","_markerX","_nameDest","_mrkFinal","_tsk"];
 
-_antena = _this select 0;
-_markerX = [markersX,_antena] call BIS_fnc_nearestPosition;
+_antenna = _this select 0;
+_markerX = [markersX,_antenna] call BIS_fnc_nearestPosition;
 
 _difficultX = if (random 10 < tierWar) then {true} else {false};
 _leave = false;
@@ -12,7 +12,7 @@ _contactX = objNull;
 _groupContact = grpNull;
 _tsk = "";
 _nameDest = [_markerX] call A3A_fnc_localizar;
-_positionX = getPos _antena;
+_positionX = getPos _antenna;
 
 _timeLimit = if (_difficultX) then {30} else {120};
 if (hasIFA) then {_timeLimit = _timeLimit * 2};
@@ -24,7 +24,7 @@ _mrkFinal setMarkerShape "ICON";
 
 [[teamPlayer,civilian],"DES",[format ["We need to destroy or take a Radio Tower in %1. This will interrupt %4 Propaganda Nework. Do it before %2:%3.",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,nameOccupants],"Destroy Radio Tower",_mrkFinal],_positionX,false,0,true,"Destroy",true] call BIS_fnc_taskCreate;
 missionsX pushBack ["DES","CREATED"]; publicVariable "missionsX";
-waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (not alive _antena) or (not(sidesX getVariable [_markerX,sideUnknown] == Occupants))};
+waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (not alive _antenna) or (not(sidesX getVariable [_markerX,sideUnknown] == Occupants))};
 
 _bonus = if (_difficultX) then {2} else {1};
 

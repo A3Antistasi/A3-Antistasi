@@ -2,17 +2,17 @@ if (player != theBoss) exitWith {hint "Only Commander has the ability to control
 
 _groups = _this select 0;
 
-_grupo = _groups select 0;
-_unit = leader _grupo;
+_groupX = _groups select 0;
+_unit = leader _groupX;
 
 if !([_unit] call A3A_fnc_canFight) exitWith {hint "You cannot control an unconscious or dead unit"};
 
-while {(count (waypoints _grupo)) > 0} do
+while {(count (waypoints _groupX)) > 0} do
  {
-  deleteWaypoint ((waypoints _grupo) select 0);
+  deleteWaypoint ((waypoints _groupX) select 0);
  };
 
-_wp = _grupo addwaypoint [getpos _unit,0];
+_wp = _groupX addwaypoint [getpos _unit,0];
 
 {
 if (_x != vehicle _x) then

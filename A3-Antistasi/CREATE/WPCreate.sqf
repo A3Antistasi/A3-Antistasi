@@ -1,4 +1,4 @@
-private ["_mrkOrigin","_mrkDestination","_grupo","_posOrigin","_posDestination","_finalArray","_arr2","_final","_isCentral","_roadsCentral","_useCentral"];
+private ["_mrkOrigin","_mrkDestination","_groupX","_posOrigin","_posDestination","_finalArray","_arr2","_final","_isCentral","_roadsCentral","_useCentral"];
 
 _mrkOrigin = _this select 0;
 _posOrigin = if (_mrkOrigin isEqualType "") then {getMarkerPos _mrkOrigin} else {_mrkOrigin};
@@ -22,7 +22,7 @@ else
 	};
 if (_exit) exitWith {};
 
-_grupo = _this select 2;
+_groupX = _this select 2;
 _finalArray = [];
 _arr2 = [];
 _final = [roadsMrk,_posDestination] call BIS_fnc_nearestPosition;
@@ -120,7 +120,7 @@ if (getMarkerPos _final distance _posOrigin > _posDestination distance _posOrigi
 
 for "_i" from 0 to ((count _finalArray) - 1) do
 	{
-	_grupo addWaypoint [getMarkerPos (_finalArray select _i), _i];
+	_groupX addWaypoint [getMarkerPos (_finalArray select _i), _i];
 	/*
 	_mrkFinal = createMarker [format ["DES%1", random 100], getMarkerPos (_finalArray select _i)];
 	_mrkFinal setMarkerShape "ICON";

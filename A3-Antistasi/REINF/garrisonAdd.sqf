@@ -1,4 +1,4 @@
-private ["_hr","_resourcesFIA","_typeX","_costs","_markerX","_garrison","_positionX","_unit","_grupo","_veh","_pos"];
+private ["_hr","_resourcesFIA","_typeX","_costs","_markerX","_garrison","_positionX","_unit","_groupX","_veh","_pos"];
 
 _hr = server getVariable "hr";
 

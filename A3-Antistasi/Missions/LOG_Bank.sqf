@@ -1,7 +1,7 @@
 //Mission: Logistics bank mission
 //el sitio de la boxX es el 21
 if (!isServer and hasInterface) exitWith {};
-private ["_banco","_markerX","_difficultX","_leave","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_truckX","_countX","_mrkFinal","_mrk","_soldiers"];
+private ["_banco","_markerX","_difficultX","_leave","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_radiusX","_positionX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_posBase","_pos","_truckX","_countX","_mrkFinal","_mrk","_soldiers"];
 _banco = _this select 0;
 _markerX = [citiesX,_banco] call BIS_fnc_nearestPosition;
 
@@ -58,11 +58,11 @@ _groups = [];
 _soldiers = [];
 for "_i" from 1 to 4 do
 	{
-	_grupo = if (_difficultX) then {[_positionX,Occupants, groupsNATOSentry] call A3A_fnc_spawnGroup} else {[_positionX,Occupants, groupsNATOGen] call A3A_fnc_spawnGroup};
+	_groupX = if (_difficultX) then {[_positionX,Occupants, groupsNATOSentry] call A3A_fnc_spawnGroup} else {[_positionX,Occupants, groupsNATOGen] call A3A_fnc_spawnGroup};
 	sleep 1;
-	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "FORTIFY"] execVM "scripts\UPSMON.sqf";
-	{[_x,""] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _grupo;
-	_groups pushBack _grupo;
+	_nul = [leader _groupX, _mrk, "SAFE","SPAWNED", "NOVEH2", "FORTIFY"] execVM "scripts\UPSMON.sqf";
+	{[_x,""] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _groupX;
+	_groups pushBack _groupX;
 	};
 
 _positionX = _banco buildingPos 1;
@@ -146,8 +146,8 @@ _nul = [1200,"LOG"] spawn A3A_fnc_deleteTask;
 
 waitUntil {sleep 1; !([distanceSPWN,1,_positionX,teamPlayer] call A3A_fnc_distanceUnits)};
 
-{_grupo = _x;
-{deleteVehicle _x} forEach units _grupo;
+{_groupX = _x;
+{deleteVehicle _x} forEach units _groupX;
 deleteGroup _x;
 } forEach _groups;
 

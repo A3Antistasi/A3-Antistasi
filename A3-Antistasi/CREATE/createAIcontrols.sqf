@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_markerX","_positionX","_vehiclesX","_soldiers","_tam","_bunker","_groupE","_unit","_typeGroup","_grupo","_timeLimit","_dateLimit","_dateLimitNum","_base","_dog","_sideX","_cfg","_isFIA","_leave","_isControl","_tam","_typeVehX","_typeUnit","_markersX","_frontierX","_uav","_groupUAV","_allUnits","_closest","_winner","_timeLimit","_dateLimit","_dateLimitNum","_size","_base","_mineX","_loser","_sideX"];
+private ["_pos","_roadscon","_veh","_roads","_conquered","_dirVeh","_markerX","_positionX","_vehiclesX","_soldiers","_radiusX","_bunker","_groupE","_unit","_typeGroup","_groupX","_timeLimit","_dateLimit","_dateLimitNum","_base","_dog","_sideX","_cfg","_isFIA","_leave","_isControl","_radiusX","_typeVehX","_typeUnit","_markersX","_frontierX","_uav","_groupUAV","_allUnits","_closest","_winner","_timeLimit","_dateLimit","_dateLimitNum","_size","_base","_mineX","_loser","_sideX"];
 
 _markerX = _this select 0;
 _positionX = getMarkerPos _markerX;
@@ -12,7 +12,7 @@ _vehiclesX = [];
 _soldiers = [];
 _pilots = [];
 _conquered = false;
-_grupo = grpNull;
+_groupX = grpNull;
 _isFIA = false;
 _leave = false;
 
@@ -41,12 +41,12 @@ if (_isControl) then
 			};
 		};
 
-	_tam = 20;
+	_radiusX = 20;
 	while {true} do
 		{
-		_roads = _positionX nearRoads _tam;
+		_roads = _positionX nearRoads _radiusX;
 		if (count _roads > 1) exitWith {};
-		_tam = _tam + 5;
+		_radiusX = _radiusX + 5;
 		};
 
 	_roadscon = roadsConnectedto (_roads select 0);
@@ -97,21 +97,21 @@ if (_isControl) then
 			{_nul = [_x] call A3A_fnc_AIVEHinit} forEach _vehiclesX;
 			};
 		_typeGroup = if (_sideX == Occupants) then {selectRandom groupsNATOmid} else {selectRandom groupsCSATmid};
-		_grupo = if !(hasIFA) then {[_positionX,_sideX, _typeGroup,false,true] call A3A_fnc_spawnGroup} else {[_positionX,_sideX, _typeGroup] call A3A_fnc_spawnGroup};
-		if !(isNull _grupo) then
+		_groupX = if !(hasIFA) then {[_positionX,_sideX, _typeGroup,false,true] call A3A_fnc_spawnGroup} else {[_positionX,_sideX, _typeGroup] call A3A_fnc_spawnGroup};
+		if !(isNull _groupX) then
 			{
 			if !(hasIFA) then
 				{
-				{[_x] join _grupo} forEach units _groupE;
+				{[_x] join _groupX} forEach units _groupE;
 				deleteGroup _groupE;
 				};
 			if (random 10 < 2.5) then
 				{
-				_dog = _grupo createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
-				[_dog,_grupo] spawn A3A_fnc_guardDog;
+				_dog = _groupX createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
+				[_dog,_groupX] spawn A3A_fnc_guardDog;
 				};
-			_nul = [leader _grupo, _markerX, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-			{[_x,""] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _grupo;
+			_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+			{[_x,""] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _groupX;
 			};
 		}
 	else
@@ -123,12 +123,12 @@ if (_isControl) then
 		_vehiclesX pushBack _veh;
 		sleep 1;
 		_typeGroup = selectRandom groupsFIAMid;
-		_grupo = if !(hasIFA) then {[_positionX, _sideX, _typeGroup,false,true] call A3A_fnc_spawnGroup} else {[_positionX, _sideX, _typeGroup] call A3A_fnc_spawnGroup};
-		if !(isNull _grupo) then
+		_groupX = if !(hasIFA) then {[_positionX, _sideX, _typeGroup,false,true] call A3A_fnc_spawnGroup} else {[_positionX, _sideX, _typeGroup] call A3A_fnc_spawnGroup};
+		if !(isNull _groupX) then
 			{
-			_unit = _grupo createUnit [FIARifleman, _positionX, [], 0, "NONE"];
+			_unit = _groupX createUnit [FIARifleman, _positionX, [], 0, "NONE"];
 			_unit moveInGunner _veh;
-			{_soldiers pushBack _x; [_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
+			{_soldiers pushBack _x; [_x,""] call A3A_fnc_NATOinit} forEach units _groupX;
 			};
 		};
 	}
@@ -154,21 +154,21 @@ else
 				if (_sideX == Occupants) then {Occupants revealMine _mineX} else {Invaders revealMine _mineX};
 				};
 			};
-		_grupo = [_positionX,_sideX, _cfg] call A3A_fnc_spawnGroup;
-		_nul = [leader _grupo, _markerX, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+		_groupX = [_positionX,_sideX, _cfg] call A3A_fnc_spawnGroup;
+		_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 		if !(hasIFA) then
 			{
 			sleep 1;
-			{_soldiers pushBack _x} forEach units _grupo;
+			{_soldiers pushBack _x} forEach units _groupX;
 			_typeVehX = if (_sideX == Occupants) then {vehNATOUAVSmall} else {vehCSATUAVSmall};
 			_uav = createVehicle [_typeVehX, _positionX, [], 0, "FLY"];
 			createVehicleCrew _uav;
 			_vehiclesX pushBack _uav;
 			_groupUAV = group (crew _uav select 1);
-			{[_x] joinSilent _grupo; _pilots pushBack _x} forEach units _groupUAV;
+			{[_x] joinSilent _groupX; _pilots pushBack _x} forEach units _groupUAV;
 			deleteGroup _groupUAV;
 			};
-		{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
+		{[_x,""] call A3A_fnc_NATOinit} forEach units _groupX;
 		}
 	else
 		{
@@ -269,7 +269,7 @@ if (alive _x) then
 	deleteVehicle _x
 	}
 } forEach (_soldiers + _pilots);
-deleteGroup _grupo;
+deleteGroup _groupX;
 
 if (_conquered) then
 	{

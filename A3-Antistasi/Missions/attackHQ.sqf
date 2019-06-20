@@ -57,11 +57,11 @@ for "_i" from 0 to (round random 2) do
 	_vehiclesX pushBack _heli;
 
 	{_x setBehaviour "CARELESS";} forEach units _groupHeli;
-	_grupo = [_posOrigin, _sideX, _typeGroup] call A3A_fnc_spawnGroup;
-	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers pushBack _x; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
-	_groups pushBack _grupo;
+	_groupX = [_posOrigin, _sideX, _typeGroup] call A3A_fnc_spawnGroup;
+	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers pushBack _x; [_x] call A3A_fnc_NATOinit} forEach units _groupX;
+	_groups pushBack _groupX;
 	//[_heli,"Air Transport"] spawn A3A_fnc_inmuneConvoy;
-	[_heli,_grupo,_positionX,_posOrigin,_groupHeli] spawn A3A_fnc_fastrope;
+	[_heli,_groupX,_positionX,_posOrigin,_groupHeli] spawn A3A_fnc_fastrope;
 	sleep 10;
 	};
 

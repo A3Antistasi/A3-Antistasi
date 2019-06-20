@@ -1,5 +1,5 @@
-private ["_grupo","_killer","_markerX","_super","_enemy"];
-_grupo = _this select 0;
+private ["_groupX","_killer","_markerX","_super","_enemy"];
+_groupX = _this select 0;
 _killer = _this select 1;
 
 {
@@ -19,7 +19,7 @@ if (fleeing _x) then
 				if (_x == leader group _x) then
 					{
 					_super = false;
-					_markerX = (leader _grupo) getVariable "markerX";
+					_markerX = (leader _groupX) getVariable "markerX";
 					if (!isNil "_markerX") then
 						{
 						if (_markerX in airportsX) then {_super = true};
@@ -77,9 +77,9 @@ else
 					};
 				};
 			};
-		if (random 1 < 0.5) then {if (count units _grupo > 0) then {_x allowFleeing (1 -(_x skill "courage") + (({!([_x] call A3A_fnc_canFight)} count units _grupo)/(count units _grupo)))}};
+		if (random 1 < 0.5) then {if (count units _groupX > 0) then {_x allowFleeing (1 -(_x skill "courage") + (({!([_x] call A3A_fnc_canFight)} count units _groupX)/(count units _groupX)))}};
 		};
 	};
 sleep 1 + (random 1);
-} forEach units _grupo;
+} forEach units _groupX;
 

@@ -1,4 +1,4 @@
-private ["_markerX","_damage","_lamps","_onoff","_positionX","_tam","_size"];
+private ["_markerX","_damage","_lamps","_onoff","_positionX","_radiusX","_size"];
 
 _markerX = _this select 0;
 _onoff = _this select 1;
@@ -7,8 +7,8 @@ _positionX = getMarkerPos _markerX;
 _damage = 0;
 if (not _onoff) then {_damage = 0.95;};
 
-_tam = markerSize _markerX;
-_size = _tam select 0;
+_radiusX = markerSize _markerX;
+_size = _radiusX select 0;
 
 for "_i" from 0 to ((count lamptypes) -1) do
     {

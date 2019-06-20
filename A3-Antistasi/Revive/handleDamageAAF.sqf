@@ -1,17 +1,17 @@
-private ["_unit","_part","_dam","_injurer","_grupo"];
+private ["_unit","_part","_dam","_injurer","_groupX"];
 _dam = _this select 2;
 _injurer = _this select 3;
 if (side _injurer == teamPlayer) then
 	{
 	_unit = _this select 0;
 	_part = _this select 1;
-	_grupo = group _unit;
-	if (time > _grupo getVariable ["movedToCover",0]) then
+	_groupX = group _unit;
+	if (time > _groupX getVariable ["movedToCover",0]) then
 		{
-		if ((behaviour leader _grupo != "COMBAT") and (behaviour leader _grupo != "STEALTH")) then
+		if ((behaviour leader _groupX != "COMBAT") and (behaviour leader _groupX != "STEALTH")) then
 			{
-			_grupo setVariable ["movedToCover",time + 120];
-			{[_x,_injurer] call A3A_fnc_unitGetToCover} forEach units _grupo;
+			_groupX setVariable ["movedToCover",time + 120];
+			{[_x,_injurer] call A3A_fnc_unitGetToCover} forEach units _groupX;
 			};
 		};
 	if (_part == "") then

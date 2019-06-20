@@ -10,7 +10,7 @@ _checkX = false;
 
 if (_checkX) exitWith {Hint "You cannot Recruit Squads with enemies near your HQ"};
 
-private ["_typeGroup","_esinf","_typeVehX","_costs","_costHR","_exit","_formatX","_pos","_hr","_resourcesFIA","_grupo","_roads","_road","_grupo","_truckX","_vehicle","_mortarX","_morty"];
+private ["_typeGroup","_esinf","_typeVehX","_costs","_costHR","_exit","_formatX","_pos","_hr","_resourcesFIA","_groupX","_roads","_road","_groupX","_truckX","_vehicle","_mortarX","_morty"];
 
 
 _typeGroup = _this select 0;
@@ -40,7 +40,7 @@ _format = "Squd-";
 _hr = server getVariable "hr";
 _resourcesFIA = server getVariable "resourcesFIA";
 
-private ["_grupo","_roads","_truckX","_withBackpck"];
+private ["_groupX","_roads","_truckX","_withBackpck"];
 _withBackpck = "";
 if (_typeGroup isEqualType []) then
 	{
@@ -91,7 +91,7 @@ if (_esinf) then
 	_pos = [(getMarkerPos respawnTeamPlayer), 30, random 360] call BIS_Fnc_relPos;
 	if (_typeGroup isEqualType []) then
 		{
-		_grupo = [_pos, teamPlayer, _formatX,true] call A3A_fnc_spawnGroup;
+		_groupX = [_pos, teamPlayer, _formatX,true] call A3A_fnc_spawnGroup;
 		//if (_typeGroup isEqualTo groupsSDKSquad) then {_format = "Squd-"};
 		if (_typeGroup isEqualTo groupsSDKmid) then {_format = "Tm-"};
 		if (_typeGroup isEqualTo groupsSDKAT) then {_format = "AT-"};
@@ -99,31 +99,31 @@ if (_esinf) then
 		if (_typeGroup isEqualTo groupsSDKSentry) then {_format = "Stry-"};
 		if (_withBackpck == "MG") then
 			{
-			((units _grupo) select ((count (units _grupo)) - 2)) addBackpackGlobal supportStaticsSDKB2;
-			((units _grupo) select ((count (units _grupo)) - 1)) addBackpackGlobal MGStaticSDKB;
+			((units _groupX) select ((count (units _groupX)) - 2)) addBackpackGlobal supportStaticsSDKB2;
+			((units _groupX) select ((count (units _groupX)) - 1)) addBackpackGlobal MGStaticSDKB;
 			_format = "SqMG-";
 			}
 		else
 			{
 			if (_withBackpck == "Mortar") then
 				{
-				((units _grupo) select ((count (units _grupo)) - 2)) addBackpackGlobal supportStaticsSDKB3;
-				((units _grupo) select ((count (units _grupo)) - 1)) addBackpackGlobal MortStaticSDKB;
+				((units _groupX) select ((count (units _groupX)) - 2)) addBackpackGlobal supportStaticsSDKB3;
+				((units _groupX) select ((count (units _groupX)) - 1)) addBackpackGlobal MortStaticSDKB;
 				_format = "SqMort-";
 				};
 			};
 		}
 	else
 		{
-		_grupo = [_pos, teamPlayer, _formatX,true] call A3A_fnc_spawnGroup;
-		_grupo setVariable ["staticAutoT",false,true];
+		_groupX = [_pos, teamPlayer, _formatX,true] call A3A_fnc_spawnGroup;
+		_groupX setVariable ["staticAutoT",false,true];
 		if (_typeGroup == SDKMortar) then {_format = "Mort-"};
 		if (_typeGroup == SDKMGStatic) then {_format = "MG-"};
-		[_grupo,_typeGroup] spawn A3A_fnc_MortyAI;
+		[_groupX,_typeGroup] spawn A3A_fnc_MortyAI;
 		_bypassAI = true;
 		};
 	_format = format ["%1%2",_format,{side (leader _x) == teamPlayer} count allGroups];
-	_grupo setGroupId [_format];
+	_groupX setGroupId [_format];
 	}
 else
 	{
@@ -137,36 +137,36 @@ else
 		[_pos, 0,_typeGroup, teamPlayer] call bis_fnc_spawnvehicle
 		};
 	_truckX = _vehicle select 0;
-	_grupo = _vehicle select 2;
+	_groupX = _vehicle select 2;
 	//_mortarX attachTo [_truckX,[0,-1.5,0.2]];
 	//_mortarX setDir (getDir _truckX + 180);
 
 	if ((!activeGREF) and (_typeGroup == staticAAteamPlayer)) then
 		{
 		_pos = _pos findEmptyPosition [1,30,SDKMortar];
-		_morty = _grupo createUnit [staticCrewTeamPlayer, _pos, [],0, "NONE"];
+		_morty = _groupX createUnit [staticCrewTeamPlayer, _pos, [],0, "NONE"];
 		_mortarX = _typeGroup createVehicle _pos;
 		_nul = [_mortarX] call A3A_fnc_AIVEHinit;
 		_mortarX attachTo [_truckX,[0,-1.5,0.2]];
 		_mortarX setDir (getDir _truckX + 180);
 		_morty moveInGunner _mortarX;
 		};
-	if (_typeGroup == vehSDKAT) then {_grupo setGroupId [format ["M.AT-%1",{side (leader _x) == teamPlayer} count allGroups]]};
-	if (_typeGroup == staticAAteamPlayer) then {_grupo setGroupId [format ["M.AA-%1",{side (leader _x) == teamPlayer} count allGroups]]};
+	if (_typeGroup == vehSDKAT) then {_groupX setGroupId [format ["M.AT-%1",{side (leader _x) == teamPlayer} count allGroups]]};
+	if (_typeGroup == staticAAteamPlayer) then {_groupX setGroupId [format ["M.AA-%1",{side (leader _x) == teamPlayer} count allGroups]]};
 
 	driver _truckX action ["engineOn", vehicle driver _truckX];
 	_nul = [_truckX] call A3A_fnc_AIVEHinit;
 	_bypassAI = true;
 	};
 
-{[_x] call A3A_fnc_FIAinit} forEach units _grupo;
-//leader _grupo setBehaviour "SAFE";
-theBoss hcSetGroup [_grupo];
+{[_x] call A3A_fnc_FIAinit} forEach units _groupX;
+//leader _groupX setBehaviour "SAFE";
+theBoss hcSetGroup [_groupX];
 petros directSay "SentGenReinforcementsArrived";
-hint format ["Group %1 at your command.\n\nGroups are managed from the High Command bar (Default: CTRL+SPACE)\n\nIf the group gets stuck, use the AI Control feature to make them start moving. Mounted Static teams tend to get stuck (solving this is WiP)\n\nTo assign a vehicle for this group, look at some vehicle, and use Vehicle Squad Mngmt option in Y menu", groupID _grupo];
+hint format ["Group %1 at your command.\n\nGroups are managed from the High Command bar (Default: CTRL+SPACE)\n\nIf the group gets stuck, use the AI Control feature to make them start moving. Mounted Static teams tend to get stuck (solving this is WiP)\n\nTo assign a vehicle for this group, look at some vehicle, and use Vehicle Squad Mngmt option in Y menu", groupID _groupX];
 
 if (!_esinf) exitWith {garageVeh = nil};
-if !(_bypassAI) then {_grupo spawn A3A_fnc_attackDrillAI};
+if !(_bypassAI) then {_groupX spawn A3A_fnc_attackDrillAI};
 
 if (count _formatX == 2) then
 	{
@@ -215,10 +215,10 @@ vehQuery = nil;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 _mortarX = _typeVehX createVehicle _pos;
 _nul = [_mortarX] call A3A_fnc_AIVEHinit;
-_grupo addVehicle _mortarX;
-_mortarX setVariable ["owner",_grupo,true];
+_groupX addVehicle _mortarX;
+_mortarX setVariable ["owner",_groupX,true];
 _nul = [0, - _costs] remoteExec ["A3A_fnc_resourcesFIA",2];
-leader _grupo assignAsDriver _mortarX;
-{[_x] orderGetIn true; [_x] allowGetIn true} forEach units _grupo;
+leader _groupX assignAsDriver _mortarX;
+{[_x] orderGetIn true; [_x] allowGetIn true} forEach units _groupX;
 hint "Vehicle Purchased";
 petros directSay "SentGenBaseUnlockVehicle";

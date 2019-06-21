@@ -1,11 +1,12 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilots","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_pilot","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigin","_airportX","_nameDest","_timeX","_solMax","_nul","_costs","_typeX","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_sideX","_waves","_countX","_tsk1","_spawnPoint","_vehPool"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilots","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_pilot","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigin","_airportIndex","_nameDest","_timeX","_solMax","_nul","_costs","_typeX","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_sideX","_waves","_countX","_tsk1","_spawnPoint","_vehPool"];
 
 bigAttackInProgress = true;
 publicVariable "bigAttackInProgress";
 _firstWave = true;
 _mrkDestination = _this select 0;
+//_mrkOrigin can be an Airport or Carrier
 _mrkOrigin = _this select 1;
 _waves = _this select 2;
 if (_waves <= 0) then {_waves = -1};
@@ -71,15 +72,17 @@ while {(_waves > 0)} do
 	_spawnPoint = "";
 	if !(_mrkDestination in blackListDest) then
 		{
-		if (_posOrigin distance _posDestination < distanceForLandAttack) then
+    //Attempt land attack if origin is an airport in range
+    _airportIndex = airportsX find _mrkOrigin;
+		if (_airportIndex >= 0 and (_posOrigin distance _posDestination < distanceForLandAttack)) then
 			{
-			_indexX = airportsX find _mrkOrigin;
-			_spawnPoint = spawnPoints select _indexX;
+			_spawnPoint = spawnPoints select _airportIndex;
 			_pos = getMarkerPos _spawnPoint;
 			_posOriginLand = _posOrigin;
 			_dir = markerDir _spawnPoint;
 			}
 		else
+    //Find an outpost we can attack from
 			{
 			_outposts = outposts select {(sidesX getVariable [_x,sideUnknown] == _sideX) and (getMarkerPos _x distance _posDestination < distanceForLandAttack)  and ([_x,false] call A3A_fnc_airportCanAttack)};
 			if !(_outposts isEqualTo []) then

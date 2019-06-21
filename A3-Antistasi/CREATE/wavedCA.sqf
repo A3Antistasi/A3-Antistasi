@@ -72,8 +72,8 @@ while {(_waves > 0)} do
 	_spawnPoint = "";
 	if !(_mrkDestination in blackListDest) then
 		{
-    //Attempt land attack if origin is an airport in range
-    _airportIndex = airportsX find _mrkOrigin;
+		//Attempt land attack if origin is an airport in range
+		_airportIndex = airportsX find _mrkOrigin;
 		if (_airportIndex >= 0 and (_posOrigin distance _posDestination < distanceForLandAttack)) then
 			{
 			_spawnPoint = spawnPoints select _airportIndex;
@@ -82,7 +82,7 @@ while {(_waves > 0)} do
 			_dir = markerDir _spawnPoint;
 			}
 		else
-    //Find an outpost we can attack from
+		//Find an outpost we can attack from
 			{
 			_outposts = outposts select {(sidesX getVariable [_x,sideUnknown] == _sideX) and (getMarkerPos _x distance _posDestination < distanceForLandAttack)  and ([_x,false] call A3A_fnc_airportCanAttack)};
 			if !(_outposts isEqualTo []) then

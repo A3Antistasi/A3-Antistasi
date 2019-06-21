@@ -62,12 +62,12 @@ garageKeys = (findDisplay 46) displayAddEventHandler ["KeyDown",
 			};
 		if (_this select 1 == 205) then
 			{
-			garageVeh setDir (getDir garageVeh + 5);
+			garageVeh setDir (getDir garageVeh + 10);
 			_handled = true;
 			};
 		if (_this select 1 == 203) then
 			{
-			garageVeh setDir (getDir garageVeh - 5);
+			garageVeh setDir (getDir garageVeh - 10);
 			_handled = true;
 			};
 		if (_cambio) then

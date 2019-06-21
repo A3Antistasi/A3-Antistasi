@@ -3,7 +3,7 @@ File: UPSMON_UnitsGetIn.sqf
 Author: Azroul13
 
 Description:
-	Funcion que mete la tropa en el vehiculo
+	Funcion que mete la tropa en el vehicle
 Parameter(s):
 	<--- id of the group
 	<--- array of units that will embark in the vehicle
@@ -35,7 +35,7 @@ _Gunnerturrets = _vehicle call UPSMON_fnc_commonTurrets;
 _Commandercount = (_vehicle) emptyPositions "Commander"; 
 _Drivercount = (_vehicle) emptyPositions "Driver"; 					
 
-//Obtenemos el identificador del vehiculo
+//Obtenemos el identificador del vehicle
 _vehgrpid = _vehicle getvariable ["UPSMON_grpid",0];
 _cargo = _vehicle getvariable ["UPSMON_cargo",[]];			
 
@@ -43,7 +43,7 @@ _cargo = _cargo - _unitsin; //Para evitar duplicados
 _cargo = _cargo + _unitsin; //A�adimos a la carga
 _vehicle setVariable ["UPSMON_cargo", _cargo, false];			
 
-//Hablitamos a la IA para entrar en el vehiculo
+//Hablitamos a la IA para entrar en el vehicle
 //Tell AI to get in vehicle
 {		
 	Dostop _x;
@@ -76,7 +76,7 @@ _vehicle setVariable ["UPSMON_cargo", _cargo, false];
 } foreach _units;			
 //if (UPSMON_Debug>0 ) then {player sidechat format["%1: _vehgrpid %2 ,_Gunnercount %3, %4",_grpid,_vehgrpid,_Gunnercount,count _units]}; 	
 				
-//Si el vehiculo pertenece al groupX asignamos positionsX de pilot, sin� solo de carga
+//Si el vehicle pertenece al groupX asignamos positionsX de pilot, sin� solo de carga
 //Make sure some AI will get in as driver (and if available as gunner(s))
 
 if ( _vehgrpid == _grpid ) then 

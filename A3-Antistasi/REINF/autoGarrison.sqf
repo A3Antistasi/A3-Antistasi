@@ -46,9 +46,9 @@ while {(_size > 0)} do
 
 waitUntil {sleep 1;((not(_markerX in smallCAmrk)) or (sidesX getVariable [_markerX,sideUnknown] == Occupants) or (sidesX getVariable [_markerX,sideUnknown] == Invaders))};
 /*
-{_vehiculo = _x;
-waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
-deleteVehicle _vehiculo;
+{_vehicle = _x;
+waitUntil {sleep 1; {_x distance _vehicle < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+deleteVehicle _vehicle;
 } forEach _vehiclesX;*/
 {_soldierX = _x;
 waitUntil {sleep 1; {_x distance _soldierX < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};

@@ -17,7 +17,7 @@ distanciaSPWN1 = 1300;
 distanciaSPWN2 = 500;
 musicON = if (isMultiplayer) then {false} else {true};
 civPerc = 35;
-autoHeal = false;
+autoHeal = true;
 recruitCooldown = 0;
 savingClient = false;
 incomeRep = false;
@@ -103,7 +103,7 @@ _yaMetidos = [];
 {
     _nombre = configName _x;
     _nombre = [_nombre] call BIS_fnc_baseWeapon;
-    
+
     if (not(_nombre in _yaMetidos)) then {
         _magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
         _yaMetidos pushBack _nombre;
@@ -488,7 +488,7 @@ timer setVariable [vehNATOMRLS,0,true];
 timer setVariable [vehCSATMRLS,5,true];
 
 
-server setVariable [civCar,200,true];//200
+server setVariable [civCar,150,true];//200
 server setVariable [civTruck,600,true];//600
 server setVariable [civHeli,5000,true];//5000
 server setVariable [civBoat,200,true];//200

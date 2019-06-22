@@ -141,41 +141,6 @@ while {true} do {
         if (lados getVariable [_recurso, sideUnknown] == buenos and not(_recurso in destroyedCities)) then {
             _recAddSDK = _recAddSDK + (300 * _bonusFIA);
         };
-
-        	//Distribute Some Tax For Server Members
-        	_tax_percent = .05;                                             //Set the taxable percent!
-        	_allHCs = entities "HeadlessClient_F";                          //Identify the headless clients
-        	_allHPs = allPlayers - _allHCs;                                 //Identify all current players
-        	_members = [];                                                  //Variable with the intent of holding the members list
-        	_dinero = 0;
-        	_tax_available = round(_recAddSDK * _tax_percent);              //Break out the available tax
-
-        	if (membershipEnabled) then {{                                  //Figure out if membership is enabled
-        	    if ([_x] call A3A_fnc_isMember) then {                      //Figure out if _x_player is a member
-        	        _members = _members + [_x];                             //Add _x_player to the members list
-        				};
-        	    }forEach _allHPs;                                           //Lets do this and find each member
-        	};
-        	_membercount = count(_members);
-
-        	if (_membercount > 0) then {					//Only make transfer if there are recipients (and avoid division by zero :))
-        		_tax_per_member = round(_tax_available / _membercount);      //Set the tax payout
-        		if (_tax_per_member > 0) then {				     //Don't trasfer debts to members (neg tax possible??)
-        			_recAddSDK = _recAddSDK - (_tax_per_member * _membercount);  //Remove member transferd taxes from the faction tax
-
-        			if (membershipEnabled) then {{                                  //Figure out if membership is enabled
-        			    _dinero = _tax_per_member + (_x getVariable "dinero");      //Lets add the Tax to the pile of Dinero
-        			    // check for negative dineros removed... We don't forward depts
-        			    // and don't give total absolution to tax recipients ;-)
-        			    //if (_dinero < 0) then {_dinero = 0};                        //Check to see if its less than 0
-        			    _x setVariable ["dinero",_dinero,true];                     //Set the magical dinero value to its new value
-        			    //["dinero",_dinero] call fn_SaveStat;                        //Save this players Dineros!
-        			    }forEach _members;                                          //For all the members please
-        			};
-        			[] spawn A3A_fnc_statistics;                                    //Lets update the player information
-        		};
-        	};
-
     } forEach recursos;
 
     // Apply HR growth scaling, faster below 5, slower above it.
@@ -232,7 +197,7 @@ while {true} do {
     if (cuentaCA == 0 /* and (diag_fps > minimoFPS)*/) then {
         diag_log format ["[resourceCheck] Spawning big attack"];
         timeSinceLastAttack = 0; publicVariable "timeSinceLastAttack";
-        [3000, 600, "Spawning big attack"] remoteExec ["A3A_fnc_timingCA", 2];
+        [1200, 600, "Spawning big attack"] remoteExec ["A3A_fnc_timingCA", 2];
         if (!bigAttackInProgress) then {
             _script = [] spawn A3A_fnc_ataqueAAF;
             waitUntil {sleep 5; scriptDone _script};

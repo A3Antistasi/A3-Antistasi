@@ -1,8 +1,5 @@
 #include "defines.hpp"
 #include "dialogs.hpp"
-#include "GOM_defines.hpp"
-#include "GOM_functions.hpp"
-#include "GOM_dialogs.hpp"
 
 author="Barbolani";
 OnLoadName = "Antistasi Altis";
@@ -64,10 +61,6 @@ class CfgSounds
         name="fire";
         sound[]={"Music\fire.ogg",db+12,1.0};
         titles[]={};
-    };
-    {
-    	sounds[] = {};
-    	#include "GOM_VTsounds.hpp"
     };
 };
 
@@ -396,7 +389,7 @@ class CfgDebriefing
 	{
 		title = "V I C T O R Y";
 		subtitle = "Altis is Ours!";
-		description = "The population of Altis loves you!<br/>The brave soldiers prooved their valour, and Barbolani, Altis new Prime Minister, could at last to have a nice holidays. A deserved rest in a Greek island, drinking with Petros, his war master.";
+		description = "The population of Altis loves you!<br/>The brave soldiers prooved their valour, and Von Dakia, Altis new Prime Minister, could at last to have a nice holidays. A deserved rest in a Greek island, drinking with Petros, his war master.";
 		picture = "n_inf";
 		pictureColor[] = {0.0,0.5,0.0,1};
 	};

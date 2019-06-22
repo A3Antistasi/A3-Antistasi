@@ -4,9 +4,8 @@
 //You do not have enough balls to make any modification and after making a Bug report because something is wrong. You don't wanna be there. Believe me.
 //Not commented lines cannot be changed.
 //Don't touch them.
-//Touched
 
-antistasiVersion = "v 1.5.0.1";
+antistasiVersion = "v 1.5.1.9";
 
 
 debug = false;//debug variable, not useful for everything..
@@ -103,7 +102,7 @@ _yaMetidos = [];
 {
     _nombre = configName _x;
     _nombre = [_nombre] call BIS_fnc_baseWeapon;
-    
+
     if (not(_nombre in _yaMetidos)) then {
         _magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
         _yaMetidos pushBack _nombre;

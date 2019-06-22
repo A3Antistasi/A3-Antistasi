@@ -115,7 +115,7 @@ while {true} do {
             [] call A3A_fnc_tierCheck;
         };
     } forEach ciudades;
-
+    
     if (_popCSAT > (_popTotal / 3)) then {
         ["destroyedCities",false,true] remoteExec ["BIS_fnc_endMission"];
     } else {
@@ -154,7 +154,7 @@ while {true} do {
     private _new_hr = _hr + _hrAddBLUFOR;
     server setVariable ["hr",_new_hr,true];
     server setVariable ["hrCap",_hrCap,true];
-
+    
     // Apply resource increase
     _recAddSDK = ceil _recAddSDK;
     private _rec = server getVariable "resourcesFIA";
@@ -163,7 +163,7 @@ while {true} do {
 
     private _hrString = if (_new_hr >= _hrCap) then { "Full" } else { floor(_new_hr - _hr) };
     _texto = format ["<t size='0.6' color='#C1C0BB'>Taxes Income.<br/> <t size='0.5' color='#C1C0BB'><br/>Manpower: +%1<br/>Money: +%2 €",_hrString,_recAddSDK];
-
+    
     [] call A3A_fnc_FIAradio;
     //_updated = false;
     _updated = [] call A3A_fnc_arsenalManage;
@@ -193,7 +193,7 @@ while {true} do {
 
     cuentaCA = 0 max (cuentaCA - 600); publicVariable "cuentaCA";
     timeSinceLastAttack = timeSinceLastAttack + 600; publicVariable "timeSinceLastAttack";
-
+    
     if (cuentaCA == 0 /* and (diag_fps > minimoFPS)*/) then {
         diag_log format ["[resourceCheck] Spawning big attack"];
         timeSinceLastAttack = 0; publicVariable "timeSinceLastAttack";

@@ -626,10 +626,6 @@ _layer = ["estadisticas"] call bis_fnc_rscLayer;
 _layer cutRsc ["H8erHUD","PLAIN",0,false];
 [] spawn A3A_fnc_statistics;
 
-
-//required to allow the player to access the vehicle tuning menu
-[] execVM "Scripts\mechanic.sqf";
-
 player setUnitTrait ["Medic", true];
 player setUnitTrait ["Engineer", true];
 player enableStamina false;

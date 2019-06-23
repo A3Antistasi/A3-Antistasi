@@ -577,13 +577,9 @@ if (hayTFAR or hayACE or hayRHS or hayACRE or hayFFAA) then
 		{
 		sleep 0.5;
 		_texto = _this select 0;
-		"Integrated Mods Detected" hintC _texto;
-		hintC_arr_EH = findDisplay 72 displayAddEventHandler ["unload", {
-			0 = _this spawn {
-				_this select 0 displayRemoveEventHandler ["unload", hintC_arr_EH];
-				hintSilent "";
-			};
-			}];
+		private _final_text = "";
+		{ _final_text = _final_text + "\n\n" + _x } forEach _texto;
+		hint _final_text;
 		};
 	};
 waituntil {!isnull (finddisplay 46)};
@@ -593,28 +589,28 @@ gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",A3A_fnc_teclas];
 if ((!isServer) and (isMultiplayer)) then {caja call jn_fnc_arsenal_init};
 
 caja allowDamage false;
-caja addAction ["Transfer Vehicle cargo to Ammobox", "[] call A3A_fnc_vaciar"];
-caja addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
-bandera addAction ["HQ Management", {[] execVM "Dialogs\dialogHQ.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
+caja addAction ["<t color='#AAAA00'>Transfer Vehicle cargo to Ammobox</t>", "[] call A3A_fnc_vaciar"];
+caja addAction ["<t color='#00AA00'>Move this asset</t>", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
+bandera addAction ["<t color='#40AA40'>HQ Management</t>", {[] execVM "Dialogs\dialogHQ.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
 bandera allowDamage false;
-bandera addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
-bandera addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
-if (isMultiplayer) then {bandera addAction ["Personal Garage", {nul = [true] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"]};
-bandera addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
+bandera addAction ["<t color='#00FF00'>Unit Recruitment</t>", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+bandera addAction ["<t color='#20FF20'>Buy Vehicle</t>", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+if (isMultiplayer) then {bandera addAction ["<t color='#40FF40'>Personal Garage</t>", {nul = [true] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"]};
+bandera addAction ["<t color='#00AA00'>Move this asset</t>", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 cajaVeh allowDamage false;
-cajaveh addAction ["Heal, Repair and Rearm", "healandrepair.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
-cajaveh addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
+cajaveh addAction ["<t color='#40FF40'>Heal, Repair and Rearm</t>", "healandrepair.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+cajaveh addAction ["<t color='#00AA00'>Move this asset</t>", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 
 fuego allowDamage false;
-fuego addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)"];
-fuego addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","_this == theBoss"];
-fuego addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this) and (side (group _this) == buenos)"];
-fuego addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)"];
+fuego addAction ["<t color='#FF6640'>Rest for 8 Hours</t>", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)"];
+fuego addAction ["<t color='#FF6660'>Clear Nearby Forest</t>", "clearForest.sqf",nil,0,false,true,"","_this == theBoss"];
+fuego addAction ["<t color='#FF6680'>On\Off Lamp</t>", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this) and (side (group _this) == buenos)"];
+fuego addAction ["<t color='#FF66AA>I hate the fog</t>", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)"];
 mapa allowDamage false;
-mapa addAction ["Game Options", {hint format ["Antistasi - %2\n\nVersion: %1\n\nDifficulty: %3\nUnlock Weapon Number: %4\nLimited Fast Travel: %5",antistasiVersion,worldName,if (skillMult == 1) then {"Normal"} else {if (skillMult == 0.5) then {"Easy"} else {"Hard"}},minWeaps,if (limitedFT) then {"Yes"} else {"No"}]; nul=CreateDialog "game_options";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
-mapa addAction ["Map Info", {nul = [] execVM "cityinfo.sqf";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
-mapa addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
-if (isMultiplayer) then {mapa addAction ["AI Load Info", "[] remoteExec [""A3A_fnc_AILoadInfo"",2]",nil,0,false,true,"","(_this == theBoss)"]};
+mapa addAction ["<t color='#FF2266'>Game Options</t>", {hint format ["Antistasi - %2\n\nVersion: %1\n\nDifficulty: %3\nUnlock Weapon Number: %4\nLimited Fast Travel: %5\nRevive difficulty: %6",antistasiVersion,worldName,if (skillMult >= 2) then {"Hard"} else {if (skillMult >= 1) then {"Normal"} else {"Easy"}},minWeaps,if (limitedFT) then {"Yes"} else {"No"},if (easyRevive) then {"Easy"} else {"Normal"}]; nul=CreateDialog "game_options";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+mapa addAction ["<t color='#FF22AA'>Map Info</t>", {nul = [] execVM "cityinfo.sqf";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == buenos)"];
+mapa addAction ["<t color='#00AA00'>Move this asset</t>", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
+if (isMultiplayer) then {mapa addAction ["<t color='#FF2233'>AI Load Info</t>", "[] remoteExec [""A3A_fnc_AILoadInfo"",2]",nil,0,false,true,"","(_this == theBoss)"]};
 _nul = [player] execVM "OrgPlayers\unitTraits.sqf";
 grupoPetros = group petros;
 grupoPetros setGroupIdGlobal ["Petros","GroupColor4"];
@@ -629,3 +625,11 @@ disableSerialization;
 _layer = ["estadisticas"] call bis_fnc_rscLayer;
 _layer cutRsc ["H8erHUD","PLAIN",0,false];
 [] spawn A3A_fnc_statistics;
+
+player setUnitTrait ["Medic", true];
+player setUnitTrait ["Engineer", true];
+player enableStamina false;
+player setCustomAimCoef 0.35;
+
+_nul = [] execVM "Scripts\init_flipAction.sqf";
+_nul = [] execVM "Scripts\init_canOpener.sqf";

@@ -30,6 +30,7 @@ while {(alive _morty0) and (alive _morty1)} do
 	_nul = [_mortero] call A3A_fnc_AIVEHinit;
 
 	waitUntil {sleep 1; ({!(alive _x)} count units _grupo != 0) or !(unitReady _morty0)};
+	_morty0 forceSpeed 0;
 
 	if (({(alive _x)} count units _grupo == count units _grupo) and !(unitReady _morty0)) then
 		{
@@ -39,4 +40,7 @@ while {(alive _morty0) and (alive _morty1)} do
 		moveOut _morty1;
 		deleteVehicle _mortero;
 		};
+
+	waitUntil {sleep 1; vehicle _morty1 != _morty1};
+	_morty0 forceSpeed -1;
 	};

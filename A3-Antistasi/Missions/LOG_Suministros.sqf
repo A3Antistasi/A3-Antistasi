@@ -48,7 +48,7 @@ _bonus = if (_dificil) then {2} else {1};
 if ((dateToNumber date > _fechalimnum) or (isNull _camion)) then
 	{
 	["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"FAILED","Heal"] call A3A_fnc_taskUpdate;
-	[5*_bonus,-5*_bonus,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+	[5*_bonus,-5*_bonus,_posicion,"Mission: Supplies Failed"] remoteExec ["A3A_fnc_citySupportChange",2];
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	}
 else
@@ -94,13 +94,13 @@ else
 			{if (_x distance _posicion < 500) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 			[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 			if (!isMultiplayer) then {_bonus = _bonus + ((20-skillFIA)*0.1)};
-			[-1*(20-skillFIA),15*_bonus,_marcador] remoteExec ["A3A_fnc_citySupportChange",2];
+			[-1*(20-skillFIA),15*_bonus,_marcador,"Mission: Supplies Won"] remoteExec ["A3A_fnc_citySupportChange",2];
 			[-3,0] remoteExec ["A3A_fnc_prestige",2];
 			}
 		else
 			{
 			["LOG",[_taskDescription,"City Supplies",_marcador],_posicion,"FAILED","Heal"] call A3A_fnc_taskUpdate;
-			[5*_bonus,-5*_bonus,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+			[5*_bonus,-5*_bonus,_posicion,"Mission: Supplies Failed"] remoteExec ["A3A_fnc_citySupportChange",2];
 			[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 			};
 	};

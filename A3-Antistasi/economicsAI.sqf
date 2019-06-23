@@ -34,7 +34,7 @@ if !(_tipo isEqualTo []) then
 	};
 //tanks
 _maxItems = (_puestos * 0.5) + (_airbases * 2);
-_tipo = if (_lado == malos) then {vehNATOTank} else {vehCSATTank};
+_tipo = if (_lado == malos) then {selectRandom vehNATOAllTanks} else {selectRandom vehCSATAllTanks};
 _currentItems = timer getVariable [_tipo,0];
 if (_currentItems < _maxItems) then
 	{

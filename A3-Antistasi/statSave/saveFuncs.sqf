@@ -44,7 +44,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","mochis","municion","fecha", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["puestosFIA","minas","estaticas","cuentaCA","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","dificultad","gameMode"];
+["puestosFIA","minas","estaticas","cuentaCA","timeSinceLastAttack","cuentaCANonBuenos","antenas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","mochis","municion","fecha", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanciaSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","dinero","miembros","vehInGarage","destroyedBuildings","personalGarage","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlesSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","dificultad","gameMode"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -54,13 +54,15 @@ fn_SetStat =
 	if(_varName in specialVarLoads) then
 	{
 		if(_varName == 'cuentaCA') then {cuentaCA = _varValue; publicVariable "cuentaCA"};
+		if(_varName == 'timeSinceLastAttack') then {timeSinceLastAttack = _varValue; publicVariable "timeSinceLastAttack"};
+		if(_varName == 'cuentaCANonBuenos') then {cuentaCANonBuenos = _varValue; publicVariable "cuentaCANonBuenos"};
 		if(_varName == 'dificultad') then
 			{
 			if !(isMultiplayer) then
 				{
 				skillMult = _varValue;
-				if (skillMult == 0.5) then {minWeaps = 15};
-				if (skillMult == 2) then {minWeaps = 40};
+				if (skillMult >= 0.5) then {minWeaps = 15};
+				if (skillMult >= 2) then {minWeaps = 40};
 				};
 			};
 		if(_varName == 'gameMode') then
@@ -78,7 +80,7 @@ fn_SetStat =
 				};
 			};
 		if(_varName == 'bombRuns') then {bombRuns = _varValue; publicVariable "bombRuns"};
-		if(_varName == 'nextTick') then {nextTick = time + _varValue};
+		if(_varName == 'nextTick') then {nextTick = time + _varValue; publicVariable "nextTick"};
 		if(_varName == 'miembros') then {miembros = +_varValue; publicVariable "miembros"};
 		if(_varName == 'smallCAmrk') then {smallCAmrk = +_varValue};
 		if(_varName == 'mrkNATO') then {{lados setVariable [_x,malos,true]} forEach _varValue;};
@@ -283,14 +285,14 @@ fn_SetStat =
 				}
 			else
 				{
-				fuego setPos (_varValue select 1);
+				fuego setPosATL (_varValue select 1);
 				caja setDir ((_varValue select 2) select 0);
-				caja setPos ((_varValue select 2) select 1);
+				caja setPosATL ((_varValue select 2) select 1);
 				mapa setDir ((_varValue select 3) select 0);
-				mapa setPos ((_varValue select 3) select 1);
-				bandera setPos (_varValue select 4);
+				mapa setPosATL ((_varValue select 3) select 1);
+				bandera setPosATL (_varValue select 4);
 				cajaVeh setDir ((_varValue select 5) select 0);
-				cajaVeh setPos ((_varValue select 5) select 1);
+				cajaVeh setPosATL ((_varValue select 5) select 1);
 				};
 			{_x setPos _posHQ} forEach (playableUnits select {side _x == buenos});
 			};
@@ -302,13 +304,15 @@ fn_SetStat =
 				_posVeh = _varvalue select _i select 1;
 				_dirVeh = _varvalue select _i select 2;
 				_veh = createVehicle [_tipoVeh,[0,0,1000],[],0,"NONE"];
-				_veh setPos _posVeh;
+				_veh setPosATL _posVeh;
 				_veh setDir _dirVeh;
-				_veh setVectorUp surfaceNormal (getPos _veh);
-				if ((_veh isKindOf "StaticWeapon") or (_veh isKindOf "Building")) then
-					{
+				// Only level out static weapons, buildings should stay level.
+				if (_veh isKindOf "StaticWeapon") then {
+					_veh setVectorUp surfaceNormal (getPosATL _veh);
+				};
+				if ((_veh isKindOf "StaticWeapon") or (_veh isKindOf "Building")) then {
 					staticsToSave pushBack _veh;
-					};
+				};
 				[_veh] call A3A_fnc_AIVEHinit;
 				};
 			publicVariable "staticsToSave";

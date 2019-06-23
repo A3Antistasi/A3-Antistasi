@@ -58,7 +58,7 @@ petros addMPEventHandler ["mpkilled",
                 garrison setVariable ["Synd_HQ",[],true];
                 _hrT = server getVariable "hr";
                 _resourcesFIAT = server getVariable "resourcesFIA";
-                [-1*(round(_hrT*0.9)),-1*(round(_resourcesFIAT*0.9))] remoteExec ["A3A_fnc_resourcesFIA",2];
+                [-1*(round(_hrT*0.75)),-1*(round(_resourcesFIAT*0.75))] remoteExec ["A3A_fnc_resourcesFIA",2];
                 waitUntil {sleep 6; isPlayer theBoss};
                 [] remoteExec ["A3A_fnc_placementSelection",theBoss];
                };

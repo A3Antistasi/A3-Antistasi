@@ -84,6 +84,8 @@ else
 		["DEF_HQ1",[format ["We know %2 HQ coordinates. We have sent a SpecOp Squad in order to kill his leader %1. Help the SpecOp team",name petros,nameBuenos],format ["Kill %1",name petros],respawnBuenos],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
 		[0,3] remoteExec ["A3A_fnc_prestige",2];
 		[0,300] remoteExec ["A3A_fnc_resourcesFIA",2];
+		// TODO: sort timingCA here
+		//[1200, 1200, "Mission: Kill Spec Ops Won"] remoteExec ["A3A_fnc_timingCA",2];
 		//[-5,5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_posicion,buenos] call A3A_fnc_distanceUnits);
 		};

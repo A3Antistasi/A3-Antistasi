@@ -67,7 +67,8 @@ if (_marcador in aeropuertos) then
 	{
 	if (_winner == buenos) then
 		{
-		[0,10,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+			[600, 600, "SDK Captured Point"] remoteExec ["A3A_fnc_timingCA", 2];
+		//[0,10,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 		if (_looser == malos) then
 			{
 			_prestigeMalos = 20;
@@ -85,11 +86,11 @@ if (_marcador in aeropuertos) then
 		[_marcador,60] call A3A_fnc_addTimeForIdle;
 		if (_winner == malos) then
 			{
-			[10,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2]
+			[10,0,_posicion,"Lost Airbase to NATO"] remoteExec ["A3A_fnc_citySupportChange",2]
 			}
 		else
 			{
-			[-10,-10,_posicion] remoteExec ["A3A_fnc_citySupportChange",2]
+			[-10,-10,_posicion,"Lost Airbase to CSAT"] remoteExec ["A3A_fnc_citySupportChange",2]
 			};
 		if (_looser == buenos) then
 			{

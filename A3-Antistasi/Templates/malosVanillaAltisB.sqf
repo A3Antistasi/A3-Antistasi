@@ -19,8 +19,9 @@ vehNATORepairTruck = "I_Truck_02_box_F";
 vehNATOLight = vehNATOLightArmed + vehNATOLightUnarmed;
 vehNATOAPC = ["I_APC_Wheeled_03_cannon_F"];
 vehNATOTank = "I_MBT_03_cannon_F";
+vehNATOAllTanks = [vehNATOTank];
 vehNATOAA = "I_LT_01_AA_F";
-vehNATOAttack = vehNATOAPC + [vehNATOTank];
+vehNATOAttack = vehNATOAPC + vehNATOAllTanks;
 vehNATOBoat = "I_Boat_Armed_01_minigun_F";
 vehNATORBoat = "I_Boat_Transport_01_F";
 vehNATOBoats = [vehNATOBoat,vehNATORBoat];
@@ -66,3 +67,6 @@ flagNATOmrk = "flag_AltisColonial";
 
 nameMalos = "AAF";
 if (isServer) then {"NATO_carrier" setMarkerText "AAF Carrier"};
+
+rifleTier1NATO = "arifle_Mk20_F";
+rifleTier2NATO = "arifle_Mk20_GL_F";

@@ -39,9 +39,9 @@ _garrison = _garrison + (garrison getVariable [_marcador,[]]);
 _garrison pushBack _tipo;
 garrison setVariable [_marcador,_garrison,true];
 //[_marcador] call A3A_fnc_mrkUpdate;*/
-_cuenta = count (garrison getVariable _marcador);
+_cuenta = count (garrison getVariable [_marcador,[]]);
 [_tipo,buenos,_marcador,1] remoteExec ["A3A_fnc_garrisonUpdate",2];
-waitUntil {(_cuenta < count (garrison getVariable _marcador)) or (lados getVariable [_marcador,sideUnknown] != buenos)};
+waitUntil {(_cuenta < count (garrison getVariable [_marcador,[]])) or (lados getVariable [_marcador,sideUnknown] != buenos)};
 
 if (lados getVariable [_marcador,sideUnknown] == buenos) then
 	{

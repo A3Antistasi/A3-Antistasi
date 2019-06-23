@@ -53,8 +53,8 @@ forcedSpawn pushBack _mrkDestino; publicVariable "forcedSpawn";
 diag_log format ["Antistasi: Side attacker: %1. Side defender (false, the other AI side):  %2",_lado,_esSDK];
 _nombreDest = [_mrkDestino] call A3A_fnc_localizar;
 
-[_ladosTsk,"AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
-[_ladosTsk1,"AtaqueAAF1",[format ["We are attacking %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,false,0,true,"Attack",true] call BIS_fnc_taskCreate;
+[_ladosTsk,"AtaqueAAF",[format ["%2 is attacking from the %1. Intercept them or we may loose a sector!",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
+[_ladosTsk1,"AtaqueAAF1",[format ["We are attacking %2 from the %1. Help with the operation if you can!",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,false,0,true,"Attack",true] call BIS_fnc_taskCreate;
 //_tsk = ["AtaqueAAF",_ladosTsk,[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
 //misiones pushbackUnique "AtaqueAAF"; publicVariable "misiones";
 //_tsk1 = ["AtaqueAAF1",_ladosTsk1,[format ["We are attacking %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Attack"] call BIS_fnc_setTask;
@@ -105,14 +105,14 @@ while {(_waves > 0)} do
 				{
 				if (_rnd > prestigeNATO) then
 					{
-					_vehPool = _vehPool - [vehNATOTank];
+					_vehPool = _vehPool - vehNATOAllTanks;
 					};
 				}
 			else
 				{
 				if (_rnd > prestigeCSAT) then
 					{
-					_vehPool = _vehPool - [vehCSATTank];
+					_vehPool = _vehPool - vehCSATAllTanks;
 					};
 				};
 			};
@@ -128,7 +128,7 @@ while {(_waves > 0)} do
 				if (_lado == malos) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks};
 				};
 			_tipoVeh = selectRandom _vehPool;
-			if ((_cuenta == _nVeh) and (_tipoVeh in vehTanks)) then
+			if (_cuenta == _nVeh) then
 				{
 				_tipoVeh = if (_lado == malos) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
 				};
@@ -393,10 +393,9 @@ while {(_waves > 0)} do
 		_posSuelo = [_posOrigen select 0,_posorigen select 1,0];
 		_posOrigen set [2,300];
 		_grupoUav = grpNull;
-		if !(hayIFA) then
+		_tipoVeh = if (_lado == malos) then {vehNATOUAV} else {vehCSATUAV};
+		if (!hayIFA and _tipoVeh != "not_supported") then
 			{
-			_tipoVeh = if (_lado == malos) then {vehNATOUAV} else {vehCSATUAV};
-
 			_uav = createVehicle [_tipoVeh, _posOrigen, [], 0, "FLY"];
 			_vehiculos pushBack _uav;
 			//[_uav,"UAV"] spawn A3A_fnc_inmuneConvoy;
@@ -560,7 +559,7 @@ while {(_waves > 0)} do
 						else
 							{
 							{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _grupoVeh;
-							if ((_tipoVeh in vehFastRope) and ((count(garrison getVariable _mrkDestino)) < 10)) then
+							if ((_tipoVeh in vehFastRope) and ((count(garrison getVariable [_mrkDestino, []])) < 10)) then
 								{
 								//_grupo setVariable ["mrkAttack",_mrkDestino];
 								[_veh,_grupo,_posDestino,_posOrigen,_grupoVeh] spawn A3A_fnc_fastrope;
@@ -603,12 +602,12 @@ while {(_waves > 0)} do
 								}
 							else
 								{
-								_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn A3A_fnc_airstrike;
+								_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER"]] spawn A3A_fnc_airstrike;
 								};
 							}
 						else
 							{
-							_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn A3A_fnc_airstrike;
+							_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER"]] spawn A3A_fnc_airstrike;
 							};
 						sleep 30;
 						};
@@ -639,12 +638,12 @@ while {(_waves > 0)} do
 								}
 							else
 								{
-								_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn A3A_fnc_airstrike;
+								_nul = [_mrkdestino,_lado,selectRandom ["HE","CLUSTER"]] spawn A3A_fnc_airstrike;
 								};
 							}
 						else
 							{
-							_nul = [_posDestino,_lado,selectRandom ["HE","CLUSTER","NAPALM"]] spawn A3A_fnc_airstrike;
+							_nul = [_posDestino,_lado,selectRandom ["HE","CLUSTER"]] spawn A3A_fnc_airstrike;
 							};
 						sleep 30;
 						};
@@ -655,11 +654,13 @@ while {(_waves > 0)} do
 
 	if (!_SDKShown) then
 		{
-		if !([true] call A3A_fnc_FIAradio) then {sleep 100};
+		sleep 30;
+		// if !([true] call A3A_fnc_FIAradio) then {sleep 100};
 		_SDKShown = true;
 		["TaskSucceeded", ["", "Attack Destination Updated"]] remoteExec ["BIS_fnc_showNotification",buenos];
 		["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"CREATED"] call A3A_fnc_taskUpdate;
 		};
+
 	_solMax = round ((count _soldados)*0.6);
 	_waves = _waves -1;
 	_firstWave = false;
@@ -676,7 +677,7 @@ while {(_waves > 0)} do
 			["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"SUCEEDED"] call A3A_fnc_taskUpdate;
 			if (_mrkDestino in ciudades) then
 				{
-				[0,-100,_mrkDestino] remoteExec ["A3A_fnc_citySupportChange",2];
+				[0,-100,_mrkDestino,"wavedCA City Lost"] remoteExec ["A3A_fnc_citySupportChange",2];
 				["TaskFailed", ["", format ["%1 joined %2",[_mrkDestino, false] call A3A_fnc_fn_location,nameMalos]]] remoteExec ["BIS_fnc_showNotification",buenos];
 				lados setVariable [_mrkDestino,malos,true];
 				_nul = [-5,0] remoteExec ["A3A_fnc_prestige",2];
@@ -715,8 +716,8 @@ while {(_waves > 0)} do
 				{_x doMove _posorigen} forEach _soldadosTotal;
 				if (_waves <= 0) then {[_mrkDestino,_mrkOrigen] call A3A_fnc_minefieldAAF};
 
-				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call A3A_fnc_taskUpdate;
+				["AtaqueAAF",[format ["%2 is attacking from the %1. Intercept them or we may lose a sector!",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can!",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call A3A_fnc_taskUpdate;
 				};
 			};
 		}
@@ -728,8 +729,8 @@ while {(_waves > 0)} do
 			{
 			_waves = 0;
 			if (not(lados getVariable [_mrkDestino,sideUnknown] == muyMalos)) then {[muyMalos,_mrkDestino] remoteExec ["A3A_fnc_markerChange",2]};
-			["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"FAILED"] call A3A_fnc_taskUpdate;
-			["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+			["AtaqueAAF",[format ["%2 is attacking from the %1. Intercept them or we may lose a sector!",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"FAILED"] call A3A_fnc_taskUpdate;
+			["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can!",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED"] call A3A_fnc_taskUpdate;
 			};
 		sleep 10;
 		if (!(lados getVariable [_mrkDestino,sideUnknown] == muyMalos)) then
@@ -761,8 +762,8 @@ while {(_waves > 0)} do
 				{
 				{_x doMove _posorigen} forEach _soldadosTotal;
 				if (_waves <= 0) then {[_mrkDestino,_mrkOrigen] call A3A_fnc_minefieldAAF};
-				["AtaqueAAF",[format ["%2 Is attacking from the %1. Intercept them or we may loose a sector",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call A3A_fnc_taskUpdate;
-				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call A3A_fnc_taskUpdate;
+				["AtaqueAAF",[format ["%2 is attacking from the %1. Intercept them or we may lose a sector!",_nombreorig,_nombreEny],format ["%1 Attack",_nombreEny],_mrkOrigen],getMarkerPos _mrkOrigen,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+				["AtaqueAAF1",[format ["We are attacking an %2 from the %1. Help the operation if you can!",_nombreorig,_nombreDest],format ["%1 Attack",_nombreEny],_mrkDestino],getMarkerPos _mrkDestino,"FAILED"] call A3A_fnc_taskUpdate;
 				};
 			};
 		};
@@ -794,7 +795,7 @@ _nul = [0,"AtaqueAAF1"] spawn A3A_fnc_borrarTask;
 bigAttackInProgress = false; publicVariable "bigAttackInProgress";
 //forcedSpawn = forcedSpawn - _forced; publicVariable "forcedSpawn";
 forcedSpawn = forcedSpawn - [_mrkDestino]; publicVariable "forcedSpawn";
-[3600] remoteExec ["A3A_fnc_timingCA",2];
+[2400, 1200, "Waved CA"] remoteExec ["A3A_fnc_timingCA",2];
 
 {
 _veh = _x;

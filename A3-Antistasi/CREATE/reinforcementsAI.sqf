@@ -6,7 +6,7 @@ _reinfPlaces = [];
 _aeropuerto = _x;
 _numero = 8;
 _numGarr = [_aeropuerto] call A3A_fnc_garrisonSize;
-_numReal = count (garrison getVariable _aeropuerto);
+_numReal = count (garrison getVariable [_aeropuerto, []]);
 _lado = lados getVariable [_aeropuerto,sideUnknown];
 if (_numReal + 4 <= _numGarr) then
 	{
@@ -36,7 +36,7 @@ if ((_numero >= 4) and (reinfPatrols <= 4)) then
 		_sitio = "";
 		{
 		_numGarr = [_x] call A3A_fnc_garrisonSize;
-		_numReal = count (garrison getVariable _x);
+		_numReal = count (garrison getVariable [_x, []]);
 		if (_numGarr - _numReal > _cuenta) then
 			{
 			_cuenta = _numGarr - _numReal;

@@ -1,0 +1,23 @@
+
+Better garrison spawning - 
+    Group garrison
+    Keep patrolling units out of the way in base - min range for patrols (not through base)
+DONE Slow down civies
+DONE Unlock all mags for weapons in arsenal update
+Color the menu options - Unload cargo + load supply crate?, build HQ Here
+Move supply box like other items in base.
+Make NATO and AFRF Fight More
+Make planes return from punishment
+Make waves: start with para, then air foothold, then land
+Don't close map after fast travel of HC units
+Destroyed Vehicles in Garage
+Garage vehicles kill you
+Fast travel spawn position randomization
+Everyone can take money
+Auto heal better
+Fast travel recent/HQ short cut
+Range based actions instead of look at flag.
+Pack up base when moving automatically + remove faction garage size limit.
+Enemy should build statics/bunkers - auto place more based on how strong the garrison is.
+Fix bunker create position.
+Dynamic missions.

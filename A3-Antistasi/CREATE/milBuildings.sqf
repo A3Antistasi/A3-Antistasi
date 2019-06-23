@@ -31,10 +31,10 @@ for "_i" from 0 to (count _buildings) - 1 do
 			];
 		};*/
 	_tipoB = typeOf _building;
-	if ((_tipoB == "Land_HelipadSquare_F") and (!_frontera)) then
+	if (_tipoB == "Land_HelipadSquare_F" or _tipoB == "Land_HelipadCircle_F" or _tipoB == "Land_HelipadCircle_F") then
 		{
 		_tipoVeh = if (_lado == malos) then {vehNATOPatrolHeli} else {vehCSATPatrolHeli};
-		_veh = createVehicle [_tipoVeh, position _building, [],0, "CAN_COLLIDE"];
+		_veh = createVehicle [_tipoVeh, position _building, [], 0, "CAN_COLLIDE"];
 		_veh setDir (getDir _building);
 		_vehiculos pushBack _veh;
 		}

@@ -19,8 +19,9 @@ vehNATORepairTruck = "LIB_OpelBlitz_Parm";
 vehNATOLight = vehNATOLightArmed + vehNATOLightUnarmed;
 vehNATOAPC = ["LIB_SdKfz251","LIB_SdKfz234_4","LIB_SdKfz234_3","LIB_SdKfz234_2"];
 vehNATOTank = "LIB_PzKpfwVI_B_tarn51d";
+vehNATOAllTanks = [vehNATOTank];
 vehNATOAA = "LIB_FlakPanzerIV_Wirbelwind";
-vehNATOAttack = vehNATOAPC + [vehNATOTank];
+vehNATOAttack = vehNATOAPC + vehNATOAllTanks;
 vehNATOBoat = "B_T_Boat_Armed_01_minigun_F";
 vehNATORBoat = "B_T_Boat_Transport_01_F";
 vehNATOBoats = [vehNATOBoat,vehNATORBoat];
@@ -68,3 +69,6 @@ nameMalos = "Wehrmacht";
 if (isServer) then {"NATO_carrier" setMarkerText "Wehrmacht Reinforcements"};
 
 {cascos pushBackUnique (getUnitLoadout _x select 6)} forEach NATOSquad;
+
+rifleTier1NATO = "LIB_MP40";
+rifleTier2NATO = "LIB_MP44";

@@ -49,7 +49,7 @@ if (not alive _oficial) then
 	if (_dificil) then
 		{
 		[0,600] remoteExec ["A3A_fnc_resourcesFIA",2];
-		[2400] remoteExec ["A3A_fnc_timingCA",2];
+		[1200, 600, "Mission: Kill Officer Hard Won"] remoteExec ["A3A_fnc_timingCA",2];
 		{if (isPlayer _x) then {[20,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_posicion,buenos] call A3A_fnc_distanceUnits);
 		[10,theBoss] call A3A_fnc_playerScoreAdd;
 		[_marcador,60] call A3A_fnc_addTimeForIdle;
@@ -57,7 +57,7 @@ if (not alive _oficial) then
 	else
 		{
 		[0,300] remoteExec ["A3A_fnc_resourcesFIA",2];
-		[1800] remoteExec ["A3A_fnc_timingCA",2];
+		[1200, 1200, "Mission: Kill Officer Won"] remoteExec ["A3A_fnc_timingCA",2];
 		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_posicion,buenos] call A3A_fnc_distanceUnits);
 		[5,theBoss] call A3A_fnc_playerScoreAdd;
 		[_marcador,30] call A3A_fnc_addTimeForIdle;
@@ -69,13 +69,13 @@ else
 	["AS",[format ["A %4 officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"Kill the Officer",_marcador],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
 	if (_dificil) then
 		{
-		[-1200] remoteExec ["A3A_fnc_timingCA",2];
+		[-1800, 600, "Mission: Kill Officer Hard Lost"] remoteExec ["A3A_fnc_timingCA",2];
 		[-20,theBoss] call A3A_fnc_playerScoreAdd;
 		[_marcador,-60] call A3A_fnc_addTimeForIdle;
 		}
 	else
 		{
-		[-600] remoteExec ["A3A_fnc_timingCA",2];
+		[-900, 600, "Mission: Kill Officer Lost"] remoteExec ["A3A_fnc_timingCA",2];
 		[-10,theBoss] call A3A_fnc_playerScoreAdd;
 		[_marcador,-30] call A3A_fnc_addTimeForIdle;
 		};

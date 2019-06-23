@@ -145,7 +145,7 @@ else
 				{
 				if (side _killer == malos) then
 					{
-					_nul = [0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+					_nul = [0.25,0,getPos _muerto,"SDK Garrison Unit Killed"] remoteExec ["A3A_fnc_citySupportChange",2];
 					[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
 					}
 				else

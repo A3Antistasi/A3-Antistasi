@@ -29,10 +29,16 @@ minWeaps = paramsArray select 10; publicVariable "minWeaps";
 civTraffic = paramsArray select 11; publicVariable "civTraffic";
 memberDistance = paramsArray select 13; publicVariable "memberDistance";
 limitedFT = if (paramsArray select 14 == 1) then {true} else {false}; publicVariable "limitedFT";
+
+// Revive parameters
+easyRevive = if (paramsArray select 15 == 1) then {false} else {true}; publicVariable "easyRevive";
+bleedoutTimeMul = if (paramsArray select 15 == 1) then {1} else {4}; publicVariable "bleedoutTimeMul";
+reviveTimeMul = if (paramsArray select 15 == 1) then {1} else {0.25}; publicVariable "reviveTimeMul";
+
 _nul = call compile preprocessFileLineNumbers "initVar.sqf";
 initVar = true; publicVariable "initVar";
 savingServer = true;
-diag_log format ["Antistasi MP. InitVar done. Version: %1",antistasiVersion];
+diag_log format ["Antistasi MP. InitVar done. Version: %1", antistasiVersion];
 bookedSlots = floor (((paramsArray select 12)/100) * (playableSlotsNumber buenos)); publicVariable "bookedSlots";
 _nul = call compile preprocessFileLineNumbers "initFuncs.sqf";
 diag_log "Antistasi MP Server. Funcs init finished";
@@ -142,17 +148,17 @@ diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP;
 
 addMissionEventHandler ["HandleDisconnect",{_this call A3A_fnc_onPlayerDisconnect;false}];
-addMissionEventHandler ["BuildingChanged",
-        {
-        _building = _this select 0;
-        if !(_building in antenas) then
-            {
-            if (_this select 2) then
-                {
-                destroyedBuildings pushBack (getPosATL _building);
-                };
-            };
-        }];
+// addMissionEventHandler ["BuildingChanged",
+//         {
+//         _building = _this select 0;
+//         if !(_building in antenas) then
+//             {
+//             if (_this select 2) then
+//                 {
+//                 destroyedBuildings pushBack (getPosATL _building);
+//                 };
+//             };
+//         }];
 
 serverInitDone = true; publicVariable "serverInitDone";
 diag_log "Antistasi MP Server. serverInitDone set to true.";

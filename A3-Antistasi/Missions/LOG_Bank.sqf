@@ -71,14 +71,14 @@ _bonus = if (_dificil) then {2} else {1};
 if ((dateToNumber date > _fechalimnum) or (!alive _camion)) then
 	{
 	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call A3A_fnc_taskUpdate;
-	[-1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
+	// TODO: sort timingCA here
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	}
 else
 	{
 	_cuenta = 120*_bonus;//120
 	[[_posicion,malos,"",true],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
-	[10*_bonus,-20*_bonus,_marcador] remoteExec ["A3A_fnc_citySupportChange",2];
+	[10*_bonus,-20*_bonus,_marcador,"Mission: Steal From Bank Started"] remoteExec ["A3A_fnc_citySupportChange",2];
 	["TaskFailed", ["", format ["Bank of %1 being assaulted",_nombredest]]] remoteExec ["BIS_fnc_showNotification",malos];
 	{_amigo = _x;
 	if (_amigo distance _camion < 300) then
@@ -124,7 +124,7 @@ if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) the
 	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"SUCCEEDED","Interact"] call A3A_fnc_taskUpdate;
 	[0,5000*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
 	[10*_bonus,0] remoteExec ["A3A_fnc_prestige",2];
-	[1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
+	// TODO: timingCA here
 	{if (_x distance _camion < 500) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 	[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	waitUntil {sleep 1; speed _camion == 0};
@@ -134,7 +134,7 @@ if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) the
 if (!alive _camion) then
 	{
 	["LOG",[format ["We know Gendarmes is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"FAILED","Interact"] call A3A_fnc_taskUpdate;
-	[1800*_bonus] remoteExec ["A3A_fnc_timingCA",2];
+	// TODO: timingCA here.
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	};
 

@@ -71,7 +71,7 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 	if (dateToNumber date > _fechalimnum) then
 		{
 		["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED","rearm"] call A3A_fnc_taskUpdate;
-		[-1200*_bonus] remoteExec ["A3A_fnc_timingCA",2];
+		[-1500*_bonus, 600, "Misson: Destroy Ammotruck Failed"] remoteExec ["A3A_fnc_timingCA",2];	
 		[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 		};
 	if ((not alive _camion) or ({(_x getVariable ["spawner",false]) and (side group _x == buenos)} count crew _camion > 0)) then
@@ -83,7 +83,7 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 		[getPosASL _camion,_lado,"",false] spawn A3A_fnc_patrolCA;
 		["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"SUCCEEDED","rearm"] call A3A_fnc_taskUpdate;
 		[0,300*_bonus] remoteExec ["A3A_fnc_resourcesFIA",2];
-		[1200*_bonus] remoteExec ["A3A_fnc_timingCA",2];
+		[900*_bonus, 600, "Misson: Destroy Ammotruck Won"] remoteExec ["A3A_fnc_timingCA",2];	
 		{if (_x distance _camion < 500) then {[10*_bonus,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[5*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 		};
@@ -91,7 +91,7 @@ if ((spawner getVariable _marcador != 2) and !(lados getVariable [_marcador,side
 else
 	{
 	["LOG",[format ["We've spotted an Ammotruck in an %1. Go there and destroy or steal it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Steal or Destroy Ammotruck",_marcador],_posicion,"FAILED","rearm"] call A3A_fnc_taskUpdate;
-	[-1200*_bonus] remoteExec ["A3A_fnc_timingCA",2];
+	[-1200*_bonus, 900, "Misson: Destroy Ammotruck Failed"] remoteExec ["A3A_fnc_timingCA",2];	
 	[-10*_bonus,theBoss] call A3A_fnc_playerScoreAdd;
 	};
 

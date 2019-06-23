@@ -1852,13 +1852,13 @@ class carpet_bombing 			{
 		class 4slots_L2: RscButton
 		{
 			idc = -1;
-			text = "NAPALM Bomb"; //--- ToDo: Localize;
+			text = "NAPALM Bomb (disabled)"; //--- ToDo: Localize;
 			x = 0.272481 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cost: 1 point";
-			action = "closeDialog 0;[""NAPALM""] spawn A3A_fnc_NATObomb;";
+			action = "closeDialog 0;";
 		};
 		class 4slots_R2: RscButton
 		{
@@ -2473,13 +2473,13 @@ class tu_madre 				{
 		class HQ_button_Gremove: RscButton
 		{
 			idc = -1;
-			text = "NAPALM Bomb"; //--- ToDo: Localize;
+			text = "NAPALM Bomb (disabled)"; //--- ToDo: Localize;
 			x = 0.37749 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Cost: 10 points";
-			action = "closeDialog 0;[""NAPALM""] spawn A3A_fnc_NATObomb;";
+			action = "closeDialog 0;";
 		};
 	};
 };

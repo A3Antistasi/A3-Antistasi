@@ -45,7 +45,7 @@ if (spawner getVariable _marcador != 2) then
 		{
 		["REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Tower Rebuild Disrupt",_marcador],_posicion,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
 		[2,0] remoteExec ["A3A_fnc_prestige",2];
-		[1200] remoteExec ["A3A_fnc_timingCA",2];
+		[1200, 600, "Misson: Stop rebuilding Antenna Won"] remoteExec ["A3A_fnc_timingCA",2];	
 		{if (_x distance _veh < 500) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[5,theBoss] call A3A_fnc_playerScoreAdd;
 		};
@@ -56,7 +56,7 @@ if (dateToNumber date > _fechalimnum) then
 		{
 		["REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Tower Rebuild Disrupt",_marcador],_posicion,"SUCCEEDED","Destroy"] call A3A_fnc_taskUpdate;
 		[2,0] remoteExec ["A3A_fnc_prestige",2];
-		[1200] remoteExec ["A3A_fnc_timingCA",2];
+		[1200, 600, "Misson: Stop rebuilding Antenna Won"] remoteExec ["A3A_fnc_timingCA",2];	
 		{if (_x distance _veh < 500) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[5,theBoss] call A3A_fnc_playerScoreAdd;
 		}
@@ -64,7 +64,7 @@ if (dateToNumber date > _fechalimnum) then
 		{
 		["REP",[format ["%4 is rebuilding a radio tower in %1. If we want to keep up the enemy comms breakdown, the work must be stopped. Destroy the repair truck parked nearby or capture the zone. Work will be finished on %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,nameMalos],"Tower Rebuild Disrupt",_marcador],_posicion,"FAILED","Destroy"] call A3A_fnc_taskUpdate;
 		//[5,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
-		[-600] remoteExec ["A3A_fnc_timingCA",2];
+		[-2400, 600, "Misson: Stop rebuilding Antenna Failed"] remoteExec ["A3A_fnc_timingCA",2];
 		[-10,theBoss] call A3A_fnc_playerScoreAdd;
 		};
 	antenasMuertas = antenasMuertas - [_posicion]; publicVariable "antenasMuertas";

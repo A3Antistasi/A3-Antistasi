@@ -56,7 +56,7 @@ if (count _antenaMuerta == 0) then
 
 	hint format ["%1 Rebuilt"];
 
-	[0,10,_posicionTel] remoteExec ["A3A_fnc_citySupportChange",2];
+	//[0,10,_posicionTel] remoteExec ["A3A_fnc_citySupportChange",2];
 	[5,0] remoteExec ["A3A_fnc_prestige",2];
 	destroyedCities = destroyedCities - [_sitio];
 	publicVariable "destroyedCities";

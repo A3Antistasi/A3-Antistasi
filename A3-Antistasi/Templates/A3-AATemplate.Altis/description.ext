@@ -39,10 +39,14 @@ class CfgTaskEnhancements
     propagate    = 1;            //0: do not propagate (default), 1: propagate shared tasks to subordinates
     };
 
+#include "CHVD\dialog.hpp"
+
 class CfgFunctions {
     #include "functions.hpp"
     #include "JeroenArsenal\functions.hpp"
+    #include "CHVD\CfgFunctions.hpp"
 };
+
 class Header
 {
 gameType = COOP;
@@ -62,6 +66,7 @@ class CfgSounds
 
 class Params
 {
+    // 0
     class loadSave
     {
         title = "Load last Persistent Save"; // Param name visible in the list
@@ -70,6 +75,7 @@ class Params
         default = 1; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };
+    // 1
     class gameMode
     {
         title = "Game Mode"; // Param name visible in the list
@@ -78,6 +84,7 @@ class Params
         default = 1; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };
+    // 2
     class autoSave
     {
         title = "Enable Autosave (every hour)"; // Param name visible in the list
@@ -86,31 +93,35 @@ class Params
         default = 1; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };
+    // 3
     class membership
     {
         title = "Enable Server Membership";
         texts[] = {"Yes","No"};
         values[] = {1,0};
-        default = 1;
+        default = 0;
         //function = "BIS_fnc_paramDaytime"; // (Optional) [[Functions_Library_(Arma_3)|Function]] [[call]]ed when player joins, selected value is passed as an argument
         //isGlobal = 1; // (Optional) 1 to execute script / function locally for every player who joins, 0 to do it only on server
     };
+    // 4
     class switchComm
     {
         title = "Enable Commander Switch (highest ranked player)";
         values[] = {1,0};
         texts[] = {"Yes","No"};
-        default = 1;
+        default = 0;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+    // 5
     class tkPunish
     {
         title = "Enable Teamkill Punish";
         values[] = {1,0};
         texts[] = {"Yes","No"};
-        default = 1;
+        default = 0;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+    // 6
     class mRadius
     {
         title = "Distance from HQ for Sidemissions";
@@ -119,14 +130,16 @@ class Params
         default = 4000;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+    // 7
     class allowPvP
     {
         title = "Allow PvP Slots";
         values[] = {1,0};
         texts[] = {"Yes","No"};
-        default = 1;
+        default = 0;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+    // 8
     class pMarkers
     {
         title = "Allow Friendly Player Markers";
@@ -135,6 +148,7 @@ class Params
         default = 1;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+    // 9
     class AISkill
     {
         title = "AI Skill";
@@ -143,6 +157,7 @@ class Params
         default = 1;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+    // 10
     class unlockItem
     {
         title = "Number of the same weapons required to unlock";
@@ -150,6 +165,7 @@ class Params
         default = 25;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+    // 11
     class civTraffic
     {
         title = "Rate of Civ Traffic";
@@ -158,30 +174,43 @@ class Params
         default = 1;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+    // 12
     class memberSlots
     {
         title = "Percentage of Reserved Slots for Members";
         values[] = {0,20,40,60,80,100};
         texts[] = {"None","20%","40%","60%","80%","All"};
-        default = 20;
+        default = 0;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+    // 13
     class memberDistance
     {
         title = "Max distance non members can be from the closest member or HQ (they will be teleported to HQ after some timeout)";
         values[] = {4000,5000,6000,7000,8000,16000};
         texts[] = {"4 Kmts","5 Kmts","6 Kmts","7 Kmts","8 Kmts","Unlimited"};
-        default = 5000;
+        default = 16000;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+    // 14
     class allowFT
     {
         title = "Limited Fast Travel";
         values[] = {0,1};
         texts[] = {"No","Yes"};
-        default = 1;
+        default = 0;
+    };
+    // 15
+    class reviveSystemDifficulty
+    {
+        title = "Revive system difficulty (Easy means: revive doesn't require items or skills, bleedout time is longer, time to revive is shorter)";
+        values[] = {0, 1};
+        texts[] = {"Easier", "Normal"};
+        default = 0;
     };
 };
+
+
 
 class CfgIdentities
 {
@@ -360,7 +389,7 @@ class CfgDebriefing
 	{
 		title = "V I C T O R Y";
 		subtitle = "Altis is Ours!";
-		description = "The population of Altis loves you!<br/>The brave soldiers prooved their valour, and Barbolani, Altis new Prime Minister, could at last to have a nice holidays. A deserved rest in a Greek island, drinking with Petros, his war master.";
+		description = "The population of Altis loves you!<br/>The brave soldiers prooved their valour, and Von Dakia, Altis new Prime Minister, could at last to have a nice holidays. A deserved rest in a Greek island, drinking with Petros, his war master.";
 		picture = "n_inf";
 		pictureColor[] = {0.0,0.5,0.0,1};
 	};

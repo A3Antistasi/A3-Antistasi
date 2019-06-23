@@ -41,6 +41,8 @@ if (isServer and !_byPassServer) then
 	["destroyedCities"] call fn_LoadStat;
 	["minas"] call fn_LoadStat;
 	["cuentaCA"] call fn_LoadStat;
+	["timeSinceLastAttack"] call fn_LoadStat;
+	["cuentaCANonBuenos"] call fn_LoadStat;
 	["antenas"] call fn_LoadStat;
 	["prestigeNATO"] call fn_LoadStat;
 	["prestigeCSAT"] call fn_LoadStat;
@@ -57,7 +59,7 @@ if (isServer and !_byPassServer) then
 	["maxUnits"] call fn_LoadStat;
 	["miembros"] call fn_LoadStat;
 	["vehInGarage"] call fn_LoadStat;
-	["destroyedBuildings"] call fn_LoadStat;
+	//["destroyedBuildings"] call fn_LoadStat;
 	["idlebases"] call fn_LoadStat;
 	["idleassets"] call fn_LoadStat;
 	["killZones"] call fn_LoadStat;
@@ -164,7 +166,7 @@ if (isServer and !_byPassServer) then
 	{if (_x in destroyedCities) then {[_x] call A3A_fnc_destroyCity}} forEach ciudades;
 
 	["chopForest"] call fn_LoadStat;
-	["destroyedBuildings"] call fn_LoadStat;
+	//["destroyedBuildings"] call fn_LoadStat;
 	/*
 	{
 	_buildings = nearestObjects [_x, listMilBld, 25, true];

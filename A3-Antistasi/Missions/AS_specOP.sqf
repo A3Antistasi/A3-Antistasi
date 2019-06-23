@@ -26,14 +26,14 @@ if (dateToNumber date > _fechalimnum) then
 	["AS",[format ["We have spotted a %4 SpecOp team patrolling around an %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombreBando],"SpecOps",_marcador],_posicion,"FAILED"] call A3A_fnc_taskUpdate;
 	if (_dificil) then
 		{
-		[10,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
-		[-1200] remoteExec ["A3A_fnc_timingCA",2];
+		[10,0,_posicion,"Mission: Kill Spec Ops Hard Lost"] remoteExec ["A3A_fnc_citySupportChange",2];
+		[-1200, 600, "Mission: Kill Spec Ops Hard Lost"] remoteExec ["A3A_fnc_timingCA",2];
 		[-20,theBoss] call A3A_fnc_playerScoreAdd;
 		}
 	else
 		{
-		[5,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
-		[-600] remoteExec ["A3A_fnc_timingCA",2];
+		[5,0,_posicion,"Mission: Kill Spec Ops Lost"] remoteExec ["A3A_fnc_citySupportChange",2];
+		[-600, 300, "Mission: Kill Spec Ops Lost"] remoteExec ["A3A_fnc_timingCA",2];
 		[-10,theBoss] call A3A_fnc_playerScoreAdd;
 		};
 	}
@@ -43,16 +43,16 @@ else
 	if (_dificil) then
 		{
 		[0,400] remoteExec ["A3A_fnc_resourcesFIA",2];
-		[0,10,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
-		[1200] remoteExec ["A3A_fnc_timingCA",2];
+		[0,10,_posicion,"Mission: Kill Spec Ops Hard Won"] remoteExec ["A3A_fnc_citySupportChange",2];
+		[1200, 1200, "Mission: Kill Spec Ops Hard Won"] remoteExec ["A3A_fnc_timingCA",2];
 		{if (isPlayer _x) then {[20,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_posicion,buenos] call A3A_fnc_distanceUnits);
 		[20,theBoss] call A3A_fnc_playerScoreAdd;
 		}
 	else
 		{
 		[0,200] remoteExec ["A3A_fnc_resourcesFIA",2];
-		[0,5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
-		[600] remoteExec ["A3A_fnc_timingCA",2];
+		[0,5,_posicion,"Mission: Kill Spec Ops Won"] remoteExec ["A3A_fnc_citySupportChange",2];
+		[1200, 1200, "Mission: Kill Spec Ops Won"] remoteExec ["A3A_fnc_timingCA",2];
 		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_posicion,buenos] call A3A_fnc_distanceUnits);
 		[10,theBoss] call A3A_fnc_playerScoreAdd;
 		};

@@ -49,6 +49,7 @@ class A3A
         class puestoDialog {file="puestoDialog.sqf";};
         class radioCheck {file="radioCheck.sqf";};
         class rebuildAssets {file="rebuildAssets.sqf";};
+        class resetCities {file="resetCities.sqf";};
         class resourceCheckSkipTime {file="resourcecheckSkipTime.sqf";};
         class resourcesFIA {file="resourcesFIA.sqf";};
         class returnMuzzle {file="returnMuzzle.sqf";};
@@ -63,10 +64,9 @@ class A3A
         class unlockVehicle {file="unlockVehicle.sqf";};
         class zoneCheck {file="zoneCheck.sqf";};
         //class tempMoveMrk {file="tempMoveMrk.sqf";};
-    }
-
-	class AI
-	{
+    };
+    class AI
+    {
         class AAFKilledEH {file="AI\AAFKilledEH.sqf";};
         class airdrop {file="AI\airdrop.sqf";};
         class AIreactOnKill {file="AI\AIreactOnKill.sqf";};
@@ -118,10 +118,10 @@ class A3A
         class vehicleMarkers {file="AI\vehicleMarkers.sqf";};
         //class AAthreatEval {file="AI\AAthreatEval.sqf";};
         //class hayLOS {file="AI\hayLOS.sqf";};
-	}
-	
-	class CREATE
-	{
+    };
+
+    class CREATE
+    {
         class AAFroadPatrol {file="CREATE\AAFroadpatrol.sqf";};
         class airportCanAttack {file="CREATE\airportCanAttack.sqf";};
         class AIVEHinit {file="CREATE\AIVEHinit.sqf";};
@@ -157,25 +157,25 @@ class A3A
         class vehAvailable {file="CREATE\vehAvailable.sqf";};
         class VEHdespawner {file="CREATE\VEHdespawner.sqf";};
         class wavedCA {file="CREATE\wavedCA.sqf";};
-	}
-	
-	class Dialogs
-	{
-		class mineDialog {file="Dialogs\mineDialog.sqf";};
-	}
-	
-	class Missions
-	{
+    };
+    
+    class Dialogs
+    {
+        class mineDialog {file="Dialogs\mineDialog.sqf";};
+    };
+    
+    class Missions
+    {
         class ataqueHQ {file="Missions\ataqueHQ.sqf";};
         class borrarTask {file="Missions\borrarTask.sqf";};
         class missionRequest {file="Missions\missionrequest.sqf";};
         class missionRequestAUTO {file="Missions\missionrequestAUTO.sqf";};
         class taskUpdate {file="Missions\taskUpdate.sqf";};
         class underAttack {file="Missions\underAttack.sqf";};
-	}
+    };
 
-	class Municion
-	{
+    class Municion
+    {
         class ACEpvpReDress {file="Municion\ACEpvpReDress.sqf";};
         class arsenalManage {file="Municion\arsenalManage.sqf";};
         class CSATCrate {file="Municion\CSATCrate.sqf";};
@@ -185,10 +185,10 @@ class A3A
         class RHSdress {file="Municion\RHSdress.sqf";};
         class vaciar {file="Municion\vaciar.sqf";};
         //class cajaAAF {file="Municion\cajaAAF.sqf";};
-	}
+    };
 
-	class OrgPlayers
-	{
+    class OrgPlayers
+    {
         class assigntheBoss {file="orgPlayers\assignStavros.sqf";};
         class donateMoney {file="orgPlayers\donateMoney.sqf";};
         class isMember {file="orgPlayers\isMember.sqf";};
@@ -200,10 +200,10 @@ class A3A
         class theBossInit {file="orgPlayers\stavrosInit.sqf";};
         class theBossSteal {file="orgPlayers\stavrosSteal.sqf";};
         class tierCheck {file="orgPlayers\tierCheck.sqf";};
-	}
+    };
 
-	class REINF
-	{
+    class REINF
+    {
         class addBombRun {file="REINF\addBombRun.sqf";};
         class addFIAsquadHC {file="REINF\addFIAsquadHC.sqf";};
         class addFIAveh {file="REINF\addFIAveh.sqf";};
@@ -223,10 +223,10 @@ class A3A
         class reinfPlayer {file="REINF\reinfplayer.sqf";};
         class vehiclePrice {file="REINF\vehiclePrice.sqf";};
         class vehStats {file="REINF\vehStats.sqf";};
-	}
+    };
 
-	class Revive
-	{
+    class Revive
+    {
         class actionRevive {file="Revive\actionRevive.sqf";};
         class fatalWound {file="Revive\fatalWound.sqf";};
         class handleDamage {file="Revive\handleDamage.sqf";};
@@ -236,5 +236,5 @@ class A3A
         class initRevive {file="Revive\initRevive.sqf";};
         class isMedic {file="Revive\isMedic.sqf";};
         class respawn {file="Revive\respawn.sqf";};
-	}
-}
+    };
+};

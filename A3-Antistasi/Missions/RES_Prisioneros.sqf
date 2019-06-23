@@ -124,7 +124,7 @@ else
 	_hr = 2 * (_cuenta);
 	_resourcesFIA = 100 * _cuenta*_bonus;
 	[_hr,_resourcesFIA] remoteExec ["A3A_fnc_resourcesFIA",2];
-	[0,10*_bonus,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+	[0,10*_bonus,_posicion,"Mission: Rescue Won"] remoteExec ["A3A_fnc_citySupportChange",2];
 	//[_cuenta,0] remoteExec ["A3A_fnc_prestige",2];
 	{if (_x distance getMarkerPos respawnBuenos < 500) then {[_cuenta,_x] call A3A_fnc_playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 	[round (_cuenta*_bonus/2),theBoss] call A3A_fnc_playerScoreAdd;

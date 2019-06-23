@@ -229,7 +229,7 @@ if (spawner getVariable _marcador != 2) then
 		{
 		if (_winner == muyMalos) then
 			{
-			_nul = [-5,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+			//_nul = [-5,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 			lados setVariable [_marcador,muyMalos,true];
 			}
 		else
@@ -243,12 +243,13 @@ if (spawner getVariable _marcador != 2) then
 		if (_winner == malos) then
 			{
 			lados setVariable [_marcador,malos,true];
-			_nul = [5,0,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+			_nul = [5,0,_posicion, "SDK Roadblock Destroyed"] remoteExec ["A3A_fnc_citySupportChange",2];
 			}
 		else
 			{
 			lados setVariable [_marcador,buenos,true];
-			_nul = [0,5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
+			[300, 300, "SDK Destroyed Roadblock"] remoteExec ["A3A_fnc_timingCA", 2];
+			//_nul = [0,5,_posicion] remoteExec ["A3A_fnc_citySupportChange",2];
 			};
 		};
 	if (_winner == buenos) then {[[_posicion,_lado,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2]};

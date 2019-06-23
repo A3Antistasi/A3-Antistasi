@@ -18,7 +18,7 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot Fa
 
 _chequeo = false;
 //_distancia = 500 - (([_jefe,false] call A3A_fnc_fogCheck) * 450);
-_distancia = 500;
+_distancia = 400;
 
 {if ([_x,_distancia] call A3A_fnc_enemyNearCheck) exitWith {_chequeo = true}} forEach units _grupo;
 
@@ -52,7 +52,7 @@ if (count _posicionTel > 0) then
 
 	//if (_base in puestosFIA) exitWith {hint "You cannot Fast Travel to roadblocks and watchposts"; openMap [false,false]};
 
-	if ([getMarkerPos _base,500] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
+	if ([getMarkerPos _base,400] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
 
 	if (_posicionTel distance getMarkerPos _base < 50) then
 		{

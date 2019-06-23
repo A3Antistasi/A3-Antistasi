@@ -23,10 +23,10 @@ _origPos = [];
 _pos2 = [];
 _finPos = [];
 _exit = false;
+sleep (120 + random(300));
 if (_esMarcador) then
 	{
-	_timeOut = time + 600;
-	waitUntil {sleep 1; (spawner getVariable _marcador == 0) or (time > _timeOut)};
+
 	if (_marcador in aeropuertos) then
 		{
 		_size = [_marcador] call A3A_fnc_sizeMarker;
@@ -90,6 +90,7 @@ else
 		};
 	};
 
+// TODO: spawn this at an actual air port?
 if (_exit) exitWith {};
 _planefn = [_origpos, _ang, _tipoavion, _lado] call bis_fnc_spawnvehicle;
 _plane = _planefn select 0;
@@ -108,7 +109,8 @@ _wp1 setWaypointType "MOVE";
 _wp1 setWaypointSpeed "LIMITED";
 _wp1 setWaypointBehaviour "CARELESS";
 _plane setCollisionLight true;
-if ((_tipo == "NAPALM") and (napalmCurrent)) then {_tipo = "CLUSTER"};
+// Disabling NAPALM, it looks crap, and causes client crashes I think.
+if (_tipo == "NAPALM") then {_tipo = "CLUSTER"};
 if (_tipo == "HE") then {_wp1 setWaypointStatements ["true", "[this,""HE""] execVM 'AI\airbomb.sqf'"]} else {if (_tipo == "NAPALM") then {_wp1 setWaypointStatements ["true", "[this,""NAPALM""] execVM 'AI\airbomb.sqf'"]} else {_wp1 setWaypointStatements ["true", "[this,""CLUSTER""] execVM 'AI\airbomb.sqf'"]}};
 
 _wp2 = _grupoplane addWaypoint [_pos2, 1];

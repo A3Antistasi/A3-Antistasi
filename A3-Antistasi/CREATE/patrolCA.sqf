@@ -62,7 +62,7 @@ if ((!_esMarcador) and (_typeOfAttack != "Air") and (!_super) and ({lados getVar
 		_amigos = if (_lado == malos) then {allUnits select {(_x distance _posDestino < 200) and (alive _x) and ((side (group _x) == _lado) or (side (group _x) == civilian))}} else {allUnits select {(_x distance _posDestino < 100) and ([_x] call A3A_fnc_canFight) and (side (group _x) == _lado)}};
 		if (count _amigos == 0) then
 			{
-			_tipo = "NAPALM";
+			_tipo = "CLUSTER";
 			{
 			if (vehicle _x isKindOf "Tank") then
 				{
@@ -96,7 +96,7 @@ if (!_inWaves) then
 	{
 	_threatEvalLand = [_posDestino,_lado] call A3A_fnc_landThreatEval;
 	_aeropuertos = aeropuertos select {(lados getVariable [_x,sideUnknown] == _lado) and ([_x,true] call A3A_fnc_airportCanAttack) and (getMarkerPos _x distance2D _posDestino < distanceForAirAttack)};
-	if (hayIFA and (_threatEvalLand <= 15)) then {_aeropuertos = _areopuertos select {(getMarkerPos _x distance2D _posDestino < distanceForLandAttack)}};
+	if (hayIFA and (_threatEvalLand <= 15)) then {_aeropuertos = _aeropuertos select {(getMarkerPos _x distance2D _posDestino < distanceForLandAttack)}};
 	_puestos = if (_threatEvalLand <= 15) then {puestos select {(lados getVariable [_x,sideUnknown] == _lado) and ([_posDestino,getMarkerPos _x] call A3A_fnc_isTheSameIsland) and (getMarkerPos _x distance _posDestino < distanceForLandAttack)  and ([_x,true] call A3A_fnc_airportCanAttack)}} else {[]};
 	_aeropuertos = _aeropuertos + _puestos;
 	if (_esMarcador) then
@@ -227,14 +227,14 @@ if (_base != "") then
 			{
 			if (_rnd > prestigeNATO) then
 				{
-				_vehPool = _vehPool - [vehNATOTank];
+				_vehPool = _vehPool - vehNATOAllTanks;
 				};
 			}
 		else
 			{
 			if (_rnd > prestigeCSAT) then
 				{
-				_vehPool = _vehPool - [vehCSATTank];
+				_vehPool = _vehPool - vehCSATAllTanks;
 				};
 			};
 		};
@@ -266,11 +266,11 @@ if (_base != "") then
 								{
 								if (_lado == malos) then
 									{
-									if ([vehNATOTank] call A3A_fnc_vehAvailable) then {vehNATOTank} else {selectRandom _vehPool}
+									if ([vehNATOTank] call A3A_fnc_vehAvailable) then {selectRandom vehNATOAllTanks} else {selectRandom _vehPool}
 									}
 								else
 									{
-									if ([vehCSATTank] call A3A_fnc_vehAvailable) then {vehCSATTank} else {selectRandom _vehPool}
+									if ([vehCSATTank] call A3A_fnc_vehAvailable) then {selectRandom vehCSATAllTanks} else {selectRandom _vehPool}
 									};
 								};
 							};

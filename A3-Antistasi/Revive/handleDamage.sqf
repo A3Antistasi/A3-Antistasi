@@ -20,6 +20,7 @@ if (_part == "") then
 				{
 				_unit setVariable ["INCAPACITATED",true,true];
 				_unit setUnconscious true;
+				// ACE allows pulling people out of vehicles, so leave them in there
 				if (vehicle _unit != _unit) then
 					{
 					moveOut _unit;
@@ -110,6 +111,7 @@ else
 						{
 						_unit setVariable ["INCAPACITATED",true,true];
 						_unit setUnconscious true;
+						// ACE allows pulling people out of vehicles, so leave them in there
 						if (vehicle _unit != _unit) then
 							{
 							//_unit action ["getOut", vehicle _unit];
@@ -128,6 +130,7 @@ else
 						{
 						_unit setVariable ["INCAPACITATED",true,true];
 						_unit setUnconscious true;
+						// ACE allows pulling people out of vehicles, so leave them in there
 						if (vehicle _unit != _unit) then
 							{
 							moveOut _unit;

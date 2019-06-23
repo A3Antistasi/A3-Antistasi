@@ -1,4 +1,4 @@
-private ["_unit","_muerto","_killer","_skill","_nameX","_typeX"];
+private ["_unit","_victim","_killer","_skill","_nameX","_typeX"];
 
 _unit = _this select 0;
 
@@ -213,13 +213,13 @@ if (player == leader _unit) then
 	{
 	_unit setVariable ["owner",player];
 	_EHkilledIdx = _unit addEventHandler ["killed", {
-		_muerto = _this select 0;
-		[_muerto] spawn A3A_fnc_postmortem;
+		_victim = _this select 0;
+		[_victim] spawn A3A_fnc_postmortem;
 		_killer = _this select 1;
-		if !(hasIFA) then {arrayids pushBackUnique (name _muerto)};
+		if !(hasIFA) then {arrayids pushBackUnique (name _victim)};
 		if (side _killer == Occupants) then
 			{
-			_nul = [0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+			_nul = [0.25,0,getPos _victim] remoteExec ["A3A_fnc_citySupportChange",2];
 			[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
 			}
 		else
@@ -236,7 +236,7 @@ if (player == leader _unit) then
 					};
 				};
 			};
-		_muerto setVariable ["spawner",nil,true];
+		_victim setVariable ["spawner",nil,true];
 		}];
 	if ((typeOf _unit != SDKUnarmed) and !hasIFA) then
 		{
@@ -273,9 +273,9 @@ if (player == leader _unit) then
 else
 	{
 	_EHkilledIdx = _unit addEventHandler ["killed", {
-		_muerto = _this select 0;
+		_victim = _this select 0;
 		_killer = _this select 1;
-		[_muerto] remoteExec ["A3A_fnc_postmortem",2];
+		[_victim] remoteExec ["A3A_fnc_postmortem",2];
 		if ((isPlayer _killer) and (side _killer == teamPlayer)) then
 			{
 			if (!isMultiPlayer) then
@@ -288,7 +288,7 @@ else
 			{
 			if (side _killer == Occupants) then
 				{
-				_nul = [0.25,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+				_nul = [0.25,0,getPos _victim] remoteExec ["A3A_fnc_citySupportChange",2];
 				[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
 				}
 			else
@@ -306,7 +306,7 @@ else
 					};
 				};
 			};
-		_muerto setVariable ["spawner",nil,true];
+		_victim setVariable ["spawner",nil,true];
 		}];
 	};
 

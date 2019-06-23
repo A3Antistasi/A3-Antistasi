@@ -6,7 +6,7 @@ _mrk setMarkerTypeLocal "hd_warning";
 _mrk setMarkerColorLocal "ColorRed";
 _mrk setMarkerBrushLocal "DiagGrid";
 _mrk setMarkerAlphaLocal 0;
-private _grupo = grpNull;
+private _groupX = grpNull;
 private _reset = true;
 private _civs = [];
 
@@ -21,10 +21,10 @@ while {true} do
 		_civ = _x;
 		if (!(alive _civ) or ({_civ distance _x <= 300} count (allPlayers - (entities "HeadlessClient_F")) == 0)) then
 			{
-			_grupo = group _x;
+			_groupX = group _x;
 			_abuse pushBack _x;
 			deleteVehicle _x;
-			if ({alive _x} count (units _grupo) == 0) then {deleteGroup _grupo};
+			if ({alive _x} count (units _groupX) == 0) then {deleteGroup _groupX};
 			};
 		} forEach _civs;
 		_civs = _civs - _abuse;
@@ -44,16 +44,16 @@ while {true} do
 				_houseX = selectRandom _houses;
 				if ({_x distance _houseX < 20} count (allPlayers - (entities "HeadlessClient_F")) == 0) then
 					{
-					if (isNull _grupo) then
+					if (isNull _groupX) then
 						{
-						_grupo = createGroup civilian;
+						_groupX = createGroup civilian;
 						}
 					else
 						{
-						if (count units _grupo > 2) then {_grupo = createGroup civilian};
+						if (count units _groupX > 2) then {_groupX = createGroup civilian};
 						};
 					_posHouse = selectRandom (_houseX buildingPos -1);
-					_civ = _grupo createUnit [selectRandom arrayCivs, _posHouse, [],0, "NONE"];
+					_civ = _groupX createUnit [selectRandom arrayCivs, _posHouse, [],0, "NONE"];
 					_civ setPosATL _posHouse;
 					[_civ] spawn A3A_fnc_CIVinit;
 					_civs pushBack _civ;

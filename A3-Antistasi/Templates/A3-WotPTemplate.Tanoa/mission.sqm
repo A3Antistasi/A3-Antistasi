@@ -1234,7 +1234,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={9040.6953,32.533031,10456.883};
-			name="isla";
+			name="island";
 			type="Empty";
 			id=275;
 		};
@@ -1242,7 +1242,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={2689.4221,-8.3395282e-032,12513.763};
-			name="isla_1";
+			name="island_1";
 			type="Empty";
 			id=277;
 			atlOffset=-116.21703;
@@ -1251,7 +1251,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={2227.271,-1.5425505e-009,6742.4019};
-			name="isla_2";
+			name="island_2";
 			type="Empty";
 			id=279;
 			atlOffset=-12.618518;
@@ -1260,7 +1260,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={4233.4248,-6.8046117e-016,2560.01};
-			name="isla_3";
+			name="island_3";
 			type="Empty";
 			id=281;
 			atlOffset=-93.272247;
@@ -1269,7 +1269,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={10970.877,-4.2497717e-038,3308.896};
-			name="isla_4";
+			name="island_4";
 			type="Empty";
 			id=283;
 			atlOffset=-50.524715;
@@ -1910,7 +1910,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				name="antena";
+				name="antenna";
 			};
 			id=358;
 			type="Land_TTowerBig_2_F";

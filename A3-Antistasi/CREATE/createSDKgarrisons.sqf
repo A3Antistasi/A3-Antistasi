@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_vehiclesX","_groups","_soldiers","_positionX","_pos","_size","_veh","_staticsX","_garrison","_tam","_countX","_grupo","_groupMortar","_typeX","_unit"];
+private ["_markerX","_vehiclesX","_groups","_soldiers","_positionX","_pos","_size","_veh","_staticsX","_garrison","_radiusX","_countX","_groupX","_groupMortar","_typeX","_unit"];
 
 _markerX = _this select 0;
 
@@ -34,13 +34,13 @@ if (_markerX != "Synd_HQ") then
 			{
 			if ((daytime > 8) and (daytime < 18)) then
 				{
-				_grupo = createGroup civilian;
-				_groups pushBack _grupo;
+				_groupX = createGroup civilian;
+				_groups pushBack _groupX;
 				for "_i" from 1 to 4 do
 					{
 					if (spawner getVariable _markerX != 2) then
 						{
-						_civ = _grupo createUnit ["C_man_w_worker_F", _positionX, [],0, "NONE"];
+						_civ = _groupX createUnit ["C_man_w_worker_F", _positionX, [],0, "NONE"];
 						_nul = [_civ] spawn A3A_fnc_CIVinit;
 						_civs pushBack _civ;
 						_civ setVariable ["markerX",_markerX,true];
@@ -59,7 +59,7 @@ if (_markerX != "Synd_HQ") then
 						};
 					};
 				//_nul = [_markerX,_civs] spawn destroyCheck;
-				_nul = [leader _grupo, _markerX, "SAFE", "SPAWNED","NOFOLLOW", "NOSHARE","DORELAX","NOVEH2"] execVM "scripts\UPSMON.sqf";
+				_nul = [leader _groupX, _markerX, "SAFE", "SPAWNED","NOFOLLOW", "NOSHARE","DORELAX","NOVEH2"] execVM "scripts\UPSMON.sqf";
 				};
 			};
 		};
@@ -72,7 +72,7 @@ _staticsX = staticsToSave select {_x distance _positionX < _size};
 
 _garrison = [];
 _garrison = _garrison + (garrison getVariable [_markerX,[]]);
-_grupo = createGroup teamPlayer;
+_groupX = createGroup teamPlayer;
 _groupEst = createGroup teamPlayer;
 _groupMortar = createGroup teamPlayer;
 {
@@ -110,36 +110,36 @@ if (staticCrewTeamPlayer in _garrison) then
 	_garrison = _garrison - [staticCrewTeamPlayer];
 	};
 _garrison = _garrison call A3A_fnc_garrisonReorg;
-_tam = count _garrison;
+_radiusX = count _garrison;
 _countX = 0;
 _countGroup = 0;
-while {(spawner getVariable _markerX != 2) and (_countX < _tam)} do
+while {(spawner getVariable _markerX != 2) and (_countX < _radiusX)} do
 	{
 	_typeX = _garrison select _countX;
-	_unit = _grupo createUnit [_typeX, _positionX, [], 0, "NONE"];
-	if (_typeX in SDKSL) then {_grupo selectLeader _unit};
+	_unit = _groupX createUnit [_typeX, _positionX, [], 0, "NONE"];
+	if (_typeX in SDKSL) then {_groupX selectLeader _unit};
 	[_unit,_markerX] call A3A_fnc_FIAinitBases;
 	_soldiers pushBack _unit;
 	_countX = _countX + 1;
 	sleep 0.5;
 	if (_countGroup == 8) then
 		{
-		_grupo = createGroup teamPlayer;
-		_groups pushBack _grupo;
+		_groupX = createGroup teamPlayer;
+		_groups pushBack _groupX;
 		_countGroup = 0;
 		};
 	};
 
 for "_i" from 0 to (count _groups) - 1 do
 	{
-	_grupo = _groups select _i;
+	_groupX = _groups select _i;
 	if (_i == 0) then
 		{
-		_nul = [leader _grupo, _markerX, "SAFE","SPAWNED","RANDOMUP","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+		_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","RANDOMUP","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 		}
 	else
 		{
-		_nul = [leader _grupo, _markerX, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+		_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 		};
 	};
 waitUntil {sleep 1; (spawner getVariable _markerX == 2)};

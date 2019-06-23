@@ -1,5 +1,5 @@
 //if (!isServer) exitWith{};
-private ["_groups","_hr","_resourcesFIA","_wp","_grupo","_veh","_leave"];
+private ["_groups","_hr","_resourcesFIA","_wp","_groupX","_veh","_leave"];
 
 _groups = _this select 0;
 _hr = 0;
@@ -28,7 +28,7 @@ sleep 3} forEach _groups;
 
 sleep 100;
 
-{_grupo = _x;
+{_groupX = _x;
 {
 
 if (alive _x) then
@@ -63,8 +63,8 @@ if (alive _x) then
 		};
 	};
 deleteVehicle _x;
-} forEach units _grupo;
-deleteGroup _grupo;} forEach _groups;
+} forEach units _groupX;
+deleteGroup _groupX;} forEach _groups;
 _nul = [_hr,_resourcesFIA] remoteExec ["A3A_fnc_resourcesFIA",2];
 
 

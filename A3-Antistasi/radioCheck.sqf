@@ -1,4 +1,4 @@
-private ["_markerX","_ok","_positionX","_antena","_nearX"];
+private ["_markerX","_ok","_positionX","_antenna","_nearX"];
 
 _markerX = _this select 0;
 _positionX = _this select 0;
@@ -8,10 +8,10 @@ if (count antennas > 0) then
 	{
 	for "_i" from 0 to (count antennas) - 1 do
 		{
-		_antena = antennas select _i;
-		if ((alive _antena) and (_positionX distance _antena < 3500)) then
+		_antenna = antennas select _i;
+		if ((alive _antenna) and (_positionX distance _antenna < 3500)) then
 			{
-			_nearX = [markersX,_antena] call BIS_fnc_nearestPosition;
+			_nearX = [markersX,_antenna] call BIS_fnc_nearestPosition;
 			if (not(sidesX getVariable [_nearX,sideUnknown] == teamPlayer)) then {_ok = true};
 			};
 		};

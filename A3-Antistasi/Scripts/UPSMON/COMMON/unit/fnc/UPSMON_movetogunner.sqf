@@ -16,7 +16,7 @@ _npc = _this ;
 _vehicle = vehicle _npc;
 	
 sleep 0.05;
-//Si est� muerto
+//Si est� victim
 if (vehicle _npc == _npc || !alive _npc || !canmove _npc || !(_npc iskindof "Man")) exitwith{};
 	
 if (isnull(gunner _vehicle) || !alive(gunner _vehicle) || !canmove(gunner _vehicle)) then 
@@ -25,7 +25,7 @@ if (isnull(gunner _vehicle) || !alive(gunner _vehicle) || !canmove(gunner _vehic
 	_npc action ["getOut", _vehicle];
 	doGetOut _npc;
 	WaitUntil {vehicle _npc==_npc || !alive _npc || !canmove _npc};
-	//Si est� muerto
+	//Si est� victim
 	if (!alive _npc || !canmove _npc) exitwith{};		
 	unassignVehicle _npc;
 	_npc assignasgunner _vehicle;

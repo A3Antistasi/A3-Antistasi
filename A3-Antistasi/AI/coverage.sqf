@@ -1,13 +1,13 @@
-private ["_unit","_enemyX","_small","_big","_objeto","_posBehind","_objectsX","_roads","_typeX","_p1","_p2","_ancho","_grueso","_alto","_posEnemy","_pos","_arr","_grupo"];
+private ["_unit","_enemyX","_small","_big","_objectX","_posBehind","_objectsX","_roads","_typeX","_p1","_p2","_ancho","_grueso","_alto","_posEnemy","_pos","_arr","_groupX"];
 _unit = _this select 0;
 _enemyX = _this select 1;
 _small= [];
 _big = [];
-_objeto = objNull;
+_objectX = objNull;
 _pos = [];
 _posBehind = (position _unit) getPos [5,_enemyX getDir _unit];
-_grupo = group _unit;
-_objectsX = (nearestObjects [_posBehind, [], 30]) select {!(_x in (_grupo getVariable ["usedForCover",[]]))};
+_groupX = group _unit;
+_objectsX = (nearestObjects [_posBehind, [], 30]) select {!(_x in (_groupX getVariable ["usedForCover",[]]))};
 _roads = _posBehind nearRoads 30;
 {
 _typeX = typeOf _x;
@@ -37,28 +37,28 @@ if !(_typeX in ["#crater","#crateronvehicle","#soundonvehicle","#particlesource"
 
 if ((count _big == 0) and (count _small == 0)) exitWith {[]};
 
-if !(_big isEqualTo []) then {_objeto = [_big,_unit] call BIS_fnc_nearestPosition} else {_objeto = [_small,_unit] call BIS_fnc_nearestPosition};
+if !(_big isEqualTo []) then {_objectX = [_big,_unit] call BIS_fnc_nearestPosition} else {_objectX = [_small,_unit] call BIS_fnc_nearestPosition};
 
-if (isNull _objeto) exitWith {_pos};
-if !(_objeto isKindOf "House") then
+if (isNull _objectX) exitWith {_pos};
+if !(_objectX isKindOf "House") then
 	{
-	_arr = _grupo getVariable ["usedForCover",[]];
-	_arr pushBack _objeto;
-	_grupo setVariable ["usedForCover",_arr];
-	[_objeto,_grupo] spawn
+	_arr = _groupX getVariable ["usedForCover",[]];
+	_arr pushBack _objectX;
+	_groupX setVariable ["usedForCover",_arr];
+	[_objectX,_groupX] spawn
 		{
 		sleep 60;
-		private ["_objeto","_grupo","_arr"];
-		_objeto = _this select 0;
-		_grupo = _this select 1;
-		if (!(isNull _grupo) and !(isNull _objeto)) then
+		private ["_objectX","_groupX","_arr"];
+		_objectX = _this select 0;
+		_groupX = _this select 1;
+		if (!(isNull _groupX) and !(isNull _objectX)) then
 			{
-			_arr = _grupo getVariable ["usedForCover",[]];
-			_arr = _arr - [_objeto];
-			_grupo setVariable ["usedForCover",_arr];
+			_arr = _groupX getVariable ["usedForCover",[]];
+			_arr = _arr - [_objectX];
+			_groupX setVariable ["usedForCover",_arr];
 			};
 		};
 	};
 _posEnemy = position _enemyX;
-_pos = _posEnemy getPos [(_objeto distance _posEnemy) + 2, _posEnemy getDir _objeto];
+_pos = _posEnemy getPos [(_objectX distance _posEnemy) + 2, _posEnemy getDir _objectX];
 _pos

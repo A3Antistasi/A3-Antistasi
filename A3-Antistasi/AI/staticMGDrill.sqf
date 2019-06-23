@@ -2,10 +2,10 @@ private ["_gunner","_helperX"];
 private _isMortar = false;
 {if (_x getVariable ["typeOfSoldier",""] == "StaticGunner") then {_gunner = _x} else {_helperX = _x}} forEach _this;
 {if (_x getVariable ["typeOfSoldier",""] == "StaticMortar") then {_gunner = _x;_isMortar = true} else {_helperX = _x}} forEach _this;
-private _grupo = group _gunner;
+private _groupX = group _gunner;
 private _mounted = false;
 private _veh = objNull;
-private _sideX = side _grupo;
+private _sideX = side _groupX;
 private _typeVehX = 	if !(_isMortar) then
 						{
 						if (_sideX == Occupants) then {NATOMG} else {if (_sideX == Invaders) then {CSATMG} else {SDKMGStatic}};
@@ -20,7 +20,7 @@ while {(alive _gunner)} do
 	{
 	if (!(alive _helperX) and !(_mounted)) exitWith {};
 	if (!(isNull _veh) and !(alive _veh)) exitWith {};
-	_objectivesX = _grupo getVariable ["objectivesX",[]];
+	_objectivesX = _groupX getVariable ["objectivesX",[]];
 	_enemyX = objNull;
 	if (!(_objectivesX isEqualTo []) and (((_objectivesX select 0) select 4) distance _gunner > 150))  then
 		{
@@ -75,14 +75,14 @@ while {(alive _gunner)} do
 						_veh setPos position (_gunner);
 						removeBackpackGlobal _gunner;
 						removeBackpackGlobal _helperX;
-						_grupo addVehicle _veh;
+						_groupX addVehicle _veh;
 						_gunner assignAsGunner _veh;
 						[_gunner] orderGetIn true;
 						[_gunner] allowGetIn true;
 						_gunner moveInGunner _veh;
 						[_veh] call A3A_fnc_AIVEHinit;
 						_mounted = true;
-						if (_isMortar) then {_grupo setVariable ["mortarsX",_gunner]};
+						if (_isMortar) then {_groupX setVariable ["mortarsX",_gunner]};
 						sleep 60;
 						};
 					};
@@ -104,7 +104,7 @@ while {(alive _gunner)} do
 						_helperX addBackpackGlobal _backpckA;
 						deleteVehicle _veh;
 						_gunner call A3A_fnc_recallGroup;
-						if (_isMortar) then {_grupo setVariable ["mortarsX",objNull]};
+						if (_isMortar) then {_groupX setVariable ["mortarsX",objNull]};
 						};
 					};
 				};
@@ -125,7 +125,7 @@ while {(alive _gunner)} do
 				_helperX addBackpackGlobal _backpckA;
 				deleteVehicle _veh;
 				_gunner call A3A_fnc_recallGroup;
-				if (_isMortar) then {_grupo setVariable ["mortarsX",objNull]};
+				if (_isMortar) then {_groupX setVariable ["mortarsX",objNull]};
 				};
 			};
 		};
@@ -138,16 +138,16 @@ if (alive _gunner) then
 	[_gunner] allowGetIn false;
 	moveOut _gunner;
 	_gunner setVariable ["maneuvering",false];
-	_flankers = _grupo getVariable ["flankers",[]];
+	_flankers = _groupX getVariable ["flankers",[]];
 	_flankers pushBack _gunner;
-	_grupo setVariable ["flankers",_flankers];
+	_groupX setVariable ["flankers",_flankers];
 	_gunner call A3A_fnc_recallGroup;
 	};
 if (alive _helperX) then
 	{
 	_helperX setVariable ["maneuvering",false];
-	_flankers = _grupo getVariable ["flankers",[]];
+	_flankers = _groupX getVariable ["flankers",[]];
 	_flankers pushBack _helperX;
-	_grupo setVariable ["flankers",_flankers];
+	_groupX setVariable ["flankers",_flankers];
 	_helperX call A3A_fnc_recallGroup;
 	};

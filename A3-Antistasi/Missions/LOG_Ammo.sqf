@@ -1,7 +1,7 @@
 //Mission: Logistics for ammunition
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_truckX","_truckCreated","_grupo","_grupo1","_mrk"];
+private ["_pos","_truckX","_truckCreated","_groupX","_groupX1","_mrk"];
 
 _markerX = _this select 0;
 
@@ -50,22 +50,22 @@ if ((spawner getVariable _markerX != 2) and !(sidesX getVariable [_markerX,sideU
 	if (!debug) then {_mrk setMarkerAlphaLocal 0};
 	_typeGroup = if (_difficultX) then {if (_sideX == Occupants) then {NATOSquad} else {CSATSquad}} else {if (_sideX == Occupants) then {groupsNATOSentry} else {groupsCSATSentry}};
 	//_cfg = if (_sideX == Occupants) then {cfgNATOInf} else {cfgCSATInf};
-	_grupo = [_pos,_sideX, _typeGroup] call A3A_fnc_spawnGroup;
+	_groupX = [_pos,_sideX, _typeGroup] call A3A_fnc_spawnGroup;
 	sleep 1;
 	if (random 10 < 33) then
 		{
-		_dog = _grupo createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
+		_dog = _groupX createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
 		[_dog] spawn A3A_fnc_guardDog;
 		};
 
-	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
+	_nul = [leader _groupX, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
 
-	_grupo1 = [_pos,_sideX,_typeGroup] call A3A_fnc_spawnGroup;
+	_groupX1 = [_pos,_sideX,_typeGroup] call A3A_fnc_spawnGroup;
 	sleep 1;
-	_nul = [leader _grupo1, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
+	_nul = [leader _groupX1, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
 
-	{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
-	{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo1;
+	{[_x,""] call A3A_fnc_NATOinit} forEach units _groupX;
+	{[_x,""] call A3A_fnc_NATOinit} forEach units _groupX1;
 
 	waitUntil {sleep 1; (not alive _truckX) or (dateToNumber date > _dateLimitNum) or ({(_x getVariable ["spawner",false]) and (side group _x == teamPlayer)} count crew _truckX > 0)};
 
@@ -99,10 +99,10 @@ else
 _nul = [1200,"LOG"] spawn A3A_fnc_deleteTask;
 if (_truckCreated) then
 	{
-	{deleteVehicle _x} forEach units _grupo;
-	deleteGroup _grupo;
-	{deleteVehicle _x} forEach units _grupo1;
-	deleteGroup _grupo1;
+	{deleteVehicle _x} forEach units _groupX;
+	deleteGroup _groupX;
+	{deleteVehicle _x} forEach units _groupX1;
+	deleteGroup _groupX1;
 	deleteMarker _mrk;
 	waitUntil {sleep 1; !([300,1,_truckX,teamPlayer] call A3A_fnc_distanceUnits)};
 	deleteVehicle _truckX;

@@ -1,4 +1,4 @@
-private ["_veh","_markerX","_positionX","_groups","_knownX","_grupo","_LeaderX"];
+private ["_veh","_markerX","_positionX","_groups","_knownX","_groupX","_LeaderX"];
 
 _veh = _this select 0;
 _markerX = _this select 1;
@@ -17,9 +17,9 @@ while {alive _veh} do
 	_groups = allGroups select {(leader _x in _enemiesX) and ((vehicle leader _x) != (leader _x))};
 	_knownX = allUnits select {((side _x == teamPlayer) or (side _x == _enemiesS)) and (alive _x) and (_x distance _positionX < 500)};
 	{
-	_grupo = _x;
+	_groupX = _x;
 		{
-		_grupo reveal [_x,1.4];
+		_groupX reveal [_x,1.4];
 		} forEach _knownX;
 	} forEach _groups;
 	};

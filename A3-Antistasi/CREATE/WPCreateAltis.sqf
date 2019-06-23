@@ -27,9 +27,9 @@ while {true} do
 		};
 	_roadsMrk = _roadsMrk - [_road];
 	};
-_grupo = _this select 2;
+_groupX = _this select 2;
 
 for "_i" from 0 to (count _finalArray) - 1 do
 	{
-	_grupo addWaypoint [getMarkerPos (_finalArray select _i), _i];
+	_groupX addWaypoint [getMarkerPos (_finalArray select _i), _i];
 	};

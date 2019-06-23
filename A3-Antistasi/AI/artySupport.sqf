@@ -4,8 +4,8 @@ private ["_groups","_artyArray","_artyRoundsArr","_hasAmmunition","_areReady","_
 
 _groups = hcSelected player;
 _unitsX = [];
-{_grupo = _x;
-{_unitsX pushBack _x} forEach units _grupo;
+{_groupX = _x;
+{_unitsX pushBack _x} forEach units _groupX;
 } forEach _groups;
 typeAmmunition = nil;
 _artyArray = [];

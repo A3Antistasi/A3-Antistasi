@@ -1,7 +1,7 @@
 //Mission: Destroy the vehicle
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_positionX","_dateLimit","_dateLimitNum","_nameDest","_typeVehX","_textX","_truckCreated","_size","_pos","_veh","_grupo","_unit"];
+private ["_markerX","_positionX","_dateLimit","_dateLimitNum","_nameDest","_typeVehX","_textX","_truckCreated","_size","_pos","_veh","_groupX","_unit"];
 
 _markerX = _this select 0;
 
@@ -37,27 +37,27 @@ if (spawner getVariable _markerX == 0) then
 	_veh setDir random 360;
 	[_veh] call A3A_fnc_AIVEHinit;
 
-	_grupo = createGroup _sideX;
+	_groupX = createGroup _sideX;
 
 	sleep 5;
 	_veh allowDamage true;
 	_typeX = if (_sideX == Occupants) then {NATOCrew} else {CSATCrew};
 	for "_i" from 1 to 3 do
 		{
-		_unit = _grupo createUnit [_typeX, _pos, [], 0, "NONE"];
+		_unit = _groupX createUnit [_typeX, _pos, [], 0, "NONE"];
 		[_unit,""] call A3A_fnc_NATOinit;
 		sleep 2;
 		};
 
 	if (_difficultX) then
 		{
-		_grupo addVehicle _veh;
+		_groupX addVehicle _veh;
 		}
 	else
 		{
-		waitUntil {sleep 1;({leader _grupo knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _grupo,teamPlayer] call A3A_fnc_distanceUnits) > 0) or (dateToNumber date > _dateLimitNum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == teamPlayer)} count crew _veh > 0)};
+		waitUntil {sleep 1;({leader _groupX knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _groupX,teamPlayer] call A3A_fnc_distanceUnits) > 0) or (dateToNumber date > _dateLimitNum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == teamPlayer)} count crew _veh > 0)};
 
-		if ({leader _grupo knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _grupo,teamPlayer] call A3A_fnc_distanceUnits) > 0) then {_grupo addVehicle _veh;};
+		if ({leader _groupX knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _groupX,teamPlayer] call A3A_fnc_distanceUnits) > 0) then {_groupX addVehicle _veh;};
 		};
 
 	waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (not alive _veh) or ({(_x getVariable ["spawner",false]) and (side group _x == teamPlayer)} count crew _veh > 0)};
@@ -91,7 +91,7 @@ waitUntil {sleep 1; (spawner getVariable _markerX == 2)};
 
 if (_truckCreated) then
 	{
-	{deleteVehicle _x} forEach units _grupo;
-	deleteGroup _grupo;
+	{deleteVehicle _x} forEach units _groupX;
+	deleteGroup _groupX;
 	if (!([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) then {deleteVehicle _veh};
 	};

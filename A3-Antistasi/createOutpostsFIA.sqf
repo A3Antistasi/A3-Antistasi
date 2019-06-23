@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_typeX","_costs","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_textX","_mrk","_hr","_unitsX","_formatX"];
+private ["_typeX","_costs","_groupX","_unit","_radiusX","_roads","_road","_pos","_truckX","_textX","_mrk","_hr","_unitsX","_formatX"];
 
 _typeX = _this select 0;
 _positionTel = _this select 1;
@@ -32,32 +32,32 @@ _formatX = [];
 {
 if (random 20 <= skillFIA) then {_formatX pushBack (_x select 1)} else {_formatX pushBack (_x select 0)};
 } forEach _typeGroup;
-_grupo = [getMarkerPos respawnTeamPlayer, teamPlayer, _formatX] call A3A_fnc_spawnGroup;
-_grupo setGroupId ["Post"];
+_groupX = [getMarkerPos respawnTeamPlayer, teamPlayer, _formatX] call A3A_fnc_spawnGroup;
+_groupX setGroupId ["Post"];
 _road = [getMarkerPos respawnTeamPlayer] call A3A_fnc_findNearestGoodRoad;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 _truckX = _typeVehX createVehicle _pos;
-//_nul = [_grupo] spawn dismountFIA;
-_grupo addVehicle _truckX;
-{[_x] call A3A_fnc_FIAinit} forEach units _grupo;
-leader _grupo setBehaviour "SAFE";
-(units _grupo) orderGetIn true;
-theBoss hcSetGroup [_grupo];
+//_nul = [_groupX] spawn dismountFIA;
+_groupX addVehicle _truckX;
+{[_x] call A3A_fnc_FIAinit} forEach units _groupX;
+leader _groupX setBehaviour "SAFE";
+(units _groupX) orderGetIn true;
+theBoss hcSetGroup [_groupX];
 
-waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) or (dateToNumber date > _dateLimitNum)};
+waitUntil {sleep 1; ({alive _x} count units _groupX == 0) or ({(alive _x) and (_x distance _positionTel < 10)} count units _groupX > 0) or (dateToNumber date > _dateLimitNum)};
 
-if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) then
+if ({(alive _x) and (_x distance _positionTel < 10)} count units _groupX > 0) then
 	{
-	if (isPlayer leader _grupo) then
+	if (isPlayer leader _groupX) then
 		{
-		_owner = (leader _grupo) getVariable ["owner",leader _grupo];
-		(leader _grupo) remoteExec ["removeAllActions",leader _grupo];
-		_owner remoteExec ["selectPlayer",leader _grupo];
-		(leader _grupo) setVariable ["owner",_owner,true];
+		_owner = (leader _groupX) getVariable ["owner",leader _groupX];
+		(leader _groupX) remoteExec ["removeAllActions",leader _groupX];
+		_owner remoteExec ["selectPlayer",leader _groupX];
+		(leader _groupX) setVariable ["owner",_owner,true];
 		{[_x] joinsilent group _owner} forEach units group _owner;
 		[group _owner, _owner] remoteExec ["selectLeader", _owner];
 		"" remoteExec ["hint",_owner];
-		waitUntil {!(isPlayer leader _grupo)};
+		waitUntil {!(isPlayer leader _groupX)};
 		};
 	outpostsFIA = outpostsFIA + [_mrk]; publicVariable "outpostsFIA";
 	sidesX setVariable [_mrk,teamPlayer,true];
@@ -87,10 +87,10 @@ else
 	deleteMarker _mrk;
 	};
 
-theBoss hcRemoveGroup _grupo;
-{deleteVehicle _x} forEach units _grupo;
+theBoss hcRemoveGroup _groupX;
+{deleteVehicle _x} forEach units _groupX;
 deleteVehicle _truckX;
-deleteGroup _grupo;
+deleteGroup _groupX;
 sleep 15;
 
 _nul = [0,"outpostsFIA"] spawn A3A_fnc_deleteTask;

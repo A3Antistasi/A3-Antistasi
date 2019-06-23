@@ -341,7 +341,7 @@ Modified:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.0
 //    	Added
-//             Habilitado b�squeda y uso de veh�culos de transporte, cuando la IA est� lejos del objectiveX busca vehiclesX con capacidad cerca, ahora ya puedes definir tu base con vehiclesX, que si la IA los necesita los coge.
+//             Habilitado b�squeda y uso de veh�culos de transporte, cuando la IA est� lejos del objectiveX busca vehiclesX con capacidad cerca, ahora ya puedes definir tu base con vehiclesX, que si la IA los needsRearm los coge.
 //		
 // 	Modificaciones:
 //		Adaptadas ciertas partes de c�digo para ser usadas en modeX multihilo, mejorando los resultados y el rendimiento en general.

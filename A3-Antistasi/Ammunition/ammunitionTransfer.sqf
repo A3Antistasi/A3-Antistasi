@@ -71,7 +71,7 @@ _ammunitionFinal = [];
 _ammunitionFinalCount = [];
 if (isNil "_ammunition") then
 	{
-	diag_log format ["Error en transmisión de munición. Tenía esto: %1 y estos containers: %2, el originX era un %3 y el objeto está definido como: %4", magazineCargo _originX, everyContainer _originX,typeOf _originX,_originX];
+	diag_log format ["Error en transmisión de munición. Tenía esto: %1 y estos containers: %2, el originX era un %3 y el objectX está definido como: %4", magazineCargo _originX, everyContainer _originX,typeOf _originX,_originX];
 	}
 else
 	{

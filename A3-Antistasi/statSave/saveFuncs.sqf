@@ -205,11 +205,11 @@ fn_SetStat =
 			    {
 			    _posAnt = _varvalue select _i;
 			    _mrk = [mrkAntennas, _posAnt] call BIS_fnc_nearestPosition;
-			    _antena = [antennas,_mrk] call BIS_fnc_nearestPosition;
-			    {if ([antennas,_x] call BIS_fnc_nearestPosition == _antena) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
-			    antennas = antennas - [_antena];
-			    _antena removeAllEventHandlers "Killed";
-			    _antena setDamage [1,false];
+			    _antenna = [antennas,_mrk] call BIS_fnc_nearestPosition;
+			    {if ([antennas,_x] call BIS_fnc_nearestPosition == _antenna) then {[_x,false] spawn A3A_fnc_blackout}} forEach citiesX;
+			    antennas = antennas - [_antenna];
+			    _antenna removeAllEventHandlers "Killed";
+			    _antenna setDamage [1,false];
 			    deleteMarker _mrk;
 			    };
 			antennasDead = _varvalue;

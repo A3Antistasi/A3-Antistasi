@@ -112,6 +112,10 @@
 
 #define ERROR if !(_item in _disabledItems) then {_disabledItems set [count _disabledItems,_item];};
 
+#define SORT_DEFAULT 0
+#define SORT_AMOUNT 1
+#define SORT_ALPHABETICAL 2
+
 disableserialization;
 
 _arrayContains = {
@@ -353,11 +357,25 @@ switch _mode do {
 			} foreach [_ctrlIcon,_ctrlTab];
 
 			//sort
-			_sort = _sortValues param [_idc,0];
+			_sort = _sortValues param [_idc, SORT_DEFAULT];
 			_ctrlSort = _display displayctrl (IDC_RSCDISPLAYARSENAL_SORT + _idc);
 			_ctrlSort ctrlRemoveAllEventHandlers "lbselchanged";
-			_ctrlSort ctrladdeventhandler ["lbselchanged",format ["['lbSort',[_this,%1]] call jn_fnc_arsenal;",_idc]];
-			_ctrlSort lbadd "Sort by amount";
+			_ctrlSort ctrladdeventhandler ["lbselchanged",format ["['SortBy',[_this,%1]] call jn_fnc_arsenal;",_idc]];
+      
+      //Delete "Sort by mod" as it doesn't work currently.
+      if (lbSize _ctrlSort > 1) then {
+        _ctrlSort lbDelete 1;
+      };
+      
+      
+			private _sortByAmountIndex =  _ctrlSort lbadd "Sort by amount";
+      private _sortDefaultIndex = _ctrlSort lbadd "Default";
+      
+      _ctrlSort lbSetValue [0, SORT_ALPHABETICAL];
+      _ctrlSort lbSetValue [_sortByAmountIndex, SORT_AMOUNT];
+      _ctrlSort lbSetValue [_sortDefaultIndex, SORT_DEFAULT];
+  
+      lbSortByValue _ctrlSort;
 
 			_ctrlSort lbsetcursel _sort;
 			_sortValues set [_idc,_sort];
@@ -365,6 +383,85 @@ switch _mode do {
 		} foreach IDCS;
 		uinamespace setvariable ["jn_fnc_arsenal_sort",_sortValues];
 	};
+  
+  case "SortBy":{
+    _this params ["_eventParams", "_currentTabIdc"];
+    _eventParams params ["_ctrlSort", "_selectedIndex"];
+    
+    private _display = ctrlParent _ctrlSort;
+    private _ctrlList = _display displayctrl (IDC_RSCDISPLAYARSENAL_LIST + _currentTabIdc);
+    private _type = (ctrltype _ctrlList == 102);
+    
+    private _itemCount = lbSize _ctrlList;
+    
+    //diag_log format ["Name: %1, Value: %2, Data: %3", _ctrlSort lbText _selectedIndex, _ctrlSort lbValue _selectedIndex, _ctrlSort lbData _selectedIndex];
+    //diag_log format ["Number of items: %1", _itemCount];
+    
+    //for "_i" from 0 to (_itemCount - 1) do {
+    //  diag_log format ["Item: %1 has value %2", _ctrlList lbText _i, _ctrlList lbValue _i];
+    //}; 
+    
+    private _sortType = _ctrlSort lbValue _selectedIndex;
+    
+    switch (_sortType) do {
+      case SORT_ALPHABETICAL: {
+        private _displayNameArray = [];
+        private _dataArray = [];
+        
+        //Iterate in reverse order to avoid a lot of array resizes in _dataArray;
+        for "_i" from (_itemCount - 1) to 0 step -1 do {
+          private _dataStr = if _type then{_ctrlList lnbdata [_i,0]}else{_ctrlList lbdata _i};
+          
+          if (_dataStr != "") then {
+            private _data = call compile _dataStr;
+            private _item = _data select 0;
+            private _amount = _data select 1;
+            private _displayName = _data select 2;
+            
+            _displayNameArray pushBack _displayName;
+            _dataArray set [_i, _data];
+          };
+        };
+        
+        _displayNameArray sort true;
+      
+        for "_i" from 0 to (_itemCount - 1) do {
+          private _data = _dataArray select _i;
+          if (!isNil "_data") then {
+            private _displayName = _data select 2;
+            _ctrlList lbSetValue [_i, _displayNameArray find _displayName];
+          };  
+        };
+        
+        lbSortByValue _ctrlList;
+      };
+      case SORT_AMOUNT: {
+        for "_i" from 0 to (_itemCount - 1) do {
+           private _dataStr = if _type then {_ctrlList lnbdata [_i,0]} else {_ctrlList lbdata _i};
+          
+          if (_dataStr != "") then {
+            private _data = call compile _dataStr;
+            private _item = _data select 0;
+            private _amount = _data select 1;
+            private _displayName = _data select 2;
+            
+            //If it's the description string, then make sure it's first.
+            if (_item == "") then {
+              _amount = -100;
+            };
+            
+            _ctrlList lbSetValue [_i, _amount];
+          };
+          
+          lbSortByValue _ctrlList;
+        };
+      };
+      case SORT_DEFAULT: { 
+        lbSort _ctrlList; 
+      };
+  };
+  
+  };
 
 	///////////////////////////////////////////////////////////////////////////////////////////
 	case "ReplaceBaseItems":{

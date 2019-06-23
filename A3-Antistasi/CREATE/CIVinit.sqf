@@ -20,11 +20,11 @@ _unit addEventHandler ["HandleDamage",
 	];
 _EHkilledIdx = _unit addEventHandler ["killed",
 	{
-	_muerto = _this select 0;
+	_victim = _this select 0;
 	_killer = _this select 1;
-	if (_muerto == _killer) then
+	if (_victim == _killer) then
 		{
-		_nul = [-1,-1,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+		_nul = [-1,-1,getPos _victim] remoteExec ["A3A_fnc_citySupportChange",2];
 		}
 	else
 		{
@@ -37,30 +37,30 @@ _EHkilledIdx = _unit addEventHandler ["killed",
 				}
 			else
 				{
-				if (typeOf _muerto == "C_man_w_worker_F") then {_killer addRating 1000};
+				if (typeOf _victim == "C_man_w_worker_F") then {_killer addRating 1000};
 				[-10,_killer] call A3A_fnc_playerScoreAdd
 				}
 			};
 		_multiplier = 1;
-		if (typeOf _muerto == "C_journalist_F") then {_multiplier = 10};
+		if (typeOf _victim == "C_journalist_F") then {_multiplier = 10};
 		if (side _killer == teamPlayer) then
 			{
 			_nul = [1*_multiplier,0] remoteExec ["A3A_fnc_prestige",2];
-			_nul = [1,0,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+			_nul = [1,0,getPos _victim] remoteExec ["A3A_fnc_citySupportChange",2];
 			}
 		else
 			{
 			if (side _killer == Occupants) then
 				{
 				//_nul = [-1*_multiplier,0] remoteExec ["A3A_fnc_prestige",2];
-				_nul = [0,1,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+				_nul = [0,1,getPos _victim] remoteExec ["A3A_fnc_citySupportChange",2];
 				}
 			else
 				{
 				if (side _killer == Invaders) then
 					{
 					//_nul = [2*_multiplier,0] remoteExec ["A3A_fnc_prestige",2];
-					_nul = [-1,1,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+					_nul = [-1,1,getPos _victim] remoteExec ["A3A_fnc_citySupportChange",2];
 					};
 				};
 			};

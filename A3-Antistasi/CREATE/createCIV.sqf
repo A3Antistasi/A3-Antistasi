@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_markerX","_dataX","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_groups","_vehiclesX","_civsPatrol","_groupsPatrol","_vehPatrol","_typeCiv","_typeVehX","_dirVeh","_countX","_grupo","_size","_road","_typeVehX","_dirVeh","_positionX","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_burst","_groupP","_wp","_wp1"];
+private ["_markerX","_dataX","_numCiv","_numVeh","_roads","_prestigeOPFOR","_prestigeBLUFOR","_civs","_groups","_vehiclesX","_civsPatrol","_groupsPatrol","_vehPatrol","_typeCiv","_typeVehX","_dirVeh","_countX","_groupX","_size","_road","_typeVehX","_dirVeh","_positionX","_area","_civ","_veh","_roadcon","_pos","_p1","_p2","_mrkMar","_patrolCities","_countPatrol","_burst","_groupP","_wp","_wp1"];
 
 _markerX = _this select 0;
 
@@ -102,9 +102,9 @@ if ((random 100 < ((prestigeNATO) + (prestigeCSAT))) and (spawner getVariable _m
 		_pos = [_positionX, round (random _area), random 360] call BIS_Fnc_relPos;
 		if (!surfaceIsWater _pos) exitWith {};
 		};
-	_grupo = createGroup civilian;
-	_groups pushBack _grupo;
-	_civ = _grupo createUnit ["C_journalist_F", _pos, [],0, "NONE"];
+	_groupX = createGroup civilian;
+	_groups pushBack _groupX;
+	_civ = _groupX createUnit ["C_journalist_F", _pos, [],0, "NONE"];
 	_nul = [_civ] spawn A3A_fnc_CIVinit;
 	_civs pushBack _civ;
 	_nul = [_civ, _markerX, "SAFE", "SPAWNED","NOFOLLOW", "NOVEH2","NOSHARE","DoRelax"] execVM "scripts\UPSMON.sqf";

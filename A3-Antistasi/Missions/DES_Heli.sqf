@@ -75,13 +75,13 @@ _heli setDamage 0.9;
 _heli lock 2;
 _vehiclesX = _vehiclesX + [_heli,_effect];
 
-_tam = 100;
+_radiusX = 100;
 
 while {true} do
 	{
-	_roads = _positionX nearRoads _tam;
+	_roads = _positionX nearRoads _radiusX;
 	if (count _roads > 0) exitWith {};
-	_tam = _tam + 50;
+	_radiusX = _radiusX + 50;
 	};
 
 _road = _roads select 0;
@@ -99,16 +99,16 @@ _vehiclesX pushBack _veh;
 
 sleep 1;
 _typeGroup = if (_sideX == Occupants) then {groupsNATOSentry} else {groupsCSATSentry};
-_grupo = [_positionX, _sideX, _typeGroup] call A3A_fnc_spawnGroup;
+_groupX = [_positionX, _sideX, _typeGroup] call A3A_fnc_spawnGroup;
 
-{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers pushBack _x; [_x] join _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _grupo;
-deleteGroup _grupo;
+{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers pushBack _x; [_x] join _groupVeh; [_x] call A3A_fnc_NATOinit} forEach units _groupX;
+deleteGroup _groupX;
 //[_veh] spawn smokeCover;
 
 _Vwp0 = _groupVeh addWaypoint [_poscrash, 0];
 _Vwp0 setWaypointType "TR UNLOAD";
 _Vwp0 setWaypointBehaviour "SAFE";
-_Gwp0 = _grupo addWaypoint [_poscrash, 0];
+_Gwp0 = _groupX addWaypoint [_poscrash, 0];
 _Gwp0 setWaypointType "GETOUT";
 _Vwp0 synchronizeWaypoint [_Gwp0];
 
@@ -149,7 +149,7 @@ if (_vehT distance _heli < 50) then
 	_Vwp0 = _groupVeh addWaypoint [_poscrash, 0];
 	_Vwp0 setWaypointType "LOAD";
 	_Vwp0 setWaypointBehaviour "SAFE";
-	_Gwp0 = _grupo addWaypoint [_poscrash, 0];
+	_Gwp0 = _groupX addWaypoint [_poscrash, 0];
 	_Gwp0 setWaypointType "GETIN";
 	_Vwp0 synchronizeWaypoint [_Gwp0];
 

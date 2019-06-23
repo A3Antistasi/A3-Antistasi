@@ -21,12 +21,12 @@ if (count _objectsX == 0) exitWith {_unit groupChat "I see no corpses here to lo
 _target = objNull;
 _distanceX = 51;
 {
-_objeto = _x;
-if (_unit distance _objeto < _distanceX) then
+_objectX = _x;
+if (_unit distance _objectX < _distanceX) then
 	{
-	if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
+	if ((count weaponCargo _objectX > 0) and !(_objectX getVariable ["busy",false])) then
 		{
-		_weaponsX = weaponCargo _objeto;
+		_weaponsX = weaponCargo _objectX;
 		for "_i" from 0 to (count _weaponsX - 1) do
 			{
 			_potential = _weaponsX select _i;
@@ -34,8 +34,8 @@ if (_unit distance _objeto < _distanceX) then
 			//if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers))) then
 			if ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers)) then
 				{
-				_target = _objeto;
-				_distanceX = _unit distance _objeto;
+				_target = _objectX;
+				_distanceX = _unit distance _objectX;
 				_weaponX = _potential;
 				};
 			};
@@ -85,18 +85,18 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 	if (_tempPrimary != "") then
 		{
 		_magazines = getArray (configFile / "CfgWeapons" / _tempPrimary / "magazines");
-		_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
+		_victims = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 		_hasBox = false;
 		_distanceX = 51;
 		{
-		_muerto = _x;
-		if (({_x in _magazines} count (magazines _muerto) > 0) and (_unit distance _muerto < _distanceX)) then
+		_victim = _x;
+		if (({_x in _magazines} count (magazines _victim) > 0) and (_unit distance _victim < _distanceX)) then
 			{
-			_target = _muerto;
+			_target = _victim;
 			_hasBox = true;
-			_distanceX = _muerto distance _unit;
+			_distanceX = _victim distance _unit;
 			};
-		} forEach _muertos;
+		} forEach _victims;
 		if ((_hasBox) and (_unit getVariable "rearming")) then
 			{
 			_unit stop false;
@@ -160,20 +160,20 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 	_target = objNull;
 	_distanceX = 51;
 	{
-	_objeto = _x;
-	if (_unit distance _objeto < _distanceX) then
+	_objectX = _x;
+	if (_unit distance _objectX < _distanceX) then
 		{
-		if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
+		if ((count weaponCargo _objectX > 0) and !(_objectX getVariable ["busy",false])) then
 			{
-			_weaponsX = weaponCargo _objeto;
+			_weaponsX = weaponCargo _objectX;
 			for "_i" from 0 to (count _weaponsX - 1) do
 				{
 				_potential = _weaponsX select _i;
 				_basePossible = [_potential] call BIS_fnc_baseWeapon;
 				if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers))) then
 					{
-					_target = _objeto;
-					_distanceX = _unit distance _objeto;
+					_target = _objectX;
+					_distanceX = _unit distance _objectX;
 					_weaponX = _potential;
 					};
 				};

@@ -17,8 +17,8 @@ if (hasIFA) then {_timeLimit = _timeLimit * 2};
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
-_tam = [_markerX] call A3A_fnc_sizeMarker;
-_houses = (nearestObjects [_positionX, ["house"], _tam]) select {!((typeOf _x) in UPSMON_Bld_remove)};
+_radiusX = [_markerX] call A3A_fnc_sizeMarker;
+_houses = (nearestObjects [_positionX, ["house"], _radiusX]) select {!((typeOf _x) in UPSMON_Bld_remove)};
 _posHouse = [];
 _houseX = _houses select 0;
 while {count _posHouse < 3} do
@@ -96,15 +96,15 @@ _mrk setMarkerBrushLocal "DiagGrid";
 _mrk setMarkerAlphaLocal 0;
 
 _typeGroup = if (random 10 < tierWar) then {NATOSquad} else {[policeOfficer,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt]};
-_grupo = [_positionX,Occupants, NATOSquad] call A3A_fnc_spawnGroup;
+_groupX = [_positionX,Occupants, NATOSquad] call A3A_fnc_spawnGroup;
 sleep 1;
 if (random 10 < 2.5) then
 	{
-	_dog = _grupo createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
+	_dog = _groupX createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
 	[_dog] spawn A3A_fnc_guardDog;
 	};
-_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
+_nul = [leader _groupX, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+{[_x,""] call A3A_fnc_NATOinit} forEach units _groupX;
 
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traitor) or ({_traitor knowsAbout _x > 1.4} count ([500,0,_traitor,teamPlayer] call A3A_fnc_distanceUnits) > 0)};
 
@@ -142,7 +142,7 @@ if (not alive _traitor) then
 			{
 			[20,_x] call A3A_fnc_playerScoreAdd;
 			};
-		} forEach ([_tam,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
+		} forEach ([_radiusX,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
 		[10,theBoss] call A3A_fnc_playerScoreAdd;
 		}
 	else
@@ -160,7 +160,7 @@ if (not alive _traitor) then
 			{
 			[10,_x] call A3A_fnc_playerScoreAdd;
 			};
-		} forEach ([_tam,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
+		} forEach ([_radiusX,0,_positionX,teamPlayer] call A3A_fnc_distanceUnits);
 		[5,theBoss] call A3A_fnc_playerScoreAdd;
 		};
 	}
@@ -208,5 +208,5 @@ deleteGroup _groupTraitor;
 {
 waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits)};
 deleteVehicle _x
-} forEach units _grupo;
-deleteGroup _grupo;
+} forEach units _groupX;
+deleteGroup _groupX;

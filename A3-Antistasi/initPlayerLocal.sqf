@@ -62,8 +62,8 @@ if (isMultiplayer) then
 else
 	{
 	theBoss = player;
-	grupo = group player;
-	if (worldName == "Tanoa") then {grupo setGroupId ["Pulu","GroupColor4"]} else {grupo setGroupId ["Stavros","GroupColor4"]};
+	groupX = group player;
+	if (worldName == "Tanoa") then {groupX setGroupId ["Pulu","GroupColor4"]} else {groupX setGroupId ["Stavros","GroupColor4"]};
 	player setIdentity "protagonista";
 	player setUnitRank "COLONEL";
 	player hcSetGroup [group player];

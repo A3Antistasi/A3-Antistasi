@@ -1,6 +1,6 @@
 //Mission: Rescue the refugees
 if (!isServer and hasInterface) exitWith{};
-private ["_markerX","_difficultX","_leave","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_tam","_positionX","_houseX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_countX"];
+private ["_markerX","_difficultX","_leave","_contactX","_groupContact","_tsk","_posHQ","_citiesX","_city","_radiusX","_positionX","_houseX","_posHouse","_nameDest","_timeLimit","_dateLimit","_dateLimitNum","_pos","_countX"];
 
 _markerX = _this select 0;
 
@@ -13,9 +13,9 @@ _positionX = getMarkerPos _markerX;
 
 _POWs = [];
 
-_tam = [_markerX] call A3A_fnc_sizeMarker;
-//_houses = nearestObjects [_positionX, ["house"], _tam];
-_houses = (nearestObjects [_positionX, ["house"], _tam]) select {!((typeOf _x) in UPSMON_Bld_remove)};
+_radiusX = [_markerX] call A3A_fnc_sizeMarker;
+//_houses = nearestObjects [_positionX, ["house"], _radiusX];
+_houses = (nearestObjects [_positionX, ["house"], _radiusX]) select {!((typeOf _x) in UPSMON_Bld_remove)};
 _posHouse = [];
 _houseX = _houses select 0;
 while {count _posHouse < 3} do
@@ -61,9 +61,9 @@ sleep 5;
 
 sleep 30;
 _mrk = "";
-_grupo = grpNull;
+_groupX = grpNull;
 _veh = objNull;
-_grupo1 = grpNull;
+_groupX1 = grpNull;
 if (_sideX == Invaders) then
 	{
 	_nul = [_houseX] spawn
@@ -121,22 +121,22 @@ else
 	_mrk setMarkerAlphaLocal 0;
 	if ((random 100 < prestigeNATO) or (_difficultX)) then
 		{
-		_grupo = [getPos _houseX,Occupants, NATOSquad] call A3A_fnc_spawnGroup;
+		_groupX = [getPos _houseX,Occupants, NATOSquad] call A3A_fnc_spawnGroup;
 		sleep 1;
 		}
 	else
 		{
-		_grupo = createGroup Occupants;
-		_grupo = [getPos _houseX,Occupants,[policeOfficer,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt]] call A3A_fnc_spawnGroup;
+		_groupX = createGroup Occupants;
+		_groupX = [getPos _houseX,Occupants,[policeOfficer,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt,policeGrunt]] call A3A_fnc_spawnGroup;
 		};
 	if (random 10 < 2.5) then
 		{
-		_dog = _grupo createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
+		_dog = _groupX createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
 		[_dog] spawn A3A_fnc_guardDog;
 		};
-	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2","RANDOM", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-	{[_x,""] call A3A_fnc_NATOinit} forEach units _grupo;
-	_grupo1 = [_houseX buildingExit 0, Occupants, groupsNATOGen] call A3A_fnc_spawnGroup;
+	_nul = [leader _groupX, _mrk, "SAFE","SPAWNED", "NOVEH2","RANDOM", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+	{[_x,""] call A3A_fnc_NATOinit} forEach units _groupX;
+	_groupX1 = [_houseX buildingExit 0, Occupants, groupsNATOGen] call A3A_fnc_spawnGroup;
 	};
 
 _bonus = if (_difficultX) then {2} else {1};
@@ -210,15 +210,15 @@ if (_sideX == Occupants) then
 	{
 	waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits)};
 	deleteVehicle _x;
-	} forEach units _grupo;
-	deleteGroup _grupo;
-	if (!isNull _grupo1) then
+	} forEach units _groupX;
+	deleteGroup _groupX;
+	if (!isNull _groupX1) then
 		{
 		{
 		waitUntil {sleep 1; !([distanceSPWN,1,_x,teamPlayer] call A3A_fnc_distanceUnits)};
 		deleteVehicle _x;
-		} forEach units _grupo1;
-		deleteGroup _grupo1;
+		} forEach units _groupX1;
+		deleteGroup _groupX1;
 		};
 	};
 //sleep (540 + random 1200);

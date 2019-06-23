@@ -1,4 +1,4 @@
-private ["_unit","_grupo","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_helped","_textX","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_unit","_groupX","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_helped","_textX","_isPlayer","_camTarget","_saveVolumeVoice"];
 _unit = _this select 0;
 _injurer = _this select 1;
 //if (_unit getVariable "inconsciente") exitWith {};
@@ -27,8 +27,8 @@ if ({if ((isPlayer _x) and (_x distance _unit < distanceSPWN2)) exitWith {1}} co
 	};
 
 _unit setFatigue 1;
-_grupo = group _unit;
-[_grupo,_injurer] spawn A3A_fnc_AIreactOnKill;
+_groupX = group _unit;
+[_groupX,_injurer] spawn A3A_fnc_AIreactOnKill;
 
 while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (alive _unit)} do
 	{

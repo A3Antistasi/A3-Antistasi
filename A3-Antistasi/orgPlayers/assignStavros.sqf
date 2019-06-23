@@ -60,7 +60,7 @@ if (_rank != "COLONEL") then
 
 if (_promoted) then
 	{
-	_textX = format ["%1\n\nCONGATULATIONS!!",_textX];
+	_textX = format ["%1\n\nCONGRATULATIONS!!",_textX];
 	[petros,"hint",_textX] remoteExec ["A3A_fnc_commsMP"];
 	};
 

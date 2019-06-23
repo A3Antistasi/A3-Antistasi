@@ -199,9 +199,9 @@ if !(hasIFA) then
 if ({if (_x in smokeX) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom smokeX,2]};
 
 _EHkilledIdx = _unit addEventHandler ["killed", {
-	_muerto = _this select 0;
+	_victim = _this select 0;
 	_killer = _this select 1;
-	[_muerto] remoteExec ["A3A_fnc_postmortem",2];
+	[_victim] remoteExec ["A3A_fnc_postmortem",2];
 	if (isPlayer _killer) then
 		{
 		if (!isMultiPlayer) then
@@ -212,20 +212,20 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 		};
 	if (side _killer == Occupants) then
 		{
-		[0,-0.25,getPos _muerto] remoteExec ["A3A_fnc_citySupportChange",2];
+		[0,-0.25,getPos _victim] remoteExec ["A3A_fnc_citySupportChange",2];
 		[-0.25,0] remoteExec ["A3A_fnc_prestige",2];
 		}
 	else
 		{
 		if (side _killer == Invaders) then {[0,-0.25] remoteExec ["A3A_fnc_prestige",2]};
 		};
-	_markerX = _muerto getVariable "markerX";
+	_markerX = _victim getVariable "markerX";
 	if (!isNil "_markerX") then
 		{
 		if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 			{
-			[typeOf _muerto,teamPlayer,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
-			_muerto setVariable [_markerX,nil,true];
+			[typeOf _victim,teamPlayer,_markerX,-1] remoteExec ["A3A_fnc_garrisonUpdate",2];
+			_victim setVariable [_markerX,nil,true];
 			};
 		};
 	}];

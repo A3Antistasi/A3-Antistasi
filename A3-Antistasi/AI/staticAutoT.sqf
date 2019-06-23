@@ -1,40 +1,40 @@
-private ["_LeaderX","_static","_grupo","_maxCargo"];
+private ["_LeaderX","_static","_groupX","_maxCargo"];
 
 if (count hcSelected player != 1) exitWith {hint "You must select one group on the HC bar"};
 
-_grupo = (hcSelected player select 0);
+_groupX = (hcSelected player select 0);
 
 _static = objNull;
 
 {
 if (vehicle _x isKindOf "staticWeapon") then {_static = vehicle _x;}
-} forEach units _grupo;
+} forEach units _groupX;
 if (isNull _static) exitWith {hint "Selected squad is not a mounted static type"};
 
 if ((typeOf _static == SDKMortar) and (isMultiPlayer)) exitWith {hint "Static Auto Target is not available for Mortar Squads in Multiplayer"};
-if (_grupo getVariable "staticAutoT") exitWith
+if (_groupX getVariable "staticAutoT") exitWith
 	{
-	_grupo setVariable ["staticAutoT",false,true];
-	if (typeOf _static == SDKMortar) then {_grupo setvariable ["UPSMON_Removegroup",true]};
+	_groupX setVariable ["staticAutoT",false,true];
+	if (typeOf _static == SDKMortar) then {_groupX setvariable ["UPSMON_Removegroup",true]};
 	sleep 5;
-	hint format ["Mounted Static Squad %1 set to Auto Target Mode OFF", groupID _grupo];
+	hint format ["Mounted Static Squad %1 set to Auto Target Mode OFF", groupID _groupX];
 	};
 
-hint format ["Mounted Static Squad %1 set to Auto Target Mode ON", groupID _grupo];
-_grupo setVariable ["staticAutoT",true,true];
+hint format ["Mounted Static Squad %1 set to Auto Target Mode ON", groupID _groupX];
+_groupX setVariable ["staticAutoT",true,true];
 
 if (typeOf _static == SDKMortar) exitWith {_nul=[_static] execVM "scripts\UPSMON\MON_artillery_add.sqf";};
-_LeaderX = leader _grupo;
+_LeaderX = leader _groupX;
 _truckX = vehicle _LeaderX;
 _boy = gunner _static;
-while {(count (waypoints _grupo)) > 0} do
+while {(count (waypoints _groupX)) > 0} do
 	{
-  	deleteWaypoint ((waypoints _grupo) select 0);
+  	deleteWaypoint ((waypoints _groupX) select 0);
  	};
 
 while {true} do
 	{
-	if ((!alive _LeaderX) or (!alive _truckX) or (!alive _boy) or (!alive _static) or (!someAmmo _static) or (!canMove _truckX) or (not(_grupo getVariable "staticAutoT"))) exitWith {};
+	if ((!alive _LeaderX) or (!alive _truckX) or (!alive _boy) or (!alive _static) or (!someAmmo _static) or (!canMove _truckX) or (not(_groupX getVariable "staticAutoT"))) exitWith {};
 	_enemyX = assignedTarget _static;
 	if (!isNull _enemyX) then
 		{

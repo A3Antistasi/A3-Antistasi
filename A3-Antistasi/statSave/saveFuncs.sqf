@@ -18,17 +18,40 @@ fn_SaveStat =
 
 fn_LoadStat =
 {
-	private ["_varName","_varvalue"];
+	private ["_varName","_varValue"];
 	_varName = _this select 0;
-	if (worldName == "Tanoa") then
-		{
-		_varValue = profileNameSpace getVariable (_varName + serverID + "WotP")
-		}
-	else
-		{
-		if (side group petros == independent) then {_varValue = profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)} else {_varValue = profileNameSpace getVariable (_varName + serverID + "AntistasiB" + worldName)};
-		};
-	if(isNil "_varValue") exitWith {diag_log format ["Antistasi: Error en Persistent Load. La variable %1 no existe",_varname]};
+  
+  _loadVariable = {
+    private ["_varName","_varValue"];
+    _varName = _this select 0;
+    
+    //Return the value of this statement
+    if (worldName == "Tanoa") then
+      {
+      profileNameSpace getVariable (_varName + serverID + "WotP")
+      }
+    else
+      {
+      if (side group petros == independent) then 
+        {
+        profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)
+        } 
+      else 
+        { 
+        profileNameSpace getVariable (_varName + serverID + "AntistasiB" + worldName)
+        };
+      };
+  };
+  
+  _varValue = [_varName] call _loadVariable;
+  
+  if(isNil "_varValue") then
+  {
+    _spanishVarName = [_varName] call A3A_fnc_translateVariable;
+    _varValue = [_spanishVarName] call _loadVariable;
+  };
+  
+	if(isNil "_varValue") exitWith {diag_log format ["Antistasi: Error during Persistent Load. The variable %1 does not exist", _varName]};
 	[_varName,_varValue] call fn_SetStat;
 };
 

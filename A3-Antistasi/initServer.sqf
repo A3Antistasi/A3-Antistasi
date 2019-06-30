@@ -75,7 +75,7 @@ if (loadLastSave) then
 publicVariable "loadLastSave";
 if (loadLastSave) then
     {
-    _nul = [] execVM "statSave\loadAccount.sqf";
+    _nul = [] execVM "statSave\loadServer.sqf";
     waitUntil {!isNil"statsLoaded"};
     if (!isNil "as_fnc_getExternalMemberListUIDs") then
         {

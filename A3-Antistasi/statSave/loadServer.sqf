@@ -1,34 +1,4 @@
-_byPassServer = if (isMultiplayer) then {if (count _this >0) then {_this select 0} else {false}} else {false};
-if !(isMultiplayer) then
-	{
-	waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
-	["loadoutPlayer"] call fn_LoadStat;
-	diag_log "Antistasi: SP Personal player stats loaded";
-	[] spawn A3A_fnc_statistics;
-	}
-else
-	{
-	if (!isDedicated) then
-		{
-		if (side player == teamPlayer) then
-			{
-			waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
-			["loadoutPlayer"] call fn_LoadStat;
-			//player setPos getMarkerPos respawnTeamPlayer;
-			if ([player] call A3A_fnc_isMember) then
-				{
-				["scorePlayer"] call fn_LoadStat;
-				["rankPlayer"] call fn_LoadStat;
-				};
-			["moneyX"] call fn_LoadStat;
-			["personalGarage"] call fn_LoadStat;
-			diag_log "Antistasi: MP Personal player stats loaded";
-			[] spawn A3A_fnc_statistics;
-			};
-		};
-	};
-
-if (isServer and !_byPassServer) then
+if (isServer) then
 	{
 	diag_log "Antistasi: Starting Persistent Load";
 	petros allowdamage false;

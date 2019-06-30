@@ -1,11 +1,12 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_groupX","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilots","_rnd","_resourcesAAF","_nVeh","_radiusX","_roads","_Vwp1","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_groupX1","_uav","_groupUAV","_uwp0","_tsk","_vehicle","_soldierX","_pilot","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigin","_airportX","_nameDest","_timeX","_solMax","_nul","_costs","_typeX","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_sideX","_waves","_countX","_tsk1","_spawnPoint","_vehPool"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_groupX","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilots","_rnd","_resourcesAAF","_nVeh","_radiusX","_roads","_Vwp1","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_groupX1","_uav","_groupUAV","_uwp0","_tsk","_vehicle","_soldierX","_pilot","_mrkDestination","_posDestination","_prestigeCSAT","_mrkOrigin","_airportX","_nameDest","_timeX","_solMax","_nul","_costs","_typeX","_threatEvalAir","_threatEvalLand","_pos","_timeOut","_sideX","_waves","_countX","_tsk1","_spawnPoint","_vehPool", "_airportIndex"];
 
 bigAttackInProgress = true;
 publicVariable "bigAttackInProgress";
 _firstWave = true;
 _mrkDestination = _this select 0;
+//_mrkOrigin can be an Airport or Carrier
 _mrkOrigin = _this select 1;
 _waves = _this select 2;
 if (_waves <= 0) then {_waves = -1};
@@ -71,15 +72,17 @@ while {(_waves > 0)} do
 	_spawnPoint = "";
 	if !(_mrkDestination in blackListDest) then
 		{
-		if (_posOrigin distance _posDestination < distanceForLandAttack) then
+		//Attempt land attack if origin is an airport in range
+		_airportIndex = airportsX find _mrkOrigin;
+		if (_airportIndex >= 0 and (_posOrigin distance _posDestination < distanceForLandAttack)) then
 			{
-			_indexX = airportsX find _mrkOrigin;
-			_spawnPoint = spawnPoints select _indexX;
+			_spawnPoint = spawnPoints select _airportIndex;
 			_pos = getMarkerPos _spawnPoint;
 			_posOriginLand = _posOrigin;
 			_dir = markerDir _spawnPoint;
 			}
 		else
+		//Find an outpost we can attack from
 			{
 			_outposts = outposts select {(sidesX getVariable [_x,sideUnknown] == _sideX) and (getMarkerPos _x distance _posDestination < distanceForLandAttack)  and ([_x,false] call A3A_fnc_airportCanAttack)};
 			if !(_outposts isEqualTo []) then
@@ -174,8 +177,8 @@ while {(_waves > 0)} do
 					{
 					_landPosBlacklist pushBack _landPos;
 					_typeGroup = [_typeVehX,_sideX] call A3A_fnc_cargoSeats;
-					_groupX = grpNull;
-					if !(_spawnedSquad) then {_groupX = [_posOrigin,_sideX, _typeGroup,true,false] call A3A_fnc_spawnGroup; _spawnedSquad = true} else {_groupX = [_posOrigin,_sideX, _typeGroup] call A3A_fnc_spawnGroup};
+					_grupo = grpNull;
+					if !(_spawnedSquad) then {_grupo = [_posOrigin,_sideX, _typeGroup,true,false] call A3A_fnc_spawnGroup; _spawnedSquad = true} else {_grupo = [_posOrigin,_sideX, _typeGroup] call A3A_fnc_spawnGroup};
 					{
 					_x assignAsCargo _veh;
 					_x moveInCargo _veh;
@@ -190,12 +193,12 @@ while {(_waves > 0)} do
 						{
 						deleteVehicle _x;
 						};
-					} forEach units _groupX;
+					} forEach units _grupo;
 					if (not(_typeVehX in vehTrucks)) then
 						{
 						{_x disableAI "MINEDETECTION"} forEach (units _groupVeh);
-						(units _groupX) joinSilent _groupVeh;
-						deleteGroup _groupX;
+						(units _grupo) joinSilent _groupVeh;
+						deleteGroup _grupo;
 						_groupVeh spawn A3A_fnc_attackDrillAI;
 						[_posOriginLand,_landPos,_groupVeh] call WPCreate;
 						_Vwp0 = (wayPoints _groupVeh) select 0;
@@ -213,8 +216,8 @@ while {(_waves > 0)} do
 						}
 					else
 						{
-						(units _groupX) joinSilent _groupVeh;
-						deleteGroup _groupX;
+						(units _grupo) joinSilent _groupVeh;
+						deleteGroup _grupo;
 						_groupVeh selectLeader (units _groupVeh select 1);
 						_groupVeh spawn A3A_fnc_attackDrillAI;
 						[_posOriginLand,_landPos,_groupVeh] call WPCreate;
@@ -326,8 +329,8 @@ while {(_waves > 0)} do
 						}
 					else
 						{
-						_groupX = grpNull;
-						if !(_spawnedSquad) then {_groupX = [_posOrigin,_sideX, _typeGroup,true,false] call A3A_fnc_spawnGroup;_spawnedSquad = true} else {_groupX = [_posOrigin,_sideX, _typeGroup,false,true] call A3A_fnc_spawnGroup};
+						_grupo = grpNull;
+						if !(_spawnedSquad) then {_grupo = [_posOrigin,_sideX, _typeGroup,true,false] call A3A_fnc_spawnGroup;_spawnedSquad = true} else {_grupo = [_posOrigin,_sideX, _typeGroup,false,true] call A3A_fnc_spawnGroup};
 						{
 						_x assignAsCargo _veh;
 						_x moveInCargo _veh;
@@ -342,10 +345,10 @@ while {(_waves > 0)} do
 							{
 							deleteVehicle _x;
 							};
-						} forEach units _groupX;
+						} forEach units _grupo;
 						if (_typeVehX in vehAPCs) then
 							{
-							_groups pushBack _groupX;
+							_groups pushBack _grupo;
 							_Vwp = _groupVeh addWaypoint [_landPos, 0];
 							_Vwp setWaypointBehaviour "SAFE";
 							_Vwp setWaypointType "TR UNLOAD";
@@ -354,20 +357,20 @@ while {(_waves > 0)} do
 							_Vwp1 setWaypointType "SAD";
 							_Vwp1 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 							_Vwp1 setWaypointBehaviour "COMBAT";
-							_Vwp2 = _groupX addWaypoint [_landPos, 0];
+							_Vwp2 = _grupo addWaypoint [_landPos, 0];
 							_Vwp2 setWaypointType "GETOUT";
 							_Vwp2 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
-							//_groupX setVariable ["mrkAttack",_mrkDestination];
+							//_grupo setVariable ["mrkAttack",_mrkDestination];
 							_Vwp synchronizeWaypoint [_Vwp2];
-							_Vwp3 = _groupX addWaypoint [_posDestination, 1];
+							_Vwp3 = _grupo addWaypoint [_posDestination, 1];
 							_Vwp3 setWaypointType "SAD";
 							_veh allowCrewInImmobile true;
 							//[_veh,"APC"] spawn A3A_fnc_inmuneConvoy;
 							}
 						else
 							{
-							(units _groupX) joinSilent _groupVeh;
-							deleteGroup _groupX;
+							(units _grupo) joinSilent _groupVeh;
+							deleteGroup _grupo;
 							_groupVeh selectLeader (units _groupVeh select 1);
 							_Vwp = _groupVeh addWaypoint [_landPos, 0];
 							_Vwp setWaypointBehaviour "SAFE";
@@ -505,9 +508,9 @@ while {(_waves > 0)} do
 					{
 					_groups pushBack _groupVeh;
 					_typeGroup = [_typeVehX,_sideX] call A3A_fnc_cargoSeats;
-					_groupX = grpNull;
-					if !(_spawnedSquad) then {_groupX = [_posGround,_sideX, _typeGroup,true,false] call A3A_fnc_spawnGroup;_spawnedSquad = true} else {_groupX = [_posGround,_sideX, _typeGroup] call A3A_fnc_spawnGroup};
-					_groups pushBack _groupX;
+					_grupo = grpNull;
+					if !(_spawnedSquad) then {_grupo = [_posGround,_sideX, _typeGroup,true,false] call A3A_fnc_spawnGroup;_spawnedSquad = true} else {_grupo = [_posGround,_sideX, _typeGroup] call A3A_fnc_spawnGroup};
+					_groups pushBack _grupo;
 					{
 					_x assignAsCargo _veh;
 					_x moveInCargo _veh;
@@ -522,10 +525,10 @@ while {(_waves > 0)} do
 						{
 						deleteVehicle _x;
 						};
-					} forEach units _groupX;
+					} forEach units _grupo;
 					if (!(_veh isKindOf "Helicopter") or (_mrkDestination in airportsX)) then
 						{
-						[_veh,_groupX,_mrkDestination,_mrkOrigin] spawn A3A_fnc_airdrop;
+						[_veh,_grupo,_mrkDestination,_mrkOrigin] spawn A3A_fnc_airdrop;
 						}
 					else
 						{
@@ -540,17 +543,17 @@ while {(_waves > 0)} do
 							_wp0 setWaypointType "TR UNLOAD";
 							_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';[vehicle this] call A3A_fnc_smokeCoverAuto"];
 							_wp0 setWaypointBehaviour "CARELESS";
-							_wp3 = _groupX addWaypoint [_landpos, 0];
+							_wp3 = _grupo addWaypoint [_landpos, 0];
 							_wp3 setWaypointType "GETOUT";
 							_wp3 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
-							//_groupX setVariable ["mrkAttack",_mrkDestination];
+							//_grupo setVariable ["mrkAttack",_mrkDestination];
 							//_wp3 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
 							_wp0 synchronizeWaypoint [_wp3];
-							_wp4 = _groupX addWaypoint [_posDestination, 1];
+							_wp4 = _grupo addWaypoint [_posDestination, 1];
 							_wp4 setWaypointType "SAD";
 							//_wp4 setWaypointStatements ["true","{if (side _x != side this) then {this reveal [_x,4]}} forEach allUnits"];
 							//_wp4 setWaypointStatements ["true","nul = [this, (group this getVariable ""mrkAttack""), ""SPAWNED"",""NOVEH2"",""NOFOLLOW"",""NOWP3""] execVM ""scripts\UPSMON.sqf"";"];
-							_wp4 = _groupX addWaypoint [_posDestination, 1];
+							_wp4 = _grupo addWaypoint [_posDestination, 1];
 							//_wp4 setWaypointType "SAD";
 							_wp2 = _groupVeh addWaypoint [_posOrigin, 1];
 							_wp2 setWaypointType "MOVE";
@@ -562,12 +565,12 @@ while {(_waves > 0)} do
 							{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _groupVeh;
 							if ((_typeVehX in vehFastRope) and ((count(garrison getVariable _mrkDestination)) < 10)) then
 								{
-								//_groupX setVariable ["mrkAttack",_mrkDestination];
-								[_veh,_groupX,_posDestination,_posOrigin,_groupVeh] spawn A3A_fnc_fastrope;
+								//_grupo setVariable ["mrkAttack",_mrkDestination];
+								[_veh,_grupo,_posDestination,_posOrigin,_groupVeh] spawn A3A_fnc_fastrope;
 								}
 							else
 								{
-								[_veh,_groupX,_mrkDestination,_mrkOrigin] spawn A3A_fnc_airdrop;
+								[_veh,_grupo,_mrkDestination,_mrkOrigin] spawn A3A_fnc_airdrop;
 								}
 							};
 						};

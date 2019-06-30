@@ -1,34 +1,58 @@
+fn_varNameToSaveName = {
+	params ["_varName", ""];
+	//Return the name of the save slot for the variable.
+	if (worldName == "Tanoa") then
+		{
+		_varName + serverID + campaignID + "WotP";
+		}
+	else
+		{
+		if (side group petros == independent) then 
+			{
+			_varName + serverID + campaignID + "Antistasi" + worldName;
+			} 
+		else 
+			{
+			_varName + serverID + campaignID + "AntistasiB" + worldName;
+			};
+		};
+};
+
 fn_SaveStat =
 {
 	_varName = _this select 0;
 	_varValue = _this select 1;
 	if (!isNil "_varValue") then
 		{
-		if (worldName == "Tanoa") then
-			{
-			profileNameSpace setVariable [_varName + serverID + "WotP",_varValue]
-			}
-		else
-			{
-			if (side group petros == independent) then {profileNameSpace setVariable [_varName + serverID + "Antistasi" + worldName,_varValue]} else {profileNameSpace setVariable [_varName + serverID + "AntistasiB" + worldName,_varValue]};
-			};
+		_varSaveName = [_varName] call fn_varNameToSaveName;
+		profileNameSpace setVariable [_varSaveName, _varValue];
 		if (isDedicated) then {saveProfileNamespace};
 		};
 };
 
 fn_LoadStat =
 {
-	private ["_varName","_varvalue"];
+	private ["_varName","_varValue"];
 	_varName = _this select 0;
-	if (worldName == "Tanoa") then
-		{
-		_varValue = profileNameSpace getVariable (_varName + serverID + "WotP")
-		}
-	else
-		{
-		if (side group petros == independent) then {_varValue = profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)} else {_varValue = profileNameSpace getVariable (_varName + serverID + "AntistasiB" + worldName)};
-		};
-	if(isNil "_varValue") exitWith {diag_log format ["Antistasi: Error en Persistent Load. La variable %1 no existe",_varname]};
+  
+  _loadVariable = {
+    private ["_varName","_varValue"];
+    _varName = _this select 0;
+		_varSaveName = [_varName] call fn_varNameToSaveName;
+    
+    //Return the value of this statement
+		profileNameSpace getVariable (_varSaveName);
+  };
+  
+  _varValue = [_varName] call _loadVariable;
+  
+  if(isNil "_varValue") then
+  {
+    _spanishVarName = [_varName] call A3A_fnc_translateVariable;
+    _varValue = [_spanishVarName] call _loadVariable;
+  };
+  
+	if(isNil "_varValue") exitWith {diag_log format ["Antistasi: Error during Persistent Load. The variable %1 does not exist", _varName]};
 	[_varName,_varValue] call fn_SetStat;
 };
 

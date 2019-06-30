@@ -57,6 +57,7 @@ class A3A
         class sellVehicle {file="sellVehicle.sqf";};
         class sizeMarker {file="sizeMarker.sqf";};
         class statistics {file="statistics.sqf";};
+        class translateVariable {file="statSave\translateVariable.sqf";};
         class keys {file="keys.sqf";};
         class timingCA {file="timingCA.sqf";};
         class undercover {file="undercover.sqf";};

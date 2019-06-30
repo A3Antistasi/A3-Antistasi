@@ -67,7 +67,7 @@ else
 		};
 	if (_markerX in resourcesX) then
 	 	{
-	 	if (markerText _mrkD != "Resources") then {_mrkD setMarkerText "Resouces"};
+	 	if (markerText _mrkD != "Resources") then {_mrkD setMarkerText "Resources"};
 	 	}
 	 else
 	 	{

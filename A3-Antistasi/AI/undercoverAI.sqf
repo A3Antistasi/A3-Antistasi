@@ -1,4 +1,4 @@
-private ["_unit","_LeaderX","_airportsX","_base","_loadOut"];
+private ["_unit","_LeaderX","_airportsX","_base","_loadOut", "_oldBehaviour"];
 
 _unit = _this select 0;
 if (isPlayer _unit) exitWith {};
@@ -10,6 +10,10 @@ if (captive _unit) exitWith {};
 _unit setCaptive true;
 _unit disableAI "TARGET";
 _unit disableAI "AUTOTARGET";
+
+_oldBehaviour = behaviour _unit;
+
+_unit setBehaviour "CARELESS";
 _unit setUnitPos "UP";
 _loadOut = getUnitLoadout _unit;
 _unit setUnitLoadout (selectRandom arrayCivs);
@@ -28,6 +32,7 @@ while {(captive _LeaderX) and (captive _unit)} do
 //_unit removeAllEventHandlers "FIRED";
 if (!captive _unit) then {_unit groupChat "Shit, they have spotted me!"} else {[_unit,false] remoteExec ["setCaptive",0,_unit]; _unit setCaptive false};
 if (captive player) then {sleep 5};
+_unit setBehaviour _oldBehaviour;
 _unit enableAI "TARGET";
 _unit enableAI "AUTOTARGET";
 _unit setUnitPos "AUTO";

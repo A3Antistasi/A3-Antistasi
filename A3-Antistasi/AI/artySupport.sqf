@@ -21,6 +21,7 @@ _soldado = _x;
 _veh = vehicle _soldado;
 if ((_veh != _soldado) and (not(_veh in _artyArray))) then
 	{
+	//Test
 	if (( "Artillery" in (getArray (configfile >> "CfgVehicles" >> typeOf _veh >> "availableForSupportTypes")))) then
 		{
 		_hayArty = true;

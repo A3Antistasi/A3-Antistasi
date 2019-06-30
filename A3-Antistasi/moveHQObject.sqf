@@ -17,18 +17,23 @@ if (_playerX distance2D _positionX > _size) exitWith {hint "This asset needs to 
 
 _thingX removeAction _id;
 _thingX attachTo [_playerX,[0,2,1]];
-actionX = _playerX addAction ["Drop Here", {{detach _x} forEach attachedObjects player; player removeAction actionX},nil,0,false,true,"",""];
 
-waitUntil {sleep 1; (count attachedObjects _playerX == 0) or (vehicle _playerX != _playerX) or (_playerX distance2D _positionX > (_size-3)) or !([_playerX] call A3A_fnc_canFight) or (!isPlayer _playerX)};
+private _actionX = _playerX addAction ["Drop Here", {detach (_this select 3 select 0); player removeAction (_this select 2);}, [_thingX],0,false,true,"",""];
 
-{detach _x} forEach attachedObjects _playerX;
-player removeAction actionX;
+waitUntil {sleep 1; (_playerX != attachedTo _thingX) or (vehicle _playerX != _playerX) or (_playerX distance2D _positionX > (_size-3)) or !([_playerX] call A3A_fnc_canFight) or (!isPlayer _playerX)};
+
+if (_playerX == attachedTo _thingX) then {
+  detach _thingX;
+  _playerX removeAction _actionX;
+};
+
 /*
 for "_i" from 0 to (_playerX addAction ["",""]) do
 	{
 	_playerX removeAction _i;
 	};
 */
+
 _thingX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 
 _thingX setPosATL [getPosATL _thingX select 0,getPosATL _thingX select 1,0];

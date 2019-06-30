@@ -23,7 +23,18 @@ if (!isMultiPlayer) then
         profileNameSpace setVariable ["SS_ServerID",_serverID];
         };
     serverID = profileNameSpace getVariable "ss_ServerID";
-    publicVariable "serverID";
+		publicVariable "serverID";
+		
+		//Load Campaign ID
+		campaignID = profileNameSpace getVariable ["ss_CampaignID",nil];
+		if(isNil "campaignID") then
+			{
+			campaignID = str(round((random(100000)) + random 10000));
+			profileNameSpace setVariable ["ss_CampaignID", campaignID];
+			};		
+		publicVariable "campaignID";
+		
+		
     call compile preprocessFileLineNumbers "initFuncs.sqf";
     diag_log "Antistasi SP. Funcs init finished";
     call compile preprocessFileLineNumbers "initZones.sqf";//this is the file where you can transport Antistasi to another island

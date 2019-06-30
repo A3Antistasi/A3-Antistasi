@@ -1,17 +1,31 @@
+fn_varNameToSaveName = {
+	params ["_varName", ""];
+	//Return the name of the save slot for the variable.
+	if (worldName == "Tanoa") then
+		{
+		_varName + serverID + campaignID + "WotP";
+		}
+	else
+		{
+		if (side group petros == independent) then 
+			{
+			_varName + serverID + campaignID + "Antistasi" + worldName;
+			} 
+		else 
+			{
+			_varName + serverID + campaignID + "AntistasiB" + worldName;
+			};
+		};
+};
+
 fn_SaveStat =
 {
 	_varName = _this select 0;
 	_varValue = _this select 1;
 	if (!isNil "_varValue") then
 		{
-		if (worldName == "Tanoa") then
-			{
-			profileNameSpace setVariable [_varName + serverID + "WotP",_varValue]
-			}
-		else
-			{
-			if (side group petros == independent) then {profileNameSpace setVariable [_varName + serverID + "Antistasi" + worldName,_varValue]} else {profileNameSpace setVariable [_varName + serverID + "AntistasiB" + worldName,_varValue]};
-			};
+		_varSaveName = [_varName] call fn_varNameToSaveName;
+		profileNameSpace setVariable [_varSaveName, _varValue];
 		if (isDedicated) then {saveProfileNamespace};
 		};
 };
@@ -24,23 +38,10 @@ fn_LoadStat =
   _loadVariable = {
     private ["_varName","_varValue"];
     _varName = _this select 0;
+		_varSaveName = [_varName] call fn_varNameToSaveName;
     
     //Return the value of this statement
-    if (worldName == "Tanoa") then
-      {
-      profileNameSpace getVariable (_varName + serverID + "WotP")
-      }
-    else
-      {
-      if (side group petros == independent) then 
-        {
-        profileNameSpace getVariable (_varName + serverID + "Antistasi" + worldName)
-        } 
-      else 
-        { 
-        profileNameSpace getVariable (_varName + serverID + "AntistasiB" + worldName)
-        };
-      };
+		profileNameSpace getVariable (_varSaveName);
   };
   
   _varValue = [_varName] call _loadVariable;

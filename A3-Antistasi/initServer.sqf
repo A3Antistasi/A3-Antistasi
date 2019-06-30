@@ -6,16 +6,18 @@ flagX allowDamage false;
 vehicleBox allowDamage false;
 fireX allowDamage false;
 mapX allowDamage false;
-_serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
-if(isNil "_serverHasID") then
-    {
-    _serverID = str(round((random(100000)) + random 10000));
-    profileNameSpace setVariable ["SS_ServerID",_serverID];
-    };
-serverID = profileNameSpace getVariable "ss_ServerID";
-publicVariable "serverID";
 
+//Load server id
+serverID = profileNameSpace getVariable ["ss_ServerID",nil];
+if(isNil "serverID") then
+	{
+	serverID = str(round((random(100000)) + random 10000));
+	profileNameSpace setVariable ["ss_ServerID",serverID];
+	};
+publicVariable "serverID";
 waitUntil {!isNil "serverID"};
+
+//Load server config
 loadLastSave = if (paramsArray select 0 == 1) then {true} else {false};
 gameMode = paramsArray select 1; publicVariable "gameMode";
 autoSave = if (paramsArray select 2 == 1) then {true} else {false};
@@ -29,6 +31,19 @@ minWeaps = paramsArray select 10; publicVariable "minWeaps";
 civTraffic = paramsArray select 11; publicVariable "civTraffic";
 memberDistance = paramsArray select 13; publicVariable "memberDistance";
 limitedFT = if (paramsArray select 14 == 1) then {true} else {false}; publicVariable "limitedFT";
+
+//Load Campaign ID if resuming game
+if(loadLastSave) then {
+	campaignID = profileNameSpace getVariable ["ss_CampaignID",nil];
+};
+if(isNil "campaignID") then
+	{
+	campaignID = str(round((random(100000)) + random 10000));
+	profileNameSpace setVariable ["ss_CampaignID", campaignID];
+	};
+		
+publicVariable "campaignID";
+
 _nul = call compile preprocessFileLineNumbers "initVar.sqf";
 initVar = true; publicVariable "initVar";
 savingServer = true;

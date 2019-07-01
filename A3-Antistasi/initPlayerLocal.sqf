@@ -174,7 +174,6 @@ if (player getVariable ["pvp",false]) exitWith
 		_override
 		}];
 	_nameX = if (side player == Occupants) then {nameOccupants} else {nameInvaders};
-	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,_nameX]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
 	waituntil {!isnull (finddisplay 46)};
 	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{

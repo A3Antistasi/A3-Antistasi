@@ -238,4 +238,9 @@ class A3A
         class isMedic {file="Revive\isMedic.sqf";};
         class respawn {file="Revive\respawn.sqf";};
 	}
+	
+	class Utility
+	{
+        class dateToTimeString {file="dateToTimeString.sqf";};
+	}
 }

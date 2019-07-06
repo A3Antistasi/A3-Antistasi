@@ -98,8 +98,8 @@ switch _typeX do
 		{
 		fireX addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)",4];
 		fireX addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","(_this == theBoss)",4];
-		fireX addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this)",4];
 		fireX addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)",4];
+		fireX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 		};
 
 	case "SDKFlag":

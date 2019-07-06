@@ -37,6 +37,7 @@ for "_i" from 0 to (_playerX addAction ["",""]) do
 _thingX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 
 _thingX setPosATL [getPosATL _thingX select 0,getPosATL _thingX select 1,0];
+_thingX setVectorUp surfaceNormal position _thingX;
 
 if (vehicle _playerX != _playerX) exitWith {hint "You cannot move HQ assets while in a vehicle"};
 

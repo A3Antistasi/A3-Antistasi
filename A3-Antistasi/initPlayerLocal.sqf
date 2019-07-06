@@ -174,7 +174,6 @@ if (player getVariable ["pvp",false]) exitWith
 		_override
 		}];
 	_nameX = if (side player == Occupants) then {nameOccupants} else {nameInvaders};
-	["TaskFailed", ["", format ["%1 joined %2 SpecOps",name player,_nameX]]] remoteExec ["BIS_fnc_showNotification",[teamPlayer,civilian]];
 	waituntil {!isnull (finddisplay 46)};
 	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",
 		{
@@ -606,10 +605,8 @@ vehicleBox addAction ["Heal, Repair and Rearm", "healandrepair.sqf",nil,0,false,
 vehicleBox addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 
 fireX allowDamage false;
-fireX addAction ["Rest for 8 Hours", "skiptime.sqf",nil,0,false,true,"","(_this == theBoss)"];
-fireX addAction ["Clear Nearby Forest", "clearForest.sqf",nil,0,false,true,"","_this == theBoss"];
-fireX addAction ["On\Off Lamp", "onOffLamp.sqf",nil,0,false,true,"","(isPlayer _this) and (side (group _this) == teamPlayer)"];
-fireX addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)"];
+[fireX, "fireX"] call A3A_fnc_flagaction;
+
 mapX allowDamage false;
 mapX addAction ["Game Options", {hint format ["Antistasi - %2\n\nVersion: %1\n\nDifficulty: %3\nUnlock Weapon Number: %4\nLimited Fast Travel: %5",antistasiVersion,worldName,if (skillMult == 1) then {"Normal"} else {if (skillMult == 0.5) then {"Easy"} else {"Hard"}},minWeaps,if (limitedFT) then {"Yes"} else {"No"}]; nul=CreateDialog "game_options";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
 mapX addAction ["Map Info", {nul = [] execVM "cityinfo.sqf";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];

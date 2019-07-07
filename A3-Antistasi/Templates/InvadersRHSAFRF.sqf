@@ -5,7 +5,6 @@ CSATCrew = "rhs_vmf_flora_armoredcrew";
 CSATMarksman = "rhs_vmf_flora_marksman";
 staticCrewInvaders = "rhs_vmf_flora_rifleman_lite";
 CSATPilot = "rhs_pilot_tan";
-
 CSATMortar = "rhs_2b14_82mm_vmf";
 CSATMG = "rhs_KORD_high_VMF";
 staticATInvaders = "rhs_Kornet_9M133_2_vmf";

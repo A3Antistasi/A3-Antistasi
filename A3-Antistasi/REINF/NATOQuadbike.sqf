@@ -9,9 +9,9 @@ if (not(player inArea _markerX)) exitWith {hint "You need to be close to an Airb
 
 _typeBike = if (_sideX == Occupants) then {selectRandom vehNATOLightUnarmed} else {selectRandom vehCSATLightUnarmed};
 
-if (!isNull moto) then
+if (!isNull lastVehicleSpawned) then
 	{
-	if (moto distance player < 100) then {deleteVehicle moto};
+	if (lastVehicleSpawned distance player < 100) then {deleteVehicle lastVehicleSpawned};
 	};
 
 hint "Vehicle available";
@@ -22,6 +22,6 @@ while {_pos isEqualTo []} do
 	_pos = (position player) findEmptyPosition [5,_radius,"I_Truck_02_covered_F"];
 	_radius = _radius + 10;
 	};
-moto = createVehicle [_typeBike,_pos, [], 10, "NONE"];
+lastVehicleSpawned = createVehicle [_typeBike,_pos, [], 10, "NONE"];
 
-[moto] call A3A_fnc_AIVEHinit;
+[lastVehicleSpawned] call A3A_fnc_AIVEHinit;

@@ -114,7 +114,7 @@ else
 
 if (player getVariable ["pvp",false]) exitWith
 	{
-	moto = objNull;
+	lastVehicleSpawned = objNull;
 	pvpEnabled = if (paramsArray select 7 == 1) then {true} else {false};
 	if ((!_isJIP) or !pvpEnabled) then
 		{
@@ -157,7 +157,7 @@ if (player getVariable ["pvp",false]) exitWith
 		private ["_unit","_veh"];
 		_unit = _this select 0;
 		_veh = _this select 2;
-		if (_veh != moto) then
+		if (_veh != lastVehicleSpawned) then
 			{
 			if !((typeOf _veh) in (vehNATOLightUnarmed + vehCSATLightUnarmed)) then
 				{

@@ -7,20 +7,19 @@ NATOUnarmed = "B_G_Survivor_F";
 NATOMarksman = "rhsusf_usmc_marpat_wd_marksman";
 staticCrewOccupants = "rhsusf_usmc_marpat_wd_machinegunner_ass";
 NATOPilot = "rhsusf_airforce_jetpilot";
-
 NATOMG = "RHS_M2StaticMG_USMC_WD";
 NATOMortar = "RHS_M252_USMC_WD";
 staticATOccupants = "RHS_TOW_TriPod_USMC_WD";
 staticAAOccupants = "RHS_Stinger_AA_pod_D";
 
-vehNATOLightArmed = ["rhsusf_m1025_w_s_m2","rhsusf_rg33_m2_usmc_wd"];
-vehNATOLightUnarmed = ["rhsusf_m1025_w_s","rhsusf_m998_w_s_2dr","rhsusf_m998_w_s_2dr_fulltop","rhsusf_m998_w_s_4dr"];
-vehNATOTrucks = ["rhsusf_M1078A1P2_wd_open_fmtv_usarmy","rhsusf_M1078A1P2_B_wd_fmtv_usarmy","rhsusf_M1078A1P2_B_wd_open_fmtv_usarmy","rhsusf_M1083A1P2_wd_fmtv_usarmy"];
+vehNATOLightArmed = ["rhsusf_m1025_w_s_m2","rhsusf_CGRCAT1A2_M2_usmc_wd","rhsusf_CGRAT1A2_Mk19_usmc_wd","rhsusf_m1045_w_s","rhsusf_m1025_w_s_Mk19","rhsusf_M1117_W","rhsusf_M1220_M153_M2_usarmy_wd"];
+vehNATOLightUnarmed = ["rhsusf_m1025_w_s","rhsusf_m998_w_s_2dr","rhsusf_m998_w_s_2dr_fulltop","rhsusf_m998_w_s_4dr","rhsusf_CGRCAT1A2_usmc_wd"];
+vehNATOTrucks = ["rhsusf_M1078A1P2_wd_open_fmtv_usarmy","rhsusf_M1078A1P2_B_wd_fmtv_usarmy","rhsusf_M1078A1P2_B_wd_open_fmtv_usarmy","rhsusf_M1083A1P2_wd_fmtv_usarmy","rhsusf_M1232_usarmy_wd"];
 vehNATOAmmoTruck = "rhsusf_M977A4_AMMO_BKIT_usarmy_wd";
 vehNATORepairTruck = "rhsusf_M977A4_REPAIR_BKIT_usarmy_wd";
 vehNATOLight = vehNATOLightArmed + vehNATOLightUnarmed;
-vehNATOAPC = ["RHS_M2A3_BUSKIII_wd","RHS_M2A3_BUSKI_wd","RHS_M2A3_wd","RHS_M2A3_wd","RHS_M2A2_BUSKI_WD","RHS_M2A2_wd","rhsusf_m113_usarmy_M240","rhsusf_m113_usarmy_MK19"];//"B_T_APC_Tracked_01_CRV_F" has no cargo seats
-vehNATOTank = "rhsusf_m1a1fep_wd";
+vehNATOAPC = ["RHS_M2A3_BUSKIII_wd","RHS_M2A3_BUSKI_wd","RHS_M2A3_wd","RHS_M2A3_wd","RHS_M2A2_BUSKI_WD","RHS_M2A2_wd","rhsusf_m113_usarmy_M240","rhsusf_m113_usarmy_MK19","rhsusf_m113_usarmy"];//"B_T_APC_Tracked_01_CRV_F" has no cargo seats
+vehNATOTank = ["rhsusf_m1a1fep_wd","rhsusf_m1a2sep1tuskiiwd_usarmy"];
 vehNATOAA = "RHS_M6";
 vehNATOAttack = vehNATOAPC + [vehNATOTank];
 vehNATOBoat = "rhsusf_mkvsoc";
@@ -29,8 +28,8 @@ vehNATOBoats = [vehNATOBoat,vehNATORBoat,"rhsusf_m113_usarmy_MK19"];
 vehNATOPlane = "RHS_A10_AT";
 vehNATOPlaneAA = "rhsusf_f22";
 vehNATOPatrolHeli = "RHS_MELB_MH6M";
-vehNATOTransportHelis = ["RHS_UH60M_d","RHS_CH_47F",vehNATOPatrolHeli,"RHS_C130J"];
-vehNATOAttackHelis = ["RHS_MELB_AH6M_L","RHS_AH64D_wd","RHS_UH1Y"];
+vehNATOTransportHelis = ["RHS_UH60M_d","RHS_CH_47F",vehNATOPatrolHeli,"RHS_C130J","rhsusf_CH53E_USMC"];
+vehNATOAttackHelis = ["RHS_MELB_AH6M_L","RHS_AH64D_wd","RHS_UH1Y_FFAR","RHS_AH1Z_wd"];
 vehNATOAir = vehNATOTransportHelis + vehNATOAttackHelis + [vehNATOPlane,vehNATOPlaneAA];
 vehNATOUAV = "B_UAV_02_F";//ok
 vehNATOUAVSmall = "B_UAV_01_F";
@@ -62,7 +61,7 @@ AAStaticNATOB = "B_AA_01_weapon_F";
 MortStaticNATOB = "rhs_M252_Gun_Bag";
 supportStaticNATOB3 = "rhs_M252_Bipod_Bag";
 
-weaponsNato append ["rhs_weap_hk416d10","rhs_weap_m16a4","rhs_weap_XM2010","rhs_weap_m24sws","rhs_weap_m27iar","rhs_weap_m4","rhs_weap_m40a5","rhs_weap_m4a1_carryhandle","rhs_weap_m4a1_blockII","rhs_weap_m4a1","rhs_weap_M590_8RD","rhs_weap_mk18","rhsusf_weap_MP7A2","hgun_Pistol_heavy_01_F","rhs_weap_fgm148","rhs_weap_fim92","rhsusf_weap_glock17g4","rhs_weap_M107","rhs_weap_M136","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m14ebrri","rhs_weap_m72a7","rhsusf_weap_m9","rhs_weap_sr25","lerca_1200_black","lerca_1200_tan","Leupold_Mk4","rhs_weap_m240B","rhs_weap_m249","rhs_weap_smaw","rhs_weap_m39"];//possible weapons that spawn in NATO ammoboxes
+weaponsNato append ["rhs_weap_hk416d10","rhs_weap_m16a4","rhs_weap_XM2010","rhs_weap_m24sws","rhs_weap_m27iar","rhs_weap_m4","rhs_weap_m40a5","rhs_weap_m4a1_carryhandle","rhs_weap_m4a1_blockII","rhs_weap_m4a1","rhs_weap_M590_8RD","rhs_weap_mk18","rhsusf_weap_MP7A2","hgun_Pistol_heavy_01_F","rhs_weap_fgm148","rhs_weap_fim92","rhsusf_weap_glock17g4","rhs_weap_M107","rhs_weap_M136","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m14ebrri","rhs_weap_m72a7","rhsusf_weap_m9","rhs_weap_sr25","lerca_1200_black","lerca_1200_tan","Leupold_Mk4","rhs_weap_m240B","rhs_weap_m249","rhs_weap_smaw","rhs_weap_m39","rhs_weap_maaws","rhs_weap_m32"];//possible weapons that spawn in NATO ammoboxes
 smokeX = smokeX + ["rhs_mag_an_m8hc","rhs_mag_m18_purple","rhs_mag_m18_red","rhs_mag_m18_green","rhs_mag_m18_yellow"];
 NVGoggles = NVGoggles + ["rhsusf_ANPVS_14"/*,"rhsusf_ANPVS_15"*/];
 itemsAAF = itemsAAF + ["rhsusf_acc_grip2","rhsusf_acc_grip2_tan","rhsusf_acc_anpeq15side_bk","rhsusf_acc_anpeq15_bk_top","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15_light","rhsusf_acc_anpeq15_bk","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15A","rhsusf_acc_ARDEC_M240","rhsusf_acc_nt4_black","rhsusf_acc_nt4_tan","rhsusf_acc_SFMB556"];

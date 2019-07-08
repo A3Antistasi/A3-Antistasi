@@ -139,7 +139,7 @@ class AddonsMetaData
 randomSeed=8109385;
 class ScenarioData
 {
-	author="barbolani";
+	author="Barbolani & The Official AntiStasi Community";
 };
 class Mission
 {

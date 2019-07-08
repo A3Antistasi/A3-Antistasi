@@ -129,7 +129,7 @@ class AddonsMetaData
 randomSeed=11834268;
 class ScenarioData
 {
-	author="barbolani";
+	author="Barbolani & The Official AntiStasi Community";
 	saving=0;
 	disabledAI=1;
 	respawn=3;

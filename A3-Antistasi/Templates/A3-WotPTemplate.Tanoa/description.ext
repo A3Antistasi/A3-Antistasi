@@ -1,7 +1,7 @@
 #include "defines.hpp"
 #include "dialogs.hpp"
 
-author="Barbolani";
+author="Barbolani & The Official AntiStasi Community";
 OnLoadName = "Warlords of the Pacific";
 OnLoadMission = "Business and War...";
 loadScreen = "pic.JPG";
@@ -359,7 +359,7 @@ class CfgDebriefing
 	{
 		title = "V I C T O R Y";
 		subtitle = "Tanoa is Ours!";
-		description = "The population of Tanoa loves you!<br/>The SDK brave soldiers prooved their valour, and Barbolani, Tanoa new Prime Minister, could at last to have a nice holliday. A deserved rest in a Greek island, drinking with Petros, his war master.";
+		description = "The population of Tanoa loves you!<br/>The SDK brave soldiers prooved their valour, and Petros, Tanoa new Prime Minister, could at last to have a nice holiday. A deserved rest in a Greek island with drinks and fine food.";
 		picture = "n_inf";
 		pictureColor[] = {0.0,0.5,0.0,1};
 	};

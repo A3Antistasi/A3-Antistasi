@@ -12,6 +12,8 @@ _pilots = [];
 _vehiclesX = [];
 _civiles = [];
 
+diag_log format ["[Antistasi] Launching CSAT Punish Against %1 from %2 (CSATpunish.sqf)", _mrkDestination, _mrkOrigin];
+
 _nameDest = [_mrkDestination] call A3A_fnc_localizar;
 [[teamPlayer,civilian,Occupants],"AttackAAF",[format ["%2 is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest,nameInvaders],format ["%1 Punishment",nameInvaders],_mrkDestination],getMarkerPos _mrkDestination,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
 

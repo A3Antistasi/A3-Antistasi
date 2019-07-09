@@ -4,7 +4,7 @@ _mrkDestination = _this select 0;
 _mrkOrigin = _this select 1;
 _numberX = _this select 2;
 _sideX = _this select 3;
-diag_log format ["Antistasi. PatrolReinf. Dest:%1, Orig:%2, Size:%3, Side: %4",_mrkDestination,_mrkOrigin,_numberX,_sideX];
+diag_log format ["[Antistasi] Spawning PatrolReinforcement. Dest:%1, Orig:%2, Size:%3, Side: %4",_mrkDestination,_mrkOrigin,_numberX,_sideX];
 _posDestination = getMarkerPos _mrkDestination;
 _posOrigin = getMarkerPos _mrkOrigin;
 

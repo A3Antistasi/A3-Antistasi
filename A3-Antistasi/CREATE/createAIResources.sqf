@@ -4,6 +4,8 @@ private ["_markerX","_vehiclesX","_groups","_soldiers","_civs","_positionX","_po
 
 _markerX = _this select 0;
 
+diag_log format ["[Antistasi] Spawning Resource Point %1 (createAIResources.sqf)", _markerX];
+
 _positionX = getMarkerPos _markerX;
 
 _size = [_markerX] call A3A_fnc_sizeMarker;

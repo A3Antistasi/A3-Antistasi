@@ -33,6 +33,7 @@ class A3A
         class isFrontline {file="isFrontline.sqf";};
         class isTheSameIsland {file="isTheSameIsland.sqf";};
         class localizar {file="localizar.sqf";};
+        class logPerformance {file="logPerformance.sqf";};
         class markerChange {file="markerChange.sqf";};
         class moveHQ {file="moveHQ.sqf";};
         class mrkUpdate {file="mrkUpdate.sqf";};

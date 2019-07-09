@@ -130,7 +130,7 @@ hasFFAA = false;
 hasIFA = false;
 myCustomMod = false;
 
-if ("LIB_G43" in arifles) then
+if ("LIB_PTRD" in arifles) then
 	{
 	hasIFA = true;
 	helmets = [];

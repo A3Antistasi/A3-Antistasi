@@ -177,3 +177,12 @@ distanceXs = [] spawn A3A_fnc_distances4;
 resourcecheck = [] execVM "resourcecheck.sqf";
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 savingServer = false;
+
+//Enable performance logging
+[] spawn {
+	while {true} do
+		{
+			[] call A3A_fnc_logPerformance;
+			sleep 30;
+		};
+};

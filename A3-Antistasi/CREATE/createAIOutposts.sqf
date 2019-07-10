@@ -9,6 +9,7 @@ _soldiers = [];
 _positionX = getMarkerPos (_markerX);
 _pos = [];
 
+diag_log format ["[Antistasi] Spawning Outpost %1 (createAIOutposts.sqf)", _markerX];
 
 _size = [_markerX] call A3A_fnc_sizeMarker;
 

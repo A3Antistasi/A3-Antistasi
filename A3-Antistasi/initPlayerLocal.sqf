@@ -38,7 +38,7 @@ if (isMultiplayer) then
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
 	if (hasTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
-	tkPunish = if (paramsArray select 5 == 1) then {true} else {false};
+	tkPunish = if ("tkPunish" call BIS_fnc_getParamValue == 1) then {true} else {false};
 	if ((side player == teamPlayer) and tkPunish) then
 		{
 		player addEventHandler ["Fired",
@@ -92,7 +92,6 @@ _introShot =
     ]
     ] spawn BIS_fnc_establishingShot;
 
-_titulo = if (worldName == "Tanoa") then {["Warlords of the Pacific","by Barbolani & The Official AntiStasi Community,antistasiVersion] spawn BIS_fnc_infoText} else {if (hasIFA) then {["Armia Krajowa","by Barbolani & The Official AntiStasi Community",antistasiVersion] spawn BIS_fnc_infoText} else {["Antistasi","by Barbolani & The Official AntiStasi Community",antistasiVersion] spawn BIS_fnc_infoText}};
 _titulo = if (worldName == "Tanoa") then {["Warlords of the Pacific","by Barbolani & The Official AntiStasi Community",antistasiVersion] spawn BIS_fnc_infoText} else {if (hasIFA) then {["Armia Krajowa","by Barbolani & The Official AntiStasi Community",antistasiVersion] spawn BIS_fnc_infoText} else {["Antistasi","by Barbolani & The Official AntiStasi Community",antistasiVersion] spawn BIS_fnc_infoText}};
 disableUserInput false;
 player addWeaponGlobal "itemmap";
@@ -100,7 +99,7 @@ if !(hasIFA) then {player addWeaponGlobal "itemgps"};
 player setVariable ["spawner",true,true];
 if (isMultiplayer) then
 	{
-	if (paramsArray select 8 == 1) then {[] execVM "playerMarkers.sqf"};
+	if ("pMarkers" call BIS_fnc_getParamValue == 1) then {[] execVM "playerMarkers.sqf"};
 	};
 if (!hasACE) then
 	{
@@ -116,7 +115,7 @@ else
 if (player getVariable ["pvp",false]) exitWith
 	{
 	lastVehicleSpawned = objNull;
-	pvpEnabled = if (paramsArray select 7 == 1) then {true} else {false};
+	pvpEnabled = if ("allowPvP" call BIS_fnc_getParamValue == 1) then {true} else {false};
 	if ((!_isJIP) or !pvpEnabled) then
 		{
 		["noPvP",false,1,false,false] call BIS_fnc_endMission;
@@ -413,7 +412,7 @@ if (isMultiplayer) then
 	{
 	["InitializePlayer", [player]] call BIS_fnc_dynamicGroups;//Exec on client
 	["InitializeGroup", [player,teamPlayer,true]] call BIS_fnc_dynamicGroups;
-	membershipEnabled = if (paramsArray select 3 == 1) then {true} else {false};
+	membershipEnabled = if ("membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
 	personalGarage = [];
 	if (membershipEnabled) then
 		{

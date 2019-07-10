@@ -2,6 +2,10 @@
 #ifndef QUOTE
 #define QUOTE(var1) #var1
 #endif
+
+//Other Includes
+#include "Garage\defineCommon.inc"
+
 // Control types
 #define CT_STATIC           0
 #define CT_BUTTON           1

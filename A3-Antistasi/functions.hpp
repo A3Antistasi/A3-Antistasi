@@ -25,8 +25,6 @@ class A3A
         class flagaction {file="flagaction.sqf";};
         class fn_location {file="fn_location.sqf";};
         class fogCheck {file="fogCheck.sqf";};
-        class garage {file="garage2.sqf";};
-        class garageVehicle {file="garageVehicle.sqf";};
         class garbageCleaner {file="garbageCleaner.sqf";};
         class garrisonInfo {file="garrisonInfo.sqf";};
         class intelFound {file="intelFound.sqf";};
@@ -164,6 +162,22 @@ class A3A
 	class Dialogs
 	{
 		class mineDialog {file="Dialogs\mineDialog.sqf";};
+	}
+	
+	class Garage
+	{
+		//Public API - Call these to do things
+		class garage {file="Garage\garage2.sqf";};
+		class garageVehicle {file="Garage\garageVehicle.sqf";};
+		class vehPlacementBegin {file="Garage\vehPlacementBegin.sqf";};
+		class vehPlacementCallbacks {file="Garage\vehPlacementCallbacks.sqf";};
+		class vehPlacementCancel {file="Garage\vehPlacementCancel.sqf";};
+		class vehPlacementChangeVehicle {file="Garage\vehPlacementChangeVehicle.sqf";};
+		//Private - Do NOT call these elsewhere
+		class attemptPlaceVehicle {file="Garage\private\attemptPlaceVehicle.sqf";};
+		class displayVehiclePlacementMessage {file="Garage\private\displayVehiclePlacementMessage.sqf";};
+		class handleVehPlacementCancelled {file="Garage\private\handleVehPlacementCancelled.sqf";};
+		class vehPlacementCleanup {file="Garage\private\vehPlacementCleanup.sqf";};
 	}
 
 	class Missions

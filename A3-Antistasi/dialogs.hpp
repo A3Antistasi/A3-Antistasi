@@ -159,7 +159,7 @@ class HQ_menu 			{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "Check Faction garage";
-			action = "closeDialog 0;nul = [false] spawn A3A_fnc_garage";
+			action = QUOTE(closeDialog 0;nul = [GARAGE_FACTION] spawn A3A_fnc_garage);
 		};
 	};
 }; 										//slots: 6+1

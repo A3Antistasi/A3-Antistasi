@@ -1,3 +1,7 @@
+//Common Macros
+#ifndef QUOTE
+#define QUOTE(var1) #var1
+#endif
 // Control types
 #define CT_STATIC           0
 #define CT_BUTTON           1

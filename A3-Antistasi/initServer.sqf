@@ -28,9 +28,11 @@ distanceMission = "mRadius" call BIS_fnc_getParamValue; publicVariable "distance
 pvpEnabled = if ("allowPvP" call BIS_fnc_getParamValue == 1) then {true} else {false};
 skillMult = "AISkill" call BIS_fnc_getParamValue; publicVariable "skillMult";
 minWeaps = "unlockItem" call BIS_fnc_getParamValue; publicVariable "minWeaps";
+memberOnlyMagLimit = "MemberOnlyMagLimit" call BIS_fnc_getParamValue; publicVariable "memberOnlyMagLimit";
 civTraffic = "civTraffic" call BIS_fnc_getParamValue; publicVariable "civTraffic";
 memberDistance = "memberDistance" call BIS_fnc_getParamValue; publicVariable "memberDistance";
 limitedFT = if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "limitedFT";
+
 
 //Load Campaign ID if resuming game
 if(loadLastSave) then {

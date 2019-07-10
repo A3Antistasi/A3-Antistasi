@@ -154,32 +154,32 @@ onEachFrame
 		};
 	
 	if (isNull garage_previewVeh) exitWith {};
-	// Get position player is looking at
+	// Get point on /terrain/ the player is looking at
 	_ins = lineIntersectsSurfaces [
 		AGLToASL positionCameraToWorld [0,0,0],
 		AGLToASL positionCameraToWorld [0,0,1000],
-		player,garage_previewVeh
+		player,garage_previewVeh,true,1,"NONE","NONE"
 	];
-	// Do nothing else if looking at nothing
-	if (_ins isEqualTo []) exitWith {};
-	_pos = (_ins select 0 select 0);
+	if (count _ins == 0) exitWith {};
+	private _pos = ASLtoATL ((_ins select 0) select 0);
+	private _placementPos = _pos findEmptyPosition [0, 20, typeOf garage_previewVeh];
+	// Do nothing else if we can't find an empty position
+	if (count (_placementPos) == 0) exitWith {garage_previewVeh setPosASL [0,0,0]};
 	// If we're too close to the last position, don't do anything
-	if (_pos distance garage_lastPreviewPosition < 0.1) exitWith {};
-	garage_lastPreviewPosition = _pos;
+	if (_placementPos distance garage_lastPreviewPosition < 0.1) exitWith {};
+	garage_lastPreviewPosition = _placementPos;
 	// If vehicle is a boat, make sure it spawns at sea level?
 	_shipX = false;
-	if (garage_previewVeh isKindOf "Ship") then {_pos set [2,0]; _shipX = true};
-	// Do nothing else if we can't find an empty position
-	if (count (_pos findEmptyPosition [0, 0, typeOf garage_previewVeh])== 0) exitWith {garage_previewVeh setPosASL [0,0,0]};
+	if (garage_previewVeh isKindOf "Ship") then {_placementPos set [2,0]; _shipX = true};
 	// Do nothing if destination too far
-	if (_pos distance2d player > 100)exitWith {garage_previewVeh setPosASL [0,0,0]};
+	if (_placementPos distance2d player > 100)exitWith {garage_previewVeh setPosASL [0,0,0]};
 	// Ships only spawn on water, and cars can't spawn on water
-	_water = surfaceIsWater _pos;
+	_water = surfaceIsWater _placementPos;
 	if (_shipX and {!_water}) exitWith {garage_previewVeh setPosASL [0,0,0]};
 	if (!_shipX and {_water}) exitWith {garage_previewVeh setPosASL [0,0,0]};
 	// If all checks pass, set position of preview and orient it to the ground
-	garage_previewVeh setPosASL _pos;
-	garage_previewVeh setVectorUp (_ins select 0 select 1);
+	garage_previewVeh setPosATL _placementPos;
+	garage_previewVeh setVectorUp (_chosenIntersection select 1);
 	};
  
 waitUntil {(garage_isVehBought > 0) or !(player inArea _nearX)};

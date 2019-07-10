@@ -861,13 +861,17 @@ switch _mode do {
 						case (ctrlenabled (_display displayctrl (IDC_RSCDISPLAYARSENAL_LIST + IDC_RSCDISPLAYARSENAL_TAB_UNIFORM))): {uniformContainer player};
 						case (ctrlenabled (_display displayctrl (IDC_RSCDISPLAYARSENAL_LIST + IDC_RSCDISPLAYARSENAL_TAB_VEST))): {vestContainer player};
 						case (ctrlenabled (_display displayctrl (IDC_RSCDISPLAYARSENAL_LIST + IDC_RSCDISPLAYARSENAL_TAB_BACKPACK))): {backpackContainer player};
-						default {""};
+						default {objNull};
 					};
 
-					_items =  if(_idc == IDC_RSCDISPLAYARSENAL_TAB_CARGOMISC)then{
-						itemCargo _container;
-					}else{
-						magazinesAmmoCargo _container;
+					_items = if (!isNull _container) then {
+						if(_idc == IDC_RSCDISPLAYARSENAL_TAB_CARGOMISC)then{
+							itemCargo _container;
+						} else {
+							magazinesAmmoCargo _container;
+						};
+					} else {
+						[];
 					};
 
 					for "_l" from 0 to ((lnbsize _ctrlList select 0) - 1) do {

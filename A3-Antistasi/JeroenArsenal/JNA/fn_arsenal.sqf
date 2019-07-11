@@ -1195,7 +1195,7 @@ switch _mode do {
 					}
 				};
 
-				if(_amount <= 0 && {
+				if(_amount == 0 && {
 					if _type then{
 						(parseNumber (_ctrlList lnbText [_l,2]) == 0);
 					}else{

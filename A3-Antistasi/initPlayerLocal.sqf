@@ -220,7 +220,7 @@ player setUnitTrait ["audibleCoef",0.8];
 
 if (activeGREF) then {[player] call A3A_fnc_RHSdress};
 player setvariable ["compromised",0];
-player addEventHandler ["FIRED",
+player addEventHandler ["FiredMan",
 	{
 	_player = _this select 0;
 	if (captive _player) then

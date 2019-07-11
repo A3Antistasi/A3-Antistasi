@@ -415,7 +415,15 @@ injuredSounds =
 ];
 medicAnims = ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPknlMstpSnonWnonDnon_medic0","AinvPknlMstpSnonWnonDnon_medic1","AinvPknlMstpSnonWnonDnon_medic2"];
 
-missionPath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
+_getMissionPath = [] execVM "initGetMissionPath.sqf";
+waitUntil 
+{
+	if (scriptDone _getMissionPath) then {true} else
+	{
+		hint "Stuck on compiling missionPath, re-launch the mission.";
+	}
+};
+hint "Done compiling missionPath";
 
 ladridos = ["Music\dog_bark01.wss", "Music\dog_bark02.wss", "Music\dog_bark03.wss", "Music\dog_bark04.wss", "Music\dog_bark05.wss","Music\dog_maul01.wss","Music\dog_yelp01.wss","Music\dog_yelp02.wss","Music\dog_yelp03.wss"];
 

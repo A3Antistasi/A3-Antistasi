@@ -18,19 +18,21 @@ publicVariable "serverID";
 waitUntil {!isNil "serverID"};
 
 //Load server config
-loadLastSave = if (paramsArray select 0 == 1) then {true} else {false};
-gameMode = paramsArray select 1; publicVariable "gameMode";
-autoSave = if (paramsArray select 2 == 1) then {true} else {false};
-membershipEnabled = if (paramsArray select 3 == 1) then {true} else {false};
-switchCom = if (paramsArray select 4 == 1) then {true} else {false};
-tkPunish = if (paramsArray select 5 == 1) then {true} else {false};
-distanceMission = paramsArray select 6; publicVariable "distanceMission";
-pvpEnabled = if (paramsArray select 7 == 1) then {true} else {false};
-skillMult = paramsArray select 9; publicVariable "skillMult";
-minWeaps = paramsArray select 10; publicVariable "minWeaps";
-civTraffic = paramsArray select 11; publicVariable "civTraffic";
-memberDistance = paramsArray select 13; publicVariable "memberDistance";
-limitedFT = if (paramsArray select 14 == 1) then {true} else {false}; publicVariable "limitedFT";
+loadLastSave = if ("loadSave" call BIS_fnc_getParamValue == 1) then {true} else {false};
+gameMode = "gameMode" call BIS_fnc_getParamValue; publicVariable "gameMode";
+autoSave = if ("autoSave" call BIS_fnc_getParamValue == 1) then {true} else {false};
+membershipEnabled = if ("membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
+switchCom = if ("switchComm" call BIS_fnc_getParamValue == 1) then {true} else {false};
+tkPunish = if ("tkPunish" call BIS_fnc_getParamValue == 1) then {true} else {false};
+distanceMission = "mRadius" call BIS_fnc_getParamValue; publicVariable "distanceMission";
+pvpEnabled = if ("allowPvP" call BIS_fnc_getParamValue == 1) then {true} else {false};
+skillMult = "AISkill" call BIS_fnc_getParamValue; publicVariable "skillMult";
+minWeaps = "unlockItem" call BIS_fnc_getParamValue; publicVariable "minWeaps";
+memberOnlyMagLimit = "MemberOnlyMagLimit" call BIS_fnc_getParamValue; publicVariable "memberOnlyMagLimit";
+civTraffic = "civTraffic" call BIS_fnc_getParamValue; publicVariable "civTraffic";
+memberDistance = "memberDistance" call BIS_fnc_getParamValue; publicVariable "memberDistance";
+limitedFT = if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "limitedFT";
+
 
 //Load Campaign ID if resuming game
 if(loadLastSave) then {
@@ -48,7 +50,7 @@ _nul = call compile preprocessFileLineNumbers "initVar.sqf";
 initVar = true; publicVariable "initVar";
 savingServer = true;
 diag_log format ["Antistasi MP. InitVar done. Version: %1",antistasiVersion];
-bookedSlots = floor (((paramsArray select 12)/100) * (playableSlotsNumber teamPlayer)); publicVariable "bookedSlots";
+bookedSlots = floor ((("memberSlots" call BIS_fnc_getParamValue)/100) * (playableSlotsNumber teamPlayer)); publicVariable "bookedSlots";
 _nul = call compile preprocessFileLineNumbers "initFuncs.sqf";
 diag_log "Antistasi MP Server. Funcs init finished";
 _nul = call compile preprocessFileLineNumbers "initZones.sqf";
@@ -177,3 +179,12 @@ distanceXs = [] spawn A3A_fnc_distances4;
 resourcecheck = [] execVM "resourcecheck.sqf";
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 savingServer = false;
+
+//Enable performance logging
+[] spawn {
+	while {true} do
+		{
+			[] call A3A_fnc_logPerformance;
+			sleep 30;
+		};
+};

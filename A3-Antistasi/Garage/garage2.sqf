@@ -1,7 +1,9 @@
 #include "defineCommon.inc"
 
 if (!(isNil "placingVehicle") && {placingVehicle}) exitWith { hint "Unable to open garage, you are already placing something" };
-garageIsOpen = true;
+if (isNil "garageIsOpen") then {
+	garageIsOpen = false;
+};
 
 garage_mode = _this select 0;
 
@@ -66,6 +68,7 @@ if (isNil "garage_keyDownHandler") then {
 };
 private _extraMessage = "Arrow Up-Down to Switch Vehicles<br/>";
 
+garageIsOpen = true;
 [_initialType, "GARAGE", _extraMessage] call A3A_fnc_vehPlacementBegin;
 
 /*

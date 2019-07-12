@@ -7,6 +7,7 @@ CALLBACK_VEH_PLACEMENT_CANCELLED - No parameters, no return needed
 CALLBACK_SHOULD_CANCEL_PLACEMENT - Passed a temporary preview vehicle, return format [shouldCancel: bool, messageOnCancel: string]
 CALLBACK_CAN_PLACE_VEH - Passed a temporary preview vehicle, return format [canPlace: bool, messageOnUnableTo: string]
 CALLBACK_VEH_PLACEMENT_CLEANUP - Passed nothing, no return needed. Called just before vehicle placement totally finishes. Should always be called.
+CALLBACK_VEH_IS_VALID_LOCATION - Passed position, direction and vehicle preview. Return format [canPlace: bool, messageOnUnableTo: string]
 */
 
 switch (_callbackTarget) do {
@@ -25,13 +26,16 @@ switch (_callbackTarget) do {
 				};
 				[false];
 			};
-		
-			case CALLBACK_CAN_PLACE_VEH: {
-				private _previewVeh = _callbackParams select 0;
-				if (_previewVeh distance2d player > 50) exitWith 
+			
+			case CALLBACK_VEH_IS_VALID_LOCATION: {
+				private _pos = _callbackParams select 0;
+				if (_pos distance2d player > 50) exitWith 
 				{
 					[false, "Vehicles must be placed within 50m of the flag"];
 				};
+			};
+		
+			case CALLBACK_CAN_PLACE_VEH: {
 				if (!(player inArea garage_nearestMarker)) exitWith 
 				{
 					[false, "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"];
@@ -89,13 +93,16 @@ switch (_callbackTarget) do {
 				};
 				[false];
 			};
-		
-			case CALLBACK_CAN_PLACE_VEH: {
-				private _previewVeh = _callbackParams select 0;
-				if (_previewVeh distance2d player > 50) exitWith 
+			
+			case CALLBACK_VEH_IS_VALID_LOCATION: {
+				private _pos = _callbackParams select 0;
+				if (_pos distance2d player > 50) exitWith 
 				{
 					[false, "Vehicles must be placed within 50m of the flag"];
 				};
+			};
+		
+			case CALLBACK_CAN_PLACE_VEH: {
 				if (!(player inArea vehiclePurchase_nearestMarker)) exitWith 
 				{
 					[false, "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"];
@@ -153,6 +160,10 @@ switch (_callbackTarget) do {
 		
 			case CALLBACK_SHOULD_CANCEL_PLACEMENT: {
 				[false];
+			};
+			
+			case CALLBACK_VEH_IS_VALID_LOCATION: {
+				[true];
 			};
 		
 			case CALLBACK_CAN_PLACE_VEH: {

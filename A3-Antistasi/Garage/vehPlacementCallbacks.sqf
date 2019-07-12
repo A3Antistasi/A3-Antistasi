@@ -29,10 +29,11 @@ switch (_callbackTarget) do {
 			
 			case CALLBACK_VEH_IS_VALID_LOCATION: {
 				private _pos = _callbackParams select 0;
-				if (_pos distance2d player > 50) exitWith 
+				if (_pos distance2d (getMarkerPos garage_nearestMarker) > 50) exitWith 
 				{
 					[false, "Vehicles must be placed within 50m of the flag"];
 				};
+				[true];
 			};
 		
 			case CALLBACK_CAN_PLACE_VEH: {
@@ -96,10 +97,11 @@ switch (_callbackTarget) do {
 			
 			case CALLBACK_VEH_IS_VALID_LOCATION: {
 				private _pos = _callbackParams select 0;
-				if (_pos distance2d player > 50) exitWith 
+				if (_pos distance2d (getMarkerPos vehiclePurchase_nearestMarker) > 50) exitWith 
 				{
 					[false, "Vehicles must be placed within 50m of the flag"];
 				};
+				[true];
 			};
 		
 			case CALLBACK_CAN_PLACE_VEH: {

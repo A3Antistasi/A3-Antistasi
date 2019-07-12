@@ -37,19 +37,8 @@ if (!(_canPlaceArray select 0))	exitWith {
 	
 waitUntil {isNull vehPlace_previewVeh};
 
-private _garageVeh = createVehicle [_vehicleType, [0,0,1000], [], 0, "NONE"];
-_garageVeh setDir _dir;
-//Surely this overrides any collision checks createVehicle would have made?
-_garageVeh setPosASL _pos;
-
-clearMagazineCargoGlobal _garageVeh;
-clearWeaponCargoGlobal _garageVeh;
-clearItemCargoGlobal _garageVeh;
-clearBackpackCargoGlobal _garageVeh;
+[_vehicleType, _dir, _pos] call A3A_fnc_placeEmptyVehicle;
 
 [vehPlace_callbackTarget, CALLBACK_VEH_PLACED_SUCCESSFULLY, [_garageVeh]] call A3A_fnc_vehPlacementCallbacks;
-
-_garageVeh allowDamage true;
-_garageVeh enableSimulationGlobal true;
 
 [] call A3A_fnc_vehPlacementCleanup;

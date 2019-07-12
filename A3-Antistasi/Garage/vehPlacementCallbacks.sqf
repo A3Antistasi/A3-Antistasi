@@ -7,7 +7,7 @@ CALLBACK_VEH_PLACEMENT_CANCELLED - No parameters, no return needed
 CALLBACK_SHOULD_CANCEL_PLACEMENT - Passed a temporary preview vehicle, return format [shouldCancel: bool, messageOnCancel: string]
 CALLBACK_CAN_PLACE_VEH - Passed a temporary preview vehicle, return format [canPlace: bool, messageOnUnableTo: string]
 CALLBACK_VEH_PLACEMENT_CLEANUP - Passed nothing, no return needed. Called just before vehicle placement totally finishes. Should always be called.
-CALLBACK_VEH_IS_VALID_LOCATION - Passed position, direction and vehicle preview. Return format [canPlace: bool, messageOnUnableTo: string]
+CALLBACK_VEH_IS_VALID_LOCATION - Passed position, direction and vehicle class. Return format [canPlace: bool, messageOnUnableTo: string]
 */
 
 switch (_callbackTarget) do {

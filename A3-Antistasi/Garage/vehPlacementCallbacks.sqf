@@ -2,12 +2,13 @@
 params ["_callbackTarget", "_callbackType", ["_callbackParams", []]];
 
 /* 
-CALLBACK_VEH_PLACED_SUCCESSFULLY - Passed the created vehicle, no return needed
+CALLBACK_VEH_PLACED_SUCCESSFULLY - Passed the created vehicle, no return needed. Only called if vehicle successfully created.
 CALLBACK_VEH_PLACEMENT_CANCELLED - No parameters, no return needed
 CALLBACK_SHOULD_CANCEL_PLACEMENT - Passed a temporary preview vehicle, return format [shouldCancel: bool, messageOnCancel: string]
 CALLBACK_CAN_PLACE_VEH - Passed a temporary preview vehicle, return format [canPlace: bool, messageOnUnableTo: string]
 CALLBACK_VEH_PLACEMENT_CLEANUP - Passed nothing, no return needed. Called just before vehicle placement totally finishes. Should always be called.
 CALLBACK_VEH_IS_VALID_LOCATION - Passed position, direction and vehicle class. Return format [canPlace: bool, messageOnUnableTo: string]
+CALLBACK_VEH_CUSTOM_CREATE_VEHICLE - Given a class, position and direction. Return vehicle created.
 */
 
 switch (_callbackTarget) do {
@@ -75,6 +76,11 @@ switch (_callbackTarget) do {
 					_garageVeh setVariable ["ownerX",getPlayerUID player,true];
 					};
 				if (_garageVeh isKindOf "StaticWeapon") then {staticsToSave pushBack _garageVeh; publicVariable "staticsToSave"};
+			};
+			
+			case CALLBACK_VEH_CUSTOM_CREATE_VEHICLE: {
+				_callbackParams params ["_vehicleType", "_pos", "_dir"];
+				[_vehicleType, _pos, _dir] call A3A_fnc_placeEmptyVehicle;
 			};
 		};
 	};
@@ -147,6 +153,11 @@ switch (_callbackTarget) do {
 				player reveal _purchasedVeh;
 				petros directSay "SentGenBaseUnlockVehicle";
 			};
+			
+			case CALLBACK_VEH_CUSTOM_CREATE_VEHICLE: {
+				_callbackParams params ["_vehicleType", "_pos", "_dir"];
+				[_vehicleType, _pos, _dir] call A3A_fnc_placeEmptyVehicle;
+			};
 		};
 	};
 	
@@ -174,6 +185,12 @@ switch (_callbackTarget) do {
 		
 			case CALLBACK_VEH_PLACED_SUCCESSFULLY: {
 				//No return needed.
+			};
+			
+			case CALLBACK_VEH_CUSTOM_CREATE_VEHICLE: {
+				_callbackParams params ["_vehicleType", "_pos", "_dir"];
+				diag_log format ["%1 %2 %3", _vehicleType, _pos, _dir];
+				[_vehicleType, _pos, _dir] call A3A_fnc_placeEmptyVehicle;
 			};
 		};
 	};

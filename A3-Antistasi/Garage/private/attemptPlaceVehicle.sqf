@@ -1,7 +1,7 @@
 #include "..\defineCommon.inc"
 
 //vehPlace_lastPreviewPosition = nil;
-_pos = getPosASL vehPlace_previewVeh;
+_pos = getPos vehPlace_previewVeh;
 _dir = getDir vehPlace_previewVeh;
 _vehicleType = typeOf vehPlace_previewVeh;
 deleteVehicle vehPlace_previewVeh;
@@ -37,8 +37,11 @@ if (!(_canPlaceArray select 0))	exitWith {
 	
 waitUntil {isNull vehPlace_previewVeh};
 
-[_vehicleType, _dir, _pos] call A3A_fnc_placeEmptyVehicle;
 
-[vehPlace_callbackTarget, CALLBACK_VEH_PLACED_SUCCESSFULLY, [_garageVeh]] call A3A_fnc_vehPlacementCallbacks;
+private _garageVeh = [vehPlace_callbackTarget, CALLBACK_VEH_CUSTOM_CREATE_VEHICLE, [_vehicleType, _pos, _dir]] call A3A_fnc_vehPlacementCallbacks;
+
+if(!(isNil "_garageVeh") && {typeName _garageVeh == "OBJECT"}) then {
+	[vehPlace_callbackTarget, CALLBACK_VEH_PLACED_SUCCESSFULLY, [_garageVeh]] call A3A_fnc_vehPlacementCallbacks;
+};
 
 [] call A3A_fnc_vehPlacementCleanup;

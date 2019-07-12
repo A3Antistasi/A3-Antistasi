@@ -169,6 +169,7 @@ class A3A
 		//Public API - Call these to do things
 		class garage {file="Garage\garage2.sqf";};
 		class garageVehicle {file="Garage\garageVehicle.sqf";};
+		class placeEmptyVehicle {file="Garage\placeEmptyVehicle.sqf";};
 		class vehPlacementBegin {file="Garage\vehPlacementBegin.sqf";};
 		class vehPlacementCallbacks {file="Garage\vehPlacementCallbacks.sqf";};
 		class vehPlacementCancel {file="Garage\vehPlacementCancel.sqf";};
@@ -177,6 +178,7 @@ class A3A
 		class attemptPlaceVehicle {file="Garage\private\attemptPlaceVehicle.sqf";};
 		class displayVehiclePlacementMessage {file="Garage\private\displayVehiclePlacementMessage.sqf";};
 		class handleVehPlacementCancelled {file="Garage\private\handleVehPlacementCancelled.sqf";};
+		
 		class vehPlacementCleanup {file="Garage\private\vehPlacementCleanup.sqf";};
 	}
 

@@ -13,12 +13,26 @@ else
 	hint "Walk to the selected position to start building";
 };
 
+build_targetLocation = _positionX;
+build_atBuildLocation = false;
+
+addMissionEventHandler ["Draw3D", {
+	if (build_atBuildLocation) exitWith {
+		removeMissionEventHandler ["Draw3D", _thisEventHandler];
+	};
+	drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_search_ca.paa", [1,1,1,1], build_targetLocation, 1,1,0,"Build", 0, 0.05, "PuristaMedium"];
+}];
+
 waitUntil {sleep 1;(time > _timeOut) or (build_engineerSelected distance _positionX < 3)};
 
 if (time > _timeOut) exitWith 
 {
 	hint "You didn't move to the position, construction has timed out.";
 };
+
+build_atBuildLocation = true;
+build_targetLocation = nil;
+
 
 if (build_cost > 0) then
 	{

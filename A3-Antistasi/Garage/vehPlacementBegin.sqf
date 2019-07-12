@@ -75,7 +75,8 @@ if(isNil "vehPlace_keyDownHandler")	then {
 	}];
 };
 	
-vehPlace_lastPreviewPosition = [0,0,0];
+vehPlace_updatedLookPosition = [0,0,0];
+vehPlace_lastLookPosition = [0,0,0];
 addMissionEventHandler ["EachFrame",
 	{
 	private _shouldExitHandler = false;
@@ -141,12 +142,21 @@ addMissionEventHandler ["EachFrame",
 	];
 	if (count _ins == 0) exitWith {};
 	private _pos = ASLtoATL ((_ins select 0) select 0);
-	private _placementPos = _pos findEmptyPosition [0, 20, typeOf vehPlace_previewVeh];
-	// Do nothing else if we can't find an empty position
+	if (_pos distance vehPlace_lastLookPosition < 0.1) exitWith {};
+	vehPlace_lastLookPosition =	_pos;
+	//Only update the position when we're looking a certain distance away from the position we were looking at when we last placed the preview.
+	//Helps avoid lots of rapid, potentially large changes in position.
+	if (_pos distance vehPlace_updatedLookPosition < 0.5) exitWith {};
+	
+	//Gradually increase the search distance, to try to avoid large jumps in position.
+	private _placementPos = [];
+	for "_maxDist" from 0 to 10 step 5 do {
+		_placementPos =	_pos findEmptyPosition [0, _maxDist, typeOf vehPlace_previewVeh];
+		if (count _placementPos > 0) exitWith {};
+	};
+	
+	// Make it vanish if we can't find an empty position
 	if (count (_placementPos) == 0) exitWith {vehPlace_previewVeh setPosASL [0,0,0]};
-	// If we're too close to the last position, don't do anything
-	if (_placementPos distance vehPlace_lastPreviewPosition < 0.1) exitWith {};
-	vehPlace_lastPreviewPosition = _placementPos;
 	// If vehicle is a boat, make sure it spawns at sea level?
 	_shipX = false;
 	if (vehPlace_previewVeh isKindOf "Ship") then {_placementPos set [2,0]; _shipX = true};
@@ -157,6 +167,7 @@ addMissionEventHandler ["EachFrame",
 	if (_shipX and {!_water}) exitWith {vehPlace_previewVeh setPosASL [0,0,0]};
 	if (!_shipX and {_water}) exitWith {vehPlace_previewVeh setPosASL [0,0,0]};
 	// If all checks pass, set position of preview and orient it to the ground
+	vehPlace_updatedLookPosition =	_pos;
 	vehPlace_previewVeh setPosATL _placementPos;
 	vehPlace_previewVeh setVectorUp (_chosenIntersection select 1);
 	}];

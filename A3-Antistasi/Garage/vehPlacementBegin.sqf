@@ -96,7 +96,7 @@ addMissionEventHandler ["EachFrame",
 				};
 			case VEHPLACE_ACTION_RELOAD: 
 				{
-					if (isNil "vehPlace_nextVehType") exitWith {diag_log "[Antistasi] Warning: Attempting to refresh garage vehicle, but no new type set.";};
+					if (isNil "vehPlace_nextVehType") exitWith {diag_log "[Antistasi] Warning: Attempting to refresh placed vehicle, but no new type set.";};
 					private _typeX = vehPlace_nextVehType;
 					if (typeName _typeX != typeName "") exitWith {};
 					
@@ -154,12 +154,19 @@ addMissionEventHandler ["EachFrame",
 		_placementPos =	_pos findEmptyPosition [0, _maxDist, typeOf vehPlace_previewVeh];
 		if (count _placementPos > 0) exitWith {};
 	};
-	
 	// Make it vanish if we can't find an empty position
 	if (count (_placementPos) == 0) exitWith {vehPlace_previewVeh setPosASL [0,0,0]};
+	
+	// Check if the current location is valid - hide the vehicle if not
+	private _isValidLocationArray = [vehPlace_callbackTarget, CALLBACK_VEH_IS_VALID_LOCATION, [_placementPos, getDir vehPlace_previewVeh, typeOf vehPlace_previewVeh]] call A3A_fnc_vehPlacementCallbacks;
+	if (!(_isValidLocationArray select 0)) exitWith {
+		vehPlace_previewVeh setPosASL [0,0,0];
+	};
+	
 	// If vehicle is a boat, make sure it spawns at sea level?
 	_shipX = false;
 	if (vehPlace_previewVeh isKindOf "Ship") then {_placementPos set [2,0]; _shipX = true};
+	
 	// Do nothing if destination too far
 	if (_placementPos distance2d player > 100)exitWith {vehPlace_previewVeh setPosASL [0,0,0]};
 	// Ships only spawn on water, and cars can't spawn on water

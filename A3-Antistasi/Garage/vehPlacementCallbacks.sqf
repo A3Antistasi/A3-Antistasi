@@ -161,6 +161,55 @@ switch (_callbackTarget) do {
 		};
 	};
 	
+	case "BUILDSTRUCTURE": {
+		switch (_callbackType) do {
+			case CALLBACK_VEH_PLACEMENT_CLEANUP: {
+				build_handleDamageHandler =	player removeEventHandler ["HandleDamage", build_handleDamageHandler];
+			};
+		
+			case CALLBACK_VEH_PLACEMENT_CANCELLED: {
+				hint "Construction cancelled";
+			};
+		
+			case CALLBACK_SHOULD_CANCEL_PLACEMENT: {
+				[false];
+			};
+			
+			case CALLBACK_VEH_IS_VALID_LOCATION: {
+				private _pos =	_callbackParams param [0];
+				switch (build_type) do {
+					case "RB": {
+						[isOnRoad _pos, "Roadblocks can only be built on roads"];
+					};
+					case "SB": {
+						[!(isOnRoad _pos) && _pos inArea build_nearestFriendlyMarker, "Bunkers can only be built off roads, in friendly areas"];
+					};
+					case "CB": {
+						[!(isOnRoad _pos) && _pos inArea build_nearestFriendlyMarker, "Bunkers can only be built off roads, in friendly areas"];
+					};
+					default {
+						[true];
+					};
+				};
+			};
+		
+			case CALLBACK_CAN_PLACE_VEH: {
+				[true];
+			};
+		
+			case CALLBACK_VEH_PLACED_SUCCESSFULLY: {
+				//No return needed.
+			};
+			
+			case CALLBACK_VEH_CUSTOM_CREATE_VEHICLE: {
+				_callbackParams params ["_vehicleType", "_pos", "_dir"];
+				[_vehicleType, _pos, _dir] spawn A3A_fnc_buildCreateVehicleCallback;
+				//Explcitly return nil. We're letting the spawned script handle building from here.
+				nil;
+			};
+		};
+	};
+	
 	default {
 		switch (_callbackType) do {
 			case CALLBACK_VEH_PLACEMENT_CLEANUP: {

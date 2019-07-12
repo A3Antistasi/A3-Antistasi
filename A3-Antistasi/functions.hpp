@@ -227,8 +227,9 @@ class A3A
         class addFIAveh {file="REINF\addFIAveh.sqf";};
         class addSquadVeh {file="REINF\addSquadVeh.sqf";};
         class autoGarrison {file="REINF\autoGarrison.sqf";};
+        class build {file="REINF\Building\build.sqf";};
+        class buildCreateVehicleCallback {file="REINF\Building\buildCreateVehicleCallback.sqf";};
         class buildMinefield {file="REINF\buildMinefield.sqf";};
-        class build {file="REINF\build.sqf";};
         class enemyNearCheck {file="REINF\enemyNearCheck.sqf";};
         class FIAinit {file="REINF\FIAinit.sqf";};
         class FIAskillAdd {file="REINF\FIAskillAdd.sqf";};

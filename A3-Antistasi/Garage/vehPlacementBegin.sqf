@@ -143,7 +143,7 @@ addMissionEventHandler ["EachFrame",
 	];
 	if (count _ins == 0) exitWith {};
 	private _pos = ASLtoAGL ((_ins select 0) select 0);
-	if (_pos distance vehPlace_lastLookPosition < 0.1) exitWith {};
+	if (_pos distance vehPlace_lastLookPosition < 0.01) exitWith {};
 	vehPlace_lastLookPosition =	_pos;
 
 	private _placementPos = [];

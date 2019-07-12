@@ -27,6 +27,11 @@ switch (_callbackTarget) do {
 			};
 		
 			case CALLBACK_CAN_PLACE_VEH: {
+				private _previewVeh = _callbackParams select 0;
+				if (_previewVeh distance2d player > 50) exitWith 
+				{
+					[false, "Vehicles must be placed within 50m of the flag"];
+				};
 				if (!(player inArea garage_nearestMarker)) exitWith 
 				{
 					[false, "You need to be close to one of your garrisons to be able to retrieve a vehicle from your garage"];
@@ -43,6 +48,8 @@ switch (_callbackTarget) do {
 				[_garageVeh] call A3A_fnc_AIVEHinit;
 
 				if (_garageVeh isKindOf "Car") then {_garageVeh setPlateNumber format ["%1",name player]};
+				
+				//Handle Garage removal
 				private _newArr = [];
 				private _found = false;
 				if (garage_mode == GARAGE_FACTION) then

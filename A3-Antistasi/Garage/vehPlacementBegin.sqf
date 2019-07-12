@@ -149,16 +149,14 @@ addMissionEventHandler ["EachFrame",
 	private _placementPos = [];
 	//Just use the current position, if we're in 'Precision' mode
 	if (inputAction "turbo" > 0) then {
-		diag_log "Precision!";
 		private _validPos = _pos findEmptyPosition [0, 0, typeOf vehPlace_previewVeh];	
 		if (count _validPos > 0) then {
 			_placementPos = _pos;
 		};
 	} else {
-		diag_log "Normal!";
 		//Only update the position when we're looking a certain distance away from the position we were looking at when we last placed the preview.
 		//Helps avoid lots of rapid, potentially large changes in position.
-		//if (_pos distance vehPlace_updatedLookPosition < 0.5) then {breakOut "handler";};
+		if (_pos distance vehPlace_updatedLookPosition < 0.5) then {breakOut "handler";};
 		//Gradually increase the search distance, to try to avoid large jumps in position.
 		for "_maxDist" from 0 to 10 step 5 do {
 			_placementPos =	_pos findEmptyPosition [0, _maxDist, typeOf vehPlace_previewVeh];

@@ -29,7 +29,6 @@ if (activeGREF) then
 		};
 	};
 if (_exit) exitWith {};
-garageVeh = objNull;
 _esinf = false;
 _typeVehX = "";
 _costs = 0;
@@ -72,13 +71,13 @@ else
 		_costs = _costs + ([vehSDKTruck] call A3A_fnc_vehiclePrice)
 		};
 	};
-if ((_withBackpck != "") and hasIFA) exitWith {hint "Your current modset does not support packing / unpacking static weapons"; garageVeh = nil};
+if ((_withBackpck != "") and hasIFA) exitWith {hint "Your current modset does not support packing / unpacking static weapons";};
 
 if (_hr < _costHR) then {_exit = true;hint format ["You do not have enough HR for this request (%1 required)",_costHR]};
 
 if (_resourcesFIA < _costs) then {_exit = true;hint format ["You do not have enough money for this request (%1 € required)",_costs]};
 
-if (_exit) exitWith {garageVeh = nil};
+if (_exit) exitWith {};
 
 _nul = [- _costHR, - _costs] remoteExec ["A3A_fnc_resourcesFIA",2];
 
@@ -165,7 +164,7 @@ theBoss hcSetGroup [_groupX];
 petros directSay "SentGenReinforcementsArrived";
 hint format ["Group %1 at your command.\n\nGroups are managed from the High Command bar (Default: CTRL+SPACE)\n\nIf the group gets stuck, use the AI Control feature to make them start moving. Mounted Static teams tend to get stuck (solving this is WiP)\n\nTo assign a vehicle for this group, look at some vehicle, and use Vehicle Squad Mngmt option in Y menu", groupID _groupX];
 
-if (!_esinf) exitWith {garageVeh = nil};
+if (!_esinf) exitWith {};
 if !(_bypassAI) then {_groupX spawn A3A_fnc_attackDrillAI};
 
 if (count _formatX == 2) then
@@ -186,7 +185,7 @@ else
 
 _costs = [_typeVehX] call A3A_fnc_vehiclePrice;
 private ["_display","_childControl"];
-if (_costs > server getVariable "resourcesFIA") exitWith {garageVeh = nil};
+if (_costs > server getVariable "resourcesFIA") exitWith {};
 
 _nul = createDialog "veh_query";
 
@@ -204,7 +203,6 @@ if (str (_display) != "no display") then
 	};
 
 waitUntil {(!dialog) or (!isNil "vehQuery")};
-garageVeh = nil;
 if ((!dialog) and (isNil "vehQuery")) exitWith {};
 
 //if (!vehQuery) exitWith {vehQuery = nil};

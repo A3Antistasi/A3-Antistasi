@@ -74,11 +74,12 @@ if(isNil "vehPlace_keyDownHandler")	then {
 		_handled;
 	}];
 };
-	
+
 vehPlace_updatedLookPosition = [0,0,0];
 vehPlace_lastLookPosition = [0,0,0];
 addMissionEventHandler ["EachFrame",
 	{
+	scopeName "handler";
 	private _shouldExitHandler = false;
 	if (vehPlace_actionToAttempt != VEHPLACE_NO_ACTION) then 
 		{
@@ -144,15 +145,25 @@ addMissionEventHandler ["EachFrame",
 	private _pos = ASLtoAGL ((_ins select 0) select 0);
 	if (_pos distance vehPlace_lastLookPosition < 0.1) exitWith {};
 	vehPlace_lastLookPosition =	_pos;
-	//Only update the position when we're looking a certain distance away from the position we were looking at when we last placed the preview.
-	//Helps avoid lots of rapid, potentially large changes in position.
-	if (_pos distance vehPlace_updatedLookPosition < 0.5) exitWith {};
-	
-	//Gradually increase the search distance, to try to avoid large jumps in position.
+
 	private _placementPos = [];
-	for "_maxDist" from 0 to 10 step 5 do {
-		_placementPos =	_pos findEmptyPosition [0, _maxDist, typeOf vehPlace_previewVeh];
-		if (count _placementPos > 0) exitWith {};
+	//Just use the current position, if we're in 'Precision' mode
+	if (inputAction "turbo" > 0) then {
+		diag_log "Precision!";
+		private _validPos = _pos findEmptyPosition [0, 0, typeOf vehPlace_previewVeh];	
+		if (count _validPos > 0) then {
+			_placementPos = _pos;
+		};
+	} else {
+		diag_log "Normal!";
+		//Only update the position when we're looking a certain distance away from the position we were looking at when we last placed the preview.
+		//Helps avoid lots of rapid, potentially large changes in position.
+		//if (_pos distance vehPlace_updatedLookPosition < 0.5) then {breakOut "handler";};
+		//Gradually increase the search distance, to try to avoid large jumps in position.
+		for "_maxDist" from 0 to 10 step 5 do {
+			_placementPos =	_pos findEmptyPosition [0, _maxDist, typeOf vehPlace_previewVeh];
+			if (count _placementPos > 0) exitWith {};
+		};
 	};
 	// Make it vanish if we can't find an empty position
 	if (count (_placementPos) == 0) exitWith {vehPlace_previewVeh setPosASL [0,0,0]};

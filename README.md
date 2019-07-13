@@ -1,5 +1,19 @@
-# !!!PLEASE NOTE THAT THIS README NEEDS TO BE UPDATED - LINKS AS WELL AS WORKSHOP COLLECTIONS MIGHT BE OUT OF DATE!!!
+# How to play AntiStasi
+Please note that this GitHub is still work-in-process.
+Therefore, if you would like to play AntiStasi 1.4, following we have posted a plug & play pbos as well as a tested modsets:
 
+Mission for AntiStasi Greenfor on Altis:
+https://drive.google.com/file/d/1ikZvMKImjiNzNf9-v7WwMgdWO3Etjg0l/view?usp=sharing
+
+Mission for AntiStasi Blufor on Altis:
+https://drive.google.com/file/d/11IizoCcmdBUspYKUfoRnaYq-39GaoDx8/view?usp=sharing
+
+Mission for AntiStasi Greenfor on Tanoa:
+https://drive.google.com/file/d/1LxGvHZXw-g_mOdp5vCu_pRYFFGmLviGV/view?usp=sharing
+
+
+Tested modest for the three missions:
+https://drive.google.com/file/d/11SGGS1AaNWgpJhKFAderloAsS6YiqWra/view?usp=sharing
 
 
 
@@ -14,6 +28,7 @@ Bugfixing will start.
 Please note that this fork of A3-AntiStasi is momentarily undergoing the translation from spanish to english. This is done by me (Bob Murphy) as well as other members and admins of the Official A3-AntiStasi Community.
 Once the translation is completed, we will apply bug fixes and will add further content to the mission.
 
+# !!!PLEASE NOTE THAT THIS README NEEDS TO BE UPDATED - information as well as links below this message could be outdated.
 # A3-Antistasi
 
 A Persistent Whole Map Mission, for SP or MP co-op, focused on Resistance, Infantry and Guerrilla Tactics.

@@ -1,3 +1,5 @@
+#include "defineCommon.inc"
+
 private ["_pool","_veh","_typeVehX"];
 _pool = false;
 if (_this select 0) then {_pool = true};

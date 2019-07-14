@@ -123,6 +123,13 @@ _arrayContains = {
 	(param[0]) findIf { toLower(_x) == _item } != -1
 };
 
+private _ammoCountToMags = {
+	params ["_item", "_count"];
+	private _magSize = getNumber (configfile >> "CfgMagazines" >> _item >> "count");
+	//Return
+	_amount / _magSize;
+};
+
 _mode = [_this,0,"Open",[displaynull,""]] call bis_fnc_param;
 _this = [_this,1,[]] call bis_fnc_param;
 //if!(_mode in ["draw3D","ListCurSel"])then{diag_log ("jna call "+_mode);};
@@ -861,13 +868,17 @@ switch _mode do {
 						case (ctrlenabled (_display displayctrl (IDC_RSCDISPLAYARSENAL_LIST + IDC_RSCDISPLAYARSENAL_TAB_UNIFORM))): {uniformContainer player};
 						case (ctrlenabled (_display displayctrl (IDC_RSCDISPLAYARSENAL_LIST + IDC_RSCDISPLAYARSENAL_TAB_VEST))): {vestContainer player};
 						case (ctrlenabled (_display displayctrl (IDC_RSCDISPLAYARSENAL_LIST + IDC_RSCDISPLAYARSENAL_TAB_BACKPACK))): {backpackContainer player};
-						default {""};
+						default {objNull};
 					};
 
-					_items =  if(_idc == IDC_RSCDISPLAYARSENAL_TAB_CARGOMISC)then{
-						itemCargo _container;
-					}else{
-						magazinesAmmoCargo _container;
+					_items = if (!isNull _container) then {
+						if(_idc == IDC_RSCDISPLAYARSENAL_TAB_CARGOMISC)then{
+							itemCargo _container;
+						} else {
+							magazinesAmmoCargo _container;
+						};
+					} else {
+						[];
 					};
 
 					for "_l" from 0 to ((lnbsize _ctrlList select 0) - 1) do {
@@ -1184,7 +1195,7 @@ switch _mode do {
 					}
 				};
 
-				if(_amount <= 0 && {
+				if(_amount == 0 && {
 					if _type then{
 						(parseNumber (_ctrlList lnbText [_l,2]) == 0);
 					}else{
@@ -1961,8 +1972,14 @@ switch _mode do {
 		for "_r" from 0 to (_rows - 1) do {
 			_dataStr = _ctrlList lnbData [_r,0];
 			_data = call compile _dataStr;
+			_item = _data select 0;
 			_amount = _data select 1;
 			_grayout = false;
+	
+			if (_index == IDC_RSCDISPLAYARSENAL_TAB_CARGOMAG || _index ==	IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL && _amount > 0) then {
+				_amount = [_item, _amount] call _ammoCountToMags;
+			};
+
 			if ((_amount <= _min) AND (_amount != -1) AND (_amount !=0) AND !([player] call A3A_fnc_isMember)) then{_grayout = true};
 
 			_isIncompatible = _ctrlList lnbvalue [_r,1];
@@ -1999,6 +2016,12 @@ switch _mode do {
 		_data = call compile _dataStr;
 		_item = _data select 0;
 		_amount = _data select 1;
+		//Number of magazines if item is ammo, or _amount otherwise
+		_numberOfMags = _amount;
+
+		if(_index in [IDC_RSCDISPLAYARSENAL_TAB_CARGOMAG,IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL] && _amount > 0) then {
+				_numberOfMags = [_item, _amount] call _ammoCountToMags;
+		};
 
 		_load = 0;
 		_items = [];
@@ -2020,7 +2043,8 @@ switch _mode do {
 
 			if (_add > 0) then {//add
 				_min = jna_minItemMember select _index;
-				if((_amount <= _min) AND (_amount != -1) AND !([player] call A3A_fnc_isMember)) exitWith{
+
+				if((_numberOfMags <= _min) AND (_amount != -1) AND !([player] call A3A_fnc_isMember)) exitWith{
 					['showMessage',[_display,"We are low on this item, only members may use it"]] call jn_fnc_arsenal;
 				};
 				if(_index in [IDC_RSCDISPLAYARSENAL_TAB_CARGOMAG,IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL])then{//magazines are handeld by bullet count

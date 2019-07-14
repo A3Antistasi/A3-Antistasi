@@ -1,3 +1,5 @@
+#include "Garage\defineCommon.inc"
+
 private ["_flag","_typeX"];
 
 if (!hasInterface) exitWith {};
@@ -86,12 +88,12 @@ switch _typeX do
 		{
 		if (isMultiplayer) then
 			{
-			_flag addAction ["Personal Garage", {nul = [true] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
-			_flag addAction ["Faction Garage", {nul = [false] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
+			_flag addAction ["Personal Garage", {nul = [GARAGE_PERSONAL] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
+			_flag addAction ["Faction Garage", {nul = [GARAGE_FACTION] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
 			}
 		else
 			{
-			_flag addAction ["Faction Garage", {nul = [false] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]
+			_flag addAction ["Faction Garage", {nul = [GARAGE_FACTION] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]
 			};
 		};
 	case "fireX":
@@ -109,12 +111,12 @@ switch _typeX do
 		_flag addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4];
 		if (isMultiplayer) then
 			{
-			_flag addAction ["Personal Garage", {nul = [true] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4];
-			_flag addAction ["Faction Garage", {nul = [false] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4];
+			_flag addAction ["Personal Garage", {nul = [GARAGE_PERSONAL] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4];
+			_flag addAction ["Faction Garage", {nul = [GARAGE_FACTION] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4];
 			}
 		else
 			{
-			_flag addAction ["Faction Garage", {nul = [false] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]
+			_flag addAction ["Faction Garage", {nul = [GARAGE_FACTION] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]
 			};
 		};
 	};

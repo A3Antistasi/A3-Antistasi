@@ -10,6 +10,9 @@ _inWaves = false;
 _sideX = Occupants;
 _posOrigin = [];
 _posDestination = [];
+
+diag_log format ["[Antistasi] Spawning PatrolCA at %1 from %2 of type %3 (patrolCA.sqf)", _markerX, _airportX, _typeOfAttack];
+
 if ([_markerX,false] call A3A_fnc_fogCheck < 0.3) exitWith {diag_log format ["Antistasi PatrolCA: Attack on %1 exit because of heavy fog",_markerX]};
 if (_airportX isEqualType "") then
 	{

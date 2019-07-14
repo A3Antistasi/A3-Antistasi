@@ -25,14 +25,14 @@ class A3A
         class flagaction {file="flagaction.sqf";};
         class fn_location {file="fn_location.sqf";};
         class fogCheck {file="fogCheck.sqf";};
-        class garage {file="garage2.sqf";};
-        class garageVehicle {file="garageVehicle.sqf";};
         class garbageCleaner {file="garbageCleaner.sqf";};
+        class groupCleaner {file="groupCleaner.sqf";};
         class garrisonInfo {file="garrisonInfo.sqf";};
         class intelFound {file="intelFound.sqf";};
         class isFrontline {file="isFrontline.sqf";};
         class isTheSameIsland {file="isTheSameIsland.sqf";};
         class localizar {file="localizar.sqf";};
+        class logPerformance {file="logPerformance.sqf";};
         class markerChange {file="markerChange.sqf";};
         class moveHQ {file="moveHQ.sqf";};
         class mrkUpdate {file="mrkUpdate.sqf";};
@@ -164,6 +164,24 @@ class A3A
 	{
 		class mineDialog {file="Dialogs\mineDialog.sqf";};
 	}
+	
+	class Garage
+	{
+		//Public API - Call these to do things
+		class garage {file="Garage\garage2.sqf";};
+		class garageVehicle {file="Garage\garageVehicle.sqf";};
+		class placeEmptyVehicle {file="Garage\placeEmptyVehicle.sqf";};
+		class vehPlacementBegin {file="Garage\vehPlacementBegin.sqf";};
+		class vehPlacementCallbacks {file="Garage\vehPlacementCallbacks.sqf";};
+		class vehPlacementCancel {file="Garage\vehPlacementCancel.sqf";};
+		class vehPlacementChangeVehicle {file="Garage\vehPlacementChangeVehicle.sqf";};
+		//Private - Do NOT call these elsewhere
+		class attemptPlaceVehicle {file="Garage\private\attemptPlaceVehicle.sqf";};
+		class displayVehiclePlacementMessage {file="Garage\private\displayVehiclePlacementMessage.sqf";};
+		class handleVehPlacementCancelled {file="Garage\private\handleVehPlacementCancelled.sqf";};
+		
+		class vehPlacementCleanup {file="Garage\private\vehPlacementCleanup.sqf";};
+	}
 
 	class Missions
 	{
@@ -210,8 +228,9 @@ class A3A
         class addFIAveh {file="REINF\addFIAveh.sqf";};
         class addSquadVeh {file="REINF\addSquadVeh.sqf";};
         class autoGarrison {file="REINF\autoGarrison.sqf";};
+        class build {file="REINF\Building\build.sqf";};
+        class buildCreateVehicleCallback {file="REINF\Building\buildCreateVehicleCallback.sqf";};
         class buildMinefield {file="REINF\buildMinefield.sqf";};
-        class build {file="REINF\build.sqf";};
         class enemyNearCheck {file="REINF\enemyNearCheck.sqf";};
         class FIAinit {file="REINF\FIAinit.sqf";};
         class FIAskillAdd {file="REINF\FIAskillAdd.sqf";};

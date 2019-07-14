@@ -5,6 +5,8 @@ _markerX = _this select 0;
 
 _base = _this select 1;
 
+diag_log format ["[Antistasi] Creating AAF Minefield at %1 (wavedCA.sqf)", _markerX];
+
 if (spawner getVariable _base != 2) exitWith {false};
 _posbase = getMarkerPos _base;
 _posMarker = getMarkerPos _markerX;

@@ -11,11 +11,12 @@ _mrkOrigin = _this select 1;
 _waves = _this select 2;
 if (_waves <= 0) then {_waves = -1};
 _size = [_mrkDestination] call A3A_fnc_sizeMarker;
-diag_log format ["Antistasi: Waved attack from %1 to %2. Waves: %3",_mrkOrigin,_mrkDestination,_waves];
 _tsk = "";
 _tsk1 = "";
 _posDestination = getMarkerPos _mrkDestination;
 _posOrigin = getMarkerPos _mrkOrigin;
+
+diag_log format ["[Antistasi] Spawning Waved Attack Against %1 from %2 with %3 waves (wavedCA.sqf)", _mrkDestination, _mrkOrigin,	_waves];
 
 _groups = [];
 _soldiersTotal = [];

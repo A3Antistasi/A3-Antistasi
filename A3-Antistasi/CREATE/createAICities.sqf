@@ -14,6 +14,8 @@ _sideX = sidesX getVariable [_markerX,sideUnknown];
 if ({if ((getMarkerPos _x inArea _markerX) and (sidesX getVariable [_x,sideUnknown] != _sideX)) exitWith {1}} count markersX > 0) exitWith {};
 _num = round (_num / 100);
 
+diag_log format ["[Antistasi] Spawning City Patrol in %1 (createAICities.sqf)", _markerX];
+
 _dataX = server getVariable _markerX;
 //_prestigeOPFOR = _dataX select 3;
 //_prestigeBLUFOR = _dataX select 4;

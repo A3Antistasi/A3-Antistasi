@@ -1,5 +1,7 @@
 private ["_soldiers","_vehiclesX","_groups","_base","_posBase","_roads","_typeCar","_arrayAirports","_arrayDestinations","_radiusX","_road","_veh","_vehCrew","_groupVeh","_groupX","_groupP","_distanceX","_spawnPoint"];
 
+diag_log "[Antistasi] Spawning AAF Road Patrol (AAFroadPatrol.sqf)";
+
 _soldiers = [];
 _vehiclesX = [];
 _groups = [];

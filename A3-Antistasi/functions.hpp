@@ -26,6 +26,7 @@ class A3A
         class fn_location {file="fn_location.sqf";};
         class fogCheck {file="fogCheck.sqf";};
         class garbageCleaner {file="garbageCleaner.sqf";};
+        class groupCleaner {file="groupCleaner.sqf";};
         class garrisonInfo {file="garrisonInfo.sqf";};
         class intelFound {file="intelFound.sqf";};
         class isFrontline {file="isFrontline.sqf";};

@@ -20,6 +20,7 @@ _vehicle allowDamage false;
 _vehicle enableSimulation false;
 
 _vehicle setPos _newPosition;
+_vehicle setVectorUp (surfaceNormal _newPosition);
 
 [_vehicle] spawn {
 	private _vehicle = param [0];

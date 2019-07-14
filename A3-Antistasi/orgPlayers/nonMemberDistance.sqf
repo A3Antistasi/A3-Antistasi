@@ -1,4 +1,6 @@
-_countX = 61;
+#define INITIAL_COUNT_TIME 61
+
+_countX = INITIAL_COUNT_TIME;
 while {!([player] call A3A_fnc_isMember)} do
 	{
 	_playerMembers = playableUnits select {([_x] call A3A_fnc_isMember) and (side group _x == teamPlayer)};
@@ -13,23 +15,31 @@ while {!([player] call A3A_fnc_isMember)} do
 				}
 			else
 				{
-				_countX = 61
+				_countX = INITIAL_COUNT_TIME;
 				};
 			}
 		else
 			{
-			_countX = 61;
+			_countX = INITIAL_COUNT_TIME;
 			};
 		}
 	else
 		{
-		_countX = 61;
+		_countX = INITIAL_COUNT_TIME;
 		};
-	if (_countX != 61) then
+	if (_countX != INITIAL_COUNT_TIME) then
 		{
 		hint format ["You have to get closer to the HQ or the closest server member in %1 seconds. \n\n After this timeout you will be teleported to your HQ",_countX];
 		sleep 1;
-		if (_countX == 0) then {player setPos (getMarkerPos respawnTeamPlayer)};
+		if (_countX == 0) then 
+			{
+			private _possibleVehicle = vehicle player;
+			if (_possibleVehicle != player && (driver _possibleVehicle) == player) then 
+				{
+				[_possibleVehicle] call A3A_fnc_teleportVehicleToBase;
+				};
+			player setPos (getMarkerPos respawnTeamPlayer);
+			};
 		}
 	else
 		{

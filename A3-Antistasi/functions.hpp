@@ -26,6 +26,7 @@ class A3A
         class fn_location {file="fn_location.sqf";};
         class fogCheck {file="fogCheck.sqf";};
         class garbageCleaner {file="garbageCleaner.sqf";};
+        class groupCleaner {file="groupCleaner.sqf";};
         class garrisonInfo {file="garrisonInfo.sqf";};
         class intelFound {file="intelFound.sqf";};
         class isFrontline {file="isFrontline.sqf";};
@@ -56,6 +57,7 @@ class A3A
         class sellVehicle {file="sellVehicle.sqf";};
         class sizeMarker {file="sizeMarker.sqf";};
         class statistics {file="statistics.sqf";};
+        class teleportVehicleToBase {file="teleportVehicleToBase.sqf";};
         class translateVariable {file="statSave\translateVariable.sqf";};
         class keys {file="keys.sqf";};
         class timingCA {file="timingCA.sqf";};

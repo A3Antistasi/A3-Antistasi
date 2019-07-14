@@ -1,4 +1,4 @@
-_playerX = player getVariable ["owner",player];
+`_playerX = player getVariable ["owner",player];
 
 if (_playerX getVariable ["eligible",true]) then
 	{
@@ -7,7 +7,7 @@ if (_playerX getVariable ["eligible",true]) then
 		{
 		hint "You resign of being Commander. Other will take the command if there is someone suitable for it.";
 		sleep 3;
-		[] remoteExec ["A3A_fnc_assigntheBoss",2];
+		[_playerX cursorObject] remoteExec ["A3A_fnc_assigntheBoss",2];
 		}
 	else
 		{

@@ -176,6 +176,13 @@ class A3A
 		class vehPlacementCallbacks {file="Garage\vehPlacementCallbacks.sqf";};
 		class vehPlacementCancel {file="Garage\vehPlacementCancel.sqf";};
 		class vehPlacementChangeVehicle {file="Garage\vehPlacementChangeVehicle.sqf";};
+		//Garage modifiers, public API
+		class addToPersonalGarage {file="Garage\personalGarage\addToPersonalGarage.sqf";};
+		class addToPersonalGarageLocal {file="Garage\personalGarage\addToPersonalGarageLocal.sqf";};
+		class getPersonalGarage {file="Garage\personalGarage\getPersonalGarage.sqf";};
+		class getPersonalGarageLocal {file="Garage\personalGarage\getPersonalGarageLocal.sqf";};
+		class setPersonalGarage {file="Garage\personalGarage\setPersonalGarage.sqf";};
+		class setPersonalGarageLocal {file="Garage\personalGarage\setPersonalGarageLocal.sqf";};
 		//Private - Do NOT call these elsewhere
 		class attemptPlaceVehicle {file="Garage\private\attemptPlaceVehicle.sqf";};
 		class displayVehiclePlacementMessage {file="Garage\private\displayVehiclePlacementMessage.sqf";};

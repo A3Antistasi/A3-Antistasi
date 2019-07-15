@@ -70,9 +70,8 @@ switch (_callbackTarget) do {
 					{
 					{
 						if ((_x != (garage_vehiclesAvailable select garage_vehicleIndex)) or (_found)) then {_newArr pushBack _x} else {_found = true};
-					} forEach personalGarage;
-					personalGarage = _newArr;
-					["personalGarage",_newArr] call fn_SaveStat;
+					} forEach ([] call A3A_fnc_getPersonalGarageLocal);
+					[_newArr] call A3A_fnc_setPersonalGarageLocal;
 					_garageVeh setVariable ["ownerX",getPlayerUID player,true];
 					};
 				if (_garageVeh isKindOf "StaticWeapon") then {staticsToSave pushBack _garageVeh; publicVariable "staticsToSave"};

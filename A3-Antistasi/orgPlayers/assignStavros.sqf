@@ -1,4 +1,4 @@
-params[["_suggestedLeader",objNull]]
+params[["_suggestedLeader",objNull]];
 private ["_puntMax","_textX","_multiplier","_newRank","_selectable","_disconnected","_owner","_pointsX","_dataX"];
 _puntMax = 0;
 _textX = "";

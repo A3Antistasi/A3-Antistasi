@@ -208,9 +208,11 @@ if (player getVariable ["pvp",false]) exitWith
 		}];
 	};
 
+player setVariable ["score",0,true];
 player setVariable ["owner",player,true];
 player setVariable ["punish",0,true];
 player setVariable ["moneyX",100,true];
+player setUnitRank "PRIVATE";
 player setVariable ["rankX",rank player,true];
 
 stragglers = creategroup teamPlayer;
@@ -415,7 +417,6 @@ if (isMultiplayer) then
 	["InitializePlayer", [player]] call BIS_fnc_dynamicGroups;//Exec on client
 	["InitializeGroup", [player,teamPlayer,true]] call BIS_fnc_dynamicGroups;
 	membershipEnabled = if ("membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
-	personalGarage = [];
 	if (membershipEnabled) then
 		{
 		if !([player] call A3A_fnc_isMember) then
@@ -436,10 +437,7 @@ waitUntil {scriptdone _introshot};
 if (_isJip) then
 	{
 	_nul = [] execVM "modBlacklist.sqf";
-	//player setVariable ["score",0,true];
-	//player setVariable ["owner",player,true];
 	player setVariable ["punish",0,true];
-	player setUnitRank "PRIVATE";
 	waitUntil {!isNil "posHQ"};
 	player setPos posHQ;
 	[true] execVM "reinitY.sqf";

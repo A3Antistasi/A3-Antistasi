@@ -57,6 +57,7 @@ class A3A
         class sellVehicle {file="sellVehicle.sqf";};
         class sizeMarker {file="sizeMarker.sqf";};
         class statistics {file="statistics.sqf";};
+        class teleportVehicleToBase {file="teleportVehicleToBase.sqf";};
         class translateVariable {file="statSave\translateVariable.sqf";};
         class keys {file="keys.sqf";};
         class timingCA {file="timingCA.sqf";};
@@ -175,6 +176,13 @@ class A3A
 		class vehPlacementCallbacks {file="Garage\vehPlacementCallbacks.sqf";};
 		class vehPlacementCancel {file="Garage\vehPlacementCancel.sqf";};
 		class vehPlacementChangeVehicle {file="Garage\vehPlacementChangeVehicle.sqf";};
+		//Garage modifiers, public API
+		class addToPersonalGarage {file="Garage\personalGarage\addToPersonalGarage.sqf";};
+		class addToPersonalGarageLocal {file="Garage\personalGarage\addToPersonalGarageLocal.sqf";};
+		class getPersonalGarage {file="Garage\personalGarage\getPersonalGarage.sqf";};
+		class getPersonalGarageLocal {file="Garage\personalGarage\getPersonalGarageLocal.sqf";};
+		class setPersonalGarage {file="Garage\personalGarage\setPersonalGarage.sqf";};
+		class setPersonalGarageLocal {file="Garage\personalGarage\setPersonalGarageLocal.sqf";};
 		//Private - Do NOT call these elsewhere
 		class attemptPlaceVehicle {file="Garage\private\attemptPlaceVehicle.sqf";};
 		class displayVehiclePlacementMessage {file="Garage\private\displayVehiclePlacementMessage.sqf";};
@@ -256,6 +264,11 @@ class A3A
         class initRevive {file="Revive\initRevive.sqf";};
         class isMedic {file="Revive\isMedic.sqf";};
         class respawn {file="Revive\respawn.sqf";};
+	}
+	
+	class Save
+	{
+        class savePlayer {file="statSave\savePlayer.sqf";};
 	}
 	
 	class Utility

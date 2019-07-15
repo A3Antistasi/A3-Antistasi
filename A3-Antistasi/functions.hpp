@@ -266,6 +266,11 @@ class A3A
         class respawn {file="Revive\respawn.sqf";};
 	}
 	
+	class Save
+	{
+        class savePlayer {file="statSave\savePlayer.sqf";};
+	}
+	
 	class Utility
 	{
         class dateToTimeString {file="dateToTimeString.sqf";};

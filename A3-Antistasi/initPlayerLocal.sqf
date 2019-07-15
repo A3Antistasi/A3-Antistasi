@@ -208,9 +208,11 @@ if (player getVariable ["pvp",false]) exitWith
 		}];
 	};
 
+player setVariable ["score",0,true];
 player setVariable ["owner",player,true];
 player setVariable ["punish",0,true];
 player setVariable ["moneyX",100,true];
+player setUnitRank "PRIVATE";
 player setVariable ["rankX",rank player,true];
 
 stragglers = creategroup teamPlayer;
@@ -435,10 +437,7 @@ waitUntil {scriptdone _introshot};
 if (_isJip) then
 	{
 	_nul = [] execVM "modBlacklist.sqf";
-	//player setVariable ["score",0,true];
-	//player setVariable ["owner",player,true];
 	player setVariable ["punish",0,true];
-	player setUnitRank "PRIVATE";
 	waitUntil {!isNil "posHQ"};
 	player setPos posHQ;
 	[true] execVM "reinitY.sqf";

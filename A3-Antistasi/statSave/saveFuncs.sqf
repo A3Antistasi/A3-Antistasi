@@ -30,10 +30,9 @@ fn_SaveStat =
 		};
 };
 
-fn_LoadStat =
+fn_ReturnSavedStat = 
 {
-	private ["_varName","_varValue"];
-	_varName = _this select 0;
+	private _varName = _this select 0;
   
   _loadVariable = {
     private ["_varName","_varValue"];
@@ -44,7 +43,7 @@ fn_LoadStat =
 		profileNameSpace getVariable (_varSaveName);
   };
   
-  _varValue = [_varName] call _loadVariable;
+  private _varValue = [_varName] call _loadVariable;
   
   if(isNil "_varValue") then
   {
@@ -53,7 +52,38 @@ fn_LoadStat =
   };
   
 	if(isNil "_varValue") exitWith {diag_log format ["Antistasi: Error during Persistent Load. The variable %1 does not exist", _varName]};
+	_varValue;
+};
+
+fn_LoadStat =
+{
+	private ["_varName","_varValue"];
+	_varName = _this select 0;
+  
+	_varValue = [_varName] call fn_ReturnSavedStat;
+	if (isNil "_varValue") exitWith {};
 	[_varName,_varValue] call fn_SetStat;
+};
+
+fn_SavePlayerStat = {
+	private _playerUID = _this select 0;
+	private _varName = _this select 1;
+	private _varValue = _this select 2;
+	
+	if (isNil "_playerUID" || isNil "_varName" ||	isNil "_varValue") exitWith {diag_log ["[Antistiasi] Save invalid for %1, saving %3 as %2", _playerUID, _varName, _varValue]};
+	
+	private _playerVarName = format ["player_%1_%2", _playerUID, _varName];
+	[_playerVarName, _varValue] call fn_SaveStat;
+};
+
+fn_RetrievePlayerStat = {
+	private _playerUID = _this select 0;
+	private _varName = _this select 1;
+	
+	if (isNil "_playerUID" || isNil "_varName") exitWith {diag_log ["[Antistiasi] Load invalid for player %1 var %2", _playerUID, _varName]};
+	
+	private _playerVarName = format ["player_%1_%2", _playerUID, _varName];
+	[_playerVarName] call fn_ReturnSavedStat;
 };
 
 //===========================================================================
@@ -68,7 +98,7 @@ fn_LoadStat =
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","backpcks","ammunition","dateX", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["outpostsFIA","minesX","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","backpcks","ammunition","dateX", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","scorePlayer","rankPlayer","smallCAmrk","moneyX","membersX","vehInGarage","destroyedBuildings","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","loadoutPlayer","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
+["outpostsFIA","minesX","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","backpcks","ammunition","dateX", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","smallCAmrk","membersX","vehInGarage","destroyedBuildings","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -115,24 +145,6 @@ fn_SetStat =
 			} forEach _varValue;
 			};
 		if(_varName == 'chopForest') then {chopForest = _varValue; publicVariable "chopForest"};
-		if(_varName == 'moneyX') then {player setVariable ["moneyX",_varValue,true];};
-		if(_varName == 'loadoutPlayer') then
-			{
-			_pepe = + _varValue;
-			if (isMultiplayer) then
-				{
-				removeAllItemsWithMagazines player;
-				{player removeWeaponGlobal _x} forEach weapons player;
-				removeBackpackGlobal player;
-				removeVest player;
-				if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems player))) then {player unlinkItem "ItemGPS"};
-				if ((!hasTFAR) and (!hasACRE) and ("ItemRadio" in (assignedItems player)) and (not("ItemRadio" in unlockedItems))) then {player unlinkItem "ItemRadio"};
-				["loadoutPlayer", getUnitLoadout player] call fn_SaveStat;
-				};
-			player setUnitLoadout _pepe;
-			};
-		if(_varName == 'scorePlayer') then {player setVariable ["score",_varValue,true];};
-		if(_varName == 'rankPlayer') then {player setRank _varValue; player setVariable ["rankX",_varValue,true]};
 		if(_varName == 'jna_dataList') then {jna_dataList = +_varValue};
 		if(_varName == 'prestigeNATO') then {prestigeNATO = _varValue; publicVariable "prestigeNATO"};
 		if(_varName == 'prestigeCSAT') then {prestigeCSAT = _varValue; publicVariable "prestigeCSAT"};

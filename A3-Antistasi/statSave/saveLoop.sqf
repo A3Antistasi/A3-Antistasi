@@ -1,47 +1,6 @@
 if (savingClient) exitWith {hint "Your personal stats are being saved"};
-if (!isDedicated) then
-	{
-	if (side player == teamPlayer) then
-		{
-		savingClient = true;
-		["loadoutPlayer", getUnitLoadout player] call fn_SaveStat;
-		//["gogglesPlayer", goggles player] call fn_SaveStat;
-		//["vestPlayer", vest player] call fn_SaveStat;
-		//["outfit", uniform player] call fn_SaveStat;
-		//["hat", headGear player] call fn_SaveStat;
-		if (isMultiplayer) then
-			{
-			["scorePlayer", player getVariable "score"] call fn_SaveStat;
-			["rankPlayer",rank player] call fn_SaveStat;
-			_personalGarage = [];
-			_personalGarage = _personalGarage + personalGarage;
-			["personalGarage",_personalGarage] call fn_SaveStat;
-			_resourcesBackground = player getVariable "moneyX";
-			{
-			_friendX = _x;
-			if ((!isPlayer _friendX) and (alive _friendX)) then
-				{
-				_resourcesBackground = _resourcesBackground + (server getVariable (typeOf _friendX));
-				if (vehicle _friendX != _friendX) then
-					{
-					_veh = vehicle _friendX;
-					_typeVehX = typeOf _veh;
-					if (not(_veh in staticsToSave)) then
-						{
-						if ((_veh isKindOf "StaticWeapon") or (driver _veh == _friendX)) then
-							{
-							_resourcesBackground = _resourcesBackground + ([_typeVehX] call A3A_fnc_vehiclePrice);
-							if (count attachedObjects _veh != 0) then {{_resourcesBackground = _resourcesBackground + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
-							};
-						};
-					};
-				};
-			} forEach units group player;
-			["moneyX",_resourcesBackground] call fn_SaveStat;
-			};
-		savingClient = false;
-		};
-	};
+
+[] call A3A_fnc_savePlayer;
 
  if (!isServer) exitWith {};
  if (savingServer) exitWith {"Server data save is still in progress" remoteExecCall ["hint",theBoss]};

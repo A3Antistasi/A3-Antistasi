@@ -66,6 +66,7 @@ if (side group _unit == teamPlayer) then
 		{
 		if (_uid in membersX) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
 		};
+	[_uid, _unit] call A3A_fnc_savePlayer;
 	//if ([_unit] call A3A_fnc_isMember) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
 	};
 if (_owner in hcArray) then

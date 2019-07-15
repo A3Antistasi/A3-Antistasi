@@ -1,29 +1,49 @@
-if !(isMultiplayer) then
-	{
-	waitUntil {/*(!isNil "serverInitDone") and */(!isNil "initVar")};
-	["loadoutPlayer"] call fn_LoadStat;
-	diag_log "Antistasi: SP Personal player stats loaded";
-	[] spawn A3A_fnc_statistics;
-	}
-else
-	{
-	if (!isDedicated) then
-		{
-		if (side player == teamPlayer) then
-			{
-			//Wait for the server to be initialised
-			waitUntil {!isNil "initVar"};
-			["loadoutPlayer"] call fn_LoadStat;
-			//player setPos getMarkerPos respawnTeamPlayer;
-			if ([player] call A3A_fnc_isMember) then
-				{
-				["scorePlayer"] call fn_LoadStat;
-				["rankPlayer"] call fn_LoadStat;
-				};
-			["moneyX"] call fn_LoadStat;
-			["personalGarage"] call fn_LoadStat;
-			diag_log "Antistasi: MP Personal player stats loaded";
-			[] spawn A3A_fnc_statistics;
-			};
-		};
+private _playerId =	param [0];
+private _unit = param [1];
+
+if (hasInterface) then {
+	if (isNil "_playerId" || isNil "_unit") then {
+		_playerId = getPlayerUID player;
+		_unit = player;
 	};
+};
+
+if (isMultiplayer && !isServer) exitwith {
+	[_playerId, _unit] remoteExec ["A3A_fnc_loadPlayer", 2];
+};
+
+waitUntil {(!isNil "initVar")};
+private _loadoutInfo =	[_playerId, "loadoutPlayer"] call fn_RetrievePlayerStat;
+
+if (isMultiplayer) then
+	{
+	removeAllItemsWithMagazines _unit;
+	{_unit removeWeaponGlobal _x} forEach weapons _unit;
+	removeBackpackGlobal _unit;
+	removeVest _unit;
+	if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems _unit))) then {_unit unlinkItem "ItemGPS"};
+	if ((!hasTFAR) and (!hasACRE) and ("ItemRadio" in (assignedItems _unit)) and (not("ItemRadio" in unlockedItems))) then {_unit unlinkItem "ItemRadio"};
+	//Essentially zeroing their loadout, to prevent them relogging for infinite gear
+	[_playerId, "loadoutPlayer", getUnitLoadout _unit] call fn_SavePlayerStat;
+	};
+	
+if (!isNil "_loadoutInfo") then {
+	_unit setUnitLoadout _loadoutInfo;
+};
+
+if (isMultiplayer && side _unit == teamPlayer) then
+{
+	//player setPos getMarkerPos respawnTeamPlayer;
+	if ([_unit] call A3A_fnc_isMember) then
+	{
+		_unit setVariable ["score",([_playerId, "scorePlayer"] call fn_RetrievePlayerStat),true];
+		private _rank = [_playerId, "rankPlayer"] call fn_RetrievePlayerStat;
+		_unit setRank _rank; 
+		_unit setVariable ["rankX",_rank,true];
+	};
+	_unit setVariable ["moneyX",([_playerId, "moneyX"] call fn_RetrievePlayerStat),true];
+	[_unit, [_playerId, "personalGarage"] call fn_RetrievePlayerStat] call A3A_fnc_setPersonalGarage;
+};
+	
+diag_log "Antistasi: Personal player stats loaded";
+[] spawn A3A_fnc_statistics;

@@ -30,8 +30,8 @@ class first_load 		{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = "Loads the pervious personal session";
-			action = "closeDialog 0;nul = [true] execVM ""statSave\loadPlayer.sqf"";";
+			tooltip = "Loads the previous personal session";
+			action = "closeDialog 0;nul = [] execVM ""statSave\loadPlayer.sqf"";";
 		};
 		class HQ_button_Gstatic: RscButton
 		{

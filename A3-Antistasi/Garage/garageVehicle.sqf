@@ -62,6 +62,6 @@ if (_pool) then
 	}
 else
 	{
-	personalGarage = personalGarage + [_typeVehX];
+	[_typeVehX] call A3A_fnc_addToPersonalGarageLocal;
 	hint "Vehicle added to Personal Garage";
 	};

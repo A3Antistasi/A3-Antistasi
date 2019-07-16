@@ -150,6 +150,12 @@ class Params
         default = 25;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+		class memberOnlyMagLimit
+    {
+        title = "Number of magazines needed for guests to be able to use them";
+        values[] = {10,20,30,40,50,60};
+        default = 40;
+    };
     class civTraffic
     {
         title = "Rate of Civ Traffic";

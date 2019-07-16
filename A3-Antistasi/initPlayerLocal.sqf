@@ -208,9 +208,11 @@ if (player getVariable ["pvp",false]) exitWith
 		}];
 	};
 
+player setVariable ["score",0,true];
 player setVariable ["owner",player,true];
 player setVariable ["punish",0,true];
 player setVariable ["moneyX",100,true];
+player setUnitRank "PRIVATE";
 player setVariable ["rankX",rank player,true];
 
 stragglers = creategroup teamPlayer;
@@ -415,7 +417,6 @@ if (isMultiplayer) then
 	["InitializePlayer", [player]] call BIS_fnc_dynamicGroups;//Exec on client
 	["InitializeGroup", [player,teamPlayer,true]] call BIS_fnc_dynamicGroups;
 	membershipEnabled = if ("membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
-	personalGarage = [];
 	if (membershipEnabled) then
 		{
 		if !([player] call A3A_fnc_isMember) then
@@ -436,10 +437,7 @@ waitUntil {scriptdone _introshot};
 if (_isJip) then
 	{
 	_nul = [] execVM "modBlacklist.sqf";
-	//player setVariable ["score",0,true];
-	//player setVariable ["owner",player,true];
 	player setVariable ["punish",0,true];
-	player setUnitRank "PRIVATE";
 	waitUntil {!isNil "posHQ"};
 	player setPos posHQ;
 	[true] execVM "reinitY.sqf";
@@ -602,6 +600,16 @@ flagX addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearChe
 flagX addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
 if (isMultiplayer) then {flagX addAction ["Personal Garage", {nul = [GARAGE_PERSONAL] spawn A3A_fnc_garage},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"]};
 flagX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
+
+//Adds a light to the flag
+private _flagLight = "#lightpoint" createVehicle (getPos flagX); 
+_flagLight setLightDayLight true; 
+_flagLight setLightColor [1, 1, 0.9]; 
+_flagLight setLightBrightness 0.2; 
+_flagLight setLightAmbient [1, 1, 0.9]; 
+_flagLight lightAttachObject [flagX, [0, 0, 4]]; 
+_flagLight setLightAttenuation [7, 0, 0.5, 0.5];
+
 vehicleBox allowDamage false;
 vehicleBox addAction ["Heal, Repair and Rearm", "healandrepair.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
 vehicleBox addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];

@@ -8,7 +8,7 @@ class EditorData
 	toggles=1538;
 	class ItemIDProvider
 	{
-		nextID=1643;
+		nextID=1644;
 	};
 	class MarkerIDProvider
 	{
@@ -31,19 +31,15 @@ addons[]=
 {
 	"A3_Ui_F",
 	"A3_Weapons_F_Ammoboxes",
-	"ace_rearm",
-	"ace_dragging",
 	"A3_Modules_F",
 	"A3_Characters_F",
 	"A3_Modules_F_Hc",
-	"ace_cargo",
 	"A3_Structures_F_EPC_Civ_InfoBoards",
 	"A3_Structures_F_Ind_AirPort",
 	"A3_Structures_F_Mil_Cargo",
 	"A3_Structures_F_Mil_TentHangar",
 	"A3_Structures_F_Exp_Infrastructure_Airports",
 	"A3_Structures_F_Mil_Flags",
-	"ace_explosives",
 	"A3_Ui_F_Exp",
 	"A3_Characters_F_Exp",
 	"A3_Structures_F_Exp_Military_Flags",
@@ -54,7 +50,7 @@ class AddonsMetaData
 {
 	class List
 	{
-		items=17;
+		items=13;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -71,103 +67,75 @@ class AddonsMetaData
 		};
 		class Item2
 		{
-			className="ace_rearm";
-			name="ACE3 - Rearm";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item3
-		{
-			className="ace_dragging";
-			name="ACE3 - Dragging";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item4
-		{
 			className="A3_Modules_F";
 			name="Arma 3 Alpha - Scripted Modules";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item5
+		class Item3
 		{
 			className="A3_Characters_F";
 			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item6
-		{
-			className="ace_cargo";
-			name="ACE3 - Cargo";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item7
+		class Item4
 		{
 			className="A3_Structures_F_EPC";
 			name="Arma 3 Win Episode - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item8
+		class Item5
 		{
 			className="A3_Structures_F_Ind";
 			name="Arma 3 - Industrial Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item9
+		class Item6
 		{
 			className="A3_Structures_F_Mil";
 			name="Arma 3 - Military Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item10
+		class Item7
 		{
 			className="A3_Structures_F_Exp_Infrastructure";
 			name="Arma 3 Apex - Infrastructure Objects";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item11
-		{
-			className="ace_explosives";
-			name="ACE3 - Explosives";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item12
+		class Item8
 		{
 			className="A3_Ui_F_Exp";
 			name="Arma 3 Apex - User Interface";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item13
+		class Item9
 		{
 			className="A3_Characters_F_Exp";
 			name="Arma 3 Apex - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item14
+		class Item10
 		{
 			className="A3_Structures_F_Exp";
 			name="Arma 3 Apex - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item15
+		class Item11
 		{
 			className="A3_Structures_F";
 			name="Arma 3 - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item16
+		class Item12
 		{
 			className="A3_Modules_F_Curator";
 			name="Arma 3 Zeus Update - Scripted Modules";
@@ -3718,7 +3686,7 @@ class Mission
 			position[]={26493.066,20.179955,21324.83};
 			name="road_40";
 			type="hd_arrow";
-			angle=113.11618;
+			angle=113.11617;
 			id=1483;
 		};
 		class Item282
@@ -9002,11 +8970,10 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={3595.063,16.040209,10267.063};
+				position[]={3593.9009,16.122522,10260.412};
 			};
-			id=1642;
+			id=1643;
 			type="ModuleCurator_F";
-			atlOffset=-1.9073486e-006;
 			class CustomAttributes
 			{
 				class Attribute0

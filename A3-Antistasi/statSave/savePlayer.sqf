@@ -14,7 +14,20 @@ if (isMultiplayer && !isServer) exitwith {
 
 savingClient = true;
 
-[_playerId, "loadoutPlayer", getUnitLoadout _playerUnit] call fn_SavePlayerStat;
+private _canSaveLoadout = true;
+if (hasACEMedical && {[_playerUnit] call ace_medical_fnc_getUnconsciousCondition}) then 
+{
+	_canSaveLoadout =	false;
+};
+
+if !(lifeState _playerUnit == "HEALTHY" || lifeState _playerUnit == "INJURED") then {
+	_canSaveLoadout =	false;
+};
+
+if (_canSaveLoadout) then {
+	[_playerId, "loadoutPlayer", getUnitLoadout _playerUnit] call fn_SavePlayerStat;
+};
+
 if (isMultiplayer) then
 	{
 	[_playerId, "scorePlayer", _playerUnit getVariable "score"] call fn_SavePlayerStat;

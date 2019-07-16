@@ -1,2 +1,4 @@
 *.xcopy.log
+deployToTest.bat
+template.files.cfg
 Tools/ValidationResults.txt

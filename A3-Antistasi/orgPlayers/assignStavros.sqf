@@ -1,4 +1,4 @@
-params[["_suggestedLeader",objNull]];
+params [["_suggestedLeader",objNull]];
 private ["_puntMax","_textX","_multiplier","_newRank","_selectable","_disconnected","_owner","_pointsX","_dataX"];
 _puntMax = 0;
 _textX = "";
@@ -79,9 +79,9 @@ if ((isNull _LeaderX) or switchCom) then
 if (!_proceed) exitWith {};
 
 _selectable = objNull;
-if (_membersX find _suggestedLeader >= 0) then 
+if (!isNull _suggestedLeader && _membersX find _suggestedLeader >= 0) then 
 {
-	if (_suggestedLeader!=_LeaderX) then
+	if (_suggestedLeader != _LeaderX) then
 	{
 		_dataX = [_suggestedLeader] call A3A_fnc_numericRank;
 		_selectable = _suggestedLeader;

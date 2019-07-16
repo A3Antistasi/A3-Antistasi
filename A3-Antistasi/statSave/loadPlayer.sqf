@@ -1,16 +1,19 @@
-private _playerId =	param [0];
-private _unit = param [1];
+params [["_playerId", ""], ["_unit", objNull]];
 
 if (hasInterface) then {
-	if (isNil "_playerId" || isNil "_unit") then {
+	if (count _playerId == 0 || isNull _unit) then {
 		_playerId = getPlayerUID player;
 		_unit = player;
+		diag_log format ["[Antistasi] Telling server to load player %1 into %2", _playerId, _unit];
+		[format ["[Antistasi] Telling server to load player %1 into %2", _playerId, _unit]] remoteExec ["diag_log", 2];
 	};
 };
 
 if (isMultiplayer && !isServer) exitwith {
 	[_playerId, _unit] remoteExec ["A3A_fnc_loadPlayer", 2];
 };
+
+diag_log format ["Saving player %1 who is %2", _playerId, _unit];
 
 waitUntil {(!isNil "initVar")};
 private _loadoutInfo =	[_playerId, "loadoutPlayer"] call fn_RetrievePlayerStat;
@@ -27,7 +30,10 @@ if (isMultiplayer) then
 	[_playerId, "loadoutPlayer", getUnitLoadout _unit] call fn_SavePlayerStat;
 	};
 	
+diag_log "Preparing to set loadout";
+	
 if (!isNil "_loadoutInfo") then {
+	diag_log format ["Setting loadout to %1 for %2", _loadoutInfo, _playerID];
 	_unit setUnitLoadout _loadoutInfo;
 };
 

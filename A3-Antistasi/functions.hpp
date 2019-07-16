@@ -268,6 +268,7 @@ class A3A
 	
 	class Save
 	{
+        class loadPlayer {file="statSave\loadPlayer.sqf";};
         class savePlayer {file="statSave\savePlayer.sqf";};
 	}
 	

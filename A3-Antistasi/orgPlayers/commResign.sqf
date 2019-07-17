@@ -11,6 +11,7 @@ if (_playerX getVariable ["eligible",true]) then
 			[cursorTarget] remoteExec ["A3A_fnc_assigntheBoss",2];
 		} else {
 			hint "You resign of being Commander. Other will take the command if there is someone suitable for it.";
+			[] remoteExec ["A3A_fnc_assigntheBoss",2];
 		};
 		sleep 3;
 	}

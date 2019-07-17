@@ -1,4 +1,4 @@
-if (savingClient) exitWith {hint "Your personal stats are being saved"};
+if (!isNil "savingClient" && {savingClient}) exitWith {hint "Your personal stats are being saved"};
 
 [] call A3A_fnc_savePlayer;
 

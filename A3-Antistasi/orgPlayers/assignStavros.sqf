@@ -79,7 +79,7 @@ if ((isNull _LeaderX) or switchCom) then
 if (!_proceed) exitWith {};
 
 _selectable = objNull;
-if (!isNull _suggestedLeader && _membersX find _suggestedLeader >= 0) then 
+if (!isNull _suggestedLeader && {_suggestedLeader in _eligibles}) then 
 {
 	if (_suggestedLeader != _LeaderX) then
 	{

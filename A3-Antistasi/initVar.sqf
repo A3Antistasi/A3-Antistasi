@@ -716,7 +716,9 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
 		"ACE_surgicalKit",
 		"ACE_tourniquet",
 		"ACE_adenosine",
-		"ACE_atropine"
+		"ACE_atropine",
+		"adv_aceSplint_splint",
+		"adv_aceCPR_AED"
 	]; publicVariable "aceAdvMedItems";
 
 

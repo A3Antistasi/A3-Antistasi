@@ -3,13 +3,74 @@ if (player != player getVariable ["owner",objNull]) exitWith {hint "You cannot c
 
 build_engineerSelected = objNull;
 
-{if (_x getUnitTrait "engineer") exitWith {build_engineerSelected = _x}} forEach units group player;
+private _engineers = (units group player) select {_x getUnitTrait "engineer"};
+private _playerIsEngineer = false;
+private _otherPlayerEngineers = [];
+private _aiEngineers = [];
 
-if (isNull build_engineerSelected) exitWith {hint "Your squad needs an engineer to be able to construct"};
-if ((player != build_engineerSelected) and (isPlayer build_engineerSelected)) exitWith {hint "There is a human player engineer in your squad, ask him to construct whatever you need"};
-if ((player != leader player) and (build_engineerSelected != player)) exitWith {hint "Only squad leaders can ask engineers to construct something"};
-if !([build_engineerSelected] call A3A_fnc_canFight) exitWith {hint "Your Engineer is dead or incapacitated and cannot construct anything"};
-if ((build_engineerSelected getVariable ["helping",false]) or (build_engineerSelected getVariable ["rearming",false]) or (build_engineerSelected getVariable ["constructing",false])) exitWith {hint "Your engineer is currently performing another action"};
+private _abortMessage = "";
+
+{
+	if (_x getUnitTrait "engineer") then {
+		if (isPlayer _x) then {
+			if (player == _x) then {
+				_playerIsEngineer = true;
+			} else {
+				_otherPlayerEngineers pushBack _x;
+			};
+		} else {
+			//AI Engineer
+			_aiEngineers pushBack _x;
+		};
+	};
+} forEach units group player;
+
+private _engineerIsBusy = {
+	private _engineer = param [0, objNull];
+	((_engineer getVariable ["helping",false]) 
+	or (_engineer getVariable ["rearming",false]) 
+	or (_engineer getVariable ["constructing",false]));
+};
+
+//Check if the player can build
+if (_playerIsEngineer) then {
+	if ([player] call A3A_fnc_canFight && !([player] call _engineerIsBusy)) then {
+		build_engineerSelected = player;
+	} else {
+		_abortMessage = _abortMessage + "You are an engineer, but not in a state to build: you may be unconscious or undercover.\n";
+	};
+} else {
+	_abortMessage =	_abortMessage + "You are not an engineer.\n";
+};
+
+//Check if an engineer can build.
+if (count _otherPlayerEngineers > 0) then {
+	build_engineerSelected = _otherPlayerEngineers select 0;
+	_abortMessage = _abortMessage + "There is a human engineer in your squad. Ask them to build.\n";
+};
+
+if (isNull build_engineerSelected) then {
+	if (count _aiEngineers > 0 && player != leader player) exitWith {
+		_abortMessage =	_abortMessage + "Only squad leaders can order AI to build";
+	};
+	
+	{
+		if ([_x] call A3A_fnc_canFight && !([_x] call _engineerIsBusy)) exitWith {
+			build_engineerSelected = _x;
+			_abortMessage = _abortMessage + format ["Ordering %1 to build", _x];
+		};
+	} forEach _aiEngineers;
+	
+	if (isNull build_engineerSelected) exitWith {
+		_abortMessage =	_abortMessage + "You have no available engineers in your squad. They may be unconscious or busy.";
+	};
+};
+
+if (isNull build_engineerSelected ||
+   ((player != build_engineerSelected) and (isPlayer build_engineerSelected))) exitWith 
+{
+	hint _abortMessage;
+};
 
 build_type = _this select 0;
 build_time = 60;

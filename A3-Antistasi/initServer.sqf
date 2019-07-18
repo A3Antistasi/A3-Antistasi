@@ -180,8 +180,7 @@ resourcecheck = [] execVM "resourcecheck.sqf";
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 savingServer = false;
 
-// Loop that removes unnecessary groups
-[] spawn A3A_fnc_groupCleaner;
+[] call A3A_fnc_spawnDebuggingLoop;
 
 //Enable performance logging
 [] spawn {

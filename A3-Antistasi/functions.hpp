@@ -26,7 +26,6 @@ class A3A
         class fn_location {file="fn_location.sqf";};
         class fogCheck {file="fogCheck.sqf";};
         class garbageCleaner {file="garbageCleaner.sqf";};
-        class groupCleaner {file="groupCleaner.sqf";};
         class garrisonInfo {file="garrisonInfo.sqf";};
         class intelFound {file="intelFound.sqf";};
         class isFrontline {file="isFrontline.sqf";};
@@ -159,6 +158,12 @@ class A3A
         class vehAvailable {file="CREATE\vehAvailable.sqf";};
         class VEHdespawner {file="CREATE\VEHdespawner.sqf";};
         class wavedCA {file="CREATE\wavedCA.sqf";};
+	}
+	
+	class Debugging
+	{
+		class spawnDebuggingLoop {file="Debugging\spawnDebuggingLoop.sqf";};
+		class deleteEmptyGroupsOnSide {file="Debugging\deleteEmptyGroupsOnSide.sqf";};
 	}
 
 	class Dialogs

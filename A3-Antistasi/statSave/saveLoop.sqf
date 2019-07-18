@@ -1,41 +1,44 @@
-if (!isNil "savingClient" && {savingClient}) exitWith {hint "Your personal stats are being saved"};
+if (hasInterface) then {
+	if (!isNil "savingClient" && {savingClient}) exitWith {hint "Your personal stats are being saved"};
+	[] call A3A_fnc_savePlayer;
+};
 
-[] call A3A_fnc_savePlayer;
+//Server only from here on out.
+if (!isServer) exitWith {};
 
- if (!isServer) exitWith {};
- if (savingServer) exitWith {"Server data save is still in progress" remoteExecCall ["hint",theBoss]};
- savingServer = true;
- private ["_garrison"];
-	["countCA", countCA] call fn_SaveStat;
-	["gameMode", gameMode] call fn_SaveStat;
-	["difficultyX", skillMult] call fn_SaveStat;
-	["bombRuns", bombRuns] call fn_SaveStat;
-	["smallCAmrk", smallCAmrk] call fn_SaveStat;
-	["membersX", membersX] call fn_SaveStat;
-	["antennas", antennasDead] call fn_SaveStat;
-	//["mrkNATO", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Occupants}] call fn_SaveStat;
-	["mrkSDK", (markersX - controlsX - outpostsFIA) select {sidesX getVariable [_x,sideUnknown] == teamPlayer}] call fn_SaveStat;
-	["mrkCSAT", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Invaders}] call fn_SaveStat;
-	["posHQ", [getMarkerPos respawnTeamPlayer,getPos fireX,[getDir boxX,getPos boxX],[getDir mapX,getPos mapX],getPos flagX,[getDir vehicleBox,getPos vehicleBox]]] call fn_Savestat;
-	["prestigeNATO", prestigeNATO] call fn_SaveStat;
-	["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
-	["dateX", date] call fn_SaveStat;
-	["skillFIA", skillFIA] call fn_SaveStat;
-	["destroyedCities", destroyedCities] call fn_SaveStat;
-	["distanceSPWN", distanceSPWN] call fn_SaveStat;
-	["civPerc", civPerc] call fn_SaveStat;
-	["chopForest", chopForest] call fn_SaveStat;
-	["maxUnits", maxUnits] call fn_SaveStat;
-	["nextTick", nextTick - time] call fn_SaveStat;
-	/*
-	["unlockedWeapons", unlockedWeapons] call fn_SaveStat;
-	["unlockedItems", unlockedItems] call fn_SaveStat;
-	["unlockedMagazines", unlockedMagazines] call fn_SaveStat;
-	["unlockedBackpacks", unlockedBackpacks] call fn_SaveStat;
-	*/
-	["weather",[fogParams,rain]] call fn_SaveStat;
-	["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
-	//["firstLoad",false] call fn_SaveStat;
+if (savingServer) exitWith {"Server data save is still in progress" remoteExecCall ["hint",theBoss]};
+savingServer = true;
+private ["_garrison"];
+["countCA", countCA] call fn_SaveStat;
+["gameMode", gameMode] call fn_SaveStat;
+["difficultyX", skillMult] call fn_SaveStat;
+["bombRuns", bombRuns] call fn_SaveStat;
+["smallCAmrk", smallCAmrk] call fn_SaveStat;
+["membersX", membersX] call fn_SaveStat;
+["antennas", antennasDead] call fn_SaveStat;
+//["mrkNATO", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Occupants}] call fn_SaveStat;
+["mrkSDK", (markersX - controlsX - outpostsFIA) select {sidesX getVariable [_x,sideUnknown] == teamPlayer}] call fn_SaveStat;
+["mrkCSAT", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Invaders}] call fn_SaveStat;
+["posHQ", [getMarkerPos respawnTeamPlayer,getPos fireX,[getDir boxX,getPos boxX],[getDir mapX,getPos mapX],getPos flagX,[getDir vehicleBox,getPos vehicleBox]]] call fn_Savestat;
+["prestigeNATO", prestigeNATO] call fn_SaveStat;
+["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
+["dateX", date] call fn_SaveStat;
+["skillFIA", skillFIA] call fn_SaveStat;
+["destroyedCities", destroyedCities] call fn_SaveStat;
+["distanceSPWN", distanceSPWN] call fn_SaveStat;
+["civPerc", civPerc] call fn_SaveStat;
+["chopForest", chopForest] call fn_SaveStat;
+["maxUnits", maxUnits] call fn_SaveStat;
+["nextTick", nextTick - time] call fn_SaveStat;
+/*
+["unlockedWeapons", unlockedWeapons] call fn_SaveStat;
+["unlockedItems", unlockedItems] call fn_SaveStat;
+["unlockedMagazines", unlockedMagazines] call fn_SaveStat;
+["unlockedBackpacks", unlockedBackpacks] call fn_SaveStat;
+*/
+["weather",[fogParams,rain]] call fn_SaveStat;
+["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
+//["firstLoad",false] call fn_SaveStat;
 private ["_hrBackground","_resourcesBackground","_veh","_typeVehX","_weaponsX","_ammunition","_items","_backpcks","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_city","_dataX","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_positionOutpost","_typeMine","_posMine","_detected","_typesX","_exists","_friendX"];
 
 _hrBackground = (server getVariable "hr") + ({(alive _x) and (not isPlayer _x) and (_x getVariable ["spawner",false]) and ((group _x in (hcAllGroups theBoss) or (isPlayer (leader _x))) and (side group _x == teamPlayer))} count allUnits);

@@ -12,7 +12,7 @@ if (isMultiplayer && !isServer) exitwith {
 	[_playerId, _playerUnit] remoteExec ["A3A_fnc_savePlayer", 2];
 };
 
-if (isNil "_playerUnit" || { isNull _playerUnit }) exitWith {
+if (isNil "_playerId" || isNil "_playerUnit" || { isNull _playerUnit }) exitWith {
 	diag_log format ["[Antistasi] Not saving player %1 due to missing unit", _playerId];
 };
 
@@ -58,7 +58,6 @@ if (isMultiplayer) then
 			};
 		};
 	} forEach units group _playerUnit;
-	diag_log "Saving money";
 	[_playerId, "moneyX",_resourcesBackground] call fn_SavePlayerStat;
 	};
 	

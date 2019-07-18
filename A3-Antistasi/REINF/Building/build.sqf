@@ -44,7 +44,7 @@ if (_playerIsEngineer) then {
 };
 
 //Check if an engineer can build.
-if (count _otherPlayerEngineers > 0) then {
+if (isNull build_engineerSelected && count _otherPlayerEngineers > 0) then {
 	build_engineerSelected = _otherPlayerEngineers select 0;
 	_abortMessage = _abortMessage + "There is a human engineer in your squad. Ask them to build.\n";
 };

@@ -37,7 +37,7 @@ if (isMultiplayer) then
 	[_playerId, "scorePlayer", _playerUnit getVariable "score"] call fn_SavePlayerStat;
 	[_playerId, "rankPlayer", rank _playerUnit] call fn_SavePlayerStat;
 	[_playerId, "personalGarage",[_playerUnit] call A3A_fnc_getPersonalGarage] call fn_SavePlayerStat;
-	_resourcesBackground = _playerUnit getVariable "moneyX";
+	_resourcesBackground = _playerUnit getVariable ["moneyX", 0];
 	{
 	_friendX = _x;
 	if ((!isPlayer _friendX) and (alive _friendX)) then

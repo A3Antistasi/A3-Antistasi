@@ -221,7 +221,6 @@ stragglers = creategroup teamPlayer;
 player setUnitTrait ["camouflageCoef",0.8];
 player setUnitTrait ["audibleCoef",0.8];
 
-if (activeGREF) then {[player] call A3A_fnc_RHSdress};
 player setvariable ["compromised",0];
 player addEventHandler ["FiredMan",
 	{

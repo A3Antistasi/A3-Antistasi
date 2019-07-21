@@ -277,10 +277,15 @@ switch _mode do {
 	
 	case "SaveTFAR": {
 		jna_backpackRadioSettings = nil;
+		jna_swRadioSettings = nil;
 		if (hasTFAR) then {
 			private _backpackRadio = player call TFAR_fnc_backpackLr;
 			if (!isNil "_backpackRadio" && {count _backpackRadio >= 2}) then {
 				jna_backpackRadioSettings = _backpackRadio call TFAR_fnc_getLrSettings;
+			};
+			private _swRadio = if (call TFAR_fnc_haveSWRadio) then { call TFAR_fnc_activeSwRadio } else { nil };
+			if (!isNil "_swRadio") then {
+				jna_swRadioSettings = _swRadio call TFAR_fnc_getSwSettings;
 			};
 		};
 	};
@@ -293,10 +298,34 @@ switch _mode do {
 			private _backpackRadio = player call TFAR_fnc_backpackLr;
 			if (!isNil "_backpackRadio" && {count _backpackRadio >= 2}) then {
 				if (isNil "jna_backpackRadioSettings" || {typeName jna_backpackRadioSettings != typeName []}) exitWith {
-					diag_log "[Antistasi] Error: Arsenal failed to restore TFAR radio settings due to invalid saved setting";
+					diag_log "[Antistasi] Error: Arsenal failed to restore TFAR longrange radio settings due to invalid saved setting";
 				};
 				[_backpackRadio select 0, _backpackRadio select 1, jna_backpackRadioSettings] call TFAR_fnc_setLrSettings;
-				diag_log "[Antistasi] TFAR radio settings restored on arsenal exit.";
+				diag_log "[Antistasi] TFAR longrange radio settings restored on arsenal exit.";
+			} else {
+				diag_log "[Antistasi] No longrange radio found on arsenal exit.";
+			};
+			//Arsenal gives players base TFAR radio items. TFAR will, at some point, replace this with an 'instanced' version.
+			//This can cause freq to reset. To fix, check if we have a radio first, and wait around if we do, but TFAR isn't showing it.
+			//Spawn so we can sleep without bothering the arsenal.
+			private _hasRadio =	{_x isKindOf ["ItemRadio", configFile >> "CfgWeapons"];} count (assignedItems player) > 0;
+			if (_hasRadio) then {
+				[] spawn {
+					private _checkHasRadio = {{_x isKindOf ["ItemRadio", configFile >> "CfgWeapons"];} count (assignedItems player) > 0};
+					//Wait around until TFAR has done its work. Frequent checks - we shouldn't have to wait more than a handful of seconds for TFAR;
+					waitUntil {sleep 1; call _checkHasRadio && call TFAR_fnc_haveSWRadio};
+					private _swRadio = if (call TFAR_fnc_haveSWRadio) then { call TFAR_fnc_activeSwRadio } else { nil };
+					//Doesn't hurt to be careful!
+					if (!isNil "_swRadio") then {
+						if (isNil "jna_swRadioSettings" || {typeName jna_swRadioSettings != typeName []}) exitWith {
+							diag_log "[Antistasi] Error: Arsenal failed to restore TFAR shortwave radio settings due to invalid saved setting";
+						};
+						[_swRadio, jna_swRadioSettings] call TFAR_fnc_setSwSettings;
+						diag_log "[Antistasi] TFAR shortwave radio settings restored on arsenal exit.";
+					} else {
+						diag_log "[Antistasi] No shortwave radio found on arsenal exit.";
+					};
+				};
 			};
 		};
 	};

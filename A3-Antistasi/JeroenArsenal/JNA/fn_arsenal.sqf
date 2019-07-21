@@ -143,6 +143,7 @@ switch _mode do {
 		private ["_data"];
 
 		INITTYPES
+		
 		_data = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 
 		_configArray = (
@@ -255,6 +256,7 @@ switch _mode do {
 	case "Open": {
 		diag_log "JNA open arsenal";
 		jna_dataList = _this select 0;
+		["SaveTFAR"] call jn_fnc_arsenal;
 		private _object = missionnamespace getVariable ["jna_object",objNull];
 		["Open",[nil,_object,player,false]] call bis_fnc_arsenal;
 	};
@@ -270,6 +272,33 @@ switch _mode do {
 		["HighlightMissingIcons",[_display]] call jn_fnc_arsenal;
 
 		["jn_fnc_arsenal"] call BIS_fnc_endLoadingScreen;
+	};
+	///////////////////////////////////////////////////////////////////////////////////////////
+	
+	case "SaveTFAR": {
+		jna_backpackRadioSettings = nil;
+		if (hasTFAR) then {
+			private _backpackRadio = player call TFAR_fnc_backpackLr;
+			if (!isNil "_backpackRadio" && {count _backpackRadio >= 2}) then {
+				jna_backpackRadioSettings = _backpackRadio call TFAR_fnc_getLrSettings;
+			};
+		};
+	};
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Restore TFAR radio settings
+
+	case "RestoreTFAR": {
+		if (hasTFAR) then {
+			private _backpackRadio = player call TFAR_fnc_backpackLr;
+			if (!isNil "_backpackRadio" && {count _backpackRadio >= 2}) then {
+				if (isNil "jna_backpackRadioSettings" || {typeName jna_backpackRadioSettings != typeName []}) exitWith {
+					diag_log "[Antistasi] Error: Arsenal failed to restore TFAR radio settings due to invalid saved setting";
+				};
+				[_backpackRadio select 0, _backpackRadio select 1, jna_backpackRadioSettings] call TFAR_fnc_setLrSettings;
+				diag_log "[Antistasi] TFAR radio settings restored on arsenal exit.";
+			};
+		};
 	};
 
 	///////////////////////////////////////////////////////////////////////////////////////////
@@ -2523,6 +2552,8 @@ switch _mode do {
 	/////////////////////////////////////////////////////////////////////////////////////////// event
 	case "buttonClose": {
 		_display = _this select 0;
+		
+		["RestoreTFAR"] call jn_fnc_arsenal;
 
 		//remove missing item message
 		titleText["", "PLAIN"];

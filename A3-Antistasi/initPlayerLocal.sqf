@@ -460,9 +460,13 @@ if (_isJip) then
 	else
 		{
 		hint format ["Welcome back %1", name player];
-		if ({([_x] call A3A_fnc_isMember) and (side (group _x) == teamPlayer)} count playableUnits == 1) then
+		if ((isNil "theBoss" || {isNull theBoss}) && {{([_x] call A3A_fnc_isMember) and (side (group _x) == teamPlayer)} count playableUnits == 1}) then
 			{
 			[player] call A3A_fnc_theBossInit;
+			};
+		};
+		if ((isNil "theBoss" || {isNull theBoss}) && {[player] call A3A_fnc_isMember}) then {
+			{
 			[] remoteExec ["A3A_fnc_assigntheBoss",2];
 			};
 		};

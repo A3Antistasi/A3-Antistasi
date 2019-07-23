@@ -75,19 +75,7 @@ petros addMPEventHandler ["mpkilled",
             }
         else
             {
-            _oldPetros = petros;
-            groupPetros = createGroup teamPlayer;
-            publicVariable "groupPetros";
-            petros = groupPetros createUnit [typePetros, position _oldPetros, [], 0, "NONE"];
-            publicVariable "petros";
-            groupPetros setGroupIdGlobal ["Petros","GroupColor4"];
-            petros setIdentity "friendlyX";
-            if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
-            petros disableAI "MOVE";
-            petros disableAI "AUTOTARGET";
-            if (group _oldPetros == groupPetros) then {[Petros,"mission"]remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros]};
-            [] execVM "initPetros.sqf";
-            deleteVehicle _oldPetros;
+            call A3A_fnc_createPetros;
             };
         };
    }];

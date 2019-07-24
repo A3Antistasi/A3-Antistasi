@@ -40,24 +40,39 @@ if (isMultiplayer) then
 	_resourcesBackground = _playerUnit getVariable ["moneyX", 0];
 	{
 	_friendX = _x;
-	if ((!isPlayer _friendX) and (alive _friendX)) then
+	if ((!isNull _friendX) and (!isPlayer _friendX) and (alive _friendX)) then
 		{
-		_resourcesBackground = _resourcesBackground + (server getVariable (typeOf _friendX));
+		private _valueOfFriend = (server getVariable (typeOf _friendX));
+		//If we don't get a number (which can happen if _friendX becomes null, for example) we lose the value of _resourcesBackground;
+		if (typeName _valueOfFriend == typeName _resourcesBackground) then {
+			_resourcesBackground = _resourcesBackground + (server getVariable (typeOf _friendX));
+		};
 		if (vehicle _friendX != _friendX) then
 			{
 			_veh = vehicle _friendX;
 			_typeVehX = typeOf _veh;
 			if (not(_veh in staticsToSave)) then
 				{
-				if ((_veh isKindOf "StaticWeapon") or (driver _veh == _friendX)) then
+					if ((_veh isKindOf "StaticWeapon") or (driver _veh == _friendX)) then
 					{
-					_resourcesBackground = _resourcesBackground + ([_typeVehX] call A3A_fnc_vehiclePrice);
-					if (count attachedObjects _veh != 0) then {{_resourcesBackground = _resourcesBackground + ([typeOf _x] call A3A_fnc_vehiclePrice)} forEach attachedObjects _veh};
+						private _vehPrice = ([_typeVehX] call A3A_fnc_vehiclePrice);
+						if (typeName _vehPrice == typeName _resourcesBackground) then {
+							_resourcesBackground = _resourcesBackground + _vehPrice;
+						};
+						if (count attachedObjects _veh != 0) then {
+							{
+								private _attachmentPrice = ([typeOf _x] call A3A_fnc_vehiclePrice);
+								if (typeName _vehPrice == typeName _resourcesBackground) then {
+									_resourcesBackground = _resourcesBackground + _attachmentPrice;
+								};
+							} 
+							forEach attachedObjects _veh;
+						};
 					};
 				};
 			};
 		};
-	} forEach units group _playerUnit;
+	} forEach (units group _playerUnit) - [_playerUnit]; //Can't have player unit in here, as it'll get nulled out if called on disconnect.
 	[_playerId, "moneyX",_resourcesBackground] call fn_SavePlayerStat;
 	};
 	

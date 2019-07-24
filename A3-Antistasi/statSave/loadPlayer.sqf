@@ -58,4 +58,5 @@ if (isMultiplayer && side _unit == teamPlayer) then
 };
 	
 diag_log "Antistasi: Personal player stats loaded";
-[] spawn A3A_fnc_statistics;
+
+[] remoteExec ["A3A_fnc_statistics", _unit];

@@ -180,7 +180,7 @@ resourcecheck = [] execVM "resourcecheck.sqf";
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 savingServer = false;
 
-[] call A3A_fnc_spawnDebuggingLoop;
+[] spawn A3A_fnc_spawnDebuggingLoop;
 
 //Enable performance logging
 [] spawn {

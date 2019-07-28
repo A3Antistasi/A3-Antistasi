@@ -421,6 +421,7 @@ waitUntil
 	if (scriptDone _getMissionPath) then {true} else
 	{
 		hint "Stuck on compiling missionPath, re-launch the mission.";
+    false;
 	}
 };
 hint "Done compiling missionPath";

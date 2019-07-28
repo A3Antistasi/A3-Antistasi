@@ -47,6 +47,7 @@ if (!isMultiPlayer) then
     _nul = [] execVM "modBlacklist.sqf";
     autoSave = false;
     membershipEnabled = false;
+    memberOnlyMagLimit = 0;
     switchCom = false;
     tkPunish = false;
     distanceMission = if (hasIFA) then {2000} else {4000};

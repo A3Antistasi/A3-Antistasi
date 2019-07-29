@@ -6,6 +6,8 @@ _owner = _this select 4;
 _resourcesX = 0;
 _hr = 0;
 
+diag_log format ["[Antistasi] Player disconnected with id %1 and unit %2 on side %3", _uid, _unit, (side _unit)];
+
 if (_unit == theBoss) then
 	{
 	{
@@ -59,7 +61,7 @@ if (_unit == theBoss) then
 	if (group petros == group _unit) then {[] spawn A3A_fnc_buildHQ};
 	};
 //{if (groupOwner _x ==)} forEach allGroups select {(side _x == civilian) and (!isPlayer leader _x)};
-if (side group _unit == teamPlayer) then
+if (side _unit == teamPlayer) then
 	{
 	if ((_hr > 0) or (_resourcesX > 0)) then {[_hr,_resourcesX] spawn A3A_fnc_resourcesFIA};
 	if (membershipEnabled and pvpEnabled) then

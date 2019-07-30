@@ -17,6 +17,8 @@ if (_unit == theBoss) then
 			{
 			_uds = units _x;
 				{
+				//Once a player has disconnected, they no longer count as a player - so isPlayer doesn't filter them out.
+				if (_x isEqualTo _unit)	exitWith {};
 				if (alive _x) then
 					{
 					_resourcesX = _resourcesX + (server getVariable (typeOf _x));

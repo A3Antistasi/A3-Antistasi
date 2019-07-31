@@ -14,18 +14,19 @@ _LeaderX = objNull;
 
 {
 	_playersX pushBack (_x getVariable ["owner",_x]);
-	if (_x != _x getVariable ["owner",_x]) then {waitUntil {_x == _x getVariable ["owner",_x]}};
-	if ([_x] call A3A_fnc_isMember) then
-	{
-		_membersX pushBack _x;
-		if (_x getVariable ["eligible",true]) then
+	if (_x == _x getVariable ["owner", _x] && isPlayer _x) then {
+		if ([_x] call A3A_fnc_isMember) then
 		{
-			_eligibles pushBack _x;
-			if (_x == theBoss) then
+			_membersX pushBack _x;
+			if (_x getVariable ["eligible",true]) then
 			{
-				_LeaderX = _x;
-				_dataX = [_LeaderX] call A3A_fnc_numericRank;
-				_puntMax = _dataX select 0;
+				_eligibles pushBack _x;
+				if (_x == theBoss) then
+				{
+					_LeaderX = _x;
+					_dataX = [_LeaderX] call A3A_fnc_numericRank;
+					_puntMax = _dataX select 0;
+				};
 			};
 		};
 	};

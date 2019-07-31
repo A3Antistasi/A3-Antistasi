@@ -56,6 +56,10 @@ if (_unit == theBoss) then
 			};
 		};
 	} forEach allGroups;
+	//Empty 'theBoss' variable, so it doesn't remain assigned to the player's dead body.
+	theBoss = objNull;
+	//Broadcast as a public variable, otherwise new players joining will have theBoss assigned to the dead body still.
+	publicVariable "theBoss";
 	if (((count playableUnits > 0) and (!membershipEnabled)) or ({(getPlayerUID _x) in membersX} count playableUnits > 0)) then
 		{
 		[] spawn A3A_fnc_assigntheBoss;

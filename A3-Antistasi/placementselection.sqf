@@ -114,8 +114,8 @@ if (visiblemap) then
 	boxX setPos _pos;
 	_rnd = _rnd + 45;
 	_pos = [_firePos, 3, _rnd] call BIS_Fnc_relPos;
+	mapX setDir ([_firePos, _pos] call BIS_fnc_dirTo);
 	mapX setPos _pos;
-	mapX setDir ([_firePos, mapX] call BIS_fnc_dirTo);
 	_rnd = _rnd + 45;
 	_pos = [_firePos, 3, _rnd] call BIS_Fnc_relPos;
 	flagX setPos _pos;

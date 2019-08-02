@@ -21,14 +21,39 @@ private _loadoutInfo =	[_playerId, "loadoutPlayer"] call fn_RetrievePlayerStat;
 if (!isNil "_loadoutInfo") then {
 	if (isMultiplayer) then
 	{
-		removeAllItemsWithMagazines _unit;
-		{_unit removeWeaponGlobal _x} forEach weapons _unit;
-		removeBackpackGlobal _unit;
-		removeVest _unit;
-		if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems _unit))) then {_unit unlinkItem "ItemGPS"};
-		if ((!hasTFAR) and (!hasACRE) and ("ItemRadio" in (assignedItems _unit)) and (not("ItemRadio" in unlockedItems))) then {_unit unlinkItem "ItemRadio"};
-		//Essentially zeroing their loadout, to prevent them relogging for infinite gear
-		[_playerId, "loadoutPlayer", getUnitLoadout _unit] call fn_SavePlayerStat;
+		private _currentLoadout = getUnitLoadout _unit;
+		private _uniform = _currentLoadout select 3;
+		private _uniform = if (count _uniform > 0) then {[_uniform select 0,[]]} else {[]};
+		private _newSavedLoadout = [
+			/* Primary weapon */  [],
+			/* Secondary weapon */[],
+			/* Handgun */         [],
+			/* Uniform */         _uniform,
+			/* Vest */            [],
+			/* Backpack */        [],
+			/* Helmet */          "",
+			/* Facewear */        "",
+			/* Binoculars */      [],
+			/* Special items */   ["", "", "", "", "", ""]
+		];
+		
+		private _oldSpecialItems = _currentLoadout select 9;
+		private _newSpecialItems = _newSavedLoadout select 9;
+		
+		//If Map/GPS/Compass/Watch is unlocked, keep it.
+		{
+			if ((_oldSpecialItems select _x) in unlockedItems) then {
+				_newSpecialItems set [_x, (_oldSpecialItems select _x)];
+			};
+		} forEach [0,1,2,3,4];
+		
+		//Keep our radio, if we have TFAR or ACRE.
+		if (hasTFAR || hasACRE) then {
+			_newSpecialItems set [2, _oldSpecialItems select 2];
+		};
+		
+		//Save the new loadout. This helps prevent duping, by zeroing out their retrieved save. 
+		[_playerId, "loadoutPlayer", _newSavedLoadout] call fn_SavePlayerStat;
 	};
 
 	_unit setUnitLoadout _loadoutInfo;

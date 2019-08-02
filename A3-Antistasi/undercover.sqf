@@ -135,7 +135,7 @@ while {_changeX == ""} do
 					{
 					if !(_isInControl) then
 						{
-						_aggro = if (sidesX getVariable [_base,sideUnknown] == Occupants) then {prestigeNATO} else {prestigeCSAT};
+						_aggro = if (sidesX getVariable [_base,sideUnknown] == Occupants) then {prestigeNATO + (tierWar*10)} else {prestigeCSAT + (tierWar*10)};
 						if (random 100 < _aggro) then
 							{
 							_changeX = "Control";

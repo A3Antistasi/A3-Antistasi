@@ -1,9 +1,19 @@
+params [["_location", []]];
+
 _oldPetros = if (isNil "petros") then {objNull}	else {petros};
 
 groupPetros = createGroup teamPlayer;
 publicVariable "groupPetros";
 
-private _position = if (getPos _oldPetros isEqualTo [0,0,0]) then {getMarkerPos respawnTeamPlayer} else {getPos _oldPetros};
+private _position = if (count _location > 0) then {
+	_location
+} else {
+	if (getPos _oldPetros isEqualTo [0,0,0]) then {
+		getMarkerPos respawnTeamPlayer
+	} else {
+		getPos _oldPetros
+	};
+};
 
 petros = groupPetros createUnit [typePetros, _position, [], 10, "NONE"];
 publicVariable "petros";

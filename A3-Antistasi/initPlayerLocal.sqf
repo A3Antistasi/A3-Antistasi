@@ -156,16 +156,21 @@ if (player getVariable ["pvp",false]) exitWith
 		};
 	if (hasACE) then {[] call A3A_fnc_ACEpvpReDress};
 	respawnTeamPlayer setMarkerAlphaLocal 0;
+	//Let a player in a vehicle if they're: A passenger, or the vehicle is a light unarmed vehicle.
 	player addEventHandler ["GetInMan",
 		{
-		private ["_unit","_veh"];
+		private ["_unit","_veh", "_role"];
 		_unit = _this select 0;
+		_role = _this select 1;
 		_veh = _this select 2;
 		if (_veh != lastVehicleSpawned) then
 			{
-			if !((typeOf _veh) in (vehNATOLightUnarmed + vehCSATLightUnarmed)) then
+			private _isACEHandcuffed = _unit getVariable ["ACE_captives_isHandcuffed", false];
+			if (!((typeOf _veh) in (vehNATOLightUnarmed + vehCSATLightUnarmed)) && !(_role == "Cargo") && !_isACEHandcuffed) then
 				{
-				moveOut player;
+				//ACE has a loop which tries to force handcuffed players back into vehicles if anything kicks them out.
+				//The spawn stops Arma hanging indefinitely in an infinite loop if /somehow/ we hit that condition.
+				_unit spawn { moveOut _this };
 				hint "PvP player are only allowed to use their own or other PvP player vehicles";
 				};
 			};

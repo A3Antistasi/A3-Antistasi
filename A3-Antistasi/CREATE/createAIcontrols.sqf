@@ -87,8 +87,6 @@ if (_isControl) then
 			_typeVehX = if (_sideX == Occupants) then {NATOFlag} else {CSATFlag};
 			_veh = createVehicle [_typeVehX, _pos, [],0, "CAN_COLLIDE"];
 			_vehiclesX pushBack _veh;
-			_veh = _typeVehX createVehicle _positionX;
-			_vehiclesX pushBack _veh;
 			_veh setPosATL _pos;
 			_veh setDir _dirVeh;
 			sleep 1;

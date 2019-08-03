@@ -6,8 +6,14 @@ posHQ = _newPosition; publicVariable "posHQ";
 [respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",[teamPlayer,civilian]];
 [respawnTeamPlayer,0] remoteExec ["setMarkerAlphaLocal",[Occupants,Invaders]];
 
+private _alignNormals = {
+	private _thing = _this;
+	_thing setVectorUp surfaceNormal getPos _thing;
+};
+
 private _firePos = [_newPosition, 3, getDir petros] call BIS_Fnc_relPos;
-fireX setPos _firePos;
+//Extra height on the fire to avoid it clipping into the ground
+fireX setPos (_firePos vectorAdd [0,0,0.1]);
 _rnd = getdir petros;
 _pos = [_firePos, 3, _rnd] call BIS_Fnc_relPos;
 boxX setPos _pos;
@@ -23,6 +29,9 @@ flagX setPos _pos;
 _rnd = _rnd + 45;
 _pos = [_firePos, 3, _rnd] call BIS_Fnc_relPos;
 vehicleBox setPos _pos;
+
+//Align with ground. Deliberately ignoring flagX, because a flag pole at 45 degrees looks /weird/
+{_x call _alignNormals} forEach [fireX, boxX, mapX, vehicleBox];
 
 boxX hideObjectGlobal false;
 vehicleBox hideObjectGlobal false;

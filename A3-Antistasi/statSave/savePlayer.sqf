@@ -26,10 +26,12 @@ private _canSaveLoadout = true;
 if (hasACEMedical && {[_playerUnit] call ace_medical_fnc_getUnconsciousCondition}) then 
 {
 	_canSaveLoadout =	false;
+	diag_log format ["[Antistasi] Not saving loadout of player %1 due to being ACE unconscious", _playerId];
 };
 
 if !(lifeState _playerUnit == "HEALTHY" || lifeState _playerUnit == "INJURED") then {
 	_canSaveLoadout =	false;
+	diag_log format ["[Antistasi] Not saving loadout of player %1 due to not being healthy or injured", _playerId];
 };
 
 if (_canSaveLoadout) then {

@@ -647,22 +647,20 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
     {
     hasTFAR = true;
     haveRadio = true;
-    unlockedItems = unlockedItems + ["tf_microdagr","tf_anprc148jem"];//making this items Arsenal available.["tf_anprc152"]
+    unlockedItems = unlockedItems;
     tf_no_auto_long_range_radio = true; publicVariable "tf_no_auto_long_range_radio";//set to false and players will start with LR radio, uncomment the last line of so.
-	if (hasIFA) then
-		{tf_give_personal_radio_to_regular_soldier = false;
-		publicVariable "tf_give_personal_radio_to_regular_soldier";
-		}
-	else
-		{
-		unlockedItems = unlockedItems + ["tf_microdagr","tf_anprc148jem"];
+    if (hasIFA) then {
+			tf_give_personal_radio_to_regular_soldier = false;
+			publicVariable "tf_give_personal_radio_to_regular_soldier";
+		} else {
+			unlockedItems = unlockedItems + ["tf_microdagr","tf_anprc148jem","ItemRadio"];
 		};
 	//tf_teamPlayer_radio_code = "";publicVariable "tf_teamPlayer_radio_code";//to make enemy vehicles usable as LR radio
 	//tf_east_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_east_radio_code"; //to make enemy vehicles usable as LR radio
 	//tf_guer_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_guer_radio_code";//to make enemy vehicles usable as LR radio
 	tf_same_sw_frequencies_for_side = true; publicVariable "tf_same_sw_frequencies_for_side";
 	tf_same_lr_frequencies_for_side = true; publicVariable "tf_same_lr_frequencies_for_side";
-	unlockedItems pushBack "ItemRadio";
+	
     //unlockedBackpacks pushBack "tf_rt1523g_sage";//uncomment this if you are adding LR radios for players
     };
 //ACE detection and ACE item availability in Arsenal

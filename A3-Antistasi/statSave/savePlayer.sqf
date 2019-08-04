@@ -16,8 +16,11 @@ if (isNil "_playerId" || isNil "_playerUnit" || { isNull _playerUnit }) exitWith
 	diag_log format ["[Antistasi] Not saving player %1 due to missing unit", _playerId];
 };
 
+//Only save rebel players.
+if (side group _playerUnit != teamPlayer && side group _playerUnit != sideUnknown) exitWith {};
+
 savingClient = true;
-diag_log format ["[Antistasi] Saving player %1", _playerId];
+diag_log format ["[Antistasi] Saving player %1 on side %2", _playerId, side group _playerUnit];
 
 private _canSaveLoadout = true;
 if (hasACEMedical && {[_playerUnit] call ace_medical_fnc_getUnconsciousCondition}) then 

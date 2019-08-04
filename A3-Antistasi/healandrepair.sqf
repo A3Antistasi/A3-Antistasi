@@ -1,6 +1,14 @@
+private _posHQ = getMarkerPos respawnTeamPlayer;
+private _time = if (isMultiplayer) then {serverTime} else {time};
 
-private ["_posHQ"];
-_posHQ = getMarkerPos respawnTeamPlayer;
+
+if ((_time - (boxX getVariable ["lastUsed", -30])) < 30) exitWith {
+	if (hasInterface) then {
+		hint "The repair box has been used in the last 30 seconds! Please wait for a bit.";
+	};
+};
+
+boxX setVariable ["lastUsed", _time, true];
 
 {if ((side group _x == teamPlayer) and (_x distance _posHQ < 50)) then
 	{

@@ -22,19 +22,21 @@ if (side group _playerUnit != teamPlayer && side group _playerUnit != sideUnknow
 savingClient = true;
 diag_log format ["[Antistasi] Saving player %1 on side %2", _playerId, side group _playerUnit];
 
-private _canSaveLoadout = true;
+private _shouldStripLoadout = false;
 if (hasACEMedical && {[_playerUnit] call ace_medical_fnc_getUnconsciousCondition}) then 
 {
-	_canSaveLoadout =	false;
-	diag_log format ["[Antistasi] Not saving loadout of player %1 due to being ACE unconscious", _playerId];
+	_shouldStripLoadout = true;
+	diag_log format ["[Antistasi] Stripping saved loadout of player %1 due to saving while being ACE unconscious", _playerId];
 };
 
 if !(lifeState _playerUnit == "HEALTHY" || lifeState _playerUnit == "INJURED") then {
-	_canSaveLoadout =	false;
-	diag_log format ["[Antistasi] Not saving loadout of player %1 due to not being healthy or injured", _playerId];
+	_shouldStripLoadout = true;
+	diag_log format ["[Antistasi] Stripping saved loadout loadout of player %1 due to saving while not being healthy or injured", _playerId];
 };
 
-if (_canSaveLoadout) then {
+if (_shouldStripLoadout) then {
+	[_playerId, "loadoutPlayer", (getUnitLoadout _playerUnit) call A3A_fnc_stripGearFromLoadout] call fn_SavePlayerStat;
+} else {
 	[_playerId, "loadoutPlayer", getUnitLoadout _playerUnit] call fn_SavePlayerStat;
 };
 

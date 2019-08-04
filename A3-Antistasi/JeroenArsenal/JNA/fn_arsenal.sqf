@@ -1642,10 +1642,20 @@ switch _mode do {
 
 					if (_item != "") then{
 						switch _index do{
-							case IDC_RSCDISPLAYARSENAL_TAB_UNIFORM:{player forceaddUniform _item;};
-							case IDC_RSCDISPLAYARSENAL_TAB_VEST:{player addVest _item;};
-							case IDC_RSCDISPLAYARSENAL_TAB_BACKPACK:{player addbackpack _item;};
+							case IDC_RSCDISPLAYARSENAL_TAB_UNIFORM:{
+								player forceaddUniform _item;
+							};
+							case IDC_RSCDISPLAYARSENAL_TAB_VEST:{
+								player addVest _item;
+							};
+							case IDC_RSCDISPLAYARSENAL_TAB_BACKPACK: {
+								player addbackpack _item;
+								//Some glitchy backpacks aren't empty. Make sure they are. NO FREE ITEMS.
+								clearAllItemsFromBackpack player;
+							};
 						};
+						
+						
 
 						//container changed
 						_container = switch _index do{

@@ -15,9 +15,10 @@ else
 
 build_targetLocation = _positionX;
 build_atBuildLocation = false;
+build_cancelBuild = false;
 
 addMissionEventHandler ["Draw3D", {
-	if (build_atBuildLocation) exitWith {
+	if (build_atBuildLocation || build_cancelBuild) exitWith {
 		removeMissionEventHandler ["Draw3D", _thisEventHandler];
 	};
 	drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_search_ca.paa", [1,1,1,1], build_targetLocation, 1,1,0,"Build", 0, 0.05, "PuristaMedium"];
@@ -27,6 +28,7 @@ waitUntil {sleep 1;(time > _timeOut) or (build_engineerSelected distance _positi
 
 if (time > _timeOut) exitWith 
 {
+	build_cancelBuild = true;
 	hint "You didn't move to the position, construction has timed out.";
 };
 

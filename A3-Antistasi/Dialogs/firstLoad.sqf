@@ -1,4 +1,5 @@
 _nul=createDialog "first_load";
+player setVariable ['canSave', true, true];
 
 _bypass = false;
 

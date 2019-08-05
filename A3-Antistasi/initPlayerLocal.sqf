@@ -6,6 +6,8 @@ if (hasInterface) then
 	waitUntil {player == player};
 	player removeweaponGlobal "itemmap";
 	player removeweaponGlobal "itemgps";
+	//Disable player saving until they're fully ready, and have chosen whether to load their save.
+	player setVariable ["canSave", false, true];
 	};
 if (isMultiplayer) then
 	{

@@ -19,6 +19,12 @@ if (isNil "_playerId" || isNil "_playerUnit" || { isNull _playerUnit }) exitWith
 //Only save rebel players.
 if (side group _playerUnit != teamPlayer && side group _playerUnit != sideUnknown) exitWith {};
 
+//Used to disable saving while the player initialises. Otherwise they might disconnect, and overwrite their own save prematurely.
+//Default to being able to save - better to save when we shouldn't, than not be able to save at all. Safer, in case there's any bugs.
+if !(_playerUnit getVariable ['canSave', true]) exitWith {
+	diag_log format ["[Antistasi] Not saving player %1 due to canSave being false.", _playerId];
+};
+
 savingClient = true;
 diag_log format ["[Antistasi] Saving player %1 on side %2", _playerId, side group _playerUnit];
 

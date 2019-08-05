@@ -1,19 +1,19 @@
 # Please go to the newly formed Organization where the project will be continued
 # https://github.com/official-antistasi-community/A3-Antistasi-1.4
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
 # How to play AntiStasi
 Please note that this GitHub is still work-in-process.
 Therefore, if you would like to play AntiStasi 1.4, following we have posted a plug & play pbos as well as a tested modsets:

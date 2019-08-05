@@ -66,17 +66,20 @@ if (_unit == theBoss) then
 		};
 	if (group petros == group _unit) then {[] spawn A3A_fnc_buildHQ};
 	};
-//{if (groupOwner _x ==)} forEach allGroups select {(side _x == civilian) and (!isPlayer leader _x)};
-if (side _unit == teamPlayer) then
+
+//Need to check the group's side, as player may be a civ. Unknown is in case they've been moved out of their group.
+if (side group _playerUnit == teamPlayer || side group _playerUnit == sideUnknown) then
 	{
 	if ((_hr > 0) or (_resourcesX > 0)) then {[_hr,_resourcesX] spawn A3A_fnc_resourcesFIA};
 	if (membershipEnabled and pvpEnabled) then
 		{
 		if (_uid in membersX) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
 		};
-	[_uid, _unit] call A3A_fnc_savePlayer;
 	//if ([_unit] call A3A_fnc_isMember) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
 	};
+	
+[_uid, _unit] call A3A_fnc_savePlayer;
+	
 if (_owner in hcArray) then
 	{
 	//["hcDown",true,true,true,true] remoteExec ["BIS_fnc_endMission"]

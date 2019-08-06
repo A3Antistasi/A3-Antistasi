@@ -1,2 +1,8 @@
-*.xcopy.log
-Tools/ValidationResults.txt
+*.log
+Tools
+*.pbo
+*.pbo.bak
+*.bat
+template.*.cfg
+.vscode
+.github

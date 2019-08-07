@@ -187,6 +187,13 @@ class Params
         default = 1;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
+    class napalmEnabled
+    {
+        title = "Enable Napalm Bombing for AI";
+        values[] = {0,1};
+        texts[] = {"No","Yes"};
+        default = 0;
+    };
 };
 
 class CfgIdentities

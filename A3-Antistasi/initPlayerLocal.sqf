@@ -531,6 +531,9 @@ else
 		    	if !(loadLastSave) then
 		    		{
 		    		_nul = [] spawn A3A_fnc_placementSelection;
+						//This shouldn't really be here, but it's triggered on every other path through the code. 
+						//This big if statement needs tidying, really.
+						player setVariable ['canSave', true, true];
 		    		}
 		    	else
 		    		{

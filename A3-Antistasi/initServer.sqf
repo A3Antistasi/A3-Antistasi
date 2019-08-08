@@ -156,7 +156,11 @@ private _index = _x call jn_fnc_arsenal_itemType;
 diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP;
 
+//HandleDisconnect doesn't get 'owner' param, so we can't use it to handle headless client disconnects.
 addMissionEventHandler ["HandleDisconnect",{_this call A3A_fnc_onPlayerDisconnect;false}];
+//PlayerDisconnected doesn't get access to the unit, so we shouldn't use it to handle saving.
+addMissionEventHandler ["PlayerDisconnected",{_this call A3A_fnc_onHeadlessClientDisconnect;false}];
+
 addMissionEventHandler ["BuildingChanged",
         {
         _building = _this select 0;

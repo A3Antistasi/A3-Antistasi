@@ -566,8 +566,9 @@ else
 			player setPos (getMarkerPos respawnTeamPlayer);
 			};
 		};
-	};
 	_nul = [] execVM "credits.sqf";
+	};
+
 waitUntil {scriptDone _titulo};
 
 _textX = [];

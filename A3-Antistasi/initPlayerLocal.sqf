@@ -533,7 +533,7 @@ else
 		    	if !(loadLastSave) then
 		    		{
 		    		_nul = [] spawn A3A_fnc_placementSelection;
-						//This shouldn't really be here, but it's triggered on every other path through the code. 
+						//This shouldn't really be here, but it's triggered on every other path through the code.
 						//This big if statement needs tidying, really.
 						player setVariable ['canSave', true, true];
 		    		}
@@ -567,6 +567,7 @@ else
 			};
 		};
 	};
+	_nul = [] execVM "credits.sqf";
 waitUntil {scriptDone _titulo};
 
 _textX = [];
@@ -620,12 +621,12 @@ if (isMultiplayer) then {flagX addAction ["Personal Garage", {nul = [GARAGE_PERS
 flagX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 
 //Adds a light to the flag
-private _flagLight = "#lightpoint" createVehicle (getPos flagX); 
-_flagLight setLightDayLight true; 
-_flagLight setLightColor [1, 1, 0.9]; 
-_flagLight setLightBrightness 0.2; 
-_flagLight setLightAmbient [1, 1, 0.9]; 
-_flagLight lightAttachObject [flagX, [0, 0, 4]]; 
+private _flagLight = "#lightpoint" createVehicle (getPos flagX);
+_flagLight setLightDayLight true;
+_flagLight setLightColor [1, 1, 0.9];
+_flagLight setLightBrightness 0.2;
+_flagLight setLightAmbient [1, 1, 0.9];
+_flagLight lightAttachObject [flagX, [0, 0, 4]];
 _flagLight setLightAttenuation [7, 0, 0.5, 0.5];
 
 vehicleBox allowDamage false;

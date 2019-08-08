@@ -505,6 +505,7 @@ if (_isJip) then
 		    if !(loadLastSave) then
 	    		{
 	    		_nul = [] spawn A3A_fnc_placementSelection;
+					player setVariable ['canSave', true, true];
 	    		};
 			};
 		}

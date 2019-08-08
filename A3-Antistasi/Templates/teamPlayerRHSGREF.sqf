@@ -34,11 +34,11 @@ supportStaticSDKB = "RHS_SPG9_Tripod_Bag";
 ATStaticSDKB = "RHS_SPG9_Gun_Bag";
 MGStaticSDKB = "RHS_DShkM_Gun_Bag";
 supportStaticsSDKB2 = "RHS_DShkM_TripodHigh_Bag";
-AAStaticSDKB = "I_AA_01_weapon_F"; 
+AAStaticSDKB = "I_AA_01_weapon_F";
 MortStaticSDKB = "RHS_Podnos_Gun_Bag";
 supportStaticsSDKB3 = "RHS_Podnos_Bipod_Bag";
 
-civCar = "C_Offroad_01_F"; 
+civCar = "C_Offroad_01_F";
 civTruck = "RHS_Ural_Open_Civ_03";
 civHeli = "RHS_Mi8amt_civilian";
 civBoat = "C_Boat_Transport_02_F";
@@ -87,9 +87,9 @@ else
 		};
 	};
 
-vehPoliceCar = "B_GEN_OFFROAD_01_gen_F";
-policeOfficer = "B_GEN_Commander_F";
-policeGrunt = "B_GEN_Soldier_F";
+vehPoliceCar = "rhsusf_mrzr4_d";
+policeOfficer = "rhsusf_army_ucp_rifleman_m590";
+policeGrunt = "rhsusf_army_ucp_rifleman_82nd";
 groupsNATOGen = [policeOfficer,policeGrunt];
 nameTeamPlayer = "ChDKZ";
 

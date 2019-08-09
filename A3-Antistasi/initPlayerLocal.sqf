@@ -84,22 +84,22 @@ _positionX = if (side player == side (group petros)) then {position petros} else
 {
 _x set [3, 0.33]
 } forEach [_colourTeamPlayer, _colorInvaders];
-_introShot =
+_introShot = [] spawn {
 	[
-    _positionX, // Target position
-    format ["%1",worldName], // SITREP text
-    50, //  altitude
-    50, //  radius
-    90, //  degrees viewing angle
-    0, // clockwise movement
-    [
-    	["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colourTeamPlayer, markerPos "insertMrk", 1, 1, 0, "Insertion Point", 0],
-        ["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colorInvaders, markerPos "towerBaseMrk", 1, 1, 0, "Radio Towers", 0]
-    ]
-    ] spawn BIS_fnc_establishingShot;
-		
-waitUntil {!isNil "BIS_fnc_establishingShot_playing" && {BIS_fnc_establishingShot_playing}};
-private _credits = [] execVM "credits.sqf";
+		_positionX, // Target position
+		format ["%1",worldName], // SITREP text
+		50, //  altitude
+		50, //  radius
+		90, //  degrees viewing angle
+		0, // clockwise movement
+		[
+			["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colourTeamPlayer, markerPos "insertMrk", 1, 1, 0, "Insertion Point", 0],
+			["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colorInvaders, markerPos "towerBaseMrk", 1, 1, 0, "Radio Towers", 0]
+		]
+	] spawn BIS_fnc_establishingShot;
+	waitUntil {!isNil "BIS_fnc_establishingShot_playing" && {BIS_fnc_establishingShot_playing}};
+	private _credits = [] execVM "credits.sqf";
+};
 		
 disableUserInput false;
 player addWeaponGlobal "itemmap";

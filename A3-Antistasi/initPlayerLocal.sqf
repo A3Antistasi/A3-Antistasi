@@ -97,8 +97,10 @@ _introShot =
         ["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colorInvaders, markerPos "towerBaseMrk", 1, 1, 0, "Radio Towers", 0]
     ]
     ] spawn BIS_fnc_establishingShot;
-
-_titulo = if (worldName == "Tanoa") then {["Warlords of the Pacific","by Barbolani & The Official AntiStasi Community",antistasiVersion] spawn BIS_fnc_infoText} else {if (hasIFA) then {["Armia Krajowa","by Barbolani & The Official AntiStasi Community",antistasiVersion] spawn BIS_fnc_infoText} else {["Antistasi","by Barbolani & The Official AntiStasi Community",antistasiVersion] spawn BIS_fnc_infoText}};
+		
+waitUntil {!isNil "BIS_fnc_establishingShot_playing" && {BIS_fnc_establishingShot_playing}};
+private _credits = [] execVM "credits.sqf";
+		
 disableUserInput false;
 player addWeaponGlobal "itemmap";
 if !(hasIFA) then {player addWeaponGlobal "itemgps"};
@@ -566,10 +568,7 @@ else
 			player setPos (getMarkerPos respawnTeamPlayer);
 			};
 		};
-	_nul = [] execVM "credits.sqf";
 	};
-
-waitUntil {scriptDone _titulo};
 
 _textX = [];
 

@@ -84,8 +84,7 @@ _positionX = if (side player == side (group petros)) then {position petros} else
 {
 _x set [3, 0.33]
 } forEach [_colourTeamPlayer, _colorInvaders];
-_introShot = [] spawn {
-	[
+_introShot = [
 		_positionX, // Target position
 		format ["%1",worldName], // SITREP text
 		50, //  altitude
@@ -97,6 +96,9 @@ _introShot = [] spawn {
 			["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colorInvaders, markerPos "towerBaseMrk", 1, 1, 0, "Radio Towers", 0]
 		]
 	] spawn BIS_fnc_establishingShot;
+
+//Trigger credits loading.
+[] spawn {
 	waitUntil {!isNil "BIS_fnc_establishingShot_playing" && {BIS_fnc_establishingShot_playing}};
 	private _credits = [] execVM "credits.sqf";
 };

@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.4c1.05";
+antistasiVersion = "v 1.4c2.0";
 
 
 debug = false;//debug variable, not useful for everything..

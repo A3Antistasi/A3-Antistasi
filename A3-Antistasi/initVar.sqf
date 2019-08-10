@@ -5,7 +5,7 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.4.0.2";
+antistasiVersion = "v 1.4c1.05";
 
 
 debug = false;//debug variable, not useful for everything..
@@ -129,6 +129,7 @@ activeGREF = false;
 hasFFAA = false;
 hasIFA = false;
 myCustomMod = false;
+has3CB = false;
 
 if (isClass(configFile/"CfgPatches"/"LIB_Core")) then
 	{
@@ -138,6 +139,7 @@ if (isClass(configFile/"CfgPatches"/"LIB_Core")) then
 	}
 else
 	{
+ 	if ("UK3CB_BAF_L1A1" in arifles) then {has3CB = true};
 	if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hasRHS = true};
 	if ("ffaa_armas_hkg36k_normal" in arifles) then {hasFFAA = true};
 	if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hasRHS = true};
@@ -218,24 +220,32 @@ weaponsCSAT = [];
 
 if (!hasIFA) then
 	{
-	if (!activeUSAF) then
-		{
-		call compile preProcessFileLineNumbers "Templates\OccupantsVanilla.sqf";
+	if(has3CB) then {
+		call compile preProcessFileLineNumbers "Templates\teamplayer3CBCCM.sqf";
+		call compile preProcessFileLineNumbers "Templates\Occupants3CBBAF.sqf";
+		call compile preProcessFileLineNumbers "Templates\Invaders3CBTKM.sqf";
 		}
 	else
 		{
-		if (teamPlayer == independent) then {call compile preProcessFileLineNumbers "Templates\OccupantsRHSUSAF.sqf"} else {call compile preProcessFileLineNumbers "Templates\teamPlayerRHSUSAF.sqf"};
-		};
-	if (!activeAFRF) then {call compile preProcessFileLineNumbers "Templates\InvadersVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\InvadersRHSAFRF.sqf"};
+		if (!activeUSAF) then
+			{
+			call compile preProcessFileLineNumbers "Templates\OccupantsVanilla.sqf";
+			}
+		else
+			{
+			if (teamPlayer == independent) then {call compile preProcessFileLineNumbers "Templates\OccupantsRHSUSAF.sqf"} else {call compile preProcessFileLineNumbers "Templates\teamPlayerRHSUSAF.sqf"};
+			};
+		if (!activeAFRF) then {call compile preProcessFileLineNumbers "Templates\InvadersVanilla.sqf"} else {call compile preProcessFileLineNumbers "Templates\InvadersRHSAFRF.sqf"};
 
-	if (!activeGREF) then
-		{
-		call compile preProcessFileLineNumbers "Templates\teamPlayerVanilla.sqf"
+		if (!activeGREF) then
+			{
+			call compile preProcessFileLineNumbers "Templates\teamPlayerVanilla.sqf"
+			}
+		else
+			{
+			if (teamPlayer == independent) then {call compile preProcessFileLineNumbers "Templates\teamPlayerRHSGREF.sqf"} else {call compile preProcessFileLineNumbers "Templates\OccupantsRHSGREF.sqf"};
+			};
 		}
-	else
-		{
-		if (teamPlayer == independent) then {call compile preProcessFileLineNumbers "Templates\teamPlayerRHSGREF.sqf"} else {call compile preProcessFileLineNumbers "Templates\OccupantsRHSGREF.sqf"};
-		};
 	}
 else
 	{
@@ -382,13 +392,16 @@ else
 	{
 	if !(hasIFA) then
 		{
-		["C_man_1","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_hunter_1_F","C_man_p_beggar_F","C_man_p_beggar_F_afro","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F","C_scientist_F","C_Orestes","C_Nikos","C_Nikos_aged"]
+		["C_man_1","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_hunter_1_F","C_man_p_beggar_F","C_man_p_beggar_F_afro","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F","C_scientist_F","C_Orestes","C_Nikos","C_Nikos_aged"];
 		}
 	else
 		{
 		["LIB_CIV_Assistant","LIB_CIV_Assistant_2","LIB_CIV_Citizen_1","LIB_CIV_Citizen_2","LIB_CIV_Citizen_3","LIB_CIV_Citizen_4","LIB_CIV_Citizen_5","LIB_CIV_Citizen_6","LIB_CIV_Citizen_7","LIB_CIV_Citizen_8","LIB_CIV_Priest","LIB_CIV_Doctor","LIB_CIV_Functionary_3","LIB_CIV_Functionary_2","LIB_CIV_Functionary_4","LIB_CIV_Villager_4","LIB_CIV_Villager_1","LIB_CIV_Villager_2","LIB_CIV_Villager_3","LIB_CIV_Woodlander_1","LIB_CIV_Woodlander_3","LIB_CIV_Woodlander_2","LIB_CIV_Woodlander_4","LIB_CIV_SchoolTeacher","LIB_CIV_SchoolTeacher_2","LIB_CIV_Rocker","LIB_CIV_Worker_3","LIB_CIV_Worker_1","LIB_CIV_Worker_4","LIB_CIV_Worker_2"]
 		};
 	};//array of possible civs. Only euro types picked (this is Greece). Add any civ classnames you wish here
+//3CB Civ addition
+if (has3CB) then {arrayCivs append ["UK3CB_CHC_C_BODYG","UK3CB_CHC_C_CAN","UK3CB_CHC_C_COACH","UK3CB_CHC_C_DOC","UK3CB_CHC_C_FUNC","UK3CB_CHC_C_HIKER","UK3CB_CHC_C_LABOUR","UK3CB_CHC_C_PILOT","UK3CB_CHC_C_PRIEST","UK3CB_CHC_C_POLITIC","UK3CB_CHC_C_PROF","UK3CB_CHC_C_VILL","UK3CB_CHC_C_WORKER"]};
+
 civBoats = if !(hasIFA) then {["C_Boat_Civil_01_F","C_Scooter_Transport_01_F","C_Boat_Transport_02_F","C_Rubberboat"]} else {[]};
 lamptypes = ["Lamps_Base_F", "PowerLines_base_F","Land_LampDecor_F","Land_LampHalogen_F","Land_LampHarbour_F","Land_LampShabby_F","Land_NavigLight","Land_runway_edgelight","Land_PowerPoleWooden_L_F"];
 if !(hasIFA) then
@@ -416,12 +429,12 @@ injuredSounds =
 medicAnims = ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPknlMstpSnonWnonDnon_medic0","AinvPknlMstpSnonWnonDnon_medic1","AinvPknlMstpSnonWnonDnon_medic2"];
 
 _getMissionPath = [] execVM "initGetMissionPath.sqf";
-waitUntil 
+waitUntil
 {
 	if (scriptDone _getMissionPath) then {true} else
 	{
 		hint "Stuck on compiling missionPath, re-launch the mission.";
-    false;
+		false;
 	}
 };
 hint "Done compiling missionPath";
@@ -568,65 +581,75 @@ else
 
 
 //The following are the initial weapons and mags unlocked and available in the Arsenal, vanilla or RHS
-
-if (!activeGREF) then
-    {
-    if !(hasIFA) then
-    	{
-	    unlockedWeapons = ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","Binocular","SMG_05_F","SMG_02_F"];//"LMG_03_F"
-		unlockedRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
-		unlockedMagazines = ["9Rnd_45ACP_Mag","30Rnd_9x21_Mag","30Rnd_762x39_Mag_F","MiniGrenade","1Rnd_HE_Grenade_shell","30Rnd_545x39_Mag_F","30Rnd_9x21_Mag_SMG_02","10Rnd_9x21_Mag","200Rnd_556x45_Box_F","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
-		initialRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];
-		//unlockedItems = unlockedItems + ["V_Chestrig_khk","V_BandollierB_cbr","V_BandollierB_rgr","U_C_HunterBody_grn"];
-		if !(isMultiplayer) then
+if (!has3CB) then
+	{
+	if (!activeGREF) then
+		{
+		if !(hasIFA) then
 			{
-			unlockedWeapons append ["arifle_AKM_F","arifle_AKS_F"];
-			unlockedRifles append ["arifle_AKM_F","arifle_AKS_F"];
-			initialRifles append ["arifle_AKM_F","arifle_AKS_F"];
-			if (worldName == "Tanoa") then
+			unlockedWeapons = ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","Binocular","SMG_05_F","SMG_02_F"];//"LMG_03_F"
+			unlockedRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
+			unlockedMagazines = ["9Rnd_45ACP_Mag","30Rnd_9x21_Mag","30Rnd_762x39_Mag_F","MiniGrenade","1Rnd_HE_Grenade_shell","30Rnd_545x39_Mag_F","30Rnd_9x21_Mag_SMG_02","10Rnd_9x21_Mag","200Rnd_556x45_Box_F","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
+			initialRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];
+			//unlockedItems = unlockedItems + ["V_Chestrig_khk","V_BandollierB_cbr","V_BandollierB_rgr","U_C_HunterBody_grn"];
+			if !(isMultiplayer) then
 				{
-				unlockedWeapons pushBack "launch_RPG7_F";
-				unlockedAT = ["launch_RPG7_F"];
-				unlockedMagazines pushBack "RPG7_F";
-				}
-			else
-				{
-				if (worldName == "Altis") then
+				unlockedWeapons append ["arifle_AKM_F","arifle_AKS_F"];
+				unlockedRifles append ["arifle_AKM_F","arifle_AKS_F"];
+				initialRifles append ["arifle_AKM_F","arifle_AKS_F"];
+				if (worldName == "Tanoa") then
 					{
-					unlockedWeapons pushBack "launch_MRAWS_olive_rail_F";
-					unlockedAT = ["launch_MRAWS_olive_rail_F"];
-					unlockedMagazines pushBack "MRAWS_HEAT_F";
+					unlockedWeapons pushBack "launch_RPG7_F";
+					unlockedAT = ["launch_RPG7_F"];
+					unlockedMagazines pushBack "RPG7_F";
+					}
+				else
+					{
+					if (worldName == "Altis") then
+						{
+						unlockedWeapons pushBack "launch_MRAWS_olive_rail_F";
+						unlockedAT = ["launch_MRAWS_olive_rail_F"];
+						unlockedMagazines pushBack "MRAWS_HEAT_F";
+						};
 					};
 				};
+			unlockedItems = unlockedItems + ["U_C_HunterBody_grn"];
+			}
+		else
+			{
+			unlockedWeapons = ["LIB_PTRD","LIB_M2_Flamethrower","LIB_Binocular_GER","LIB_K98","LIB_M1895","LIB_FLARE_PISTOL"];//"LMG_03_F"
+			unlockedRifles = ["LIB_K98"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
+			unlockedMagazines = ["LIB_1Rnd_145x114","LIB_M2_Flamethrower_Mag","LIB_5Rnd_792x57","LIB_Pwm","LIB_Rg42","LIB_US_TNT_4pound_mag","LIB_7Rnd_762x38","LIB_1Rnd_flare_red","LIB_1Rnd_flare_green","LIB_1Rnd_flare_white","LIB_1Rnd_flare_yellow"];
+			initialRifles = ["LIB_K98"];
+			unlockedAT = [];
 			};
-		unlockedItems = unlockedItems + ["U_C_HunterBody_grn"];
 		}
 	else
 		{
-		unlockedWeapons = ["LIB_PTRD","LIB_M2_Flamethrower","LIB_Binocular_GER","LIB_K98","LIB_M1895","LIB_FLARE_PISTOL"];//"LMG_03_F"
-		unlockedRifles = ["LIB_K98"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
-		unlockedMagazines = ["LIB_1Rnd_145x114","LIB_M2_Flamethrower_Mag","LIB_5Rnd_792x57","LIB_Pwm","LIB_Rg42","LIB_7Rnd_762x38","LIB_1Rnd_flare_red","LIB_1Rnd_flare_green","LIB_1Rnd_flare_white","LIB_1Rnd_flare_yellow"];
-		initialRifles = ["LIB_K98"];
-		unlockedAT = [];
+		unlockedWeapons = ["rhs_weap_akms","rhs_weap_makarov_pmm","Binocular","rhs_weap_rpg7","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_pp2000_folded","rhs_weap_savz61","rhs_weap_m3a1","rhs_weap_m1garand_sa43"];
+		unlockedRifles = ["rhs_weap_akms","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_savz61","rhs_weap_m3a1","rhs_weap_m1garand_sa43"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
+		unlockedMagazines = ["rhs_30Rnd_762x39mm","rhs_mag_9x18_12_57N181S","rhs_rpg7_PG7VL_mag","rhsgref_5Rnd_762x54_m38","rhsgref_5Rnd_792x57_kar98k","rhs_mag_rgd5","rhs_mag_9x19mm_7n21_20","rhsgref_20rnd_765x17_vz61","rhsgref_30rnd_1143x23_M1911B_SMG","rhsgref_8Rnd_762x63_M2B_M1rifle"];
+		initialRifles = ["rhs_weap_akms","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_savz61"];
+		unlockedItems = unlockedItems + ["rhs_acc_2dpZenit"];
+		unlockedAT = ["rhs_weap_rpg7"];
 		};
-    }
+	}
 else
-    {
-    unlockedWeapons = ["rhs_weap_akms","rhs_weap_makarov_pmm","Binocular","rhs_weap_rpg7","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_pp2000_folded","rhs_weap_savz61","rhs_weap_m3a1","rhs_weap_m1garand_sa43"];
-    unlockedRifles = ["rhs_weap_akms","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_savz61","rhs_weap_m3a1","rhs_weap_m1garand_sa43"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
-    unlockedMagazines = ["rhs_30Rnd_762x39mm","rhs_mag_9x18_12_57N181S","rhs_rpg7_PG7VL_mag","rhsgref_5Rnd_762x54_m38","rhsgref_5Rnd_792x57_kar98k","rhs_mag_rgd5","rhs_mag_9x19mm_7n21_20","rhsgref_20rnd_765x17_vz61","rhsgref_30rnd_1143x23_M1911B_SMG","rhsgref_8Rnd_762x63_M2B_M1rifle"];
-    initialRifles = ["rhs_weap_akms","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_savz61"];
-    unlockedItems = unlockedItems + ["rhs_acc_2dpZenit"];
-    unlockedAT = ["rhs_weap_rpg7"];
-    };
-
+	{
+	unlockedWeapons = ["UK3CB_Enfield","rhsusf_weap_m1911a1","Binocular","rhs_weap_panzerfaust60","UK3CB_Enfield_Rail","rhs_weap_Izh18","rhs_weap_pp2000_folded","UK3CB_M79","rhs_weap_m3a1","rhs_weap_m1garand_sa43"];
+	unlockedRifles = ["UK3CB_Enfield","UK3CB_Enfield_Rail","rhs_weap_Izh18","rhs_weap_m3a1","rhs_weap_m1garand_sa43"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
+	unlockedMagazines = ["UK3CB_Enfield_Mag","rhsusf_mag_7x45acp_MHP","rhsgref_1Rnd_Slug","rhs_mag_rgd5","rhs_mag_9x19mm_7n31_44","rhs_mag_m576","rhs_mag_m713_red","rhs_mag_m4009","rhsgref_30rnd_1143x23_M1T_SMG","rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle"];
+	initialRifles = ["UK3CB_Enfield","UK3CB_Enfield_Rail","rhs_weap_Izh18","rhs_weap_savz61"];
+	unlockedItems = unlockedItems + ["rhs_acc_2dpZenit","rhs_acc_m852v"];
+	unlockedAT = ["rhs_weap_panzerfaust60"];
+	};
 {
 _loadOut = getUnitLoadout (_x select 0);
 _vest = _loadOut select 4;
 if !(_vest isEqualTo []) then {unlockedItems pushBackUnique (_vest select 0)};
 } forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewTeamPlayer]];
 
-unlockedBackpacks = if !(hasIFA) then {["B_FieldPack_oli","B_FieldPack_blk","B_FieldPack_ocamo","B_FieldPack_oucamo","B_FieldPack_cbr"]} else {["B_LIB_US_M2Flamethrower","B_LIB_SOV_RA_MGAmmoBag_Empty"]}; //Initial Arsenal available backpacks
+unlockedBackpacks = if !(hasIFA) then { if !(has3CB) then {["B_FieldPack_oli","B_FieldPack_blk","B_FieldPack_ocamo","B_FieldPack_oucamo","B_FieldPack_cbr"]} else {["UK3CB_ANA_B_B_ASS","UK3CB_ANA_C_B_MED","UK3CB_TKC_C_B_Sidor_MED","UK3CB_B_Hiker","UK3CB_B_Hiker_Camo"]}} else {["B_LIB_US_M2Flamethrower","B_LIB_SOV_RA_MGAmmoBag_Empty"]}; //Initial Arsenal available backpacks
 //lockedbackpcks = lockedbackpcks - unlockedBackpacks;
 unlockedOptics = [];
 unlockedMG = [];
@@ -647,22 +670,20 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
     {
     hasTFAR = true;
     haveRadio = true;
-    unlockedItems = unlockedItems + ["tf_microdagr","tf_anprc148jem"];//making this items Arsenal available.["tf_anprc152"]
-    tf_no_auto_long_range_radio = true; publicVariable "tf_no_auto_long_range_radio";//set to false and players will start with LR radio, uncomment the last line of so.
-	if (hasIFA) then
-		{tf_give_personal_radio_to_regular_soldier = false;
-		publicVariable "tf_give_personal_radio_to_regular_soldier";
-		}
-	else
-		{
-		unlockedItems = unlockedItems + ["tf_microdagr","tf_anprc148jem"];
-		};
-	//tf_teamPlayer_radio_code = "";publicVariable "tf_teamPlayer_radio_code";//to make enemy vehicles usable as LR radio
-	//tf_east_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_east_radio_code"; //to make enemy vehicles usable as LR radio
-	//tf_guer_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_guer_radio_code";//to make enemy vehicles usable as LR radio
-	tf_same_sw_frequencies_for_side = true; publicVariable "tf_same_sw_frequencies_for_side";
-	tf_same_lr_frequencies_for_side = true; publicVariable "tf_same_lr_frequencies_for_side";
-	unlockedItems pushBack "ItemRadio";
+    unlockedItems = unlockedItems;
+    ["TF_no_auto_long_range_radio", true, true,"mission"] call CBA_settings_fnc_set;//set to false and players will start with LR radio, uncomment the last line of so.
+    if (hasIFA) then {
+      ["TF_give_personal_radio_to_regular_soldier", false, true,"mission"] call CBA_settings_fnc_set;
+      ["TF_give_microdagr_to_soldier", false, true,"mission"] call CBA_settings_fnc_set;
+    } else {
+      unlockedItems = unlockedItems + ["tf_microdagr","tf_anprc148jem","ItemRadio"];
+    };
+    //tf_teamPlayer_radio_code = "";publicVariable "tf_teamPlayer_radio_code";//to make enemy vehicles usable as LR radio
+    //tf_east_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_east_radio_code"; //to make enemy vehicles usable as LR radio
+    //tf_guer_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_guer_radio_code";//to make enemy vehicles usable as LR radio
+    ["TF_same_sw_frequencies_for_side", true, true,"mission"] call CBA_settings_fnc_set;
+    ["TF_same_lr_frequencies_for_side", true, true,"mission"] call CBA_settings_fnc_set;
+
     //unlockedBackpacks pushBack "tf_rt1523g_sage";//uncomment this if you are adding LR radios for players
     };
 //ACE detection and ACE item availability in Arsenal
@@ -688,7 +709,8 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
 		"ACE_ATragMX",
 		"ACE_acc_pointer_green",
 		"ACE_HandFlare_White",
-		"ACE_HandFlare_Red"
+		"ACE_HandFlare_Red",
+		"ACE_Spraypaintred"
 	];
 	if (hasIFA) then {aceItems append ["ACE_LIB_LadungPM","ACE_SpareBarrel"]};
 	publicVariable "aceItems";

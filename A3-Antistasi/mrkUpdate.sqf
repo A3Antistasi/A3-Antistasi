@@ -6,7 +6,7 @@ _mrkD = format ["Dum%1",_markerX];
 if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 	{
 	_textX = if (count (garrison getVariable [_markerX,[]]) > 0) then {format [": %1", count (garrison getVariable [_markerX,[]])]} else {""};
-	if (markerColor _mrkD != colourTeamPlayer) then {_mrkD setMarkerColor colourTeamPlayer};
+	_mrkD setMarkerColor colourTeamPlayer;
 	if (_markerX in airportsX) then
 		{
 		_textX = format ["%2 Airbase%1",_textX,nameTeamPlayer];
@@ -25,7 +25,7 @@ if (sidesX getVariable [_markerX,sideUnknown] == teamPlayer) then
 			{
 			 if (_markerX in resourcesX) then
 			 	{
-			 	_textX = format ["Resouces%1",_textX];
+			 	_textX = format ["Resources%1",_textX];
 			 	}
 			 else
 			 	{
@@ -67,19 +67,19 @@ else
 		};
 	if (_markerX in resourcesX) then
 	 	{
-	 	if (markerText _mrkD != "Resources") then {_mrkD setMarkerText "Resources"};
+			_mrkD setMarkerText "Resources";
 	 	}
 	 else
 	 	{
 	 	if (_markerX in factories) then
     		{
-    		if (markerText _mrkD != "Factory") then {_mrkD setMarkerText "Factory"};
+					_mrkD setMarkerText "Factory";
     		}
     	else
     		{
     		if (_markerX in seaports) then
     			{
-    			if (markerText _mrkD != "Sea Port") then {_mrkD setMarkerText "Sea Port"};
+    			_mrkD setMarkerText "Sea Port";
     			};
     		};
 	 	};

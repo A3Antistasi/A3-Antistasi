@@ -75,7 +75,7 @@ petros addMPEventHandler ["mpkilled",
             }
         else
             {
-            call A3A_fnc_createPetros;
+            [] call A3A_fnc_createPetros;
             };
         };
    }];

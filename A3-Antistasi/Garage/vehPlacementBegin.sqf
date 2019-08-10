@@ -20,7 +20,7 @@ vehPlace_extraMessage = _displayMessage;
 
 vehPlace_previewVeh = _vehicleType createVehicleLocal [0,0,1000];
 vehPlace_previewVeh allowDamage false;
-vehPlace_previewVeh enableSimulationGlobal false;
+vehPlace_previewVeh enableSimulation false;
 
 [_vehicleType] call A3A_fnc_displayVehiclePlacementMessage;
 hint "Hover your mouse to the desired position. If it's safe and suitable, you will see the vehicle";
@@ -105,7 +105,7 @@ addMissionEventHandler ["EachFrame",
 					deleteVehicle vehPlace_previewVeh;				
 					vehPlace_previewVeh = _typeX createVehicleLocal [0,0,1000];
 					vehPlace_previewVeh allowDamage false;
-					vehPlace_previewVeh enableSimulationGlobal false;
+					vehPlace_previewVeh enableSimulation false;
 					[_typeX] call A3A_fnc_displayVehiclePlacementMessage;
 				};
 			case VEHPLACE_ACTION_ROT_LEFT: 

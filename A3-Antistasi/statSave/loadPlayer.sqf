@@ -14,23 +14,15 @@ if (isMultiplayer && !isServer) exitwith {
 
 waitUntil {(!isNil "initVar")};
 
-diag_log format ["[Antistasi] Server loading player %1 into unit %2", _playerId, _unit];
+if ([_playerId] call A3A_fnc_playerHasSave) then {
+	diag_log format ["[Antistasi] Server loading player %1 into unit %2", _playerId, _unit];
+} else {
+	diag_log format ["[Antistasi] No save found for player %1 into unit %2", _playerId, _unit];
+};
 
 private _loadoutInfo =	[_playerId, "loadoutPlayer"] call fn_RetrievePlayerStat;
 	
 if (!isNil "_loadoutInfo") then {
-	if (isMultiplayer) then
-	{
-		removeAllItemsWithMagazines _unit;
-		{_unit removeWeaponGlobal _x} forEach weapons _unit;
-		removeBackpackGlobal _unit;
-		removeVest _unit;
-		if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems _unit))) then {_unit unlinkItem "ItemGPS"};
-		if ((!hasTFAR) and (!hasACRE) and ("ItemRadio" in (assignedItems _unit)) and (not("ItemRadio" in unlockedItems))) then {_unit unlinkItem "ItemRadio"};
-		//Essentially zeroing their loadout, to prevent them relogging for infinite gear
-		[_playerId, "loadoutPlayer", getUnitLoadout _unit] call fn_SavePlayerStat;
-	};
-
 	_unit setUnitLoadout _loadoutInfo;
 };
 

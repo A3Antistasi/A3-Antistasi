@@ -88,58 +88,11 @@ if (visiblemap) then
 			sidesX setVariable [_x,teamPlayer,true];
 			};
 		} forEach _controlsX;
-		_oldPetros = petros;
-		groupPetros = createGroup teamPlayer;
-		publicVariable "groupPetros";
-        petros = groupPetros createUnit [typePetros, _positionTel, [], 0, "NONE"];
-        groupPetros setGroupId ["Maru","GroupColor4"];
-        petros setIdentity "friendlyX";
-        if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Petros"};
-        petros disableAI "MOVE";
-        petros disableAI "AUTOTARGET";
-        if (group _oldPetros == groupPetros) then {[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros]} else {[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros]};
-        _nul= [] execVM "initPetros.sqf";
-        deleteVehicle _oldPetros;
-        publicVariable "petros";
+		[_positionTel] call A3A_fnc_createPetros;
 		};
-	respawnTeamPlayer setMarkerPos _positionTel;
-	[respawnTeamPlayer,1] remoteExec ["setMarkerAlphaLocal",[teamPlayer,civilian]];
-	[respawnTeamPlayer,0] remoteExec ["setMarkerAlphaLocal",[Occupants,Invaders]];
-	if (isMultiplayer) then {hint "Please wait while moving HQ Assets to selected position";sleep 5};
-	private _firePos = [_positionTel, 3, getDir petros] call BIS_Fnc_relPos;
-	fireX setPos _firePos;
-	_rnd = getdir Petros;
-	if (isMultiplayer) then {sleep 5};
-	_pos = [_firePos, 3, _rnd] call BIS_Fnc_relPos;
-	boxX setPos _pos;
-	_rnd = _rnd + 45;
-	_pos = [_firePos, 3, _rnd] call BIS_Fnc_relPos;
-	mapX setPos _pos;
-	mapX setDir ([_firePos, mapX] call BIS_fnc_dirTo);
-	_rnd = _rnd + 45;
-	_pos = [_firePos, 3, _rnd] call BIS_Fnc_relPos;
-	flagX setPos _pos;
-	_rnd = _rnd + 45;
-	_pos = [_firePos, 3, _rnd] call BIS_Fnc_relPos;
-	vehicleBox setPos _pos;
+	[_positionTel] call A3A_fnc_relocateHQObjects;
 	if (isNil "placementDone") then {if (isMultiplayer) then {{if ((side _x == teamPlayer) or (side _x == civilian)) then {_x setPos getPos petros}} forEach playableUnits} else {theBoss setPos (getMarkerPos respawnTeamPlayer)}};
 	theBoss allowDamage true;
-	if (isMultiplayer) then
-		{
-		boxX hideObjectGlobal false;
-		vehicleBox hideObjectGlobal false;
-		mapX hideObjectGlobal false;
-		fireX hideObjectGlobal false;
-		flagX hideObjectGlobal false;
-		}
-	else
-		{
-		boxX hideObject false;
-		vehicleBox hideObject false;
-		mapX hideObject false;
-		fireX hideObject false;
-		flagX hideObject false;
-		};
 	openmap [false,false];
 	};
 {deleteMarkerLocal _x} forEach _mrkDum;

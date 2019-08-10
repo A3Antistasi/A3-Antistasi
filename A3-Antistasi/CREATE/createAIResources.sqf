@@ -179,7 +179,7 @@ if (count _pos > 0) then
 	{
 	_typeVehX = if (_sideX == Occupants) then
 		{
-		if (!_isFIA) then {vehNATOTrucks} else {[vehFIATruck]};
+		if (!_isFIA) then {vehNATOTrucks + vehNATOCargoTrucks} else {[vehFIATruck]};
 		}
 	else
 		{

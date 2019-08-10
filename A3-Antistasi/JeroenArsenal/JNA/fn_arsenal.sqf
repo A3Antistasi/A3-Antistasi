@@ -563,7 +563,15 @@ switch _mode do {
 			_primaryweapon set [0,((_primaryweapon select 0) call BIS_fnc_baseWeapon)];
 			_secondaryweapon set [0,((_secondaryweapon select 0) call BIS_fnc_baseWeapon)];
 			_handgunweapon set [0,((_handgunweapon select 0) call BIS_fnc_baseWeapon)];
-			_backpack set [0,((_backpack select 0) call BIS_fnc_basicBackpack)];
+			
+			//Some mod backpacks have no empty variant
+			if (count _backpack > 0) then {
+				private _basicBackpack = ((_backpack select 0) call BIS_fnc_basicBackpack);
+				if (_basicBackpack isEqualTo "") then {
+					_basicBackpack = _backpack select 0;
+				};	
+				_backpack set [0,_basicBackpack];	
+			};
 
 			_uniformitems = [_unifrom,1,[]] call BIS_fnc_param;
 			_vestitems = [_vest,1,[]] call BIS_fnc_param;
@@ -1634,10 +1642,20 @@ switch _mode do {
 
 					if (_item != "") then{
 						switch _index do{
-							case IDC_RSCDISPLAYARSENAL_TAB_UNIFORM:{player forceaddUniform _item;};
-							case IDC_RSCDISPLAYARSENAL_TAB_VEST:{player addVest _item;};
-							case IDC_RSCDISPLAYARSENAL_TAB_BACKPACK:{player addbackpack _item;};
+							case IDC_RSCDISPLAYARSENAL_TAB_UNIFORM:{
+								player forceaddUniform _item;
+							};
+							case IDC_RSCDISPLAYARSENAL_TAB_VEST:{
+								player addVest _item;
+							};
+							case IDC_RSCDISPLAYARSENAL_TAB_BACKPACK: {
+								player addbackpack _item;
+								//Some glitchy backpacks aren't empty. Make sure they are. NO FREE ITEMS.
+								clearAllItemsFromBackpack player;
+							};
 						};
+						
+						
 
 						//container changed
 						_container = switch _index do{

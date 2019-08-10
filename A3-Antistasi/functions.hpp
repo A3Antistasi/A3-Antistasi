@@ -40,6 +40,7 @@ class A3A
         class NATOFT {file="NATOFT.sqf";};
         class numericRank {file="numericRank.sqf";};
         class onPlayerDisconnect {file="onPlayerDisconnect.sqf";};
+        class onHeadlessClientDisconnect {file="onHeadlessClientDisconnect.sqf";};
         class patrolDestinations {file="patrolDestinations.sqf";};
         class placementSelection {file="placementselection.sqf";};
         class playerHasBeenPvPCheck {file="playerHasBeenPvPCheck.sqf";};
@@ -49,6 +50,7 @@ class A3A
         class outpostDialog {file="outpostDialog.sqf";};
         class radioCheck {file="radioCheck.sqf";};
         class rebuildAssets {file="rebuildAssets.sqf";};
+        class relocateHQObjects {file="relocateHQObjects.sqf";};
         class resourceCheckSkipTime {file="resourcecheckSkipTime.sqf";};
         class resourcesFIA {file="resourcesFIA.sqf";};
         class returnMuzzle {file="returnMuzzle.sqf";};
@@ -57,6 +59,7 @@ class A3A
         class sellVehicle {file="sellVehicle.sqf";};
         class sizeMarker {file="sizeMarker.sqf";};
         class statistics {file="statistics.sqf";};
+        class stripGearFromLoadout {file="stripGearFromLoadout.sqf";};
         class teleportVehicleToBase {file="teleportVehicleToBase.sqf";};
         class translateVariable {file="statSave\translateVariable.sqf";};
         class keys {file="keys.sqf";};
@@ -274,6 +277,7 @@ class A3A
 	
 	class Save
 	{
+        class playerHasSave {file="statSave\playerHasSave.sqf";};
         class loadPlayer {file="statSave\loadPlayer.sqf";};
         class savePlayer {file="statSave\savePlayer.sqf";};
         class loadPreviousSession {file="statSave\loadPreviousSession.sqf";};

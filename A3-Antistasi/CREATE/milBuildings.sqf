@@ -44,8 +44,8 @@ for "_i" from 0 to (count _buildings) - 1 do
 			{
 			_typeVehX = if (_sideX == Occupants) then {staticAAOccupants} else {staticAAInvaders};
 			_veh = createVehicle [_typeVehX, (_building buildingPos 8), [],0, "CAN_COLLIDE"];
-			_veh setPosATL [(getPos _building select 0),(getPos _building select 1),(getPosATL _veh select 2)];
 			_veh setDir (getDir _building);
+			_veh setPosATL [(getPos _building select 0),(getPos _building select 1),(getPosATL _veh select 2)];
 			_unit = _groupX createUnit [_typeUnit, _positionX, [], 0, "NONE"];
 			[_unit,_markerX] call A3A_fnc_NATOinit;
 			_unit moveInGunner _veh;

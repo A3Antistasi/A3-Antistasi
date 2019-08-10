@@ -6,6 +6,8 @@ if (hasInterface) then
 	waitUntil {player == player};
 	player removeweaponGlobal "itemmap";
 	player removeweaponGlobal "itemgps";
+	//Disable player saving until they're fully ready, and have chosen whether to load their save.
+	player setVariable ["canSave", false, true];
 	};
 if (isMultiplayer) then
 	{
@@ -82,21 +84,25 @@ _positionX = if (side player == side (group petros)) then {position petros} else
 {
 _x set [3, 0.33]
 } forEach [_colourTeamPlayer, _colorInvaders];
-_introShot =
-	[
-    _positionX, // Target position
-    format ["%1",worldName], // SITREP text
-    50, //  altitude
-    50, //  radius
-    90, //  degrees viewing angle
-    0, // clockwise movement
-    [
-    	["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colourTeamPlayer, markerPos "insertMrk", 1, 1, 0, "Insertion Point", 0],
-        ["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colorInvaders, markerPos "towerBaseMrk", 1, 1, 0, "Radio Towers", 0]
-    ]
-    ] spawn BIS_fnc_establishingShot;
+_introShot = [
+		_positionX, // Target position
+		format ["%1",worldName], // SITREP text
+		50, //  altitude
+		50, //  radius
+		90, //  degrees viewing angle
+		0, // clockwise movement
+		[
+			["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colourTeamPlayer, markerPos "insertMrk", 1, 1, 0, "Insertion Point", 0],
+			["\a3\ui_f\data\map\markers\nato\o_inf.paa", _colorInvaders, markerPos "towerBaseMrk", 1, 1, 0, "Radio Towers", 0]
+		]
+	] spawn BIS_fnc_establishingShot;
 
-_titulo = if (worldName == "Tanoa") then {["Warlords of the Pacific","by Barbolani & The Official AntiStasi Community",antistasiVersion] spawn BIS_fnc_infoText} else {if (hasIFA) then {["Armia Krajowa","by Barbolani & The Official AntiStasi Community",antistasiVersion] spawn BIS_fnc_infoText} else {["Antistasi","by Barbolani & The Official AntiStasi Community",antistasiVersion] spawn BIS_fnc_infoText}};
+//Trigger credits loading.
+[] spawn {
+	waitUntil {!isNil "BIS_fnc_establishingShot_playing" && {BIS_fnc_establishingShot_playing}};
+	private _credits = [] execVM "credits.sqf";
+};
+		
 disableUserInput false;
 player addWeaponGlobal "itemmap";
 if !(hasIFA) then {player addWeaponGlobal "itemgps"};
@@ -156,16 +162,21 @@ if (player getVariable ["pvp",false]) exitWith
 		};
 	if (hasACE) then {[] call A3A_fnc_ACEpvpReDress};
 	respawnTeamPlayer setMarkerAlphaLocal 0;
+	//Let a player in a vehicle if they're: A passenger, or the vehicle is a light unarmed vehicle.
 	player addEventHandler ["GetInMan",
 		{
-		private ["_unit","_veh"];
+		private ["_unit","_veh", "_role"];
 		_unit = _this select 0;
+		_role = _this select 1;
 		_veh = _this select 2;
 		if (_veh != lastVehicleSpawned) then
 			{
-			if !((typeOf _veh) in (vehNATOLightUnarmed + vehCSATLightUnarmed)) then
+			private _isACEHandcuffed = _unit getVariable ["ACE_captives_isHandcuffed", false];
+			if (!((typeOf _veh) in (vehNATOLightUnarmed + vehCSATLightUnarmed)) && !(_role == "Cargo") && !_isACEHandcuffed) then
 				{
-				moveOut player;
+				//ACE has a loop which tries to force handcuffed players back into vehicles if anything kicks them out.
+				//The spawn stops Arma hanging indefinitely in an infinite loop if /somehow/ we hit that condition.
+				_unit spawn { moveOut _this };
 				hint "PvP player are only allowed to use their own or other PvP player vehicles";
 				};
 			};
@@ -223,6 +234,7 @@ player setUnitTrait ["camouflageCoef",0.8];
 player setUnitTrait ["audibleCoef",0.8];
 
 if (activeGREF) then {[player] call A3A_fnc_RHSdress};
+player setUnitLoadout ((getUnitLoadout player) call A3A_fnc_stripGearFromLoadout);
 player setvariable ["compromised",0];
 player addEventHandler ["FiredMan",
 	{
@@ -498,6 +510,7 @@ if (_isJip) then
 		    if !(loadLastSave) then
 	    		{
 	    		_nul = [] spawn A3A_fnc_placementSelection;
+					player setVariable ['canSave', true, true];
 	    		};
 			};
 		}
@@ -524,6 +537,9 @@ else
 		    	if !(loadLastSave) then
 		    		{
 		    		_nul = [] spawn A3A_fnc_placementSelection;
+						//This shouldn't really be here, but it's triggered on every other path through the code.
+						//This big if statement needs tidying, really.
+						player setVariable ['canSave', true, true];
 		    		}
 		    	else
 		    		{
@@ -555,7 +571,6 @@ else
 			};
 		};
 	};
-waitUntil {scriptDone _titulo};
 
 _textX = [];
 
@@ -608,12 +623,12 @@ if (isMultiplayer) then {flagX addAction ["Personal Garage", {nul = [GARAGE_PERS
 flagX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
 
 //Adds a light to the flag
-private _flagLight = "#lightpoint" createVehicle (getPos flagX); 
-_flagLight setLightDayLight true; 
-_flagLight setLightColor [1, 1, 0.9]; 
-_flagLight setLightBrightness 0.2; 
-_flagLight setLightAmbient [1, 1, 0.9]; 
-_flagLight lightAttachObject [flagX, [0, 0, 4]]; 
+private _flagLight = "#lightpoint" createVehicle (getPos flagX);
+_flagLight setLightDayLight true;
+_flagLight setLightColor [1, 1, 0.9];
+_flagLight setLightBrightness 0.2;
+_flagLight setLightAmbient [1, 1, 0.9];
+_flagLight lightAttachObject [flagX, [0, 0, 4]];
 _flagLight setLightAttenuation [7, 0, 0.5, 0.5];
 
 vehicleBox allowDamage false;

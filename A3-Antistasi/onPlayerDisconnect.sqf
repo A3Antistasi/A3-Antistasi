@@ -2,11 +2,14 @@ private ["_unit","_resourcesX","_hr","_weaponsX","_ammunition","_items","_pos"];
 
 _unit = _this select 0;
 _uid = _this select 2;
-_owner = _this select 4;
 _resourcesX = 0;
 _hr = 0;
 
 diag_log format ["[Antistasi] Player disconnected with id %1 and unit %2 on side %3", _uid, _unit, (side _unit)];
+
+if (side _unit == sideLogic || {_uid == ""}) exitWith {
+	diag_log "[Antistasi] Exiting onPlayerDisconnect due to no UID or sideLogic unit. Possible Headless Client disconnect?";
+};
 
 if (_unit == theBoss) then
 	{
@@ -56,51 +59,36 @@ if (_unit == theBoss) then
 			};
 		};
 	} forEach allGroups;
+	//Empty 'theBoss' variable, so it doesn't remain assigned to the player's dead body.
+	theBoss = objNull;
+	//Broadcast as a public variable, otherwise new players joining will have theBoss assigned to the dead body still.
+	publicVariable "theBoss";
 	if (((count playableUnits > 0) and (!membershipEnabled)) or ({(getPlayerUID _x) in membersX} count playableUnits > 0)) then
 		{
 		[] spawn A3A_fnc_assigntheBoss;
 		};
 	if (group petros == group _unit) then {[] spawn A3A_fnc_buildHQ};
 	};
-//{if (groupOwner _x ==)} forEach allGroups select {(side _x == civilian) and (!isPlayer leader _x)};
-if (side _unit == teamPlayer) then
+
+//Need to check the group's side, as player may be a civ. Unknown is in case they've been moved out of their group.
+if (side group _playerUnit == teamPlayer || side group _playerUnit == sideUnknown) then
 	{
 	if ((_hr > 0) or (_resourcesX > 0)) then {[_hr,_resourcesX] spawn A3A_fnc_resourcesFIA};
 	if (membershipEnabled and pvpEnabled) then
 		{
 		if (_uid in membersX) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
 		};
-	[_uid, _unit] call A3A_fnc_savePlayer;
 	//if ([_unit] call A3A_fnc_isMember) then {playerHasBeenPvP pushBack [getPlayerUID _unit,time]};
 	};
-if (_owner in hcArray) then
-	{
-	//["hcDown",true,true,true,true] remoteExec ["BIS_fnc_endMission"]
-	if ({owner _x == _owner} count allUnits > 0) then
-		{
-		[] spawn
-			{
-			while {true} do
-				{
-				[petros,"hint","A Headless Client has been disconnected. This will cause malfunctions. Head back to HQ for saving ASAP and ask and Admin for a restart"] remoteExec ["A3A_fnc_commsMP"];
-				sleep 30;
-				};
-			};
-		}
-	else
-		{
-		hcArray = hcArray - [_owner];
-		};
-	}
-else
-	{
-	_pos = getPosATL _unit;
-	_wholder = nearestObjects [_pos, ["weaponHolderSimulated", "weaponHolder"], 2];
-	{deleteVehicle _x} forEach _wholder + [_unit];
-	if !(isNull _unit) then
-		{
-		_unit setVariable ["owner",_unit,true];
-		_unit setDamage 1;
-		};
-	};
+	
+[_uid, _unit] call A3A_fnc_savePlayer;
+
+_pos = getPosATL _unit;
+_wholder = nearestObjects [_pos, ["weaponHolderSimulated", "weaponHolder"], 2];
+{deleteVehicle _x} forEach _wholder + [_unit];
+if !(isNull _unit) then
+{
+	_unit setVariable ["owner",_unit,true];
+	_unit setDamage 1;
+};
 //diag_log format ["dataX de handledisconnect: %1",_this];

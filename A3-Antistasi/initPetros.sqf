@@ -1,3 +1,4 @@
+diag_log format ["%1: [Antistasi]: initPetros Started.",servertime];
 removeHeadgear petros;
 removeGoggles petros;
 petros setSkill 1;
@@ -79,5 +80,5 @@ petros addMPEventHandler ["mpkilled",
             };
         };
    }];
-sleep 120;
-petros allowDamage true;
+[] spawn {sleep 120; petros allowDamage true;};
+diag_log format ["%1: [Antistasi]: initPetros Completed.",servertime];

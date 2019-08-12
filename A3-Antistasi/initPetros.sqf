@@ -79,5 +79,4 @@ petros addMPEventHandler ["mpkilled",
             };
         };
    }];
-sleep 120;
-petros allowDamage true;
+[] spawn {sleep 120; petros allowDamage true;};

@@ -3,19 +3,19 @@
 		"commands": [
 		  {
 			"match": ".sqf",
-			"cmd": ".\/deployToTest.bat",
+			"cmd": ".\\\"Arma 3 Dev Deploy.exe\" /Q",
 			"useShortcut": false,
 			"silent": true
 		  },
 		  {
 			"match": ".sqm",
-			"cmd": ".\/deployToTest.bat",
+			"cmd": ".\\\"Arma 3 Dev Deploy.exe\" /Q",
 			"useShortcut": false,
 			"silent": true
 		  },
 		  {
 			"match": ".ext",
-			"cmd": ".\/deployToTest.bat",
+			"cmd": ".\\\"Arma 3 Dev Deploy.exe\" /Q",
 			"useShortcut": false,
 			"silent": true
 		  }

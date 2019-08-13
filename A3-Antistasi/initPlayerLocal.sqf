@@ -1,5 +1,6 @@
 #include "Garage\defineCommon.inc"
 diag_log format ["%1: [Antistasi]: initPlayerLocal Started.",servertime];
+
 if (hasInterface) then
 	{
 	waitUntil {!isNull player};
@@ -642,4 +643,9 @@ disableSerialization;
 _layer = ["statisticsX"] call bis_fnc_rscLayer;
 _layer cutRsc ["H8erHUD","PLAIN",0,false];
 [] spawn A3A_fnc_statistics;
+
+//Disables rabbits and snakes, because they cause the log to be filled with "20:06:39 Ref to nonnetwork object Agent 0xf3b4a0c0"
+//Can re-enable them if we find the source of the bug.
+enableEnvironment [false, true];
+
 diag_log format ["%1: [Antistasi]: initPlayerLocal Completed.",servertime];

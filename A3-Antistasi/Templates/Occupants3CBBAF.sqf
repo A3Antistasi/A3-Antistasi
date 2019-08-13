@@ -1,3 +1,4 @@
+if (side petros == west) exitWith {call compile preProcessFileLineNumbers "Templates\Occupants3CBTKA.sqf"};
 if (worldName == "Tanoa") exitWith {call compile preProcessFileLineNumbers "Templates\Occupants3CBBAFT.sqf"};
 
 NATOGrunt = "UK3CB_BAF_Rifleman_DDPM";

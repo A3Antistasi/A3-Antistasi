@@ -33,7 +33,7 @@ if (!hasInterface) exitWith
 	};
 _isJip = _this select 1;
 if (isMultiplayer) then
-{
+	{
 	if (side player == teamPlayer) then {player setVariable ["eligible",true,true]};
 	musicON = false;
 	//waitUntil {scriptdone _introshot};
@@ -47,27 +47,27 @@ if (isMultiplayer) then
 	if (hasTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
 	tkPunish = if ("tkPunish" call BIS_fnc_getParamValue == 1) then {true} else {false};
 	if ((side player == teamPlayer) and tkPunish) then
-	{
-		player addEventHandler ["Fired",
 		{
+		player addEventHandler ["Fired",
+			{
 			_typeX = _this select 1;
 			if ((_typeX == "Put") or (_typeX == "Throw")) then
-			{
-				if (player distance petros < 50) then
 				{
+				if (player distance petros < 50) then
+					{
 					deleteVehicle (_this select 6);
 					if (_typeX == "Put") then
-					{
+						{
 						if (player distance petros < 10) then {[player,60] spawn A3A_fnc_punishment};
+						};
 					};
 				};
-			};
-		}];
-	};
+			}];
+		};
 	if (!isNil "placementDone") then {_isJip = true};//workaround for BIS fail on JIP detection
-}
+	}
 else
-{
+	{
 	theBoss = player;
 	groupX = group player;
 	if (worldName == "Tanoa") then {groupX setGroupId ["Pulu","GroupColor4"]} else {groupX setGroupId ["Stavros","GroupColor4"]};
@@ -76,8 +76,7 @@ else
 	player hcSetGroup [group player];
 	waitUntil {/*(scriptdone _introshot) and */(!isNil "serverInitDone")};
 	//_nul = addMissionEventHandler ["Loaded", {_nul = [] execVM "statistics.sqf";_nul = [] execVM "reinitY.sqf";}];
-};
-[player] call A3A_fnc_RHSdress;
+	};
 [] execVM "CREATE\ambientCivs.sqf";
 private ["_colourTeamPlayer", "_colorInvaders"];
 _colourTeamPlayer = teamPlayer call BIS_fnc_sideColor;
@@ -222,7 +221,7 @@ if (player getVariable ["pvp",false]) exitWith
 		_handled
 		}];
 	};
-	
+
 player setVariable ["score",0,true];
 player setVariable ["owner",player,true];
 player setVariable ["punish",0,true];

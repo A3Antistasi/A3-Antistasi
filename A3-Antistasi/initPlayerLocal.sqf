@@ -1,5 +1,5 @@
 #include "Garage\defineCommon.inc"
-
+diag_log format ["%1: [Antistasi]: initPlayerLocal Started.",servertime];
 if (hasInterface) then
 	{
 	waitUntil {!isNull player};
@@ -15,7 +15,8 @@ if (isMultiplayer) then
 		{
 		call compile preprocessFileLineNumbers "initFuncs.sqf";
 		call compile preprocessFileLineNumbers "initVar.sqf";
-		waitUntil {!isNil "initVar"}; diag_log format ["Antistasi MP Client. initVar is public. Version %1",antistasiVersion];
+		waitUntil {!isNil "initVar"};
+		diag_log format ["%1: [Antistasi]: MP Client | Version : %2.",servertime, antistasiVersion];
 		}
 	else
 		{
@@ -38,11 +39,11 @@ if (isMultiplayer) then
 	//waitUntil {scriptdone _introshot};
 	disableUserInput true;
 	cutText ["Waiting for Players and Server Init","BLACK",0];
-	diag_log "Antistasi MP Client. Waiting for serverInitDone";
+	diag_log format ["%1: [Antistasi]: MP Client | Waiting for Server...",servertime];
 	waitUntil {(!isNil "serverInitDone")};
 	cutText ["Starting Mission","BLACK IN",0];
-	diag_log "Antistasi MP Client. serverInitDone is public";
-	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
+	diag_log format ["%1: [Antistasi]: MP Client | Server loaded..",servertime];
+	diag_log format ["%1: [Antistasi]: MP Client | JIP?: %2",servertime,_isJip];
 	if (hasTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
 	tkPunish = if ("tkPunish" call BIS_fnc_getParamValue == 1) then {true} else {false};
 	if ((side player == teamPlayer) and tkPunish) then
@@ -103,7 +104,7 @@ _introShot = [
 	waitUntil {!isNil "BIS_fnc_establishingShot_playing" && {BIS_fnc_establishingShot_playing}};
 	private _credits = [] execVM "credits.sqf";
 };
-		
+
 disableUserInput false;
 player addWeaponGlobal "itemmap";
 if !(hasIFA) then {player addWeaponGlobal "itemgps"};
@@ -173,7 +174,7 @@ if (player getVariable ["pvp",false]) exitWith
 		if (_veh != lastVehicleSpawned) then
 			{
 			private _isACEHandcuffed = _unit getVariable ["ACE_captives_isHandcuffed", false];
-			if (!((typeOf _veh) in (vehNATOLightUnarmed + vehCSATLightUnarmed)) && !(_role == "Cargo") && !_isACEHandcuffed) then
+			if (!((typeOf _veh) in (vehNATOPVP + vehCSATPVP + CSATMG + staticATInvaders + staticAAInvaders + NATOMG + staticATOccupants + staticAAOccupants)) && !(_role == "Cargo") && !_isACEHandcuffed) then
 				{
 				//ACE has a loop which tries to force handcuffed players back into vehicles if anything kicks them out.
 				//The spawn stops Arma hanging indefinitely in an infinite loop if /somehow/ we hit that condition.
@@ -519,7 +520,7 @@ if (_isJip) then
 		{
 		_nul = [] execVM "Dialogs\firstLoad.sqf";
 		};
-	diag_log "Antistasi MP Client. JIP client finished";
+	diag_log format ["%1: [Antistasi]: MP Client | JIP Client Loaded.",servertime];
 	player setPos (getMarkerPos respawnTeamPlayer);
 	}
 else
@@ -546,7 +547,7 @@ else
 		    		{
 		    		_nul = [true] execVM "Dialogs\firstLoad.sqf";
 			    	};
-		    	diag_log "Antistasi MP Client. Client finished";
+				diag_log format ["%1: [Antistasi]: MP Client | Client load finished.",servertime];
 		    	}
 		    else
 		    	{
@@ -658,3 +659,4 @@ disableSerialization;
 _layer = ["statisticsX"] call bis_fnc_rscLayer;
 _layer cutRsc ["H8erHUD","PLAIN",0,false];
 [] spawn A3A_fnc_statistics;
+diag_log format ["%1: [Antistasi]: initPlayerLocal Completed.",servertime];

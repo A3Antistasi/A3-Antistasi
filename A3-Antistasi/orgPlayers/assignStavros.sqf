@@ -1,4 +1,4 @@
-params[["_suggestedLeader",objNull]];
+params [["_suggestedLeader",objNull]];
 private ["_puntMax","_textX","_multiplier","_newRank","_selectable","_disconnected","_owner","_pointsX","_dataX"];
 _puntMax = 0;
 _textX = "";
@@ -14,18 +14,19 @@ _LeaderX = objNull;
 
 {
 	_playersX pushBack (_x getVariable ["owner",_x]);
-	if (_x != _x getVariable ["owner",_x]) then {waitUntil {_x == _x getVariable ["owner",_x]}};
-	if ([_x] call A3A_fnc_isMember) then
-	{
-		_membersX pushBack _x;
-		if (_x getVariable ["eligible",true]) then
+	if (_x == _x getVariable ["owner", _x] && isPlayer _x) then {
+		if ([_x] call A3A_fnc_isMember) then
 		{
-			_eligibles pushBack _x;
-			if (_x == theBoss) then
+			_membersX pushBack _x;
+			if (_x getVariable ["eligible",true]) then
 			{
-				_LeaderX = _x;
-				_dataX = [_LeaderX] call A3A_fnc_numericRank;
-				_puntMax = _dataX select 0;
+				_eligibles pushBack _x;
+				if (_x == theBoss) then
+				{
+					_LeaderX = _x;
+					_dataX = [_LeaderX] call A3A_fnc_numericRank;
+					_puntMax = _dataX select 0;
+				};
 			};
 		};
 	};
@@ -79,9 +80,9 @@ if ((isNull _LeaderX) or switchCom) then
 if (!_proceed) exitWith {};
 
 _selectable = objNull;
-if (_membersX find _suggestedLeader >= 0) then 
+if (!isNull _suggestedLeader && {_suggestedLeader in _eligibles}) then 
 {
-	if (_suggestedLeader!=_LeaderX) then
+	if (_suggestedLeader != _LeaderX) then
 	{
 		_dataX = [_suggestedLeader] call A3A_fnc_numericRank;
 		_selectable = _suggestedLeader;

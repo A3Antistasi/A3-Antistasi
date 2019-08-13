@@ -3,10 +3,11 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot go
 _player = player getVariable ["owner",player];
 if (captive _player) exitWith {hint "You are Undercover already"};
 
-private ["_compromised","_changeX","_airportsX","_arrayCivVeh","_player","_size","_base"];
+private ["_compromised","_changeX","_airportsX","_roadblocks","_arrayCivVeh","_player","_size","_base"];
 
 _changeX = "";
-_airportsX = airportsX + outposts + (controlsX select {isOnRoad (getMarkerPos _x)});
+_roadblocks = (controlsX select {isOnRoad (getMarkerPos _x)});
+_airportsX = airportsX + outposts + _roadblocks;
 _airportsX1 = airportsX;
 _arrayCivVeh = arrayCivVeh + [civHeli] + civBoats;
 _compromised = _player getVariable "compromised";
@@ -135,10 +136,19 @@ while {_changeX == ""} do
 					{
 					if !(_isInControl) then
 						{
-						_aggro = if (sidesX getVariable [_base,sideUnknown] == Occupants) then {prestigeNATO} else {prestigeCSAT};
-						if (random 100 < _aggro) then
+						_aggro = if (sidesX getVariable [_base,sideUnknown] == Occupants) then {prestigeNATO + (tierWar*10)} else {prestigeCSAT + (tierWar*10)};
+						//Probability	of being spotted. Unless we're in an airfield - then we're always spotted.
+						if (_base in _airportsX1 ||	random 100 < _aggro) then
 							{
-							_changeX = "Control";
+							if (_base in _roadblocks) then 
+								{
+								_changeX = "distanceX";
+								} 
+							else 
+								{
+								_changeX = "Control";
+								};
+							
 							}
 						else
 							{

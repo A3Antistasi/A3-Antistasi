@@ -32,18 +32,16 @@ memberOnlyMagLimit = "MemberOnlyMagLimit" call BIS_fnc_getParamValue; publicVari
 civTraffic = "civTraffic" call BIS_fnc_getParamValue; publicVariable "civTraffic";
 memberDistance = "memberDistance" call BIS_fnc_getParamValue; publicVariable "memberDistance";
 limitedFT = if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "limitedFT";
-
+napalmEnabled = if ("napalmEnabled" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "napalmEnabled";
 
 //Load Campaign ID if resuming game
 if(loadLastSave) then {
-	campaignID = profileNameSpace getVariable ["ss_CampaignID",nil];
-};
-if(isNil "campaignID") then
-	{
+	campaignID = profileNameSpace getVariable ["ss_CampaignID",""];
+} else {
 	campaignID = str(round((random(100000)) + random 10000));
 	profileNameSpace setVariable ["ss_CampaignID", campaignID];
-	};
-		
+};
+	
 publicVariable "campaignID";
 
 _nul = call compile preprocessFileLineNumbers "initVar.sqf";
@@ -158,7 +156,11 @@ private _index = _x call jn_fnc_arsenal_itemType;
 diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP;
 
+//HandleDisconnect doesn't get 'owner' param, so we can't use it to handle headless client disconnects.
 addMissionEventHandler ["HandleDisconnect",{_this call A3A_fnc_onPlayerDisconnect;false}];
+//PlayerDisconnected doesn't get access to the unit, so we shouldn't use it to handle saving.
+addMissionEventHandler ["PlayerDisconnected",{_this call A3A_fnc_onHeadlessClientDisconnect;false}];
+
 addMissionEventHandler ["BuildingChanged",
         {
         _building = _this select 0;
@@ -180,8 +182,7 @@ resourcecheck = [] execVM "resourcecheck.sqf";
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 savingServer = false;
 
-// Loop that removes unnecessary groups
-[] spawn A3A_fnc_groupCleaner;
+[] spawn A3A_fnc_spawnDebuggingLoop;
 
 //Enable performance logging
 [] spawn {

@@ -8,6 +8,7 @@ class A3A
         class blackout {file="blackout.sqf";};
         class attackAAF {file="attackAAF.sqf";};
         class buildHQ {file="buildHQ.sqf";};
+        class createPetros {file="createPetros.sqf";};
         class punishment {file="punishment.sqf";};
         class citiesToCivPatrol {file="citiesToCivPatrol.sqf";};
         class citySupportChange {file="citySupportChange.sqf";};
@@ -26,7 +27,6 @@ class A3A
         class fn_location {file="fn_location.sqf";};
         class fogCheck {file="fogCheck.sqf";};
         class garbageCleaner {file="garbageCleaner.sqf";};
-        class groupCleaner {file="groupCleaner.sqf";};
         class garrisonInfo {file="garrisonInfo.sqf";};
         class intelFound {file="intelFound.sqf";};
         class isFrontline {file="isFrontline.sqf";};
@@ -40,6 +40,7 @@ class A3A
         class NATOFT {file="NATOFT.sqf";};
         class numericRank {file="numericRank.sqf";};
         class onPlayerDisconnect {file="onPlayerDisconnect.sqf";};
+        class onHeadlessClientDisconnect {file="onHeadlessClientDisconnect.sqf";};
         class patrolDestinations {file="patrolDestinations.sqf";};
         class placementSelection {file="placementselection.sqf";};
         class playerHasBeenPvPCheck {file="playerHasBeenPvPCheck.sqf";};
@@ -49,6 +50,7 @@ class A3A
         class outpostDialog {file="outpostDialog.sqf";};
         class radioCheck {file="radioCheck.sqf";};
         class rebuildAssets {file="rebuildAssets.sqf";};
+        class relocateHQObjects {file="relocateHQObjects.sqf";};
         class resourceCheckSkipTime {file="resourcecheckSkipTime.sqf";};
         class resourcesFIA {file="resourcesFIA.sqf";};
         class returnMuzzle {file="returnMuzzle.sqf";};
@@ -57,6 +59,7 @@ class A3A
         class sellVehicle {file="sellVehicle.sqf";};
         class sizeMarker {file="sizeMarker.sqf";};
         class statistics {file="statistics.sqf";};
+        class stripGearFromLoadout {file="stripGearFromLoadout.sqf";};
         class teleportVehicleToBase {file="teleportVehicleToBase.sqf";};
         class translateVariable {file="statSave\translateVariable.sqf";};
         class keys {file="keys.sqf";};
@@ -159,6 +162,12 @@ class A3A
         class vehAvailable {file="CREATE\vehAvailable.sqf";};
         class VEHdespawner {file="CREATE\VEHdespawner.sqf";};
         class wavedCA {file="CREATE\wavedCA.sqf";};
+	}
+	
+	class Debugging
+	{
+		class spawnDebuggingLoop {file="Debugging\spawnDebuggingLoop.sqf";};
+		class deleteEmptyGroupsOnSide {file="Debugging\deleteEmptyGroupsOnSide.sqf";};
 	}
 
 	class Dialogs
@@ -268,7 +277,10 @@ class A3A
 	
 	class Save
 	{
+        class playerHasSave {file="statSave\playerHasSave.sqf";};
+        class loadPlayer {file="statSave\loadPlayer.sqf";};
         class savePlayer {file="statSave\savePlayer.sqf";};
+        class loadPreviousSession {file="statSave\loadPreviousSession.sqf";};
 	}
 	
 	class Utility

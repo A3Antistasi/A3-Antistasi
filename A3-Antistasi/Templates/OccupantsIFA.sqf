@@ -14,6 +14,7 @@ NATOPilot = "LIB_GER_pilot";
 vehNATOLightArmed = ["LIB_Kfz1_MG42_sernyt","LIB_SdKfz222"];
 vehNATOLightUnarmed = ["LIB_Kfz1_Hood_sernyt","LIB_Kfz1_sernyt"];
 vehNATOTrucks = ["LIB_OpelBlitz_Open_Y_Camo","LIB_OpelBlitz_Tent_Y_Camo"];
+vehNATOCargoTrucks = [];
 vehNATOAmmoTruck = "LIB_OpelBlitz_Ammo";
 vehNATORepairTruck = "LIB_OpelBlitz_Parm";
 vehNATOLight = vehNATOLightArmed + vehNATOLightUnarmed;

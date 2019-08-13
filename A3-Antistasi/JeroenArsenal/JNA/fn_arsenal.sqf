@@ -143,6 +143,7 @@ switch _mode do {
 		private ["_data"];
 
 		INITTYPES
+		
 		_data = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 
 		_configArray = (
@@ -255,6 +256,7 @@ switch _mode do {
 	case "Open": {
 		diag_log "JNA open arsenal";
 		jna_dataList = _this select 0;
+		["SaveTFAR"] call jn_fnc_arsenal;
 		private _object = missionnamespace getVariable ["jna_object",objNull];
 		["Open",[nil,_object,player,false]] call bis_fnc_arsenal;
 	};
@@ -270,6 +272,62 @@ switch _mode do {
 		["HighlightMissingIcons",[_display]] call jn_fnc_arsenal;
 
 		["jn_fnc_arsenal"] call BIS_fnc_endLoadingScreen;
+	};
+	///////////////////////////////////////////////////////////////////////////////////////////
+	
+	case "SaveTFAR": {
+		jna_backpackRadioSettings = nil;
+		jna_swRadioSettings = nil;
+		if (hasTFAR) then {
+			private _backpackRadio = player call TFAR_fnc_backpackLr;
+			if (!isNil "_backpackRadio" && {count _backpackRadio >= 2}) then {
+				jna_backpackRadioSettings = _backpackRadio call TFAR_fnc_getLrSettings;
+			};
+			private _swRadio = if (call TFAR_fnc_haveSWRadio) then { call TFAR_fnc_activeSwRadio } else { nil };
+			if (!isNil "_swRadio") then {
+				jna_swRadioSettings = _swRadio call TFAR_fnc_getSwSettings;
+			};
+		};
+	};
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Restore TFAR radio settings
+
+	case "RestoreTFAR": {
+		if (hasTFAR) then {
+			private _backpackRadio = player call TFAR_fnc_backpackLr;
+			if (!isNil "_backpackRadio" && {count _backpackRadio >= 2}) then {
+				if (isNil "jna_backpackRadioSettings" || {typeName jna_backpackRadioSettings != typeName []}) exitWith {
+					diag_log "[Antistasi] Error: Arsenal failed to restore TFAR longrange radio settings due to invalid saved setting";
+				};
+				[_backpackRadio select 0, _backpackRadio select 1, jna_backpackRadioSettings] call TFAR_fnc_setLrSettings;
+				diag_log "[Antistasi] TFAR longrange radio settings restored on arsenal exit.";
+			} else {
+				diag_log "[Antistasi] No longrange radio found on arsenal exit.";
+			};
+			//Arsenal gives players base TFAR radio items. TFAR will, at some point, replace this with an 'instanced' version.
+			//This can cause freq to reset. To fix, check if we have a radio first, and wait around if we do, but TFAR isn't showing it.
+			//Spawn so we can sleep without bothering the arsenal.
+			private _hasRadio =	{_x isKindOf ["ItemRadio", configFile >> "CfgWeapons"];} count (assignedItems player) > 0;
+			if (_hasRadio) then {
+				[] spawn {
+					private _checkHasRadio = {{_x isKindOf ["ItemRadio", configFile >> "CfgWeapons"];} count (assignedItems player) > 0};
+					//Wait around until TFAR has done its work. Frequent checks - we shouldn't have to wait more than a handful of seconds for TFAR;
+					waitUntil {sleep 1; call _checkHasRadio && call TFAR_fnc_haveSWRadio};
+					private _swRadio = if (call TFAR_fnc_haveSWRadio) then { call TFAR_fnc_activeSwRadio } else { nil };
+					//Doesn't hurt to be careful!
+					if (!isNil "_swRadio") then {
+						if (isNil "jna_swRadioSettings" || {typeName jna_swRadioSettings != typeName []}) exitWith {
+							diag_log "[Antistasi] Error: Arsenal failed to restore TFAR shortwave radio settings due to invalid saved setting";
+						};
+						[_swRadio, jna_swRadioSettings] call TFAR_fnc_setSwSettings;
+						diag_log "[Antistasi] TFAR shortwave radio settings restored on arsenal exit.";
+					} else {
+						diag_log "[Antistasi] No shortwave radio found on arsenal exit.";
+					};
+				};
+			};
+		};
 	};
 
 	///////////////////////////////////////////////////////////////////////////////////////////
@@ -505,7 +563,15 @@ switch _mode do {
 			_primaryweapon set [0,((_primaryweapon select 0) call BIS_fnc_baseWeapon)];
 			_secondaryweapon set [0,((_secondaryweapon select 0) call BIS_fnc_baseWeapon)];
 			_handgunweapon set [0,((_handgunweapon select 0) call BIS_fnc_baseWeapon)];
-			_backpack set [0,((_backpack select 0) call BIS_fnc_basicBackpack)];
+			
+			//Some mod backpacks have no empty variant
+			if (count _backpack > 0) then {
+				private _basicBackpack = ((_backpack select 0) call BIS_fnc_basicBackpack);
+				if (_basicBackpack isEqualTo "") then {
+					_basicBackpack = _backpack select 0;
+				};	
+				_backpack set [0,_basicBackpack];	
+			};
 
 			_uniformitems = [_unifrom,1,[]] call BIS_fnc_param;
 			_vestitems = [_vest,1,[]] call BIS_fnc_param;
@@ -1576,10 +1642,20 @@ switch _mode do {
 
 					if (_item != "") then{
 						switch _index do{
-							case IDC_RSCDISPLAYARSENAL_TAB_UNIFORM:{player forceaddUniform _item;};
-							case IDC_RSCDISPLAYARSENAL_TAB_VEST:{player addVest _item;};
-							case IDC_RSCDISPLAYARSENAL_TAB_BACKPACK:{player addbackpack _item;};
+							case IDC_RSCDISPLAYARSENAL_TAB_UNIFORM:{
+								player forceaddUniform _item;
+							};
+							case IDC_RSCDISPLAYARSENAL_TAB_VEST:{
+								player addVest _item;
+							};
+							case IDC_RSCDISPLAYARSENAL_TAB_BACKPACK: {
+								player addbackpack _item;
+								//Some glitchy backpacks aren't empty. Make sure they are. NO FREE ITEMS.
+								clearAllItemsFromBackpack player;
+							};
 						};
+						
+						
 
 						//container changed
 						_container = switch _index do{
@@ -2523,6 +2599,8 @@ switch _mode do {
 	/////////////////////////////////////////////////////////////////////////////////////////// event
 	case "buttonClose": {
 		_display = _this select 0;
+		
+		["RestoreTFAR"] call jn_fnc_arsenal;
 
 		//remove missing item message
 		titleText["", "PLAIN"];

@@ -74,8 +74,8 @@ if ((spawner getVariable _markerX != 2) and _frontierX) then
 		_typeVehX = if (_sideX==Occupants) then {staticATOccupants} else {staticATInvaders};
 		_veh = _typeVehX createVehicle _positionX;
 		_vehiclesX pushBack _veh;
-		_veh setPos _pos;
 		_veh setDir _dirVeh + 180;
+		_veh setPos _pos;
 		_typeUnit = if (_sideX==Occupants) then {staticCrewOccupants} else {staticCrewInvaders};
 		_unit = _groupX createUnit [_typeUnit, _positionX, [], 0, "NONE"];
 		[_unit,_markerX] call A3A_fnc_NATOinit;

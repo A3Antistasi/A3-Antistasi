@@ -30,6 +30,7 @@ else
 	{
 	if (_typeX in arrayCivVeh) then
 		{
+		//This is for selling supply trucks, but currently is unused.
 		_destinationX = _veh getVariable "destinationX";
 		if (isNil "_destinationX") then
 			{

@@ -9,7 +9,7 @@ clearWeaponCargoGlobal _crate;
 clearItemCargoGlobal _crate;
 clearBackpackCargoGlobal _crate;
 
-_var1 = 1+ round random 4;
+_var1 = 1 + round random 4;
 _var2 = 1 + round random 5;
 _var3 = 1 + floor random 3;
 _var4 = floor random 2;
@@ -26,7 +26,7 @@ for "_i" from 0 to _var1 do
 	_thingX = selectRandom (weaponsNato + antitankAAF);
 	if (!(_thingX in unlockedWeapons)) then
 		{
-		_num = 1+ (floor random 12);
+		_num = 1 + (floor random 12);
 		_crate addWeaponCargoGlobal [_thingX, _num];
 		_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 		_crate addMagazineCargoGlobal [_magazines select 0, _num * 3];

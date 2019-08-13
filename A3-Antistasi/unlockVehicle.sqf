@@ -1,6 +1,6 @@
 private ["_pool","_veh","_typeVehX"];
 
-_veh = cursorTarget;
+_veh = cursorObject;
 
 if (isNull _veh) exitWith {hint "You are not looking at a vehicle"};
 

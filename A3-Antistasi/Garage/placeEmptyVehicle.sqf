@@ -11,6 +11,6 @@ clearItemCargoGlobal _garageVeh;
 clearBackpackCargoGlobal _garageVeh;
 
 _garageVeh allowDamage true;
-_garageVeh enableSimulationGlobal true;
+_garageVeh enableSimulation true;
 
 _garageVeh;

@@ -7,6 +7,7 @@ _dog setVariable ["BIS_fnc_animalBehaviour_disable", true];
 _dog disableAI "FSM";
 _dog setBehaviour "CARELESS";
 _dog setRank "PRIVATE";
+_dog setVariable ["isAnimal", true, true];
 
 while {alive _dog} do
 	{
@@ -21,7 +22,7 @@ while {alive _dog} do
 			{
 			[_spotted,false] remoteExec ["setCaptive",0,_spotted]; _spotted setCaptive false;
 			};
-		} forEach ([100,0,position _dog,teamPlayer] call A3A_fnc_distanceUnits);
+		} forEach ([20,0,position _dog,teamPlayer] call A3A_fnc_distanceUnits);
 
 		if ((random 10 < 1) and (isNull _spotted)) then
 			{

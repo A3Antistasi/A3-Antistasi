@@ -19,7 +19,7 @@ if (!(_isValidLocationArray select 0))	exitWith {
 		[] call A3A_fnc_handleVehPlacementCancelled;
 };
 
-private _canPlaceArray = [vehPlace_callbackTarget, CALLBACK_CAN_PLACE_VEH , [vehPlace_previewVeh]] call A3A_fnc_vehPlacementCallbacks;
+private _canPlaceArray = [vehPlace_callbackTarget, CALLBACK_CAN_PLACE_VEH , [_pos, _dir, _vehicleType]] call A3A_fnc_vehPlacementCallbacks;
 if (isNil "_canPlaceArray") then {
 	diag_log format ["[Antistasi] No Can Place Vehicle Callback registered for %1", vehPlace_callbackTarget];
 	_canPlaceArray = [true];

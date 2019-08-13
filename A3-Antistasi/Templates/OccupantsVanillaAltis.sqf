@@ -16,6 +16,7 @@ NATOPilot = "B_Helipilot_F";
 vehNATOLightArmed = ["B_MRAP_01_hmg_F"];
 vehNATOLightUnarmed = ["B_T_MRAP_01_F"];
 vehNATOTrucks = ["B_Truck_01_transport_F","B_Truck_01_covered_F"];
+vehNATOCargoTrucks = ["B_Truck_01_cargo_F", "B_Truck_01_flatbed_F"];
 vehNATOAmmoTruck = "B_Truck_01_ammo_F";
 vehNATORepairTruck = "B_Truck_01_repair_F";
 vehNATOLight = vehNATOLightArmed + vehNATOLightUnarmed;

@@ -168,12 +168,12 @@ else {
 			MAntitankAAF = ["LIB_Shg24"];
 			minesAAF = ["LIB_PMD6_MINE_mag","LIB_TM44_MINE_mag","LIB_US_TNT_4pound_mag"];
 			itemsAAF = ["FirstAidKit","Medikit","ToolKit","LIB_ToolKit"];
-		}
+		};
 	if (hasRHS) then
 		{
 			minesAAF = ["rhsusf_m112_mag","rhsusf_mine_m14_mag","rhs_mine_M19_mag","rhs_mine_tm62m_mag","rhs_mine_pmn2_mag"];
 			itemsAAF = ["FirstAidKit","Medikit","MineDetector","ToolKit","ItemGPS","acc_pointer_IR","ItemRadio"];
-		}
+		};
 };
 
 if !(hasIFA) then {
@@ -187,7 +187,7 @@ else {
 
 	NVGoggles = [];
 	arrayCivVeh = ["LIB_DAK_OpelBlitz_Open","LIB_GazM1","LIB_GazM1_dirty","LIB_DAK_Kfz1","LIB_DAK_Kfz1_hood"];
-}
+};
 
 ammunitionNATO = [];
 weaponsNato = [];

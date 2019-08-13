@@ -15,7 +15,7 @@ if (isMultiplayer) then
 		{
 		call compile preprocessFileLineNumbers "initFuncs.sqf";
 		call compile preprocessFileLineNumbers "initVar.sqf";
-		waitUntil {!isNil "initVar"}; 
+		waitUntil {!isNil "initVar"};
 		diag_log format ["%1: [Antistasi]: MP Client | Version : %2.",servertime, antistasiVersion];
 		}
 	else
@@ -103,7 +103,7 @@ _introShot = [
 	waitUntil {!isNil "BIS_fnc_establishingShot_playing" && {BIS_fnc_establishingShot_playing}};
 	private _credits = [] execVM "credits.sqf";
 };
-		
+
 disableUserInput false;
 player addWeaponGlobal "itemmap";
 if !(hasIFA) then {player addWeaponGlobal "itemgps"};
@@ -173,7 +173,7 @@ if (player getVariable ["pvp",false]) exitWith
 		if (_veh != lastVehicleSpawned) then
 			{
 			private _isACEHandcuffed = _unit getVariable ["ACE_captives_isHandcuffed", false];
-			if (!((typeOf _veh) in (vehNATOLightUnarmed + vehCSATLightUnarmed)) && !(_role == "Cargo") && !_isACEHandcuffed) then
+			if (!((typeOf _veh) in (vehNATOPVP + vehCSATPVP)) && !(_role == "Cargo") && !_isACEHandcuffed) then
 				{
 				//ACE has a loop which tries to force handcuffed players back into vehicles if anything kicks them out.
 				//The spawn stops Arma hanging indefinitely in an infinite loop if /somehow/ we hit that condition.

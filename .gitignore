@@ -1,4 +1,4 @@
-*.xcopy.log
-deployToTest.bat
-template.files.cfg
-Tools/ValidationResults.txt
+A3DD/
+Tools/
+.vscode/
+Arma 3 Dev Deploy.exe

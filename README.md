@@ -24,7 +24,7 @@ Unstable Branch: [![Build Status](https://travis-ci.com/official-antistasi-commu
     - [Steam Workshop: 1832685459](https://steamcommunity.com/sharedfiles/filedetails/?id=1832685459)  
 - Chernarus
     - [Steam Workshop: 1833035777](https://steamcommunity.com/sharedfiles/filedetails/?id=1833035777)  
-- Altis
+- Altis 1.9 Community Version
     - [Steam Workshop: 1832910657](https://steamcommunity.com/sharedfiles/filedetails/?id=1832910657)
 
 ### [Suggested Modlists](https://steamcommunity.com/id/OfficialAntiStasiCommunity/myworkshopfiles/?section=collections)

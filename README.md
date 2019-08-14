@@ -53,7 +53,7 @@ Unstable Branch: [![Build Status](https://travis-ci.com/official-antistasi-commu
 ### How to build from GIT  
 - Download ZIP file
 - Extract ZIP
-- Copy the following files from the Template `A3-Antistasi/Templates.` for your mission of choice
+- Copy the following files from the Template `A3-Antistasi/Templates/A3-*` for your mission of choice
   - mission.sqm
   - description.ext
   - pic.jpg

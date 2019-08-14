@@ -1,3 +1,9 @@
+https://avatars0.githubusercontent.com/u/53788409?s=200&v=4
+# A3-Antistasi
+
+A Persistent Whole Map Mission, for SP or MP co-op, focused on Resistance, Infantry and Guerrilla Tactics.
+
+
 # How to play AntiStasi
 Please note that this GitHub is still work-in-process.
 Therefore, if you would like to play AntiStasi 1.4, following we have posted a plug & play pbos as well as a tested modsets:
@@ -15,23 +21,6 @@ https://drive.google.com/file/d/1LxGvHZXw-g_mOdp5vCu_pRYFFGmLviGV/view?usp=shari
 Tested modest for the three missions:
 https://drive.google.com/file/d/11SGGS1AaNWgpJhKFAderloAsS6YiqWra/view?usp=sharing
 
-
-
-
-# Update 2
-
-The translation of the variables has been completed to 99.5+%.
-Bugfixing will start.
-
-# Update 1
-
-Please note that this fork of A3-AntiStasi is momentarily undergoing the translation from spanish to english. This is done by me (Bob Murphy) as well as other members and admins of the Official A3-AntiStasi Community.
-Once the translation is completed, we will apply bug fixes and will add further content to the mission.
-
-# !!!PLEASE NOTE THAT THIS README NEEDS TO BE UPDATED - information as well as links below this message could be outdated.
-# A3-Antistasi
-
-A Persistent Whole Map Mission, for SP or MP co-op, focused on Resistance, Infantry and Guerrilla Tactics.
 
 Features:
 
@@ -63,13 +52,7 @@ Replace Altis with Tanoa for Tanoa version.
 Or google `arma 3 get pbo workshop` and use workshop version ;)
 
 # Known Issues:
-
-- The NATO PvP Option is still WiP, but definitely playable. Among other things to improve, the NATO heli taxi (Radio 0-8) uses vanilla BIS module and lack of some functionalities Antistasi needs. If in trouble, login/logout.
-- Tanoa is a pain in the ♥♥♥ for AI driving on roads. They have built a lot of small tracks which AI uses badly due to the dense jungle which surrounds them. Possible solutions are WiP.
-- Mission balancing is still under study.
-- Some features have not been heavily tested. That's why are you're here :)
-
-Mission is on Beta STAGE.
+For a list of known issues, please see the [Issues on Github](https://github.com/official-antistasi-community/A3-Antistasi-1.4/issues).
 
 # References
 

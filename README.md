@@ -14,8 +14,8 @@ A Persistent Whole Map Mission, for SP or MP co-op, focused on Resistance, Infan
 Master Branch: [![Build Status](https://travis-ci.com/official-antistasi-community/A3-Antistasi-1.4.svg?branch=master)](https://travis-ci.com/official-antistasi-community/A3-Antistasi-1.4)  
 Unstable Branch: [![Build Status](https://travis-ci.com/official-antistasi-community/A3-Antistasi-1.4.svg?branch=unstable)](https://travis-ci.com/official-antistasi-community/A3-Antistasi-1.4)
 
-## How to play AntiStasi
-### Grab our latest release on Steam!
+## Grab our latest release on Steam!  
+### [Mission Files](https://steamcommunity.com/id/OfficialAntiStasiCommunity/myworkshopfiles/)
 - Altis
     - [Steam Workshop: 1832638103](https://steamcommunity.com/sharedfiles/filedetails/?id=1832638103)  
 - Altis Blufor 
@@ -24,7 +24,8 @@ Unstable Branch: [![Build Status](https://travis-ci.com/official-antistasi-commu
     - [Steam Workshop: 1832685459](https://steamcommunity.com/sharedfiles/filedetails/?id=1832685459)  
 - Chernarus
     - [Steam Workshop: 1833035777](https://steamcommunity.com/sharedfiles/filedetails/?id=1833035777)  
-
+- Altis
+    - [Steam Workshop: 1832910657](https://steamcommunity.com/sharedfiles/filedetails/?id=1832910657)
 
 ### [Suggested Modlists](https://steamcommunity.com/id/OfficialAntiStasiCommunity/myworkshopfiles/?section=collections)
 - Vanilla

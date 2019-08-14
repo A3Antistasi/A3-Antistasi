@@ -1,28 +1,31 @@
-https://avatars0.githubusercontent.com/u/53788409?s=200&v=4
-# A3-Antistasi
+<p align="center">
+    <img src="https://avatars0.githubusercontent.com/u/53788409?s=200&v=4" width="240">
+</p>
 
+## About
 A Persistent Whole Map Mission, for SP or MP co-op, focused on Resistance, Infantry and Guerrilla Tactics.
 
+## Project Status
+Master Branch: [![Build Status](https://travis-ci.com/official-antistasi-community/A3-Antistasi-1.4.svg?branch=master)](https://travis-ci.com/official-antistasi-community/A3-Antistasi-1.4)  
+Unstable Branch: [![Build Status](https://travis-ci.com/official-antistasi-community/A3-Antistasi-1.4.svg?branch=unstable)](https://travis-ci.com/official-antistasi-community/A3-Antistasi-1.4)
 
-# How to play AntiStasi
-Please note that this GitHub is still work-in-process.
-Therefore, if you would like to play AntiStasi 1.4, following we have posted a plug & play pbos as well as a tested modsets:
+## How to play AntiStasi
+### Grab our latest release on Steam!
 
-Mission for AntiStasi Greenfor on Altis:
-https://drive.google.com/file/d/1ikZvMKImjiNzNf9-v7WwMgdWO3Etjg0l/view?usp=sharing
-
-Mission for AntiStasi Blufor on Altis:
-https://drive.google.com/file/d/11IizoCcmdBUspYKUfoRnaYq-39GaoDx8/view?usp=sharing
-
-Mission for AntiStasi Greenfor on Tanoa:
-https://drive.google.com/file/d/1LxGvHZXw-g_mOdp5vCu_pRYFFGmLviGV/view?usp=sharing
-
-
-Tested modest for the three missions:
-https://drive.google.com/file/d/11SGGS1AaNWgpJhKFAderloAsS6YiqWra/view?usp=sharing
+- Altis
+    - [Steam Workshop: 1832638103](https://steamcommunity.com/sharedfiles/filedetails/?id=1832638103)  
+- Altis Blufor 
+    - [Steam Workshop: 1832665647](https://steamcommunity.com/sharedfiles/filedetails/?id=1832665647)  
+- Tanoa 
+    - [Steam Workshop: 1832685459](https://steamcommunity.com/sharedfiles/filedetails/?id=1832685459)  
+- Chernarus
+    - [Steam Workshop: 1833035777](https://steamcommunity.com/sharedfiles/filedetails/?id=1833035777)  
 
 
-Features:
+### [Suggested Modlists](https://steamcommunity.com/id/OfficialAntiStasiCommunity/myworkshopfiles/?section=collections)
+
+
+## Features:
 
 - Playable in SP, MP, and persistent open server MP.
 - Blufor vs Greenfor vs Redfor with dynamic battles, let Blufor and Redfor fight and strike them while they're busy, don't draw too much attention or the aggressivity against SDK will increase, causing heavy reactions. Be nice with their wounded instead; If healed they might think to join you!
@@ -38,34 +41,29 @@ Features:
 - Up to 3 Headless Client supported.
 - Integrated Mods: [TFAR](https://steamcommunity.com/sharedfiles/filedetails/?id=620019431), [ACRE](https://steamcommunity.com/sharedfiles/filedetails/?id=751965892&searchtext=acre), [RHS: AFRF, USAF and GREF](https://steamcommunity.com/workshop/filedetails/?id=843770737), [FFAA](https://steamcommunity.com/sharedfiles/filedetails/?id=820994401&searchtext=FFAA), [ACE](https://steamcommunity.com/sharedfiles/filedetails/?id=463939057) or, to keep the unique features of AI that would be disabled with ACE medical system: [ACE no medical](https://steamcommunity.com/sharedfiles/filedetails/?id=1316471790). None of them mandatory.
 
-# How to setup
+### How to build from GIT  
+- Download ZIP file
+- Extract ZIP
+- Copy the following files from the Template `A3-Antistasi/Templates.` for your mission of choice
+  - mission.sqm
+  - description.ext
+  - pic.jpg
+- Paste them into the root of `A3-Antistasi/`
+- Use a PBO Packager to Pack `A3-Antistasi/`
 
-There are 2 islands in the same repository so you have to:
-- Download the Github repository
-- Go to /templates/ directory and copy A3-AATemplate.Altis into a new folder
-- Copy everything from A3-Antistasi into the A3-AATemplate.Altis folder
-- Go into /templates/ inside the A3-AATemplate.Altis folder and deleted the other templates in there
-- Then compile the mission using pbomanager
-
-Replace Altis with Tanoa for Tanoa version.
-
-Or google `arma 3 get pbo workshop` and use workshop version ;)
-
-# Known Issues:
+### Known Issues:
 For a list of known issues, please see the [Issues on Github](https://github.com/official-antistasi-community/A3-Antistasi-1.4/issues).
 
-# References
+### References
 
 - [Official discord](https://discord.gg/t7JD7eT)
 - [Official website](http://a3antistasi.enjin.com/)
 - [Official guide](https://docs.google.com/document/d/1cCptf8Uo-mBHRhIqx1BPznECzgRqwJuj70AGjiI6KOI/edit)
 - [Official video tutorial](https://www.youtube.com/watch?v=nebLG3Jhrbk)
-- [Steam Workshop: Altis](https://steamcommunity.com/sharedfiles/filedetails/?id=378941393)
-- [Steam Workshop: Tanoa](http://steamcommunity.com/sharedfiles/filedetails/?id=750430992)
 
 Please rate up the mission if you like the concept. The more players we are, the better mission we will have thanks to comments, suggestions, and bug reports.
 
-## Multiplayer
+### Multiplayer
 Official servers are moving a lot lately.
 Come to the official website to get up to date information.
 

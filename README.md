@@ -1,6 +1,11 @@
-<p align="center">
+<div>
+<p  align="center">
     <img src="https://avatars0.githubusercontent.com/u/53788409?s=200&v=4" width="240">
 </p>
+<p align="center">
+    <a href="https://discord.gg/t7JD7eT">Discord</a> | <a href="http://a3antistasi.enjin.com/">Forums</a> | <a href="https://docs.google.com/document/d/1cCptf8Uo-mBHRhIqx1BPznECzgRqwJuj70AGjiI6KOI/">Guide</a> | <a href="https://www.youtube.com/watch?v=nebLG3Jhrbk">Video Tutorial</a>
+</p>
+</div>
 
 ## About
 A Persistent Whole Map Mission, for SP or MP co-op, focused on Resistance, Infantry and Guerrilla Tactics.
@@ -11,7 +16,6 @@ Unstable Branch: [![Build Status](https://travis-ci.com/official-antistasi-commu
 
 ## How to play AntiStasi
 ### Grab our latest release on Steam!
-
 - Altis
     - [Steam Workshop: 1832638103](https://steamcommunity.com/sharedfiles/filedetails/?id=1832638103)  
 - Altis Blufor 
@@ -23,7 +27,12 @@ Unstable Branch: [![Build Status](https://travis-ci.com/official-antistasi-commu
 
 
 ### [Suggested Modlists](https://steamcommunity.com/id/OfficialAntiStasiCommunity/myworkshopfiles/?section=collections)
-
+- Vanilla
+    - [Steam Workshop: 1833674441](https://steamcommunity.com/sharedfiles/filedetails/?id=1833674441)
+- RHS Collection
+    - [Steam Workshop: 1833668872](https://steamcommunity.com/sharedfiles/filedetails/?id=1833668872)
+- WW2 / Armia Krajowa
+    - [Steam Workshop: 1833672629](https://steamcommunity.com/sharedfiles/filedetails/?id=1833672629)
 
 ## Features:
 
@@ -53,18 +62,3 @@ Unstable Branch: [![Build Status](https://travis-ci.com/official-antistasi-commu
 
 ### Known Issues:
 For a list of known issues, please see the [Issues on Github](https://github.com/official-antistasi-community/A3-Antistasi-1.4/issues).
-
-### References
-
-- [Official discord](https://discord.gg/t7JD7eT)
-- [Official website](http://a3antistasi.enjin.com/)
-- [Official guide](https://docs.google.com/document/d/1cCptf8Uo-mBHRhIqx1BPznECzgRqwJuj70AGjiI6KOI/edit)
-- [Official video tutorial](https://www.youtube.com/watch?v=nebLG3Jhrbk)
-
-Please rate up the mission if you like the concept. The more players we are, the better mission we will have thanks to comments, suggestions, and bug reports.
-
-### Multiplayer
-Official servers are moving a lot lately.
-Come to the official website to get up to date information.
-
-Teamspeak/TFAR is mandatory on antistasi official servers.

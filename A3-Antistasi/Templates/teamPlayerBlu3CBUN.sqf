@@ -81,9 +81,9 @@ else
   factionFIA = "UK3CB_TKP_O";
 };
 
-vehPoliceCar = "UK3CB_TKP_O_Lada_Police";
-policeOfficer = "UK3CB_TKP_O_TL";
-policeGrunt = "UK3CB_TKP_O_RIF_2";
+vehPoliceCar = "UK3CB_TKP_I_Lada_Police";
+policeOfficer = "UK3CB_TKP_I_TL";
+policeGrunt = "UK3CB_TKP_I_RIF_2";
 groupsNATOGen = [policeOfficer,policeGrunt];
 nameTeamPlayer = "UN";
 

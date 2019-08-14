@@ -135,23 +135,30 @@ if (_check) then
 	_check = false;
 	};
 
-if (!haveNV) then
-	{
-	_countX = 0;
-	{
-	_countX = _countX + (_x select 1);
-	} forEach _nv;
-	if (_countX >= minWeaps) then
-		{
-		unlockedItems = unlockedItems + NVGoggles;
-		haveNV = true; publicVariable "haveNV";
-		publicVariable "unlockedItems";
-		_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> "NVGoggles" >> "displayName")];
-		{
-		_index = _x call jn_fnc_arsenal_itemType;
-		[_index,_x,-1] call jn_fnc_arsenal_addItem;
-		}foreach NVGoggles;
-		};
+//Handle NVG unlocking
+//Unlock a random NVG per X non-unlocked NVG we have, from the list we've collected.
+private _countX = 0;
+private _lockedNvs = [];
+
+//Add up how many non-unlocked NVGs we have.
+{
+	private _amount = (_x select 1);
+	if (_amount > 0) then {
+		_countX = _countX + _amount;
+		_lockedNvs pushBack (_x select 0);
 	};
+} forEach _nv;
+
+//Implicitly, we have locked NVGs if we've counted more than 0 locked NVGs in the box.
+if (_countX >= minWeaps) then
+{
+	private _nvToUnlock = selectRandom _lockedNvs;
+	unlockedItems = unlockedItems + [_nvToUnlock];
+	haveNV = true; publicVariable "haveNV";
+	publicVariable "unlockedItems";
+	_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _nvToUnlock >> "displayName")];
+	_index = _nvToUnlock call jn_fnc_arsenal_itemType;
+	[_index,_nvToUnlock,-1] call jn_fnc_arsenal_addItem;
+};
 
 _updated

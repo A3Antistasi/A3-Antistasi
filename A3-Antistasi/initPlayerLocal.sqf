@@ -637,7 +637,7 @@ petros setIdentity "friendlyX";
 petros setName "Petros";
 petros disableAI "MOVE";
 petros disableAI "AUTOTARGET";
-petros addAction ["Mission Request", {nul=CreateDialog "mission_menu";},nil,0,false,true,"","_this == theBoss"];
+petros addAction ["Mission Request", {nul=CreateDialog "mission_menu";},nil,0,false,true,"","([player] call A3A_fnc_isMember)"];
 
 disableSerialization;
 //1 cutRsc ["H8erHUD","PLAIN",0,false];

@@ -1,5 +1,5 @@
 #include "Garage\defineCommon.inc"
-diag_log format ["%1: [Antistasi]: initPlayerLocal Started.",servertime];
+diag_log format ["%1: [Antistasi] | INFO | initPlayerLocal Started.",servertime];
 if (hasInterface) then
 	{
 	waitUntil {!isNull player};
@@ -16,7 +16,7 @@ if (isMultiplayer) then
 		call compile preprocessFileLineNumbers "initFuncs.sqf";
 		call compile preprocessFileLineNumbers "initVar.sqf";
 		waitUntil {!isNil "initVar"};
-		diag_log format ["%1: [Antistasi]: MP Client | Version : %2.",servertime, antistasiVersion];
+		diag_log format ["%1: [Antistasi] | INFO | MP Client | Version : %2.",servertime, antistasiVersion];
 		}
 	else
 		{
@@ -39,11 +39,11 @@ if (isMultiplayer) then
 	//waitUntil {scriptdone _introshot};
 	disableUserInput true;
 	cutText ["Waiting for Players and Server Init","BLACK",0];
-	diag_log format ["%1: [Antistasi]: MP Client | Waiting for Server...",servertime];
+	diag_log format ["%1: [Antistasi] | INFO | MP Client | Waiting for Server...",servertime];
 	waitUntil {(!isNil "serverInitDone")};
 	cutText ["Starting Mission","BLACK IN",0];
-	diag_log format ["%1: [Antistasi]: MP Client | Server loaded..",servertime];
-	diag_log format ["%1: [Antistasi]: MP Client | JIP?: %2",servertime,_isJip];
+	diag_log format ["%1: [Antistasi] | INFO | MP Client | Server loaded..",servertime];
+	diag_log format ["%1: [Antistasi] | INFO | MP Client | JIP?: %2",servertime,_isJip];
 	if (hasTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
 	tkPunish = if ("tkPunish" call BIS_fnc_getParamValue == 1) then {true} else {false};
 	if ((side player == teamPlayer) and tkPunish) then
@@ -130,26 +130,26 @@ if (player getVariable ["pvp",false]) exitWith
 	if ((!_isJIP) or !pvpEnabled) then
 		{
 		["noPvP",false,1,false,false] call BIS_fnc_endMission;
-		diag_log "Antistasi: PvP player kicked because he is not jipping or PvP slots are disabled";
+		diag_log format ["%1: [Antistasi] | INFO | PvP player kicked because he is not jipping or PvP slots are disabled.",servertime];
 		}
 	else
 		{
 		if (not([player] call A3A_fnc_isMember)) then
 			{
 			["noPvP",false,1,false,false] call BIS_fnc_endMission;
-			diag_log "Antistasi: PvP player kicked because he is not member";
+			diag_log format ["%1: [Antistasi] | INFO | PvP player kicked because he is not member.",servertime];
 			}
 		else
 			{
 			if ({(side group _x != teamPlayer)} count playableUnits > {(side group _x == teamPlayer)} count playableUnits) then
 				{
 				["noPvP",false,1,false,false] call BIS_fnc_endMission;
-				diag_log "Antistasi: PvP player kicked because PvP players number is equal to non PvP";
+				diag_log format ["%1: [Antistasi] | INFO | PvP player kicked because PvP players number is equal to non PvP.",servertime];
 				}
 			else
 				{
 				[player] remoteExec ["A3A_fnc_playerHasBeenPvPCheck",2];
-				diag_log "Antistasi: PvP player logged in, doing server side checks if the player has been rebel recently";
+				diag_log format ["%1: [Antistasi] | INFO | PvP player logged in, doing server side checks if the player has been rebel recently.",servertime];
 				};
 			};
 		};
@@ -163,25 +163,9 @@ if (player getVariable ["pvp",false]) exitWith
 		};
 	if (hasACE) then {[] call A3A_fnc_ACEpvpReDress};
 	respawnTeamPlayer setMarkerAlphaLocal 0;
-	//Let a player in a vehicle if they're: A passenger, or the vehicle is a light unarmed vehicle.
-	player addEventHandler ["GetInMan",
-		{
-		private ["_unit","_veh", "_role"];
-		_unit = _this select 0;
-		_role = _this select 1;
-		_veh = _this select 2;
-		if (_veh != lastVehicleSpawned) then
-			{
-			private _isACEHandcuffed = _unit getVariable ["ACE_captives_isHandcuffed", false];
-			if (!((typeOf _veh) in (vehNATOPVP + vehCSATPVP + CSATMG + staticATInvaders + staticAAInvaders + NATOMG + staticATOccupants + staticAAOccupants)) && !(_role == "Cargo") && !_isACEHandcuffed) then
-				{
-				//ACE has a loop which tries to force handcuffed players back into vehicles if anything kicks them out.
-				//The spawn stops Arma hanging indefinitely in an infinite loop if /somehow/ we hit that condition.
-				_unit spawn { moveOut _this };
-				hint "PvP player are only allowed to use their own or other PvP player vehicles";
-				};
-			};
-		}];
+
+	player addEventHandler ["GetInMan", {_this call A3A_fnc_ejectPvPPlayerIfInvalidVehicle}];
+	player addEventHandler ["SeatSwitchedMan", {[_this select 0, assignedVehicleRole (_this select 0) select 0, _this select 2] call A3A_fnc_ejectPvPPlayerIfInvalidVehicle}];
 	player addEventHandler ["InventoryOpened",
 		{
 		_override = false;
@@ -279,6 +263,7 @@ player addEventHandler ["InventoryOpened",
 		_containerX = _this select 1;
 		_typeX = typeOf _containerX;
 		if (((_containerX isKindOf "Man") and (!alive _containerX)) or (_typeX == NATOAmmoBox) or (_typeX == CSATAmmoBox)) then
+		if (((_containerX isKindOf "CAManBase") and (!alive _containerX)) or (_typeX == NATOAmmoBox) or (_typeX == CSATAmmoBox)) then
 			{
 			if ({if (((side _x== Invaders) or (side _x== Occupants)) and (_x knowsAbout _playerX > 1.4)) exitWith {1}} count allUnits > 0) then
 				{
@@ -519,7 +504,7 @@ if (_isJip) then
 		{
 		_nul = [] execVM "Dialogs\firstLoad.sqf";
 		};
-	diag_log format ["%1: [Antistasi]: MP Client | JIP Client Loaded.",servertime];
+	diag_log format ["%1: [Antistasi] | INFO | MP Client | JIP Client Loaded.",servertime];
 	player setPos (getMarkerPos respawnTeamPlayer);
 	}
 else
@@ -546,7 +531,7 @@ else
 		    		{
 		    		_nul = [true] execVM "Dialogs\firstLoad.sqf";
 			    	};
-				diag_log format ["%1: [Antistasi]: MP Client | Client load finished.",servertime];
+				diag_log format ["%1: [Antistasi] | INFO | MP Client | Client load finished.",servertime];
 		    	}
 		    else
 		    	{
@@ -643,7 +628,7 @@ mapX allowDamage false;
 mapX addAction ["Game Options", {hint format ["Antistasi - %2\n\nVersion: %1\n\nDifficulty: %3\nUnlock Weapon Number: %4\nLimited Fast Travel: %5",antistasiVersion,worldName,if (skillMult == 1) then {"Normal"} else {if (skillMult == 0.5) then {"Easy"} else {"Hard"}},minWeaps,if (limitedFT) then {"Yes"} else {"No"}]; nul=CreateDialog "game_options";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
 mapX addAction ["Map Info", {nul = [] execVM "cityinfo.sqf";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
 mapX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
-if (isMultiplayer) then {mapX addAction ["AI Load Info", "[] remoteExec [""A3A_fnc_AILoadInfo"",2]",nil,0,false,true,"","(_this == theBoss)"]};
+if (isMultiplayer) then {mapX addAction ["AI Load Info", "[] remoteExec [""A3A_fnc_AILoadInfo"",2]",nil,0,false,true,"","((_this == theBoss) || (serverCommandAvailable ""#logout"")"]};
 _nul = [player] execVM "OrgPlayers\unitTraits.sqf";
 groupPetros = group petros;
 groupPetros setGroupIdGlobal ["Petros","GroupColor4"];
@@ -651,11 +636,16 @@ petros setIdentity "friendlyX";
 petros setName "Petros";
 petros disableAI "MOVE";
 petros disableAI "AUTOTARGET";
-petros addAction ["Mission Request", {nul=CreateDialog "mission_menu";},nil,0,false,true,"","_this == theBoss"];
+petros addAction ["Mission Request", {nul=CreateDialog "mission_menu";},nil,0,false,true,"","([player] call A3A_fnc_isMember)"];
 
 disableSerialization;
 //1 cutRsc ["H8erHUD","PLAIN",0,false];
 _layer = ["statisticsX"] call bis_fnc_rscLayer;
 _layer cutRsc ["H8erHUD","PLAIN",0,false];
 [] spawn A3A_fnc_statistics;
+
+//Disables rabbits and snakes, because they cause the log to be filled with "20:06:39 Ref to nonnetwork object Agent 0xf3b4a0c0"
+//Can re-enable them if we find the source of the bug.
+enableEnvironment [false, true];
+
 diag_log format ["%1: [Antistasi]: initPlayerLocal Completed.",servertime];

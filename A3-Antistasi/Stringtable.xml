@@ -333,8 +333,7 @@
         <English>Be a Resistance leader, be a hero.</English>
       </Key>
       <Key ID="STR_antistasi_credits_generic_version_text">
-        <Original>1.4c1.04</Original>
-        <English>1.4c1.04</English>
+        <Original>1.4c2.0</Original>
       </Key>
     </Container>
     <Container name="dialog_vehicle_purchase">
@@ -459,6 +458,18 @@
       <Key ID="STR_antistasi_mission_info_cherna_blurb_text">
         <Original>Between the anvil and a steamroller.</Original>
         <English>Between the anvil and a steamroller.</English>
+      </Key>
+      <Key ID="STR_antistasi_missoin_info_malden_description_text">
+        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
+        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_malden_mapname_text">
+        <Original>Liberation of Malden</Original>
+        <English>Liberation of Malden</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_malden_blurb_text">
+        <Original>The island is small but packed with enemies. Look out!</Original>
+        <English>The island is small but packed with enemies. Look out!</English>
       </Key>
     </Container>
   </Package>

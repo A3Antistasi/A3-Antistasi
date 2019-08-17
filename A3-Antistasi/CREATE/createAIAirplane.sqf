@@ -235,34 +235,84 @@ _groups pushBack (_ret select 0);
 _vehiclesX append (_ret select 1);
 _soldiers append (_ret select 2);
 
+private _fnc_runwayInfo = {
+	private _mainRunway = configFile >> "CfgWorlds" >> worldName;
+	private _otherRunways = "true" configClasses (_mainRunway >> "SecondaryAirports");
+	
+	[_mainRunway] + _otherRunways;
+};
+
 if (!_busy) then
 	{
-	_buildings = nearestObjects [_positionX, ["Land_LandMark_F","Land_runway_edgelight"], _size / 2];
-	if (count _buildings > 1) then
-		{
-		_pos1 = getPos (_buildings select 0);
-		_pos2 = getPos (_buildings select 1);
-		_ang = [_pos1, _pos2] call BIS_fnc_DirTo;
+	private _runways = [] call _fnc_runwayInfo;
+	private _runwayIlsPositions = _runways apply {getArray (_x >> "ilsPosition")};
+	private _runwaySpawnLocation = [];
+	private _taxiNumberArr = [];
+	
+	{
+		if (_positionX distance _x < 700) exitWith {
+			//Array of position, and extract compass direction of runway.
+			_runwaySpawnLocation = [_x, acos (getArray ((_runways select _foreachindex) >> "ilsDirection") select 2) + 180];
+			_taxiNumberArr = getArray ((_runways select _foreachindex) >> "ilsTaxiIn") + getArray ((_runways select _foreachindex) >> "ilsTaxiOut");
+		};
+	} forEach _runwayIlsPositions;
+	
+	private _taxiwaySpawnLocations = [];
+	
+	//Taxi locations is just an array of numbers. We need to pair them up.
+	{ 
+		if ((_forEachIndex % 2) == 0) then { 
+			_taxiwaySpawnLocations pushBack [_x];
+		} else { 
+			(_taxiwaySpawnLocations select (count _taxiwaySpawnLocations - 1)) pushBack _x 
+		}
+	} forEach _taxiNumberArr;
 
-		_pos = [_pos1, 5,_ang] call BIS_fnc_relPos;
+	//If we've found a nearby runway, we can continue.
+	if !(_runwaySpawnLocation isEqualTo []) then
+		{
+		_pos = _runwaySpawnLocation select 0;
+		_ang = _runwaySpawnLocation select 1;
+		 
 		_groupX = createGroup _sideX;
 		_groups pushBack _groupX;
 		_countX = 0;
-		while {(spawner getVariable _markerX != 2) and (_countX < 5)} do
+		_taxiwayPosSelection = 0;
+		
+		while {(_countX < 5)} do
 			{
 			_typeVehX = if (_sideX == Occupants) then {selectRandom (vehNATOAir select {[_x] call A3A_fnc_vehAvailable})} else {selectRandom (vehCSATAir select {[_x] call A3A_fnc_vehAvailable})};
-			_veh = createVehicle [_typeVehX, _pos, [],3, "NONE"];
-			_veh setDir (_ang + 90);
-			sleep 1;
+			
+			private _forceTaxiwaySpawn = false;
+			if (_typeVehX isKindOf "Helicopter") then {
+				private _shouldExit = false;
+				scopeName "HelicopterSpawn";
+				while {!_shouldExit && _taxiwayPosSelection < (count _taxiwaySpawnLocations)} do {
+					private _currentPosition = _taxiwaySpawnLocations select _taxiwayPosSelection;
+					private _oldPosition = if (_taxiwayPosSelection == 0) then {[0,0,0]} else {_taxiwaySpawnLocations select (_taxiwayPosSelection - 1)};
+					if (_currentPosition distance _oldPosition < 30 || _currentPosition distance (_runwaySpawnLocation select 0) < 30) then {
+						_taxiwayPosSelection = _taxiwayPosSelection + 1;
+					} else {
+						breakTo "HelicopterSpawn";
+					};
+				};
+				if (_taxiwayPosSelection < (count _taxiwaySpawnLocations)) then {
+					_forceTaxiwaySpawn = true;
+				};
+			};
+			
+			private _veh = objNull;
+			if (_forceTaxiwaySpawn) then {
+				_veh = createVehicle [_typeVehX, _taxiwaySpawnLocations select _taxiwayPosSelection, [],3, "NONE"];
+				_taxiwayPosSelection = _taxiwayPosSelection + 1;
+			} else {
+				_veh = createVehicle [_typeVehX, _pos, [],3, "NONE"];
+				_veh setDir (_ang);
+				_pos = [_pos, 50,_ang] call BIS_fnc_relPos;
+			};
+			
 			_vehiclesX pushBack _veh;
 			_nul = [_veh] call A3A_fnc_AIVEHinit;
-			_pos = [_pos, 50,_ang] call BIS_fnc_relPos;
-			/*
-			_typeUnit = if (_sideX==Occupants) then {NATOpilot} else {CSATpilot};
-			_unit = _groupX createUnit [_typeUnit, _positionX, [], 0, "NONE"];
-			[_unit,_markerX] call A3A_fnc_NATOinit;
-			_soldiers pushBack _unit;
-			*/
 			_countX = _countX + 1;
 			};
 		_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","NOFOLLOW","NOVEH"] execVM "scripts\UPSMON.sqf";

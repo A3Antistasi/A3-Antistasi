@@ -247,64 +247,38 @@ if (!_busy) then
 	private _runways = [] call _fnc_runwayInfo;
 	private _runwayIlsPositions = _runways apply {getArray (_x >> "ilsPosition")};
 	private _runwaySpawnLocation = [];
-	private _taxiNumberArr = [];
 	
 	{
 		if (_positionX distance _x < 700) exitWith {
 			//Array of position, and extract compass direction of runway.
 			_runwaySpawnLocation = [_x, acos (getArray ((_runways select _foreachindex) >> "ilsDirection") select 2) + 180];
-			_taxiNumberArr = getArray ((_runways select _foreachindex) >> "ilsTaxiIn") + getArray ((_runways select _foreachindex) >> "ilsTaxiOut");
 		};
 	} forEach _runwayIlsPositions;
-	
-	private _taxiwaySpawnLocations = [];
-	
-	//Taxi locations is just an array of numbers. We need to pair them up.
-	{ 
-		if ((_forEachIndex % 2) == 0) then { 
-			_taxiwaySpawnLocations pushBack [_x];
-		} else { 
-			(_taxiwaySpawnLocations select (count _taxiwaySpawnLocations - 1)) pushBack _x 
-		}
-	} forEach _taxiNumberArr;
 
 	//If we've found a nearby runway, we can continue.
 	if !(_runwaySpawnLocation isEqualTo []) then
 		{
 		_pos = _runwaySpawnLocation select 0;
 		_ang = _runwaySpawnLocation select 1;
+		
+		_heliPos = [_pos, 30,_ang + 90] call BIS_fnc_relPos;
+		_heliPos = [_heliPos, 20,_ang] call BIS_fnc_relPos;
 		 
 		_groupX = createGroup _sideX;
 		_groups pushBack _groupX;
 		_countX = 0;
 		_taxiwayPosSelection = 0;
 		
-		while {(_countX < 5)} do
+		while {(spawner getVariable _markerX != 2) and (_countX < 5)} do
 			{
 			_typeVehX = if (_sideX == Occupants) then {selectRandom (vehNATOAir select {[_x] call A3A_fnc_vehAvailable})} else {selectRandom (vehCSATAir select {[_x] call A3A_fnc_vehAvailable})};
-			
-			private _forceTaxiwaySpawn = false;
-			if (_typeVehX isKindOf "Helicopter") then {
-				private _shouldExit = false;
-				scopeName "HelicopterSpawn";
-				while {!_shouldExit && _taxiwayPosSelection < (count _taxiwaySpawnLocations)} do {
-					private _currentPosition = _taxiwaySpawnLocations select _taxiwayPosSelection;
-					private _oldPosition = if (_taxiwayPosSelection == 0) then {[0,0,0]} else {_taxiwaySpawnLocations select (_taxiwayPosSelection - 1)};
-					if (_currentPosition distance _oldPosition < 30 || _currentPosition distance (_runwaySpawnLocation select 0) < 30) then {
-						_taxiwayPosSelection = _taxiwayPosSelection + 1;
-					} else {
-						breakTo "HelicopterSpawn";
-					};
-				};
-				if (_taxiwayPosSelection < (count _taxiwaySpawnLocations)) then {
-					_forceTaxiwaySpawn = true;
-				};
-			};
-			
+
 			private _veh = objNull;
-			if (_forceTaxiwaySpawn) then {
-				_veh = createVehicle [_typeVehX, _taxiwaySpawnLocations select _taxiwayPosSelection, [],3, "NONE"];
-				_taxiwayPosSelection = _taxiwayPosSelection + 1;
+			if (_typeVehX isKindOf "Helicopter") then {
+				_veh = createVehicle [_typeVehX, _heliPos, [],3, "NONE"];
+				_vehiclesX pushBack (createVehicle ["Land_HelipadCircle_F", getPosATL _veh, [],0, "CAN_COLLIDE"]);		
+				_veh setDir (_ang + 90);
+				_heliPos = [_heliPos, 50, _ang] call BIS_fnc_relPos;				
 			} else {
 				_veh = createVehicle [_typeVehX, _pos, [],3, "NONE"];
 				_veh setDir (_ang);

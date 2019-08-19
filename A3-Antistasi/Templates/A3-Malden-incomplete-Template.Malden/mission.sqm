@@ -16,7 +16,7 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=3;
+		nextID=6;
 	};
 	class Camera
 	{
@@ -218,6 +218,7 @@ class Mission
 {
 	class Intel
 	{
+		resistanceWest=0;
 		timeOfChanges=1800.0002;
 		startWeather=0.30000001;
 		startWind=0.1;
@@ -1041,7 +1042,7 @@ class Mission
 			colorName="ColorGreen";
 			a=56.709351;
 			b=42.311295;
-			angle=315.11313;
+			angle=315.1131;
 			id=181;
 			atlOffset=-6.7668152;
 		};
@@ -1055,7 +1056,7 @@ class Mission
 			colorName="ColorGreen";
 			a=56.709351;
 			b=42.311295;
-			angle=228.02559;
+			angle=228.02557;
 			id=182;
 			atlOffset=-6.6872864;
 		};
@@ -6398,7 +6399,7 @@ class Mission
 			colorName="ColorRed";
 			a=54.702545;
 			b=81.054291;
-			angle=269.73856;
+			angle=269.73853;
 			id=569;
 			atlOffset=-5.5204926;
 		};
@@ -14564,7 +14565,7 @@ class Mission
 					};
 					id=1428;
 					type="Land_MetalBarrel_F";
-					atlOffset=-1.5258789e-005;
+					atlOffset=-0.010818481;
 				};
 				class Item4
 				{
@@ -14599,7 +14600,7 @@ class Mission
 					};
 					id=1430;
 					type="Land_MetalBarrel_F";
-					atlOffset=-1.5258789e-005;
+					atlOffset=-0.010818481;
 				};
 				class Item6
 				{
@@ -14617,7 +14618,7 @@ class Mission
 					};
 					id=1431;
 					type="Land_MetalBarrel_F";
-					atlOffset=-1.5258789e-005;
+					atlOffset=-0.010803223;
 				};
 				class Item7
 				{
@@ -14635,6 +14636,7 @@ class Mission
 					};
 					id=1432;
 					type="Land_MetalBarrel_F";
+					atlOffset=-0.0071105957;
 				};
 				class Item8
 				{
@@ -14703,6 +14705,7 @@ class Mission
 					};
 					id=1436;
 					type="Land_MetalBarrel_F";
+					atlOffset=-0.0070953369;
 				};
 				class Item12
 				{
@@ -14720,6 +14723,7 @@ class Mission
 					};
 					id=1437;
 					type="Land_MetalBarrel_F";
+					atlOffset=-0.0070800781;
 				};
 				class Item13
 				{
@@ -14772,7 +14776,7 @@ class Mission
 					};
 					id=1440;
 					type="Land_WaterBarrel_F";
-					atlOffset=-1.5258789e-005;
+					atlOffset=-0.0035705566;
 				};
 				class Item16
 				{
@@ -14807,7 +14811,7 @@ class Mission
 					};
 					id=1442;
 					type="Land_WaterTank_F";
-					atlOffset=-1.5258789e-005;
+					atlOffset=-0.012145996;
 				};
 				class Item18
 				{
@@ -14825,6 +14829,7 @@ class Mission
 					};
 					id=1443;
 					type="Land_CargoBox_V1_F";
+					atlOffset=-0.011657715;
 				};
 				class Item19
 				{
@@ -14915,7 +14920,7 @@ class Mission
 				};
 			};
 			id=1424;
-			atlOffset=0.001739502;
+			atlOffset=0.0014648438;
 		};
 		class Item646
 		{
@@ -14974,6 +14979,7 @@ class Mission
 					};
 					id=1452;
 					type="Land_WheelieBin_01_F";
+					atlOffset=-0.017547607;
 				};
 				class Item3
 				{
@@ -14991,7 +14997,7 @@ class Mission
 					};
 					id=1453;
 					type="Land_WeldingTrolley_01_F";
-					atlOffset=1.5258789e-005;
+					atlOffset=-0.023727417;
 				};
 				class Item4
 				{
@@ -15009,6 +15015,7 @@ class Mission
 					};
 					id=1454;
 					type="Land_Tyre_F";
+					atlOffset=-0.002532959;
 				};
 				class Item5
 				{
@@ -15026,6 +15033,7 @@ class Mission
 					};
 					id=1455;
 					type="Land_Hammer_F";
+					atlOffset=-0.0020294189;
 				};
 				class Item6
 				{
@@ -15043,6 +15051,7 @@ class Mission
 					};
 					id=1456;
 					type="Land_ExtensionCord_F";
+					atlOffset=-0.0024719238;
 				};
 				class Item7
 				{
@@ -15077,6 +15086,7 @@ class Mission
 					};
 					id=1458;
 					type="Land_Workbench_01_F";
+					atlOffset=-0.037536621;
 				};
 				class Item9
 				{
@@ -15129,6 +15139,7 @@ class Mission
 					};
 					id=1461;
 					type="Land_Tyre_F";
+					atlOffset=-0.0056304932;
 				};
 				class Item12
 				{
@@ -15162,7 +15173,7 @@ class Mission
 					};
 					id=1463;
 					type="Land_Grinder_F";
-					atlOffset=0.13925171;
+					atlOffset=0.13905334;
 				};
 				class Item14
 				{
@@ -15180,6 +15191,7 @@ class Mission
 					};
 					id=1464;
 					type="Land_MetalBarrel_F";
+					atlOffset=-0.01184082;
 				};
 				class Item15
 				{
@@ -15197,6 +15209,7 @@ class Mission
 					};
 					id=1465;
 					type="Land_Tyre_F";
+					atlOffset=-0.0056304932;
 				};
 				class Item16
 				{
@@ -15214,6 +15227,7 @@ class Mission
 					};
 					id=1466;
 					type="Land_MetalBarrel_F";
+					atlOffset=-0.011764526;
 				};
 				class Item17
 				{
@@ -18803,6 +18817,7 @@ class Mission
 			};
 			id=1686;
 			type="Land_WaterTank_F";
+			atlOffset=-0.022171021;
 		};
 		class Item854
 		{
@@ -18819,6 +18834,7 @@ class Mission
 			};
 			id=1687;
 			type="Land_WaterTank_F";
+			atlOffset=-0.022171021;
 		};
 		class Item855
 		{
@@ -18835,6 +18851,7 @@ class Mission
 			};
 			id=1688;
 			type="Land_WaterTank_F";
+			atlOffset=-0.02494812;
 		};
 		class Item856
 		{
@@ -18851,6 +18868,7 @@ class Mission
 			};
 			id=1689;
 			type="Land_WaterTank_F";
+			atlOffset=-0.02494812;
 		};
 		class Item857
 		{
@@ -18899,6 +18917,7 @@ class Mission
 			};
 			id=1692;
 			type="Land_TTowerSmall_2_F";
+			atlOffset=1.5258789e-005;
 		};
 		class Item860
 		{
@@ -19435,6 +19454,7 @@ class Mission
 			};
 			id=1724;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.0017242432;
 		};
 		class Item892
 		{
@@ -19451,6 +19471,7 @@ class Mission
 			};
 			id=1725;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.0019683838;
 		};
 		class Item893
 		{
@@ -19467,6 +19488,7 @@ class Mission
 			};
 			id=1726;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.0022277832;
 		};
 		class Item894
 		{
@@ -19483,6 +19505,7 @@ class Mission
 			};
 			id=1727;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.0018005371;
 		};
 		class Item895
 		{
@@ -19499,6 +19522,7 @@ class Mission
 			};
 			id=1728;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.0018615723;
 		};
 		class Item896
 		{
@@ -19515,6 +19539,7 @@ class Mission
 			};
 			id=1729;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.0011444092;
 		};
 		class Item897
 		{
@@ -19531,6 +19556,7 @@ class Mission
 			};
 			id=1730;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.00024414063;
 		};
 		class Item898
 		{
@@ -19547,6 +19573,7 @@ class Mission
 			};
 			id=1731;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.0029144287;
 		};
 		class Item899
 		{
@@ -19563,7 +19590,7 @@ class Mission
 			};
 			id=1732;
 			type="PortableHelipadLight_01_red_F";
-			atlOffset=-1.5258789e-005;
+			atlOffset=-0.0012969971;
 		};
 		class Item900
 		{
@@ -19580,6 +19607,7 @@ class Mission
 			};
 			id=1733;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.0011901855;
 		};
 		class Item901
 		{
@@ -19596,6 +19624,7 @@ class Mission
 			};
 			id=1734;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.00048828125;
 		};
 		class Item902
 		{
@@ -19612,6 +19641,7 @@ class Mission
 			};
 			id=1735;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.00048828125;
 		};
 		class Item903
 		{
@@ -19628,6 +19658,7 @@ class Mission
 			};
 			id=1736;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.0010528564;
 		};
 		class Item904
 		{
@@ -19644,6 +19675,7 @@ class Mission
 			};
 			id=1737;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.0010528564;
 		};
 		class Item905
 		{
@@ -19660,6 +19692,7 @@ class Mission
 			};
 			id=1738;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.00090026855;
 		};
 		class Item906
 		{
@@ -19676,6 +19709,7 @@ class Mission
 			};
 			id=1739;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.00091552734;
 		};
 		class Item907
 		{
@@ -19692,6 +19726,7 @@ class Mission
 			};
 			id=1740;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.00080871582;
 		};
 		class Item908
 		{
@@ -19708,6 +19743,7 @@ class Mission
 			};
 			id=1741;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.00079345703;
 		};
 		class Item909
 		{
@@ -19724,6 +19760,7 @@ class Mission
 			};
 			id=1742;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.00093078613;
 		};
 		class Item910
 		{
@@ -19741,6 +19778,7 @@ class Mission
 			};
 			id=1743;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.00094604492;
 		};
 		class Item911
 		{
@@ -19757,7 +19795,7 @@ class Mission
 			};
 			id=1744;
 			type="PortableHelipadLight_01_red_F";
-			atlOffset=-1.5258789e-005;
+			atlOffset=-0.00090026855;
 		};
 		class Item912
 		{
@@ -19774,6 +19812,7 @@ class Mission
 			};
 			id=1745;
 			type="PortableHelipadLight_01_red_F";
+			atlOffset=-0.00086975098;
 		};
 		class Item913
 		{
@@ -19790,7 +19829,7 @@ class Mission
 			};
 			id=1746;
 			type="PortableHelipadLight_01_red_F";
-			atlOffset=1.5258789e-005;
+			atlOffset=-0.00094604492;
 		};
 		class Item914
 		{
@@ -19807,7 +19846,7 @@ class Mission
 			};
 			id=1747;
 			type="PortableHelipadLight_01_red_F";
-			atlOffset=1.5258789e-005;
+			atlOffset=-0.0009765625;
 		};
 		class Item915
 		{
@@ -19824,6 +19863,7 @@ class Mission
 			};
 			id=1748;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0010986328;
 		};
 		class Item916
 		{
@@ -19840,6 +19880,7 @@ class Mission
 			};
 			id=1749;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0011291504;
 		};
 		class Item917
 		{
@@ -19856,6 +19897,7 @@ class Mission
 			};
 			id=1750;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00090026855;
 		};
 		class Item918
 		{
@@ -19872,6 +19914,7 @@ class Mission
 			};
 			id=1751;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0010070801;
 		};
 		class Item919
 		{
@@ -19888,6 +19931,7 @@ class Mission
 			};
 			id=1752;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0012207031;
 		};
 		class Item920
 		{
@@ -19904,6 +19948,7 @@ class Mission
 			};
 			id=1753;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0010681152;
 		};
 		class Item921
 		{
@@ -19920,6 +19965,7 @@ class Mission
 			};
 			id=1754;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0009765625;
 		};
 		class Item922
 		{
@@ -19936,6 +19982,7 @@ class Mission
 			};
 			id=1755;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0011138916;
 		};
 		class Item923
 		{
@@ -19968,6 +20015,7 @@ class Mission
 			};
 			id=1757;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0011749268;
 		};
 		class Item925
 		{
@@ -19984,6 +20032,7 @@ class Mission
 			};
 			id=1758;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0013122559;
 		};
 		class Item926
 		{
@@ -20000,6 +20049,7 @@ class Mission
 			};
 			id=1759;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00094604492;
 		};
 		class Item927
 		{
@@ -20016,7 +20066,7 @@ class Mission
 			};
 			id=1760;
 			type="PortableHelipadLight_01_green_F";
-			atlOffset=-1.5258789e-005;
+			atlOffset=-0.0012664795;
 		};
 		class Item928
 		{
@@ -20033,6 +20083,7 @@ class Mission
 			};
 			id=1761;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0012054443;
 		};
 		class Item929
 		{
@@ -20049,6 +20100,7 @@ class Mission
 			};
 			id=1762;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0010528564;
 		};
 		class Item930
 		{
@@ -20065,6 +20117,7 @@ class Mission
 			};
 			id=1763;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0011749268;
 		};
 		class Item931
 		{
@@ -20081,7 +20134,7 @@ class Mission
 			};
 			id=1764;
 			type="PortableHelipadLight_01_green_F";
-			atlOffset=-1.5258789e-005;
+			atlOffset=-0.0012817383;
 		};
 		class Item932
 		{
@@ -20114,6 +20167,7 @@ class Mission
 			};
 			id=1766;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0012512207;
 		};
 		class Item934
 		{
@@ -20130,6 +20184,7 @@ class Mission
 			};
 			id=1767;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0013885498;
 		};
 		class Item935
 		{
@@ -20146,6 +20201,7 @@ class Mission
 			};
 			id=1768;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00091552734;
 		};
 		class Item936
 		{
@@ -20162,6 +20218,7 @@ class Mission
 			};
 			id=1769;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0012054443;
 		};
 		class Item937
 		{
@@ -20178,6 +20235,7 @@ class Mission
 			};
 			id=1770;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0012512207;
 		};
 		class Item938
 		{
@@ -20194,6 +20252,7 @@ class Mission
 			};
 			id=1771;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0012512207;
 		};
 		class Item939
 		{
@@ -20210,6 +20269,7 @@ class Mission
 			};
 			id=1772;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0011444092;
 		};
 		class Item940
 		{
@@ -20226,6 +20286,7 @@ class Mission
 			};
 			id=1773;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0012359619;
 		};
 		class Item941
 		{
@@ -20258,6 +20319,7 @@ class Mission
 			};
 			id=1775;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0014801025;
 		};
 		class Item943
 		{
@@ -20274,6 +20336,7 @@ class Mission
 			};
 			id=1776;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00082397461;
 		};
 		class Item944
 		{
@@ -20290,6 +20353,7 @@ class Mission
 			};
 			id=1777;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00096130371;
 		};
 		class Item945
 		{
@@ -20306,6 +20370,7 @@ class Mission
 			};
 			id=1778;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0013427734;
 		};
 		class Item946
 		{
@@ -20322,6 +20387,7 @@ class Mission
 			};
 			id=1779;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0013122559;
 		};
 		class Item947
 		{
@@ -20338,6 +20404,7 @@ class Mission
 			};
 			id=1780;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0009765625;
 		};
 		class Item948
 		{
@@ -20354,6 +20421,7 @@ class Mission
 			};
 			id=1781;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0013580322;
 		};
 		class Item949
 		{
@@ -20370,6 +20438,7 @@ class Mission
 			};
 			id=1782;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0014038086;
 		};
 		class Item950
 		{
@@ -20402,6 +20471,7 @@ class Mission
 			};
 			id=1784;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00077819824;
 		};
 		class Item952
 		{
@@ -20418,6 +20488,7 @@ class Mission
 			};
 			id=1785;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00082397461;
 		};
 		class Item953
 		{
@@ -20434,6 +20505,7 @@ class Mission
 			};
 			id=1786;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00080871582;
 		};
 		class Item954
 		{
@@ -20450,6 +20522,7 @@ class Mission
 			};
 			id=1787;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00076293945;
 		};
 		class Item955
 		{
@@ -20466,7 +20539,7 @@ class Mission
 			};
 			id=1788;
 			type="PortableHelipadLight_01_green_F";
-			atlOffset=1.5258789e-005;
+			atlOffset=-0.00073242188;
 		};
 		class Item956
 		{
@@ -20483,6 +20556,7 @@ class Mission
 			};
 			id=1789;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00090026855;
 		};
 		class Item957
 		{
@@ -20499,7 +20573,7 @@ class Mission
 			};
 			id=1790;
 			type="PortableHelipadLight_01_green_F";
-			atlOffset=1.5258789e-005;
+			atlOffset=-0.0008392334;
 		};
 		class Item958
 		{
@@ -20516,6 +20590,7 @@ class Mission
 			};
 			id=1791;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00077819824;
 		};
 		class Item959
 		{
@@ -20548,6 +20623,7 @@ class Mission
 			};
 			id=1793;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00073242188;
 		};
 		class Item961
 		{
@@ -20564,6 +20640,7 @@ class Mission
 			};
 			id=1794;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0005645752;
 		};
 		class Item962
 		{
@@ -20580,6 +20657,7 @@ class Mission
 			};
 			id=1795;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00071716309;
 		};
 		class Item963
 		{
@@ -20596,6 +20674,7 @@ class Mission
 			};
 			id=1796;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00079345703;
 		};
 		class Item964
 		{
@@ -20612,6 +20691,7 @@ class Mission
 			};
 			id=1797;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00045776367;
 		};
 		class Item965
 		{
@@ -20628,6 +20708,7 @@ class Mission
 			};
 			id=1798;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00064086914;
 		};
 		class Item966
 		{
@@ -20644,6 +20725,7 @@ class Mission
 			};
 			id=1799;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.00068664551;
 		};
 		class Item967
 		{
@@ -20660,6 +20742,7 @@ class Mission
 			};
 			id=1800;
 			type="PortableHelipadLight_01_green_F";
+			atlOffset=-0.0007019043;
 		};
 		class Item968
 		{
@@ -21028,7 +21111,7 @@ class Mission
 			};
 			id=1820;
 			type="Land_PressureWasher_01_F";
-			atlOffset=1.5258789e-005;
+			atlOffset=-0.01965332;
 		};
 		class Item988
 		{
@@ -21232,7 +21315,7 @@ class Mission
 			dataType="Layer";
 			name="Camp Audacity";
 			id=1883;
-			atlOffset=0.15594482;
+			atlOffset=96.5;
 		};
 	};
 	class Connections

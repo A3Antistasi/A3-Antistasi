@@ -1,4 +1,4 @@
-params ["_route", "_maxSpeed", "_units", ["_debugObject", nil]];
+params ["_route", "_maxSpeed", "_units", "_sideConvoy" ["_debugObject", nil]];
 
 
 if(isNil "_route") exitWith {diag_log "ConvoyMovement: No route given!"};

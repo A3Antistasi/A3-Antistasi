@@ -74,7 +74,7 @@ if (_currentItems < _maxItems) then
 	};
 //TRANSPORT PLANES
 _maxItems = _airbases * 4;
-_typeX = if (_sideX == Occupants) then {vehNATOTransportPlanes} else {[]}; //{vehCSATTransportHelis - [vehCSATPatrolHeli]};
+_typeX = if (_sideX == Occupants) then {vehNATOTransportPlanes} else {vehCSATTransportPlanes}; //{vehCSATTransportHelis - [vehCSATPatrolHeli]};
 if !(_typeX isEqualTo []) then
 	{
 	_currentItems = 0;

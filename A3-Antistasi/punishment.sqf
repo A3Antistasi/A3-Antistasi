@@ -1,13 +1,24 @@
 
-private ["_countX","_foolish","_timeX","_punish"];
+Params ["_foolish","_timeX"];
+
 if (isDedicated) exitWith {};
 
 if (!isMultiplayer) exitWith {};
 
-_foolish = _this select 0;
-_timeX = _this select 1;
+if (player!= _foolish) exitWith {hint "player!= _foolish";"player!= _foolish";};
 
-if (player!= _foolish) exitWith {};
+_crimeConter = _foolish getVariable ["punishment_crimeConter", 0];
+_crimeConter = _crimeConter + 1;
+_foolish setVariable ["punishment_crimeConter", _crimeConter,true];
+
+_guiltyAsCharged = false;
+switch (_crimeConter) do
+{
+	case 1: {hint "First Strike! Watch your fire!";};
+	case 2: {hint "Second Strike! This is the final warning!";};
+	default {_guiltyAsCharged = true};
+};
+if (!_guiltyAsCharged) exitWith {"Strike"};
 
 _punish = _foolish getVariable ["punish",0];
 _punish = _punish + _timeX;

@@ -702,8 +702,7 @@ if (!isNil "ace_common_fnc_isModLoaded") then {
 		{
 		unlockedBackpacks pushBackUnique "ACE_TacticalLadder_Pack";
 		unlockedWeapons pushBackUnique "ACE_VMH3";
-		itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX"];
-		weaponsNato = weaponsNato + ["ACE_M84"];
+		itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX","ACE_M84"];
 		};
 	hasACE = true;
 	if (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak")) then {

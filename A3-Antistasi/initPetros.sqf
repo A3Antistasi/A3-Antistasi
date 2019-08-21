@@ -19,7 +19,6 @@ petros addEventHandler
     if(!isNull _instigator && isPlayer _instigator && _victim != _instigator && side _instigator == teamPlayer && _damage > 0.1) then
     {
         [_instigator, 60, 1] remoteExec ["A3A_fnc_punishment",_instigator];
-        hint format["%1 hurt you!",_instigator];
     };
     if (isPlayer _injurer) then
     {

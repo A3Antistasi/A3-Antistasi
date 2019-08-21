@@ -58,7 +58,7 @@ if (isMultiplayer) then
 					deleteVehicle (_this select 6);
 					if (_typeX == "Put") then
 						{
-						if (player distance petros < 10) then {[player, 20, 0.34] spawn A3A_fnc_punishment};
+						if (player distance petros < 10) then {[player, 20, 0.34] remoteExec ["A3A_fnc_punishment",player];};
 						};
 					};
 				};

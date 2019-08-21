@@ -3,7 +3,7 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot go
 _player = player getVariable ["owner",player];
 if (captive _player) exitWith {hint "You are Undercover already"};
 
-private ["_compromised","_changeX","_airportsX","_roadblocks","_arrayCivVeh","_player","_size","_base"];
+private ["_compromised","_changeX","_airportsX","_roadblocks","_arrayCivVeh","_player","_size","_base","_onDetectionMarker","_onBaseMarker","_airportSide"];
 
 _changeX = "";
 _roadblocks = (controlsX select {isOnRoad (getMarkerPos _x)});
@@ -11,6 +11,9 @@ _airportsX = airportsX + outposts + _roadblocks;
 _airportsX1 = airportsX;
 _arrayCivVeh = arrayCivVeh + [civHeli] + civBoats;
 _compromised = _player getVariable "compromised";
+_onDetectionMarker = (detectionAreas findIf {_player inArea _x } != -1);
+_onBaseMarker = (_player inArea _base);
+_airportSide = (sidesX getVariable [_base, sideUnknown]);
 
 if (vehicle _player != _player) then
 	{
@@ -132,7 +135,7 @@ while {_changeX == ""} do
 				{
 				_base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 				//_size = [_base] call A3A_fnc_sizeMarker;
-				if ((_player inArea _base) and (sidesX getVariable [_base,sideUnknown] != teamPlayer)) then
+			if(_onBaseMarker || _onDetectionMarker) && {_airportSide != teamPlayer}) then
 					{
 					if !(_isInControl) then
 						{
@@ -140,15 +143,15 @@ while {_changeX == ""} do
 						//Probability	of being spotted. Unless we're in an airfield - then we're always spotted.
 						if (_base in _airportsX1 ||	random 100 < _aggro) then
 							{
-							if (_base in _roadblocks) then 
+							if (_base in _roadblocks) then
 								{
 								_changeX = "distanceX";
-								} 
-							else 
+								}
+							else
 								{
 								_changeX = "Control";
 								};
-							
+
 							}
 						else
 							{

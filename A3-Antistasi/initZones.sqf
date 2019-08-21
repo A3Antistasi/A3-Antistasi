@@ -101,6 +101,7 @@ switch true do {
 		seaMarkers = ["seaPatrol","seaPatrol_1","seaPatrol_2","seaPatrol_3","seaPatrol_4","seaPatrol_5","seaPatrol_6","seaPatrol_7","seaPatrol_8","seaPatrol_9","seaPatrol_10","seaPatrol_11","seaPatrol_12","seaPatrol_13","seaPatrol_14"];
 		seaSpawn = ["seaSpawn","seaSpawn_1","seaSpawn_2","seaSpawn_3","seaSpawn_4","seaSpawn_5","seaSpawn_6","seaSpawn_7","seaSpawn_8","seaSpawn_9","seaSpawn_10"];
 		seaAttackSpawn = ["seaAttackSpawn","seaAttackSpawn_1","seaAttackSpawn_2","seaAttackSpawn_3","seaAttackSpawn_4","seaAttackSpawn_5","seaAttackSpawn_6","seaAttackSpawn_7"];
+		detectionAreas = ["detectPlayer","detectPlayer_1","detectPlayer_2","detectPlayer_3"];//detection areas next to airfields
     };
 };
 {_x setMarkerAlpha 0} forEach (seaMarkers + seaSpawn + seaAttackSpawn + spawnPoints);

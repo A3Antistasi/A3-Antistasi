@@ -135,7 +135,7 @@ while {_changeX == ""} do
 				{
 				_base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 				//_size = [_base] call A3A_fnc_sizeMarker;
-			if(_onBaseMarker || _onDetectionMarker) && {_airportSide != teamPlayer}) then
+			if((_onBaseMarker || _onDetectionMarker) && {_airportSide != teamPlayer}) then
 					{
 					if !(_isInControl) then
 						{

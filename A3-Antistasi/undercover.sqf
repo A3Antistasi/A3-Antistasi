@@ -11,9 +11,8 @@ _airportsX = airportsX + outposts + _roadblocks;
 _airportsX1 = airportsX;
 _arrayCivVeh = arrayCivVeh + [civHeli] + civBoats;
 _compromised = _player getVariable "compromised";
-_onDetectionMarker = (detectionAreas findIf {_player inArea _x } != -1);
-_onBaseMarker = (_player inArea _base);
-_airportSide = (sidesX getVariable [_base, sideUnknown]);
+
+
 
 if (vehicle _player != _player) then
 	{
@@ -135,13 +134,18 @@ while {_changeX == ""} do
 				{
 				_base = [_airportsX,_player] call BIS_fnc_nearestPosition;
 				//_size = [_base] call A3A_fnc_sizeMarker;
-			if((_onBaseMarker || _onDetectionMarker) && {_airportSide != teamPlayer}) then
+//Following lines are for the detection of players in the detectionAreas
+_onDetectionMarker = (detectionAreas findIf {_player inArea _x } != -1);
+_onBaseMarker = (_player inArea _base);
+_airportSide = (sidesX getVariable [_base, sideUnknown]);
+_airport = [_airportsX1,_player] call BIS_fnc_nearestPosition;
+			if(_onBaseMarker  && {_baseSide != teamPlayer} || {_onDetectionMarker && {sidesX getVariable _airport != teamPlayer}}) then
 					{
 					if !(_isInControl) then
 						{
 						_aggro = if (sidesX getVariable [_base,sideUnknown] == Occupants) then {prestigeNATO + (tierWar*10)} else {prestigeCSAT + (tierWar*10)};
 						//Probability	of being spotted. Unless we're in an airfield - then we're always spotted.
-						if (_base in _airportsX1 ||	random 100 < _aggro) then
+						if (_base in _airportsX1 || _onDetectionMarker ||    random 100 < _aggro) then
 							{
 							if (_base in _roadblocks) then
 								{
@@ -151,7 +155,6 @@ while {_changeX == ""} do
 								{
 								_changeX = "Control";
 								};
-
 							}
 						else
 							{
@@ -179,6 +182,7 @@ while {_changeX == ""} do
 			};
 		};
 	};
+diag_log format ["[Antistasi] Player detected in %1 (undercover.sqf)", _onDetectionMarker];
 
 if (captive _player) then {[_player,false] remoteExec ["setCaptive"]; _player setCaptive false};
 

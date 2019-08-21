@@ -12,7 +12,6 @@ Params ["_foolish","_timeAdded","_offenceLevel"];
 	[cursorTarget,120, 1] remoteExec ["A3A_fnc_punishment",cursorTarget];		//Insta Punish, 120 seconds
 	[cursorTarget,-99999, -1] remoteExec ["A3A_fnc_punishment",cursorTarget];	//Insta Forgive
 
-
 */
 
 if (isDedicated) exitWith {};

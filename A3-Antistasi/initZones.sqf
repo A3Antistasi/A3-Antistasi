@@ -106,7 +106,7 @@ switch true do {
 		islands = ["island","island_1","island_2"]
 		};
 };
-{_x setMarkerAlpha 0} forEach (seaMarkers + seaSpawn + seaAttackSpawn + spawnPoints);
+{_x setMarkerAlpha 0} forEach (seaMarkers + seaSpawn + seaAttackSpawn + spawnPoints + detectionAreas + islands);
 defaultControlIndex = (count controlsX) - 1;
 outpostsFIA = [];
 destroyedCities = [];

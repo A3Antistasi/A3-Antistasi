@@ -286,6 +286,7 @@ if (!_busy) then
 	if !(_runwaySpawnLocation isEqualTo []) then
 		{
 		_pos = _runwaySpawnLocation select 0;
+		_pos set [2, 0.1]; //Always spawn on the ground.
 		_ang = _runwaySpawnLocation select 1;
 		
 		_heliPos = [_pos, 30,_ang + 90] call BIS_fnc_relPos;

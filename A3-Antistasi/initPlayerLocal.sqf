@@ -58,7 +58,7 @@ if (isMultiplayer) then
 					deleteVehicle (_this select 6);
 					if (_typeX == "Put") then
 						{
-						if (player distance petros < 10) then {[player,60] spawn A3A_fnc_punishment};
+						if (player distance petros < 10) then {[player, 20, 0.34] spawn A3A_fnc_punishment};
 						};
 					};
 				};
@@ -257,7 +257,7 @@ player addEventHandler
 		_instigator = _this select 6;
 		if(!isNull _instigator && isPlayer _instigator && _victim != _instigator && side _instigator == teamPlayer && _damage > 0.9) then
 		{
-			[_instigator,60] remoteExec ["A3A_fnc_punishment",_instigator];
+			[_instigator, 20, 0.34] remoteExec ["A3A_fnc_punishment",_instigator];
 			hint format["%1 hurt you!",_instigator];
 		};
 	}

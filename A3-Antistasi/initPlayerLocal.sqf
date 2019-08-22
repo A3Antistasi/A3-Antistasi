@@ -216,7 +216,6 @@ player setUnitTrait ["camouflageCoef",0.8];
 player setUnitTrait ["audibleCoef",0.8];
 
 [player] call A3A_fnc_dress;
-player setUnitLoadout ((getUnitLoadout player) call A3A_fnc_stripGearFromLoadout);
 player setvariable ["compromised",0];
 player addEventHandler ["FiredMan",
 	{

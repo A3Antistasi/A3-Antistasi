@@ -42,13 +42,16 @@ if(_velocity == 999999) then
 //Convert km/h into m/s
 _velocity = (_velocity / 3.6);
 _route = nil;
+_type = "";
 if(_hasAir && {!_hasLand}) then
 {
   //Convoy contains only air vehicles, can fly direct way
   _route = [_origin, _origin vectorAdd [0,0,200], _destination vectorAdd [0,0,200] _destination];
+  _type = "Air";
 }
 else
 {
   //Convoy is either pure land or combined air and land find way about the streets
   _route = [_origin, _destination] call A3A_fnc_calculateRoute;
+  if(_hasAir) then {_type = "Mixed"} else {_type = "Land"};
 };

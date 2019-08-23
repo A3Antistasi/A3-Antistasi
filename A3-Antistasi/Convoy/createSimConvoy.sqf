@@ -1,5 +1,15 @@
-params ["_units", "_origin", "_destination"];
+params ["_units", "_origin", "_destination", "_convoyType", "_sideConvoy"];
 
+/* params
+*   _units: ARRAY; contains the info about the units, each element has to be [veh, [cargoUnits]]
+*   _origin: POS; contains the position of the starting point
+*   _destination: POS; contains the position of the end point
+*   _convoyType: STRING; contains one of "ATTACK", "PATROL" or "REINFORCE"
+*   _sideConvoy: SIDE; contains the side of the convoy
+*
+*  returns
+*   nothing
+*/
 if (isNil "_units" || {count _units == 0}) exitWith {diag_log "CreateConvoy: No units given for convoy!"};
 if (isNil "_origin") exitWith {diag_log "CreateConvoy: No origin given for the convoy!"};
 if (isNil "_destination") exitWith {diag_log "CreateConvoy: No destination given for the convoy!"};
@@ -31,3 +41,14 @@ if(_velocity == 999999) then
 
 //Convert km/h into m/s
 _velocity = (_velocity / 3.6);
+_route = nil;
+if(_hasAir && {!_hasLand}) then
+{
+  //Convoy contains only air vehicles, can fly direct way
+  _route = [_origin, _origin vectorAdd [0,0,200], _destination vectorAdd [0,0,200] _destination];
+}
+else
+{
+  //Convoy is either pure land or combined air and land find way about the streets
+  _route = [_origin, _destination] call A3A_fnc_calculateRoute;
+};

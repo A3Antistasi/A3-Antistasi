@@ -47,23 +47,28 @@ if (isMultiplayer) then
 	if (hasTFAR) then {[] execVM "orgPlayers\radioJam.sqf"};//reestablecer cuando controle las variables
 	tkPunish = if ("tkPunish" call BIS_fnc_getParamValue == 1) then {true} else {false};
 	if ((side player == teamPlayer) and tkPunish) then
+	{
+		private _firedHandlerTk = 
 		{
-		player addEventHandler ["Fired",
-			{
 			_typeX = _this select 1;
 			if ((_typeX == "Put") or (_typeX == "Throw")) then
-				{
+			{
 				if (player distance petros < 50) then
-					{
+				{
 					deleteVehicle (_this select 6);
 					if (_typeX == "Put") then
-						{
+					{
 						if (player distance petros < 10) then {[player, 20, 0.34] remoteExec ["A3A_fnc_punishment",player];};
-						};
 					};
 				};
-			}];
+			};
 		};
+		player addEventHandler ["Fired", _firedHandlerTk];
+		if (hasACE) then 
+		{
+			["ace_firedPlayer", _firedHandlerTk ] call CBA_fnc_addEventHandler;
+		};
+	};
 	if (!isNil "placementDone") then {_isJip = true};//workaround for BIS fail on JIP detection
 	}
 else
@@ -212,7 +217,6 @@ player setUnitTrait ["camouflageCoef",0.8];
 player setUnitTrait ["audibleCoef",0.8];
 
 [player] call A3A_fnc_dress;
-player setUnitLoadout ((getUnitLoadout player) call A3A_fnc_stripGearFromLoadout);
 player setvariable ["compromised",0];
 player addEventHandler 
 [

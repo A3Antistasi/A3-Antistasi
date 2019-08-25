@@ -66,6 +66,7 @@ if(_type == "Air") then {_markerType = "_armor"};
 if(_type == "Mixed") then {_markerType = "_air"};
 
 _convoyMarker = createMarker [format ["convoy%1", _convoyID], _origin];
+_convoyMarker setMarkerShapeLocal "ICON";
 _convoyMarker setMarkerType format ["%1%2", _markerPrefix, _markerType];
 _convoyMarker setMarkerText (format ["%1 Convoy [%2]: Simulated", _type, str _convoyID]);
 _convoyMarker setMarkerAlpha 0;

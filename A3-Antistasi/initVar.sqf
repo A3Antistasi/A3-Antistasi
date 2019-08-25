@@ -33,7 +33,7 @@ teamPlayer = side group petros;
 Occupants = if (teamPlayer == independent) then {west} else {independent};
 Invaders = east;
 
-colourTeamPlayer = if (teamPlayer == independent) then {"colorGUER"} else {"colorBLUFOR"};
+colorTeamPlayer = if (teamPlayer == independent) then {"colorGUER"} else {"colorBLUFOR"};
 colorOccupants = if (teamPlayer == independent) then {"colorBLUFOR"} else {"colorGUER"};
 colorInvaders = "colorOPFOR";
 
@@ -448,6 +448,8 @@ civUniforms pushBackUnique _uniform;
 
 
 //All weapons, MOD ones included, will be added to this arrays, but it's useless without integration, as if those weapons don't spawn, players won't be able to collect them, and after, unlock them in the arsenal.
+
+convoyMarker = [];
 
 injuredSounds =
 [

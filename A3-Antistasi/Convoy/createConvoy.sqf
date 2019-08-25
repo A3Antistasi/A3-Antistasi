@@ -7,13 +7,12 @@ params ["_convoyID", "_units", "_origin", "_destination", "_convoyType", "_sideC
 *   _destination: POS; contains the position of the end point
 *   _convoyType: STRING; contains one of "ATTACK", "PATROL" or "REINFORCE"
 *   _sideConvoy: SIDE; contains the side of the convoy
-*
-*  returns
-*   nothing
 */
-if (isNil "_units" || {count _units == 0}) exitWith {diag_log "CreateConvoy: No units given for convoy!"};
-if (isNil "_origin") exitWith {diag_log "CreateConvoy: No origin given for the convoy!"};
-if (isNil "_destination") exitWith {diag_log "CreateConvoy: No destination given for the convoy!"};
+
+if (isNil "_convoyID") exitWith {diag_log "CreateConvoy: No convoy ID given"};
+if (isNil "_units" || {count _units == 0}) exitWith {diag_log format ["CreateConvoy[%1]: No units given for convoy!", _convoyID]};
+if (isNil "_origin") exitWith {diag_log format ["CreateConvoy[%1]: No origin given for the convoy!", _convoyID]};
+if (isNil "_destination") exitWith {diag_log format ["CreateConvoy[%1]: No destination given for the convoy!", _convoyID]};
 
 _hasAir = false;
 _hasLand = false;
@@ -44,6 +43,7 @@ if(_velocity == 999999) then
 _velocity = (_velocity / 3.6);
 _route = nil;
 _type = "";
+
 if(_hasAir && {!_hasLand}) then
 {
   //Convoy contains only air vehicles, can fly direct way
@@ -68,7 +68,9 @@ if(_type == "Mixed") then {_markerType = "_air"};
 _convoyMarker = createMarker [format ["convoy%1", _convoyID], _origin];
 _convoyMarker setMarkerShapeLocal "ICON";
 _convoyMarker setMarkerType format ["%1%2", _markerPrefix, _markerType];
-_convoyMarker setMarkerText (format ["%1 Convoy [%2]: Simulated", _type, str _convoyID]);
+_convoyMarker setMarkerText (format ["%1 Convoy [%2]: Simulated", _type, _convoyID]);
 _convoyMarker setMarkerAlpha 0;
 
 convoyMarker = convoyMarker pushBack _convoyMarker;
+
+[_route, _velocity, _units, _sideConvoy, _convoyType] spawn A3A_fnc_convoyMovement;

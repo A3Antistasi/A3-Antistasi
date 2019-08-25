@@ -7,9 +7,6 @@ params ["_route", "_maxSpeed", "_units", "_sideConvoy", "_convoyType" ["_debugOb
 *   _sideConvoy : SIDE; contains the side of the convoy
 *   _convoyType : STRING; contains one of "ATTACK", "PATROL" or "REINFORCE"
 *   _debugObject : OBJECT (optional); object to visualize the convoy travel
-*
-*   returns
-*   nothing
 */
 
 if(isNil "_route") exitWith {diag_log "ConvoyMovement: No route given!"};

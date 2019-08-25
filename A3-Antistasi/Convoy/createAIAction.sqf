@@ -63,18 +63,23 @@ _destinationPos = if(_destination isEqualType "") then {getMarkerPos _destinatio
 //Does this work like this?
 
 _units = [];
-if(_type == "PATROL") then
+if(_type == "patrol") then
 {
 
 };
-if(_type == "REINFORCE") then
+if(_type == "reinforce") then
 {
 
 };
-if(_type == "ATTACK") then
+if(_type == "attack") then
 {
 
 };
+if(_type == "airstrike") then
+{
+
+};
+if(_type == "convoy")
 
 
 

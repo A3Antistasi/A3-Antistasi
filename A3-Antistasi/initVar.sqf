@@ -22,7 +22,6 @@ incomeRep = false;
 //distanceMission = 2500;
 /*
 minMags = 20;
-
 minPacks = 20;
 minItems = 20;
 minOptics = 12;*/
@@ -158,7 +157,7 @@ else
 	    {
 	    hasTFAR = true;
 	    haveRadio = true;
-			startLR = false;//set to true to start with LR radios unlocked.
+			startLR = true;//set to true to start with LR radios unlocked.
 	    //unlockedItems = unlockedItems;
 	    ["TF_no_auto_long_range_radio", true, true,"mission"] call CBA_settings_fnc_set;//set to false and players will spawn with LR radio.
 	    if (hasIFA) then {

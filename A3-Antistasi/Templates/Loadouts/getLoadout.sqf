@@ -69,6 +69,13 @@ private _fnc_modItem = {
 		};
 	};
 };
+
+private _fnc_tfarRadio = {
+	params ["_radio"];
+	[hasTFAR, _radio, "ItemRadio"] call _fnc_modItem;
+};
+
+private _tfarMicroDAGR = [hasTFAR, "TF_MicroDagr", "ItemWatch"] call _fnc_modItem;
 	
 private _aceFlashlight = [hasACE, ["ACE_Flashlight_XL50", 1]] call _fnc_modItem;
 private _aceM84 = [hasACE, ["ACE_M84", 1], ["HandGrenade", 1]] call _fnc_modItem;

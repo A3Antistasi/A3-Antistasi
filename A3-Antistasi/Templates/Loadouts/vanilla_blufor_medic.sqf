@@ -71,9 +71,9 @@
 	[//Item
 		"ItemMap",											//Map
 		"ItemGPS",											//Terminal
-		"TF_RF7800STR",										//Radio
+		["TF_ANPRC152"] call _fnc_tfarRadio,				//Radio
 		"ItemCompass",										//Compass
-		"TF_MicroDAGR",										//Watch
+		"ItemWatch",										//Watch
 		""													//Goggles
 	]
 ];

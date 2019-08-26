@@ -69,7 +69,7 @@
 	[//Item
 		"ItemMap",											//Map
 		"",													//Terminal
-		"TF_ANPRC152",										//Radio
+		["TF_ANPRC152"] call _fnc_tfarRadio,				//Radio
 		"ItemCompass",										//Compass
 		"ItemWatch",										//Watch
 		""													//Goggles

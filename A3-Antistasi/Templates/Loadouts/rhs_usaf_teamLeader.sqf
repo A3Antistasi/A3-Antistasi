@@ -49,7 +49,7 @@
 	],
 
 	[//Backpack
-		"TF_RT1523G_RHS",
+		([hasTFAR, "TF_RT1523G_RHS", "RHSUSF_Assault_EagleAIII_OCP"] call _fnc_modItem),
 		[//Inventory
 			["SmokeshellBlue",3,1],
 			["SmokeshellRed",3,1],
@@ -76,9 +76,9 @@
 	[//Item
 		"ItemMap",											//Map
 		"ItemGPS",											//Terminal
-		"TF_RF7800STR",										//Radio
+		["TF_RF7800STR"] call _fnc_tfarRadio,				//Radio
 		"ItemCompass",										//Compass
-		"TF_MicroDAGR",										//Watch
+		_tfarMicroDAGR,										//Watch
 		""													//Goggles
 	]
 ];

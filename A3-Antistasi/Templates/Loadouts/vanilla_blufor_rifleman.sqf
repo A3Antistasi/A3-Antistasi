@@ -60,12 +60,7 @@
 		]
 	],
 
-	[//Backpack
-		"",													//Backpack
-		[//Inventory
-			[]
-		]
-	],
+	[],
 
 		selectRandom										//Headgear
 		["H_BoonieHat_TNA_F", "H_MilCap_TNA_F", "H_HelmetB_Light_TNA_F", "H_HelmetB_TNA_F", "H_HelmetB_Enh_TNA_F"],

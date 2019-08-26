@@ -59,12 +59,8 @@
 		]
 	],
 
-	[//Backpack
-		"",													//Backpack
-		[//Inventory
-			[]
-		]
-	],
+	//Backpack
+	[],
 
 		"RHSGREF_Helmet_PASGT_ERDL_Rhino",					//Headgear
 		SelectRandom 										//Facewear

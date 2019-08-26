@@ -59,12 +59,7 @@
 		]
 	],
 
-	[//Backpack
-		"",													//Backpack
-		[//Inventory
-			[]
-		]
-	],
+	[],
 
 		"",													//Headgear
 		"G_Balaclava_Oli",									//Facewear

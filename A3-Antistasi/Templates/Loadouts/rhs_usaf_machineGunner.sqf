@@ -60,10 +60,6 @@
 	],
 
 	[//Backpack
-		"",													//Backpack
-		[//Inventory
-			[]
-		]
 	],
 
 		"RHSGREF_Helmet_PASGT_Woodland_Rhino",				//Headgear

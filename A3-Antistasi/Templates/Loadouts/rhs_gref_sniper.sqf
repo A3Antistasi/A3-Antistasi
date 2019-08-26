@@ -58,12 +58,7 @@
 		]
 	],
 
-	[//Backpack
-		"",													//Backpack
-		[//Inventory
-			[]
-		]
-	],
+	[],
 
 	"H_PASGT_Basic_Blue_F",									//Headgear
 	"G_Balaclava_TI_Blk_F",									//Facewear

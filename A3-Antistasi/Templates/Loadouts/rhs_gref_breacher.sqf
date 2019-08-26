@@ -39,14 +39,14 @@
 		[//Inventory
 			["RHS_1PN138",1],
 			["H_Cap_Police",1],
-			["ACE_Flashlight_XL50",1],
 			["RHS_Mag_An_M8HC",1,1],
 			["RHS_Mag_Mk3A2",2,1],
-			["ACE_M84",2,1],
 			["RHSUSF_8Rnd_Slug",4,8],
 			["RHSUSF_8Rnd_00Buck",2,8],
 			["16Rnd_9x21_Mag",2,17]
-		]
+		] 
+		+ _aceFlashlight
+		+ _aceM84
 	],
 
 	[//Backpack

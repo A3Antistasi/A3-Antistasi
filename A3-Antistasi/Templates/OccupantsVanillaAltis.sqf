@@ -15,12 +15,12 @@ staticATOccupants = "B_static_AT_F";
 staticAAOccupants = "B_static_AA_F";
 NATOPilot = "B_Helipilot_F";
 
-#include "Loadouts/vanilla_blufor_teamLeader.sqf";
-#include "Loadouts/vanilla_blufor_medic.sqf";
-#include "Loadouts/vanilla_blufor_machineGunner.sqf";
-#include "Loadouts/vanilla_blufor_marksman.sqf";
-#include "Loadouts/vanilla_blufor_AT.sqf";
-#include "Loadouts/vanilla_blufor_rifleman.sqf";
+#include "Loadouts\vanilla_blufor_teamLeader.sqf";
+#include "Loadouts\vanilla_blufor_medic.sqf";
+#include "Loadouts\vanilla_blufor_machineGunner.sqf";
+#include "Loadouts\vanilla_blufor_marksman.sqf";
+#include "Loadouts\vanilla_blufor_AT.sqf";
+#include "Loadouts\vanilla_blufor_rifleman.sqf";
 
 //NATO PvP Loadouts
 NATOPlayerLoadouts = [

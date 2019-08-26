@@ -11,12 +11,12 @@ CSATMG = "rhs_KORD_high_VMF";
 staticATInvaders = "rhs_Kornet_9M133_2_vmf";
 staticAAInvaders = "RHS_ZU23_MSV";
 
-#include "Loadouts/rhs_afrf_teamLeader.sqf";
-#include "Loadouts/rhs_afrf_medic.sqf";
-#include "Loadouts/rhs_afrf_machineGunner.sqf";
-#include "Loadouts/rhs_afrf_marksman.sqf";
-#include "Loadouts/rhs_afrf_AT.sqf";
-#include "Loadouts/rhs_afrf_AT2.sqf";
+#include "Loadouts\rhs_afrf_teamLeader.sqf";
+#include "Loadouts\rhs_afrf_medic.sqf";
+#include "Loadouts\rhs_afrf_machineGunner.sqf";
+#include "Loadouts\rhs_afrf_marksman.sqf";
+#include "Loadouts\rhs_afrf_AT.sqf";
+#include "Loadouts\rhs_afrf_AT2.sqf";
 
 
 //CSAT PvP Loadouts

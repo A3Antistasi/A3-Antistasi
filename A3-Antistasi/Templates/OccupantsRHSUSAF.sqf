@@ -13,12 +13,12 @@ NATOMortar = "RHS_M252_USMC_WD";
 staticATOccupants = "RHS_TOW_TriPod_USMC_WD";
 staticAAOccupants = "RHS_Stinger_AA_pod_D";
 
-#include "Loadouts/rhs_usaf_teamLeader.sqf";
-#include "Loadouts/rhs_usaf_medic.sqf";
-#include "Loadouts/rhs_usaf_machineGunner.sqf";
-#include "Loadouts/rhs_usaf_marksman.sqf";
-#include "Loadouts/rhs_usaf_AT.sqf";
-#include "Loadouts/rhs_usaf_rifleman.sqf";
+#include "Loadouts\rhs_usaf_teamLeader.sqf";
+#include "Loadouts\rhs_usaf_medic.sqf";
+#include "Loadouts\rhs_usaf_machineGunner.sqf";
+#include "Loadouts\rhs_usaf_marksman.sqf";
+#include "Loadouts\rhs_usaf_AT.sqf";
+#include "Loadouts\rhs_usaf_rifleman.sqf";
 
 //NATO PvP Loadouts
 NATOPlayerLoadouts = [

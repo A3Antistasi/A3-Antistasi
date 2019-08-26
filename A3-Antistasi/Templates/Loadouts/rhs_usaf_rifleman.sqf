@@ -31,12 +31,12 @@
 	],
 
 	[//Uniform
-		"RHSGREF_Uniform_OG107_ERDL",						//Uniform
+		"RHS_Uniform_G3_M81",						//Uniform
 		[] + _basicMedicalSupplies + _basicMiscItems
 	],
 
 	[//Vest
-		"RHSGREF_ALICE_Webbing",							//Vest
+		"RHSUSF_SPCS_OCP_rifleman_alt",							//Vest
 		[//Inventory
 			["RHSUSF_ANPVS_14",1],
 			["RHS_Mag_An_M8HC",2,1],
@@ -51,7 +51,7 @@
 	//Backpack
 	[],
 
-		"RHSGREF_Helmet_PASGT_ERDL_Rhino",					//Headgear
+		"rhsusf_mich_bare_norotos_headset",					//Headgear
 		SelectRandom 										//Facewear
 		["RHSUSF_Shemagh_Grn", "RHSUSF_Shemagh2_Grn", "RHSUSF_Shemagh_Gogg_Grn", "RHSUSF_Shemagh2_Gogg_Grn", "RHSUSF_Oakley_Goggles_Blk"],
 

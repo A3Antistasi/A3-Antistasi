@@ -59,7 +59,7 @@
 		+ ([hasACE, ["ACE_Chemlight_IR",15,1]] call _fnc_modItem)
 	],
 
-		"RHSGREF_Helmet_PASGT_Woodland_Rhino",				//Headgear
+		"rhsusf_mich_bare_norotos_headset",				//Headgear
 		SelectRandom 										//Facewear
 		["RHSUSF_Shemagh_Grn", "RHSUSF_Shemagh2_Grn", "RHSUSF_Shemagh_Gogg_Grn", "RHSUSF_Shemagh2_Gogg_Grn", "RHSUSF_Oakley_Goggles_Blk"],
 

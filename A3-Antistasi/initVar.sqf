@@ -637,6 +637,8 @@ hasACRE = false;
 hasACE = false;
 hasACEhearing = false;
 hasACEMedical = false;
+hasADVCPR = isClass (configFile >> "CfgPatches" >> "adv_aceCPR");
+hasADVSplint = isClass (configFile >> "CfgPatches" >> "adv_aceSplint");
 
 //ACE detection and ACE item availability in Arsenal
 	aceItems = [
@@ -681,7 +683,6 @@ hasACEMedical = false;
 		"ACE_quikclot",
 		"ACE_bloodIV_250",
 		"ACE_packingBandage",
-		"ACE_personalAidKit",
 		"ACE_plasmaIV",
 		"ACE_plasmaIV_500",
 		"ACE_plasmaIV_250",
@@ -691,10 +692,11 @@ hasACEMedical = false;
 		"ACE_surgicalKit",
 		"ACE_tourniquet",
 		"ACE_adenosine",
-		"ACE_atropine",
-		"adv_aceSplint_splint",
-		"adv_aceCPR_AED"
-	]; publicVariable "aceAdvMedItems";
+		"ACE_atropine"
+	]
+	+ ([["ACE_PersonalAidKit"], ["adv_aceCPR_AED"]] select hasADVCPR)
+	+ ([[], ["adv_aceSplint_splint"]] select hasADVSplint); 
+	publicVariable "aceAdvMedItems";
 
 
 if (!isNil "ace_common_fnc_isModLoaded") then {
@@ -772,6 +774,8 @@ publicVariable "hasTFAR";
 publicVariable "hasACRE";
 publicVariable "hasACEhearing";
 publicVariable "hasACEMedical";
+publicVariable "hasADVCPR";
+publicVariable "hasADVSplint";
 publicVariable "revealX";
 publicVariable "prestigeNATO";
 publicVariable "prestigeCSAT";

@@ -19,12 +19,12 @@ _hasLand = false;
 
 _velocity = 999999; //CAUTION this is km/h not m/s!!! So is every speed
 {
-    _vehicle = _units select 0;
+    _vehicle = _x select 0;
     if (!(_vehicle isKindOf "StaticWeapon")) then
     {
       if(!_hasLand && {_vehicle isKindOf "Land"}) then {_hasLand = true;};
       if(!_hasAir && {_vehicle isKindOf "Air"}) then {_hasAir = true;};
-      _vehVelocity = getText (configFile >> CfgVehicles >> typeOf _vehicle >> "maxSpeed");
+      _vehVelocity = getNumber (configFile >> "cfgVehicles" >> _vehicle >> "maxSpeed");
       if (_vehVelocity < _velocity) then
       {
         _velocity = _vehVelocity;
@@ -47,7 +47,7 @@ _type = "";
 if(_hasAir && {!_hasLand}) then
 {
   //Convoy contains only air vehicles, can fly direct way
-  _route = [_origin, _origin vectorAdd [0,0,200], _destination vectorAdd [0,0,200] _destination];
+  _route = [_origin, _origin vectorAdd [0,0,200], _destination vectorAdd [0,0,200], _destination];
   _type = "Air";
 }
 else
@@ -57,13 +57,13 @@ else
   if(_hasAir) then {_type = "Mixed"} else {_type = "Land"};
 };
 
-_markerPrefix = if(colorTeamPlayer == colorGUER) then {"n"} else {"b"};
-if(_sideConvoy == Occupants) then {_markerPrefix = if(colorInvaders == colorBLUFOR) then {"b"} else {"n"};};
-if(_sideConvoy == Invaders) then {_markerPrefix = "n"};
+_markerPrefix = if(colorTeamPlayer == "colorGUER") then {"n"} else {"b"};
+if(_sideConvoy == Occupants) then {_markerPrefix = if(colorInvaders == "colorBLUFOR") then {"b"} else {"n"};};
+if(_sideConvoy == Invaders) then {_markerPrefix = "o"};
 
 _markerType = "_mech_inf";
-if(_type == "Air") then {_markerType = "_armor"};
-if(_type == "Mixed") then {_markerType = "_air"};
+if(_type == "Air") then {_markerType = "_air"};
+if(_type == "Mixed") then {_markerType = "_armor"};
 
 _convoyMarker = createMarker [format ["convoy%1", _convoyID], _origin];
 _convoyMarker setMarkerShapeLocal "ICON";
@@ -71,6 +71,8 @@ _convoyMarker setMarkerType format ["%1%2", _markerPrefix, _markerType];
 _convoyMarker setMarkerText (format ["%1 Convoy [%2]: Simulated", _type, _convoyID]);
 _convoyMarker setMarkerAlpha 0;
 
-convoyMarker = convoyMarker pushBack _convoyMarker;
+convoyMarker pushBack _convoyMarker;
 
-[_route, _velocity, _units, _sideConvoy, _convoyType] spawn A3A_fnc_convoyMovement;
+diag_log format ["CreateConvoy[%1]: Created convoy with %2 m/s and a total of %3 waypoints, marker is %4%5", _convoyID, _velocity, count _route, _markerPrefix, _markerType];
+
+[_convoyID, _route, _velocity, _units, _sideConvoy, _convoyType] spawn A3A_fnc_convoyMovement;

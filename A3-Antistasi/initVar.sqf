@@ -449,7 +449,6 @@ civUniforms pushBackUnique _uniform;
 
 //All weapons, MOD ones included, will be added to this arrays, but it's useless without integration, as if those weapons don't spawn, players won't be able to collect them, and after, unlock them in the arsenal.
 
-convoyMarker = [];
 
 injuredSounds =
 [
@@ -487,6 +486,7 @@ attackPos = [];
 attackMrk = [];
 airstrike = [];
 convoyMarker = [];
+
 
 bigAttackInProgress = false;
 chopForest = false;

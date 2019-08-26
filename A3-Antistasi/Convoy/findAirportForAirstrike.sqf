@@ -33,34 +33,37 @@ if(_side == sideUnknown) exitWith {diag_log "FindAirportForAirstrike: No side gi
 _possibleAirports = airportsX select {sidesX getVariable [_x, sideUnknown] == _side};
 
 //Sort by further criteria
+/* //DEACTIVATED FOR DEBUG
 _possibleAirports = _possibleAirports select
 {
   (spawner getVariable _x == 2) &&                    //Not already spawned in
   {(dateToNumber date > server getVariable _x) &&     //Not currently on cooldown
   {!(_x in forcedSpawn) &&                            //Not force spawned in (not sure how long this will be in the script tho)
   {!(_x in blackListDest) &&                          //Not blacklisted (don't know why? TODO Investigate)
-  {(getMarkerPos _x distance _pos > distanceSPWN)}}}} //Not closer than spawn distance
+  {(getMarkerPos _x distance _destinationPos > distanceSPWN)}}}} //Not closer than spawn distance
 };
+*/
 
 //Sort by max distance and killzones (TODO what are killzones and how are they working??)
 _suitableAirports = [];
 {
   _posbase = getMarkerPos _x;
-  if ((_destinationPos distance _posbase < distanceForLandAttack) and (({_x == _markerX} count (killZones getVariable [_x,[]])) < 3)) then
+  if ((_destinationPos distance _posbase < distanceForAirAttack) /*&& (({_x == _markerX} count (killZones getVariable [_x,[]])) < 3)*/) then
   {
     _suitableAirports pushBack _x;
   };
 } forEach _possibleAirports;
 
+
 //If some remain, choose the nearest one, else return nil
 if (count _suitableAirports > 0) then
 {
   _airport = [_suitableAirports,_destinationPos] call BIS_fnc_nearestPosition;
-  diag_log format ["FindAirportForAirstrike: Found %1 suitable airports, will return %2", count _suitableAirports, name _airport];
+  diag_log format ["FindAirportForAirstrike: Found %1 suitable airports, will return %2", count _suitableAirports, _airport];
 }
 else
 {
-  _airport = nil;
-  diag_log "FindAirportForAirstrike: No suitable position found, returning nil";
+  _airport = "";
+  diag_log "FindAirportForAirstrike: No suitable position found, returning empty string";
 };
 _airport

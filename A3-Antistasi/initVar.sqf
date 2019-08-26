@@ -633,73 +633,74 @@ garageIsUsed = false;
 vehInGarage = [];
 destroyedBuildings = []; //publicVariable "destroyedBuildings";
 reportedVehs = [];
-hasACRE = false;
-hasACE = false;
-hasACEhearing = false;
-hasACEMedical = false;
+hasACRE = (isClass(configFile >> "cfgPatches" >> "acre_main"));
+hasACE = (!isNil "ace_common_fnc_isModLoaded");
+hasACEhearing = (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak"));
+hasACEMedical = (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3"));
 hasADVCPR = isClass (configFile >> "CfgPatches" >> "adv_aceCPR");
 hasADVSplint = isClass (configFile >> "CfgPatches" >> "adv_aceSplint");
 
 //ACE detection and ACE item availability in Arsenal
-	aceItems = [
-		"ACE_EarPlugs",
-		"ACE_RangeCard",
-		"ACE_Clacker",
-		"ACE_M26_Clacker",
-		"ACE_DeadManSwitch",
-		"ACE_DefusalKit",
-		"ACE_MapTools",
-		"ACE_Flashlight_MX991",
-		"ACE_wirecutter",
-		"ACE_RangeTable_82mm",
-		"ACE_EntrenchingTool",
-		"ACE_Cellphone",
-		"ACE_CableTie",
-		"ACE_SpottingScope",
-		"ACE_Tripod",
-		"ACE_Chemlight_HiWhite",
-		"ACE_Chemlight_HiRed",
-		"ACE_Kestrel4500",
-		"ACE_ATragMX",
-		"ACE_acc_pointer_green",
-		"ACE_HandFlare_White",
-		"ACE_HandFlare_Red",
-		"ACE_Spraypaintred"
-	];
-	if (hasIFA) then {aceItems append ["ACE_LIB_LadungPM","ACE_SpareBarrel"]};
-	publicVariable "aceItems";
+aceItems = [
+	"ACE_EarPlugs",
+	"ACE_RangeCard",
+	"ACE_Clacker",
+	"ACE_M26_Clacker",
+	"ACE_DeadManSwitch",
+	"ACE_DefusalKit",
+	"ACE_MapTools",
+	"ACE_Flashlight_MX991",
+	"ACE_wirecutter",
+	"ACE_RangeTable_82mm",
+	"ACE_EntrenchingTool",
+	"ACE_Cellphone",
+	"ACE_CableTie",
+	"ACE_SpottingScope",
+	"ACE_Tripod",
+	"ACE_Chemlight_HiWhite",
+	"ACE_Chemlight_HiRed",
+	"ACE_Kestrel4500",
+	"ACE_ATragMX",
+	"ACE_acc_pointer_green",
+	"ACE_HandFlare_White",
+	"ACE_HandFlare_Red",
+	"ACE_Spraypaintred"
+];
+	
+if (hasIFA) then {aceItems append ["ACE_LIB_LadungPM","ACE_SpareBarrel"]};
+publicVariable "aceItems";
 
-	aceBasicMedItems = [
-		"ACE_fieldDressing",
-		"ACE_bloodIV_500",
-		"ACE_bloodIV",
-		"ACE_epinephrine",
-		"ACE_morphine",
-		"ACE_bodyBag"
-	]; publicVariable "aceBasicMedItems";
+aceBasicMedItems = [
+	"ACE_fieldDressing",
+	"ACE_bloodIV_500",
+	"ACE_bloodIV",
+	"ACE_epinephrine",
+	"ACE_morphine",
+	"ACE_bodyBag"
+]; publicVariable "aceBasicMedItems";
 
-	aceAdvMedItems = [
-		"ACE_elasticBandage",
-		"ACE_quikclot",
-		"ACE_bloodIV_250",
-		"ACE_packingBandage",
-		"ACE_plasmaIV",
-		"ACE_plasmaIV_500",
-		"ACE_plasmaIV_250",
-		"ACE_salineIV",
-		"ACE_salineIV_500",
-		"ACE_salineIV_250",
-		"ACE_surgicalKit",
-		"ACE_tourniquet",
-		"ACE_adenosine",
-		"ACE_atropine"
-	]
-	+ ([["ACE_PersonalAidKit"], ["adv_aceCPR_AED"]] select hasADVCPR)
-	+ ([[], ["adv_aceSplint_splint"]] select hasADVSplint); 
-	publicVariable "aceAdvMedItems";
+aceAdvMedItems = [
+	"ACE_elasticBandage",
+	"ACE_quikclot",
+	"ACE_bloodIV_250",
+	"ACE_packingBandage",
+	"ACE_plasmaIV",
+	"ACE_plasmaIV_500",
+	"ACE_plasmaIV_250",
+	"ACE_salineIV",
+	"ACE_salineIV_500",
+	"ACE_salineIV_250",
+	"ACE_surgicalKit",
+	"ACE_tourniquet",
+	"ACE_adenosine",
+	"ACE_atropine"
+]
++ ([["ACE_PersonalAidKit"], ["adv_aceCPR_AED"]] select hasADVCPR)
++ ([[], ["adv_aceSplint_splint"]] select hasADVSplint); 
+publicVariable "aceAdvMedItems";
 
 
-if (!isNil "ace_common_fnc_isModLoaded") then {
+if (hasACE) then {
 	unlockedItems = unlockedItems + aceItems;
 	if !(hasIFA) then
 		{
@@ -707,30 +708,24 @@ if (!isNil "ace_common_fnc_isModLoaded") then {
 		unlockedWeapons pushBackUnique "ACE_VMH3";
 		itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX","ACE_M84"];
 		};
-	hasACE = true;
-	if (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak")) then {
-		hasACEhearing = true;
-	};
-	if (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3")) then {
-		if (ace_medical_level == 1) then {
-			hasACEMedical = true;
-			unlockedItems = unlockedItems + aceBasicMedItems;
-		};
-	};
-
-	if (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3")) then {
-		if (ace_medical_level == 2) then {
-			hasACEMedical = true;
-			unlockedItems = unlockedItems + aceBasicMedItems + aceAdvMedItems;
+	if (hasACEMedical) then {
+		switch (ace_medical_level) do {
+			case 1: {
+				unlockedItems = unlockedItems + aceBasicMedItems;
+			};
+			case 2: {
+				unlockedItems = unlockedItems + aceBasicMedItems + aceAdvMedItems;
+			};
+		
 		};
 	};
 };
-if (isClass(configFile >> "cfgPatches" >> "acre_main")) then
-	{
-	hasACRE = true;
+
+if (hasACRE) then
+{
 	haveRadio = true;
 	unlockedItems = unlockedItems + ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"];
-	};
+};
 
 //allItems = allItems + itemsAAF + opticsAAF + _vests + helmets + NVGoggles;
 

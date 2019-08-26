@@ -1,5 +1,3 @@
-private _loadout_rhs_gref_breacher =
-
 [//Loadout
 	[//Primary Weapon
 		"RHS_Weap_M590_8Rd",								//Weapon

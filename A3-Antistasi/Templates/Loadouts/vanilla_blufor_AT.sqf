@@ -1,4 +1,3 @@
-private _loadout_vanilla_blufor_AT =
 [//Loadout
 	[//Primary Weapon
 		"ARifle_SPAR_01_KHK_F",								//Weapon

@@ -1,4 +1,4 @@
-private _loadout_rhs_afrf_machineGunner = [
+[
 	[
 		"rhs_weap_pkp",
 		"",

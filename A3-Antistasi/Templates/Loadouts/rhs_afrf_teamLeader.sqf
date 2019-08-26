@@ -1,4 +1,4 @@
-private _loadout_rhs_afrf_teamLeader = [
+[
 	[
 		"rhs_weap_ak74m_gp25",
 		"rhs_acc_dtk",

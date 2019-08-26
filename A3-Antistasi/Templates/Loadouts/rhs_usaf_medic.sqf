@@ -1,4 +1,4 @@
-private _loadout_rhs_usaf_medic = [//Loadout
+[//Loadout
 	[//Primary Weapon
 		selectRandom										//Weapon
 		["RHS_Weap_M4A1", "RHS_Weap_M16A4"],

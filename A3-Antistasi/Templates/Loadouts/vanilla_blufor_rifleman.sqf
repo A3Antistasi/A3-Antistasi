@@ -1,5 +1,3 @@
-private _loadout_vanilla_blufor_rifleman =
-
 [//Loadout
 	[//Primary Weapon
 		"ARifle_SPAR_02_KHK_F",								//Weapon

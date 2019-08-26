@@ -1,5 +1,3 @@
-private _loadout_vanilla_blufor_marksman =
-
 [//Loadout
 	[//Primary Weapon
 		"ARifle_SPAR_03_KHK_F",								//Weapon

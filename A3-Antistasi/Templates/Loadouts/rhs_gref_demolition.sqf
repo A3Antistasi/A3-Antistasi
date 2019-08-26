@@ -1,5 +1,3 @@
-private _loadout_rhs_gref_demolition =
-
 [//Loadout
 	[//Primary Weapon
 		"SMG_05_F",											//Weapon

@@ -1,4 +1,3 @@
-private _loadout_vanilla_blufor_grenadier =
 [//Loadout
 	[//Primary Weapon
 		"ARifle_SPAR_01_GL_KHK_F",							//Weapon

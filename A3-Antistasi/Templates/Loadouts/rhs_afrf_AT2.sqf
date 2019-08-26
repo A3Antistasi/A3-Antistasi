@@ -1,4 +1,4 @@
-private _loadout_rhs_afrf_AT2 =[
+[
 	["rhs_weap_ak105",
 		"rhs_acc_pgs64",
 		"rhs_acc_perst1ik",

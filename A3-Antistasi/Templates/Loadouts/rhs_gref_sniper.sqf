@@ -1,5 +1,3 @@
-private _loadout_rhs_gref_sniper =
-
 [//Loadout
 	[//Primary Weapon
 		"RHS_Weap_M24SWS",									//Weapon

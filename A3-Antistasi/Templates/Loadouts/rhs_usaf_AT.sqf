@@ -1,4 +1,3 @@
-private _loadout_rhs_usaf_AT =
 [//Loadout
 	[//Primary Weapon
 		"RHS_Weap_M4A1",									//Weapon

@@ -1,5 +1,3 @@
-private _loadout_rhs_usaf_machineGunner =
-
 [//Loadout
 	[//Primary Weapon
 		"RHS_Weap_M249_PIP",								//Weapon

@@ -1,4 +1,4 @@
-private _loadout_rhs_afrf_medic = [
+[
 	[
 		"rhs_weap_ak105",
 		"rhs_acc_pgs64",

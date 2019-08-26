@@ -1,4 +1,4 @@
-private _loadout_rhs_afrf_marksman = [
+[
 	[
 		"rhs_weap_vss",
 		"",

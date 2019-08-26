@@ -1,4 +1,4 @@
-private _loadout_rhs_usaf_teamLeader = [//Loadout
+[//Loadout
 	[//Primary Weapon
 		"RHS_Weap_M4A1",									//Weapon
 		"",													//Muzzle

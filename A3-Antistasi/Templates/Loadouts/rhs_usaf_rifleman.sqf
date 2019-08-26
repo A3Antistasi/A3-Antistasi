@@ -1,5 +1,3 @@
-private _loadout_rhs_usaf_rifleman =
-
 [//Loadout
 	[//Primary Weapon
 		"RHS_Weap_M16A4",									//Weapon

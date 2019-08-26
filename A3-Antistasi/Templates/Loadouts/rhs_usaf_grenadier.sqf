@@ -1,4 +1,4 @@
-private _loadout_rhs_usaf_grenadier = [//Loadout
+[//Loadout
 	[//Primary Weapon
 		"RHS_Weap_M4A1_M203S",								//Weapon
 		"",													//Muzzle

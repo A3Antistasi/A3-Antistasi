@@ -1,5 +1,3 @@
-private _loadout_rhs_gref_teamLeader =
-
 [//Loadout
 	[//Primary Weapon
 		"RHS_Weap_Mk18_Bk",									//Weapon

@@ -8,9 +8,6 @@ if !(_this in vehUnlimited) then
 	}
 	else
 	{
-		if !(_this in vehUnlimited) then
-		{
-			timer setVariable [_this,0,true];
-		};
+		timer setVariable [_this,0,true];
 	};
 };

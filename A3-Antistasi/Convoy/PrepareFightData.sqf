@@ -12,14 +12,15 @@ if(_sideDefender == _sideAttacker) exitWith
   diag_log "PrepareFightData: Attacker and Defender are the same side. No fighting needed!";
 };
 
-_attackerTroops = [];
 _attackerMan = [];
-_attackerCar = [];
+_attackerLight = [];
 _attackerAPC = [];
 _attackerTank = [];
 _attackerHeli = [];
 _attackerJet = [];
 _attackerStatics = [];
+
+
 
 {
   _vehicleData = _x;
@@ -28,7 +29,7 @@ _attackerStatics = [];
   _hasCargo = (count _cargoUnits) > 0;
   switch (true) do
   {
-     case (_vehicle isKindOf "Car") : {_attackerCar pushBack [_vehicle, _hasCargo]};
+     case (_vehicle isKindOf "Car") : {_attackerLight pushBack [_vehicle, _hasCargo]};
      case (_vehicle isKindOf "APC") : {_attackerAPC pushBack [_vehicle, _hasCargo]};
      case (_vehicle isKindOf "Tank") : {_attackerTank pushBack [_vehicle, false]};
      case (_vehicle isKindOf "Helicopter") : {_attackerHeli pushBack [_vehicle, _hasCargo]};

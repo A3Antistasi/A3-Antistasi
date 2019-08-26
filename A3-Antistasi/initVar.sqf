@@ -482,6 +482,12 @@ AAFpatrols = 0;//0
 reinfPatrols = 0;
 smallCAmrk = [];
 smallCApos = [];
+
+attackPos = [];
+attackMrk = [];
+airstrike = [];
+convoyMarker = [];
+
 bigAttackInProgress = false;
 chopForest = false;
 distanceForAirAttack = 10000;

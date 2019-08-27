@@ -304,7 +304,7 @@ if (hasRHS) then {sniperUnits = sniperUnits + ["rhsusf_socom_marsoc_sniper","rhs
 //   CLASSING TEMPLATE VEHICLES  ///
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Assigning vehicle Types",servertime];
-vehNormal = vehNATONormal + vehCSATNormal + [vehFIATruck,vehSDKTruck,vehSDKLightArmed,vehSDKBike ,rebelVehRepair];
+vehNormal = vehNATONormal + vehCSATNormal + [vehFIATruck,vehSDKTruck,vehSDKLightArmed,vehSDKBike,rebelVehRepair];
 vehBoats = [vehNATOBoat,vehCSATBoat,vehSDKBoat];
 vehAttack = vehNATOAttack + vehCSATAttack;
 vehPlanes = vehNATOAir + vehCSATAir + [rebelVehPlane];
@@ -532,6 +532,7 @@ if (hasACE) then
 //   DEFENDER WEAPONS AND AMMO   ///
 ////////////////////////////////////
 //Creates the list of weapons and ammo for DEFENDER loot crates
+_checked = [];
 {
 {
 _typeX = _x;
@@ -561,7 +562,6 @@ ammoDEFENDER pushBack (_magazines select 0);
 //   INVADER WEAPONS AND AMMO    ///
 ////////////////////////////////////
 //Creates the list of weapons and ammo for INVADER loot crates
-_checked = [];
 {
 {
 _typeX = _x;

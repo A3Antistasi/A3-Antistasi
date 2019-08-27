@@ -164,6 +164,7 @@ else
 	};
 
 //TFAR config
+startLR = false;
 if (hasTFAR) then
 {
 	startLR = true;//set to true to start with LR radios unlocked.

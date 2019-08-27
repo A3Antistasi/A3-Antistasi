@@ -5,36 +5,44 @@ antistasiVersion = localize "STR_antistasi_credits_generic_version_text";
 ////////////////////////////////////
 // INITIAL SETTING AND VARIABLES ///
 ////////////////////////////////////
-debug = false;										//debug variable, not useful for everything..
-diagOn = false;									//Turn on Diag_log messaging (unused - PBP)
-cleantime = 3600;									//time to delete dead bodies, vehicles etc..
-distanceSPWN = 1000;								//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
-distanceSPWN1 = 1300;								//
-distanceSPWN2 = 500;								//
-musicON = false;									//Extra BGM
-if (isServer and isDedicated) then {civPerc = 70;} else {civPerc = 35};
-autoHeal = false;									//
-recruitCooldown = 0;								//
-savingClient = false;								//
-incomeRep = false;									//
-maxUnits = 140;									//
+debug = false;													//debug variable, not useful for everything..
+diagOn = false;												//Turn on Diag_log messaging (unused - PBP)
+cleantime = 3600;												//time to delete dead bodies, vehicles etc..
+distanceSPWN = 1000;											//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
+distanceSPWN1 = 1300;											//
+distanceSPWN2 = 500;											//
+musicON = false;												//Extra BGM
+if (isServer and isDedicated) then {civPerc = 70;} else {civPerc = 35};	//
+autoHeal = false;												//
+recruitCooldown = 0;											//
+savingClient = false;											//
+incomeRep = false;												//
+maxUnits = 140;												//
 
 ////////////////////////////////////
 //   BEGIN SIDES AND COLORS      ///
 ////////////////////////////////////
-//Setting Sides
 diag_log format ["%1: [Antistasi] | INFO | initVar | Generating Sides.",servertime];
 teamPlayer = side group petros;
-Occupants = if (teamPlayer == independent) then {west} else {independent};
-Invaders = east;
-//Setting Side Colors
-colourTeamPlayer = if (teamPlayer == independent) then {"colorGUER"} else {"colorBLUFOR"};
-colorOccupants = if (teamPlayer == independent) then {"colorBLUFOR"} else {"colorGUER"};
-colorInvaders = "colorOPFOR";
-//Setting Respawn Locations
-respawnTeamPlayer = if (teamPlayer == independent) then {"respawn_guerrila"} else {"respawn_west"};
-respawnOccupants = if (teamPlayer == independent) then {"respawn_west"} else {"respawn_guerrila"};
 posHQ = getMarkerPos respawnTeamPlayer;
+if (teamPlayer == independent) then
+	{
+	Occupants = west;
+	colourTeamPlayer = "colorGUER";
+	colorOccupants = "colorBLUFOR";
+	respawnTeamPlayer = "respawn_guerrila";
+	respawnOccupants = "respawn_west"
+	}
+else
+	{
+	Occupants = independent;
+	colourTeamPlayer = "colorBLUFOR";
+	colorOccupants = "colorGUER";
+	respawnTeamPlayer = "respawn_west";
+	respawnOccupants = "respawn_guerrila";
+	};
+Invaders = east;
+colorInvaders = "colorOPFOR";
 
 //Declaring Items Arrays
 allMagazines = [];
@@ -110,11 +118,11 @@ haveRadio = hasTFAR || hasACRE;
 //ACE Detection
 hasACE = (!isNil "ace_common_fnc_isModLoaded");
 hasACEHearing = (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak"));
-hasACEMedical = (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3"));
+hasACEMedical = (isClass (configFile >> "CfgSounds" >> "ACE_heartbeat_fast_3"));
 hasADVCPR = isClass (configFile >> "CfgPatches" >> "adv_aceCPR");
 hasADVSplint = isClass (configFile >> "CfgPatches" >> "adv_aceSplint");
 //IFA Detection
-if (isClass(configFile/"CfgPatches"/"LIB_Core")) then {hasIFA = true; diag_log format ["%1: [Antistasi] | INFO | initVar | IFA Detected.",servertime];};
+if (isClass(configFile >> "CfgPatches" >> "LIB_Core")) then {hasIFA = true; diag_log format ["%1: [Antistasi] | INFO | initVar | IFA Detected.",servertime];};
 //RHS AFRF Detection
 if ("rhs_weap_akms" in arifles) then {hasAFRF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS AFRF Detected.",servertime];};
 if ("rhs_weap_m4a1_d" in arifles) then {hasUSAF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS USAF Detected.",servertime];};
@@ -428,7 +436,7 @@ _nameX = configName _x;
 _nameX = [_nameX] call BIS_fnc_baseWeapon;
 if (not(_nameX in _alreadyChecked)) then
 	{
-	_magazines = getArray (configFile / "CfgWeapons" / _nameX / "magazines");
+	_magazines = getArray (configFile >> "CfgWeapons" >> _nameX >> "magazines");
 	_alreadyChecked pushBack _nameX;
 	_item = [_nameX] call BIS_fnc_itemType;
 	_itemType = _item select 1;
@@ -917,13 +925,9 @@ waitUntil
 hint "Done compiling missionPath";
 
 ////////////////////////////////////
-//   STOPS ANY NON HOST PLAYER   ///
-////////////////////////////////////
-if (!isServer and hasInterface) exitWith {};
-
-////////////////////////////////////
 //   SERVER AND HOST VARIABLES   ///
 ////////////////////////////////////
+if (!isServer and hasInterface) exitWith {};
 difficultyCoef = if !(isMultiplayer) then {0} else {floor ((({side group _x == teamPlayer} count playableUnits) - ({side group _x != teamPlayer} count playableUnits)) / 5)};
 AAFpatrols = 0;
 reinfPatrols = 0;
@@ -935,11 +939,13 @@ distanceForAirAttack = 10000;
 distanceForLandAttack = if (hasIFA) then {5000} else {3000};
 
 ////////////////////////////////////
-//     VEHICLE SPAWN POINTS      ///
+//     MAP SETTINGS AND MARKERS  ///
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Vehicle Spawn Points.",servertime];
-if (worldName == "Tanoa") then
+swtich (worldName) do {
+case "Tanoa":
 	{
+	//Vehicle Spawns
 	roadsMrk = ["road","road_1","road_2","road_3","road_4","road_5","road_6","road_7","road_8","road_9","road_10","road_11","road_12","road_13","road_14","road_15","road_16"];
 	roadsCentral = ["road","road_1","road_2","road_3","road_4"];
 	roadsCE = ["road_5","road_6"];
@@ -950,17 +956,17 @@ if (worldName == "Tanoa") then
 	roadsNW = ["road_15"];
 	roadsNE = ["road_16"];
 	roadsX setVariable ["airport",[[[6988.38,7135.59,10.0673],17.0361,"MG"],[[6873.83,7472,3.19066],262.634,"MG"],[[6902.09,7427.71,13.0559],359.999,"MG"],[[6886.75,7445.52,0.0368803],360,"Mort"],[[6888.47,7440.31,0.0368826],0.000531628,"Mort"],[[6882.14,7445.42,0.0368817],360,"Mort"],[[6886.49,7436.58,0.0368807],360,"Mort"],[[6970.32,7188.49,-0.0339937],359.999,"Tank"],[[6960.98,7188.49,-0.0339937],359.999,"Tank"],[[6950.71,7187.42,-0.033505],359.999,"Tank"]]];
-
     	roadsX setVariable ["airport_1",[[[2175.14,13402.4,-0.01863],138.861,"Tank"],[[2183.31,13409.7,-0.0184679],139.687,"Tank"],[[2211.39,13434.4,0.0164337],141.512,"Tank"],[[2221.62,13440.6,0.016408],142.886,"Tank"],[[2221.31,13195,0.0368757],0.000337857,"Mort"],[[2224.09,13197.6,0.038271],1.30051e-005,"Mort"],[[2218.96,13199.1,0.0382385],0.00923795,"Mort"],[[2071.1,13308.5,14.4943],133.738,"MG"]]];
-
     	roadsX setVariable ["airport_2",[[[11803,13051.6,0.0368805],360,"Mort"],[[11813.5,13049.2,0.0368915],0.000145629,"Mort"],[[11799.5,13043.2,0.0368919],360,"Mort"],[[11723.3,13114.6,18.1545],300.703,"MG"],[[11782.3,13058.1,0.0307827],19.6564,"Tank"],[[11810.6,13040.2,0.0368905],360,"Tank"],[[11832.9,13042.1,0.0283785],16.3683,"Tank"]]];
     	roadsX setVariable ["airport_3",[[[11658,3055.02,0.036881],360,"Mort"],[[11662.6,3060.14,0.0368819],0.000294881,"Mort"],[[11664.8,3049.94,0.0368805],360,"Mort"],[[11668.9,3055.64,0.0368805],2.08056e-005,"Mort"],[[11747.8,2982.95,18.1513],249.505,"MG"],[[11784.1,3132.77,0.183631],214.7,"Tank"],[[11720.3,3176.15,0.112019],215.055,"Tank"]]];
     	roadsX setVariable ["airport_4",[[[2092.87,3412.98,0.0372648],0.00414928,"Mort"],[[2091.5,3420.69,0.0369596],360,"Mort"],[[2099.93,3422.53,0.0373936],0.00215797,"Mort"],[[2100.13,3416.28,0.0394554],0.0043371,"Mort"],[[2198.24,3471.03,18.0123],0.00187816,"MG"],[[2133.01,3405.88,-0.0156536],315.528,"Tank"],[[2145.82,3416.83,-0.00544548],316.441,"Tank"],[[2163.9,3432.18,-0.0256157],318.777,"Tank"]]];
-	}
-else
-	{
-	if (worldName == "Altis") then
+	//Map Markers and Roads DB
+	{server setVariable [_x select 0,_x select 1]} forEach [["Lami01",277],["Lifou01",350],["Lobaka01",64],["LaFoa01",38],["Savaka01",33],["Regina01",303],["Katkoula01",413],["Moddergat01",195],["Losi01",83],["Tanouka01",380],["Tobakoro01",45],["Georgetown01",347],["Kotomo01",160],["Rautake01",113],["Harcourt01",325],["Buawa01",44],["SaintJulien01",353],["Balavu01",189],["Namuvaka01",45],["Vagalala01",174],["Imone01",31],["Leqa01",45],["Blerick01",71],["Yanukka01",189],["OuaOue01",200],["Cerebu01",22],["Laikoro01",29],["Saioko01",46],["Belfort01",240],["Oumere01",333],["Muaceba01",18],["Nicolet01",224],["Lailai01",23],["Doodstil01",101],["Tavu01",178],["Lijnhaven01",610],["Nani01",19],["PetitNicolet01",135],["PortBoise01",28],["SaintPaul01",136],["Nasua01",60],["Savu01",184],["Murarua01",258],["Momea01",159],["LaRochelle01",532],["Koumac01",51],["Taga01",31],["Buabua01",27],["Penelo01",189],["Vatukoula01",15],["Nandai01",130],["Tuvanaka01",303],["Rereki01",43],["Ovau01",226],["IndPort01",420],["Ba01",106]];
+	call compile preprocessFileLineNumbers "roadsDB.sqf";
+	};
+case "Altis":
 		{
+		//Vehicle Spawns
 		roadsMrk = ["road","road_1","road_2","road_3","road_4","road_5","road_6","road_7","road_8","road_9","road_10","road_11","road_12","road_13","road_14","road_15","road_16","road_17","road_18","road_19","road_20","road_21","road_22","road_23","road_24","road_25","road_26","road_27","road_28","road_29","road_30","road_31","road_32","road_33","road_34","road_35","road_36","road_37","road_38","road_39","road_40","road_41","road_42"];
 		{_x setMarkerAlpha 0} forEach roadsMrk;
 		roadsX setVariable ["airport",[[[21175.06,7369.336,0],62.362,"Tank"],[[21178.89,7361.573,0.421],62.36,"Tank"],[[20961.332,7295.678,0],0,"Mort"],[[20956.143,7295.142,0],0,"Mort"],[[20961.1,7290.02,0.262632],0,"Mort"]]];
@@ -969,21 +975,28 @@ else
         	roadsX setVariable ["airport_3",[[[14414.9,16327.8,-0.000991821],207.397,"Tank"],[[14471.9,16383.2,0.0378571],359.939,"Mort"],[[14443,16379.2,0.0369205],359.997,"Mort"],[[14449.4,16376.9,0.0369892],359.996,"Mort"],[[14458,16375.9,0.0369167],359.997,"Mort"],[[14447.2,16397.1,3.71081],269.525,"MG"],[[14472.3,16312,12.1993],317.315,"MG"],[[14411,16229,0.000303268],40.6607,"Tank"],[[14404.4,16235,-0.0169964],50.5741,"Tank"],[[14407.2,16331.7,0.0305004],204.588,"Tank"]]];
         	roadsX setVariable ["airport_4",[[[11577.4,11953.6,0.241838],122.274,"Tank"],[[11577.8,11964.3,0.258125],124.324,"Tank"],[[11633.3,11762,0.0372791],359.996,"Mort"],[[11637.3,11768.1,0.043232],0.0110098,"Mort"],[[11637.1,11763.1,0.0394402],0.00529677,"Mort"]],true];
         	roadsX setVariable ["airport_5",[[[9064.02,21531.3,0.00117016],138.075,"Tank"],[[9095.12,21552.8,0.614614],157.935,"Tank"],[[9030.28,21531.1,0.261349],157.935,"Mort"],[[9033.91,21534.7,0.295588],157.935,"Mort"]]];
-		}
-	else
+		//Map Markers and Roads DB
+		{server setVariable [_x select 0,_x select 1]} forEach [["Therisa",154],["Zaros",371],["Poliakko",136],["Katalaki",95],["Alikampos",115],["Neochori",309],["Stavros",122],["Lakka",173],["AgiosDionysios",84],["Panochori",264],["Topolia",33],["Ekali",9],["Pyrgos",531],["Orino",45],["Neri",242],["Kore",133],["Kavala",660],["Aggelochori",395],["Koroni",32],["Gravia",291],["Anthrakia",143],["Syrta",151],["Negades",120],["Galati",151],["Telos",84],["Charkia",246],["Athira",342],["Dorida",168],["Ifestiona",48],["Chalkeia",214],["AgiosKonstantinos",39],["Abdera",89],["Panagia",91],["Nifi",24],["Rodopoli",212],["Kalithea",36],["Selakano",120],["Frini",69],["AgiosPetros",11],["Feres",92],["AgiaTriada",8],["Paros",396],["Kalochori",189],["Oreokastro",63],["Ioannina",48],["Delfinaki",29],["Sofia",179],["Molos",188]];
+		call compile preprocessFileLineNumbers "roadsDBAltis.sqf";
+		};
+case "chernarus_summer":
 		{
+		//Vehicle Spawns
 		roadsMrk = ["road","road_1","road_2","road_3","road_4","road_5","road_6","road_7","road_8","road_9","road_10","road_11","road_12","road_13","road_14","road_15","road_16","road_17","road_18","road_19","road_20","road_21","road_22","road_23","road_24","road_25","road_26","road_27","road_28","road_29","road_30","road_31","road_32","road_33","road_34","road_35","road_36","road_37","road_38"];
 		{_x setMarkerAlpha 0} forEach roadsMrk;
 		roadsX setVariable ["airport",[[[12191.2,12605.8,9.43077],0,"MG"],[[12194.2,12599.4,13.3954],0,"AA"],[[12141,12609,0.00088501],0,"Mort"],[[12144.3,12615.9,0],0,"Mort"],[[12156.5,12614.3,0],0,"Mort"],[[12170,12595.9,0.000305176],250.234,"AT"],[[12070.4,12656,0.0098114],23.5329,"Tank"],[[12022.5,12670.9,0.0098114],18.9519,"Tank"]]];
         	roadsX setVariable ["airport_1",[[[4782.75,10251.4,18],0,"AA"],[[4716.17,10215.3,13.1149],278.308,"AA"],[[4713.94,10209.3,9.12177],188.973,"MG"],[[4787.34,10248.9,4.99982],188.303,"MG"],[[4740.75,10333.2,20.3206],232.414,"MG"],[[4818.39,10200.1,0.00982666],239.625,"Tank"],[[4765.22,10330.8,0],0,"Mort"],[[4758.21,10328.1,0],0,"Mort"],[[4751.45,10324.4,0],0,"Mort"],[[4745.39,10320.6,0],0,"Mort"],[[4739.97,10283.2,0.00567627],291.41,"AT"],[[4814.19,10245.1,0.00567627],211.414,"AT"],[[4841.34,10158.9,0.0102844],240.137,"Tank"],[[4865.7,10116.7,0.00970459],239.499,"Tank"],[[4888.33,10074.2,0.00982666],235.077,"Tank"]]];
         	roadsX setVariable ["airport_2",[[[4717.95,2595.24,12.9766],0,"AA"],[[4714.27,2590.97,8.97349],176.197,"MG"],[[4743.55,2567.69,0.0130215],207.155,"Tank"],[[4775.62,2547.37,0.00691605],210.579,"Tank"],[[4719.88,2582.34,0.00566483],261.79,"AT"],[[4826.5,2558.35,0.00150108],0,"Mort"],[[4821.12,2550.32,0.00147152],0,"Mort"],[[4816.59,2543.65,0.00147247],0,"Mort"],[[4812.77,2518.77,0.00566483],150.397,"AT"]]];
+		//Map Maerkers and Roads DB
+		call compile preprocessFileLineNumbers "roadsDBcherna.sqf";
+		{server setVariable [_x select 0,_x select 1]} forEach [["vill_NovySobor",129],["city_StarySobor",149],["vill_Guglovo",26],["vill_Vyshnoye",41],["vill_Kabanino",86],["vill_Rogovo",66],["vill_Mogilevka",104],["city_Gorka",115],["vill_Grishino",168],["vill_Shakhovka",55],["vill_Pogorevka",57],["vill_Pulkovo",26],["vill_Nadezhdino",109],["city_Vybor",180],["vill_Polana",118],["vill_Staroye",115],["vill_Dubrovka",86],["vill_Pustoshka",163],["vill_Kozlovka",100],["vill_Pusta",52],["vill_Dolina",83],["vill_Gvozdno",78],["vill_Prigorodki",145],["vill_Drozhino",58],["vill_Sosnovka",54],["vill_Msta",96],["vill_Lopatino",159],["city_Zelenogorsk",280],["vill_Orlovets",65],["city_Berezino",340],["vill_Myshkino",49],["vill_Petrovka",45],["city_Chernogorsk",761],["vill_Bor",46],["vill_Nizhnoye",146],["vill_Balota",147],["vill_Khelm",110],["city_Krasnostav",194],["vill_Komarovo",127],["city_Elektrozavodsk",745],["city_Solnychniy",224],["vill_Kamyshovo",196],["vill_Tulga",35],["vill_Pavlovo",99],["vill_Kamenka",127],["hill_Olsha",20]];
 		};
 	};
 
-if (!isServer) exitWith {};
 ////////////////////////////////////
 //    UNIT AND VEHICLE PRICES    ///
 ////////////////////////////////////
+if (!isServer) exitWith {};
 diag_log format ["%1: [Antistasi] | INFO | initVar | Building Pricelist.",servertime];
 {server setVariable [_x,50,true]} forEach SDKMil;
 {server setVariable [_x,75,true]} forEach (sdkTier1 - SDKMil);
@@ -1032,8 +1045,7 @@ server setVariable ["resourcesFIA",1000,true];											//Initial FIA money poo
 skillFIA = 0;																		//Initial skill level for FIA soldiers
 prestigeNATO = 5;																	//Initial Prestige NATO
 prestigeCSAT = 5;																	//Initial Prestige CSAT
-prestigeOPFOR = 50;																	//Initial % support for NATO on each city
-if (SkillMult == 2) then {prestigeOPFOR = 75};											//if you play on vet, this is the number
+prestigeOPFOR = [75, 50] select cadetMode;																	//Initial % support for NATO on each city
 prestigeBLUFOR = 0;																	//Initial % FIA support on each city
 countCA = 600;																		//600
 bombRuns = 0;
@@ -1056,31 +1068,6 @@ garageIsUsed = false;
 vehInGarage = [];
 destroyedBuildings = [];
 reportedVehs = [];
-
-////////////////////////////////////
-//    MAP MARKERS AND ROADS DB   ///
-////////////////////////////////////
-if (worldName == "Tanoa") then
-	{
-	{server setVariable [_x select 0,_x select 1]} forEach [["Lami01",277],["Lifou01",350],["Lobaka01",64],["LaFoa01",38],["Savaka01",33],["Regina01",303],["Katkoula01",413],["Moddergat01",195],["Losi01",83],["Tanouka01",380],["Tobakoro01",45],["Georgetown01",347],["Kotomo01",160],["Rautake01",113],["Harcourt01",325],["Buawa01",44],["SaintJulien01",353],["Balavu01",189],["Namuvaka01",45],["Vagalala01",174],["Imone01",31],["Leqa01",45],["Blerick01",71],["Yanukka01",189],["OuaOue01",200],["Cerebu01",22],["Laikoro01",29],["Saioko01",46],["Belfort01",240],["Oumere01",333],["Muaceba01",18],["Nicolet01",224],["Lailai01",23],["Doodstil01",101],["Tavu01",178],["Lijnhaven01",610],["Nani01",19],["PetitNicolet01",135],["PortBoise01",28],["SaintPaul01",136],["Nasua01",60],["Savu01",184],["Murarua01",258],["Momea01",159],["LaRochelle01",532],["Koumac01",51],["Taga01",31],["Buabua01",27],["Penelo01",189],["Vatukoula01",15],["Nandai01",130],["Tuvanaka01",303],["Rereki01",43],["Ovau01",226],["IndPort01",420],["Ba01",106]];
-	call compile preprocessFileLineNumbers "roadsDB.sqf";
-	}
-else
-	{
-	if (worldName == "Altis") then
-		{
-		call compile preprocessFileLineNumbers "roadsDBAltis.sqf";
-		{server setVariable [_x select 0,_x select 1]} forEach [["Therisa",154],["Zaros",371],["Poliakko",136],["Katalaki",95],["Alikampos",115],["Neochori",309],["Stavros",122],["Lakka",173],["AgiosDionysios",84],["Panochori",264],["Topolia",33],["Ekali",9],["Pyrgos",531],["Orino",45],["Neri",242],["Kore",133],["Kavala",660],["Aggelochori",395],["Koroni",32],["Gravia",291],["Anthrakia",143],["Syrta",151],["Negades",120],["Galati",151],["Telos",84],["Charkia",246],["Athira",342],["Dorida",168],["Ifestiona",48],["Chalkeia",214],["AgiosKonstantinos",39],["Abdera",89],["Panagia",91],["Nifi",24],["Rodopoli",212],["Kalithea",36],["Selakano",120],["Frini",69],["AgiosPetros",11],["Feres",92],["AgiaTriada",8],["Paros",396],["Kalochori",189],["Oreokastro",63],["Ioannina",48],["Delfinaki",29],["Sofia",179],["Molos",188]];
-		}
-	else
-		{
-		if (worldName == "chernarus_summer") then
-			{
-			call compile preprocessFileLineNumbers "roadsDBcherna.sqf";
-			{server setVariable [_x select 0,_x select 1]} forEach [["vill_NovySobor",129],["city_StarySobor",149],["vill_Guglovo",26],["vill_Vyshnoye",41],["vill_Kabanino",86],["vill_Rogovo",66],["vill_Mogilevka",104],["city_Gorka",115],["vill_Grishino",168],["vill_Shakhovka",55],["vill_Pogorevka",57],["vill_Pulkovo",26],["vill_Nadezhdino",109],["city_Vybor",180],["vill_Polana",118],["vill_Staroye",115],["vill_Dubrovka",86],["vill_Pustoshka",163],["vill_Kozlovka",100],["vill_Pusta",52],["vill_Dolina",83],["vill_Gvozdno",78],["vill_Prigorodki",145],["vill_Drozhino",58],["vill_Sosnovka",54],["vill_Msta",96],["vill_Lopatino",159],["city_Zelenogorsk",280],["vill_Orlovets",65],["city_Berezino",340],["vill_Myshkino",49],["vill_Petrovka",45],["city_Chernogorsk",761],["vill_Bor",46],["vill_Nizhnoye",146],["vill_Balota",147],["vill_Khelm",110],["city_Krasnostav",194],["vill_Komarovo",127],["city_Elektrozavodsk",745],["city_Solnychniy",224],["vill_Kamyshovo",196],["vill_Tulga",35],["vill_Pavlovo",99],["vill_Kamenka",127],["hill_Olsha",20]];
-			};
-		};
-	};
 
 ////////////////////////////////////
 // DECLARE VARIBALES FOR CLIENTS ///

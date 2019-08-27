@@ -87,7 +87,7 @@ weaponsCSAT = [];
 hasRHS = false;
 hasAFRF = false;
 hasUSAF = false;
-hasGREF = false;
+activeGREF = false;
 hasFFAA = false;
 hasIFA = false;
 has3CB = false;
@@ -118,9 +118,9 @@ if (isClass(configFile/"CfgPatches"/"LIB_Core")) then {hasIFA = true; diag_log f
 //RHS AFRF Detection
 if ("rhs_weap_akms" in arifles) then {hasAFRF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS AFRF Detected.",servertime];};
 if ("rhs_weap_m4a1_d" in arifles) then {hasUSAF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS USAF Detected.",servertime];};
-if ("rhs_weap_m92" in arifles) then {hasGREF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS GREF Detected.",servertime];};
+if ("rhs_weap_m92" in arifles) then {activeGREF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS GREF Detected.",servertime];};
 //3CB Detection
-if (hasAFRF and hasUSAF and hasGREF) then {if ("UK3CB_BAF_L1A1" in arifles) then {has3CB = true; diag_log format ["%1: [Antistasi] | INFO | initVar | 3CB Detected.",servertime];};};
+if (hasAFRF and hasUSAF and activeGREF) then {if ("UK3CB_BAF_L1A1" in arifles) then {has3CB = true; diag_log format ["%1: [Antistasi] | INFO | initVar | 3CB Detected.",servertime];};};
 //FFAA Detection
 if ("ffaa_armas_hkg36k_normal" in arifles) then {hasFFAA = true; diag_log format ["%1: [Antistasi] | INFO | initVar | FFAA Detected.",servertime];};
 
@@ -197,7 +197,7 @@ if (!hasIFA) then
 					};
 			};
 		//NON-IFA REBEL Templates
-		if (!hasGREF) then
+		if (!activeGREF) then
 			{
 			//Vanilla REBEL Template
 			call compile preProcessFileLineNumbers "Templates\teamPlayerVANILLA.sqf";
@@ -357,7 +357,7 @@ if (count _x > 1) then
 	_uniform = (getUnitLoadout _unit select 3) select 0;
 	banditUniforms pushBackUnique _uniform;
 	};
-} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,rebelExpSpec,rebelGrenadier,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewTeamPlayer]];
+} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewTeamPlayer]];
 
 ////////////////////////////////////
 //      CIV UNIFORMS LIST        ///
@@ -785,7 +785,8 @@ unlockedItems =
 	
 	unlockedItems append banditUniforms;
 	unlockedItems append civUniforms;
-	unlockeditems append unlockedVEST;
+	//Temporary starting vests fix while I class items properly
+	unlockedItems append ["V_Rangemaster_belt","V_BandollierB_khk","V_BandollierB_cbr","V_BandollierB_rgr","V_BandollierB_blk","V_BandollierB_oli","V_BandollierB_ghex_F","V_HarnessO_brn","V_HarnessO_gry","V_HarnessO_ghex_F","V_HarnessOGL_ghex_F","V_HarnessOGL_gry","V_HarnessOGL_brn","V_Pocketed_olive_F","V_Pocketed_coyote_F","V_Pocketed_black_F"];
 
 //IFA Starting Unlocks
 if (hasIFA) then

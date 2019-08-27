@@ -70,9 +70,13 @@ private _fnc_modItem = {
 	};
 };
 
+private _fnc_modItemNoArray = {
+	(_this call _fnc_modItem) select 0;
+};
+
 private _fnc_tfarRadio = {
 	params ["_radio"];
-	[hasTFAR, _radio, "ItemRadio"] call _fnc_modItem;
+	[hasTFAR, _radio, "ItemRadio"] call _fnc_modItemNoArray;
 };
 
 private _tfarMicroDAGR = [hasTFAR, "TF_MicroDagr", "ItemWatch"] call _fnc_modItem;

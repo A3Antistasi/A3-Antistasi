@@ -49,7 +49,7 @@
 	],
 
 	[//Backpack
-		([hasTFAR, "TF_RT1523G_RHS", "RHSUSF_Assault_EagleAIII_OCP"] call _fnc_modItem),
+		([hasTFAR, "TF_RT1523G_RHS", "RHSUSF_Assault_EagleAIII_OCP"] call _fnc_modItemNoArray),
 		[//Inventory
 			["SmokeshellBlue",3,1],
 			["SmokeshellRed",3,1],

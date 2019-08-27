@@ -1105,7 +1105,7 @@ publicVariable "unlockedAT";
 publicVariable "unlockedAA";
 publicVariable "unlockedRifles";
 
-publicVariable "civPerc"
+publicVariable "civPerc";
 publicVariable "garageIsUsed";
 publicVariable "vehInGarage";
 publicVariable "reportedVehs";

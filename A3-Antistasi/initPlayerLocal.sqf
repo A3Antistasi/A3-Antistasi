@@ -621,7 +621,6 @@ if ((!isServer) and (isMultiplayer)) then {boxX call jn_fnc_arsenal_init};
 boxX allowDamage false;
 boxX addAction ["Transfer Vehicle cargo to Ammobox", "[] call A3A_fnc_empty"];
 boxX addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == theBoss)"];
-flagX addAction ["HQ Management", {[] execVM "Dialogs\dialogHQ.sqf"},nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)"];
 flagX allowDamage false;
 flagX addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
 flagX addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];
@@ -656,7 +655,7 @@ petros setIdentity "friendlyX";
 petros setName "Petros";
 petros disableAI "MOVE";
 petros disableAI "AUTOTARGET";
-petros addAction ["Mission Request", {nul=CreateDialog "mission_menu";},nil,0,false,true,"","([player] call A3A_fnc_isMember)"];
+[petros,"mission"] call A3A_fnc_flagaction;
 
 disableSerialization;
 //1 cutRsc ["H8erHUD","PLAIN",0,false];

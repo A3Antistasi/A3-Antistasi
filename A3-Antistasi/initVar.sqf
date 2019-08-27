@@ -334,7 +334,7 @@ lamptypes = ["Lamps_Base_F", "PowerLines_base_F","Land_LampDecor_F","Land_LampHa
 ////////////////////////////////////
 //     SOUNDS AND ANIMATIONS     ///
 ////////////////////////////////////
-dogSounds = ["Music\dog_bark01.wss", "Music\dog_bark02.wss", "Music\dog_bark03.wss", "Music\dog_bark04.wss", "Music\dog_bark05.wss","Music\dog_maul01.wss","Music\dog_yelp01.wss","Music\dog_yelp02.wss","Music\dog_yelp03.wss"];
+ladridos = ["Music\dog_bark01.wss", "Music\dog_bark02.wss", "Music\dog_bark03.wss", "Music\dog_bark04.wss", "Music\dog_bark05.wss","Music\dog_maul01.wss","Music\dog_yelp01.wss","Music\dog_yelp02.wss","Music\dog_yelp03.wss"];
 injuredSounds =
 [
 	"a3\sounds_f\characters\human-sfx\Person0\P0_moan_13_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_14_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_15_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_16_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_17_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_18_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_19_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_20_words.wss",
@@ -527,7 +527,9 @@ if (hasACE) then
 	};
 
 //Begin Loot Lists
-
+//Not sure why we get these, but here it is....
+swoopShutUp = ["V_RebreatherIA","G_Diving"];
+if (side (group petros) == west) then {swoopShutUp pushBack "U_B_Wetsuit"} else {swoopShutUp pushBack "U_I_Wetsuit"};
 ////////////////////////////////////
 //   DEFENDER WEAPONS AND AMMO   ///
 ////////////////////////////////////

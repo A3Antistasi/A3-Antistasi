@@ -304,12 +304,12 @@ if (hasRHS) then {sniperUnits = sniperUnits + ["rhsusf_socom_marsoc_sniper","rhs
 //   CLASSING TEMPLATE VEHICLES  ///
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Assigning vehicle Types",servertime];
-vehNormal = vehNATONormal + vehCSATNormal + [vehFIATruck,vehSDKTruck,vehSDKLightArmed,vehSDKBike,rebelVehRepair];
+vehNormal = vehNATONormal + vehCSATNormal + [vehFIATruck,vehSDKTruck,vehSDKLightArmed,vehSDKBike,vehSDKRepair];
 vehBoats = [vehNATOBoat,vehCSATBoat,vehSDKBoat];
 vehAttack = vehNATOAttack + vehCSATAttack;
-vehPlanes = vehNATOAir + vehCSATAir + [rebelVehPlane];
+vehPlanes = vehNATOAir + vehCSATAir + [vehSDKPlane];
 vehAttackHelis = vehCSATAttackHelis + vehNATOAttackHelis;
-vehFixedWing = [vehNATOPlane,vehNATOPlaneAA,vehCSATPlane,vehCSATPlaneAA,rebelVehPlane] + vehNATOTransportPlanes + vehCSATTransportPlanes;
+vehFixedWing = [vehNATOPlane,vehNATOPlaneAA,vehCSATPlane,vehCSATPlaneAA,vehSDKPlane] + vehNATOTransportPlanes + vehCSATTransportPlanes;
 vehUAVs = [vehNATOUAV,vehCSATUAV];
 vehAmmoTrucks = [vehNATOAmmoTruck,vehCSATAmmoTruck];
 vehAPCs = vehNATOAPC + vehCSATAPC;
@@ -983,9 +983,9 @@ if (!isServer) exitWith {};
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Building Pricelist.",servertime];
 {server setVariable [_x,50,true]} forEach SDKMil;
-{server setVariable [_x,75,true]} forEach (REBELunitsTIER1 - SDKMil);
-{server setVariable [_x,100,true]} forEach  REBELunitsTIER2;
-{server setVariable [_x,150,true]} forEach REBELunitsTIER3;
+{server setVariable [_x,75,true]} forEach (sdkTier1 - SDKMil);
+{server setVariable [_x,100,true]} forEach  sdkTier2;
+{server setVariable [_x,150,true]} forEach sdkTier3;
 //{timer setVariable [_x,0,true]} forEach (vehAttack + vehNATOAttackHelis + [vehNATOPlane,vehNATOPlaneAA,vehCSATPlane,vehCSATPlaneAA] + vehCSATAttackHelis + vehAA + vehMRLS);
 {timer setVariable [_x,3,true]} forEach [staticATOccupants,staticAAOccupants];
 {timer setVariable [_x,6,true]} forEach [staticATInvaders,staticAAInvaders];
@@ -1018,7 +1018,7 @@ server setVariable [vehSDKBike ,50,true];												//50
 server setVariable [vehSDKLightUnarmed,200,true];										//200
 server setVariable [vehSDKTruck,300,true];											//300
 {server setVariable [_x,700,true]} forEach [vehSDKLightArmed,vehSDKAT];
-{server setVariable [_x,400,true]} forEach [rebelStaticMG,vehSDKBoat,rebelVehRepair];			//400
+{server setVariable [_x,400,true]} forEach [rebelStaticMG,vehSDKBoat,vehSDKRepair];			//400
 {server setVariable [_x,800,true]} forEach [rebelMortar,rebelStaticAT,rebelStaticAA];			//800
 
 ////////////////////////////////////

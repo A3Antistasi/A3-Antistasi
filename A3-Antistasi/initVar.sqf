@@ -60,8 +60,8 @@ armoredHelmets = [];
 vests = [];
 armoredVests = [];
 
-REBELuniforms = [];
-REBELuniformsPM = [];
+uniformsSDK = [];
+banditUniforms = [];
 itemsAAF = [];
 unlockedWeapons = [];
 unlockedRifles = [];
@@ -200,33 +200,33 @@ if (!hasIFA) then
 		if (!hasGREF) then
 			{
 			//Vanilla REBEL Template
-			call compile preProcessFileLineNumbers "Templates\REBELtemplateVANILLA.sqf";
+			call compile preProcessFileLineNumbers "Templates\teamPlayerVANILLA.sqf";
 			}
 			else
 			{
 				if (has3CB) then
 					{
 					//3CB REBEL Template
-					call compile preProcessFileLineNumbers "Templates\REBELtemplate3CBCCM.sqf";
+					call compile preProcessFileLineNumbers "Templates\teamPlayer3CBCCM.sqf";
 					}
 					else
 					{
 						if (gameMode != 4) then
 							{
 							//RHS REBEL Template
-							call compile preProcessFileLineNumbers "Templates\REBELtemplateRHSGREF.sqf";
+							call compile preProcessFileLineNumbers "Templates\teamPlayerRHSGREF.sqf";
 							}
 							else
 							{
 							//RHS BLUFOR REBEL Template
-							call compile preProcessFileLineNumbers "Templates\REBELtemplateRHSUSAF.sqf";
+							call compile preProcessFileLineNumbers "Templates\teamPlayerRHSUSAF.sqf";
 							};
 					};
 			};
 	}
 	else
 	{
-	call compile preProcessFileLineNumbers "Templates\REBELtemplateIFA.sqf";
+	call compile preProcessFileLineNumbers "Templates\teamPlayerIFA.sqf";
 	call compile preProcessFileLineNumbers "Templates\InvadersIFA.sqf";
 	call compile preProcessFileLineNumbers "Templates\OccupantsIFA.sqf";
 	};
@@ -279,18 +279,18 @@ if !(hasIFA) then
 //////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Assigning Squad Types.",servertime];
 //Rebel Unit Tiers
-REBELunitsTIER1 = SDKMil + [staticCrewTeamPlayer] + SDKMG + SDKGL + SDKATman;
-REBELunitsTIER2 = SDKMedic + SDKExp + SDKEng;
-REBELunitsTIER3 = SDKSL + SDKSniper;
-REBELunitsALL = REBELunitsTIER1 + REBELunitsTIER2 + REBELunitsTIER3;
+sdkTier1 = SDKMil + [staticCrewTeamPlayer] + SDKMG + SDKGL + SDKATman;
+sdkTier2 = SDKMedic + SDKExp + SDKEng;
+sdkTier3 = SDKSL + SDKSniper;
+soldiersSDK = sdkTier1 + sdkTier2 + sdkTier3;
 //Rebel Groups
-REBELgroupFIRETEAM = [SDKSL,SDKGL,SDKMG,SDKMil];
-REBELgroupAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
-REBELgroupSQUAD = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
-REBELgroupSQUADengineer = [SDKSL,SDKGL,SDKMil,SDKMG,SDKExp,SDKATman,SDKEng,SDKMedic];
-REBELgroupSQUADsupport = [SDKSL,SDKGL,SDKMil,SDKMG,SDKATman,SDKMedic,[staticCrewTeamPlayer,staticCrewTeamPlayer],[staticCrewTeamPlayer,staticCrewTeamPlayer]];
-REBELgroupSNIPER = [SDKSniper,SDKSniper];
-REBELgroupSENTRY = [SDKGL,SDKMil];
+groupsSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
+groupsSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
+groupsSDKSquad = [SDKSL,SDKGL,SDKMil,SDKMG,SDKMil,SDKATman,SDKMil,SDKMedic];
+groupsSDKSquadEng = [SDKSL,SDKGL,SDKMil,SDKMG,SDKExp,SDKATman,SDKEng,SDKMedic];
+groupsSDKSquadSupp = [SDKSL,SDKGL,SDKMil,SDKMG,SDKATman,SDKMedic,[staticCrewTeamPlayer,staticCrewTeamPlayer],[staticCrewTeamPlayer,staticCrewTeamPlayer]];
+groupsSDKSniper = [SDKSniper,SDKSniper];
+groupsSDKSentry = [SDKGL,SDKMil];
 
 squadLeaders = SDKSL + [(NATOSquad select 0),(NATOSpecOp select 0),(CSATSquad select 0),(CSATSpecOp select 0),(FIASquad select 0)];
 medics = SDKMedic + [(FIAsquad select ((count FIAsquad)-1)),(NATOSquad select ((count NATOSquad)-1)),(NATOSpecOp select ((count NATOSpecOp)-1)),(CSATSquad select ((count CSATSquad)-1)),(CSATSpecOp select ((count CSATSpecOp)-1))];
@@ -320,7 +320,7 @@ vehMRLS = [vehCSATMRLS, vehNATOMRLS];
 vehTransportAir = vehNATOTransportHelis + vehCSATTransportHelis + vehNATOTransportPlanes + vehCSATTransportPlanes;
 vehFastRope = ["O_Heli_Light_02_unarmed_F","B_Heli_Transport_01_camo_F","RHS_UH60M_d","RHS_Mi8mt_vdv","RHS_Mi8mt_vv","RHS_Mi8mt_Cargo_vv"];
 vehUnlimited = vehNATONormal + vehCSATNormal + [vehNATORBoat,vehNATOPatrolHeli,vehCSATRBoat,vehCSATPatrolHeli,vehNATOUAV,vehNATOUAVSmall,NATOMG,NATOMortar,vehCSATUAV,vehCSATUAVSmall,CSATMG,CSATMortar];
-REBELvehALL = [vehSDKBike ,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATteamPlayer,staticAAteamPlayer,vehSDKRepair];
+vehFIA = [vehSDKBike ,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATteamPlayer,staticAAteamPlayer,vehSDKRepair];
 
 ////////////////////////////////////
 //        BUILDINGS LISTS        ///
@@ -349,13 +349,13 @@ medicAnims = ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPknlMstpSnonWnonDnon_medic
 {
 _unit = _x select 0;
 _uniform = (getUnitLoadout _unit select 3) select 0;
-REBELuniforms pushBackUnique _uniform;
-REBELuniformsPM pushBackUnique _uniform;
+uniformsSDK pushBackUnique _uniform;
+banditUniforms pushBackUnique _uniform;
 if (count _x > 1) then
 	{
 	_unit = _x select 1;
 	_uniform = (getUnitLoadout _unit select 3) select 0;
-	REBELuniformsPM pushBackUnique _uniform;
+	banditUniforms pushBackUnique _uniform;
 	};
 } forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,rebelExpSpec,rebelGrenadier,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewTeamPlayer]];
 
@@ -783,7 +783,7 @@ unlockedItems =
 	"acc_flashlight"
 	];
 	
-	unlockedItems append REBELuniformsPM;
+	unlockedItems append banditUniforms;
 	unlockedItems append civUniforms;
 	unlockeditems append unlockedVEST;
 
@@ -806,7 +806,7 @@ if (hasIFA) then
 		"G_LIB_Mohawk"
 		];
 
-	unlockedItems append REBELuniformsPM;
+	unlockedItems append banditUniforms;
 	unlockedItems append civUniforms;
 	};
 

@@ -75,10 +75,10 @@ unlockedAA = [];
 unlockedMG = [];
 unlockedGL = [];
 unlockedSN = [];
-ammoDEFENDER = [];
-weaponsDEFENDER = [];
-ammoINVADER = [];
-weaponsINVADER = [];
+ammunitionNATO = [];
+weaponsNato = [];
+ammunitionCSAT = [];
+weaponsCSAT = [];
 
 ////////////////////////////////////
 //     BEGIN MOD DETECTION       ///
@@ -320,7 +320,7 @@ vehMRLS = [vehCSATMRLS, vehNATOMRLS];
 vehTransportAir = vehNATOTransportHelis + vehCSATTransportHelis + vehNATOTransportPlanes + vehCSATTransportPlanes;
 vehFastRope = ["O_Heli_Light_02_unarmed_F","B_Heli_Transport_01_camo_F","RHS_UH60M_d","RHS_Mi8mt_vdv","RHS_Mi8mt_vv","RHS_Mi8mt_Cargo_vv"];
 vehUnlimited = vehNATONormal + vehCSATNormal + [vehNATORBoat,vehNATOPatrolHeli,vehCSATRBoat,vehCSATPatrolHeli,vehNATOUAV,vehNATOUAVSmall,NATOMG,NATOMortar,vehCSATUAV,vehCSATUAVSmall,CSATMG,CSATMortar];
-vehFIA = [vehSDKBike ,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATteamPlayer,staticAAteamPlayer,vehSDKRepair];
+vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATteamPlayer,staticAAteamPlayer,vehSDKRepair];
 
 ////////////////////////////////////
 //        BUILDINGS LISTS        ///
@@ -545,7 +545,7 @@ if !(_typeX in _checked) then
 		if !(_loadout select _i isEqualTo []) then
 			{
 				_weapon = [((_loadout select _i) select 0)] call BIS_fnc_baseWeapon;
-				if !(_weapon in weaponsDEFENDER) then {weaponsDEFENDER pushBack _weapon};
+				if !(_weapon in weaponsNato) then {weaponsNato pushBack _weapon};
 			};
 		};
 	};
@@ -555,8 +555,8 @@ if !(_typeX in _checked) then
 {
 _nameX = [_x] call BIS_fnc_baseWeapon;
 _magazines = getArray (configFile / "CfgWeapons" / _nameX / "magazines");
-ammoDEFENDER pushBack (_magazines select 0);
-} forEach weaponsDEFENDER;
+ammunitionNATO pushBack (_magazines select 0);
+} forEach weaponsNato;
 
 ////////////////////////////////////
 //   INVADER WEAPONS AND AMMO    ///
@@ -574,7 +574,7 @@ if !(_typeX in _checked) then
 		if !(_loadout select _i isEqualTo []) then
 			{
 				_weapon = [((_loadout select _i) select 0)] call BIS_fnc_baseWeapon;
-				if !(_weapon in weaponsINVADER) then {weaponsINVADER pushBack _weapon};
+				if !(_weapon in weaponsCSAT) then {weaponsCSAT pushBack _weapon};
 			};
 		};
 	};
@@ -584,8 +584,8 @@ if !(_typeX in _checked) then
 {
 _nameX = [_x] call BIS_fnc_baseWeapon;
 _magazines = getArray (configFile / "CfgWeapons" / _nameX / "magazines");
-ammoINVADER pushBack (_magazines select 0);
-} forEach weaponsINVADER;
+ammunitionCSAT pushBack (_magazines select 0);
+} forEach weaponsCSAT;
 
 ////////////////////////////////////
 //   WEAPON ATTACHMENTS LIST     ///
@@ -615,7 +615,7 @@ if !(_item in (opticsAAF + flashLights + pointers)) then
 		};
 	};
 } forEach (_x call BIS_fnc_compatibleItems);
-} forEach (weaponsDEFENDER + weaponsINVADER);
+} forEach (weaponsNato + weaponsCSAT);
 
 ////////////////////////////////////
 //   SMOKE GRENADES LIST         ///
@@ -828,8 +828,8 @@ if (hasACE) then
 	//additional starting items
 	unlockedItems append aceItems;
 	//Fix for bad ammo types in loot crates
-	ammoDEFENDER = ammoDEFENDER - ["ACE_PreloadedMissileDummy"];
-	ammoINVADER = ammoINVADER - ["ACE_PreloadedMissileDummy"];
+	ammunitionNATO = ammunitionNATO - ["ACE_PreloadedMissileDummy"];
+	ammunitionCSAT = ammunitionCSAT - ["ACE_PreloadedMissileDummy"];
 	};
 
 //ACE medical starting items
@@ -847,13 +847,13 @@ if (hasACEMedical) then {
 if (hasACE and !hasIFA) then
 	{
 	// add ace mine detectors to crates
-	weaponsDEFENDER pushBack ["ACE_VMH3","ACE_VMM3"];
-	weaponsINVADER pushBack ["ACE_VMH3","ACE_VMM3"];
+	weaponsNato pushBack ["ACE_VMH3","ACE_VMM3"];
+	weaponsCSAT pushBack ["ACE_VMH3","ACE_VMM3"];
 	itemsAAF append ["ACE_acc_pointer_green_IR","ACE_Chemlight_Shield"];
 	//remove vanilla mine detector
 	itemsAAF = itemsAAF - ["MineDetector"];
-	weaponsINVADER = weaponsINVADER - ["MineDetector"];
-	weaponsDEFENDER = weaponsDEFENDER - ["MineDetector"];
+	weaponsCSAT = weaponsCSAT - ["MineDetector"];
+	weaponsNato = weaponsNato - ["MineDetector"];
 	//add ACE chem and smoke
 	chemX append ["ACE_Chemlight_HiOrange","ACE_Chemlight_HiRed","ACE_Chemlight_HiYellow","ACE_Chemlight_HiWhite","ACE_Chemlight_Orange","ACE_Chemlight_White","ACE_Chemlight_IR"];
 	smokeX append ["ACE_HandFlare_White","ACE_HandFlare_Red","ACE_HandFlare_Green","ACE_HandFlare_Yellow"];

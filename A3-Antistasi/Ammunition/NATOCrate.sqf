@@ -1,4 +1,4 @@
-private ["_crate","_loot","_num","_magazines","_unlocks","_weaponTypesMin","_itemTypesMin","_ammoTypesMin","_mineTypesMin","_opticTypesMin","_backpackTypesMin","_weaponTypesMax","_itemTypesMax","_ammoTypesMax","_mineTypesMax","_opticTypesMax","_backpackTypesMax","_weaponCountMin","_itemCountMin","_ammoCountMin","_mineCountMin","_opticCountMin","_backpackCountMin","_weaponCountMax","_itemCountMax","_ammoCountMax","_mineCountMax","_opticCountMax","_backpackCountMax"];
+private ["_crate","_loot","_num","_magazines","_unlocks"];
 
 _unlocks = (unlockedItems + unlockedOptics + unlockedWeapons + unlockedBackpacks + unlockedMagazines);
 _crate = _this select 0;
@@ -8,33 +8,12 @@ clearWeaponCargoGlobal _crate;
 clearItemCargoGlobal _crate;
 clearBackpackCargoGlobal _crate;
 
-_weaponTypesMin = 1;
-_itemTypesMin = 1;
-_ammoTypesMin = 1;
-_mineTypesMin = 1;
-_opticTypesMin = 1;
-_backpackTypesMin = 1;
-
-_weaponTypesMax = floor random 4;
-_itemTypesMax = floor random 4;
-_ammoTypesMax = floor random 4;
-_mineTypesMax = floor random 4;
-_opticTypesMax = floor random 4;
-_backpackTypesMax = floor random 4;
-
-_weaponCountMin = 1;
-_itemCountMin = 1;
-_ammoCountMin = 1;
-_mineCountMin = 1;
-_opticCountMin = 1;
-_backpackCountMin = 1;
-
-_weaponCountMax = 1;
-_itemCountMax = 1;
-_ammoCountMax = 1;
-_mineCountMax = 1;
-_opticCountMax = 1;
-_backpackCountMax = 1;
+_weaponTypes = 1 + floor random 4;
+_itemTypes = 1 + floor random 4;
+_ammoTypes = 1 + floor random 4;
+_mineTypes = 1 + floor random 4;
+_opticTypes = 1 + floor random 4;
+_backpackTypes = 1 + floor random 4;
 
 if (typeOf _crate == vehNATOAmmoTruck) then
 	{

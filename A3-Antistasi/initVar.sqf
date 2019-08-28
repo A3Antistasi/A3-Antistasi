@@ -492,11 +492,6 @@ if (hasACE) then
 		"ACE_CableTie",
 		"ACE_SpottingScope",
 		"ACE_Tripod",
-		"ACE_Chemlight_HiWhite",
-		"ACE_Chemlight_HiRed",
-		"ACE_acc_pointer_green",
-		"ACE_HandFlare_White",
-		"ACE_HandFlare_Red",
 		"ACE_Spraypaintred"
 	];
 	if (hasACEMedical) then

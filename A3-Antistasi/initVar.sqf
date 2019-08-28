@@ -792,7 +792,7 @@ unlockedItems =
 	"G_Shades_Black",
 	"acc_flashlight"
 	];
-	
+	//Adds civ and geurilla clothes
 	unlockedItems append banditUniforms;
 	unlockedItems append civUniforms;
 	//Temporary starting vests fix while I class items properly

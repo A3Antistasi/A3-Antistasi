@@ -35,6 +35,7 @@ memberDistance = "memberDistance" call BIS_fnc_getParamValue; publicVariable "me
 limitedFT = if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "limitedFT";
 napalmEnabled = if ("napalmEnabled" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "napalmEnabled";
 
+_nul = call A3A_fnc_crateLootParams;
 //Load Campaign ID if resuming game
 if(loadLastSave) then {
 	campaignID = profileNameSpace getVariable ["ss_CampaignID",""];

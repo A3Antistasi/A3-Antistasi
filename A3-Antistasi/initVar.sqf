@@ -112,21 +112,21 @@ startLR = false;
 
 diag_log format ["%1: [Antistasi] | INFO | initVar | Patching mod weapon support",servertime];
 //Radio Detection
-hasTFAR = (isClass (configFile >> "CfgPatches" >> "task_force_radio"));
-hasACRE = (isClass(configFile >> "cfgPatches" >> "acre_main"));
+hasTFAR = isClass (configFile >> "CfgPatches" >> "task_force_radio");
+hasACRE = isClass (configFile >> "cfgPatches" >> "acre_main");
 haveRadio = hasTFAR || hasACRE;
 //ACE Detection
 hasACE = (!isNil "ace_common_fnc_isModLoaded");
-hasACEHearing = (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak"));
-hasACEMedical = (isClass (configFile >> "CfgSounds" >> "ACE_heartbeat_fast_3"));
+hasACEHearing = isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak");
+hasACEMedical = isClass (configFile >> "CfgSounds" >> "ACE_heartbeat_fast_3");
 hasADVCPR = isClass (configFile >> "CfgPatches" >> "adv_aceCPR");
 hasADVSplint = isClass (configFile >> "CfgPatches" >> "adv_aceSplint");
 //IFA Detection
-if (isClass(configFile >> "CfgPatches" >> "LIB_Core")) then {hasIFA = true; diag_log format ["%1: [Antistasi] | INFO | initVar | IFA Detected.",servertime];};
+if isClass (configFile >> "CfgPatches" >> "LIB_Core") then {hasIFA = true; diag_log format ["%1: [Antistasi] | INFO | initVar | IFA Detected.",servertime];};
 //RHS AFRF Detection
-if ("rhs_weap_akms" in arifles) then {hasAFRF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS AFRF Detected.",servertime];};
-if ("rhs_weap_m4a1_d" in arifles) then {hasUSAF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS USAF Detected.",servertime];};
-if ("rhs_weap_m92" in arifles) then {activeGREF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS GREF Detected.",servertime];};
+if isClass (configFile >> "CfgFactionClasses" >> "rhs_faction_vdv") then {hasAFRF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS AFRF Detected.",servertime];};
+if isClass (configFile >> "CfgFactionClasses" >> "rhs_faction_usarmy") then {hasUSAF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS USAF Detected.",servertime];}
+if {hasAFRF && hasUSAF) then {if isClass (configFile >> "CfgFactionClasses" >> "rhsgref_faction_tla") then {activeGREF = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS GREF Detected.",servertime];};};
 //3CB Detection
 if (hasAFRF and hasUSAF and activeGREF) then {if ("UK3CB_BAF_L1A1" in arifles) then {has3CB = true; diag_log format ["%1: [Antistasi] | INFO | initVar | 3CB Detected.",servertime];};};
 //FFAA Detection

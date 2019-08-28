@@ -126,7 +126,7 @@ if isClass (configFile >> "CfgPatches" >> "LIB_Core") then {hasIFA = true; diag_
 //RHS AFRF Detection
 if isClass (configFile >> "CfgFactionClasses" >> "rhs_faction_vdv") then {hasAFRF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS AFRF Detected.",servertime];};
 if isClass (configFile >> "CfgFactionClasses" >> "rhs_faction_usarmy") then {hasUSAF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS USAF Detected.",servertime];}
-if {hasAFRF && hasUSAF) then {if isClass (configFile >> "CfgFactionClasses" >> "rhsgref_faction_tla") then {activeGREF = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS GREF Detected.",servertime];};};
+if (hasAFRF && hasUSAF) then {if isClass (configFile >> "CfgFactionClasses" >> "rhsgref_faction_tla") then {activeGREF = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS GREF Detected.",servertime];};};
 //3CB Detection
 if (hasAFRF and hasUSAF and activeGREF) then {if ("UK3CB_BAF_L1A1" in arifles) then {has3CB = true; diag_log format ["%1: [Antistasi] | INFO | initVar | 3CB Detected.",servertime];};};
 //FFAA Detection

@@ -222,6 +222,7 @@ class A3A
         class randomRifle {file="Ammunition\randomRifle.sqf";};
         class dress {file="Ammunition\dress.sqf";};
         class empty {file="Ammunition\empty.sqf";};
+        class crateLootParams {file="Ammunition\crateLootParams.sqf";};
         //class boxAAF {file="Ammunition\boxAAF.sqf";};
 	}
 
@@ -277,9 +278,9 @@ class A3A
         class respawn {file="Revive\respawn.sqf";};
 	}
 	
-	class Runways 
+	class Runways
 	{
-		class getRunwayTakeoffForAirportMarker {file="getRunwayTakeoffForAirportMarker.sqf";};	
+		class getRunwayTakeoffForAirportMarker {file="getRunwayTakeoffForAirportMarker.sqf";};
 		class runwayInfo {file="runwayInfo.sqf";};
 	}
 	

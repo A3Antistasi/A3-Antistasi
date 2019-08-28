@@ -109,6 +109,9 @@ _introShot = [
 	private _credits = [] execVM "credits.sqf";
 };
 
+//Initialise membershipEnabled so we can do isMember checks.
+membershipEnabled = if ("membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
+
 disableUserInput false;
 player addWeaponGlobal "itemmap";
 if !(hasIFA) then {player addWeaponGlobal "itemgps"};
@@ -436,7 +439,6 @@ if (isMultiplayer) then
 	{
 	["InitializePlayer", [player]] call BIS_fnc_dynamicGroups;//Exec on client
 	["InitializeGroup", [player,teamPlayer,true]] call BIS_fnc_dynamicGroups;
-	membershipEnabled = if ("membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
 	if (membershipEnabled) then
 		{
 		if !([player] call A3A_fnc_isMember) then

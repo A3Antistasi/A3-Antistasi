@@ -176,12 +176,6 @@
           _next = (_connected select 0);
           _nameNext = [_next] call getRoadName;
           _conNav = missionNamespace getVariable [format ["%1_c", _nameNext], -1];
-          if(!(_conNav isEqualType "")) then
-          {
-            ["mil_triangle", getPos _next, "ColorRed"] call createNavMarker;
-            hint "Marker has no connection, but is in _junctionSegments!";
-            sleep 15;
-          };
           [_conNav, _connectedNavPoint] call setNavConnection;
           _currentSegment = objNull;
         };
@@ -194,7 +188,11 @@
         //Create junction data
         //There is a problem, comming form a length junction directly into a real junction will have last segment set to objNull, making the exitPoint possible...
         private _result = [_lastSegment, _currentSegment] call createJunction;
-        if(_result isEqualTo []) exitWith {hint "Something went wrong, result is empty"};
+        if(_result isEqualTo []) exitWith
+        {
+          diag_log "Something went wrong, result is empty";
+          sleep 2;
+        };
 
         //Get exit points
         _exitPoints = _result select EXIT_POINTS;
@@ -232,7 +230,7 @@
               if(!(isNull _lastSegment)) then
               {
                 _junctionSegments pushBack _lastSegment;
-                missionNamespace setVariable [[_lastSegment] call getRoadName, _navPointName];
+                missionNamespace setVariable [format ["%1_c",[_lastSegment] call getRoadName], _navPointName];
               };
 
               _marker = ["mil_box", getPos _currentSegment, "ColorBlack"] call createNavMarker;
@@ -304,7 +302,7 @@
           if(!(isNull _lastSegment)) then
           {
             _junctionSegments pushBack _lastSegment;
-            missionNamespace setVariable [[_lastSegment] call getRoadName, _navPointName];
+            missionNamespace setVariable [format ["%1_c",[_lastSegment] call getRoadName], _navPointName];
           };
           /* Don't mark entry point, its confusing...
           ["mil_dot", getPos _currentSegment, "ColorGreen"] call createNavMarker;
@@ -317,7 +315,7 @@
           _currentSegment = objNull;
         };
       };
-      hintSilent format ["Open segments: %1\n Inner Loop: %2\n Outer Loop: %3\n Debug: %4", str (count _openStartSegments), _innerLoop, _outerLoop, _debug];
+      //hintSilent format ["Open segments: %1\n Inner Loop: %2\n Outer Loop: %3\n Debug: %4", str (count _openStartSegments), _innerLoop, _outerLoop, _debug];
       //sleep 0.05;
     };
   };
@@ -359,21 +357,24 @@
           {
             hint (str _conNav);
             sleep 10;
-          };
-          _firstHasMore = _conCount > (count (_conNav select 2));
-          if(_firstHasMore) then {_conType = (_conNav select 1)} else {_conType = _data select 1};
-
-          //Set id of connected point
-          _conIndex = missionNamespace getVariable [format ["index_%1", _x], -1];
-          if(_conIndex == -1) then
+          }
+          else
           {
-            _conIndex = _index;
-            _index = _index + 1;
-            missionNamespace setVariable [format ["index_%1", _x], _conIndex];
-          };
+            _firstHasMore = _conCount > (count (_conNav select 2));
+            if(_firstHasMore) then {_conType = (_conNav select 1)} else {_conType = _data select 1};
 
-          //Set data
-          _conTransform pushBack [_conIndex, _conType];
+            //Set id of connected point
+            _conIndex = missionNamespace getVariable [format ["index_%1", _x], -1];
+            if(_conIndex == -1) then
+            {
+              _conIndex = _index;
+              _index = _index + 1;
+              missionNamespace setVariable [format ["index_%1", _x], _conIndex];
+            };
+
+            //Set data
+            _conTransform pushBack [_conIndex, _conType];
+          };
       } forEach _connections;
       _savedData = [_navPointIndex, _data select 0, _conTransform];
 

@@ -28,7 +28,7 @@ if (typeOf _crate == vehNATOAmmoTruck) then
 for "_i" from 0 to _weaponTypes do
 	{
 	_guns = (weaponsNato + antitankAAF);
-	_avail = (_guns - _unlocks - itemCargo _crate)
+	_avail = (_guns - _unlocks - itemCargo _crate);
 	_loot = selectRandom _avail;
 	if (isNil "_loot") then {} else
 		{
@@ -40,7 +40,7 @@ for "_i" from 0 to _weaponTypes do
 for "_i" from 0 to _itemTypes do
 	{
 	_items = itemsAAF;
-	_avail = (_items - _unlocks - itemCargo _crate)
+	_avail = (_items - _unlocks - itemCargo _crate);
 	_loot = selectRandom _avail;
 	if (isNil "_loot") then {} else
 		{
@@ -52,7 +52,7 @@ for "_i" from 0 to _itemTypes do
 for "_i" from 0 to _ammoTypes do
 	{
 	_ammo = smokeX + chemX + ammunitionNATO;
-	_avail = (_ammo - _unlocks - itemCargo _crate)
+	_avail = (_ammo - _unlocks - itemCargo _crate);
 	_loot = selectRandom _avail;
 	if (isNil "_loot") then {} else
 		{
@@ -78,7 +78,7 @@ if !(hasIFA) then
 	for "_i" from 0 to _opticTypes do
 		{
 		_optics = opticsAAF;
-		_avail = (_optics - _unlocks - itemCargo _crate)
+		_avail = (_optics - _unlocks - itemCargo _crate);
 		_loot = selectRandom _avail;
 		if (isNil "_loot") then {} else
 			{
@@ -90,7 +90,7 @@ if !(hasIFA) then
 	for "_i" from 0 to _backpackTypes do
 		{
 		_packs = backpacksNATO;
-		_avail = (_packs - _unlocks - itemCargo _crate)
+		_avail = (_packs - _unlocks - itemCargo _crate);
 		_loot = selectRandom _avail;
 		if (isNil "_loot") then {} else
 			{

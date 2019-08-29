@@ -194,6 +194,13 @@ class Params
         texts[] = {"No","Yes"};
         default = 0;
     };
+	class teamSwitchDelay
+    {
+        title = "Delay After Leaving Before a Player Can Join Another Team";
+        values[] = {0, 900, 1800, 3600};
+        texts[] = {"No delay","15 minutes","30 minutes","60 minutes"};
+        default = 3600;
+    };
 };
 
 class CfgIdentities

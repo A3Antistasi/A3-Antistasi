@@ -269,7 +269,7 @@ player addEventHandler
 		private _victim = param [0];
 		private _damage = param [2];
 		private _instigator = param [6];
-		if(!isNull _instigator && isPlayer _instigator /*&& _victim != _instigator*/ && side _instigator == teamPlayer && _damage > 0.9) then
+		if(!isNull _instigator && isPlayer _instigator && _victim != _instigator && side _instigator == teamPlayer && _damage > 0.9) then
 		{
 			[_instigator, 20, 0.21] remoteExec ["A3A_fnc_punishment",_instigator];
 			hint format["%1 hurt you!",_instigator];

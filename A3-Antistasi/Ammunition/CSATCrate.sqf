@@ -1,4 +1,4 @@
-private ["_loot","_guns","_ammo","_items","_avail"];
+private ["_loot","_guns","_ammo","_items","_avail","_num","_optics","_packs","_mines","_unlocks"];
 
 private _unlocks = (unlockedItems + unlockedOptics + unlockedWeapons + unlockedBackpacks + unlockedMagazines);
 private _crate = _this select 0;
@@ -15,14 +15,6 @@ private _mineTypes = crateMineTypeMin + (floor random crateMineTypeMax);
 private _opticTypes = crateOpticTypeMin + (floor random crateOpticTypeMax);
 private _backpackTypes = crateBackpackTypeMin + (floor random crateBackpackTypeMax);
 
-private _weaponCount = crateWepNumMin + (floor random crateWepNumMax);
-private _itemCount = crateItemNumMin + (floor random crateItemNumMax);
-private _ammoCount = crateAmmoNumMin + (floor random crateAmmoNumMax);
-private _mineCount = crateMineNumMin + (floor random crateMineNumMax);
-private _opticCount = crateOpticNumMin + (floor random crateOpticNumMin);
-private _backpackCount = crateBackpackNumMin + (floor random crateBackpackNumMax);
-
-
 if (typeOf _crate == vehCSATAmmoTruck) then
 	{
 	_weaponTypes=_weaponTypes*2;
@@ -36,52 +28,48 @@ if (typeOf _crate == vehCSATAmmoTruck) then
 for "_i" from 0 to _weaponTypes do
 	{
 	_guns = (weaponsCSAT + antitankAAF);
-	_avail = (_guns - _unlocks);
+	_avail = (_guns - _unlocks - itemCargo _crate)
 	_loot = selectRandom _avail;
-	if (isNil "_loot") then {} else {
-	if (!(_loot in weaponCargo _crate)) then
+	if (isNil "_loot") then {} else
 		{
+		_num = crateWepNumMin + floor random crateWepNumMax;
 		_crate addWeaponWithAttachmentsCargoGlobal [[_loot, "", "", "", [], [], ""],_weaponCount];
-		};
 		};
 	};
 
 for "_i" from 0 to _itemTypes do
 	{
 	_items = itemsAAF;
-	_avail = (_items - _unlocks);
+	_avail = (_items - _unlocks - itemCargo _crate)
 	_loot = selectRandom _avail;
-	if (isNil "_loot") then {} else {
-	if (!(_loot in itemCargo _crate)) then
+	if (isNil "_loot") then {} else
 		{
+		_num = crateItemNumMin + floor random crateItemNumMax;
 		_crate addItemCargoGlobal [_loot,_itemCount];
-		};
 		};
 	};
 
 for "_i" from 0 to _ammoTypes do
 	{
 	_ammo = smokeX + chemX + ammunitionCSAT;
-	_avail = (_ammo - _unlocks);
+	_avail = (_ammo - _unlocks - itemCargo _crate)
 	_loot = selectRandom _avail;
-	if (isNil "_loot") then {} else {
-	if (!(_loot in magazineCargo _crate)) then
+	if (isNil "_loot") then {} else
 		{
+		_num = crateAmmoNumMin + floor random crateAmmoNumMax;
 		_crate addMagazineCargoGlobal [_loot,_ammoCount];
-		};
 		};
 	};
 
 for "_i" from 0 to _mineTypes do
 	{
 	_mines = minesAAF;
-	_avail = (_mines - _unlocks);
+	_avail = (_mines - _unlocks - itemCargo _crate)
 	_loot = selectRandom _avail;
-	if (isNil "_loot") then {} else {
-	if (!(_loot in itemCargo _crate)) then
+	if (isNil "_loot") then {} else
 		{
-			_crate addMagazineCargoGlobal [_loot,_mineCount];
-		};
+		_num = crateMineNumMin + floor random crateMineNumMax;
+		_crate addMagazineCargoGlobal [_loot,_mineCount];
 		};
 	};
 
@@ -90,26 +78,24 @@ if !(hasIFA) then
 	for "_i" from 0 to _opticTypes do
 		{
 		_optics = opticsAAF;
-		_avail = (_optics - _unlocks);
+		_avail = (_optics - _unlocks - itemCargo _crate)
 		_loot = selectRandom _avail;
-		if (isNil "_loot") then {} else {
-		if (!(_loot in itemCargo _crate)) then
+		if (isNil "_loot") then {} else
 			{
+			_num = crateOpticsNumMin + floor random crateOpticsNumMax;
 			_crate addItemCargoGlobal [_loot,_opticCount];
-			};
 			};
 		};
 
 	for "_i" from 0 to _backpackTypes do
 		{
-		_items = backpacksCSAT;
-		_avail = (_items - _unlocks);
+		_packs = backpacksCSAT;
+		_avail = (_packs - _unlocks - itemCargo _crate)
 		_loot = selectRandom _avail;
-		if (isNil "_loot") then {} else {
-		if (!(_loot in itemCargo _crate)) then
+		if (isNil "_loot") then {} else
 			{
+			_num = crateBackpackNumMin + floor random crateBackpackNumMax;
 			_crate addItemCargoGlobal [_loot,_backpackCount];
-			};
 			};
 		};
 

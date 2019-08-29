@@ -8,19 +8,19 @@ clearWeaponCargoGlobal _crate;
 clearItemCargoGlobal _crate;
 clearBackpackCargoGlobal _crate;
 
-private _weaponTypes = (crateWepTypeMin + floor random crateWepTypeMax);
-private _itemTypes = (crateItemTypeMin + floor random crateItemTypeMax);
-private _ammoTypes = (crateAmmoTypeMin + floor random crateAmmoTypeMax);
-private _mineTypes = (crateMineTypeMin + floor random crateMineTypeMax);
-private _opticTypes = (crateOpticTypeMin + floor random crateOpticTypeMax);
-private _backpackTypes = (crateBackpackTypeMin + floor random crateBackpackTypeMax);
+private _weaponTypes = crateWepTypeMin + floor (random crateWepTypeMax);
+private _itemTypes = crateItemTypeMin + floor (random crateItemTypeMax);
+private _ammoTypes = crateAmmoTypeMin + floor (random crateAmmoTypeMax);
+private _mineTypes = crateMineTypeMin + floor (random crateMineTypeMax);
+private _opticTypes = crateOpticTypeMin + floor (random crateOpticTypeMax);
+private _backpackTypes = crateBackpackTypeMin + floor (random crateBackpackTypeMax);
 
-private _weaponCount = (crateWepNumMin + floor random crateWepNumMax);
-private _itemCount = (crateItemNumMin + floor random crateItemNumMax);
-private _ammoCount = (crateAmmoNumMin + floor random crateAmmoNumMax);
-private _mineCount = (crateMineNumMin + floor random crateMineNumMax);
-private _opticCount = (crateOpticNumMin + floor random crateOpticNumMax);
-private _backpackCount = (crateBackpackNumMin + floor random crateBackpackNumMax);
+private _weaponCount = crateWepNumMin + floor (random crateWepNumMax);
+private _itemCount = crateItemNumMin + floor (random crateItemNumMax);
+private _ammoCount = crateAmmoNumMin + floor (random crateAmmoNumMax);
+private _mineCount = crateMineNumMin + floor (random crateMineNumMax);
+private _opticCount = crateOpticNumMin + floor (random crateOpticNumMax);
+private _backpackCount = crateBackpackNumMin + floor (random crateBackpackNumMax);
 
 if (typeOf _crate == vehNATOAmmoTruck) then
 	{

@@ -222,6 +222,8 @@ class A3A
         class randomRifle {file="Ammunition\randomRifle.sqf";};
         class dress {file="Ammunition\dress.sqf";};
         class empty {file="Ammunition\empty.sqf";};
+        class getRadio {file="Ammunition\getRadio.sqf";};
+        class checkRadiosUnlocked {file="Ammunition\checkRadiosUnlocked.sqf";};
         //class boxAAF {file="Ammunition\boxAAF.sqf";};
 	}
 

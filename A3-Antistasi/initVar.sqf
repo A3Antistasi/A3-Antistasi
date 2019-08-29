@@ -463,13 +463,17 @@ if (not(_nameX in _alreadyChecked)) then
 //   ARMORED VESTS LIST          ///
 ////////////////////////////////////
 //WHY is there no clean list?
-armoredVests = vests select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor") > 5};
+vests = vests select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor") > 5};
 
 ////////////////////////////////////
 //   ARMORED HELMETS LIST        ///
 ////////////////////////////////////
 //WHY is there no clean list?
-armoredHelmets = helmets select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2};
+helmets = helmets select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2};
+
+////////////////////////////////////
+//        SILENCERS List         ///
+////////////////////////////////////
 
 ////////////////////////////////////
 //      ACE ITEMS LIST           ///

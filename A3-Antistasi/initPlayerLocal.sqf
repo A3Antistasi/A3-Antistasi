@@ -53,8 +53,10 @@ if (isMultiplayer) then
 			_typeX = _this select 1;
 			if ((_typeX == "Put") or (_typeX == "Throw")) then
 			{
-				if (player distance petros < 50) then
+				private _shieldDistance = 100;
+				if (player distance petros < _shieldDistance) then
 				{
+					hint format ["You cannot throw grenades or place explosives within %1m of base.", _shieldDistance];
 					deleteVehicle (_this select 6);
 					if (_typeX == "Put") then
 					{

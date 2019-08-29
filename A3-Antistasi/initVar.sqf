@@ -613,7 +613,6 @@ markersChanging = [];
 staticsToSave = [];
 napalmCurrent = false;
 tierWar = 1;
-haveRadio = false;
 haveNV = false;
 zoneCheckInProgress = false;
 garrisonIsChanging = false;

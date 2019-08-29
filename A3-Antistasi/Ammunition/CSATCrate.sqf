@@ -33,7 +33,7 @@ for "_i" from 0 to _weaponTypes do
 	if (isNil "_loot") then {} else
 		{
 		_num = crateWepNumMin + floor random crateWepNumMax;
-		_crate addWeaponWithAttachmentsCargoGlobal [[_loot, "", "", "", [], [], ""],_weaponCount];
+		_crate addWeaponWithAttachmentsCargoGlobal [[_loot, "", "", "", [], [], ""],_num];
 		};
 	};
 
@@ -102,7 +102,7 @@ if !(hasIFA) then
 	if (round random 100 < 25) then
 		{
 		if !("O_Static_Designator_02_weapon_F" in _unlocks) then
-		_crate addBackpackCargoGlobal ["O_Static_Designator_02_weapon_F",1];
+		{_crate addBackpackCargoGlobal ["O_Static_Designator_02_weapon_F",1]};
 		}
 	else
 		{
@@ -123,5 +123,12 @@ if !(hasIFA) then
 				{_crate addItemCargoGlobal ["B_UavTerminal",1]};
 				};
 			};
+		};
+	if (hasACE) then
+		{
+			if !("ACE_HuntIR_M203" in _unlocks) then
+		{_crate addMagazineCargoGlobal ["ACE_HuntIR_M203", 3]};
+			if !("ACE_HuntIR_monitor" in _unlocks) then
+		{_crate addItemCargoGlobal ["ACE_HuntIR_monitor", 1]};
 		};
 	};

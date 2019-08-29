@@ -45,7 +45,7 @@ for "_i" from 0 to _itemTypes do
 	if (isNil "_loot") then {} else
 		{
 		_num = crateItemNumMin + floor random crateItemNumMax;
-		_crate addItemCargoGlobal [_loot,_itemCount];
+		_crate addItemCargoGlobal [_loot,_num];
 		};
 	};
 
@@ -57,7 +57,7 @@ for "_i" from 0 to _ammoTypes do
 	if (isNil "_loot") then {} else
 		{
 		_num = crateAmmoNumMin + floor random crateAmmoNumMax;
-		_crate addMagazineCargoGlobal [_loot,_ammoCount];
+		_crate addMagazineCargoGlobal [_loot,_num];
 		};
 	};
 
@@ -69,7 +69,7 @@ for "_i" from 0 to _mineTypes do
 	if (isNil "_loot") then {} else
 		{
 		_num = crateMineNumMin + floor random crateMineNumMax;
-		_crate addMagazineCargoGlobal [_loot,_mineCount];
+		_crate addMagazineCargoGlobal [_loot,_num];
 		};
 	};
 
@@ -83,7 +83,7 @@ if !(hasIFA) then
 		if (isNil "_loot") then {} else
 			{
 			_num = crateOpticsNumMin + floor random crateOpticsNumMax;
-			_crate addItemCargoGlobal [_loot,_opticCount];
+			_crate addItemCargoGlobal [_loot,_num];
 			};
 		};
 
@@ -95,7 +95,7 @@ if !(hasIFA) then
 		if (isNil "_loot") then {} else
 			{
 			_num = crateBackpackNumMin + floor random crateBackpackNumMax;
-			_crate addItemCargoGlobal [_loot,_backpackCount];
+			_crate addItemCargoGlobal [_loot,_num];
 			};
 		};
 

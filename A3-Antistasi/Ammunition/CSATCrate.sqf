@@ -8,12 +8,12 @@ clearWeaponCargoGlobal _crate;
 clearItemCargoGlobal _crate;
 clearBackpackCargoGlobal _crate;
 
-private _weaponTypes = crateWepTypeMin + (floor random crateWepTypeMax);
-private _itemTypes = crateItemTypeMin + (floor random crateItemTypeMax);
-private _ammoTypes = crateAmmoTypeMin + (floor random crateAmmoTypeMax);
-private _mineTypes = crateMineTypeMin + (floor random crateMineTypeMax);
-private _opticTypes = crateOpticTypeMin + (floor random crateOpticTypeMax);
-private _backpackTypes = crateBackpackTypeMin + (floor random crateBackpackTypeMax);
+private _weaponTypes = crateWepTypeMin + floor random (crateWepTypeMax - crateWepTypeMin);
+private _itemTypes = crateItemTypeMin + floor random (crateItemTypeMax - crateItemTypeMin);
+private _ammoTypes = crateAmmoTypeMin + floor random (crateAmmoTypeMax - crateAmmoTypeMin);
+private _mineTypes = crateMineTypeMin + floor random (crateMineTypeMax - crateMineTypeMin);
+private _opticTypes = crateOpticTypeMin + floor random (crateOpticTypeMax - crateOpticTypeMin);
+private _backpackTypes = crateBackpackTypeMin + floor random (crateBackpackTypeMax - crateBackpackTypeMin);
 
 if (typeOf _crate == vehCSATAmmoTruck) then
 	{
@@ -32,7 +32,7 @@ for "_i" from 0 to _weaponTypes do
 	_loot = selectRandom _avail;
 	if (isNil "_loot") then {} else
 		{
-		_num = crateWepNumMin + floor random crateWepNumMax;
+		_num = crateWepNumMin + floor random (crateWepNumMax - crateWepNumMin);
 		_crate addWeaponWithAttachmentsCargoGlobal [[_loot, "", "", "", [], [], ""],_num];
 		};
 	};
@@ -44,7 +44,7 @@ for "_i" from 0 to _itemTypes do
 	_loot = selectRandom _avail;
 	if (isNil "_loot") then {} else
 		{
-		_num = crateItemNumMin + floor random crateItemNumMax;
+		_num = crateItemNumMin + floor random (crateItemNumMax - crateItemNumMin);
 		_crate addItemCargoGlobal [_loot,_num];
 		};
 	};
@@ -56,7 +56,7 @@ for "_i" from 0 to _ammoTypes do
 	_loot = selectRandom _avail;
 	if (isNil "_loot") then {} else
 		{
-		_num = crateAmmoNumMin + floor random crateAmmoNumMax;
+		_num = crateAmmoNumMin + floor random (crateAmmoNumMax - crateAmmoNumMin);
 		_crate addMagazineCargoGlobal [_loot,_num];
 		};
 	};
@@ -68,7 +68,7 @@ for "_i" from 0 to _mineTypes do
 	_loot = selectRandom _avail;
 	if (isNil "_loot") then {} else
 		{
-		_num = crateMineNumMin + floor random crateMineNumMax;
+		_num = crateMineNumMin + floor random (crateMineNumMax - crateMineNumMin);
 		_crate addMagazineCargoGlobal [_loot,_num];
 		};
 	};
@@ -82,7 +82,7 @@ if !(hasIFA) then
 		_loot = selectRandom _avail;
 		if (isNil "_loot") then {} else
 			{
-			_num = crateOpticsNumMin + floor random crateOpticsNumMax;
+			_num = crateOpticsNumMin + floor random (crateOpticsNumMax - crateOpticsNumMin);
 			_crate addItemCargoGlobal [_loot,_num];
 			};
 		};
@@ -94,7 +94,7 @@ if !(hasIFA) then
 		_loot = selectRandom _avail;
 		if (isNil "_loot") then {} else
 			{
-			_num = crateBackpackNumMin + floor random crateBackpackNumMax;
+			_num = crateBackpackNumMin + floor random (crateBackpackNumMax - crateBackpackNumMin);
 			_crate addItemCargoGlobal [_loot,_num];
 			};
 		};

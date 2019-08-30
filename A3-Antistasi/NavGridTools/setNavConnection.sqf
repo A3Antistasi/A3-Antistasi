@@ -1,8 +1,5 @@
 params ["_firstName", "_secondName"];
 
-//hint format ["Setting nav points %1 and %2", _firstName, _secondName];
-//sleep 2;
-
 _firstData = missionNamespace getVariable [_firstName, objNull];
 _secondData = missionNamespace getVariable [_secondName, objNull];
 

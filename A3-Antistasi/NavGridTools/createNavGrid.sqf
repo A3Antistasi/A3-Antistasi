@@ -3,8 +3,16 @@
 #define IGNORED_JUNCTIONS   2
 #define MID_SEGMENT         3
 
-[] spawn
+_showText = true;
+_showText = param [0, true];
+if(isNil "_showText") then
 {
+  _showText = true;
+};
+
+[_showText] spawn
+{
+  hint "Starting setup, please stand by!";
 
   findConnection = compile preprocessFileLineNumbers "NavGridTools\findRoadConnections.sqf";
   publicVariable "findConnection";
@@ -23,33 +31,126 @@
   createNavText = compile preprocessFileLineNumbers "NavGridTools\createNavText.sqf";
   publicVariable "createNavText";
 
-  allMarker = [];
+  hintDone = false; publicVariable "hintDone";
 
-  _startPos = getMarkerPos "roadMarker";
 
-/*
-  _startSegment = roadAt _startPos;
-  if(true) exitWith {[_startSegment] call getRoadType};
-*/
-  _possibleStarts = _startPos nearRoads 50;
-  _startSegment = objNull;
+  _worldName = worldName;
+  _firstLetter = _worldName select [0,1];
+  _remaining = _worldName select [1];
+  _firstLetter = toUpper _firstLetter;
+  _remaining = toLower _remaining;
+  _worldName = format ["%1%2", _firstLetter, _remaining];
+
+  //Needed for UI to function properly, don't know why
+  sleep 4;
+
+  if((_this select 0)) then
   {
-      _connected = roadsConnectedTo _x;
-      if(count _connected > 2) exitWith {_startSegment = _x};
-  } forEach _possibleStarts;
-
-  if(isNull _startSegment) exitWith
-  {
-    //diag_log "Could not find suitable start segment, segment has to be a junction!";
-    hint "No segment was a junction, try another position!";
+    "Welcome to Wurzels NavGrid creation script" hintC (parseText format
+    ["<t size='1.2' align='center'>The needed scripts should have been prepared already, so if you not had an error, you managed to copy the folder correctly. The next step is to open an empty text file, and save this empty file as navGrid%1.sqf. Keep this file open, while this script is running! As the next step the script will check if the roadMarkers are placed correctly. As a reminder: Each UNCONNECTED ISLAND needs one marker on a junction. Especially for maps with only one island, or no island at all, is still one marker needed. Due to some problems regarding the road data,
+not every junction is suitable, the script will tell you, if that case happens.<br/> If you don't want to see this prompt again, execute [false] execVM 'NavGridTools\createNavGrid.sqf' instead of [] execVM ... .If you find a bug, join the Official Antistasi Discord and blame Wurzel0701 for delivering a free, but slightly bugged script. Or maybe just tell me there. <br/><br/> Also keep in mind, that this script takes a while to finish. This depends on hardware, map size and amount of roads, but is huge for most cases. Therefor the maps displays a visual representation of what the script is doing right now and how much is finished by now.</t>", _worldName]);
+    hintC_EH = findDisplay 72 displayAddEventHandler ["unload",
+      {
+        0 = _this spawn
+        {
+          _this select 0 displayRemoveEventHandler ["unload", hintC_EH];
+          hintSilent "";
+          hintDone = true;
+          publicVariable "hintDone";
+        };
+      }];
+    waitUntil {sleep 1; hintDone};
+    hintDone = false; publicVariable "hintDone";
   };
 
 
+  allMarker = [];
+
+  _abort = false;
+  _roadMarker = [];
+  _mapMarker = allMapMarkers;
+  {
+      if((_x find "roadMarker") != -1) then
+      {
+          _roadMarker pushBack _x;
+      };
+  } forEach _mapMarker;
+
+  if(count _roadMarker == 0) then
+  {
+    "No roadMarkers found" hintC parseText "<t size='1.2' align='center'>Every marker which marks a starting junction has to be named with roadMarker in it. No other rules. roadMarker_1 is fine, 1_roadMarker is fine too, xXx_420_69_roadMarker_69_420_xXx totally fine (whatever reason you have to call a marker like this...), whats not ok is road_1_Marker or something like this. Place one a marker or every piece of isolated land. This includes main islands or maps with no islands too. At least one marker has to be present on every maps. The script will abort. Set the marker, then try it again!</t>";
+    hintC_EH = findDisplay 72 displayAddEventHandler ["unload",
+      {
+        0 = _this spawn
+        {
+          _this select 0 displayRemoveEventHandler ["unload", hintC_EH];
+          hintSilent "";
+          hintDone = true;
+          publicVariable "hintDone";
+        };
+      }];
+    waitUntil {sleep 1; hintDone};
+    hintDone = false; publicVariable "hintDone";
+    _abort = true;
+  };
+  if(_abort) exitWith {};
+  hint format ["Found %1 marker as start points!", count _roadMarker];
+
+  _openStartSegments = [];
+  _notOnAJunction = [];
+  {
+    _startPos = getMarkerPos _x;
+
+    _possibleStarts = _startPos nearRoads 50;
+    _startSegment = objNull;
+    {
+        _connected = roadsConnectedTo _x;
+        if(count _connected > 2) exitWith {_startSegment = _x};
+    } forEach _possibleStarts;
+
+    if(isNull _startSegment) then
+    {
+      _abort = true;
+      _notOnAJunction pushBack _x;
+      //diag_log "Could not find suitable start segment, segment has to be a junction!";
+      //hint "No segment was a junction, try another position!";
+    }
+    else
+    {
+      _openStartSegments pushBack [_startSegment, objNull];
+    };
+  } forEach _roadMarker;
+
+  if(_abort) then
+  {
+    _markerErrors = "";
+    {
+        _markerErrors = format ["%1%2<br/>", _markerErrors, _x];
+    } forEach _notOnAJunction;
+    "Marker not on juntions" hintC (parseText format ["<t size='1.2' align='center'>The following markers are not on a junction<br/>%1This can have two reasons: First one, you didn't put them on a junction. Second one, the script does not detects the junction as such. This can happen. In this case this specific junction will not work as a start. But it does not matters which one you take, so take another one. For both cases, the script will abort now and let you reconfigure the marker.</t>", _markerErrors]);
+    hintC_EH = findDisplay 72 displayAddEventHandler ["unload",
+      {
+        0 = _this spawn
+        {
+          _this select 0 displayRemoveEventHandler ["unload", hintC_EH];
+          hintSilent "";
+          hintDone = true;
+          publicVariable "hintDone";
+        };
+      }];
+    waitUntil {sleep 1; hintDone};
+    hintDone = false; publicVariable "hintDone";
+  };
+  if(_abort) exitWith {};
+
+  hint "Setup completed, starting script now!";
+  sleep 2;
+  openMap true;
 
   _startTime = time;
 
   _navPoints = [];
-  _openStartSegments = [[_startSegment, objNull]];
+
   _junctionSegments = [];
   _junctionIgnored = [];
 
@@ -99,7 +200,6 @@
       //No further conncetion found, end of road
       if(_connectedCount == 0) then
       {
-        _debug = "0 Con";
         //If no lastSegment something has gone wrong with the junction, ignore in this case
         if(!(isNull _lastSegment)) then
         {
@@ -121,7 +221,6 @@
       //Only one way to go, go further if the next node is not an navSegment
       if(_connectedCount == 1) then
       {
-        _debug = "1 Con";
         if(!((_connected select 0) in _junctionSegments)) then
         {
           if(_segmentCount > _segmentsTillNext) then
@@ -186,7 +285,6 @@
       //More than one connection, may be a junction or a fake junction
       if(_connectedCount > 1) then
       {
-        _debug = ">1 Con";
         //Create junction data
         //There is a problem, comming form a length junction directly into a real junction will have last segment set to objNull, making the exitPoint possible...
         private _result = [_lastSegment, _currentSegment] call createJunction;
@@ -317,7 +415,7 @@
           _currentSegment = objNull;
         };
       };
-      hintSilent format ["Open segments: %1\n Inner Loop: %2\n Outer Loop: %3\n Debug: %4", str (count _openStartSegments), _innerLoop, _outerLoop, _debug];
+      hintSilent format ["Open segments: %1\n Inner Loop: %2\n Outer Loop: %3\n", str (count _openStartSegments), _innerLoop, _outerLoop];
       //sleep 0.05;
     };
   };
@@ -385,7 +483,7 @@
     };
   } forEach _navPoints;
 
-  hintSilent "Data prepare, setting up finished nav grid";
+  hint "Data prepared, setting up finished nav grid";
 
   {
       _data = _x;
@@ -420,5 +518,5 @@
   copyToClipboard _text;
 
   _timeDiff = time - _startTime;
-  hintC format ["Grid Creation finished, searched %1 start points and found %2 nav points in %3 seconds", _outerLoop, count _navPoints, _timeDiff];
+  "Finished navGrid creation!" hintC (parseText format ["<t size='1.2' align='center'>Grid Creation finished, searched %1 start points and found %2 nav points in %3 seconds! <br/><br/>The navData is currently copied to your clipboard. Now switch over to the text file, we opened earlier and hit Ctrl + V to paste the nav data in there. Save the file again and you are good to go. You may want to double check if all islands and streets are connected as they should. If not, readjust the marker and do it again. If so, the navGrid is now ready for use. How to load and use it, is not handled in this folder.</t>", _outerLoop, count _navPoints, _timeDiff]);
 };

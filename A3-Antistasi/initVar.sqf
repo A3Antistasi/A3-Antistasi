@@ -508,7 +508,7 @@ distanceForLandAttack = if (hasIFA) then {5000} else {3000};
 diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Vehicle Spawn Points.",servertime];
 if (worldName == "Tanoa") then
 	{
-	roadsMrk = ["road","road_1","road_2","road_3","road_4","road_5","road_6","road_7","road_8","road_9","road_10","road_11","road_12","road_13","road_14","road_15","road_16"];
+	roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
 	roadsCentral = ["road","road_1","road_2","road_3","road_4"];
 	roadsCE = ["road_5","road_6"];
 	roadsCSE = ["road_7"];
@@ -529,7 +529,7 @@ else
 	{
 	if (worldName == "Altis") then
 		{
-		roadsMrk = ["road","road_1","road_2","road_3","road_4","road_5","road_6","road_7","road_8","road_9","road_10","road_11","road_12","road_13","road_14","road_15","road_16","road_17","road_18","road_19","road_20","road_21","road_22","road_23","road_24","road_25","road_26","road_27","road_28","road_29","road_30","road_31","road_32","road_33","road_34","road_35","road_36","road_37","road_38","road_39","road_40","road_41","road_42"];
+		roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
 		{_x setMarkerAlpha 0} forEach roadsMrk;
 		roadsX setVariable ["airport",[[[21175.06,7369.336,0],62.362,"Tank"],[[21178.89,7361.573,0.421],62.36,"Tank"],[[20961.332,7295.678,0],0,"Mort"],[[20956.143,7295.142,0],0,"Mort"],[[20961.1,7290.02,0.262632],0,"Mort"]]];
         roadsX setVariable ["airport_1",[[[23044.8,18745.7,0.0810001],88.275,"Tank"],[[23046.8,18756.8,0.0807302],88.275,"Tank"],[[23214.8,18859.5,0],267.943,"Tank"],[[22981.2,18903.9,0],0,"Mort"],[[22980.1,18907.5,0.553066],0,"Mort"]]];
@@ -540,7 +540,7 @@ else
 		}
 	else
 		{
-		roadsMrk = ["road","road_1","road_2","road_3","road_4","road_5","road_6","road_7","road_8","road_9","road_10","road_11","road_12","road_13","road_14","road_15","road_16","road_17","road_18","road_19","road_20","road_21","road_22","road_23","road_24","road_25","road_26","road_27","road_28","road_29","road_30","road_31","road_32","road_33","road_34","road_35","road_36","road_37","road_38"];
+		roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
 		{_x setMarkerAlpha 0} forEach roadsMrk;
 		roadsX setVariable ["airport",[[[12191.2,12605.8,9.43077],0,"MG"],[[12194.2,12599.4,13.3954],0,"AA"],[[12141,12609,0.00088501],0,"Mort"],[[12144.3,12615.9,0],0,"Mort"],[[12156.5,12614.3,0],0,"Mort"],[[12170,12595.9,0.000305176],250.234,"AT"],[[12070.4,12656,0.0098114],23.5329,"Tank"],[[12022.5,12670.9,0.0098114],18.9519,"Tank"]]];
         roadsX setVariable ["airport_1",[[[4782.75,10251.4,18],0,"AA"],[[4716.17,10215.3,13.1149],278.308,"AA"],[[4713.94,10209.3,9.12177],188.973,"MG"],[[4787.34,10248.9,4.99982],188.303,"MG"],[[4740.75,10333.2,20.3206],232.414,"MG"],[[4818.39,10200.1,0.00982666],239.625,"Tank"],[[4765.22,10330.8,0],0,"Mort"],[[4758.21,10328.1,0],0,"Mort"],[[4751.45,10324.4,0],0,"Mort"],[[4745.39,10320.6,0],0,"Mort"],[[4739.97,10283.2,0.00567627],291.41,"AT"],[[4814.19,10245.1,0.00567627],211.414,"AT"],[[4841.34,10158.9,0.0102844],240.137,"Tank"],[[4865.7,10116.7,0.00970459],239.499,"Tank"],[[4888.33,10074.2,0.00982666],235.077,"Tank"]]];
@@ -681,7 +681,7 @@ aceItems = [
 	"ACE_HandFlare_Red",
 	"ACE_Spraypaintred"
 ];
-	
+
 if (hasIFA) then {aceItems append ["ACE_LIB_LadungPM","ACE_SpareBarrel"]};
 publicVariable "aceItems";
 
@@ -711,7 +711,7 @@ aceAdvMedItems = [
 	"ACE_atropine"
 ]
 + ([["ACE_PersonalAidKit"], ["adv_aceCPR_AED"]] select hasADVCPR)
-+ ([[], ["adv_aceSplint_splint"]] select hasADVSplint); 
++ ([[], ["adv_aceSplint_splint"]] select hasADVSplint);
 publicVariable "aceAdvMedItems";
 
 

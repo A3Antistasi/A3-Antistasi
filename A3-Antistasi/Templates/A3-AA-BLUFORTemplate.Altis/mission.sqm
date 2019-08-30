@@ -5,7 +5,7 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=1666;
+	toggles=1538;
 	class ItemIDProvider
 	{
 		nextID=1653;
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={3751.1042,276.20538,9998.1123};
+		pos[]={27646.66,38.373638,24528.084};
 		dir[]={0,-0.70710683,0.70710683};
 		up[]={0,0.70710677,0.70710677};
-		aside[]={0.99999994,0,0};
+		aside[]={0.99999994,0,-0};
 	};
 };
 binarizationWanted=0;
@@ -208,7 +208,7 @@ class Mission
 			name="outpost_38";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=60;
 			b=60;
 			angle=36.850998;
@@ -222,7 +222,7 @@ class Mission
 			name="outpost_39";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=108;
 			b=99.474937;
 			angle=46.794998;
@@ -454,7 +454,7 @@ class Mission
 			name="outpost_37";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=120;
 			b=120;
 			angle=16.886997;
@@ -468,7 +468,7 @@ class Mission
 			name="outpost_36";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=215.98628;
 			b=121.21648;
 			angle=20.485994;
@@ -548,7 +548,7 @@ class Mission
 			name="outpost_31";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=138.4487;
 			b=110.1012;
 			angle=305.90884;
@@ -562,7 +562,7 @@ class Mission
 			name="outpost_34";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=60;
 			b=40;
 			angle=108.33795;
@@ -576,7 +576,7 @@ class Mission
 			name="outpost_13";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=83.501091;
 			b=64.180611;
 			angle=320.76587;
@@ -616,7 +616,7 @@ class Mission
 			name="outpost_28";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=125.35593;
 			b=94.237045;
 			angle=11.914993;
@@ -629,7 +629,7 @@ class Mission
 			name="outpost_40";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=81.934753;
 			b=75.253113;
 			angle=243.71994;
@@ -642,7 +642,7 @@ class Mission
 			name="outpost_41";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=85.112152;
 			b=100.4333;
 			angle=54.859959;
@@ -656,7 +656,7 @@ class Mission
 			name="outpost_42";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=195;
 			b=100;
 			angle=345.10986;
@@ -778,6 +778,7 @@ class Mission
 			name="resource_5";
 			markerType="RECTANGLE";
 			type="Empty";
+			colorName="ColorBrown";
 			a=120;
 			b=100;
 			angle=281.88538;
@@ -790,6 +791,7 @@ class Mission
 			name="resource_6";
 			markerType="RECTANGLE";
 			type="Empty";
+			colorName="ColorBrown";
 			a=80;
 			b=60;
 			angle=139.39099;
@@ -803,6 +805,7 @@ class Mission
 			name="factory_2";
 			markerType="RECTANGLE";
 			type="Empty";
+			colorName="ColorOrange";
 			a=64.182625;
 			b=60.422844;
 			angle=27.999996;
@@ -816,6 +819,7 @@ class Mission
 			name="factory_3";
 			markerType="RECTANGLE";
 			type="Empty";
+			colorName="ColorOrange";
 			a=110;
 			b=60;
 			angle=178.99994;
@@ -829,6 +833,7 @@ class Mission
 			name="factory_4";
 			markerType="RECTANGLE";
 			type="Empty";
+			colorName="ColorOrange";
 			a=40;
 			b=40;
 			angle=72.913567;
@@ -858,7 +863,7 @@ class Mission
 			colorName="ColorOrange";
 			a=147.30019;
 			b=150.74289;
-			angle=357.2222;
+			angle=357.22217;
 			id=63;
 			atlOffset=-9.5367432e-007;
 		};
@@ -1071,16 +1076,15 @@ class Mission
 		class Item71
 		{
 			dataType="Marker";
-			position[]={27639.744,3.4927967,24549.264};
+			position[]={27645.506,3.9791944,24584.898};
 			name="seaport_4";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorBlue";
 			a=95.609772;
 			b=91.161003;
-			angle=212.98587;
+			angle=212.98586;
 			id=193;
-			atlOffset=8.3497543;
 		};
 		class Item72
 		{
@@ -1251,7 +1255,7 @@ class Mission
 			name="outpost_23";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=146.17787;
 			b=102.46973;
 			angle=135.83093;
@@ -1321,7 +1325,7 @@ class Mission
 			name="outpost_7";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=156.13892;
 			b=107.38486;
 			angle=10.999998;
@@ -1335,6 +1339,7 @@ class Mission
 			name="resource_7";
 			markerType="RECTANGLE";
 			type="Empty";
+			colorName="ColorBrown";
 			a=40;
 			b=40;
 			angle=139.39099;
@@ -1376,7 +1381,7 @@ class Mission
 			name="outpost_35";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=79.428841;
 			b=76.658554;
 			angle=10.999998;
@@ -1386,14 +1391,15 @@ class Mission
 		class Item101
 		{
 			dataType="Marker";
-			position[]={3605.7153,17.346928,10279.321};
+			position[]={3605.7151,17.347,10279.321};
 			name="Synd_HQ";
 			markerType="RECTANGLE";
 			type="rectangle";
+			colorName="ColorPink";
 			a=50;
 			b=50;
 			id=933;
-			atlOffset=1.6032429;
+			atlOffset=1.603302;
 		};
 		class Item102
 		{
@@ -1701,7 +1707,7 @@ class Mission
 			name="outpost_12";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=79.986519;
 			b=87.525208;
 			angle=11.914993;
@@ -2556,7 +2562,7 @@ class Mission
 			name="outpost_17";
 			markerType="RECTANGLE";
 			type="Empty";
-			colorName="ColorGUER";
+			colorName="ColorGreen";
 			a=170;
 			b=100;
 			angle=135.83093;
@@ -2588,7 +2594,7 @@ class Mission
 			name="seaSpawn_8";
 			type="mil_objective";
 			id=1186;
-			atlOffset=5.0577831;
+			atlOffset=4.5166793;
 		};
 		class Item200
 		{

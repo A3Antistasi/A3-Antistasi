@@ -4,6 +4,7 @@
 //You do not have enough balls to make any modification and after making a Bug report because something is wrong. You don't wanna be there. Believe me.
 //Not commented lines cannot be changed.
 //Don't touch them.
+
 diag_log format ["%1: [Antistasi] | INFO | initVar Started.",servertime];
 antistasiVersion = localize "STR_antistasi_credits_generic_version_text";
 

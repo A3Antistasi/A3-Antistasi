@@ -1071,6 +1071,7 @@ server setVariable [vehSDKTruck,300,true];											//300
 ////////////////////////////////////
 //     SERVER ONLY VARIABLES     ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Server Only Variables.",servertime];
 server setVariable ["hr",8,true];														//initial HR value
 server setVariable ["resourcesFIA",1000,true];											//Initial FIA money pool value
 skillFIA = 0;																		//Initial skill level for FIA soldiers

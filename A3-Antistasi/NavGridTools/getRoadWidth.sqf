@@ -1,6 +1,7 @@
 params ["_road"];
 
 //Sweet but useless, every road is 10 meters width
+//It is possible to use this for road orientation tho
 
 [0, 180,10,10,5,1,0.5,0.1] params ["_angleOne", "_angleTwo", "_distanceOne", "_distanceTwo", "_largeAngleStep" ,"_smallAngleStep", "_largeDistanceStep", "_smallDistanceStep"];
 private ["_turnedAngle", "_positive", "_error", "_currentStep", "_abort", "_counter"];

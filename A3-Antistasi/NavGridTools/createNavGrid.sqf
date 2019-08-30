@@ -20,6 +20,8 @@
   publicVariable "setNavConnection";
   getRoadType = compile preprocessFileLineNumbers "NavGridTools\getRoadType.sqf";
   publicVariable "getRoadType";
+  createNavText = compile preprocessFileLineNumbers "NavGridTools\createNavText.sqf";
+  publicVariable "createNavText";
 
   allMarker = [];
 
@@ -315,7 +317,7 @@
           _currentSegment = objNull;
         };
       };
-      //hintSilent format ["Open segments: %1\n Inner Loop: %2\n Outer Loop: %3\n Debug: %4", str (count _openStartSegments), _innerLoop, _outerLoop, _debug];
+      hintSilent format ["Open segments: %1\n Inner Loop: %2\n Outer Loop: %3\n Debug: %4", str (count _openStartSegments), _innerLoop, _outerLoop, _debug];
       //sleep 0.05;
     };
   };
@@ -414,9 +416,9 @@
 
   } forEach _dataArray;
 
+  _text = [_dataArray] call createNavText;
+  copyToClipboard _text;
 
   _timeDiff = time - _startTime;
   hintC format ["Grid Creation finished, searched %1 start points and found %2 nav points in %3 seconds", _outerLoop, count _navPoints, _timeDiff];
-
-  copyToClipboard str _dataArray;
 };

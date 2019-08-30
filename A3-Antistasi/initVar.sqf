@@ -1,10 +1,12 @@
-//Original Author: Barbolani //Edited and updated by the Antstasi Community Development Team
+//Original Author: Barbolani
+//Edited and updated by the Antstasi Community Development Team
 diag_log format ["%1: [Antistasi] | INFO | initVar Started.",servertime];
 antistasiVersion = localize "STR_antistasi_credits_generic_version_text";
 
 ////////////////////////////////////
 // INITIAL SETTING AND VARIABLES ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Initial Variables",servertime];
 debug = false;													//debug variable, not useful for everything..
 diagOn = false;												//Turn on Diag_log messaging (unused - PBP)
 cleantime = 3600;												//time to delete dead bodies, vehicles etc..
@@ -45,6 +47,7 @@ Invaders = east;
 colorInvaders = "colorOPFOR";
 
 //Declaring Items Arrays
+diag_log format ["%1: [Antistasi] | INFO | initVar | Declaring Empty Arrays",servertime];
 allMagazines = [];
 arifles = [];
 srifles = [];
@@ -91,6 +94,7 @@ weaponsCSAT = [];
 ////////////////////////////////////
 //     BEGIN MOD DETECTION       ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Starting Mod Detection",servertime];
 //Faction MODs
 hasRHS = false;
 hasAFRF = false;
@@ -110,7 +114,6 @@ hasACRE = false;
 hasTFAR = false;
 startLR = false;
 
-diag_log format ["%1: [Antistasi] | INFO | initVar | Patching mod weapon support",servertime];
 //Radio Detection
 hasTFAR = isClass (configFile >> "CfgPatches" >> "task_force_radio");
 hasACRE = isClass (configFile >> "cfgPatches" >> "acre_main");
@@ -135,6 +138,7 @@ if ("ffaa_armas_hkg36k_normal" in arifles) then {hasFFAA = true; diag_log format
 ////////////////////////////////////
 //          MOD CONFIG           ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Mod Configs",servertime];
 //TFAR config
 if (hasTFAR) then
 	{
@@ -160,6 +164,7 @@ if (hasTFAR) then
 ////////////////////////////////////
 //     CIVILLIAN UNITS LIST      ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Civillians",servertime];
 arrayCivs = if (worldName == "Tanoa") then
 	{
 	["C_man_1","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_hunter_1_F","C_man_p_beggar_F","C_man_p_beggar_F_afro","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F","C_scientist_F","C_Orestes","C_Nikos","C_Nikos_aged","C_Man_casual_1_F_tanoan","C_Man_casual_2_F_tanoan","C_Man_casual_3_F_tanoan","C_man_sport_1_F_tanoan","C_man_sport_2_F_tanoan","C_man_sport_3_F_tanoan","C_Man_casual_4_F_tanoan","C_Man_casual_5_F_tanoan","C_Man_casual_6_F_tanoan"];
@@ -180,7 +185,7 @@ if (has3CB) then {arrayCivs append ["UK3CB_CHC_C_BODYG","UK3CB_CHC_C_CAN","UK3CB
 ////////////////////////////////////
 //      CIVILLIAN VEHICLES       ///
 ////////////////////////////////////
-diag_log format ["%1: [Antistasi]: initVar | Building Vehicle list.",servertime];
+diag_log format ["%1: [Antistasi]: initVar | Creating Vehicle list.",servertime];
 arrayCivVeh = if !(hasIFA) then
 	{
 	["C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_01_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_fuel_F","C_Van_01_transport_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_02_unarmed_F"];
@@ -194,6 +199,7 @@ civBoats = if !(hasIFA) then {["C_Boat_Civil_01_F","C_Scooter_Transport_01_F","C
 ////////////////////////////////////
 //     ID LIST FOR UNIT NAMES    ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Unit ID's",servertime];
 if !(hasIFA) then
 	{
 	arrayids = ["Anthis","Costa","Dimitirou","Elias","Gekas","Kouris","Leventis","Markos","Nikas","Nicolo","Panas","Rosi","Samaras","Thanos","Vega"];
@@ -204,7 +210,7 @@ if !(hasIFA) then
 //         TEMPLATE SELECTION      ///
 //////////////////////////////////////
 //Templates for GREENFOR Rebels
-diag_log format ["%1: [Antistasi] | INFO | initVar | Reading Player Templates",servertime];
+diag_log format ["%1: [Antistasi] | INFO | initVar | Reading Occupant Templates",servertime];
 if (!hasIFA) then
 	{
 	//NON-IFA Templates for DEFENDER
@@ -234,7 +240,8 @@ if (!hasIFA) then
 							};
 					};
 			};
-	//NON-IFA INVADER Templates
+		//NON-IFA INVADER Templates
+		diag_log format ["%1: [Antistasi] | INFO | initVar | Reading Invader Templates",servertime];
 		if (!hasAFRF) then
 			{
 			//Vanilla INVADER Template
@@ -254,6 +261,7 @@ if (!hasIFA) then
 					};
 			};
 		//NON-IFA REBEL Templates
+		diag_log format ["%1: [Antistasi] | INFO | initVar | Reading Rebel Templates",servertime];
 		if (!activeGREF) then
 			{
 			//Vanilla REBEL Template
@@ -283,6 +291,8 @@ if (!hasIFA) then
 	}
 	else
 	{
+	//IFA templates
+	diag_log format ["%1: [Antistasi] | INFO | initVar | Reading IFA Templates",servertime];
 	call compile preProcessFileLineNumbers "Templates\teamPlayerIFA.sqf";
 	call compile preProcessFileLineNumbers "Templates\InvadersIFA.sqf";
 	call compile preProcessFileLineNumbers "Templates\OccupantsIFA.sqf";
@@ -339,6 +349,7 @@ vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck
 ////////////////////////////////////
 //        BUILDINGS LISTS        ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Building Arrays",servertime];
 listMilBld = ["Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower_V1_No2_F","Land_Cargo_Tower_V1_No3_F","Land_Cargo_Tower_V1_No4_F","Land_Cargo_Tower_V1_No5_F","Land_Cargo_Tower_V1_No6_F","Land_Cargo_Tower_V1_No7_F","Land_Cargo_Tower_V2_F", "Land_Cargo_Tower_V3_F","Land_Cargo_HQ_V1_F","Land_Cargo_HQ_V2_F","Land_Cargo_HQ_V3_F","Land_Cargo_Patrol_V1_F","Land_Cargo_Patrol_V2_F","Land_Cargo_Patrol_V3_F","Land_HelipadSquare_F"];
 listbld = ["Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower_V1_No2_F","Land_Cargo_Tower_V1_No3_F","Land_Cargo_Tower_V1_No4_F","Land_Cargo_Tower_V1_No5_F","Land_Cargo_Tower_V1_No6_F","Land_Cargo_Tower_V1_No7_F","Land_Cargo_Tower_V2_F", "Land_Cargo_Tower_V3_F"];
 UPSMON_Bld_remove = ["Bridge_PathLod_base_F","Land_Slum_House03_F","Land_Bridge_01_PathLod_F","Land_Bridge_Asphalt_PathLod_F","Land_Bridge_Concrete_PathLod_F","Land_Bridge_HighWay_PathLod_F","Land_Bridge_01_F","Land_Bridge_Asphalt_F","Land_Bridge_Concrete_F","Land_Bridge_HighWay_F","Land_Canal_Wall_Stairs_F","warehouse_02_f","cliff_wall_tall_f","cliff_wall_round_f","containerline_02_f","containerline_01_f","warehouse_01_f","quayconcrete_01_20m_f","airstripplatform_01_f","airport_02_terminal_f","cliff_wall_long_f","shop_town_05_f","Land_ContainerLine_01_F"];
@@ -348,6 +359,7 @@ lamptypes = ["Lamps_Base_F", "PowerLines_base_F","Land_LampDecor_F","Land_LampHa
 ////////////////////////////////////
 //     SOUNDS AND ANIMATIONS     ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Building Sounds and Animations",servertime];
 ladridos = ["Music\dog_bark01.wss", "Music\dog_bark02.wss", "Music\dog_bark03.wss", "Music\dog_bark04.wss", "Music\dog_bark05.wss","Music\dog_maul01.wss","Music\dog_yelp01.wss","Music\dog_yelp02.wss","Music\dog_yelp03.wss"];
 injuredSounds =
 [
@@ -360,6 +372,7 @@ medicAnims = ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPknlMstpSnonWnonDnon_medic
 ////////////////////////////////////
 //     REBEL UNIFORMS LIST       ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Rebel Uniforms",servertime];
 {
 _unit = _x select 0;
 _uniform = (getUnitLoadout _unit select 3) select 0;
@@ -376,6 +389,7 @@ if (count _x > 1) then
 ////////////////////////////////////
 //      CIV UNIFORMS LIST        ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Civillian Uniforms",servertime];
 {
 _uniform = (getUnitLoadout _x select 3) select 0;
 civUniforms pushBackUnique _uniform;
@@ -384,7 +398,7 @@ civUniforms pushBackUnique _uniform;
 ////////////////////////////////////
 //      ALL MAGAZINES LIST       ///
 ////////////////////////////////////
-diag_log format ["%1: [Antistasi] | INFO | initVar | Building Magazine Pool.",servertime];
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Magazine Pool.",servertime];
 _cfgMagazines = configFile >> "cfgmagazines";
 for "_i" from 0 to ((count _cfgMagazines) -1) do
 	{
@@ -399,7 +413,7 @@ for "_i" from 0 to ((count _cfgMagazines) -1) do
 ////////////////////////////////////
 //   ALL WEAPONS/ITEMS LIST      ///
 ////////////////////////////////////
-diag_log format ["%1: [Antistasi] | INFO | initVar | Building Weapon list",servertime];
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Weapon list",servertime];
 _allPrimaryWeapons = "
     ( getNumber ( _x >> ""scope"" ) isEqualTo 2
     &&
@@ -484,6 +498,7 @@ helmets = helmets select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemIn
 ////////////////////////////////////
 //      ACE ITEMS LIST           ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating ACE Items List",servertime];
 if (hasACE) then
 	{
 	aceItems = [
@@ -547,6 +562,7 @@ if (side (group petros) == west) then {swoopShutUp pushBack "U_B_Wetsuit"} else 
 //   DEFENDER WEAPONS AND AMMO   ///
 ////////////////////////////////////
 //Creates the list of weapons and ammo for DEFENDER loot crates
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Occupant Crate Lists",servertime];
 _checked = [];
 {
 {
@@ -577,6 +593,7 @@ ammunitionNATO pushBack (_magazines select 0);
 //   INVADER WEAPONS AND AMMO    ///
 ////////////////////////////////////
 //Creates the list of weapons and ammo for INVADER loot crates
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Invader Crate Lists",servertime];
 {
 {
 _typeX = _x;
@@ -605,6 +622,7 @@ ammunitionCSAT pushBack (_magazines select 0);
 ////////////////////////////////////
 //   WEAPON ATTACHMENTS LIST     ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Weapon Attachment Lists",servertime];
 {
 {
 _item = _x;
@@ -636,6 +654,7 @@ if !(_item in (opticsAAF + flashLights + pointers)) then
 //   SMOKE GRENADES LIST         ///
 ////////////////////////////////////
 //THIS LIST IS USED BY LOOT CRATES AND AI CURRENTLY
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Smoke Grenade Lists",servertime];
 smokeX = ["SmokeShell","SmokeShellRed","SmokeShellGreen","SmokeShellBlue","SmokeShellYellow","SmokeShellPurple","SmokeShellOrange"];
 
 ////////////////////////////////////
@@ -643,12 +662,14 @@ smokeX = ["SmokeShell","SmokeShellRed","SmokeShellGreen","SmokeShellBlue","Smoke
 ////////////////////////////////////
 //Chemlight loot for crates
 //this is an ugly list of vanilla chems I made myself - PBP
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Chemstick Lists",servertime];
 chemX = ["Chemlight_green","Chemlight_red","Chemlight_yellow","Chemlight_blue"];
 
 ////////////////////////////////////
 //       REBEL LOOT ITEMS        ///
 ////////////////////////////////////
 //These items occupy the general items slot of loot crates
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Loot Items Lists",servertime];
 itemsAAF =
 	[
 	"Laserbatteries",
@@ -696,6 +717,7 @@ if (hasRHS and !hasIFA) then
 //     PLACED EXPLOSIVES LOOT    ///
 ////////////////////////////////////
 //This is the ONLY SOURCE of mines loot for crates
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Loot Mines Lists",servertime];
 minesAAF =
 	[
 	"SLAMDirectionalMine_Wire_Mag",
@@ -734,6 +756,7 @@ if (hasRHS and !hasIFA) then
 //   REBEL FACTION LAUNCHERS     ///
 ////////////////////////////////////
 //These launchers will be IN ADDITION TO whatever launchers enemies carry
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Loot Launchers Lists",servertime];
 antitankAAF =
 	[
 	"launch_I_Titan_F",
@@ -754,6 +777,7 @@ if (hasRHS) then
 //      REBEL STARTING ITEMS     ///
 ////////////////////////////////////
 //These items will be unlocked when the mission starts
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Unlocked Items Lists",servertime];
 unlockedItems =
 	[
 	"ItemMap",
@@ -829,6 +853,7 @@ if (hasIFA) then
 ////////////////////////////////////
 //RHS WEAPON ATTACHMENTS REDUCER ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Modifying Item Lists for Mods",servertime];
 if (hasRHS) then
 	{
 	opticsAAF = opticsAAF select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
@@ -917,6 +942,7 @@ if (startLR) then {unlockedBackpacks pushBack "tf_anprc155"};
 ////////////////////////////////////
 //     MISSION PATH WARNING      ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Checking Mission Path",servertime];
 _getMissionPath = [] execVM "initGetMissionPath.sqf";
 waitUntil
 {
@@ -931,6 +957,7 @@ hint "Done compiling missionPath";
 ////////////////////////////////////
 // SERVER AND HEADLESS VARIABLES ///
 ////////////////////////////////////
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Server/Host Variables",servertime];
 if (!isServer and hasInterface) exitWith {};
 difficultyCoef = if !(isMultiplayer) then {0} else {floor ((({side group _x == teamPlayer} count playableUnits) - ({side group _x != teamPlayer} count playableUnits)) / 5)};
 AAFpatrols = 0;
@@ -945,7 +972,7 @@ distanceForLandAttack = if (hasIFA) then {5000} else {3000};
 ////////////////////////////////////
 //   MAP SETTINGS AND MARKERS    ///
 ////////////////////////////////////
-diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Vehicle Spawn Points.",servertime];
+diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Map Details.",servertime];
 switch (worldName) do {
 case "Tanoa":
 	{
@@ -1001,7 +1028,7 @@ case "chernarus_summer":
 //    UNIT AND VEHICLE PRICES    ///
 ////////////////////////////////////
 if (!isServer) exitWith {};
-diag_log format ["%1: [Antistasi] | INFO | initVar | Building Pricelist.",servertime];
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Pricelist.",servertime];
 {server setVariable [_x,50,true]} forEach SDKMil;
 {server setVariable [_x,75,true]} forEach (sdkTier1 - SDKMil);
 {server setVariable [_x,100,true]} forEach  sdkTier2;
@@ -1065,7 +1092,7 @@ zoneCheckInProgress = false;
 garrisonIsChanging = false;
 movingMarker = false;
 garageIsUsed = false;
-missionsX = []; publicVariable "missionsX";
+missionsX = [];
 markersChanging = [];
 staticsToSave = [];
 vehInGarage = [];
@@ -1076,7 +1103,7 @@ playerHasBeenPvP = [];
 ////////////////////////////////////
 // DECLARE VARIBALES FOR CLIENTS ///
 ////////////////////////////////////
-diag_log format ["%1: [Antistasi] | INFO | initVar | Storing variables.",servertime];
+diag_log format ["%1: [Antistasi] | INFO | initVar | Declaring Variables For Clients.",servertime];
 
 publicVariable "hasACE";
 publicVariable "hasTFAR";
@@ -1114,6 +1141,7 @@ publicVariable "napalmCurrent";
 publicVariable "tierWar";
 publicVariable "haveRadio";
 publicVariable "haveNV";
+publicVariable "missionsX";
 
 if (isMultiplayer) then {[[petros,"hint","Variables Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP;};
 diag_log format ["%1: [Antistasi] | INFO | initVar Completed.",servertime];

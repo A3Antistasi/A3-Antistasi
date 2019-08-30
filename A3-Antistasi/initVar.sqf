@@ -149,10 +149,11 @@ if (hasTFAR) then
 				waitUntil {sleep 1; !isNil "TF_server_addon_version"};
 				diag_log format ["%1: [Antistasi] | INFO | initVar | Initialising TFAR settings.",servertime];
 				["TF_no_auto_long_range_radio", true, true,"mission"] call CBA_settings_fnc_set;						//set to false and players will spawn with LR radio.
-				if (hasIFA) then {
-	  			["TF_give_personal_radio_to_regular_soldier", false, true,"mission"] call CBA_settings_fnc_set;
-	  			["TF_give_microdagr_to_soldier", false, true,"mission"] call CBA_settings_fnc_set;
-				};
+				if (hasIFA) then
+					{
+	  				["TF_give_personal_radio_to_regular_soldier", false, true,"mission"] call CBA_settings_fnc_set;
+	  				["TF_give_microdagr_to_soldier", false, true,"mission"] call CBA_settings_fnc_set;
+					};
 				//tf_teamPlayer_radio_code = "";publicVariable "tf_teamPlayer_radio_code";								//to make enemy vehicles usable as LR radio
 				//tf_east_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_east_radio_code";					//to make enemy vehicles usable as LR radio
 				//tf_guer_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_guer_radio_code";					//to make enemy vehicles usable as LR radio
@@ -185,7 +186,7 @@ if (has3CB) then {arrayCivs append ["UK3CB_CHC_C_BODYG","UK3CB_CHC_C_CAN","UK3CB
 ////////////////////////////////////
 //      CIVILLIAN VEHICLES       ///
 ////////////////////////////////////
-diag_log format ["%1: [Antistasi]: initVar | Creating Vehicle list.",servertime];
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Vehicle list.",servertime];
 arrayCivVeh = if !(hasIFA) then
 	{
 	["C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_01_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_fuel_F","C_Van_01_transport_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_02_unarmed_F"];

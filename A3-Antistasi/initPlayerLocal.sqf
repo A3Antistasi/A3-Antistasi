@@ -29,7 +29,9 @@ if (!hasInterface) exitWith
 	if (worldName == "Tanoa") then {call compile preprocessFileLineNumbers "roadsDB.sqf"};
 	if (worldName == "Altis") then {call compile preprocessFileLineNumbers "roadsDBAltis.sqf"};
 	if (worldName == "chernarus_summer") then {call compile preprocessFileLineNumbers "roadsDBcherna.sqf"};
-	[clientOwner] remoteExec ["A3A_fnc_addHC",2];
+	if (worldName == "enoch") then {call compile preprocessFileLineNumbers "roadsDBLivonia.sqf"};
+	if (worldName == "Malden") then {call compile preprocessFileLineNumbers "roadsDBMalden.sqf"};
+[clientOwner] remoteExec ["A3A_fnc_addHC",2];
 	};
 _isJip = _this select 1;
 if (isMultiplayer) then
@@ -48,7 +50,7 @@ if (isMultiplayer) then
 	tkPunish = if ("tkPunish" call BIS_fnc_getParamValue == 1) then {true} else {false};
 	if ((side player == teamPlayer) and tkPunish) then
 	{
-		private _firedHandlerTk = 
+		private _firedHandlerTk =
 		{
 			_typeX = _this select 1;
 			if ((_typeX == "Put") or (_typeX == "Throw")) then
@@ -66,7 +68,7 @@ if (isMultiplayer) then
 			};
 		};
 		player addEventHandler ["Fired", _firedHandlerTk];
-		if (hasACE) then 
+		if (hasACE) then
 		{
 			["ace_firedPlayer", _firedHandlerTk ] call CBA_fnc_addEventHandler;
 		};
@@ -228,7 +230,7 @@ if (hasACE) then {
 	player addItem "ACE_Flashlight_XL50";
 };
 player setvariable ["compromised",0];
-player addEventHandler 
+player addEventHandler
 [
 	"FiredMan",
 	{
@@ -262,10 +264,10 @@ player addEventHandler
 		}
 	}
 ];
-player addEventHandler 
+player addEventHandler
 [
 	"HandleDamage",
-	{	
+	{
 		private _victim = param [0];
 		private _damage = param [2];
 		private _instigator = param [6];
@@ -274,16 +276,16 @@ player addEventHandler
 			[_instigator, 20, 0.21] remoteExec ["A3A_fnc_punishment",_instigator];
 			hint format["%1 hurt you!",_instigator];
 			[format [
-				"%1: [Antistasi] | INFO | %1 injured by %2 (UID: %3) %4m from HQ", 
-				name _victim, 
-				name _instigator, 
+				"%1: [Antistasi] | INFO | %1 injured by %2 (UID: %3) %4m from HQ",
+				name _victim,
+				name _instigator,
 				getPlayerUID _instigator,
 				_victim distance2D posHQ
 			]] remoteExec ["diag_log", 2];
 		};
 	}
 ];
-player addEventHandler 
+player addEventHandler
 [
 	"InventoryOpened",
 	{

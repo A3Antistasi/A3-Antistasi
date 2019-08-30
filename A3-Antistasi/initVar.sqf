@@ -186,7 +186,7 @@ if (has3CB) then {arrayCivs append ["UK3CB_CHC_C_BODYG","UK3CB_CHC_C_CAN","UK3CB
 ////////////////////////////////////
 //      CIVILLIAN VEHICLES       ///
 ////////////////////////////////////
-diag_log format ["%1: [Antistasi]: initVar | Creating Vehicle list.",servertime];
+diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Vehicle list.",servertime];
 arrayCivVeh = if !(hasIFA) then
 	{
 	["C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_01_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_fuel_F","C_Van_01_transport_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_02_unarmed_F"];

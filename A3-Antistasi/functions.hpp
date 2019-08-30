@@ -8,6 +8,7 @@ class A3A
         class blackout {file="blackout.sqf";};
         class attackAAF {file="attackAAF.sqf";};
         class buildHQ {file="buildHQ.sqf";};
+        class ejectPvPPlayerIfInvalidVehicle {file="ejectPvPPlayerIfInvalidVehicle.sqf";};
         class createPetros {file="createPetros.sqf";};
         class punishment {file="punishment.sqf";};
         class citiesToCivPatrol {file="citiesToCivPatrol.sqf";};
@@ -50,6 +51,7 @@ class A3A
         class outpostDialog {file="outpostDialog.sqf";};
         class radioCheck {file="radioCheck.sqf";};
         class rebuildAssets {file="rebuildAssets.sqf";};
+        class repairRuinedBuilding {file="repairRuinedBuilding.sqf";};
         class relocateHQObjects {file="relocateHQObjects.sqf";};
         class resourceCheckSkipTime {file="resourcecheckSkipTime.sqf";};
         class resourcesFIA {file="resourcesFIA.sqf";};
@@ -218,8 +220,10 @@ class A3A
         class ammunitionTransfer {file="Ammunition\ammunitionTransfer.sqf";};
         class NATOCrate {file="Ammunition\NATOCrate.sqf";};
         class randomRifle {file="Ammunition\randomRifle.sqf";};
-        class RHSdress {file="Ammunition\RHSdress.sqf";};
+        class dress {file="Ammunition\dress.sqf";};
         class empty {file="Ammunition\empty.sqf";};
+        class getRadio {file="Ammunition\getRadio.sqf";};
+        class checkRadiosUnlocked {file="Ammunition\checkRadiosUnlocked.sqf";};
         //class boxAAF {file="Ammunition\boxAAF.sqf";};
 	}
 
@@ -275,6 +279,12 @@ class A3A
         class respawn {file="Revive\respawn.sqf";};
 	}
 	
+	class Runways 
+	{
+		class getRunwayTakeoffForAirportMarker {file="getRunwayTakeoffForAirportMarker.sqf";};	
+		class runwayInfo {file="runwayInfo.sqf";};
+	}
+	
 	class Save
 	{
         class playerHasSave {file="statSave\playerHasSave.sqf";};
@@ -283,8 +293,14 @@ class A3A
         class loadPreviousSession {file="statSave\loadPreviousSession.sqf";};
 	}
 	
+	class Templates
+	{
+        class getLoadout {file="Templates\Loadouts\getLoadout.sqf";};
+	}
+	
 	class Utility
 	{
+        class basicBackpack {file="Ammunition\basicBackpack.sqf";};
         class dateToTimeString {file="dateToTimeString.sqf";};
 	}
 }

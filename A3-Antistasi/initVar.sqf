@@ -5,8 +5,8 @@
 //Not commented lines cannot be changed.
 //Don't touch them.
 
-antistasiVersion = "v 1.4c2.0";
-
+diag_log format ["%1: [Antistasi] | INFO | initVar Started.",servertime];
+antistasiVersion = localize "STR_antistasi_credits_generic_version_text";
 
 debug = false;//debug variable, not useful for everything..
 
@@ -23,12 +23,12 @@ incomeRep = false;
 //distanceMission = 2500;
 /*
 minMags = 20;
-
 minPacks = 20;
 minItems = 20;
 minOptics = 12;*/
 maxUnits = 140;
 
+diag_log format ["%1: [Antistasi] | INFO | initVar | Generating Players.",servertime];
 teamPlayer = side group petros;
 Occupants = if (teamPlayer == independent) then {west} else {independent};
 Invaders = east;
@@ -41,6 +41,7 @@ respawnTeamPlayer = if (teamPlayer == independent) then {"respawn_guerrila"} els
 respawnOccupants = if (teamPlayer == independent) then {"respawn_west"} else {"respawn_guerrila"};
 posHQ = getMarkerPos respawnTeamPlayer;
 
+diag_log format ["%1: [Antistasi] | INFO | initVar | Building Magazine Pool.",servertime];
 allMagazines = [];
 _cfgmagazines = configFile >> "cfgmagazines";
 for "_i" from 0 to (count _cfgMagazines) -1 do
@@ -62,10 +63,12 @@ rlaunchers = [];
 helmets = [];
 //vests = [];
 
+unlockedItems = [];
+
 hasRHS = false;
 
 //lockedWeapons = ["Rangefinder","Laserdesignator"];
-
+diag_log format ["%1: [Antistasi] | INFO | initVar | Building Weapon list",servertime];
 _allPrimaryWeapons = "
     ( getNumber ( _x >> ""scope"" ) isEqualTo 2
     &&
@@ -97,7 +100,7 @@ _allItems = "
     &&
     { getNumber ( _x >> ""type"" ) isEqualTo 131072 } } )
 " configClasses ( configFile >> "cfgWeapons" );
-
+diag_log format ["%1: [Antistasi] | INFO | initVar | Placing weapons.",servertime];
 _alreadyPlaced = [];
 {
 _nameX = configName _x;
@@ -123,31 +126,76 @@ if (not(_nameX in _alreadyPlaced)) then
 	};
 } forEach _allPrimaryWeapons + _allHandGuns + _allLaunchers + _allItems;
 //vests = vests select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor") > 5};
+//-------------
+//MOD DETECTION
+//-------------
 activeAFRF = false;
 activeUSAF = false;
 activeGREF = false;
 hasFFAA = false;
-hasIFA = false;
+hasIFA = (isClass(configFile/"CfgPatches"/"LIB_Core"));
 myCustomMod = false;
 has3CB = false;
 
-if (isClass(configFile/"CfgPatches"/"LIB_Core")) then
+hasTFAR = (isClass (configFile >> "CfgPatches" >> "task_force_radio"));
+hasACRE = (isClass(configFile >> "cfgPatches" >> "acre_main"));
+haveRadio = hasTFAR || hasACRE;
+
+hasACE = (!isNil "ace_common_fnc_isModLoaded");
+hasACEhearing = (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak"));
+hasACEMedical = (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3"));
+hasADVCPR = isClass (configFile >> "CfgPatches" >> "adv_aceCPR");
+hasADVSplint = isClass (configFile >> "CfgPatches" >> "adv_aceSplint");
+
+diag_log format ["%1: [Antistasi] | INFO | initVar | Patching mod weapon support",servertime];
+if (hasIFA) then
 	{
-	hasIFA = true;
 	helmets = [];
 	smokeX = ["LIB_RDG","LIB_NB39"];
 	}
 else
 	{
- 	if ("UK3CB_BAF_L1A1" in arifles) then {has3CB = true};
-	if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hasRHS = true};
-	if ("ffaa_armas_hkg36k_normal" in arifles) then {hasFFAA = true};
-	if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hasRHS = true};
+ 	if ("UK3CB_BAF_L1A1" in arifles) then {has3CB = true; diag_log format ["%1: [Antistasi] | INFO | initVar | 3CB Detected.",servertime];};
+	if ("rhs_weap_akms" in arifles) then {activeAFRF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS Detected.",servertime];};
+	if ("ffaa_armas_hkg36k_normal" in arifles) then {hasFFAA = true; diag_log format ["%1: [Antistasi] | INFO | initVar | FFAA Detected.",servertime];};
+	if ("rhs_weap_m4a1_d" in arifles) then {activeUSAF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | USAF Patch for RHS Detected.",servertime];};
 	if ("rhs_weap_m92" in arifles) then {activeGREF = true; hasRHS = true} else {mguns pushBack "LMG_Mk200_BI_F"};
 	helmets = helmets select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2};
 	smokeX = ["SmokeShell","SmokeShellRed","SmokeShellGreen","SmokeShellBlue","SmokeShellYellow","SmokeShellPurple","SmokeShellOrange"];
 	};
 
+//TFAR config
+startLR = false;
+if (hasTFAR) then
+{
+	startLR = true;//set to true to start with LR radios unlocked.
+	//unlockedItems = unlockedItems;
+	if (isServer) then {
+		[] spawn {
+			waitUntil {sleep 1; !isNil "TF_server_addon_version"};
+			diag_log format ["%1: [Antistasi] | INFO | initVar | Initialising TFAR settings.",servertime];
+			["TF_no_auto_long_range_radio", true, true,"mission"] call CBA_settings_fnc_set;//set to false and players will spawn with LR radio.
+			if (hasIFA) then {
+			  ["TF_give_personal_radio_to_regular_soldier", false, true,"mission"] call CBA_settings_fnc_set;
+			  ["TF_give_microdagr_to_soldier", false, true,"mission"] call CBA_settings_fnc_set;
+			};
+			//tf_teamPlayer_radio_code = "";publicVariable "tf_teamPlayer_radio_code";//to make enemy vehicles usable as LR radio
+			//tf_east_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_east_radio_code"; //to make enemy vehicles usable as LR radio
+			//tf_guer_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_guer_radio_code";//to make enemy vehicles usable as LR radio
+			["TF_same_sw_frequencies_for_side", true, true,"mission"] call CBA_settings_fnc_set;//synchronize SR default frequencies
+			["TF_same_lr_frequencies_for_side", true, true,"mission"] call CBA_settings_fnc_set;//synchronize LR default frequencies
+		};
+	};
+};
+
+//ACRE config
+if (hasACRE) then
+{
+	unlockedItems = unlockedItems + ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"];
+};
+
+//Launcher selection
+diag_log format ["%1: [Antistasi]: initVar | Building Launcher list.",servertime];
 titanLaunchers = if ((!hasRHS) and !hasIFA and !myCustomMod) then
 	{
 	["launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_ghex_F","launch_O_Titan_F","launch_B_Titan_tna_F"]
@@ -202,8 +250,9 @@ else
 		if (hasIFA and !myCustomMod) then {["FirstAidKit","Medikit","ToolKit","LIB_ToolKit"]} else {["FirstAidKit","Medikit","ToolKit"]};
 		}
 	};
+diag_log format ["%1: [Antistasi]: initVar | Building NightVision list.",servertime];
 NVGoggles = if (!hasIFA) then {["NVGoggles_OPFOR","NVGoggles_INDEP","O_NVGoggles_hex_F","O_NVGoggles_urb_F","O_NVGoggles_ghex_F","NVGoggles_tna_F","NVGoggles"]} else {[]};
-
+diag_log format ["%1: [Antistasi]: initVar | Building Vehicle list.",servertime];
 arrayCivVeh = if !(hasIFA) then
 	{
 	["C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_01_F","C_SUV_01_F","C_Van_01_box_F","C_Van_01_fuel_F","C_Van_01_transport_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_02_unarmed_F"];
@@ -217,7 +266,7 @@ ammunitionNATO = [];
 weaponsNato = [];
 ammunitionCSAT = [];
 weaponsCSAT = [];
-
+diag_log format ["%1: [Antistasi] | INFO | initVar | Reading Player Templates",servertime];
 if (!hasIFA) then
 	{
 	if(has3CB) then {
@@ -254,6 +303,7 @@ else
 	call compile preProcessFileLineNumbers "Templates\OccupantsIFA.sqf";
 	};
 
+diag_log format ["%1: [Antistasi] | INFO | initVar | Assigning Squad Types.",servertime];
 squadLeaders = SDKSL + [(NATOSquad select 0),(NATOSpecOp select 0),(CSATSquad select 0),(CSATSpecOp select 0),(FIASquad select 0)];
 medics = SDKMedic + [(FIAsquad select ((count FIAsquad)-1)),(NATOSquad select ((count NATOSquad)-1)),(NATOSpecOp select ((count NATOSpecOp)-1)),(CSATSquad select ((count CSATSquad)-1)),(CSATSpecOp select ((count CSATSpecOp)-1))];
 sdkTier1 = SDKMil + [staticCrewTeamPlayer] + SDKMG + SDKGL + SDKATman;
@@ -363,13 +413,13 @@ if (hasRHS) then
 	flashlights = flashlights select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
 	pointers = pointers select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
 	};
-
+diag_log format ["%1: [Antistasi] | INFO | initVar | Assigning vehicle Types",servertime];
 vehNormal = vehNATONormal + vehCSATNormal + [vehFIATruck,vehSDKTruck,vehSDKLightArmed,vehSDKBike,vehSDKRepair];
 vehBoats = [vehNATOBoat,vehCSATBoat,vehSDKBoat];
 vehAttack = vehNATOAttack + vehCSATAttack;
 vehPlanes = vehNATOAir + vehCSATAir + [vehSDKPlane];
 vehAttackHelis = vehCSATAttackHelis + vehNATOAttackHelis;
-vehFixedWing = [vehNATOPlane,vehNATOPlaneAA,vehCSATPlane,vehCSATPlaneAA,vehSDKPlane];
+vehFixedWing = [vehNATOPlane,vehNATOPlaneAA,vehCSATPlane,vehCSATPlaneAA,vehSDKPlane] + vehNATOTransportPlanes + vehCSATTransportPlanes;
 vehUAVs = [vehNATOUAV,vehCSATUAV];
 vehAmmoTrucks = [vehNATOAmmoTruck,vehCSATAmmoTruck];
 vehAPCs = vehNATOAPC + vehCSATAPC;
@@ -377,7 +427,7 @@ vehTanks = [vehNATOTank,vehCSATTank];
 vehTrucks = vehNATOTrucks + vehCSATTrucks + [vehSDKTruck,vehFIATruck];
 vehAA = [vehNATOAA,vehCSATAA];
 vehMRLS = [vehCSATMRLS, vehNATOMRLS];
-vehTransportAir = vehNATOTransportHelis + vehCSATTransportHelis;
+vehTransportAir = vehNATOTransportHelis + vehCSATTransportHelis + vehNATOTransportPlanes + vehCSATTransportPlanes;
 vehFastRope = ["O_Heli_Light_02_unarmed_F","B_Heli_Transport_01_camo_F","RHS_UH60M_d","RHS_Mi8mt_vdv","RHS_Mi8mt_vv","RHS_Mi8mt_Cargo_vv"];
 vehUnlimited = vehNATONormal + vehCSATNormal + [vehNATORBoat,vehNATOPatrolHeli,vehCSATRBoat,vehCSATPatrolHeli,vehNATOUAV,vehNATOUAVSmall,NATOMG,NATOMortar,vehCSATUAV,vehCSATUAVSmall,CSATMG,CSATMortar];
 sniperGroups = [groupsNATOSniper,groupsCSATSniper];
@@ -396,11 +446,11 @@ else
 		}
 	else
 		{
-		["LIB_CIV_Assistant","LIB_CIV_Assistant_2","LIB_CIV_Citizen_1","LIB_CIV_Citizen_2","LIB_CIV_Citizen_3","LIB_CIV_Citizen_4","LIB_CIV_Citizen_5","LIB_CIV_Citizen_6","LIB_CIV_Citizen_7","LIB_CIV_Citizen_8","LIB_CIV_Priest","LIB_CIV_Doctor","LIB_CIV_Functionary_3","LIB_CIV_Functionary_2","LIB_CIV_Functionary_4","LIB_CIV_Villager_4","LIB_CIV_Villager_1","LIB_CIV_Villager_2","LIB_CIV_Villager_3","LIB_CIV_Woodlander_1","LIB_CIV_Woodlander_3","LIB_CIV_Woodlander_2","LIB_CIV_Woodlander_4","LIB_CIV_SchoolTeacher","LIB_CIV_SchoolTeacher_2","LIB_CIV_Rocker","LIB_CIV_Worker_3","LIB_CIV_Worker_1","LIB_CIV_Worker_4","LIB_CIV_Worker_2"]
+		["LIB_CIV_Assistant","LIB_CIV_Assistant_2","LIB_CIV_Citizen_1","LIB_CIV_Citizen_2","LIB_CIV_Citizen_3","LIB_CIV_Citizen_4","LIB_CIV_Citizen_5","LIB_CIV_Citizen_6","LIB_CIV_Citizen_7","LIB_CIV_Citizen_8","LIB_CIV_Doctor","LIB_CIV_Functionary_3","LIB_CIV_Functionary_2","LIB_CIV_Functionary_4","LIB_CIV_Villager_4","LIB_CIV_Villager_1","LIB_CIV_Villager_2","LIB_CIV_Villager_3","LIB_CIV_Woodlander_1","LIB_CIV_Woodlander_3","LIB_CIV_Woodlander_2","LIB_CIV_Woodlander_4","LIB_CIV_SchoolTeacher","LIB_CIV_SchoolTeacher_2","LIB_CIV_Rocker","LIB_CIV_Worker_3","LIB_CIV_Worker_1","LIB_CIV_Worker_4","LIB_CIV_Worker_2"]
 		};
 	};//array of possible civs. Only euro types picked (this is Greece). Add any civ classnames you wish here
 //3CB Civ addition
-if (has3CB) then {arrayCivs append ["UK3CB_CHC_C_BODYG","UK3CB_CHC_C_CAN","UK3CB_CHC_C_COACH","UK3CB_CHC_C_DOC","UK3CB_CHC_C_FUNC","UK3CB_CHC_C_HIKER","UK3CB_CHC_C_LABOUR","UK3CB_CHC_C_PILOT","UK3CB_CHC_C_PRIEST","UK3CB_CHC_C_POLITIC","UK3CB_CHC_C_PROF","UK3CB_CHC_C_VILL","UK3CB_CHC_C_WORKER"]};
+if (has3CB) then {arrayCivs append ["UK3CB_CHC_C_BODYG","UK3CB_CHC_C_CAN","UK3CB_CHC_C_COACH","UK3CB_CHC_C_DOC","UK3CB_CHC_C_FUNC","UK3CB_CHC_C_HIKER","UK3CB_CHC_C_LABOUR","UK3CB_CHC_C_PILOT","UK3CB_CHC_C_POLITIC","UK3CB_CHC_C_PROF","UK3CB_CHC_C_VILL","UK3CB_CHC_C_WORKER"]};
 
 civBoats = if !(hasIFA) then {["C_Boat_Civil_01_F","C_Scooter_Transport_01_F","C_Boat_Transport_02_F","C_Rubberboat"]} else {[]};
 lamptypes = ["Lamps_Base_F", "PowerLines_base_F","Land_LampDecor_F","Land_LampHalogen_F","Land_LampHarbour_F","Land_LampShabby_F","Land_NavigLight","Land_runway_edgelight","Land_PowerPoleWooden_L_F"];
@@ -455,7 +505,7 @@ bigAttackInProgress = false;
 chopForest = false;
 distanceForAirAttack = 10000;
 distanceForLandAttack = if (hasIFA) then {5000} else {3000};
-
+diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Vehicle Spawn Points.",servertime];
 if (worldName == "Tanoa") then
 	{
 	roadsMrk = ["road","road_1","road_2","road_3","road_4","road_5","road_6","road_7","road_8","road_9","road_10","road_11","road_12","road_13","road_14","road_15","road_16"];
@@ -505,7 +555,7 @@ if (side (group petros) == west) then {swoopShutUp pushBack "U_B_Wetsuit"} else 
 
 //Pricing values for soldiers, vehicles
 if (!isServer) exitWith {};
-
+diag_log format ["%1: [Antistasi] | INFO | initVar | Building Pricelist.",servertime];
 {server setVariable [_x,50,true]} forEach SDKMil;
 {server setVariable [_x,75,true]} forEach (sdkTier1 - SDKMil);
 {server setVariable [_x,100,true]} forEach  sdkTier2;
@@ -525,7 +575,9 @@ timer setVariable [vehNATOPlane,0,true];
 timer setVariable [vehCSATPlane,10,true];
 timer setVariable [vehNATOPlaneAA,0,true];
 timer setVariable [vehCSATPlaneAA,10,true];
+{timer setVariable [_x,1,true]} forEach vehNATOTransportPlanes;
 {timer setVariable [_x,1,true]} forEach vehNATOTransportHelis - [vehNATOPatrolHeli];
+{timer setVariable [_x,1,true]} forEach vehCSATTransportPlanes;
 {timer setVariable [_x,10,true]} forEach vehCSATTransportHelis - [vehCSATPatrolHeli];
 {timer setVariable [_x,0,true]} forEach vehNATOAttackHelis;
 {timer setVariable [_x,10,true]} forEach vehCSATAttackHelis;
@@ -562,7 +614,6 @@ markersChanging = [];
 staticsToSave = [];
 napalmCurrent = false;
 tierWar = 1;
-haveRadio = false;
 haveNV = false;
 zoneCheckInProgress = false;
 garrisonIsChanging = false;
@@ -571,86 +622,29 @@ missionsX = []; publicVariable "missionsX";
 movingMarker = false;
 if !(hasIFA) then
 	{
-	unlockedItems = ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit","H_Booniehat_khk","H_Booniehat_oli","H_Booniehat_grn","H_Booniehat_dirty","H_Cap_oli","H_Cap_blk","H_MilCap_rucamo","H_MilCap_gry","H_BandMask_blk","H_Bandanna_khk","H_Bandanna_gry","H_Bandanna_camo","H_Shemag_khk","H_Shemag_tan","H_Shemag_olive","H_ShemagOpen_tan","H_Beret_grn","H_Beret_grn_SF","H_Watchcap_camo","H_TurbanO_blk","H_Hat_camo","H_Hat_tan","H_Beret_blk","H_Beret_red","H_Watchcap_khk","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_lowprofile","G_Balaclava_oli","G_Bandanna_beast","G_Tactical_Black","G_Aviator","G_Shades_Black","acc_flashlight"] + uniformsSDK + civUniforms;//Initial Arsenal available items
-	if (side group petros == independent) then {unlockedItems pushBack "I_UavTerminal"} else {unlockedItems pushBack "B_UavTerminal"};
+	unlockedItems = unlockedItems + ["ItemMap","ItemWatch","ItemCompass","ToolKit","H_Booniehat_khk","H_Booniehat_oli","H_Booniehat_grn","H_Booniehat_dirty","H_Cap_oli","H_Cap_blk","H_MilCap_rucamo","H_MilCap_gry","H_BandMask_blk","H_Bandanna_khk","H_Bandanna_gry","H_Bandanna_camo","H_Shemag_khk","H_Shemag_tan","H_Shemag_olive","H_ShemagOpen_tan","H_Beret_grn","H_Beret_grn_SF","H_Watchcap_camo","H_TurbanO_blk","H_Hat_camo","H_Hat_tan","H_Beret_blk","H_Beret_red","H_Watchcap_khk","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_lowprofile","G_Balaclava_oli","G_Bandanna_beast","G_Tactical_Black","G_Aviator","G_Shades_Black","acc_flashlight"] + uniformsSDK + civUniforms;//Initial Arsenal available items
+	//Adds starting vests. THIS IS TEMPORARY and should be moved to the template files.
+	unlockedItems append ["V_Rangemaster_belt","V_BandollierB_khk","V_BandollierB_cbr","V_BandollierB_rgr","V_BandollierB_blk","V_BandollierB_oli","V_BandollierB_ghex_F","V_HarnessO_brn","V_HarnessO_gry","V_HarnessO_ghex_F","V_HarnessOGL_ghex_F","V_HarnessOGL_gry","V_HarnessOGL_brn","V_Pocketed_olive_F","V_Pocketed_coyote_F","V_Pocketed_black_F"];
+	unlockedItems pushBack "ItemGPS";
 	}
 else
 	{
-	unlockedItems = ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit","LIB_ToolKit","H_LIB_CIV_Villager_Cap_1","H_LIB_CIV_Worker_Cap_2","G_LIB_Scarf2_B","G_LIB_Mohawk"] + uniformsSDK + civUniforms;
+	unlockedItems = unlockedItems + ["ItemMap","ItemWatch","ItemCompass","ToolKit","LIB_ToolKit","H_LIB_CIV_Villager_Cap_1","H_LIB_CIV_Worker_Cap_2","G_LIB_Scarf2_B","G_LIB_Mohawk"] + uniformsSDK + civUniforms;
 	};
 
 
-//The following are the initial weapons and mags unlocked and available in the Arsenal, vanilla or RHS
-if (!has3CB) then
-	{
-	if (!activeGREF) then
-		{
-		if !(hasIFA) then
-			{
-			unlockedWeapons = ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","Binocular","SMG_05_F","SMG_02_F"];//"LMG_03_F"
-			unlockedRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
-			unlockedMagazines = ["9Rnd_45ACP_Mag","30Rnd_9x21_Mag","30Rnd_762x39_Mag_F","MiniGrenade","1Rnd_HE_Grenade_shell","30Rnd_545x39_Mag_F","30Rnd_9x21_Mag_SMG_02","10Rnd_9x21_Mag","200Rnd_556x45_Box_F","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
-			initialRifles = ["hgun_PDW2000_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","SMG_02_F"];
-			//unlockedItems = unlockedItems + ["V_Chestrig_khk","V_BandollierB_cbr","V_BandollierB_rgr","U_C_HunterBody_grn"];
-			if !(isMultiplayer) then
-				{
-				unlockedWeapons append ["arifle_AKM_F","arifle_AKS_F"];
-				unlockedRifles append ["arifle_AKM_F","arifle_AKS_F"];
-				initialRifles append ["arifle_AKM_F","arifle_AKS_F"];
-				if (worldName == "Tanoa") then
-					{
-					unlockedWeapons pushBack "launch_RPG7_F";
-					unlockedAT = ["launch_RPG7_F"];
-					unlockedMagazines pushBack "RPG7_F";
-					}
-				else
-					{
-					if (worldName == "Altis") then
-						{
-						unlockedWeapons pushBack "launch_MRAWS_olive_rail_F";
-						unlockedAT = ["launch_MRAWS_olive_rail_F"];
-						unlockedMagazines pushBack "MRAWS_HEAT_F";
-						};
-					};
-				};
-			unlockedItems = unlockedItems + ["U_C_HunterBody_grn"];
-			}
-		else
-			{
-			unlockedWeapons = ["LIB_PTRD","LIB_M2_Flamethrower","LIB_Binocular_GER","LIB_K98","LIB_M1895","LIB_FLARE_PISTOL"];//"LMG_03_F"
-			unlockedRifles = ["LIB_K98"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
-			unlockedMagazines = ["LIB_1Rnd_145x114","LIB_M2_Flamethrower_Mag","LIB_5Rnd_792x57","LIB_Pwm","LIB_Rg42","LIB_US_TNT_4pound_mag","LIB_7Rnd_762x38","LIB_1Rnd_flare_red","LIB_1Rnd_flare_green","LIB_1Rnd_flare_white","LIB_1Rnd_flare_yellow"];
-			initialRifles = ["LIB_K98"];
-			unlockedAT = [];
-			};
-		}
-	else
-		{
-		unlockedWeapons = ["rhs_weap_akms","rhs_weap_makarov_pmm","Binocular","rhs_weap_rpg7","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_pp2000_folded","rhs_weap_savz61","rhs_weap_m3a1","rhs_weap_m1garand_sa43"];
-		unlockedRifles = ["rhs_weap_akms","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_savz61","rhs_weap_m3a1","rhs_weap_m1garand_sa43"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
-		unlockedMagazines = ["rhs_30Rnd_762x39mm","rhs_mag_9x18_12_57N181S","rhs_rpg7_PG7VL_mag","rhsgref_5Rnd_762x54_m38","rhsgref_5Rnd_792x57_kar98k","rhs_mag_rgd5","rhs_mag_9x19mm_7n21_20","rhsgref_20rnd_765x17_vz61","rhsgref_30rnd_1143x23_M1911B_SMG","rhsgref_8Rnd_762x63_M2B_M1rifle"];
-		initialRifles = ["rhs_weap_akms","rhs_weap_m38_rail","rhs_weap_kar98k","rhs_weap_savz61"];
-		unlockedItems = unlockedItems + ["rhs_acc_2dpZenit"];
-		unlockedAT = ["rhs_weap_rpg7"];
-		};
-	}
-else
-	{
-	unlockedWeapons = ["UK3CB_Enfield","rhsusf_weap_m1911a1","Binocular","rhs_weap_panzerfaust60","UK3CB_Enfield_Rail","rhs_weap_Izh18","rhs_weap_pp2000_folded","UK3CB_M79","rhs_weap_m3a1","rhs_weap_m1garand_sa43"];
-	unlockedRifles = ["UK3CB_Enfield","UK3CB_Enfield_Rail","rhs_weap_Izh18","rhs_weap_m3a1","rhs_weap_m1garand_sa43"];//standard rifles for AI riflemen, medics engineers etc. are picked from this array. Add only rifles.
-	unlockedMagazines = ["UK3CB_Enfield_Mag","rhsusf_mag_7x45acp_MHP","rhsgref_1Rnd_Slug","rhs_mag_rgd5","rhs_mag_9x19mm_7n31_44","rhs_mag_m576","rhs_mag_m713_red","rhs_mag_m4009","rhsgref_30rnd_1143x23_M1T_SMG","rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle"];
-	initialRifles = ["UK3CB_Enfield","UK3CB_Enfield_Rail","rhs_weap_Izh18","rhs_weap_savz61"];
-	unlockedItems = unlockedItems + ["rhs_acc_2dpZenit","rhs_acc_m852v"];
-	unlockedAT = ["rhs_weap_panzerfaust60"];
-	};
-{
-_loadOut = getUnitLoadout (_x select 0);
-_vest = _loadOut select 4;
-if !(_vest isEqualTo []) then {unlockedItems pushBackUnique (_vest select 0)};
-} forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewTeamPlayer]];
+diag_log format ["%1: [Antistasi]: initVar | Setting Default Arsenal Unlocks.",servertime];
+//The following are the arrays used for arsenal unlocks in the templates
+/*
+unlockedWeapons = [];
+unlockedRifles = [];
+unlockedMagazines = [];
+initialRifles = [];
+unlockedAT = [];
+unlockedItems = [];
+unlockedBackpacks = [];
+*/
 
-unlockedBackpacks = if !(hasIFA) then { if !(has3CB) then {["B_FieldPack_oli","B_FieldPack_blk","B_FieldPack_ocamo","B_FieldPack_oucamo","B_FieldPack_cbr"]} else {["UK3CB_ANA_B_B_ASS","UK3CB_ANA_C_B_MED","UK3CB_TKC_C_B_Sidor_MED","UK3CB_B_Hiker","UK3CB_B_Hiker_Camo"]}} else {["B_LIB_US_M2Flamethrower","B_LIB_SOV_RA_MGAmmoBag_Empty"]}; //Initial Arsenal available backpacks
-//lockedbackpcks = lockedbackpcks - unlockedBackpacks;
 unlockedOptics = [];
 unlockedMG = [];
 unlockedGL = [];
@@ -660,124 +654,89 @@ garageIsUsed = false;
 vehInGarage = [];
 destroyedBuildings = []; //publicVariable "destroyedBuildings";
 reportedVehs = [];
-hasTFAR = false;
-hasACRE = false;
-hasACE = false;
-hasACEhearing = false;
-hasACEMedical = false;
-//TFAR detection and config.
-if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
-    {
-    hasTFAR = true;
-    haveRadio = true;
-    unlockedItems = unlockedItems;
-    ["TF_no_auto_long_range_radio", true, true,"mission"] call CBA_settings_fnc_set;//set to false and players will start with LR radio, uncomment the last line of so.
-    if (hasIFA) then {
-      ["TF_give_personal_radio_to_regular_soldier", false, true,"mission"] call CBA_settings_fnc_set;
-      ["TF_give_microdagr_to_soldier", false, true,"mission"] call CBA_settings_fnc_set;
-    } else {
-      unlockedItems = unlockedItems + ["tf_microdagr","tf_anprc148jem","ItemRadio"];
-    };
-    //tf_teamPlayer_radio_code = "";publicVariable "tf_teamPlayer_radio_code";//to make enemy vehicles usable as LR radio
-    //tf_east_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_east_radio_code"; //to make enemy vehicles usable as LR radio
-    //tf_guer_radio_code = tf_teamPlayer_radio_code; publicVariable "tf_guer_radio_code";//to make enemy vehicles usable as LR radio
-    ["TF_same_sw_frequencies_for_side", true, true,"mission"] call CBA_settings_fnc_set;
-    ["TF_same_lr_frequencies_for_side", true, true,"mission"] call CBA_settings_fnc_set;
 
-    //unlockedBackpacks pushBack "tf_rt1523g_sage";//uncomment this if you are adding LR radios for players
-    };
 //ACE detection and ACE item availability in Arsenal
-	aceItems = [
-		"ACE_EarPlugs",
-		"ACE_RangeCard",
-		"ACE_Clacker",
-		"ACE_M26_Clacker",
-		"ACE_DeadManSwitch",
-		"ACE_DefusalKit",
-		"ACE_MapTools",
-		"ACE_Flashlight_MX991",
-		"ACE_wirecutter",
-		"ACE_RangeTable_82mm",
-		"ACE_EntrenchingTool",
-		"ACE_Cellphone",
-		"ACE_CableTie",
-		"ACE_SpottingScope",
-		"ACE_Tripod",
-		"ACE_Chemlight_HiWhite",
-		"ACE_Chemlight_HiRed",
-		"ACE_Kestrel4500",
-		"ACE_ATragMX",
-		"ACE_acc_pointer_green",
-		"ACE_HandFlare_White",
-		"ACE_HandFlare_Red",
-		"ACE_Spraypaintred"
-	];
-	if (hasIFA) then {aceItems append ["ACE_LIB_LadungPM","ACE_SpareBarrel"]};
-	publicVariable "aceItems";
+aceItems = [
+	"ACE_EarPlugs",
+	"ACE_RangeCard",
+	"ACE_Clacker",
+	"ACE_M26_Clacker",
+	"ACE_DeadManSwitch",
+	"ACE_DefusalKit",
+	"ACE_MapTools",
+	"ACE_Flashlight_MX991",
+	"ACE_wirecutter",
+	"ACE_RangeTable_82mm",
+	"ACE_EntrenchingTool",
+	"ACE_Cellphone",
+	"ACE_CableTie",
+	"ACE_SpottingScope",
+	"ACE_Tripod",
+	"ACE_Chemlight_HiWhite",
+	"ACE_Chemlight_HiRed",
+	"ACE_Kestrel4500",
+	"ACE_ATragMX",
+	"ACE_acc_pointer_green",
+	"ACE_HandFlare_White",
+	"ACE_HandFlare_Red",
+	"ACE_Spraypaintred"
+];
+	
+if (hasIFA) then {aceItems append ["ACE_LIB_LadungPM","ACE_SpareBarrel"]};
+publicVariable "aceItems";
 
-	aceBasicMedItems = [
-		"ACE_fieldDressing",
-		"ACE_bloodIV_500",
-		"ACE_bloodIV",
-		"ACE_epinephrine",
-		"ACE_morphine",
-		"ACE_bodyBag"
-	]; publicVariable "aceBasicMedItems";
+aceBasicMedItems = [
+	"ACE_fieldDressing",
+	"ACE_bloodIV_500",
+	"ACE_bloodIV",
+	"ACE_epinephrine",
+	"ACE_morphine",
+	"ACE_bodyBag"
+]; publicVariable "aceBasicMedItems";
 
-	aceAdvMedItems = [
-		"ACE_elasticBandage",
-		"ACE_quikclot",
-		"ACE_bloodIV_250",
-		"ACE_packingBandage",
-		"ACE_personalAidKit",
-		"ACE_plasmaIV",
-		"ACE_plasmaIV_500",
-		"ACE_plasmaIV_250",
-		"ACE_salineIV",
-		"ACE_salineIV_500",
-		"ACE_salineIV_250",
-		"ACE_surgicalKit",
-		"ACE_tourniquet",
-		"ACE_adenosine",
-		"ACE_atropine",
-		"adv_aceSplint_splint",
-		"adv_aceCPR_AED"
-	]; publicVariable "aceAdvMedItems";
+aceAdvMedItems = [
+	"ACE_elasticBandage",
+	"ACE_quikclot",
+	"ACE_bloodIV_250",
+	"ACE_packingBandage",
+	"ACE_plasmaIV",
+	"ACE_plasmaIV_500",
+	"ACE_plasmaIV_250",
+	"ACE_salineIV",
+	"ACE_salineIV_500",
+	"ACE_salineIV_250",
+	"ACE_surgicalKit",
+	"ACE_tourniquet",
+	"ACE_adenosine",
+	"ACE_atropine"
+]
++ ([["ACE_PersonalAidKit"], ["adv_aceCPR_AED"]] select hasADVCPR)
++ ([[], ["adv_aceSplint_splint"]] select hasADVSplint); 
+publicVariable "aceAdvMedItems";
 
 
-if (!isNil "ace_common_fnc_isModLoaded") then {
+if (hasACE) then {
 	unlockedItems = unlockedItems + aceItems;
 	if !(hasIFA) then
 		{
 		unlockedBackpacks pushBackUnique "ACE_TacticalLadder_Pack";
 		unlockedWeapons pushBackUnique "ACE_VMH3";
-		itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX"];
-		weaponsNato = weaponsNato + ["ACE_M84"];
+		itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX","ACE_M84"];
 		};
-	hasACE = true;
-	if (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak")) then {
-		hasACEhearing = true;
-	};
-	if (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3")) then {
-		if (ace_medical_level == 1) then {
-			hasACEMedical = true;
+};
+
+if (hasACEMedical) then {
+	switch (ace_medical_level) do {
+		case 1: {
 			unlockedItems = unlockedItems + aceBasicMedItems;
 		};
-	};
-
-	if (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3")) then {
-		if (ace_medical_level == 2) then {
-			hasACEMedical = true;
+		case 2: {
 			unlockedItems = unlockedItems + aceBasicMedItems + aceAdvMedItems;
 		};
 	};
+} else {
+	unlockedItems = unlockedItems + ["FirstAidKit","Medikit"];
 };
-if (isClass(configFile >> "cfgPatches" >> "acre_main")) then
-	{
-	hasACRE = true;
-	haveRadio = true;
-	unlockedItems = unlockedItems + ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"];
-	};
 
 //allItems = allItems + itemsAAF + opticsAAF + _vests + helmets + NVGoggles;
 
@@ -805,6 +764,8 @@ else
 
 if (isDedicated) then {civPerc = 70; publicVariable "civPerc"};
 
+diag_log format ["%1: [Antistasi] | INFO | initVar | Storing variables.",servertime];
+
 publicVariable "unlockedWeapons";
 publicVariable "unlockedRifles";
 publicVariable "unlockedItems";
@@ -819,6 +780,8 @@ publicVariable "hasTFAR";
 publicVariable "hasACRE";
 publicVariable "hasACEhearing";
 publicVariable "hasACEMedical";
+publicVariable "hasADVCPR";
+publicVariable "hasADVSplint";
 publicVariable "revealX";
 publicVariable "prestigeNATO";
 publicVariable "prestigeCSAT";
@@ -838,3 +801,4 @@ publicVariable "unlockedAA";
 publicVariable "initialRifles";
 
 if (isMultiplayer) then {[[petros,"hint","Variables Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP;};
+diag_log format ["%1: [Antistasi] | INFO | initVar Completed.",servertime];

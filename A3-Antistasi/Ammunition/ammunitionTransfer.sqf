@@ -15,7 +15,7 @@ _backpcks = [];
 if (count backpackCargo _originX > 0) then
 	{
 	{
-	_backpcks pushBack (_x call BIS_fnc_basicBackpack);
+	_backpcks pushBack (_x call A3A_fnc_basicBackpack);
 	} forEach backpackCargo _originX;
 	};
 _containers = everyContainer _originX;
@@ -151,7 +151,7 @@ if (_destinationX == boxX) then
 	_updated = [] call A3A_fnc_arsenalManage;
 	if (_updated != "") then
 		{
-		_updated = format ["Arsenal Updated<br/><br/>%1",_updated];
+		_updated = format ["<t size='0.5' color='#C1C0BB'>Arsenal Updated<br/><br/>%1</t>",_updated];
 		[petros,"income",_updated] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
 		};
 	}

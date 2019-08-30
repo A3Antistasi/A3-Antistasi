@@ -37,7 +37,7 @@ if (isMultiplayer && side _unit == teamPlayer) then
 		
 		private _rank = [_playerId, "rankPlayer"] call fn_RetrievePlayerStat;
 		_rank = if (isNil "_rank" || {count _rank == 0}) then {"PRIVATE"} else {_rank};
-		_unit setRank _rank; 
+		[_unit, _rank] remoteExec ["A3A_fnc_ranksMP"]; 
 		_unit setVariable ["rankX",_rank,true];
 	};
 	
@@ -48,7 +48,6 @@ if (isMultiplayer && side _unit == teamPlayer) then
 	//Personal garage has a nil check built in
 	[_unit, [_playerId, "personalGarage"] call fn_RetrievePlayerStat] call A3A_fnc_setPersonalGarage;
 };
-	
-diag_log "Antistasi: Personal player stats loaded";
+diag_log format ["%1: [Antistasi] | INFO | Personal player stats loaded.",servertime];
 
 [] remoteExec ["A3A_fnc_statistics", _unit];

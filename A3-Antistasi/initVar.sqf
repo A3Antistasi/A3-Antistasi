@@ -1092,7 +1092,7 @@ zoneCheckInProgress = false;
 garrisonIsChanging = false;
 movingMarker = false;
 garageIsUsed = false;
-missionsX = []; publicVariable "missionsX";
+missionsX = [];
 markersChanging = [];
 staticsToSave = [];
 vehInGarage = [];
@@ -1141,6 +1141,7 @@ publicVariable "napalmCurrent";
 publicVariable "tierWar";
 publicVariable "haveRadio";
 publicVariable "haveNV";
+publicVariable "missionsX";
 
 if (isMultiplayer) then {[[petros,"hint","Variables Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP;};
 diag_log format ["%1: [Antistasi] | INFO | initVar Completed.",servertime];

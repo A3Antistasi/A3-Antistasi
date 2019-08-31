@@ -273,8 +273,8 @@ class A3A
 
 	class Runways
 	{
-		class getRunwayTakeoffForAirportMarker {file="getRunwayTakeoffForAirportMarker.sqf";};
-		class runwayInfo {file="runwayInfo.sqf";};
+		class getRunwayTakeoffForAirportMarker {};
+		class runwayInfo {};
 	}
 
 	class Save

@@ -16,7 +16,7 @@ private _basicMedicalSupplies =
 			["FirstAidKit",3]
 		];
 	};
-	
+
 private _basicMiscItems =
 	if (hasACE) then {
 		[
@@ -29,23 +29,23 @@ private _basicMiscItems =
 
 		];
 	};
-	
+
 private _medicSupplies =
 	if (hasACE) then {
 		[
 			["ACE_surgicalKit",1],
-			
+
 			["ACE_PackingBandage",15],
 			["ACE_ElasticBandage",10],
 			["ACE_QuikClot",10],
-			
+
 			["ACE_Morphine",5],
 			["ACE_Epinephrine",5],
-			
+
 			["ACE_PlasmaIV_250",5],
 			["ACE_SalineIV_500",3],
 			["ACE_BloodIV",1],
-			
+
 			["ACE_Tourniquet",3]
 		]
 		+ ([[["ACE_PersonalAidKit", 2]], [["adv_aceCPR_AED", 1]]] select hasADVCPR)
@@ -55,10 +55,10 @@ private _medicSupplies =
 			["Medikit", 1]
 		];
 	};
-	
+
 private _fnc_modItem = {
 	params ["_hasMod", "_modItem", "_replacementItem"];
-	
+
 	if (_hasMod) then {
 		[_modItem];
 	} else {
@@ -80,7 +80,7 @@ private _fnc_tfarRadio = {
 };
 
 private _tfarMicroDAGRNoArray = [hasTFAR, "TF_MicroDagr", "ItemWatch"] call _fnc_modItemNoArray;
-	
+
 private _aceFlashlight = [hasACE, ["ACE_Flashlight_XL50", 1]] call _fnc_modItem;
 private _aceM84 = [hasACE, ["ACE_M84", 1], ["HandGrenade", 1]] call _fnc_modItem;
 private _aceDefusalKit = [hasACE, ["ACE_DefusalKit", 1]] call _fnc_modItem;
@@ -91,7 +91,7 @@ private _aceKestrel = [hasACE, ["ACE_Kestrel14500", 1]] call _fnc_modItem;
 private _loadoutArray = missionNamespace getVariable [_loadoutName, []];
 
 if (_loadoutArray isEqualTo []) then {
-	_loadoutArray = call compile preprocessFileLineNumbers format ["Templates\Loadouts\%1.sqf", _loadoutName];
+	_loadoutArray = call compile preprocessFileLineNumbers format ["..\..\Templates\Loadouts\%1.sqf", _loadoutName];
 	missionNamespace setVariable [_loadoutName, _loadoutArray];
 };
 

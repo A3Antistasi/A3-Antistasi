@@ -1,4 +1,4 @@
-// usage: Activate via radio trigger, on act: [] execVM "airstrike.sqf";
+// usage: Activate via radio trigger, on act: [] spawn A3A_fnc_airstrike;
 if (!isServer and hasInterface) exitWith{};
 
 private ["_markerX","_positionX","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_sideX","_isMarker","_typePlane","_exit","_timeOut","_friendlies","_enemiesX","_mediaX","_mediaY","_pos","_countX","_distantNum","_distantX","_planefn","_planeCrew","_groupPlane","_typeX"];
@@ -104,7 +104,7 @@ _wp1 setWaypointSpeed "LIMITED";
 _wp1 setWaypointBehaviour "CARELESS";
 _plane setCollisionLight true;
 if ((_typeX == "NAPALM") and (napalmCurrent)) then {_typeX = "CLUSTER"};
-if (_typeX == "HE") then {_wp1 setWaypointStatements ["true", "[this,""HE""] execVM 'AI\airbomb.sqf'"]} else {if (_typeX == "NAPALM") then {_wp1 setWaypointStatements ["true", "[this,""NAPALM""] execVM 'AI\airbomb.sqf'"]} else {_wp1 setWaypointStatements ["true", "[this,""CLUSTER""] execVM 'AI\airbomb.sqf'"]}};
+if (_typeX == "HE") then {_wp1 setWaypointStatements ["true", "[this,""HE""] spawn A3A_fnc_airbomb"]} else {if (_typeX == "NAPALM") then {_wp1 setWaypointStatements ["true", "[this,""NAPALM""] spawn A3A_fnc_airbomb"]} else {_wp1 setWaypointStatements ["true", "[this,""CLUSTER""] spawn A3A_fnc_airbomb"]}};
 
 _wp2 = _groupPlane addWaypoint [_pos2, 1];
 _wp2 setWaypointSpeed "LIMITED";
@@ -127,4 +127,3 @@ else
 	};
 {deleteVehicle _x} forEach _planeCrew;
 deleteGroup _groupPlane;
-

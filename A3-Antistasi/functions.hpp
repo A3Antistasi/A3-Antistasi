@@ -69,11 +69,12 @@ class A3A
 		class undercover {};
 		class unlockVehicle {};
 		class zoneCheck {};
-	}
+	};
 
 	class AI
 	{
 		class AAFKilledEH {};
+		class airbomb {};
 		class airdrop {};
 		class AIreactOnKill {};
 		class airstrike {};
@@ -122,7 +123,7 @@ class A3A
 		class useFlares {};
 		class VANTinfo {};
 		class vehicleMarkers {};
-	}
+	};
 
 	class CREATE
 	{
@@ -161,18 +162,18 @@ class A3A
 		class vehAvailable {};
 		class VEHdespawner {};
 		class wavedCA {};
-	}
+	};
 
 	class Debugging
 	{
 		class deleteEmptyGroupsOnSide {};
 		class spawnDebuggingLoop {};
-	}
+	};
 
 	class Dialogs
 	{
 		class mineDialog {};
-	}
+	};
 
 	class Garage
 	{
@@ -193,7 +194,7 @@ class A3A
 		class vehPlacementCancel {};
 		class vehPlacementChangeVehicle {};
 		class vehPlacementCleanup {};
-	}
+	};
 
 	class Missions
 	{
@@ -203,7 +204,7 @@ class A3A
 		class missionRequestAUTO {};
 		class taskUpdate {};
 		class underAttack {};
-	}
+	};
 
 	class Ammunition
 	{
@@ -217,7 +218,7 @@ class A3A
 		class getRadio {};
 		class NATOCrate {};
 		class randomRifle {};
-	}
+	};
 
 	class OrgPlayers
 	{
@@ -232,7 +233,7 @@ class A3A
 		class theBossInit {};
 		class theBossSteal {};
 		class tierCheck {};
-	}
+	};
 
 	class REINF
 	{
@@ -256,7 +257,7 @@ class A3A
 		class reinfPlayer {};
 		class vehiclePrice {};
 		class vehStats {};
-	}
+	};
 
 	class Revive
 	{
@@ -269,13 +270,13 @@ class A3A
 		class respawn {};
 		class unconscious {};
 		class unconsciousAAF {};
-	}
+	};
 
 	class Runways
 	{
 		class getRunwayTakeoffForAirportMarker {};
 		class runwayInfo {};
-	}
+	};
 
 	class Save
 	{
@@ -283,21 +284,21 @@ class A3A
 		class loadPreviousSession {};
 		class playerHasSave {};
 		class savePlayer {};
-	}
+	};
 
 	class Templates
 	{
 		class getLoadout {};
-	}
+	};
 
 	class Utility
 	{
 		class basicBackpack {};
 		class dateToTimeString {};
-	}
+	};
 
 	class init
 	{
 		class getArrayMrks {};
-	}
-}
+	};
+};

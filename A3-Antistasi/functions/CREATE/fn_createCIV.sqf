@@ -107,7 +107,7 @@ if ((random 100 < ((prestigeNATO) + (prestigeCSAT))) and (spawner getVariable _m
 	_civ = _groupX createUnit ["C_journalist_F", _pos, [],0, "NONE"];
 	_nul = [_civ] spawn A3A_fnc_CIVinit;
 	_civs pushBack _civ;
-	_nul = [_civ, _markerX, "SAFE", "SPAWNED","NOFOLLOW", "NOVEH2","NOSHARE","DoRelax"] execVM "scripts\UPSMON.sqf";
+	_nul = [_civ, _markerX, "SAFE", "SPAWNED","NOFOLLOW", "NOVEH2","NOSHARE","DoRelax"] execVM "..\..\scripts\UPSMON.sqf";//TODO need delete UPSMON link
 	};
 
 
@@ -163,7 +163,7 @@ if ([_markerX,false] call A3A_fnc_fogCheck > 0.2) then
 					_groupP addVehicle _veh;
 					_groupP setBehaviour "CARELESS";
 					_veh limitSpeed 50;
-					_posDestination = selectRandom (roadsX getVariable (_patrolCities select _countPatrol));		
+					_posDestination = selectRandom (roadsX getVariable (_patrolCities select _countPatrol));
 					_wp = _groupP addWaypoint [_posDestination,0];
 					_wp setWaypointType "MOVE";
 					_wp setWaypointSpeed "LIMITED";

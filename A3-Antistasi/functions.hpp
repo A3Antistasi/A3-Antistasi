@@ -287,7 +287,7 @@ class A3A
 
 	class Templates
 	{
-		class getLoadout {file="Templates\Loadouts\getLoadout.sqf";};
+		class getLoadout {};
 	}
 
 	class Utility

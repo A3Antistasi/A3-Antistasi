@@ -61,6 +61,7 @@ class A3A
 		class revealToPlayer {};
 		class scheduler {};
 		class sellVehicle {};
+		class setMarkerAlphaForSide {};
 		class sizeMarker {};
 		class statistics {};
 		class stripGearFromLoadout {};

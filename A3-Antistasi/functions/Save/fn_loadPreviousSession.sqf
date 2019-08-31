@@ -1,7 +1,7 @@
 if (hasInterface) then {
-  [] call A3A_fnc_loadPlayer;
+  [] spawn A3A_fnc_loadPlayer;
 };
 
 if (!isMultiplayer) then {
-  [] execVM "statSave\loadServer.sqf";
+  [] spawn A3A_fnc_loadServer;
 };

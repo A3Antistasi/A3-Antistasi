@@ -295,6 +295,7 @@ class A3A
 	{
 		class loadPlayer {};
 		class loadPreviousSession {};
+		class loadServer {};
 		class playerHasSave {};
 		class savePlayer {};
 	};

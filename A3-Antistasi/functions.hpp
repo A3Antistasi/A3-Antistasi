@@ -292,8 +292,8 @@ class A3A
 
 	class Utility
 	{
-		class basicBackpack {file="Ammunition\basicBackpack.sqf";};
-		class dateToTimeString {file="dateToTimeString.sqf";};
+		class basicBackpack {};
+		class dateToTimeString {};
 	}
 
 	class init

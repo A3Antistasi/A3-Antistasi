@@ -23,7 +23,7 @@ if (_groupX getVariable "staticAutoT") exitWith
 hint format ["Mounted Static Squad %1 set to Auto Target Mode ON", groupID _groupX];
 _groupX setVariable ["staticAutoT",true,true];
 
-if (typeOf _static == SDKMortar) exitWith {_nul=[_static] execVM "..\..\scripts\UPSMON\MON_artillery_add.sqf";};//TODO delete UPSMON link
+if (typeOf _static == SDKMortar) exitWith {_nul=[_static] execVM "scripts\UPSMON\MON_artillery_add.sqf";};//TODO delete UPSMON link
 _LeaderX = leader _groupX;
 _truckX = vehicle _LeaderX;
 _boy = gunner _static;

@@ -60,7 +60,7 @@ if (gameMode != 1) then
     if (gameMode == 3) then {"CSAT_carrier" setMarkerAlpha 0};
     if (gameMode == 4) then {"NATO_carrier" setMarkerAlpha 0};
     };
-[] execVM "initPetros.sqf";
+[] spawn A3A_fnc_initPetros;
 ["Initialize"] call BIS_fnc_dynamicGroups;//Exec on Server
 hcArray = [];
 waitUntil {(count playableUnits) > 0};
@@ -88,7 +88,7 @@ if (loadLastSave) then
 publicVariable "loadLastSave";
 if (loadLastSave) then
     {
-    _nul = [] execVM "statSave\loadServer.sqf";
+    [] spawn A3A_fnc_loadServer;
     waitUntil {!isNil"statsLoaded"};
     if (!isNil "as_fnc_getExternalMemberListUIDs") then
         {

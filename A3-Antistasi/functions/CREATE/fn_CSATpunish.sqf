@@ -144,7 +144,7 @@ for "_i" from 0 to _numCiv do
 	sleep 0.5;
 	};
 
-_nul = [leader _groupCivil, _mrkDestination, "AWARE","SPAWNED","NOVEH2"] execVM "..\..\scripts\UPSMON.sqf";//TODO need delete UPSMON link
+_nul = [leader _groupCivil, _mrkDestination, "AWARE","SPAWNED","NOVEH2"] execVM "scripts\UPSMON.sqf";//TODO need delete UPSMON link
 
 _civilMax = {alive _x} count _civiles;
 _solMax = count _soldiers;

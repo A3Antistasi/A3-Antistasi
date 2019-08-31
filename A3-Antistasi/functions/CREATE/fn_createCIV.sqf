@@ -107,7 +107,7 @@ if ((random 100 < ((prestigeNATO) + (prestigeCSAT))) and (spawner getVariable _m
 	_civ = _groupX createUnit ["C_journalist_F", _pos, [],0, "NONE"];
 	_nul = [_civ] spawn A3A_fnc_CIVinit;
 	_civs pushBack _civ;
-	_nul = [_civ, _markerX, "SAFE", "SPAWNED","NOFOLLOW", "NOVEH2","NOSHARE","DoRelax"] execVM "..\..\scripts\UPSMON.sqf";//TODO need delete UPSMON link
+	_nul = [_civ, _markerX, "SAFE", "SPAWNED","NOFOLLOW", "NOVEH2","NOSHARE","DoRelax"] execVM "scripts\UPSMON.sqf";//TODO need delete UPSMON link
 	};
 
 

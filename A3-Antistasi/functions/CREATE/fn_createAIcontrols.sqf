@@ -112,7 +112,7 @@ if (_isControl) then
 				_dog = _groupX createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
 				[_dog,_groupX] spawn A3A_fnc_guardDog;
 				};
-			_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "..\..\scripts\UPSMON.sqf";//TODO need delete UPSMON link
+			_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";//TODO need delete UPSMON link
 			{[_x,""] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _groupX;
 			};
 		}
@@ -157,7 +157,7 @@ else
 				};
 			};
 		_groupX = [_positionX,_sideX, _cfg] call A3A_fnc_spawnGroup;
-		_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "..\..\scripts\UPSMON.sqf";//TODO need delete UPSMON link
+		_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";//TODO need delete UPSMON link
 		if !(hasIFA) then
 			{
 			sleep 1;

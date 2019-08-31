@@ -1,4 +1,4 @@
-#include "Garage\defineCommon.inc"
+#include "defineCommon.inc"
 diag_log format ["%1: [Antistasi] | INFO | initPlayerLocal Started.",servertime];
 if (hasInterface) then
 	{

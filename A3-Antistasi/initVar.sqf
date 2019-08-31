@@ -97,8 +97,8 @@ weaponsCSAT = [];
 diag_log format ["%1: [Antistasi] | INFO | initVar | Starting Mod Detection",servertime];
 //Faction MODs
 hasRHS = false;
-hasAFRF = false;
-hasUSAF = false;
+activeAFRF = false;
+activeUSAF = false;
 activeGREF = false;
 hasFFAA = false;
 hasIFA = false;
@@ -138,7 +138,9 @@ if (isClass (configfile >> "CfgPatches" >> "ffaa_armas")) then {hasFFAA = true; 
 //          MOD CONFIG           ///
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Mod Configs",servertime];
+
 //TFAR config
+startLR = false;
 if (hasTFAR) then
 	{
 	startLR = true;																			//set to true to start with LR radios unlocked.
@@ -214,7 +216,7 @@ diag_log format ["%1: [Antistasi] | INFO | initVar | Reading Occupant Templates"
 if (!hasIFA) then
 	{
 	//NON-IFA Templates for DEFENDER
-		if (!hasUSAF) then
+		if (!activeUSAF) then
 			{
 			//Vanilla DEFENDER Template
 			call compile preProcessFileLineNumbers "Templates\OccupantsVanilla.sqf";
@@ -242,7 +244,7 @@ if (!hasIFA) then
 			};
 		//NON-IFA INVADER Templates
 		diag_log format ["%1: [Antistasi] | INFO | initVar | Reading Invader Templates",servertime];
-		if (!hasAFRF) then
+		if (!activeAFRF) then
 			{
 			//Vanilla INVADER Template
 			call compile preProcessFileLineNumbers "Templates\InvadersVanilla.sqf";
@@ -382,7 +384,7 @@ if (count _x > 1) then
 	{
 	_unit = _x select 1;
 	_uniform = (getUnitLoadout _unit select 3) select 0;
-	banditUniforms pushBackUnique _uniform;
+	uniformsSDK pushBackUnique _uniform;
 	};
 } forEach [SDKSniper,SDKATman,SDKMedic,SDKMG,SDKExp,SDKGL,SDKMil,SDKSL,SDKEng,[SDKUnarmed],[staticCrewTeamPlayer]];
 
@@ -499,60 +501,56 @@ helmets = helmets select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemIn
 //      ACE ITEMS LIST           ///
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Creating ACE Items List",servertime];
-if (hasACE) then
-	{
-	aceItems = [
-		"ACE_EarPlugs",
-		"ACE_RangeCard",
-		"ACE_Clacker",
-		"ACE_M26_Clacker",
-		"ACE_DeadManSwitch",
-		"ACE_DefusalKit",
-		"ACE_MapTools",
-		"ACE_Flashlight_MX991",
-		"ACE_wirecutter",
-		"ACE_RangeTable_82mm",
-		"ACE_EntrenchingTool",
-		"ACE_Cellphone",
-		"ACE_CableTie",
-		"ACE_SpottingScope",
-		"ACE_Tripod",
-		"ACE_Spraypaintred"
-	];
-	if (hasACEMedical) then
-		{
-		aceBasicMedItems = [
-			"ACE_fieldDressing",
-			"ACE_bloodIV_500",
-			"ACE_bloodIV",
-			"ACE_epinephrine",
-			"ACE_morphine",
-			"ACE_bodyBag"
-		];
-		aceAdvMedItems = [
-			"ACE_elasticBandage",
-			"ACE_quikclot",
-			"ACE_bloodIV_250",
-			"ACE_packingBandage",
-			"ACE_plasmaIV",
-			"ACE_plasmaIV_500",
-			"ACE_plasmaIV_250",
-			"ACE_salineIV",
-			"ACE_salineIV_500",
-			"ACE_salineIV_250",
-			"ACE_surgicalKit",
-			"ACE_tourniquet",
-			"ACE_adenosine",
-			"ACE_atropine"
-		];
-		};
-	publicVariable "aceItems";
-	if (hasACEMedical) then
-		{
-		publicVariable "aceBasicMedItems";
-		publicVariable "aceAdvMedItems";
-		};
-	};
+aceItems = [
+	"ACE_EarPlugs",
+	"ACE_RangeCard",
+	"ACE_Clacker",
+	"ACE_M26_Clacker",
+	"ACE_DeadManSwitch",
+	"ACE_DefusalKit",
+	"ACE_MapTools",
+	"ACE_Flashlight_MX991",
+	"ACE_wirecutter",
+	"ACE_RangeTable_82mm",
+	"ACE_EntrenchingTool",
+	"ACE_Cellphone",
+	"ACE_CableTie",
+	"ACE_SpottingScope",
+	"ACE_Tripod",
+	"ACE_Spraypaintred"
+];
+	
+aceBasicMedItems = [
+	"ACE_fieldDressing",
+	"ACE_bloodIV_500",
+	"ACE_bloodIV",
+	"ACE_epinephrine",
+	"ACE_morphine",
+	"ACE_bodyBag"
+];
+
+aceAdvMedItems = [
+	"ACE_elasticBandage",
+	"ACE_quikclot",
+	"ACE_bloodIV_250",
+	"ACE_packingBandage",
+	"ACE_plasmaIV",
+	"ACE_plasmaIV_500",
+	"ACE_plasmaIV_250",
+	"ACE_salineIV",
+	"ACE_salineIV_500",
+	"ACE_salineIV_250",
+	"ACE_surgicalKit",
+	"ACE_tourniquet",
+	"ACE_adenosine",
+	"ACE_atropine"
+]
++ ([["ACE_PersonalAidKit"], ["adv_aceCPR_AED"]] select hasADVCPR)
++ ([[], ["adv_aceSplint_splint"]] select hasADVSplint);
+
+publicVariable "aceItems";
+publicVariable "aceBasicMedItems";
+publicVariable "aceAdvMedItems";
 
 //Begin Loot Lists
 //Not sure why we get these, but here it is....
@@ -565,76 +563,13 @@ if (side (group petros) == west) then {swoopShutUp pushBack "U_B_Wetsuit"} else 
 diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Occupant Crate Lists",servertime];
 _checked = [];
 {
-_uniform = (getUnitLoadout _x select 3) select 0;
-civUniforms pushBackUnique _uniform;
-} forEach arrayCivs;
-
-////////////////////////////////////
-//      ALL MAGAZINES LIST       ///
-////////////////////////////////////
-diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Magazine Pool.",servertime];
-_cfgMagazines = configFile >> "cfgmagazines";
-for "_i" from 0 to ((count _cfgMagazines) -1) do
-	{
-	_magazine = _cfgMagazines select _i;
-	if (isClass _magazine) then
-		{
-		_nameX = configName (_magazine);
-		allMagazines pushBack _nameX;
-		};
-	};
-
-////////////////////////////////////
-//   ALL WEAPONS/ITEMS LIST      ///
-////////////////////////////////////
-diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Weapon list",servertime];
-_allPrimaryWeapons = "
-    ( getNumber ( _x >> ""scope"" ) isEqualTo 2
-    &&
-    { getText ( _x >> ""simulation"" ) isEqualTo ""Weapon""
-    &&
-    { getNumber ( _x >> ""type"" ) isEqualTo 1 } } )
-" configClasses ( configFile >> "cfgWeapons" );
-
-_allHandGuns = "
-    ( getNumber ( _x >> ""scope"" ) isEqualTo 2
-    &&
-    { getText ( _x >> ""simulation"" ) isEqualTo ""Weapon""
-    &&
-    { getNumber ( _x >> ""type"" ) isEqualTo 2 } } )
-" configClasses ( configFile >> "cfgWeapons" );
-
-_allLaunchers = "
-    ( getNumber ( _x >> ""scope"" ) isEqualTo 2
-    &&
-    { getText ( _x >> ""simulation"" ) isEqualTo ""Weapon""
-    &&
-    { getNumber ( _x >> ""type"" ) isEqualTo 4 } } )
-" configClasses ( configFile >> "cfgWeapons" );
-
-_allItems = "
-    ( getNumber ( _x >> ""scope"" ) isEqualTo 2
-    &&
-    { getText ( _x >> ""simulation"" ) isEqualTo ""Weapon""
-    &&
-    { getNumber ( _x >> ""type"" ) isEqualTo 131072 } } )
-" configClasses ( configFile >> "cfgWeapons" );
-
-////////////////////////////////////
-//  ITEM/WEAPON CLASSIFICATION   ///
-////////////////////////////////////
-diag_log format ["%1: [Antistasi] | INFO | initVar | Classing Items.",servertime];
-_alreadyChecked = [];
 {
-_nameX = configName _x;
-_nameX = [_nameX] call BIS_fnc_baseWeapon;
-if (not(_nameX in _alreadyChecked)) then
+_typeX = _x;
+if !(_typeX in _checked) then
 	{
-	_magazines = getArray (configFile >> "CfgWeapons" >> _nameX >> "magazines");
-	_alreadyChecked pushBack _nameX;
-	_item = [_nameX] call BIS_fnc_itemType;
-	_itemType = _item select 1;
-	switch (_itemType) do
+	_checked pushBack _typeX;
+	_loadout = getUnitLoadout _typeX;
+	for "_i" from 0 to 2 do
 		{
 		if !(_loadout select _i isEqualTo []) then
 			{
@@ -697,7 +632,11 @@ if !(_item in (opticsAAF + flashLights + pointers)) then
 		}
 	else
 		{
-		if (hasIFA) then
+		if (isClass (configfile >> "CfgWeapons" >> _item >> "ItemInfo" >> "FlashLight" >> "Attenuation")) then
+			{
+			flashLights pushBack _item;
+			}
+		else
 			{
 			if (isClass (configfile >> "CfgWeapons" >> _item >> "ItemInfo" >> "Pointer")) then
 				{
@@ -705,26 +644,6 @@ if !(_item in (opticsAAF + flashLights + pointers)) then
 				};
 			};
 		};
-
-////////////////////////////////////
-//   REBEL FACTION LAUNCHERS     ///
-////////////////////////////////////
-//These launchers will be IN ADDITION TO whatever launchers enemies carry
-diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Loot Launchers Lists",servertime];
-antitankAAF =
-	[
-	"launch_I_Titan_F",
-	"launch_I_Titan_short_F"
-	];
-if (hasIFA) then
-	{
-	antitankAAF =
-		["LIB_Shg24"];
-	};
-if (hasRHS) then
-	{
-	antitankAAF =
-		[];
 	};
 } forEach (_x call BIS_fnc_compatibleItems);
 } forEach (weaponsNato + weaponsCSAT);
@@ -766,7 +685,8 @@ itemsAAF =
 	"Laserdesignator",
 	"ItemGPS",
 	"acc_pointer_IR",
-	"ItemRadio"
+	"ItemRadio",
+	"ToolKit"
 	];
 
 if (hasRHS and !hasIFA) then
@@ -777,7 +697,8 @@ if (hasRHS and !hasIFA) then
 		"MineDetector",
 		"ItemGPS",
 		"acc_pointer_IR",
-		"ItemRadio"
+		"ItemRadio",
+		"ToolKit"
 		];
 	}
 	else
@@ -862,8 +783,6 @@ unlockedItems =
 	"ItemMap",
 	"ItemWatch",
 	"ItemCompass",
-	"FirstAidKit",
-	"Medikit",
 	"ToolKit",
 	"H_Booniehat_khk",
 	"H_Booniehat_oli",
@@ -900,6 +819,9 @@ unlockedItems =
 	"G_Shades_Black",
 	"acc_flashlight"
 	];
+	
+//Temporary starting vests fix while I class items properly
+unlockedItems append ["V_Rangemaster_belt","V_BandollierB_khk","V_BandollierB_cbr","V_BandollierB_rgr","V_BandollierB_blk","V_BandollierB_oli","V_BandollierB_ghex_F","V_HarnessO_brn","V_HarnessO_gry","V_HarnessO_ghex_F","V_HarnessOGL_ghex_F","V_HarnessOGL_gry","V_HarnessOGL_brn","V_Pocketed_olive_F","V_Pocketed_coyote_F","V_Pocketed_black_F"];
 
 //IFA Starting Unlocks
 if (hasIFA) then
@@ -909,8 +831,6 @@ if (hasIFA) then
 		"ItemMap",
 		"ItemWatch",
 		"ItemCompass",
-		"FirstAidKit",
-		"Medikit",
 		"ToolKit",
 		//do we need both tookits?
 		"LIB_ToolKit",
@@ -920,7 +840,7 @@ if (hasIFA) then
 		"G_LIB_Mohawk"
 		];
 	};
-
+	
 //Adds civ and geurilla clothes
 unlockedItems append banditUniforms;
 unlockedItems append civUniforms;
@@ -958,7 +878,10 @@ if (hasACEMedical) then {
 			unlockedItems = unlockedItems + aceBasicMedItems + aceAdvMedItems;
 		};
 	};
+} else {
+	unlockedItems = unlockedItems + ["FirstAidKit","Medikit"];
 };
+
 //ACE items when IFA isnt detected
 if (hasACE and !hasIFA) then
 	{

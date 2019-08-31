@@ -25,7 +25,7 @@ if (!isMultiPlayer) then
     respawnOccupants setMarkerAlpha 0;
     "respawn_east" setMarkerAlpha 0;
     [] execVM "briefing.sqf";
-    _nul = [] execVM "musica.sqf";
+    [] execVM "musica.sqf";
     {if (/*(side _x == teamPlayer) and */(_x != commanderX) and (_x != Petros)) then {_grupete = group _x; deleteVehicle _x; deleteGroup _grupete}} forEach allUnits;
     _serverHasID = profileNameSpace getVariable ["ss_ServerID",nil];
     if(isNil "_serverHasID") then
@@ -50,7 +50,7 @@ if (!isMultiPlayer) then
     //diag_log "Antistasi SP. Funcs init finished";
     call compile preprocessFileLineNumbers "initZones.sqf";//this is the file where you can transport Antistasi to another island
     //diag_log "Antistasi SP. Zones init finished";
-    [] execVM "initPetros.sqf";
+    [] spawn A3A_fnc_initPetros;
 
     hcArray = [];
     serverInitDone = true;

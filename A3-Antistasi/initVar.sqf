@@ -509,6 +509,7 @@ diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Vehicle Spawn Point
 if (worldName == "Tanoa") then
 	{
 	roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
+	{_x setMarkerAlpha 0} forEach roadsMrk;
 	roadsCentral = ["road","road_1","road_2","road_3","road_4"];
 	roadsCE = ["road_5","road_6"];
 	roadsCSE = ["road_7"];

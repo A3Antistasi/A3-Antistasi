@@ -197,12 +197,12 @@ class A3A
 
 	class Missions
 	{
-		class attackHQ {file="Missions\attackHQ.sqf";};
-		class deleteTask {file="Missions\deleteTask.sqf";};
-		class missionRequest {file="Missions\missionrequest.sqf";};
-		class missionRequestAUTO {file="Missions\missionrequestAUTO.sqf";};
-		class taskUpdate {file="Missions\taskUpdate.sqf";};
-		class underAttack {file="Missions\underAttack.sqf";};
+		class attackHQ {};
+		class deleteTask {};
+		class missionRequest {};
+		class missionRequestAUTO {};
+		class taskUpdate {};
+		class underAttack {};
 	}
 
 	class Ammunition

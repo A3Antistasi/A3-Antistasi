@@ -221,17 +221,17 @@ class A3A
 
 	class OrgPlayers
 	{
-		class assigntheBoss {file="orgPlayers\assignStavros.sqf";};
-		class donateMoney {file="orgPlayers\donateMoney.sqf";};
-		class isMember {file="orgPlayers\isMember.sqf";};
-		class memberAdd {file="orgPlayers\memberAdd.sqf";};
-		class membersList {file="orgPlayers\membersList.sqf";};
-		class playerScoreAdd {file="orgPlayers\playerScoreAdd.sqf";};
-		class ranksMP {file="orgPlayers\ranksMP.sqf";};
-		class resourcesPlayer {file="orgPlayers\resourcesPlayer.sqf";};
-		class theBossInit {file="orgPlayers\stavrosInit.sqf";};
-		class theBossSteal {file="orgPlayers\stavrosSteal.sqf";};
-		class tierCheck {file="orgPlayers\tierCheck.sqf";};
+		class assigntheBoss {};
+		class donateMoney {};
+		class isMember {};
+		class memberAdd {};
+		class membersList {};
+		class playerScoreAdd {};
+		class ranksMP {};
+		class resourcesPlayer {};
+		class theBossInit {};
+		class theBossSteal {};
+		class tierCheck {};
 	}
 
 	class REINF

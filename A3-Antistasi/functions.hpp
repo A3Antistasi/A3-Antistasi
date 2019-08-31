@@ -183,9 +183,11 @@ class A3A
 		class clearForest {};
 		class dialogHQ {};
 		class difficultyMenu {};
+		class firstLoad {};
 		class mineDialog {};
 		class moveHQObject {};
 		class skiptime {};
+		class squadRecruit {};
 		class unit_recruit {};
 	};
 

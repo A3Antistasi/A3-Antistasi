@@ -535,7 +535,7 @@ if (_isJip) then
 		}
 	else
 		{
-		_nul = [] execVM "Dialogs\firstLoad.sqf";
+			[] spawn A3A_fnc_firstLoad;
 		};
 	diag_log format ["%1: [Antistasi] | INFO | MP Client | JIP Client Loaded.",servertime];
 	player setPos (getMarkerPos respawnTeamPlayer);
@@ -562,7 +562,7 @@ else
 		    		}
 		    	else
 		    		{
-		    		_nul = [true] execVM "Dialogs\firstLoad.sqf";
+		    			[true] spawn A3A_fnc_firstLoad;
 			    	};
 				diag_log format ["%1: [Antistasi] | INFO | MP Client | Client load finished.",servertime];
 		    	}
@@ -571,13 +571,13 @@ else
 		    	membersX = [];
 		    	player setUnitTrait ["medic",true];
 		    	player setUnitTrait ["engineer",true];
-		    	 _nul = [] execVM "Dialogs\firstLoad.sqf";
+		    	[] spawn A3A_fnc_firstLoad;
 		    	};
 		    }
 		else
 			{
 			player setVariable ["score", 0,true];
-			_nul = [true] execVM "Dialogs\firstLoad.sqf";
+			[true] spawn A3A_fnc_firstLoad;
 			player setPos (getMarkerPos respawnTeamPlayer);
 			};
 		}
@@ -585,7 +585,7 @@ else
 		{
 		if !(isServer) then
 			{
-			_nul = [] execVM "Dialogs\firstLoad.sqf";
+			[] spawn A3A_fnc_firstLoad;
 			player setPos (getMarkerPos respawnTeamPlayer);
 			};
 		};

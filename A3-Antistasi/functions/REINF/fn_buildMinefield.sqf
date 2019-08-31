@@ -102,7 +102,7 @@ if ((_truckX distance _positionTel < 50) and ({alive _x} count units _groupX > 0
 		};
 	theBoss hcRemoveGroup _groupX;
 	[petros,"hint","Engineer Team deploying mines."] remoteExec ["A3A_fnc_commsMP",[teamPlayer,civilian]];
-	_nul = [leader _groupX, _mrk, "SAFE","SPAWNED", "SHOWMARKER"] execVM "scripts\UPSMON.sqf";
+	_nul = [leader _groupX, _mrk, "SAFE","SPAWNED", "SHOWMARKER"] execVM "..\..\scripts\UPSMON.sqf";//TODO need delete UPSMON link
 	sleep 30*_quantity;
 	if ((alive _truckX) and ({alive _x} count units _groupX > 0)) then
 		{
@@ -145,4 +145,3 @@ else
 	deleteVehicle _truckX;
 	deleteMarker _mrk;
 	};
-

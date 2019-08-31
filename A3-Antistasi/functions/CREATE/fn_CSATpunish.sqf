@@ -68,7 +68,7 @@ for "_i" from 1 to 3 do
 		{_x assignAsCargo _veh;_x moveInCargo _veh; _soldiers pushBack _x; [_x] call A3A_fnc_NATOinit; _x setVariable ["originX",_mrkOrigin]} forEach units _groupX;
 		_groups pushBack _groupX;
 		//[_veh,"CSAT Air Transport"] spawn A3A_fnc_inmuneConvoy;
-		
+
 		if (_typeVehX isKindOf "Plane") then {
 			[_veh,_groupX,_mrkDestination,_mrkOrigin] spawn A3A_fnc_airdrop;
 		} else {
@@ -144,7 +144,7 @@ for "_i" from 0 to _numCiv do
 	sleep 0.5;
 	};
 
-_nul = [leader _groupCivil, _mrkDestination, "AWARE","SPAWNED","NOVEH2"] execVM "scripts\UPSMON.sqf";
+_nul = [leader _groupCivil, _mrkDestination, "AWARE","SPAWNED","NOVEH2"] execVM "..\..\scripts\UPSMON.sqf";//TODO need delete UPSMON link
 
 _civilMax = {alive _x} count _civiles;
 _solMax = count _soldiers;

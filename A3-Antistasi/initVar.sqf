@@ -978,6 +978,7 @@ switch (worldName) do {
 case "Tanoa":
 	{
 	roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
+	{_x setMarkerAlpha 0} forEach roadsMrk;
 	roadsCentral = ["road","road_1","road_2","road_3","road_4"];
 	roadsCE = ["road_5","road_6"];
 	roadsCSE = ["road_7"];

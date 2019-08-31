@@ -177,9 +177,11 @@ class A3A
 
 	class Dialogs
 	{
+		class clearForest {};
 		class dialogHQ {};
 		class mineDialog {};
 		class moveHQObject {};
+		class skiptime {};
 		class unit_recruit {};
 	};
 

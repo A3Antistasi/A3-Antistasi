@@ -236,26 +236,26 @@ class A3A
 
 	class REINF
 	{
-		class addBombRun {file="REINF\addBombRun.sqf";};
-		class addFIAsquadHC {file="REINF\addFIAsquadHC.sqf";};
-		class addFIAveh {file="REINF\addFIAveh.sqf";};
-		class addSquadVeh {file="REINF\addSquadVeh.sqf";};
-		class autoGarrison {file="REINF\autoGarrison.sqf";};
-		class build {file="REINF\Building\build.sqf";};
-		class buildCreateVehicleCallback {file="REINF\Building\buildCreateVehicleCallback.sqf";};
-		class buildMinefield {file="REINF\buildMinefield.sqf";};
-		class enemyNearCheck {file="REINF\enemyNearCheck.sqf";};
-		class FIAinit {file="REINF\FIAinit.sqf";};
-		class FIAskillAdd {file="REINF\FIAskillAdd.sqf";};
-		class garrisonAdd {file="REINF\garrisonAdd.sqf";};
-		class garrisonDialog {file="REINF\garrisonDialog.sqf";};
-		class NATObomb {file="REINF\NATObomb.sqf";};
-		class NATOQuadbike {file="REINF\NATOQuadbike.sqf";};
-		class postmortem {file="REINF\postmortem.sqf";};
-		class reDress {file="REINF\reDress.sqf";};
-		class reinfPlayer {file="REINF\reinfplayer.sqf";};
-		class vehiclePrice {file="REINF\vehiclePrice.sqf";};
-		class vehStats {file="REINF\vehStats.sqf";};
+		class addBombRun {};
+		class addFIAsquadHC {};
+		class addFIAveh {};
+		class addSquadVeh {};
+		class autoGarrison {};
+		class build {};
+		class buildCreateVehicleCallback {};
+		class buildMinefield {};
+		class enemyNearCheck {};
+		class FIAinit {};
+		class FIAskillAdd {};
+		class garrisonAdd {};
+		class garrisonDialog {};
+		class NATObomb {};
+		class NATOQuadbike {};
+		class postmortem {};
+		class reDress {};
+		class reinfPlayer {};
+		class vehiclePrice {};
+		class vehStats {};
 	}
 
 	class Revive

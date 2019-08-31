@@ -135,6 +135,7 @@ class A3A
 		class AAFroadPatrol {};
 		class airportCanAttack {};
 		class AIVEHinit {};
+		class ambientCivs {};
 		class cargoSeats {};
 		class CIVinit {};
 		class civVEHinit {};

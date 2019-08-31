@@ -86,7 +86,7 @@ else
 	waitUntil {/*(scriptdone _introshot) and */(!isNil "serverInitDone")};
 	//_nul = addMissionEventHandler ["Loaded", {_nul = [] execVM "statistics.sqf";_nul = [] execVM "reinitY.sqf";}];
 	};
-[] execVM "CREATE\ambientCivs.sqf";
+[] spawn A3A_fnc_ambientCivs;
 private ["_colourTeamPlayer", "_colorInvaders"];
 _colourTeamPlayer = teamPlayer call BIS_fnc_sideColor;
 _colorInvaders = Invaders call BIS_fnc_sideColor;

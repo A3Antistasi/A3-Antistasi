@@ -126,13 +126,13 @@ if (isMultiplayer) then
 	};
 if (!hasACE) then
 	{
-	[player] execVM "Revive\initRevive.sqf";
+	[player] spawn A3A_fnc_initRevive;
 	tags = [] execVM "tags.sqf";
 	}
 else
 	{
-	if (hasACEhearing) then {player addItem "ACE_EarPlugs"};
-	if (!hasACEMedical) then {[player] execVM "Revive\initRevive.sqf"};
+	if (hasACEhearing) then {player addItem "ACE_EarPlugs";};
+	if (!hasACEMedical) then {[player] spawn A3A_fnc_initRevive;};
 	};
 
 if (player getVariable ["pvp",false]) exitWith

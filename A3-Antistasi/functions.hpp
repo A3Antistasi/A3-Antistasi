@@ -24,15 +24,16 @@ class A3A
 		class findBasesForConvoy {};
 		class findNearestGoodRoad {};
 		class flagaction {};
-		class location {};
 		class fogCheck {};
 		class garbageCleaner {};
 		class garrisonInfo {};
+		class initPetros {};
 		class intelFound {};
 		class isFrontline {};
 		class isTheSameIsland {};
 		class keys {};
 		class localizar {};
+		class location {};
 		class logPerformance {};
 		class markerChange {};
 		class moveHQ {};

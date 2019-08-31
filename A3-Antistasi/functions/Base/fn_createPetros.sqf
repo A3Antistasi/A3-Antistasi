@@ -32,6 +32,6 @@ if (group _oldPetros == groupPetros) then {
 	[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros]
 };
 
-[] execVM "initPetros.sqf";
+[] spawn A3A_fnc_initPetros;
 
 deleteVehicle _oldPetros;

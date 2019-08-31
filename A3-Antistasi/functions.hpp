@@ -104,6 +104,7 @@ class A3A
 		class inmuneConvoy {};
 		class isBuildingPosition {};
 		class landThreatEval {};
+		class liberaterefugee {};
 		class mineSweep {};
 		class mortarDrill {};
 		class mortarSupport {};
@@ -173,7 +174,10 @@ class A3A
 
 	class Dialogs
 	{
+		class dialogHQ {};
 		class mineDialog {};
+		class moveHQObject {};
+		class unit_recruit {};
 	};
 
 	class Garage
@@ -219,6 +223,7 @@ class A3A
 		class getRadio {};
 		class NATOCrate {};
 		class randomRifle {};
+		class transfer {};
 	};
 
 	class OrgPlayers
@@ -263,6 +268,7 @@ class A3A
 	class Revive
 	{
 		class actionRevive {};
+		class carry {};
 		class fatalWound {};
 		class handleDamage {};
 		class handleDamageAAF {};

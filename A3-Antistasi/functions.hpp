@@ -171,7 +171,7 @@ class A3A
 
 	class Dialogs
 	{
-		class mineDialog {file="Dialogs\mineDialog.sqf";};
+		class mineDialog {};
 	}
 
 	class Garage

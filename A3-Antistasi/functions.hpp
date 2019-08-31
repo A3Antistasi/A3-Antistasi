@@ -264,6 +264,7 @@ class A3A
 		class postmortem {};
 		class reDress {};
 		class reinfPlayer {};
+		class stealStatic {};
 		class vehiclePrice {};
 		class vehStats {};
 	};

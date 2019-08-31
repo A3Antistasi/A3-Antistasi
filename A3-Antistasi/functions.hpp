@@ -165,8 +165,8 @@ class A3A
 
 	class Debugging
 	{
-		class spawnDebuggingLoop {file="Debugging\spawnDebuggingLoop.sqf";};
-		class deleteEmptyGroupsOnSide {file="Debugging\deleteEmptyGroupsOnSide.sqf";};
+		class deleteEmptyGroupsOnSide {};
+		class spawnDebuggingLoop {};
 	}
 
 	class Dialogs

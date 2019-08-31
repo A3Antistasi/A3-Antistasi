@@ -89,6 +89,7 @@ class A3A
 		class autoRearm {};
 		class canConquer {};
 		class canFight {};
+		class captureX {};
 		class chargeWithSmoke {};
 		class coverage {};
 		class destroyBuilding {};
@@ -102,6 +103,7 @@ class A3A
 		class help {};
 		class hideInBuilding {};
 		class inmuneConvoy {};
+		class interrogate {};
 		class isBuildingPosition {};
 		class landThreatEval {};
 		class liberaterefugee {};

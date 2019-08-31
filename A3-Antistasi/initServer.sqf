@@ -142,7 +142,7 @@ else
         };
     publicVariable "theBoss";
     publicVariable "membersX";
-    [] execVM "Ammunition\boxAAF.sqf";
+    [] spawn A3A_fnc_boxAAF;
     };
 
 diag_log format ["%1: [Antistasi] | INFO | Accepting Players.",servertime];
@@ -162,11 +162,11 @@ addMissionEventHandler ["PlayerDisconnected",{_this call A3A_fnc_onHeadlessClien
 
 addMissionEventHandler ["BuildingChanged", {
 	params ["_oldBuilding", "_newBuilding", "_isRuin"];
-	
+
 	if (_isRuin) then {
 		_oldBuilding setVariable ["ruins", _newBuilding];
 		_newBuilding setVariable ["building", _oldBuilding];
-		
+
 		if !(_oldBuilding in antennas) then {
 			destroyedBuildings pushBack (getPosATL _oldBuilding);
 		};

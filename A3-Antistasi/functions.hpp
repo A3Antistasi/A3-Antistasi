@@ -221,6 +221,7 @@ class A3A
 		class ACEpvpReDress {};
 		class ammunitionTransfer {};
 		class arsenalManage {};
+		class boxAAF {};
 		class checkRadiosUnlocked {};
 		class CSATCrate {};
 		class dress {};

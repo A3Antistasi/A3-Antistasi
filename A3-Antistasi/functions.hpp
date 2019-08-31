@@ -126,41 +126,41 @@ class A3A
 
 	class CREATE
 	{
-		class AAFroadPatrol {file="CREATE\AAFroadpatrol.sqf";};
-		class airportCanAttack {file="CREATE\airportCanAttack.sqf";};
-		class AIVEHinit {file="CREATE\AIVEHinit.sqf";};
-		class cargoSeats {file="CREATE\cargoSeats.sqf";};
-		class CIVinit {file="CREATE\CIVinit.sqf";};
-		class civVEHinit {file="CREATE\civVEHinit.sqf";};
-		class cleanserVeh {file="CREATE\cleanserVeh.sqf";};
-		class createAIAirplane {file="CREATE\createAIAirplane.sqf";};
-		class createAICities {file="CREATE\createAICities.sqf";};
-		class createAIcontrols {file="CREATE\createAIcontrols.sqf";};
-		class createAIOutposts {file="CREATE\createAIOutposts.sqf";};
-		class createAIResources {file="CREATE\createAIResources.sqf";};
-		class createCIV {file="CREATE\createCIV.sqf";};
-		class createFIAOutposts2 {file="CREATE\createFIAOutposts2.sqf";};
-		class createSDKGarrisons {file="CREATE\createSDKGarrisons.sqf";};
-		class createSDKgarrisonsTemp {file="CREATE\createSDKgarrisonsTemp.sqf";};
-		class CSATpunish {file="CREATE\CSATpunish.sqf";};
-		class FIAinitBases {file="CREATE\FIAinitBases.sqf";};
-		class garrisonReorg {file="CREATE\garrisonReorg.sqf";};
-		class garrisonSize {file="CREATE\garrisonSize.sqf";};
-		class garrisonUpdate {file="CREATE\garrisonUpdate.sqf";};
-		class groupDespawner {file="CREATE\groupDespawner.sqf";};
-		class milBuildings {file="CREATE\milBuildings.sqf";};
-		class minefieldAAF {file="CREATE\minefieldAAF.sqf";};
-		class mortarPos {file="CREATE\mortarPos.sqf";};
-		class NATOinit {file="CREATE\NATOinit.sqf";};
-		class patrolCA {file="CREATE\patrolCA.sqf";};
-		class patrolReinf {file="CREATE\patrolReinf.sqf";};
-		class reinforcementsAI {file="CREATE\reinforcementsAI.sqf";};
-		class remoteBattle {file="CREATE\remoteBattle.sqf";};
-		class removeVehFromPool {file="CREATE\removeVehFromPool.sqf";};
-		class spawnGroup {file="CREATE\spawnGroup.sqf";};
-		class vehAvailable {file="CREATE\vehAvailable.sqf";};
-		class VEHdespawner {file="CREATE\VEHdespawner.sqf";};
-		class wavedCA {file="CREATE\wavedCA.sqf";};
+		class AAFroadPatrol {};
+		class airportCanAttack {};
+		class AIVEHinit {};
+		class cargoSeats {};
+		class CIVinit {};
+		class civVEHinit {};
+		class cleanserVeh {};
+		class createAIAirplane {};
+		class createAICities {};
+		class createAIcontrols {};
+		class createAIOutposts {};
+		class createAIResources {};
+		class createCIV {};
+		class createFIAOutposts2 {};
+		class createSDKGarrisons {};
+		class createSDKgarrisonsTemp {};
+		class CSATpunish {};
+		class FIAinitBases {};
+		class garrisonReorg {};
+		class garrisonSize {};
+		class garrisonUpdate {};
+		class groupDespawner {};
+		class milBuildings {};
+		class minefieldAAF {};
+		class mortarPos {};
+		class NATOinit {};
+		class patrolCA {};
+		class patrolReinf {};
+		class reinforcementsAI {};
+		class remoteBattle {};
+		class removeVehFromPool {};
+		class spawnGroup {};
+		class vehAvailable {};
+		class VEHdespawner {};
+		class wavedCA {};
 	}
 
 	class Debugging

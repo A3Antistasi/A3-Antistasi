@@ -279,10 +279,10 @@ class A3A
 
 	class Save
 	{
-		class playerHasSave {file="statSave\playerHasSave.sqf";};
-		class loadPlayer {file="statSave\loadPlayer.sqf";};
-		class savePlayer {file="statSave\savePlayer.sqf";};
-		class loadPreviousSession {file="statSave\loadPreviousSession.sqf";};
+		class loadPlayer {};
+		class loadPreviousSession {};
+		class playerHasSave {};
+		class savePlayer {};
 	}
 
 	class Templates

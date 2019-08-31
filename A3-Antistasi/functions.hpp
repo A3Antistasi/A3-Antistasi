@@ -260,15 +260,15 @@ class A3A
 
 	class Revive
 	{
-		class actionRevive {file="Revive\actionRevive.sqf";};
-		class fatalWound {file="Revive\fatalWound.sqf";};
-		class handleDamage {file="Revive\handleDamage.sqf";};
-		class handleDamageAAF {file="Revive\handleDamageAAF.sqf";};
-		class unconscious {file="Revive\unconscious.sqf";};
-		class unconsciousAAF {file="Revive\unconsciousAAF.sqf";};
-		class initRevive {file="Revive\initRevive.sqf";};
-		class isMedic {file="Revive\isMedic.sqf";};
-		class respawn {file="Revive\respawn.sqf";};
+		class actionRevive {};
+		class fatalWound {};
+		class handleDamage {};
+		class handleDamageAAF {};
+		class initRevive {};
+		class isMedic {};
+		class respawn {};
+		class unconscious {};
+		class unconsciousAAF {};
 	}
 
 	class Runways

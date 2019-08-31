@@ -2121,7 +2121,7 @@ class squad_recruit 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;[] execVM ""Dialogs\squadOptions.sqf"";";
+			action = "closeDialog 0; [] spawn A3A_fnc_squadOptions;";
 		};
 		class HQ_button_infteam: RscButton
 		{

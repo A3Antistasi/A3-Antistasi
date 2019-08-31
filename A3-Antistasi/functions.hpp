@@ -187,6 +187,7 @@ class A3A
 		class mineDialog {};
 		class moveHQObject {};
 		class skiptime {};
+		class squadOptions {};
 		class squadRecruit {};
 		class unit_recruit {};
 	};

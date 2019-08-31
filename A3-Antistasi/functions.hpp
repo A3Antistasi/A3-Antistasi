@@ -178,6 +178,8 @@ class A3A
 
 	class Dialogs
 	{
+		class buyVehicle {};
+		class buyVehicleCiv {};
 		class clearForest {};
 		class dialogHQ {};
 		class mineDialog {};

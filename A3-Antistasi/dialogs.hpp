@@ -587,7 +587,7 @@ class vehicle_option 	{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;nul=[] execVM ""Dialogs\buy_vehicle_civ.sqf"";";
+			action = "closeDialog 0; [] spawn A3A_fnc_buyVehicleCiv;";
 		};
 		class HQ_button_Gstatic: RscButton
 		{
@@ -598,7 +598,7 @@ class vehicle_option 	{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; nul=[] execVM ""Dialogs\buy_vehicle.sqf"";";
+			action = "closeDialog 0; [] spawn A3A_fnc_buyVehicle;";
 		};
 	};
 };

@@ -214,17 +214,18 @@ class A3A
 
 	class Ammunition
 	{
-		class ACEpvpReDress {file="Ammunition\ACEpvpReDress.sqf";};
-		class arsenalManage {file="Ammunition\arsenalManage.sqf";};
-		class CSATCrate {file="Ammunition\CSATCrate.sqf";};
-		class ammunitionTransfer {file="Ammunition\ammunitionTransfer.sqf";};
-		class NATOCrate {file="Ammunition\NATOCrate.sqf";};
-		class randomRifle {file="Ammunition\randomRifle.sqf";};
-		class dress {file="Ammunition\dress.sqf";};
-		class empty {file="Ammunition\empty.sqf";};
-		class getRadio {file="Ammunition\getRadio.sqf";};
-		class checkRadiosUnlocked {file="Ammunition\checkRadiosUnlocked.sqf";};
-		//class boxAAF {file="Ammunition\boxAAF.sqf";};
+        class ACEpvpReDress {file="Ammunition\ACEpvpReDress.sqf";};
+        class arsenalManage {file="Ammunition\arsenalManage.sqf";};
+        class CSATCrate {file="Ammunition\CSATCrate.sqf";};
+        class ammunitionTransfer {file="Ammunition\ammunitionTransfer.sqf";};
+        class NATOCrate {file="Ammunition\NATOCrate.sqf";};
+        class randomRifle {file="Ammunition\randomRifle.sqf";};
+        class dress {file="Ammunition\dress.sqf";};
+        class empty {file="Ammunition\empty.sqf";};
+        class crateLootParams {file="Ammunition\crateLootParams.sqf";};
+        class getRadio {file="Ammunition\getRadio.sqf";};
+        class checkRadiosUnlocked {file="Ammunition\checkRadiosUnlocked.sqf";};
+        //class boxAAF {file="Ammunition\boxAAF.sqf";};
 	}
 
 	class OrgPlayers

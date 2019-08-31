@@ -1,95 +1,133 @@
-//if (!isServer) exitWith {};
+private ["_loot","_guns","_ammo","_items","_avail","_num","_optics","_packs","_mines","_unlocks"];
 
-private ["_crate","_thingX","_num","_magazines"];
-
-_crate = _this select 0;
+private _unlocks = (unlockedItems + unlockedOptics + unlockedWeapons + unlockedBackpacks + unlockedMagazines);
+private _crate = _this select 0;
 
 clearMagazineCargoGlobal _crate;
 clearWeaponCargoGlobal _crate;
 clearItemCargoGlobal _crate;
 clearBackpackCargoGlobal _crate;
 
-_var1 = 1 + round random 4;
-_var2 = 1 + round random 5;
-_var3 = 1 + floor random 3;
-_var4 = floor random 2;
+private _weaponTypes = crateWepTypeMin + floor random (crateWepTypeMax - crateWepTypeMin);
+private _itemTypes = crateItemTypeMin + floor random (crateItemTypeMax - crateItemTypeMin);
+private _ammoTypes = crateAmmoTypeMin + floor random (crateAmmoTypeMax - crateAmmoTypeMin);
+private _mineTypes = crateMineTypeMin + floor random (crateMineTypeMax - crateMineTypeMin);
+private _opticTypes = crateOpticTypeMin + floor random (crateOpticTypeMax - crateOpticTypeMin);
+private _backpackTypes = crateBackpackTypeMin + floor random (crateBackpackTypeMax - crateBackpackTypeMin);
+
 if (typeOf _crate == vehNATOAmmoTruck) then
 	{
-	_var1=_var1*2;
-	_var2=_var2*2;
-	_var3=_var3*2;
-	_var4=_var4*2;
+	_weaponTypes=_weaponTypes*2;
+	_itemTypes=_itemTypes*2;
+	_ammoTypes=_ammoTypes*2;
+	_mineTypes=_mineTypes*2;
+	_opticTypes=_opticTypes*2;
+	_backpackTypes=_backpackTypes*2;
 	};
 
-for "_i" from 0 to _var1 do
+for "_i" from 0 to _weaponTypes do
 	{
-	_thingX = selectRandom (weaponsNato + antitankAAF);
-	if (!(_thingX in unlockedWeapons)) then
+	_guns = (weaponsNato + antitankAAF);
+	_avail = (_guns - _unlocks - itemCargo _crate);
+	_loot = selectRandom _avail;
+	if (isNil "_loot") then {} else
 		{
-		_num = 1 + (floor random 12);
-		_crate addWeaponCargoGlobal [_thingX, _num];
-		_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
-		_crate addMagazineCargoGlobal [_magazines select 0, _num * 3];
+		_num = crateWepNumMin + floor random (crateWepNumMax - crateWepNumMin);
+		_crate addWeaponWithAttachmentsCargoGlobal [[_loot, "", "", "", [], [], ""],_num];
 		};
 	};
-for "_i" from 0 to _var2 do
+
+for "_i" from 0 to _itemTypes do
 	{
-	_thingX = selectRandom itemsAAF;
-	if (!(_thingX in unlockedItems)) then
+	_items = itemsAAF;
+	_avail = (_items - _unlocks - itemCargo _crate);
+	_loot = selectRandom _avail;
+	if (isNil "_loot") then {} else
 		{
-		_num = floor random 5;
-		_crate addItemCargoGlobal [_thingX, _num];
+		_num = crateItemNumMin + floor random (crateItemNumMax - crateItemNumMin);
+		_crate addItemCargoGlobal [_loot,_num];
 		};
 	};
-for "_i" from 0 to _var2 do
+
+for "_i" from 0 to _ammoTypes do
 	{
-	_thingX = selectRandom ammunitionNATO;
-	if (!(_thingX in unlockedMagazines)) then {_crate addMagazineCargoGlobal [_thingX, 10]};
+	_ammo = smokeX + chemX + ammunitionNATO;
+	_avail = (_ammo - _unlocks - itemCargo _crate);
+	_loot = selectRandom _avail;
+	if (isNil "_loot") then {} else
+		{
+		_num = crateAmmoNumMin + floor random (crateAmmoNumMax - crateAmmoNumMin);
+		_crate addMagazineCargoGlobal [_loot,_num];
+		};
 	};
-for "_i" from 1 to _var3 do
-	{_thingX = selectRandom minesAAF;
-	_num = 1 + (floor random 5);
-	_crate addMagazineCargoGlobal [_thingX, _num];
+
+for "_i" from 0 to _mineTypes do
+	{
+	_mines = minesAAF;
+	_avail = (_mines - _unlocks - itemCargo _crate);
+	_loot = selectRandom _avail;
+	if (isNil "_loot") then {} else
+		{
+		_num = crateMineNumMin + floor random (crateMineNumMax - crateMineNumMin);
+		_crate addMagazineCargoGlobal [_loot,_num];
+		};
 	};
+
 if !(hasIFA) then
 	{
-	for "_i" from 1 to _var4 do
+	for "_i" from 0 to _opticTypes do
 		{
-		_thingX = selectRandom opticsAAF;
-		if (not(_thingX in unlockedItems)) then
+		_optics = opticsAAF;
+		_avail = (_optics - _unlocks - itemCargo _crate);
+		_loot = selectRandom _avail;
+		if (isNil "_loot") then {} else
 			{
-			_crate addItemCargoGlobal [_thingX, 1 + (floor random 2)];
+			_num = crateOpticsNumMin + floor random (crateOpticsNumMax - crateOpticsNumMin);
+			_crate addItemCargoGlobal [_loot,_num];
 			};
 		};
 
+	for "_i" from 0 to _backpackTypes do
+		{
+		_packs = backpacksNATO;
+		_avail = (_packs - _unlocks - itemCargo _crate);
+		_loot = selectRandom _avail;
+		if (isNil "_loot") then {} else
+			{
+			_num = crateBackpackNumMin + floor random (crateBackpackNumMax - crateBackpackNumMin);
+			_crate addItemCargoGlobal [_loot,_num];
+			};
+		};
 	if (round random 100 < 25) then
 		{
-		_crate addBackpackCargoGlobal ["B_Static_Designator_01_weapon_F",1];
+		if !("B_Static_Designator_01_weapon_F" in _unlocks) then
+		{_crate addBackpackCargoGlobal ["B_Static_Designator_01_weapon_F",1]};
 		}
 	else
 		{
-		if (round random 100 < 50) then
+		if (round random 100 < 25) then
 			{
 			if (side group petros == independent) then
 				{
-				_crate addBackpackCargoGlobal ["I_UAV_01_backpack_F",1];
-				_crate addItemCargoGlobal ["I_UavTerminal",1];
+				if !("O_Static_Designator_02_weapon_F" in _unlocks) then
+				{_crate addBackpackCargoGlobal ["I_UAV_01_backpack_F",1]};
+				if !("O_Static_Designator_02_weapon_F" in _unlocks) then
+				{_crate addItemCargoGlobal ["I_UavTerminal",1]};
 				}
 			else
 				{
-				_crate addBackpackCargoGlobal ["B_UAV_01_backpack_F",1];
-				_crate addItemCargoGlobal ["B_UavTerminal",1];
+				if !("O_Static_Designator_02_weapon_F" in _unlocks) then
+				{_crate addBackpackCargoGlobal ["B_UAV_01_backpack_F",1]};
+				if !("O_Static_Designator_02_weapon_F" in _unlocks) then
+				{_crate addItemCargoGlobal ["B_UavTerminal",1]};
 				};
-			}
-		else
-			{
-			_crate addBackpackCargoGlobal ["B_Carryall_oli",round (random 2)];
 			};
 		};
 	if (hasACE) then
 		{
-		_crate addMagazineCargoGlobal ["ACE_HuntIR_M203", 3];
-		//_crate addBackpackCargoGlobal ["ACE_HuntIR_Box",1];
-		_crate addItemCargoGlobal ["ACE_HuntIR_monitor", 1];
+			if !("ACE_HuntIR_M203" in _unlocks) then
+		{_crate addMagazineCargoGlobal ["ACE_HuntIR_M203", 3]};
+			if !("ACE_HuntIR_monitor" in _unlocks) then
+		{_crate addItemCargoGlobal ["ACE_HuntIR_monitor", 1]};
 		};
 	};

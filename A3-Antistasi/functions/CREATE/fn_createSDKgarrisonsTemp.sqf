@@ -18,14 +18,14 @@ if (_typeX isEqualType "") then
 	if (_typeX == staticCrewTeamPlayer) then
 		{
 		private _veh = SDKMortar createVehicle _positionX;
-		_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";
+		_nul=[_veh] execVM "..\..\scripts\UPSMON\MON_artillery_add.sqf";//TODO need delete UPSMON link
 		_unit assignAsGunner _veh;
 		_unit moveInGunner _veh;
 		[_veh] call A3A_fnc_AIVEHinit;
 		};
 	if (_groups isEqualTo []) then
 		{
-		_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+		_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "..\..\scripts\UPSMON.sqf";//TODO need delete UPSMON link
 		};
 	[_unit,_markerX] spawn
 		{

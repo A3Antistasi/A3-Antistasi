@@ -2,10 +2,10 @@ class A3A
 {
 	class Base
 	{
-		class addHC {file="addHC.sqf";};
-		class addTimeForIdle {file="addTimeForIdle.sqf";};
-		class AILoadInfo {file="AILoadInfo.sqf";};
-		class blackout {file="blackout.sqf";};
+		class addHC {};
+		class addTimeForIdle {};
+		class AILoadInfo {};
+		class blackout {};
 		class attackAAF {file="attackAAF.sqf";};
 		class buildHQ {file="buildHQ.sqf";};
 		class ejectPvPPlayerIfInvalidVehicle {file="ejectPvPPlayerIfInvalidVehicle.sqf";};

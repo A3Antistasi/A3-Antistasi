@@ -105,6 +105,7 @@ class A3A
 		class isBuildingPosition {};
 		class landThreatEval {};
 		class liberaterefugee {};
+		class liberatePOW {};
 		class mineSweep {};
 		class mortarDrill {};
 		class mortarSupport {};

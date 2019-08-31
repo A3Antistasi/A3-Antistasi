@@ -182,6 +182,7 @@ class A3A
 		class buyVehicleCiv {};
 		class clearForest {};
 		class dialogHQ {};
+		class difficultyMenu {};
 		class mineDialog {};
 		class moveHQObject {};
 		class skiptime {};

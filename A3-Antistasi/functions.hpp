@@ -24,7 +24,7 @@ class A3A
 		class findBasesForConvoy {};
 		class findNearestGoodRoad {};
 		class flagaction {};
-		class fn_location {};
+		class location {};
 		class fogCheck {};
 		class garbageCleaner {};
 		class garrisonInfo {};

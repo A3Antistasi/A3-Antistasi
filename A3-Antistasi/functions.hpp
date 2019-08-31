@@ -176,27 +176,23 @@ class A3A
 
 	class Garage
 	{
-		//Public API - Call these to do things
-		class garage {file="Garage\garage2.sqf";};
-		class garageVehicle {file="Garage\garageVehicle.sqf";};
-		class placeEmptyVehicle {file="Garage\placeEmptyVehicle.sqf";};
-		class vehPlacementBegin {file="Garage\vehPlacementBegin.sqf";};
-		class vehPlacementCallbacks {file="Garage\vehPlacementCallbacks.sqf";};
-		class vehPlacementCancel {file="Garage\vehPlacementCancel.sqf";};
-		class vehPlacementChangeVehicle {file="Garage\vehPlacementChangeVehicle.sqf";};
-		//Garage modifiers, public API
-		class addToPersonalGarage {file="Garage\personalGarage\addToPersonalGarage.sqf";};
-		class addToPersonalGarageLocal {file="Garage\personalGarage\addToPersonalGarageLocal.sqf";};
-		class getPersonalGarage {file="Garage\personalGarage\getPersonalGarage.sqf";};
-		class getPersonalGarageLocal {file="Garage\personalGarage\getPersonalGarageLocal.sqf";};
-		class setPersonalGarage {file="Garage\personalGarage\setPersonalGarage.sqf";};
-		class setPersonalGarageLocal {file="Garage\personalGarage\setPersonalGarageLocal.sqf";};
-		//Private - Do NOT call these elsewhere
-		class attemptPlaceVehicle {file="Garage\private\attemptPlaceVehicle.sqf";};
-		class displayVehiclePlacementMessage {file="Garage\private\displayVehiclePlacementMessage.sqf";};
-		class handleVehPlacementCancelled {file="Garage\private\handleVehPlacementCancelled.sqf";};
-
-		class vehPlacementCleanup {file="Garage\private\vehPlacementCleanup.sqf";};
+		class addToPersonalGarage {};
+		class addToPersonalGarageLocal {};
+		class attemptPlaceVehicle {};
+		class displayVehiclePlacementMessage {};
+		class garage {};
+		class garageVehicle {};
+		class getPersonalGarage {};
+		class getPersonalGarageLocal {};
+		class handleVehPlacementCancelled {};
+		class placeEmptyVehicle {};
+		class setPersonalGarage {};
+		class setPersonalGarageLocal {};
+		class vehPlacementBegin {};
+		class vehPlacementCallbacks {};
+		class vehPlacementCancel {};
+		class vehPlacementChangeVehicle {};
+		class vehPlacementCleanup {};
 	}
 
 	class Missions

@@ -1,4 +1,4 @@
-#include "..\defineCommon.inc"
+#include "defineCommon.inc"
 
 //vehPlace_lastPreviewPosition = nil;
 _pos = getPos vehPlace_previewVeh;
@@ -34,7 +34,7 @@ if (!(_canPlaceArray select 0))	exitWith {
 
 //Only show text after we've checked all of the failure conditions above.
 ["<t size='0.6'>Vehicle Placed",0,0,3,0,0,4] spawn bis_fnc_dynamicText;
-	
+
 waitUntil {isNull vehPlace_previewVeh};
 
 

@@ -1,4 +1,4 @@
-#include "..\defineCommon.inc"
+#include "defineCommon.inc"
 
 //THIS SHOULDN'T BE CALLED OUTSIDE OF THE VEHICLE PLACEMENT SCRIPTS
 //CALL AT YOUR OWN RISK

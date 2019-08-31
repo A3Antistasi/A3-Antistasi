@@ -55,7 +55,7 @@ switch _typeX do
 				};
 			//_flag addAction [format ["Revive %1",name _flag], { _this spawn A3A_fnc_actionRevive; },nil,0,false,true,"","!(_this getVariable [""helping"",false]) and (isNull attachedTo _target)"];
 
-			_actionX = _flag addAction [format ["<t>Carry %1</t> <img image='\A3\ui_f\data\igui\cfg\actions\take_ca.paa' size='1.6' shadow=2 />",name _flag], { _this spawn A3A_fnc_carry;},nil,5,true,false,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (isNull attachedTo _target) and !(_this getVariable [""helping"",false]);",4];
+			_actionX = _flag addAction [format ["<t>Carry %1</t> <img image='\A3\ui_f\data\igui\cfg\actions\take_ca.paa' size='1.6' shadow=2 />",name _flag], { _this spawn A3A_fnc_carry; },nil,5,true,false,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (isNull attachedTo _target) and !(_this getVariable [""helping"",false]);",4];
 			_flag setUserActionText [_actionX,format ["Carry %1",name _flag],"<t size='2'><img image='\A3\ui_f\data\igui\cfg\actions\take_ca.paa'/></t>"];
 			[_flag] call jn_fnc_logistics_addActionLoad;
 			};
@@ -103,14 +103,14 @@ switch _typeX do
 		{
 		fireX addAction ["Rest for 8 Hours", { [] spawn A3A_fnc_skiptime; },nil,0,false,true,"","(_this == theBoss)",4];
 		fireX addAction ["Clear Nearby Forest", { [] spawn A3A_fnc_clearForest; },nil,0,false,true,"","(_this == theBoss)",4];
-		fireX addAction ["I hate the fog", "[10,0] remoteExec [""setFog"",2]",nil,0,false,true,"","(_this == theBoss)",4];
+		fireX addAction ["I hate the fog", { [10,0] remoteExec [""setFog"",2]; },nil,0,false,true,"","(_this == theBoss)",4];
 		fireX addAction ["Move this asset", { _this spawn A3A_fnc_moveHQObject; },nil,0,false,true,"","(_this == theBoss)"];
 		};
 
 	case "SDKFlag":
 		{
 		removeAllActions _flag;
-		_flag addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else {nul=[] execVM "Dialogs\unit_recruit.sqf"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4];
+		_flag addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else { [] spawn A3A_fnc_unit_recruit; };},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4];
 		_flag addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4];
 		if (isMultiplayer) then
 			{

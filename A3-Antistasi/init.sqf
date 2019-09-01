@@ -65,7 +65,7 @@ if (!isMultiPlayer) then
     }foreach (unlockeditems + unlockedweapons + unlockedMagazines + unlockedBackpacks);
     [] spawn A3A_fnc_boxAAF;
     waitUntil {sleep 1;!(isNil "placementDone")};
-    distanceXs = [] spawn A3A_fnc_distances4;
+    distanceXs = [] spawn A3A_fnc_distance;
     resourcecheck = [] execVM "resourcecheck.sqf";
     [] execVM "Scripts\fn_advancedTowingInit.sqf";
     addMissionEventHandler ["BuildingChanged",

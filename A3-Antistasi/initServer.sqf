@@ -177,7 +177,7 @@ serverInitDone = true; publicVariable "serverInitDone";
 diag_log format ["%1: [Antistasi] | INFO | Marking serverInitDone : %2.",servertime, serverInitDone];
 
 waitUntil {sleep 1;!(isNil "placementDone")};
-distanceXs = [] spawn A3A_fnc_distances4;
+distanceXs = [] spawn A3A_fnc_distance;
 resourcecheck = [] execVM "resourcecheck.sqf";
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 savingServer = false;

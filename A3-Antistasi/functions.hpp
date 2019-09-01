@@ -16,7 +16,7 @@ class A3A
 		class createPetros {};
 		class deleteControls {};
 		class destroyCity {};
-		class distances4 {};
+		class distance {};
 		class distanceUnits {};
 		class economicsAI {};
 		class ejectPvPPlayerIfInvalidVehicle {};

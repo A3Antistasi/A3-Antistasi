@@ -190,6 +190,11 @@ if ((_nameX != "") and (_nameX != "Lakatoro01") and (_nameX != "Galili01") and (
     };
 }foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["NameCityCapital","NameCity","NameVillage","CityCenter"], 25000]);
 diag_log format ["%1: [Antistasi] | INFO | initZones | Roads built in %2.",servertime,worldname];
+
+diag_log format ["%1: [Antistasi] | INFO | initZones | Nav grid loading started.",servertime];
+[] call A3A_fnc_loadNavGrid;
+diag_log format ["%1: [Antistasi] | INFO | initZones | Nav grid loaded.",servertime];
+
 markersX = markersX + citiesX;
 sidesX setVariable ["Synd_HQ",teamPlayer,true];
 //if !(isMultiplayer) then {call compile preprocessFileLineNumbers "initGarrisons.sqf"};

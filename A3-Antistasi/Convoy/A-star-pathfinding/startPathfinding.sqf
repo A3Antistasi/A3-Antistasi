@@ -1,5 +1,7 @@
 params ["_startPos" , "_endPos", "_avoid"];
 
+if(isNil "roadDataDone") exitWith {hint "Road data base not loaded, aborting pathfinding!"};
+
 private _deltaTime = time;
 
 
@@ -12,7 +14,7 @@ allMarker = [];
 createNavMarker = compile preprocessFileLineNumbers "NavGridTools\createNavMarker.sqf";
 
 
-if(!(_startNav isEqualType 1 && _endNav isEqualType 1)) exitWith {hint "Improve the search!"};
+if(!(_startNav isEqualType 1 && _endNav isEqualType 1)) exitWith {/*hint "Improve the search!"*/};
 
 
 //Start A* here
@@ -62,7 +64,7 @@ while {(!(_lastNav isEqualType [])) && {count _openList > 0}} do
     _nextNodes = [_next select 0] call A3A_fnc_getNavConnections;
     _nextPos = [_next select 0] call A3A_fnc_getNavPos;
 
-    ["mil_dot", _nextPos, "ColorRed"] call createNavMarker;
+    //["mil_dot", _nextPos, "ColorRed"] call createNavMarker;
 
     {
         _conNav = _x;
@@ -83,14 +85,14 @@ while {(!(_lastNav isEqualType [])) && {count _openList > 0}} do
           {
             _h = [_conPos, _targetNavPos] call A3A_fnc_calculateH;
             _openList pushBack [_conName, ((_next select 1) + (_nextPos distance _conPos)), _h, (_next select 0)];
-            ["mil_dot", _conPos, "ColorGreen"] call createNavMarker;
+            //["mil_dot", _conPos, "ColorGreen"] call createNavMarker;
           }
           else
           {
             //In open list
             _conData = _openList deleteAt _openListIndex;
             //Is it a shorter way to this node?
-            if((_conData select 1) > ((_next select 1) + (_nodePos distance _conPos))) then
+            if((_conData select 1) > ((_next select 1) + (_nextPos distance _conPos))) then
             {
               _conData set [1, ((_next select 1) + (_nextPos distance _conPos))];
               _conData set [3, (_next select 0)];
@@ -105,10 +107,17 @@ private _wayPoints = [];
 if(_lastNav isEqualType []) then
 {
   //Way found, reverting way through path
-  _wayPoints = [_startPos, _targetNavPos];
+  _wayPoints = [_startPos, _startNavPos];
   while {_lastNav isEqualType []} do
   {
-    _wayPoints pushBack ([_lastNav select 0] call A3A_fnc_getNavPos);
+    _lastPos = [_lastNav select 0] call A3A_fnc_getNavPos;
+    _wayPoints pushBack _lastPos;
+    private _marker = ["mil_dot", _lastPos, "ColorGreen"] call createNavMarker;
+    [_marker] spawn
+    {
+      sleep 15;
+      deleteMarker (_this select 0);
+    };
     _lastNavIndex = _lastNav select 3;
     if(_lastNavIndex isEqualType 1) then
     {

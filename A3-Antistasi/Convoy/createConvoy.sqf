@@ -53,7 +53,7 @@ if(_hasAir && {!_hasLand}) then
 else
 {
   //Convoy is either pure land or combined air and land find way about the streets
-  _route = [_origin, _destination] call A3A_fnc_calculateRoute;
+  _route = [_origin, _destination] call A3A_fnc_findPath;
   if(_hasAir) then {_type = "Mixed"} else {_type = "Land"};
 };
 

@@ -25,6 +25,9 @@
     _abort = true;
   };
 
+  roadDataDone = true;
+  publicVariable "roadDataDone";
+
   if(_abort) exitWith {};
 
   _worldSize = worldSize;
@@ -57,7 +60,7 @@
       _marker setMarkerColor "ColorBlack";
       _points = missionNamespace getVariable [(format ["%1/%2_data", _i, _j]), []];
       _marker setMarkerText (format ["%1/%2, NavPoints: %3", _i, _j, count _points]);
-      _marker setMarkerAlpha 1;
+      _marker setMarkerAlpha 0;
 
       mainMarker pushBack "_marker";
     };

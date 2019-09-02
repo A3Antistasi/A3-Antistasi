@@ -64,7 +64,7 @@
       <Key ID="STR_antistasi_dialogs_hq_button_members_list_tooltip">
         <Original>Displays which server members are currently playing</Original>
         <English>Displays which server members are currently playing</English>
-        <Russian>Показывает кто из игроков сейчас в игре</Russian>
+        <Russian>Показывает кто из Игроков Сервера сейчас в игре</Russian>
       </Key>
       <Key ID="STR_antistasi_dialogs_hq_button_rebuild_assets_text">
         <Original>Rebuild Assets</Original>

@@ -184,6 +184,22 @@ class A3A
     class findAirportForAirstrike {file="Convoy\findAirportForAirstrike.sqf";};
   }
 
+  class Pathfinding
+  {
+    //Public API - Call these from anywhere
+    class loadNavGrid {file="Convoy\A-star-pathfinding\loadNavGrid.sqf";};
+    class findPath {file="Convoy\A-star-pathfinding\startPathfinding.sqf";};
+
+    //Private API - Do NOT call these elsewhere
+    class getMainMarkers {file="Convoy\A-star-pathfinding\getMainMarkers.sqf";};
+    class getClosestMainMarker {file="Convoy\A-star-pathfinding\getClosestMainMarker.sqf";};
+    class getNavPos {file="Convoy\A-star-pathfinding\getNavPos.sqf";};
+    class calculateH {file="Convoy\A-star-pathfinding\calculateH.sqf";};
+    class setNavOnMarker {file="Convoy\A-star-pathfinding\setNavOnMarker.sqf";};
+    class getNavConnections {file="Convoy\A-star-pathfinding\getNavConnections.sqf";};
+    class findNearestNavPoint {file="Convoy\A-star-pathfinding\findNearestNavPoint.sqf";};
+  }
+
 	class Garage
 	{
 		//Public API - Call these to do things

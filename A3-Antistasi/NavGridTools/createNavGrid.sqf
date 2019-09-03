@@ -192,7 +192,7 @@ not every junction is suitable, the script will tell you, if that case happens.<
       _connected = [_currentSegment] call findConnection;
 
       //Sorting out my start navSegment and every ignored segment
-      _connected = _connected select {!(_x in _currentIgnored) && {!(_x in _junctionIgnored)}};
+      _connected = _connected select {!(_x in _currentIgnored)};
       _connectedCount = count _connected;
 
       _debug = "";
@@ -221,7 +221,7 @@ not every junction is suitable, the script will tell you, if that case happens.<
       //Only one way to go, go further if the next node is not an navSegment
       if(_connectedCount == 1) then
       {
-        if(!((_connected select 0) in _junctionSegments)) then
+        if(!((_connected select 0) in _junctionSegments || ((_connected select 0) in _junctionIgnored))) then
         {
           if(_segmentCount > _segmentsTillNext) then
           {

@@ -37,6 +37,7 @@ while {(!(_lastNav isEqualType [])) && {count _openList > 0}} do
 {
     //Select node with lowest score
     _next = objNull;
+    //private _debug = "List is\n";
     if((count _openList) == 1) then
     {
       _next = _openList deleteAt 0;
@@ -46,6 +47,7 @@ while {(!(_lastNav isEqualType [])) && {count _openList > 0}} do
       private _nextValue = 0;
       {
         _xValue = ((_x select 1) + (_x select 2));
+        //_debug = format ["%1Object: %2 Value: %3\n", _debug, (_x select 0), _xValue];
 
         if((!(_next isEqualType [])) || {_xValue < _nextValue}) then
         {
@@ -54,7 +56,10 @@ while {(!(_lastNav isEqualType [])) && {count _openList > 0}} do
         };
       } forEach _openList;
       _openList = _openList - [_next];
+      //_debug = format ["%1Choose: %2 Value: %3", _debug, (_next select 0), _nextValue];
     };
+
+    //hint _debug;
 
     //Close node
     _closedList pushBack _next;
@@ -64,7 +69,7 @@ while {(!(_lastNav isEqualType [])) && {count _openList > 0}} do
     _nextNodes = [_next select 0] call A3A_fnc_getNavConnections;
     _nextPos = [_next select 0] call A3A_fnc_getNavPos;
 
-    //["mil_dot", _nextPos, "ColorRed"] call createNavMarker;
+    ["mil_dot", _nextPos, "ColorRed"] call createNavMarker;
 
     {
         _conNav = _x;
@@ -85,7 +90,8 @@ while {(!(_lastNav isEqualType [])) && {count _openList > 0}} do
           {
             _h = [_conPos, _targetNavPos] call A3A_fnc_calculateH;
             _openList pushBack [_conName, ((_next select 1) + (_nextPos distance _conPos)), _h, (_next select 0)];
-            //["mil_dot", _conPos, "ColorGreen"] call createNavMarker;
+            private _marker = ["mil_dot", _conPos, "ColorBlue"] call createNavMarker;
+            _marker setMarkerText str (_h + (_next select 1) + (_nextPos distance _conPos));
           }
           else
           {
@@ -112,12 +118,7 @@ if(_lastNav isEqualType []) then
   {
     _lastPos = [_lastNav select 0] call A3A_fnc_getNavPos;
     _wayPoints pushBack _lastPos;
-    private _marker = ["mil_dot", _lastPos, "ColorGreen"] call createNavMarker;
-    [_marker] spawn
-    {
-      sleep 15;
-      deleteMarker (_this select 0);
-    };
+    ["mil_dot", _lastPos, "ColorGreen"] call createNavMarker;
     _lastNavIndex = _lastNav select 3;
     if(_lastNavIndex isEqualType 1) then
     {
@@ -137,6 +138,14 @@ else
 {
   _deltaTime = time - _deltaTime;
   hint format ["Could not find a way, search took %1 seconds", _deltaTime];
+};
+
+[] spawn
+{
+  sleep 15;
+  {
+      deleteMarker _x;
+  } forEach allMarker;
 };
 
 _wayPoints;

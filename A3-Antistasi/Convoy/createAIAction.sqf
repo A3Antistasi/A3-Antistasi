@@ -74,7 +74,36 @@ if(_type == "patrol") then
 };
 if(_type == "reinforce") then
 {
+  //Should outpost are able to reinforce to?
+  _arguments params [["_small", true]];
+  _airport = [_destination, _side] call A3A_fnc_findAirportForAirstrike;
+  if(_airport != "") then
+  {
+    _land = true; //if ((getMarkerPos _airport) distance _destinationPos > distanceForLandAttack) then {false} else {true};
+    _typeGroup = if (_side == Occupants) then {if (_small) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_small) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
 
+    _typeVeh = "";
+    if (_land) then
+    {
+    	if (_side == Occupants) then {_typeVeh = selectRandom vehNATOTrucks} else {_typeVeh = selectRandom vehCSATTrucks};
+    }
+    else
+    {
+    	_vehPool = if (_side == Occupants) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
+    	if ((_small) and (count _vehPool > 1) and !hasIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
+    	_typeVeh = selectRandom _vehPool;
+    };
+    _origin = _airport;
+    _originPos = getMarkerPos _airport;
+    _units pushBack [_typeVeh, _typeGroup];
+    _vehicleCount = 1;
+    _cargoCount = (count _typeGroup);
+  }
+  else
+  {
+    diag_log format ["CreateAIAction[%1]: Reinforcement aborted as no airport is available!", _convoyID];
+    _abort = true;
+  };
 };
 if(_type == "attack") then
 {

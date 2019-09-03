@@ -24,8 +24,10 @@ _closedList = [];
 _targetNavPos = [_startNav] call A3A_fnc_getNavPos;
 _startNavPos = [_endNav] call A3A_fnc_getNavPos;
 
-["mil_triangle", _targetNavPos, "ColorBlue"] call createNavMarker;
-["mil_triangle", _startNavPos, "ColorBlue"] call createNavMarker;
+_end = ["mil_triangle", _targetNavPos, "ColorBlue"] call createNavMarker;
+_end setMarkerText "Start";
+_start = ["mil_triangle", _startNavPos, "ColorBlue"] call createNavMarker;
+_start setMarkerText "Target";
 
 private _lastNav = -1;
 
@@ -69,7 +71,7 @@ while {(!(_lastNav isEqualType [])) && {count _openList > 0}} do
     _nextNodes = [_next select 0] call A3A_fnc_getNavConnections;
     _nextPos = [_next select 0] call A3A_fnc_getNavPos;
 
-    ["mil_dot", _nextPos, "ColorRed"] call createNavMarker;
+    //["mil_dot", _nextPos, "ColorRed"] call createNavMarker;
 
     {
         _conNav = _x;
@@ -90,8 +92,8 @@ while {(!(_lastNav isEqualType [])) && {count _openList > 0}} do
           {
             _h = [_conPos, _targetNavPos] call A3A_fnc_calculateH;
             _openList pushBack [_conName, ((_next select 1) + (_nextPos distance _conPos)), _h, (_next select 0)];
-            private _marker = ["mil_dot", _conPos, "ColorBlue"] call createNavMarker;
-            _marker setMarkerText str (_h + (_next select 1) + (_nextPos distance _conPos));
+            //private _marker = ["mil_dot", _conPos, "ColorBlue"] call createNavMarker;
+            //_marker setMarkerText str (_h + (_next select 1) + (_nextPos distance _conPos));
           }
           else
           {
@@ -113,7 +115,8 @@ private _wayPoints = [];
 if(_lastNav isEqualType []) then
 {
   //Way found, reverting way through path
-  _wayPoints = [_startPos, _startNavPos];
+  _wayPoints = [_startPos, _targetNavPos];
+
   while {_lastNav isEqualType []} do
   {
     _lastPos = [_lastNav select 0] call A3A_fnc_getNavPos;
@@ -130,7 +133,10 @@ if(_lastNav isEqualType []) then
       _lastNav = -1;
     };
   };
-  _wayPoints pushBack _endPos;
+  //_wayPoints pushBack _endPos;
+  _wayPoints = _wayPoints + [_endPos, _startNavPos];
+  //_wayPoints = [_startPos, _startNavPos];
+
   _deltaTime = time - _deltaTime;
   hint format ["Successful finished pathfinding in %1 seconds", _deltaTime];
 }

@@ -14,10 +14,14 @@ if(!(_maxSpeed > 0)) exitWith {diag_log format ["ConvoyMovement[%1]: Max speed i
 
 _convoyMarker = format ["convoy%1", _convoyID];
 
+
+
 _isDebug = !(isNil "_debugObject");
 
 _pointsCount = count _route;
 _currentPos = _route select 0;
+
+
 if(_isDebug) then {_debugObject setPos _currentPos;};
 
 for "_i" from 1 to (_pointsCount - 1) do

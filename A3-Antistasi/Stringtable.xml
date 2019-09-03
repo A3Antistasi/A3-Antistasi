@@ -282,9 +282,7 @@
     </Container>
     <Container name="dialog_generic">
       <Key ID="STR_antistasi_dialogs_generic_box_text">
-        <Original></Original>
-        <English></English>
-        <Russian></Russian>
+        <Original/>
       </Key>
       <Key ID="STR_antistasi_dialogs_generic_button_back_text">
         <Original>Back</Original>
@@ -307,14 +305,10 @@
         <Russian>Нет</Russian>
       </Key>
       <Key ID="STR_antistasi_dialogs_generic_button_yes_tooltip">
-        <Original></Original>
-        <English></English>
-        <Russian></Russian>
+        <Original/>
       </Key>
       <Key ID="STR_antistasi_dialogs_generic_button_no_tooltip">
-        <Original></Original>
-        <English></English>
-        <Russian></Russian>
+        <Original/>
       </Key>
     </Container>
     <Container name="credits_generic">

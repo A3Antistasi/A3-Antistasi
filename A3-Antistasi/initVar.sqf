@@ -886,8 +886,8 @@ if (hasACEMedical) then {
 if (hasACE and !hasIFA) then
 	{
 	// add ace mine detectors to crates
-	weaponsNato pushBack ["ACE_VMH3","ACE_VMM3"];
-	weaponsCSAT pushBack ["ACE_VMH3","ACE_VMM3"];
+	weaponsNato append ["ACE_VMH3","ACE_VMM3"];
+	weaponsCSAT append ["ACE_VMH3","ACE_VMM3"];
 	itemsAAF append ["ACE_acc_pointer_green_IR","ACE_Chemlight_Shield"];
 	//remove vanilla mine detector
 	itemsAAF = itemsAAF - ["MineDetector"];

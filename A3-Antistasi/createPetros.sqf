@@ -26,7 +26,7 @@ if (worldName == "Tanoa") then {petros setName "Maru"} else {petros setName "Pet
 petros disableAI "MOVE";
 petros disableAI "AUTOTARGET";
 
-if (group _oldPetros == groupPetros) then {
+if (petros == leader groupPetros) then {
 	[Petros,"mission"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros]
 } else {
 	[Petros,"buildHQ"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],petros]

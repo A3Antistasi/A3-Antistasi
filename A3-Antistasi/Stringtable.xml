@@ -340,8 +340,6 @@
       </Key>
       <Key ID="STR_antistasi_credits_generic_version_text">
         <Original>2.1.1</Original>
-        <English>2.1.1</English>
-        <Russian>2.1.1</Russian>
       </Key>
     </Container>
     <Container name="dialog_vehicle_purchase">

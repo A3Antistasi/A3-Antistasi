@@ -13,7 +13,7 @@ if(isNil "_route") exitWith {diag_log format ["ConvoyMovement[%1]: No route give
 if(!(_maxSpeed > 0)) exitWith {diag_log format ["ConvoyMovement[%1]: Max speed is 0 or lower, can't simulate convoy with it!", _convoyID]};
 
 _convoyMarker = format ["convoy%1", _convoyID];
-
+_maxSpeed = _maxSpeed * 0.8; //Only drive with 80% of max speed
 
 
 _isDebug = !(isNil "_debugObject");

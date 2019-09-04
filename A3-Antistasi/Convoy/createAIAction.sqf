@@ -69,6 +69,49 @@ _vehicleCount = 0;
 _cargoCount = 0;
 if(_type == "patrol") then
 {
+  //_origin = [_destination] call A3A_fnc_findBasesForConvoy;
+  //TODO rework the origin selection!!
+  _threatEvalLand = [_destinationPos, _side] call A3A_fnc_landThreatEval;
+	_airportsX = airportsX select {(sidesX getVariable [_x,sideUnknown] == _side) and ([_x,true] call A3A_fnc_airportCanAttack) and (getMarkerPos _x distance2D _destinationPos < distanceForAirAttack)};
+	if (hasIFA and (_threatEvalLand <= 15)) then {_airportsX = _airportsX select {(getMarkerPos _x distance2D _destinationPos < distanceForLandAttack)}};
+	_outposts = if (_threatEvalLand <= 15) then {outposts select {(sidesX getVariable [_x,sideUnknown] == _side) and ([_destinationPos, getMarkerPos _x] call A3A_fnc_isTheSameIsland) and (getMarkerPos _x distance _destinationPos < distanceForLandAttack)  and ([_x,true] call A3A_fnc_airportCanAttack)}} else {[]};
+	_airportsX = _airportsX + _outposts;
+  if (_isMarker) then
+	{
+		if (_markerX in blackListDest) then
+		{
+			_airportsX = _airportsX - outposts;
+		};
+		_airportsX = _airportsX - [_markerX];
+		_airportsX = _airportsX select {({_x == _markerX} count (killZones getVariable [_x,[]])) < 3};
+	}
+	else
+	{
+		if (!_super) then
+		{
+			_siteX = [(resourcesX + factories + airportsX + outposts + seaports),_posDestination] call BIS_fnc_nearestPosition;
+			_airportsX = _airportsX select {({_x == _siteX} count (killZones getVariable [_x,[]])) < 3};
+		};
+	};
+	if (_airportsX isEqualTo []) then
+	{
+		_exit = true;
+	}
+	else
+	{
+		_airportX = [_airportsX,_posDestination] call BIS_fnc_nearestPosition;
+		_posOrigin = getMarkerPos _airportX;
+	};
+  if (!_exit) then
+  {
+
+  }
+  else
+  {
+    diag_log format ["CreateAIAction[%1]: Patrol aborted as no base is available!", _convoyID];
+    _abort = true;
+  };
+
 
 };
 if(_type == "reinforce") then

@@ -134,7 +134,7 @@ if(_lastNav isEqualType []) then
     };
   };
   //_wayPoints pushBack _endPos;
-  _wayPoints = _wayPoints + [_endPos, _startNavPos];
+  _wayPoints = _wayPoints + [_startNavPos, _endPos];
   //_wayPoints = [_startPos, _startNavPos];
 
   _deltaTime = time - _deltaTime;

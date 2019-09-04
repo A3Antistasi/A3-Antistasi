@@ -251,6 +251,8 @@ for "_i" from 1 to _countX do
 		};
 	};
 
+
+//Objective creation starts here ----------------------------------------------
 sleep 2;
 
 _timeOut = 0;

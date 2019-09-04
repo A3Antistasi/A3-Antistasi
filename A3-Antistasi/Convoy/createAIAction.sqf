@@ -42,7 +42,6 @@ _attackDistance = distanceSPWN2;
 if (_isMarker) then
 {
   if(_destination in attackMrk) then {_abort = true};
-  _destination = getMarkerPos _destination;
 }
 else
 {
@@ -203,150 +202,316 @@ if(_type == "airstrike") then
 };
 if(_type == "convoy") then
 {
+  //Heavy will call in more and better vehicles
   _isHeavy = if (random 10 < tierWar) then {true} else {false};
-  _isEasy = if (!(_isHeavy) && {_sideX == Occupants && {random 10 >= tierWar}}) then {true} else {false};
-  _origin = [_destination] call A3A_fnc_findBaseForConvoy;
-  if(!(_origin isEqualTo "")) then
+  //Easy will call in only FIA (police) vehicles (We really have to rename this)
+  _isEasy = if (!(_isHeavy) && {_side == Occupants && {random 10 >= tierWar}}) then {true} else {false};
+  _sideCheck = sidesX getVariable [_destination, sideUnknown];
+  if(_sideCheck == _side) then
   {
-    _typeConvoy = [];
-    if ((_destination in airportsX) or (_destination in outposts)) then
+    _origin = [_destination] call A3A_fnc_findBasesForConvoy;
+    _originPos = getMarkerPos _origin;
+    if(!_abort && !(_origin isEqualTo "")) then
     {
-    	_typeConvoy = ["Ammunition","Armor"];
-    	if (_destination in outposts) then
+      _typeConvoy = [];
+      if ((_destination in airportsX) or (_destination in outposts)) then
       {
-        //That doesn't make sense, or am I wrong? Can someone double check this logic?
-        if (((count (garrison getVariable [_destination,0]))/2) >= [_destinationX] call A3A_fnc_garrisonSize) then
+      	_typeConvoy = ["Ammunition","Armor"];
+      	if (_destination in outposts) then
         {
-          _typeConvoy pushBack "Reinforcements";
+          //That doesn't make sense, or am I wrong? Can someone double check this logic?
+          if (((count (garrison getVariable [_destination,0]))/2) >= [_destinationX] call A3A_fnc_garrisonSize) then
+          {
+            _typeConvoy pushBack "Reinforcements";
+          };
         };
+      }
+      else
+      {
+      	if (_destination in citiesX) then
+      	{
+          _typeConvoy = ["Supplies"];
+      	}
+      	else
+      	{
+      		if ((_destinationX in resourcesX) or (_destinationX in factories)) then
+          {
+            _typeConvoy = ["Money"];
+          }
+          else
+          {
+            _typeConvoy = ["Prisoners"];
+          };
+          //Same here, not sure about it
+      		if (((count (garrison getVariable [_destinationX,0]))/2) >= [_destinationX] call A3A_fnc_garrisonSize) then
+          {
+            _typeConvoy pushBack "Reinforcements"
+          };
+      	};
+    	};
+      _selectedType = selectRandom _typeConvoy;
+
+      private ["_timeLimit", "_dateLimitNum", "_displayTime", "_nameDest", "_nameOrigin" ,"_timeToFinish", "_dateFinal"];
+      //The time the convoy will wait before starting
+      _timeLimit = if (_isHeavy) then {0} else {round random 10};// timeX for the convoy to come out, we should put a random round 15
+
+      _timeToFinish = 120;
+      _dateTemp = date;
+      _dateFinal = [_dateTemp select 0, _dateTemp select 1, _dateTemp select 2, _dateTemp select 3, (_dateTemp select 4) + _timeToFinish];
+      _dateLimit = [_dateTemp select 0, _dateTemp select 1, _dateTemp select 2, _dateTemp select 3, (_dateTemp select 4) + _timeLimit];
+      _dateLimitNum = dateToNumber _dateLimit;
+      _dateLimit = numberToDate [_dateTemp select 0, _dateLimitNum];//converts datenumber back to date array so that time formats correctly when put through the function
+      _displayTime = [_dateLimit] call A3A_fnc_dateToTimeString;//Converts the time portion of the date array to a string for clarity in hints
+
+      _nameDest = [_destination] call A3A_fnc_localizar;
+      _nameOrigin = [_origin] call A3A_fnc_localizar;
+      [_origin, 30] call A3A_fnc_addTimeForIdle;
+
+      private ["_text", "_taskState", "_taskTitle", "_taskIcon", "_taskState1", "_typeVehEsc", "_typeVehObj", "_typeVehLead"];
+
+      _text = "";
+      _taskState = "CREATED";
+      _taskTitle = "";
+      _taskIcon = "";
+      _taskState1 = "CREATED";
+
+      _typeVehLead = "";
+      _typeVehEsc = "";
+      _typeVehObj = "";
+
+      switch (_selectedType) do
+      {
+      	case "Ammunition":
+      	{
+      		_text = format ["A convoy from %1 is about to depart at %2. It will provide ammunition to %3. Try to intercept it. Steal or destroy that truck before it reaches it's destination.",_nameOrigin,_displayTime,_nameDest];
+      		_taskTitle = "Ammo Convoy";
+      		_taskIcon = "rearm";
+      		_typeVehObj = if (_side == Occupants) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
+      	};
+      	case "Armor":
+      	{
+      		_text = format ["A convoy from %1 is about to depart at %2. It will reinforce %3 with armored vehicles. Try to intercept it. Steal or destroy that thing before it reaches it's destination.",_nameOrigin,_displayTime,_nameDest];
+      		_taskTitle = "Armored Convoy";
+      		_taskIcon = "Destroy";
+      		_typeVehObj = if (_side == Occupants) then {vehNATOAA} else {vehCSATAA};
+      	};
+      	case "Prisoners":
+      	{
+      		_text = format ["A group os POW's is being transported from %1 to %3, and it's about to depart at %2. Try to intercept it. Kill or capture the truck driver to make them join you and bring them to HQ. Alive if possible.",_nameOrigin,_displayTime,_nameDest];
+      		_taskTitle = "Prisoner Convoy";
+      		_taskIcon = "run";
+      		_typeVehObj = if (_side == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+      	};
+      	case "Reinforcements":
+      	{
+      		_text = format ["Reinforcements are being sent from %1 to %3 in a convoy, and it's about to depart at %2. Try to intercept and kill all the troops and vehicle objective.",_nameOrigin,_displayTime,_nameDest];
+      		_taskTitle = "Reinforcements Convoy";
+      		_taskIcon = "run";
+      		_typeVehObj = if (_side == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+      	};
+      	case "Money":
+      	{
+      		_text = format ["A truck plenty of money is being moved from %1 to %3, and it's about to depart at %2. Steal that truck and bring it to HQ. Those funds will be very welcome.",_nameOrigin,_displayTime,_nameDest];
+      		_taskTitle = "Money Convoy";
+      		_taskIcon = "move";
+      		_typeVehObj = "C_Van_01_box_F";
+      	};
+      	case "Supplies":
+      	{
+      		_text = format ["A truck with medical supplies destination %3 it's about to depart at %2 from %1. Steal that truck bring it to %3 and let people in there know it is %4 who's giving those supplies.",_nameOrigin,_displayTime,_nameDest,nameTeamPlayer];
+      		_taskTitle = "Supply Convoy";
+      		_taskIcon = "heal";
+      		_typeVehObj = "C_Van_01_box_F";
+      	};
+        default
+        {
+          diag_log format ["CreateAIAction[%1]: Aborting convoy, selected type not found, type was %2", _convoyID, _selectedType];
+          _abort = true;
+        };
+      };
+      if(!_abort) then
+      {
+        [[teamPlayer,civilian],"CONVOY",[_text,_taskTitle,_destination], _destinationPos,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
+        [[_side],"CONVOY1",[format ["A convoy from %1 to %3, it's about to depart at %2. Protect it from any possible attack.",_nameOrigin,_displayTime,_nameDest],"Protect Convoy",_destination],_destinationPos,false,0,true,"run",true] call BIS_fnc_taskCreate;
+        missionsX pushBack ["CONVOY","CREATED"]; publicVariable "missionsX";
+        //Deactivated for debug
+        //sleep (_timeLimit * 60);
+
+        //Creating convoy lead vehicle
+        _typeVehLead = if (_side == Occupants) then {if (!_isEasy) then {selectRandom vehNATOLightArmed} else {vehPoliceCar}} else {selectRandom vehCSATLightArmed};
+        _units pushBack [_typeVehLead,[]];
+        _vehicleCount = _vehicleCount + 1;
+
+        private _count = 1;
+        if (_isHeavy) then
+        {
+          _count = 3;
+        }
+        else
+        {
+          if ([_destination] call A3A_fnc_isFrontline) then
+          {
+            _count = (round random 2) + 1;
+          };
+        };
+
+        _vehPool = if (_side == Occupants) then
+        {
+          if (!_isEasy) then
+          {
+            vehNATOAttack
+          }
+          else
+          {
+            [vehFIAArmedCar,vehFIATruck,vehFIACar]
+          };
+        }
+        else
+        {
+          vehCSATAttack;
+        };
+
+        //Delete MBT from array if aggro is not high enough
+        if (!_isEasy) then
+        {
+        	_rnd = random 100;
+        	if (_side == Occupants) then
+        	{
+        		if (_rnd > prestigeNATO) then
+        		{
+        			_vehPool = _vehPool - [vehNATOTank];
+        		};
+        	}
+        	else
+        	{
+        		if (_rnd > prestigeCSAT) then
+        		{
+        			_vehPool = _vehPool - [vehCSATTank];
+        		};
+        	};
+        	if (count _vehPool == 0) then {if (_side == Occupants) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
+        };
+
+        //Select escort vehicles and their groups
+        for "_i" from 1 to _count do
+        {
+          _typeVehEsc = selectRandom _vehPool;
+          if(!([_typeVehEsc] call A3A_fnc_vehAvailable)) then
+          {
+            _vehPool = _vehPool - [_typeVehEsc];
+            _typeVehEsc = if (_side == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+        		if (count _vehPool == 0) then
+            {
+              if (_side == Occupants) then
+              {
+                _vehPool = vehNATOTrucks;
+              }
+              else
+              {
+                _vehPool = vehCSATTrucks;
+              }
+            };
+          };
+          _typeGroup = [];
+          if (!_isEasy) then
+        	{
+        		if (!(_typeVehEsc in vehTanks)) then
+        		{
+        			_typeGroup = [_typeVehEsc,_side] call A3A_fnc_cargoSeats;
+        		};
+        	}
+        	else
+        	{
+        		if (not(_typeVehEsc == vehFIAArmedCar)) then
+        		{
+        			_typeGroup = selectRandom groupsFIASquad;
+        			if (_typeVehEsc == vehFIACar) then
+        			{
+        				_typeGroup = selectRandom groupsFIAMid;
+        			};
+        		};
+        	};
+          _units pushBack [_typeVehEsc, _typeGroup];
+          _vehicleCount = _vehicleCount + 1;
+          _cargoCount = _cargoCount + count _typeGroup;
+        };
+
+        //Add objective vehicle and cargo
+        _typeGroup = [];
+        if(_selectedType == "Reinforcements") then
+        {
+          _typeGroup = [_typeVehObj,_side] call A3A_fnc_cargoSeats;
+        };
+        if(_selectedType == "Prisoners") then
+        {
+          for "_i" from 1 to (1 + round (random 11)) do
+          {
+            _typeGroup pushBack SDKUnarmed;
+          };
+        };
+        _units pushBack [_typeVehObj, _typeGroup];
+        _vehicleCount = _vehicleCount + 1;
+        _cargoCount = _cargoCount + count _typeGroup;
+
+
+        //Last escort vehicle
+        _typeVehEsc = selectRandom _vehPool;
+        if(!([_typeVehEsc] call A3A_fnc_vehAvailable)) then
+        {
+          _vehPool = _vehPool - [_typeVehEsc];
+          _typeVehEsc = if (_side == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
+          if (count _vehPool == 0) then
+          {
+            if (_side == Occupants) then
+            {
+              _vehPool = vehNATOTrucks;
+            }
+            else
+            {
+              _vehPool = vehCSATTrucks;
+            }
+          };
+        };
+        _typeGroup = [];
+        if (!_isEasy) then
+        {
+          if (!(_typeVehEsc in vehTanks)) then
+          {
+            _typeGroup = [_typeVehEsc,_side] call A3A_fnc_cargoSeats;
+          };
+        }
+        else
+        {
+          if (not(_typeVehEsc == vehFIAArmedCar)) then
+          {
+            _typeGroup = selectRandom groupsFIASquad;
+            if (_typeVehEsc == vehFIACar) then
+            {
+              _typeGroup = selectRandom groupsFIAMid;
+            };
+          };
+        };
+        _units pushBack [_typeVehEsc, _typeGroup];
+        _vehicleCount = _vehicleCount + 1;
+        _cargoCount = _cargoCount + count _typeGroup;
       };
     }
     else
     {
-    	if (_destination in citiesX) then
-    	{
-        _typeConvoy = ["Supplies"];
-    	}
-    	else
-    	{
-    		if ((_destinationX in resourcesX) or (_destinationX in factories)) then
-        {
-          _typeConvoy = ["Money"];
-        }
-        else
-        {
-          _typeConvoy = ["Prisoners"];
-        };
-        //Same here, not sure about it
-    		if (((count (garrison getVariable [_destinationX,0]))/2) >= [_destinationX] call A3A_fnc_garrisonSize) then
-        {
-          _typeConvoy pushBack "Reinforcements"
-        };
-    	};
-  	};
-    _selectedType = selectRandom _typeConvoy;
-
-    private ["_timeLimit", "_dateLimitNum", "_displayTime", "_nameDest", "_nameOrigin" ,"_timeToFinish", "_dateFinal"];
-    //The time the convoy will wait before starting
-    _timeLimit = if (_isHeavy) then {0} else {round random 10};// timeX for the convoy to come out, we should put a random round 15
-
-    _timeToFinish = 120;
-    _dateTemp = date;
-    _dateFinal = [_dateTemp select 0, _dateTemp select 1, _dateTemp select 2, _dateTemp select 3, (_dateTemp select 4) + _timeToFinish];
-    _dateLimit = [_dateTemp select 0, _dateTemp select 1, _dateTemp select 2, _dateTemp select 3, (_dateTemp select 4) + _timeLimit];
-    _dateLimitNum = dateToNumber _dateLimit;
-    _dateLimit = numberToDate [_dateTemp select 0, _dateLimitNum];//converts datenumber back to date array so that time formats correctly when put through the function
-    _displayTime = [_dateLimit] call A3A_fnc_dateToTimeString;//Converts the time portion of the date array to a string for clarity in hints
-
-    _nameDest = [_destination] call A3A_fnc_localizar;
-    _nameOrigin = [_origin] call A3A_fnc_localizar;
-    [_origin, 30] call A3A_fnc_addTimeForIdle;
-
-    private ["_text", "_taskState", "_taskTitle", "_taskIcon", "_taskState1", "_typeVehEsc", "_typeVehObj"];
-
-    _text = "";
-    _taskState = "CREATED";
-    _taskTitle = "";
-    _taskIcon = "";
-    _taskState1 = "CREATED";
-
-    _typeVehEsc = "";
-    _typeVehObj = "";
-
-    switch (_selectedType) do
-    {
-    	case "Ammunition":
-    	{
-    		_text = format ["A convoy from %1 is about to depart at %2. It will provide ammunition to %3. Try to intercept it. Steal or destroy that truck before it reaches it's destination.",_nameOrigin,_displayTime,_nameDest];
-    		_taskTitle = "Ammo Convoy";
-    		_taskIcon = "rearm";
-    		_typeVehObj = if (_sideX == Occupants) then {vehNATOAmmoTruck} else {vehCSATAmmoTruck};
-    	};
-    	case "Armor":
-    	{
-    		_text = format ["A convoy from %1 is about to depart at %2. It will reinforce %3 with armored vehicles. Try to intercept it. Steal or destroy that thing before it reaches it's destination.",_nameOrigin,_displayTime,_nameDest];
-    		_taskTitle = "Armored Convoy";
-    		_taskIcon = "Destroy";
-    		_typeVehObj = if (_sideX == Occupants) then {vehNATOAA} else {vehCSATAA};
-    	};
-    	case "Prisoners":
-    	{
-    		_text = format ["A group os POW's is being transported from %1 to %3, and it's about to depart at %2. Try to intercept it. Kill or capture the truck driver to make them join you and bring them to HQ. Alive if possible.",_nameOrigin,_displayTime,_nameDest];
-    		_taskTitle = "Prisoner Convoy";
-    		_taskIcon = "run";
-    		_typeVehObj = if (_sideX == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
-    	};
-    	case "Reinforcements":
-    	{
-    		_text = format ["Reinforcements are being sent from %1 to %3 in a convoy, and it's about to depart at %2. Try to intercept and kill all the troops and vehicle objective.",_nameOrigin,_displayTime,_nameDest];
-    		_taskTitle = "Reinforcements Convoy";
-    		_taskIcon = "run";
-    		_typeVehObj = if (_sideX == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
-    	};
-    	case "Money":
-    	{
-    		_text = format ["A truck plenty of money is being moved from %1 to %3, and it's about to depart at %2. Steal that truck and bring it to HQ. Those funds will be very welcome.",_nameOrigin,_displayTime,_nameDest];
-    		_taskTitle = "Money Convoy";
-    		_taskIcon = "move";
-    		_typeVehObj = "C_Van_01_box_F";
-    	};
-    	case "Supplies":
-    	{
-    		_text = format ["A truck with medical supplies destination %3 it's about to depart at %2 from %1. Steal that truck bring it to %3 and let people in there know it is %4 who's giving those supplies.",_nameOrigin,_displayTime,_nameDest,nameTeamPlayer];
-    		_taskTitle = "Supply Convoy";
-    		_taskIcon = "heal";
-    		_typeVehObj = "C_Van_01_box_F";
-    	};
-      default
-      {
-        diag_log format ["CreateAIAction[%1]: Aborting convoy, selected type not found, type was %2", _convoyID, _selectedType];
-        _abort = true;
-      };
-    };
-    if(!_abort) then
-    {
-      [[teamPlayer,civilian],"CONVOY",[_text,_taskTitle,_destination], _destinationPos,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
-      [[_side],"CONVOY1",[format ["A convoy from %1 to %3, it's about to depart at %2. Protect it from any possible attack.",_nameOrigin,_displayTime,_nameDest],"Protect Convoy",_destination],_destinationPos,false,0,true,"run",true] call BIS_fnc_taskCreate;
-      missionsX pushBack ["CONVOY","CREATED"]; publicVariable "missionsX";
-      sleep (_timeLimit * 60);
-
-      //Creating convoy lead vehicle
-      _typeVehX = if (_sideX == Occupants) then {if (!_isEasy) then {selectRandom vehNATOLightArmed} else {vehPoliceCar}} else {selectRandom vehCSATLightArmed};
-      _units pushBack [_typeVehX,[]];
-      _vehicleCount = _vehicleCount + 1;
-
+      diag_log format ["CreateAIAction[%1]: Aborting convoy, as no base is available to send a convoy", _convoyID];
+      _abort = true;
     };
   }
   else
   {
-    diag_log format ["CreateAIAction[%1]: Aborting convoy, as no base is available to send a convoy", _convoyID];
+    diag_log format ["CreateAIAction[%1]: Side of convoy does not match side of destination, aborting!", _convoyID];
     _abort = true;
   };
 };
 
 if(_abort) exitWith {};
 
-_target = if(_destination isEqualType "") then {name _destination} else {str _destination};
+_target = if(_destination isEqualType "") then {_destination} else {str _destination};
 diag_log format ["CreateAIAction[%1]: Created AI action to %2 from %3 to %4 with %5 vehicles and %6 units", _convoyID, _type, _origin, _targetString, _vehicleCount , _cargoCount];
 
 [_convoyID, _units, _originPos, _destinationPos, _type, _side] spawn A3A_fnc_createConvoy;

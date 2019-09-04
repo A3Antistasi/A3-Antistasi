@@ -20,6 +20,7 @@ _hasLand = false;
 _velocity = 999999; //CAUTION this is km/h not m/s!!! So is every speed
 {
     _vehicle = _x select 0;
+    hint str _vehicle;
     if (!(_vehicle isKindOf "StaticWeapon")) then
     {
       if(!_hasLand && {_vehicle isKindOf "Land"}) then {_hasLand = true;};
@@ -57,8 +58,8 @@ else
   if(_hasAir) then {_type = "Mixed"} else {_type = "Land"};
 };
 
-_markerPrefix = if(colorTeamPlayer == "colorGUER") then {"n"} else {"b"};
-if(_sideConvoy == Occupants) then {_markerPrefix = if(colorInvaders == "colorBLUFOR") then {"b"} else {"n"};};
+_markerPrefix = if(colorTeamPlayer == "colorGUER") then {"b"} else {"n"};
+if(_sideConvoy == Occupants) then {_markerPrefix = if(colorInvaders == "colorBLUFOR") then {"n"} else {"b"};};
 if(_sideConvoy == Invaders) then {_markerPrefix = "o"};
 
 _markerType = "_mech_inf";

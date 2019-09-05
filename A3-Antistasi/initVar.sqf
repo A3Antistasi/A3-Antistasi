@@ -1022,20 +1022,19 @@ case "chernarus_summer":
 		//Roads DB
 		call compile preprocessFileLineNumbers "roadsDBcherna.sqf";
 		};
-		case "malden":
-				{
-				roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
-				{_x setMarkerAlpha 0} forEach roadsMrk;
-				//Roads DB
-				call compile preprocessFileLineNumbers "roadsDBmalden.sqf";
-
-		};case "enoch":
-				{
-				roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
-				{_x setMarkerAlpha 0} forEach roadsMrk;
-				//Roads DB
-				call compile preprocessFileLineNumbers "roadsDBLivonia.sqf";
-
+case "malden":
+		{
+		roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
+		{_x setMarkerAlpha 0} forEach roadsMrk;
+		//Roads DB
+		call compile preprocessFileLineNumbers "roadsDBmalden.sqf";
+		};
+case "enoch":
+		{
+		roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
+		{_x setMarkerAlpha 0} forEach roadsMrk;
+		//Roads DB
+		call compile preprocessFileLineNumbers "roadsDBLivonia.sqf";
 		};
 	};
 

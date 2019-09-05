@@ -841,7 +841,7 @@ if (hasIFA) then
 		];
 	} else {
 		unlockedItems pushback "itemGPS";
-	}
+	};
 
 //Adds civ and geurilla clothes
 unlockedItems append banditUniforms;

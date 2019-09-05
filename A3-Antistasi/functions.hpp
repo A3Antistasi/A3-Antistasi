@@ -182,6 +182,8 @@ class A3A
     class createConvoy {file="Convoy\createConvoy.sqf";};
     class convoyMovement {file="Convoy\convoyMovement.sqf";};
     class findAirportForAirstrike {file="Convoy\findAirportForAirstrike.sqf";};
+
+    class SelectAndCreateVehicle {file="Convoy\selectAndCreateVehicle.sqf";};
   }
 
   class Pathfinding

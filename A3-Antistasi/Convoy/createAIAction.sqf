@@ -384,7 +384,9 @@ if(_type == "convoy") then
         _typeVehLead = if (_side == Occupants) then {if (!_isEasy) then {selectRandom vehNATOLightArmed} else {vehPoliceCar}} else {selectRandom vehCSATLightArmed};
         _units pushBack [_typeVehLead,[]];
         _vehicleCount = _vehicleCount + 1;
+        //Convoy lead created
 
+        //Prepared vehicle pool
         private _count = 1;
         if (_isHeavy) then
         {
@@ -434,50 +436,18 @@ if(_type == "convoy") then
         	};
         	if (count _vehPool == 0) then {if (_side == Occupants) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
         };
+        //Vehicle pool prepared
 
         //Select escort vehicles and their groups
         for "_i" from 1 to _count do
         {
-          _typeVehEsc = selectRandom _vehPool;
-          if(!([_typeVehEsc] call A3A_fnc_vehAvailable)) then
-          {
-            _vehPool = _vehPool - [_typeVehEsc];
-            _typeVehEsc = if (_side == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
-        		if (count _vehPool == 0) then
-            {
-              if (_side == Occupants) then
-              {
-                _vehPool = vehNATOTrucks;
-              }
-              else
-              {
-                _vehPool = vehCSATTrucks;
-              }
-            };
-          };
-          _typeGroup = [];
-          if (!_isEasy) then
-        	{
-        		if (!(_typeVehEsc in vehTanks)) then
-        		{
-        			_typeGroup = [_typeVehEsc,_side] call A3A_fnc_cargoSeats;
-        		};
-        	}
-        	else
-        	{
-        		if (not(_typeVehEsc == vehFIAArmedCar)) then
-        		{
-        			_typeGroup = selectRandom groupsFIASquad;
-        			if (_typeVehEsc == vehFIACar) then
-        			{
-        				_typeGroup = selectRandom groupsFIAMid;
-        			};
-        		};
-        	};
-          _units pushBack [_typeVehEsc, _typeGroup];
+          _veh = [_vehPool, _side] call A3A_fnc_selectAndCreateVehicle;
+          _vehPool = _veh select 1;
+          _units pushBack (_veh select 0);
           _vehicleCount = _vehicleCount + 1;
           _cargoCount = _cargoCount + count _typeGroup;
         };
+        //Escorts and groups added
 
         //Add objective vehicle and cargo
         _typeGroup = [];
@@ -495,48 +465,15 @@ if(_type == "convoy") then
         _units pushBack [_typeVehObj, _typeGroup];
         _vehicleCount = _vehicleCount + 1;
         _cargoCount = _cargoCount + count _typeGroup;
-
+        //Objective and its cargo added
 
         //Last escort vehicle
-        _typeVehEsc = selectRandom _vehPool;
-        if(!([_typeVehEsc] call A3A_fnc_vehAvailable)) then
-        {
-          _vehPool = _vehPool - [_typeVehEsc];
-          _typeVehEsc = if (_side == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
-          if (count _vehPool == 0) then
-          {
-            if (_side == Occupants) then
-            {
-              _vehPool = vehNATOTrucks;
-            }
-            else
-            {
-              _vehPool = vehCSATTrucks;
-            }
-          };
-        };
-        _typeGroup = [];
-        if (!_isEasy) then
-        {
-          if (!(_typeVehEsc in vehTanks)) then
-          {
-            _typeGroup = [_typeVehEsc,_side] call A3A_fnc_cargoSeats;
-          };
-        }
-        else
-        {
-          if (not(_typeVehEsc == vehFIAArmedCar)) then
-          {
-            _typeGroup = selectRandom groupsFIASquad;
-            if (_typeVehEsc == vehFIACar) then
-            {
-              _typeGroup = selectRandom groupsFIAMid;
-            };
-          };
-        };
-        _units pushBack [_typeVehEsc, _typeGroup];
+        _veh = [_vehPool, _side] call A3A_fnc_selectAndCreateVehicle;
+        _vehPool = _veh select 1;
+        _units pushBack (_veh select 0);
         _vehicleCount = _vehicleCount + 1;
         _cargoCount = _cargoCount + count _typeGroup;
+        //Last escrot vehicle added
       };
     }
     else

@@ -114,7 +114,7 @@ _introShot = [
 };
 
 //Initialise membershipEnabled so we can do isMember checks.
-membershipEnabled = if ("membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
+membershipEnabled = if (isMultiplayer && "membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
 
 disableUserInput false;
 player addWeaponGlobal "itemmap";
@@ -449,7 +449,7 @@ player addEventHandler ["GetInMan",
 if (isMultiplayer) then
 	{
 	["InitializePlayer", [player]] call BIS_fnc_dynamicGroups;//Exec on client
-	["InitializeGroup", [player,teamPlayer,true]] call BIS_fnc_dynamicGroups;
+
 	if (membershipEnabled) then
 		{
 		if !([player] call A3A_fnc_isMember) then

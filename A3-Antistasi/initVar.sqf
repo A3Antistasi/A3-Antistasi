@@ -1036,6 +1036,13 @@ case "enoch":
 		//Roads DB
 		call compile preprocessFileLineNumbers "roadsDBLivonia.sqf";
 		};
+case "kunduz":
+		{
+		roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
+		{_x setMarkerAlpha 0} forEach roadsMrk;
+		//Roads DB
+		call compile preprocessFileLineNumbers "roadsDBKunduz.sqf";
+		};
 	};
 
 ////////////////////////////////////

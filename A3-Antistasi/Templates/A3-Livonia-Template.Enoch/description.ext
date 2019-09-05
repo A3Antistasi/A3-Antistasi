@@ -2,11 +2,11 @@
 #include "dialogs.hpp"
 
 author = $STR_antistasi_credits_generic_author_text;
-OnLoadName = $STR_antistasi_mission_info_livonia_mapname_text;
-OnLoadMission = $STR_antistasi_mission_info_livonia_blurb_text;
+OnLoadName = $STR_antistasi_mission_info_malden_mapname_text;
+OnLoadMission = $STR_antistasi_mission_info_malden_blurb_text;
 loadScreen = "pic.jpg";
 
-overviewText = $STR_antistasi_mission_info_livonia_description_text;
+overviewText = $STR_antistasi_mission_info_malden_description_text;
 overviewPicture = "pic.jpg";
 
 allowFunctionsLog = 1;

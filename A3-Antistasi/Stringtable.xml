@@ -326,7 +326,7 @@
       <Key ID="STR_antistasi_credits_generic_overview_text">
         <Original>Build FIA Army from scratch and defeat the AAF and CSAT forces in a whole map Dynamic Mission.</Original>
         <English>Build FIA Army from scratch and defeat the AAF and CSAT forces in a whole map Dynamic Mission.</English>
-        <head>Создайте свою армию с нуля и заставьте силы AAF и CSAT отступить в Динамической Миссии на всей карте.</head>
+        <Russian>Создайте свою армию с нуля и заставьте силы AAF и CSAT отступить в Динамической Миссии на всей карте.</Russian>
       </Key>
       <Key ID="STR_antistasi_credits_generic_missionname_text">
         <Original>Antistasi Altis</Original>
@@ -339,9 +339,7 @@
         <Russian>Быть Лидером Сопротивления значит быть героем. </Russian>
       </Key>
       <Key ID="STR_antistasi_credits_generic_version_text">
-        <Original>2.1.1</Original>
-        <English>2.1.1</English>
-        <Russian>2.1.1</Russian>
+        <Original>2.1.2</Original>
       </Key>
     </Container>
     <Container name="dialog_vehicle_purchase">

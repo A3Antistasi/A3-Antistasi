@@ -817,7 +817,8 @@ unlockedItems =
 	"G_Tactical_Black",
 	"G_Aviator",
 	"G_Shades_Black",
-	"acc_flashlight"
+	"acc_flashlight",
+	"itemGPS"
 	];
 
 //Temporary starting vests fix while I class items properly

@@ -818,7 +818,6 @@ unlockedItems =
 	"G_Aviator",
 	"G_Shades_Black",
 	"acc_flashlight"
-	"itemGPS"
 	];
 
 //Temporary starting vests fix while I class items properly
@@ -840,7 +839,9 @@ if (hasIFA) then
 		"G_LIB_Scarf2_B",
 		"G_LIB_Mohawk"
 		];
-	};
+	} else {
+		unlockedItems pushback "itemGPS";
+	}
 
 //Adds civ and geurilla clothes
 unlockedItems append banditUniforms;

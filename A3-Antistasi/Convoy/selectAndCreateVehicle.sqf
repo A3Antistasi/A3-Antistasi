@@ -1,4 +1,4 @@
-params ["_vehPool", "_side"];
+params ["_vehPool", "_side", ["_isAir", false]];
 
 if(isNil "_side") exitWith
 {
@@ -13,36 +13,47 @@ if(isNil "_vehPool" || {!(_vehPool isEqualType []) || {count _vehPool == 0}}) ex
 private ["_selectedVehicle"];
 _selectedVehicle = selectRandom _vehPool;
 
-if(!([_selectedVehicle] call A3A_fnc_vehAvailable)) then
+while{!([_selectedVehicle] call A3A_fnc_vehAvailable)} do
 {
   _vehPool = _vehPool - [_selectedVehicle];
-  _selectedVehicle = if (_side == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
   if (count _vehPool == 0) then
   {
-    if (_side == Occupants) then
+    switch (true) do
     {
-      _vehPool = vehNATOTrucks;
-    }
-    else
-    {
-      _vehPool = vehCSATTrucks;
-    }
+      case (_side == Occupants && {!_isAir}):
+      {
+        _vehPool = vehNATOTrucks;
+      };
+      case (_Side == Occupants && {_isAir}):
+      {
+        _vehPool = vehNATOTransportHelis;
+      };
+      case (_side == Invaders && {!_isAir}):
+      {
+        _vehPool = vehCSATTrucks;
+      };
+      case (_Side == Invaders && {_isAir}):
+      {
+        _vehPool = vehCSATTransportHelis;
+      };
+    };
   };
+  _selectedVehicle = selectRandom _vehPool;
 };
 _typeGroup = [];
 if (!_isEasy) then
 {
-  if (!(_typeVehEsc in vehTanks)) then
+  if (!(_selectedVehicle in vehTanks)) then
   {
-    _typeGroup = [_typeVehEsc,_side] call A3A_fnc_cargoSeats;
+    _typeGroup = [_selectedVehicle,_side] call A3A_fnc_cargoSeats;
   };
 }
 else
 {
-  if (not(_typeVehEsc == vehFIAArmedCar)) then
+  if (not(_selectedVehicle == vehFIAArmedCar)) then
   {
     _typeGroup = selectRandom groupsFIASquad;
-    if (_typeVehEsc == vehFIACar) then
+    if (_selectedVehicle == vehFIACar) then
     {
       _typeGroup = selectRandom groupsFIAMid;
     };

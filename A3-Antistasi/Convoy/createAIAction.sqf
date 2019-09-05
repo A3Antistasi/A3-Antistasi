@@ -61,6 +61,21 @@ else
 };
 if(_abort) exitWith {diag_log format ["CreateAIAction[%1]: Aborting creation of AI action because, there is already a action close by!", _convoyID]};
 
+//TODO rebalance that somehow
+_allUnits = {(local _x) and (alive _x)} count allUnits;
+_allUnitsSide = 0;
+_maxUnitsSide = maxUnits;
+
+if (gameMode <3) then
+{
+	_allUnitsSide = {(local _x) and (alive _x) and (side group _x == _sideX)} count allUnits;
+	_maxUnitsSide = round (maxUnits * 0.7);
+};
+if ((_allUnits + 4 > maxUnits) or (_allUnitsSide + 4 > _maxUnitsSide)) then {_abort = true};
+
+if (_abort) exitWith {diag_log format ["CreateAIAction[%1]: AI action cancelled because of reaching the maximum of units on attacking %2", _convoyID, _markerX]};
+
+
 _destinationPos = if(_destination isEqualType "") then {getMarkerPos _destination} else {_destination};
 _originPos = [];
 _origin = "";
@@ -99,20 +114,87 @@ if(_type == "patrol") then
 	}
 	else
 	{
-		_airportX = [_airportsX,_posDestination] call BIS_fnc_nearestPosition;
-		_posOrigin = getMarkerPos _airportX;
+		_origin = [_airportsX,_posDestination] call BIS_fnc_nearestPosition;
+		_originPos = getMarkerPos _origin;
 	};
   if (!_exit) then
   {
+    //This line detects air or land attack
+    _isLand =
+    (
+      (_threatEvalLand <= 15) &&
+      {(_originPos distance _destinationPos < distanceForLandAttack) &&
+      {([_originPos, _destinationPos] call A3A_fnc_isTheSameIsland)}}
+    );
+    if(_isLand) then
+    {
+      if (_origin in outposts) then {[_origin, 10] call A3A_fnc_addTimeForIdle} else {[_origin, 5] call A3A_fnc_addTimeForIdle};
+      _count = 1;
+      _vehPool = [];
+      //Select vehicle count and pool
+      switch (true) do
+      {
+        case (tierWar < 3):
+        {
+          _count = 1;
+          _vehPool = if(_side == Occupants) then {vehNATOLight} else {vehCSATLightArmed};
+        };
+        case (tierWar < 6 && {tierWar > 2}):
+        {
+          _count = 2 + (round (random 1));
+          _vehPool = if(_side == Occupants) then {vehNATOLightArmed + vehNATOAPC} else {vehCSATLightArmed + vehCSATAPC};
+        };
+        case (tierWar > 5):
+        {
+          _count = 3 + (round (random 2));
+          _vehPool = if(_side == Occupants) then {vehNATOAttack} else {vehCSATAttack};
+        };
+      };
 
+      for "_i" from 1 to _count do
+      {
+        _veh = [_vehPool, _side] call A3A_fnc_selectAndCreateVehicle;
+        _vehPool = _veh select 1;
+        _units pushBack (_veh select 0);
+        _vehicleCount = _vehicleCount + 1;
+        _cargoCount = _cargoCount + count _typeGroup;
+      };
+    }
+    else
+    {
+      [_origin, 10] call A3A_fnc_addTimeForIdle;
+      _count = if(_isMarker) then {1 + (round (random 1))} else {1};
+      _vehPool = [];
+      switch (true) do
+      {
+        case (tierWar < 3):
+        {
+          _vehPool = if(_side == Occupants) then {vehNATOPatrolHeli} else {vehCSATPatrolHeli};
+        };
+        case (tierWar > 2 && tierWar < 7):
+        {
+          _vehPool = if(_side == Occupants) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
+        };
+        case (tierWar > 6):
+        {
+          _vehPool = if(_side == Occupants) then {vehNATOAttackHelis} else {vehCSATAttackHelis};
+        };
+      };
+      for "_i" from 1 to _count do
+      {
+        _veh = [_vehPool, _side, true] call A3A_fnc_selectAndCreateVehicle;
+        _vehPool = _veh select 1;
+        _units pushBack (_veh select 0);
+        _vehicleCount = _vehicleCount + 1;
+        _cargoCount = _cargoCount + count _typeGroup;
+      };
+    };
   }
   else
   {
     diag_log format ["CreateAIAction[%1]: Patrol aborted as no base is available!", _convoyID];
     _abort = true;
   };
-
-
 };
 if(_type == "reinforce") then
 {

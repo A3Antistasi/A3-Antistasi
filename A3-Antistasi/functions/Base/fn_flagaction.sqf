@@ -18,7 +18,7 @@ switch _typeX do
 	case "unit": {_flag addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot recruit units while there are enemies near you"} else { [] spawn A3A_fnc_unit_recruit; };},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
 	case "vehicle": {_flag addAction ["Buy Vehicle", {if ([player,300] call A3A_fnc_enemyNearCheck) then {hint "You cannot buy vehicles while there are enemies near you"} else {nul = createDialog "vehicle_option"}},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])",4]};
 	case "mission": {
-		petros addAction ["Mission Request", {nul=CreateDialog "mission_menu";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and ([_this] call A3A_fnc_isMember)",4];
+		petros addAction ["Mission Request", {CreateDialog "mission_menu";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and ([_this] call A3A_fnc_isMember) and (petros == leader group petros)",4];
 		petros addAction ["HQ Management", { [] spawn A3A_fnc_dialogHQ; },nil,0,false,true,"","(_this == theBoss) and (petros == leader group petros)", 4];
 	};
 	case "truckX": {actionX = _flag addAction ["<t>Transfer Ammobox to Truck<t> <img image='\A3\ui_f\data\igui\cfg\actions\unloadVehicle_ca.paa' size='1.8' shadow=2 />", { [] spawn A3A_fnc_transfer; },nil,6,true,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]};

@@ -63,8 +63,8 @@ if (gameMode != 1) then
 [] spawn A3A_fnc_initPetros;
 ["Initialize"] call BIS_fnc_dynamicGroups;//Exec on Server
 hcArray = [];
-waitUntil {(count playableUnits) > 0};
-waitUntil {({(isPlayer _x) and (!isNull _x) and (_x == _x)} count allUnits) == (count playableUnits)};//ya estamos todos
+//waitUntil {(count playableUnits) > 0};
+//waitUntil {({(isPlayer _x) and (!isNull _x) and (_x == _x)} count allUnits) == (count playableUnits)};//ya estamos todos
 _nul = [] execVM "modBlacklist.sqf";
 
 {

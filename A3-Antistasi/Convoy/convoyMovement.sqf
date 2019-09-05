@@ -43,9 +43,16 @@ for "_i" from 1 to (_pointsCount - 1) do
         _convoyMarker setMarkerPos _currentPos;
       };
 
-
       if(_isDebug && {_currentLength < _movementLength}) then {_debugObject setPos _currentPos;};
-      //Add Unit/Position detection!
+
+      _nearMarker = markersX select {(sidesX getVariable [_x, sideUnknown] != _sideConvoy) && {getMarkerPos _x distance _currentPos < 150}};
+      if(count _nearMarker > 0) then
+      {
+        if((_nearMarker select 0) distance _currentPos < 75 || !((_nearMarker select 0) in controlsX)) then
+        {
+          //Drove into an enemy position, spawn fight
+        }
+      };
   };
 
   _currentPos = _nextPoint;
@@ -55,6 +62,14 @@ for "_i" from 1 to (_pointsCount - 1) do
 
 diag_log format ["ConvoyMovement[%1]: Convoy arrived at destination!", _convoyID];
 diag_log format ["ConvoyMovement[%1]: WIP deleting marker as nothing happens!", _convoyID];
+
+switch (_convoyType) do
+{
+  case ("Patrol"): {
+      //code
+  };
+    //cases (insertable by snippet)
+};
 
 sleep 10;
 deleteMarker _convoyMarker;

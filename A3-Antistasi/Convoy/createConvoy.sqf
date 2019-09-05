@@ -53,7 +53,7 @@ if(_hasAir && {!_hasLand}) then
 }
 else
 {
-  //Convoy is either pure land or combined air and land find way about the streets
+  //Convoy is either pure land or combined air and land find way
   _route = [_origin, _destination] call A3A_fnc_findPath;
   if(_hasAir) then {_type = "Mixed"} else {_type = "Land"};
 };
@@ -69,7 +69,7 @@ if(_type == "Mixed") then {_markerType = "_armor"};
 _convoyMarker = createMarker [format ["convoy%1", _convoyID], _origin];
 _convoyMarker setMarkerShapeLocal "ICON";
 _convoyMarker setMarkerType format ["%1%2", _markerPrefix, _markerType];
-_convoyMarker setMarkerText (format ["%1 Convoy [%2]: Simulated", _type, _convoyID]);
+_convoyMarker setMarkerText (format ["%1 %2 Convoy [%3]: Simulated", _type, _convoyType, _convoyID]);
 _convoyMarker setMarkerAlpha 0;
 
 convoyMarker pushBack _convoyMarker;

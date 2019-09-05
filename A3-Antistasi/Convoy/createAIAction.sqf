@@ -75,8 +75,7 @@ if ((_allUnits + 4 > maxUnits) or (_allUnitsSide + 4 > _maxUnitsSide)) then {_ab
 
 if (_abort) exitWith {diag_log format ["CreateAIAction[%1]: AI action cancelled because of reaching the maximum of units on attacking %2", _convoyID, _markerX]};
 
-
-_destinationPos = if(_destination isEqualType "") then {getMarkerPos _destination} else {_destination};
+_destinationPos = if(_isMarker) then {getMarkerPos _destination} else {_destination};
 _originPos = [];
 _origin = "";
 _units = [];
@@ -323,7 +322,6 @@ if(_type == "airstrike") then
     diag_log format ["CreateAIAction[%1]: Aborting airstrike due to no avialable airport", _convoyID];
     _abort = true;
   };
-
 };
 if(_type == "convoy") then
 {

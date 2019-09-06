@@ -56,6 +56,11 @@ _reinfPlaces = [];
 					{
 						_typeGroup = if (_sideX == Occupants) then {if (_numberX == 4) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_numberX == 4) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
 						[_typeGroup,_sideX,_siteX,2] remoteExec ["A3A_fnc_garrisonUpdate",2];
+
+						//This line send a virtual convoy, execute [] execVM "Convoy\convoyDebug.sqf" as admin to see it
+						//If it breaks, it doesn't change anything
+						//If it works, it will not add any troups
+						[_siteX, "Reinforce", _sideX, [(_numberX == 4)]] remoteExec ["A3A_fnc_createAIAction", 2];
 					}
 					else
 					{

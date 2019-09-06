@@ -1,6 +1,6 @@
 params ["_startPos" , "_endPos", "_avoid"];
 
-if(isNil "roadDataDone") exitWith {hint "Road data base not loaded, aborting pathfinding!"};
+if(isNil "roadDataDone") exitWith {diag_log "Pathfinding: Road data base not loaded, aborting pathfinding!"};
 
 private _deltaTime = time;
 
@@ -8,7 +8,7 @@ private _deltaTime = time;
 _startNav = [_startPos] call A3A_fnc_findNearestNavPoint;
 _endNav = [_endPos] call A3A_fnc_findNearestNavPoint;
 
-hint format ["Start %1 at %2\nEnd %3 at %4", _startNav, str _startPos, _endNav, str _endPos];
+diag_log format ["Pathfinding: Start %1 at %2\nEnd %3 at %4", _startNav, str _startPos, _endNav, str _endPos];
 
 allMarker = [];
 createNavMarker = compile preprocessFileLineNumbers "NavGridTools\createNavMarker.sqf";
@@ -24,10 +24,10 @@ _closedList = [];
 _targetNavPos = [_startNav] call A3A_fnc_getNavPos;
 _startNavPos = [_endNav] call A3A_fnc_getNavPos;
 
-_end = ["mil_triangle", _targetNavPos, "ColorBlue"] call createNavMarker;
-_end setMarkerText "Start";
-_start = ["mil_triangle", _startNavPos, "ColorBlue"] call createNavMarker;
-_start setMarkerText "Target";
+//_end = ["mil_triangle", _targetNavPos, "ColorBlue"] call createNavMarker;
+//_end setMarkerText "Start";
+//_start = ["mil_triangle", _startNavPos, "ColorBlue"] call createNavMarker;
+//_start setMarkerText "Target";
 
 private _lastNav = -1;
 
@@ -121,7 +121,7 @@ if(_lastNav isEqualType []) then
   {
     _lastPos = [_lastNav select 0] call A3A_fnc_getNavPos;
     _wayPoints pushBack _lastPos;
-    ["mil_dot", _lastPos, "ColorGreen"] call createNavMarker;
+    //["mil_dot", _lastPos, "ColorGreen"] call createNavMarker;
     _lastNavIndex = _lastNav select 3;
     if(_lastNavIndex isEqualType 1) then
     {
@@ -138,12 +138,12 @@ if(_lastNav isEqualType []) then
   //_wayPoints = [_startPos, _startNavPos];
 
   _deltaTime = time - _deltaTime;
-  hint format ["Successful finished pathfinding in %1 seconds", _deltaTime];
+  diag_log format ["Pathfinding: Successful finished pathfinding in %1 seconds", _deltaTime];
 }
 else
 {
   _deltaTime = time - _deltaTime;
-  hint format ["Could not find a way, search took %1 seconds", _deltaTime];
+  diag_log format ["Pathfinding: Could not find a way, search took %1 seconds", _deltaTime];
 };
 
 [] spawn

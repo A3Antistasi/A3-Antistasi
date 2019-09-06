@@ -83,7 +83,6 @@ _vehicleCount = 0;
 _cargoCount = 0;
 if(_type == "patrol") then
 {
-  //_origin = [_destination] call A3A_fnc_findBasesForConvoy;
   //TODO rework the origin selection!!
   _threatEvalLand = [_destinationPos, _side] call A3A_fnc_landThreatEval;
 	_airportsX = airportsX select {(sidesX getVariable [_x,sideUnknown] == _side) and ([_x,true] call A3A_fnc_airportCanAttack) and (getMarkerPos _x distance2D _destinationPos < distanceForAirAttack)};
@@ -454,9 +453,10 @@ if(_type == "convoy") then
       };
       if(!_abort) then
       {
-        [[teamPlayer,civilian],"CONVOY",[_text,_taskTitle,_destination], _destinationPos,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
-        [[_side],"CONVOY1",[format ["A convoy from %1 to %3, it's about to depart at %2. Protect it from any possible attack.",_nameOrigin,_displayTime,_nameDest],"Protect Convoy",_destination],_destinationPos,false,0,true,"run",true] call BIS_fnc_taskCreate;
-        missionsX pushBack ["CONVOY","CREATED"]; publicVariable "missionsX";
+        //Deactivated, cause you can't win this mission currently
+        //[[teamPlayer,civilian],"CONVOY",[_text,_taskTitle,_destination], _destinationPos,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
+        //[[_side],"CONVOY1",[format ["A convoy from %1 to %3, it's about to depart at %2. Protect it from any possible attack.",_nameOrigin,_displayTime,_nameDest],"Protect Convoy",_destination],_destinationPos,false,0,true,"run",true] call BIS_fnc_taskCreate;
+        //missionsX pushBack ["CONVOY","CREATED"]; publicVariable "missionsX";
         //Deactivated for debug
         //sleep (_timeLimit * 60);
 

@@ -1,6 +1,8 @@
 //This code is not mine, it is copied from https://community.bistudio.com/wiki/weaponsTurret
 //I do not claim any rights on this code
 
+//This code is currently NOT used by anything
+
 //Important is reloadTime in secs/shot
 
 private ["_result", "_getAnyMagazines", "_findRecurse", "_class"];

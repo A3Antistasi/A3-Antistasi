@@ -1,5 +1,6 @@
 params ["_lastSegment", "_entryPoint"];
 
+//_ignoredSegments = [];
 _ignoredSegments = [];
 if(!(isNil "_lastSegment") && {!(isNull _lastSegment)}) then
 {
@@ -8,29 +9,50 @@ if(!(isNil "_lastSegment") && {!(isNull _lastSegment)}) then
 
 _segmentsToSearch = [_entryPoint];
 _exitPoints = [];
+_exits = [];
+_linkPoints = [];
 
 while {count _segmentsToSearch > 0} do
 {
     _currentRoad = _segmentsToSearch deleteAt 0;
     _connections = [_currentRoad] call findConnection;
 
-    _connections = _connections select {(_x != _entryPoint) && {!(_x in _ignoredSegments)}};
+    _connections = _connections select {(_x != _entryPoint) && {!(_x in _ignoredSegments) && {!(_x in _exits) && {!(_x in ignoredSegments)}}}};
     _connectionCount = count _connections;
 
     if(_connectionCount == 1) then
     {
-      _exitPoints pushBackUnique _currentRoad;
+      /*
+      if((_connections select 0) in linkSegments) then
+      {
+        _linkPoints pushBackUnique (_connections select 0);
+        _ignoredSegments pushBack (_connections select 0);
+      }
+      else
+      {
+
+      };
+      */
+      _exitPoints pushBackUnique [_connections select 0, _currentRoad];
+      _exits pushBackUnique _currentRoad;
     }
     else
     {
       _ignoredSegments pushBack _currentRoad;
       {
-        if(!(_x in _exitPoints)) then
+        if(!(_x in _exits)) then
         {
           _segmentsToSearch pushBackUnique _x;
         };
       } forEach _connections;
     };
+};
+
+
+
+if(!(isNil "_lastSegment") && {!(isNull _lastSegment)}) then
+{
+  _ignoredSegments = _ignoredSegments - [_lastSegment];
 };
 
 _midOfJunction = [0,0,0];
@@ -41,10 +63,24 @@ if(!(isNil "_lastSegment") && {!(isNull _lastSegment)}) then
   _exitCount = 1;
 };
 
+_exitPointsCopy = [];
 {
-    _midOfJunction = _midOfJunction vectorAdd (getPos _x);
+  _road = (_x select 1);
+  _connections = [_road] call findConnection;
+  _connections = _connections select {!(_x in _exits) && {!(_x in _ignoredSegments)}};
+  if(count _connections > 0) then
+  {
+    _exitPointsCopy pushBack _x;
+    _midOfJunction = _midOfJunction vectorAdd (getPos _road);
     _exitCount = _exitCount + 1;
+  }
+  else
+  {
+    _ignoredSegments pushBack _road;
+  };
 } forEach _exitPoints;
+
+_exitPoints = _exitPointsCopy;
 
 
 _result = [];
@@ -59,9 +95,18 @@ if(_exitCount > 0) then
     _nearRoads = _midOfJunction nearRoads _searchRadius;
     if(count _nearRoads > 0) then
     {
-      _midSegment = _nearRoads select 0;
+      {
+        if(!(_x in _exits)) then
+        {
+          _midSegment = _x;
+        };
+      } forEach _nearRoads;
     };
   };
   _result = [_exitPoints, _midOfJunction, _ignoredSegments, _midSegment];
 };
+
+//hint format ["Entry point was %1\nLast was %2\nResults are %3", _entryPoint, _lastSegment, str _exitPoints];
+//sleep 15;
+
 _result;

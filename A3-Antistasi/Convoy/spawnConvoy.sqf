@@ -1,5 +1,7 @@
 //params ["_pos", "_nextPos", "_units", "_target", "_side", "_type"];
 
+//This is currently not called anywhere
+
 [] spawn
 {
   _pos = getMarkerPos "spawn";

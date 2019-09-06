@@ -1,6 +1,5 @@
 params ["_pos"];
 
-//TODO border checks and shit
 _mainMarker = [_pos] call A3A_fnc_getClosestMainMarker;
 
 _navPoints =  missionNamespace getVariable [(format ["%1_data", _mainMarker]), []];

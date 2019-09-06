@@ -8,7 +8,7 @@
 //This will yield better results for paths where the obvious way is correct
 
 //Better results means faster results with less touched nodes
-//Hint by Wurzel: 1.45 returns fair results in both cases. I recommend some value around it
+//Hint by Wurzel: 1.2 returns fair results in both cases. I recommend some value around it
 
 params ["_pos", "_target"];
 

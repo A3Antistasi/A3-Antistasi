@@ -30,6 +30,11 @@ if(isNil "_showText") then
   publicVariable "getRoadType";
   createNavText = compile preprocessFileLineNumbers "NavGridTools\createNavText.sqf";
   publicVariable "createNavText";
+  createNavPoint = compile preprocessFileLineNumbers "NavGridTools\createNavPoint.sqf";
+  publicVariable "createNavPoint";
+  setLinkSegment = compile preprocessFileLineNumbers "NavGridTools\setLinkSegment.sqf";
+  publicVariable "setLinkSegment";
+
 
   hintDone = false; publicVariable "hintDone";
 
@@ -96,7 +101,7 @@ not every junction is suitable, the script will tell you, if that case happens.<
   if(_abort) exitWith {};
   hint format ["Found %1 marker as start points!", count _roadMarker];
 
-  _openStartSegments = [];
+  openSearchSegments = [];
   _notOnAJunction = [];
   {
     _startPos = getMarkerPos _x;
@@ -117,7 +122,7 @@ not every junction is suitable, the script will tell you, if that case happens.<
     }
     else
     {
-      _openStartSegments pushBack [_startSegment, objNull];
+      openSearchSegments pushBack [_startSegment, objNull, objNull];
     };
   } forEach _roadMarker;
 
@@ -149,30 +154,31 @@ not every junction is suitable, the script will tell you, if that case happens.<
 
   _startTime = time;
 
-  _navPoints = [];
+  navPointNames = [];
 
-  _junctionSegments = [];
-  _junctionIgnored = [];
+  linkSegments = [];
+  ignoredSegments = [];
 
   _segmentsTillNext = 5;
   _segmentCount = 0;
 
-  private ["_currentSegment", "_lastSegment", "_currentIgnored" ,"_connected", "_roadType"];
+  private ["_currentSegment", "_lastSegment", "_currentIgnored" ,"_connected", "_roadType", "_isStart"];
 
   _roadType = 0;
   _outerLoop = 0;
   _innerLoop = 0;
   _debugText = "";
+  _isStart = true;
 
   _exit = false;
-  while {count _openStartSegments > 0} do
+  while {count openSearchSegments > 0} do
   {
     _outerLoop = _outerLoop + 1;
     _currentIgnored = [];
-    _startData = _openStartSegments deleteAt 0;
+    _startData = openSearchSegments deleteAt 0;
     _currentSegment = _startData select 0;
-    _connectedNavPoint = _startData select 1;
-    _lastSegment = objNull;
+    _lastSegment = _startData select 1;
+    _connectedNavPoint = _startData select 2;
 
     _navMarker = missionNamespace getVariable [format ["%1_m", [_currentSegment] call getRoadName], objNull];
     if(_navMarker isEqualType "") then {deleteMarker _navMarker};
@@ -192,27 +198,35 @@ not every junction is suitable, the script will tell you, if that case happens.<
       _connected = [_currentSegment] call findConnection;
 
       //Sorting out my start navSegment and every ignored segment
-      _connected = _connected select {!(_x in _currentIgnored)};
+      _connected = _connected select {!(_x in _currentIgnored) && {!(_x in ignoredSegments)}};
       _connectedCount = count _connected;
 
-      _debug = "";
+
 
       //No further conncetion found, end of road
       if(_connectedCount == 0) then
       {
         //If no lastSegment something has gone wrong with the junction, ignore in this case
+        //That should not be happenening again
         if(!(isNull _lastSegment)) then
         {
-          //Sets the navpoint
-          _navPointName = [_currentSegment] call getRoadName;
-          _roadType = [_currentSegment] call getRoadType;
-          [_navPointName, getPos _currentSegment, [], _roadType] call setNavPoint;
-          _navPoints pushBack _navPointName;
-          [_connectedNavPoint, _navPointName] call setNavConnection;
+          if(_currentSegment in linkSegments) then
+          {
+            //Dirty fix I know
+            _currentName = [_currentSegment] call getRoadName;
+            _conNav = missionNamespace getVariable [format ["%1_c", _currentName], -1];
+            [_conNav, _connectedNavPoint] call setNavConnection;
+            _currentSegment = objNull;
+          }
+          else
+          {
+            //Sets the navpoint
+            [_currentSegment, _connectedNavPoint] call createNavPoint;
 
-          //Sets the marker
-          _marker = ["mil_triangle", getPos _currentSegment, "ColorBlue"] call createNavMarker;
-          _marker setMarkerText "End";
+            //Sets the marker
+            _marker = ["mil_triangle", getPos _currentSegment, "ColorBlue"] call createNavMarker;
+            _marker setMarkerText "End";
+          };
         };
         _currentSegment = objNull;
       };
@@ -221,59 +235,45 @@ not every junction is suitable, the script will tell you, if that case happens.<
       //Only one way to go, go further if the next node is not an navSegment
       if(_connectedCount == 1) then
       {
-        if(!((_connected select 0) in _junctionSegments || ((_connected select 0) in _junctionIgnored))) then
+        if(!((_connected select 0) in linkSegments)) then
         {
+          //Given segment is not in linkSegments
           if(_segmentCount > _segmentsTillNext) then
           {
-            _navPointName = [_currentSegment] call getRoadName;
-            _roadType = [_currentSegment] call getRoadType;
-            [_navPointName, getPos _currentSegment, [], _roadType] call setNavPoint;
-            _navPoints pushBack _navPointName;
+            //Set up the nav point, as max distance is reached
+            _navPointName = [_currentSegment, _connectedNavPoint] call createNavPoint;
 
-            [_connectedNavPoint, _navPointName] call setNavConnection;
+            //Sets the next node as open link
+            [(_connected select 0), _currentSegment,  _navPointName, true] call setLinkSegment;
 
-            _junctionIgnored pushBack _currentSegment;
+            //Sets the last node as closed link
+            [_lastSegment, objNull, _navPointName, false] call setLinkSegment;
 
-            _next = (_connected select 0);
-            _nameX = [_next] call getRoadName;
-            //Sets origin of this segment
-            missionNamespace setVariable [format ["%1_c", _nameX], _navPointName];
-
-            //Creates and save the marker
-            _marker = ["mil_dot", getPos _next, "ColorRed"] call createNavMarker;
-            missionNamespace setVariable [format ["%1_m", _nameX], _marker];
-
-            //Sets the exit as blocked and new start point
-            _openStartSegments pushBack [_next, _navPointName];
-            _junctionSegments pushBack _next;
-
-            //Add lastSegment to junctionSegments (just to be sure)
-            if(!(isNull _lastSegment)) then
-            {
-              _junctionSegments pushBack _lastSegment;
-              missionNamespace setVariable [format ["%1_c",[_lastSegment] call getRoadName], _navPointName];
-            };
-
+            //Creates the marker
             _marker = ["mil_box", getPos _currentSegment, "ColorBlack"] call createNavMarker;
             _marker setMarkerText "2";
 
+            //Sets current to objNull to start with next segment
             _currentSegment = objNull;
           }
           else
           {
+            //Mark the segment as currently active (green dot) and add the marker destroy code
             _marker = ["mil_dot", getPos _currentSegment, "ColorGreen"] call createNavMarker;
-
-            _lastSegment = _currentSegment;
-            _currentSegment = _connected select 0;
             _marker spawn
             {
               sleep 3;
               deleteMarker _this;
             };
+
+            //Select next segment
+            _lastSegment = _currentSegment;
+            _currentSegment = _connected select 0;
           };
         }
         else
         {
+          //Given segment is a linkSegments
           _next = (_connected select 0);
           _nameNext = [_next] call getRoadName;
           _conNav = missionNamespace getVariable [format ["%1_c", _nameNext], -1];
@@ -287,51 +287,34 @@ not every junction is suitable, the script will tell you, if that case happens.<
       {
         //Create junction data
         //There is a problem, comming form a length junction directly into a real junction will have last segment set to objNull, making the exitPoint possible...
+        //Is this really a problem?
+        //Yeah it is dumbass
+
         private _result = [_lastSegment, _currentSegment] call createJunction;
         if(_result isEqualTo []) exitWith
         {
-          diag_log "Something went wrong, result is empty";
-          sleep 2;
+          hint "Something went wrong, result is empty, please tell Wurzel that case happened!";
+          sleep 15;
         };
 
         //Get exit points
         _exitPoints = _result select EXIT_POINTS;
 
+        //Does this case even happens??
         if(count _exitPoints == 1) then
         {
           //Found two ways close by for the same exit, no junction!
-          if(!((_exitPoints select 0) in _junctionSegments)) then
+          if(!((_exitPoints select 0) in linkSegments)) then
           {
             if(_segmentCount > _segmentsTillNext) then
             {
-              _navPointName = [_currentSegment] call getRoadName;
-              _roadType = [_currentSegment] call getRoadType;
-              [_navPointName, getPos _currentSegment, [], _roadType] call setNavPoint;
-              _navPoints pushBack _navPointName;
+              //Same steps as in only 1 connection case
+              _navPointName = [(_result select MID_SEGMENT), _connectedNavPoint] call createNavPoint;
+              _exit = _exitPoints select 0;
+              [(_exit select 0), (_exit select 1), _navPointName, true] call setLinkSegment;
+              ignoredSegments pushBack (_exit select 1);
 
-              _junctionIgnored pushBack _currentSegment;
-
-              [_connectedNavPoint, _navPointName] call setNavConnection;
-
-              _next = (_connected select 0);
-              _nameX = [_next] call getRoadName;
-              //Sets origin of this segment
-              missionNamespace setVariable [format ["%1_c", _nameX], _navPointName];
-
-              //Creates and save the marker
-              _marker = ["mil_dot", getPos _next, "ColorRed"] call createNavMarker;
-              missionNamespace setVariable [format ["%1_m", _nameX], _marker];
-
-              //Sets the exit as blocked and new start point
-              _openStartSegments pushBack [_next, _navPointName];
-              _junctionSegments pushBack _next;
-
-              //Add lastSegment to junctionSegments (just to be sure)
-              if(!(isNull _lastSegment)) then
-              {
-                _junctionSegments pushBack _lastSegment;
-                missionNamespace setVariable [format ["%1_c",[_lastSegment] call getRoadName], _navPointName];
-              };
+              [_lastSegment, objNull, _navPointName, false] call setLinkSegment;
 
               _marker = ["mil_box", getPos _currentSegment, "ColorBlack"] call createNavMarker;
               _marker setMarkerText "2";
@@ -341,16 +324,15 @@ not every junction is suitable, the script will tell you, if that case happens.<
             else
             {
               _marker = ["mil_dot", getPos _currentSegment, "ColorGreen"] call createNavMarker;
-
-              _lastSegment = _currentSegment;
-              _currentSegment = (_exitPoints select 0);
-              _currentIgnored = _currentIgnored + (_result select IGNORED_JUNCTIONS);
-
               _marker spawn
               {
                 sleep 3;
                 deleteMarker _this;
               };
+
+              _lastSegment = _currentSegment;
+              _currentSegment = (_exitPoints select 0) select 0;
+              _currentIgnored = _currentIgnored + (_result select IGNORED_JUNCTIONS);
             };
           }
           else
@@ -368,55 +350,33 @@ not every junction is suitable, the script will tell you, if that case happens.<
 
           //Sets a new navPoint for the grid
           _navPoint = _result select MID_SEGMENT;
-          _navPointName = [_navPoint] call getRoadName;
           _midOfJunction = _result select MID_POSITION;
-          _roadType = [_navPoint] call getRoadType;
-          [_navPointName, _midOfJunction, [], _roadType] call setNavPoint;
-          _navPoints pushBack _navPointName;
 
-          //Sets the link between the start and this navpoint
-          if(_connectedNavPoint isEqualType "") then
+          _navPointName = [_navPoint, _connectedNavPoint, _midOfJunction] call createNavPoint;
+
+          _minus = if(_isStart) then {_isStart = false; 1} else {0};
+
+          //Set up linkSegments of junction
           {
-            [_connectedNavPoint, _navPointName] call setNavConnection;
-          };
-
-          //Set up connections of junction
-          {
-            _nameX = [_x] call getRoadName;
-            if(!(_nameX in _navPoints)) then
-            {
-              //Sets origin of this segment
-              missionNamespace setVariable [format ["%1_c" ,_nameX], _navPointName];
-
-              //Creates and save the marker
-              _marker = ["mil_dot", getPos _x, "ColorRed"] call createNavMarker;
-              missionNamespace setVariable [format ["%1_m", _nameX], _marker];
-
-              //Sets the exit as blocked and new start point
-              _openStartSegments pushBack [_x, _navPointName];
-              _junctionSegments pushBack _x;
-            };
+            [_x select 0, _x select 1, _navPointName, true] call setLinkSegment;
+            ignoredSegments pushBack (_x select 1);
           } forEach _exitPoints;
 
-          //Add lastSegment to junctionSegments (just to be sure)
-          if(!(isNull _lastSegment)) then
-          {
-            _junctionSegments pushBack _lastSegment;
-            missionNamespace setVariable [format ["%1_c",[_lastSegment] call getRoadName], _navPointName];
-          };
-          /* Don't mark entry point, its confusing...
-          ["mil_dot", getPos _currentSegment, "ColorGreen"] call createNavMarker;
-          */
+          //Set up last segment as closed segment
+          [_lastSegment, objNull, _navPointName, false] call setLinkSegment;
 
           _marker = ["mil_box", _midOfJunction, "ColorBlack"] call createNavMarker;
-          _marker setMarkerText (str ((count _exitPoints) + 1));
+          _marker setMarkerText (str ((count _exitPoints) + 1 - _minus));
 
-          _junctionIgnored = _junctionIgnored + (_result select IGNORED_JUNCTIONS);
+          //Adding junction to ignoredSegments
+          ignoredSegments = ignoredSegments + (_result select IGNORED_JUNCTIONS);
+
+          //Starting with new segment
           _currentSegment = objNull;
         };
       };
-      hintSilent format ["Open segments: %1\n Inner Loop: %2\n Outer Loop: %3\n", str (count _openStartSegments), _innerLoop, _outerLoop];
-      //sleep 0.05;
+      hintSilent format ["Open segments: %1\n Inner Loop: %2\n Outer Loop: %3\n", str (count openSearchSegments), _innerLoop, _outerLoop];
+      //sleep 0.25;
     };
   };
   hint "Roads finished, writing data array now and deleting marker!";
@@ -481,7 +441,7 @@ not every junction is suitable, the script will tell you, if that case happens.<
       //Use set to ensure correct position
       _dataArray set [_navPointIndex, _savedData];
     };
-  } forEach _navPoints;
+  } forEach navPointNames;
 
   hint "Data prepared, setting up finished nav grid";
 
@@ -518,5 +478,5 @@ not every junction is suitable, the script will tell you, if that case happens.<
   copyToClipboard _text;
 
   _timeDiff = time - _startTime;
-  "Finished navGrid creation!" hintC (parseText format ["<t size='1.2' align='center'>Grid Creation finished, searched %1 start points and found %2 nav points in %3 seconds! <br/><br/>The navData is currently copied to your clipboard. Now switch over to the text file, we opened earlier and hit Ctrl + V to paste the nav data in there. Save the file again and you are good to go. You may want to double check if all islands and streets are connected as they should. If not, readjust the marker and do it again. If so, the navGrid is now ready for use. How to load and use it, is not handled in this folder.</t>", _outerLoop, count _navPoints, _timeDiff]);
+  "Finished navGrid creation!" hintC (parseText format ["<t size='1.2' align='center'>Grid Creation finished, searched %1 start points and found %2 nav points in %3 seconds! <br/><br/>The navData is currently copied to your clipboard. Now switch over to the text file, we opened earlier and hit Ctrl + V to paste the nav data in there. Save the file again and you are good to go. You may want to double check if all islands and streets are connected as they should. If not, readjust the marker and do it again. If so, the navGrid is now ready for use. How to load and use it, is not handled in this folder.</t>", _outerLoop, count navPointNames, _timeDiff]);
 };

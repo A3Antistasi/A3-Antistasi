@@ -230,7 +230,7 @@ if (!hasIFA) then
 					}
 					else
 					{
-						if (gameMode != 4) then
+						if (teamPlayer == independent) then
 							{
 							//RHS-USAF DEFENDER Template
 							call compile preProcessFileLineNumbers "Templates\OccupantsRHSUSAF.sqf";
@@ -278,7 +278,7 @@ if (!hasIFA) then
 					}
 					else
 					{
-						if (gameMode != 4) then
+						if (teamPlayer == independent) then
 							{
 							//RHS REBEL Template
 							call compile preProcessFileLineNumbers "Templates\teamPlayerRHSGREF.sqf";
@@ -817,7 +817,8 @@ unlockedItems =
 	"G_Tactical_Black",
 	"G_Aviator",
 	"G_Shades_Black",
-	"acc_flashlight"
+	"acc_flashlight",
+	"itemGPS"
 	];
 
 //Temporary starting vests fix while I class items properly
@@ -932,12 +933,6 @@ if (hasACE and hasIFA) then
 if (hasACRE) then {unlockedItems append ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"];};
 
 ////////////////////////////////////
-//     TFAR ITEM MODIFICATIONS   ///
-////////////////////////////////////
-if (hasTFAR) then {unlockedItems append ["tf_microdagr","tf_rf7800str"];};
-if (startLR) then {unlockedBackpacks pushBack "tf_anprc155"};
-
-////////////////////////////////////
 //     MISSION PATH WARNING      ///
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Checking Mission Path",servertime];
@@ -1020,6 +1015,27 @@ case "chernarus_summer":
 		{server setVariable [_x select 0,_x select 1]} forEach [["vill_NovySobor",129],["city_StarySobor",149],["vill_Guglovo",26],["vill_Vyshnoye",41],["vill_Kabanino",86],["vill_Rogovo",66],["vill_Mogilevka",104],["city_Gorka",115],["vill_Grishino",168],["vill_Shakhovka",55],["vill_Pogorevka",57],["vill_Pulkovo",26],["vill_Nadezhdino",109],["city_Vybor",180],["vill_Polana",118],["vill_Staroye",115],["vill_Dubrovka",86],["vill_Pustoshka",163],["vill_Kozlovka",100],["vill_Pusta",52],["vill_Dolina",83],["vill_Gvozdno",78],["vill_Prigorodki",145],["vill_Drozhino",58],["vill_Sosnovka",54],["vill_Msta",96],["vill_Lopatino",159],["city_Zelenogorsk",280],["vill_Orlovets",65],["city_Berezino",340],["vill_Myshkino",49],["vill_Petrovka",45],["city_Chernogorsk",761],["vill_Bor",46],["vill_Nizhnoye",146],["vill_Balota",147],["vill_Khelm",110],["city_Krasnostav",194],["vill_Komarovo",127],["city_Elektrozavodsk",745],["city_Solnychniy",224],["vill_Kamyshovo",196],["vill_Tulga",35],["vill_Pavlovo",99],["vill_Kamenka",127],["hill_Olsha",20]];
 		//Roads DB
 		call compile preprocessFileLineNumbers "roadsDBcherna.sqf";
+		};
+case "malden":
+		{
+		roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
+		{_x setMarkerAlpha 0} forEach roadsMrk;
+		//Roads DB
+		call compile preprocessFileLineNumbers "roadsDBmalden.sqf";
+		};
+case "enoch":
+		{
+		roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
+		{_x setMarkerAlpha 0} forEach roadsMrk;
+		//Roads DB
+		call compile preprocessFileLineNumbers "roadsDBLivonia.sqf";
+		};
+case "kunduz":
+		{
+		roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
+		{_x setMarkerAlpha 0} forEach roadsMrk;
+		//Roads DB
+		call compile preprocessFileLineNumbers "roadsDBKunduz.sqf";
 		};
 	};
 

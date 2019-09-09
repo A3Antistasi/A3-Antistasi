@@ -126,7 +126,7 @@ class Params
         title = "Distance from HQ for Sidemissions";
         values[] = {4000,8000,12000};
         // When 'texts' are missing, values will be displayed directly instead
-        default = 4000;
+        default = 8000;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
     class allowPvP
@@ -150,7 +150,7 @@ class Params
         title = "AI Skill";
         values[] = {0.5,1,2};
         texts[] = {"Easy","Normal","Hard"};
-        default = 1;
+        default = 2;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
     class unlockItem

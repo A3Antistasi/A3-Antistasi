@@ -30,6 +30,16 @@ debriefing=1;
 
 //showGroupIndicator = 1;
 
+class CfgMovesFatigue {
+    staminaDuration = 120;  // def = 60
+    staminaCooldown = 15;  // def = 10
+    staminaRestoration = 45;  // def = 30 (only when run completely out, so don't do that)
+    aimPrecisionSpeedCoef = 5; // def = 5
+    terrainDrainSprint = -2; // def = -1
+    terrainDrainRun = -1;  // def = -1
+    terrainSpeedCoef = 0.9;  // def = 0.9
+};
+
 class CfgTaskEnhancements
     {
     enable       = 1;            //0: disable new task features (default), 1: enable new task features & add new task markers and task widgets into the map

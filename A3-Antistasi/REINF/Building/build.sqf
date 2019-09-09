@@ -11,7 +11,7 @@ private _aiEngineers = [];
 private _abortMessage = "";
 
 {
-	if (_x getUnitTrait "engineer") then {
+	if (_x getUnitTrait "engineer" || _x == theBoss) then {
 		if (isPlayer _x) then {
 			if (player == _x) then {
 				_playerIsEngineer = true;
@@ -27,8 +27,8 @@ private _abortMessage = "";
 
 private _engineerIsBusy = {
 	private _engineer = param [0, objNull];
-	((_engineer getVariable ["helping",false]) 
-	or (_engineer getVariable ["rearming",false]) 
+	((_engineer getVariable ["helping",false])
+	or (_engineer getVariable ["rearming",false])
 	or (_engineer getVariable ["constructing",false]));
 };
 
@@ -53,21 +53,21 @@ if (isNull build_engineerSelected) then {
 	if (count _aiEngineers > 0 && player != leader player) exitWith {
 		_abortMessage =	_abortMessage + "Only squad leaders can order AI to build";
 	};
-	
+
 	{
 		if ([_x] call A3A_fnc_canFight && !([_x] call _engineerIsBusy)) exitWith {
 			build_engineerSelected = _x;
 			_abortMessage = _abortMessage + format ["Ordering %1 to build", _x];
 		};
 	} forEach _aiEngineers;
-	
+
 	if (isNull build_engineerSelected) exitWith {
 		_abortMessage =	_abortMessage + "You have no available engineers in your squad. They may be unconscious or busy.";
 	};
 };
 
 if (isNull build_engineerSelected ||
-   ((player != build_engineerSelected) and (isPlayer build_engineerSelected))) exitWith 
+   ((player != build_engineerSelected) and (isPlayer build_engineerSelected))) exitWith
 {
 	hint _abortMessage;
 };

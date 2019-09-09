@@ -46,8 +46,6 @@ _fnc_initGarrisons = {
 		garrison setVariable [_x, _garrison, true];
 		[_x] spawn A3A_fnc_createControls;
 	} forEach _target;
-
-	true
 };
 
 diag_log format ["%1: [Antistasi] | INFO | InitGarrisons Started.", servertime];

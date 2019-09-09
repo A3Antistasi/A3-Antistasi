@@ -1,6 +1,8 @@
 //Original Author: Barbolani
 //Edited and updated by the Antstasi Community Development Team
 
+diag_log format ["%1: [Antistasi] | INFO | InitGarrisons Started.", servertime];
+
 _fnc_initGarrisons = {
 	params ["_mrkCSAT", "_target", "_mrkType", "_mrkText", ["_useSideName", false]];
 	private ["_pos", "_mrk", "_garrNum", "_garrison", "_grupsRandom"];
@@ -47,8 +49,6 @@ _fnc_initGarrisons = {
 		[_x] spawn A3A_fnc_createControls;
 	} forEach _target;
 };
-
-diag_log format ["%1: [Antistasi] | INFO | InitGarrisons Started.", servertime];
 
 private _mrkNATO = [];
 private _mrkCSAT = [];

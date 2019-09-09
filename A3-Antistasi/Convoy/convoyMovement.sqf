@@ -1,12 +1,16 @@
 params ["_convoyID" ,"_route", "_maxSpeed", "_units", "_sideConvoy", "_convoyType", ["_debugObject", nil]];
 
-/*  params
-*   _route : ARRAY; contains the position of the route points
-*   _maxSpeed : NUMBER; contains the max speed the convoy can move in m/s
-*   _units : ARRAY; contains the units and vehicles, will not be used in here, just passed
-*   _sideConvoy : SIDE; contains the side of the convoy
-*   _convoyType : STRING; contains one of "ATTACK", "PATROL" or "REINFORCE"
-*   _debugObject : OBJECT (optional); object to visualize the convoy travel
+/*  Simulates the movement of the convoy
+*   Params:
+*     _convoyID : NUMBER; the unique convoy ID
+*     _route : ARRAY; contains the position of the route points
+*     _maxSpeed : NUMBER; contains the max speed the convoy can move in m/s
+*     _units : ARRAY; contains the units and vehicles, will not be used in here, just passed
+*     _sideConvoy : SIDE; contains the side of the convoy
+*     _convoyType : STRING; contains one of "ATTACK", "PATROL" or "REINFORCE"
+*     _debugObject : OBJECT (optional); object to visualize the convoy travel
+*   Returns:
+      Nothing
 */
 
 if(isNil "_route") exitWith {diag_log format ["ConvoyMovement[%1]: No route given!", _convoyID]};

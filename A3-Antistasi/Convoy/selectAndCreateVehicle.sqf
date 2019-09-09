@@ -1,5 +1,18 @@
 params ["_vehPool", "_side", ["_isAir", false]];
 
+/*  Selects a vehicle from the given pool, if available, selects basic vehicle else
+*   Params:
+*     _vehPool: ARRAY of STRINGS; the current vehicle pool
+*     _side: SIDE; the side for which the vehicle should be choosen
+*     _isAir: BOOLEAN; Optional, selects if vehicle pool consists of air vehicles, default false
+*   Returns:
+*     ARRAY of mixed types:
+*       - ARRAY of STRINGS:
+*         - choosen vehicle: STRING
+*         - choosen cargo group: STRING
+*       - ARRAY of STRINGS: the new vehicle pool
+*/
+
 if(isNil "_side") exitWith
 {
   diag_log "SelectAndCreateVehicle: No side given!";

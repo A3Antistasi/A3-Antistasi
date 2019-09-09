@@ -10,10 +10,12 @@ if(!(isNil "_lastSegment") && {!(isNull _lastSegment)}) then
 _segmentsToSearch = [_entryPoint];
 _exitPoints = [];
 _exits = [];
-_linkPoints = [];
+private _links = [];
+//private _debugCounter = 0;
 
 while {count _segmentsToSearch > 0} do
 {
+    //_debugCounter = _debugCounter + 1;
     _currentRoad = _segmentsToSearch deleteAt 0;
     _connections = [_currentRoad] call findConnection;
 
@@ -22,31 +24,39 @@ while {count _segmentsToSearch > 0} do
 
     if(_connectionCount == 1) then
     {
-      /*
       if((_connections select 0) in linkSegments) then
       {
-        _linkPoints pushBackUnique (_connections select 0);
+        _links pushBack (_connections select 0);
         _ignoredSegments pushBack (_connections select 0);
+        _ignoredSegments pushBack _currentRoad;
       }
       else
       {
-
+        _exitPoints pushBackUnique [_connections select 0, _currentRoad];
+        _exits pushBackUnique _currentRoad;
       };
-      */
-      _exitPoints pushBackUnique [_connections select 0, _currentRoad];
-      _exits pushBackUnique _currentRoad;
     }
     else
     {
       _ignoredSegments pushBack _currentRoad;
       {
-        if(!(_x in _exits)) then
+        if(_x in linkSegments) then
         {
-          _segmentsToSearch pushBackUnique _x;
+          _links pushBack _x;
+          _ignoredSegments pushBack _x;
+        }
+        else
+        {
+          if(!(_x in _exits)) then
+          {
+            _segmentsToSearch pushBackUnique _x;
+          };
         };
       } forEach _connections;
     };
 };
+
+//sleep 1;
 
 
 
@@ -62,6 +72,11 @@ if(!(isNil "_lastSegment") && {!(isNull _lastSegment)}) then
   _midOfJunction = (getPos _lastSegment);
   _exitCount = 1;
 };
+
+{
+    _midOfJunction = _midOfJunction vectorAdd (getPos _x);
+    _exitCount = _exitCount + 1;
+} forEach _links;
 
 _exitPointsCopy = [];
 {
@@ -103,7 +118,7 @@ if(_exitCount > 0) then
       } forEach _nearRoads;
     };
   };
-  _result = [_exitPoints, _midOfJunction, _ignoredSegments, _midSegment];
+  _result = [_exitPoints, _midOfJunction, _ignoredSegments, _midSegment, _links];
 };
 
 //hint format ["Entry point was %1\nLast was %2\nResults are %3", _entryPoint, _lastSegment, str _exitPoints];

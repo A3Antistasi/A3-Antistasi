@@ -2,6 +2,7 @@
 #define MID_POSITION        1
 #define IGNORED_JUNCTIONS   2
 #define MID_SEGMENT         3
+#define LINK_POINTS         4
 
 _showText = true;
 _showText = param [0, true];
@@ -162,7 +163,7 @@ not every junction is suitable, the script will tell you, if that case happens.<
   _segmentsTillNext = 5;
   _segmentCount = 0;
 
-  private ["_currentSegment", "_lastSegment", "_currentIgnored" ,"_connected", "_roadType", "_isStart"];
+  private ["_currentSegment", "_lastSegment", "_currentIgnored" ,"_connected", "_roadType", "_isStart", "_exitPoints", "_linkPoints"];
 
   _roadType = 0;
   _outerLoop = 0;
@@ -250,7 +251,7 @@ not every junction is suitable, the script will tell you, if that case happens.<
             [_lastSegment, objNull, _navPointName, false] call setLinkSegment;
 
             //Creates the marker
-            _marker = ["mil_box", getPos _currentSegment, "ColorBlack"] call createNavMarker;
+            _marker = ["mil_dot", getPos _currentSegment, "ColorBlack"] call createNavMarker;
             _marker setMarkerText "2";
 
             //Sets current to objNull to start with next segment
@@ -286,10 +287,7 @@ not every junction is suitable, the script will tell you, if that case happens.<
       if(_connectedCount > 1) then
       {
         //Create junction data
-        //There is a problem, comming form a length junction directly into a real junction will have last segment set to objNull, making the exitPoint possible...
-        //Is this really a problem?
-        //Yeah it is dumbass
-
+        private _debug = time;
         private _result = [_lastSegment, _currentSegment] call createJunction;
         if(_result isEqualTo []) exitWith
         {
@@ -299,14 +297,19 @@ not every junction is suitable, the script will tell you, if that case happens.<
 
         //Get exit points
         _exitPoints = _result select EXIT_POINTS;
+        _linkPoints = _result select LINK_POINTS;
+        _debug = time - _debug;
 
-        //Does this case even happens??
+        hintSilent format ["Junction data\nExits: %1\nLinks: %2\nTime: %3", count _exitPoints, count _linkPoints, _debug];
+        //sleep 1;
+
+
         if(count _exitPoints == 1) then
         {
           //Found two ways close by for the same exit, no junction!
-          if(!((_exitPoints select 0) in linkSegments)) then
+          if((count _linkPoints != 0) || {!((_exitPoints select 0) in linkSegments)}) then
           {
-            if(_segmentCount > _segmentsTillNext) then
+            if((count _linkPoints != 0) || {_segmentCount > _segmentsTillNext}) then
             {
               //Same steps as in only 1 connection case
               _navPointName = [(_result select MID_SEGMENT), _connectedNavPoint] call createNavPoint;
@@ -314,9 +317,16 @@ not every junction is suitable, the script will tell you, if that case happens.<
               [(_exit select 0), (_exit select 1), _navPointName, true] call setLinkSegment;
               ignoredSegments pushBack (_exit select 1);
 
+              {
+                  _linkName = [_x] call getRoadName;
+                  _linkNav = missionNamespace getVariable [format ["%1_c", _linkName], -1];
+                  [_connectedNavPoint, _linkNav] call setNavConnection;
+                  [_x, objNull, _navPointName, false] call setLinkSegment;
+              } forEach _linkPoints;
+
               [_lastSegment, objNull, _navPointName, false] call setLinkSegment;
 
-              _marker = ["mil_box", getPos _currentSegment, "ColorBlack"] call createNavMarker;
+              _marker = ["mil_triangle", getPos _currentSegment, "ColorBlack"] call createNavMarker;
               _marker setMarkerText "2";
 
               _currentSegment = objNull;
@@ -362,11 +372,18 @@ not every junction is suitable, the script will tell you, if that case happens.<
             ignoredSegments pushBack (_x select 1);
           } forEach _exitPoints;
 
+          {
+              _linkName = [_x] call getRoadName;
+              _linkNav = missionNamespace getVariable [format ["%1_c", _linkName], -1];
+              [_connectedNavPoint, _linkNav] call setNavConnection;
+              [_x, objNull, _navPointName, false] call setLinkSegment;
+          } forEach _linkPoints;
+
           //Set up last segment as closed segment
           [_lastSegment, objNull, _navPointName, false] call setLinkSegment;
 
           _marker = ["mil_box", _midOfJunction, "ColorBlack"] call createNavMarker;
-          _marker setMarkerText (str ((count _exitPoints) + 1 - _minus));
+          _marker setMarkerText (str ((count _exitPoints) + (count _linkPoints) + 1 - _minus));
 
           //Adding junction to ignoredSegments
           ignoredSegments = ignoredSegments + (_result select IGNORED_JUNCTIONS);
@@ -376,7 +393,7 @@ not every junction is suitable, the script will tell you, if that case happens.<
         };
       };
       hintSilent format ["Open segments: %1\n Inner Loop: %2\n Outer Loop: %3\n", str (count openSearchSegments), _innerLoop, _outerLoop];
-      //sleep 0.25;
+      //sleep 0.1;
     };
   };
   hint "Roads finished, writing data array now and deleting marker!";

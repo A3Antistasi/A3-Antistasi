@@ -1,3 +1,10 @@
+/*  Shows the convoy markers on the maps, if this is either singleplayer or you are admin
+*   Params:
+*       None
+*   Returns:
+*       Nothing
+*/
+
 if(isDedicated) exitWith {};
 
 if(isMultiplayer && {!(serverCommandAvailable "#logout")}) exitWith {hint "Only server admins can execute the convoy debug!"};
@@ -14,7 +21,7 @@ while {player getVariable ["convoyDebug", false] && {!isMultiplayer || {(serverC
     {
         _x setMarkerAlphaLocal 1;
     } forEach convoyMarker;
-  };  
+  };
   sleep 10;
 };
 

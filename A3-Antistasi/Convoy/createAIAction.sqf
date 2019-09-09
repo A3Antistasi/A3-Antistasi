@@ -1,11 +1,14 @@
 params ["_destination", "_type", "_side", ["_arguments", []]];
 
-/* params
-*   _destination : MARKER or POS; the marker or position the AI should take AI on
-*   _type : STRING; (not case sensitive) one of "ATTACK", "PATROL", "REINFORCE", "CONVOY", "AIRSTRIKE" more to add
-*   _side : SIDE; the side of the AI forces to send
-*   _arguments : ARRAY; any further argument needed for the operation
-+        -here should be some manual for each _type
+/*  Handles the creation of any AI Action
+*   Params
+*     _destination : MARKER or POS; the marker or position the AI should take AI on
+*     _type : STRING; (not case sensitive) one of "ATTACK", "PATROL", "REINFORCE", "CONVOY", "AIRSTRIKE" more to add
+*     _side : SIDE; the side of the AI forces to send
+*     _arguments : ARRAY; any further argument needed for the operation
+*        -here should be some manual for each _type, but it is currently unfinished
+*   Returns:
+*     Nothing
 */
 
 if(!serverInitDone) then

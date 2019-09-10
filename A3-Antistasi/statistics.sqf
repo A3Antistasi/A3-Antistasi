@@ -19,7 +19,7 @@ else
 	if (player != theBoss) then
 		{
 		if (isPlayer theBoss) then {_nameC = name theBoss} else {_nameC = "None"};
-		_textX = format ["<t size='0.67' shadow='2'>" + "Commander: %3 | Rank: %2 | HR: %1 | Your Money: %4 € | %8 Aggr: %5 | %9 Aggr: %6 | War Level: %7 | Undercover Mode: %10", server getVariable "hr", rank player, _nameC, player getVariable "moneyX",floor prestigeNATO, floor prestigeCSAT,tierWar,nameOccupants,nameInvaders,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false]))];
+		_textX = format ["<t size='0.67' shadow='2'>" + "Commander: %3 | Rank: %2 | Score: %11 | HR: %1 | Your Money: %4 € | %8 Aggr: %5 | %9 Aggr: %6 | War Level: %7 | Undercover Mode: %10", server getVariable "hr", rank player, _nameC, player getVariable "moneyX",floor prestigeNATO, floor prestigeCSAT,tierWar,nameOccupants,nameInvaders,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false])),player getVariable "score"];
 		}
 	else
 		{
@@ -29,7 +29,7 @@ else
 			}
 		else
 			{
-			_textX = format ["<t size='0.67' shadow='2'>" + "Rank: %1 | Your Money: %2 € | %3 Money: %4 € | %5 Aggr: %6 | %7 Aggr: %8 | War Level: %9 | Undercover Mode: %10",rank player,player getVariable "moneyX",nameTeamPlayer,server getVariable "resourcesFIA", nameOccupants, floor prestigeNATO, nameInvaders,floor prestigeCSAT,tierWar,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false]))];
+			_textX = format ["<t size='0.67' shadow='2'>" + "Rank: %1 | Score: %11 | Your Money: %2 € | %3 Money: %4 € | %5 Aggr: %6 | %7 Aggr: %8 | War Level: %9 | Undercover Mode: %10",rank player,player getVariable "moneyX",nameTeamPlayer,server getVariable "resourcesFIA", nameOccupants, floor prestigeNATO, nameInvaders,floor prestigeCSAT,tierWar,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false])),player getVariable "score"];
 			};
 		};
 	};

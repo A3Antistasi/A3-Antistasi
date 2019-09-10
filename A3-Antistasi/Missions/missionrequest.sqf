@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_typeX","_posbase","_potentials","_sites","_exists","_siteX","_pos","_city"];
+private ["_typeX","_posbase","_potentials","_sites","_exists","_siteX","_pos","_city", "_internalDistance"];
 
 _typeX = _this select 0;
 
@@ -10,7 +10,13 @@ _sites = [];
 _exists = false;
 
 _silencio = false;
-if (count _this > 1) then {_silencio = true};
+_internalDistance = distanceMission;
+
+if (count _this > 1) then
+    {
+    _silencio = true;
+    _internalDistance = _internalDistance / 2;
+    };
 
 if ([_typeX] call BIS_fnc_taskExists) exitWith {if (!_silencio) then {[petros,"globalChat","I already gave you a mission of this type"] remoteExec ["A3A_fnc_commsMP",theBoss]}};
 
@@ -20,12 +26,12 @@ if (_typeX == "AS") then
 	_sites = _sites select {sidesX getVariable [_x,sideUnknown] != teamPlayer};
 	if ((count _sites > 0) and ({sidesX getVariable [_x,sideUnknown] == Occupants} count airportsX > 0)) then
 		{
-		//_potentials = _sites select {((getMarkerPos _x distance _posbase < distanceMission) and (not(spawner getVariable _x)))};
+		//_potentials = _sites select {((getMarkerPos _x distance _posbase < _internalDistance) and (not(spawner getVariable _x)))};
 		for "_i" from 0 to ((count _sites) - 1) do
 			{
 			_siteX = _sites select _i;
 			_pos = getMarkerPos _siteX;
-			if (_pos distance _posbase < distanceMission) then
+			if (_pos distance _posbase < _internalDistance) then
 				{
 				if (_siteX in controlsX) then
 					{
@@ -64,7 +70,7 @@ if (_typeX == "CON") then
 	_sites = _sites select {sidesX getVariable [_x,sideUnknown] != teamPlayer};
 	if (count _sites > 0) then
 		{
-		_potentials = _sites select {(getMarkerPos _x distance _posbase < distanceMission)};
+		_potentials = _sites select {(getMarkerPos _x distance _posbase < _internalDistance)};
 		};
 	if (count _potentials == 0) then
 		{
@@ -90,7 +96,7 @@ if (_typeX == "DES") then
 			{
 			_siteX = _sites select _i;
 			if (_siteX in markersX) then {_pos = getMarkerPos _siteX} else {_pos = getPos _siteX};
-			if (_pos distance _posbase < distanceMission) then
+			if (_pos distance _posbase < _internalDistance) then
 				{
 				if (_siteX in markersX) then
 					{
@@ -137,7 +143,7 @@ if (_typeX == "LOG") then
 				{
 				_pos = getPos _siteX;
 				};
-			if (_pos distance _posbase < distanceMission) then
+			if (_pos distance _posbase < _internalDistance) then
 				{
 				if (_siteX in citiesX) then
 					{
@@ -187,7 +193,7 @@ if (_typeX == "RES") then
 			{
 			_siteX = _sites select _i;
 			_pos = getMarkerPos _siteX;
-			if (_siteX in citiesX) then {if (_pos distance _posbase < distanceMission) then {_potentials pushBack _siteX}} else {if ((_pos distance _posbase < distanceMission) and (spawner getVariable _siteX == 2)) then {_potentials = _potentials + [_siteX]}};
+			if (_siteX in citiesX) then {if (_pos distance _posbase < _internalDistance) then {_potentials pushBack _siteX}} else {if ((_pos distance _posbase < _internalDistance) and (spawner getVariable _siteX == 2)) then {_potentials = _potentials + [_siteX]}};
 			};
 		};
 	if (count _potentials == 0) then
@@ -217,7 +223,7 @@ if (_typeX == "CONVOY") then
 				_siteX = _sites select _i;
 				_pos = getMarkerPos _siteX;
 				_base = [_siteX] call A3A_fnc_findBasesForConvoy;
-				if ((_pos distance _posbase < (distanceMission*2)) and (_base !="")) then
+				if ((_pos distance _posbase < (_internalDistance*2)) and (_base !="")) then
 					{
 					if ((_siteX in citiesX) and (sidesX getVariable [_siteX,sideUnknown] == teamPlayer)) then
 						{

@@ -35,7 +35,7 @@ savingClient = true;
 diag_log format ["[Antistasi] Saving player %1 on side %2", _playerId, side group _playerUnit];
 
 private _shouldStripLoadout = false;
-if (hasACEMedical && {[_playerUnit] call ace_medical_fnc_getUnconsciousCondition}) then 
+if (hasACEMedical && {[_playerUnit] call ace_medical_fnc_getUnconsciousCondition}) then
 {
 	_shouldStripLoadout = true;
 	diag_log format ["[Antistasi] Stripping saved loadout of player %1 due to saving while being ACE unconscious", _playerId];
@@ -55,6 +55,7 @@ if (_shouldStripLoadout) then {
 if (isMultiplayer) then
 	{
 	[_playerId, "scorePlayer", _playerUnit getVariable "score"] call fn_SavePlayerStat;
+	[_playerId, "killsPlayer", _playerUnit getVariable "kills"] call fn_SavePlayerStat;
 	[_playerId, "rankPlayer", rank _playerUnit] call fn_SavePlayerStat;
 	[_playerId, "personalGarage",[_playerUnit] call A3A_fnc_getPersonalGarage] call fn_SavePlayerStat;
 	_resourcesBackground = _playerUnit getVariable ["moneyX", 0];
@@ -85,7 +86,7 @@ if (isMultiplayer) then
 								if (typeName _vehPrice == typeName _resourcesBackground) then {
 									_resourcesBackground = _resourcesBackground + _attachmentPrice;
 								};
-							} 
+							}
 							forEach attachedObjects _veh;
 						};
 					};
@@ -95,6 +96,6 @@ if (isMultiplayer) then
 	} forEach (units group _playerUnit) - [_playerUnit]; //Can't have player unit in here, as it'll get nulled out if called on disconnect.
 	[_playerId, "moneyX",_resourcesBackground] call fn_SavePlayerStat;
 	};
-	
+
 savingClient = false;
 true;

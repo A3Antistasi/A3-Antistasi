@@ -19,13 +19,13 @@ else
 	if (player != theBoss) then
 		{
 		if (isPlayer theBoss) then {_nameC = name theBoss} else {_nameC = "None"};
-		_textX = format ["<t size='0.67' shadow='2'>" + "Commander: %3 | Rank: %2 | Score: %11 | HR: %1 | Your Money: %4 € | %8 Aggr: %5 | %9 Aggr: %6 | War Level: %7 | Undercover Mode: %10", server getVariable "hr", rank player, _nameC, player getVariable "moneyX",floor prestigeNATO, floor prestigeCSAT,tierWar,nameOccupants,nameInvaders,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false])),player getVariable "score"];
+		_textX = format ["<t size='0.67' shadow='2'>" + "Commander: %3 | Rank: %2 | Kills: %12 | Score: %11 | HR: %1 | Your Money: %4 € | %8 Aggr: %5 | %9 Aggr: %6 | War Level: %7 | Undercover Mode: %10", server getVariable "hr", rank player, _nameC, player getVariable "moneyX",floor prestigeNATO, floor prestigeCSAT,tierWar,nameOccupants,nameInvaders,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false])),player getVariable ["score", 0], player getVariable ["kills", 0]];
 		}
 	else
 		{
 		if ([(player getVariable ["owner",player])] call A3A_fnc_isMember) then
 			{
-			_textX = format ["<t size='0.67' shadow='2'>" + "Rank: %5 | HR: %1 | Score: %13 |Your Money: %6 € | %11 Money: %2 € | Airstrikes: %7 | %9 Aggr: %3 | %10 Aggr: %4 | War Level: %8 | Undercover Mode: %12", server getVariable "hr", server getVariable "resourcesFIA", floor prestigeNATO, floor prestigeCSAT,rank player, player getVariable "moneyX",floor bombRuns,tierWar,nameOccupants,nameInvaders,nameTeamPlayer,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false])),player getVariable "score"];
+			_textX = format ["<t size='0.67' shadow='2'>" + "Rank: %5 | HR: %1 | Kills: %14 | Score: %13 |Your Money: %6 € | %11 Money: %2 € | Airstrikes: %7 | %9 Aggr: %3 | %10 Aggr: %4 | War Level: %8 | Undercover Mode: %12", server getVariable "hr", server getVariable "resourcesFIA", floor prestigeNATO, floor prestigeCSAT,rank player, player getVariable "moneyX",floor bombRuns,tierWar,nameOccupants,nameInvaders,nameTeamPlayer,["Off", "<t color='#1DA81D'>On</t>"] select ((captive player) and !(player getVariable ["INCAPACITATED",false])),player getVariable ["score", 0], player getVariable ["kills", 0]];
 			}
 		else
 			{

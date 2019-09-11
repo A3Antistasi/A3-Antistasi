@@ -26,6 +26,7 @@ if (isMultiplayer) exitWith
 		};
 	_pointsX = _pointsX + _pointsXJ;
 	_playerX setVariable ["score",_pointsX,true];
+	if (_pointsX == 1) then {_playerX setVariable ["kills", _playerX getVariable ["kills", 0] + 1, true];};
 	};
 
 if (_pointsX > 0) then

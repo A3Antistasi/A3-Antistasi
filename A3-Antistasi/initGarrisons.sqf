@@ -5,7 +5,7 @@ diag_log format ["%1: [Antistasi] | INFO | InitGarrisons Started.", servertime];
 
 _fnc_initGarrisons = {
 	params ["_mrkCSAT", "_target", "_mrkType", "_mrkText", ["_useSideName", false]];
-	private ["_pos", "_mrk", "_garrNum", "_garrison", "_grupsRandom"];
+	private ["_pos", "_mrk", "_garrNum", "_garrison", "_groupsRandom"];
 
 	{
 		_pos = getMarkerPos _x;
@@ -21,13 +21,13 @@ _fnc_initGarrisons = {
 
 			if (_x in _mrkCSAT) then {
 				_mrkText = format [_mrkText, nameInvaders];
-				_grupsRandom = [groupsCSATSquad, groupsFIASquad] select ((_target in [outposts]) && (gameMode == 4));
+				_groupsRandom = [groupsCSATSquad, groupsFIASquad] select ((_target in [outposts]) && (gameMode == 4));
 			} else {
 				_mrkText = format [_mrkText, nameOccupants];
-				_grupsRandom = groupsNATOSquad;
+				_groupsRandom = groupsNATOSquad;
 			};
 		} else {
-			_grupsRandom = groupsFIASquad;
+			_groupsRandom = groupsFIASquad;
 		};
 
 		if (_x in _mrkCSAT) then {
@@ -39,7 +39,7 @@ _fnc_initGarrisons = {
 		};
 
 		for "_i" from 1 to _garrNum do {
-			_garrison append (selectRandom _grupsRandom);
+			_garrison append (selectRandom _groupsRandom);
 		};
 
 		_mrk setMarkerType _mrkType;

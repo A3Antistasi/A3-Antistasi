@@ -124,9 +124,9 @@ class Params
     class mRadius
     {
         title = "Distance from HQ for Sidemissions";
-        values[] = {4000,8000,12000};
+        values[] = {4000,6000,8000,12000};
         // When 'texts' are missing, values will be displayed directly instead
-        default = 8000;
+        default = 6000;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
     class allowPvP

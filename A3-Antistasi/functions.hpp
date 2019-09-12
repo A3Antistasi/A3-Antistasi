@@ -214,6 +214,15 @@ class A3A
 		class vehPlacementCleanup {};
 	};
 
+	class Garrison
+	{
+		class addGarrison {};
+		class addReinforcement {};
+		class getGarrison {};
+		class getGarrisonStrength {};
+		class getNeededReinforcements{};
+	};
+
 	class Missions
 	{
 		class attackHQ {};

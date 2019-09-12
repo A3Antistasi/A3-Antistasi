@@ -19,6 +19,8 @@ params ["_marker", "_unit", "_unitIndex", ["_stockUp", false]];
 if (isNil "_marker") exitWith {diag_log "AddReinforcements: No marker given!"};
 if (isNil "_unit") exitWith {diag_log "AddReinforcements: No units given!"};
 
+private ["_unitType", "_groupID", "_reinforcements", "_reinfCount", "_element", "_countGarrison"];
+
 if(!_stockUp) then
 {
   //A unit has been KIA

@@ -1,6 +1,6 @@
 //if (!isMultiplayer) exitWith {};
 if ((side player == Occupants) or (side player == Invaders)) exitWith {};
-private ["_pointsX","_playerX","_pointsXJ","_moneyJ"];
+private ["_pointsX","_playerX","_pointsXJ","_moneyJ","_kills"];
 _pointsX = _this select 0;
 _playerX = _this select 1;
 
@@ -13,6 +13,7 @@ if (isMultiplayer) exitWith
 	{
 	_pointsXJ = _playerX getVariable ["score",0];
 	_moneyJ = _playerX getVariable ["moneyX",0];
+	_kills = _playerX getVariable ["kills", 0];
 	if (_pointsX > 0) then
 		{
 		_moneyJ = _moneyJ + (_pointsX * 10);
@@ -26,7 +27,11 @@ if (isMultiplayer) exitWith
 		};
 	_pointsX = _pointsX + _pointsXJ;
 	_playerX setVariable ["score",_pointsX,true];
-	if (_pointsX == 1) then {_playerX setVariable ["kills", _playerX getVariable ["kills", 0] + 1, true];};
+	if (_pointsX == 1) then
+	    {
+	    diag_log format ["%1: [Antistasi] | INFO | Adding kills to player",servertime];
+	    _playerX setVariable ["kills", _kills + 1, true];
+	    };
 	};
 
 if (_pointsX > 0) then

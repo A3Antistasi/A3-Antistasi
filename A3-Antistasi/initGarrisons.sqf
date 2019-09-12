@@ -21,10 +21,18 @@ _fnc_initGarrisons = {
 
 			if (_x in _mrkCSAT) then {
 				_mrkText = format [_mrkText, nameInvaders];
-				_groupsRandom = [groupsCSATSquad, groupsFIASquad] select ((_target in [outposts]) && (gameMode == 4));
+				_groupsRandom = [groupsCSATSquad, groupsFIASquad] select ((_target in outposts) && (gameMode == 4));
+				if(_x in airportsX) then
+				{
+					_mrkType = flagCSATmrk;
+				};
 			} else {
 				_mrkText = format [_mrkText, nameOccupants];
 				_groupsRandom = groupsNATOSquad;
+				if(_x in airportsX) then
+				{
+					_mrkType = flagNATOmrk;
+				};
 			};
 		} else {
 			_groupsRandom = groupsFIASquad;
@@ -61,13 +69,13 @@ if (debug) then {
 
 if (gameMode == 1) then {
 	_controlsNATO = controlsX;
-	switch (worldName) do {
-		case "Tanoa": {
+	switch (toLower worldName) do {
+		case "tanoa": {
 			_mrkCSAT = ["airport_1", "seaport_5", "outpost_10", "control_20"];
 			_controlsNATO = _controlsNATO - ["control_20"];
 			_controlsCSAT = ["control_20"];
 		};
-		case "Altis": {
+		case "altis": {
 			_mrkCSAT = ["airport_2", "seaport_4", "outpost_5", "control_52", "control_33"];
 			_controlsNATO = _controlsNATO - ["control_52", "control_33"];
 			_controlsCSAT = ["control_52", "control_33"];

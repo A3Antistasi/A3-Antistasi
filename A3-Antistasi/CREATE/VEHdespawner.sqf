@@ -1,5 +1,7 @@
 private _veh = _this select 0;
 
+_vehDistanceSPWN =  distanceSPWN * 1.5;
+
 _inside = _veh getVariable "inDespawner";
 if (!isNil "_inside") exitWith {};
 
@@ -22,17 +24,17 @@ if ((typeOf _veh in arrayCivVeh) and ({(_x getVariable ["spawner",false]) and (s
 			_friendX setCaptive false;
 			};
 		{
-		if ((side _x == Occupants) and (_x distance _pos < distanceSPWN)) then {_x reveal [_friendX,4]};
+		if ((side _x == Occupants) and (_x distance _pos < _vehDistanceSPWN)) then {_x reveal [_friendX,4]};
 		} forEach allUnits;
 		} forEach crew _veh;
 		};
 	};
 while {alive _veh} do
 	{
-	if ((not([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) and (not([distanceSPWN,1,_veh,Invaders] call A3A_fnc_distanceUnits)) and (not([distanceSPWN,1,_veh,Occupants] call A3A_fnc_distanceUnits)) and (not(_veh in staticsToSave)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
+	if ((not([_vehDistanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) and (not([_vehDistanceSPWN,1,_veh,Invaders] call A3A_fnc_distanceUnits)) and (not([_vehDistanceSPWN,1,_veh,Occupants] call A3A_fnc_distanceUnits)) and (not(_veh in staticsToSave)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
 		{
 		if (_veh in reportedVehs) then {reportedVehs = reportedVehs - [_veh]; publicVariable "reportedVehs"};
 		deleteVehicle _veh
 		};
-	sleep 60;
+	sleep 300;
 	};

@@ -120,9 +120,9 @@ disableUserInput false;
 player addWeaponGlobal "itemmap";
 if !(hasIFA) then {player addWeaponGlobal "itemgps"};
 player setVariable ["spawner",true,true];
-if (isMultiplayer) then
+if (isMultiplayer && playerMarkersEnabled) then
 	{
-	if ("pMarkers" call BIS_fnc_getParamValue == 1) then {[] execVM "playerMarkers.sqf"};
+	[] execVM "playerMarkers.sqf";
 	};
 if (!hasACE) then
 	{

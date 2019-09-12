@@ -1336,6 +1336,17 @@ class radio_comm 		{
 			tooltip = "Open commander options";
 			action = "closeDialog 0; nul = createDialog ""commander_comm"";";
 		};
+		class 8slots_L5: RscButton
+        		{
+        			idc = -1;
+        			text = "Refresh stats bar"; //--- ToDo: Localize;
+        			x = 0.482498 * safezoneW + safezoneX;
+        			y = 0.612025 * safezoneH + safezoneY;
+        			w = 0.175015 * safezoneW;
+        			h = 0.0560125 * safezoneH;
+        			tooltip = "Open commander options";
+        			action = "closeDialog 0;nul = [] spawn A3A_fnc_statistics;;";
+        		};
 	};
 }; 										// slots: 8
 class vehicle_manager 		{

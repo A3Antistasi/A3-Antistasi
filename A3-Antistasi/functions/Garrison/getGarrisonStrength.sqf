@@ -5,7 +5,7 @@ params ["_marker"];
 *     _marker: STRING : The name of the marker on which the garrison should be checked
 *
 *   Returns:
-*     _result: STRING : One of "Good", "Weakend" and "Decimated", determining the strength
+*     _result: STRING : One of "Good", "Weakened" and "Decimated", determining the strength
 */
 
 private ["_debug", "_garrison", "_neededReinf", "_garrisonCount", "_reinfCount", "_allUnitsCount", "_aliveUnitsCount", "_data", "_result", "_ratio"];
@@ -60,7 +60,7 @@ if(_allUnitsCount > 0) then
   if(_ratio > 0.9) then {_result = "Good"}
   else
   {
-    if(_ratio > 0.4) then {_result = "Weakend"};
+    if(_ratio > 0.4) then {_result = "Weakened"};
   };
 };
 

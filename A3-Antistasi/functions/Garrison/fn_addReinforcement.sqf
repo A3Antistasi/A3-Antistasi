@@ -43,6 +43,7 @@ if(!_stockUp) then
 
   //Adding unit to element
   _element = _reinforcements select _groupID;
+  hint (str _element);
   if(_unitType != 0) then
   {
     //Adding unit

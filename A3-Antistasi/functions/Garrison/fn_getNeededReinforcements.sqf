@@ -12,6 +12,6 @@ private ["_result"];
 
 if(isNil "_marker") exitWith {diag_log "GetNeededReinforcements: No marker given!";};
 
-_result = garrison getVariable [format ["%1_dead", _marker], ["", [], []]];
+_result = garrison getVariable [format ["%1_dead", _marker], [["", [], []]]];
 
 _result;

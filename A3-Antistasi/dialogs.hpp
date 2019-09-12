@@ -1340,7 +1340,7 @@ class radio_comm 		{
         {
             idc = -1;
             text = "Refresh stats bar"; //--- ToDo: Localize;
-            x = 0.482498 * safezoneW + safezoneX;
+            x = 0.272481 * safezoneW + safezoneX;
             y = 0.710047 * safezoneH + safezoneY;
             w = 0.175015 * safezoneW;
             h = 0.0560125 * safezoneH;

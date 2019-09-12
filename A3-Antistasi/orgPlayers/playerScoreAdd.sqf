@@ -25,13 +25,14 @@ if (isMultiplayer) exitWith
 			//[] remoteExec ["A3A_fnc_statistics",_playerX];
 			};
 		};
+    if (_pointsX == 1) then
+        {
+        diag_log format ["%1: [Antistasi] | INFO | Adding kills to player",servertime];
+        _playerX setVariable ["kills", _kills + 1, true];
+        };
 	_pointsX = _pointsX + _pointsXJ;
 	_playerX setVariable ["score",_pointsX,true];
-	if (_pointsX == 1) then
-	    {
-	    diag_log format ["%1: [Antistasi] | INFO | Adding kills to player",servertime];
-	    _playerX setVariable ["kills", _kills + 1, true];
-	    };
+
 	};
 
 if (_pointsX > 0) then

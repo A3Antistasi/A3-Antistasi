@@ -1,5 +1,5 @@
 //Original Author: Barbolani
-//Edited and updated by the Antstasi Community Development Team
+//Edited and updated by the Antistasi Community Development Team
 
 diag_log format ["%1: [Antistasi] | INFO | InitGarrisons Started.", servertime];
 
@@ -67,6 +67,7 @@ _fnc_initGarrison =
 	{
 		params ["_vehicleType", "_crewType"];
 		private ["_seatCount", "_result"];
+		if(_vehicleType == "") exitWith {[]};
 		_seatCount = [_vehicleType, false] call BIS_fnc_crewCount;
 		_result = [];
 		for "_i" from 1 to _seatCount do
@@ -82,28 +83,32 @@ _fnc_initGarrison =
 			_side = sidesX getVariable [_marker, sideUnknown];
 			while {_side == sideUnknown} do
 			{
-				diag_log format ["Side unknown for %1, sleeping 5!", _marker];
-				sleep 5;
+				diag_log format ["Side unknown for %1, sleeping 1!", _marker];
+				sleep 1;
 				_side = sidesX getVariable [_marker, sideUnknown];
 			};
-			if(_side == Occupants) then
+			if(_side != Occupants) then
 			{
-				_vehiclePool = [vehCSATLight + vehCSATAPC, [vehFIAArmedCar, vehFIACar]] select ((_marker in outposts) && (gameMode == 4));
+				_vehiclePool = [vehCSATLight + [""] + vehCSATAPC, [vehFIAArmedCar, "", vehFIACar]] select ((_marker in outposts) && (gameMode == 4));
 				_groupsRandom = [groupsCSATSquad, groupsFIASquad] select ((_marker in outposts) && (gameMode == 4));
 				_crewUnit = [CSATCrew, NATOCrew] select ((_marker in outposts) && (gameMode == 4));
 			}
 			else
 			{
-				_vehiclePool = vehNATOLight + vehNATOAPC;
- 				_groupsRandom = groupsNATOSquad;
-				_crewUnit = NATOCrew;
+				if(_type != "Airport" && {_type != "Outpost"}) then
+				{
+					_vehiclePool = [vehFIAArmedCar, "", vehFIACar];
+					_groupsRandom = groupsFIASquad;
+					_crewUnit = NATOCrew;
+				}
+				else
+				{
+					_vehiclePool = vehNATOLight + [""] + vehNATOAPC;
+	 				_groupsRandom = groupsNATOSquad;
+					_crewUnit = NATOCrew;
+				};
 			};
-			if(_type != "Airport" && {_type != "Outpost"}) then
-			{
-				_vehiclePool = [vehFIAArmedCar, vehFIACar];
-				_groupsRandom = groupsFIASquad;
-				_crewUnit = NATOCrew;
-			};
+
 			_garrison = [];
 			_reinf = [];
 
@@ -185,6 +190,7 @@ _fnc_initGarrison =
 			garrison setVariable [_marker, _garrisonOld, true];
 
 			//New system
+			//diag_log format ["Setting gar for %1, alive are %2", _marker, str _garrison];
 			garrison setVariable [format ["%1_alive", _marker], _garrison, true];
 			garrison setVariable [format ["%1_dead", _marker], _reinf, true];
 

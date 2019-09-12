@@ -151,7 +151,9 @@ class A3A
 		class createSDKGarrisons {};
 		class createSDKgarrisonsTemp {};
 		class CSATpunish {};
+		class cycleSpawn {};
 		class FIAinitBases {};
+		class findSpawnPosition {};
 		class garrisonReorg {};
 		class garrisonSize {};
 		class garrisonUpdate {};
@@ -219,7 +221,8 @@ class A3A
 		class addGarrison {};
 		class addReinforcement {};
 		class getGarrison {};
-		class getGarrisonStrength {};
+		class getGarrisonRatio {};
+		class getGarrisonStatus {};
 		class getNeededReinforcements{};
 	};
 

@@ -13,8 +13,8 @@ private ["_ratio", "_side", "_reinfMarker", "_canReinf", "_index"];
 _ratio = [_marker] call A3A_fnc_getGarrisonRatio;
 _side = sidesX getVariable [_marker, sideUnknown];
 
-_reinfMarker = if(_side == Occupant) then {reinforceMarkerOccupant} else {reinforceMarkerInvader};
-_canReinf = if(_side == Occupant) then {canReinforceOccupant} else {canReinforceInvader};
+_reinfMarker = if(_side == Occupants) then {reinforceMarkerOccupant} else {reinforceMarkerInvader};
+_canReinf = if(_side == Occupants) then {canReinforceOccupant} else {canReinforceInvader};
 
 _index = _reinfMarker findIf {(_x select 0) == _marker};
 if(_ratio != 1) then

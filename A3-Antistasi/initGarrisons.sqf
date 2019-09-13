@@ -125,7 +125,7 @@ _fnc_initGarrison =
 			  case ("Airport"):
 				{
 					//Full equipted from the start
-					_AAVehicle = if(_side == Occupant) then {vehNATOAA} else {vehCSATAA};
+					_AAVehicle = if(_side == Occupants) then {vehNATOAA} else {vehCSATAA};
 					_vehiclePool pushBack _AAVehicle;
 					for "_i" from 0 to 3 do
 					{

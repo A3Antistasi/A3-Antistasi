@@ -41,13 +41,13 @@ _allGroups = [];
   {
       _unitX = _groupX createUnit [_x, (_spawnParameter select 0), [], 5, "NONE"];
       _allSoldiers pushBack _unitX;
-      sleep 0.1;
+      sleep 0.25;
   } forEach _crewArray;
   sleep 0.25;
   {
     _unitX = _groupX createUnit [_x, (_spawnParameter select 0), [], 5, "NONE"];
     _allSoldiers pushBack _unitX;
-    sleep 0.1;
+    sleep 0.25;
   } forEach _cargoArray;
   sleep 0.25;
 } forEach _garrison;

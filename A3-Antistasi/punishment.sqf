@@ -1,4 +1,4 @@
-Params ["_foolish","_timeAdded","_offenceLevel"]; 
+Params ["_foolish","_timeAdded","_offenceLevel"];
 // EG: [_instigator, 20, 0.34] remoteExec ["A3A_fnc_punishment",_instigator];
 /*
 	_foolish expects player object
@@ -16,7 +16,7 @@ Params ["_foolish","_timeAdded","_offenceLevel"];
 
 if (isDedicated) exitWith {};
 
-if (!isMultiplayer) exitWith {};
+if (isMultiplayer) exitWith {};
 
 if (_foolish != player) exitWith {"Not Instigator"};
 
@@ -27,7 +27,7 @@ _playerStats = format["Player: %1 [%2], _accumulatedTime: %3, _TKThreshold: %4, 
 
 if (player getVariable ["punishment_coolDown", false]) exitWith {"punishment_coolDown active"};
 player setVariable ["punishment_coolDown", true, true];
-[player] spawn 
+[player] spawn
 {
 	params ["_player"];
 	sleep 1;
@@ -35,13 +35,13 @@ player setVariable ["punishment_coolDown", true, true];
 };
 
 _innocent = false;
-if (vehicle player != player && !_forgive) then 
+if (vehicle player != player && !_forgive) then
 {
 	_vehicle = typeOf vehicle player;
 	if (isNumber (configFile >> "CfgVehicles" >> _vehicle >> "artilleryScanner")) then
 	{
 		_artilleryScanner = getNumber (configFile >> "CfgVehicles" >> _vehicle >> "artilleryScanner");
-		if (_artilleryScanner != 0) then 
+		if (_artilleryScanner != 0) then
 		{
 			_innocent = true;
 			[format ["%1: [Antistasi] | INFO | PUNISHMENT | EXCEPTION, ARTY, %2 | %3", servertime, _vehicle, _playerStats]] remoteExec ["diag_log", 2];
@@ -55,7 +55,7 @@ if (vehicle player != player && !_forgive) then
 };
 if (_innocent) exitWith {"Player is innocent inside a Arty or Aircraft"};
 
-if (call BIS_fnc_admin != 0) exitWith 
+if (call BIS_fnc_admin != 0) exitWith
 {
 	_adminType = "Voted";
 	if (call BIS_fnc_admin == 2) then {_adminType = "Logged"};
@@ -66,17 +66,17 @@ if (call BIS_fnc_admin != 0) exitWith
 
 _accumulatedTime = _accumulatedTime + _timeAdded;
 _TKThreshold = _TKThreshold + _offenceLevel;
-if (_accumulatedTime < 0) then {_accumulatedTime = 0}; 
-if (_TKThreshold < 0) then {_TKThreshold = 0}; 
+if (_accumulatedTime < 0) then {_accumulatedTime = 0};
+if (_TKThreshold < 0) then {_TKThreshold = 0};
 player setVariable ["punishment_accumulatedime",_accumulatedTime,true];
 player setVariable ["punishment_TKThreshold", _TKThreshold,true];
-if (_forgive) then 
-{	
+if (_forgive) then
+{
 	[format ["%1: [Antistasi] | INFO | PUNISHMENT | FORGIVE | %2", servertime, _playerStats]] remoteExec ["diag_log", 2];
-	["TK NOTIFICATION!\nAn admin looks with pitty upon you.\nYou have been partially forgiven."] remoteExec ["hint", player, false];	
+	["TK NOTIFICATION!\nAn admin looks with pitty upon you.\nYou have been partially forgiven."] remoteExec ["hint", player, false];
 }
 else
-{	
+{
 	[format ["%1: [Antistasi] | INFO | PUNISHMENT | WARNING | %2", servertime, _playerStats]] remoteExec ["diag_log", 2];
 	["TK WARNING!\nWatch your fire!"] remoteExec ["hint", player, false];
 };

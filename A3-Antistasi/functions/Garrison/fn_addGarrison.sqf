@@ -144,3 +144,5 @@ _garrison append _nonReinfUnits;
 
 garrison setVariable [format ["%1_alive", _marker], _garrison];
 garrison setVariable [format ["%1_dead", _marker], _reinforcements];
+
+[_marker] call A3A_fnc_updateReinfState;

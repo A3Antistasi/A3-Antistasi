@@ -57,11 +57,11 @@ _fnc_initMarker =
 
 
 
-
+//TODO add statics to garrison
 _fnc_initGarrison =
 {
 	params ["_markerArray", "_type"];
-	private ["_fnc_getVehicleCrew", "_side", "_groupsRandom", "_crewUnit", "_crew", "_vehicle", "_vehiclePool" ,"_garrNum", "_garrison", "_garrisonOld", "_reinf", "_marker"];
+	private ["_fnc_getVehicleCrew", "_side", "_groupsRandom", "_crewUnit", "_crew", "_vehicle", "_vehiclePool" ,"_garrNum", "_garrison", "_garrisonOld", "_reinf", "_marker", "_AAVehicle"];
 
 	_fnc_getVehicleCrew =
 	{
@@ -125,6 +125,8 @@ _fnc_initGarrison =
 			  case ("Airport"):
 				{
 					//Full equipted from the start
+					_AAVehicle = if(_side == Occupant) then {vehNATOAA} else {vehCSATAA};
+					_vehiclePool pushBack _AAVehicle;
 					for "_i" from 0 to 3 do
 					{
 						_vehicle = selectRandom _vehiclePool;
@@ -193,6 +195,8 @@ _fnc_initGarrison =
 			//diag_log format ["Setting gar for %1, alive are %2", _marker, str _garrison];
 			garrison setVariable [format ["%1_alive", _marker], _garrison, true];
 			garrison setVariable [format ["%1_dead", _marker], _reinf, true];
+
+			[_marker] call A3A_fnc_updateReinfState;
 
 	} forEach _markerArray;
 };

@@ -76,5 +76,6 @@ else
   _reinforcements pushBack _unit;
   garrison setVariable [format ["%1_dead", _marker], _reinforcements, true];
 
-  //TODO add marker to an needReinforcementsArray
+  //Update reinforcement priority
+  [_marker] call A3A_fnc_updateReinfState;
 };

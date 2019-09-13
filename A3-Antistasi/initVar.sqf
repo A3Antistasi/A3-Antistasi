@@ -1116,6 +1116,12 @@ destroyedBuildings = [];
 reportedVehs = [];
 playerHasBeenPvP = [];
 
+//Reinforcement logic
+reinforceMarkerOccupant = [];
+reinforceMarkerInvader = [];
+canReinforceOccupant = [];
+canReinforceInvader = [];
+
 ////////////////////////////////////
 // DECLARE VARIBALES FOR CLIENTS ///
 ////////////////////////////////////

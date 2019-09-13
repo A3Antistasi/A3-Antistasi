@@ -65,3 +65,28 @@ if (count _reinfPlaces > 3) exitWith {};
 } forEach _airportsX;
 
 if ((count _reinfPlaces == 0) and (AAFpatrols <= 3)) then {[] spawn A3A_fnc_AAFroadPatrol};
+
+
+//New reinf system (still reactive, so a bit shitty)
+{
+    _reinfBase = _x;
+		_isAirport = _reinfBase in airportsX;
+		_ratio = 1;
+		_target = "";
+		{
+			if((_x != _reinfBase) && {(_target == "") || {(_x select 1) < _ratio}}) then
+			{
+				if([_reinfBase, (_x select 0)] call A3A_fnc_shouldReinforce) then
+				{
+					_target = (_x select 0);
+					_ratio = (_x select 1);
+				};
+			};
+		} forEach reinforceMarkerInvader;
+		if(_target != "") then
+		{
+			//Found base to reinforce, selecting units now
+			_units = [_reinfBase, _target] call A3A_fnc_selectReinfUnits;
+		};
+		if(count reinforceMarkerInvader == 0) exitWith {};
+} forEach canReinforceInvader;

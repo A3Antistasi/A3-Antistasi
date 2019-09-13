@@ -224,6 +224,7 @@ class A3A
 		class getGarrisonRatio {};
 		class getGarrisonStatus {};
 		class getNeededReinforcements{};
+		class updateReinfState{};
 	};
 
 	class Missions

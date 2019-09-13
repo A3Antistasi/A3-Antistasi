@@ -72,20 +72,49 @@ if ((count _reinfPlaces == 0) and (AAFpatrols <= 3)) then {[] spawn A3A_fnc_AAFr
     garrison setVariable [format ["%1_recruit", _x], 12, true];
 } forEach airportsX;
 
+{
+    //Setting the number of recruitable units per ticks per outpost
+		garrison setVariable [format ["%1_recruit", _x], 8, true];
+} forEach outposts;
+
 //New reinf system (still reactive, so a bit shitty)
 {
-    _reinfMarker = if(_x == Occupants) then {reinforceMarkerOccupants} else {reinforceMarkerInvader};
-		_canReinf = if(_x == Occupants) then {canReinforceOccupants} else {canReinforceInvader};
-		_reinfMarker sort true;
+  _reinfMarker = if(_x == Occupants) then {reinforceMarkerOccupants} else {reinforceMarkerInvader};
+	_canReinf = if(_x == Occupants) then {canReinforceOccupants} else {canReinforceInvader};
+	_reinfMarker sort true;
+	{
+		_target = (_x select 1);
+		_possibleBases = _canReinf select {[_x, _target] call A3A_fnc_shouldReinforce};
+		if(_possibleBases != []) then
 		{
-			_target = (_x select 1);
-			_possibleBases = _canReinf select {[_x, _target] call A3A_fnc_shouldReinforce};
 			_selectedBase = [_possibleBases, _target] call BIS_fnc_nearestPosition;
-		} forEach _reinfMarker;
+			//Found base to reinforce, selecting units now
+			_units = [_selectedBase, _target] call A3A_fnc_selectReinfUnits;
+			//Create convoy with selected units ==> Merge into convoy stuff first
+
+			//For debug is direct placement
+			diag_log format ["Reinforce %1 from %2 with %3", _target, _selectedBase, ]
+			[_target, _units] call A3A_fnc_addGarrison;
+
+			/*
+			_index = _reinf findIf {(_x select 0) == _target};
+			_debug = reinforceMarkerInvader
+			//_reinfRatio = [_target, _units] call A3A_fnc_getReinfRatio;
+			if(_reinfRatio < 1) then
+			{
+				reinforceMarkerInvader set [_index, [_target, _reinfRatio]];
+			}
+			else
+			{
+				reinforceMarkerInvader deleteAt _index;
+			}
+			*/
+		};
+	} forEach _reinfMarker;
 } forEach [Occupants, Invader];
 
 
-
+/*
 {
     _reinfBase = _x;
 		_isAirport = _reinfBase in airportsX;
@@ -152,6 +181,7 @@ if ((count _reinfPlaces == 0) and (AAFpatrols <= 3)) then {[] spawn A3A_fnc_AAFr
 		};
 		if(count reinforceMarkerOccupants == 0) exitWith {};
 } forEach canReinforceOccupants;
+*/
 
 //Airport so low, it cannot reinforce any other site, replenish
 _depletedAirports = airportsX select {!(_x in canReinforceInvader) && {!(_x in canReinforceOccupants)}};

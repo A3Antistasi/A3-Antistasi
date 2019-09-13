@@ -220,11 +220,15 @@ class A3A
 	{
 		class addGarrison {};
 		class addReinforcement {};
+		class countGarrison {};
 		class getGarrison {};
 		class getGarrisonRatio {};
 		class getGarrisonStatus {};
-		class getNeededReinforcements{};
-		class updateReinfState{};
+		class getNeededReinforcements {};
+		class getVehicleCrew {};
+		class selectReinfUnits {};
+		class shouldReinforce {};
+		class updateReinfState {};
 	};
 
 	class Missions

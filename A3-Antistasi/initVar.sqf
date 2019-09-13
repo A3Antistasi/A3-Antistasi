@@ -1117,9 +1117,9 @@ reportedVehs = [];
 playerHasBeenPvP = [];
 
 //Reinforcement logic
-reinforceMarkerOccupant = [];
+reinforceMarkerOccupants = [];
 reinforceMarkerInvader = [];
-canReinforceOccupant = [];
+canReinforceOccupants = [];
 canReinforceInvader = [];
 
 ////////////////////////////////////

@@ -118,7 +118,7 @@ class Params
         title = "Enable Teamkill Punish";
         values[] = {1,0};
         texts[] = {"Yes","No"};
-        default = 1;
+        default = 0;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
     class mRadius
@@ -171,7 +171,7 @@ class Params
         title = "Rate of Civ Traffic";
         values[] = {0.5,1,3};
         texts[] = {"Low","Medium","JAM"};
-        default = 1;
+        default = 0.5;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument
     };
     class memberSlots

@@ -16,37 +16,17 @@ if(isNil "_marker") exitWith {diag_log "GetGarrisonRatio: No marker given!";};
 _garrison = [_marker] call A3A_fnc_getGarrison;
 _neededReinf = [_marker] call A3A_fnc_getNeededReinforcements;
 
-_garrisonCount = count _garrison;
-_reinfCount = count _neededReinf;
-_allUnitsCount = 0;
-_aliveUnitsCount = 0;
+
 
 if(_debug) then
 {
-  diag_log "GetGarrisonStrength: Calculating garrison strength now!";
+  diag_log format ["GetGarrisonStrength: Calculating garrison strength now for %1!", _marker];
 };
 
-
-for "_i" from 0 to (_garrisonCount - 1) do
-{
-  _data = _garrison select _i;
-  if((_data select 0) != "") then
-  {
-    _allUnitsCount = _allUnitsCount + 1;
-    _aliveUnitsCount = _aliveUnitsCount + 1;
-  };
-  _allUnitsCount = _allUnitsCount + (count (_data select 1)) + (count (_data select 2));
-  _aliveUnitsCount = _aliveUnitsCount + (count (_data select 1)) + (count (_data select 2));
-  if(_i < _reinfCount) then
-  {
-    _data = _neededReinf select _i;
-    if((_data select 0) != "") then
-    {
-      _allUnitsCount = _allUnitsCount + 1;
-    };
-    _allUnitsCount = _allUnitsCount + (count (_data select 1)) + (count (_data select 2));
-  };
-};
+_garrisonCount = [_garrison, true] call A3A_fnc_countGarrison;
+_reinfCount = [_neededReinf, true] call A3A_fnc_countGarrison;
+_allUnitsCount = _garrisonCount + _reinfCount;
+_aliveUnitsCount = _garrisonCount;
 
 if(_debug) then
 {
@@ -61,7 +41,7 @@ if(_allUnitsCount > 0) then
 
 if(_debug) then
 {
-  diag_log format ["GetGarrisonStrength: Result is %1", _result];
+  diag_log format ["GetGarrisonStrength: Result is %1", _ratio];
 };
 
 _ratio;

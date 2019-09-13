@@ -10,7 +10,7 @@ params ["_base", "_target", ["_isAir", false]];
 *     _unitsSend : ARRAY : The units in the correct format
 */
 
-private ["_maxUnitSend", "_currentUnitCount", "_unitsSend", "_reinf", "_side", "_currentSelected", "_seatCount", "_vehicle", "_allSeats", "_crewSeats", "_neededSpace", "_crewMember", "_crew", "_cargo", "_openSpace", "_abort", "_data", "_dataCrew", "_dataCargo"];
+private ["_maxUnitSend", "_currentUnitCount", "_unitsSend", "_reinf", "_side", "_currentSelected", "_seatCount", "_vehicle", "_allSeats", "_crewSeats", "_neededSpace", "_crewMember", "_crew", "_cargo", "_openSpace", "_abort", "_data", "_dataCrew", "_dataCargo", "_vehicleIsNeeded"];
 
 _maxUnitSend = garrison getVariable [format ["%1_recruit", _base], 0];
 if(_maxUnitSend < 3) exitWith
@@ -21,14 +21,16 @@ if(_maxUnitSend < 3) exitWith
 _currentUnitCount = 0;
 _unitsSend = [];
 
-_reinf = [_target] call A3A_fnc_getNeededReinforcements;
+//Hard copy, need to work on this
+_reinf = +([_target] call A3A_fnc_getNeededReinforcements);
 _side = sidesX getVariable [_base, sideUnknown];
 
-while {_currentUnitCount < (_maxUnitSend - 2)} do
+while {_currentUnitCount < (_maxUnitSend - 2) && {[_reinf, true] call A3A_fnc_countGarrison != 0}} do
 {
   //Find vehicle to send
   _currentSelected = "";
   _seatCount = 0;
+  _vehicleIsNeeded = false;
 
   {
     _vehicle = (_x select 0);
@@ -42,9 +44,17 @@ while {_currentUnitCount < (_maxUnitSend - 2)} do
       {
         _currentSelected = _vehicle;
         _seatCount = _allSeats;
+        _vehicleIsNeeded = true;
       };
     };
   } forEach _reinf;
+
+  //Delete vehicle
+  _index = _reinf findIf {(_x select 0) == _currentSelected};
+  if(_index != -1) then
+  {
+    (_reinf select _index) set [0, ""];
+  };
 
   //No suitable vehicle found, usign different vehicle to reinforce
   if(_currentSelected == "") then
@@ -74,6 +84,7 @@ while {_currentUnitCount < (_maxUnitSend - 2)} do
   //Assigning crew
   _crewMember = if(_side == Occupants) then {NATOCrew} else {CSATCrew};
   _crew = [_currentSelected, _crewMember] call A3A_fnc_getVehicleCrew;
+  _crewOffset = if(_vehicleIsNeeded) then {count _crew} else {0};
   _currentUnitCount = _currentUnitCount + 1 + (count _crew);
 
   //Assining cargo
@@ -87,24 +98,34 @@ while {_currentUnitCount < (_maxUnitSend - 2)} do
     _dataCrew = _data select 1;
     _dataCargo = _data select 2;
 
+    while {count _dataCrew > 0} do
     {
       if((_currentUnitCount < _maxUnitSend) && {_openSpace > 0}) then
       {
-        _cargo pushBack [_x];
-        _currentUnitCount = _currentUnitCount + 1;
-        _openSpace = _openSpace - 1;
+        if(_crewOffset > 0) then
+        {
+          _crewOffset = _crewOffset - 1;
+          _dataCrew deleteAt 0;
+        }
+        else
+        {
+          _cargo pushBack (_dataCrew deleteAt 0);
+          _currentUnitCount = _currentUnitCount + 1;
+          _openSpace = _openSpace - 1;
+        };
       }
       else
       {
         _abort = true;
       };
       if(_abort) exitWith {};
-    } forEach _dataCrew;
+    };
 
+    while {count _dataCargo > 0} do
     {
       if((_currentUnitCount < _maxUnitSend) && {_openSpace > 0}) then
       {
-        _cargo pushBack [_x];
+        _cargo pushBack (_dataCargo deleteAt 0);
         _currentUnitCount = _currentUnitCount + 1;
         _openSpace = _openSpace - 1;
       }
@@ -113,10 +134,11 @@ while {_currentUnitCount < (_maxUnitSend - 2)} do
         _abort = true;
       };
       if(_abort) exitWith {};
-    } forEach _dataCargo;
+    };
     //No more space, exit
     if(_abort) exitWith {};
   };
+
   _unitsSend pushBack [_currentSelected, _crew, _cargo];
 };
 

@@ -132,6 +132,7 @@ _fnc_initGarrison =
 						_vehicle = selectRandom _vehiclePool;
 						_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
 						_garrison pushBack [_vehicle, _crew, selectRandom _groupsRandom];
+						_reinf pushBack ["", [], []];
 					};
 			  };
 				case ("Outpost"):
@@ -142,6 +143,7 @@ _fnc_initGarrison =
 						_vehicle = selectRandom _vehiclePool;
 						_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
 						_garrison pushBack [_vehicle, _crew, selectRandom _groupsRandom];
+						_reinf pushBack ["", [], []];
 					};
 					for "_i" from 0 to 0 do
 					{
@@ -158,6 +160,7 @@ _fnc_initGarrison =
 							_vehicle = selectRandom _vehiclePool;
 							_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
 							_garrison pushBack [_vehicle, _crew, selectRandom _groupsRandom];
+							_reinf pushBack ["", [], []];
 						};
 						for "_i" from 0 to 0 do
 						{
@@ -174,6 +177,7 @@ _fnc_initGarrison =
 						_vehicle = selectRandom _vehiclePool;
 						_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
 						_garrison pushBack [_vehicle, _crew, selectRandom _groupsRandom];
+						_reinf pushBack ["", [], []];
 					};
 				};
 				case ("Factory"):
@@ -184,6 +188,7 @@ _fnc_initGarrison =
 						_vehicle = selectRandom _vehiclePool;
 						_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
 						_garrison pushBack [_vehicle, _crew, selectRandom _groupsRandom];
+						_reinf pushBack ["", [], []];
 					};
 				};
 			};

@@ -18,6 +18,10 @@ _garrison = [_marker] call A3A_fnc_getGarrison;
 _reinforcements = [_marker] call A3A_fnc_getNeededReinforcements;
 _nonReinfUnits = [["", [], []]];
 
+//_random = random 1000;
+//diag_log format ["AddGarrison %1: Before alive is %2", _random, _garrison];
+//diag_log format ["AddGarrison %1: Before dead is %2", _random, _reinforcements];
+
 {
   //Selecting the data
   _vehicle = _x select 0;
@@ -46,6 +50,12 @@ _nonReinfUnits = [["", [], []]];
     }
     else
     {
+      //Fill _garrison if needed
+      while {count _garrison <= _index} do
+      {
+        _garrison pushBack ["", [], []];
+      };
+
       //Replace vehicle
       (_garrison select _index) set [0, _vehicle];
       (_reinforcements select _index) set [0, ""];
@@ -74,6 +84,12 @@ _nonReinfUnits = [["", [], []]];
       }
       else
       {
+        //Fill _garrison if needed
+        while {count _garrison <= _index} do
+        {
+          _garrison pushBack ["", [], []];
+        };
+
         //Replace crew unit
         ((_garrison select _index) select 1) pushBack _crewUnit;
         ((_reinforcements select _index) select 1) deleteAt 0; //Can simple deleted first, all crew units are the same !!! RASISM ALERT !!!
@@ -105,6 +121,12 @@ _nonReinfUnits = [["", [], []]];
         }
         else
         {
+          //Fill _garrison if needed
+          while {count _garrison <= _index} do
+          {
+            _garrison pushBack ["", [], []];
+          };
+
           //Replace crew unit
           ((_garrison select _index) select 1) pushBack _cargoUnit;
           ((_reinforcements select _index) select 1) deleteAt 0; //Can simple deleted first, all crew units are the same !!! RASISM ALERT !!!
@@ -125,14 +147,23 @@ _nonReinfUnits = [["", [], []]];
           else
           {
             //Found space, adding cargo unit
-            ((_nonReinfUnits select _index) select 1) pushBack _cargoUnit;
+            ((_nonReinfUnits select _index) select 2) pushBack _cargoUnit;
           };
         }
         else
         {
+          //Fill _garrison if needed
+          while {count _garrison <= _index} do
+          {
+            _garrison pushBack ["", [], []];
+          };
+
           //Place combat unit
-          ((_garrison select _index) select 1) pushBack _cargoUnit;
-          (_reinforcements select _index) set [1, ((_reinforcements select _index) select 1) - [_cargo]];
+          ((_garrison select _index) select 2) pushBack _cargoUnit;
+          private _temp = +((_reinforcements select _index) select 2);
+          private _subIndex = _temp findIf {_x == _cargoUnit};
+          _temp deleteAt _subIndex;
+          (_reinforcements select _index) set [2, _temp];
         };
       };
     } forEach _cargo;
@@ -144,5 +175,8 @@ _garrison append _nonReinfUnits;
 
 garrison setVariable [format ["%1_alive", _marker], _garrison];
 garrison setVariable [format ["%1_dead", _marker], _reinforcements];
+
+//diag_log format ["AddGarrison %1: After alive is %2", _random, _garrison];
+//diag_log format ["AddGarrison %1: After dead is %2", _random, _reinforcements];
 
 [_marker] call A3A_fnc_updateReinfState;

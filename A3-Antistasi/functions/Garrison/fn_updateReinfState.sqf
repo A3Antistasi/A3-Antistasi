@@ -16,7 +16,7 @@ _side = sidesX getVariable [_marker, sideUnknown];
 _reinfMarker = if(_side == Occupants) then {reinforceMarkerOccupants} else {reinforceMarkerInvader};
 _canReinf = if(_side == Occupants) then {canReinforceOccupants} else {canReinforceInvader};
 
-_index = _reinfMarker findIf {(_x select 0) == _marker};
+_index = _reinfMarker findIf {(_x select 1) == _marker};
 if(_ratio != 1) then
 {
   if(_index == -1) then
@@ -45,5 +45,8 @@ if((_marker in airportsX && _ratio <= 0.4) || {_marker in outposts && _ratio <= 
 }
 else
 {
-  _canReinf pushBackUnique _marker;
+  if(_marker in airportsX || {_marker in outposts}) then
+  {
+    _canReinf pushBackUnique _marker;
+  };
 };

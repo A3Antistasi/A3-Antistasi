@@ -99,7 +99,7 @@ addMissionEventHandler ["EachFrame",
 				{
 					if (isNil "vehPlace_nextVehType") exitWith {diag_log "[Antistasi] Warning: Attempting to refresh placed vehicle, but no new type set.";};
 					private _typeX = vehPlace_nextVehType;
-					if (typeName _typeX != typeName "") exitWith {};
+					if !(_typeX isEqualType "") exitWith {};
 					
 					hideObject vehPlace_previewVeh;
 					deleteVehicle vehPlace_previewVeh;				

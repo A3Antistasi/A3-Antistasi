@@ -46,7 +46,6 @@ class A3A
 		class placementSelection {file="placementselection.sqf";};
 		class playerHasBeenPvPCheck {file="playerHasBeenPvPCheck.sqf";};
 		class powerCheck {file="powerCheck.sqf";};
-		class powerReorg {file="powerReorg.sqf";};
 		class prestige {file="prestige.sqf";};
 		class outpostDialog {file="outpostDialog.sqf";};
 		class radioCheck {file="radioCheck.sqf";};

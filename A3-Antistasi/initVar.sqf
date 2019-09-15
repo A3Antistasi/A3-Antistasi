@@ -1043,6 +1043,13 @@ case "kunduz":
 		//Roads DB
 		call compile preprocessFileLineNumbers "roadsDBKunduz.sqf";
 		};
+case "tembelan":
+		{
+		roadsMrk = ["road"] call A3A_fnc_getArrayMrks;
+		{_x setMarkerAlpha 0} forEach roadsMrk;
+		//Roads DB
+		call compile preprocessFileLineNumbers "roadsDBTembelan.sqf";
+		};
 	};
 
 ////////////////////////////////////

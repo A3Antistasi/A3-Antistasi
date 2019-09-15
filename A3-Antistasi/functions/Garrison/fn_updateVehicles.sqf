@@ -1,5 +1,13 @@
 params ["_preference"];
 
+/*  Updates the preferences of the given array
+*   Params:
+*     _preference : ARRAY : the preferences array
+*
+*   Returns:
+*     Nothing
+*/
+
 for "_i" from 0 to ((count _preference) - 1) do
 {
   _data = _preference select _i;
@@ -35,12 +43,32 @@ for "_i" from 0 to ((count _preference) - 1) do
       case ("AIR_GENERIC") : {_newVehicle = "AIR_DEFAULT";};
     };
   };
-  _preference set [0, _newVehicle];
+  _data set [0, _newVehicle];
 
+  //All possible cargo groups EMPTY, GROUP, SQUAD, AA, AT
   _newCargo = _cargo;
   if(!(_cargo in ["EMPTY", "AA", "AT"])) then
   {
-
+    if(_newVehicle in ["LAND_START", "LAND_LIGHT", "LAND_DEFAULT"]) then
+    {
+      _newCargo = "GROUP";
+    };
+    if(_newVehicle in ["LAND_APC", "LAND_ATTACK"]) then
+    {
+      _newCargo = "SQUAD";
+    };
+    if(_newVehicle in ["LAND_TANK"]) then
+    {
+      _newCargo = "AT";
+    };
+    if(_newVehicle in ["HELI_PATROL", "HELI_LIGHT", "HELI_ATTACK"]) then
+    {
+      _newCargo = "GROUP";
+    };
+    if(_newVehicle in ["HELI_TRANSPORT", "HELI_DEFAULT"]) then
+    {
+      _newCargo = "SQUAD";
+    };
   };
-
+  _data set [2, _newCargo];
 };

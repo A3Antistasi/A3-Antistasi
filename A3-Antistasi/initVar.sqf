@@ -1126,9 +1126,13 @@ canReinforceInvader = [];
 //Garrison logic
 tierPreference = 1;
 cityUpdateTiers = [4, 8];
+cityStaticsTiers = [0.2, 1];
 airportUpdateTiers = [3, 6, 8];
+airportStaticsTiers = [0.5, 0.75, 1];
 outpostUpdateTiers = [4, 7, 9];
+outpostStaticsTiers = [0.4, 0.7, 1];
 otherUpdateTiers = [3, 7];
+otherStaticsTiers = [0.3, 1];
 [] call A3A_fnc_initPreference;
 
 ////////////////////////////////////

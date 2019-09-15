@@ -98,19 +98,6 @@ if ((count _reinfPlaces == 0) and (AAFpatrols <= 3)) then {[] spawn A3A_fnc_AAFr
 			diag_log format ["Reinforce %1 from %2 with %3", _target, _selectedBase, str _units];
 			[_target, _units] call A3A_fnc_addGarrison;
 
-			/*
-			_index = _reinf findIf {(_x select 0) == _target};
-			_debug = reinforceMarkerInvader
-			//_reinfRatio = [_target, _units] call A3A_fnc_getReinfRatio;
-			if(_reinfRatio < 1) then
-			{
-				reinforceMarkerInvader set [_index, [_target, _reinfRatio]];
-			}
-			else
-			{
-				reinforceMarkerInvader deleteAt _index;
-			}
-			*/
 			_counter = _counter + 1;
 			if(_counter >= count _canReinf) exitWith {};
 		};
@@ -118,78 +105,7 @@ if ((count _reinfPlaces == 0) and (AAFpatrols <= 3)) then {[] spawn A3A_fnc_AAFr
 } forEach [Occupants, Invaders];
 hint "Reinforce AI done!";
 
-
-/*
-{
-    _reinfBase = _x;
-		_isAirport = _reinfBase in airportsX;
-		_ratio = 1;
-		_target = "";
-		{
-			if(((_x select 1) < _ratio) && {_x != _reinfBase}) then
-			{
-				if([_reinfBase, (_x select 0)] call A3A_fnc_shouldReinforce) then
-				{
-					_target = (_x select 0);
-					_ratio = (_x select 1);
-				};
-			};
-		} forEach reinforceMarkerInvader;
-		if(_target != "") then
-		{
-			//Found base to reinforce, selecting units now
-			_units = [_reinfBase, _target] call A3A_fnc_selectReinfUnits;
-			//Create convoy with selected units ==> Merge into convoy stuff first
-			_index = reinforceMarkerInvader findIf {(_x select 0) == _target};
-			_reinfRatio = [_target, _units] call A3A_fnc_getReinfRatio;
-			if(_reinfRatio < 1) then
-			{
-				reinforceMarkerInvader set [_index, [_target, _reinfRatio]];
-			}
-			else
-			{
-				reinforceMarkerInvader deleteAt _index;
-			}
-		};
-		if(count reinforceMarkerInvader == 0) exitWith {};
-} forEach canReinforceInvader;
-
-{
-    _reinfBase = _x;
-		_ratio = 1;
-		_target = "";
-		{
-			if(((_x select 1) < _ratio) && {_x != _reinfBase}) then
-			{
-				if([_reinfBase, (_x select 0)] call A3A_fnc_shouldReinforce) then
-				{
-					_target = (_x select 0);
-					_ratio = (_x select 1);
-				};
-			};
-		} forEach reinforceMarkerOccupants;
-		if(_target != "") then
-		{
-			//Found base to reinforce, selecting units now
-			_units = [_reinfBase, _target] call A3A_fnc_selectReinfUnits;
-			//Create convoy with selected units ==> Merge into convoy stuff first
-			_index = reinforceMarkerOccupants findIf {(_x select 0) == _target};
-			_reinfRatio = [_target, _units] call A3A_fnc_getReinfRatio;
-			if(_reinfRatio < 1) then
-			{
-				reinforceMarkerOccupants set [_index, [_target, _reinfRatio]];
-			}
-			else
-			{
-				reinforceMarkerOccupants deleteAt _index;
-			}
-		};
-		if(count reinforceMarkerOccupants == 0) exitWith {};
-} forEach canReinforceOccupants;
-*/
-
-//Airport so low, it cannot reinforce any other site, replenish
-_depletedAirports = airportsX select {!(_x in canReinforceInvader) && {!(_x in canReinforceOccupants)}};
+//Replenish airports if possible
 {
 	[_x] call A3A_fnc_replenishGarrison;
-} forEach _depletedAirports;
+} forEach airportsX;

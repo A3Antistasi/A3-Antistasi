@@ -1103,6 +1103,7 @@ revealX = false;
 prestigeIsChanging = false;
 napalmCurrent = false;
 tierWar = 1;
+
 haveNV = false;
 zoneCheckInProgress = false;
 garrisonIsChanging = false;
@@ -1121,6 +1122,14 @@ reinforceMarkerOccupants = [];
 reinforceMarkerInvader = [];
 canReinforceOccupants = [];
 canReinforceInvader = [];
+
+//Garrison logic
+tierPreference = 1;
+cityUpdateTiers = [4, 8];
+airportUpdateTiers = [3, 6, 8];
+outpostUpdateTiers = [4, 7, 9];
+otherUpdateTiers = [3, 7];
+[] call A3A_fnc_initPreference;
 
 ////////////////////////////////////
 // DECLARE VARIBALES FOR CLIENTS ///

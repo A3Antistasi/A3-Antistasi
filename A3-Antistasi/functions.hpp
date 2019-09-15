@@ -226,6 +226,7 @@ class A3A
 		class getGarrisonStatus {};
 		class getNeededReinforcements {};
 		class getVehicleCrew {};
+		class replenishGarrison {};
 		class selectReinfUnits {};
 		class shouldReinforce {};
 		class updateReinfState {};

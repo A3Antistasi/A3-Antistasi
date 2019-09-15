@@ -20,8 +20,8 @@ _preference =
   ["HELI_LIGHT", -1, "GROUP"],
   ["HELI_LIGHT", -1, "GROUP"],
   ["HELI_LIGHT", 0, "EMPTY"],       //Empty helicopter
-  ["PLANE_GENERIC", -1, "EMPTY"],
-  ["PLANE_GENERIC", 0, "EMPTY"]     //Empty plane
+  ["AIR_DRONE", -1, "EMPTY"],
+  ["AIR_DRONE", 0, "EMPTY"]         //Empty plane
 ];
 //If SP delete some units
 if(_isSinglePlayer) then

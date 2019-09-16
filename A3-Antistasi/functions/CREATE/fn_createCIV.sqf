@@ -139,7 +139,7 @@ if ([_markerX,false] call A3A_fnc_fogCheck > 0.2) then
 					//_p1 = getPos (_roads select _countX);
 					_p2 = getPos (_roadcon select 0);
 					_dirveh = [_p1,_p2] call BIS_fnc_DirTo;
-					_typeVehX = arrayCivVeh call BIS_Fnc_selectRandom;
+					_typeVehX = selectRandom arrayCivVeh;
 					_veh = _typeVehX createVehicle _p1;
 					_veh setDir _dirveh;
 					_veh addEventHandler ["HandleDamage",{if (((_this select 1) find "wheel" != -1) and (_this select 4=="") and (!isPlayer driver (_this select 0))) then {0;} else {(_this select 2);};}];

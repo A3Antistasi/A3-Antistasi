@@ -356,11 +356,23 @@ fn_SetStat =
 				{
 				_typeVehX = _varvalue select _i select 0;
 				_posVeh = _varvalue select _i select 1;
-				_dirVeh = _varvalue select _i select 2;
+				_vectorUp = _varvalue select _i select 2;
+				_vectorDir = _varvalue select _i select 3;
 				_veh = createVehicle [_typeVehX,[0,0,1000],[],0,"NONE"];
-				_veh setDir _dirVeh;_veh setDir _dirVeh;
 				_veh setPos _posVeh;
-				_veh setVectorUp surfaceNormal (getPos _veh);
+				if (isNil "_vectorDir") then
+				    {
+                    _veh setDir _vectorUp;_veh setDir _vectorUp;
+                    _veh setPos _posVeh;_veh setPos _posVeh;
+                    _veh setVectorUp surfaceNormal (getPos _veh);
+                    }
+				else
+				    {
+                    _veh setVectorDir _vectorDir;_veh setVectorDir _vectorDir;
+                    _veh setVectorUp _vectorUp;_veh setVectorUp _vectorUp;
+                    _veh setPos _posVeh;
+                    };
+
 				if ((_veh isKindOf "StaticWeapon") or (_veh isKindOf "Building")) then
 					{
 					staticsToSave pushBack _veh;

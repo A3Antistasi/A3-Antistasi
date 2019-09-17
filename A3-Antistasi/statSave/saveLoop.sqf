@@ -104,9 +104,7 @@ if ((_veh distance getMarkerPos respawnTeamPlayer < 50) and !(_veh in staticsToS
 	{
 	if (((not (_veh isKindOf "StaticWeapon")) and (not (_veh isKindOf "ReammoBox")) and (not (_veh isKindOf "FlagCarrier")) and (not(_veh isKindOf "Building"))) and (not (_typeVehX == "C_Van_01_box_F")) and (count attachedObjects _veh == 0) and (alive _veh) and ({(alive _x) and (!isPlayer _x)} count crew _veh == 0) and (not(_typeVehX == "WeaponHolderSimulated"))) then
 		{
-		_posVeh = getPos _veh;
-		_dirVeh = getDir _veh;
-		_arrayEst pushBack [_typeVehX,_posVeh,_dirVeh];
+		_arrayEst pushBack [_typeVehX,getPos _veh,vectorUp _veh,tvectorDir _veh];
 		};
 	};
 } forEach vehicles - [boxX,flagX,fireX,vehicleBox,mapX];
@@ -116,12 +114,12 @@ _sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
 _positionX = position _x;
 if ((alive _x) and !(surfaceIsWater _positionX) and !(isNull _x)) then
 	{
-	_arrayEst pushBack [typeOf _x,getPos _x,getDir _x];
+	_arrayEst pushBack [typeOf _x,getPos _x,vectorUp _x, vectorDir _x];
 	/*
 	_nearX = [_sites,_positionX] call BIS_fnc_nearestPosition;
 	if (_positionX inArea _nearX) then
 		{
-		_arrayEst pushBack [typeOf _x,getPos _x,getDir _x]
+		_arrayEst pushBack [typeOf _x,getPos _x,vectorUp _x, vectorDir _x]
 		};
 	*/
 	};

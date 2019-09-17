@@ -198,8 +198,8 @@ _fnc_initGarrison =
 
 			//New system
 			//diag_log format ["Setting gar for %1, alive are %2", _marker, str _garrison];
-			garrison setVariable [format ["%1_alive", _marker], _garrison, true];
-			garrison setVariable [format ["%1_dead", _marker], _reinf, true];
+			garrison setVariable [format ["%1_preferred", _marker], _garrison, true];
+			garrison setVariable [format ["%1_requested", _marker], _reinf, true];
 
 			[_marker] call A3A_fnc_updateReinfState;
 

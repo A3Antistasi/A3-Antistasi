@@ -173,8 +173,8 @@ _nonReinfUnits = [["", [], []]];
 //TODO sort units to avoid too much data
 _garrison append _nonReinfUnits;
 
-garrison setVariable [format ["%1_alive", _marker], _garrison];
-garrison setVariable [format ["%1_dead", _marker], _reinforcements];
+garrison setVariable [format ["%1_preferred", _marker], _garrison];
+garrison setVariable [format ["%1_requested", _marker], _reinforcements];
 
 //diag_log format ["AddGarrison %1: After alive is %2", _random, _garrison];
 //diag_log format ["AddGarrison %1: After dead is %2", _random, _reinforcements];

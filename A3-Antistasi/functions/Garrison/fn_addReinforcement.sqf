@@ -57,7 +57,7 @@ if(!_stockUp) then
   _reinforcements set [_groupID, _element];
 
   //Setting new reinforcements
-  garrison setVariable [format ["%1_dead", _marker], _reinforcements, true];
+  garrison setVariable [format ["%1_requested", _marker], _reinforcements, true];
 }
 else
 {
@@ -74,7 +74,7 @@ else
     _reinforcements pushBack ["", [], []];
   };
   _reinforcements pushBack _unit;
-  garrison setVariable [format ["%1_dead", _marker], _reinforcements, true];
+  garrison setVariable [format ["%1_requested", _marker], _reinforcements, true];
 
   //Update reinforcement priority
   [_marker] call A3A_fnc_updateReinfState;

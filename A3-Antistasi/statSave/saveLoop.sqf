@@ -104,7 +104,7 @@ if ((_veh distance getMarkerPos respawnTeamPlayer < 50) and !(_veh in staticsToS
 	{
 	if (((not (_veh isKindOf "StaticWeapon")) and (not (_veh isKindOf "ReammoBox")) and (not (_veh isKindOf "FlagCarrier")) and (not(_veh isKindOf "Building"))) and (not (_typeVehX == "C_Van_01_box_F")) and (count attachedObjects _veh == 0) and (alive _veh) and ({(alive _x) and (!isPlayer _x)} count crew _veh == 0) and (not(_typeVehX == "WeaponHolderSimulated"))) then
 		{
-		_arrayEst pushBack [_typeVehX,getPos _veh,vectorUp _veh,tvectorDir _veh];
+		_arrayEst pushBack [_typeVehX,getPos _veh,vectorUp _veh,vectorDir _veh];
 		};
 	};
 } forEach vehicles - [boxX,flagX,fireX,vehicleBox,mapX];

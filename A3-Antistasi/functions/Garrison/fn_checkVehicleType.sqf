@@ -67,7 +67,7 @@ switch (_preference) do
     };
     case ("HELI_ATTACK"):
     {
-      _result = (_vehicle in vehNATOAttack || {_vehicle in vehCSATAttack});
+      _result = (_vehicle in vehNATOAttackHelis || {_vehicle in vehCSATAttackHelis});
     };
     case ("AIR_DRONE"):
     {

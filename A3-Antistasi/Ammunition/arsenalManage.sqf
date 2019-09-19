@@ -22,58 +22,55 @@ _check = false;
 if (_x select 1 >= minWeaps) then
 	{
 	_weaponX = _x select 0;
-	if !(_weaponX in mlaunchers) then
-		{
-		_magazine = (getArray (configFile / "CfgWeapons" / _weaponX / "magazines") select 0);
-		if (!isNil "_magazine") then
-			{
-			if (not(_magazine in unlockedMagazines)) then
-				{
-				unlockedMagazines pushBack _magazine;
-				_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgMagazines" >> _magazine >> "displayName")];
-				_index = _magazine call jn_fnc_arsenal_itemType;
-				[_index,_magazine,-1] call jn_fnc_arsenal_addItem;
-				};
-			};
-		unlockedWeapons pushBack _weaponX;
-		//lockedWeapons = lockedWeapons - [_weaponX];
-		if (_weaponX in arifles) then
-			{
-			unlockedRifles pushBack _weaponX; publicVariable "unlockedRifles";
-			if (count (getArray (configfile >> "CfgWeapons" >> _weaponX >> "muzzles")) == 2) then
-				{
-				unlockedGL pushBack _weaponX; publicVariable "unlockedGL";
-				};
-			}
-		else
-			{
-			if (_weaponX in mguns) then
-				{
-				unlockedMG pushBack _weaponX; publicVariable "unlockedMG";
-				}
-			else
-				{
-				if (_weaponX in srifles) then
-					{
-					unlockedSN pushBack _weaponX; publicVariable "unlockedSN";
-					}
-				else
-					{
-					if (_weaponX in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
-						{
-						unlockedAT pushBack _weaponX; publicVariable "unlockedAT";
-						}
-					else
-						{
-						if (_weaponX in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _weaponX; publicVariable "unlockedAA"};
-						};
-					};
-				};
-			};
-		_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _weaponX >> "displayName")];
-		_index = _weaponX call jn_fnc_arsenal_itemType;
-		[_index,_weaponX,-1] call jn_fnc_arsenal_addItem;
-		};
+    _magazine = (getArray (configFile / "CfgWeapons" / _weaponX / "magazines") select 0);
+    if (!isNil "_magazine") then
+        {
+        if (not(_magazine in unlockedMagazines)) then
+            {
+            unlockedMagazines pushBack _magazine;
+            _updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgMagazines" >> _magazine >> "displayName")];
+            _index = _magazine call jn_fnc_arsenal_itemType;
+            [_index,_magazine,-1] call jn_fnc_arsenal_addItem;
+            };
+        };
+    unlockedWeapons pushBack _weaponX;
+    //lockedWeapons = lockedWeapons - [_weaponX];
+    if (_weaponX in arifles) then
+        {
+        unlockedRifles pushBack _weaponX; publicVariable "unlockedRifles";
+        if (count (getArray (configfile >> "CfgWeapons" >> _weaponX >> "muzzles")) == 2) then
+            {
+            unlockedGL pushBack _weaponX; publicVariable "unlockedGL";
+            };
+        }
+    else
+        {
+        if (_weaponX in mguns) then
+            {
+            unlockedMG pushBack _weaponX; publicVariable "unlockedMG";
+            }
+        else
+            {
+            if (_weaponX in srifles) then
+                {
+                unlockedSN pushBack _weaponX; publicVariable "unlockedSN";
+                }
+            else
+                {
+                if (_weaponX in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
+                    {
+                    unlockedAT pushBack _weaponX; publicVariable "unlockedAT";
+                    }
+                else
+                    {
+                    if (_weaponX in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _weaponX; publicVariable "unlockedAA"};
+                    };
+                };
+            };
+        };
+    _updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _weaponX >> "displayName")];
+    _index = _weaponX call jn_fnc_arsenal_itemType;
+    [_index,_weaponX,-1] call jn_fnc_arsenal_addItem;
 	};
 } forEach _weaponsX;
 

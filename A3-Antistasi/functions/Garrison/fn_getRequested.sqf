@@ -10,7 +10,7 @@ params ["_marker"];
 
 private ["_result"];
 
-if(isNil "_marker") exitWith {diag_log "GetNeededReinforcements: No marker given!";};
+if(isNil "_marker") exitWith {diag_log "GetRequested: No marker given!";};
 
 _result = garrison getVariable [format ["%1_requested", _marker], [["", [], []]]];
 

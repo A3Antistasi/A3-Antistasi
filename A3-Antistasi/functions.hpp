@@ -219,17 +219,25 @@ class A3A
 	class Garrison
 	{
 		class addGarrison {};
-		class addReinforcement {};
+		class addRequested {};
+		class checkGroupType {};
+		class checkVehicleType {};
 		class countGarrison {};
 		class getGarrison {};
 		class getGarrisonRatio {};
 		class getGarrisonStatus {};
-		class getNeededReinforcements {};
+		class getRequested {};
 		class getVehicleCrew {};
+		class initPreference {};
+		class logArray {};
 		class replenishGarrison {};
+		class selectGroupType {};
 		class selectReinfUnits {};
+		class selectVehicleType {};
 		class shouldReinforce {};
+		class updatePreference {};
 		class updateReinfState {};
+		class updateVehicles {};
 	};
 
 	class Missions

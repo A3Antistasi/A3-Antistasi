@@ -16,8 +16,8 @@ params ["_marker", "_unit", "_unitIndex", ["_stockUp", false]];
 *     Nothing
 */
 
-if (isNil "_marker") exitWith {diag_log "AddReinforcements: No marker given!"};
-if (isNil "_unit") exitWith {diag_log "AddReinforcements: No units given!"};
+if (isNil "_marker") exitWith {diag_log "AddRequested: No marker given!"};
+if (isNil "_unit") exitWith {diag_log "AddRequested: No units given!"};
 
 private ["_unitType", "_groupID", "_reinforcements", "_reinfCount", "_element", "_countGarrison"];
 
@@ -64,7 +64,7 @@ else
   //The AI wants to improve the units needed on this marker
   if (!(_unit isEqualType []) || {count _unit != 3}) exitWith
   {
-    diag_log format ["AddReinforcements: Given units do not match format, input was %1", str _unit];
+    diag_log format ["AddRequested: Given units do not match format, input was %1", str _unit];
   };
   _countGarrison = count ([_marker] call A3A_fnc_getGarrison);
   _reinforcements = [_marker] call A3A_fnc_getNeededReinforcements;

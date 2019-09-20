@@ -49,7 +49,7 @@ while {isNull _preferred} do
       _requested pushBack _line;
     };
   };
-  garrison setVariable [format ["%1_preferred", _marker], _garrison, true];
+  garrison setVariable [format ["%1_garrison", _marker], _garrison, true];
   garrison setVariable [format ["%1_requested", _marker], _requested, true];
 
   [_marker] call A3A_fnc_updateReinfState;

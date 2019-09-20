@@ -56,30 +56,13 @@ _fnc_initMarker =
 };
 
 
-
-//TODO add statics to garrison
 _fnc_initGarrison =
 {
 	params ["_markerArray", "_type"];
-	private ["_fnc_getVehicleCrew", "_side", "_groupsRandom", "_crewUnit", "_crew", "_vehicle", "_vehiclePool" ,"_garrNum", "_garrison", "_garrisonOld", "_reinf", "_marker", "_AAVehicle"];
-
-	_fnc_getVehicleCrew =
-	{
-		params ["_vehicleType", "_crewType"];
-		private ["_seatCount", "_result"];
-		if(_vehicleType == "") exitWith {[]};
-		_seatCount = [_vehicleType, false] call BIS_fnc_crewCount;
-		_result = [];
-		for "_i" from 1 to _seatCount do
-		{
-			_result pushBack _crewType;
-		};
-		_result;
-	};
-
+	private ["_side", "_groupsRandom", "_garrNum", "_garrisonOld", "_marker"];
 	{
 	    _marker = _x;
-			_garrNum = ([_x] call A3A_fnc_garrisonSize) / 8;
+			_garrNum = ([_marker] call A3A_fnc_garrisonSize) / 8;
 			_side = sidesX getVariable [_marker, sideUnknown];
 			while {_side == sideUnknown} do
 			{
@@ -89,29 +72,19 @@ _fnc_initGarrison =
 			};
 			if(_side != Occupants) then
 			{
-				_vehiclePool = [vehCSATLight + [""] + vehCSATAPC, [vehFIAArmedCar, "", vehFIACar]] select ((_marker in outposts) && (gameMode == 4));
 				_groupsRandom = [groupsCSATSquad, groupsFIASquad] select ((_marker in outposts) && (gameMode == 4));
-				_crewUnit = [CSATCrew, NATOCrew] select ((_marker in outposts) && (gameMode == 4));
 			}
 			else
 			{
 				if(_type != "Airport" && {_type != "Outpost"}) then
 				{
-					_vehiclePool = [vehFIAArmedCar, "", vehFIACar];
 					_groupsRandom = groupsFIASquad;
-					_crewUnit = NATOCrew;
 				}
 				else
 				{
-					_vehiclePool = vehNATOLight + [""] + vehNATOAPC;
 	 				_groupsRandom = groupsNATOSquad;
-					_crewUnit = NATOCrew;
 				};
 			};
-
-			_garrison = [];
-			_reinf = [];
-
 			//Old system, keeping it intact for the moment
 			_garrisonOld = [];
 			for "_i" from 1 to _garrNum do
@@ -120,89 +93,8 @@ _fnc_initGarrison =
 			};
 			//
 
-			switch (_type) do
-			{
-			  case ("Airport"):
-				{
-					//Full equipted from the start
-					_AAVehicle = if(_side == Occupants) then {vehNATOAA} else {vehCSATAA};
-					_vehiclePool pushBack _AAVehicle;
-					for "_i" from 0 to 3 do
-					{
-						_vehicle = selectRandom _vehiclePool;
-						_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
-						_garrison pushBack [_vehicle, _crew, selectRandom _groupsRandom];
-						_reinf pushBack ["", [], []];
-					};
-			  };
-				case ("Outpost"):
-				{
-					//Two units there, one requested
-					for "_i" from 0 to 1 do
-					{
-						_vehicle = selectRandom _vehiclePool;
-						_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
-						_garrison pushBack [_vehicle, _crew, selectRandom _groupsRandom];
-						_reinf pushBack ["", [], []];
-					};
-					for "_i" from 0 to 0 do
-					{
-						_vehicle = selectRandom _vehiclePool;
-						_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
-						_reinf pushBack [_vehicle, _crew, selectRandom _groupsRandom];
-					};
-				};
-				case ("Seaport"):
-				{
-				    //One there, one requested
-						for "_i" from 0 to 0 do
-						{
-							_vehicle = selectRandom _vehiclePool;
-							_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
-							_garrison pushBack [_vehicle, _crew, selectRandom _groupsRandom];
-							_reinf pushBack ["", [], []];
-						};
-						for "_i" from 0 to 0 do
-						{
-							_vehicle = selectRandom _vehiclePool;
-							_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
-							_reinf pushBack [_vehicle, _crew, selectRandom _groupsRandom];
-						};
-				};
-				case ("Resource"):
-				{
-					//Two there, none requested
-					for "_i" from 0 to 1 do
-					{
-						_vehicle = selectRandom _vehiclePool;
-						_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
-						_garrison pushBack [_vehicle, _crew, selectRandom _groupsRandom];
-						_reinf pushBack ["", [], []];
-					};
-				};
-				case ("Factory"):
-				{
-					//Two there, none requested
-					for "_i" from 0 to 1 do
-					{
-						_vehicle = selectRandom _vehiclePool;
-						_crew = [_vehicle, _crewUnit] call _fnc_getVehicleCrew;
-						_garrison pushBack [_vehicle, _crew, selectRandom _groupsRandom];
-						_reinf pushBack ["", [], []];
-					};
-				};
-			};
-
 			//Old system, keeping it runing for now
 			garrison setVariable [_marker, _garrisonOld, true];
-
-			//New system
-			//diag_log format ["Setting gar for %1, alive are %2", _marker, str _garrison];
-			garrison setVariable [format ["%1_preferred", _marker], _garrison, true];
-			garrison setVariable [format ["%1_requested", _marker], _reinf, true];
-
-			[_marker] call A3A_fnc_updateReinfState;
-
 	} forEach _markerArray;
 };
 
@@ -263,7 +155,8 @@ if (debug) then {
 };
 
 [_mrkCSAT, airportsX, flagCSATmrk, "%1 Airbase", true] spawn _fnc_initMarker;
-[airportsX, "Airport"] spawn _fnc_initGarrison;
+[airportsX, "Airport"] spawn _fnc_initGarrison;								//Old system
+[airportsX, "Airport", [0,0,0]] spawn A3A_fnc_createGarrison;	//New system
 
 
 if (debug) then {
@@ -271,7 +164,8 @@ if (debug) then {
 };
 
 [_mrkCSAT, resourcesX, "loc_rock", "Resources"] spawn _fnc_initMarker;
-[resourcesX, "Resource"] spawn _fnc_initGarrison;
+[resourcesX, "Resource"] spawn _fnc_initGarrison;							//Old system
+[resourcesX, "Other", [0,0,0]] spawn A3A_fnc_createGarrison;	//New system
 
 if (debug) then {
 	diag_log format ["%1: [Antistasi] | DEBUG | initGarrisons.sqf | Setting up Factory stuff.", servertime];
@@ -279,6 +173,7 @@ if (debug) then {
 
 [_mrkCSAT, factories, "u_installation", "Factory"] spawn _fnc_initMarker;
 [factories, "Factory"] spawn _fnc_initGarrison;
+[factories, "Other", [0,0,0]] spawn A3A_fnc_createGarrison;
 
 if (debug) then {
 	diag_log format ["%1: [Antistasi] | DEBUG | initGarrisons.sqf | Setting up Outpost stuff.", servertime];
@@ -286,6 +181,7 @@ if (debug) then {
 
 [_mrkCSAT, outposts, "loc_bunker", "%1 Outpost", true] spawn _fnc_initMarker;
 [outposts, "Outpost"] spawn _fnc_initGarrison;
+[outposts, "Outpost", [1,1,0]] spawn A3A_fnc_createGarrison;
 
 if (debug) then {
 	diag_log format ["%1: [Antistasi] | DEBUG | initGarrisons.sqf | Setting up Seaport stuff.", servertime];
@@ -293,6 +189,10 @@ if (debug) then {
 
 [_mrkCSAT, seaports, "b_naval", "Sea Port"] spawn _fnc_initMarker;
 [seaports, "Seaport"] spawn _fnc_initGarrison;
+[seaports, "Other", [1,0,0]] spawn A3A_fnc_createGarrison;
+
+//New system, adding cities
+[citiesX, "City", [0,0,0]] spawn A3A_fnc_createGarrison;
 
 sidesX setVariable ["NATO_carrier", Occupants, true];
 sidesX setVariable ["CSAT_carrier", Invaders, true];

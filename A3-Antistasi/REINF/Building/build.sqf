@@ -72,98 +72,50 @@ if (isNull build_engineerSelected ||
 	hint _abortMessage;
 };
 
-build_type = _this select 0;
-build_time = 60;
-build_cost = 0;
 private _playerDir = getDir player;
 private _playerPosition = position player;
-private _classX = "";
-switch build_type do
-	{
-	case "ST":
-		{
-		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
-			{
-			_classX = selectRandom ["Land_GarbageWashingMachine_F","Land_JunkPile_F","Land_Barricade_01_4m_F"];
-			}
-		else
-			{
-			if (count (nearestTerrainObjects [player,["tree"],70]) > 8) then
-				{
-				_classX = "Land_WoodPile_F";
-				}
-			else
-				{
-				_classX = "CraterLong_small";
-				};
-			};
-		};
-	case "MT":
-		{
-		build_time = 60;
-		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
-			{
-			_classX = "Land_Barricade_01_10m_F";
-			}
-		else
-			{
-			if (count (nearestTerrainObjects [player,["tree"],70]) > 8) then
-				{
-				_classX = "Land_WoodPile_large_F";
-				}
-			else
-				{
-				_classX = selectRandom ["Land_BagFence_01_long_green_F","Land_SandbagBarricade_01_half_F"];
-				};
-			};
-		};
-	case "RB":
-		{
-		build_time = 100;
-		if (count (nearestTerrainObjects [player, ["House"], 70]) > 3) then
-			{
-			_classX = "Land_Tyres_F";
-			}
-		else
-			{
-			_classX = "Land_TimberPile_01_F";
-			};
-		};
-	case "SB":
-		{
-		build_time = 60;
-		_classX = "Land_BagBunker_01_small_green_F";
-		build_cost = 100;
-		};
-	case "CB":
-		{
-		build_time = 120;
-		_classX = "Land_PillboxBunker_01_big_F";
-		build_cost = 300;
-		};
-	};
-
 private _leave = false;
 private _textX = "";
-if ((build_type == "SB") or (build_type == "CB")) then
+private _classX = _this select 0;
+build_time = _this select 1;
+build_cost = _this select 2;
+build_type = _this select 3;
+/*
+sandbag_array = ["Land_BagFence_Corner_F","Land_BagFence_End_F","Land_BagFence_Long_F","Land_BagFence_Round_F","Land_BagFence_Short_F"];
+if (_this select 1 == KEY_UP) then
+            //forward idk wtf im trying to do here
+            //if UP, increment array. How know when object is chosen? How do array sytnax? For loop? wtf
+			{
+			sandbag_array[i];
+			i = i + 1;
+			_classX = i;
+			};
+		//backward
+		//if DOWN, decrement array
+		if (_this select 1 == KEY_DOWN) then
+			{
+			if (garage_vehicleIndex - 1 < 0) then {garage_vehicleIndex = (count garage_vehiclesAvailable) - 1} else {garage_vehicleIndex = garage_vehicleIndex - 1};
+					private _type = garage_vehiclesAvailable select garage_vehicleIndex;
+			[_type] call A3A_fnc_vehPlacementChangeVehicle;
+			};
+*/
+if (_classX == "Land_BagBunker_01_small_green_F") then {_playerDir = _playerDir + 180};
+//_resourcesFIA = if (!isMultiPlayer) then {server getVariable "resourcesFIA"} else {player getVariable "moneyX"};
+_resourcesFIA = server getVariable "resourcesFIA";
+if (build_cost > _resourcesFIA) then
 	{
-	if (build_type == "SB") then {_playerDir = _playerDir + 180};
-	_resourcesFIA = if (!isMultiPlayer) then {server getVariable "resourcesFIA"} else {player getVariable "moneyX"};
-	if (build_cost > _resourcesFIA) then
+	_leave = true;
+	_textX = format ["You do not have enough money for this construction (%1 € needed)",build_cost]
+	}
+else
+	{
+	_sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
+	build_nearestFriendlyMarker = [_sites,_playerPosition] call BIS_fnc_nearestPosition;
+	if (!(_playerPosition inArea build_nearestFriendlyMarker)) then
 		{
 		_leave = true;
-		_textX = format ["You do not have enough money for this construction (%1 € needed)",build_cost]
-		}
-	else
-		{
-		_sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
-		build_nearestFriendlyMarker = [_sites,_playerPosition] call BIS_fnc_nearestPosition;
-		if (!(_playerPosition inArea build_nearestFriendlyMarker)) then
-			{
-			_leave = true;
-			_textX = "You cannot build a bunker outside a controlled zone";
-			build_nearestFriendlyMarker = nil;
-			};
+		_textX = "You cannot build a bunker outside a controlled zone";
+		build_nearestFriendlyMarker = nil;
 		};
 	};
 

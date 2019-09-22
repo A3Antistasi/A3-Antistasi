@@ -35,18 +35,9 @@ if (time > _timeOut) exitWith
 build_atBuildLocation = true;
 build_targetLocation = nil;
 
-
 if (build_cost > 0) then
 	{
-	if (!isMultiPlayer) then
-		{
-		_nul = [0, - build_cost] remoteExec ["A3A_fnc_resourcesFIA",2];
-		}
-	else
-		{
-		[-build_cost] call A3A_fnc_resourcesPlayer;
-		["moneyX",player getVariable ["moneyX",0]] call fn_SaveStat;
-		};
+	_nul = [0, - build_cost] remoteExec ["A3A_fnc_resourcesFIA",2];
 	};
 
 build_engineerSelected setVariable ["constructing",true];
@@ -84,15 +75,15 @@ if (!_isPlayer) then {build_engineerSelected doFollow (leader build_engineerSele
 private _veh = createVehicle [_structureType, _positionX, [], 0, "CAN_COLLIDE"];
 _veh setDir _dir;
 
-if ((build_type == "SB") or (build_type == "CB")) exitWith
+if (build_cost > 0) exitWith
 {
 	staticsToSave pushBackUnique _veh;
 	publicVariable "staticsToSave"
 };
 
-
 //falta inicializarlo en veh init
-if (build_type == "RB") then
+/*
+if (build_type == "Land_CzechHedgehog_01_F") then
 	{
 	sleep 30;
 	_l1 = "#lightpoint" createVehicle getpos _veh;
@@ -118,9 +109,6 @@ if (build_type == "RB") then
 		};
 	};
 
-build_nearestFriendlyMarker = nil;
-build_engineerSelected = nil;
-	
 while {alive _veh} do
 	{
 	if ((not([distanceSPWN,1,_veh,teamPlayer] call A3A_fnc_distanceUnits)) and (_veh distance getMarkerPos respawnTeamPlayer > 100)) then
@@ -129,3 +117,7 @@ while {alive _veh} do
 		};
 	sleep 60;
 	};
+*/
+
+build_nearestFriendlyMarker = nil;
+build_engineerSelected = nil;

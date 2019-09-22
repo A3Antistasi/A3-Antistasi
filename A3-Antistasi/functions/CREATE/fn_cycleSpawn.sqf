@@ -15,6 +15,8 @@ _allSoldiers = [];
 _allVehicles = [];
 _allGroups = [];
 
+_lineIndex = 0;
+
 {
   _vehicleType = _x select 0;
   _crewArray = _x select 1;
@@ -32,22 +34,68 @@ _allGroups = [];
     _allVehicles pushBack _vehicle;
     _groupX addVehicle _vehicle;
 
+    //Should work as a local variable needs testing
+    _vehicle setVariable ["UnitIndex", (_lineIndex * 10 + 0)];
+    _vehicle setVariable ["UnitMarker", _marker];
+
+    //On vehicle death, remove it from garrison
+    _vehicle addEventHandler ["Killed",
+      {
+        _vehicle = _this select 0;
+        _id = _vehicle getVariable "UnitIndex";
+        _marker = _vehicle getVariable "UnitMarker";
+        [_marker, typeOf _vehicle, _id] call A3A_fnc_addRequested;
+      }
+    ];
+    sleep 0.25;
+
     //That would work perfectly with the breach script i did a PR for, without it it would just frustrate player
     //_vehicle lock 3;
   };
-  sleep 0.25;
+
   //_spawnParameter = [_marker, NATOCrew] call A3A_fnc_findSpawnPosition;
   _spawnParameter = [getMarkerPos _marker, objNull];
   {
       _unitX = _groupX createUnit [_x, (_spawnParameter select 0), [], 5, "NONE"];
       _allSoldiers pushBack _unitX;
+
+      //Should work as a local variable needs testing
+      _unitX setVariable ["UnitIndex", (_lineIndex * 10 + 1)];
+      _unitX setVariable ["UnitMarker", _marker];
+
+      //On vehicle death, remove it from garrison
+      _unitX addEventHandler ["Killed",
+        {
+          _unitX = _this select 0;
+          _id = _unitX getVariable "UnitIndex";
+          _marker = _unitX getVariable "UnitMarker";
+          [_marker, typeOf _unitX, _id] call A3A_fnc_addRequested;
+        }
+      ];
+
       sleep 0.25;
   } forEach _crewArray;
-  sleep 0.25;
+
   {
     _unitX = _groupX createUnit [_x, (_spawnParameter select 0), [], 5, "NONE"];
     _allSoldiers pushBack _unitX;
+
+    //Should work as a local variable needs testing
+    _unitX setVariable ["UnitIndex", (_lineIndex * 10 + 1)];
+    _unitX setVariable ["UnitMarker", _marker];
+
+    //On vehicle death, remove it from garrison
+    _unitX addEventHandler ["Killed",
+      {
+        _unitX = _this select 0;
+        _id = _unitX getVariable "UnitIndex";
+        _marker = _unitX getVariable "UnitMarker";
+        [_marker, typeOf _unitX, _id] call A3A_fnc_addRequested;
+      }
+    ];
+
     sleep 0.25;
   } forEach _cargoArray;
-  sleep 0.25;
+
+  _lineIndex = _lineIndex + 1;
 } forEach _garrison;

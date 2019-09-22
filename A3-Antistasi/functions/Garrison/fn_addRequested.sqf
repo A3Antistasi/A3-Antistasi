@@ -28,7 +28,7 @@ if(!_stockUp) then
   _groupID = floor (_unitIndex / 10);
 
   //Get needed data
-  _reinforcements = [_marker] call A3A_fnc_getNeededReinforcements;
+  _reinforcements = [_marker] call A3A_fnc_getRequested;
   _reinfCount = count _reinforcements;
 
   //Check if element is already there
@@ -55,6 +55,15 @@ if(!_stockUp) then
     _element set [0, _unit];
   };
   _reinforcements set [_groupID, _element];
+
+  _garrison = [_marker] call A3A_fnc_getGarrison;
+  //Remove unit from garrison
+
+  _element = _garrison select _groupID;
+  if(_unitType == 0) then
+  {
+    
+  };
 
   //Setting new reinforcements
   garrison setVariable [format ["%1_requested", _marker], _reinforcements, true];

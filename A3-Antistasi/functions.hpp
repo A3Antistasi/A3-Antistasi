@@ -223,6 +223,8 @@ class A3A
 		class checkGroupType {};
 		class checkVehicleType {};
 		class countGarrison {};
+		class createGarrison {};
+		class createGarrisonLine {};
 		class getGarrison {};
 		class getGarrisonRatio {};
 		class getGarrisonStatus {};
@@ -235,6 +237,7 @@ class A3A
 		class selectReinfUnits {};
 		class selectVehicleType {};
 		class shouldReinforce {};
+		class updateGarrison {};
 		class updatePreference {};
 		class updateReinfState {};
 		class updateVehicles {};

@@ -13,9 +13,9 @@ params ["_markerArray", "_type", ["_losses", [0, 0, 0]]];
 private ["_preferred", "_garrison", "_requested", "_marker", "_side", "_line", "_start", "_index"];
 
 _preferred = garrison getVariable [format ["%1_preference", _type], objNull];
-while {isNull _preferred} do
+while {!(_preferred isEqualType [])} do
 {
-  diag_log "CreateGarrison: Preference not set yet, waiting for 1 second";
+  diag_log format ["CreateGarrison: Preference %1_preference not set yet, waiting for 1 second", _type];
   sleep 1;
   _preferred = garrison getVariable [format ["%1_preference", _type], objNull];
 };
@@ -53,4 +53,8 @@ while {isNull _preferred} do
   garrison setVariable [format ["%1_requested", _marker], _requested, true];
 
   [_marker] call A3A_fnc_updateReinfState;
+
+  diag_log format ["Garrison on %1 is now set", _marker];
+  [_garrison, format ["%1_garrison", _marker]] call A3A_fnc_logArray;
+
 } forEach _markerArray;

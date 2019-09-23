@@ -14,13 +14,14 @@ params ["_vehicle", "_preference", "_side"];
 if(_preference == "Empty") exitWith {[]};
 
 //If tank, select AT team
-if(_vehicle in vehNATOTank) exitWith {groupsNATOAT};
-if(_vehicle in vehCSATTank) exitWith {groupsCSATAT};
+if(_vehicle == vehNATOTank) exitWith {groupsNATOAT};
+if(_vehicle == vehCSATTank) exitWith {groupsCSATAT};
 
 //If AA-tank, select AA team
-if(_vehicle in vehNATOAA) exitWith {groupsNATOAA};
-if(_vehicle in vehCSATAA) exitWith {groupsCSATAA};
+if(_vehicle == vehNATOAA) exitWith {groupsNATOAA};
+if(_vehicle == vehCSATAA) exitWith {groupsCSATAA};
 
+_result = "";
 //If no vehicle return preference
 if(_vehicle == "") then
 {
@@ -29,8 +30,7 @@ if(_vehicle == "") then
 else
 {
   //Check vehicle seats
-  _result = "";
-  _vehicleSeats = [_vehicle, true] call BIS_fnc_crewCount - [_vehicle, false] call BIS_fnc_crewCount;
+  _vehicleSeats = ([_vehicle, true] call BIS_fnc_crewCount) - ([_vehicle, false] call BIS_fnc_crewCount);
   if(_vehicleSeats >= 8) then
   {
     _result = _preference;
@@ -43,8 +43,12 @@ else
     }
     else
     {
-      _result = "EMPTY";
-      diag_log format ["SelectGroupType: Vehicle %1 cannot transport four or more people, reconsider using another vehicle or make smaller groups possible!", _vehicle];
+      _result = "SQUAD";
+      if(debug) then
+      {
+        diag_log format ["SelectGroupType: Vehicle %1 cannot transport four or more people, reconsider using another vehicle or make smaller groups possible!", _vehicle];
+        diag_log "SelectGroupType: Assuming squad as a solution, may be changed in the future!";
+      };
     };
   };
 };

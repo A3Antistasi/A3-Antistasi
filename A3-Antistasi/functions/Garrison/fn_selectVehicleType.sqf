@@ -69,11 +69,11 @@ if(_preference in ["HELI_PATROL", "HELI_LIGHT"]) then
 {
   if(_side == Occupants) then
   {
-    _possibleVehicles append vehNATOPatrolHeli;
+    _possibleVehicles pushBack vehNATOPatrolHeli;
   }
   else
   {
-    _possibleVehicles append vehCSATPatrolHeli;
+    _possibleVehicles pushBack vehCSATPatrolHeli;
   };
 };
 if(_preference in ["HELI_TRANSPORT", "HELI_DEFAULT"]) then
@@ -124,7 +124,7 @@ if(_preference in ["AIR_GENERIC", "AIR_DEFAULT"]) then
 if(_debug) then
 {
   diag_log format ["SelectVehicleType: Preselection done, possible vehicles are %1", str _possibleVehicles];
-}
+};
 
 _result = selectRandom _possibleVehicles;
 _result;

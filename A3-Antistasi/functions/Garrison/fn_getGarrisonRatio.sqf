@@ -14,13 +14,11 @@ _debug = debug;
 if(isNil "_marker") exitWith {diag_log "GetGarrisonRatio: No marker given!";};
 
 _garrison = [_marker] call A3A_fnc_getGarrison;
-_neededReinf = [_marker] call A3A_fnc_getNeededReinforcements;
-
-
+_neededReinf = [_marker] call A3A_fnc_getRequested;
 
 if(_debug) then
 {
-  diag_log format ["GetGarrisonStrength: Calculating garrison strength now for %1!", _marker];
+  diag_log format ["GetGarrisonRatio: Calculating garrison strength now for %1!", _marker];
 };
 
 _garrisonCount = [_garrison, true] call A3A_fnc_countGarrison;
@@ -30,18 +28,13 @@ _preferredUnitsCount = _garrisonCount;
 
 if(_debug) then
 {
-  diag_log format ["GetGarrisonStrength: Found %1 units in total, %2 of them are alive", _allUnitsCount, _preferredUnitsCount];
+  diag_log format ["GetGarrisonRatio: Found %1 units in total, %2 of them are alive", _allUnitsCount, _preferredUnitsCount];
 };
 
 _ratio = 0;
 if(_allUnitsCount > 0) then
 {
   _ratio = _preferredUnitsCount / _allUnitsCount;
-};
-
-if(_debug) then
-{
-  diag_log format ["GetGarrisonStrength: Result is %1", _ratio];
 };
 
 _ratio;

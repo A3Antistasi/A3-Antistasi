@@ -28,7 +28,8 @@ _lineIndex = 0;
   {
     //Array got a vehicle, spawn it in
     //TODO add a function that chooses a logical spawn position and direction for a the given vehicle type
-    _spawnParameter = [_marker, _vehicleType] call A3A_fnc_findSpawnPosition;
+    //_spawnParameter = [_marker, _vehicleType] call A3A_fnc_findSpawnPosition;
+    _spawnParameter = [getMarkerPos _marker, 0];
     _vehicle = createVehicle [_vehicleType, _spawnParameter select 0, [], 0 , "NONE"];
     _vehicle setDir (_spawnParameter select 1);
     _allVehicles pushBack _vehicle;

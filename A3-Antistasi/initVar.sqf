@@ -7,7 +7,7 @@ antistasiVersion = localize "STR_antistasi_credits_generic_version_text";
 // INITIAL SETTING AND VARIABLES ///
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Initial Variables",servertime];
-debug = false;													//debug variable, not useful for everything..
+debug = false;													//debug variable, useful for something..
 diagOn = false;												//Turn on Diag_log messaging (unused - PBP)
 cleantime = 3600;												//time to delete dead bodies, vehicles etc..
 distanceSPWN = 1000;											//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.

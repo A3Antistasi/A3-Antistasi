@@ -2181,7 +2181,7 @@ class coolshit_menu 		{
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
 			tooltip = "BIG Large huge SANDY boy, capable of large.";
-			action = "closeDialog 0;nul = [""Land_HBarrier_Big_F"",200,750,""OFF_ROAD_FRIENDLY""] spawn A3A_fnc_build;"
+			action = "closeDialog 0;nul = [""Land_HBarrier_Big_F"",200,750,""OFF_ROAD_FRIENDLY""] spawn A3A_fnc_build;";
 		};
 		class 8slots_R3: RscButton
 		{

@@ -95,17 +95,17 @@ if ((count _reinfPlaces == 0) and (AAFpatrols <= 3)) then {[] spawn A3A_fnc_AAFr
 			//Create convoy with selected units ==> Merge into convoy stuff first
 
 			//For debug is direct placement
-			diag_log format ["Reinforce %1 from %2 with %3", _target, _selectedBase, str _units];
-			[_target, _units] call A3A_fnc_addGarrison;
+			//diag_log format ["Reinforce %1 from %2 with %3", _target, _selectedBase, str _units];
+			//[_target, _units] call A3A_fnc_addGarrison;
 
 			_counter = _counter + 1;
 			if(_counter >= count _canReinf) exitWith {};
 		};
 	} forEach _reinfMarker;
 } forEach [Occupants, Invaders];
-hint "Reinforce AI done!";
+//hint "Reinforce AI done!";
 
-//Replenish airports if possible
+//Replenish airports if possible (Currently not doing anything)
 {
 	[_x] call A3A_fnc_replenishGarrison;
 } forEach airportsX;

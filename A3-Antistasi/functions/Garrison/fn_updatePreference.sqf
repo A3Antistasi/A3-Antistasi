@@ -8,8 +8,10 @@
 *
 */
 
+diag_log format ["UpdatePreference: Updating preferences now, tierWar is %1", tierWar];
+
 //No need to update the preferences
-if(tierPreference >= tierWar) exitWith {};
+if(tierPreference >= tierWar) exitWith {diag_log "Aborting update of preferences!";};
 
 tierPreference = tierWar;
 publicVariable "tierPreference";
@@ -32,6 +34,12 @@ if(tierPreference in airportUpdateTiers) then
     _preference pushBack ["LAND_AIR", -1, "AA"];
     _preference pushBack ["PLANE_GENERIC", -1, "EMPTY"];
   };
+
+  if(true || debug) then
+  {
+    diag_log format ["Airport_preference hit level %1", tierWar];
+    [_preference, "Airport_preference"] call A3A_fnc_logArray;
+  };
   garrison setVariable ["Airport_preference", _preference, true];
   garrison setVariable ["Airport_statics", (airportStaticsTiers select _index), true];
 };
@@ -52,6 +60,11 @@ if(tierPreference in outpostUpdateTiers) then
   {
     _preference pushBack ["HELI_LIGHT", -1, "GROUP"];
   };
+  if(true || debug) then
+  {
+    diag_log format ["Outpost_preference hit level %1", tierWar];
+    [_preference, "Outpost_preference"] call A3A_fnc_logArray;
+  };
   garrison setVariable ["Outpost_preference", _preference, true];
   garrison setVariable ["Outpost_statics", (outpostStaticsTiers select _index), true];
 };
@@ -61,6 +74,12 @@ if(tierPreference in cityUpdateTiers) then
   //Update preferences of cities
   _preference = garrison getVariable ["City_preference", []];
   _preference pushBack ["LAND_LIGHT", -1, "GROUP"];
+
+  if(true || debug) then
+  {
+    diag_log format ["City_preference hit level %1", tierWar];
+    [_preference, "City_preference"] call A3A_fnc_logArray;
+  };
   garrison setVariable ["City_preference", _preference, true];
 
   //Update statics percentage
@@ -72,7 +91,16 @@ if(tierPreference in otherUpdateTiers) then
 {
   //Update preferences of other sites
   _preference = garrison getVariable ["Other_preference", []];
+  //Update vehicle types
+  [_preference] call A3A_fnc_updateVehicles;
+  
   _preference pushBack ["EMPTY", 0, "SQUAD"];
+
+  if(true || debug) then
+  {
+    diag_log format ["Other_preference hit level %1", tierWar];
+    [_preference, "Other_preference"] call A3A_fnc_logArray;
+  };
   garrison setVariable ["Other_preference", _preference, true];
 
   //Update statics percentage

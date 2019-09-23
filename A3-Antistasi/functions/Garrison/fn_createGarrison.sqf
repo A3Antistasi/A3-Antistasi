@@ -54,7 +54,9 @@ while {!(_preferred isEqualType [])} do
 
   [_marker] call A3A_fnc_updateReinfState;
 
-  diag_log format ["Garrison on %1 is now set", _marker];
-  [_garrison, format ["%1_garrison", _marker]] call A3A_fnc_logArray;
-
+  if(debug) then
+  {
+    diag_log format ["Garrison on %1 is now set", _marker];
+    [_garrison, format ["%1_garrison", _marker]] call A3A_fnc_logArray;
+  };
 } forEach _markerArray;

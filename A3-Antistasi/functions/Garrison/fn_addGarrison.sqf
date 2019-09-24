@@ -171,8 +171,10 @@ _nonReinfUnits = [["", [], []]];
 } forEach _units;
 
 //TODO sort units to avoid too much data
-_garrison append _nonReinfUnits;
+//NonReinfUnits gets discarded currently to avoid too much units and data junk
+//_garrison append _nonReinfUnits;
 
+//TODO test if that is needed (call by reference)
 garrison setVariable [format ["%1_garrison", _marker], _garrison];
 garrison setVariable [format ["%1_requested", _marker], _reinforcements];
 

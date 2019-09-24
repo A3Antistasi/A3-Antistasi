@@ -14,15 +14,15 @@ _markerPrefix = "";
 _markerSplit = _marker splitString "_";
 switch (_markerSplit select 0) do
 {
-  case ("airport"): {_markerPrefix = "airp";};
-  case ("outpost"): {_markerPrefix = "outp";};
-  case ("resource"): {_markerPrefix = "reso";};
-  case ("factory"): {_markerPrefix = "fact";};
-  case ("seaport"): {_markerPrefix = "seap";};
+  case ("airport"): {_markerPrefix = "airp_";};
+  case ("outpost"): {_markerPrefix = "outp_";};
+  case ("resource"): {_markerPrefix = "reso_";};
+  case ("factory"): {_markerPrefix = "fact_";};
+  case ("seaport"): {_markerPrefix = "seap_";};
 };
 if(count _markerSplit > 1) then
 {
-  _markerPrefix = format ["%1_%2_", _markerPrefix, _markerSplit select 1];
+  _markerPrefix = format ["%1%2_", _markerPrefix, _markerSplit select 1];
 };
 
 //Sort marker

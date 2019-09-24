@@ -26,9 +26,14 @@ if(count _markerSplit > 1) then
 };
 
 //Sort marker
+_mainMarker = getMarkerPos _marker;
 {
   _first = (_x splitString "_") select 0;
   _fullName = format ["%1%2", _markerPrefix, _x];
+  if(_mainMarker distance (getMarkerPos _fullName) > 500) then
+  {
+    diag_log format ["Placementmarker %1 is more than 500 meter away from its mainMarker %2. You may want to check that!", _fullName, _marker];
+  };
   switch (_first) do
   {
     case ("vehicle"): {_vehicleMarker pushBack _fullName;};
@@ -36,6 +41,7 @@ if(count _markerSplit > 1) then
     case ("hangar"): {_hangarMarker pushBack _fullName;};
     case ("mortar"): {_mortarMarker pushBack _fullName;};
   };
+  _x setMarkerAlpha 0;
 } forEach _placementMarker;
 
 if(count _vehicleMarker == 0) exitWith
@@ -46,8 +52,6 @@ if(count _vehicleMarker == 0) exitWith
 private ["_markerSize", "_distance", "_buildings", "_hangars", "_helipads"];
 
 _markerSize = markerSize _marker;
-_markerSize set [0, (_markerSize select 0)];
-_markerSize set [1, (_markerSize select 1)];
 _distance = sqrt ((_markerSize select 0) * (_markerSize select 0) + (_markerSize select 1) * (_markerSize select 1));
 
 _buildings = nearestObjects [getMarkerPos _marker, ["Helipad_Base_F", "Land_Hangar_F", "Land_TentHangar_V1_F", "Land_Airport_01_hangar_F", "Land_ServiceHangar_01_L_F", "Land_ServiceHangar_01_R_F"], _distance, true];
@@ -73,8 +77,6 @@ _helipads = [];
 {
   _marker = _x;
   _markerSize = markerSize _x;
-  _markerSize set [0, (_markerSize select 0) / 2];
-  _markerSize set [1, (_markerSize select 1) / 2];
   _distance = sqrt ((_markerSize select 0) * (_markerSize select 0) + (_markerSize select 1) * (_markerSize select 1));
   _buildings = nearestObjects [getMarkerPos _x, ["Helipad_Base_F"], _distance, true];
   {
@@ -88,8 +90,6 @@ _helipads = [];
 {
   _marker = _x;
   _markerSize = markerSize _x;
-  _markerSize set [0, (_markerSize select 0) / 2];
-  _markerSize set [1, (_markerSize select 1) / 2];
   _distance = sqrt ((_markerSize select 0) * (_markerSize select 0) + (_markerSize select 1) * (_markerSize select 1));
   _buildings = nearestObjects [getMarkerPos _x, ["Land_Hangar_F", "Land_TentHangar_V1_F", "Land_Airport_01_hangar_F", "Land_ServiceHangar_01_L_F", "Land_ServiceHangar_01_R_F"], _distance, true];
   {
@@ -121,6 +121,28 @@ _vehicleSpawns = [];
       }
       else
       {
+        //Cleaning area
+        private _radius = sqrt (_length * _length + _width * _width);
+        if (!isMultiplayer) then
+        {
+          {
+            if((getPos _x) inArea _markerX) then
+            {
+              _x hideObject true;
+            };
+          } foreach (nearestTerrainObjects [getMarkerPos _markerX, ["Tree","Bush", "Hide", "Rock", "Fence"], _radius, true])
+        }
+        else
+        {
+          {
+            if((getPos _x) inArea _markerX) then
+            {
+              [_x,true] remoteExec ["hideObjectGlobal",2];
+            }
+          } foreach (nearestTerrainObjects [getMarkerPos _markerX, ["Tree","Bush", "Hide", "Rock", "Fence"], _radius, true])
+        };
+
+        //Create the places
         _vehicleCount = floor ((_length - SPACING) / (4 + SPACING));
         _realLength = _vehicleCount * 4;
         _realSpace = (_length - _realLength) / (_vehicleCount + 1);

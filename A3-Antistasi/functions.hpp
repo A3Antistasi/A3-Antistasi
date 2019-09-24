@@ -352,6 +352,7 @@ class A3A
 	class init
 	{
 		class getArrayMrks {};
+		class initSpawnPlaces {};
 		class prepareMarkerArrays {};
 	};
 };

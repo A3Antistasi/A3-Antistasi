@@ -8,11 +8,11 @@ class EditorData
 	toggles=1538;
 	class ItemIDProvider
 	{
-		nextID=1562;
+		nextID=1575;
 	};
 	class MarkerIDProvider
 	{
-		nextID=181;
+		nextID=184;
 	};
 	class LayerIndexProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={11686.896,72.23848,11793.205};
-		dir[]={-0.11567308,-0.42775318,0.89651668};
-		up[]={-0.054739699,0.90388101,0.42425686};
-		aside[]={0.99182391,-4.752801e-007,0.12797236};
+		pos[]={15029.729,122.82693,16514.535};
+		dir[]={-0.86179233,-0.48604521,-0.14536716};
+		up[]={-0.47929385,0.87392133,-0.080847494};
+		aside[]={-0.16633376,-3.7304198e-007,0.98610204};
 	};
 };
 binarizationWanted=0;
@@ -45,7 +45,8 @@ addons[]=
 	"A3_Characters_F_Exp",
 	"A3_Structures_F_Exp_Military_Flags",
 	"A3_Modules_F_Curator_Curator",
-	"A3_Props_F_Enoch_Military_Camps"
+	"A3_Props_F_Enoch_Military_Camps",
+	"A3_Structures_F_Mil_Helipads"
 };
 class AddonsMetaData
 {
@@ -180,7 +181,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=303;
+		items=309;
 		class Item0
 		{
 			dataType="Marker";
@@ -5468,7 +5469,7 @@ class Mission
 			position[]={21332.971,18.858,7321.6831};
 			name="spawnPoint";
 			type="hd_start";
-			angle=28.146992;
+			angle=28.146967;
 			id=1099;
 			atlOffset=0.00024414063;
 		};
@@ -6426,7 +6427,7 @@ class Mission
 			name="seaSpawn_8";
 			type="mil_objective";
 			id=1186;
-			atlOffset=4.5166793;
+			atlOffset=5.0577831;
 		};
 		class Item202
 		{
@@ -7945,7 +7946,7 @@ class Mission
 			position[]={26493.066,20.179955,21324.83};
 			name="road_40";
 			type="hd_arrow";
-			angle=113.11611;
+			angle=113.11601;
 			id=1483;
 		};
 		class Item286
@@ -8593,7 +8594,7 @@ class Mission
 			colorName="ColorGreen";
 			a=16;
 			b=6;
-			angle=335.46393;
+			angle=335.46381;
 			id=1558;
 			atlOffset=-3.5655365;
 		};
@@ -8614,21 +8615,20 @@ class Mission
 		class Item301
 		{
 			dataType="Marker";
-			position[]={11502.644,23.379999,11754.584};
+			position[]={11503.917,23.232302,11751.302};
 			name="airp_4_vehicle";
 			markerType="RECTANGLE";
 			type="rectangle";
 			colorName="ColorGreen";
-			a=23.723;
+			a=15.308634;
 			b=6;
-			angle=122.08297;
+			angle=123.88646;
 			id=1560;
-			atlOffset=0.00010490417;
 		};
 		class Item302
 		{
 			dataType="Marker";
-			position[]={11575.193,23.219,11906.946};
+			position[]={11562.38,23.750654,11929.747};
 			name="airp_4_mortar";
 			markerType="ELLIPSE";
 			type="ellipse";
@@ -8636,7 +8636,102 @@ class Mission
 			a=14.927;
 			b=15.271;
 			id=1561;
-			atlOffset=-0.00028991699;
+		};
+		class Item303
+		{
+			dataType="Marker";
+			position[]={11712.308,22.716999,11820.477};
+			name="airp_4_vehicle_1";
+			markerType="RECTANGLE";
+			type="rectangle";
+			colorName="ColorGreen";
+			a=17.937;
+			b=6;
+			angle=300.15302;
+			id=1562;
+			atlOffset=0.00036048889;
+		};
+		class Item304
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={11586.479,23.150442,11886.812};
+				angles[]={0,5.2593365,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+			};
+			id=1563;
+			type="Land_HelipadCircle_F";
+			atlOffset=-1.9073486e-006;
+		};
+		class Item305
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={11603.137,23.015364,11910.663};
+				angles[]={0,5.2871041,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+			};
+			id=1564;
+			type="Land_HelipadCircle_F";
+		};
+		class Item306
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={11609.145,22.967529,11888.445};
+				angles[]={0,5.2837157,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+			};
+			id=1565;
+			type="Land_HelipadCircle_F";
+			atlOffset=3.2424927e-005;
+		};
+		class Item307
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={11617.466,27.614178,11976.021};
+				angles[]={0,3.6764419,0};
+			};
+			side="Empty";
+			flags=5;
+			class Attributes
+			{
+			};
+			id=1567;
+			type="Land_TentHangar_V1_F";
+		};
+		class Item308
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={11642.675,27.122509,11959.355};
+				angles[]={0,3.7511308,0};
+			};
+			side="Empty";
+			flags=5;
+			class Attributes
+			{
+			};
+			id=1568;
+			type="Land_TentHangar_V1_F";
 		};
 	};
 	class Connections

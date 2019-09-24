@@ -1,4 +1,7 @@
+private ["_allMarker", "_placementMarker", "_split", "_start", "_data"];
+
 _allMarker = allMapMarkers;
+_placementMarker = [];
 
 airportsX = [];
 spawnPoints = [];
@@ -13,11 +16,10 @@ seaAttackSpawn = [];
 detectionAreas = [];
 islands = [];
 
-_placementMarker = [];
-
 fnc_sortPlacementMarker =
 {
   params ["_array", "_split"];
+  private ["_type", "_number", "_start", "_index", "_name"];
 
   //Calculating linked main marker
   _type = "";
@@ -29,22 +31,24 @@ fnc_sortPlacementMarker =
     case ("fact"): {_type = "factory";};
     case ("seap"): {_type = "seaport";};
   };
-  _start = 1;
+
   _number = parseNumber (_split select 1);
+  _start = 1;
   if(_number != 0) then
   {
     //There is no outpost_0 or something
-    _type = format ["%1_%2", _type, _number];
     _start = 2;
+    _type = format ["%1_%2", _type, _number];
   };
 
-  //Rebuilding name
+  //Build name
   _name = _split select _start;
   for "_i" from (_start + 1) to ((count _split) - 1) do
   {
-    _name = format ["%1_%2", _name, (_split select _i)];
+    _name = format ["%1_%2", _name, _split select _i];
   };
 
+  //Seting connection
   _index = _array findIf {(_x select 0) == _type};
   if(_index == -1) then
   {
@@ -97,5 +101,9 @@ fnc_sortPlacementMarker =
   };
 } forEach _allMarker;
 
-diag_log "Marker setup done, placement marker are";
+//diag_log "Marker setup done, placement marker are";
 [_placementMarker, "Placements"] call A3A_fnc_logArray;
+
+{
+    [_x select 0, _x select 1] spawn A3A_fnc_initSpawnPlaces;
+} forEach _placementMarker;

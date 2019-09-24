@@ -1,22 +1,53 @@
-//params ["_marker"];
+#define SPACING     1
 
-//Debug, testing on isolated map
-_marker = "outpost_1";
-_vehicleMarker = ["outpost_1_vehicle", "outpost_1_vehicle_1"];
-_heliMarker = ["outpost_1_helipad"];
-_hangarMarker = ["outpost_1_hangar"];
-_mortarMarker = ["outpost_1_mortar"];
+params ["_marker", "_placementMarker"];
 
-_spacing = 1;
+private ["_vehicleMarker", "_heliMarker", "_hangarMarker", "_mortarMarker", "_markerPrefix", "_markerSplit", "_first", "_fullName"];
+
+_vehicleMarker = [];
+_heliMarker = [];
+_hangarMarker = [];
+_mortarMarker = [];
+
+//Calculating marker prefix
+_markerPrefix = "";
+_markerSplit = _marker splitString "_";
+switch (_markerSplit select 0) do
+{
+  case ("airport"): {_markerPrefix = "airp";};
+  case ("outpost"): {_markerPrefix = "outp";};
+  case ("resource"): {_markerPrefix = "reso";};
+  case ("factory"): {_markerPrefix = "fact";};
+  case ("seaport"): {_markerPrefix = "seap";};
+};
+if(count _markerSplit > 1) then
+{
+  _markerPrefix = format ["%1_%2_", _markerPrefix, _markerSplit select 1];
+};
+
+//Sort marker
+{
+  _first = (_x splitString "_") select 0;
+  _fullName = format ["%1%2", _markerPrefix, _x];
+  switch (_first) do
+  {
+    case ("vehicle"): {_vehicleMarker pushBack _fullName;};
+    case ("helipad"): {_heliMarker pushBack _fullName;};
+    case ("hangar"): {_hangarMarker pushBack _fullName;};
+    case ("mortar"): {_mortarMarker pushBack _fullName;};
+  };
+} forEach _placementMarker;
 
 if(count _vehicleMarker == 0) exitWith
 {
   diag_log format ["InitSpawnPlaces: Could not find any vehicle places on %1, aborting!", _marker];
 };
 
+private ["_markerSize", "_distance", "_buildings", "_hangars", "_helipads"];
+
 _markerSize = markerSize _marker;
-_markerSize set [0, (_markerSize select 0) / 2];
-_markerSize set [1, (_markerSize select 1) / 2];
+_markerSize set [0, (_markerSize select 0)];
+_markerSize set [1, (_markerSize select 1)];
 _distance = sqrt ((_markerSize select 0) * (_markerSize select 0) + (_markerSize select 1) * (_markerSize select 1));
 
 _buildings = nearestObjects [getMarkerPos _marker, ["Helipad_Base_F", "Land_Hangar_F", "Land_TentHangar_V1_F", "Land_Airport_01_hangar_F", "Land_ServiceHangar_01_L_F", "Land_ServiceHangar_01_R_F"], _distance, true];
@@ -40,103 +71,100 @@ _helipads = [];
 
 //Find additional helipads and hangars (maybe a unified system would be better??)
 {
+  _marker = _x;
   _markerSize = markerSize _x;
   _markerSize set [0, (_markerSize select 0) / 2];
   _markerSize set [1, (_markerSize select 1) / 2];
   _distance = sqrt ((_markerSize select 0) * (_markerSize select 0) + (_markerSize select 1) * (_markerSize select 1));
   _buildings = nearestObjects [getMarkerPos _x, ["Helipad_Base_F"], _distance, true];
   {
+    if((getPos _x) inArea _marker) then
+    {
       _helipads pushBackUnique _x;
+    };
   } forEach _buildings;
 } forEach _heliMarker;
 
 {
+  _marker = _x;
   _markerSize = markerSize _x;
   _markerSize set [0, (_markerSize select 0) / 2];
   _markerSize set [1, (_markerSize select 1) / 2];
   _distance = sqrt ((_markerSize select 0) * (_markerSize select 0) + (_markerSize select 1) * (_markerSize select 1));
   _buildings = nearestObjects [getMarkerPos _x, ["Land_Hangar_F", "Land_TentHangar_V1_F", "Land_Airport_01_hangar_F", "Land_ServiceHangar_01_L_F", "Land_ServiceHangar_01_R_F"], _distance, true];
   {
+    if((getPos _x) inArea _marker) then
+    {
       _hangars pushBackUnique _x;
+    };
   } forEach _buildings;
 } forEach _hangarMarker;
 //All additional hangar and helipads found
 
+private ["_vehicleSpawns", "_size", "_length", "_width", "_vehicleCount", "_realLength", "_realSpace", "_markerDir", "_dis", "_pos", "_heliSpawns", "_dir", "_planeSpawns", "_mortarSpawns", "_spawns"];
+
 _vehicleSpawns = [];
-_offset = 0;
 {
     _markerX = _x;
     _size = getMarkerSize _x;
     _length = (_size select 0) * 2;
     _width = (_size select 1) * 2;
-    if(_width < (4 + 2 * _spacing)) then
+    if(_width < (4 + 2 * SPACING)) then
     {
-      diag_log format ["Marker %1 is not wide enough for vehicles, required are %2 meters!", _x , (4 + 2 * _spacing)];
+      diag_log format ["InitSpawnPlaces: Marker %1 is not wide enough for vehicles, required are %2 meters!", _x , (4 + 2 * SPACING)];
     }
     else
     {
       if(_length < 10) then
       {
-          diag_log format ["Marker %1 is not long enough for vehicles, required are 10 meters!", _x];
+          diag_log format ["InitSpawnPlaces: Marker %1 is not long enough for vehicles, required are 10 meters!", _x];
       }
       else
       {
-
-        _vehicleCount = floor ((_length - _spacing) / (4 + _spacing));
+        _vehicleCount = floor ((_length - SPACING) / (4 + SPACING));
         _realLength = _vehicleCount * 4;
         _realSpace = (_length - _realLength) / (_vehicleCount + 1);
-
-        diag_log format ["Len: %1 Veh: %2 RL: %3 RS: %4", _length, _vehicleCount, _realLength, _realSpace];
-
         _markerDir = markerDir _markerX;
         for "_i" from 1 to _vehicleCount do
         {
           _dis = (_realSpace + 2 + ((_i - 1) * (4 + _realSpace))) - (_length / 2);
-          //_dis = ((_i  * (_length / _vehicleCount)) - (_length / 2));
-          diag_log format ["Dis: %1 _i: %2 Len: %3", _dis, _i, _length];
           _pos = [getMarkerPos _markerX, _dis, (_markerDir + 90)] call BIS_fnc_relPos;
           _pos set [2, (_pos select 2) + 0.1];
-
-          // _dMarker = createMarker [str (random 1000), _pos];
-          // _dMarker setMarkerShape "RECTANGLE";
-          // _dMarker setMarkerSize [2, 5];
-          // _dMarker setMarkerDir _markerDir;
-          // _dMarker setMarkerPos _pos;
-          // _dMarker setMarkerAlpha 1;
-          // _dMarker setMarkerColor "ColorWEST";
-
-          _veh = createVehicle ["B_Truck_01_transport_F", _pos, [], 0, "CAN_COLLIDE"];
-          _veh allowDamage false;
-          _veh setDir _markerDir;
+          _vehicleSpawns pushBack [[_pos, _markerDir], false];
         };
       };
     };
 } forEach _vehicleMarker;
 
-
-
-//DEBUG placing units
+_heliSpawns = [];
 {
     _pos = getPos _x;
     _pos set [2, (_pos select 2) + 0.1];
     _dir = direction _x;
-    _veh = createVehicle ["B_Heli_Light_01_F", _pos, [], 0 , "CAN_COLLIDE"];
-    _veh setDir _dir;
+    _heliSpawns pushBack [[_pos, _dir], false];
 } forEach _helipads;
 
+_planeSpawns = [];
 {
     _pos = getPos _x;
     _pos set [2, (_pos select 2) + 0.1];
     _dir = direction _x;
-    _veh = createVehicle ["B_Plane_CAS_01_F", _pos, [], 0 , "CAN_COLLIDE"];
-    _veh setDir _dir;
+    if(_x isKindOf "Land_Hangar_F" || {_x isKindOf "Land_Airport_01_hangar_F" || {_x isKindOf "Land_ServiceHangar_01_R_F"}}) then
+    {
+      //This hangar is facing the wrong way...
+      _dir = _dir + 180;
+    };
+    _planeSpawns pushBack [[_pos, _dir], false];
 } forEach _hangars;
 
+_mortarSpawns = [];
 {
   _pos = getMarkerPos _x;
   _pos set [2, (_pos select 2) + 0.1];
-  _veh = createVehicle ["B_Mortar_01_F", _pos, [], 0 , "CAN_COLLIDE"];
+  _mortarSpawns pushBack [[_pos, 0], false];
 } forEach _mortarMarker;
 
+_spawns = [_vehicleSpawns, _heliSpawns, _planeSpawns, _mortarSpawns];
 
-//hint format ["Found %1 hangar %3\nFound %2 helipads %4", count _hangars, count _helipads, str _hangars, str _helipads];
+//Saving the spawn places
+spawner setVariable [format ["%1_spawns", _marker], _spawns, true];

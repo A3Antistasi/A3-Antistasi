@@ -22,7 +22,7 @@ _currentUnitCount = 0;
 _unitsSend = [];
 
 //Hard copy, need to work on this
-_reinf = +([_target] call A3A_fnc_getNeededReinforcements);
+_reinf = +([_target] call A3A_fnc_getRequested);
 _side = sidesX getVariable [_base, sideUnknown];
 
 while {_currentUnitCount < (_maxUnitSend - 2) && {[_reinf, true] call A3A_fnc_countGarrison != 0}} do

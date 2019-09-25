@@ -14,7 +14,7 @@ if(_isAirport && {(getMarkerPos _base) distance2D (getMarkerPos _target) > dista
 _targetIsBase = (_target in outposts);
 _reinfMarker = if(_side == Occupants) then {reinforceMarkerOccupants} else {reinforceMarkerInvader};
 
-_targetReinforcements = [_target] call A3A_fnc_getNeededReinforcements;
+_targetReinforcements = [_target] call A3A_fnc_getRequested;
 _reinfCount = [_targetReinforcements, true] call A3A_fnc_countGarrison;
 
 _maxSend = garrison getVariable [format ["%1_recruit", _base], 0];

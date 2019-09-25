@@ -49,7 +49,7 @@ if(count _vehicleMarker == 0) then
   diag_log format ["InitSpawnPlaces: Could not find any vehicle places on %1!", _marker];
 };
 
-private ["_markerSize", "_distance", "_buildings", "_hangars", "_helipads"];
+private ["_markerSize", "_distance", "_buildings", "_hangars", "_helipads", "_markerX"];
 
 _markerSize = markerSize _marker;
 _distance = sqrt ((_markerSize select 0) * (_markerSize select 0) + (_markerSize select 1) * (_markerSize select 1));
@@ -75,12 +75,12 @@ _helipads = [];
 
 //Find additional helipads and hangars (maybe a unified system would be better??)
 {
-  _marker = _x;
+  _markerX = _x;
   _markerSize = markerSize _x;
   _distance = sqrt ((_markerSize select 0) * (_markerSize select 0) + (_markerSize select 1) * (_markerSize select 1));
   _buildings = nearestObjects [getMarkerPos _x, ["Helipad_Base_F"], _distance, true];
   {
-    if((getPos _x) inArea _marker) then
+    if((getPos _x) inArea _markerX) then
     {
       _helipads pushBackUnique _x;
     };
@@ -88,12 +88,12 @@ _helipads = [];
 } forEach _heliMarker;
 
 {
-  _marker = _x;
+  _markerX = _x;
   _markerSize = markerSize _x;
   _distance = sqrt ((_markerSize select 0) * (_markerSize select 0) + (_markerSize select 1) * (_markerSize select 1));
   _buildings = nearestObjects [getMarkerPos _x, ["Land_Hangar_F", "Land_TentHangar_V1_F", "Land_Airport_01_hangar_F", "Land_ServiceHangar_01_L_F", "Land_ServiceHangar_01_R_F"], _distance, true];
   {
-    if((getPos _x) inArea _marker) then
+    if((getPos _x) inArea _markerX) then
     {
       _hangars pushBackUnique _x;
     };
@@ -130,7 +130,7 @@ _vehicleSpawns = [];
             {
               _x hideObject true;
             };
-          } foreach (nearestTerrainObjects [getMarkerPos _markerX, ["Tree","Bush", "Hide", "Rock", "Fence"], _radius, true])
+          } foreach (nearestTerrainObjects [getMarkerPos _markerX, ["Tree","Bush", "Hide", "Rock", "Fence"], _radius, true]);
         }
         else
         {
@@ -139,7 +139,7 @@ _vehicleSpawns = [];
             {
               [_x,true] remoteExec ["hideObjectGlobal",2];
             }
-          } foreach (nearestTerrainObjects [getMarkerPos _markerX, ["Tree","Bush", "Hide", "Rock", "Fence"], _radius, true])
+          } foreach (nearestTerrainObjects [getMarkerPos _markerX, ["Tree","Bush", "Hide", "Rock", "Fence"], _radius, true]);
         };
 
         //Create the places
@@ -162,6 +162,18 @@ _heliSpawns = [];
 {
     _pos = getPos _x;
     _pos set [2, (_pos select 2) + 0.1];
+    if (!isMultiplayer) then
+    {
+      {
+        _x hideObject true;
+      } foreach (nearestTerrainObjects [_pos, ["Tree","Bush", "Hide", "Rock"], 5, true]);
+    }
+    else
+    {
+      {
+        [_x,true] remoteExec ["hideObjectGlobal",2];
+      } foreach (nearestTerrainObjects [_pos, ["Tree","Bush", "Hide", "Rock"], 5, true]);
+    };
     _dir = direction _x;
     _heliSpawns pushBack [[_pos, _dir], false];
 } forEach _helipads;
@@ -187,6 +199,8 @@ _mortarSpawns = [];
 } forEach _mortarMarker;
 
 _spawns = [_vehicleSpawns, _heliSpawns, _planeSpawns, _mortarSpawns];
+
+//diag_log format ["%1 set to %2", _marker, _spawns];
 
 //Saving the spawn places
 spawner setVariable [format ["%1_spawns", _marker], _spawns, true];

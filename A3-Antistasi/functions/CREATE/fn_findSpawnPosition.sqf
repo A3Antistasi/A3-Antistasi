@@ -12,7 +12,7 @@ _spawns = spawner getVariable [format ["%1_spawns", _marker], -1];
 if(_spawns isEqualType -1) exitWith
 {
   diag_log format ["%1 does not have any spawn positions set!", _marker];
-  _result;
+  -1;
 };
 [_spawns, "Spawnpoints"] call A3A_fnc_logArray;
 

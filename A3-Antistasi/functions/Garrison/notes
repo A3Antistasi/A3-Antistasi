@@ -1,0 +1,33 @@
+[DONE] A new, easy to get, definition of how units are saved on marker
+[DONE] A new system to determine which outpost needs reinforcements the most
+[DONE] A new system how reinforcements are choosen (A dead MG gunner will be replaced by another MG guy)
+[DONE] A system to improve garrisons with the war level (Can (currently not) be deactivated)
+[DONE] Groundwork for a system, which actually send units from one marker to another, not just spawning them in there (Any actions actually depletes the garrison)
+[DONE] An implementation to work within the current system for debug purposes
+[DONE] A new cyclic spawn system
+[DONE] A simple cleanup so it does not fill the data with junk
+[DONE] Integration with the current system
+[DONE] Map porting on Altis, Tanoa and Malden
+[DONE] Test it for SP, local MP and dedi MP
+
+Improvement of the cyclic spawn system
+EH for the groups to man vehicles
+Cleanup function
+Save and load mechanics
+Write the AI, which replenishes airports
+Add the functions to send troops (remove from garrison)
+Stop the AI from bypassing the economy
+
+Enabling it for player side, not only AI
+Reinforcements moves
+
+
+Optimisation for speed and data size
+
+Integration into the convoy system, to use reinforce convoys
+Improve the AI, which chooses the units
+Better troup compositions
+Balancing
+Handle statics
+Improve distance script
+Two man team (Sniper Spotter, etc.)

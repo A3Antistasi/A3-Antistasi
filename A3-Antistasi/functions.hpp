@@ -138,7 +138,7 @@ class A3A
 		class createConvoy {file="Convoy\createConvoy.sqf";};
 		class convoyMovement {file="Convoy\convoyMovement.sqf";};
 		class findAirportForAirstrike {file="Convoy\findAirportForAirstrike.sqf";};
-	
+
 		class SelectAndCreateVehicle {file="Convoy\selectAndCreateVehicle.sqf";};
 	}
 
@@ -157,6 +157,7 @@ class A3A
 		class createAIcontrols {};
 		class createAIOutposts {};
 		class createAIResources {};
+		class createAISite {};
 		class createCIV {};
 		class createFIAOutposts2 {};
 		class createSDKGarrisons {};
@@ -301,7 +302,7 @@ class A3A
 		//Public API - Call these from anywhere
 		class loadNavGrid {file="Convoy\A-star-pathfinding\loadNavGrid.sqf";};
 		class findPath {file="Convoy\A-star-pathfinding\startPathfinding.sqf";};
-		
+
 		//Private API - Do NOT call these elsewhere
 		class getMainMarkers {file="Convoy\A-star-pathfinding\getMainMarkers.sqf";};
 		class getClosestMainMarker {file="Convoy\A-star-pathfinding\getClosestMainMarker.sqf";};

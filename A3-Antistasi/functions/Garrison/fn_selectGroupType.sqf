@@ -43,7 +43,7 @@ else
     }
     else
     {
-      _result = "SQUAD";
+      _result = "GROUP";
       if(debug) then
       {
         diag_log format ["SelectGroupType: Vehicle %1 cannot transport four or more people, reconsider using another vehicle or make smaller groups possible!", _vehicle];

@@ -3,7 +3,7 @@ private ["_markerX","_vehiclesX","_groups","_soldiers","_positionX","_pos","_siz
 _markerX = _this select 0;
 
 //Not sure if that ever happens, but it reduces redundance
-if(spawner getVariable _marker == 2) exitWith {};
+if(spawner getVariable _markerX == 2) exitWith {};
 
 _vehiclesX = [];
 _groups = [];
@@ -80,7 +80,6 @@ if (_patrol) then
 		};
 		if ([_markerX,false] call A3A_fnc_fogCheck < 0.3) then {_arraygroups = _arraygroups - sniperGroups};
 		_typeGroup = selectRandom _arraygroups;
-
 		_groupX = [_positionX,_sideX, _typeGroup,false,true] call A3A_fnc_spawnGroup;
 		if !(isNull _groupX) then
 		{
@@ -234,13 +233,21 @@ else
 	};
 };
 
+//Why does the truck depends on roads?
 if (count _roads != 0) then
 {
 	//_pos = _positionX findEmptyPosition [5,_size,"I_Truck_02_covered_F"];//donde pone 5 antes ponía 10
 	_spawnParameter = [_markerX, "Vehicle"] call A3A_fnc_findSpawnPosition;
 	if (_spawnParameter isEqualType []) then
 	{
-		_typeVehX = if (_sideX == Occupants) then {if (!_isFIA) then {vehNATOTrucks + vehNATOCargoTrucks} else {[vehFIATruck]}} else {vehCSATTrucks};
+		_typeVehX = if (_sideX == Occupants) then
+		{
+			if (!_isFIA) then {vehNATOTrucks + vehNATOCargoTrucks} else {[vehFIATruck]};
+		}
+		else
+		{
+			vehCSATTrucks
+		};
 		_veh = createVehicle [selectRandom _typeVehX, (_spawnParameter select 0), [], 0, "NONE"];
 		_veh setDir (_spawnParameter select 1);
 		_vehiclesX pushBack _veh;

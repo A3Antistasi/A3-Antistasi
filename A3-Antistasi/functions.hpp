@@ -154,6 +154,7 @@ class A3A
 		class cycleSpawn {};
 		class FIAinitBases {};
 		class findSpawnPosition {};
+		class freeSpawnPositions {};
 		class garrisonReorg {};
 		class garrisonSize {};
 		class garrisonUpdate {};

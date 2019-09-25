@@ -36,9 +36,11 @@ if (spawner getVariable _markerX != 2) then
 		_max = if (_sideX == Occupants) then {1} else {2};
 		for "_i" from 1 to _max do
 			{
-			_pos = [_positionX, 50, _size, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
+			//_pos = [_positionX, 50, _size, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 			//_pos = _positionX findEmptyPosition [_size - 200,_size+50,_typeVehX];
-			_vehicle=[_pos, random 360,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
+			_spawnParameter = [_markerX, "Vehicle"] call A3A_fnc_findSpawnPosition;
+
+			_vehicle=[_spawnParameter select 0, _spawnParameter select 1,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
 			_veh = _vehicle select 0;
 			_vehCrew = _vehicle select 1;
 			{[_x,_markerX] call A3A_fnc_NATOinit} forEach _vehCrew;
@@ -136,22 +138,26 @@ _groupX = createGroup _sideX;
 _groups pushBack _groupX;
 _typeUnit = if (_sideX==Occupants) then {staticCrewOccupants} else {staticCrewInvaders};
 _typeVehX = if (_sideX == Occupants) then {NATOMortar} else {CSATMortar};
+
+_spawnParameter = [_marker, "Mortar"] call A3A_fnc_findSpawnPosition;
+while {_spawnParameter isEqualType []} do
 {
-if (spawner getVariable _markerX != 2) then
+	if (spawner getVariable _markerX != 2) then
 	{
-	_veh = _typeVehX createVehicle [0,0,1000];
-	_veh setDir (_x select 1);
-	_veh setPosATL (_x select 0);
-	_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";//TODO need delete UPSMON link
-	_unit = _groupX createUnit [_typeUnit, _positionX, [], 0, "NONE"];
-	[_unit,_markerX] call A3A_fnc_NATOinit;
-	_unit moveInGunner _veh;
-	_soldiers pushBack _unit;
-	_vehiclesX pushBack _veh;
-	_nul = [_veh] call A3A_fnc_AIVEHinit;
-	sleep 1;
+		_veh = _typeVehX createVehicle (_spawnParameter select 0);
+		_veh setDir (_spawnParameter select 1);
+		//_veh setPosATL (_spawnParameter select 0);
+		_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";//TODO need delete UPSMON link
+		_unit = _groupX createUnit [_typeUnit, _positionX, [], 0, "NONE"];
+		[_unit,_markerX] call A3A_fnc_NATOinit;
+		_unit moveInGunner _veh;
+		_soldiers pushBack _unit;
+		_vehiclesX pushBack _veh;
+		_nul = [_veh] call A3A_fnc_AIVEHinit;
+		sleep 1;
 	};
-} forEach _posMort;
+};
+
 _typeVehX = if (_sideX == Occupants) then {NATOMG} else {CSATMG};
 {
 if (spawner getVariable _markerX != 2) then
@@ -230,6 +236,7 @@ if (spawner getVariable _markerX != 2) then
 	};
 } forEach _posAT;
 
+//Helis are created here!
 _ret = [_markerX,_size,_sideX,_frontierX] call A3A_fnc_milBuildings;
 
 {[_x] call A3A_fnc_AIVEHinit} forEach (_ret select 1);

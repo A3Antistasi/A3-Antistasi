@@ -41,7 +41,7 @@ _mainMarker = getMarkerPos _marker;
     case ("hangar"): {_hangarMarker pushBack _fullName;};
     case ("mortar"): {_mortarMarker pushBack _fullName;};
   };
-  _x setMarkerAlpha 0;
+  _fullName setMarkerAlpha 0;
 } forEach _placementMarker;
 
 if(count _vehicleMarker == 0) exitWith

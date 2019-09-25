@@ -27,41 +27,59 @@ _lineIndex = 0;
   if (_vehicleType != "") then
   {
     //Array got a vehicle, spawn it in
-    //TODO add a function that chooses a logical spawn position and direction for a the given vehicle type
-    //_spawnParameter = [_marker, _vehicleType] call A3A_fnc_findSpawnPosition;
-    _spawnParameter = [getMarkerPos _marker, 0];
-    _vehicle = createVehicle [_vehicleType, _spawnParameter select 0, [], 0 , "NONE"];
-    _vehicle setDir (_spawnParameter select 1);
-    _allVehicles pushBack _vehicle;
-    _groupX addVehicle _vehicle;
-
-    //Should work as a local variable needs testing
-    _vehicle setVariable ["UnitIndex", (_lineIndex * 10 + 0)];
-    _vehicle setVariable ["UnitMarker", _marker];
-
-    //On vehicle death, remove it from garrison
-    _vehicle addEventHandler ["Killed",
+    private _spawnParameter = [];
+    if(_vehicleType isKindOf "Car") then
+    {
+      _spawnParameter = [_marker, "Vehicle"] call A3A_fnc_findSpawnPosition;
+    };
+    if(_vehicleType isKindOf "Helicopter") then
+    {
+      _spawnParameter = [_marker, "Heli"] call A3A_fnc_findSpawnPosition;
+    };
+    if(_vehicleType isKindOf "Plane") then
+    {
+      _spawnParameter = [_marker, "Plane"] call A3A_fnc_findSpawnPosition;
+    };
+    //_spawnParameter = [getMarkerPos _marker, 0];
+    if(_spawnParameter isEqualType []) then
+    {
+      _vehicle = createVehicle [_vehicleType, _spawnParameter select 0, [], 0 , "CAN_COLLIDE"];
+      _vehicle allowDamage false;
+      [_vehicle] spawn
       {
-        _vehicle = _this select 0;
-        _id = _vehicle getVariable "UnitIndex";
-        _marker = _vehicle getVariable "UnitMarker";
-        [_marker, typeOf _vehicle, _id] call A3A_fnc_addRequested;
-      }
-    ];
-    sleep 0.25;
+        sleep 3;
+        (_this select 0) allowDamage true;
+      };
+      _vehicle setDir (_spawnParameter select 1);
+      _allVehicles pushBack _vehicle;
+      _groupX addVehicle _vehicle;
 
-    //That would work perfectly with the breach script i did a PR for, without it it would just frustrate player
-    //_vehicle lock 3;
+      //Should work as a local variable needs testing
+      _vehicle setVariable ["UnitIndex", (_lineIndex * 10 + 0)];
+      _vehicle setVariable ["UnitMarker", _marker];
+
+      //On vehicle death, remove it from garrison
+      _vehicle addEventHandler ["Killed",
+        {
+          _vehicle = _this select 0;
+          _id = _vehicle getVariable "UnitIndex";
+          _marker = _vehicle getVariable "UnitMarker";
+          [_marker, typeOf _vehicle, _id] call A3A_fnc_addRequested;
+        }
+      ];
+      sleep 0.25;
+      //That would work perfectly with the breach script i did a PR for, without it it would just frustrate player
+      //_vehicle lock 3;
+    };
   };
 
   //_spawnParameter = [_marker, NATOCrew] call A3A_fnc_findSpawnPosition;
   _spawnParameter = [getMarkerPos _marker, objNull];
   {
-      _unitX = _groupX createUnit [_x, (_spawnParameter select 0), [], 5, "NONE"];
-      _allSoldiers pushBack _unitX;
-
+    _unitX = _groupX createUnit [_x, (_spawnParameter select 0), [], 5, "NONE"];
+    _allSoldiers pushBack _unitX;
       //Should work as a local variable needs testing
-      _unitX setVariable ["UnitIndex", (_lineIndex * 10 + 1)];
+    _unitX setVariable ["UnitIndex", (_lineIndex * 10 + 1)];
       _unitX setVariable ["UnitMarker", _marker];
 
       //On vehicle death, remove it from garrison

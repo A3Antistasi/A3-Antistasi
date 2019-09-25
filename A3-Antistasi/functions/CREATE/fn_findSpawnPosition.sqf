@@ -7,6 +7,7 @@ params ["_marker", "_type"];
 
 _result = getMarkerPos _marker;
 
+diag_log format ["Searching spawn position on %1 for %2", _marker, _type];
 _spawns = spawner getVariable [format ["%1_spawns", _marker], -1];
 if(_spawns isEqualType -1) exitWith
 {
@@ -63,7 +64,7 @@ else
   _result = -1;
 };
 
-//diag_log format ["Result is %1", _result];
+diag_log format ["Result is %1", _result];
 _result;
 
 

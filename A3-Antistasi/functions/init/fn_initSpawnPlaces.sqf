@@ -44,9 +44,9 @@ _mainMarker = getMarkerPos _marker;
   _fullName setMarkerAlpha 0;
 } forEach _placementMarker;
 
-if(count _vehicleMarker == 0) exitWith
+if(count _vehicleMarker == 0) then
 {
-  diag_log format ["InitSpawnPlaces: Could not find any vehicle places on %1, aborting!", _marker];
+  diag_log format ["InitSpawnPlaces: Could not find any vehicle places on %1!", _marker];
 };
 
 private ["_markerSize", "_distance", "_buildings", "_hangars", "_helipads"];

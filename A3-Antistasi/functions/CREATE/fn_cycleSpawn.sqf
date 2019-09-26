@@ -118,7 +118,7 @@ _lineIndex = 0;
       _allSoldiers pushBack _unitX;
 
       //Should work as a local variable needs testing
-      _unitX setVariable ["UnitIndex", (_lineIndex * 10 + 1)];
+      _unitX setVariable ["UnitIndex", (_lineIndex * 10 + 2)];
       _unitX setVariable ["UnitMarker", _marker];
 
       //On vehicle death, remove it from garrison

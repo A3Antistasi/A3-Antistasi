@@ -119,7 +119,14 @@ fn_RetrievePlayerStat = {
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","backpcks","ammunition","dateX", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["outpostsFIA","minesX","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","backpcks","ammunition","dateX", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","smallCAmrk","membersX","vehInGarage","destroyedBuildings","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
+[
+	"outpostsFIA","minesX","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO",
+	"prestigeCSAT","posHQ", "hr","armas","items","backpcks","ammunition","dateX", "prestigeOPFOR",
+	"prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities",
+	"garrison", ,"tasks","smallCAmrk","membersX","vehInGarage","destroyedBuildings","idlebases",
+	"idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","mrkCSAT","nextTick",
+	"bombRuns","difficultyX","gameMode","wurzelGarrison"
+];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -233,6 +240,14 @@ fn_SetStat =
 			//_markersX = markersX - outpostsFIA - controlsX - citiesX;
 			{garrison setVariable [_x select 0,_x select 1,true]} forEach _varvalue;
 			};
+		if(_varName == 'wurzelGarrison') then
+		{
+			{
+			    garrison setVariable [format ["%1_garrison", (_x select 0)], _x select 1, true];
+					garrison setVariable [format ["%1_requested", (_x select 0)], _x select 2, true];
+					garrison setVariable [format ["%1_over", (_x select 0)], _x select 3, true];
+			} forEach _varvalue;
+		};
 		if(_varName == 'outpostsFIA') then
 			{
 			if (count (_varValue select 0) == 2) then

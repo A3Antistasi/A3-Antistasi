@@ -10,7 +10,7 @@
 [DONE] Map porting on Altis, Tanoa and Malden
 [DONE] Test it for SP, local MP and dedi MP
 
-Improvement of the cyclic spawn system
+[DONE] Improvement of the cyclic spawn system
 EH for the groups to man vehicles
 Cleanup function
 Save and load mechanics
@@ -21,7 +21,6 @@ Stop the AI from bypassing the economy
 Enabling it for player side, not only AI
 Reinforcements moves
 
-
 Optimisation for speed and data size
 
 Integration into the convoy system, to use reinforce convoys
@@ -31,3 +30,4 @@ Balancing
 Handle statics
 Improve distance script
 Two man team (Sniper Spotter, etc.)
+Finalizing cyclic spawn

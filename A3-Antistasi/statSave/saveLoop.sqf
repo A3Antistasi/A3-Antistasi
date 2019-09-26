@@ -149,11 +149,22 @@ _prestigeBLUFOR = _prestigeBLUFOR + [_dataX select 3];
 
 _markersX = markersX - outpostsFIA - controlsX;
 _garrison = [];
+_wurzelGarrison = [];
+
 {
 _garrison pushBack [_x,garrison getVariable [_x,[]]];
+_wurzelGarrison pushBack
+[
+	_x,
+	garrison getVariable [format ["%1_garrison",_x], []],
+ 	garrison getVariable [format ["%1_requested",_x], []],
+	garrison getVariable [format ["%1_over", _x], []]
+];
 } forEach _markersX;
 
 ["garrison",_garrison] call fn_SaveStat;
+["wurzelGarrison", _wurzelGarrison] call fn_SaveStat;
+["usesWurzelGarrison", true] call fn_SaveStat;
 /*
 _arrayMrkMF = [];
 

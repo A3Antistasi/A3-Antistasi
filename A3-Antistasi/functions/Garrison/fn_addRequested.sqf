@@ -43,7 +43,6 @@ if(!_stockUp) then
 
   //Adding unit to element
   _element = _reinforcements select _groupID;
-  hint (str _element);
   if(_unitType != 0) then
   {
     //Adding unit
@@ -62,8 +61,10 @@ if(!_stockUp) then
   _element = _garrison select _groupID;
   if(_unitType == 0) then
   {
-    
+
   };
+
+  //This is not working properly
 
   //Setting new reinforcements
   garrison setVariable [format ["%1_requested", _marker], _reinforcements, true];

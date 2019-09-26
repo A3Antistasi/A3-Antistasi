@@ -28,7 +28,7 @@ if(_side == Occupants) then
   if(!_isFrontline && {!(_marker in airportsX)}) then
   {
     _chance = 10 min (tierWar + difficultyCoef);
-    _isMilitia = selectRandomWeighted [false, _chance, true, (10 - _chance)];
+    _isMilitia = selectRandomWeighted [false, _chance, true, (10 - _chance)]; //Well it doesn't change the units (facepalm)
   };
 };
 
@@ -64,8 +64,6 @@ if(!debug) then
   //_patrolMarker setMarkerAlphaLocal 0;
 };
 
-
-
 _typeFlag = if (_side == Occupants) then {NATOFlag} else {CSATFlag};
 _flag = createVehicle [_typeFlag, _markerPos, [], 0, "NONE"];
 _flag allowDamage false;
@@ -85,9 +83,14 @@ if(_marker in airportsX || {_marker in seaports || {_marker in outposts}}) then
   	[_box] call A3A_fnc_CSATcrate;
   };
   _box call jn_fnc_logistics_addAction;
+
+  if (_marker in seaports) then
+  {
+  	_box addItemCargo ["V_RebreatherIA", round (random 5)];
+  	_box addItemCargo ["G_I_Diving", round (random 5)];
+  };
 };
 
-[_marker, _patrolMarker] call A3A_fnc_cycleSpawn;
-
+[_marker, _patrolMarker, _flag, _box] call A3A_fnc_cycleSpawn;
 
 diag_log "Marker spawn prepared!";

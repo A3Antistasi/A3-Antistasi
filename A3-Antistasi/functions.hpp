@@ -148,6 +148,7 @@ class A3A
 		class airportCanAttack {};
 		class AIVEHinit {};
 		class ambientCivs {};
+		class calculateMarkerArea {};
 		class cargoSeats {};
 		class CIVinit {};
 		class civVEHinit {};

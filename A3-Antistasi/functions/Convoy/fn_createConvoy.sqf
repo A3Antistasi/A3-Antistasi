@@ -79,4 +79,4 @@ convoyMarker pushBack _convoyMarker;
 
 diag_log format ["CreateConvoy[%1]: Created convoy with %2 m/s and a total of %3 waypoints, marker is %4%5", _convoyID, _velocity, count _route, _markerPrefix, _markerType];
 
-[_convoyID, _route, _velocity, _units, _sideConvoy, _convoyType] spawn A3A_fnc_convoyMovement;
+[_convoyID, _route, _velocity, _units, _sideConvoy, _convoyType, (!_hasLand)] spawn A3A_fnc_convoyMovement;

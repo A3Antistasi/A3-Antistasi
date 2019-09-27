@@ -1,4 +1,4 @@
-params ["_convoyID" ,"_route", "_maxSpeed", "_units", "_sideConvoy", "_convoyType", ["_debugObject", nil]];
+params ["_convoyID" ,"_route", "_maxSpeed", "_units", "_sideConvoy", "_convoyType", "_isAir", ["_debugObject", nil]];
 
 /*  Simulates the movement of the convoy
 *   Params:
@@ -25,6 +25,7 @@ _isDebug = !(isNil "_debugObject");
 _pointsCount = count _route;
 _currentPos = _route select 0;
 
+_isSimulated = true;
 
 if(_isDebug) then {_debugObject setPos _currentPos;};
 
@@ -37,7 +38,7 @@ for "_i" from 1 to (_pointsCount - 1) do
   _movementLength = _lastPoint vectorDistance _nextPoint;
   _currentLength = 0;
 
-  while {_currentLength < _movementLength} do
+  while {_isSimulated && {_currentLength < _movementLength}} do
   {
       sleep 1;
       _currentPos = _currentPos vectorAdd _movementVector;
@@ -49,6 +50,7 @@ for "_i" from 1 to (_pointsCount - 1) do
 
       if(_isDebug && {_currentLength < _movementLength}) then {_debugObject setPos _currentPos;};
 
+      /*
       _nearMarker = markersX select {(sidesX getVariable [_x, sideUnknown] != _sideConvoy) && {getMarkerPos _x distance _currentPos < 150}};
       if(count _nearMarker > 0) then
       {
@@ -57,12 +59,30 @@ for "_i" from 1 to (_pointsCount - 1) do
           //Drove into an enemy position, spawn fight
         }
       };
+      */
+      //Currently only triggered by teamPlayer units!
+      if([distanceSPWN, 1, _currentPos, teamPlayer] call A3A_fnc_distanceUnits) then
+      {
+        _isSimulated = false;
+
+        if(!_isAir) then
+        {
+          // - 2 as it is the last point on a street
+          [_currentPos, _nextPos, _units, (_route select (_pointsCount - 2)), _sideConvoy, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
+        }
+        else
+        {
+
+        };
+      };
   };
 
   _currentPos = _nextPoint;
   _convoyMarker setMarkerPos _currentPos;
   if(_isDebug) then {_debugObject setPos _currentPos;};
 };
+
+if(!_isSimulated) exitWith {};
 
 diag_log format ["ConvoyMovement[%1]: Convoy arrived at destination!", _convoyID];
 

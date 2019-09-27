@@ -3,10 +3,10 @@ params ["_convoyID", "_units", "_origin", "_destination", "_convoyType", "_sideC
 /*  Creates a convoy for simulated movement
 *   Params:
 *     _convoyID: NUMBER; the unique convoy ID
-*     _units: ARRAY; contains the info about the units, each element has to be [veh, [cargoUnits]]
+*     _units: ARRAY; contains the info about the units, each element has to be [veh, [crew], [cargoUnits]]
 *     _origin: POS; contains the position of the starting point
 *     _destination: POS; contains the position of the end point
-*     _convoyType: STRING; contains one of "ATTACK", "PATROL" or "REINFORCE"
+*     _convoyType: STRING; contains one of "ATTACK", "PATROL" or "REINFORCE" + further
 *     _sideConvoy: SIDE; contains the side of the convoy
 *   Returns:
 *     Nothing

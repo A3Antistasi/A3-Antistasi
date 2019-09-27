@@ -93,6 +93,7 @@ if ((count _reinfPlaces == 0) and (AAFpatrols <= 3)) then {[] spawn A3A_fnc_AAFr
 	_canReinf = if(_x == Occupants) then {canReinforceOccupants} else {canReinforceInvader};
   diag_log format ["Side %1, needed %2, possible %3", _x, count _reinfMarker, count _canReinf];
 	_counter = 0;
+	_countCanReinf = count _canReinf;
 	_reinfMarker sort true;
 	{
 		_target = (_x select 1);
@@ -104,12 +105,15 @@ if ((count _reinfPlaces == 0) and (AAFpatrols <= 3)) then {[] spawn A3A_fnc_AAFr
 			_units = [_selectedBase, _target] call A3A_fnc_selectReinfUnits;
 			//Create convoy with selected units ==> Merge into convoy stuff first
 
+			[_siteX, "Reinforce", _sideX, [(_numberX == 4)]] remoteExec ["A3A_fnc_createAIAction", 2];
+
 			//For debug is direct placement
-			//diag_log format ["Reinforce %1 from %2 with %3", _target, _selectedBase, str _units];
-			//[_target, _units] call A3A_fnc_addGarrison;
+			diag_log format ["Reinforce %1 from %2", _target, _selectedBase];
+			[_units, "Reinf units"] call A3A_fnc_logArray;
+			[_target, _units] call A3A_fnc_addGarrison;
 
 			_counter = _counter + 1;
-			if(_counter >= count _canReinf) exitWith {};
+			if(_counter >= _countCanReinf) exitWith {};
 		};
 	} forEach _reinfMarker;
 } forEach [Occupants, Invaders];

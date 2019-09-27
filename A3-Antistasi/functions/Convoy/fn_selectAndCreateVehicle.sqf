@@ -26,6 +26,8 @@ if(isNil "_vehPool" || {!(_vehPool isEqualType []) || {count _vehPool == 0}}) ex
 private ["_selectedVehicle"];
 _selectedVehicle = selectRandom _vehPool;
 
+_crewUnits = if(_side == Occupants) then {NATOCrew} else {CSATCrew};
+
 while{!([_selectedVehicle] call A3A_fnc_vehAvailable)} do
 {
   _vehPool = _vehPool - [_selectedVehicle];
@@ -53,6 +55,8 @@ while{!([_selectedVehicle] call A3A_fnc_vehAvailable)} do
   };
   _selectedVehicle = selectRandom _vehPool;
 };
+_crew = [_selectedVehicle, _crewUnits] call A3A_fnc_getVehicleCrew;
+
 _typeGroup = [];
 if (!_isEasy) then
 {
@@ -73,4 +77,4 @@ else
   };
 };
 
-[[_selectedVehicle, _typeGroup], _vehPool];
+[[_selectedVehicle, _crew, _typeGroup], _vehPool];

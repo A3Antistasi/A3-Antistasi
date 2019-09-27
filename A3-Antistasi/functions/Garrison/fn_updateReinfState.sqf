@@ -13,12 +13,15 @@ private ["_ratio", "_side", "_reinfMarker", "_canReinf", "_index"];
 _ratio = [_marker] call A3A_fnc_getGarrisonRatio;
 _side = sidesX getVariable [_marker, sideUnknown];
 
+//diag_log format ["Marker %1 has a ratio of %2", _marker, _ratio];
+
 _reinfMarker = if(_side == Occupants) then {reinforceMarkerOccupants} else {reinforceMarkerInvader};
 _canReinf = if(_side == Occupants) then {canReinforceOccupants} else {canReinforceInvader};
 
 _index = _reinfMarker findIf {(_x select 1) == _marker};
 if(_ratio != 1) then
 {
+  //TODO calculate importance of target
   if(_index == -1) then
   {
     //Marker not in _reinfMarker

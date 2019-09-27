@@ -74,6 +74,8 @@ class A3A
 		class zoneCheck {};
 	};
 
+
+
 	class AI
 	{
 		class occupantInvaderUnitKilledEH {};
@@ -134,13 +136,14 @@ class A3A
 
 	class Convoy
 	{
-		class createAIAction {file="Convoy\createAIAction.sqf";};
-		class createConvoy {file="Convoy\createConvoy.sqf";};
-		class convoyMovement {file="Convoy\convoyMovement.sqf";};
-		class findAirportForAirstrike {file="Convoy\findAirportForAirstrike.sqf";};
-
-		class SelectAndCreateVehicle {file="Convoy\selectAndCreateVehicle.sqf";};
-	}
+		class convoyDebug {};
+		class convoyMovement {};
+		class createAIAction {};
+		class createConvoy {};
+		class findAirportForAirstrike {};
+		class SelectAndCreateVehicle {};
+		class spawnConvoy {};
+	};
 
 	class CREATE
 	{
@@ -301,18 +304,19 @@ class A3A
 	class Pathfinding
 	{
 		//Public API - Call these from anywhere
-		class loadNavGrid {file="Convoy\A-star-pathfinding\loadNavGrid.sqf";};
-		class findPath {file="Convoy\A-star-pathfinding\startPathfinding.sqf";};
+		class findPath {};
+		class loadNavGrid {};
+
 
 		//Private API - Do NOT call these elsewhere
-		class getMainMarkers {file="Convoy\A-star-pathfinding\getMainMarkers.sqf";};
-		class getClosestMainMarker {file="Convoy\A-star-pathfinding\getClosestMainMarker.sqf";};
-		class getNavPos {file="Convoy\A-star-pathfinding\getNavPos.sqf";};
-		class calculateH {file="Convoy\A-star-pathfinding\calculateH.sqf";};
-		class setNavOnMarker {file="Convoy\A-star-pathfinding\setNavOnMarker.sqf";};
-		class getNavConnections {file="Convoy\A-star-pathfinding\getNavConnections.sqf";};
-		class findNearestNavPoint {file="Convoy\A-star-pathfinding\findNearestNavPoint.sqf";};
-	}
+		class calculateH {};
+		class findNearestNavPoint {};
+		class getClosestMainMarker {};
+		class getMainMarkers {};
+		class getNavConnections {};
+		class getNavPos {};
+		class setNavOnMarker {};
+	};
 
 	class REINF
 	{

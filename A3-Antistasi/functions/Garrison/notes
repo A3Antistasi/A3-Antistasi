@@ -11,19 +11,18 @@
 [DONE] Test it for SP, local MP and dedi MP
 
 [DONE] Improvement of the cyclic spawn system
+[WIP] Integration into the convoy system, to use reinforce convoys
 EH for the groups to man vehicles
 Cleanup function
 [DONE] Save and load mechanics
 Write the AI, which replenishes airports
 Add the functions to send troops (remove from garrison)
-Stop the AI from bypassing the economy
 
 Enabling it for player side, not only AI
 Reinforcements moves
-
+Stop the AI from bypassing the economy
 Optimisation for speed and data size
 
-Integration into the convoy system, to use reinforce convoys
 Improve the AI, which chooses the units
 Better troup compositions
 Balancing

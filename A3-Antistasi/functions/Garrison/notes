@@ -13,7 +13,7 @@
 [DONE] Improvement of the cyclic spawn system
 EH for the groups to man vehicles
 Cleanup function
-Save and load mechanics
+[DONE] Save and load mechanics
 Write the AI, which replenishes airports
 Add the functions to send troops (remove from garrison)
 Stop the AI from bypassing the economy

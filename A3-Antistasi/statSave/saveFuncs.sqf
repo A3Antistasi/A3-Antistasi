@@ -123,7 +123,7 @@ specialVarLoads =
 	"outpostsFIA","minesX","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO",
 	"prestigeCSAT","posHQ", "hr","armas","items","backpcks","ammunition","dateX", "prestigeOPFOR",
 	"prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities",
-	"garrison", ,"tasks","smallCAmrk","membersX","vehInGarage","destroyedBuildings","idlebases",
+	"garrison" ,"tasks","smallCAmrk","membersX","vehInGarage","destroyedBuildings","idlebases",
 	"idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","mrkCSAT","nextTick",
 	"bombRuns","difficultyX","gameMode","wurzelGarrison"
 ];

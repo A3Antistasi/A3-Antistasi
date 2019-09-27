@@ -165,9 +165,10 @@ for "_i" from 1 to tierWar do
 	[] call A3A_fnc_updatePreference;
 };
 
-if(isNil "_usesWurzelGarrison") then
+if(isNil "usesWurzelGarrison") then
 {
 	//Create the garrison new
+	diag_log "No WurzelGarrison found, creating new!";
 	[airportsX, "Airport", [0,0,0]] spawn A3A_fnc_createGarrison;	//New system
 	[resourcesX, "Other", [0,0,0]] spawn A3A_fnc_createGarrison;	//New system
 	[factories, "Other", [0,0,0]] spawn A3A_fnc_createGarrison;
@@ -178,6 +179,7 @@ if(isNil "_usesWurzelGarrison") then
 else
 {
 	//Garrison save in wurzelformat, load it
+	diag_log "WurzelGarrison found, loading it!";
 	["wurzelGarrison"] call fn_LoadStat;
 };
 

@@ -69,10 +69,7 @@ diag_log format ["ConvoyMovement[%1]: WIP deleting marker as nothing happens!", 
 
 switch (_convoyType) do
 {
-  case ("Patrol"): {
-      //code
-  };
-    //cases (insertable by snippet)
+  
 };
 
 sleep 10;

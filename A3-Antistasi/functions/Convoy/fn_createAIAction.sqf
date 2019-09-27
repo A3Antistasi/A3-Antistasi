@@ -200,41 +200,33 @@ if(_type == "patrol") then
 };
 if(_type == "reinforce") then
 {
-  _arguments params ["_start", "_reinfUnits"];
-  _origin = _start;
-  _originPos = getMarkerPos _start;
-  /*
-  //Should outpost are able to reinforce to?
-  _arguments params [["_small", true]];
-  _airport = [_destination, _side] call A3A_fnc_findAirportForAirstrike;
-  if(_airport != "") then
+  _arguments params ["_canReinf"];
+  _possibleBases = _canReinf select {[_x, _destination] call A3A_fnc_shouldReinforce};
+  if((count _possibleBases) != 0) then
   {
-    _land = if ((getMarkerPos _airport) distance _destinationPos > distanceForLandAttack) then {false} else {true};
-    _typeGroup = if (_side == Occupants) then {if (_small) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_small) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
 
-    _typeVeh = "";
-    if (_land) then
-    {
-    	if (_side == Occupants) then {_typeVeh = selectRandom vehNATOTrucks} else {_typeVeh = selectRandom vehCSATTrucks};
-    }
-    else
-    {
-    	_vehPool = if (_side == Occupants) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
-    	if ((_small) and (count _vehPool > 1) and !hasIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
-    	_typeVeh = selectRandom _vehPool;
-    };
-    _origin = _airport;
-    _originPos = getMarkerPos _airport;
-    _units pushBack [_typeVeh, _typeGroup];
-    _vehicleCount = 1;
-    _cargoCount = (count _typeGroup);
+    _selectedBase = [_possibleBases, _destination] call BIS_fnc_nearestPosition;
+    //Found base to reinforce, selecting units now
+    _units = [_selectedBase, _destination] call A3A_fnc_selectReinfUnits;
+
+    _origin = _selectedBase;
+    _originPos = getMarkerPos _origin;
+
+    _countUnits = [_units, false] call A3A_fnc_countGarrison;
+
+    _vehicleCount = _vehicleCount + (_countUnits select 0);
+    _cargoCount = _cargoCount + (_countUnits select 1) + (_countUnits select 2);
+
+    //For debug is direct placement
+    //diag_log format ["Reinforce %1 from %2", _target, _selectedBase];
+    //[_units, "Reinf units"] call A3A_fnc_logArray;
+    //[_target, _units] call A3A_fnc_addGarrison;
   }
   else
   {
-    diag_log format ["CreateAIAction[%1]: Reinforcement aborted as no airport is available!", _convoyID];
+    diag_log format ["CreateAIAction[%1]: Reinforcement aborted as no base is available!", _convoyID];
     _abort = true;
   };
-  */
 };
 if(_type == "attack") then
 {
@@ -585,9 +577,10 @@ if(_type == "convoy") then
   };
 };
 
-if(_abort) exitWith {};
+if(_abort) exitWith {false};
 
 _target = if(_destination isEqualType "") then {_destination} else {str _destination};
 diag_log format ["CreateAIAction[%1]: Created AI action to %2 from %3 to %4 with %5 vehicles and %6 units", _convoyID, _type, _origin, _targetString, _vehicleCount , _cargoCount];
 
 [_convoyID, _units, _originPos, _destinationPos, _type, _side] spawn A3A_fnc_createConvoy;
+true;

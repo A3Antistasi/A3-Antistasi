@@ -65,12 +65,8 @@ for "_i" from 1 to (_pointsCount - 1) do
 };
 
 diag_log format ["ConvoyMovement[%1]: Convoy arrived at destination!", _convoyID];
-diag_log format ["ConvoyMovement[%1]: WIP deleting marker as nothing happens!", _convoyID];
 
-switch (_convoyType) do
-{
-  
-};
+[_convoyID, (_route select 0), (_route select (_pointsCount - 1)), _units, _sideConvoy, _convoyType] spawn A3A_fnc_onConvoyArrival;
 
 sleep 10;
 deleteMarker _convoyMarker;

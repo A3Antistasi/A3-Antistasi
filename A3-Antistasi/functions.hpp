@@ -141,6 +141,7 @@ class A3A
 		class createAIAction {};
 		class createConvoy {};
 		class findAirportForAirstrike {};
+		class onConvoyArrival {};
 		class SelectAndCreateVehicle {};
 		class spawnConvoy {};
 	};

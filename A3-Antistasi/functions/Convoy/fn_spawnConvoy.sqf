@@ -36,6 +36,14 @@ _allGroups = [];
 _allVehicles = [];
 _allSoldiers = [];
 
+/*
+_helis = [];
+_cars = [];
+*/
+
+diag_log "Spawning in convoy";
+[_units, "Convoy Units"] call A3A_fnc_logArray;
+
 for "_i" from 0 to ((count _units) - 1) do
 {
   _unitLine = [];
@@ -60,20 +68,45 @@ for "_i" from 0 to ((count _units) - 1) do
     {
       _vehicle engineOn true;
     };
-    _groupX addVehicle _vehicle;
+    _group addVehicle _vehicle;
     _allVehicles pushBack _vehicle;
     //Currently not, as it locks the vehicle from the pool, which should happen before
     //[_vehicle] call A3A_fnc_AIVEHinit;
   };
   _unitLine set [0, _vehicle];
 
+
+  _allTurrets = allTurrets [_vehicle, false];
+  _possibleSeats = [];
+  {
+    if(count _x == 1) then
+    {
+      _possibleSeats pushBack _x;
+    };
+  } forEach _allTurrets;
   _crew = _data select 1;
   _crewObjects = [];
   {
-      _unit = _group createUnit [_x, _group, [], 0, "CARGO"];
+      _unit = _group createUnit [_x, _pos, [], 0, "NONE"];
       if(!isNull _vehicle) then
       {
-        _unit moveInAny _vehicle;
+        if(isNull (driver _vehicle)) then
+        {
+          _unit moveInDriver _vehicle;
+          _unit doMove _target;
+        }
+        else
+        {
+          if(isNull (commander _vehicle)) then
+          {
+            _unit moveInCommander _vehicle;
+          };
+        };
+        if(isNull (objectParent _unit)) then
+        {
+          _seat = _possibleSeats deleteAt 0;
+          _unit moveInTurret [_vehicle, _seat];
+        };
       }
       else
       {
@@ -83,10 +116,13 @@ for "_i" from 0 to ((count _units) - 1) do
       [_unit] call A3A_fnc_NATOinit;
       _crewObjects pushBack _unit;
       _allSoldiers pushBack _unit;
-      sleep 0.1;
+      sleep 0.2;
   } forEach _crew;
   _unitLine set [1, _crewObjects];
-  sleep 0.25;
+
+  _group move _target;
+
+  sleep 0.5;
 
   _cargo = _data select 2;
 
@@ -99,10 +135,10 @@ for "_i" from 0 to ((count _units) - 1) do
 
   _cargoObjects = [];
   {
-      _unit = _group createUnit [_x, _group, [], 0, "CARGO"];
+      _unit = _group createUnit [_x, _pos, [], 0, "CARGO"];
       if(!isNull _vehicle) then
       {
-        _unit moveInAny _vehicle;
+        _unit moveInCargo _vehicle;
       }
       else
       {
@@ -112,10 +148,27 @@ for "_i" from 0 to ((count _units) - 1) do
       [_unit] call A3A_fnc_NATOinit;
       _cargoObjects pushBack _unit;
       _allSoldiers pushBack _unit;
-      sleep 0.1;
+      sleep 0.2;
   } forEach _cargo;
   _unitLine set [2, _cargoObjects];
   sleep 0.25;
 
-  waitUntil {sleep 0.5; ((_vehicle distance2D _pos) > 8)};
+  _spawnedUnits pushBack _unitLine;
+
+  if(_vehicle != objNull) then
+  {
+    if(_i == 1 && {_type == "convoy"}) then
+    {
+      _vehicle setConvoySeparation 80;
+    };
+    _vehicle setConvoySeparation 30;
+  };
+
+
+
+  waitUntil {sleep 0.5; ((_vehicle distance2D _pos) > 10)};
 };
+
+{
+    _x limitSpeed _maxSpeed;
+} forEach _allVehicles;

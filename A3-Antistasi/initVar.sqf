@@ -779,6 +779,7 @@ unlockedItems append
 	"ItemWatch",
 	"ItemCompass",
 	"ToolKit",
+	"ItemGPS",
 	"H_Booniehat_khk",
 	"H_Booniehat_oli",
 	"H_Booniehat_grn",
@@ -812,8 +813,7 @@ unlockedItems append
 	"G_Tactical_Black",
 	"G_Aviator",
 	"G_Shades_Black",
-	"acc_flashlight",
-	"itemGPS"
+	"acc_flashlight"
 	];
 
 //Temporary starting vests fix while I class items properly

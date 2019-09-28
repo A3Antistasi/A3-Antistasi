@@ -372,9 +372,9 @@ fn_SetStat =
 		if(_varname == 'tasks') then
 			{
 			{
-			if (_x == "AttackAAF") then
+			if (_x == "rebelAttack") then
 				{
-				[] call A3A_fnc_attackAAF;
+				[] call A3A_fnc_rebelAttack;
 				}
 			else
 				{

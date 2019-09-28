@@ -67,8 +67,8 @@ for "_i" from 1 to (_pointsCount - 1) do
 
         if(!_isAir) then
         {
-          // - 2 as it is the last point on a street
-          [_currentPos, _nextPos, _units, (_route select (_pointsCount - 2)), _sideConvoy, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
+          // - 2 as it is the last point on a street (or maybe not needs testing)
+          [_currentPos, _nextPos, _units, (_route select (_pointsCount - 1)), _sideConvoy, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
         }
         else
         {

@@ -65,9 +65,10 @@ for "_i" from 1 to (_pointsCount - 1) do
       {
         _isSimulated = false;
 
+        deleteMarker _convoyMarker;
         hint "Spawning in land convoy";
         // - 2 as it is the last point on a street (or maybe not needs testing)
-        [_currentPos, _nextPoint, _units, (_route select (_pointsCount - 1)), _sideConvoy, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
+        [_convoyID, _currentPos, _nextPoint, _units, (_route select (_pointsCount - 1)), _sideConvoy, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
 
         if(!_isAir) then
         {

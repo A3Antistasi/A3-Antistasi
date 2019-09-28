@@ -1,4 +1,4 @@
-params ["_pos", "_nextPos", "_units", "_target", "_side", "_type", "_maxSpeed"];
+params ["_convoyID", "_pos", "_nextPos", "_units", "_target", "_side", "_type", "_maxSpeed"];
 
 //Find near road segments
 _road = roadAt _pos;
@@ -164,11 +164,90 @@ for "_i" from 0 to ((count _units) - 1) do
     _vehicle setConvoySeparation 30;
   };
 
-
-
   waitUntil {sleep 0.5; ((_vehicle distance2D _pos) > 10)};
 };
 
 {
     _x limitSpeed _maxSpeed;
 } forEach _allVehicles;
+
+_convoyData = [];
+_currentPos = [];
+for "_i" from 0 to ((count _spawnedUnits) - 1) do
+{
+  _data = _spawnedUnits select _i;
+  _vehicle = _data select 0;
+  _crew = _data select 1;
+  _cargo = _data select 2;
+
+  _convoyLine = [];
+
+  if(!isNull _vehicle) then
+  {
+    waitUntil {sleep 2; !([distanceSPWN * 1.2, 1, getPos _vehicle, teamPlayer] call A3A_fnc_distanceUnits)};
+    if(_currentPos isEqualTo []) then
+    {
+      _currentPos = getPos _vehicle;
+    };
+    _vehicle setVelocity [0,0,0];
+    if(alive _vehicle) then
+    {
+      _convoyLine set [0, typeOf _vehicle];
+    }
+    else
+    {
+      _convoyLine set [0, ""];
+    };
+    deleteVehicle _vehicle;
+  }
+  else
+  {
+    _convoyLine set [0, ""];
+  };
+
+  _crewData = [];
+  if(count _crew > 0) then
+  {
+    //Short times, units are falling out of the sky
+    waitUntil {sleep 0.25; !([distanceSPWN * 1.2, 1, getPos (leader (_crew select 0)), teamPlayer] call A3A_fnc_distanceUnits)};
+    if(_currentPos isEqualTo []) then
+    {
+      _currentPos = getPos (_crew select 0);
+    };
+    {
+      if(alive _x) then
+      {
+        _crewData pushBack (typeOf _x);
+        deleteVehicle _x;
+      };
+    } forEach _crew;
+  };
+  _convoyLine set [1, _crewData];
+
+  _cargoData = [];
+  if(count _cargo > 0) then
+  {
+    //Short times, units are falling out of the sky
+    waitUntil {sleep 0.25; !([distanceSPWN, 1, getPos (leader (_cargo select 0)), teamPlayer] call A3A_fnc_distanceUnits)};
+    if(_currentPos isEqualTo []) then
+    {
+      _currentPos = getPos (_cargo select 0);
+    };
+    {
+      if(alive _x) then
+      {
+        _cargoData pushBack (typeOf _x);
+        deleteVehicle _x;
+      };
+    } forEach _cargo;
+  };
+  _convoyLine set [2, _cargoData];
+
+  _convoyData pushBack _convoyLine;
+};
+
+{
+    deleteGroup _x;
+} forEach _allGroups;
+
+[_convoyID, _convoyData, _currentPos, _target, _type, _side] spawn A3A_fnc_createConvoy;

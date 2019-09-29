@@ -8,7 +8,7 @@ _unit setVariable ["spawner",true,true];
 _unit allowFleeing 0;
 _typeX = typeOf _unit;
 
-_skill = (0.7 + (0.01 * skillFIA)) / skillMult;
+_skill = (0.6 / skillMult + 0.015 * skillFIA);
 if (!activeGREF) then {if (not((uniform _unit) in uniformsSDK)) then {[_unit] call A3A_fnc_reDress}};
 
 //if ((!isMultiplayer) and (leader _unit == theBoss)) then {_skill = _skill + 0.1};
@@ -133,8 +133,8 @@ else
 		};
 	};
 
-//_unit setUnitTrait ["camouflageCoef",0.8];
-//_unit setUnitTrait ["audibleCoef",0.8];
+_unit setUnitTrait ["camouflageCoef",0.8];
+_unit setUnitTrait ["audibleCoef",0.8];
 
 _unit selectWeapon (primaryWeapon _unit);
 

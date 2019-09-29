@@ -191,9 +191,10 @@ if !(hasIFA) then
 			if (_lamp != "") then
 				{
 				_unit enableGunLights "AUTO";
-				//_unit setskill ["spotDistance",_skill - 0.2];
-				//_unit setskill ["spotTime",_skill - 0.2];
 				};
+			//Reduce their magical night-time spotting powers.
+			_unit setskill ["spotDistance", _skill * 0.7];
+			_unit setskill ["spotTime", _skill * 0.5];
 			};
 		}
 	else

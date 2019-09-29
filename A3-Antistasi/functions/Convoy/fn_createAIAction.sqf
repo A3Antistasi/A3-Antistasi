@@ -209,18 +209,26 @@ if(_type == "reinforce") then
     //Found base to reinforce, selecting units now
     _units = [_selectedBase, _destination] call A3A_fnc_selectReinfUnits;
 
-    _origin = _selectedBase;
-    _originPos = getMarkerPos _origin;
+    if(_units isEqualTo []) then
+    {
+      diag_log format ["CreateAIAction[%1]: No units given for reinforcements!", _convoyID];
+      _abort = true;
+    }
+    else
+    {
+      _origin = _selectedBase;
+      _originPos = getMarkerPos _origin;
 
-    _countUnits = [_units, false] call A3A_fnc_countGarrison;
+      _countUnits = [_units, false] call A3A_fnc_countGarrison;
 
-    _vehicleCount = _vehicleCount + (_countUnits select 0);
-    _cargoCount = _cargoCount + (_countUnits select 1) + (_countUnits select 2);
+      _vehicleCount = _vehicleCount + (_countUnits select 0);
+      _cargoCount = _cargoCount + (_countUnits select 1) + (_countUnits select 2);
 
-    //For debug is direct placement
-    //diag_log format ["Reinforce %1 from %2", _target, _selectedBase];
-    //[_units, "Reinf units"] call A3A_fnc_logArray;
-    //[_target, _units] call A3A_fnc_addGarrison;
+      //For debug is direct placement
+      //diag_log format ["Reinforce %1 from %2", _target, _selectedBase];
+      //[_units, "Reinf units"] call A3A_fnc_logArray;
+      //[_target, _units] call A3A_fnc_addGarrison;
+    };
   }
   else
   {

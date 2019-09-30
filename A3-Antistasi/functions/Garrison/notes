@@ -10,22 +10,33 @@
 [DONE] Map porting on Altis, Tanoa and Malden
 [DONE] Test it for SP, local MP and dedi MP
 
+================================================================================
+MERGED INTO UNSTABLE AND TESTED BY POT
+================================================================================
+
 [DONE] Improvement of the cyclic spawn system
 [DONE] Integration into the convoy system, to use reinforce convoys
-[WIP] Improve the convoy system to spawn convoys
+[DONE] Improve the convoy system to spawn convoys
+[DONE] Save and load mechanics
+Add mechanic on convoy arrival
+[DONE] On marker change mechanic
+[DONE] Write the "AI", which replenishes airports
+
+================================================================================
+SPLIT HERE FOR PR 2.2
+================================================================================
+
+Improve patrol detection
+Add check for units to be marked unavailable, if the outpost is not suited to have them
 EH for the groups to man vehicles
 Cleanup function
-[DONE] Save and load mechanics
-Write the AI, which replenishes airports
 Add the functions to send troops (remove from garrison)
-
 Enabling it for player side, not only AI
 Reinforcements moves
 Stop the AI from bypassing the economy
 Optimisation for speed and data size
 Improve the convoy system to handle fights
 Rework unit detection system
-
 Improve the AI, which chooses the units
 Better troup compositions
 Balancing
@@ -36,3 +47,4 @@ Two man team (Sniper Spotter, etc.)
 Improve the convoy system to handle attacks
 Find a way to assign squadleader properly
 Finalizing cyclic spawn
+Improve the replenish function to get actual results

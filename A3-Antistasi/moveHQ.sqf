@@ -4,6 +4,7 @@ if ((count weaponCargo boxX >0) or (count magazineCargo boxX >0) or (count itemC
 
 petros enableAI "MOVE";
 petros enableAI "AUTOTARGET";
+petros enableAI "AUTOCOMBAT";
 
 [petros,"remove"] remoteExec ["A3A_fnc_flagaction",0,petros];
 //removeAllActions petros;

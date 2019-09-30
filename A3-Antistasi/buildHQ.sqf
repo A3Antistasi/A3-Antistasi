@@ -11,6 +11,9 @@ if (petros != (leader group petros)) then
 petros switchAction "PlayerStand";
 petros disableAI "MOVE";
 petros disableAI "AUTOTARGET";
+petros disableAI "AUTOCOMBAT";
+petros allowFleeing 0;
+petros setBehaviour "CARELESS";
 
 [getPos petros] call A3A_fnc_relocateHQObjects;
 

@@ -669,6 +669,9 @@ petros setIdentity "friendlyX";
 petros setName "Petros";
 petros disableAI "MOVE";
 petros disableAI "AUTOTARGET";
+petros disableAI "AUTOCOMBAT";
+petros allowFleeing 0;
+petros setBehaviour "CARELESS";
 [petros,"mission"] call A3A_fnc_flagaction;
 
 disableSerialization;

@@ -7,7 +7,7 @@ antistasiVersion = localize "STR_antistasi_credits_generic_version_text";
 // INITIAL SETTING AND VARIABLES ///
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Initial Variables",servertime];
-debug = false;													//debug variable, not useful for everything..
+debug = false;													//debug variable, useful for something..
 diagOn = false;												//Turn on Diag_log messaging (unused - PBP)
 cleantime = 3600;												//time to delete dead bodies, vehicles etc..
 distanceSPWN = 1000;											//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
@@ -1138,6 +1138,7 @@ revealX = false;
 prestigeIsChanging = false;
 napalmCurrent = false;
 tierWar = 1;
+
 haveNV = false;
 zoneCheckInProgress = false;
 garrisonIsChanging = false;
@@ -1150,6 +1151,24 @@ vehInGarage = [];
 destroyedBuildings = [];
 reportedVehs = [];
 playerHasBeenPvP = [];
+
+//Reinforcement logic
+reinforceMarkerOccupants = [];
+reinforceMarkerInvader = [];
+canReinforceOccupants = [];
+canReinforceInvader = [];
+
+//Garrison logic
+tierPreference = 1;
+cityUpdateTiers = [4, 8];
+cityStaticsTiers = [0.2, 1];
+airportUpdateTiers = [3, 6, 8];
+airportStaticsTiers = [0.5, 0.75, 1];
+outpostUpdateTiers = [4, 7, 9];
+outpostStaticsTiers = [0.4, 0.7, 1];
+otherUpdateTiers = [3, 7];
+otherStaticsTiers = [0.3, 1];
+[] call A3A_fnc_initPreference;
 
 ////////////////////////////////////
 // DECLARE VARIBALES FOR CLIENTS ///

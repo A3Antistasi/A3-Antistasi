@@ -161,7 +161,11 @@ class A3A
 		class createFIAOutposts2 {};
 		class createSDKGarrisons {};
 		class createSDKgarrisonsTemp {};
+		class CSATpunish {};
+		class cycleSpawn {};
 		class FIAinitBases {};
+		class findSpawnPosition {};
+		class freeSpawnPositions {};
 		class garrisonReorg {};
 		class garrisonSize {};
 		class garrisonUpdate {};
@@ -223,6 +227,33 @@ class A3A
 		class vehPlacementCancel {};
 		class vehPlacementChangeVehicle {};
 		class vehPlacementCleanup {};
+	};
+
+	class Garrison
+	{
+		class addGarrison {};
+		class addRequested {};
+		class checkGroupType {};
+		class checkVehicleType {};
+		class countGarrison {};
+		class createGarrison {};
+		class createGarrisonLine {};
+		class getGarrison {};
+		class getGarrisonRatio {};
+		class getGarrisonStatus {};
+		class getRequested {};
+		class getVehicleCrew {};
+		class initPreference {};
+		class logArray {};
+		class replenishGarrison {};
+		class selectGroupType {};
+		class selectReinfUnits {};
+		class selectVehicleType {};
+		class shouldReinforce {};
+		class updateGarrison {};
+		class updatePreference {};
+		class updateReinfState {};
+		class updateVehicles {};
 	};
 
 	class Missions
@@ -350,5 +381,7 @@ class A3A
 	class init
 	{
 		class getArrayMrks {};
+		class initSpawnPlaces {};
+		class prepareMarkerArrays {};
 	};
 };

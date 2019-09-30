@@ -161,7 +161,6 @@ class A3A
 		class createFIAOutposts2 {};
 		class createSDKGarrisons {};
 		class createSDKgarrisonsTemp {};
-		class CSATpunish {};
 		class cycleSpawn {};
 		class FIAinitBases {};
 		class findSpawnPosition {};

@@ -123,6 +123,11 @@ if(_isTank) then
   _damageDealt = 0.25 + random 0.25;
 };
 
+//Added as the vehicle might blow up. Best not to blow up in the player's face.
+//Pause AFTER removing the explosive in case they decide to drop it or something.
+["Breaching in 10 seconds."] remoteExec ["hint",_caller];
+sleep 10;
+
 private _hitPointsConfigPath = configFile >> "CfgVehicles" >> (typeOf _vehicle) >> "HitPoints";
 
 private _hullHitPoint = getText (_hitPointsConfigPath >> "HitHull" >> "name");

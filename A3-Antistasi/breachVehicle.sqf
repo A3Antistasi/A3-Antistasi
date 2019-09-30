@@ -16,32 +16,40 @@ _isTank = (typeOf _vehicle) in vehTanks;
 _magazines = magazines _caller;
 _explosive = "";
 _abort = false;
-if(_isAPC) then
-{
-  _index = _magazines findIf {_x in breachExplosiveSmall};
-  if(_index == -1) then
-  {
-    _abort = true;
-    hint "You need a small explosive charge to breach an APC open!";
-  }
-  else
-  {
-    _explosive = _magazines select _index;
-  };
+
+switch (true) do {
+	case _isAPC: {
+	  _index = _magazines findIf {_x in breachExplosiveSmall};
+	  if(_index == -1) then
+	  {
+		_abort = true;
+		hint "You need a small explosive charge to breach an APC open!";
+	  }
+	  else
+	  {
+		_explosive = _magazines select _index;
+	  };
+	};
+	
+	case _isTank: {
+	  _index = _magazines findIf {_x in breachExplosiveLarge};
+	  if(_index == -1) then
+	  {
+		_abort = true;
+		hint "You need a large explosive charge to breach a tank open!";
+	  }
+	  else
+	  {
+		_explosive = _magazines select _index;
+	  };	
+	};
+	
+	default {
+		_abort = true;
+		hint "You can only breach APCs and Tanks."; 
+	};
 };
-if(_isTank) then
-{
-  _index = _magazines findIf {_x in breachExplosiveLarge};
-  if(_index == -1) then
-  {
-    _abort = true;
-    hint "You need a large explosive charge to breach a tank open!";
-  }
-  else
-  {
-    _explosive = _magazines select _index;
-  };
-};
+
 if(_abort) exitWith {};
 
 private ["_time", "_action"];
@@ -125,7 +133,7 @@ if(_isTank) then
 
 //Added as the vehicle might blow up. Best not to blow up in the player's face.
 //Pause AFTER removing the explosive in case they decide to drop it or something.
-["Breaching in 10 seconds."] remoteExec ["hint",_caller];
+hint "Breaching in 10 seconds.";
 sleep 10;
 
 private _hitPointsConfigPath = configFile >> "CfgVehicles" >> (typeOf _vehicle) >> "HitPoints";

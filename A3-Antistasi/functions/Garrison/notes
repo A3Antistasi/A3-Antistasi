@@ -18,14 +18,17 @@ MERGED INTO UNSTABLE AND TESTED BY POT
 [DONE] Integration into the convoy system, to use reinforce convoys
 [DONE] Improve the convoy system to spawn convoys
 [DONE] Save and load mechanics
-Add mechanic on convoy arrival
+[WIP] Add mechanic on convoy arrival
 [DONE] On marker change mechanic
 [DONE] Write the "AI", which replenishes airports
+Rework AIVehInit to work for convoy vehicles
 
 ================================================================================
 SPLIT HERE FOR PR 2.2
 ================================================================================
 
+Clean up code
+Add code documentation
 Improve patrol detection
 Add check for units to be marked unavailable, if the outpost is not suited to have them
 EH for the groups to man vehicles
@@ -48,3 +51,4 @@ Improve the convoy system to handle attacks
 Find a way to assign squadleader properly
 Finalizing cyclic spawn
 Improve the replenish function to get actual results
+Reorder convoys on despawn (Reassign vehicles if one is destroyed and so on)

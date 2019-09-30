@@ -36,10 +36,10 @@ _allGroups = [];
 _allVehicles = [];
 _allSoldiers = [];
 
-/*
+
 _helis = [];
 _cars = [];
-*/
+
 
 diag_log "Spawning in convoy";
 [_units, "Convoy Units"] call A3A_fnc_logArray;
@@ -58,10 +58,12 @@ for "_i" from 0 to ((count _units) - 1) do
     if(!(_vehicleType isKindOf "Air")) then
     {
       _vehicle = createVehicle [_vehicleType, _pos, [], 0 , "CAN_COLLIDE"];
+      _cars pushBack _vehicle;
     }
     else
     {
       _vehicle = createVehicle [_vehicleType, _pos, [], 0 , "FLY"];
+      _helis pushBack _vehicle;
     };
     _vehicle setDir _dir;
     if(!(_vehicleType isKindOf "StaticWeapons")) then
@@ -160,16 +162,25 @@ for "_i" from 0 to ((count _units) - 1) do
     if(_i == 1 && {_type == "convoy"}) then
     {
       _vehicle setConvoySeparation 80;
+    }
+    else
+    {
+      _vehicle setConvoySeparation 30;
     };
-    _vehicle setConvoySeparation 30;
   };
-
   waitUntil {sleep 0.5; ((_vehicle distance2D _pos) > 10)};
 };
 
 {
     _x limitSpeed _maxSpeed;
 } forEach _allVehicles;
+
+if(count _cars > 0) then
+{
+  {
+      [selectRandom _cars, _x, _target, _maxSpeed * 1.1] call A3A_fnc_followVehicle;
+  } forEach _helis;
+};
 
 _convoyData = [];
 _currentPos = [];
@@ -182,9 +193,48 @@ for "_i" from 0 to ((count _spawnedUnits) - 1) do
 
   _convoyLine = [];
 
+  //Deleting cargo first
+  _cargoData = [];
+  if(count _cargo > 0) then
+  {
+    waitUntil {sleep 2; !([distanceSPWN * 1.2, 1, getPos (leader (_cargo select 0)), teamPlayer] call A3A_fnc_distanceUnits)};
+    if(_currentPos isEqualTo []) then
+    {
+      _currentPos = getPos (_cargo select 0);
+    };
+    {
+      if(alive _x) then
+      {
+        _cargoData pushBack (typeOf _x);
+        deleteVehicle _x;
+      };
+    } forEach _cargo;
+  };
+  _convoyLine set [2, _cargoData];
+
+  //Deleting crew after it
+  _crewData = [];
+  if(count _crew > 0) then
+  {
+    waitUntil {sleep 0.25; !([distanceSPWN * 1.2, 1, getPos (leader (_crew select 0)), teamPlayer] call A3A_fnc_distanceUnits)};
+    if(_currentPos isEqualTo []) then
+    {
+      _currentPos = getPos (_crew select 0);
+    };
+    {
+      if(alive _x) then
+      {
+        _crewData pushBack (typeOf _x);
+        deleteVehicle _x;
+      };
+    } forEach _crew;
+  };
+  _convoyLine set [1, _crewData];
+
+  //Deleting vehicle last
   if(!isNull _vehicle) then
   {
-    waitUntil {sleep 2; !([distanceSPWN * 1.2, 1, getPos _vehicle, teamPlayer] call A3A_fnc_distanceUnits)};
+    waitUntil {sleep 0.25; !([distanceSPWN * 1.2, 1, getPos _vehicle, teamPlayer] call A3A_fnc_distanceUnits)};
     if(_currentPos isEqualTo []) then
     {
       _currentPos = getPos _vehicle;
@@ -204,44 +254,6 @@ for "_i" from 0 to ((count _spawnedUnits) - 1) do
   {
     _convoyLine set [0, ""];
   };
-
-  _crewData = [];
-  if(count _crew > 0) then
-  {
-    //Short times, units are falling out of the sky
-    waitUntil {sleep 0.25; !([distanceSPWN * 1.2, 1, getPos (leader (_crew select 0)), teamPlayer] call A3A_fnc_distanceUnits)};
-    if(_currentPos isEqualTo []) then
-    {
-      _currentPos = getPos (_crew select 0);
-    };
-    {
-      if(alive _x) then
-      {
-        _crewData pushBack (typeOf _x);
-        deleteVehicle _x;
-      };
-    } forEach _crew;
-  };
-  _convoyLine set [1, _crewData];
-
-  _cargoData = [];
-  if(count _cargo > 0) then
-  {
-    //Short times, units are falling out of the sky
-    waitUntil {sleep 0.25; !([distanceSPWN, 1, getPos (leader (_cargo select 0)), teamPlayer] call A3A_fnc_distanceUnits)};
-    if(_currentPos isEqualTo []) then
-    {
-      _currentPos = getPos (_cargo select 0);
-    };
-    {
-      if(alive _x) then
-      {
-        _cargoData pushBack (typeOf _x);
-        deleteVehicle _x;
-      };
-    } forEach _cargo;
-  };
-  _convoyLine set [2, _cargoData];
 
   _convoyData pushBack _convoyLine;
 };

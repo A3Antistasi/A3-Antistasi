@@ -113,7 +113,9 @@ if
 {
 	hint "Breaching cancelled";
   _caller setVariable ["cancelBreach",nil];
-  if(alive _vehicle) then {_vehicle addAction ["Breach Vehicle", {[_this select 0, _this select 1, _this select 2] execVM "breachVehicle.sqf"},nil,4,false,true,"","(isPlayer _this)",5];};
+  if(alive _vehicle) then {
+	_vehicle call A3A_fnc_addActionBreachVehicle;
+  };
 };
 
 private ["_damageDealt", "_currentDamage", "_result", "_bomb", "_crew", "_dropPos"];

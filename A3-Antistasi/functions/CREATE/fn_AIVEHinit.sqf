@@ -9,7 +9,7 @@ _typeX = typeOf _veh;
 
 if ((_typeX in vehNormal) or (_typeX in vehAttack) or (_typeX in vehBoats)) then
 {
-	_veh addAction ["Breach Vehicle", {[_this select 0, _this select 1, _this select 2] execVM "breachVehicle.sqf"},nil,4,false,true,"","(isPlayer _this) && (_this == vehicle _this)",5];
+	_veh call A3A_fnc_addActionBreachVehicle;
 
 	_veh addEventHandler ["Killed",
 		{

@@ -2,6 +2,7 @@ class A3A
 {
 	class Base
 	{
+		class addActionBreachVehicle {};
 		class addHC {};
 		class addTimeForIdle {};
 		class AILoadInfo {};
@@ -64,6 +65,7 @@ class A3A
 		class sellVehicle {};
 		class setMarkerAlphaForSide {};
 		class sizeMarker {};
+		class startBreachVehicle {};
 		class statistics {};
 		class stripGearFromLoadout {};
 		class teleportVehicleToBase {};

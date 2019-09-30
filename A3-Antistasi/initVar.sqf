@@ -737,9 +737,9 @@ if (hasRHS and !hasIFA) then
 
 		//These are needed for breaching vehicles
 		"rhs_ec200_mag",
-		"rhs_ec200_camo_mag",
+		"rhs_ec200_sand_mag",
 		"rhs_ec400_mag",
-		"rhs_ec400_camo_mag"
+		"rhs_ec400_sand_mag"
 		];
 	}
 	else
@@ -762,8 +762,8 @@ breachExplosiveSmall = ["DemoCharge_Remote_Mag"];
 breachExplosiveLarge = ["SatchelCharge_Remote_Mag"];
 if(hasRHS && !hasIFA) then
 {
-	breachExplosiveSmall = ["rhs_ec200_mag", "rhs_ec200_camo_mag"];
-	breachExplosiveLarge = ["rhs_ec400_mag", "rhs_ec400_camo_mag"];
+	breachExplosiveSmall = ["rhs_ec200_mag", "rhs_ec200_sand_mag"];
+	breachExplosiveLarge = ["rhs_ec400_mag", "rhs_ec400_sand_mag", "rhsusf_m112_mag"];
 }
 else
 {

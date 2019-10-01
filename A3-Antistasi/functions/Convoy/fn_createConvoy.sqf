@@ -45,7 +45,7 @@ if(_velocity == 999999) then
 
 //Convert km/h into m/s
 _velocity = (_velocity / 3.6);
-_route = nil;
+_route = [];
 _type = "";
 
 if(_hasAir && {!_hasLand}) then
@@ -59,6 +59,10 @@ else
   //Convoy is either pure land or combined air and land find way
   _route = [_origin, _destination] call A3A_fnc_findPath;
   if(_hasAir) then {_type = "Mixed"} else {_type = "Land"};
+};
+
+if (_route isEqualTo []) exitWith {
+	diag_log format ["CreateConvoy[%1]: Unable to create convoy, no valid path. HasAir: %1, HasLand: %2", _convoyID, _hasAir, _hasLand];
 };
 
 _markerPrefix = if(colorTeamPlayer == "colorGUER") then {"b"} else {"n"};

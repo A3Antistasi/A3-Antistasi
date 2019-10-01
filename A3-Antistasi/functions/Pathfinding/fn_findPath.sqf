@@ -1,6 +1,9 @@
 params ["_startPos" , "_endPos", "_avoid"];
 
-if(isNil "roadDataDone") exitWith {diag_log "Pathfinding: Road data base not loaded, aborting pathfinding!"};
+if(isNil "roadDataDone") exitWith {
+	diag_log "Pathfinding: Road data base not loaded, aborting pathfinding!";
+	[];
+};
 
 private _deltaTime = time;
 
@@ -14,7 +17,10 @@ allMarker = [];
 createNavMarker = compile preprocessFileLineNumbers "NavGridTools\createNavMarker.sqf";
 
 
-if(!(_startNav isEqualType 1 && _endNav isEqualType 1)) exitWith {/*hint "Improve the search!"*/};
+if(!(_startNav isEqualType 1 && _endNav isEqualType 1)) exitWith {
+	//Hint: Improve the search!
+	[];
+};
 
 
 //Start A* here

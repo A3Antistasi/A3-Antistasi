@@ -1,4 +1,4 @@
-params ["_convoyID", "_posArray", "_markers", "_units", "_convoySide", "_convoyType", "_maxSpeed"];
+params ["_convoyID", "_posArray", /*"_markers",*/ "_units", "_convoySide", "_convoyType", "_maxSpeed"];
 
 
 private ["_pos", "_nextPos", "_target", "_dir", "_startMarker", "_targetMarker", "_road", "_radius", "_possibleRoads"];
@@ -9,8 +9,11 @@ _target = _posArray select 2;
 
 _dir = _pos getDir _nextPos;
 
-_startMarker = _markers select 0;
-_targetMarker = _markers select 1;
+//Disabled markers as there isn't sufficient information in createConvoy to give them to spawnConvoy.
+//_startMarker = _markers select 0;
+//_targetMarker = _markers select 1;
+//Temporary start marker, to send the convoy off to the carrier.
+_startMarker = if (_convoySide == Occupants) then {"NATO_Carrier";} else {"CSAT_Carrier";};
 
 //Find near road segments
 _road = roadAt _pos;
@@ -145,6 +148,7 @@ else
       _wp4 = _cargoGroup addWaypoint [_target, 1];
       _wp4 setWaypointType "MOVE";
       _wp4 setWaypointStatements ["true", "[group this] spawn A3A_fnc_groupDespawner;"];
+	  
       _wp2 = _vehicleGroup addWaypoint [getMarkerPos _startMarker, 1];
       _wp2 setWaypointType "MOVE";
       _wp2 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];

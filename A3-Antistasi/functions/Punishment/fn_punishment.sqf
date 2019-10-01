@@ -32,7 +32,7 @@ _forgive = (_timeAdded < 0 || _offenceAdded < 0);
 _coolDown = _foolish getVariable ["punishment_coolDown", 0];
 if (_forgive) exitWith 
 {
-	if (_coolDown > 1) then {["release",[_foolish]] call A3A_fnc_punishment_utils;};
+	if (_coolDown > 1) then {[_foolish] call A3A_fnc_punishment_release;};
 	["TK NOTIFICATION!\nAn admin looks with pity upon your soul.\nYou have been partially forgiven."] remoteExec ["hint", _foolish, false];	
 	if (_coolDown > 1) exitWith {"Admin Forgive"};
 
@@ -185,5 +185,5 @@ if (_grandOffence < 1) exitWith {"Strike"};
 
 [format ["%1: [Antistasi] | INFO | PUNISHMENT | GUILTY | %2", servertime, _playerStats]] remoteExec ["diag_log", 2];
 
-["warden",[_foolish,_timeTotal]] call A3A_fnc_punishment_utils;
+[_foolish,_timeTotal] call A3A_fnc_punishment_warden;
 "Found Guilty";

@@ -317,7 +317,12 @@ class A3A
 	class Punishment
 	{
 		class punishment {};
-		class punishment_utils {};
+		class punishment_addActionForgive {};
+		class punishment_notifyAdmin {};
+		class punishment_notifyAllAdmins {};
+		class punishment_release {};
+		class punishment_sentence {};
+		class punishment_warden {};
 	};
 
 	class REINF

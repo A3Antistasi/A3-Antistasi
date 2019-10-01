@@ -103,6 +103,8 @@ if ((count _reinfPlaces == 0) and (AAFpatrols <= 3)) then {[] spawn A3A_fnc_AAFr
 //hint "Reinforce AI done!";
 
 //Replenish airports if possible (Currently not doing anything)
+/*
 {
 	[_x] call A3A_fnc_replenishGarrison;
 } forEach airportsX;
+*/

@@ -57,7 +57,7 @@ if (_part == "") then
 		{
 			if (isPlayer _injurer) then
 			{
-				if ((_injurer != _unit) and (side _injurer == teamPlayer)/* and (_unit getVariable ["teamPlayer",false])*/ and (side group _unit == teamPlayer)) then
+				if ((_injurer != _unit) and (side group _injurer == teamPlayer)/* and (_unit getVariable ["teamPlayer",false])*/ and (side group _unit == teamPlayer)) then
 				{
 					_uniform = uniform _unit;
 					_typeSoldier = getText (configfile >> "CfgWeapons" >> _uniform >> "ItemInfo" >> "uniformClass");

@@ -3,13 +3,13 @@ _markerX = _this select 0;
 _nameDest = [_markerX] call A3A_fnc_localizar;
 _sideEny = _this select 1;
 _nameENY = if (_sideEny == teamPlayer) then
-				{
-				nameTeamPlayer
-				}
-			else
-				{
-				if (_sideEny == Invaders) then {nameInvaders} else {nameOccupants};
-				};
+{
+	nameTeamPlayer
+}
+else
+{
+	if (_sideEny == Invaders) then {nameInvaders} else {nameOccupants};
+};
 _sideX = _this select 2;
 if (_sideX == teamPlayer) then {_sideX = [teamPlayer,civilian]};
 

@@ -35,8 +35,8 @@ if(_vehicleData != "") then
   //Assigns a vehicle to the group, the makes it a target, even if its empty
   _vehicleGroup addVehicle _vehicleObj;
 
-  //Currently not, as it locks the vehicle from the pool, which should happen before
-  //[_vehicleObj, false] call A3A_fnc_AIVEHinit;
+  //Init vehicle
+  [_vehicleObj] call A3A_fnc_AIVEHinit;
 
   //Select the open slots of the vehicle
   _allTurrets = allTurrets [_vehicleObj, false];

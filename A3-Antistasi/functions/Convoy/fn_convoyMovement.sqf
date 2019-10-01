@@ -27,6 +27,8 @@ _pointsCount = count _route;
 _currentPos = _route select 0;
 
 _isSimulated = true;
+_roadBlockCountdown = 0;
+_currentRoadBlock = "";
 
 if(_isDebug) then {_debugObject setPos _currentPos;};
 
@@ -41,7 +43,17 @@ for "_i" from 1 to (_pointsCount - 1) do
 
   while {_isSimulated && {_currentLength < _movementLength}} do
   {
-      sleep 1;
+    sleep 1;
+    if(_roadBlockCountdown > 0) then
+    {
+      _roadBlockCountdown = _roadBlockCountdown - 1;
+      if(_roadBlockCountdown <= 0) then
+      {
+        //Have a fight
+      };
+    }
+    else
+    {
       _currentPos = _currentPos vectorAdd _movementVector;
       _currentLength = _currentLength + _maxSpeed;
       if(_currentLength < _movementLength) then
@@ -51,32 +63,57 @@ for "_i" from 1 to (_pointsCount - 1) do
 
       if(_isDebug && {_currentLength < _movementLength}) then {_debugObject setPos _currentPos;};
 
-      /*
-      _nearMarker = markersX select {(sidesX getVariable [_x, sideUnknown] != _convoySide) && {getMarkerPos _x distance _currentPos < 150}};
-      if(count _nearMarker > 0) then
+      //Search for nearby roadblocks
+      _roadBlocks = outpostsFIA select {(getMarkerPos _x distance _currentPos < 250) && {isOnRoad (getMarkerPos _x)}};
+      if(count _roadBlocks > 0) then
       {
-        if((_nearMarker select 0) distance _currentPos < 75 || !((_nearMarker select 0) in controlsX)) then
+        _currentRoadBlock = _roadBlocks select 0;
+        if(spawner getVariable _currentRoadBlock == 2) then
         {
-          //Drove into an enemy position, spawn fight
+          _isSimulated = false;
+          hint "Spawning in land convoy as it hit roadblock";
+          private _posArray = [_currentPos, _nextPoint, (_route select (_pointsCount - 1))];
+          [_convoyID, _units, _posArray, _markerArray, _convoySide, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
         }
-      };
-      */
-      //Currently only triggered by teamPlayer units!
-      if([distanceSPWN, 1, _currentPos, teamPlayer] call A3A_fnc_distanceUnits) then
-      {
-        _isSimulated = false;
-
-        //deleteMarker _convoyMarker;
-        hint "Spawning in land convoy";
-        // - 2 as it is the last point on a street (or maybe not needs testing) _currentPos, _nextPoint,
-        private _posArray = [_currentPos, _nextPoint, (_route select (_pointsCount - 1))];
-        [_convoyID, _units, _posArray, _markerArray, _convoySide, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
-
-        if(!_isAir) then
+        else
         {
-          //Not sure if needed
+          _roadBlockCountdown = 60;
+          if (!([_roadBlockCountdown] call BIS_fnc_taskExists)) then
+          {
+            [_roadBlockCountdown, _convoySide, teamPlayer] remoteExec ["A3A_fnc_underAttack",2]
+          };
         };
       };
+    };
+
+
+    /*
+    _nearMarker = markersX select {(sidesX getVariable [_x, sideUnknown] != _convoySide) && {getMarkerPos _x distance _currentPos < 150}};
+    if(count _nearMarker > 0) then
+    {
+      if((_nearMarker select 0) distance _currentPos < 75 || !((_nearMarker select 0) in controlsX)) then
+      {
+        //Drove into an enemy position, spawn fight
+      }
+    };
+    */
+
+    //Currently only triggered by teamPlayer units!
+    if([distanceSPWN, 1, _currentPos, teamPlayer] call A3A_fnc_distanceUnits) then
+    {
+      _isSimulated = false;
+
+      //deleteMarker _convoyMarker;
+      hint "Spawning in land convoy";
+      // - 2 as it is the last point on a street (or maybe not needs testing) _currentPos, _nextPoint,
+      private _posArray = [_currentPos, _nextPoint, (_route select (_pointsCount - 1))];
+      [_convoyID, _units, _posArray, _markerArray, _convoySide, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
+
+      if(!_isAir) then
+      {
+        //Not sure if needed
+      };
+    };
   };
 
   _currentPos = _nextPoint;

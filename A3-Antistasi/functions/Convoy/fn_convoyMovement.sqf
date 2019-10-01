@@ -27,6 +27,7 @@ _pointsCount = count _route;
 _currentPos = _route select 0;
 
 _isSimulated = true;
+_isDestroyed = false;
 _roadBlockCountdown = 0;
 _currentRoadBlock = "";
 
@@ -50,6 +51,8 @@ for "_i" from 1 to (_pointsCount - 1) do
       if(_roadBlockCountdown <= 0) then
       {
         //Have a fight
+        _isSimulated = [_units, _currentRoadBlock] call A3A_fnc_roadblockFight;
+        _isDestroyed = !_isSimulated;
       };
     }
     else
@@ -71,16 +74,15 @@ for "_i" from 1 to (_pointsCount - 1) do
         if(spawner getVariable _currentRoadBlock == 2) then
         {
           _isSimulated = false;
-          hint "Spawning in land convoy as it hit roadblock";
           private _posArray = [_currentPos, _nextPoint, (_route select (_pointsCount - 1))];
           [_convoyID, _units, _posArray, _markerArray, _convoySide, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
         }
         else
         {
           _roadBlockCountdown = 60;
-          if (!([_roadBlockCountdown] call BIS_fnc_taskExists)) then
+          if (!([_currentRoadBlock] call BIS_fnc_taskExists)) then
           {
-            [_roadBlockCountdown, _convoySide, teamPlayer] remoteExec ["A3A_fnc_underAttack",2]
+            [_currentRoadBlock, _convoySide, teamPlayer, false] remoteExec ["A3A_fnc_underAttack",2]
           };
         };
       };
@@ -104,15 +106,9 @@ for "_i" from 1 to (_pointsCount - 1) do
       _isSimulated = false;
 
       //deleteMarker _convoyMarker;
-      hint "Spawning in land convoy";
       // - 2 as it is the last point on a street (or maybe not needs testing) _currentPos, _nextPoint,
       private _posArray = [_currentPos, _nextPoint, (_route select (_pointsCount - 1))];
       [_convoyID, _units, _posArray, _markerArray, _convoySide, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
-
-      if(!_isAir) then
-      {
-        //Not sure if needed
-      };
     };
   };
 
@@ -121,6 +117,7 @@ for "_i" from 1 to (_pointsCount - 1) do
   if(_isDebug) then {_debugObject setPos _currentPos;};
 };
 
+if(_isDestroyed) exitWith {deleteMarker _convoyMarker};
 if(!_isSimulated) exitWith {};
 
 diag_log format ["ConvoyMovement[%1]: Convoy arrived at destination!", _convoyID];

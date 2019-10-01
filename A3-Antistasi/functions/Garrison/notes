@@ -22,7 +22,7 @@ MERGED INTO UNSTABLE AND TESTED BY POT
 [DONE] On marker change mechanic
 [DONE] Write the "AI", which replenishes airports
 [DONE] Rework AIVehInit to work for convoy vehicles - is not needed, it will behave correctly
-[WIP] Add simple fight mechanic for roadblock engagements
+[DONE] Add simple fight mechanic for roadblock engagements
 
 ================================================================================
 SPLIT HERE FOR PR 2.2

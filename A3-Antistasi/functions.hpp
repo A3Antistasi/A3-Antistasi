@@ -145,6 +145,7 @@ class A3A
 		class followVehicle {};
 		class onConvoyArrival {};
 		class onSpawnedArrival {};
+		class roadblockFight {};
 		class selectAndCreateVehicle {};
 		class spawnConvoy {};
 		class spawnConvoyLine {};

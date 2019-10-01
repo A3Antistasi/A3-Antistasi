@@ -18,7 +18,7 @@ MERGED INTO UNSTABLE AND TESTED BY POT
 [DONE] Integration into the convoy system, to use reinforce convoys
 [DONE] Improve the convoy system to spawn convoys
 [DONE] Save and load mechanics
-[WIP] Add mechanic on convoy arrival
+[DONE] Add mechanic on convoy arrival
 [DONE] On marker change mechanic
 [DONE] Write the "AI", which replenishes airports
 [DONE] Rework AIVehInit to work for convoy vehicles - is not needed, it will behave correctly

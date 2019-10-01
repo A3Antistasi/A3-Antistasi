@@ -22,12 +22,12 @@ _acceptedTypes = ["attack", "patrol", "reinforce", "convoy", "airstrike"];
 if(isNil "_type" || {!((toLower _type) in _acceptedTypes)}) exitWith {diag_log "CreateAIAction: Type is not in the accepted types"};
 if(isNil "_side" || {!(_side == Occupants || _side == Invaders)}) exitWith {diag_log "CreateAIAction: Can only create AI for Inv and Occ"};
 
-_convoyID = round (random 100);
+_convoyID = round (random 1000);
 _IDinUse = server getVariable [str _convoyID, false];
 sleep 0.1;
 while {_IDinUse} do
 {
-  _convoyID = round (random 100);
+  _convoyID = round (random 1000);
   _IDinUse = server getVariable [str _convoyID, false];
 };
 server setVariable [str _convoyID, true, true];
@@ -77,6 +77,7 @@ if (gameMode <3) then
 if ((_allUnits + 4 > maxUnits) or (_allUnitsSide + 4 > _maxUnitsSide)) then {_abort = true};
 
 if (_abort) exitWith {diag_log format ["CreateAIAction[%1]: AI action cancelled because of reaching the maximum of units on attacking %2", _convoyID, _destination]};
+
 
 _destinationPos = if(_isMarker) then {getMarkerPos _destination} else {_destination};
 _originPos = [];
@@ -158,7 +159,7 @@ if(_type == "patrol") then
         _vehPool = _veh select 1;
         _units pushBack (_veh select 0);
         _vehicleCount = _vehicleCount + 1;
-        _cargoCount = _cargoCount + count _typeGroup;
+        _cargoCount = _cargoCount + count ((_veh select 0) select 1) + count ((_veh select 0) select 2);
       };
     }
     else
@@ -187,7 +188,7 @@ if(_type == "patrol") then
         _vehPool = _veh select 1;
         _units pushBack (_veh select 0);
         _vehicleCount = _vehicleCount + 1;
-        _cargoCount = _cargoCount + count _typeGroup;
+        _cargoCount = _cargoCount + count ((_veh select 0) select 1) + count ((_veh select 0) select 2);
       };
     };
   }
@@ -199,34 +200,39 @@ if(_type == "patrol") then
 };
 if(_type == "reinforce") then
 {
-  //Should outpost are able to reinforce to?
-  _arguments params [["_small", true]];
-  _airport = [_destination, _side] call A3A_fnc_findAirportForAirstrike;
-  if(_airport != "") then
+  _arguments params ["_canReinf"];
+  _possibleBases = _canReinf select {[_x, _destination] call A3A_fnc_shouldReinforce};
+  if((count _possibleBases) != 0) then
   {
-    _land = if ((getMarkerPos _airport) distance _destinationPos > distanceForLandAttack) then {false} else {true};
-    _typeGroup = if (_side == Occupants) then {if (_small) then {selectRandom groupsNATOmid} else {selectRandom groupsNATOSquad}} else {if (_small) then {selectRandom groupsCSATmid} else {selectRandom groupsCSATSquad}};
 
-    _typeVeh = "";
-    if (_land) then
+    _selectedBase = [_possibleBases, _destination] call BIS_fnc_nearestPosition;
+    //Found base to reinforce, selecting units now
+    _units = [_selectedBase, _destination] call A3A_fnc_selectReinfUnits;
+
+    if(_units isEqualTo []) then
     {
-    	if (_side == Occupants) then {_typeVeh = selectRandom vehNATOTrucks} else {_typeVeh = selectRandom vehCSATTrucks};
+      diag_log format ["CreateAIAction[%1]: No units given for reinforcements!", _convoyID];
+      _abort = true;
     }
     else
     {
-    	_vehPool = if (_side == Occupants) then {vehNATOTransportHelis} else {vehCSATTransportHelis};
-    	if ((_small) and (count _vehPool > 1) and !hasIFA) then {_vehPool = _vehPool - [vehNATOPatrolHeli,vehCSATPatrolHeli]};
-    	_typeVeh = selectRandom _vehPool;
+      _origin = _selectedBase;
+      _originPos = getMarkerPos _origin;
+
+      _countUnits = [_units, false] call A3A_fnc_countGarrison;
+
+      _vehicleCount = _vehicleCount + (_countUnits select 0);
+      _cargoCount = _cargoCount + (_countUnits select 1) + (_countUnits select 2);
+
+      //For debug is direct placement
+      //diag_log format ["Reinforce %1 from %2", _target, _selectedBase];
+      //[_units, "Reinf units"] call A3A_fnc_logArray;
+      //[_target, _units] call A3A_fnc_addGarrison;
     };
-    _origin = _airport;
-    _originPos = getMarkerPos _airport;
-    _units pushBack [_typeVeh, _typeGroup];
-    _vehicleCount = 1;
-    _cargoCount = (count _typeGroup);
   }
   else
   {
-    diag_log format ["CreateAIAction[%1]: Reinforcement aborted as no airport is available!", _convoyID];
+    diag_log format ["CreateAIAction[%1]: Reinforcement aborted as no base is available!", _convoyID];
     _abort = true;
   };
 };
@@ -261,6 +267,7 @@ if(_type == "airstrike") then
     if((_side == Occupants && {count _friendlies < 3}) || {_side == Invaders && {count _friendlies < 8}}) then
     {
       _plane = if (_side == Occupants) then {vehNATOPlane} else {vehCSATPlane};
+      _crewUnits = if(_side == Occupants) then {NATOCrew} else {CSATCrew};
     	if ([_plane] call A3A_fnc_vehAvailable) then
     	{
         _bombType = "";
@@ -303,9 +310,9 @@ if(_type == "airstrike") then
         diag_log format ["CreateAIAction[%1]: Selected airstrike of bombType %2 from %3",_convoyID, _bombType, _airport];
         _origin = _airport;
         _originPos = getMarkerPos _airport;
-        _units pushBack [_plane, []];
+        _units pushBack [_plane, [_crewUnits],[]];
         _vehicleCount = 1;
-        _cargoCount = 0;
+        _cargoCount = 1;
       }
       else
       {
@@ -342,6 +349,7 @@ if(_type == "convoy") then
       if ((_destination in airportsX) or (_destination in outposts)) then
       {
       	_typeConvoy = ["Ammunition","Armor"];
+        /* Reinforcement convoys will be standard not a special mission
       	if (_destination in outposts) then
         {
           //That doesn't make sense, or am I wrong? Can someone double check this logic?
@@ -350,6 +358,7 @@ if(_type == "convoy") then
             _typeConvoy pushBack "Reinforcements";
           };
         };
+        */
       }
       else
       {
@@ -457,16 +466,19 @@ if(_type == "convoy") then
       if(!_abort) then
       {
         //Deactivated, cause you can't win this mission currently
-        //[[teamPlayer,civilian],"CONVOY",[_text,_taskTitle,_destination], _destinationPos,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
-        //[[_side],"CONVOY1",[format ["A convoy from %1 to %3, it's about to depart at %2. Protect it from any possible attack.",_nameOrigin,_displayTime,_nameDest],"Protect Convoy",_destination],_destinationPos,false,0,true,"run",true] call BIS_fnc_taskCreate;
-        //missionsX pushBack ["CONVOY","CREATED"]; publicVariable "missionsX";
-        //Deactivated for debug
-        //sleep (_timeLimit * 60);
+        [[teamPlayer,civilian],"CONVOY",[_text,_taskTitle,_destination], _destinationPos,false,0,true,_taskIcon,true] call BIS_fnc_taskCreate;
+        [[_side],"CONVOY1",[format ["A convoy from %1 to %3, it's about to depart at %2. Protect it from any possible attack.",_nameOrigin,_displayTime,_nameDest],"Protect Convoy",_destination],_destinationPos,false,0,true,"run",true] call BIS_fnc_taskCreate;
+        missionsX pushBack ["CONVOY","CREATED"]; publicVariable "missionsX";
+
+        sleep (_timeLimit * 60);
+        _crewUnits = if(_side == Occupants) then {NATOCrew} else {CSATCrew};
 
         //Creating convoy lead vehicle
         _typeVehLead = if (_side == Occupants) then {if (!_isEasy) then {selectRandom vehNATOLightArmed} else {vehPoliceCar}} else {selectRandom vehCSATLightArmed};
-        _units pushBack [_typeVehLead,[]];
+        _crew = [_typeVehLead, _crewUnits] call A3A_fnc_getVehicleCrew;
+        _units pushBack [_typeVehLead, _crew, []];
         _vehicleCount = _vehicleCount + 1;
+        _cargoCount = _cargoCount + (count _crew);
         //Convoy lead created
 
         //Prepared vehicle pool
@@ -528,7 +540,7 @@ if(_type == "convoy") then
           _vehPool = _veh select 1;
           _units pushBack (_veh select 0);
           _vehicleCount = _vehicleCount + 1;
-          _cargoCount = _cargoCount + count _typeGroup;
+          _cargoCount = _cargoCount + count ((_veh select 0) select 1) + count ((_veh select 0) select 2);
         };
         //Escorts and groups added
 
@@ -545,9 +557,10 @@ if(_type == "convoy") then
             _typeGroup pushBack SDKUnarmed;
           };
         };
-        _units pushBack [_typeVehObj, _typeGroup];
+        _crew = [_typeVehObj, _crewUnits] call A3A_fnc_getVehicleCrew;
+        _units pushBack [_typeVehObj, _crew, _typeGroup];
         _vehicleCount = _vehicleCount + 1;
-        _cargoCount = _cargoCount + count _typeGroup;
+        _cargoCount = _cargoCount + (count _typeGroup) + (count _crew);
         //Objective and its cargo added
 
         //Last escort vehicle
@@ -555,7 +568,7 @@ if(_type == "convoy") then
         _vehPool = _veh select 1;
         _units pushBack (_veh select 0);
         _vehicleCount = _vehicleCount + 1;
-        _cargoCount = _cargoCount + count _typeGroup;
+        _cargoCount = _cargoCount + count ((_veh select 0) select 1) + count ((_veh select 0) select 2);
         //Last escrot vehicle added
       };
     }
@@ -572,9 +585,10 @@ if(_type == "convoy") then
   };
 };
 
-if(_abort) exitWith {};
+if(_abort) exitWith {false};
 
 _target = if(_destination isEqualType "") then {_destination} else {str _destination};
 diag_log format ["CreateAIAction[%1]: Created AI action to %2 from %3 to %4 with %5 vehicles and %6 units", _convoyID, _type, _origin, _targetString, _vehicleCount , _cargoCount];
 
 [_convoyID, _units, _originPos, _destinationPos, _type, _side] spawn A3A_fnc_createConvoy;
+true;

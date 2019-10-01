@@ -1,4 +1,4 @@
-params ["_convoyID" ,"_route", "_maxSpeed", "_units", "_sideConvoy", "_convoyType", ["_debugObject", nil]];
+params ["_convoyID" ,"_route", "_maxSpeed", "_units", "_sideConvoy", "_convoyType", "_isAir", ["_debugObject", nil]];
 
 /*  Simulates the movement of the convoy
 *   Params:
@@ -25,6 +25,7 @@ _isDebug = !(isNil "_debugObject");
 _pointsCount = count _route;
 _currentPos = _route select 0;
 
+_isSimulated = true;
 
 if(_isDebug) then {_debugObject setPos _currentPos;};
 
@@ -37,7 +38,7 @@ for "_i" from 1 to (_pointsCount - 1) do
   _movementLength = _lastPoint vectorDistance _nextPoint;
   _currentLength = 0;
 
-  while {_currentLength < _movementLength} do
+  while {_isSimulated && {_currentLength < _movementLength}} do
   {
       sleep 1;
       _currentPos = _currentPos vectorAdd _movementVector;
@@ -49,6 +50,7 @@ for "_i" from 1 to (_pointsCount - 1) do
 
       if(_isDebug && {_currentLength < _movementLength}) then {_debugObject setPos _currentPos;};
 
+      /*
       _nearMarker = markersX select {(sidesX getVariable [_x, sideUnknown] != _sideConvoy) && {getMarkerPos _x distance _currentPos < 150}};
       if(count _nearMarker > 0) then
       {
@@ -57,6 +59,22 @@ for "_i" from 1 to (_pointsCount - 1) do
           //Drove into an enemy position, spawn fight
         }
       };
+      */
+      //Currently only triggered by teamPlayer units!
+      if([distanceSPWN, 1, _currentPos, teamPlayer] call A3A_fnc_distanceUnits) then
+      {
+        _isSimulated = false;
+
+        deleteMarker _convoyMarker;
+        hint "Spawning in land convoy";
+        // - 2 as it is the last point on a street (or maybe not needs testing)
+        [_convoyID, _currentPos, _nextPoint, _units, (_route select (_pointsCount - 1)), _sideConvoy, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
+
+        if(!_isAir) then
+        {
+          //Not sure if needed
+        };
+      };
   };
 
   _currentPos = _nextPoint;
@@ -64,16 +82,11 @@ for "_i" from 1 to (_pointsCount - 1) do
   if(_isDebug) then {_debugObject setPos _currentPos;};
 };
 
-diag_log format ["ConvoyMovement[%1]: Convoy arrived at destination!", _convoyID];
-diag_log format ["ConvoyMovement[%1]: WIP deleting marker as nothing happens!", _convoyID];
+if(!_isSimulated) exitWith {};
 
-switch (_convoyType) do
-{
-  case ("Patrol"): {
-      //code
-  };
-    //cases (insertable by snippet)
-};
+diag_log format ["ConvoyMovement[%1]: Convoy arrived at destination!", _convoyID];
+
+[_convoyID, (_route select 0), (_route select (_pointsCount - 1)), _units, _sideConvoy, _convoyType] spawn A3A_fnc_onConvoyArrival;
 
 sleep 10;
 deleteMarker _convoyMarker;

@@ -3,10 +3,10 @@ params ["_convoyID", "_units", "_origin", "_destination", "_convoyType", "_sideC
 /*  Creates a convoy for simulated movement
 *   Params:
 *     _convoyID: NUMBER; the unique convoy ID
-*     _units: ARRAY; contains the info about the units, each element has to be [veh, [cargoUnits]]
+*     _units: ARRAY; contains the info about the units, each element has to be [veh, [crew], [cargoUnits]]
 *     _origin: POS; contains the position of the starting point
 *     _destination: POS; contains the position of the end point
-*     _convoyType: STRING; contains one of "ATTACK", "PATROL" or "REINFORCE"
+*     _convoyType: STRING; contains one of "ATTACK", "PATROL" or "REINFORCE" + further
 *     _sideConvoy: SIDE; contains the side of the convoy
 *   Returns:
 *     Nothing
@@ -79,4 +79,4 @@ convoyMarker pushBack _convoyMarker;
 
 diag_log format ["CreateConvoy[%1]: Created convoy with %2 m/s and a total of %3 waypoints, marker is %4%5", _convoyID, _velocity, count _route, _markerPrefix, _markerType];
 
-[_convoyID, _route, _velocity, _units, _sideConvoy, _convoyType] spawn A3A_fnc_convoyMovement;
+[_convoyID, _route, _velocity, _units, _sideConvoy, _convoyType, (!_hasLand)] spawn A3A_fnc_convoyMovement;

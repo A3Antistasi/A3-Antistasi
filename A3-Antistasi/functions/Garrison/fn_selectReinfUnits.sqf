@@ -1,4 +1,4 @@
-params ["_base", "_target", ["_isAir", false]];
+params ["_base", "_target", ["_isAir", false], ["_bypass", false]];
 
 /*  Selects the units to send, given on the targets reinf needs (and what the base has (not yet))
 *   Params:
@@ -13,10 +13,10 @@ params ["_base", "_target", ["_isAir", false]];
 private ["_maxUnitSend", "_currentUnitCount", "_unitsSend", "_reinf", "_side", "_currentSelected", "_seatCount", "_vehicle", "_allSeats", "_crewSeats", "_neededSpace", "_crewMember", "_crew", "_cargo", "_openSpace", "_abort", "_data", "_dataCrew", "_dataCargo", "_vehicleIsNeeded"];
 
 _maxUnitSend = garrison getVariable [format ["%1_recruit", _base], 0];
-if(_maxUnitSend < 3) exitWith
+if(_maxUnitSend < 3 && {!_bypass}) exitWith
 {
   diag_log "Can't select units with less than 3 slots, would be an vehicle only with crew!";
-  objNull;
+  [];
 };
 _currentUnitCount = 0;
 _unitsSend = [];

@@ -7,7 +7,7 @@
 
 if(isDedicated) exitWith {};
 
-if(isMultiplayer && {!(serverCommandAvailable "#logout")}) exitWith {hint "Only server admins can execute the convoy debug!"};
+//if(isMultiplayer && {!(serverCommandAvailable "#logout")}) exitWith {hint "Only server admins can execute the convoy debug!"};
 
 player setVariable ["convoyDebug", true];
 sleep 1;

@@ -79,20 +79,10 @@ for "_i" from 0 to ((count _units) - 1) do
   else
   {
     _landVehicles pushBack _vehicle;
-
     //Create marker for the crew
     [_markers select 0, _target, _vehicleGroup] call WPCreate;
     _wp0 = (wayPoints _vehicleGroup) select 0;
     _wp0 setWaypointBehaviour "SAFE";
-    _wp0 = _group addWaypoint [_target, count (wayPoints _group)];
-    _wp0 setWaypointType "TR UNLOAD";
-    _wp0 setWaypointStatements ["true","nul = [group this] spawn A3A_fnc_groupDespawner;"];
-
-    //Create marker for the cargo
-    if(_cargoGroup != grpNull) then
-    {
-      _cargoGroup spawn A3A_fnc_attackDrillAI;
-    };
   };
 
   if(_vehicle != objNull) then
@@ -106,14 +96,14 @@ for "_i" from 0 to ((count _units) - 1) do
       _vehicle setConvoySeparation 30;
     };
   };
-  waitUntil {sleep 0.5; ((_vehicle distance2D _pos) > 10)};
+  waitUntil {sleep 1; ((_vehicle distance2D _pos) > 10)};
 };
 
-_convoyPos = [];
+_posObject = objNull;
 //Let helicopter follow the vehicles and vehicles have a speed limit
 if(count _landVehicles > 0) then
 {
-  _convoyPos = getPos (_landVehicles select 0);
+  _posObject = _landVehicles select 0;
   {
       _x limitSpeed _maxSpeed;
   } forEach _landVehicles;
@@ -123,48 +113,37 @@ if(count _landVehicles > 0) then
 }
 else
 {
+  //No vehicle found, fly direct way
   if(count _airVehicles > 0) then
   {
-    _convoyPos = getPos (_airVehicles select 0);
+    _posObject = _airVehicles select 0;
   };
   {
-    _landPos = if (_vehicle isKindOf "Helicopter") then {[_target, 0, 300, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos} else {[]};
-    if (!(_landPos isEqualTo [])) then
-    {
-      _landPos set [2, 0];
-      _pad = createVehicle ["Land_HelipadEmpty_F", _landpos, [], 0, "NONE"];
-      _vehicleGroup setVariable ["myPad",_pad];
-      _wp0 = _vehicleGroup addWaypoint [_landpos, 0];
-      _wp0 setWaypointType "TR UNLOAD";
-      _wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';deleteVehicle ((group this) getVariable [""myPad"",objNull])"];
-      _wp0 setWaypointBehaviour "CARELESS";
-      _wp3 = _cargoGroup addWaypoint [_landpos, 0];
-      _wp3 setWaypointType "GETOUT";
-      _wp3 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
-      _wp0 synchronizeWaypoint [_wp3];
-      _wp4 = _cargoGroup addWaypoint [_target, 1];
-      _wp4 setWaypointType "MOVE";
-      _wp4 setWaypointStatements ["true", "[group this] spawn A3A_fnc_groupDespawner;"];
-      _wp2 = _vehicleGroup addWaypoint [getMarkerPos _startMarker, 1];
-      _wp2 setWaypointType "MOVE";
-      _wp2 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
-      [_vehicleGroup,1] setWaypointBehaviour "AWARE";
-    }
-    else
-    {
-      if ((typeOf _vehicle) in vehFastRope) then
-      {
-        [_vehicle, _cargoGroup, _target, getMarkerPos _startMarker, _vehicleGroup, true] spawn A3A_fnc_fastrope;
-      }
-      else
-      {
-        [_vehicle, _cargoGroup, _target, _startMarker,true] spawn A3A_fnc_airdrop;
-      };
-    };
+    _wp0 = (group _x) addWaypoint [_target, 50, 0];
+    _wp0 setWaypointBehaviour "SAFE";
   } forEach _airVehicles;
 };
 
-if(_convoyPos isEqualTo []) then
+//Neither land nor air vehicles, choose position of first group
+if(isNull _posObject) then
 {
-  _convoyPos = getPos (_allGroups select 0);
+  _posObject = _allGroups select 0;
+};
+
+_checkPos = [];
+waitUntil
+{
+  sleep 1;
+  _checkPos = getPos _posObject;
+  (_checkPos distance2D _target < 100) ||
+  {!([distanceSPWN * 1.2, 1, _checkPos, teamPlayer] call A3A_fnc_distanceUnits)}
+};
+
+if(_checkPos distance2D _target < 100) then
+{
+  //Spawned convoy arrive
+}
+else
+{
+  //Despawn convoy and simulate further
 };

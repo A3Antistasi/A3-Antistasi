@@ -52,7 +52,6 @@ class A3A
 		class powerCheck {};
 		class powerReorg {};
 		class prestige {};
-		class punishment {};
 		class radioCheck {};
 		class rebuildAssets {};
 		class relocateHQObjects {};

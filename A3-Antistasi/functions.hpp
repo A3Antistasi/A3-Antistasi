@@ -312,7 +312,13 @@ class A3A
 		class setNavOnMarker {file="Convoy\A-star-pathfinding\setNavOnMarker.sqf";};
 		class getNavConnections {file="Convoy\A-star-pathfinding\getNavConnections.sqf";};
 		class findNearestNavPoint {file="Convoy\A-star-pathfinding\findNearestNavPoint.sqf";};
-	}
+	};
+	
+	class Punishment
+	{
+		class punishment {};
+		class punishment_utils {};
+	};
 
 	class REINF
 	{

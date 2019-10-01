@@ -146,6 +146,7 @@ class A3A
 		class onConvoyArrival {};
 		class SelectAndCreateVehicle {};
 		class spawnConvoy {};
+		class spawnConvoyLine {};
 	};
 
 	class CREATE

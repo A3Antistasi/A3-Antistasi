@@ -140,11 +140,14 @@ class A3A
 		class convoyMovement {};
 		class createAIAction {};
 		class createConvoy {};
+		class despawnConvoy {};
 		class findAirportForAirstrike {};
 		class followVehicle {};
 		class onConvoyArrival {};
-		class SelectAndCreateVehicle {};
+		class onSpawnedArrival {};
+		class selectAndCreateVehicle {};
 		class spawnConvoy {};
+		class spawnConvoyLine {};
 	};
 
 	class CREATE

@@ -1,7 +1,13 @@
 params ["_data", "_side", "_pos", "_dir"];
 
+//TESTED
+
 private ["_vehicleGroup", "_cargoGroup", "_vehicleData", "_vehicleObj", "_crewData", "_crewObjs", "_cargoData", "_cargoObjs"];
 private ["_allTurrets", "_possibleSeats", "_slowConvoy", "_twoGroups", "_result"];
+
+_vehicleData = _data select 0;
+_crewData = _data select 1;
+_cargoData = _data select 2;
 
 _vehicleGroup = createGroup _side;
 _vehicleObj = objNull;
@@ -111,7 +117,7 @@ _cargoObjs = [];
     [_unit] call A3A_fnc_NATOinit;
     _cargoObjs pushBack _unit;
     sleep 0.2;
-} forEach _cargo;
+} forEach _cargoData;
 
 //Prepare result array
 _result = [];

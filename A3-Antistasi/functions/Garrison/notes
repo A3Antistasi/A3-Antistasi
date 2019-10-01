@@ -28,6 +28,7 @@ Add simple fight mechanic for roadblock engagements
 SPLIT HERE FOR PR 2.2
 ================================================================================
 
+Make the AI follow the pathfinding way
 Clean up code
 Add code documentation
 Improve patrol detection
@@ -53,3 +54,4 @@ Find a way to assign squadleader properly
 Finalizing cyclic spawn
 Improve the replenish function to get actual results
 Reorder convoys on despawn (Reassign vehicles if one is destroyed and so on)
+Reorder all parameters in the same order

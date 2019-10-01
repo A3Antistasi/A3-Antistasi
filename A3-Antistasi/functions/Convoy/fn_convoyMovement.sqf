@@ -1,12 +1,13 @@
-params ["_convoyID" ,"_route", "_maxSpeed", "_units", "_sideConvoy", "_convoyType", "_isAir", ["_debugObject", nil]];
+params ["_convoyID" ,"_route", "_markerArray", "_maxSpeed", "_units", "_convoySide", "_convoyType", "_isAir", ["_debugObject", nil]];
 
 /*  Simulates the movement of the convoy
 *   Params:
 *     _convoyID : NUMBER; the unique convoy ID
 *     _route : ARRAY; contains the position of the route points
+*     _markerArray
 *     _maxSpeed : NUMBER; contains the max speed the convoy can move in m/s
 *     _units : ARRAY; contains the units and vehicles, will not be used in here, just passed
-*     _sideConvoy : SIDE; contains the side of the convoy
+*     _convoySide : SIDE; contains the side of the convoy
 *     _convoyType : STRING; contains one of "ATTACK", "PATROL" or "REINFORCE"
 *     _debugObject : OBJECT (optional); object to visualize the convoy travel
 *   Returns:
@@ -51,7 +52,7 @@ for "_i" from 1 to (_pointsCount - 1) do
       if(_isDebug && {_currentLength < _movementLength}) then {_debugObject setPos _currentPos;};
 
       /*
-      _nearMarker = markersX select {(sidesX getVariable [_x, sideUnknown] != _sideConvoy) && {getMarkerPos _x distance _currentPos < 150}};
+      _nearMarker = markersX select {(sidesX getVariable [_x, sideUnknown] != _convoySide) && {getMarkerPos _x distance _currentPos < 150}};
       if(count _nearMarker > 0) then
       {
         if((_nearMarker select 0) distance _currentPos < 75 || !((_nearMarker select 0) in controlsX)) then
@@ -65,10 +66,11 @@ for "_i" from 1 to (_pointsCount - 1) do
       {
         _isSimulated = false;
 
-        deleteMarker _convoyMarker;
+        //deleteMarker _convoyMarker;
         hint "Spawning in land convoy";
-        // - 2 as it is the last point on a street (or maybe not needs testing)
-        [_convoyID, _currentPos, _nextPoint, _units, (_route select (_pointsCount - 1)), _sideConvoy, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
+        // - 2 as it is the last point on a street (or maybe not needs testing) _currentPos, _nextPoint,
+        private _posArray = [_currentPos, _nextPoint, (_route select (_pointsCount - 1))];
+        [_convoyID, _units, _posArray, _markerArray, _convoySide, _convoyType, _maxSpeed] call A3A_fnc_spawnConvoy;
 
         if(!_isAir) then
         {
@@ -86,7 +88,7 @@ if(!_isSimulated) exitWith {};
 
 diag_log format ["ConvoyMovement[%1]: Convoy arrived at destination!", _convoyID];
 
-[_convoyID, (_route select 0), (_route select (_pointsCount - 1)), _units, _sideConvoy, _convoyType] spawn A3A_fnc_onConvoyArrival;
+[_convoyID, (_route select 0), (_route select (_pointsCount - 1)), _units, _convoySide, _convoyType] spawn A3A_fnc_onConvoyArrival;
 
 sleep 10;
 deleteMarker _convoyMarker;

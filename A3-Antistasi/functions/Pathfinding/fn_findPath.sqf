@@ -8,7 +8,7 @@ private _deltaTime = time;
 _startNav = [_startPos] call A3A_fnc_findNearestNavPoint;
 _endNav = [_endPos] call A3A_fnc_findNearestNavPoint;
 
-diag_log format ["Pathfinding: Start %1 at %2\nEnd %3 at %4", _startNav, str _startPos, _endNav, str _endPos];
+diag_log format ["Pathfinding: Start %1 at %2 End %3 at %4", _startNav, str _startPos, _endNav, str _endPos];
 
 allMarker = [];
 createNavMarker = compile preprocessFileLineNumbers "NavGridTools\createNavMarker.sqf";

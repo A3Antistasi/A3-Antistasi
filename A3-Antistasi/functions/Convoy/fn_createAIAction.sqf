@@ -590,5 +590,5 @@ if(_abort) exitWith {false};
 _target = if(_destination isEqualType "") then {_destination} else {str _destination};
 diag_log format ["CreateAIAction[%1]: Created AI action to %2 from %3 to %4 with %5 vehicles and %6 units", _convoyID, _type, _origin, _targetString, _vehicleCount , _cargoCount];
 
-[_convoyID, _units, _originPos, _destinationPos, _type, _side] spawn A3A_fnc_createConvoy;
+[_convoyID, _units, _originPos, _destinationPos, [_origin, if(_isMarker) then {_destination} else {""}], _type, _side] spawn A3A_fnc_createConvoy;
 true;

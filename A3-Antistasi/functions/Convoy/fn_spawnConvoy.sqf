@@ -1,7 +1,7 @@
-params ["_convoyID", "_posArray", "_markers", "_units", "_convoySide", "_convoyType", "_maxSpeed"];
+params ["_convoyID", "_units", "_posArray", "_markers", "_convoySide", "_convoyType", "_maxSpeed"];
 
 
-private ["_pos", "_nextPos", "_target", "_dir", "_startMarker", "_targetMarker", "_road", "_radius", "_possibleRoads"];
+private ["_pos", "_nextPos", "_target", "_dir", "_startMarker", "_targetMarker", "_convoyMarker", "_road", "_radius", "_possibleRoads"];
 
 _pos = _posArray select 0;
 _nextPos = _posArray select 1;
@@ -11,6 +11,9 @@ _dir = _pos getDir _nextPos;
 
 _startMarker = _markers select 0;
 _targetMarker = _markers select 1;
+
+_convoyMarker = format ["convoy%1", _convoyID];
+_convoyMarker setMarkerText (format ["%1 Convoy [%2]: Spawned", _convoyType, _convoyID]);
 
 //Find near road segments
 _road = roadAt _pos;
@@ -43,15 +46,15 @@ _maxSpeed = _maxSpeed * 3.6;
 //Spawn a bit above the ground
 _pos = _pos vectorAdd [0,0,0.1];
 
-private ["_unitObjects", "_allGroups", "_airVehicles", "_landVehicles"];
+private ["_unitObjects", "_allGroups", "_airVehicles", "_landVehicles", "_data", "_lineData", "_vehicleGroup", "_cargoGroup", "_vehicle", "_wp0", "_posObject", "_checkPos"];
 
 _unitObjects = [];
 _allGroups = [];
 _airVehicles = [];
 _landVehicles = [];
 
-//diag_log "Spawning in convoy";
-//[_units, "Convoy Units"] call A3A_fnc_logArray;
+diag_log "Spawning in convoy";
+[_units, "Convoy Units"] call A3A_fnc_logArray;
 
 for "_i" from 0 to ((count _units) - 1) do
 {
@@ -63,11 +66,13 @@ for "_i" from 0 to ((count _units) - 1) do
 
   //Pushback the groups
   _vehicleGroup = (_lineData select 1);
+  _vehicleGroup setBehaviour "SAFE";
   _allGroups pushBack _vehicleGroup;
   _cargoGroup = (_lineData select 2);
   if(_cargoGroup != grpNull) then
   {
     _allGroups pushBack _cargoGroup;
+    _cargoGroup setBehaviour "CARELESS";
   };
 
   //Select vehicle type
@@ -80,10 +85,12 @@ for "_i" from 0 to ((count _units) - 1) do
   {
     _landVehicles pushBack _vehicle;
     //Create marker for the crew
-    [_markers select 0, _target, _vehicleGroup] call WPCreate;
+    [_markers select 0, _markers select 1, _vehicleGroup] call WPCreate;
     _wp0 = (wayPoints _vehicleGroup) select 0;
     _wp0 setWaypointBehaviour "SAFE";
   };
+  //Push vehicles forward
+  _vehicle setVelocity ((vectorDir _vehicle) vectorMultiply 20);
 
   if(_vehicle != objNull) then
   {
@@ -96,8 +103,9 @@ for "_i" from 0 to ((count _units) - 1) do
       _vehicle setConvoySeparation 30;
     };
   };
-  waitUntil {sleep 1; ((_vehicle distance2D _pos) > 10)};
+  waitUntil {sleep 1; ((_vehicle distance _pos) > 10)};
 };
+
 
 _posObject = objNull;
 //Let helicopter follow the vehicles and vehicles have a speed limit
@@ -108,7 +116,7 @@ if(count _landVehicles > 0) then
       _x limitSpeed _maxSpeed;
   } forEach _landVehicles;
   {
-      [selectRandom _landVehicles, _x, _target, _maxSpeed * 1.1] call A3A_fnc_followVehicle;
+      [selectRandom _landVehicles, _x, _target, _maxSpeed * 1.5] spawn A3A_fnc_followVehicle;
   } forEach _airVehicles;
 }
 else
@@ -119,7 +127,7 @@ else
     _posObject = _airVehicles select 0;
   };
   {
-    _wp0 = (group _x) addWaypoint [_target, 50, 0];
+    _wp0 = (group _x) addWaypoint [(_target vectorAdd [0,0,20]), 50, 0];
     _wp0 setWaypointBehaviour "SAFE";
   } forEach _airVehicles;
 };
@@ -130,20 +138,25 @@ if(isNull _posObject) then
   _posObject = _allGroups select 0;
 };
 
+
 _checkPos = [];
 waitUntil
 {
   sleep 1;
   _checkPos = getPos _posObject;
+  _convoyMarker setMarkerPos _checkPos;
   (_checkPos distance2D _target < 100) ||
   {!([distanceSPWN * 1.2, 1, _checkPos, teamPlayer] call A3A_fnc_distanceUnits)}
 };
 
+deleteMarker _convoyMarker;
 if(_checkPos distance2D _target < 100) then
 {
-  //Spawned convoy arrive
+  //[] call A3A_fnc_onSpawnedArrival;
+  //Debug, despawn currently
+  [_convoyID, _unitObjects, _checkPos, _target, _markerArray, _convoyType, _convoySide] call A3A_fnc_despawnConvoy;
 }
 else
 {
-  //Despawn convoy and simulate further
+  [_convoyID, _unitObjects, _checkPos, _target, _markerArray, _convoyType, _convoySide] call A3A_fnc_despawnConvoy;
 };

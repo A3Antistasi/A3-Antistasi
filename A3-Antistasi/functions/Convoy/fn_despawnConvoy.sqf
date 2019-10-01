@@ -1,7 +1,6 @@
-params ["_unitObjects"];
+params ["_convoyID", "_unitObjects", "_convoyPos", "_target", "_markerArray", "_convoyType", "_convoySide"];
 
 _convoyData = [];
-_currentPos = [];
 for "_i" from 0 to ((count _unitObjects) - 1) do
 {
   _data = _unitObjects select _i;
@@ -15,11 +14,7 @@ for "_i" from 0 to ((count _unitObjects) - 1) do
   _cargoData = [];
   if(count _cargo > 0) then
   {
-    waitUntil {sleep 2; !([distanceSPWN * 1.2, 1, getPos (leader (_cargo select 0)), teamPlayer] call A3A_fnc_distanceUnits)};
-    if(_currentPos isEqualTo []) then
-    {
-      _currentPos = getPos (_cargo select 0);
-    };
+    //waitUntil {sleep 1; !([distanceSPWN * 1.2, 1, getPos (leader (_cargo select 0)), teamPlayer] call A3A_fnc_distanceUnits)};
     {
       if(alive _x) then
       {
@@ -34,11 +29,7 @@ for "_i" from 0 to ((count _unitObjects) - 1) do
   _crewData = [];
   if(count _crew > 0) then
   {
-    waitUntil {sleep 0.25; !([distanceSPWN * 1.2, 1, getPos (leader (_crew select 0)), teamPlayer] call A3A_fnc_distanceUnits)};
-    if(_currentPos isEqualTo []) then
-    {
-      _currentPos = getPos (_crew select 0);
-    };
+    waitUntil {sleep 1; !([distanceSPWN * 1.2, 1, getPos (leader (_crew select 0)), teamPlayer] call A3A_fnc_distanceUnits)};
     {
       if(alive _x) then
       {
@@ -52,12 +43,8 @@ for "_i" from 0 to ((count _unitObjects) - 1) do
   //Deleting vehicle last
   if(!isNull _vehicle) then
   {
-    waitUntil {sleep 0.25; !([distanceSPWN * 1.2, 1, getPos _vehicle, teamPlayer] call A3A_fnc_distanceUnits)};
-    if(_currentPos isEqualTo []) then
-    {
-      _currentPos = getPos _vehicle;
-    };
-    _vehicle setVelocity [0,0,0];
+    //waitUntil {sleep 0.25; !([distanceSPWN * 1.2, 1, getPos _vehicle, teamPlayer] call A3A_fnc_distanceUnits)};
+    //_vehicle setVelocity [0,0,0];
     if(alive _vehicle) then
     {
       _convoyLine set [0, typeOf _vehicle];
@@ -80,4 +67,4 @@ for "_i" from 0 to ((count _unitObjects) - 1) do
     deleteGroup _x;
 } forEach _allGroups;
 
-[_convoyID, _convoyData, _currentPos, _target, _convoyType, _convoySide] spawn A3A_fnc_createConvoy;
+[_convoyID, _convoyData, _convoyPos, _target, _markerArray, _convoyType, _convoySide] spawn A3A_fnc_createConvoy;

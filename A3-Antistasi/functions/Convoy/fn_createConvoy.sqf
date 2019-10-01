@@ -23,7 +23,6 @@ _hasLand = false;
 _velocity = 999999; //CAUTION this is km/h not m/s!!! So is every speed
 {
     _vehicle = _x select 0;
-    hint str _vehicle;
     if (!(_vehicle isKindOf "StaticWeapon")) then
     {
       if(!_hasLand && {_vehicle isKindOf "Land"}) then {_hasLand = true;};
@@ -62,7 +61,7 @@ else
 };
 
 if (_route isEqualTo []) exitWith {
-	diag_log format ["CreateConvoy[%1]: Unable to create convoy, no valid path. HasAir: %1, HasLand: %2", _convoyID, _hasAir, _hasLand];
+	diag_log format ["CreateConvoy[%1]: Unable to create convoy, no valid path. HasAir: %2, HasLand: %3", _convoyID, _hasAir, _hasLand];
 };
 
 _markerPrefix = if(colorTeamPlayer == "colorGUER") then {"b"} else {"n"};

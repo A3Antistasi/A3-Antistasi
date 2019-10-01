@@ -29,17 +29,14 @@ _attackerCount = 0;
     case (_vehicle isKindOf "Tank"): {_attackerCount = _attackerCount + 10};
     case (_vehicle isKindOf "Helicopter"):
     {
+      //Transport helicopter without a gun dont count
       if(count (getArray (configFile >> "CfgVehicles" >> _vehicle >> "weapons")) > 0) then
       {
-        _attackerCount = _attackerCount + 8;
-      }
-      else
-      {
-        _attackerCount = _attackerCount + 3;
+        _attackerCount = _attackerCount + 7;
       };
     };
     case (_vehicle isKindOf "Plane"): {_attackerCount = _attackerCount + 10};
-    default {_attackerCount = _attackerCount + 2;};
+    default {_attackerCount = _attackerCount + 1;};
   };
 } forEach _units;
 

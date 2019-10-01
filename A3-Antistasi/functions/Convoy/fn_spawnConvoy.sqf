@@ -66,7 +66,7 @@ for "_i" from 0 to ((count _units) - 1) do
 
   //Pushback the groups
   _vehicleGroup = (_lineData select 1);
-  _vehicleGroup setBehaviour "SAFE";
+  _vehicleGroup setBehaviour "CARELESS";
   _allGroups pushBack _vehicleGroup;
   _cargoGroup = (_lineData select 2);
   if(_cargoGroup != grpNull) then
@@ -86,6 +86,7 @@ for "_i" from 0 to ((count _units) - 1) do
     _landVehicles pushBack _vehicle;
     //Create marker for the crew
     [_markers select 0, _markers select 1, _vehicleGroup] call WPCreate;
+    diag_log format ["Waypoint count is %1", count (wayPoints _vehicleGroup)];
     _wp0 = (wayPoints _vehicleGroup) select 0;
     _wp0 setWaypointBehaviour "SAFE";
   };
@@ -103,6 +104,10 @@ for "_i" from 0 to ((count _units) - 1) do
       _vehicle setConvoySeparation 30;
     };
   };
+
+  _vehicle setVariable ["vehGroup", _vehicleGroup];
+  _vehicle setVariable ["cargoGroup", _cargoGroup];
+
   waitUntil {sleep 1; ((_vehicle distance _pos) > 10)};
 };
 
@@ -152,9 +157,7 @@ waitUntil
 deleteMarker _convoyMarker;
 if(_checkPos distance2D _target < 100) then
 {
-  //[] call A3A_fnc_onSpawnedArrival;
-  //Debug, despawn currently
-  [_convoyID, _unitObjects, _checkPos, _target, _markerArray, _convoyType, _convoySide] call A3A_fnc_despawnConvoy;
+  [_convoyID, _unitObjects, _checkPos, _target, _markerArray, _convoyType, _convoySide] call A3A_fnc_onSpawnedArrival;
 }
 else
 {

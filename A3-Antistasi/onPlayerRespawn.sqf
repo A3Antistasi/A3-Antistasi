@@ -238,7 +238,7 @@ if (side group player == teamPlayer) then
 			[_bag2] call A3A_fnc_AIVEHinit;
 			}
 		];
-	[true] execVM "reinitY.sqf";
+	[true] spawn A3A_fnc_reinitY;
 	[player] execVM "OrgPlayers\unitTraits.sqf";
 	[] spawn A3A_fnc_statistics;
 	}

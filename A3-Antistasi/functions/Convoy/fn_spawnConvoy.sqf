@@ -49,12 +49,12 @@ _maxSpeed = _maxSpeed * 3.6;
 //Spawn a bit above the ground
 _pos = _pos vectorAdd [0,0,0.1];
 
-private ["_unitObjects", "_allGroups", "_airVehicles", "_landVehicles", "_data", "_lineData", "_vehicleGroup", "_cargoGroup", "_vehicle", "_wp0"];
+private ["_data", "_lineData", "_vehicleGroup", "_cargoGroup", "_vehicle", "_wp0"];
 
-_createdUnits = [];
-_allGroups = [];
-_airVehicles = [];
-_landVehicles = [];
+private _createdUnits = [];
+private _allGroups = [];
+private _airVehicles = [];
+private _landVehicles = [];
 
 diag_log "Spawning in convoy";
 [_units, "Convoy Units"] call A3A_fnc_logArray;
@@ -174,9 +174,9 @@ if (_convoyDead) exitWith {
 
 if(_checkPos distance2D _target < 100) then
 {
-  [_convoyID, _unitObjects, _checkPos, _target, _markerArray, _convoyType, _convoySide] call A3A_fnc_onSpawnedArrival;
+  [_convoyID, _createdUnits, _checkPos, _target, _markerArray, _convoyType, _convoySide] call A3A_fnc_onSpawnedArrival;
 }
 else
 {
-  [_convoyID, _unitObjects, _checkPos, _target, _markerArray, _convoyType, _convoySide] call A3A_fnc_despawnConvoy;
+  [_convoyID, _createdUnits, _checkPos, _target, _markerArray, _convoyType, _convoySide] call A3A_fnc_despawnConvoy;
 };

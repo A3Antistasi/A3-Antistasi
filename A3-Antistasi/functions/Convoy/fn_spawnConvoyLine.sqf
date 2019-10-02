@@ -1,27 +1,26 @@
 params ["_data", "_side", "_pos", "_dir"];
 
-private ["_vehicleGroup", "_cargoGroup", "_vehicleData", "_vehicleObj", "_crewData", "_crewObjs", "_cargoData", "_cargoObjs"];
-private ["_allTurrets", "_possibleSeats", "_slowConvoy", "_twoGroups", "_result"];
+private _vehicleType = _data select 0;
+private _vehicleGroup = createGroup _side;
+private _vehicleObj = objNull;
 
-_vehicleGroup = createGroup _side;
-_vehicleObj = objNull;
+private _possibleSeats = [];
 
-_possibleSeats = [];
-if(_vehicleData != "") then
+if(_vehicleType != "") then
 {
   //Spawns in the vehicle as it should
-  if(!(_vehicleData isKindOf "Air")) then
+  if(!(_vehicleType isKindOf "Air")) then
   {
-    _vehicleObj = createVehicle [_vehicleData, _pos, [], 0 , "CAN_COLLIDE"];
+    _vehicleObj = createVehicle [_vehicleType, _pos, [], 0 , "CAN_COLLIDE"];
   }
   else
   {
-    _vehicleObj = createVehicle [_vehicleData, _pos, [], 0 , "FLY"];
+    _vehicleObj = createVehicle [_vehicleType, _pos, [], 0 , "FLY"];
   };
   _vehicleObj setDir _dir;
 
   //Activates the engine if the vehicle is not a static weapon
-  if(!(_vehicleData isKindOf "StaticWeapons")) then
+  if(!(_vehicleType isKindOf "StaticWeapons")) then
   {
     _vehicleObj engineOn true;
   };
@@ -33,7 +32,7 @@ if(_vehicleData != "") then
   //[_vehicleObj, false] call A3A_fnc_AIVEHinit;
 
   //Select the open slots of the vehicle
-  _allTurrets = allTurrets [_vehicleObj, false];
+  private _allTurrets = allTurrets [_vehicleObj, false];
   {
     if(count _x == 1) then
     {
@@ -45,14 +44,19 @@ if(_vehicleData != "") then
 //Sleep to decrease spawn lag
 sleep 0.25;
 
-_slowConvoy = false;
+private _slowConvoy = false;
 //Spawning in crew
-_crewObjs = [];
+private _crewTypes = _data select 1;
+private _crewObjs = [];
 {
-    _unit = _vehicleGroup createUnit [_x, _pos, [], 0, "NONE"];
+    private _unit = _vehicleGroup createUnit [_x, _pos, [], 0, "NONE"];
+	private _isInVehicle = false;
     if(!isNull _vehicleObj) then
     {
-      //If vehicle available, try to fill the driver slot
+	  //We don't need all this logic. moveInAny prioritises in this order anyway.
+	  //Unless we need to 'assignAsDriver', etc. Not sure if we do.
+	  _isInVehicle = _vehicleObj moveInAny _unit;
+      /*//If vehicle available, try to fill the driver slot
       if(isNull (driver _vehicleObj)) then
       {
         _unit moveInDriver _vehicleObj;
@@ -67,23 +71,26 @@ _crewObjs = [];
       {
         _seat = _possibleSeats deleteAt 0;
         _unit moveInTurret [_vehicleObj, _seat];
-      };
-    }
-    else
-    {
-      //Units are moving by foot, slow down convoy
-      _slowConvoy = true;
+      };*/
     };
+	if (!_isInVehicle) then {
+	  //Units are moving by foot, slow down convoy
+      _slowConvoy = true;
+	};
     [_unit] call A3A_fnc_NATOinit;
     _crewObjs pushBack _unit;
     sleep 0.2;
-} forEach _crewData;
+} forEach _crewTypes;
 
 sleep 0.5;
 
-_twoGroups = false;
+private _cargoTypes = _data select 2;
+private _cargoGroup = grpNull;
+private _twoGroups = false;
+private _cargoObjs = [];
+
 //Put cargo into a seperate group if they are cargo of a plane or large
-if(_vehicleObj isKindOf "Air" || {count _cargoData >= 6}) then
+if(_vehicleObj isKindOf "Air" || {count _cargoTypes >= 6}) then
 {
   _cargoGroup = createGroup _side;
   _twoGroups = true;
@@ -94,37 +101,25 @@ else
   _twoGroups = false;
 };
 
-_cargoObjs = [];
 //Spawning in cargo
 {
     _unit = _cargoGroup createUnit [_x, _pos, [], 0, "NONE"];
-    if(!isNull _vehicleObj) then
+    if (!isNull _vehicleObj) then
     {
       _unit assignAsCargo _vehicleObj;
       _unit moveInCargo _vehicleObj;
-    }
-    else
+    };
+	
+	if (vehicle _unit == _unit) then
     {
       //Units are moving by foot, slow down convoy
       _slowConvoy = true;
     };
+	
     [_unit] call A3A_fnc_NATOinit;
     _cargoObjs pushBack _unit;
     sleep 0.2;
-} forEach _cargo;
+} forEach _cargoTypes;
 
-//Prepare result array
-_result = [];
-_result pushBack [_vehicleObj, _crewObjs, _cargoObjs];
-_result pushBack _vehicleGroup;
-if(_twoGroups) then
-{
-  _result pushBack _cargoGroup;
-}
-else
-{
-  _result pushBack grpNull;
-};
-_result pushBack _slowConvoy;
-
-_result;
+//Return result array
+[[_vehicleObj, _crewObjs, _cargoObjs], _vehicleGroup, _cargoGroup, _slowConvoy];

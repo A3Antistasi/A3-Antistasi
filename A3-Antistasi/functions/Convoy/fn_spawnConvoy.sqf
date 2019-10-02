@@ -46,9 +46,9 @@ _maxSpeed = _maxSpeed * 3.6;
 //Spawn a bit above the ground
 _pos = _pos vectorAdd [0,0,0.1];
 
-private ["_unitObjects", "_allGroups", "_airVehicles", "_landVehicles"];
+private ["_createdUnits", "_allGroups", "_airVehicles", "_landVehicles"];
 
-_unitObjects = [];
+_createdUnits = [];
 _allGroups = [];
 _airVehicles = [];
 _landVehicles = [];
@@ -62,11 +62,13 @@ for "_i" from 0 to ((count _units) - 1) do
   _lineData = [_data, _convoySide, _pos, _dir] call A3A_fnc_spawnConvoyLine;
 
   //Pushback the spawned objects
-  _unitObjects pushBack (_lineData select 0);
+  _unitObjects = _lineData select 0;
+  _createdUnits pushBack _unitObjects;
 
   //Pushback the groups
   _vehicleGroup = (_lineData select 1);
   _allGroups pushBack _vehicleGroup;
+  
   _cargoGroup = (_lineData select 2);
   if(_cargoGroup != grpNull) then
   {
@@ -74,7 +76,7 @@ for "_i" from 0 to ((count _units) - 1) do
   };
 
   //Select vehicle type
-  _vehicle = (_lineData select 0) select 0;
+  _vehicle = _unitObjects select 0;
   if(_vehicle isKindOf "Air") then
   {
     _airVehicles pushBack _vehicle;
@@ -83,11 +85,15 @@ for "_i" from 0 to ((count _units) - 1) do
   {
     _landVehicles pushBack _vehicle;
 
+	//Markers commented out, as we don't have them as parameters.
+	//Pathfinding's gonna have to work on its own for now.
     //Create marker for the crew
-    [_markers select 0, _target, _vehicleGroup] call A3A_fnc_WPCreate;
-    _wp0 = (wayPoints _vehicleGroup) select 0;
-    _wp0 setWaypointBehaviour "SAFE";
-    _wp0 = _group addWaypoint [_target, count (wayPoints _group)];
+    //[_markers select 0, _target, _vehicleGroup] call A3A_fnc_WPCreate;
+    //_wp0 = (wayPoints _vehicleGroup) select 0;
+    //_wp0 setWaypointBehaviour "SAFE";
+	
+	//Waypoint within 50m of target.
+    _wp0 = _vehicleGroup addWaypoint [_target, 50];
     _wp0 setWaypointType "TR UNLOAD";
     _wp0 setWaypointStatements ["true","nul = [group this] spawn A3A_fnc_groupDespawner;"];
 
@@ -109,10 +115,11 @@ for "_i" from 0 to ((count _units) - 1) do
       _vehicle setConvoySeparation 30;
     };
   };
+  //This potentially really slows down them spawning in, as it depends on how long it takes for them to drive away.
   waitUntil {sleep 0.5; ((_vehicle distance2D _pos) > 10)};
 };
 
-_convoyPos = [];
+private _convoyPos = [];
 //Let helicopter follow the vehicles and vehicles have a speed limit
 if(count _landVehicles > 0) then
 {
@@ -131,7 +138,7 @@ else
     _convoyPos = getPos (_airVehicles select 0);
   };
   {
-    _landPos = if (_vehicle isKindOf "Helicopter") then {[_target, 0, 300, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos} else {[]};
+    private _landPos = if (_vehicle isKindOf "Helicopter") then {[_target, 0, 300, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos} else {[]};
     if (!(_landPos isEqualTo [])) then
     {
       _landPos set [2, 0];

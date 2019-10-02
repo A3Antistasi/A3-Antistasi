@@ -133,7 +133,7 @@ else
 {
   //No vehicle found, fly direct way
   {
-    _wp0 = (group _x) addWaypoint [(_target vectorAdd [0,0,20]), 50, 0];
+    _wp0 = (group _x) addWaypoint [(_target vectorAdd [0,0,30]), -1];
     _wp0 setWaypointBehaviour "SAFE";
   } forEach _airVehicles;
 };

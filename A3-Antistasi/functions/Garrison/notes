@@ -28,6 +28,7 @@ MERGED INTO UNSTABLE AND TESTED BY POT
 SPLIT HERE FOR PR 2.2
 ================================================================================
 
+Add helicopter types for spoffy
 Make the AI follow the pathfinding way
 Clean up code
 Add code documentation

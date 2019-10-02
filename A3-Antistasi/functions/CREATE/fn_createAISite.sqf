@@ -61,7 +61,7 @@ _patrolMarker setMarkerDirLocaL (markerDir _marker);
 
 if(!debug) then
 {
-  //_patrolMarker setMarkerAlphaLocal 0;
+  _patrolMarker setMarkerAlphaLocal 0;
 };
 
 _typeFlag = if (_side == Occupants) then {NATOFlag} else {CSATFlag};

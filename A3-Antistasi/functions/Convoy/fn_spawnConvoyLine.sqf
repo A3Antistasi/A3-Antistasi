@@ -1,10 +1,16 @@
 params ["_data", "_side", "_pos", "_dir"];
 
-private _vehicleType = _data select 0;
-private _vehicleGroup = createGroup _side;
-private _vehicleObj = objNull;
+//TESTED
 
-private _possibleSeats = [];
+private ["_vehicleGroup", "_cargoGroup", "_vehicleData", "_vehicleObj", "_crewData", "_crewObjs", "_cargoData", "_cargoObjs"];
+private ["_allTurrets", "_possibleSeats", "_slowConvoy", "_twoGroups", "_result"];
+
+_vehicleData = _data select 0;
+_crewData = _data select 1;
+_cargoData = _data select 2;
+
+_vehicleGroup = createGroup _side;
+_vehicleObj = objNull;
 
 if(_vehicleType != "") then
 {
@@ -28,11 +34,11 @@ if(_vehicleType != "") then
   //Assigns a vehicle to the group, the makes it a target, even if its empty
   _vehicleGroup addVehicle _vehicleObj;
 
-  //Currently not, as it locks the vehicle from the pool, which should happen before
-  //[_vehicleObj, false] call A3A_fnc_AIVEHinit;
+  //Init vehicle
+  [_vehicleObj] call A3A_fnc_AIVEHinit;
 
   //Select the open slots of the vehicle
-  private _allTurrets = allTurrets [_vehicleObj, false];
+  _allTurrets = allTurrets [_vehicleObj, false];
   {
     if(count _x == 1) then
     {
@@ -55,6 +61,8 @@ private _crewObjs = [];
     {
 	  //We don't need all this logic. moveInAny prioritises in this order anyway.
 	  //Unless we need to 'assignAsDriver', etc. Not sure if we do.
+
+    //Are you sure? I had some huge problems with it, but I will give it a try
 	  _isInVehicle = _vehicleObj moveInAny _unit;
       /*//If vehicle available, try to fill the driver slot
       if(isNull (driver _vehicleObj)) then
@@ -109,17 +117,31 @@ else
       _unit assignAsCargo _vehicleObj;
       _unit moveInCargo _vehicleObj;
     };
-	
+
 	if (vehicle _unit == _unit) then
     {
       //Units are moving by foot, slow down convoy
       _slowConvoy = true;
     };
-	
+
     [_unit] call A3A_fnc_NATOinit;
     _cargoObjs pushBack _unit;
     sleep 0.2;
-} forEach _cargoTypes;
+} forEach _cargoData;
+
+//Prepare result array
+_result = [];
+_result pushBack [_vehicleObj, _crewObjs, _cargoObjs];
+_result pushBack _vehicleGroup;
+if(_twoGroups) then
+{
+  _result pushBack _cargoGroup;
+}
+else
+{
+  _result pushBack grpNull;
+};
+_result pushBack _slowConvoy;
 
 //Return result array
 [[_vehicleObj, _crewObjs, _cargoObjs], _vehicleGroup, _cargoGroup, _slowConvoy];

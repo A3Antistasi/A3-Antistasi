@@ -1,7 +1,7 @@
-params ["_convoyID", "_posArray", /*"_markers",*/ "_units", "_convoySide", "_convoyType", "_maxSpeed"];
+params ["_convoyID", "_units", "_posArray", "_markers", "_convoySide", "_convoyType", "_maxSpeed"];
 
 
-private ["_pos", "_nextPos", "_target", "_dir", "_startMarker", "_targetMarker", "_road", "_radius", "_possibleRoads"];
+private ["_pos", "_nextPos", "_target", "_dir", "_startMarker", "_targetMarker", "_convoyMarker", "_road", "_radius", "_possibleRoads"];
 
 _pos = _posArray select 0;
 _nextPos = _posArray select 1;
@@ -14,6 +14,9 @@ _dir = _pos getDir _nextPos;
 //_targetMarker = _markers select 1;
 //Temporary start marker, to send the convoy off to the carrier.
 _startMarker = if (_convoySide == Occupants) then {"NATO_Carrier";} else {"CSAT_Carrier";};
+
+_convoyMarker = format ["convoy%1", _convoyID];
+_convoyMarker setMarkerText (format ["%1 Convoy [%2]: Spawned", _convoyType, _convoyID]);
 
 //Find near road segments
 _road = roadAt _pos;
@@ -46,15 +49,15 @@ _maxSpeed = _maxSpeed * 3.6;
 //Spawn a bit above the ground
 _pos = _pos vectorAdd [0,0,0.1];
 
-private ["_createdUnits", "_allGroups", "_airVehicles", "_landVehicles"];
+private ["_unitObjects", "_allGroups", "_airVehicles", "_landVehicles", "_data", "_lineData", "_vehicleGroup", "_cargoGroup", "_vehicle", "_wp0", "_posObject", "_checkPos"];
 
 _createdUnits = [];
 _allGroups = [];
 _airVehicles = [];
 _landVehicles = [];
 
-//diag_log "Spawning in convoy";
-//[_units, "Convoy Units"] call A3A_fnc_logArray;
+diag_log "Spawning in convoy";
+[_units, "Convoy Units"] call A3A_fnc_logArray;
 
 for "_i" from 0 to ((count _units) - 1) do
 {
@@ -67,12 +70,14 @@ for "_i" from 0 to ((count _units) - 1) do
 
   //Pushback the groups
   _vehicleGroup = (_lineData select 1);
+  _vehicleGroup setBehaviour "CARELESS";
   _allGroups pushBack _vehicleGroup;
-  
+
   _cargoGroup = (_lineData select 2);
   if(_cargoGroup != grpNull) then
   {
     _allGroups pushBack _cargoGroup;
+    _cargoGroup setBehaviour "CARELESS";
   };
 
   //Select vehicle type
@@ -84,25 +89,14 @@ for "_i" from 0 to ((count _units) - 1) do
   else
   {
     _landVehicles pushBack _vehicle;
-
-	//Markers commented out, as we don't have them as parameters.
-	//Pathfinding's gonna have to work on its own for now.
     //Create marker for the crew
-    //[_markers select 0, _target, _vehicleGroup] call A3A_fnc_WPCreate;
-    //_wp0 = (wayPoints _vehicleGroup) select 0;
-    //_wp0 setWaypointBehaviour "SAFE";
-	
-	//Waypoint within 50m of target.
-    _wp0 = _vehicleGroup addWaypoint [_target, 50];
-    _wp0 setWaypointType "TR UNLOAD";
-    _wp0 setWaypointStatements ["true","nul = [group this] spawn A3A_fnc_groupDespawner;"];
-
-    //Create marker for the cargo
-    if(_cargoGroup != grpNull) then
-    {
-      _cargoGroup spawn A3A_fnc_attackDrillAI;
-    };
+    [_markers select 0, _markers select 1, _vehicleGroup] call WPCreate;
+    diag_log format ["Waypoint count is %1", count (wayPoints _vehicleGroup)];
+    _wp0 = (wayPoints _vehicleGroup) select 0;
+    _wp0 setWaypointBehaviour "SAFE";
   };
+  //Push vehicles forward
+  _vehicle setVelocity ((vectorDir _vehicle) vectorMultiply 20);
 
   if(_vehicle != objNull) then
   {
@@ -115,67 +109,62 @@ for "_i" from 0 to ((count _units) - 1) do
       _vehicle setConvoySeparation 30;
     };
   };
-  //This potentially really slows down them spawning in, as it depends on how long it takes for them to drive away.
-  waitUntil {sleep 0.5; ((_vehicle distance2D _pos) > 10)};
+
+  _vehicle setVariable ["vehGroup", _vehicleGroup];
+  _vehicle setVariable ["cargoGroup", _cargoGroup];
+
+  waitUntil {sleep 0.5; ((_vehicle distance _pos) > 10)};
 };
 
-private _convoyPos = [];
+
+_posObject = objNull;
 //Let helicopter follow the vehicles and vehicles have a speed limit
 if(count _landVehicles > 0) then
 {
-  _convoyPos = getPos (_landVehicles select 0);
+  _posObject = _landVehicles select 0;
   {
       _x limitSpeed _maxSpeed;
   } forEach _landVehicles;
   {
-      [selectRandom _landVehicles, _x, _target, _maxSpeed * 1.1] call A3A_fnc_followVehicle;
+      [selectRandom _landVehicles, _x, _target, _maxSpeed * 1.5] spawn A3A_fnc_followVehicle;
   } forEach _airVehicles;
 }
 else
 {
+  //No vehicle found, fly direct way
   if(count _airVehicles > 0) then
   {
-    _convoyPos = getPos (_airVehicles select 0);
+    _posObject = _airVehicles select 0;
   };
   {
-    private _landPos = if (_vehicle isKindOf "Helicopter") then {[_target, 0, 300, 10, 0, 0.20, 0,[],[[0,0,0],[0,0,0]]] call BIS_fnc_findSafePos} else {[]};
-    if (!(_landPos isEqualTo [])) then
-    {
-      _landPos set [2, 0];
-      _pad = createVehicle ["Land_HelipadEmpty_F", _landpos, [], 0, "NONE"];
-      _vehicleGroup setVariable ["myPad",_pad];
-      _wp0 = _vehicleGroup addWaypoint [_landpos, 0];
-      _wp0 setWaypointType "TR UNLOAD";
-      _wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';deleteVehicle ((group this) getVariable [""myPad"",objNull])"];
-      _wp0 setWaypointBehaviour "CARELESS";
-      _wp3 = _cargoGroup addWaypoint [_landpos, 0];
-      _wp3 setWaypointType "GETOUT";
-      _wp3 setWaypointStatements ["true", "(group this) spawn A3A_fnc_attackDrillAI"];
-      _wp0 synchronizeWaypoint [_wp3];
-      _wp4 = _cargoGroup addWaypoint [_target, 1];
-      _wp4 setWaypointType "MOVE";
-      _wp4 setWaypointStatements ["true", "[group this] spawn A3A_fnc_groupDespawner;"];
-	  
-      _wp2 = _vehicleGroup addWaypoint [getMarkerPos _startMarker, 1];
-      _wp2 setWaypointType "MOVE";
-      _wp2 setWaypointStatements ["true", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
-      [_vehicleGroup,1] setWaypointBehaviour "AWARE";
-    }
-    else
-    {
-      if ((typeOf _vehicle) in vehFastRope) then
-      {
-        [_vehicle, _cargoGroup, _target, getMarkerPos _startMarker, _vehicleGroup, true] spawn A3A_fnc_fastrope;
-      }
-      else
-      {
-        [_vehicle, _cargoGroup, _target, _startMarker,true] spawn A3A_fnc_airdrop;
-      };
-    };
+    _wp0 = (group _x) addWaypoint [(_target vectorAdd [0,0,20]), 50, 0];
+    _wp0 setWaypointBehaviour "SAFE";
   } forEach _airVehicles;
 };
 
-if(_convoyPos isEqualTo []) then
+//Neither land nor air vehicles, choose position of first group
+if(isNull _posObject) then
 {
-  _convoyPos = getPos (_allGroups select 0);
+  _posObject = _allGroups select 0;
+};
+
+
+_checkPos = [];
+waitUntil
+{
+  sleep 1;
+  _checkPos = getPos _posObject;
+  _convoyMarker setMarkerPos _checkPos;
+  (_checkPos distance2D _target < 100) ||
+  {!([distanceSPWN * 1.2, 1, _checkPos, teamPlayer] call A3A_fnc_distanceUnits)}
+};
+
+deleteMarker _convoyMarker;
+if(_checkPos distance2D _target < 100) then
+{
+  [_convoyID, _unitObjects, _checkPos, _target, _markerArray, _convoyType, _convoySide] call A3A_fnc_onSpawnedArrival;
+}
+else
+{
+  [_convoyID, _unitObjects, _checkPos, _target, _markerArray, _convoyType, _convoySide] call A3A_fnc_despawnConvoy;
 };

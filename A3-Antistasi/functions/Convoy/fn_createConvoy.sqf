@@ -1,4 +1,4 @@
-params ["_convoyID", "_units", "_origin", "_destination", "_convoyType", "_sideConvoy"];
+params ["_convoyID", "_units", "_origin", "_destination", "_markerArray", "_convoyType", "_convoySide"];
 
 /*  Creates a convoy for simulated movement
 *   Params:
@@ -7,7 +7,7 @@ params ["_convoyID", "_units", "_origin", "_destination", "_convoyType", "_sideC
 *     _origin: POS; contains the position of the starting point
 *     _destination: POS; contains the position of the end point
 *     _convoyType: STRING; contains one of "ATTACK", "PATROL" or "REINFORCE" + further
-*     _sideConvoy: SIDE; contains the side of the convoy
+*     _convoySide: SIDE; contains the side of the convoy
 *   Returns:
 *     Nothing
 */
@@ -65,8 +65,8 @@ if (_route isEqualTo []) exitWith {
 };
 
 _markerPrefix = if(colorTeamPlayer == "colorGUER") then {"b"} else {"n"};
-if(_sideConvoy == Occupants) then {_markerPrefix = if(colorInvaders == "colorBLUFOR") then {"n"} else {"b"};};
-if(_sideConvoy == Invaders) then {_markerPrefix = "o"};
+if(_convoySide == Occupants) then {_markerPrefix = if(colorInvaders == "colorBLUFOR") then {"n"} else {"b"};};
+if(_convoySide == Invaders) then {_markerPrefix = "o"};
 
 _markerType = "_mech_inf";
 if(_type == "Air") then {_markerType = "_air"};
@@ -82,4 +82,4 @@ convoyMarker pushBack _convoyMarker;
 
 diag_log format ["CreateConvoy[%1]: Created convoy with %2 m/s and a total of %3 waypoints, marker is %4%5", _convoyID, _velocity, count _route, _markerPrefix, _markerType];
 
-[_convoyID, _route, _velocity, _units, _sideConvoy, _convoyType, (!_hasLand)] spawn A3A_fnc_convoyMovement;
+[_convoyID, _route, _markerArray, _velocity, _units, _convoySide, _convoyType, (!_hasLand)] spawn A3A_fnc_convoyMovement;

@@ -119,7 +119,7 @@ fn_RetrievePlayerStat = {
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","backpcks","ammunition","dateX", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 specialVarLoads =
-["outpostsFIA","minesX","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","backpcks","ammunition","dateX", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedCities","garrison","tasks","smallCAmrk","membersX","vehInGarage","destroyedBuildings","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
+["outpostsFIA","minesX","staticsX","countCA","antennas","mrkNATO","mrkSDK","prestigeNATO","prestigeCSAT","posHQ", "hr","armas","items","backpcks","ammunition","dateX", "prestigeOPFOR","prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedSites","garrison","tasks","smallCAmrk","membersX","vehInGarage","destroyedBuildings","idlebases","idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","mrkCSAT","nextTick","bombRuns","difficultyX","gameMode"];
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
 fn_SetStat =
 {
@@ -178,7 +178,7 @@ fn_SetStat =
 			forceWeatherChange
 			};
 		if(_varName == 'resourcesFIA') then {server setVariable ["resourcesFIA",_varValue,true]};
-		if(_varName == 'destroyedCities') then {destroyedCities = +_varValue; publicVariable "destroyedCities"};
+		if(_varName == 'destroyedSites') then {destroyedSites = +_varValue; publicVariable "destroyedSites"};
 		if(_varName == 'skillFIA') then
 			{
 			skillFIA = _varValue; publicVariable "skillFIA";

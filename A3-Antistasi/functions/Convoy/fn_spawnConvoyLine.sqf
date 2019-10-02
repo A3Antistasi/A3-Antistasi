@@ -1,4 +1,4 @@
-params ["_data", "_side", "_pos", "_dir"];
+params ["_data", "_side", "_pos", "_dir", ["_landVehicleGroup", grpNull]];
 
 private _vehicleType = _data select 0;
 private _crewData = _data select 1;
@@ -6,7 +6,7 @@ private _cargoData = _data select 2;
 
 private _slowConvoy = false;
 
-private _vehicleGroup = createGroup _side;
+private _vehicleGroup = if (!isNull _landVehicleGroup && {!(_vehicleType isKindOf "Air")}) then {_landVehicleGroup} else {createGroup _side};
 private _vehicleObj = objNull;
 
 if(_vehicleType != "") then

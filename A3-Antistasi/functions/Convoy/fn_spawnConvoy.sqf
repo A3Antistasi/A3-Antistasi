@@ -49,7 +49,7 @@ _maxSpeed = _maxSpeed * 3.6;
 //Spawn a bit above the ground
 _pos = _pos vectorAdd [0,0,0.1];
 
-private ["_data", "_lineData", "_vehicleGroup", "_cargoGroup", "_vehicle", "_wp0"];
+private ["_data", "_lineData", "_cargoGroup", "_vehicle", "_wp0"];
 
 private _createdUnits = [];
 private _allGroups = [];
@@ -59,19 +59,21 @@ private _landVehicles = [];
 diag_log "Spawning in convoy";
 [_units, "Convoy Units"] call A3A_fnc_logArray;
 
+private _landVehicleGroup = createGroup _convoySide;
+
 for "_i" from 0 to ((count _units) - 1) do
 {
   _data = _units select _i;
-  _lineData = [_data, _convoySide, _pos, _dir] call A3A_fnc_spawnConvoyLine;
+  _lineData = [_data, _convoySide, _pos, _dir, _landVehicleGroup] call A3A_fnc_spawnConvoyLine;
 
   //Pushback the spawned objects
   _unitObjects = _lineData select 0;
   _createdUnits pushBack _unitObjects;
 
   //Pushback the groups
-  _vehicleGroup = (_lineData select 1);
+  private _vehicleGroup = (_lineData select 1);
   _vehicleGroup setBehaviour "CARELESS";
-  _allGroups pushBack _vehicleGroup;
+  _allGroups pushBackUnique _vehicleGroup;
 
   _cargoGroup = (_lineData select 2);
   if(_cargoGroup != grpNull) then
@@ -89,11 +91,6 @@ for "_i" from 0 to ((count _units) - 1) do
   else
   {
     _landVehicles pushBack _vehicle;
-    //Create marker for the crew
-    [_markers select 0, _markers select 1, _vehicleGroup] call A3A_fnc_WPCreate;
-    diag_log format ["Waypoint count is %1", count (wayPoints _vehicleGroup)];
-    _wp0 = (wayPoints _vehicleGroup) select 0;
-    _wp0 setWaypointBehaviour "SAFE";
   };
   //Push vehicles forward
   _vehicle setVelocity ((vectorDir _vehicle) vectorMultiply 20);
@@ -125,6 +122,12 @@ if(count _landVehicles > 0) then
   {
       [selectRandom _landVehicles, _x, _target, _maxSpeed * 1.5] spawn A3A_fnc_followVehicle;
   } forEach _airVehicles;
+  
+  //Create marker for the crew
+  [_markers select 0, _markers select 1, _landVehicleGroup] call A3A_fnc_WPCreate;
+  diag_log format ["Convoy [%1]: Waypoint count is %2", _convoyID, count (wayPoints _landVehicleGroup)];
+  _wp0 = (wayPoints _landVehicleGroup) select 0;
+  _wp0 setWaypointBehaviour "SAFE";
 }
 else
 {

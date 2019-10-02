@@ -9,6 +9,8 @@ private _slowConvoy = false;
 private _vehicleGroup = createGroup _side;
 private _vehicleObj = objNull;
 
+private _possibleSeats = [];
+
 if(_vehicleType != "") then
 {
   //Spawns in the vehicle as it should

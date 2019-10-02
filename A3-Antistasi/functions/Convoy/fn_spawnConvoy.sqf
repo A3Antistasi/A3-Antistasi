@@ -10,10 +10,10 @@ _target = _posArray select 2;
 _dir = _pos getDir _nextPos;
 
 //Disabled markers as there isn't sufficient information in createConvoy to give them to spawnConvoy.
-//_startMarker = _markers select 0;
-//_targetMarker = _markers select 1;
+//There is now :D
+_startMarker = _markers select 0;
+_targetMarker = _markers select 1;
 //Temporary start marker, to send the convoy off to the carrier.
-_startMarker = if (_convoySide == Occupants) then {"NATO_Carrier";} else {"CSAT_Carrier";};
 
 _convoyMarker = format ["convoy%1", _convoyID];
 _convoyMarker setMarkerText (format ["%1 Convoy [%2]: Spawned", _convoyType, _convoyID]);

@@ -9,8 +9,6 @@ private _slowConvoy = false;
 private _vehicleGroup = createGroup _side;
 private _vehicleObj = objNull;
 
-private _possibleSeats = [];
-
 if(_vehicleType != "") then
 {
   //Spawns in the vehicle as it should
@@ -35,51 +33,34 @@ if(_vehicleType != "") then
 
   //Init vehicle
   [_vehicleObj] call A3A_fnc_AIVEHinit;
-
-  //Select the open slots of the vehicle
-  _allTurrets = allTurrets [_vehicleObj, false];
-  {
-    if(count _x == 1) then
-    {
-      _possibleSeats pushBack _x;
-    };
-  } forEach _allTurrets;
 };
 
 //Sleep to decrease spawn lag
 sleep 0.25;
 
+private _turrets = allTurrets [_vehicleObj, true];
+private _turretCount = count _turrets;
+private _nextTurretIndex = 0;
 //Spawning in crew
 private _crewObjs = [];
 {
     private _unit = _vehicleGroup createUnit [_x, _pos, [], 0, "NONE"];
-	private _isInVehicle = false;
+	diag_log format ["Convoy: Moving %1 into %2 of type %3 with %4 crew turrets", _unit, _vehicleObj, _vehicleType, _turretCount];
     if(!isNull _vehicleObj) then
     {
-	  //We don't need all this logic. moveInAny prioritises in this order anyway.
-	  //Unless we need to 'assignAsDriver', etc. Not sure if we do.
-
-    //Are you sure? I had some huge problems with it, but I will give it a try
-	  _isInVehicle = _vehicleObj moveInAny _unit;
-      /*//If vehicle available, try to fill the driver slot
-      if(isNull (driver _vehicleObj)) then
-      {
-        _unit moveInDriver _vehicleObj;
-      }
-      else
-      {
-        //Driver slot full, try to fill commander slot
-        if(isNull (commander _vehicleObj)) then {_unit moveInCommander _vehicleObj;};
-      };
-      //Driver and commander full, select weapon slots
-      if(isNull (objectParent _unit)) then
-      {
-        _seat = _possibleSeats deleteAt 0;
-        _unit moveInTurret [_vehicleObj, _seat];
-      };*/
+	  if (isNull driver _vehicleObj) then {
+		_unit assignAsDriver _vehicleObj;
+		_unit moveInDriver _vehicleObj;
+	  } else {
+		if (_nextTurretIndex < _turretCount) then {
+			private _turretData = [_vehicleObj, _turrets select _nextTurretIndex];
+			_unit assignAsTurret _turretData;
+			_unit moveInTurret _turretData;
+			_nextTurretIndex = _nextTurretIndex + 1;
+		};
+	  };
     };
-	if (!_isInVehicle) then {
-	  //Units are moving by foot, slow down convoy
+	if (vehicle _unit == _unit) then {
       _slowConvoy = true;
 	};
     [_unit] call A3A_fnc_NATOinit;

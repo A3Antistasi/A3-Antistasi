@@ -49,7 +49,7 @@ _maxSpeed = _maxSpeed * 3.6;
 //Spawn a bit above the ground
 _pos = _pos vectorAdd [0,0,0.1];
 
-private ["_unitObjects", "_allGroups", "_airVehicles", "_landVehicles", "_data", "_lineData", "_vehicleGroup", "_cargoGroup", "_vehicle", "_wp0", "_posObject", "_checkPos"];
+private ["_unitObjects", "_allGroups", "_airVehicles", "_landVehicles", "_data", "_lineData", "_vehicleGroup", "_cargoGroup", "_vehicle", "_wp0"];
 
 _createdUnits = [];
 _allGroups = [];
@@ -116,12 +116,9 @@ for "_i" from 0 to ((count _units) - 1) do
   waitUntil {sleep 0.5; ((_vehicle distance _pos) > 10)};
 };
 
-
-_posObject = objNull;
 //Let helicopter follow the vehicles and vehicles have a speed limit
 if(count _landVehicles > 0) then
 {
-  _posObject = _landVehicles select 0;
   {
       _x limitSpeed _maxSpeed;
   } forEach _landVehicles;
@@ -132,34 +129,49 @@ if(count _landVehicles > 0) then
 else
 {
   //No vehicle found, fly direct way
-  if(count _airVehicles > 0) then
-  {
-    _posObject = _airVehicles select 0;
-  };
   {
     _wp0 = (group _x) addWaypoint [(_target vectorAdd [0,0,20]), 50, 0];
     _wp0 setWaypointBehaviour "SAFE";
   } forEach _airVehicles;
 };
 
-//Neither land nor air vehicles, choose position of first group
-if(isNull _posObject) then
-{
-  _posObject = _allGroups select 0;
+private _fnc_firstAliveUnit = {
+	private _result = objNull;
+	{
+		private _units = units _x;
+		private _unitIndex =  _units findIf {alive _x};
+		if (_unitIndex > -1) exitWith {
+			_result = _units select _unitIndex;
+		};
+	} forEach _allGroups;
+	_result;
 };
 
+private _markedUnit = call _fnc_firstAliveUnit;
+private _checkPos = [];
+private _convoyDead = false;
 
-_checkPos = [];
 waitUntil
 {
   sleep 1;
-  _checkPos = getPos _posObject;
+  _markedUnit = if (alive _markedUnit) then {_markedUnit} else {call _fnc_firstAliveUnit};
+  if (_markedUnit == objNull) exitWith {_convoyDead = true; true;};
+  
+  _checkPos = getPos _markedUnit;
   _convoyMarker setMarkerPos _checkPos;
   (_checkPos distance2D _target < 100) ||
   {!([distanceSPWN * 1.2, 1, _checkPos, teamPlayer] call A3A_fnc_distanceUnits)}
 };
 
 deleteMarker _convoyMarker;
+
+if (_convoyDead) exitWith {
+	diag_log format ["%1 Convoy [%2]: All units dead. Convoy terminated.", _convoyType, _convoyID];
+	{
+		_x deleteGroupWhenEmpty true;
+	} forEach _allGroups;
+};
+
 if(_checkPos distance2D _target < 100) then
 {
   [_convoyID, _unitObjects, _checkPos, _target, _markerArray, _convoyType, _convoySide] call A3A_fnc_onSpawnedArrival;

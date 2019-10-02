@@ -90,7 +90,7 @@ for "_i" from 0 to ((count _units) - 1) do
   {
     _landVehicles pushBack _vehicle;
     //Create marker for the crew
-    [_markers select 0, _markers select 1, _vehicleGroup] call WPCreate;
+    [_markers select 0, _markers select 1, _vehicleGroup] call A3A_fnc_WPCreate;
     diag_log format ["Waypoint count is %1", count (wayPoints _vehicleGroup)];
     _wp0 = (wayPoints _vehicleGroup) select 0;
     _wp0 setWaypointBehaviour "SAFE";

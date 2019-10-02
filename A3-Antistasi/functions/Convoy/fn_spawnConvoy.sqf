@@ -60,6 +60,8 @@ diag_log "Spawning in convoy";
 [_units, "Convoy Units"] call A3A_fnc_logArray;
 
 private _landVehicleGroup = createGroup _convoySide;
+//Attempting to reduce how often convoys get stuck.
+_landVehicleGroup setFormation "COLUMN";
 
 for "_i" from 0 to ((count _units) - 1) do
 {

@@ -1,6 +1,6 @@
 private ["_loot","_guns","_ammo","_items","_avail","_num","_optics","_packs","_mines"];
 
-private _unlocks = (unlockedItems + unlockedOptics + unlockedWeapons + unlockedBackpacks + unlockedMagazines);
+private _unlocks = (unlockedNVG + unlockedItems + unlockedOptics + unlockedWeapons + unlockedBackpacks + unlockedMagazines);
 private _crate = _this select 0;
 
 clearMagazineCargoGlobal _crate;
@@ -34,7 +34,7 @@ if (typeOf _crate == vehNATOAmmoTruck) then
 
 for "_i" from 0 to _weaponTypes do
 	{
-	_guns = (weaponsNato + antitankAAF);
+	_guns = lootWeapon;
 	_avail = (_guns - _unlocks - itemCargo _crate);
 	_loot = selectRandom _avail;
 	if (isNil "_loot") then
@@ -51,7 +51,7 @@ for "_i" from 0 to _weaponTypes do
 
 for "_i" from 0 to _itemTypes do
 	{
-	_items = itemsAAF;
+	_items = lootItem;
 	_avail = (_items - _unlocks - itemCargo _crate);
 	_loot = selectRandom _avail;
 	if (isNil "_loot") then
@@ -68,7 +68,7 @@ for "_i" from 0 to _itemTypes do
 
 for "_i" from 0 to _ammoTypes do
 	{
-	_ammo = (smokeX + chemX + ammunitionNATO);
+	_ammo = lootMagazine;
 	_avail = (_ammo - _unlocks - itemCargo _crate);
 	_loot = selectRandom _avail;
 	if (isNil "_loot") then
@@ -85,7 +85,7 @@ for "_i" from 0 to _ammoTypes do
 
 for "_i" from 0 to _mineTypes do
 	{
-	_mines = minesAAF;
+	_mines = lootExplosive;
 	_avail = (_mines - _unlocks - itemCargo _crate);
 	_loot = selectRandom _avail;
 	if (isNil "_loot") then
@@ -104,7 +104,7 @@ if !(hasIFA) then
 	{
 	for "_i" from 0 to _opticTypes do
 		{
-		_optics = opticsAAF;
+		_optics = lootAttachment;
 		_avail = (_optics - _unlocks - itemCargo _crate);
 		_loot = selectRandom _avail;
 		if (isNil "_loot") then
@@ -121,7 +121,7 @@ if !(hasIFA) then
 
 	for "_i" from 0 to _backpackTypes do
 		{
-		_packs = backpacksNATO;
+		_packs = lootBackpack;
 		_avail = (_packs - _unlocks - itemCargo _crate);
 		_loot = selectRandom _avail;
 		if (isNil "_loot") then

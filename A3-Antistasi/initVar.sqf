@@ -363,7 +363,7 @@ arrayCivs = ["C_man_polo_1_F","C_man_polo_1_F_afro","C_man_polo_1_F_asia","C_man
 //      CIVILIAN VEHICLES       ///
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Vehicle list.",servertime];
-_arrayCivVeh = "(
+private _civVehConfigs = "(
 	getNumber (_x >> 'scope') isEqualTo 2 && {
 		getNumber (_x >> 'side') isEqualTo 3 && {
 			getText (_x >> 'vehicleClass') in ['Car','Support'] && {
@@ -373,18 +373,11 @@ _arrayCivVeh = "(
 	}
 )" configClasses (configFile >> "CfgVehicles");
 
-for "_i" from 0 to ((count _arrayCivVeh) -1) do
-	{
-	_vehicle = _arrayCivVeh select _i;
-	if (isClass _vehicle) then
-		{
-		_vehicleName = configName (_vehicle);
-		arrayCivVeh pushBack _vehicleName;
-		};
-	};
+arrayCivVeh append (_civVehConfigs select {!(_x call A3A_fnc_getModOfConfigClass in disabledMods)} apply {configName _x});
+
 
 //Civilian Boats
-_CivBoats = "(
+_civBoatConfigs = "(
 	getNumber (_x >> 'scope') isEqualTo 2 && {
 		getNumber (_x >> 'side') isEqualTo 3 && {
 			getText (_x >> 'vehicleClass') isEqualTo 'Ship'
@@ -392,15 +385,7 @@ _CivBoats = "(
 	}
 )" configClasses (configFile >> "CfgVehicles");
 
-for "_i" from 0 to ((count _CivBoats) -1) do
-	{
-	_boat = _CivBoats select _i;
-	if (isClass _boat) then
-		{
-		_vehicleName = configName (_boat);
-		CivBoats pushBack _vehicleName;
-		};
-	};
+CivBoats append (_civBoatConfigs select {!(_x call A3A_fnc_getModOfConfigClass in disabledMods)} apply {configName _x});
 
 ////////////////////////////////////
 //     ID LIST FOR UNIT NAMES    ///

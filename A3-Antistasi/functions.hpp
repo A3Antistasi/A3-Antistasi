@@ -28,6 +28,7 @@ class A3A
 		class fogCheck {};
 		class garbageCleaner {};
 		class garrisonInfo {};
+		class getModOfConfigClass {};
 		class healAndRepair {};
 		class initPetros {};
 		class intelFound {};

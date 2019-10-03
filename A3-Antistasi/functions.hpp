@@ -309,6 +309,7 @@ class A3A
 		class filter {};
 		class getRadio {};
 		class itemSort {};
+		class itemType {};
 		class loot {};
 		class NATOCrate {};
 		class randomRifle {};

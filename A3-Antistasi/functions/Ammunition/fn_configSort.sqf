@@ -32,6 +32,14 @@ private _allGlassesConfigs = "
 	( getNumber ( _x >> 'scope' ) isEqualTo 2 )
 " configClasses ( configFile >> "CfgGlasses" );
 
+private _allConfigs = _allWeaponConfigs + _allMagazineConfigs + _allBackpackConfigs + _allStaticWeaponConfigs + _allGlassesConfigs;
+
+////////////////////////////////////////////////////
+//    Filter out content from disabled mods.     ///
+////////////////////////////////////////////////////
+
+_allConfigs = _allConfigs select {!(_x call A3A_fnc_getModOfConfigClass in disabledMods)};
+
 //////////////////////////////
 //    Sorting Function     ///
 //////////////////////////////
@@ -109,4 +117,4 @@ private _nameX = "";
 
 		default {allUnknown pushBack _nameX};
 	};
-} forEach _allWeaponConfigs + _allMagazineConfigs + _allBackpackConfigs + _allStaticWeaponConfigs + _allGlassesConfigs;
+} forEach _allConfigs;

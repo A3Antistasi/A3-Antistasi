@@ -168,6 +168,7 @@ unlockedSN = [];
 ////////////////////////////////////
 //     BEGIN MOD DETECTION       ///
 ////////////////////////////////////
+call A3A_fnc_initDisabledMods; 
 diag_log format ["%1: [Antistasi] | INFO | initVar | Starting Mod Detection",servertime];
 //Faction MODs
 hasRHS = false;
@@ -207,7 +208,6 @@ if (activeAFRF && activeUSAF && isClass (configFile >> "CfgFactionClasses" >> "r
 if (activeAFRF && activeUSAF && activeGREF && isClass (configfile >> "CfgPatches" >> "UK3CB_BAF_Weapons")) then {has3CB = true; diag_log format ["%1: [Antistasi] | INFO | initVar | 3CB Detected.",servertime];};
 //FFAA Detection
 if (isClass (configfile >> "CfgPatches" >> "ffaa_armas")) then {hasFFAA = true; diag_log format ["%1: [Antistasi] | INFO | initVar | FFAA Detected.",servertime];};
-
 ////////////////////////////////////
 //          MOD CONFIG           ///
 ////////////////////////////////////
@@ -458,8 +458,6 @@ diag_log format ["%1: [Antistasi] | INFO | initVar | Identifying Objects for Mis
 [] call A3A_fnc_itemSort;
 diag_log format ["%1: [Antistasi] | INFO | initVar | Building Loot Lists",servertime];
 [] call A3A_fnc_loot;
-diag_log format ["%1: [Antistasi] | INFO | initVar | Filtering Loot Lists",servertime];
-[] call A3A_fnc_filter;
 
 ////////////////////////////////////
 //      REBEL STARTING ITEMS     ///
@@ -546,6 +544,7 @@ if (hasACEMedical) then {
 	};
 };
 
+/*
 //ACE items when IFA isnt detected
 if (hasACE and !hasIFA) then
 	{
@@ -558,14 +557,14 @@ if (hasACE and !hasIFA) then
 	weaponsCSAT = weaponsCSAT - ["MineDetector"];
 	weaponsNato = weaponsNato - ["MineDetector"];
 	};
-
+*/
 ////////////////////////////////////
 //RHS WEAPON ATTACHMENTS REDUCER ///
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Modifying Item Lists for Mods",servertime];
 if (hasRHS) then
 	{
-	lootOptic = lootOptic select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
+	//lootOptic = lootOptic select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
 	attachmentLight = attachmentLight select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
 	attachmentLaser = attachmentLaser select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
 	};
@@ -590,13 +589,13 @@ if (hasACE and !hasIFA) then
 	{
 	//additonal unlocks
 	unlockedBackpacks pushBackUnique "ACE_TacticalLadder_Pack";
-	itemsAAF append ["ACE_Kestrel4500","ACE_ATragMX","ACE_M84"];
+	//itemsAAF append ["ACE_Kestrel4500","ACE_ATragMX","ACE_M84"];
 	};
 
 //IF you have both ACE AND IFA
 if (hasACE and hasIFA) then
 	{
-	itemsAAF append ["ACE_LIB_LadungPM","ACE_SpareBarrel"];
+	//itemsAAF append ["ACE_LIB_LadungPM","ACE_SpareBarrel"];
 	};
 
 ////////////////////////////////////

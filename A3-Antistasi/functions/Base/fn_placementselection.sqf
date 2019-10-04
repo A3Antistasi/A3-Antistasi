@@ -80,7 +80,7 @@ while {_positionIsInvalid} do
 	if (!_positionIsInvalid && !_newGame) then 
 	{
 		//Invalid if enemies nearby
-		_positionIsInvalid = allUnits findIf {(side _x == Occupants || side _x == Invaders) && {_x distance _positionClicked < 500}} > -1;
+		_positionIsInvalid = (allUnits findIf {(side _x == Occupants || side _x == Invaders) && {_x distance _positionClicked < 500}}) > -1;
 		if (_positionIsInvalid) then {hint "There are enemies in the surroundings of that area, please select another.";};
 	};
 	sleep 0.1;

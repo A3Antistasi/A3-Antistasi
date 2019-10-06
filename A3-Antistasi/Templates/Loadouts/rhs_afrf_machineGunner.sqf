@@ -38,15 +38,15 @@
 		[
 			["rhs_1PN138",1],
 			["rhs_mag_9x18_8_57n181S",2,8],
-			["rhs_100Rnd_762x54mmR_7N13",3,100],
+			["rhs_100Rnd_762x54mmR_7N13",1,100],
 			["rhs_mag_rgn",1,1],
 			["rhs_mag_rdg2_white",1,1],
 			["rhs_mag_rgo",1,1]]],
 	[
-		"rhs_rpg_empty",  
+		"rhs_sidor_",  
 		[
-		["rhs_rpg7_PG7VL_mag",2,1],
-		["rhs_rpg7_type69_airburst_mag",2,1]
+		["rhs_100Rnd_762x54mmR_7N13",2,100]
+		
 	],
 	"rhs_altyn_novisor_ess",
 	"rhs_balaclava",

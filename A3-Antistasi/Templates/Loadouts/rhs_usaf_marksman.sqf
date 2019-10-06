@@ -57,7 +57,7 @@
 		["RHSUSF_Shemagh_Grn", "RHSUSF_Shemagh2_Grn", "RHSUSF_Shemagh_Gogg_Grn", "RHSUSF_Shemagh2_Gogg_Grn", "RHSUSF_Oakley_Goggles_Blk"],
 
 	[//Binocular
-		"RHSUSAF_Bino_Lerca_1200_Black",							//Binocular
+		"RHSUSF_Bino_Lerca_1200_Black",							//Binocular
 		"",
 		"",
 		"",
@@ -68,7 +68,7 @@
 
 	[//Item
 		"ItemMap",											//Map
-		"",													//Terminal
+		"ItemGPS",													//Terminal
 		["TF_RF7800STR"] call _fnc_tfarRadio,				//Radio
 		"ItemCompass",										//Compass
 		_tfarMicroDAGRNoArray,										//Watch

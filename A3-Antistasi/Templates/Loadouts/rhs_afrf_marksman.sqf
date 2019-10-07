@@ -27,6 +27,7 @@
 		["rhs_mag_9x18_8_57n181S",8],								//Primary Magazine
 		[],													//Secondary Magazine
 		""													//Bipod
+	],
 	[],
 	[],
 	[
@@ -43,11 +44,10 @@
 			["rhs_mag_rdg2_white",1,1],
 			["rhs_mag_rgo",1,1]]],
 	[
-		"",  
-		[
-		[]
+	
+	[//Backpack
+        ],
 		
-	],
 	"rhs_altyn_novisor_ess",
 	"rhs_balaclava",
 	[],

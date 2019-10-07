@@ -50,8 +50,7 @@
 		
 	"rhs_altyn_novisor_ess",
 	"rhs_balaclava",
-	[],
-	[
+	
 		[//Binocular
 		"rhs_pdu4",										//Binocular
 		"",

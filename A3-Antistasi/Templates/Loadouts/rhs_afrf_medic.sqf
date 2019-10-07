@@ -47,7 +47,9 @@
 		+ _aceFlashlight
 	],
 
-	[//Backpack
+		[//Backpack
+		"rhs_sidor",						//Backpack
+		[] + _medicSupplies
 	],
 
 		"rhs_altyn_novisor_ess",				//Headgear

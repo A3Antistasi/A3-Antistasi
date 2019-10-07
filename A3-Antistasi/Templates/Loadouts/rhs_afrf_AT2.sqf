@@ -27,6 +27,7 @@
 		["rhs_mag_9x18_8_57n181S",8],								//Primary Magazine
 		[],													//Secondary Magazine
 		""													//Bipod
+	],
 	[],
 	[],
 	[
@@ -46,7 +47,7 @@
 		"rhs_rpg_empty",  
 		[
 		["rhs_mag_9k38_rocket",3,1]
-	],
+	]],
 	"rhs_altyn_novisor_ess",
 	"rhs_balaclava",
 	[],

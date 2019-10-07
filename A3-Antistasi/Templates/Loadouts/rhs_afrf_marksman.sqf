@@ -28,8 +28,7 @@
 		[],													//Secondary Magazine
 		""													//Bipod
 	],
-	[],
-	[],
+	
 	[
 		"rhs_uniform_vdv_flora",
 		[] + _basicMedicalSupplies + _basicMiscItems

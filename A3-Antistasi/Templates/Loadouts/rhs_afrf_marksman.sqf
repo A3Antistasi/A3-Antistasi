@@ -42,7 +42,6 @@
 			["rhs_mag_rgn",1,1],
 			["rhs_mag_rdg2_white",1,1],
 			["rhs_mag_rgo",1,1]]],
-	[
 	
 	[//Backpack
         ],

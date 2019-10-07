@@ -30,7 +30,7 @@
 	[],
 	[],
 	[
-		"rhs_uniform_vfv_flora",
+		"rhs_uniform_vdv_flora",
 		[] + _basicMedicalSupplies + _basicMiscItems
 	],
 	[

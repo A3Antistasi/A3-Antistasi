@@ -6,7 +6,7 @@
 		"RHSUSF_Acc_leupoldmk4_2_mrds",								//Sight
 		["RHSUSF_20Rnd_762x51_SR25_M118_Special_Mag",20],				//Primary Magazine
 		[],													//Secondary Magazine
-		"RHS_Acc_Harris_Bipod"								//Bipod
+		"RHSUSF_Acc_Harris_Bipod"								//Bipod
 	],
 
 	[//Launcher

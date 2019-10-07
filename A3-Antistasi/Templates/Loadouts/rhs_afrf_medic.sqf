@@ -11,7 +11,7 @@
 	[],
 	[],
 	[
-		"rhs_uniform_gorka_r_g",
+		"rhs_uniform_vdv_flora",
 		[] + _basicMedicalSupplies + _basicMiscItems
 	],
 	[

@@ -115,6 +115,7 @@ for "_i" from 0 to ((count _units) - 1) do
   waitUntil {sleep 0.5; ((_vehicle distance _pos) > 10)};
 };
 
+diag_log format ["Convoy[%1]: Convoy consists of %1 air vehicles and %2 land vehicles", count _airVehicles, count _landVehicles];
 //Let helicopter follow the vehicles and vehicles have a speed limit
 if(count _landVehicles > 0) then
 {

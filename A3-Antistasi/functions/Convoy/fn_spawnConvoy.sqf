@@ -124,7 +124,7 @@ if(count _landVehicles > 0) then
   {
       [selectRandom _landVehicles, _x, _target, _maxSpeed * 1.5] spawn A3A_fnc_followVehicle;
   } forEach _airVehicles;
-  
+
   //Create marker for the crew
   [_markers select 0, _markers select 1, _landVehicleGroup] call A3A_fnc_WPCreate;
   diag_log format ["Convoy [%1]: Waypoint count is %2", _convoyID, count (wayPoints _landVehicleGroup)];
@@ -135,7 +135,7 @@ else
 {
   //No vehicle found, fly direct way
   {
-    _wp0 = (group _x) addWaypoint [(_target vectorAdd [0,0,30]), -1];
+    _wp0 = (group _x) addWaypoint [(_target vectorAdd [0,0,30]), -1, 0];
     _wp0 setWaypointBehaviour "SAFE";
   } forEach _airVehicles;
 };
@@ -161,7 +161,7 @@ waitUntil
   sleep 1;
   _markedUnit = if (alive _markedUnit) then {_markedUnit} else {call _fnc_firstAliveUnit};
   if (_markedUnit == objNull) exitWith {_convoyDead = true; true;};
-  
+
   _checkPos = getPos _markedUnit;
   _convoyMarker setMarkerPos _checkPos;
   (_checkPos distance2D _target < 100) ||

@@ -52,7 +52,7 @@ class Params
     class mRadius
     {
         title = "Distance from HQ for Sidemissions";
-        values[] = {4000,8000,12000};
+        values[] = {2000,4000,6000,8000,10000,12000};
         // When 'texts' are missing, values will be displayed directly instead
         default = 4000;
         //file = "setViewDistance.sqf"; // (Optional) Script [[call]]ed when player joins, selected value is passed as an argument

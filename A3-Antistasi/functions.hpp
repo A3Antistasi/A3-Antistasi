@@ -71,7 +71,6 @@ class A3A
 		class teleportVehicleToBase {};
 		class timingCA {};
 		class translateVariable {};
-		class undercover {};
 		class unlockVehicle {};
 		class zoneCheck {};
 	};
@@ -417,6 +416,12 @@ class A3A
 	class Templates
 	{
 		class getLoadout {};
+	};
+	
+	class Undercover
+	{
+		class initUndercover {};
+		class goUndercover {};
 	};
 
 	class Utility

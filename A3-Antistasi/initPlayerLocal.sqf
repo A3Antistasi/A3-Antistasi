@@ -438,12 +438,14 @@ player addEventHandler ["GetInMan",
 			{
 			if (!(_veh in reportedVehs)) then
 				{
-				[] spawn A3A_fnc_undercover;
+				[] spawn A3A_fnc_goUndercover;
 				};
 			};
 		};
 	}
 	];
+
+call A3A_fnc_initUndercover;
 
 if (isMultiplayer) then
 	{

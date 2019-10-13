@@ -10,7 +10,7 @@ item5[] = {"Head_to__Next_Po",2,250,-256.894318,-166.599014,-166.894302,-116.599
 item6[] = {"True",8,218,-257.487732,-253.817780,-167.487717,-203.817780,0.000000,"True"};
 item7[] = {"At_Next_Pos",4,218,-256.300751,-66.920471,-166.300781,-16.920471,5.000000,"At Next Pos"};
 item8[] = {"Fucked_Waypoint",4,218,-398.105469,-164.819061,-308.105469,-114.819061,0.000000,"Fucked" \n "Waypoint"};
-item9[] = {"Veh_or_Crew_Dead",4,218,-87.208313,-167.915009,2.791687,-117.915009,20.000000,"Veh or Crew" \n "Dead"};
+item9[] = {"Veh_or_Crew_Dead",4,4314,-87.208313,-167.915009,2.791687,-117.915009,20.000000,"Veh or Crew" \n "Dead"};
 version=1;
 class LayoutItems
 {
@@ -151,11 +151,7 @@ class FSM
                                         priority = 100.000000;
                                         to="End_and_Rejoin";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"if (isNil ""_abort"") then {" \n
-                                         "	false;" \n
-                                         "} else {" \n
-                                         "	true;" \n
-                                         "};"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(isNil ""_abort"");"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -166,11 +162,7 @@ class FSM
                                         priority = 20.000000;
                                         to="End_and_Rejoin";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"if (! alive _vehicle || { driver _vehicle == objNull } || { !alive driver _vehicle }) then {" \n
-                                         "	true;" \n
-                                         "} else {" \n
-                                         "	false;" \n
-                                         "};"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!alive _vehicle || { driver _vehicle == objNull } || { !alive driver _vehicle };"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -181,11 +173,7 @@ class FSM
                                         priority = 10.000000;
                                         to="End_and_Rejoin";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"if (_vehicle distance _destination < _accuracy) then {" \n
-                                         "	true;" \n
-                                         "} else {" \n
-                                         "	false;" \n
-                                         "};"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_vehicle distance _destination < _accuracy;"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -196,11 +184,7 @@ class FSM
                                         priority = 5.000000;
                                         to="Head_to__Next_Po";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"if (_vehicle distance _nextPos < _accuracy) then {" \n
-                                         "	true;" \n
-                                         "} else {" \n
-                                         "	false;" \n
-                                         "};"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_vehicle distance _nextPos < _accuracy;"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/"if (_currentNode < count _route) then {" \n
                                          "	_currentNode =	_currentNode + 1;" \n
                                          "};" \n

@@ -37,7 +37,7 @@ link9[] = {7,5};
 link10[] = {8,5};
 link11[] = {9,2};
 globals[] = {0.000000,0,0,0,0,640,480,1,32,6316128,1,-559.409241,250.910950,151.986633,-492.188782,1112,884,1};
-window[] = {2,-1,-1,-1,-1,889,130,1570,130,3,1130};
+window[] = {2,-1,-1,-32000,-32000,889,130,1570,130,3,1130};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -53,7 +53,7 @@ class FSM
                          "" \n
                          "private _state = ""START"";" \n
                          "" \n
-                         "if (count _route == 0) exitWith {};" \n
+                         "if (isNull _vehicle || count _route == 0) exitWith {};" \n
                          "" \n
                          "private _destination = _route select (count _route - 1);" \n
                          "private _accuracy = 20;" \n

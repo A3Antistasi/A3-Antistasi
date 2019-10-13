@@ -33,6 +33,7 @@ CHANGELOG 2.2
   - Regular players are now allowed to place the HQ if Petros died and there is no boss.
   - Moved vehicle-specific actions to VehicleBox. You know, the repair box.
   - Increased spawn distance on HC vehicles. You may have to search a bit, but the spawning should be better now.
+  - Every airfield has at least one manned AA vehicle in every case
 
 
  ================  Groundwork  ===================

@@ -95,7 +95,7 @@ for "_i" from 0 to ((count _units) - 1) do
     _landVehicles pushBack _vehicle;
   };
   //Push vehicles forward
-  _vehicle setVelocity ((vectorDir _vehicle) vectorMultiply 20);
+  _vehicle setVelocity ((vectorDir _vehicle) vectorMultiply 30);
 
   if(_vehicle != objNull) then
   {
@@ -138,6 +138,7 @@ else
   {
     _wp0 = (group _x) addWaypoint [(_target vectorAdd [0,0,30]), -1, 0];
     _wp0 setWaypointBehaviour "SAFE";
+	group _x setCurrentWaypoint _wp0;
   } forEach _airVehicles;
 };
 

@@ -10,13 +10,13 @@
 
 params ["_vehicle"];
 
-private _crew = fullCrew _vehicle select {_x # 1 != "cargo"}; 
+private _crew = fullCrew _vehicle select {_x select 1 != "cargo"}; 
 private _crewGroups = []; 
  
-private _groupName = groupId group (_crew # 0 # 0); 
+private _groupName = groupId group (_crew select 0 select 0); 
  
 { 
-	private _unit = _x # 0; 
+	private _unit = _x select 0; 
 	private _group = createGroup [side _unit, true]; 
 
 	[_unit] join _group; 

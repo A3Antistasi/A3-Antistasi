@@ -48,9 +48,15 @@ private _crewObjs = [];
 	diag_log format ["Convoy: Moving %1 into %2 of type %3 with %4 crew turrets", _unit, _vehicleObj, _vehicleType, _turretCount];
     if(!isNull _vehicleObj) then
     {
+	  _unit disableAI "FSM"; 
+	  _unit disableAI "SUPPRESSION"; 
+	  _unit disableAI "COVER"; 
+      _unit disableAI "AUTOCOMBAT";
 	  if (isNull driver _vehicleObj) then {
 		_unit assignAsDriver _vehicleObj;
 		_unit moveInDriver _vehicleObj;
+		//Take away the AI driver's will. They shall do as they're commanded.
+
 	  } else {
 		if (_nextTurretIndex < _turretCount) then {
 			private _turretData = [_vehicleObj, _turrets select _nextTurretIndex];

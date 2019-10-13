@@ -75,6 +75,7 @@ for "_i" from 0 to ((count _units) - 1) do
   //Pushback the groups
   private _vehicleGroup = (_lineData select 1);
   _vehicleGroup setBehaviour "CARELESS";
+  _vehicleGroup setCombatMode "BLUE";
   _allGroups pushBackUnique _vehicleGroup;
 
   _cargoGroup = (_lineData select 2);

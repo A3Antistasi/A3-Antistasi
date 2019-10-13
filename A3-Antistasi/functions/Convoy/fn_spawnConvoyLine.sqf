@@ -1,4 +1,4 @@
-params ["_data", "_side", "_pos", "_dir", ["_landVehicleGroup", grpNull]];
+params ["_data", "_side", "_pos", "_dir"];
 
 private _vehicleType = _data select 0;
 private _crewData = _data select 1;
@@ -6,7 +6,7 @@ private _cargoData = _data select 2;
 
 private _slowConvoy = false;
 
-private _vehicleGroup = if (!isNull _landVehicleGroup && {!(_vehicleType isKindOf "Air")}) then {_landVehicleGroup} else {createGroup _side};
+private _vehicleGroup = createGroup _side;
 private _vehicleObj = objNull;
 
 if(_vehicleType != "") then
@@ -48,10 +48,6 @@ private _crewObjs = [];
 	diag_log format ["Convoy: Moving %1 into %2 of type %3 with %4 crew turrets", _unit, _vehicleObj, _vehicleType, _turretCount];
     if(!isNull _vehicleObj) then
     {
-	  _unit disableAI "FSM"; 
-	  _unit disableAI "SUPPRESSION"; 
-	  _unit disableAI "COVER"; 
-      _unit disableAI "AUTOCOMBAT";
 	  if (isNull driver _vehicleObj) then {
 		_unit assignAsDriver _vehicleObj;
 		_unit moveInDriver _vehicleObj;

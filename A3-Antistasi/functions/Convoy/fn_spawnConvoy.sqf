@@ -59,14 +59,10 @@ private _landVehicles = [];
 diag_log "Spawning in convoy";
 [_units, "Convoy Units"] call A3A_fnc_logArray;
 
-private _landVehicleGroup = createGroup _convoySide;
-//Attempting to reduce how often convoys get stuck.
-_landVehicleGroup setFormation "COLUMN";
-
 for "_i" from 0 to ((count _units) - 1) do
 {
   _data = _units select _i;
-  _lineData = [_data, _convoySide, _pos, _dir, _landVehicleGroup] call A3A_fnc_spawnConvoyLine;
+  _lineData = [_data, _convoySide, _pos, _dir] call A3A_fnc_spawnConvoyLine;
 
   //Pushback the spawned objects
   _unitObjects = _lineData select 0;
@@ -127,11 +123,21 @@ if(count _landVehicles > 0) then
       [selectRandom _landVehicles, _x, _target, _maxSpeed * 1.5] spawn A3A_fnc_followVehicle;
   } forEach _airVehicles;
 
-  //Create marker for the crew
-  [_markers select 0, _markers select 1, _landVehicleGroup] call A3A_fnc_WPCreate;
-  diag_log format ["Convoy [%1]: Waypoint count is %2", _convoyID, count (wayPoints _landVehicleGroup)];
-  _wp0 = (wayPoints _landVehicleGroup) select 0;
-  _wp0 setWaypointBehaviour "SAFE";
+  private _route = [_pos, _target] call A3A_fnc_findPath;
+  //No route, let's just make a basic one.
+  if (count _route == 0) then {_route = [_pos, _targetPos];};
+  
+
+  
+  diag_log format ["Convoy [%1]: Node count is %2", _convoyID, count _route];
+  {
+	//Move them to their start position, so they don't move backwards.
+	private _newPos = (_route select 0) findEmptyPosition [0, 40, typeOf _x];
+	if !(_newPos isEqualTo []) then {
+		_x setPos _newPos;
+	};
+	[_x, _route] execFSM "FSMs\DriveAlongPath.fsm";
+  } forEach _landVehicles;
 }
 else
 {

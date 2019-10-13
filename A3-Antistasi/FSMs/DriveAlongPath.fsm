@@ -1,7 +1,7 @@
 /*%FSM<COMPILE "F:\Steam\SteamApps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, MoveAndGun">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Start",0,250,-258.071289,-342.907776,-168.071396,-292.907776,0.000000,"Start"};
+item0[] = {"Start",0,4346,-258.071289,-342.907776,-168.071396,-292.907776,0.000000,"Start"};
 item1[] = {"_",-1,250,-162.790146,-180.814117,-73.255249,-177.907150,0.000000,""};
 item2[] = {"End_and_Rejoin",1,250,121.673431,-203.263062,211.673462,-153.263077,0.000000,"End and Rejoin"};
 item3[] = {"HasArrived",4,218,-87.535736,-114.861282,2.464264,-64.861282,10.000000,"HasArrived"};
@@ -10,7 +10,7 @@ item5[] = {"Head_to__Next_Po",2,250,-256.894318,-166.599014,-166.894302,-116.599
 item6[] = {"True",8,218,-257.487732,-253.817780,-167.487717,-203.817780,0.000000,"True"};
 item7[] = {"At_Next_Pos",4,218,-256.300751,-66.920471,-166.300781,-16.920471,5.000000,"At Next Pos"};
 item8[] = {"Fucked_Waypoint",4,218,-398.105469,-164.819061,-308.105469,-114.819061,0.000000,"Fucked" \n "Waypoint"};
-item9[] = {"Veh_or_Crew_Dead",4,4314,-87.208313,-167.915009,2.791687,-117.915009,20.000000,"Veh or Crew" \n "Dead"};
+item9[] = {"Veh_or_Crew_Dead",4,218,-87.208313,-167.915009,2.791687,-117.915009,20.000000,"Veh or Crew" \n "Dead"};
 version=1;
 class LayoutItems
 {
@@ -58,20 +58,7 @@ class FSM
                          "private _destination = _route select (count _route - 1);" \n
                          "private _accuracy = 20;" \n
                          "" \n
-                         "private _crew = fullCrew _vehicle select {_x # 1 != ""cargo""}; " \n
-                         "private _crewGroups = []; " \n
-                         " " \n
-                         "private _groupName = groupId group (_crew # 0 # 0); " \n
-                         " " \n
-                         "{ " \n
-                         "	private _unit = _x # 0; " \n
-                         "	private _group = createGroup [side _unit, true]; " \n
-                         "" \n
-                         "	[_unit] join _group; " \n
-                         "	_group setGroupId [_groupName + ""#"" + str _forEachIndex]; " \n
-                         " " \n
-                         "	_crewGroups pushBack _group; " \n
-                         "} forEach _crew;" \n
+                         "private _splitCrew = [_vehicle] call A3A_fnc_splitVehicleCrewIntoOwnGroups;" \n
                          "" \n
                          "//Make sure our driver doesn't give a shit about the whole 'being shot' thing" \n
                          "(group driver _vehicle) setBehaviour ""CARELESS"";" \n
@@ -103,15 +90,7 @@ class FSM
                         init = /*%FSM<STATEINIT""">*/"_state = ""END"";" \n
                          "" \n
                          "//Fresh group, to wipe out any lingering orders." \n
-                         "private _finalGroup = createGroup [side (_crewGroups # 0), true];" \n
-                         "" \n
-                         "{" \n
-                         "	units _x join _finalGroup;" \n
-                         "" \n
-                         "} forEach _crewGroups;" \n
-                         "" \n
-                         "_finalGroup setGroupId [_groupName];" \n
-                         ""/*%FSM</STATEINIT""">*/;
+                         "_splitCrew call A3A_fnc_joinMultipleGroups;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -140,7 +119,7 @@ class FSM
                          "	_x setCurrentWaypoint _nextWaypoint;" \n
                          "" \n
                          "	//_x move _nextPos;" \n
-                         "} forEach _crewGroups;"/*%FSM</STATEINIT""">*/;
+                         "} forEach (_splitCrew # 0);"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -205,7 +184,7 @@ class FSM
                                          "	if (currentWaypoint _x + 1 > count waypoints _x) then {" \n
                                          "		_result = true;" \n
                                          "	};" \n
-                                         "} forEach _crewGroups;" \n
+                                         "} forEach (_splitCrew # 0);" \n
                                          "" \n
                                          "_result;"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;

@@ -261,7 +261,7 @@ if (!_busy) then
 		private _veh = objNull;
 		if(_spawnParameter isEqualType []) then
 		{
-			_typeVehX = if (_sideX == Occupants) then {selectRandom ([vehNATOPlane, vehNATOPlaneAA, vehNATOUAV] select {[_x] call A3A_fnc_vehAvailable})} else {selectRandom ([vehCSATPlane, vehCSATPlaneAA, vehCSATUAV] select {[_x] call A3A_fnc_vehAvailable})};
+			_typeVehX = if (_sideX == Occupants) then {selectRandom ([vehNATOPlane, vehNATOPlaneAA] select {[_x] call A3A_fnc_vehAvailable})} else {selectRandom ([vehCSATPlane, vehCSATPlaneAA] select {[_x] call A3A_fnc_vehAvailable})};
 			_veh = createVehicle [_typeVehX, (_spawnParameter select 0), [],3, "CAN_COLLIDE"];
 			_veh setDir (_spawnParameter select 1);
 			_vehiclesX pushBack _veh;

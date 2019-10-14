@@ -18,10 +18,10 @@ CHANGELOG 2.2
   - Created a parameter to stop an unlocked weapon from unlocking its first valid magazine. For the ones, who really love looting.
   - Added an option to disable civilian traffic. The group state they are driving in is careless, and it is a fitting descripting of their driving skills. You can now turn off random death by driving civilians.
 
-  MAP CHANGES
+  MAP CHANGES (OLDER MAPS WILL NO LONGER WORK WITH 2.2 OR ABOVE)
   - Added Kunduz as a playable map
   - Added Tembelan as a playable map
-  - Reworked map marker for Altis, Tanoa, Malden and Livonia. Old maps will no longer work with 2.2 or above.
+  - Reworked map marker for Altis, Tanoa, Malden and Livonia.
 
 ==============  Minor  ========================
 
@@ -59,7 +59,7 @@ CHANGELOG 2.2
   - Fixed needed time displayed wrong in supply mission description
   - Fixed truck reference in supply mission description
   - Fixed RHS side detection
-  - Readded dedicated server startup delay. We figured out it was actually needed. Humans make mistake you know.
+  - Readded dedicated server startup delay. We figured out it was actually needed. Humans make mistakes you know.
   - Fixed money-by-dismissal exploit. No more human trafficing. That was bad from the start.
   - Fixed ACRE2 radios not being recognized as such
   - Fixed TFAR radios not being unlocked on start
@@ -86,8 +86,8 @@ CHANGELOG 2.2
   - Reworked marker detection. It's even faster now.
   - Added a log function for arrays.
   - Unified all template files. Makes changing it alot easier for all of us.
-  - Added a PR templates. We should have done this a long time before
-  - PlayerMarker are now getting loaded by server
+  - Added a PR templates. We should have done this a long time ago
+  - PlayerMarker parameter is now enforced by server
   - Replaced BIS_fnc_selectRandom with selectRandom
   - Replaced type checks with isEqualType
   - Renamed AAFKilledEH to invaderOccupantUnitKilledEH
@@ -96,5 +96,4 @@ CHANGELOG 2.2
 
 =================  Known issues  ==========================
 
-  - Undercover medics cannot heal without breaking cover while looking at an overt unit (A fix for this is WIP)
   - (Destroy Heli Mission) If you manage to steal the truck while it is trying to transport the heli back, the mission will fail (A fix for this is WIP)

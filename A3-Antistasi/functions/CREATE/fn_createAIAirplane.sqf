@@ -32,7 +32,7 @@ _posAA = _positionsX select {(_x select 2) == "AA"};
 _posAT = _positionsX select {(_x select 2) == "AT"};
 
 _typeVehX = if (_sideX == Occupants) then {vehNATOAA} else {vehCSATAA};
-_max = if ([_typeVehX] call A3A_fnc_vehAvailable) then {1} else {2};
+_max = if (_frontierX && {[_typeVehX] call A3A_fnc_vehAvailable}) then {2} else {1};
 for "_i" from 1 to _max do
 {
 	//_pos = [_positionX, 50, _size, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;

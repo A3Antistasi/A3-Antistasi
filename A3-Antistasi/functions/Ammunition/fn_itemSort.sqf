@@ -60,10 +60,10 @@ allUnknown deleteAt (allUnknown find _x);
 {
 if (getText (configfile >> "CfgMagazines" >> _x >> "displayName") isEqualTo "Designator Batteries") then
      {
-     laserBatteries pushBack _x;
+     allLaserBatteries pushBack _x;
      };
 } forEach allUnknown;
 //Clean allUnknown of batteries
 {
 allUnknown deleteAt (allUnknown find _x);
-} forEach laserBatteries;
+} forEach allLaserBatteries;

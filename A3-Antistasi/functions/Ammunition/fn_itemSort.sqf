@@ -48,13 +48,13 @@ if (_x in _uglMag) then
 {
 if (getText (configfile >> "CfgMagazines" >> _x >> "displayNameShort") isEqualTo "IR Grenade") then
      {
-     irGrenade pushBack _x;
+     allIRGrenades pushBack _x;
      };
 } forEach allUnknown;
 //Clean allUnknown of IR Grenades
 {
 allUnknown deleteAt (allUnknown find _x);
-} forEach irGrenade;
+} forEach allIRGrenades;
 
 //LaserDesignator Batteries
 {

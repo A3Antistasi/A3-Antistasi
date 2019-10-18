@@ -113,7 +113,7 @@ allSmokeGrenades = [];
 allLaunchedSmokeGrenades = [];
 allLaunchedFlares = [];
 allHandFlares = [];
-irGrenade = [];
+allIRGrenades = [];
 laserBatteries = [];
 //Equipment
 rebelUniform = [];

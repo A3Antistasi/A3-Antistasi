@@ -65,7 +65,6 @@ allWeaponMortar = [];
 rlaunchers = [];				//Pre-Rewrite Variable
 allWeaponShotgun = [];
 allWeaponThrow = [];
-allWeaponRifle = [];
 allWeaponSubmachineGun = [];
 srifles = [];					//Pre-Rewrite Variable
 //Items arrays

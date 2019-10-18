@@ -16,7 +16,7 @@ lootItem append allUAVTerminal + allMineDetector + allGPS + allRadio + allLaserD
 ////////////////////
 //    Weapons    ///
 ////////////////////
-lootWeapon append arifles + srifles + hguns + mguns + mlaunchers + rlaunchers + allWeaponSubmachineGun + allWeaponShotgun;
+lootWeapon append allRifles + srifles + hguns + mguns + mlaunchers + rlaunchers + allWeaponSubmachineGun + allWeaponShotgun;
 
 /////////////////////////////
 //   Weapon Attachments   ///

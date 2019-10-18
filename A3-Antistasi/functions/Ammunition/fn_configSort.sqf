@@ -59,7 +59,7 @@ private _nameX = "";
 	{
 		switch (_itemType) do
 		{
-			case "AssaultRifle": {arifles pushBack _nameX};
+			case "AssaultRifle": {allRifles pushBack _nameX};
 			case "BombLauncher": {allWeaponBombLauncher pushBack _nameX};
 			case "GrenadeLauncher": {allWeaponGrenadeLauncher pushBack _nameX};
 			case "Handgun": {hguns pushBack _nameX};

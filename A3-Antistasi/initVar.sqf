@@ -53,7 +53,7 @@ if (isServer) then {
 diag_log format ["%1: [Antistasi] | INFO | initVar | Declaring Empty Arrays",servertime];
 //Config Arrays
 //Weapons arrays
-arifles = [];					//Pre-Rewrite Variable
+allRifles = [];					//Pre-Rewrite Variable
 allWeaponBombLauncher = [];
 allWeaponGrenadeLauncher = [];
 hguns = [];					//Pre-Rewrite Variable
@@ -750,7 +750,7 @@ publicVariable "unlockedSN";
 publicVariable "unlockedAT";
 publicVariable "unlockedAA";
 
-publicVariable "arifles";
+publicVariable "allRifles";
 publicVariable "hguns";
 publicVariable "mguns";
 publicVariable "mlaunchers";

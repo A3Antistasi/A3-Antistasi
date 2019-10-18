@@ -70,7 +70,7 @@ unlockedAT = [];
 
 {
 	switch (true) do {
-		case (_x in arifles): {
+		case (_x in allRifles): {
 			unlockedRifles pushBack _x;
 			if (count (getArray (configfile >> "CfgWeapons" >> _x >> "muzzles")) == 2) then {
 				unlockedGL pushBack _x;

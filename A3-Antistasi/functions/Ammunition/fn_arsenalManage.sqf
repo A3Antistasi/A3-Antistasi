@@ -33,7 +33,7 @@ private _count = objNull;
 		_item = _x select 0;
 		private _flag = false;
 		switch (true) do {
-			case (_item in arifles): {
+			case (_item in allRifles): {
 				unlockedWeapons pushBack _item; publicVariable "unlockedWeapons";
 				unlockedRifles pushBack _item; publicVariable "unlockedRifles";
 				_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _item >> "displayName")];

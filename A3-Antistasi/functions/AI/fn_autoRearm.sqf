@@ -41,7 +41,7 @@ if ((_Pweapon in initialWeapons) or (_Pweapon == "")) then
 					{
 					_potential = _weaponsX select _i;
 					_basePossible = [_potential] call BIS_fnc_baseWeapon;
-					if ((not(_basePossible in ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","LMG_03_F"])) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns))) then
+					if ((not(_basePossible in ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","LMG_03_F"])) and ((_basePossible in allRifles) or (_basePossible in srifles) or (_basePossible in mguns))) then
 						{
 						_target = _objectX;
 						_hasBox = true;

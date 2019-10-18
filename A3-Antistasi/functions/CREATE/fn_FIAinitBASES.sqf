@@ -45,9 +45,9 @@ _unitIsSniper = false; //This is used for accuracy calulations later.
 switch (true) do {
 	case (_typeX in SDKSniper): {
 		_unitIsSniper = true;
-		if (count unlockedSN > 0) then
+		if (count unlockedSniperRifles > 0) then
 		{
-			[_unit, selectRandom unlockedSN, 8, 0] call BIS_fnc_addWeapon;
+			[_unit, selectRandom unlockedSniperRifles, 8, 0] call BIS_fnc_addWeapon;
 			if (count unlockedOptics > 0) then
 			{
 				_compatibleX = [primaryWeapon _unit] call BIS_fnc_compatibleItems;

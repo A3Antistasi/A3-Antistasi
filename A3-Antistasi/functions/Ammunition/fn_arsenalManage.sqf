@@ -54,7 +54,7 @@ private _count = objNull;
 			};
 			case (_item in allSniperRifles): {
 				unlockedWeapons pushBack _item; publicVariable "unlockedWeapons";
-				unlockedSN pushBack _item; publicVariable "unlockedSN";
+				unlockedSniperRifles pushBack _item; publicVariable "unlockedSniperRifles";
 				_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _item >> "displayName")];
 				_category = _item call jn_fnc_arsenal_itemType;
 				[_category,_item,-1] call jn_fnc_arsenal_addItem;

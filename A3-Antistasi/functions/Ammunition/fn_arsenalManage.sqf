@@ -76,7 +76,7 @@ private _count = objNull;
 				[_category,_item,-1] call jn_fnc_arsenal_addItem;
 				_flag = true;
 			};
-			case (_item in allWeaponShotgun): {
+			case (_item in allShotguns): {
 				unlockedWeapons pushBack _item; publicVariable "unlockedWeapons";
 				unlockedShotgun pushBack _item; publicVariable "unlockedShotgun";
 				_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _item >> "displayName")];

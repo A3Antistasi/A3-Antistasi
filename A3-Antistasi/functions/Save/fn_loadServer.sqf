@@ -88,7 +88,7 @@ unlockedAT = [];
 		case (_x in allHandguns): {
 			unlockedHandgun pushBack _x; publicVariable "unlockedSMG";
 		};
-		case (_x in allWeaponShotgun): {
+		case (_x in allShotguns): {
 			unlockedShotgun pushBack _x; publicVariable "unlockedSMG";
 		};
 		case (_x in allRocketLaunchers): {

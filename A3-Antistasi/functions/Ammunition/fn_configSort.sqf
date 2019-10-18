@@ -68,7 +68,7 @@ private _nameX = "";
 			case "MissileLauncher": {allMissileLaunchers pushBack _nameX};
 			case "Mortar": {allWeaponMortar pushBack _nameX};
 			case "RocketLauncher": {allRocketLaunchers pushBack _nameX};
-			case "Shotgun": {allWeaponShotgun pushBack _nameX};
+			case "Shotgun": {allShotguns pushBack _nameX};
 			case "Throw": {allWeaponThrow pushBack _nameX};
 			case "Rifle": {allRifles pushBack _nameX};
 			case "SubmachineGun": {allSMGs pushBack _nameX};

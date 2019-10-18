@@ -108,7 +108,7 @@ allMineDirectional = [];
 //Sorted Items
 allLightAttachments = [];
 allLaserAttachments = [];
-chemLight = [];
+allChemlights = [];
 allSmokeGrenades = [];
 uglSmokeGrenade = [];
 uglFlareMag = [];

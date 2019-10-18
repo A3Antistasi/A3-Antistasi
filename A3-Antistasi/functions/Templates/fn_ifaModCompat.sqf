@@ -3,7 +3,7 @@
 ////////////////////////////////////
 /*
 allSmokeGrenades = ["LIB_RDG","LIB_NB39"];
-chemLight = [];
+allChemlights = [];
 lootNVG = [];
 lootAttachment = [];
 lootBackpack = [];

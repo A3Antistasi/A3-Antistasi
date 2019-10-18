@@ -170,7 +170,7 @@ if !(hasIFA) then
 		if (haveNV) then
 			{
 			if (hmd _unit == "") then {_unit linkItem (selectRandom unlockedNVGs)};
-			_pointers = attachmentLaser arrayIntersect unlockedItems;
+			_pointers = allLaserAttachments arrayIntersect unlockedItems;
 			if !(_pointers isEqualTo []) then
 				{
 				_pointers = _pointers arrayIntersect ((primaryWeapon _unit) call BIS_fnc_compatibleItems);

@@ -113,7 +113,7 @@ if !(hasIFA) then
 		_weaponItems = primaryWeaponItems _unit;
 		if (_hmd != "") then
 			{
-			if (_weaponItems findIf {_x in attachmentLaser} != -1) then
+			if (_weaponItems findIf {_x in allLaserAttachments} != -1) then
 				{
 				_unit action ["IRLaserOn", _unit];
 				_unit enableIRLasers true;
@@ -121,7 +121,7 @@ if !(hasIFA) then
 			}
 		else
 			{
-			_pointers = _weaponItems arrayIntersect attachmentLaser;
+			_pointers = _weaponItems arrayIntersect allLaserAttachments;
 			if !(_pointers isEqualTo []) then
 				{
 				_unit removePrimaryWeaponItem (_pointers select 0);

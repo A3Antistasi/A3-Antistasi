@@ -9,7 +9,7 @@ if (isClass(configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "FlashLight" >> "A
      }
      else
      {
-     attachmentLaser pushBack _x;
+     allLaserAttachments pushBack _x;
      };
 } forEach allPointerAttachments;
 

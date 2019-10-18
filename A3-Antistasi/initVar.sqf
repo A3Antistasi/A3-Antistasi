@@ -107,7 +107,7 @@ allMineDirectional = [];
 //Treated Arrays
 //Sorted Items
 allLightAttachments = [];
-attachmentLaser = [];
+allLaserAttachments = [];
 chemLight = [];
 allSmokeGrenades = [];
 uglSmokeGrenade = [];

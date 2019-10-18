@@ -53,7 +53,7 @@ unlockedRifles = [];
 unlockedSMG = [];
 unlockedHandgun = [];
 unlockedShotgun = [];
-unlockedMG = [];
+unlockedMachineGuns = [];
 unlockedGrenadeLaunchers = [];
 unlockedSniperRifles = [];
 unlockedAA = [];
@@ -77,7 +77,7 @@ unlockedAT = [];
 			};
 		};
 		case (_x in allMachineGuns): {
-			unlockedMG pushBack _x;
+			unlockedMachineGuns pushBack _x;
 		};
 		case (_x in allSniperRifles): {
 			unlockedSniperRifles pushBack _x;
@@ -117,7 +117,7 @@ unlockedAT = [];
 if (hasIFA) then {unlockedRifles = unlockedRifles - ["LIB_M2_Flamethrower","LIB_PTRD"]};
 
 publicVariable "unlockedRifles";
-publicVariable "unlockedMG";
+publicVariable "unlockedMachineGuns";
 publicVariable "unlockedSniperRifles";
 publicVariable "unlockedGrenadeLaunchers";
 publicVariable "unlockedAT";

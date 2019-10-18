@@ -55,9 +55,9 @@ else
 		{
 		if (_typeX in SDKMG) then
 			{
-			if (count unlockedMG > 0) then
+			if (count unlockedMachineGuns > 0) then
 				{
-				[_unit,unlockedMG] call A3A_fnc_randomRifle;
+				[_unit,unlockedMachineGuns] call A3A_fnc_randomRifle;
 				}
 			else
 				{

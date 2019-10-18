@@ -10,7 +10,7 @@ _magazines = getArray (configFile / "CfgWeapons" / (primaryWeapon _unit) / "maga
 {_unit removeMagazines _x} forEach _magazines;
 _unit removeWeaponGlobal (primaryWeapon _unit);
 
-if (_rifleFinal in unlockedGL) then
+if (_rifleFinal in unlockedGrenadeLaunchers) then
 	{
 	_unit addMagazine ["1Rnd_HE_Grenade_shell", 3];
 	};

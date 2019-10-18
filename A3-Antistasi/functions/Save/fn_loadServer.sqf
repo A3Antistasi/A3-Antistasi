@@ -54,7 +54,7 @@ unlockedSMG = [];
 unlockedHandgun = [];
 unlockedShotgun = [];
 unlockedMG = [];
-unlockedGL = [];
+unlockedGrenadeLaunchers = [];
 unlockedSN = [];
 unlockedAA = [];
 unlockedAT = [];
@@ -73,7 +73,7 @@ unlockedAT = [];
 		case (_x in allRifles): {
 			unlockedRifles pushBack _x;
 			if (count (getArray (configfile >> "CfgWeapons" >> _x >> "muzzles")) == 2) then {
-				unlockedGL pushBack _x;
+				unlockedGrenadeLaunchers pushBack _x;
 			};
 		};
 		case (_x in allMachineGuns): {
@@ -119,7 +119,7 @@ if (hasIFA) then {unlockedRifles = unlockedRifles - ["LIB_M2_Flamethrower","LIB_
 publicVariable "unlockedRifles";
 publicVariable "unlockedMG";
 publicVariable "unlockedSN";
-publicVariable "unlockedGL";
+publicVariable "unlockedGrenadeLaunchers";
 publicVariable "unlockedAT";
 publicVariable "unlockedAA";
 publicVariable "unlockedSMG";

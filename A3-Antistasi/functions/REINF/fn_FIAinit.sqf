@@ -68,9 +68,9 @@ else
 			{
 			if (_typeX in SDKGL) then
 				{
-				if (count unlockedGL > 0) then
+				if (count unlockedGrenadeLaunchers > 0) then
 					{
-					[_unit,unlockedGL] call A3A_fnc_randomRifle;
+					[_unit,unlockedGrenadeLaunchers] call A3A_fnc_randomRifle;
 					}
 				else
 					{

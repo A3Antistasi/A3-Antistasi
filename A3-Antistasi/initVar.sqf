@@ -167,7 +167,7 @@ unlockedMG = [];
 unlockedSMG = [];
 unlockedHandgun = [];
 unlockedShotgun = [];
-unlockedGL = [];
+unlockedGrenadeLaunchers = [];
 unlockedSN = [];
 //Used for AI-Rearm (poor implementation)
 initialWeapons = [];
@@ -740,7 +740,7 @@ publicVariable "unlockedVests";
 publicVariable "unlockedRifles";
 publicVariable "unlockedSMG";
 publicVariable "unlockedMG";
-publicVariable "unlockedGL";
+publicVariable "unlockedGrenadeLaunchers";
 publicVariable "unlockedSN";
 publicVariable "unlockedAT";
 publicVariable "unlockedAA";

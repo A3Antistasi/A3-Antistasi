@@ -41,7 +41,7 @@ private _count = objNull;
 				[_category,_item,-1] call jn_fnc_arsenal_addItem;
 				_flag = true;
 				if (count (getArray (configfile >> "CfgWeapons" >> _item >> "muzzles")) == 2) then {
-					unlockedGL pushBack _item; publicVariable "unlockedGL";
+					unlockedGrenadeLaunchers pushBack _item; publicVariable "unlockedGrenadeLaunchers";
 				};
 			};
 			case (_item in allMachineGuns): {

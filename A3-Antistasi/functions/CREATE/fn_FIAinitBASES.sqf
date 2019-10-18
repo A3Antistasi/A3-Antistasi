@@ -90,9 +90,9 @@ switch (true) do {
 	};
 
 	case (_typeX in SDKGL): {
-		if (count unlockedGL > 0) then
+		if (count unlockedGrenadeLaunchers > 0) then
 			{
-				[_unit,unlockedGL] call A3A_fnc_randomRifle;
+				[_unit,unlockedGrenadeLaunchers] call A3A_fnc_randomRifle;
 			}
 		else
 			{

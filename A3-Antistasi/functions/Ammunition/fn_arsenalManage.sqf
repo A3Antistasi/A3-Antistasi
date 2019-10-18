@@ -62,7 +62,7 @@ private _count = objNull;
 			};
 			case (_item in allSMGs): {
 				unlockedWeapons pushBack _item; publicVariable "unlockedWeapons";
-				unlockedSMG pushBack _item; publicVariable "unlockedSMG";
+				unlockedSMGs pushBack _item; publicVariable "unlockedSMGs";
 				_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _item >> "displayName")];
 				_category = _item call jn_fnc_arsenal_itemType;
 				[_category,_item,-1] call jn_fnc_arsenal_addItem;
@@ -70,7 +70,7 @@ private _count = objNull;
 			};
 			case (_item in allHandguns): {
 				unlockedWeapons pushBack _item; publicVariable "unlockedWeapons";
-				unlockedHandgun pushBack _item; publicVariable "unlockedHandgun";
+				unlockedHandguns pushBack _item; publicVariable "unlockedHandguns";
 				_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _item >> "displayName")];
 				_category = _item call jn_fnc_arsenal_itemType;
 				[_category,_item,-1] call jn_fnc_arsenal_addItem;
@@ -78,7 +78,7 @@ private _count = objNull;
 			};
 			case (_item in allShotguns): {
 				unlockedWeapons pushBack _item; publicVariable "unlockedWeapons";
-				unlockedShotgun pushBack _item; publicVariable "unlockedShotgun";
+				unlockedShotguns pushBack _item; publicVariable "unlockedShotguns";
 				_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _item >> "displayName")];
 				_category = _item call jn_fnc_arsenal_itemType;
 				[_category,_item,-1] call jn_fnc_arsenal_addItem;

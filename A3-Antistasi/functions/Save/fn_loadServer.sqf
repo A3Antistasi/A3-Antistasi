@@ -50,9 +50,9 @@ unlockedHeadgear = [];
 unlockedNVGs = [];
 
 unlockedRifles = [];
-unlockedSMG = [];
-unlockedHandgun = [];
-unlockedShotgun = [];
+unlockedSMGs = [];
+unlockedHandguns = [];
+unlockedShotguns = [];
 unlockedMachineGuns = [];
 unlockedGrenadeLaunchers = [];
 unlockedSniperRifles = [];
@@ -83,13 +83,13 @@ unlockedAT = [];
 			unlockedSniperRifles pushBack _x;
 		};
 		case (_x in allSMGs): {
-			unlockedSMG pushBack _x; publicVariable "unlockedSMG";
+			unlockedSMGs pushBack _x; publicVariable "unlockedSMGs";
 		};
 		case (_x in allHandguns): {
-			unlockedHandgun pushBack _x; publicVariable "unlockedSMG";
+			unlockedHandguns pushBack _x; publicVariable "unlockedSMGs";
 		};
 		case (_x in allShotguns): {
-			unlockedShotgun pushBack _x; publicVariable "unlockedSMG";
+			unlockedShotguns pushBack _x; publicVariable "unlockedSMGs";
 		};
 		case (_x in allRocketLaunchers): {
 			if ((getNumber (configfile >> "CfgWeapons" >> _x >> "canLock")) isEqualTo 0) then {
@@ -122,9 +122,9 @@ publicVariable "unlockedSniperRifles";
 publicVariable "unlockedGrenadeLaunchers";
 publicVariable "unlockedAT";
 publicVariable "unlockedAA";
-publicVariable "unlockedSMG";
-publicVariable "unlockedHandgun";
-publicVariable "unlockedShotgun";
+publicVariable "unlockedSMGs";
+publicVariable "unlockedHandguns";
+publicVariable "unlockedShotguns";
 
 if !(unlockedNVGs isEqualTo []) then {haveNV = true; publicVariable "haveNV"};
 

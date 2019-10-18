@@ -41,7 +41,7 @@ if ((_var isEqualTo "") or (_var isEqualTo "ATMan") or (_var isEqualTo "AAMan") 
 					}
 				else
 					{
-					if (_weaponX in srifles) then
+					if (_weaponX in allSniperRifles) then
 						{
 						_result = "Sniper";
 						}

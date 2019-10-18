@@ -52,7 +52,7 @@ private _count = objNull;
 				[_category,_item,-1] call jn_fnc_arsenal_addItem;
 				_flag = true;
 			};
-			case (_item in srifles): {
+			case (_item in allSniperRifles): {
 				unlockedWeapons pushBack _item; publicVariable "unlockedWeapons";
 				unlockedSN pushBack _item; publicVariable "unlockedSN";
 				_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _item >> "displayName")];

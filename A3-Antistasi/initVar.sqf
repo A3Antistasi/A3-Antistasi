@@ -66,7 +66,7 @@ allRocketLaunchers = [];				//Pre-Rewrite Variable
 allShotguns = [];
 allWeaponThrow = [];
 allSMGs = [];
-srifles = [];					//Pre-Rewrite Variable
+allSniperRifles = [];					//Pre-Rewrite Variable
 //Items arrays
 allAttachmentBipod = [];
 allAttachmentMuzzle = [];
@@ -756,7 +756,7 @@ publicVariable "allMissileLaunchers";
 publicVariable "allRocketLaunchers";
 publicVariable "allShotguns";
 publicVariable "allSMGs";
-publicVariable "srifles";
+publicVariable "allSniperRifles";
 
 publicVariable "civilianUniform";
 publicVariable "rebelUniform";

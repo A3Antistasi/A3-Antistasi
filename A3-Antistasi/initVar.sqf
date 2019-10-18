@@ -65,8 +65,8 @@ allSMGs = [];
 allSniperRifles = [];					//Pre-Rewrite Variable
 //Items arrays
 allBipods = [];
-allAttachmentMuzzle = [];
-allAttachmentPointer = [];
+allMuzzleAttachments = [];
+allPointerAttachments = [];
 allOptics = [];
 allBinocular = [];
 allCompass = [];
@@ -109,7 +109,7 @@ allMineDirectional = [];
 attachmentLight = [];
 attachmentLaser = [];
 chemLight = [];
-smokeGrenade = [];
+allSmokeGrenades = [];
 uglSmokeGrenade = [];
 uglFlareMag = [];
 handFlare = [];
@@ -758,7 +758,7 @@ publicVariable "civilianUniform";
 publicVariable "rebelUniform";
 publicVariable "armoredHeadgear";
 publicVariable "initialWeapons";
-publicVariable "smokeGrenade";
+publicVariable "allSmokeGrenades";
 
 publicVariable "teamPlayer";
 publicVariable "civPerc";

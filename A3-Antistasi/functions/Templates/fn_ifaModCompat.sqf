@@ -2,7 +2,7 @@
 //   IFA ITEMS MODIFICATIONS     ///
 ////////////////////////////////////
 /*
-smokeGrenade = ["LIB_RDG","LIB_NB39"];
+allSmokeGrenades = ["LIB_RDG","LIB_NB39"];
 chemLight = [];
 lootNVG = [];
 lootAttachment = [];

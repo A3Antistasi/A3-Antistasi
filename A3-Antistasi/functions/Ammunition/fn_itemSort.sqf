@@ -11,7 +11,7 @@ if (isClass(configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "FlashLight" >> "A
      {
      attachmentLaser pushBack _x;
      };
-} forEach allAttachmentPointer;
+} forEach allPointerAttachments;
 
 //Signal Mags ID
 {
@@ -21,7 +21,7 @@ if (getText(configfile >> "CfgMagazines" >> _x >> "nameSound") isEqualTo "Chemli
      };
 if (getText(configfile >> "CfgMagazines" >> _x >> "nameSound") isEqualTo "smokeshell") then
      {
-     smokeGrenade pushback _x;
+     allSmokeGrenades pushback _x;
      };
 if (getText(configfile >> "CfgMagazines" >> _x >> "nameSound") isEqualTo "") then
      {

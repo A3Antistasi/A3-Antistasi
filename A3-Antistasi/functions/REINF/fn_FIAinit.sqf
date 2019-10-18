@@ -142,7 +142,7 @@ if (!haveRadio) then
 	if ((_unit != leader _unit) and (_typeX != staticCrewTeamPlayer)) then {_unit unlinkItem (_unit call A3A_fnc_getRadio)};
 	};
 
-if ({if (_x in smokeGrenade) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom smokeGrenade,2]};
+if ({if (_x in allSmokeGrenades) exitWith {1}} count unlockedMagazines > 0) then {_unit addMagazines [selectRandom allSmokeGrenades,2]};
 if !(hasIFA) then
 	{
 	if ((sunOrMoon < 1) and (_typeX != SDKUnarmed)) then

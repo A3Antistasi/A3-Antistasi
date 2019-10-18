@@ -74,5 +74,5 @@ if (hasACEMedical) then {
 lootItem append ["ACE_acc_pointer_green_IR","ACE_Chemlight_Shield","ACE_VMH3","ACE_VMM3","ACE_HuntIR_monitor"];
 
 lootMagazine deleteAt (lootMagazine find "ACE_PreloadedMissileDummy");
-attachmentLight deleteAt (attachmentLight find "ACE_acc_pointer_green");
+allLightAttachments deleteAt (allLightAttachments find "ACE_acc_pointer_green");
 lootItem deleteAt (lootItem find "MineDetector");

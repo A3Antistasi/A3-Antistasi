@@ -5,7 +5,7 @@ if (side (group petros) == west) then {diveGear pushBack "U_B_Wetsuit"} else {di
 {
 if (isClass(configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "FlashLight" >> "Attenuation")) then
      {
-     attachmentLight pushBack _x;
+     allLightAttachments pushBack _x;
      }
      else
      {

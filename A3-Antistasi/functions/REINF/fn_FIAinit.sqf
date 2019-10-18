@@ -171,7 +171,7 @@ if !(hasIFA) then
 				_unit unassignItem _hmd;
 				_unit removeItem _hmd;
 				};
-			_flashlights = attachmentLight arrayIntersect unlockedItems;
+			_flashlights = allLightAttachments arrayIntersect unlockedItems;
 			if !(_flashlights isEqualTo []) then
 				{
 				_flashlights = _flashlights arrayIntersect ((primaryWeapon _unit) call BIS_fnc_compatibleItems);

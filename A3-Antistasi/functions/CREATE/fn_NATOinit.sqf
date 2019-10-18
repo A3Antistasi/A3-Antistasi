@@ -127,10 +127,10 @@ if !(hasIFA) then
 				_unit removePrimaryWeaponItem (_pointers select 0);
 				};
 			_lamp = "";
-			_lamps = _weaponItems arrayIntersect attachmentLight;
+			_lamps = _weaponItems arrayIntersect allLightAttachments;
 			if (_lamps isEqualTo []) then
 				{
-				_compatibleLamps = ((primaryWeapon _unit) call BIS_fnc_compatibleItems) arrayIntersect attachmentLight;
+				_compatibleLamps = ((primaryWeapon _unit) call BIS_fnc_compatibleItems) arrayIntersect allLightAttachments;
 				if !(_compatibleLamps isEqualTo []) then
 					{
 					_lamp = selectRandom _compatibleLamps;

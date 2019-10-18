@@ -51,82 +51,48 @@ colorInvaders = "colorOPFOR";
 ////////////////////////////////////
 if (isServer) then {
 diag_log format ["%1: [Antistasi] | INFO | initVar | Declaring Empty Arrays",servertime];
-//Config Arrays
-//Weapons arrays
-allRifles = [];					//Pre-Rewrite Variable
-allHandguns = [];					//Pre-Rewrite Variable
-allMachineGuns = [];					//Pre-Rewrite Variable
-allMagazines = [];
-allMissileLaunchers = [];				//Pre-Rewrite Variable
-allMortars = [];
-allRocketLaunchers = [];				//Pre-Rewrite Variable
-allShotguns = [];
-allSMGs = [];
-allSniperRifles = [];					//Pre-Rewrite Variable
-//Items arrays
-allBipods = [];
-allMuzzleAttachments = [];
-allPointerAttachments = [];
-allOptics = [];
-allBinoculars = [];
-allCompasses = [];
-allFirstAidKits = [];
-allGPS = [];
-allLaserDesignators = [];
-allMaps = [];
-allMedikits = [];
-allMineDetectors = [];
-allNVGs = [];
-allRadios = [];
-allToolkits = [];
-allUAVTerminals = [];
-allUnknown = [];
-allWatches = [];
-//Equipment arrays
-allGlasses = [];
-allHeadgear = [];
-allVests = [];
-allUniforms = [];
-allBackpacks = [];
-//Ammunition arrays
-allMagArtillery = [];
-allMagBullet = [];
-allMagFlare = [];
-allGrenades = [];
-allMagLaser = [];
-allMagMissile = [];
-allMagRocket = [];
-allMagShell = [];
-allMagShotgun = [];
-allMagSmokeShell = [];
-//Explosives arrays
-allMine = [];
-allMineBounding = [];
-allMineDirectional = [];
 
-//Treated Arrays
-//Sorted Items
-allLightAttachments = [];
-allLaserAttachments = [];
-allChemlights = [];
-allSmokeGrenades = [];
-allLaunchedSmokeGrenades = [];
-allLaunchedFlares = [];
-allHandFlares = [];
-allIRGrenades = [];
-allLaserBatteries = [];
-//Equipment
-allRebelUniforms = [];
-allCivilianUniforms = [];
-allBackpacksEmpty = [];
-allBackpacksTool = [];
-allBackpacksStatic = [];
-allBackpacksDevice = [];
-allCivilianVests = [];
-allArmoredVests = [];
-allArmoredHeadgear = [];
-allCivilianHeadgear = [];
-allCivilianGlasses = [];
+weaponCategories = ["Rifles", "Handguns", "MachineGuns", "MissileLaunchers", "Mortars", "RocketLaunchers", "Shotguns", "SMGs", "SniperRifles"];
+itemCategories = ["Bipods", "MuzzleAttachments", "PointerAttachments", "Optics", "Binoculars", "Compasses", "FirstAidKits", "GPS", "LaserDesignators", 
+	"Maps", "Medikits", "MineDetectors", "NVGs", "Radios", "Toolkits", "UAVTerminals", "Watches", "Glasses", "Headgear", "Vests", "Uniforms", "Backpacks"];
+				  
+magazineCategories = ["MagArtillery", "MagBullet", "MagFlare", "Grenades", "MagLaser", "MagMissile", "MagRocket", "MagShell", "MagShotgun", "MagSmokeShell"];
+explosiveCategories = ["Mine", "MineBounding", "MineDirectional"];
+otherCategories = ["Unknown"];
+
+//************************************************************************************************************
+//ALL ITEMS THAT ARE MEMBERS OF CATEGORIES BELOW THIS LINE **MUST** BE A MEMBER OF ONE OF THE ABOVE CATEGORIES.
+//************************************************************************************************************
+
+//Categories that consist only of members of other categories, e.g, 'Weapons' contains items of every category from in weaponCategories;
+aggregateCategories = ["Weapons", "Items", "Magazines", "Explosives"];
+
+//All items in here *must* also be a member of one of the above categories.
+//These are here because it's non-trivial to identify items in them. They might be a very specific subset of items, or the logic that identifies them might not be perfect.
+//It's recommended that these categories be used with caution.
+specialCategories = ["AA", "AT", "GrenadeLaunchers", "LightAttachments", "LaserAttachments", "Chemlights", "SmokeGrenades", "LaunchedSmokeGrenades", "LaunchedFlares", "HandFlares", "IRGrenades","LaserBatteries",
+	"RebelUniforms", "CivilianUniforms", "BackpacksEmpty", "BackpacksTool", "BackpacksStatic", "BackpacksDevice", "CivilianVests", "ArmoredVests", "ArmoredHeadgear", "CivilianHeadgear", 
+	"CivilianGlasses"];
+
+
+allCategoriesExceptSpecial = weaponCategories + itemCategories + magazineCategories + explosiveCategories + otherCategories + aggregateCategories;
+allCategories = allCategoriesExceptSpecial + specialCategories;
+
+{
+	//Initialise 'allX' variables, such as 'allWeapons'
+	missionNamespace setVariable ["all" + _x, []];
+} forEach allCategories;
+
+{
+	//Initialise 'unlocked' variables, which contain all of the items the players have unlocked.
+	missionNamespace setVariable ["unlocked" + _x, []];
+} forEach allCategoriesExceptSpecial + ["AA", "AT", "GrenadeLaunchers"]; //TODO: Implement all of the special categories.
+
+//Used for AI-Rearm (poor implementation)
+initialWeapons = [];
+//Used for initial unlocks.
+initialRebelEquipment = [];
+
 //Loot Items
 lootBasicItem = [];
 lootNVG = [];
@@ -148,29 +114,6 @@ invaderBackpackDevice = [];
 occupantBackpackDevice = [];
 rebelBackpackDevice = [];
 civilianBackpackDevice = [];
-
-//Unlocks Arrays
-//Unlocked Item Categories
-unlockedWeapons = [];
-unlockedMagazines = [];
-unlockedItems = [];
-unlockedBackpacks = [];
-unlockedOptics = [];
-unlockedNVGs = [];
-unlockedVests = [];
-unlockedHeadgear = [];
-//Unlocked Weapons By Type
-unlockedRifles = [];
-unlockedAT = [];
-unlockedAA = [];
-unlockedMachineGuns = [];
-unlockedSMGs = [];
-unlockedHandguns = [];
-unlockedShotguns = [];
-unlockedGrenadeLaunchers = [];
-unlockedSniperRifles = [];
-//Used for AI-Rearm (poor implementation)
-initialWeapons = [];
 };
 
 ////////////////////////////////////

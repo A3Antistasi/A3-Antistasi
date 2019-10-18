@@ -57,70 +57,12 @@ private _nameX = "";
 	
 	if !([_x, _item] call _filter) then 
 	{
-		switch (_itemType) do
+		private _categories = _nameX call A3A_fnc_equipmentClassToCategories;
 		{
-			case "AssaultRifle": {allRifles pushBack _nameX};
-			case "BombLauncher": {}; //Only for vehicles //allBombLaunchers pushBack _nameX};
-			case "GrenadeLauncher": {}; //Only for vehicles //allGrenadeLaunchers pushBack _nameX};
-			case "Handgun": {allHandguns pushBack _nameX};
-			case "Launcher": {}; //Unused
-			case "MachineGun": {allMachineGuns pushBack _nameX};
-			case "MissileLauncher": {allMissileLaunchers pushBack _nameX};
-			case "Mortar": {allMortars pushBack _nameX};
-			case "RocketLauncher": {allRocketLaunchers pushBack _nameX};
-			case "Shotgun": {allShotguns pushBack _nameX};
-			case "Throw": {}; //Unused
-			case "Rifle": {allRifles pushBack _nameX};
-			case "SubmachineGun": {allSMGs pushBack _nameX};
-			case "SniperRifle": {allSniperRifles pushBack _nameX};
-
-			case "Magazine": {allMagazines pushBack _nameX};
-
-			case "AccessoryBipod": {allBipods pushBack _nameX};
-			case "AccessoryMuzzle": {allMuzzleAttachments pushBack _nameX};
-			case "AccessoryPointer": {allPointerAttachments pushBack _nameX};
-			case "AccessorySights": {allOptics pushBack _nameX};
-			case "Binocular": {allBinoculars pushBack _nameX};
-			case "Compass": {allCompasses pushBack _nameX};
-			case "FirstAidKit": {allFirstAidKits pushBack _nameX};
-			case "GPS": {allGPS pushBack _nameX};
-			case "LaserDesignator": {allLaserDesignators pushBack _nameX};
-			case "Map": {allMaps pushBack _nameX};
-			case "Medikit": {allMedikits pushBack _nameX};
-			case "MineDetector": {allMineDetectors pushBack _nameX};
-			case "NVGoggles": {allNVGs pushBack _nameX};
-			case "Radio": {allRadios pushBack _nameX};
-			case "Toolkit": {allToolkits pushBack _nameX};
-			case "UAVTerminal": {allUAVTerminals pushBack _nameX};
-			case "Unknown": {allUnknown pushBack _nameX};
-			case "UnknownEquipment": {allUnknown pushBack _nameX};
-			case "UnknownWeapon": {allUnknown pushBack _nameX};
-			case "Watch": {allWatches pushBack _nameX};
-
-			case "Glasses": {allGlasses pushBack _nameX};
-			case "Headgear": {allHeadgear pushBack _nameX};
-			case "Vest": {allVests pushBack _nameX};
-			case "Uniform": {allUniforms pushBack _nameX};
-			case "Backpack": {allBackpacks pushBack _nameX};
-
-			case "Artillery": {allMagArtillery pushBack _nameX};
-			case "Bullet": {allMagBullet pushBack _nameX};
-			case "Flare": {allMagFlare pushBack _nameX};
-			case "Grenade": {allGrenades pushBack _nameX};
-			case "Laser": {allMagLaser pushBack _nameX};
-			case "Missile": {allMagMissile pushBack _nameX};
-			case "Rocket": {allMagRocket pushBack _nameX};
-			case "Shell": {allMagShell pushBack _nameX};
-			case "ShotgunShell": {allMagShotgun pushBack _nameX};
-			case "SmokeShell": {allMagSmokeShell pushBack _nameX};
-			case "UnknownMagazine": {allUnknown pushBack _nameX};
-
-			case "Mine": {allMine pushBack _nameX};
-			case "MineBounding": {allMineBounding pushBack _nameX};
-			case "MineDirectional": {allMineDirectional pushBack _nameX};
-
-			default {allUnknown pushBack _nameX};
-		};
+			//We're not returning a default value with getVariable, becuase it *must* be instantiated before now. If it isn't, we *need* it to error.
+			private _categoryName = _x;
+			(missionNamespace getVariable ("all" + _categoryName)) pushBack _nameX;
+		} forEach _categories;
 	};
 
 } forEach _allConfigs;

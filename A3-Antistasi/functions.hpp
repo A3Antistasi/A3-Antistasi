@@ -306,6 +306,7 @@ class A3A
 		class CSATCrate {};
 		class dress {};
 		class empty {};
+		class equipmentClassToCategories {};
 		class equipmentSort {};
 		class getRadio {};
 		class itemSort {};

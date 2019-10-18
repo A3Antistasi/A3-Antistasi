@@ -25,7 +25,7 @@ if (getText(configfile >> "CfgMagazines" >> _x >> "nameSound") isEqualTo "smokes
      };
 if (getText(configfile >> "CfgMagazines" >> _x >> "nameSound") isEqualTo "") then
      {
-     uglSmokeGrenade pushback _x;
+     allLaunchedSmokeGrenades pushback _x;
      };
 } forEach allMagSmokeShell;
 
@@ -36,7 +36,7 @@ _uglMag append (getArray(configfile >> "CfgMagazineWells" >> "3UGL_40x36" >> "BI
 {
 if (_x in _uglMag) then
      {
-     uglFlareMag pushBack _x;
+     allLaunchedFlares pushBack _x;
      }
      else
      {

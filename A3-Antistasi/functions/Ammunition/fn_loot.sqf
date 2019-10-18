@@ -79,4 +79,4 @@ unlockedItems append lootBasicItem;
 unlockedItems append allRebelUniforms;
 unlockedItems append allCivilianUniforms;
 unlockedItems append allCivilianHeadgear;
-unlockedItems append civilianGlasses;
+unlockedItems append allCivilianGlasses;

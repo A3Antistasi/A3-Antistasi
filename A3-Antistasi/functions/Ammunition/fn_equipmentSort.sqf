@@ -97,11 +97,11 @@ allCivilianHeadgear = allHeadgear - allArmoredHeadgear;
 //////////////////
 //   Glasses   ///
 //////////////////
-civilianGlasses append allGlasses;
+allCivilianGlasses append allGlasses;
 
-civilianGlasses deleteAt (civilianGlasses find "None");
-civilianGlasses deleteAt (civilianGlasses find "G_Goggles_VR");
-civilianGlasses deleteAt (civilianGlasses find "G_I_Diving");
-civilianGlasses deleteAt (civilianGlasses find "G_O_Diving");
-civilianGlasses deleteAt (civilianGlasses find "G_B_Diving");
-civilianGlasses deleteAt (civilianGlasses find "LIB_Glasses");
+allCivilianGlasses deleteAt (allCivilianGlasses find "None");
+allCivilianGlasses deleteAt (allCivilianGlasses find "G_Goggles_VR");
+allCivilianGlasses deleteAt (allCivilianGlasses find "G_I_Diving");
+allCivilianGlasses deleteAt (allCivilianGlasses find "G_O_Diving");
+allCivilianGlasses deleteAt (allCivilianGlasses find "G_B_Diving");
+allCivilianGlasses deleteAt (allCivilianGlasses find "LIB_Glasses");

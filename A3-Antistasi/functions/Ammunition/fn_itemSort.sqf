@@ -2,7 +2,6 @@ diveGear = ["V_RebreatherIA","G_Diving"];
 if (side (group petros) == west) then {diveGear pushBack "U_B_Wetsuit"} else {diveGear pushBack "U_I_Wetsuit"};
 
 //Lights Vs Laser ID
-//PBP - NOT WORKING
 {
 if (isClass(configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "FlashLight" >> "Attenuation")) then
      {
@@ -32,8 +31,8 @@ if (getText(configfile >> "CfgMagazines" >> _x >> "nameSound") isEqualTo "") the
 
 //Flares ID
 //PBP - NOT WORKING
-private _uglMag = getArray (configfile >> "CfgMagazineWells" >> "UGL_40x36");
-_uglMag append (getArray(configfile >> "CfgMagazineWells" >> "3UGL_40x36"));
+private _uglMag = getArray (configfile >> "CfgMagazineWells" >> "UGL_40x36" >> "BI_Magazines");
+_uglMag append (getArray(configfile >> "CfgMagazineWells" >> "3UGL_40x36" >> "BI_Magazines"));
 {
 if (_x in _uglMag) then
      {

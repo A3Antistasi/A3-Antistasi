@@ -39,4 +39,9 @@ if ("Enoch" call BIS_fnc_getParamValue isEqualTo 0) then
 {
 	disabledMods pushBack "enoch";
 };
+
+if ("OfficialMod" call BIS_fnc_getParamValue isEqualTo 0) then
+{
+	disabledMods pushBack "officialmod";
+};
 diag_log format ["%1: [Antistasi] | INFO | Filter | Disabled DLC: %2", servertime, disabledMods];

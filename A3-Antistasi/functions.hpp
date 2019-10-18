@@ -300,7 +300,6 @@ class A3A
 		class ACEpvpReDress {};
 		class ammunitionTransfer {};
 		class arsenalManage {};
-		class boxAAF {};
 		class checkRadiosUnlocked {};
 		class configSort {};
 		class crateLootParams {};
@@ -417,7 +416,10 @@ class A3A
 
 	class Templates
 	{
+		class aceModCompat {};
 		class getLoadout {};
+		class ifaModCompat {};
+		class rhsModCompat {};
 	};
 	
 	class Undercover

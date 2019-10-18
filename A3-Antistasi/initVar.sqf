@@ -49,24 +49,25 @@ colorInvaders = "colorOPFOR";
 ////////////////////////////////////
 //     DECLARING ITEM ARRAYS     ///
 ////////////////////////////////////
+if (isServer) then {
 diag_log format ["%1: [Antistasi] | INFO | initVar | Declaring Empty Arrays",servertime];
-//All Items Arrays
+//Config Arrays
 //Weapons arrays
-arifles = [];					//Used
+arifles = [];					//Pre-Rewrite Variable
 allWeaponBombLauncher = [];
 allWeaponGrenadeLauncher = [];
-hguns = [];					//Used
+hguns = [];					//Pre-Rewrite Variable
 allWeaponLauncher = [];
-mguns = [];					//Used
+mguns = [];					//Pre-Rewrite Variable
 allMagazine = [];
-mlaunchers = [];				//Used
+mlaunchers = [];				//Pre-Rewrite Variable
 allWeaponMortar = [];
-rlaunchers = [];				//Used
+rlaunchers = [];				//Pre-Rewrite Variable
 allWeaponShotgun = [];
 allWeaponThrow = [];
 allWeaponRifle = [];
 allWeaponSubmachineGun = [];
-srifles = [];					//Used
+srifles = [];					//Pre-Rewrite Variable
 //Items arrays
 allAttachmentBipod = [];
 allAttachmentMuzzle = [];
@@ -108,7 +109,7 @@ allMine = [];
 allMineBounding = [];
 allMineDirectional = [];
 
-//Treated arrays
+//Treated Arrays
 //Sorted Items
 attachmentLight = [];
 attachmentLaser = [];
@@ -119,23 +120,18 @@ uglFlareMag = [];
 handFlare = [];
 irGrenade = [];
 laserBatteries = [];
-
-//Vehicles and Equipment Arrays
-eastStaticWeapon = [];
-westStaticWeapon = [];
-independentStaticWeapon = [];
-
 //Equipment
 rebelUniform = [];
 civilianUniform = [];
 allBackpackEmpty = [];
 allBackpackTool = [];
+allBackpackStatic = [];
+allBackpackDevice = [];
 civilianVest = [];
 armoredVest = [];
 armoredHeadgear = [];
 civilianHeadgear = [];
 civilianGlasses = [];
-
 //Loot Items
 lootBasicItem = [];
 lootNVG = [];
@@ -146,26 +142,41 @@ lootMagazine = [];
 lootGrenade = [];
 lootExplosive = [];
 lootBackpack = [];
+lootHelmet = [];
+lootVest = [];
+lootDevice = [];
+//Vehicles Arrays
+invaderStaticWeapon = [];
+occupantStaticWeapon = [];
+rebelStaticWeapon = [];
+invaderBackpackDevice = [];
+occupantBackpackDevice = [];
+rebelBackpackDevice = [];
+civilianBackpackDevice = [];
 
-//-----------------------------Existing Used Arrays----------------------------//
-civBoats = [];
-arrayCivVeh = [];
-
-initialRifles = [];
+//Unlocks Arrays
+//Unlocked Item Categories
 unlockedWeapons = [];
-unlockedRifles = [];
 unlockedMagazines = [];
 unlockedItems = [];
 unlockedBackpacks = [];
 unlockedOptics = [];
-unlockedNVG = [];			//New
+unlockedNVG = [];
+unlockedVest = [];
+unlockedHelmet = [];
+//Unlocked Weapons By Type
+unlockedRifles = [];
 unlockedAT = [];
 unlockedAA = [];
 unlockedMG = [];
+unlockedSMG = [];
+unlockedHandgun = [];
+unlockedShotgun = [];
 unlockedGL = [];
 unlockedSN = [];
-initVest = [];
-initGrenades = [];
+//Used for AI-Rearm (poor implementation)
+initialWeapons = [];
+};
 
 ////////////////////////////////////
 //     BEGIN MOD DETECTION       ///
@@ -266,94 +277,35 @@ medicAnims = ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPknlMstpSnonWnonDnon_medic
 //////////////////////////////////////
 //         TEMPLATE SELECTION      ///
 //////////////////////////////////////
-//Templates for GREENFOR Rebels
-diag_log format ["%1: [Antistasi] | INFO | initVar | Reading Occupant Templates",servertime];
-if (!hasIFA) then
-	{
-	//NON-IFA Templates for DEFENDER
-		if (!activeUSAF) then
-			{
-			//Vanilla DEFENDER Template
-			call compile preProcessFileLineNumbers "Templates\Vanilla_Occ_NATO_Altis.sqf";
-			}
-			else
-			{
-				if (has3CB) then
-					{
-					//3CB DEFENDER Template
-					call compile preProcessFileLineNumbers "Templates\BAF_Occ_BAF_Arid.sqf";
-					}
-					else
-					{
-						if (teamPlayer == independent) then
-							{
-							//RHS-USAF DEFENDER Template
-							call compile preProcessFileLineNumbers "Templates\RHS_Occ_USAF_Arid.sqf";
-							}
-							else
-							{
-							//RHS GREENFOR DEFENDER Template
-							call compile preProcessFileLineNumbers "Templates\RHS_Occ_CDF_Arid.sqf";
-							};
-					};
-			};
-		//NON-IFA INVADER Templates
-		diag_log format ["%1: [Antistasi] | INFO | initVar | Reading Invader Templates",servertime];
-		if (!activeAFRF) then
-			{
-			//Vanilla INVADER Template
-			call compile preProcessFileLineNumbers "Templates\Vanilla_Inv_CSAT_Altis.sqf";
-			}
-			else
-			{
-				if (has3CB) then
-					{
-					//3CB INVADER Template
-					call compile preProcessFileLineNumbers "Templates\3CB_Inv_TKM_Arid.sqf";
-					}
-					else
-					{
-					//RHS INVADER Template
-					call compile preProcessFileLineNumbers "Templates\RHS_Inv_AFRF_Arid.sqf";
-					};
-			};
-		//NON-IFA REBEL Templates
-		diag_log format ["%1: [Antistasi] | INFO | initVar | Reading Rebel Templates",servertime];
-		if (!activeGREF) then
-			{
-			//Vanilla REBEL Template
-			call compile preProcessFileLineNumbers "Templates\Vanilla_Reb_FIA_Altis.sqf";
-			}
-			else
-			{
-				if (has3CB) then
-					{
-					//3CB REBEL Template
-					call compile preProcessFileLineNumbers "Templates\3CB_Reb_TTF_Arid.sqf";
-					}
-					else
-					{
-						if (teamPlayer == independent) then
-							{
-							//RHS REBEL Template
-							call compile preProcessFileLineNumbers "Templates\RHS_Reb_NAPA_Arid.sqf";
-							}
-							else
-							{
-							//RHS BLUFOR REBEL Template
-							call compile preProcessFileLineNumbers "Templates\RHS_Reb_CDF_Arid.sqf";
-							};
-					};
-			};
-	}
-	else
-	{
-	//IFA templates
-	diag_log format ["%1: [Antistasi] | INFO | initVar | Reading IFA Templates",servertime];
-	call compile preProcessFileLineNumbers "Templates\IFA_Reb_POL_Temp.sqf";
-	call compile preProcessFileLineNumbers "Templates\IFA_Inv_SOV_Temp.sqf";
-	call compile preProcessFileLineNumbers "Templates\IFA_Occ_WEH_Temp.sqf";
+diag_log format ["%1: [Antistasi] | INFO | initVar | Reading Templates",servertime];
+if !(hasIFA) then {
+	//Rebel Templates
+	switch (true) do {
+		case (!activeGREF): {call compile preProcessFileLineNumbers "Templates\Vanilla_Reb_FIA_Altis.sqf"};
+		case (has3CB): {call compile preProcessFileLineNumbers "Templates\3CB_Reb_TTF_Arid.sqf"};
+		case (activeGREF): {call compile preProcessFileLineNumbers "Templates\RHS_Reb_NAPA_Arid.sqf"};
+		case (teamPlayer != independent): {call compile preProcessFileLineNumbers "Templates\RHS_Reb_CDF_Arid.sqf"};
 	};
+	//Occupant Templates
+	switch (true) do {
+		case (!activeUSAF): {call compile preProcessFileLineNumbers "Templates\Vanilla_Occ_NATO_Altis.sqf"};
+		case (has3CB): {call compile preProcessFileLineNumbers "Templates\BAF_Occ_BAF_Arid.sqf"};
+		case (activeUSAF): {call compile preProcessFileLineNumbers "Templates\RHS_Occ_USAF_Arid.sqf"};
+		case (teamPlayer != independent): {call compile preProcessFileLineNumbers "Templates\RHS_Occ_CDF_Arid.sqf"};
+	};
+	//Invader Templates
+	switch (true) do {
+		case (!activeAFRF): {call compile preProcessFileLineNumbers "Templates\Vanilla_Inv_CSAT_Altis.sqf";};
+		case (has3CB): {call compile preProcessFileLineNumbers "Templates\3CB_Inv_TKM_Arid.sqf"};
+		case (activeAFRF): {call compile preProcessFileLineNumbers "Templates\RHS_Inv_AFRF_Arid.sqf"};
+	};
+}
+else {
+//IFA Templates
+call compile preProcessFileLineNumbers "Templates\IFA_Reb_POL_Temp.sqf";
+call compile preProcessFileLineNumbers "Templates\IFA_Inv_SOV_Temp.sqf";
+call compile preProcessFileLineNumbers "Templates\IFA_Occ_WEH_Temp.sqf";
+};
 
 ////////////////////////////////////
 //      CIVILIAN UNITS LIST      ///
@@ -375,7 +327,7 @@ private _civVehConfigs = "(
 	}
 )" configClasses (configFile >> "CfgVehicles");
 
-arrayCivVeh append (_civVehConfigs select {!(_x call A3A_fnc_getModOfConfigClass in disabledMods)} apply {configName _x});
+arrayCivVeh = (_civVehConfigs select {!(_x call A3A_fnc_getModOfConfigClass in disabledMods)} apply {configName _x});
 
 
 //Civilian Boats
@@ -387,7 +339,7 @@ _civBoatConfigs = "(
 	}
 )" configClasses (configFile >> "CfgVehicles");
 
-CivBoats append (_civBoatConfigs select {!(_x call A3A_fnc_getModOfConfigClass in disabledMods)} apply {configName _x});
+CivBoats = (_civBoatConfigs select {!(_x call A3A_fnc_getModOfConfigClass in disabledMods)} apply {configName _x});
 
 ////////////////////////////////////
 //     ID LIST FOR UNIT NAMES    ///
@@ -409,9 +361,6 @@ squadLeaders = SDKSL + [(NATOSquad select 0),(NATOSpecOp select 0),(CSATSquad se
 medics = SDKMedic + [(FIAsquad select ((count FIAsquad)-1)),(NATOSquad select ((count NATOSquad)-1)),(NATOSpecOp select ((count NATOSpecOp)-1)),(CSATSquad select ((count CSATSquad)-1)),(CSATSpecOp select ((count CSATSpecOp)-1))];
 //Define Sniper Groups and Units
 sniperGroups = [groupsNATOSniper,groupsCSATSniper];
-sniperUnits = ["O_T_Soldier_M_F","O_T_Sniper_F","O_T_ghillie_tna_F","O_V_Soldier_M_ghex_F","B_CTRG_Soldier_M_tna_F","B_T_soldier_M_F","B_T_Sniper_F","B_T_ghillie_tna_F"] + SDKSniper + [FIAMarksman,NATOMarksman,CSATMarksman];
-//Do we need this anymore? unit classes should be set by template, not here.....
-if (hasRHS) then {sniperUnits = sniperUnits + ["rhsusf_socom_marsoc_sniper","rhs_vdv_marksman_asval"]};
 
 ////////////////////////////////////
 //   CLASSING TEMPLATE VEHICLES  ///
@@ -435,8 +384,96 @@ vehFastRope = ["O_Heli_Light_02_unarmed_F","B_Heli_Transport_01_camo_F","RHS_UH6
 vehUnlimited = vehNATONormal + vehCSATNormal + [vehNATORBoat,vehNATOPatrolHeli,vehCSATRBoat,vehCSATPatrolHeli,vehNATOUAV,vehNATOUAVSmall,NATOMG,NATOMortar,vehCSATUAV,vehCSATUAVSmall,CSATMG,CSATMortar];
 vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATteamPlayer,staticAAteamPlayer,vehSDKRepair];
 
+if (isServer) then {
+////////////////////////////////////
+//        CRATE LOOT ITEMS       ///
+////////////////////////////////////
+private _equipmentFilter = {
+	params ["_configClass", "_categories"];
+	
+	private _remove = false;
+	
+	private _itemIsVanilla = (_configClass call A3A_fnc_getModOfConfigClass) isEqualTo "";
+	
+	if (_itemIsVanilla && {hasIFA || has3CB || {activeAFRF && activeGREF && activeUSAF}}) then {
+		switch (_categories select 0) do {
+			case "Item": {
+				if (hasIFA) then {
+					switch (_categories select 1) do {
+						case "AccessoryMuzzle";
+						case "AccessoryPointer";
+						case "AccessorySights";
+						case "AccessoryBipod";
+						case "Binocular";
+						case "Compass";
+						case "GPS";
+						case "LaserDesignator";
+						case "NVGoggles";
+						case "UAVTerminal";
+						case "Watch": {
+							_remove = true;
+						};
+					};
+				}
+				else {
+					switch (_categories select 1) do {
+						case "AccessoryMuzzle";
+						case "AccessoryPointer";
+						case "AccessorySights";
+						case "AccessoryBipod";
+						case "NVGoggles": {
+							_remove = true;
+						};
+					};
+				};
+			};
+			case "Weapon": {
+				_remove = true;
+			};
+			case "Equipment": {
+				switch (_categories select 1) do {
+					case "Backpack": {
+						if (hasIFA) then {
+							_remove = true;
+						};
+					};
+					case "Glasses": {
+						if (hasIFA) then {
+							_remove = true;
+						};
+					};
+					case "Headgear": {
+						if (hasIFA) then {
+							_remove = true;
+						}
+						else {
+							if (getNumber (_configClass >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 0) then {
+								_remove = true;
+							};
+						};
+					};
+					case "Uniform": {
+						if (hasIFA || has3CB) then {
+							_remove = true;
+						};
+					};
+					case "Vest": {
+						if (getNumber (_configClass >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor") > 5) then {
+							_remove = true;
+						};
+					};
+				};
+			
+			};
+		};
+	};
+	
+	_remove;
+};
+
+
 diag_log format ["%1: [Antistasi] | INFO | initVar | Scanning config files",servertime];
-[] call A3A_fnc_configSort;
+[_equipmentFilter] call A3A_fnc_configSort;
 diag_log format ["%1: [Antistasi] | INFO | initVar | Categorizing Vehicle Classes",servertime];
 [] call A3A_fnc_vehicleSort;
 diag_log format ["%1: [Antistasi] | INFO | initVar | Categorizing Equipment Classes",servertime];
@@ -446,151 +483,29 @@ diag_log format ["%1: [Antistasi] | INFO | initVar | Identifying Objects for Mis
 diag_log format ["%1: [Antistasi] | INFO | initVar | Building Loot Lists",servertime];
 [] call A3A_fnc_loot;
 
-////////////////////////////////////
-//      REBEL STARTING ITEMS     ///
-////////////////////////////////////
-unlockedItems append lootBasicItem;
-unlockedItems append rebelUniform;
-unlockedItems append civilianUniform;
-unlockedItems append civilianHeadgear;
-unlockedItems append civilianVest;
-unlockedItems append civilianGlasses;
-unlockedItems append initVest;
-unlockedMagazines append initGrenades;
-
-////////////////////////////////////
-//      ACE ITEMS LIST           ///
-////////////////////////////////////
-diag_log format ["%1: [Antistasi] | INFO | initVar | Creating ACE Items List",servertime];
-aceItems = [
-	"ACE_EarPlugs",
-	"ACE_RangeCard",
-	"ACE_Clacker",
-	"ACE_M26_Clacker",
-	"ACE_DeadManSwitch",
-	"ACE_DefusalKit",
-	"ACE_MapTools",
-	"ACE_Flashlight_MX991",
-	"ACE_wirecutter",
-	"ACE_RangeTable_82mm",
-	"ACE_EntrenchingTool",
-	"ACE_Cellphone",
-	"ACE_CableTie",
-	"ACE_SpottingScope",
-	"ACE_Tripod",
-	"ACE_Spraypaintred"
-];
-
-aceBasicMedItems = [
-	"ACE_fieldDressing",
-	"ACE_bloodIV_500",
-	"ACE_bloodIV",
-	"ACE_epinephrine",
-	"ACE_morphine",
-	"ACE_bodyBag"
-];
-
-aceAdvMedItems = [
-	"ACE_elasticBandage",
-	"ACE_quikclot",
-	"ACE_bloodIV_250",
-	"ACE_packingBandage",
-	"ACE_plasmaIV",
-	"ACE_plasmaIV_500",
-	"ACE_plasmaIV_250",
-	"ACE_salineIV",
-	"ACE_salineIV_500",
-	"ACE_salineIV_250",
-	"ACE_surgicalKit",
-	"ACE_tourniquet",
-	"ACE_adenosine",
-	"ACE_atropine"
-]
-+ ([["ACE_PersonalAidKit"], ["adv_aceCPR_AED"]] select hasADVCPR)
-+ ([[], ["adv_aceSplint_splint"]] select hasADVSplint);
-
-publicVariable "aceItems";
-publicVariable "aceBasicMedItems";
-publicVariable "aceAdvMedItems";
-
-////////////////////////////////////
-//   ACE ITEMS MODIFICATIONS     ///
-////////////////////////////////////
+///////////////////////////
+//     MOD TEMPLATES    ///
+///////////////////////////
+//Please respect the order in which these are called,
+//and add new entries to the bottom of the list.
 if (hasACE) then
 	{
-	unlockedItems append aceItems;
+	[] call A3A_fnc_aceModCompat;
 	};
-
-//ACE medical starting items
-if (hasACEMedical) then {
-	switch (ace_medical_level) do {
-		case 1: {
-			unlockedItems append aceBasicMedItems;
-		};
-		case 2: {
-			unlockedItems append aceBasicMedItems + aceAdvMedItems;
-		};
-	};
-};
-
-/*
-//ACE items when IFA isnt detected
-if (hasACE and !hasIFA) then
-	{
-	// add ace mine detectors to crates
-	weaponsNato append ["ACE_VMH3","ACE_VMM3"];
-	weaponsCSAT append ["ACE_VMH3","ACE_VMM3"];
-	itemsAAF append ["ACE_acc_pointer_green_IR","ACE_Chemlight_Shield"];
-	//remove vanilla mine detector
-	itemsAAF = itemsAAF - ["MineDetector"];
-	weaponsCSAT = weaponsCSAT - ["MineDetector"];
-	weaponsNato = weaponsNato - ["MineDetector"];
-	};
-*/
-////////////////////////////////////
-//RHS WEAPON ATTACHMENTS REDUCER ///
-////////////////////////////////////
-diag_log format ["%1: [Antistasi] | INFO | initVar | Modifying Item Lists for Mods",servertime];
 if (hasRHS) then
 	{
-	//lootOptic = lootOptic select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
-	attachmentLight = attachmentLight select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
-	attachmentLaser = attachmentLaser select {getText (configfile >> "CfgWeapons" >> _x >> "author") == "Red Hammer Studios"};
+	[] call A3A_fnc_rhsModCompat;
 	};
-
-////////////////////////////////////
-//   IFA ITEMS MODIFICATIONS     ///
-////////////////////////////////////
 if (hasIFA) then
 	{
-	smokeGrenade = ["LIB_RDG","LIB_NB39"];	//Resets Smoke Greandes
-	chemLight = [];					//Clears all chems
-	armoredHeadgear = [];				//Clears all Helmets
-	{armoredHeadgear pushBackUnique (getUnitLoadout _x select 6)} forEach NATOSquad;
-	lootNVG = [];						//Clears NVG's
-	};
-
-////////////////////////////////////
-// ACE + IFA ITEMS MODIFICATIONS ///
-////////////////////////////////////
-//IF you have ACE but NOT IFA
-if (hasACE and !hasIFA) then
-	{
-	//additonal unlocks
-	unlockedBackpacks pushBackUnique "ACE_TacticalLadder_Pack";
-	//itemsAAF append ["ACE_Kestrel4500","ACE_ATragMX","ACE_M84"];
-	};
-
-//IF you have both ACE AND IFA
-if (hasACE and hasIFA) then
-	{
-	//itemsAAF append ["ACE_LIB_LadungPM","ACE_SpareBarrel"];
+	[] call A3A_fnc_ifaModCompat;
 	};
 
 ////////////////////////////////////
 //     ACRE ITEM MODIFICATIONS   ///
 ////////////////////////////////////
 if (hasACRE) then {unlockedItems append ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"];};
+};
 
 ////////////////////////////////////
 //     MISSION PATH WARNING      ///
@@ -763,7 +678,7 @@ server setVariable ["resourcesFIA",1000,true];											//Initial FIA money poo
 skillFIA = 1;																		//Initial skill level for FIA soldiers
 prestigeNATO = 5;																	//Initial Prestige NATO
 prestigeCSAT = 5;																	//Initial Prestige CSAT
-prestigeOPFOR = [75, 50] select cadetMode;																	//Initial % support for NATO on each city
+prestigeOPFOR = [75, 50] select cadetMode;												//Initial % support for NATO on each city
 prestigeBLUFOR = 0;																	//Initial % FIA support on each city
 countCA = 600;																		//600
 bombRuns = 0;
@@ -825,13 +740,32 @@ publicVariable "unlockedOptics";
 publicVariable "unlockedBackpacks";
 publicVariable "unlockedMagazines";
 publicVariable "unlockedNVG";
+publicVariable "unlockedHelmet";
+publicVariable "unlockedVest";
+publicVariable "unlockedRifles";
+publicVariable "unlockedSMG";
 publicVariable "unlockedMG";
 publicVariable "unlockedGL";
 publicVariable "unlockedSN";
 publicVariable "unlockedAT";
 publicVariable "unlockedAA";
-publicVariable "unlockedRifles";
 
+publicVariable "arifles";
+publicVariable "hguns";
+publicVariable "mguns";
+publicVariable "mlaunchers";
+publicVariable "rlaunchers";
+publicVariable "allWeaponShotgun";
+publicVariable "allWeaponSubmachineGun";
+publicVariable "srifles";
+
+publicVariable "civilianUniform";
+publicVariable "rebelUniform";
+publicVariable "armoredHeadgear";
+publicVariable "initialWeapons";
+publicVariable "smokeGrenade";
+
+publicVariable "teamPlayer";
 publicVariable "civPerc";
 publicVariable "garageIsUsed";
 publicVariable "vehInGarage";

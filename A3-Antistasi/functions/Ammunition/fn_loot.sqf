@@ -16,7 +16,7 @@ lootItem append allUAVTerminal + allMineDetector + allGPS + allRadio + allLaserD
 ////////////////////
 //    Weapons    ///
 ////////////////////
-lootWeapon append arifles + srifles + hguns + mguns + mlaunchers + rlaunchers;
+lootWeapon append arifles + srifles + hguns + mguns + mlaunchers + rlaunchers + allWeaponSubmachineGun + allWeaponShotgun;
 
 /////////////////////////////
 //   Weapon Attachments   ///
@@ -49,3 +49,34 @@ lootExplosive deleteAt (lootExplosive find "IEDUrbanBig_Remote_Mag");
 //   Backpacks  ///
 ///////////////////
 lootBackpack append allBackpackEmpty;
+
+/////////////////
+//   Helmets  ///
+/////////////////
+lootHelmet append armoredHeadgear;
+
+///////////////
+//   Vests  ///
+///////////////
+lootVest append armoredVest + civilianVest;
+
+/////////////////////
+//   Device Bags  ///
+/////////////////////
+private _lootDeviceBag = [];
+
+switch (teamPlayer) do {
+     case independent: {_lootDeviceBag append rebelBackpackDevice};
+     default {_lootDeviceBag append occupantBackpackDevice};
+};
+lootDevice append _lootDeviceBag;
+
+////////////////////////////////////
+//      REBEL STARTING ITEMS     ///
+////////////////////////////////////
+//KEEP AT BOTTOM!!!
+unlockedItems append lootBasicItem;
+unlockedItems append rebelUniform;
+unlockedItems append civilianUniform;
+unlockedItems append civilianHeadgear;
+unlockedItems append civilianGlasses;

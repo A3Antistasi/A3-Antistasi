@@ -45,7 +45,14 @@ unlockedBackpacks = [];
 unlockedMagazines = [];
 unlockedOptics = [];
 unlockedItems = [];
+unlockedVest = [];
+unlockedHelmet = [];
+unlockedNVG = [];
+
 unlockedRifles = [];
+unlockedSMG = [];
+unlockedHandgun = [];
+unlockedShotgun = [];
 unlockedMG = [];
 unlockedGL = [];
 unlockedSN = [];
@@ -54,53 +61,59 @@ unlockedAT = [];
 
 {unlockedWeapons pushBack (_x select 0)} forEach (((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_PRIMARYWEAPON) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_HANDGUN) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOTHROW) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOPUT) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_SECONDARYWEAPON)) select {_x select 1 == -1}); publicVariable "unlockedWeapons";
 {unlockedBackpacks pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_BACKPACK) select {_x select 1 == -1}); publicVariable "unlockedBackpacks";
-{unlockedMagazines pushBack (_x select 0)} forEach (((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOMAG) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL)) select {_x select 1 == -1}); publicVariable "unlockedMagazines";
-{unlockedOptics pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMOPTIC) select {_x select 1 == -1});
-unlockedOptics = [unlockedOptics,[],{getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "mass")},"DESCEND"] call BIS_fnc_sortBy;
-publicVariable "unlockedOptics";
-{unlockedItems pushBack (_x select 0)} forEach ((((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_HEADGEAR) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_VEST) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GOGGLES) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_MAP) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GPS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_RADIO) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_COMPASS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_WATCH) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMACC) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMMUZZLE) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMBIPOD) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_BINOCULARS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_NVGS)) select {_x select 1 == -1}));
-unlockedItems = unlockedItems + unlockedOptics; publicVariable "unlockedItems";
-
-
-//unlockedRifles = unlockedweapons -  hguns -  mlaunchers - rlaunchers - ["Binocular","Laserdesignator","Rangefinder"] - srifles - mguns; publicVariable "unlockedRifles";
-//unlockedRifles = unlockedweapons select {_x in arifles}; publicVariable "unlockedRifles";
+{unlockedMagazines pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL) select {_x select 1 == -1}); publicVariable "unlockedMagazines";
+{unlockedOptics pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMOPTIC) select {_x select 1 == -1}); unlockedOptics = [unlockedOptics,[],{getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "mass")},"DESCEND"] call BIS_fnc_sortBy; publicVariable "unlockedOptics";
+{unlockedHelmet pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_HEADGEAR) select {_x select 1 == -1}); unlockedHelmet = unlockedHelmet - civilianHeadgear; publicVariable "unlockedHelmet";
+{unlockedVest pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_VEST) select {_x select 1 == -1}); unlockedVest = unlockedVest - civilianVest; publicVariable "unlockedVest";
+{unlockedNVG pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_NVGS) select {_x select 1 == -1}); publicVariable "unlockedNVG";
+{unlockedItems pushBack (_x select 0)} forEach ((((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GOGGLES) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_MAP) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GPS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_RADIO) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_COMPASS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_WATCH) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMACC) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMMUZZLE) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMBIPOD) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_BINOCULARS)) select {_x select 1 == -1}));
 
 {
-_weaponX = _x;
-if (_weaponX in arifles) then
-	{
-	unlockedRifles pushBack _weaponX;
-	if (count (getArray (configfile >> "CfgWeapons" >> _weaponX >> "muzzles")) == 2) then
-		{
-		unlockedGL pushBack _weaponX;
+	switch (true) do {
+		case (_x in arifles): {
+			unlockedRifles pushBack _x;
+			if (count (getArray (configfile >> "CfgWeapons" >> _x >> "muzzles")) == 2) then {
+				unlockedGL pushBack _x;
+			};
 		};
-	}
-else
-	{
-	if (_weaponX in mguns) then
-		{
-		unlockedMG pushBack _weaponX;
-		}
-	else
-		{
-		if (_weaponX in srifles) then
-			{
-			unlockedSN pushBack _weaponX;
+		case (_x in mguns): {
+			unlockedMG pushBack _x;
+		};
+		case (_x in srifles): {
+			unlockedSN pushBack _x;
+		};
+		case (_x in allWeaponSubmachineGun): {
+			unlockedSMG pushBack _x; publicVariable "unlockedSMG";
+		};
+		case (_x in hguns): {
+			unlockedHandgun pushBack _x; publicVariable "unlockedSMG";
+		};
+		case (_x in allWeaponShotgun): {
+			unlockedShotgun pushBack _x; publicVariable "unlockedSMG";
+		};
+		case (_x in rlaunchers): {
+			if ((getNumber (configfile >> "CfgWeapons" >> _x >> "canLock")) isEqualTo 0) then {
+				unlockedAT pushBack _x; publicVariable "unlockedAT";
 			}
-		else
-			{
-			if (_weaponX in ((rlaunchers + mlaunchers) select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 0)})) then
-				{
-				unlockedAT pushBack _weaponX;
-				}
-			else
-				{
-				if (_weaponX in (mlaunchers select {(getNumber (configfile >> "CfgWeapons" >> _x >> "lockAcquire") == 1)})) then {unlockedAA pushBack _weaponX};
+			else {
+				if (allowGuidedLanchers isEqualTo 1) then {
+					unlockedAT pushBack _x; publicVariable "unlockedAT";
+				};
+			};
+		};
+		case (_x in mlaunchers): {
+			if (allowGuidedLaunchers isEqualTo 1) then {
+				if (getText (configfile >> "CfgWeapons" >> _item >> "nameSound") == "aalauncher") then {
+					unlockedAA pushBack _x; publicVariable "unlockedAA";
+				};
+				if (getText (configfile >> "CfgWeapons" >> _item >> "nameSound") == "atlauncher") then {
+					unlockedAT pushBack _x; publicVariable "unlockedAT";
 				};
 			};
 		};
 	};
 } forEach unlockedWeapons;
+
 if (hasIFA) then {unlockedRifles = unlockedRifles - ["LIB_M2_Flamethrower","LIB_PTRD"]};
 
 publicVariable "unlockedRifles";
@@ -109,8 +122,12 @@ publicVariable "unlockedSN";
 publicVariable "unlockedGL";
 publicVariable "unlockedAT";
 publicVariable "unlockedAA";
-//PBP-Bad NVG Check!
-if ("NVGoggles" in unlockedItems) then {haveNV = true; publicVariable "haveNV"};
+publicVariable "unlockedSMG";
+publicVariable "unlockedHandgun";
+publicVariable "unlockedShotgun";
+
+if !(unlockedNVG isEqualTo []) then {haveNV = true; publicVariable "haveNV"};
+
 //Check if we have radios unlocked and update haveRadio.
 call A3A_fnc_checkRadiosUnlocked;
 

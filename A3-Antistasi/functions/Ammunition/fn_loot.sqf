@@ -58,7 +58,7 @@ lootHelmet append armoredHeadgear;
 ///////////////
 //   Vests  ///
 ///////////////
-lootVest append armoredVest + allCivilianVests;
+lootVest append allArmoredVests + allCivilianVests;
 
 /////////////////////
 //   Device Bags  ///

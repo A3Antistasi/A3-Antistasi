@@ -60,16 +60,16 @@ private _nameX = "";
 		switch (_itemType) do
 		{
 			case "AssaultRifle": {allRifles pushBack _nameX};
-			case "BombLauncher": {allWeaponBombLauncher pushBack _nameX};
-			case "GrenadeLauncher": {allGrenadeLaunchers pushBack _nameX};
+			case "BombLauncher": {}; //Only for vehicles //allBombLaunchers pushBack _nameX};
+			case "GrenadeLauncher": {}; //Only for vehicles //allGrenadeLaunchers pushBack _nameX};
 			case "Handgun": {allHandguns pushBack _nameX};
-			case "Launcher": {allWeaponLauncher pushBack _nameX};
+			case "Launcher": {}; //Unused
 			case "MachineGun": {allMachineGuns pushBack _nameX};
 			case "MissileLauncher": {allMissileLaunchers pushBack _nameX};
-			case "Mortar": {allWeaponMortar pushBack _nameX};
+			case "Mortar": {allMortars pushBack _nameX};
 			case "RocketLauncher": {allRocketLaunchers pushBack _nameX};
 			case "Shotgun": {allShotguns pushBack _nameX};
-			case "Throw": {allWeaponThrow pushBack _nameX};
+			case "Throw": {}; //Unused
 			case "Rifle": {allRifles pushBack _nameX};
 			case "SubmachineGun": {allSMGs pushBack _nameX};
 			case "SniperRifle": {allSniperRifles pushBack _nameX};

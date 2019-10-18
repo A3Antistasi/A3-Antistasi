@@ -54,17 +54,13 @@ diag_log format ["%1: [Antistasi] | INFO | initVar | Declaring Empty Arrays",ser
 //Config Arrays
 //Weapons arrays
 allRifles = [];					//Pre-Rewrite Variable
-allWeaponBombLauncher = [];
-allGrenadeLaunchers = [];
 allHandguns = [];					//Pre-Rewrite Variable
-allWeaponLauncher = [];
 allMachineGuns = [];					//Pre-Rewrite Variable
 allMagazines = [];
 allMissileLaunchers = [];				//Pre-Rewrite Variable
-allWeaponMortar = [];
+allMortars = [];
 allRocketLaunchers = [];				//Pre-Rewrite Variable
 allShotguns = [];
-allWeaponThrow = [];
 allSMGs = [];
 allSniperRifles = [];					//Pre-Rewrite Variable
 //Items arrays

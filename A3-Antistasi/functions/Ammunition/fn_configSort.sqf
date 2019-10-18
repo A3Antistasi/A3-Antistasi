@@ -88,7 +88,7 @@ private _nameX = "";
 			case "Map": {allMap pushBack _nameX};
 			case "Medikit": {allMedikit pushBack _nameX};
 			case "MineDetector": {allMineDetector pushBack _nameX};
-			case "NVGoggles": {allNVG pushBack _nameX};
+			case "NVGoggles": {allNVGs pushBack _nameX};
 			case "Radio": {allRadio pushBack _nameX};
 			case "Toolkit": {allToolkit pushBack _nameX};
 			case "UAVTerminal": {allUAVTerminal pushBack _nameX};

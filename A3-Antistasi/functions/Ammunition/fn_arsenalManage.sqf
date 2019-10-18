@@ -238,7 +238,7 @@ private _lockedNvs = [];
 //Implicitly, we have locked NVGs if we've counted more than 0 locked NVGs in the box.
 if (_countX >= minWeaps) then {
 	private _nvToUnlock = selectRandom _lockedNvs;
-	unlockedNVG pushBack _nvToUnlock; publicVariable "unlockedNVG";
+	unlockedNVGs pushBack _nvToUnlock; publicVariable "unlockedNVGs";
 	haveNV = true; publicVariable "haveNV";
 	_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _nvToUnlock >> "displayName")];
 	_category = _nvToUnlock call jn_fnc_arsenal_itemType;

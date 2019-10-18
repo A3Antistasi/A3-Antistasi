@@ -6,7 +6,7 @@ lootBasicItem append allMap + allToolkit + allWatch + allCompass + allMedikit + 
 /////////////////
 //    NVG'S   ///
 /////////////////
-lootNVG append allNVG;
+lootNVG append allNVGs;
 
 /////////////////////
 // Assigned Items ///

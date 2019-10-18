@@ -47,7 +47,7 @@ unlockedOptics = [];
 unlockedItems = [];
 unlockedVest = [];
 unlockedHeadgear = [];
-unlockedNVG = [];
+unlockedNVGs = [];
 
 unlockedRifles = [];
 unlockedSMG = [];
@@ -65,7 +65,7 @@ unlockedAT = [];
 {unlockedOptics pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMOPTIC) select {_x select 1 == -1}); unlockedOptics = [unlockedOptics,[],{getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "mass")},"DESCEND"] call BIS_fnc_sortBy; publicVariable "unlockedOptics";
 {unlockedHeadgear pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_HEADGEAR) select {_x select 1 == -1}); unlockedHeadgear = unlockedHeadgear - civilianHeadgear; publicVariable "unlockedHeadgear";
 {unlockedVest pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_VEST) select {_x select 1 == -1}); unlockedVest = unlockedVest - civilianVest; publicVariable "unlockedVest";
-{unlockedNVG pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_NVGS) select {_x select 1 == -1}); publicVariable "unlockedNVG";
+{unlockedNVGs pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_NVGS) select {_x select 1 == -1}); publicVariable "unlockedNVGs";
 {unlockedItems pushBack (_x select 0)} forEach ((((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GOGGLES) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_MAP) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GPS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_RADIO) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_COMPASS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_WATCH) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMACC) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMMUZZLE) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMBIPOD) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_BINOCULARS)) select {_x select 1 == -1}));
 
 {
@@ -126,7 +126,7 @@ publicVariable "unlockedSMG";
 publicVariable "unlockedHandgun";
 publicVariable "unlockedShotgun";
 
-if !(unlockedNVG isEqualTo []) then {haveNV = true; publicVariable "haveNV"};
+if !(unlockedNVGs isEqualTo []) then {haveNV = true; publicVariable "haveNV"};
 
 //Check if we have radios unlocked and update haveRadio.
 call A3A_fnc_checkRadiosUnlocked;

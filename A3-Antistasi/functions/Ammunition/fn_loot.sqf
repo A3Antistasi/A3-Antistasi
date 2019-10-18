@@ -21,7 +21,7 @@ lootWeapon append arifles + srifles + hguns + mguns + mlaunchers + rlaunchers + 
 /////////////////////////////
 //   Weapon Attachments   ///
 /////////////////////////////
-lootAttachment append allAttachmentBipod + allAttachmentOptic + allAttachmentMuzzle + allAttachmentPointer;
+lootAttachment append allAttachmentBipod + allOptics + allAttachmentMuzzle + allAttachmentPointer;
 
 ////////////////////
 //    Grenades   ///

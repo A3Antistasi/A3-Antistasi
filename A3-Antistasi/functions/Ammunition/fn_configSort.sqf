@@ -79,7 +79,7 @@ private _nameX = "";
 			case "AccessoryBipod": {allAttachmentBipod pushBack _nameX};
 			case "AccessoryMuzzle": {allAttachmentMuzzle pushBack _nameX};
 			case "AccessoryPointer": {allAttachmentPointer pushBack _nameX};
-			case "AccessorySights": {allAttachmentOptic pushBack _nameX};
+			case "AccessorySights": {allOptics pushBack _nameX};
 			case "Binocular": {allBinocular pushBack _nameX};
 			case "Compass": {allCompass pushBack _nameX};
 			case "FirstAidKit": {allFirstAidKit pushBack _nameX};

@@ -163,7 +163,7 @@ unlockedBackpacks = [];
 unlockedOptics = [];
 unlockedNVG = [];
 unlockedVest = [];
-unlockedHelmet = [];
+unlockedHeadgear = [];
 //Unlocked Weapons By Type
 unlockedRifles = [];
 unlockedAT = [];
@@ -740,7 +740,7 @@ publicVariable "unlockedOptics";
 publicVariable "unlockedBackpacks";
 publicVariable "unlockedMagazines";
 publicVariable "unlockedNVG";
-publicVariable "unlockedHelmet";
+publicVariable "unlockedHeadgear";
 publicVariable "unlockedVest";
 publicVariable "unlockedRifles";
 publicVariable "unlockedSMG";

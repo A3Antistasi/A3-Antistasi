@@ -134,7 +134,7 @@ if !(loadLastSave) then {
 	{
 		private _index = _x call jn_fnc_arsenal_itemType;
 		[_index,_x,-1] call jn_fnc_arsenal_addItem;
-	} foreach (unlockedItems + unlockedWeapons + unlockedMagazines + unlockedBackpacks + unlockedNVG + unlockedOptics + unlockedVest + unlockedHelmet);
+	} foreach (unlockedItems + unlockedWeapons + unlockedMagazines + unlockedBackpacks + unlockedNVG + unlockedOptics + unlockedVest + unlockedHeadgear);
 	diag_log format ["%1: [Antistasi] | INFO | Arsenal unlock finished.",servertime];
 };
 

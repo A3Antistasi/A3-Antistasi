@@ -92,7 +92,7 @@ allCivilianVests deleteAt (allCivilianVests find "V_RebreatherIA");
 ////////////////////////////////////
 //WHY is there no clean list?
 allArmoredHeadgear = allHeadgear select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 0};
-civilianHeadgear = allHeadgear - allArmoredHeadgear;
+allCivilianHeadgear = allHeadgear - allArmoredHeadgear;
 
 //////////////////
 //   Glasses   ///

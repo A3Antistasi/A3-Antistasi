@@ -78,5 +78,5 @@ lootDevice append _lootDeviceBag;
 unlockedItems append lootBasicItem;
 unlockedItems append allRebelUniforms;
 unlockedItems append allCivilianUniforms;
-unlockedItems append civilianHeadgear;
+unlockedItems append allCivilianHeadgear;
 unlockedItems append civilianGlasses;

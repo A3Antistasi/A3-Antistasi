@@ -125,7 +125,7 @@ allBackpacksDevice = [];
 allCivilianVests = [];
 allArmoredVests = [];
 allArmoredHeadgear = [];
-civilianHeadgear = [];
+allCivilianHeadgear = [];
 civilianGlasses = [];
 //Loot Items
 lootBasicItem = [];

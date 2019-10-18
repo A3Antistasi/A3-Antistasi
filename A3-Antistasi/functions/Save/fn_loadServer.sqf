@@ -82,7 +82,7 @@ unlockedAT = [];
 		case (_x in srifles): {
 			unlockedSN pushBack _x;
 		};
-		case (_x in allWeaponSubmachineGun): {
+		case (_x in allSMGs): {
 			unlockedSMG pushBack _x; publicVariable "unlockedSMG";
 		};
 		case (_x in hguns): {

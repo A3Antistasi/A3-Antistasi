@@ -84,7 +84,7 @@ private _count = objNull;
 				[_category,_item,-1] call jn_fnc_arsenal_addItem;
 				_flag = true;
 			};
-			case (_item in rlaunchers): {
+			case (_item in allRocketLaunchers): {
 				if ((getNumber (configfile >> "CfgWeapons" >> _item >> "canLock")) isEqualTo 0) then {
 					unlockedWeapons pushBack _item; publicVariable "unlockedWeapons";
 					unlockedAT pushBack _item; publicVariable "unlockedAT";

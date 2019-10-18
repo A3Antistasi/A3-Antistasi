@@ -21,7 +21,7 @@ private _libStaticParts = [];
 	if ((getText (configFile >> "CfgWeapons" >> _x >> "LIB_WeaponType")) isEqualTo "ROCKET") then {
 		_libStaticParts pushBack _x;
 	};
-} forEach rlaunchers;
+} forEach allRocketLaunchers;
 
 {
 lootWeapon deleteAt (lootWeapon find _x);

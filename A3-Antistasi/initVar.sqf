@@ -62,7 +62,7 @@ mguns = [];					//Pre-Rewrite Variable
 allMagazines = [];
 mlaunchers = [];				//Pre-Rewrite Variable
 allWeaponMortar = [];
-rlaunchers = [];				//Pre-Rewrite Variable
+allRocketLaunchers = [];				//Pre-Rewrite Variable
 allWeaponShotgun = [];
 allWeaponThrow = [];
 allWeaponSubmachineGun = [];
@@ -753,7 +753,7 @@ publicVariable "allRifles";
 publicVariable "hguns";
 publicVariable "mguns";
 publicVariable "mlaunchers";
-publicVariable "rlaunchers";
+publicVariable "allRocketLaunchers";
 publicVariable "allWeaponShotgun";
 publicVariable "allWeaponSubmachineGun";
 publicVariable "srifles";

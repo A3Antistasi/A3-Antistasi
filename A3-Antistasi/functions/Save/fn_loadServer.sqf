@@ -91,7 +91,7 @@ unlockedAT = [];
 		case (_x in allWeaponShotgun): {
 			unlockedShotgun pushBack _x; publicVariable "unlockedSMG";
 		};
-		case (_x in rlaunchers): {
+		case (_x in allRocketLaunchers): {
 			if ((getNumber (configfile >> "CfgWeapons" >> _x >> "canLock")) isEqualTo 0) then {
 				unlockedAT pushBack _x; publicVariable "unlockedAT";
 			}

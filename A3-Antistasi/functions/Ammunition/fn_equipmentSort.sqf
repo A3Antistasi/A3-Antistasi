@@ -40,30 +40,30 @@ rebelUniform deleteAt (rebelUniform find "UK3CB_CW_US_B_LATE_U_SF_CombatUniform_
 {
 	private _itemFaction = getText (configfile >> "CfgVehicles" >> _x >> "faction");
 	switch (_itemFaction) do {
-		case "Default": {allBackpackEmpty pushBack _x};
-		default {allBackpackTool pushBack _x};
+		case "Default": {allBackpacksEmpty pushBack _x};
+		default {allBackpacksTool pushBack _x};
 	};
-} forEach allBackpack;
+} forEach allBackpacks;
 
-allBackpackEmpty deleteAt (allBackpackEmpty find "B_AssaultPack_Kerry");
+allBackpacksEmpty deleteAt (allBackpacksEmpty find "B_AssaultPack_Kerry");
 
 {
 	switch (true) do {
 		case ((getText (configfile >> "CfgVehicles" >> _x >> "assembleInfo" >> "assembleTo")) != ""): {
 			if !((getArray (configfile >> "CfgVehicles" >> _x >> "assembleInfo" >> "base")) isEqualTo []) then {
-				allBackpackStatic pushBack _x;
+				allBackpacksStatic pushBack _x;
 			}
 			else {
-				allBackpackDevice pushback _x;
+				allBackpacksDevice pushback _x;
 			};
 		};
 		case ((getText (configfile >> "CfgVehicles" >> _x >> "assembleInfo" >> "assembleTo")) == ""): {
 			if ((getText (configfile >> "CfgVehicles" >> _x >> "assembleInfo" >> "base")) == "") then {
-				allBackpackStatic pushBack _x;
+				allBackpacksStatic pushBack _x;
 			};
 		};
 	};
-} forEach allBackpackTool;
+} forEach allBackpacksTool;
 
 {
 	private _faction = getText (configfile >> "CfgVehicles" >> _x >> "faction");
@@ -74,7 +74,7 @@ allBackpackEmpty deleteAt (allBackpackEmpty find "B_AssaultPack_Kerry");
 		case 2: {rebelBackpackDevice pushBack _x};
 		case 3: {civilianBackpackDevice pushBack _x};
 	};
-} forEach allBackpackDevice;
+} forEach allBackpacksDevice;
 
 ////////////////////////////////////
 //   ARMORED VESTS LIST          ///

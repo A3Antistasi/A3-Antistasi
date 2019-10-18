@@ -101,7 +101,7 @@ private _nameX = "";
 			case "Headgear": {allHeadgear pushBack _nameX};
 			case "Vest": {allVest pushBack _nameX};
 			case "Uniform": {allUniform pushBack _nameX};
-			case "Backpack": {allBackpack pushBack _nameX};
+			case "Backpack": {allBackpacks pushBack _nameX};
 
 			case "Artillery": {allMagArtillery pushBack _nameX};
 			case "Bullet": {allMagBullet pushBack _nameX};

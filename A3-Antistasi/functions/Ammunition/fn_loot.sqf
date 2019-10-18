@@ -48,7 +48,7 @@ lootExplosive deleteAt (lootExplosive find "IEDUrbanBig_Remote_Mag");
 ///////////////////
 //   Backpacks  ///
 ///////////////////
-lootBackpack append allBackpackEmpty;
+lootBackpack append allBackpacksEmpty;
 
 /////////////////
 //   Helmets  ///

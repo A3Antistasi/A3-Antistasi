@@ -92,7 +92,7 @@ allGlasses = [];
 allHeadgear = [];
 allVest = [];
 allUniform = [];
-allBackpack = [];
+allBackpacks = [];
 //Ammunition arrays
 allMagArtillery = [];
 allMagBullet = [];
@@ -123,10 +123,10 @@ laserBatteries = [];
 //Equipment
 rebelUniform = [];
 civilianUniform = [];
-allBackpackEmpty = [];
-allBackpackTool = [];
-allBackpackStatic = [];
-allBackpackDevice = [];
+allBackpacksEmpty = [];
+allBackpacksTool = [];
+allBackpacksStatic = [];
+allBackpacksDevice = [];
 civilianVest = [];
 armoredVest = [];
 armoredHeadgear = [];

@@ -76,7 +76,7 @@ unlockedAT = [];
 				unlockedGL pushBack _x;
 			};
 		};
-		case (_x in mguns): {
+		case (_x in allMachineGuns): {
 			unlockedMG pushBack _x;
 		};
 		case (_x in srifles): {

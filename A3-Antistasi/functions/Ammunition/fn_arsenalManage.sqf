@@ -44,7 +44,7 @@ private _count = objNull;
 					unlockedGL pushBack _item; publicVariable "unlockedGL";
 				};
 			};
-			case (_item in mguns): {
+			case (_item in allMachineGuns): {
 				unlockedWeapons pushBack _item; publicVariable "unlockedWeapons";
 				unlockedMG pushBack _item; publicVariable "unlockedMG";
 				_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _item >> "displayName")];

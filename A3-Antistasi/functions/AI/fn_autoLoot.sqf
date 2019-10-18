@@ -31,8 +31,8 @@ if (_unit distance _objectX < _distanceX) then
 			{
 			_potential = _weaponsX select _i;
 			_basePossible = [_potential] call BIS_fnc_baseWeapon;
-			//if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in allRifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in allMissileLaunchers) or (_potential in allRocketLaunchers))) then
-			if ((_basePossible in allRifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in allMissileLaunchers) or (_potential in allRocketLaunchers)) then
+			//if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in allRifles) or (_basePossible in srifles) or (_basePossible in allMachineGuns) or (_potential in allMissileLaunchers) or (_potential in allRocketLaunchers))) then
+			if ((_basePossible in allRifles) or (_basePossible in srifles) or (_basePossible in allMachineGuns) or (_potential in allMissileLaunchers) or (_potential in allRocketLaunchers)) then
 				{
 				_target = _objectX;
 				_distanceX = _unit distance _objectX;
@@ -170,7 +170,7 @@ while {_continuar and ([_unit] call A3A_fnc_canFight) and (_unit getVariable "re
 				{
 				_potential = _weaponsX select _i;
 				_basePossible = [_potential] call BIS_fnc_baseWeapon;
-				if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in allRifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in allMissileLaunchers) or (_potential in allRocketLaunchers))) then
+				if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in allRifles) or (_basePossible in srifles) or (_basePossible in allMachineGuns) or (_potential in allMissileLaunchers) or (_potential in allRocketLaunchers))) then
 					{
 					_target = _objectX;
 					_distanceX = _unit distance _objectX;

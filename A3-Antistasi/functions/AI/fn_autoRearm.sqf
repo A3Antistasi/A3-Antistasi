@@ -41,7 +41,7 @@ if ((_Pweapon in initialWeapons) or (_Pweapon == "")) then
 					{
 					_potential = _weaponsX select _i;
 					_basePossible = [_potential] call BIS_fnc_baseWeapon;
-					if ((not(_basePossible in ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","LMG_03_F"])) and ((_basePossible in allRifles) or (_basePossible in srifles) or (_basePossible in mguns))) then
+					if ((not(_basePossible in ["hgun_PDW2000_F","hgun_Pistol_01_F","hgun_ACPC2_F","arifle_AKM_F","arifle_AKS_F","SMG_05_F","LMG_03_F"])) and ((_basePossible in allRifles) or (_basePossible in srifles) or (_basePossible in allMachineGuns))) then
 						{
 						_target = _objectX;
 						_hasBox = true;
@@ -80,7 +80,7 @@ if ((_Pweapon in initialWeapons) or (_Pweapon == "")) then
 	};
 _hasBox = false;
 _countX = 4;
-if (_Pweapon in mguns) then {_countX = 2};
+if (_Pweapon in allMachineGuns) then {_countX = 2};
 _magazines = getArray (configFile / "CfgWeapons" / _Pweapon / "magazines");
 if ({_x in _magazines} count (magazines _unit) < _countX) then
 	{

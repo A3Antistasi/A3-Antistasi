@@ -26,7 +26,7 @@ lootAttachment append allBipods + allOptics + allAttachmentMuzzle + allAttachmen
 ////////////////////
 //    Grenades   ///
 ////////////////////
-lootGrenade append allMagGrenade + allMagShell + irGrenade + allMagSmokeShell + allMagFlare;
+lootGrenade append allGrenades + allMagShell + irGrenade + allMagSmokeShell + allMagFlare;
 
 ////////////////////
 //   Magazines   ///

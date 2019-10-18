@@ -106,7 +106,7 @@ private _nameX = "";
 			case "Artillery": {allMagArtillery pushBack _nameX};
 			case "Bullet": {allMagBullet pushBack _nameX};
 			case "Flare": {allMagFlare pushBack _nameX};
-			case "Grenade": {allMagGrenade pushBack _nameX};
+			case "Grenade": {allGrenades pushBack _nameX};
 			case "Laser": {allMagLaser pushBack _nameX};
 			case "Missile": {allMagMissile pushBack _nameX};
 			case "Rocket": {allMagRocket pushBack _nameX};

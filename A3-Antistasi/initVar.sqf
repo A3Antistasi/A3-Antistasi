@@ -64,7 +64,7 @@ allShotguns = [];
 allSMGs = [];
 allSniperRifles = [];					//Pre-Rewrite Variable
 //Items arrays
-allAttachmentBipod = [];
+allBipods = [];
 allAttachmentMuzzle = [];
 allAttachmentPointer = [];
 allOptics = [];

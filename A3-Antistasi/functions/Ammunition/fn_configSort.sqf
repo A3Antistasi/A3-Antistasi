@@ -76,7 +76,7 @@ private _nameX = "";
 
 			case "Magazine": {allMagazines pushBack _nameX};
 
-			case "AccessoryBipod": {allAttachmentBipod pushBack _nameX};
+			case "AccessoryBipod": {allBipods pushBack _nameX};
 			case "AccessoryMuzzle": {allAttachmentMuzzle pushBack _nameX};
 			case "AccessoryPointer": {allAttachmentPointer pushBack _nameX};
 			case "AccessorySights": {allOptics pushBack _nameX};

@@ -7,7 +7,7 @@
 	switch (_uniformSide) do {
 		case 3: {civilianUniform pushBack _x};
 	};
-} forEach allUniform;
+} forEach allUniforms;
 
 {
 	private _originUnit = getText (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "uniformClass");
@@ -25,7 +25,7 @@
 		//BLUFOR used because O/I Gueriilla uniforms 'scope' = 1
 		case "BLU_G_F": {rebelUniform pushBack _x};
 	};
-} forEach allUniform;
+} forEach allUniforms;
 
 civilianUniform deleteAt (civilianUniform find "U_C_Protagonist_VR");
 civilianUniform deleteAt (civilianUniform find "U_LIB_CIV_Priest");

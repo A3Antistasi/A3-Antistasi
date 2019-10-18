@@ -29,7 +29,7 @@ _unit allowFleeing 0;
 _typeX = typeOf _unit;
 _skill = (0.6 / skillMult + 0.015 * skillFIA);
 _unit setSkill _skill;
-if (!activeGREF) then {if (not((uniform _unit) in rebelUniform)) then {[_unit] call A3A_fnc_reDress}};
+if (!activeGREF) then {if (not((uniform _unit) in allRebelUniforms)) then {[_unit] call A3A_fnc_reDress}};
 
 removeAllWeapons _unit;
 if (unlockedHeadgear isEqualTo []) then {removeHeadgear _unit} else {removeHeadgear _unit; _unit addHeadgear (selectRandom unlockedHeadgear)};

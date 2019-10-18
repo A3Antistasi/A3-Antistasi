@@ -117,7 +117,7 @@ allIRGrenades = [];
 allLaserBatteries = [];
 //Equipment
 allRebelUniforms = [];
-civilianUniform = [];
+allCivilianUniforms = [];
 allBackpacksEmpty = [];
 allBackpacksTool = [];
 allBackpacksStatic = [];
@@ -754,7 +754,7 @@ publicVariable "allShotguns";
 publicVariable "allSMGs";
 publicVariable "allSniperRifles";
 
-publicVariable "civilianUniform";
+publicVariable "allCivilianUniforms";
 publicVariable "allRebelUniforms";
 publicVariable "armoredHeadgear";
 publicVariable "initialWeapons";

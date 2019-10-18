@@ -5,7 +5,7 @@
 	private _originUnit = getText (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "uniformClass");
 	private _uniformSide = getNumber (configfile >> "CfgVehicles" >> _originUnit >> "side");
 	switch (_uniformSide) do {
-		case 3: {civilianUniform pushBack _x};
+		case 3: {allCivilianUniforms pushBack _x};
 	};
 } forEach allUniforms;
 
@@ -27,8 +27,8 @@
 	};
 } forEach allUniforms;
 
-civilianUniform deleteAt (civilianUniform find "U_C_Protagonist_VR");
-civilianUniform deleteAt (civilianUniform find "U_LIB_CIV_Priest");
+allCivilianUniforms deleteAt (allCivilianUniforms find "U_C_Protagonist_VR");
+allCivilianUniforms deleteAt (allCivilianUniforms find "U_LIB_CIV_Priest");
 allRebelUniforms deleteAt (allRebelUniforms find "U_I_G_Story_Protagonist_F");
 allRebelUniforms deleteAt (allRebelUniforms find "U_I_G_resistanceLeader_F");
 allRebelUniforms deleteAt (allRebelUniforms find "UK3CB_CW_US_B_LATE_U_SF_CombatUniform_01_BLK");

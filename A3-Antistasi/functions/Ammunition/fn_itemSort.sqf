@@ -40,7 +40,7 @@ if (_x in _uglMag) then
      }
      else
      {
-     handFlare pushBack _x;
+     allHandFlares pushBack _x;
      };
 } forEach allMagFlare;
 

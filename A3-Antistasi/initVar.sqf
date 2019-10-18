@@ -112,7 +112,7 @@ allChemlights = [];
 allSmokeGrenades = [];
 allLaunchedSmokeGrenades = [];
 allLaunchedFlares = [];
-handFlare = [];
+allHandFlares = [];
 irGrenade = [];
 laserBatteries = [];
 //Equipment

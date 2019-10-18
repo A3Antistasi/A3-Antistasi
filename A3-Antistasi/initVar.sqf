@@ -124,7 +124,7 @@ allBackpacksStatic = [];
 allBackpacksDevice = [];
 allCivilianVests = [];
 allArmoredVests = [];
-armoredHeadgear = [];
+allArmoredHeadgear = [];
 civilianHeadgear = [];
 civilianGlasses = [];
 //Loot Items
@@ -756,7 +756,7 @@ publicVariable "allSniperRifles";
 
 publicVariable "allCivilianUniforms";
 publicVariable "allRebelUniforms";
-publicVariable "armoredHeadgear";
+publicVariable "allArmoredHeadgear";
 publicVariable "initialWeapons";
 publicVariable "allSmokeGrenades";
 

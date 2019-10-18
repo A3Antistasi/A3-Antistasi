@@ -9,8 +9,8 @@ lootAttachment = [];
 lootBackpack = [];
 lootHelmet = [];
 lootVest = [];
-armoredHeadgear = [];
-{armoredHeadgear pushBackUnique (getUnitLoadout _x select 6)} forEach NATOSquad;
+allArmoredHeadgear = [];
+{allArmoredHeadgear pushBackUnique (getUnitLoadout _x select 6)} forEach NATOSquad;
 */
 if (hasACE) then {
 	lootItem append ["ACE_LIB_LadungPM","ACE_SpareBarrel"];

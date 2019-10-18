@@ -91,8 +91,8 @@ allCivilianVests deleteAt (allCivilianVests find "V_RebreatherIA");
 //   ARMORED HELMETS LIST        ///
 ////////////////////////////////////
 //WHY is there no clean list?
-armoredHeadgear = allHeadgear select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 0};
-civilianHeadgear = allHeadgear - armoredHeadgear;
+allArmoredHeadgear = allHeadgear select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 0};
+civilianHeadgear = allHeadgear - allArmoredHeadgear;
 
 //////////////////
 //   Glasses   ///

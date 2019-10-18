@@ -53,7 +53,7 @@ lootBackpack append allBackpacksEmpty;
 /////////////////
 //   Helmets  ///
 /////////////////
-lootHelmet append armoredHeadgear;
+lootHelmet append allArmoredHeadgear;
 
 ///////////////
 //   Vests  ///

@@ -33,7 +33,7 @@ if (!activeGREF) then {if (not((uniform _unit) in rebelUniform)) then {[_unit] c
 
 removeAllWeapons _unit;
 if (unlockedHeadgear isEqualTo []) then {removeHeadgear _unit} else {removeHeadgear _unit; _unit addHeadgear (selectRandom unlockedHeadgear)};
-if (unlockedVest isEqualTo []) then {removeVest _unit} else {removeVest _unit; _unit addVest (selectRandom unlockedVest)};
+if (unlockedVests isEqualTo []) then {removeVest _unit} else {removeVest _unit; _unit addVest (selectRandom unlockedVests)};
 if (unlockedBackpacks isEqualTo []) then {removeBackpack _unit} else {removeBackpack _unit; _unit addBackpack (selectRandom unlockedBackpacks)};
 
 

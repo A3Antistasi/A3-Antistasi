@@ -90,7 +90,7 @@ allWatch = [];
 //Equipment arrays
 allGlasses = [];
 allHeadgear = [];
-allVest = [];
+allVests = [];
 allUniform = [];
 allBackpacks = [];
 //Ammunition arrays
@@ -162,7 +162,7 @@ unlockedItems = [];
 unlockedBackpacks = [];
 unlockedOptics = [];
 unlockedNVGs = [];
-unlockedVest = [];
+unlockedVests = [];
 unlockedHeadgear = [];
 //Unlocked Weapons By Type
 unlockedRifles = [];
@@ -741,7 +741,7 @@ publicVariable "unlockedBackpacks";
 publicVariable "unlockedMagazines";
 publicVariable "unlockedNVGs";
 publicVariable "unlockedHeadgear";
-publicVariable "unlockedVest";
+publicVariable "unlockedVests";
 publicVariable "unlockedRifles";
 publicVariable "unlockedSMG";
 publicVariable "unlockedMG";

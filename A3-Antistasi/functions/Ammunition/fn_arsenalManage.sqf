@@ -214,7 +214,7 @@ if (_check) then
 {
 	if (_x select 1 >= minWeaps) then {
 		_item = _x select 0;
-		unlockedVest pushBack _item; publicVariable "unlockedVest";
+		unlockedVests pushBack _item; publicVariable "unlockedVests";
 		_updated = format ["%1%2<br/>",_updated,getText (configFile >> "CfgWeapons" >> _item >> "displayName")];
 		_category = _item call jn_fnc_arsenal_itemType;
 		[_category,_item,-1] call jn_fnc_arsenal_addItem;

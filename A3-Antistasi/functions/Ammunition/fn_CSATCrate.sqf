@@ -1,4 +1,4 @@
-private _unlocks = (unlockedHeadgear + unlockedVest + unlockedNVGs + unlockedOptics + unlockedItems + unlockedWeapons + unlockedBackpacks + unlockedMagazines);
+private _unlocks = (unlockedHeadgear + unlockedVests + unlockedNVGs + unlockedOptics + unlockedItems + unlockedWeapons + unlockedBackpacks + unlockedMagazines);
 private _crate = _this select 0;
 private _available = objNull;
 private _loot = objNull;

@@ -45,7 +45,7 @@ unlockedBackpacks = [];
 unlockedMagazines = [];
 unlockedOptics = [];
 unlockedItems = [];
-unlockedVest = [];
+unlockedVests = [];
 unlockedHeadgear = [];
 unlockedNVGs = [];
 
@@ -64,7 +64,7 @@ unlockedAT = [];
 {unlockedMagazines pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL) select {_x select 1 == -1}); publicVariable "unlockedMagazines";
 {unlockedOptics pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMOPTIC) select {_x select 1 == -1}); unlockedOptics = [unlockedOptics,[],{getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "mass")},"DESCEND"] call BIS_fnc_sortBy; publicVariable "unlockedOptics";
 {unlockedHeadgear pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_HEADGEAR) select {_x select 1 == -1}); unlockedHeadgear = unlockedHeadgear - civilianHeadgear; publicVariable "unlockedHeadgear";
-{unlockedVest pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_VEST) select {_x select 1 == -1}); unlockedVest = unlockedVest - civilianVest; publicVariable "unlockedVest";
+{unlockedVests pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_VEST) select {_x select 1 == -1}); unlockedVests = unlockedVests - civilianVest; publicVariable "unlockedVests";
 {unlockedNVGs pushBack (_x select 0)} forEach ((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_NVGS) select {_x select 1 == -1}); publicVariable "unlockedNVGs";
 {unlockedItems pushBack (_x select 0)} forEach ((((jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GOGGLES) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_MAP) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_GPS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_RADIO) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_COMPASS) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_WATCH) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMACC) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMMUZZLE) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_ITEMBIPOD) + (jna_dataList select IDC_RSCDISPLAYARSENAL_TAB_BINOCULARS)) select {_x select 1 == -1}));
 

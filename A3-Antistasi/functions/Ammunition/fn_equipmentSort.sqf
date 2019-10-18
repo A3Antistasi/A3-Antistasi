@@ -80,8 +80,8 @@ allBackpacksEmpty deleteAt (allBackpacksEmpty find "B_AssaultPack_Kerry");
 //   ARMORED VESTS LIST          ///
 ////////////////////////////////////
 //WHY is there no clean list?
-armoredVest = allVest select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor") > 5};
-civilianVest = allVest - armoredVest;
+armoredVest = allVests select {getNumber (configfile >> "CfgWeapons" >> _x >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor") > 5};
+civilianVest = allVests - armoredVest;
 
 civilianVest deleteAt (civilianVest find "V_RebreatherB");
 civilianVest deleteAt (civilianVest find "V_RebreatherIR");

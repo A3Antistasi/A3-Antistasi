@@ -58,7 +58,7 @@ if (!isMultiPlayer) then {
      {
           private _index = _x call jn_fnc_arsenal_itemType;
           [_index,_x,-1] call jn_fnc_arsenal_addItem;
-     } foreach (unlockedItems + unlockedWeapons + unlockedMagazines + unlockedBackpacks + unlockedNVGs + unlockedOptics + unlockedVest + unlockedHeadgear);
+     } foreach (unlockedItems + unlockedWeapons + unlockedMagazines + unlockedBackpacks + unlockedNVGs + unlockedOptics + unlockedVests + unlockedHeadgear);
      diag_log format ["%1: [Antistasi] | INFO | Arsenal Loaded.",servertime];
      
      waitUntil {sleep 1;!(isNil "placementDone")};

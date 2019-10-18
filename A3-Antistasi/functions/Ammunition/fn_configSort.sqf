@@ -99,7 +99,7 @@ private _nameX = "";
 
 			case "Glasses": {allGlasses pushBack _nameX};
 			case "Headgear": {allHeadgear pushBack _nameX};
-			case "Vest": {allVest pushBack _nameX};
+			case "Vest": {allVests pushBack _nameX};
 			case "Uniform": {allUniform pushBack _nameX};
 			case "Backpack": {allBackpacks pushBack _nameX};
 

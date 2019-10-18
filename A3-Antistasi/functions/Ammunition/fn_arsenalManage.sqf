@@ -104,7 +104,7 @@ private _count = objNull;
 					};
 				};
 			};
-			case (_item in mlaunchers): {
+			case (_item in allMissileLaunchers): {
 				if (allowGuidedLaunchers isEqualTo 1) then {
 					if (getText (configfile >> "CfgWeapons" >> _item >> "nameSound") == "aalauncher") then {
 						unlockedWeapons pushBack _item; publicVariable "unlockedWeapons";

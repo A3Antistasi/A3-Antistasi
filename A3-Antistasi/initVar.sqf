@@ -60,7 +60,7 @@ hguns = [];					//Pre-Rewrite Variable
 allWeaponLauncher = [];
 mguns = [];					//Pre-Rewrite Variable
 allMagazines = [];
-mlaunchers = [];				//Pre-Rewrite Variable
+allMissileLaunchers = [];				//Pre-Rewrite Variable
 allWeaponMortar = [];
 allRocketLaunchers = [];				//Pre-Rewrite Variable
 allWeaponShotgun = [];
@@ -752,7 +752,7 @@ publicVariable "unlockedAA";
 publicVariable "allRifles";
 publicVariable "hguns";
 publicVariable "mguns";
-publicVariable "mlaunchers";
+publicVariable "allMissileLaunchers";
 publicVariable "allRocketLaunchers";
 publicVariable "allWeaponShotgun";
 publicVariable "allWeaponSubmachineGun";

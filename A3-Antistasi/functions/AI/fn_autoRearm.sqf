@@ -154,7 +154,7 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 				for "_i" from 0 to (count _weaponsX - 1) do
 					{
 					_potential = _weaponsX select _i;
-					if ((_potential in mlaunchers) or (_potential in allRocketLaunchers)) then
+					if ((_potential in allMissileLaunchers) or (_potential in allRocketLaunchers)) then
 						{
 						_target = _objectX;
 						_hasBox = true;

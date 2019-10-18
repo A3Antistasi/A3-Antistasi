@@ -262,7 +262,7 @@ if (vehicle _unit != _unit) then
 	}
 else
 	{
-	if ((secondaryWeapon _unit) in mlaunchers) then {
+	if ((secondaryWeapon _unit) in allMissileLaunchers) then {
 			_revealX = true;
 			if (debug) then {
 				diag_log format ["%1: [Antistasi] | DEBUG | FIAinitBASES.sqf | Unit: %2 has launcher: %3.",servertime,_unit, (secondaryWeapon _unit)];

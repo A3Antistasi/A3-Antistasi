@@ -101,7 +101,7 @@ unlockedAT = [];
 				};
 			};
 		};
-		case (_x in mlaunchers): {
+		case (_x in allMissileLaunchers): {
 			if (allowGuidedLaunchers isEqualTo 1) then {
 				if (getText (configfile >> "CfgWeapons" >> _item >> "nameSound") == "aalauncher") then {
 					unlockedAA pushBack _x; publicVariable "unlockedAA";

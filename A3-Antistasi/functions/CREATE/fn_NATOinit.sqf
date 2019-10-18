@@ -189,7 +189,7 @@ if (vehicle _unit != _unit) then
 	}
 else
 	{
-	if ((secondaryWeapon _unit) in mlaunchers) then {_revealX = true};
+	if ((secondaryWeapon _unit) in allMissileLaunchers) then {_revealX = true};
 	};
 if (_revealX) then
 	{

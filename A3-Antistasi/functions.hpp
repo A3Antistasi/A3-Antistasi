@@ -315,6 +315,7 @@ class A3A
 		class NATOCrate {};
 		class randomRifle {};
 		class transfer {};
+		class unlockEquipment {};
 		class vehicleSort {};
 	};
 

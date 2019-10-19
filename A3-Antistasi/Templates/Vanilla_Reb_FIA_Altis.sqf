@@ -94,13 +94,13 @@ teamPlayerDefaultLoadout = [[],[],[],["U_BG_Guerilla3_1", []],[],[],"","",[],["I
 ATMineMag = "ATMine_Range_Mag";
 APERSMineMag = "APERSMine_Range_Mag";
 //Starting Unlocks
-unlockedWeapons append ["hgun_Pistol_heavy_02_F","hgun_P07_F","SMG_01_F","SMG_02_F"];
-unlockedSMGs append ["SMG_01_F","SMG_02_F"];
+initialRebelEquipment append ["hgun_Pistol_heavy_02_F","hgun_P07_F","SMG_01_F","SMG_02_F"];
+initialRebelEquipment append ["SMG_01_F","SMG_02_F"];
 initialWeapons append ["SMG_01_F","SMG_02_F"];
-unlockedMagazines append ["6Rnd_45ACP_Cylinder","16Rnd_9x21_Mag","30Rnd_45ACP_Mag_SMG_01","30Rnd_9x21_Mag_SMG_02","MiniGrenade","SmokeShell","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
-unlockedBackpacks append ["B_FieldPack_oli","B_FieldPack_blk","B_FieldPack_ocamo","B_FieldPack_oucamo","B_FieldPack_cbr","B_FieldPack_khk"];
-unlockedVests append ["V_Chestrig_blk","V_Chestrig_rgr","V_Chestrig_khk","V_Chestrig_oli","V_BandollierB_blk","V_BandollierB_cbr","V_BandollierB_rgr","V_BandollierB_khk","V_BandollierB_oli","V_Rangemaster_belt"];
-unlockedItems append ["Binocular","acc_flashlight"];
+initialRebelEquipment append ["6Rnd_45ACP_Cylinder","16Rnd_9x21_Mag","30Rnd_45ACP_Mag_SMG_01","30Rnd_9x21_Mag_SMG_02","MiniGrenade","SmokeShell","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
+initialRebelEquipment append ["B_FieldPack_oli","B_FieldPack_blk","B_FieldPack_ocamo","B_FieldPack_oucamo","B_FieldPack_cbr","B_FieldPack_khk"];
+initialRebelEquipment append ["V_Chestrig_blk","V_Chestrig_rgr","V_Chestrig_khk","V_Chestrig_oli","V_BandollierB_blk","V_BandollierB_cbr","V_BandollierB_rgr","V_BandollierB_khk","V_BandollierB_oli","V_Rangemaster_belt"];
+initialRebelEquipment append ["Binocular","acc_flashlight"];
 //TFAR Unlocks
-if (hasTFAR) then {unlockedItems append ["tf_microdagr","tf_anprc154"]};
-if (startLR) then {unlockedBackpacks pushBack "tf_anprc155"};
+if (hasTFAR) then {initialRebelEquipment append ["tf_microdagr","tf_anprc154"]};
+if (startLR) then {initialRebelEquipment pushBack "tf_anprc155"};

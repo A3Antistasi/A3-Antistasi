@@ -91,14 +91,14 @@ teamPlayerDefaultLoadout = [[],[],[],["rhsgref_uniform_altis_lizard", []],[],[],
 ATMineMag = "rhs_mine_ptm1_mag";
 APERSMineMag = "rhs_mine_ozm72_b_mag";
 //Starting Unlocks
-unlockedWeapons append ["rhs_weap_type94_new","rhs_weap_tt33","rhs_weap_Izh18","rhs_weap_kar98k","rhs_weap_panzerfaust60"];
-unlockedRifles append ["rhs_weap_Izh18","rhs_weap_kar98k"];
+initialRebelEquipment append ["rhs_weap_type94_new","rhs_weap_tt33","rhs_weap_Izh18","rhs_weap_kar98k","rhs_weap_panzerfaust60"];
+initialRebelEquipment append ["rhs_weap_Izh18","rhs_weap_kar98k"];
 initialWeapons append ["rhs_weap_Izh18","rhs_weap_kar98k"];
-unlockedAT append ["rhs_weap_panzerfaust60"];
-unlockedMagazines append ["rhs_mag_6x8mm_mhp","rhs_mag_762x25_8","rhsgref_1Rnd_00Buck","rhsgref_1Rnd_Slug","rhsgref_5Rnd_792x57_kar98k","rhs_grenade_mkii_mag","rhs_grenade_mki_mag","rhs_mag_rdg2_black","rhs_grenade_m15_mag"];
-unlockedBackpacks append ["B_FieldPack_oli","B_FieldPack_blk","B_FieldPack_ocamo","B_FieldPack_oucamo","B_FieldPack_cbr"];
-unlockedVests append ["rhsgref_chestrig","rhsgref_chicom","rhs_vydra_3m","rhs_vest_pistol_holster","rhs_vest_commander","rhs_6sh46","rhsgref_alice_webbing"];
-unlockedItems append ["rhs_acc_2dpZenit","Binocular"];
+initialRebelEquipment append ["rhs_weap_panzerfaust60"];
+initialRebelEquipment append ["rhs_mag_6x8mm_mhp","rhs_mag_762x25_8","rhsgref_1Rnd_00Buck","rhsgref_1Rnd_Slug","rhsgref_5Rnd_792x57_kar98k","rhs_grenade_mkii_mag","rhs_grenade_mki_mag","rhs_mag_rdg2_black","rhs_grenade_m15_mag"];
+initialRebelEquipment append ["B_FieldPack_oli","B_FieldPack_blk","B_FieldPack_ocamo","B_FieldPack_oucamo","B_FieldPack_cbr"];
+initialRebelEquipment append ["rhsgref_chestrig","rhsgref_chicom","rhs_vydra_3m","rhs_vest_pistol_holster","rhs_vest_commander","rhs_6sh46","rhsgref_alice_webbing"];
+initialRebelEquipment append ["rhs_acc_2dpZenit","Binocular"];
 //TAFR Unlocks
-if (hasTFAR) then {unlockedItems append ["tf_microdagr","tf_anprc154"]};
-if (startLR) then {unlockedBackpacks pushBack "tf_anprc155_coyote"};
+if (hasTFAR) then {initialRebelEquipment append ["tf_microdagr","tf_anprc154"]};
+if (startLR) then {initialRebelEquipment pushBack "tf_anprc155_coyote"};

@@ -56,17 +56,17 @@ publicVariable "aceAdvMedItems";
 ////////////////////////////////////
 //   ACE ITEMS MODIFICATIONS     ///
 ////////////////////////////////////
-unlockedItems append aceItems;
+initialRebelEquipment append aceItems;
 
 
 //ACE medical starting items
 if (hasACEMedical) then {
 	switch (ace_medical_level) do {
 		case 1: {
-			unlockedItems append aceBasicMedItems;
+			initialRebelEquipment append aceBasicMedItems;
 		};
 		case 2: {
-			unlockedItems append aceBasicMedItems + aceAdvMedItems;
+			initialRebelEquipment append aceBasicMedItems + aceAdvMedItems;
 		};
 	};
 };

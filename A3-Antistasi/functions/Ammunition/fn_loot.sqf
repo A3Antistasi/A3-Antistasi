@@ -75,8 +75,8 @@ lootDevice append _lootDeviceBag;
 //      REBEL STARTING ITEMS     ///
 ////////////////////////////////////
 //KEEP AT BOTTOM!!!
-unlockedItems append lootBasicItem;
-unlockedItems append allRebelUniforms;
-unlockedItems append allCivilianUniforms;
-unlockedItems append allCivilianHeadgear;
-unlockedItems append allCivilianGlasses;
+initialRebelEquipment append lootBasicItem;
+initialRebelEquipment append allRebelUniforms;
+initialRebelEquipment append allCivilianUniforms;
+initialRebelEquipment append allCivilianHeadgear;
+initialRebelEquipment append allCivilianGlasses;

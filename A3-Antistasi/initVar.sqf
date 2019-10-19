@@ -442,7 +442,7 @@ if (hasIFA) then
 ////////////////////////////////////
 //     ACRE ITEM MODIFICATIONS   ///
 ////////////////////////////////////
-if (hasACRE) then {unlockedItems append ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"];};
+if (hasACRE) then {initialRebelEquipment append ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"];};
 };
 
 ////////////////////////////////////

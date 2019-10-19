@@ -91,14 +91,14 @@ teamPlayerDefaultLoadout = [[],[],[],["UK3CB_TKM_I_U_01", []],[],[],"UK3CB_TKM_I
 ATMineMag = "rhs_mine_smine35_press_mag";
 APERSMineMag = "rhs_mine_pmn2_mag";
 //Starting Unlocks
-unlockedWeapons append ["UK3CB_BAF_L9A1","UK3CB_BAF_L107A1","UK3CB_Enfield","UK3CB_Enfield_rail","rhs_weap_rpg75"];
-unlockedRifles append ["UK3CB_Enfield","UK3CB_Enfield_rail"];
+initialRebelEquipment append ["UK3CB_BAF_L9A1","UK3CB_BAF_L107A1","UK3CB_Enfield","UK3CB_Enfield_rail","rhs_weap_rpg75"];
+initialRebelEquipment append ["UK3CB_Enfield","UK3CB_Enfield_rail"];
 initialWeapons append ["UK3CB_Enfield","UK3CB_Enfield_rail"];
-unlockedAT append ["rhs_weap_rpg75"];
-unlockedMagazines append ["UK3CB_BAF_9_13rnd","UK3CB_BAF_9_15rnd","UK3CB_Enfield_mag","rhs_grenade_mkii_mag","rhs_grenade_mki_mag","rhs_mag_rdg2_black","rhs_grenade_m15_mag"];
-unlockedBackpacks append ["UK3CB_CHC_C_B_MED","UK3CB_B_Bedroll_Backpack","UK3CB_TKC_C_B_Sidor_MED","UK3CB_CW_SOV_O_LATE_B_Sidor_RIF","UK3CB_CW_SOV_O_EARLY_B_Sidor_RIF"];
-unlockedVests append ["UK3CB_V_CW_Chestrig","UK3CB_V_CW_Chestrig_2_Small","UK3CB_V_Belt_KHK","UK3CB_V_Belt_Rig_KHK","UK3CB_V_Belt_Rig_Lite_KHK","UK3CB_V_Pouch","UK3CB_V_Chestrig_TKA_OLI","UK3CB_V_Chestrig_2_small_OLI","UK3CB_V_Chestrig_TKA_BRUSH","UK3CB_V_Chestrig_Lite_KHK","UK3CB_V_Chestrig_Lite_2_Small_KHK"];
-unlockedItems append ["rhs_acc_2dpZenit","Binocular"];
+initialRebelEquipment append ["rhs_weap_rpg75"];
+initialRebelEquipment append ["UK3CB_BAF_9_13rnd","UK3CB_BAF_9_15rnd","UK3CB_Enfield_mag","rhs_grenade_mkii_mag","rhs_grenade_mki_mag","rhs_mag_rdg2_black","rhs_grenade_m15_mag"];
+initialRebelEquipment append ["UK3CB_CHC_C_B_MED","UK3CB_B_Bedroll_Backpack","UK3CB_TKC_C_B_Sidor_MED","UK3CB_CW_SOV_O_LATE_B_Sidor_RIF","UK3CB_CW_SOV_O_EARLY_B_Sidor_RIF"];
+initialRebelEquipment append ["UK3CB_V_CW_Chestrig","UK3CB_V_CW_Chestrig_2_Small","UK3CB_V_Belt_KHK","UK3CB_V_Belt_Rig_KHK","UK3CB_V_Belt_Rig_Lite_KHK","UK3CB_V_Pouch","UK3CB_V_Chestrig_TKA_OLI","UK3CB_V_Chestrig_2_small_OLI","UK3CB_V_Chestrig_TKA_BRUSH","UK3CB_V_Chestrig_Lite_KHK","UK3CB_V_Chestrig_Lite_2_Small_KHK"];
+initialRebelEquipment append ["rhs_acc_2dpZenit","Binocular"];
 //TAFR Unlocks
-if (hasTFAR) then {unlockedItems append ["tf_microdagr","tf_rf7800str"]};
-if (startLR) then {unlockedBackpacks pushBack "UK3CB_B_B_Radio_Backpack"};
+if (hasTFAR) then {initialRebelEquipment append ["tf_microdagr","tf_rf7800str"]};
+if (startLR) then {initialRebelEquipment pushBack "UK3CB_B_B_Radio_Backpack"};

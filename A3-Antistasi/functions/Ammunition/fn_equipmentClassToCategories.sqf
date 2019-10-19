@@ -94,6 +94,11 @@ if (_aggregateCategory != "") then {
 	_categories pushBack _aggregateCategory;
 };
 
+//Every explosive is a magazine.
+if (_aggregateCategory == "Explosives") then {
+	_categories pushBack "Magazines";
+};
+
 if (_baseCategory == "RocketLaunchers") then {
 	_categories pushBack "AT";
 };

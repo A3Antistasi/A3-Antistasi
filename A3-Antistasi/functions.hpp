@@ -423,7 +423,7 @@ class A3A
 		class ifaModCompat {};
 		class rhsModCompat {};
 	};
-	
+
 	class Undercover
 	{
 		class initUndercover {};
@@ -441,7 +441,6 @@ class A3A
 	{
 		class cityinfo {};
 		class credits {};
-		class getArrayMrks {};
 		class initDisabledMods {};
 		class initGarrisons {};
 		class initGetMissionPath {};

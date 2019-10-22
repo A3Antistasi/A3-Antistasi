@@ -202,17 +202,17 @@ for "_i" from 1 to _countX do
 	_typeVehEsc = selectRandom _vehPool;
 	if (not([_typeVehEsc] call A3A_fnc_vehAvailable)) then
 	{
-		_typeVehX = if (_sideX == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
-		_vehPool = _vehPool - [_typeVehX];
+		_vehPool = _vehPool - [_typeVehEsc];
+		_typeVehEsc = if (_sideX == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
 		if (count _vehPool == 0) then {if (_sideX == Occupants) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks}};
 	};
 	_timeOut = 0;
-	_pos = _posOrig findEmptyPosition [10,100,_typeVehX];
+	_pos = _posOrig findEmptyPosition [10,100,_typeVehEsc];
 	while {_timeOut < 60} do
 	{
 		if (count _pos > 0) exitWith {};
 		_timeOut = _timeOut + 1;
-		_pos = _posOrig findEmptyPosition [10,100,_typeVehX];
+		_pos = _posOrig findEmptyPosition [10,100,_typeVehEsc];
 		sleep 1;
 	};
 	if (count _pos == 0) then {_pos = _posOrig};

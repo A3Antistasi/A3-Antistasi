@@ -261,11 +261,22 @@ if (!_busy) then
 		private _veh = objNull;
 		if(_spawnParameter isEqualType []) then
 		{
-			_typeVehX = if (_sideX == Occupants) then {selectRandom ([vehNATOPlane, vehNATOPlaneAA] select {[_x] call A3A_fnc_vehAvailable})} else {selectRandom ([vehCSATPlane, vehCSATPlaneAA] select {[_x] call A3A_fnc_vehAvailable})};
-			_veh = createVehicle [_typeVehX, (_spawnParameter select 0), [],3, "CAN_COLLIDE"];
-			_veh setDir (_spawnParameter select 1);
-			_vehiclesX pushBack _veh;
-			_nul = [_veh] call A3A_fnc_AIVEHinit;
+			private _vehPool = [];
+			_typeVehX = if (_sideX == Occupants) then
+			{
+				_vehPool = ([vehNATOPlane, vehNATOPlaneAA] select {[_x] call A3A_fnc_vehAvailable})
+			}
+			else
+			{
+				_vehPool = ([vehCSATPlane, vehCSATPlaneAA] select {[_x] call A3A_fnc_vehAvailable})
+			};
+			if(count _vehPool > 0) then
+			{
+				_veh = createVehicle [_typeVehX, (_spawnParameter select 0), [],3, "CAN_COLLIDE"];
+				_veh setDir (_spawnParameter select 1);
+				_vehiclesX pushBack _veh;
+				_nul = [_veh] call A3A_fnc_AIVEHinit;
+			};
 			_spawnParameter = [_markerX, "Plane"] call A3A_fnc_findSpawnPosition;
 		}
 		else

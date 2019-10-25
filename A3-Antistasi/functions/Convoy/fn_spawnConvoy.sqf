@@ -126,9 +126,9 @@ if(count _landVehicles > 0) then
   private _route = [_pos, _target] call A3A_fnc_findPath;
   //No route, let's just make a basic one.
   if (count _route == 0) then {_route = [_pos, _targetPos];};
-  
 
-  
+
+
   diag_log format ["Convoy [%1]: Node count is %2", _convoyID, count _route];
   {
 	//Move them to their start position, so they don't move backwards.
@@ -179,7 +179,9 @@ waitUntil
 
 deleteMarker _convoyMarker;
 
-if (_convoyDead) exitWith {
+if (_convoyDead) exitWith
+{
+  server setVariable [str _convoyID, nil, true];
 	diag_log format ["%1 Convoy [%2]: All units dead. Convoy terminated.", _convoyType, _convoyID];
 	{
 		_x deleteGroupWhenEmpty true;

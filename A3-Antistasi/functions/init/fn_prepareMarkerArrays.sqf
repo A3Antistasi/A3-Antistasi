@@ -87,10 +87,10 @@ fnc_sortPlacementMarker =
 
     //Following marker are handled elsewhere
     case ("respawn");
-    case ("DummyUPSMONMarker");
-    case ("NATO");
-    case ("CSAT");
-    case ("Synd"): {};
+    case ("dummyupsmonmarker");
+    case ("nato");
+    case ("csat");
+    case ("synd"): {};
 
     //Detect placement marker
     case ("airp");

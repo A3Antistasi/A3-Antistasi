@@ -88,8 +88,6 @@ allCategories = allCategoriesExceptSpecial + specialCategories;
 	missionNamespace setVariable ["unlocked" + _x, []];
 } forEach allCategoriesExceptSpecial + ["AA", "AT", "GrenadeLaunchers"]; //TODO: Implement all of the special categories.
 
-//Used for AI-Rearm (poor implementation)
-initialWeapons = [];
 //Used for initial unlocks.
 initialRebelEquipment = [];
 
@@ -673,6 +671,7 @@ publicVariable "unlockedGrenadeLaunchers";
 publicVariable "unlockedSniperRifles";
 publicVariable "unlockedAT";
 publicVariable "unlockedAA";
+publicVariable "initialRebelEquipment";
 
 publicVariable "allRifles";
 publicVariable "allHandguns";
@@ -686,7 +685,6 @@ publicVariable "allSniperRifles";
 publicVariable "allCivilianUniforms";
 publicVariable "allRebelUniforms";
 publicVariable "allArmoredHeadgear";
-publicVariable "initialWeapons";
 publicVariable "allSmokeGrenades";
 
 publicVariable "teamPlayer";

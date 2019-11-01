@@ -58,6 +58,7 @@ _fnc_initMarker =
 
 _fnc_initGarrison =
 {
+	if(loadLastSave) exitWith {};
 	params ["_markerArray", "_type"];
 	private ["_side", "_groupsRandom", "_garrNum", "_garrisonOld", "_marker"];
 	{

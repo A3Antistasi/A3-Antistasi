@@ -3,13 +3,14 @@
 	
 	Params:
 		launcherClassName: Class name of the launcher to test. DO NOT USE ON NON-LAUNCHERS.
+		disposable: Is the launcher disposable? This is for the recursive call.
 		
 	Returns:
-		[canLockGroundTargets, canLockAirTargets, unguidedMagazines, groundLockMagazines, airLockMagazines] - magazine arrays may overlap.
+		[canLockGroundTargets, canLockAirTargets, unguidedMagazines, groundLockMagazines, airLockMagazines] - magazine arrays may overlap. No magazines are returned for disposables.
 
 **/
 
-params ["_launcherClassName"];
+params ["_launcherClassName", ["_disposable", false]];
 
 private _rawMagazines = getArray (configFile >> "CfgWeapons" >> _launcherClassName >> "magazines");
 private _magazineWells = getArray (configFile >> "CfgWeapons" >> _launcherClassName >> "magazineWell");
@@ -20,31 +21,38 @@ private _magazineWells = getArray (configFile >> "CfgWeapons" >> _launcherClassN
 } forEach _magazineWells;
 
 private _isACEDisposable = getText (configFile >> "CfgWeapons" >> _launcherClassName >> "ACE_UsedTube") !=	"";
-private _fakeLauncher =	false;
+private _isACEUsedLauncher = getNumber (configFile >> "CfgWeapons" >> _launcherClassName >> "ACE_isUsedLauncher") == 1;
+private _fakeLauncher =	"CBA_FakeLauncherMagazine" in _rawMagazines;
 
-private _magazineAmmo = [];
-{
-	//Ignore fake magazines - unless we're an ACE disposable launcher, then only count
-	if (getNumber (configFile >> "CfgMagazines" >> _x >> "count") > 0 && (!_isACEDisposable || _x == "ACE_PreloadedMissileDummy")) then {
-		_magazineAmmo pushBack [_x, getText (configFile >> "CfgMagazines" >> _x >> "ammo")];
-	} else {
-		if (_x == "CBA_FakeLauncherMagazine") exitWith {
-			_fakeLauncher = true;
-		};
-	};
-} forEach _rawMagazines;
+//If it's an ACE disposable, we only want to check the PreloadedMissileDummy.
+if (_isACEDisposable) then {
+	_disposable = true;
+	_rawMagazines = ["ACE_PreloadedMissileDummy"];
+};
 
-//Exit if it's a CBA fake launcher.
+if (_isACEUsedLauncher) exitWith {
+	[false, false, [], [], []]
+};
+
+//If we have a fake CBA launcher, don't process further.
 if (_fakeLauncher) exitWith {
 	//If disposable launchers is loaded, check if we're holding a disposable launcher, and find the actual class if so.
 	if (!isNil "cba_disposable_LoadedLaunchers") exitWith {
 		private _fireableLauncherName = cba_disposable_LoadedLaunchers getVariable [_launcherClassName, ""];
 		if (_fireableLauncherName != "") exitWith {
-			[_fireableLauncherName] call A3A_fnc_launcherInfo;
+			[_fireableLauncherName, true] call A3A_fnc_launcherInfo;
 		};
 	};
 	[false, false, [], [], []];
 };
+
+private _magazineAmmo = [];
+{
+	//Ignore fake magazines - unless we're an ACE disposable launcher
+	if (getNumber (configFile >> "CfgMagazines" >> _x >> "count") > 0 || _isACEDisposable) then {
+		_magazineAmmo pushBack [_x, getText (configFile >> "CfgMagazines" >> _x >> "ammo")];
+	};
+} forEach _rawMagazines;
 
 private _targetAir = false;
 private _targetGround = false;
@@ -53,6 +61,7 @@ private _unguidedMagazines = [];
 private _groundMagazines = [];
 private _airMagazines = [];
 
+//Look at the individual ammo types, to figure out what we can lock onto.
 {
 	_x params ["_mag", "_ammoType"];
 	if (_ammoType isKindOf "MissileCore") then {
@@ -87,7 +96,8 @@ private _airMagazines = [];
 	};
 } forEach _magazineAmmo;
 
-if (_isACEDisposable) then {
+//If we're a disposable, we don't want to spawn ammo. Claim none of it exists. 
+if (_disposable) then {
 	_unguidedMagazines = [];
 	_groundMagazines = [];
 	_airMagazines = [];

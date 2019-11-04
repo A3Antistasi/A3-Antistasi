@@ -35,6 +35,7 @@ limitedFT = if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {fal
 napalmEnabled = if ("napalmEnabled" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "napalmEnabled";
 teamSwitchDelay = "teamSwitchDelay" call BIS_fnc_getParamValue;
 playerMarkersEnabled = ("pMarkers" call BIS_fnc_getParamValue == 1); publicVariable "playerMarkersEnabled";
+logLevel = "logLevel" call BIS_fnc_getParamValue; publicVariable "logLevel";
 [] call A3A_fnc_crateLootParams;
 
 //Load Campaign ID if resuming game

@@ -435,6 +435,7 @@ class A3A
 		class basicBackpack {};
 		class createDataObject {};
 		class dateToTimeString {};
+		class log {};
 	};
 
 	class init

@@ -19,7 +19,7 @@ if (unlockedBackpacks isEqualTo []) then {removeBackpack _unit} else {removeBack
 _unit setSkill _skill;
 
 switch (true) do {
-	case (_typeX in SKDSniper): {
+	case (_typeX in SDKSniper): {
 		if (count unlockedSniperRifles > 0) then {
 			private _magazines = getArray (configFile / "CfgWeapons" / (primaryWeapon _unit) / "magazines");
 			{_unit removeMagazines _x} forEach _magazines;

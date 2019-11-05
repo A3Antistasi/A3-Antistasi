@@ -684,6 +684,7 @@ publicVariable "allSMGs";
 publicVariable "allSniperRifles";
 
 publicVariable "allCivilianUniforms";
+publicVariable "allCivilianHeadgear";
 publicVariable "allRebelUniforms";
 publicVariable "allArmoredHeadgear";
 publicVariable "allSmokeGrenades";

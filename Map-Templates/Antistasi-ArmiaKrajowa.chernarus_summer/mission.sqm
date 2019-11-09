@@ -158,11 +158,8 @@ class Mission
 	};
 	class Entities
 	{
-		items=159;
+		items=56;
 		class Item0
-		{
-			type="rectangle";
-			colorName="ColorEAST";
 		{
 			dataType="Marker";
 			position[]={11716.97,168.66901,12767.416};

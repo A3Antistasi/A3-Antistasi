@@ -28,7 +28,6 @@ class A3A
 		class fogCheck {};
 		class garbageCleaner {};
 		class garrisonInfo {};
-		class getModOfConfigClass {};
 		class healAndRepair {};
 		class initPetros {};
 		class intelFound {};
@@ -294,6 +293,11 @@ class A3A
 		class taskUpdate {};
 		class underAttack {};
 	};
+	
+	class ModsAndDLC {
+		class getModOfConfigClass {};
+		class initDisabledMods {};
+	};
 
 	class Ammunition
 	{
@@ -443,7 +447,6 @@ class A3A
 	{
 		class cityinfo {};
 		class credits {};
-		class initDisabledMods {};
 		class initGarrisons {};
 		class initGetMissionPath {};
 		class initSpawnPlaces {};

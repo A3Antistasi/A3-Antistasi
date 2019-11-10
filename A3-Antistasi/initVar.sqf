@@ -254,17 +254,32 @@ arrayCivs = ["C_man_polo_1_F","C_man_polo_1_F_afro","C_man_polo_1_F_asia","C_man
 //      CIVILIAN VEHICLES       ///
 ////////////////////////////////////
 diag_log format ["%1: [Antistasi] | INFO | initVar | Creating Vehicle list.",servertime];
+
 private _civVehConfigs = "(
 	getNumber (_x >> 'scope') isEqualTo 2 && {
 		getNumber (_x >> 'side') isEqualTo 3 && {
 			getText (_x >> 'vehicleClass') in ['Car','Support'] && {
-				getText (_x >> 'simulation') isEqualTo 'carx'
+				getText (_x >> 'simulation') == 'carx'
 			}
 		}
 	}
 )" configClasses (configFile >> "CfgVehicles");
 
-arrayCivVeh = (_civVehConfigs select {!(_x call A3A_fnc_getModOfConfigClass in disabledMods)} apply {configName _x});
+private _vehIsValid = {
+	params ["_vehConfig"];
+	
+	private _mod = _vehConfig call A3A_fnc_getModOfConfigClass;
+	
+	//If we have IFA and vehicle is vanilla
+	if(hasIFA && {_mod == ""}) exitWith {
+		false;
+	};
+	
+	//Check if mod is disabled
+	!(_vehConfig call A3A_fnc_getModOfConfigClass in disabledMods);
+};
+
+arrayCivVeh = (_civVehConfigs select {_x call _vehIsValid} apply {configName _x});
 
 
 //Civilian Boats
@@ -276,7 +291,7 @@ _civBoatConfigs = "(
 	}
 )" configClasses (configFile >> "CfgVehicles");
 
-CivBoats = (_civBoatConfigs select {!(_x call A3A_fnc_getModOfConfigClass in disabledMods)} apply {configName _x});
+CivBoats = (_civBoatConfigs select {_x call _vehIsValid} apply {configName _x});
 
 ////////////////////////////////////
 //     ID LIST FOR UNIT NAMES    ///

@@ -233,6 +233,7 @@ class Mission
 	};
 	class Entities
 	{
+		items=803;
 		class Item0
 		{
 			dataType="Object";

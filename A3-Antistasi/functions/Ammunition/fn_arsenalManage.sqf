@@ -35,7 +35,7 @@ private _allExceptNVs = _weapons + _explosives + _backpacks + _items + _optics +
 	if (_x select 1 >= minWeaps) then {
 		private _categories = _item call A3A_fnc_equipmentClassToCategories;
 		
-		if ((allowGuidedLaunchers isEqualTo 1 || {!("MissileLaunchers" in _categories || {"RocketLaunchers" in _categories && {getNumber (configfile >> "CfgWeapons" >> _item >> "canLock") == 0}})}) &&
+		if ((allowGuidedLaunchers isEqualTo 1 || {!("MissileLaunchers" in _categories)}) &&
 		    (allowUnlockedExplosives isEqualTo 1 || !("Explosives" in _categories))) then {
 			
 			_item call A3A_fnc_unlockEquipment;

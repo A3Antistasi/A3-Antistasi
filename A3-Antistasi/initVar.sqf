@@ -347,8 +347,12 @@ private _equipmentFilter = {
 	private _remove = false;
 
 	private _itemMod = (_configClass call A3A_fnc_getModOfConfigClass);
-
-	private _itemIsVanilla = _itemMod isEqualTo "";
+	private _itemIsVanilla = [_itemMod] call A3A_fnc_isModNameVanilla;
+	
+	//Mod is disabled, remove item.
+	if (_itemMod in disabledMods) exitWith {
+		true;
+	};
 
 	//Remove vanilla items if no vanilla sides (IFA handled seperately)
 	if (_itemIsVanilla && {has3CB || {activeAFRF && activeGREF && activeUSAF}}) then {

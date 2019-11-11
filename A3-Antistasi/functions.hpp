@@ -297,6 +297,7 @@ class A3A
 	class ModsAndDLC {
 		class getModOfConfigClass {};
 		class initDisabledMods {};
+		class isModNameVanilla {};
 	};
 
 	class Ammunition

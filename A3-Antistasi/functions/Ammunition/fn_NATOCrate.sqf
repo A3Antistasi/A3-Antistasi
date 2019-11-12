@@ -31,34 +31,31 @@ if (typeOf _crate == vehNATOAmmoTruck) then {
 	_crateDeviceTypeMax = _crateDeviceTypeMax * 2;
 };
 
-private _lootWeaponCategoryWeighting = [
-	[allRifles, 4],
-	[allHandguns, 4],
-	[allMachineGuns, 4],
-	[allShotguns, 4],
-	[allSMGs, 4],
-	[allSniperRifles, 1],
-	[allMissileLaunchers, 1],
-	[allRocketLaunchers, 1]
+private _weaponlootWeighting = [
+	allRifles, 3,
+	allHandguns, 1.2,
+	allMachineGuns, 2,
+	allShotguns, 0,
+	allSMGs, 2,
+	allSniperRifles, 0.9,
+	allMissileLaunchers, 0.5,
+	allRocketLaunchers, 0.5
 ];
 
-//Array of weapon type arrays where selectRandom gives you a type with the correct probability, according to its weight.
-private _weightedWeaponCategories = [];
-{
-	private _weight = _x select 1;
-	
-	for "_i" from 1 to _weight do {
-		//Add the collection to the types array.
-		_weightedWeaponCategories pushBack (_x select 0);
-	};
-} forEach _lootWeaponCategoryWeighting;
+//This overrides the shotgun setting.
+if (hasRHS) then {
+	_weaponlootWeighting set [8, 1.8];
+};
 
+// Little function to ensure the item isn't already unlocked.
 private _fnc_pickRandomFromANotInB = {
 	params ["_arrayA", "_arrayB"];
 	private _choice = selectRandom _arrayA;
+	[3, format ["Function check for: %1", _choice],"fn_NATOCrate"] call A3A_fnc_log;
 	private _foundValid = true;
 	if (_choice in _arrayB) then {
 		_foundValid = false;
+		[3, format ["Item already unlocked, rolling again."],"fn_NATOCrate"] call A3A_fnc_log;
 		for "_i" from 0 to 9 do {
 			_choice = selectRandom _arrayA;
 			//We did it!
@@ -67,55 +64,53 @@ private _fnc_pickRandomFromANotInB = {
 			};
 		}
 	};
-	
+
 	if (_foundValid) then {
 		_choice;
 	};
 };
 
-
 //Weapons Loot
+[3, "Generating Weapons", "fn_NATOCrate"] call A3A_fnc_log;
 for "_i" from 0 to floor random _crateWepTypeMax do {
-	private _category =	selectRandom _weightedWeaponCategories;
-	private _loot = [_category, unlockedWeapons] call _fnc_pickRandomFromANotInB;
-	
-	//If at first we don't succeed, try, try again.
-	if (isNil "_loot") then {
-		private _shuffledWeaponCategories = _weightedWeaponCategories call BIS_fnc_arrayShuffle;
-		{
-			_category =	_x;
-			_loot = [_category, unlockedWeapons] call _fnc_pickRandomFromANotInB;
-			if !(isNil "_loot") exitWith {};
-		} forEach _shuffledWeaponCategories;
-	};
+	private _selection = selectRandomWeighted _weaponlootWeighting;
+	[3, format ["Selected: %1", _selection],"fn_NATOCrate"] call A3A_fnc_log;
+	private _loot =	 [_selection, unlockedWeapons] call _fnc_pickRandomFromANotInB;;
+	[3, format ["%1 weapons chosen", _i],"fn_NATOCrate"] call A3A_fnc_log;
+	[3, format ["Final weapon: %1", _loot],"fn_NATOCrate"] call A3A_fnc_log;
 
-	diag_log format ["%1 weapons chosen", _i];
-	diag_log format ["Chosen category with %1 weapons", count _category];
-	diag_log format ["Final weapon: %1", _loot];
-	
 	if (isNil "_loot") then {
-		if (debug) then {diag_log format ["%1: [Antistasi] | INFO | NATOCrate | No Weapons Left in Loot List Or Pick Random Failed",servertime]};
+		[3, "No Weapons Left in Loot List Or Pick Random Failed","fn_NATOCrate"] call A3A_fnc_log;
 	}
 	else {
 		_amount = floor random crateWepNumMax;
 		_crate addWeaponWithAttachmentsCargoGlobal [[ _loot, "", "", "", [], [], ""], _amount];
-		_magazines = getArray (configFile / "CfgWeapons" / _loot / "magazines");
-		_crate addMagazineCargoGlobal [_magazines select 0, 1];
-		if (debug) then {diag_log format ["%1: [Antistasi] | INFO | NATOCrate | Spawning %2 of %3",servertime,_amount, _loot]};
+		for "_i" from 0 to _amount do {
+			_magazines = getArray (configFile / "CfgWeapons" / _loot / "magazines");
+			[3, format ["Grabbing a %1 for %2", _magazines, _loot],"fn_NATOCrate"] call A3A_fnc_log;
+			_magAmount = selectRandom [0,1,2];
+			[3, format ["Spawning %1 magazines for %2", _magAmount, _loot],"fn_NATOCrate"] call A3A_fnc_log;
+			_crate addMagazineCargoGlobal [selectrandom _magazines, _magAmount];
+			[3, format ["Spawning %1 of %2", _amount, _loot],"fn_NATOCrate"] call A3A_fnc_log;
+		};
 	};
 };
 
 //Items Loot
+[3, "Generating Items", "fn_NATOCrate"] call A3A_fnc_log;
 for "_i" from 0 to floor random _crateItemTypeMax do {
 	_available = (lootItem - _unlocks - itemCargo _crate);
+	[3, format ["Breakdown: %1, %2, %3", lootItem, _unlocks, itemCargo _crate],"fn_NATOCrate"] call A3A_fnc_log;
+	[3, format ["Items available: %1", _available],"fn_NATOCrate"] call A3A_fnc_log;
 	_loot = selectRandom _available;
+	[3, format ["Item chosen: %1", _loot],"fn_NATOCrate"] call A3A_fnc_log;
 	if (isNil "_loot") then {
-		if (debug) then {diag_log format ["%1: [Antistasi] | INFO | NATOCrate | No Items Left in Loot List",servertime]};
+		[3, "No Items Left in Loot List","fn_NATOCrate"] call A3A_fnc_log;
 	}
 	else {
 		_amount = floor random crateItemNumMax;
 		_crate addItemCargoGlobal [_loot,_amount];
-		if (debug) then {diag_log format ["%1: [Antistasi] | INFO | NATOCrate | Spawning %2 of %3",servertime,_amount,_loot]};
+		[3, format ["Spawning %2 of %3", _amount,_loot],"fn_NATOCrate"] call A3A_fnc_log;
 	};
 };
 //Ammo Loot

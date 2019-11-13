@@ -269,7 +269,7 @@ if (!_busy) then
 		if(_spawnParameter isEqualType []) then
 		{
 			private _vehPool = [];
-			_typeVehX = if (_sideX == Occupants) then
+			if (_sideX == Occupants) then
 			{
 				_vehPool = ([vehNATOPlane, vehNATOPlaneAA] select {[_x] call A3A_fnc_vehAvailable})
 			}
@@ -279,6 +279,7 @@ if (!_busy) then
 			};
 			if(count _vehPool > 0) then
 			{
+				_typeVehX = selectRandom _vehPool;
 				_veh = createVehicle [_typeVehX, (_spawnParameter select 0), [],3, "CAN_COLLIDE"];
 				_veh setDir (_spawnParameter select 1);
 				_vehiclesX pushBack _veh;

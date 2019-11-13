@@ -44,7 +44,7 @@ private _weaponlootWeighting = [
 
 //This overrides the shotgun setting.
 if (hasRHS) then {
-	_weaponlootWeighting set [8, 1.8];
+	_weaponlootWeighting set [7, 1.8];
 };
 
 // Little function to ensure the item isn't already unlocked.

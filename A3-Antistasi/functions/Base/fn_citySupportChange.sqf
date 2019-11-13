@@ -7,10 +7,11 @@ _blufor = _this select 1;
 _pos = _this select 2;
 if (_pos isEqualType "") then {_city = _pos} else {_city = [citiesX, _pos] call BIS_fnc_nearestPosition};
 _dataX = server getVariable _city;
-if (!(_dataX isEqualType [])) exitWith {
-		cityIsSupportChanging = false;
-		diag_log format ["%1: [Antistasi] | ERROR | citySupportChange.sqf | Passed %2 as Position.",servertime, _pos];
-		};
+if (isNil "_dataX" || {!(_dataX isEqualType [])}) exitWith
+{
+	cityIsSupportChanging = false;
+	diag_log format ["%1: [Antistasi] | ERROR | citySupportChange.sqf | Passed %2 as city, pos was %3.",servertime, _city, _pos];
+};
 _numCiv = _dataX select 0;
 _numVeh = _dataX select 1;
 _prestigeOPFOR = _dataX select 2;

@@ -23,19 +23,19 @@ if(isNil "_type" || {!((toLower _type) in _acceptedTypes)}) exitWith {diag_log "
 if(isNil "_side" || {!(_side == Occupants || _side == Invaders)}) exitWith {diag_log "CreateAIAction: Can only create AI for Inv and Occ"};
 
 _convoyID = round (random 1000);
-_IDinUse = server getVariable [str _convoyID, false];
+_IDinUse = server getVariable [format ["Con%1", _convoyID], false];
 sleep 0.1;
 while {_IDinUse} do
 {
   _convoyID = round (random 1000);
-  _IDinUse = server getVariable [str _convoyID, false];
+  _IDinUse = server getVariable [format ["Con%1", _convoyID], false];
 };
-server setVariable [str _convoyID, true, true];
+server setVariable [format ["Con%1", _convoyID], true, true];
 
 _convoyID spawn
 {
   sleep (30 * 60);
-  server setVariable [str _this, nil, true];
+  server setVariable [format ["Con%1", _this], nil, true];
 };
 
 _type = toLower _type;

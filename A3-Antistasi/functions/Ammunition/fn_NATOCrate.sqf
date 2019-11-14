@@ -47,16 +47,53 @@ if (hasRHS) then {
 	_weaponlootWeighting set [7, 1.8];
 };
 
-// Little function to ensure the item isn't already unlocked.
-private _fnc_pickRandomFromANotInB = {
+/**
+Probabilistic function that checks that A is probably not in B.
+  For a given array A, and another array B, this function selects an item from A that's not in B, with a probability that depends on how much of A is in B.
+  This is purely a performance optimisation. 
+  
+  X Axis - Attempt/Iteration number
+  Y Axis - % of items from Array 1 in array 2
+  Value - Probability of successfully returning a value from A not in B.
+  
+	       1     2       3        4         5          6           7            8             9             10
+		-----------------------------------------------------------------------------------------------------------------
+	0.9 | 0.1    0.19    0.271    0.3439    0.40951    0.468559    0.5217031    0.56953279    0.612579511    0.6513215599
+	0.8 | 0.2    0.36    0.488    0.5904    0.67232    0.737856    0.7902848    0.83222784    0.865782272    0.8926258176
+	0.7 | 0.3    0.51    0.657    0.7599    0.83193    0.882351    0.9176457    0.94235199    0.959646393    0.9717524751
+	0.6 | 0.4    0.64    0.784    0.8704    0.92224    0.953344    0.9720064    0.98320384    0.989922304    0.9939533824
+	0.5 | 0.5    0.75    0.875    0.9375    0.96875    0.984375    0.9921875    0.99609375    0.998046875    0.9990234375
+	0.4 | 0.6    0.84    0.936    0.9744    0.98976    0.995904    0.9983616    0.99934464    0.999737856    0.9998951424
+	0.3 | 0.7    0.91    0.973    0.9919    0.99757    0.999271    0.9997813    0.99993439    0.999980317    0.9999940951
+	0.2 | 0.8    0.96    0.992    0.9984    0.99968    0.999936    0.9999872    0.99999744    0.999999488    0.9999998976
+	0.1 | 0.9    0.99    0.999    0.9999    0.99999    0.999999    0.9999999    0.99999999    0.999999999    0.9999999999
+    0.0 |  1      1        1         1         1           1            1            1             1               1
+	
+	Best case - two arrays of 400 elements, we see a 20x speedup.
+	Worst case- two arrays of 1 element, 3x slowdown.
+	100 array case - 10x speedup.
+	
+	Yes, this is over-engineered.
+**/
+  
+private _fnc_pickRandomFromAProbablyNotInB = {
 	params ["_arrayA", "_arrayB"];
+	
+	//Only run t
+	if (count _arrayA min count _arrayB < 100) exitWith {
+		selectRandom (_arrayA - _arrayB);
+	}
+	
+	private _percentageLoaded = count _arrayA / count _arrayB;
+	private _iterations = floor (10 * _percentageLoaded);
+	
 	private _choice = selectRandom _arrayA;
-	[3, format ["Function check for: %1", _choice],"fn_NATOCrate"] call A3A_fnc_log;
+	//[3, format ["Function check for: %1", _choice],"fn_NATOCrate"] call A3A_fnc_log;
 	private _foundValid = true;
 	if (_choice in _arrayB) then {
 		_foundValid = false;
-		[3, format ["Item already unlocked, rolling again."],"fn_NATOCrate"] call A3A_fnc_log;
-		for "_i" from 0 to 9 do {
+		//[3, format ["Item already unlocked, rolling again."],"fn_NATOCrate"] call A3A_fnc_log;
+		for "_i" from 0 to _iterations do {
 			_choice = selectRandom _arrayA;
 			//We did it!
 			if !(_choice in _arrayB) exitWith {
@@ -67,6 +104,9 @@ private _fnc_pickRandomFromANotInB = {
 
 	if (_foundValid) then {
 		_choice;
+	} else {
+		//We failed, just... return something.
+		selectRandom _arrayA;
 	};
 };
 
@@ -75,7 +115,7 @@ private _fnc_pickRandomFromANotInB = {
 for "_i" from 0 to floor random _crateWepTypeMax do {
 	private _selection = selectRandomWeighted _weaponlootWeighting;
 	[3, format ["Selected: %1", _selection],"fn_NATOCrate"] call A3A_fnc_log;
-	private _loot =	 [_selection, unlockedWeapons] call _fnc_pickRandomFromANotInB;;
+	private _loot =	 [_selection, unlockedWeapons] call _fnc_pickRandomFromAProbablyNotInB;;
 	[3, format ["%1 weapons chosen", _i],"fn_NATOCrate"] call A3A_fnc_log;
 	[3, format ["Final weapon: %1", _loot],"fn_NATOCrate"] call A3A_fnc_log;
 

@@ -124,6 +124,7 @@ for "_i" from 0 to floor random _crateWepTypeMax do {
 	}
 	else {
 		_amount = floor random [0, crateWepNumMax/2, crateWepNumMax];
+		_amount = floor random [1, crateWepNumMax/2, crateWepNumMax];
 		_crate addWeaponWithAttachmentsCargoGlobal [[ _loot, "", "", "", [], [], ""], _amount];
 		for "_i" from 0 to _amount do {
 			_magazines = getArray (configFile / "CfgWeapons" / _loot / "magazines");

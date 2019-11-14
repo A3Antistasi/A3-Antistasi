@@ -50,12 +50,12 @@ if (hasRHS) then {
 /**
 Probabilistic function that checks that A is probably not in B.
   For a given array A, and another array B, this function selects an item from A that's not in B, with a probability that depends on how much of A is in B.
-  This is purely a performance optimisation. 
-  
+  This is purely a performance optimisation.
+
   X Axis - Attempt/Iteration number
   Y Axis - % of items from Array 1 in array 2
   Value - Probability of successfully returning a value from A not in B.
-  
+
 	       1     2       3        4         5          6           7            8             9             10
 		-----------------------------------------------------------------------------------------------------------------
 	0.9 | 0.1    0.19    0.271    0.3439    0.40951    0.468559    0.5217031    0.56953279    0.612579511    0.6513215599
@@ -68,25 +68,25 @@ Probabilistic function that checks that A is probably not in B.
 	0.2 | 0.8    0.96    0.992    0.9984    0.99968    0.999936    0.9999872    0.99999744    0.999999488    0.9999998976
 	0.1 | 0.9    0.99    0.999    0.9999    0.99999    0.999999    0.9999999    0.99999999    0.999999999    0.9999999999
     0.0 |  1      1        1         1         1           1            1            1             1               1
-	
+
 	Best case - two arrays of 400 elements, we see a 20x speedup.
 	Worst case- two arrays of 1 element, 3x slowdown.
 	100 array case - 10x speedup.
-	
+
 	Yes, this is over-engineered.
 **/
-  
+
 private _fnc_pickRandomFromAProbablyNotInB = {
 	params ["_arrayA", "_arrayB"];
-	
+
 	//Only run if there's more than 100 items in the array.
 	if (count _arrayA min count _arrayB < 100) exitWith {
 		selectRandom (_arrayA - _arrayB);
 	};
-	
+
 	private _percentageLoaded = count _arrayA / count _arrayB;
 	private _iterations = floor (10 * _percentageLoaded);
-	
+
 	private _choice = selectRandom _arrayA;
 	[3, format ["Function check for: %1", _choice],"fn_NATOCrate"] call A3A_fnc_log;
 	private _foundValid = true;
@@ -123,7 +123,6 @@ for "_i" from 0 to floor random _crateWepTypeMax do {
 		[3, "No Weapons Left in Loot List Or Pick Random Failed","fn_NATOCrate"] call A3A_fnc_log;
 	}
 	else {
-		_amount = floor random [0, crateWepNumMax/2, crateWepNumMax];
 		_amount = floor random [1, crateWepNumMax/2, crateWepNumMax];
 		_crate addWeaponWithAttachmentsCargoGlobal [[ _loot, "", "", "", [], [], ""], _amount];
 		for "_i" from 0 to _amount do {

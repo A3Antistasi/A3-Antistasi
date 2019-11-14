@@ -79,20 +79,20 @@ Probabilistic function that checks that A is probably not in B.
 private _fnc_pickRandomFromAProbablyNotInB = {
 	params ["_arrayA", "_arrayB"];
 	
-	//Only run t
+	//Only run if there's more than 100 items in the array.
 	if (count _arrayA min count _arrayB < 100) exitWith {
 		selectRandom (_arrayA - _arrayB);
-	}
+	};
 	
 	private _percentageLoaded = count _arrayA / count _arrayB;
 	private _iterations = floor (10 * _percentageLoaded);
 	
 	private _choice = selectRandom _arrayA;
-	//[3, format ["Function check for: %1", _choice],"fn_NATOCrate"] call A3A_fnc_log;
+	[3, format ["Function check for: %1", _choice],"fn_NATOCrate"] call A3A_fnc_log;
 	private _foundValid = true;
 	if (_choice in _arrayB) then {
 		_foundValid = false;
-		//[3, format ["Item already unlocked, rolling again."],"fn_NATOCrate"] call A3A_fnc_log;
+		[3, format ["Item already unlocked, rolling again."],"fn_NATOCrate"] call A3A_fnc_log;
 		for "_i" from 0 to _iterations do {
 			_choice = selectRandom _arrayA;
 			//We did it!

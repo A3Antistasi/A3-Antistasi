@@ -31,21 +31,28 @@ if (typeOf _crate == vehNATOAmmoTruck) then {
 	_crateDeviceTypeMax = _crateDeviceTypeMax * 2;
 };
 
-private _weaponlootWeighting = [
-	allRifles, 3,
-	allHandguns, 1.2,
-	allMachineGuns, 2,
-	allShotguns, 0,
-	allSMGs, 2,
-	allSniperRifles, 0.9,
-	allMissileLaunchers, 0.5,
-	allRocketLaunchers, 0.5
+//Format [allWeapons, unlockedWeapons, Weighting]. 
+//We need to know the corresponding unlockedWeapons array, so we can check if they're all unlocked.
+private _weaponLootInfo = [
+	[allRifles, unlockedRifles, 3],
+	[allHandguns, unlockedHandguns, 1.2],
+	[allMachineGuns, unlockedMachineGuns, 2],
+	[allShotguns, unlockedShotguns, 1],
+	[allSMGs, unlockedSMGs, 2],
+	[allSniperRifles, unlockedSniperRifles, 0.9],
+	[allRocketLaunchers, unlockedRocketLaunchers, 0.5],
+	[allMissileLaunchers, unlockedMissileLaunchers, [0.5, 1.8] select hasRHS] //Increase weighting for RHS.
 ];
 
-//This overrides the shotgun setting.
-if (hasRHS) then {
-	_weaponlootWeighting set [7, 1.8];
-};
+private _weaponLootWeighting = [];
+{
+	_x params ["_allX", "_unlockedX", "_weighting"];
+	//If the array contains weapons, and we haven't unlocked everything, add it to the pool to be selected.
+	if (count _allX > 0 && {(count _unlockedX / count _allX) < 1}) then {
+		_weaponLootWeighting pushBack _allX;
+		_weaponLootWeighting pushBack _weighting;
+	};
+} forEach _weaponLootInfo;
 
 /**
 Probabilistic function that checks that A is probably not in B.
@@ -85,6 +92,7 @@ private _fnc_pickRandomFromAProbablyNotInB = {
 	};
 
 	private _percentageLoaded = count _arrayA / count _arrayB;
+	//Rough heuristic for how many iterations we need to run to get a good chance of success.
 	private _iterations = floor (10 * _percentageLoaded);
 
 	private _choice = selectRandom _arrayA;
@@ -113,7 +121,7 @@ private _fnc_pickRandomFromAProbablyNotInB = {
 //Weapons Loot
 [3, "Generating Weapons", "fn_NATOCrate"] call A3A_fnc_log;
 for "_i" from 0 to floor random _crateWepTypeMax do {
-	private _selection = selectRandomWeighted _weaponlootWeighting;
+	private _selection = selectRandomWeighted _weaponLootWeighting;
 	[3, format ["Selected: %1", _selection],"fn_NATOCrate"] call A3A_fnc_log;
 	private _loot =	 [_selection, unlockedWeapons] call _fnc_pickRandomFromAProbablyNotInB;;
 	[3, format ["%1 weapons chosen", _i],"fn_NATOCrate"] call A3A_fnc_log;

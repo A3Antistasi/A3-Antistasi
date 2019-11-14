@@ -123,7 +123,7 @@ for "_i" from 0 to floor random _crateWepTypeMax do {
 		[3, "No Weapons Left in Loot List Or Pick Random Failed","fn_NATOCrate"] call A3A_fnc_log;
 	}
 	else {
-		_amount = floor random crateWepNumMax;
+		_amount = floor random [0, crateWepNumMax/2, crateWepNumMax];
 		_crate addWeaponWithAttachmentsCargoGlobal [[ _loot, "", "", "", [], [], ""], _amount];
 		for "_i" from 0 to _amount do {
 			_magazines = getArray (configFile / "CfgWeapons" / _loot / "magazines");

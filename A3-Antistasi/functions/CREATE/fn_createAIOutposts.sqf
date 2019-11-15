@@ -150,19 +150,28 @@ if ((_markerX in seaports) and !hasIFA) then
 	if ([_typeVehX] call A3A_fnc_vehAvailable) then
 	{
 		_mrkMar = seaSpawn select {getMarkerPos _x inArea _markerX};
-		_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_typeVehX];
-		_vehicle=[_pos, 0,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
-		_veh = _vehicle select 0;
-		[_veh] call A3A_fnc_AIVEHinit;
-		_vehCrew = _vehicle select 1;
-		{[_x,_markerX] call A3A_fnc_NATOinit} forEach _vehCrew;
-		_groupVeh = _vehicle select 2;
-		_soldiers = _soldiers + _vehCrew;
-		_groups pushBack _groupVeh;
-		_vehiclesX pushBack _veh;
-		sleep 1;
+		if(count _mrkMar > 0) then
+		{
+			_pos = (getMarkerPos (_mrkMar select 0)) findEmptyPosition [0,20,_typeVehX];
+			_vehicle=[_pos, 0,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
+			_veh = _vehicle select 0;
+			[_veh] call A3A_fnc_AIVEHinit;
+			_vehCrew = _vehicle select 1;
+			{[_x,_markerX] call A3A_fnc_NATOinit} forEach _vehCrew;
+			_groupVeh = _vehicle select 2;
+			_soldiers = _soldiers + _vehCrew;
+			_groups pushBack _groupVeh;
+			_vehiclesX pushBack _veh;
+			sleep 1;
+		}
+		else
+		{
+			diag_log format ["createAIOutposts: Could not find seaSpawn marker on %1!", _markerX];
+		};
 	};
-	{_boxX addItemCargoGlobal [_x,2]} forEach diveGear;
+	{
+		_boxX addItemCargoGlobal [_x,2]
+	} forEach diveGear;
 }
 else
 {

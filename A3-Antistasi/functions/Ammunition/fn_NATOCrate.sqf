@@ -202,7 +202,7 @@ for "_i" from 0 to floor random _crateAmmoTypeMax do {
 		if (debug) then {diag_log format ["%1: [Antistasi] | INFO | NATOCrate | No Ammo Left in Loot List",servertime]};
 	}
 	else {
-		_amount = floor random crateAmmoNumMax;
+		_amount = crateAmmoNumMax call _fnc_pickAmount;
 		_crate addMagazineCargoGlobal [_loot,_amount];
 		if (debug) then {diag_log format ["%1: [Antistasi] | INFO | NATOCrate | Spawning %2 of %3",servertime,_amount,_loot]};
 	};
@@ -228,7 +228,7 @@ for "_i" from 0 to floor random _crateAttachmentTypeMax do {
 		if (debug) then {diag_log format ["%1: [Antistasi] | INFO | NATOCrate | No Attachment Left in Loot List",servertime]};
 	}
 	else {
-		_amount = floor random crateAttachmentNumMax;
+		_amount = crateAttachmentNumMax  call _fnc_pickAmount;
 		_crate addItemCargoGlobal [_loot,_amount];
 		if (debug) then {diag_log format ["%1: [Antistasi] | INFO | NATOCrate | Spawning %2 of %3",servertime,_amount,_loot]};
 	};

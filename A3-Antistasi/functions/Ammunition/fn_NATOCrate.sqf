@@ -50,7 +50,7 @@ private _weaponLootWeighting = [];
 	_x params ["_allX", "_unlockedX", "_weighting"];
 	//If the array contains weapons, and we haven't unlocked everything, add it to the pool to be selected.
 	if (count _allX > 0 && {(count _unlockedX / count _allX) < 1}) then {
-		_weaponLootWeighting pushBack _allX;
+		_weaponLootWeighting pushBack [_allX, _unlockedX];
 		_weaponLootWeighting pushBack _weighting;
 	};
 } forEach _weaponLootInfo;
@@ -92,7 +92,10 @@ private _fnc_pickRandomFromAProbablyNotInB = {
 		selectRandom (_arrayA - _arrayB);
 	};
 
-	private _percentageLoaded = count _arrayA / count _arrayB;
+	//Calculate what % of arrayB is likely in arrayA. 
+	//Let's never go over 100% loaded. It's theoretically possible if arrayB ever is somehow larger than arrayA/
+	//There's not a lot of value in running more than 10 iterations on a 90%+ loading anyway.
+	private _percentageLoaded = (count _arrayB / count _arrayA) min 1;
 	//Rough heuristic for how many iterations we need to run to get a good chance of success.
 	private _iterations = floor (10 * _percentageLoaded);
 
@@ -132,8 +135,8 @@ else
 	{
 		private _category = selectRandomWeighted _weaponLootWeighting;
 		[3, format ["Selected Weapon Category: %1", _category],"fn_NATOCrate"] call A3A_fnc_log;
-		//Return our weapon choice.
-		[_category, unlockedWeapons] call _fnc_pickRandomFromAProbablyNotInB;
+		//Category is in format [allX, unlockedX];
+		[_category select 0, _category select 1] call _fnc_pickRandomFromAProbablyNotInB;
 	}
 };
 

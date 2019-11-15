@@ -336,16 +336,16 @@ class Params
      class crateAttachmentTypeMax
      {
           title = "Maximum Attachment Types in Crates";
-          values[] = {0,2,4,9};
-          texts[] = {"1","3","5","10"};
-          default = 4;
+          values[] = {0,2,4,6,9,12,15,19};
+          texts[] = {"1","3","5","7","10","13","16","20"};
+          default = 6;
      };
      class crateAttachmentNumMax
      {
           title = "Maximum Attachment Quantity in Crates";
           values[] = {0,1,3,5,7,10,15,20,30};
           texts[] = {"None","1","3","5","7","10","15","20","30"};
-          default = 10;
+          default = 15;
      };
      class Spacer5
      {

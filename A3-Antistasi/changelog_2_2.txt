@@ -43,6 +43,11 @@ CHANGELOG 2.2
   - Added a system to simulate convoys of all types. Convoys 12 kilometer away will no longer kill your server performance. Even if there are many.
   - Created a template naming convention and precursory files. New names for better understanding. But also alot more files.
   - Added Nav Grids. They are large and we are sorry about this. But they have a really important job.
+- Added localisation support for Map briefing screen.
+- Set the NATOCrates to use a weighted distribution method, rather than
+random.
+- Created a new Parameter for truly random Crates, if wanted. Look for the
+[Experimental] option in parameter selection.
 
 ================ Bugfixes ========================
 

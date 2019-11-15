@@ -294,16 +294,16 @@ class Params
      class crateAmmoTypeMax
      {
           title = "Maximum Ammo Types in Crates";
-          values[] = {0,2,4,9};
-          texts[] = {"1","3","5","10"};
-          default = 4;
+          values[] = {0,2,4,6,9,14,19};
+          texts[] = {"1","3","5","7","10","15","20"};
+          default = 6;
      };
      class crateAmmoNumMax
      {
           title = "Maximum Ammo Quantity in Crates";
-          values[] = {0,1,3,5,10,15};
-          texts[] = {"None","1","3","5","10","15"};
-          default = 10;
+          values[] = {0,1,3,5,10,15,20,25,30};
+          texts[] = {"None","1","3","5","10","15","20","25","30"};
+          default = 20;
      };
      class Spacer3
      {

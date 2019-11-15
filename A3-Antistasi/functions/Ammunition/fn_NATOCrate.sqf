@@ -41,7 +41,7 @@ private _weaponLootInfo = [
 	[allSMGs, unlockedSMGs, 2],
 	[allSniperRifles, unlockedSniperRifles, 0.9],
 	[allRocketLaunchers, unlockedRocketLaunchers, 0.5],
-	[allMissileLaunchers, unlockedMissileLaunchers, [0.5, 1.8] select hasRHS] //Increase weighting for RHS.
+	[allMissileLaunchers, unlockedMissileLaunchers, 0.5] //Increase weighting for RHS.
 ];
 
 //Build the weighting array, as used by selectRandomWeighted

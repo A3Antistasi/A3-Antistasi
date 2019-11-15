@@ -44,6 +44,7 @@ private _weaponLootInfo = [
 	[allMissileLaunchers, unlockedMissileLaunchers, [0.5, 1.8] select hasRHS] //Increase weighting for RHS.
 ];
 
+//Build the weighting array, as used by selectRandomWeighted
 private _weaponLootWeighting = [];
 {
 	_x params ["_allX", "_unlockedX", "_weighting"];
@@ -118,20 +119,52 @@ private _fnc_pickRandomFromAProbablyNotInB = {
 	};
 };
 
+//Pick a weapon for the crate. Pick carefully, unless in CHAOS MODE, in which case, we just pick totally at random.
+private _fnc_pickWeapon = if (bobChaosCrates) then 
+{
+	{
+		private _category = (selectRandom _weaponLootInfo) select 0;
+		selectRandom _category;
+	}
+} 
+else 
+{
+	{
+		private _category = selectRandomWeighted _weaponLootWeighting;
+		[3, format ["Selected Weapon Category: %1", _category],"fn_NATOCrate"] call A3A_fnc_log;
+		//Return our weapon choice.
+		[_category, unlockedWeapons] call _fnc_pickRandomFromAProbablyNotInB;
+	}
+};
+
+//Pick the amount of X to spawn. Use gaussian distribution, unless we're in CHAOS MODE.
+private _fnc_pickAmount = if (bobChaosCrates) then 
+{
+	{
+		params ["_max"];
+		floor random _max;
+	}
+} 
+else 
+{
+	{
+		params ["_max"];
+		floor random [1, floor (_max/2), _max];
+	}
+};
+
 //Weapons Loot
 [3, "Generating Weapons", "fn_NATOCrate"] call A3A_fnc_log;
 for "_i" from 0 to floor random _crateWepTypeMax do {
-	private _selection = selectRandomWeighted _weaponLootWeighting;
-	[3, format ["Selected: %1", _selection],"fn_NATOCrate"] call A3A_fnc_log;
-	private _loot =	 [_selection, unlockedWeapons] call _fnc_pickRandomFromAProbablyNotInB;;
-	[3, format ["%1 weapons chosen", _i],"fn_NATOCrate"] call A3A_fnc_log;
-	[3, format ["Final weapon: %1", _loot],"fn_NATOCrate"] call A3A_fnc_log;
+	private _loot = call _fnc_pickWeapon;
+	[3, format ["Adding weapon: %1", _loot],"fn_NATOCrate"] call A3A_fnc_log;
 
 	if (isNil "_loot") then {
 		[3, "No Weapons Left in Loot List Or Pick Random Failed","fn_NATOCrate"] call A3A_fnc_log;
 	}
-	else {
-		_amount = floor random [1, crateWepNumMax/2, crateWepNumMax];
+	else 
+	{
+		_amount = crateWepNumMax call _fnc_pickAmount;
 		_crate addWeaponWithAttachmentsCargoGlobal [[ _loot, "", "", "", [], [], ""], _amount];
 		for "_i" from 0 to _amount do {
 			_magazines = getArray (configFile / "CfgWeapons" / _loot / "magazines");

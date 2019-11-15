@@ -242,6 +242,13 @@ class Params
           texts[] = {""};
           default = "";
      };
+	 class truelyRandomCrates
+	 {
+		  title = "[Experimental] Truely Random Crates: Remove all balance checks from Crates";
+		  values[] = {0, 1};
+		  texts[] = {"False", "True"};
+		  default = 0;
+	 };
      class crateWepTypeMax
      {
           title = "Maximum Weapon Types in Crates";

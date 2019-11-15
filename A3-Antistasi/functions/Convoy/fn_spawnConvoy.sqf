@@ -181,7 +181,7 @@ deleteMarker _convoyMarker;
 
 if (_convoyDead) exitWith
 {
-  server setVariable [str _convoyID, nil, true];
+  server setVariable [format ["Con%1", _convoyID], nil, true];
 	diag_log format ["%1 Convoy [%2]: All units dead. Convoy terminated.", _convoyType, _convoyID];
 	{
 		_x deleteGroupWhenEmpty true;

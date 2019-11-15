@@ -47,7 +47,7 @@ _nearestMarker = if(_isMarker) then {_destination} else {[markersX,_destination]
 if ([_nearestMarker,false] call A3A_fnc_fogCheck < 0.3) exitWith
 {
   diag_log format ["CreateAIAction[%1]: AI Action on %2 cancelled because of heavy fog", _convoyID, _targetString];
-  server setVariable [str _convoyID, nil, true];
+  server setVariable [format ["Con%1", _convoyID], nil, true];
 };
 
 _abort = false;
@@ -75,7 +75,7 @@ else
 if(_abort) exitWith
 {
   diag_log format ["CreateAIAction[%1]: Aborting creation of AI action because, there is already a action close by!", _convoyID];
-  server setVariable [str _convoyID, nil, true];
+  server setVariable [format ["Con%1", _convoyID], nil, true];
 };
 
 //TODO rebalance that somehow
@@ -603,7 +603,7 @@ if(_type == "convoy") then
 
 if(_abort) exitWith
 {
-  server setVariable [str _convoyID, nil, true];
+  server setVariable [format ["Con%1", _convoyID], nil, true];
   false
 };
 

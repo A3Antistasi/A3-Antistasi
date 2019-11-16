@@ -7,7 +7,8 @@ if (isNil "garageIsOpen") then {
 
 garage_mode = _this select 0;
 
-if (garage_mode == GARAGE_FACTION and (not([player] call A3A_fnc_isMember))) exitWith {hint "You cannot access the Garage as you are guest in this server"};
+if (garage_mode == GARAGE_FACTION && (not([player] call A3A_fnc_isMember))) exitWith {hint "You cannot access the Garage as you are guest in this server"};
+if (garage_mode == GARAGE_FACTION && !allowMembersFactionGarageAccess && player != theBoss) exitWith {hint "Member access to the faction garage is disabled. You must be the commander.";};
 if (player != player getVariable "owner") exitWith {hint "You cannot access the Garage while you are controlling AI"};
 if ([player,300] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot manage the Garage with enemies nearby"};
 

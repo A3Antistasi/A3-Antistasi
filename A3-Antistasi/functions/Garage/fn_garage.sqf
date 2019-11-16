@@ -68,5 +68,14 @@ if (isNil "garage_keyDownHandler") then {
 };
 private _extraMessage = "Arrow Up-Down to Switch Vehicles<br/>";
 
+//Only allow access to the faction garage if someone else isn't already accessing it. 
+//Try to find the player to make sure they're still online - aim to avoid a situation where players are locked out of the garage.
+if (garage_mode == GARAGE_FACTION && !isNil "garageLocked" && {allPlayers findIf { getPlayerUID _x == (garageLocked select 1)} > -1}) exitWith {
+	hint format ["%1 is accessing the garage right now. Please try again later. If this is broken, ask the player to log out.", garageLocked select 0];
+};
+//Define this last-thing, as we need to vehPlacement cleanup code to unset it.
+garageLocked = [name player, getPlayerUID player];
+publicVariable "garageLocked";
+
 garageIsOpen = true;
 [_initialType, "GARAGE", _extraMessage] call A3A_fnc_vehPlacementBegin;

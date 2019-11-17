@@ -130,11 +130,7 @@ while {(_waves > 0)} do
 				{
 				if (_sideX == Occupants) then {_vehPool = vehNATOTrucks} else {_vehPool = vehCSATTrucks};
 				};
-			_typeVehX = selectRandom _vehPool;
-			if ((_countX == _nVeh) and (_typeVehX in vehTanks)) then
-				{
-				_typeVehX = if (_sideX == Occupants) then {selectRandom vehNATOTrucks} else {selectRandom vehCSATTrucks};
-				};
+			_typeVehX = [selectRandom _vehPool, selectRandom vehNATOTrucks] select (random 1 > 0.75);
 			_proceed = true;
 			if ((_typeVehX in (vehNATOTrucks+vehCSATTrucks)) and _spawnedSquad) then
 				{

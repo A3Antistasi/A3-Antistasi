@@ -99,7 +99,6 @@ while {(_waves > 0)} do
 		};
 	if !(_pos isEqualTo []) then
 		{
-		if ([_mrkDestination,true] call A3A_fnc_fogCheck < 0.3) then {_nveh = round (1.5*_nveh)};
 		_vehPool = if (_sideX == Occupants) then {vehNATOAttack} else {vehCSATAttack};
 		_vehPool = _vehPool select {[_x] call A3A_fnc_vehAvailable};
 		if (_isSDK) then

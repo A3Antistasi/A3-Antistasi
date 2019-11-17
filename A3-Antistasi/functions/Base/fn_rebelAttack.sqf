@@ -321,10 +321,10 @@ if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 
 	_waves = 
 		1 
-		+ ([0,1] select (_destinationX in airportsX)) 
-		+ ((floor (count allPlayers / 20)) min 2)
-		+ floor (random (floor (tierWar / 5)) + 1)
-		+ ([0,1] select _isInvaderAttack);
+		+ ([0, 1] select (_destinationX in airportsX)) 
+		+ (count allPlayers / 40)
+		+ (tierWar / 10)
+		+ ([0, 0.5] select _isInvaderAttack);
 		
 	if (not(_destinationX in citiesX)) then
 		{

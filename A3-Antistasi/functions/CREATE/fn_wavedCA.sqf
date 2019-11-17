@@ -688,20 +688,6 @@ while {(_waves > 0)} do
 				killZones setVariable [_mrkOrigin,_killZones,true];
 				};
 
-			if !(_posOriginLand isEqualTo []) then
-				{
-				if ({[_x] call A3A_fnc_vehAvailable} count vehNATOAPC == 0) then {_waves = _waves -1};
-				if !([vehNATOTank] call A3A_fnc_vehAvailable) then {_waves = _waves - 1};
-				};
-			if ({[_x] call A3A_fnc_vehAvailable} count vehNATOAttackHelis == 0) then
-				{
-				if (_posOriginLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
-				};
-			if !([vehNATOPlane] call A3A_fnc_vehAvailable) then
-				{
-				if (_posOriginLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
-				};
-
 			if ((_waves <= 0) or (!(sidesX getVariable [_mrkOrigin,sideUnknown] == Occupants))) then
 				{
 				{_x doMove _posOrigin} forEach _soldiersTotal;
@@ -733,20 +719,6 @@ while {(_waves > 0)} do
 				_killZones = killZones getVariable [_mrkOrigin,[]];
 				_killZones append [_mrkDestination,_mrkDestination,_mrkDestination];
 				killZones setVariable [_mrkOrigin,_killZones,true];
-				};
-
-			if !(_posOriginLand isEqualTo []) then
-				{
-				if ({[_x] call A3A_fnc_vehAvailable} count vehCSATAPC == 0) then {_waves = _waves -1};
-				if !([vehCSATTank] call A3A_fnc_vehAvailable) then {_waves = _waves - 1};
-				};
-			if ({[_x] call A3A_fnc_vehAvailable} count vehCSATAttackHelis == 0) then
-				{
-				if (_posOriginLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
-				};
-			if !([vehCSATPlane] call A3A_fnc_vehAvailable) then
-				{
-				if (_posOriginLand isEqualTo []) then {_waves = _waves -2} else {_waves = _waves -1};
 				};
 
 			if ((_waves <= 0) or (sidesX getVariable [_mrkOrigin,sideUnknown] != Invaders)) then

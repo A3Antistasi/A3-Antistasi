@@ -460,16 +460,27 @@ while {(_waves > 0)} do
 		_ang = _runwayTakeoff select 1;
 	};
 	_spawnedSquad = false;
+	
+	private _transportAircraft = 
+		if (_sideX == Occupants) then {
+			vehNATOTransportHelis + vehNATOTransportPlanes;
+		} else {
+			vehCSATTransportHelis + vehCSATTransportPlanes;
+		};
+
 	while {(_countX <= _nVeh) and (count _soldiers <= 80)} do
 		{
 		_proceed = true;
-		if (_countX == _nveh) then {
-			if (_sideX == Occupants) then {
-				_vehPool = _vehPool select {_x in (vehNATOTransportHelis + vehNATOTransportPlanes)}
-			} else {
-				_vehPool = _vehPool select {_x in (vehCSATTransportHelis + vehCSATTransportPlanes)}
-			}
+		
+		private _availableTransportAircraft = _transportAircraft select {[_x] call A3A_fnc_vehAvailable};
+		
+		if (_vehPool isEqualTo []) then {
+			_vehPool = _availableTransportAircraft;
 		};
+		
+		//Give us a rough 20% baseline of transport aircraft, with a bit of randomness for added flair.
+		_typeVehX = [selectRandom _vehPool, selectRandom _availableTransportAircraft] select (random 1 < 0.20);
+		
 		_typeVehX = if !(_vehPool isEqualTo []) then {selectRandom _vehPool} else {if (_sideX == Occupants) then {selectRandom ([vehNATOPatrolHeli] + vehNATOTransportPlanes)} else {selectRandom ([vehCSATPatrolHeli] + vehCSATTransportPlanes)}};
 		if ((_typeVehX in vehTransportAir) and !(_spawnedSquad)) then
 			{

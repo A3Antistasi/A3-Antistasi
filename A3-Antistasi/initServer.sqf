@@ -37,6 +37,8 @@ napalmEnabled = if ("napalmEnabled" call BIS_fnc_getParamValue == 1) then {true}
 teamSwitchDelay = "teamSwitchDelay" call BIS_fnc_getParamValue;
 playerMarkersEnabled = ("pMarkers" call BIS_fnc_getParamValue == 1); publicVariable "playerMarkersEnabled";
 logLevel = "logLevel" call BIS_fnc_getParamValue; publicVariable "logLevel";
+minPlayersRequiredforPVP = "minPlayersRequiredforPVP" call BIS_fnc_getParamValue;
+
 [] call A3A_fnc_crateLootParams;
 
 //Load Campaign ID if resuming game

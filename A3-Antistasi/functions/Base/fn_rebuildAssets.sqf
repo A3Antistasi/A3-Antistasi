@@ -70,7 +70,7 @@ else
 	_antenna = createVehicle ["Land_Communication_F", _antennaDead, [], 0, "NONE"];
 	antennas pushBack _antenna; publicVariable "antennas";
 	{if ([antennas,_x] call BIS_fnc_nearestPosition == _antenna) then {[_x,true] spawn A3A_fnc_blackout}} forEach citiesX;
-	_mrkFinal = createMarker [format ["Ant%1", count antennas], _antennaDead];
+	_mrkFinal = createMarker [format ["Ant%1", mapGridPosition _antennaDead], _antennaDead];
 	_mrkFinal setMarkerShape "ICON";
 	_mrkFinal setMarkerType "loc_Transmitter";
 	_mrkFinal setMarkerColor "ColorBlack";

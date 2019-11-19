@@ -193,7 +193,7 @@ switch (worldName) do {
 		banks = nearestObjects [[worldSize /2, worldSize/2], ["Land_Offices_01_V1_F"], worldSize];
 
 		antennas apply {
-			_mrkFinal = createMarker [format ["Ant%1", _x], position _x];
+			_mrkFinal = createMarker [format ["Ant%1", mapGridPosition _x], position _x];
 			_mrkFinal setMarkerShape "ICON";
 			_mrkFinal setMarkerType "loc_Transmitter";
 			_mrkFinal setMarkerColor "ColorBlack";
@@ -238,7 +238,7 @@ if (count _posAntennas > 0) then {
 				_antenna setdamage 1;
 			} else {
 				antennas pushBack _antenna;
-				_mrkFinal = createMarker [format ["Ant%1", _i], _posAntennas select _i];
+				_mrkFinal = createMarker [format ["Ant%1", mapGridPosition _antenna], _posAntennas select _i];
 				_mrkFinal setMarkerShape "ICON";
 				_mrkFinal setMarkerType "loc_Transmitter";
 				_mrkFinal setMarkerColor "ColorBlack";

@@ -77,7 +77,7 @@ if (dateToNumber date > _dateLimitNum) then
 	[_antenna] call A3A_fnc_repairRuinedBuilding;
 	antennas pushBack _antenna; publicVariable "antennas";
 	{if ([antennas,_x] call BIS_fnc_nearestPosition == _antenna) then {[_x,true] spawn A3A_fnc_blackout}} forEach citiesX;
-	_mrkFinal = createMarker [format ["Ant%1", count antennas], _positionX];
+	_mrkFinal = createMarker [format ["Ant%1", mapGridPosition _positionX], _positionX];
 	_mrkFinal setMarkerShape "ICON";
 	_mrkFinal setMarkerType "loc_Transmitter";
 	_mrkFinal setMarkerColor "ColorBlack";

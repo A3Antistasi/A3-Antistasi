@@ -359,26 +359,14 @@ if (isMultiplayer) then {
 	};
 };
 
-waitUntil {scriptdone _introshot};
+_introshot spawn { waitUntil { scriptDone _this };};
 if (_isJip) then {
+	[3,format ["JIP LEVEL: %1",_isJip],_filename] call A3A_fnc_log;
 	[] spawn A3A_fnc_modBlacklist;
 	player setVariable ["punish",0,true];
 	waitUntil {!isNil "posHQ"};
 	player setPos posHQ;
 	[true] spawn A3A_fnc_reinitY;
-
-	//Adding Boss check...
-	private _BossAssigned = false;
-	if (isnil "theBoss" || {isNull theBoss}) then {
-		_BossAssigned = false;
-		[3, format ["No Boss found, Checking for next available boss."],_filename] call A3A_fnc_log;
-		[] remoteExec ["A3A_fnc_assigntheBoss",2];
-	}
-	else
-	{
-		[3, format ["Player %1 is the boss", theBoss],_filename] call A3A_fnc_log;
-		_BossAssigned = True;
-	};
 
 	if (not([player] call A3A_fnc_isMember)) then {
 		if ((serverCommandAvailable "#logout") or (isServer)) then {
@@ -393,11 +381,10 @@ if (_isJip) then {
 	}
 	else {
 		hint format ["Welcome back %1", name player];
-		if (!(_BossAssigned) && {{([_x] call A3A_fnc_isMember) and (side (group _x) == teamPlayer)} count playableUnits == 1}) then {
-			[3, format ["No boss detected, calling theBossInit"],_filename] call A3A_fnc_log;
-			[player] call A3A_fnc_theBossInit;
-		};
 	};
+
+	//Adding Boss check... Goes after the Member check so they're definitely in the list of eligible.
+	[] spawn A3A_fnc_theBossloop;
 
 	waitUntil {!(isNil "missionsX")};
 	if (count missionsX > 0) then {
@@ -432,6 +419,7 @@ if (_isJip) then {
 	player setPos (getMarkerPos respawnTeamPlayer);
 }
 else {
+	[3,format ["NOT JIP",_isJip],_filename] call A3A_fnc_log;
 	if (isNil "placementDone") then {
 		waitUntil {!isNil "theBoss"};
 		if (player == theBoss) then {

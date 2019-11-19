@@ -1,5 +1,5 @@
 params [["_suggestedLeader",objNull]];
-private _filename = "fn_assigntheBoss";
+private _filename = "fn_promotePlayer";
 [3, format ["Working on player ranks"],_filename] call A3A_fnc_log;
 private ["_puntMax","_textX","_multiplier","_newRank","_selectable","_disconnected","_owner","_pointsX","_dataX"];
 _puntMax = 0;

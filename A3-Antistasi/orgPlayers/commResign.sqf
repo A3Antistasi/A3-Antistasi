@@ -8,10 +8,10 @@ if (_playerX getVariable ["eligible",true]) then
 		private _possiblePlayer = cursorTarget;
 		if(!isNull _possiblePlayer && isPlayer _possiblePlayer) then {
 			hint format ["You resign of being Commander. It should be passed to %1 if they are eligible.", name _possiblePlayer];
-			[cursorTarget] remoteExec ["A3A_fnc_assigntheBoss",2];
+			[cursorTarget] remoteExec ["A3A_fnc_promotePlayer",2];
 		} else {
 			hint "You resign of being Commander. Other will take the command if there is someone suitable for it.";
-			[] remoteExec ["A3A_fnc_assigntheBoss",2];
+			[] remoteExec ["A3A_fnc_promotePlayer",2];
 		};
 		sleep 3;
 	}

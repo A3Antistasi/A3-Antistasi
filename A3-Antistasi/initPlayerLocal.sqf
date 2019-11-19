@@ -124,51 +124,9 @@ else	{
 	if (!hasACEMedical) then {[player] spawn A3A_fnc_initRevive;};
 };
 
-private _friendlyPlayers = ({(side group _x == teamPlayer)} count playableUnits);
-private _enemyPlayers = ({(side group _x != teamPlayer)} count playableUnits);
-
 if (player getVariable ["pvp",false]) exitWith {
 	lastVehicleSpawned = objNull;
-	pvpEnabled = if ("allowPvP" call BIS_fnc_getParamValue == 1) then {true} else {false};
-
-	// Player checks to prevent them logging into PvP for whatever reason.
-	switch (true) do {
-		case (!_isJip): {
-			["noJip",false,1,false,false] call BIS_fnc_endMission;
-			[2,"Player kicked as they are not Jipping",_filename] call A3A_fnc_log;
-		};
-
-		case (!pvpEnabled): {
-			["noPvP",false,1,false,false] call BIS_fnc_endMission;
-			[2,"Player kicked as PvP slots are disabled",_filename] call A3A_fnc_log;
-		};
-
-		case (!([player] call A3A_fnc_isMember)): {
-			["pvpMem",false,1,false,false] call BIS_fnc_endMission;
-			[2,"PvP player kicked because they are not a member.",_filename] call A3A_fnc_log;
-		};
-
-		case (_enemyPlayers > _friendlyPlayers): {
-			["pvpCount",false,1,false,false] call BIS_fnc_endMission;
-			[2,"PvP player kicked because there are wayyyyyy too many PvP players..",_filename] call A3A_fnc_log;
-		};
-
-		case (_friendlyPlayers < minPlayersRequiredforPVP): {
-			["pvpCount",false,1,false,false] call BIS_fnc_endMission;
-			[2,"PvP player kicked as there are not enough normal players.",_filename] call A3A_fnc_log;
-		};
-
-		case (isnil "theBoss" || {isNull theBoss}): {
-			["BossMiss",false,1,false,false] call BIS_fnc_endMission;
-			[2,"PvP player kicked as there is no Rebel Commander.",_filename] call A3A_fnc_log;
-		};
-
-		default {
-			[2,"PvP player logged in, doing server side checks if the player has been rebel recently.",_filename] call A3A_fnc_log;
-			[player] remoteExec ["A3A_fnc_playerHasBeenPvPCheck",2];
-		};
-	};
-
+	[player] call A3A_fnc_pvpCheck;
 	[player] call A3A_fnc_dress;
 	if (hasACE) then {[] call A3A_fnc_ACEpvpReDress};
 	respawnTeamPlayer setMarkerAlphaLocal 0;

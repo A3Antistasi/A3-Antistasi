@@ -1,4 +1,6 @@
 params [["_suggestedLeader",objNull]];
+private _filename = "fn_assigntheBoss";
+[3, format ["Working on player ranks"],_filename] call A3A_fnc_log;
 private ["_puntMax","_textX","_multiplier","_newRank","_selectable","_disconnected","_owner","_pointsX","_dataX"];
 _puntMax = 0;
 _textX = "";
@@ -13,6 +15,7 @@ _eligibles = [];
 _LeaderX = objNull;
 
 {
+	[3, format ["Dealing with player: %1", _x],_filename] call A3A_fnc_log;
 	_playersX pushBack (_x getVariable ["owner",_x]);
 	if (_x == _x getVariable ["owner", _x] && isPlayer _x) then {
 		if ([_x] call A3A_fnc_isMember) then
@@ -20,6 +23,7 @@ _LeaderX = objNull;
 			_membersX pushBack _x;
 			if (_x getVariable ["eligible",true]) then
 			{
+				[3, format ["Player %1 is eligible for a rank.", _x],_filename] call A3A_fnc_log;
 				_eligibles pushBack _x;
 				if (_x == theBoss) then
 				{
@@ -28,9 +32,14 @@ _LeaderX = objNull;
 					_puntMax = _dataX select 0;
 				};
 			};
+		}
+		else {
+			[3, format ["Player is not a member, moving to next."],_filename] call A3A_fnc_log;
 		};
 	};
 } forEach (playableUnits select {(side (group _x) == teamPlayer)});
+
+[3, format ["Found %1 Boss candidates.", count _membersX],_filename] call A3A_fnc_log;
 
 if (isNull _LeaderX) then
 {
@@ -80,12 +89,13 @@ if ((isNull _LeaderX) or switchCom) then
 if (!_proceed) exitWith {};
 
 _selectable = objNull;
-if (!isNull _suggestedLeader && {_suggestedLeader in _eligibles}) then 
+if (!isNull _suggestedLeader && {_suggestedLeader in _eligibles}) then
 {
 	if (_suggestedLeader != _LeaderX) then
 	{
 		_dataX = [_suggestedLeader] call A3A_fnc_numericRank;
 		_selectable = _suggestedLeader;
+		[3, format ["Player %1 has been chosen to be Boss.", _selectable],_filename] call A3A_fnc_log;
 		_puntMax = _dataX select 0;
 	};
 }

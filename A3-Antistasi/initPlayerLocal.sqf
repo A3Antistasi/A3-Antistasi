@@ -126,27 +126,7 @@ else	{
 
 if (player getVariable ["pvp",false]) exitWith {
 	lastVehicleSpawned = objNull;
-	pvpEnabled = if ("allowPvP" call BIS_fnc_getParamValue == 1) then {true} else {false};
-	if ((!_isJIP) or !pvpEnabled) then {
-		["noPvP",false,1,false,false] call BIS_fnc_endMission;
-		diag_log format ["%1: [Antistasi] | INFO | PvP player kicked because he is not jipping or PvP slots are disabled.",servertime];
-	}
-	else {
-		if (not([player] call A3A_fnc_isMember)) then {
-			["noPvP",false,1,false,false] call BIS_fnc_endMission;
-			diag_log format ["%1: [Antistasi] | INFO | PvP player kicked because he is not member.",servertime];
-		}
-		else {
-			if ({(side group _x != teamPlayer)} count playableUnits > {(side group _x == teamPlayer)} count playableUnits) then {
-				["noPvP",false,1,false,false] call BIS_fnc_endMission;
-				diag_log format ["%1: [Antistasi] | INFO | PvP player kicked because PvP players number is equal to non PvP.",servertime];
-			}
-			else {
-				[player] remoteExec ["A3A_fnc_playerHasBeenPvPCheck",2];
-				diag_log format ["%1: [Antistasi] | INFO | PvP player logged in, doing server side checks if the player has been rebel recently.",servertime];
-			};
-		};
-	};
+	[player] call A3A_fnc_pvpCheck;
 	[player] call A3A_fnc_dress;
 	if (hasACE) then {[] call A3A_fnc_ACEpvpReDress};
 	respawnTeamPlayer setMarkerAlphaLocal 0;

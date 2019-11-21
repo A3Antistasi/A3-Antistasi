@@ -49,7 +49,6 @@ class A3A
 		class outpostDialog {};
 		class patrolDestinations {};
 		class placementSelection {};
-		class playerHasBeenPvPCheck {};
 		class powerCheck {};
 		class powerReorg {};
 		class prestige {};
@@ -293,7 +292,7 @@ class A3A
 		class taskUpdate {};
 		class underAttack {};
 	};
-	
+
 	class ModsAndDLC {
 		class getModOfConfigClass {};
 		class initDisabledMods {};
@@ -366,6 +365,12 @@ class A3A
 		class punishment_release {};
 		class punishment_sentence {};
 		class punishment_warden {};
+	};
+
+	class pvp
+	{
+		class pvpCheck {};
+		class playerHasBeenPvPCheck {};
 	};
 
 	class REINF

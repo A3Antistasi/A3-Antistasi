@@ -25,7 +25,7 @@ membershipEnabled = if ("membership" call BIS_fnc_getParamValue == 1) then {true
 switchCom = if ("switchComm" call BIS_fnc_getParamValue == 1) then {true} else {false};
 tkPunish = if ("tkPunish" call BIS_fnc_getParamValue == 1) then {true} else {false};
 distanceMission = "mRadius" call BIS_fnc_getParamValue; publicVariable "distanceMission";
-pvpEnabled = if ("allowPvP" call BIS_fnc_getParamValue == 1) then {true} else {false};
+pvpEnabled = if ("allowPvP" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "pvpEnabled";
 skillMult = "AISkill" call BIS_fnc_getParamValue; publicVariable "skillMult";
 minWeaps = "unlockItem" call BIS_fnc_getParamValue; publicVariable "minWeaps";
 memberOnlyMagLimit = "MemberOnlyMagLimit" call BIS_fnc_getParamValue; publicVariable "memberOnlyMagLimit";

@@ -1,11 +1,11 @@
 #include "functions\Garage\defineGarage.inc"
-private _filename = "initPlayerLocal";
+private _fileName = "initPlayerLocal.sqf";
 
 //Make sure logLevel is always initialised.
 //This should be overridden by the server, as appropriate. Hence the nil check.
-if (isNil "logLevel") then { logLevel = 2 };
+if (isNil "logLevel") then { logLevel = 2 };scriptName "initPlayerLocal.sqf";
 
-diag_log format ["%1: [Antistasi] | INFO | initPlayerLocal Started.",servertime];
+[2,"initPlayerLocal started",_fileName] call A3A_fnc_log;
 if (hasInterface) then {
 	waitUntil {!isNull player};
 	waitUntil {player == player};
@@ -18,7 +18,7 @@ if (isMultiplayer) then {
 		call compile preprocessFileLineNumbers "initFuncs.sqf";
 		call compile preprocessFileLineNumbers "initVar.sqf";
 		waitUntil {!isNil "initVar"};
-		diag_log format ["%1: [Antistasi] | INFO | MP Client | Version : %2.",servertime, antistasiVersion];
+		[2,format ["MP client version: %1",localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;
 	}
 	else {
 		waitUntil {sleep 0.5;(!isNil "serverInitDone")};
@@ -46,11 +46,11 @@ if (isMultiplayer) then {
 	//waitUntil {scriptdone _introshot};
 	disableUserInput true;
 	cutText ["Waiting for Players and Server Init","BLACK",0];
-	diag_log format ["%1: [Antistasi] | INFO | MP Client | Waiting for Server...",servertime];
+	[2,"Waiting for server...",_fileName] call A3A_fnc_log;
 	waitUntil {(!isNil "serverInitDone")};
 	cutText ["Starting Mission","BLACK IN",0];
-	diag_log format ["%1: [Antistasi] | INFO | MP Client | Server loaded..",servertime];
-	diag_log format ["%1: [Antistasi] | INFO | MP Client | JIP?: %2",servertime,_isJip];
+	[2,"Server loaded!",_fileName] call A3A_fnc_log;
+	[2,format ["JIP client: %1",_isJIP],_fileName] call A3A_fnc_log;
 	if (hasTFAR) then {
 		[] execVM "orgPlayers\radioJam.sqf";
 	};
@@ -216,7 +216,7 @@ player addEventHandler ["HandleDamage", {
 	private _instigator = param [6];
 	if(!isNull _instigator && isPlayer _instigator && _victim != _instigator && side _instigator == teamPlayer && _damage > 0.9) then {
 		[_instigator, 20, 0.21, _victim] remoteExec ["A3A_fnc_punishment",_instigator];
-		[format ["%1: [Antistasi] | INFO | %1 injured by %2 (UID: %3) %4m from HQ",name _victim,name _instigator,getPlayerUID _instigator,_victim distance2D posHQ]] remoteExec ["diag_log", 2];
+		[format ["%1 was injured by %2 (UID: %3), %4m from HQ",name _victim,name _instigator,getPlayerUID _instigator,_victim distance2D posHQ]] remoteExec ["diag_log",2];
 	};
 }];
 player addEventHandler ["InventoryOpened", {
@@ -428,7 +428,7 @@ if (_isJip) then {
 	else {
 		[] spawn A3A_fnc_firstLoad;
 	};
-	diag_log format ["%1: [Antistasi] | INFO | MP Client | JIP Client Loaded.",servertime];
+	[2,"JIP client loaded",_fileName] call A3A_fnc_log;
 	player setPos (getMarkerPos respawnTeamPlayer);
 }
 else {
@@ -449,7 +449,7 @@ else {
 		    	else {
 		    		[true] spawn A3A_fnc_firstLoad;
 			};
-			diag_log format ["%1: [Antistasi] | INFO | MP Client | Client load finished.",servertime];
+			[2,"Client load completed",_fileName] call A3A_fnc_log;
 		    	}
 			else {
 				membersX = [];
@@ -559,4 +559,4 @@ _layer cutRsc ["H8erHUD","PLAIN",0,false];
 //Can re-enable them if we find the source of the bug.
 enableEnvironment [false, true];
 
-diag_log format ["%1: [Antistasi]: initPlayerLocal Completed.",servertime];
+[2,"initPlayerLocal completed",_fileName] call A3A_fnc_log;

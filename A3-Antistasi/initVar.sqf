@@ -21,7 +21,6 @@ recruitCooldown = 0;											//
 savingClient = false;											//
 incomeRep = false;												//
 maxUnits = 140;												//
-minPlayersRequiredforPVP = 20;									// I hope this is self explanatory...
 
 ////////////////////////////////////
 //     BEGIN SIDES AND COLORS    ///

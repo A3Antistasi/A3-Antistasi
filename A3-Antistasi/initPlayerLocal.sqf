@@ -1,5 +1,10 @@
 #include "functions\Garage\defineGarage.inc"
 private _filename = "initPlayerLocal";
+
+//Make sure logLevel is always initialised.
+//This should be overridden by the server, as appropriate. Hence the nil check.
+if (isNil "logLevel") then { logLevel = 2 };
+
 diag_log format ["%1: [Antistasi] | INFO | initPlayerLocal Started.",servertime];
 if (hasInterface) then {
 	waitUntil {!isNull player};

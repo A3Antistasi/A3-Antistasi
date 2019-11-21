@@ -6,8 +6,7 @@ antistasiVersion = localize "STR_antistasi_credits_generic_version_text";
 ////////////////////////////////////
 // INITIAL SETTING AND VARIABLES ///
 ////////////////////////////////////
-diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Initial Variables",servertime];
-logLevel = 2;												//Sets a log level for feedback, 1=Errors, 2=Information, 3=DEBUG
+diag_log format ["%1: [Antistasi] | INFO | initVar | Setting Initial Variables",servertime];											
 debug = false;													//debug variable, useful for something..
 diagOn = false;												//Turn on Diag_log messaging (unused - PBP)
 cleantime = 3600;												//time to delete dead bodies, vehicles etc..

@@ -1,5 +1,8 @@
 if (!isMultiplayer) exitWith {};
 if (!(isNil "serverInitDone")) exitWith {};
+//Define logLevel first thing, so we can start logging appropriately.
+logLevel = "LogLevel" call BIS_fnc_getParamValue; publicVariable "logLevel"; //Sets a log level for feedback, 1=Errors, 2=Information, 3=DEBUG
+
 diag_log format ["%1: [Antistasi] | INFO | Dedicated Server Detected.",servertime];
 diag_log format ["%1: [Antistasi] | INFO | initServer Started.",servertime];
 boxX allowDamage false;
@@ -36,7 +39,6 @@ limitedFT = if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {fal
 napalmEnabled = if ("napalmEnabled" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "napalmEnabled";
 teamSwitchDelay = "teamSwitchDelay" call BIS_fnc_getParamValue;
 playerMarkersEnabled = ("pMarkers" call BIS_fnc_getParamValue == 1); publicVariable "playerMarkersEnabled";
-logLevel = "logLevel" call BIS_fnc_getParamValue; publicVariable "logLevel";
 minPlayersRequiredforPVP = "minPlayersRequiredforPVP" call BIS_fnc_getParamValue; publicVariable "minPlayersRequiredforPVP";
 
 [] call A3A_fnc_crateLootParams;

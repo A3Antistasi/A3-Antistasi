@@ -1,7 +1,7 @@
 private _filename = "fn_pvpCheck";
 
-// Parameter setup for pvpCheck
-private _unit = _this select 0;
+params ["_unit"];
+
 pvpEnabled = if ("allowPvP" call BIS_fnc_getParamValue == 1) then {true} else {false};
 private _friendlyPlayers = ({(side group _x == teamPlayer)} count playableUnits);
 private _enemyPlayers = ({(side group _x != teamPlayer)} count playableUnits);

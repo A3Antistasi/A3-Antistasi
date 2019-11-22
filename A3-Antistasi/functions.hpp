@@ -335,7 +335,7 @@ class A3A
 		class ranksMP {};
 		class resourcesPlayer {};
 		class theBossInit {};
-		class theBossloop {};
+		class assignBossIfNone {};
 		class theBossSteal {};
 		class tierCheck {};
 	};

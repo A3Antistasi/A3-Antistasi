@@ -1,5 +1,5 @@
 // Dont' run if a Boss exists.
-private _filename = "fn_theBossloop";
+private _filename = "fn_assignBossIfNone";
 private _BossAssigned = false;
 	if (isnil "theBoss" || {isNull theBoss}) then {
 		_BossAssigned = false;

@@ -328,6 +328,7 @@ class A3A
 	{
 		class donateMoney {};
 		class isMember {};
+		class makePlayerBossIfEligible {};
 		class memberAdd {};
 		class membersList {};
 		class playerScoreAdd {};
@@ -335,8 +336,9 @@ class A3A
 		class ranksMP {};
 		class resourcesPlayer {};
 		class theBossInit {};
-		class assignBossIfNone {};
+		class theBossToggleEligibility {};
 		class theBossSteal {};
+		class assignBossIfNone {};
 		class tierCheck {};
 	};
 

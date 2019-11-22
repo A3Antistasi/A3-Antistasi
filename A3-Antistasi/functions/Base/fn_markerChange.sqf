@@ -1,19 +1,19 @@
 if (!isServer) exitWith {};
 
-private ["_winner","_markerX","_looser","_positionX","_other","_flagX","_flagsX","_dist","_textX","_sides"];
+private _fileName = "fn_markerChange";
 
+
+private ["_winner","_markerX","_looser","_positionX","_other","_flagX","_flagsX","_dist","_textX","_sides"];
 _winner = _this select 0;
 _markerX = _this select 1;
+
+[3, format ["Changing side of %1 to %2", _markerX, _winner], _fileName] call A3A_fnc_log;
 if ((_winner == teamPlayer) and (_markerX in airportsX) and (tierWar < 3)) exitWith {};
 if ((_winner == teamPlayer) and (sidesX getVariable [_markerX,sideUnknown] == teamPlayer)) exitWith {};
 if ((_winner == Occupants) and (sidesX getVariable [_markerX,sideUnknown] == Occupants)) exitWith {};
 if ((_winner == Invaders) and (sidesX getVariable [_markerX,sideUnknown] == Invaders)) exitWith {};
 if (_markerX in markersChanging) exitWith {};
 markersChanging pushBackUnique _markerX;
-
-private _filename = "fn_markerChange";
-[2, format ["Marker %1 changing to %2", _markerX, str _winner], _filename, true] call A3A_fnc_log;
-
 _positionX = getMarkerPos _markerX;
 _looser = sidesX getVariable [_markerX,sideUnknown];
 _sides = [teamPlayer,Occupants,Invaders];
@@ -50,6 +50,8 @@ else
 	};
 garrison setVariable [_markerX,[],true];
 sidesX setVariable [_markerX,_winner,true];
+
+[3, format ["Side changed for %1", _markerX], _fileName] call A3A_fnc_log;
 
 //New garrison update ==========================================================
 garrison setVariable [format ["%1_garrison", _markerX], [], true];
@@ -91,6 +93,8 @@ else
 };
 
 [_markerX] call A3A_fnc_updateReinfState;
+[3, format ["Garrison set for %1", _markerX], _fileName] call A3A_fnc_log;
+
 
 _nul = [_markerX] call A3A_fnc_mrkUpdate;
 _sides = _sides - [_winner,_looser];
@@ -183,6 +187,8 @@ if (_markerX in resourcesX) then
 	["TaskUpdated",["",format ["%1 lost a Resource",_textX]]] remoteExec ["BIS_fnc_showNotification",_other];
 	};
 
+[3, format ["Notification and points done for marker change at %1", _markerX], _fileName] call A3A_fnc_log;
+
 {_nul = [_markerX,_x] spawn A3A_fnc_deleteControls} forEach controlsX;
 if (_winner == teamPlayer) then
 	{
@@ -269,3 +275,5 @@ if ((_winner != teamPlayer) and (_looser != teamPlayer)) then
 		};
 	};
 markersChanging = markersChanging - [_markerX];
+
+[3, format ["Finished marker change at %1", _markerX], _fileName] call A3A_fnc_log;

@@ -359,9 +359,10 @@ if (isMultiplayer) then {
 	};
 };
 
-_introshot spawn { waitUntil { scriptDone _this };};
+waitUntil { scriptDone _introshot };
+
 if (_isJip) then {
-	[3,format ["JIP LEVEL: %1",_isJip],_filename] call A3A_fnc_log;
+	[2,"Joining In Progress (JIP)",_filename] call A3A_fnc_log;
 	[] spawn A3A_fnc_modBlacklist;
 	player setVariable ["punish",0,true];
 	waitUntil {!isNil "posHQ"};
@@ -381,10 +382,9 @@ if (_isJip) then {
 	}
 	else {
 		hint format ["Welcome back %1", name player];
+		//Adding Boss check... Goes after the Member check so they're definitely in the list of eligible.
+		[] remoteExec ["A3A_fnc_assignBossIfNone", 2];
 	};
-
-	//Adding Boss check... Goes after the Member check so they're definitely in the list of eligible.
-	[] remoteExec ["A3A_fnc_assignBossIfNone", 2];
 
 	waitUntil {!(isNil "missionsX")};
 	if (count missionsX > 0) then {
@@ -419,7 +419,7 @@ if (_isJip) then {
 	player setPos (getMarkerPos respawnTeamPlayer);
 }
 else {
-	[3,format ["NOT JIP",_isJip],_filename] call A3A_fnc_log;
+	[2,"Not Joining in Progress (JIP)",_filename] call A3A_fnc_log;
 	if (isNil "placementDone") then {
 		waitUntil {!isNil "theBoss"};
 		if (player == theBoss) then {

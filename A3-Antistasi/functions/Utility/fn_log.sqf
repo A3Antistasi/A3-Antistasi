@@ -25,7 +25,7 @@ switch (_level) do {
 		_logLine = format ["%1: [Antistasi] | DEBUG | %2 | %3", servertime, _file, _message];
 	};
 	default {
-		_logLine = format ["%1: [Antistasi] | Unknown Log Level Specified, please use 1= Errors, 2= Info, 3= Debug. Original error: %2", servertime, _message]
+		_logLine = format ["%1: [Antistasi] | Unknown Log Level Specified, please use 1= Errors, 2= Info, 3= Debug | %2 | %3", servertime, _file, _message];
 	};
 };
 

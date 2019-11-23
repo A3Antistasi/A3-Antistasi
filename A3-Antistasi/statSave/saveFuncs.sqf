@@ -172,9 +172,11 @@ fn_SetStat = {
 			private _building = objNull;
 			{
 				_building = nearestObject [_x, "House"];
-				private _ruin = [_building] call BIS_fnc_createRuin;
-				//JIP on the _ruin, as repairRuinedBuilding will delete the ruin.
-				[_building, true] remoteExec ["hideObject", 0, _ruin];
+				if !(_building in antennas) then {
+					private _ruin = [_building] call BIS_fnc_createRuin;
+					//JIP on the _ruin, as repairRuinedBuilding will delete the ruin.
+					[_building, true] remoteExec ["hideObject", 0, _ruin];
+				};
 			} forEach destroyedBuildings;
 		};
 		if (_varName == 'minesX') then {

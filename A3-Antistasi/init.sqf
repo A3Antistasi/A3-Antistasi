@@ -68,10 +68,8 @@ if (!isMultiPlayer) then {
      [] execVM "Scripts\fn_advancedTowingInit.sqf";
      addMissionEventHandler ["BuildingChanged", {
           _building = _this select 0;
-          if !(_building in antennas) then {
-               if (_this select 2) then {
-                    destroyedBuildings pushBack (getPosATL _building);
-               };
+          if (_this select 2) then {
+               destroyedBuildings pushBack (getPosATL _building);
           };
      }];
      deleteMarker "respawn_east";

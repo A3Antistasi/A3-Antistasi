@@ -160,9 +160,7 @@ addMissionEventHandler ["BuildingChanged", {
 		_oldBuilding setVariable ["ruins", _newBuilding];
 		_newBuilding setVariable ["building", _oldBuilding];
 
-		if !(_oldBuilding in antennas) then {
-			destroyedBuildings pushBack (getPosATL _oldBuilding);
-		};
+		destroyedBuildings pushBack (getPosATL _oldBuilding);
 	};
 }];
 

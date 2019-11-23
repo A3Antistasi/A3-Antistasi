@@ -225,6 +225,7 @@ switch (worldName) do {
 				"Killed",
 				{
 					_antenna = _this select 0;
+					_antenna removeAllEventHandlers "Killed";
 
 					citiesX apply {
 						if ([antennas,_x] call BIS_fnc_nearestPosition == _antenna) then {
@@ -234,7 +235,7 @@ switch (worldName) do {
 
 					_mrk = [mrkAntennas, _antenna] call BIS_fnc_nearestPosition;
 					antennas = antennas - [_antenna];
-					antennasDead pushBack (getPos _antenna);
+					antennasDead pushBack _antenna;
 					deleteMarker _mrk;
 					publicVariable "antennas";
 					publicVariable "antennasDead";
@@ -272,6 +273,7 @@ if (count _posAntennas > 0) then {
 					"Killed",
 					{
 						_antenna = _this select 0;
+						_antenna removeAllEventHandlers "Killed";
 
 						citiesX apply {
 							if ([antennas, _x] call BIS_fnc_nearestPosition == _antenna) then {
@@ -281,7 +283,7 @@ if (count _posAntennas > 0) then {
 
 						_mrk = [mrkAntennas, _antenna] call BIS_fnc_nearestPosition;
 						antennas = antennas - [_antenna];
-						antennasDead pushBack (getPos _antenna);
+						antennasDead pushBack  _antenna;
 						deleteMarker _mrk;
 						publicVariable "antennas";
 						publicVariable "antennasDead";

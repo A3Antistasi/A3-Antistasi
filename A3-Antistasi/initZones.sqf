@@ -170,6 +170,25 @@ private ["_antenna", "_mrkFinal", "_antennaProv"];
 if (debug) then {
 diag_log format ["%1: [Antistasi] | DEBUG | initZones | Setting up Radio Towers.",servertime];
 };
+
+// Land_A_TVTower_base can't be destroyed, Land_Communication_F and Land_Vysilac_FM are not replaced with "Ruins" when destroyed.
+// This causes issues with persistent load and rebuild scripts, so we replace those with antennas that work properly.
+private _replaceBadAntenna = {
+	params ["_antenna"];
+	if ((typeof _antenna) in ["Land_Communication_F", "Land_Vysilac_FM", "Land_A_TVTower_Base"]) then {
+		hideObjectGlobal _antenna;
+		if (typeof _antenna == "Land_A_TVTower_Base") then {
+			// The TV tower is composed of 3 sections - need to hide them all
+			private _otherSections = nearestObjects [_antenna, ["Land_A_TVTower_Mid", "Land_A_TVTower_Top"], 200];
+			{ hideObjectGlobal _x; } forEach _otherSections;
+		};
+		private _antennaPos = getPos _antenna;
+		_antennaPos set [2, 0];
+		_antenna = createVehicle ["Land_Telek1", _antennaPos, [], 0, "NONE"];
+	};
+	_antenna;
+};
+
 switch (worldName) do {
 	case "tanoa": {
 		_posAntennas = [[6617.95,7853.57,0.200073], [7486.67,9651.9,1.52588e-005], [6005.47,10420.9,0.20298], [2437.25,7224.06,0.0264893], [4701.6,3165.23,0.0633469], [11008.8,4211.16,-0.00154114], [10114.3,11743.1,9.15527e-005], [10949.8,11517.3,0.14209], [11153.3,11435.2,0.210876], [12889.2,8578.86,0.228729], [2682.94,2592.64,-0.000686646], [2690.54,12323,0.0372467], [2965.33,13087.1,0.191544], [13775.8,10976.8,0.170441]];
@@ -195,13 +214,14 @@ switch (worldName) do {
 		banks = nearestObjects [[worldSize /2, worldSize/2], ["Land_Offices_01_V1_F"], worldSize];
 
 		antennas apply {
-			_mrkFinal = createMarker [format ["Ant%1", mapGridPosition _x], position _x];
+			private _antenna = ([_x] call _replaceBadAntenna);
+			_mrkFinal = createMarker [format ["Ant%1", mapGridPosition _antenna], position _antenna];
 			_mrkFinal setMarkerShape "ICON";
 			_mrkFinal setMarkerType "loc_Transmitter";
 			_mrkFinal setMarkerColor "ColorBlack";
 			_mrkFinal setMarkerText "Radio Tower";
 			mrkAntennas pushBack _mrkFinal;
-			_x addEventHandler [
+			_antenna addEventHandler [
 				"Killed",
 				{
 					_antenna = _this select 0;
@@ -239,6 +259,7 @@ if (count _posAntennas > 0) then {
 			if (_i in _blacklistPos) then {
 				_antenna setdamage 1;
 			} else {
+				_antenna = ([_antenna] call _replaceBadAntenna);
 				antennas pushBack _antenna;
 				_mrkFinal = createMarker [format ["Ant%1", mapGridPosition _antenna], _posAntennas select _i];
 				_mrkFinal setMarkerShape "ICON";

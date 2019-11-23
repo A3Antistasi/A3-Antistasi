@@ -239,7 +239,6 @@ fn_SetStat = {
 			    _antenna setDamage [1,false];
 			    deleteMarker _mrk;
 			};
-			antennasDead = _varvalue;
 			publicVariable "antennas";
 			publicVariable "antennasDead";
 		};

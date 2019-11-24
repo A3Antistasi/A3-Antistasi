@@ -184,7 +184,8 @@ private _replaceBadAntenna = {
 		};
 		private _antennaPos = getPos _antenna;
 		_antennaPos set [2, 0];
-		_antenna = createVehicle ["Land_Telek1", _antennaPos, [], 0, "NONE"];
+		private _antennaClass = if (worldName == "chernarus_summer") then { "Land_Telek1" } else { "Land_TTowerBig_2_F" };
+		_antenna = createVehicle [_antennaClass, _antennaPos, [], 0, "NONE"];
 	};
 	_antenna;
 };
@@ -213,15 +214,18 @@ switch (worldName) do {
 
 		banks = nearestObjects [[worldSize /2, worldSize/2], ["Land_Offices_01_V1_F"], worldSize];
 
+		private _replacedAntennas = [];
+		{ _replacedAntennas pushBack ([_x] call _replaceBadAntenna); } forEach antennas;
+		antennas = _replacedAntennas;
+
 		antennas apply {
-			private _antenna = ([_x] call _replaceBadAntenna);
-			_mrkFinal = createMarker [format ["Ant%1", mapGridPosition _antenna], position _antenna];
+			_mrkFinal = createMarker [format ["Ant%1", mapGridPosition _x], position _x];
 			_mrkFinal setMarkerShape "ICON";
 			_mrkFinal setMarkerType "loc_Transmitter";
 			_mrkFinal setMarkerColor "ColorBlack";
 			_mrkFinal setMarkerText "Radio Tower";
 			mrkAntennas pushBack _mrkFinal;
-			_antenna addEventHandler [
+			_x addEventHandler [
 				"Killed",
 				{
 					_antenna = _this select 0;
@@ -258,7 +262,7 @@ if (count _posAntennas > 0) then {
 			_antenna = _antennaProv select 0;
 
 			if (_i in _blacklistPos) then {
-				_antenna setdamage 1;
+				_antenna setdamage 1;	
 			} else {
 				_antenna = ([_antenna] call _replaceBadAntenna);
 				antennas pushBack _antenna;

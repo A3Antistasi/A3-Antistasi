@@ -10,6 +10,10 @@ if ((_winner == Occupants) and (sidesX getVariable [_markerX,sideUnknown] == Occ
 if ((_winner == Invaders) and (sidesX getVariable [_markerX,sideUnknown] == Invaders)) exitWith {};
 if (_markerX in markersChanging) exitWith {};
 markersChanging pushBackUnique _markerX;
+
+private _filename = "fn_markerChange";
+[2, format ["Marker %1 changing to %2", _markerX, str _winner], _filename, true] call A3A_fnc_log;
+
 _positionX = getMarkerPos _markerX;
 _looser = sidesX getVariable [_markerX,sideUnknown];
 _sides = [teamPlayer,Occupants,Invaders];

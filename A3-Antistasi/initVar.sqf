@@ -258,6 +258,20 @@ arrayCivs = ["C_man_polo_1_F","C_man_polo_1_F_afro","C_man_polo_1_F_asia","C_man
 ////////////////////////////////////
 [2,"Creating vehicles list",_fileName] call A3A_fnc_log;
 
+private _vehicleIsSpecial = {
+	params ["_vehConfig"];
+	
+	   (getNumber (_vehConfig >> "transportRepair") > 0)
+	|| (getNumber (_vehConfig >> "transportAmmo") > 0)
+	|| (getNumber (_vehConfig >> "transportFuel") > 0)
+	|| (getNumber (_vehConfig >> "ace_refuel_fuelCargo") > 0)
+	|| (getNumber (_vehConfig >> "ace_repair_canRepair") > 0)
+	|| (getNumber (_vehConfig >> "ace_rearm_defaultSupply") > 0)
+		//Medical vehicle
+	|| (getNumber (_vehConfig >> "attendant") > 0)
+
+};
+
 private _civVehConfigs = "(
 	getNumber (_x >> 'scope') isEqualTo 2 && {
 		getNumber (_x >> 'side') isEqualTo 3 && {
@@ -275,6 +289,10 @@ private _vehIsValid = {
 	
 	//If we have IFA and vehicle is vanilla
 	if(hasIFA && {_mod == ""}) exitWith {
+		false;
+	};
+	
+	if (_vehConfig call _vehicleIsSpecial) exitWith {
 		false;
 	};
 	

@@ -6,6 +6,9 @@ private _fileName = "initPlayerLocal.sqf";
 if (isNil "logLevel") then { logLevel = 2 };scriptName "initPlayerLocal.sqf";
 
 [2,"initPlayerLocal started",_fileName] call A3A_fnc_log;
+
+call A3A_fnc_installSchrodingersBuildingFix;
+
 if (hasInterface) then {
 	waitUntil {!isNull player};
 	waitUntil {player == player};

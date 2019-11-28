@@ -201,6 +201,7 @@ class A3A
 	class Debugging
 	{
 		class deleteEmptyGroupsOnSide {};
+		class installSchrodingersBuildingFix {};
 		class spawnDebuggingLoop {};
 	};
 

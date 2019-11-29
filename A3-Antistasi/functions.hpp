@@ -313,6 +313,7 @@ class A3A
 		class dress {};
 		class empty {};
 		class equipmentClassToCategories {};
+		class equipmentIsValidForCurrentModset {};
 		class equipmentSort {};
 		class getRadio {};
 		class itemSort {};

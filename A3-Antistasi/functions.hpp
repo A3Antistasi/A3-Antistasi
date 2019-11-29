@@ -191,6 +191,7 @@ class A3A
 		class reinforcementsAI {};
 		class remoteBattle {};
 		class removeVehFromPool {};
+		class safeVehicleSpawn {};
 		class spawnGroup {};
 		class vehAvailable {};
 		class VEHdespawner {};

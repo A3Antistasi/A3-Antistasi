@@ -451,6 +451,7 @@ class A3A
 		class createDataObject {};
 		class dateToTimeString {};
 		class log {};
+		class vehicleWillCollideAtPosition {};
 	};
 
 	class init

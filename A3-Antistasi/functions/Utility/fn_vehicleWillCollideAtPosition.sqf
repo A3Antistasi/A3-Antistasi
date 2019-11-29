@@ -17,46 +17,46 @@ private _vehiclePosAGL = getPos _vehicle;
 private _boundingBox = boundingBoxReal _vehicle; 
 private _corners = [ 
 	//Bottom - rear - left 
-	[_boundingBox # 0 # 0, _boundingBox # 0 # 1, _boundingBox # 0 # 2], 
+	[_boundingBox select 0 select 0, _boundingBox select 0 select 1, _boundingBox select 0 select 2], 
 	//Bottom - front - left 
-	[_boundingBox # 0 # 0, _boundingBox # 1 # 1, _boundingBox # 0 # 2], 
+	[_boundingBox select 0 select 0, _boundingBox select 1 select 1, _boundingBox select 0 select 2], 
 	//Bottom - rear - right 
-	[_boundingBox # 1 # 0, _boundingBox # 0 # 1, _boundingBox # 0 # 2], 
+	[_boundingBox select 1 select 0, _boundingBox select 0 select 1, _boundingBox select 0 select 2], 
 	//Bottom - front - right 
-	[_boundingBox # 1 # 0, _boundingBox # 1 # 1, _boundingBox # 0 # 2], 
+	[_boundingBox select 1 select 0, _boundingBox select 1 select 1, _boundingBox select 0 select 2], 
 	//Top - rear - left 
-	[_boundingBox # 0 # 0, _boundingBox # 0 # 1, _boundingBox # 1 # 2], 
+	[_boundingBox select 0 select 0, _boundingBox select 0 select 1, _boundingBox select 1 select 2], 
 	//Top - front - left 
-	[_boundingBox # 0 # 0, _boundingBox # 1 # 1, _boundingBox # 1 # 2], 
+	[_boundingBox select 0 select 0, _boundingBox select 1 select 1, _boundingBox select 1 select 2], 
 	//Top - rear - right 
-	[_boundingBox # 1 # 0, _boundingBox # 0 # 1, _boundingBox # 1 # 2], 
+	[_boundingBox select 1 select 0, _boundingBox select 0 select 1, _boundingBox select 1 select 2], 
 	//Top - front - right 
-	[_boundingBox # 1 # 0, _boundingBox # 1 # 1, _boundingBox # 1 # 2] 
+	[_boundingBox select 1 select 0, _boundingBox select 1 select 1, _boundingBox select 1 select 2] 
 ]; 
  
 private _lines = [ 
 	//Bottom - rear - left to Bottom - rear - right 
-	[_corners # 0, _corners # 2], 
+	[_corners select 0, _corners select 2], 
 	//Bottom - front - left to Bottom - front - right 
-	[_corners # 1, _corners # 3], 
+	[_corners select 1, _corners select 3], 
 	//Bottom - rear - left to Bottom - front - left 
-	[_corners # 0, _corners # 1], 
+	[_corners select 0, _corners select 1], 
 	//Bottom - rear - right to Bottom - front - right 
-	[_corners # 2, _corners # 3], 
+	[_corners select 2, _corners select 3], 
 	//Top - rear - left to Bottom - rear - right 
-	[_corners # 4, _corners # 6], 
+	[_corners select 4, _corners select 6], 
 	//Top - front - left to Bottom - front - right 
-	[_corners # 5, _corners # 7], 
+	[_corners select 5, _corners select 7], 
 	//Top - rear - left to Bottom - front - left 
-	[_corners # 4, _corners # 5], 
+	[_corners select 4, _corners select 5], 
 	//Top - rear - right to Bottom - front - right 
-	[_corners # 6, _corners # 7],
+	[_corners select 6, _corners select 7],
 	//Diagonal - Bottom - rear - left to Top - front - right
-	[_corners # 0, _corners # 7]
+	[_corners select 0, _corners select 7]
 ]; 
  
 private _collision = false; 
-private _heightOffset = (_boundingBox # 1 # 2) - (_boundingBox # 0 # 2) / 2; 
+private _heightOffset = (_boundingBox select 1 select 2) - (_boundingBox select 0 select 2) / 2; 
 
 if (debugVehicleCollision) then {
 	vehicleCollisionCheckCornerLocations = []; 
@@ -70,15 +70,15 @@ if (debugVehicleCollision) then {
 	private _endPosVehicleCurrentLocation = _vehicle modelToWorld (_endPosModelSpace);
 
 	private _positionDifference = [
-		_targetPos # 0 - _vehiclePosAGL # 0,
-		_targetPos # 1 - _vehiclePosAGL # 1,
-		_targetPos # 2 - _vehiclePosAGL # 2
+		_targetPos select 0 - _vehiclePosAGL select 0,
+		_targetPos select 1 - _vehiclePosAGL select 1,
+		_targetPos select 2 - _vehiclePosAGL select 2
 	];
 
 	private _startPos = [
-		_startPosVehicleCurrentLocation # 0 + _positionDifference # 0,
-		_startPosVehicleCurrentLocation # 1 + _positionDifference # 1,
-		0.1 + _startPosModelSpace # 2 + _heightOffset
+		_startPosVehicleCurrentLocation select 0 + _positionDifference select 0,
+		_startPosVehicleCurrentLocation select 1 + _positionDifference select 1,
+		0.1 + _startPosModelSpace select 2 + _heightOffset
 	];
 
 	if (debugVehicleCollision) then {
@@ -86,9 +86,9 @@ if (debugVehicleCollision) then {
 	};
 
 	private _endPos = [
-		_endPosVehicleCurrentLocation # 0 + _positionDifference # 0,
-		_endPosVehicleCurrentLocation # 1 + _positionDifference # 1,
-		0.1 + _startPosModelSpace # 2 + _heightOffset
+		_endPosVehicleCurrentLocation select 0 + _positionDifference select 0,
+		_endPosVehicleCurrentLocation select 1 + _positionDifference select 1,
+		0.1 + _startPosModelSpace select 2 + _heightOffset
 	];
 
 	if (debugVehicleCollision) then {

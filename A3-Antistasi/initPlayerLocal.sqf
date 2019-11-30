@@ -29,7 +29,10 @@ if (isMultiplayer) then {
 };
 
 if (!hasInterface) exitWith {
+	[2,format ["Headless client version: %1",localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;
 	[clientOwner] remoteExec ["A3A_fnc_addHC",2];
+	call compile preprocessFileLineNumbers "initFuncs.sqf";
+	call compile preprocessFileLineNumbers "initVar.sqf";
 };
 
 _isJip = _this select 1;

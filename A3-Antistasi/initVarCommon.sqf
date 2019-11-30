@@ -156,10 +156,18 @@ private _getMissionPath = [] spawn A3A_fnc_initGetMissionPath;
 waitUntil
 {
 	if (scriptDone _getMissionPath) exitWith {true};
-	hint "Stuck on compiling missionPath, re-launch the mission.";
+	if (hasInterface) then {
+		hint "Stuck on compiling missionPath, re-launch the mission.";
+	};
+	[1,"Stuck on compiling missionPath, re-launch the mission.",_fileName] call A3A_fnc_log;
 	false;
 };
-hint "Done compiling missionPath";
+
+if (hasInterface) then {
+	hint "Done compiling missionPath";
+};
+[2,"Done compiling missionPath",_fileName] call A3A_fnc_log;
+
 
 ////////////////////////////////////
 //   MAP SETTINGS AND MARKERS    ///

@@ -73,7 +73,7 @@ DECLARE_SERVER_VAR(vehInGarage, []);
 //Should vegetation around HQ be cleared
 DECLARE_SERVER_VAR(chopForest, false);
 
-DECLARE_SERVER_VAR(skillFIA , 1);																		//Initial skill level for FIA soldiers
+DECLARE_SERVER_VAR(skillFIA, 1);																		//Initial skill level for FIA soldiers
 //Initial Occupant Aggression
 DECLARE_SERVER_VAR(prestigeNATO, 5);
 //Initial Invader Aggression

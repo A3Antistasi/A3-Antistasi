@@ -15,5 +15,7 @@ waitUntil {!isNil "initVarServerCompleted"};
 
 call compile preprocessFileLineNumbers "initVarClient.sqf";
 
+//Marks initVar as finished.
+initVar = true;
 if (isMultiplayer) then {[[petros,"hint","Variables Init Completed"],"A3A_fnc_commsMP"] call BIS_fnc_MP;};
 [2,"initVar completed",_fileName] call A3A_fnc_log;

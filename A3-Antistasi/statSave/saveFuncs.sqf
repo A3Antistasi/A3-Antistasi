@@ -175,7 +175,11 @@ fn_SetStat = {
 				if !(_building in antennas) then {
 					private _ruin = [_building] call BIS_fnc_createRuin;
 					//JIP on the _ruin, as repairRuinedBuilding will delete the ruin.
-					[_building, true] remoteExec ["hideObject", 0, _ruin];
+					if !(isNull _ruin) then {
+						[_building, true] remoteExec ["hideObject", 0, _ruin];
+					} else {
+						diag_log format ["Loading Destroyed Buildings: Unable to create ruin for %1", typeOf _building];
+					};
 				};
 			} forEach destroyedBuildings;
 		};
@@ -241,8 +245,13 @@ fn_SetStat = {
 			    _antenna removeAllEventHandlers "Killed";
 
 				private _ruin = [_antenna] call BIS_fnc_createRuin;
-				//JIP on the _ruin, as repairRuinedBuilding will delete the ruin.
-				[_antenna, true] remoteExec ["hideObject", 0, _ruin];
+
+				if !(isNull _ruin) then {
+					//JIP on the _ruin, as repairRuinedBuilding will delete the ruin.
+					[_antenna, true] remoteExec ["hideObject", 0, _ruin];
+				} else {
+					diag_log format ["Loading Antennas: Unable to create ruin for %1", typeOf _antenna];
+				};
 
 			    deleteMarker _mrk;
 			};

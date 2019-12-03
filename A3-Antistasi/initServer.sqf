@@ -1,4 +1,3 @@
-if (!isMultiplayer) exitWith {};
 if (!(isNil "serverInitDone")) exitWith {};
 private _fileName = "initServer.sqf";
 scriptName "initServer.sqf";
@@ -21,26 +20,48 @@ if(isNil "serverID") then {
 publicVariable "serverID";
 waitUntil {!isNil "serverID"};
 
-//Load server parameters
-loadLastSave = if ("loadSave" call BIS_fnc_getParamValue == 1) then {true} else {false};
-gameMode = "gameMode" call BIS_fnc_getParamValue; publicVariable "gameMode";
-autoSave = if ("autoSave" call BIS_fnc_getParamValue == 1) then {true} else {false};
-membershipEnabled = if ("membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
-switchCom = if ("switchComm" call BIS_fnc_getParamValue == 1) then {true} else {false};
-tkPunish = if ("tkPunish" call BIS_fnc_getParamValue == 1) then {true} else {false};
-distanceMission = "mRadius" call BIS_fnc_getParamValue; publicVariable "distanceMission";
-pvpEnabled = if ("allowPvP" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "pvpEnabled";
-skillMult = "AISkill" call BIS_fnc_getParamValue; publicVariable "skillMult";
-minWeaps = "unlockItem" call BIS_fnc_getParamValue; publicVariable "minWeaps";
-memberOnlyMagLimit = "MemberOnlyMagLimit" call BIS_fnc_getParamValue; publicVariable "memberOnlyMagLimit";
-allowMembersFactionGarageAccess = "allowMembersFactionGarageAccess" call BIS_fnc_getParamValue == 1; publicVariable "allowMembersFactionGarageAccess";
-civTraffic = "civTraffic" call BIS_fnc_getParamValue; publicVariable "civTraffic";
-memberDistance = "memberDistance" call BIS_fnc_getParamValue; publicVariable "memberDistance";
-limitedFT = if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "limitedFT";
-napalmEnabled = if ("napalmEnabled" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "napalmEnabled";
-teamSwitchDelay = "teamSwitchDelay" call BIS_fnc_getParamValue;
-playerMarkersEnabled = ("pMarkers" call BIS_fnc_getParamValue == 1); publicVariable "playerMarkersEnabled";
-minPlayersRequiredforPVP = "minPlayersRequiredforPVP" call BIS_fnc_getParamValue; publicVariable "minPlayersRequiredforPVP";
+if (isMultiplayer) then {
+	//Load server parameters
+	loadLastSave = if ("loadSave" call BIS_fnc_getParamValue == 1) then {true} else {false};
+	gameMode = "gameMode" call BIS_fnc_getParamValue; publicVariable "gameMode";
+	autoSave = if ("autoSave" call BIS_fnc_getParamValue == 1) then {true} else {false};
+	membershipEnabled = if ("membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
+	switchCom = if ("switchComm" call BIS_fnc_getParamValue == 1) then {true} else {false};
+	tkPunish = if ("tkPunish" call BIS_fnc_getParamValue == 1) then {true} else {false};
+	distanceMission = "mRadius" call BIS_fnc_getParamValue; publicVariable "distanceMission";
+	pvpEnabled = if ("allowPvP" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "pvpEnabled";
+	skillMult = "AISkill" call BIS_fnc_getParamValue; publicVariable "skillMult";
+	minWeaps = "unlockItem" call BIS_fnc_getParamValue; publicVariable "minWeaps";
+	memberOnlyMagLimit = "MemberOnlyMagLimit" call BIS_fnc_getParamValue; publicVariable "memberOnlyMagLimit";
+	allowMembersFactionGarageAccess = "allowMembersFactionGarageAccess" call BIS_fnc_getParamValue == 1; publicVariable "allowMembersFactionGarageAccess";
+	civTraffic = "civTraffic" call BIS_fnc_getParamValue; publicVariable "civTraffic";
+	memberDistance = "memberDistance" call BIS_fnc_getParamValue; publicVariable "memberDistance";
+	limitedFT = if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "limitedFT";
+	napalmEnabled = if ("napalmEnabled" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "napalmEnabled";
+	teamSwitchDelay = "teamSwitchDelay" call BIS_fnc_getParamValue;
+	playerMarkersEnabled = ("pMarkers" call BIS_fnc_getParamValue == 1); publicVariable "playerMarkersEnabled";
+	minPlayersRequiredforPVP = "minPlayersRequiredforPVP" call BIS_fnc_getParamValue; publicVariable "minPlayersRequiredforPVP";
+} else {
+	loadLastSave = true;
+	gameMode = 1;
+	autoSave = false;
+	membershipEnabled = false;
+	switchCom = false;
+	tkPunish = false;
+	distanceMission = 4000;
+	pvpEnabled = false; publicVariable "pvpEnabled";
+	skillMult = 2;
+	minWeaps = 25;
+	memberOnlyMagLimit = 0;
+	allowMembersFactionGarageAccess = true;
+	civTraffic = 1;
+	memberDistance = 10;
+	limitedFT = false;
+	napalmEnabled = false;
+	teamSwitchDelay = 0;
+	playerMarkersEnabled = true;
+	minPlayersRequiredforPVP = 2;
+};
 
 [] call A3A_fnc_crateLootParams;
 
@@ -71,8 +92,13 @@ if (gameMode != 1) then {
 [] spawn A3A_fnc_initPetros;
 ["Initialize"] call BIS_fnc_dynamicGroups;//Exec on Server
 hcArray = [];
-waitUntil {(count playableUnits) > 0};
-waitUntil {({(isPlayer _x) and (!isNull _x) and (_x == _x)} count allUnits) == (count playableUnits)};//ya estamos todos
+
+private _playableUnits = {
+	if (isMultiplayer) then {playableUnits} else {allPlayers};
+};
+
+waitUntil {(count (call _playableUnits)) > 0};
+waitUntil {({(isPlayer _x) and (!isNull _x) and (_x == _x)} count allUnits) == (count (call _playableUnits))};//ya estamos todos
 [] spawn A3A_fnc_modBlacklist;
 
 if (loadLastSave) then {

@@ -16,17 +16,15 @@ if (hasInterface) then {
 	player setVariable ["canSave", false, true];
 };
 
-if (isMultiplayer) then {
-	if (!isServer) then {
-		call compile preprocessFileLineNumbers "initFuncs.sqf";
-		call compile preprocessFileLineNumbers "initVar.sqf";
-		[2,format ["MP client version: %1",localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;
-	}
-	else {
-		waitUntil {sleep 0.5;(!isNil "serverInitDone")};
-	};
-	[] execVM "briefing.sqf";
+if (!isServer) then {
+	call compile preprocessFileLineNumbers "initFuncs.sqf";
+	call compile preprocessFileLineNumbers "initVar.sqf";
+	[2,format ["MP client version: %1",localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;
+}
+else {
+	waitUntil {sleep 0.5;(!isNil "serverInitDone")};
 };
+[] execVM "briefing.sqf";
 
 if (!hasInterface) exitWith {
 	[2,format ["Headless client version: %1",localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;
@@ -490,7 +488,7 @@ waituntil {!isnull (finddisplay 46)};
 gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",A3A_fnc_keys];
 //removeAllActions boxX;
 
-if ((!isServer) and (isMultiplayer)) then {boxX call jn_fnc_arsenal_init};
+//if ((!isServer) and (isMultiplayer)) then {boxX call jn_fnc_arsenal_init};
 
 boxX allowDamage false;
 boxX addAction ["Transfer Vehicle cargo to Ammobox", {[] spawn A3A_fnc_empty;}, 4];

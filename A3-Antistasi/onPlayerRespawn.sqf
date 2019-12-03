@@ -238,9 +238,11 @@ if (side group player == buenos) then
 	[] spawn A3A_fnc_statistics;
 	}
 else
-	{
+{
 	_viejo setVariable ["spawner",nil,true];
 	_nuevo setVariable ["spawner",true,true];
 	if (hayRHS) then {[player] call A3A_fnc_RHSdress};
 	if (hayACE) then {[] call A3A_fnc_ACEpvpReDress};
-	};
+};
+
+player enableStamina false; //disables player fatigue on respawn

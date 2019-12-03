@@ -1,10 +1,12 @@
 if (hasInterface) then
-	{
+{
 	waitUntil {!isNull player};
 	waitUntil {player == player};
 	player removeweaponGlobal "itemmap";
 	player removeweaponGlobal "itemgps";
-	};
+
+	player enableStamina false; //disables fatigue
+};
 if (isMultiplayer) then
 	{
 	if (!isServer) then

@@ -4,20 +4,18 @@ _markersX = _this select 0;
 _positionX = _this select 1;
 _array = (_markersX - controlsX) select {getMarkerPos _x distance2D _positionX < distanceForLandAttack};
 _destinationsX = [];
-if !(isMultiplayer) then
-	{
-	{
+
+//Spawn patrols if we've nearby fast travel points if we're in singleplayer, otherwise use nearby players.
+private _isValidDestination = if (isMultiplayer) then {
+	{playableUnits findIf {(side (group _x) == teamPlayer) and (_x distance2d _this < 2000)} != -1};
+} else {
+	{markersX findIf {(sidesX getVariable [_x,sideUnknown] == teamPlayer) and (getMarkerPos _x distance2d _this < 2000)} != -1};
+};
+
+{
 	_destinationX = _x;
 	_pos = getMarkerPos _destinationX;
-	if (markersX findIf {(sidesX getVariable [_x,sideUnknown] == teamPlayer) and (getMarkerPos _x distance2d _pos < 2000)} != -1) then {_destinationsX pushBack _destinationX};
-	} forEach _array;
-	}
-else
-	{
-	{
-	_destinationX = _x;
-	_pos = getMarkerPos _destinationX;
-	if (playableUnits findIf {(side (group _x) == teamPlayer) and (_x distance2d _pos < 2000)} != -1) then {_destinationsX pushBack _destinationX};
-	} forEach _array;
-	};
+	if (_pos call _isValidDestination) then {_destinationsX pushBack _destinationX};
+} forEach _array;
+
 _destinationsX

@@ -348,7 +348,7 @@ if (isMultiplayer) then {
 				membersX pushBack (getPlayerUID player);
 				publicVariable "membersX";
 			};
-		_nonMembers = {(side group _x == teamPlayer) and !([_x] call A3A_fnc_isMember)} count playableUnits;
+		_nonMembers = {(side group _x == teamPlayer) and !([_x] call A3A_fnc_isMember)} count (call A3A_fnc_playableUnits);
 		if (_nonMembers >= (playableSlotsNumber teamPlayer) - bookedSlots) then {["memberSlots",false,1,false,false] call BIS_fnc_endMission};
 		if (memberDistance != 16000) then {[] execVM "orgPlayers\nonMemberDistance.sqf"};
 		};
@@ -373,7 +373,6 @@ if (_isJip) then {
 		}
 		else {
 			hint "Welcome Guest\n\nYou have joined this server as guest";
-			//if ((count playableUnits == maxPlayers) and (({[_x] call A3A_fnc_isMember} count playableUnits) < count membersX) and (serverName in officialServers)) then {["serverFull",false,1,false,false] call BIS_fnc_endMission};
 		};
 	}
 	else {

@@ -74,7 +74,7 @@ petros addMPEventHandler ["mpkilled",
 					[] remoteExec ["A3A_fnc_placementSelection",theBoss];
 				} else {
 					private _playersWithRank =
-						playableUnits
+						(call A3A_fnc_playableUnits)
 						select {(side (group _x) == teamPlayer) && isPlayer _x && _x == _x getVariable ["owner", _x]}
 						apply {[([_x] call A3A_fnc_numericRank) select 0, _x]};
 					_playersWithRank sort false;
@@ -84,7 +84,7 @@ petros addMPEventHandler ["mpkilled",
 			};
 			{
 				if (side _x == Occupants) then {_x setPos (getMarkerPos respawnOccupants)};
-			} forEach playableUnits;
+			} forEach (call A3A_fnc_playableUnits);
 		}
         else
 		{

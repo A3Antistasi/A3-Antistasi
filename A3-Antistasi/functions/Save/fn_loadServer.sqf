@@ -97,7 +97,7 @@ if (isServer) then {
 	["nextTick"] call fn_LoadStat;
 	["staticsX"] call fn_LoadStat;
 
-	if (!isMultiPlayer) then {player setPos getMarkerPos respawnTeamPlayer} else {{_x setPos getMarkerPos respawnTeamPlayer} forEach (playableUnits select {side _x == teamPlayer})};
+	{_x setPos getMarkerPos respawnTeamPlayer} forEach ((call A3A_fnc_playableUnits) select {side _x == teamPlayer});
 	_sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
 
 	//Isn't that just tierCheck.sqf?

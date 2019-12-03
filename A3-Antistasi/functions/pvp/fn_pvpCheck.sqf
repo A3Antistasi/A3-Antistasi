@@ -2,8 +2,8 @@ private _filename = "fn_pvpCheck";
 
 params ["_unit"];
 
-private _friendlyPlayers = ({(side group _x == teamPlayer)} count playableUnits);
-private _enemyPlayers = count playableUnits - _friendlyPlayers;
+private _friendlyPlayers = ({(side group _x == teamPlayer)} count (call A3A_fnc_playableUnits));
+private _enemyPlayers = count (call A3A_fnc_playableUnits) - _friendlyPlayers;
 
 // Player checks to prevent them logging into PvP for whatever reason.
 switch (true) do {

@@ -9,25 +9,20 @@ _base = "";
 _roads = [];
 
 _arrayAirports = if (hasIFA) then {(airportsX + outposts) select {((spawner getVariable _x != 0)) and (sidesX getVariable [_x,sideUnknown] != teamPlayer)}} else {(seaports + airportsX + outposts) select {((spawner getVariable _x != 0)) and (sidesX getVariable [_x,sideUnknown] != teamPlayer)}};
-
 _arrayAirports1 = [];
-if !(isMultiplayer) then
-	{
-	{
+
+private _isValidPatrolOrigin = if (isMultiplayer) then {
+	{playableUnits findIf {(side (group _x) == teamPlayer) and (_x distance2d _this < distanceForLandAttack)} != -1};
+} else {
+	{[distanceForLandAttack,1,_this,teamPlayer] call A3A_fnc_distanceUnits};
+};
+
+{
 	_airportX = _x;
 	_pos = getMarkerPos _airportX;
-	//if (allUnits findIf {(_x getVariable ["spawner",false]) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAirports1 pushBack _airportX};
-	if ([distanceForLandAttack,1,_pos,teamPlayer] call A3A_fnc_distanceUnits) then {_arrayAirports1 pushBack _airportX};
-	} forEach _arrayAirports;
-	}
-else
-	{
-	{
-	_airportX = _x;
-	_pos = getMarkerPos _airportX;
-	if (playableUnits findIf {(side (group _x) == teamPlayer) and (_x distance2d _pos < distanceForLandAttack)} != -1) then {_arrayAirports1 pushBack _airportX};
-	} forEach _arrayAirports;
-	};
+	if (_pos call _isValidPatrolOrigin) then {_arrayAirports1 pushBack _airportX};
+} forEach _arrayAirports;
+
 if (_arrayAirports1 isEqualTo []) exitWith {};
 
 _base = selectRandom _arrayAirports1;

@@ -93,12 +93,8 @@ if (gameMode != 1) then {
 ["Initialize"] call BIS_fnc_dynamicGroups;//Exec on Server
 hcArray = [];
 
-private _playableUnits = {
-	if (isMultiplayer) then {playableUnits} else {allPlayers};
-};
-
-waitUntil {(count (call _playableUnits)) > 0};
-waitUntil {({(isPlayer _x) and (!isNull _x) and (_x == _x)} count allUnits) == (count (call _playableUnits))};//ya estamos todos
+waitUntil {count (call A3A_fnc_playableUnits) > 0};
+waitUntil {({(isPlayer _x) and (!isNull _x) and (_x == _x)} count allUnits) == (count (call A3A_fnc_playableUnits))};//ya estamos todos
 [] spawn A3A_fnc_modBlacklist;
 
 if (loadLastSave) then {
@@ -128,16 +124,13 @@ if (loadLastSave) then {
 		membersX = [];
 		{
 			membersX pushBack (getPlayerUID _x);
-		} forEach playableUnits;
+		} forEach (call A3A_fnc_playableUnits);
 		publicVariable "membersX";
 	};
 	theBoss = objNull;
 	{
 		if (([_x] call A3A_fnc_isMember) and (side _x == teamPlayer)) exitWith {
 			theBoss = _x;
-			//_x setRank "CORPORAL";
-			//[_x,"CORPORAL"] remoteExec ["A3A_fnc_ranksMP"];
-			//_x setVariable ["score", 25,true];
 		};
 	} forEach playableUnits;
 	publicVariable "theBoss";
@@ -153,8 +146,7 @@ else {
 	}
 	else {
 		[2,"New session selected",_fileName] call A3A_fnc_log;
-		if (isNil "commanderX") then {commanderX = (playableUnits select 0)};
-		if (isNull commanderX) then {commanderX = (playableUnits select 0)};
+		if (isNil "commanderX" || {isNull commanderX}) then {commanderX = (call A3A_fnc_playableUnits) select 0};
 		theBoss = commanderX;
 		theBoss setRank "CORPORAL";
 		[theBoss,"CORPORAL"] remoteExec ["A3A_fnc_ranksMP"];

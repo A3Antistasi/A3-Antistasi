@@ -101,7 +101,7 @@ if (visiblemap) then {
 			if ((side _x == teamPlayer) or (side _x == civilian)) then {
 				_x setPos getPos petros;
 			};
-		} forEach playableUnits;
+		} forEach (call A3A_fnc_playableUnits);
 	};
 	openmap [false,false];
 };

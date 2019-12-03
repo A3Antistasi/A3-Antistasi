@@ -42,16 +42,9 @@ if (side (group _killer) == teamPlayer) then
 	*/
 	if (vehicle _killer isKindOf "StaticMortar") then
 		{
-		if (isMultiplayer) then
-			{
-			{
+		{
 			if ((_x distance _victim < 300) and (captive _x)) then {[_x,false] remoteExec ["setCaptive",0,_x]; _x setCaptive false};
-			} forEach playableUnits;
-			}
-		else
-			{
-			if ((player distance _victim < 300) and (captive player)) then {player setCaptive false};
-			};
+		} forEach (call A3A_fnc_playableUnits);
 		};
 	if (count weapons _victim < 1 && !(_victim getVariable ["isAnimal", false])) then
 		{

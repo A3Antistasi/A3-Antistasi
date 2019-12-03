@@ -18,7 +18,7 @@ while {true} do
 			_mrk setMarkerTextLocal format ["%1",name _playerX];
 			_markersX pushBack _mrk;
 			};
-		} forEach playableUnits;
+		} forEach (call A3A_fnc_playableUnits);
 		if (count _playersX > 0) then
 			{
 			{
@@ -54,7 +54,7 @@ while {true} do
 						{
 						_textX = format ["%1%2/",_textX,name _x];
 						};
-					} forEach playableUnits;
+					} forEach (call A3A_fnc_playableUnits);
 					_mrk setMarkerTextLocal _textX;
 					}
 				else

@@ -28,7 +28,7 @@ _promoted = false;
 			sleep 5;
 		};
 	};
-} forEach (playableUnits select {(side (group _x) == teamPlayer)});
+} forEach ((call A3A_fnc_playableUnits) select {(side (group _x) == teamPlayer)});
 
 [3, _textX, _filename] call A3A_fnc_log;
 

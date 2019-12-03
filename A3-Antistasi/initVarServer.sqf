@@ -52,7 +52,7 @@ DECLARE_SERVER_VAR(maxUnits, 140);
 DECLARE_SERVER_VAR(disabledMods, call A3A_fnc_initDisabledMods);
 
 //Legacy tool for scaling AI difficulty. Could use a rewrite.
-DECLARE_SERVER_VAR(difficultyCoef, if !(isMultiplayer) then {0} else {floor ((({side group _x == teamPlayer} count playableUnits) - ({side group _x != teamPlayer} count playableUnits)) / 5)});
+DECLARE_SERVER_VAR(difficultyCoef, if !(isMultiplayer) then {0} else {floor ((({side group _x == teamPlayer} count (call A3A_fnc_playableUnits)) - ({side group _x != teamPlayer} count (call A3A_fnc_playableUnits))) / 5)});
 
 
 //Mostly state variables, used by various parts of Antistasi.

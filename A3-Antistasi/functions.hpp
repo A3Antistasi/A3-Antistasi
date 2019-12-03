@@ -49,6 +49,7 @@ class A3A
 		class outpostDialog {};
 		class patrolDestinations {};
 		class placementSelection {};
+		class playableUnits {};
 		class powerCheck {};
 		class powerReorg {};
 		class prestige {};

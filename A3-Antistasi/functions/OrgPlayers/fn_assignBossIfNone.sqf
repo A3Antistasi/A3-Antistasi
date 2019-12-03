@@ -34,7 +34,7 @@ private _BossRank = 0;
 	else {
 		[3, format ["Player is not eligible: %1", _x],_filename] call A3A_fnc_log;
 	};
-} forEach playableUnits;
+} forEach (call A3A_fnc_playableUnits);
 
 if (!isNull _nextBoss) then
 {

@@ -1,9 +1,4 @@
-if (!isMultiplayer) exitWith {
-  loadLastSave = true;
-};
+[] call A3A_fnc_loadPlayer;
 
-if (hasInterface) then {
-  [] spawn A3A_fnc_loadPlayer;
-};
 
 

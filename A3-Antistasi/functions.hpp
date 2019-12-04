@@ -1,5 +1,25 @@
 class A3A
 {
+	class init
+	{
+		//Main initialisation functions.
+		class initServer {};
+		class initClient {};
+		
+		//Other initialisation functions (generally called by the above)
+		class cityinfo {};
+		class credits {};
+		class initGarrisons {};
+		class initGetMissionPath {};
+		class initSpawnPlaces {};
+		class modBlacklist {};
+		class playerMarkers {};
+		class prepareMarkerArrays {};
+		class reinitY {};
+		class resourcecheck {};
+		class tags {};
+	};
+	
 	class Base
 	{
 		class addActionBreachVehicle {};
@@ -212,10 +232,11 @@ class A3A
 		class buyVehicle {};
 		class buyVehicleCiv {};
 		class clearForest {};
+		class createDialog_setParams {};
+		class createDialog_shouldLoadPersonalSave {};
 		class dialogHQ {};
 		class difficultyMenu {};
 		class fastTravelRadio {};
-		class firstLoad {};
 		class mineDialog {};
 		class moveHQObject {};
 		class skiptime {};
@@ -455,20 +476,5 @@ class A3A
 		class dateToTimeString {};
 		class log {};
 		class vehicleWillCollideAtPosition {};
-	};
-
-	class init
-	{
-		class cityinfo {};
-		class credits {};
-		class initGarrisons {};
-		class initGetMissionPath {};
-		class initSpawnPlaces {};
-		class modBlacklist {};
-		class playerMarkers {};
-		class prepareMarkerArrays {};
-		class reinitY {};
-		class resourcecheck {};
-		class tags {};
 	};
 };

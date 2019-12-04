@@ -413,41 +413,46 @@ if (_isJip) then {
 	[2,"JIP client loaded",_fileName] call A3A_fnc_log;
 	player setPos (getMarkerPos respawnTeamPlayer);
 }
-else {
+else 
+{
 	[2,"Not Joining in Progress (JIP)",_filename] call A3A_fnc_log;
 	if (isNil "placementDone") then {
 		waitUntil {!isNil "theBoss"};
-		if (player == theBoss) then {
+		if (player == theBoss) then 
+		{
 			player setVariable ["score", 25,true];
 			if (isMultiplayer) then {
 				HC_commanderX synchronizeObjectsAdd [player];
 				player synchronizeObjectsAdd [HC_commanderX];
-		    		//_nul = [] execVM "Dialogs\initMenu.sqf";
-		    	if !(loadLastSave) then {
-		    		_nul = [] spawn A3A_fnc_placementSelection;
-				//This shouldn't really be here, but it's triggered on every other path through the code.
-				//This big if statement needs tidying, really.
-				player setVariable ['canSave', true, true];
+		    	if !(loadLastSave) then 
+				{
+					_nul = [] spawn A3A_fnc_placementSelection;
+					//This shouldn't really be here, but it's triggered on every other path through the code.
+					//This big if statement needs tidying, really.
+					player setVariable ['canSave', true, true];
 		    	}
 		    	else {
 		    		[true] spawn A3A_fnc_firstLoad;
-			};
-			[2,"Client load completed",_fileName] call A3A_fnc_log;
-		    	}
-			else {
+				};
+				[2,"Client load completed",_fileName] call A3A_fnc_log;
+			}
+			else 
+			{
 				membersX = [];
-			    	player setUnitTrait ["medic",true];
-			    	player setUnitTrait ["engineer",true];
-			    	[] spawn A3A_fnc_firstLoad;
+				player setUnitTrait ["medic",true];
+				player setUnitTrait ["engineer",true];
+				[] spawn A3A_fnc_loadPlayer;
 			};
 		}
-		else {
-			player setVariable ["score", 0,true];
-			[true] spawn A3A_fnc_firstLoad;
-			player setPos (getMarkerPos respawnTeamPlayer);
+		else 
+		{
+				player setVariable ["score", 0,true];
+				[true] spawn A3A_fnc_firstLoad;
+				player setPos (getMarkerPos respawnTeamPlayer);
 		};
 	}
-	else {
+	else 
+	{
 		if !(isServer) then {
 			[] spawn A3A_fnc_firstLoad;
 			player setPos (getMarkerPos respawnTeamPlayer);

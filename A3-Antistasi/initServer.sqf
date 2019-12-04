@@ -42,6 +42,14 @@ if (isMultiplayer) then {
 	playerMarkersEnabled = ("pMarkers" call BIS_fnc_getParamValue == 1); publicVariable "playerMarkersEnabled";
 	minPlayersRequiredforPVP = "minPlayersRequiredforPVP" call BIS_fnc_getParamValue; publicVariable "minPlayersRequiredforPVP";
 } else {
+	//Singleplayer here, so we can create cheeky dialogs.
+	//Ideally we should be asking for all of the parameters here, in some fancy UI fashion.
+	//But for now, we just ask if they want to load the previous session, which in singleplayer, will set loadLastSave to a value.
+	createDialog "first_load";
+	//Wait for it to load
+	waitUntil {dialog};
+	//Wait for a choice.
+	waitUntil {!dialog};
 	loadLastSave = true;
 	gameMode = 1;
 	autoSave = false;
@@ -49,7 +57,7 @@ if (isMultiplayer) then {
 	switchCom = false;
 	tkPunish = false;
 	distanceMission = 4000;
-	pvpEnabled = false; publicVariable "pvpEnabled";
+	pvpEnabled = false;
 	skillMult = 2;
 	minWeaps = 25;
 	memberOnlyMagLimit = 0;

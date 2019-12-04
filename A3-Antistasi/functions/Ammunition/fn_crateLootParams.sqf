@@ -5,6 +5,8 @@
 
 bobChaosCrates = "truelyRandomCrates" call BIS_fnc_getParamValue == 1; publicVariable "bobChaosCrates";
 
+cratePlayerScaling = "cratePlayerScaling" call BIS_fnc_getParamValue == 1; publicVariable "cratePlayerScaling";
+
 //do weapons automatically unlock primary magazine when unlocked?
 unlockedUnlimitedAmmo = "unlockedUnlimitedAmmo" call BIS_fnc_getParamValue; publicVariable "unlockedUnlimitedAmmo";
 allowUnlockedExplosives = "allowUnlockedExplosives" call BIS_fnc_getParamValue; publicVariable "allowUnlockedExplosives";

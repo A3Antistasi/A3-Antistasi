@@ -1,6 +1,6 @@
 /*
  * This file is called after initVarCommon.sqf, on the server only.
- * 
+ *
  * We also initialise anything in here that we don't want a client that's joining to overwrite, as JIP happens before initVar.
  */
 scriptName "initVarServer.sqf";
@@ -13,9 +13,9 @@ serverInitialisedVariables = ["serverInitialisedVariables"];
 
 private _declareServerVariable = {
 	params ["_varName", "_varValue"];
-	
+
 	serverInitialisedVariables pushBackUnique _varName;
-	
+
 	if (!isNil "_varValue") then {
 		missionNamespace setVariable [_varName, _varValue];
 	};
@@ -34,8 +34,8 @@ private _declareServerVariable = {
 [2,"initialising general server variables",_fileName] call A3A_fnc_log;
 
 //time to delete dead bodies, vehicles etc..
-DECLARE_SERVER_VAR(cleantime, 3600);		
-//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.										
+DECLARE_SERVER_VAR(cleantime, 3600);
+//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
 DECLARE_SERVER_VAR(distanceSPWN, 1000);
 DECLARE_SERVER_VAR(distanceSPWN1, 1300);
 DECLARE_SERVER_VAR(distanceSPWN2, 500);
@@ -46,7 +46,7 @@ DECLARE_SERVER_VAR(distanceForAirAttack, 10000);
 //The furthest distance the AI can attack from using trucks and armour
 DECLARE_SERVER_VAR(distanceForLandAttack, if (hasIFA) then {5000} else {3000});
 //Max units we aim to spawn in. It's not very strictly adhered to.
-DECLARE_SERVER_VAR(maxUnits, 140);	
+DECLARE_SERVER_VAR(maxUnits, 140);
 
 //Disabled DLC according to server parameters
 DECLARE_SERVER_VAR(disabledMods, call A3A_fnc_initDisabledMods);
@@ -333,6 +333,11 @@ private _templateVariables = [
 	"supportStaticsSDKB3",
 	"ATMineMag",
 	"APERSMineMag",
+
+	//@Spoffy, is the correct like this?
+	"breachingExplosivesAPC",
+	"breachingExplosivesTank",
+
 	//Occupants
 	"nameOccupants",
 	"factionGEN",
@@ -536,7 +541,7 @@ DECLARE_SERVER_VAR(sniperGroups, _sniperGroups);
 //////////////////////////////////////
 //        ITEM INITIALISATION      ///
 //////////////////////////////////////
-//This is all very tightly coupled. 
+//This is all very tightly coupled.
 //Beware when changing these, or doing anything with them, really.
 
 [2,"Scanning config entries for items",_fileName] call A3A_fnc_log;
@@ -624,27 +629,6 @@ if (hasIFA) then {
 //     ACRE ITEM MODIFICATIONS   ///
 ////////////////////////////////////
 if (hasACRE) then {initialRebelEquipment append ["ACRE_PRC343","ACRE_PRC148","ACRE_PRC152","ACRE_PRC77","ACRE_PRC117F"];};
-
-////////////////////////////////////
-//     BREACHING SCRIPTS   ///
-////////////////////////////////////
-//Breaching logic
-DECLARE_SERVER_VAR(breachExplosiveSmall, ["DemoCharge_Remote_Mag"]);
-DECLARE_SERVER_VAR(breachExplosiveLarge, ["SatchelCharge_Remote_Mag"]);
-
-if(hasRHS && !hasIFA) then
-{
-	breachExplosiveSmall = ["rhs_ec200_mag", "rhs_ec200_camo_mag"];
-	breachExplosiveLarge = ["rhs_ec400_mag", "rhs_ec400_camo_mag"];
-}
-else
-{
-	if(hasIFA) then
-	{
-		breachExplosiveSmall = ["LIB_Ladung_Small_MINE_mag"];
-		breachExplosiveLarge = ["LIB_Ladung_Big_MINE_mag"];
-	};
-};
 
 ////////////////////////////////////
 //    UNIT AND VEHICLE PRICES    ///

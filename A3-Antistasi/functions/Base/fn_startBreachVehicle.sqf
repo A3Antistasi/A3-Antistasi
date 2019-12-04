@@ -2,55 +2,122 @@ params["_vehicle", "_caller", "_actionID"];
 
 if(!isPlayer _caller) exitWith {hint "Only players are currently able to breach vehicles!";};
 
-private ["_isEngineer", "_isAPC", "_isTank", "_magazines", "_explosive", "_abort", "_index"];
-
 //Only engineers should be able to breach a vehicle
-_isEngineer = _caller getUnitTrait "engineer";
-if(!_isEngineer) exitWith {hint "You have to be an engineer to breach open a vehicle!";};
+private _isEngineer = _caller getUnitTrait "engineer";
+if(!_isEngineer) exitWith
+{
+    hint "You have to be an engineer to breach open a vehicle!";
+};
 
-if(!alive _vehicle) exitWith {hint "Why would you want to breach open a destroyed vehicle?"; _vehicle removeAction _actionID;};
+if(!alive _vehicle) exitWith
+{
+    hint "Why would you want to breach open a destroyed vehicle?";
+    _vehicle removeAction _actionID;
+};
 
-_isAPC = (typeOf _vehicle) in vehAPCs;
-_isTank = (typeOf _vehicle) in vehTanks;
+private _isAPC = (typeOf _vehicle) in vehAPCs;
+private _isTank = (typeOf _vehicle) in vehTanks;
 
-_magazines = magazines _caller;
-_explosive = "";
+private _magazines = magazines _caller;
+private _magazineArray = [];
+
+//Sort magazines
+private _index = -1;
+{
+    //TODO make sure every explosive has this parent in the config
+    if(_x isKindOf "TimeBomb") then
+    {
+        private _mag =_x;
+        _index = _magazineArray findIf {(_x select 0) == _mag};
+        if(_index == -1) then
+        {
+            _magazineArray pushBack [_mag, 1];
+        }
+        else
+        {
+            private _element = _magazineArray select _index;
+            _element set [1, (_element select 1) + 1];
+        };
+    };
+} forEach _magazines;
+
+//Abort if no explosives found
+if(_magazineArray isEqualTo []) exitWith
+{
+    hint "You carry no explosives. You will need some to breach vehicles!";
+};
+
+private _explosive = "";
+private _explosiveCount = 0;
 _abort = false;
 
-switch (true) do {
-	case _isAPC: {
-	  _index = _magazines findIf {_x in breachExplosiveSmall};
-	  if(_index == -1) then
-	  {
-		_abort = true;
-		hint "You need a small explosive charge to breach an APC open!";
-	  }
-	  else
-	  {
-		_explosive = _magazines select _index;
-	  };
+private _fn_selectExplosive =
+{
+    params ["_array", "_mags"];
+    private _result = [];
+    {
+        private _breach = _x select 0;
+        private _index = _mags findIf {(_x select 0) == _breach};
+        if(_index != -1) then
+        {
+            if((_mags select _index) select 1 >= (_x select 1)) then
+            {
+                _result = [_breach, _x select 1];
+            };
+        };
+
+    } forEach _array;
+    _result;
+};
+
+_index = -1;
+switch (true) do
+{
+    case _isAPC:
+    {
+        private _explo = [breachingExplosivesAPC, _magazineArray] call _fn_selectExplosive;
+        if(!(_explo isEqualTo [])) then
+        {
+            _explosive = _explo select 0;
+            _explosiveCount = _explo select 1;
+        };
 	};
-	
-	case _isTank: {
-	  _index = _magazines findIf {_x in breachExplosiveLarge};
-	  if(_index == -1) then
-	  {
-		_abort = true;
-		hint "You need a large explosive charge to breach a tank open!";
-	  }
-	  else
-	  {
-		_explosive = _magazines select _index;
-	  };	
+	case _isTank:
+    {
+        private _explo = [breachingExplosivesTank, _magazineArray] call _fn_selectExplosive;
+        if(!(_explo isEqualTo [])) then
+        {
+            _explosive = _explo select 0;
+            _explosiveCount = _explo select 1;
+        };
 	};
-	
-	default {
+
+	default
+    {
 		_abort = true;
-		hint "You can only breach APCs and Tanks."; 
+		hint "You can only breach APCs and Tanks.";
 	};
 };
 
+
 if(_abort) exitWith {};
+
+if(_explosiveCount == 0) exitWith
+{
+    private _needed = if(_isAPC) then {breachingExplosivesAPC} else {breachingExplosivesTank};
+    private _text = "You need at least";
+    for "_i" from 0 to ((count _needed) - 1) do
+    {
+        private _breach = _needed select _i;
+        _text = format ["%1\n%2x %3", _text, _breach select 1, _breach select 0];
+        if(_i < ((count _needed) - 1)) then
+        {
+            _text = format ["%1 OR", _text];
+        };
+    };
+    _text = format ["%1\nto breach open a this vehicle!", _text];
+    hint _text;
+};
 
 private ["_time", "_action"];
 

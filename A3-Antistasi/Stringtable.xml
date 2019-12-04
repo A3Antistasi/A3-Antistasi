@@ -982,6 +982,12 @@
       <Key ID="STR_antistasi_journal_entry_text_Features_15">
         <Original>Use this option to donate money to other players or your faction funds. Commanders may add or remove players from the Server Members List if the feature is enabled.</Original>
       </Key>
+      <Key ID="STR_antistasi_journal_entry_header_Features_16">
+        <Original>Breach Vehicles</Original>
+      </Key>
+      <Key ID="STR_antistasi_journal_entry_text_Features_16">
+        <Original>Tanks and APC can be breached by engineers with explosives to open them and get their crew out. APCs need less and/or smaller explosives than tanks and the action is taking less time. The time and explosives needed to do so are based on the mod and type of vehicle. Breaching vehicles applies damage, so take care when breaching heavily damaged vehicles. To breach a vehicle, get close to it and select the breaching option!</Original>
+      </Key>
       <Key ID="STR_antistasi_journal_entry_header_AI_1">
         <Original>Recruit</Original>
       </Key>

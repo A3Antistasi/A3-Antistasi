@@ -9,7 +9,7 @@ if (isMultiplayer) then {
 	[] call A3A_fnc_initServer;
 } else {
 	[] spawn {
-		waitUntil {!isNull (finddisplay 46)};
+		waitUntil {!isNull player && player == player && !isNull (finddisplay 46)};
 		[2, "Opening Singleplayer Parameter Dialog", "initServer.sqf"] call A3A_fnc_log;
 		[] call A3A_fnc_createDialog_setParams;
 		[2, "Proceeding to initServer", "initServer.sqf"] call A3A_fnc_log;

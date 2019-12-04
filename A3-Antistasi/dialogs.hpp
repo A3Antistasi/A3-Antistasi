@@ -42,7 +42,7 @@ class set_params {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "loadLastSave = false; [] spawn A3A_fnc_difficultyMenu; closeDialog 0;";
+			action = "loadLastSave = false; closeDialog 0;";
 		};
 	};
 };
@@ -3024,7 +3024,7 @@ class diff_menu 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;skillMult = 1";
+			action = "skillMult = 1; closeDialog 0;";
 		};
 		class HQ_button_MG: RscButton
 		{
@@ -3034,7 +3034,7 @@ class diff_menu 			{
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;";
+			action = "skillMult = 2; closeDialog 0;";
 		};
 		class HQ_button_AT: RscButton
 		{
@@ -3044,7 +3044,7 @@ class diff_menu 			{
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0; skillMult = 3";
+			action = "skillMult = 3; closeDialog 0;";
 		};
 	};
 };

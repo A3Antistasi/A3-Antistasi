@@ -243,7 +243,6 @@ class A3A
 		class createDialog_setParams {};
 		class createDialog_shouldLoadPersonalSave {};
 		class dialogHQ {};
-		class difficultyMenu {};
 		class fastTravelRadio {};
 		class mineDialog {};
 		class moveHQObject {};

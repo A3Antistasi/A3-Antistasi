@@ -43,16 +43,19 @@ if (isMultiplayer) then {
 	minPlayersRequiredforPVP = "minPlayersRequiredforPVP" call BIS_fnc_getParamValue; publicVariable "minPlayersRequiredforPVP";
 } else {
 	[2, "Setting Singleplayer Params", _fileName] call A3A_fnc_log;
-	//loadLastSave is set elsewhere.
-	gameMode = 1;
+	//These should be set in the set parameters dialog.
+	//This is just a fallback so we don't break
+	loadLastSave = if (isNil "loadLastSave") then {[1, "No loadLastSave setting", _fileName] call A3A_fnc_log; true} else {loadLastSave};
+	gameMode = if (isNil "gameMode") then {[1, "No gameMode setting", _fileName] call A3A_fnc_log; 1} else {gameMode};
 	autoSave = false;
 	membershipEnabled = false;
 	switchCom = false;
 	tkPunish = false;
 	distanceMission = 4000;
 	pvpEnabled = false;
-	skillMult = 2;
-	minWeaps = 25;
+	skillMult = if (isNil "skillMult") then {2} else {skillMult};
+	//Acceptable to default this one.
+	minWeaps = if (isNil "minWeaps") then {25} else {minWeaps};
 	memberOnlyMagLimit = 0;
 	allowMembersFactionGarageAccess = true;
 	civTraffic = 1;

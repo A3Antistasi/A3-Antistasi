@@ -80,7 +80,7 @@ publicVariable "campaignID";
 _nul = call A3A_fnc_initVar;
 
 savingServer = true;
-[2,format ["MP server version: %1",localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;
+[2,format ["%1 server version: %2", ["SP","MP"] select isMultiplayer, localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;
 bookedSlots = floor ((("memberSlots" call BIS_fnc_getParamValue)/100) * (playableSlotsNumber teamPlayer)); publicVariable "bookedSlots";
 _nul = call A3A_fnc_initFuncs;
 _nul = call A3A_fnc_initZones;

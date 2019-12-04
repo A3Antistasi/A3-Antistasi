@@ -193,11 +193,16 @@ for "_i" from 0 to (_crateWepTypeMax call _fnc_pickNumberOfTypes) do {
 		_amount = crateWepNumMax call _fnc_pickAmount;
 		_crate addWeaponWithAttachmentsCargoGlobal [[ _loot, "", "", "", [], [], ""], _amount];
 		for "_i" from 0 to _amount do {
-			_magazines = getArray (configFile / "CfgWeapons" / _loot / "magazines");
-			[3, format ["Grabbing a %1 for %2", _magazines, _loot],"fn_NATOCrate"] call A3A_fnc_log;
-			_magAmount = selectRandom [0,1,2];
-			[3, format ["Spawning %1 magazines for %2", _magAmount, _loot],"fn_NATOCrate"] call A3A_fnc_log;
-			_crate addMagazineCargoGlobal [selectrandom _magazines, _magAmount];
+			_magazine = selectRandom getArray (configFile / "CfgWeapons" / _loot / "magazines");
+			//Abort if the gun has no magazines.
+			if (isNil "_magazine") exitWith {};
+			_magAmount = if ((getText (configFile >> "CfgMagazines" >> _magazine >> "ammo") isKindOf "MissileBase")) then {
+				floor random 3;
+			} else {
+				floor random [1,6,1]
+			};
+			[3, format ["Spawning %1 magazines of %2 for %3", _magAmount, _magazine, _loot],"fn_NATOCrate"] call A3A_fnc_log;
+			_crate addMagazineCargoGlobal [_magazine, _magAmount];
 			[3, format ["Spawning %1 of %2", _amount, _loot],"fn_NATOCrate"] call A3A_fnc_log;
 		};
 	};

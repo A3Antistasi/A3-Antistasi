@@ -39,6 +39,7 @@ player createDiaryRecord ["SpecialK",[format [localize "STR_antistasi_journal_en
 
 
 _index =player createDiarySubject ["Features","Features Detail"];
+player createDiaryRecord ["Features",[format [localize "STR_antistasi_journal_entry_header_Features_17"],format [localize "STR_antistasi_journal_entry_text_Features_17", breachingExplosivesAPC call A3A_fnc_createBreachChargeText, "<br></br><br></br>", breachingExplosivesTank call A3A_fnc_createBreachChargeText]]];
 player createDiaryRecord ["Features",[format [localize "STR_antistasi_journal_entry_header_Features_16"],format [localize "STR_antistasi_journal_entry_text_Features_16"]]];
 player createDiaryRecord ["Features",[format [localize "STR_antistasi_journal_entry_header_Features_12"],format [localize "STR_antistasi_journal_entry_text_Features_12"]]];
 player createDiaryRecord ["Features",[format [localize "STR_antistasi_journal_entry_header_Features_11"],format [localize "STR_antistasi_journal_entry_text_Features_11"]]];

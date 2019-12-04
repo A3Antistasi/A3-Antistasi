@@ -986,13 +986,13 @@
         <Original>Breach Vehicles</Original>
       </Key>
       <Key ID="STR_antistasi_journal_entry_text_Features_16">
-        <Original>Tanks and APC can be breached by engineers with explosives to open them and get their crew out. Check 'Breach charges' for the charges needed. Breaching vehicles applies damage, so take care when breaching heavily damaged vehicles. To breach a vehicle, get close to it and select the breaching option!</Original>
+        <Original>Tanks and APC can be breached by engineers with explosives to open them and get their crew out. Check 'Breaching charges' for the charges needed. Breaching vehicles applies damage, so take care when breaching heavily damaged vehicles. To breach a vehicle, get close to it and select the breaching option!</Original>
       </Key>
       <Key ID="STR_antistasi_journal_entry_header_Features_17">
         <Original>Breaching charges</Original>
       </Key>
-      <Key ID="STR_antistasi_journal_entry_text_Features_16">
-        <Original>To breach an APC you need %1.%2To breach a tank you need %3!</Original>
+      <Key ID="STR_antistasi_journal_entry_text_Features_17">
+        <Original>To breach an APC you need %1 %2To breach a tank you need %3</Original>
       </Key>
       <Key ID="STR_antistasi_journal_entry_header_AI_1">
         <Original>Recruit</Original>

@@ -29,20 +29,16 @@ private _magazineArray = [];
 //Sort magazines
 private _index = -1;
 {
-    //TODO make sure every explosive has this parent in the config and check the parents spelling
-    if(_x isKindOf "TimeBomb") then
+    private _mag =_x;
+    _index = _magazineArray findIf {(_x select 0) == _mag};
+    if(_index == -1) then
     {
-        private _mag =_x;
-        _index = _magazineArray findIf {(_x select 0) == _mag};
-        if(_index == -1) then
-        {
-            _magazineArray pushBack [_mag, 1];
-        }
-        else
-        {
-            private _element = _magazineArray select _index;
-            _element set [1, (_element select 1) + 1];
-        };
+        _magazineArray pushBack [_mag, 1];
+    }
+    else
+    {
+        private _element = _magazineArray select _index;
+        _element set [1, (_element select 1) + 1];
     };
 } forEach _magazines;
 

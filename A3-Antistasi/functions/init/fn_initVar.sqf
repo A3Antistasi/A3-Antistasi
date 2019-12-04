@@ -4,16 +4,16 @@ scriptName "initVar.sqf";
 private _fileName = "initVar.sqf";
 [2,"initVar started",_fileName] call A3A_fnc_log;
 
-call compile preprocessFileLineNumbers "initVarCommon.sqf";
+call A3A_fnc_initVarCommon;
 
 if (isServer) then {
-	call compile preprocessFileLineNumbers "initVarServer.sqf";
+	call A3A_fnc_initVarServer;
 };
 
 //Wait until the server has finished initVarServer, and we've received all required data.
 waitUntil {!isNil "initVarServerCompleted"};
 
-call compile preprocessFileLineNumbers "initVarClient.sqf";
+call A3A_fnc_initVarClient;
 
 //Marks initVar as finished.
 initVar = true;

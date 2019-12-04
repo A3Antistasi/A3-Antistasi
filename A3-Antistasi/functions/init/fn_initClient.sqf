@@ -17,8 +17,8 @@ if (hasInterface) then {
 };
 
 if (!isServer) then {
-	call compile preprocessFileLineNumbers "initFuncs.sqf";
-	call compile preprocessFileLineNumbers "initVar.sqf";
+	call A3A_fnc_initFuncs;
+	call A3A_fnc_initVar;
 	[2,format ["MP client version: %1",localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;
 }
 else {
@@ -29,8 +29,8 @@ else {
 if (!hasInterface) exitWith {
 	[2,format ["Headless client version: %1",localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;
 	[clientOwner] remoteExec ["A3A_fnc_addHC",2];
-	call compile preprocessFileLineNumbers "initFuncs.sqf";
-	call compile preprocessFileLineNumbers "initVar.sqf";
+	call A3A_fnc_initFuncs;
+	call A3A_fnc_initVar;
 };
 
 _isJip = _this select 1;

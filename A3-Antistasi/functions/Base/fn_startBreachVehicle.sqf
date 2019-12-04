@@ -6,17 +6,22 @@ if(!isPlayer _caller) exitWith {hint "Only players are currently able to breach 
 private _isEngineer = _caller getUnitTrait "engineer";
 if(!_isEngineer) exitWith
 {
-    hint "You have to be an engineer to breach open a vehicle!";
+    hint "You have to be an engineer to breach a vehicle!";
 };
 
 if(!alive _vehicle) exitWith
 {
-    hint "Why would you want to breach open a destroyed vehicle?";
+    hint "Why would you want to breach a destroyed vehicle?";
     _vehicle removeAction _actionID;
 };
 
 private _isAPC = (typeOf _vehicle) in vehAPCs;
 private _isTank = (typeOf _vehicle) in vehTanks;
+
+if(!_isAPC && !_isTank) exitWith
+{
+    hint "You can only breach APCs and Tanks.";
+};
 
 private _magazines = magazines _caller;
 private _magazineArray = [];
@@ -24,7 +29,7 @@ private _magazineArray = [];
 //Sort magazines
 private _index = -1;
 {
-    //TODO make sure every explosive has this parent in the config
+    //TODO make sure every explosive has this parent in the config and check the parents spelling
     if(_x isKindOf "TimeBomb") then
     {
         private _mag =_x;
@@ -49,7 +54,6 @@ if(_magazineArray isEqualTo []) exitWith
 
 private _explosive = "";
 private _explosiveCount = 0;
-_abort = false;
 
 private _fn_selectExplosive =
 {
@@ -71,64 +75,31 @@ private _fn_selectExplosive =
 };
 
 _index = -1;
-switch (true) do
+
+private _needed = if(_isAPC) then {breachingExplosivesAPC} else {breachingExplosivesTank};
+private _explo = [_needed, _magazineArray] call _fn_selectExplosive;
+if(!(_explo isEqualTo [])) then
 {
-    case _isAPC:
-    {
-        private _explo = [breachingExplosivesAPC, _magazineArray] call _fn_selectExplosive;
-        if(!(_explo isEqualTo [])) then
-        {
-            _explosive = _explo select 0;
-            _explosiveCount = _explo select 1;
-        };
-	};
-	case _isTank:
-    {
-        private _explo = [breachingExplosivesTank, _magazineArray] call _fn_selectExplosive;
-        if(!(_explo isEqualTo [])) then
-        {
-            _explosive = _explo select 0;
-            _explosiveCount = _explo select 1;
-        };
-	};
-
-	default
-    {
-		_abort = true;
-		hint "You can only breach APCs and Tanks.";
-	};
+    _explosive = _explo select 0;
+    _explosiveCount = _explo select 1;
 };
-
-
-if(_abort) exitWith {};
 
 if(_explosiveCount == 0) exitWith
 {
-    private _needed = if(_isAPC) then {breachingExplosivesAPC} else {breachingExplosivesTank};
-    private _text = "You need at least";
-    for "_i" from 0 to ((count _needed) - 1) do
-    {
-        private _breach = _needed select _i;
-        _text = format ["%1\n%2x %3", _text, _breach select 1, _breach select 0];
-        if(_i < ((count _needed) - 1)) then
-        {
-            _text = format ["%1 OR", _text];
-        };
-    };
-    _text = format ["%1\nto breach open a this vehicle!", _text];
-    hint _text;
+    hint "You don't have the right explosives, check the briefing notes to see what you need!";
 };
 
-private ["_time", "_action"];
-
-_time = 15 + (random 5);
+private _time = 15 + (random 5);
+private _damageDealt = 0;
 if(_isAPC) then
 {
-  _time = 25 + (random 10);
+    _time = 25 + (random 10);
+    _damageDealt = 0.15 + random 0.15;
 };
 if(_isTank) then
 {
-  _time = 45 + (random 15);
+    _time = 45 + (random 15);
+    _damageDealt = 0.25 + random 0.25;
 };
 
 _caller setVariable ["timeToBreach",time + _time];
@@ -137,7 +108,7 @@ _caller setVariable ["breachVeh", _vehicle];
 _caller setVariable ["animsDone",false];
 _caller setVariable ["cancelBreach",false];
 
-_action = _caller addAction ["Cancel Breaching", {(_this select 1) setVariable ["cancelBreach",true]},nil,6,true,true,"","(isPlayer _this) && (_this == vehicle _this)"];
+private _action = _caller addAction ["Cancel Breaching", {(_this select 1) setVariable ["cancelBreach",true]},nil,6,true,true,"","(isPlayer _this) && (_this == vehicle _this)"];
 _vehicle removeAction _actionID;
 
 _caller addEventHandler ["AnimDone",
@@ -185,19 +156,10 @@ if
   };
 };
 
-private ["_damageDealt", "_currentDamage", "_result", "_bomb", "_crew", "_dropPos"];
-
-_damageDealt = 0;
-if(_isAPC) then
+//Remove the correct amount of explosives
+for "_count" from 1 to _explosiveCount do
 {
-  _caller removeMagazine _explosive;
-  _damageDealt = 0.15 + random 0.15;
-};
-
-if(_isTank) then
-{
-  _caller removeMagazine _explosive;
-  _damageDealt = 0.25 + random 0.25;
+    _caller removeMagazine _explosive;
 };
 
 //Added as the vehicle might blow up. Best not to blow up in the player's face.
@@ -208,8 +170,8 @@ sleep 10;
 private _hitPointsConfigPath = configFile >> "CfgVehicles" >> (typeOf _vehicle) >> "HitPoints";
 
 private _hullHitPoint = getText (_hitPointsConfigPath >> "HitHull" >> "name");
-_currentDamage = _vehicle getHit _hullHitPoint;
-_result = _currentDamage + _damageDealt;
+private _currentDamage = _vehicle getHit _hullHitPoint;
+private _result = _currentDamage + _damageDealt;
 if(_result > 1) then {_result = 1};
 _vehicle setHit [_hullHitPoint, _result];
 
@@ -233,19 +195,17 @@ _vehicle setHit [_bodyHitPoint, _result];
 
 if(((damage _vehicle) + _damageDealt) > 0.9) exitWith
 {
-  _bomb = "SatchelCharge_Remote_Ammo_Scripted" createVehicle (getPos _vehicle);
+  private _bomb = "SatchelCharge_Remote_Ammo_Scripted" createVehicle (getPos _vehicle);
   _bomb setDamage 1;
   _vehicle setDamage 1;
 };
 
 playSound3D [ "A3\Sounds_F\environment\ambient\battlefield\battlefield_explosions3.wss", _vehicle, false, (getPos _vehicle), 4, 1, 0 ];
 
-
-
 sleep 0.5;
 _vehicle lock 0;
 
-_crew = crew _vehicle;
+private _crew = crew _vehicle;
 {
     if(random 10 > 7) then
     {
@@ -253,14 +213,14 @@ _crew = crew _vehicle;
     };
     if(alive _x) then
     {
-      moveOut _x;
-      _x setVariable ["surrendered",true,true];
-      [_x] spawn A3A_fnc_surrenderAction;
+        moveOut _x;
+        _x setVariable ["surrendered",true,true];
+        [_x] spawn A3A_fnc_surrenderAction;
     }
     else
     {
-      _dropPos = _vehicle getRelPos [5, random 360];
-      _X setPos _dropPos;
+        private _dropPos = _vehicle getRelPos [5, random 360];
+        _x setPos _dropPos;
     };
 } forEach _crew;
 

@@ -90,7 +90,7 @@ class should_load_personal_save {
 			y = 0.317959 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			action = "closeDialog 0;"
+			action = "closeDialog 0;";
 		};
 	};
 };

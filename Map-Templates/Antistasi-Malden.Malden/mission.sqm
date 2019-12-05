@@ -13907,7 +13907,7 @@ class Mission
 		};
 		class Item550
 		{
-			ataType="Marker";
+			dataType="Marker";
 			position[]={5411.4707,451.25,5968.7446};
 			name="island";
 			markerType="RECTANGLE";

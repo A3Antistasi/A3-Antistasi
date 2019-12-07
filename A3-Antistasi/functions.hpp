@@ -40,6 +40,7 @@ class A3A
 		class citiesToCivPatrol {};
 		class citySupportChange {};
 		class commsMP {};
+        class createBreachChargeText {};
 		class createControls {};
 		class createOutpostsFIA {};
 		class createPetros {};

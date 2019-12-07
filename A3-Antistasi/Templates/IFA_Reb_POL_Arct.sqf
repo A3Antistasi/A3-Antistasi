@@ -88,6 +88,13 @@ supportStaticsSDKB3 = "not_supported";
 //Mines
 ATMineMag = "LIB_TMI_42_MINE_mag";
 APERSMineMag = "LIB_shumine_42_MINE_mag";
+
+//Breaching explosives
+//Breaching APCs needs one demo charge
+breachingExplosivesAPC = [["LIB_Ladung_Small_MINE_mag", 1]];
+//Breaching tanks needs one satchel charge or two demo charges
+breachingExplosivesTank = [["LIB_Ladung_Big_MINE_mag", 1], ["LIB_Ladung_Small_MINE_mag", 2]];
+
 //Starting Unlocks
 initialRebelEquipment append ["LIB_PTRD","LIB_M38","LIB_Webley_Mk6","LIB_Webley_Flare"];
 initialRebelEquipment append ["LIB_M38"];

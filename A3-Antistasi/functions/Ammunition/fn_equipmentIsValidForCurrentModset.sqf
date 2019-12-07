@@ -10,6 +10,14 @@ if (_itemMod in disabledMods) exitWith {
 	true;
 };
 
+//We remove anything without a picture, because it's a surprisingly good indicator if whether something
+//is actually a valid item or not.
+//Despite all the filtering, we still get a few RHS guns, etc that are for APCs, but are still classed the item type as normal weapons.
+//This is a pretty hard filter that removes anything that shouldn't be in there - I'm hoping it isn't prone to false positives!
+if (getText (_configClass >> "picture") == "") exitWith {
+	true;
+};
+
 //Remove vanilla items if no vanilla sides (IFA handled seperately)
 if (_itemIsVanilla && {has3CB || {activeAFRF && activeGREF && activeUSAF}}) then {
 	switch (_categories select 0) do {

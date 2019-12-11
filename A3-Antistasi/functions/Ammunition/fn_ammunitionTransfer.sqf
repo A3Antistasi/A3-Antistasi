@@ -42,6 +42,16 @@ if (!isNil "_weaponsItemsCargo") then
 			if (_thingX isEqualType "") then
 				{
 				if (_thingX != "") then {_items pushBack _thingX};
+				}
+			else
+				{
+				if (_thingX isEqualType []) then
+					{
+					if (count _thingX > 0) then
+						{
+						_ammunition pushBack (_thingX select 0);
+						};
+					};
 				};
 			};
 		} forEach _weaponsItemsCargo;

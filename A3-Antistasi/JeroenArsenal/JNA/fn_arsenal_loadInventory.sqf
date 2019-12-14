@@ -93,7 +93,7 @@ _inventory = [];
 }foreach magazinesAmmoFull player;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// assinged items
-_assignedItems_old = assignedItems player + [headgear player] + [goggles player] + [hmd player] + [binocular player];
+_assignedItems_old = assignedItems player + [headgear player] + [goggles player];
 {
 	_item = _x;
 	_amount = 1;

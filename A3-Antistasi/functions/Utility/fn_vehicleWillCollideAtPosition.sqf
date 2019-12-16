@@ -58,10 +58,6 @@ private _lines = [
 private _collision = false; 
 private _heightOffset = (_boundingBox select 1 select 2) - (_boundingBox select 0 select 2) / 2; 
 
-if (debugVehicleCollision) then {
-	vehicleCollisionCheckCornerLocations = []; 
-};
-
 { 
 	//private _startPos = _targetPos vectorAdd (_x # 0) vectorAdd [0, 0, _height]; 
 	private _startPosModelSpace = _x select 0;
@@ -70,31 +66,22 @@ if (debugVehicleCollision) then {
 	private _endPosVehicleCurrentLocation = _vehicle modelToWorld (_endPosModelSpace);
 
 	private _positionDifference = [
-		_targetPos select 0 - _vehiclePosAGL select 0,
-		_targetPos select 1 - _vehiclePosAGL select 1,
-		_targetPos select 2 - _vehiclePosAGL select 2
+		(_targetPos select 0) - (_vehiclePosAGL select 0),
+		(_targetPos select 1) - (_vehiclePosAGL select 1),
+		(_targetPos select 2) - (_vehiclePosAGL select 2)
 	];
 
 	private _startPos = [
-		_startPosVehicleCurrentLocation select 0 + _positionDifference select 0,
-		_startPosVehicleCurrentLocation select 1 + _positionDifference select 1,
-		0.1 + _startPosModelSpace select 2 + _heightOffset
+		(_startPosVehicleCurrentLocation select 0) + (_positionDifference select 0),
+		(_startPosVehicleCurrentLocation select 1) + (_positionDifference select 1),
+		0.1 + (_startPosModelSpace select 2) + _heightOffset
 	];
-
-	if (debugVehicleCollision) then {
-		vehicleCollisionCheckCornerLocations pushBack ( _startPos); 
-	};
 
 	private _endPos = [
-		_endPosVehicleCurrentLocation select 0 + _positionDifference select 0,
-		_endPosVehicleCurrentLocation select 1 + _positionDifference select 1,
-		0.1 + _startPosModelSpace select 2 + _heightOffset
+		(_endPosVehicleCurrentLocation select 0) + (_positionDifference select 0),
+		(_endPosVehicleCurrentLocation select 1) + (_positionDifference select 1),
+		0.1 + (_startPosModelSpace select 2) + _heightOffset
 	];
-
-	if (debugVehicleCollision) then {
-		vehicleCollisionCheckCornerLocations pushBack (_endPos);
-	};
-	
 
 	private _result = lineIntersectsSurfaces [AGLtoASL _startPos, AGLtoASL _endPos, objNull, objNull, false, 1, "FIRE", "FIRE"]; 
 	if (count _result > 0) exitWith { 

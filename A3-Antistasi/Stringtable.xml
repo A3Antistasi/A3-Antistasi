@@ -368,9 +368,9 @@
     </Container>
     <Container name="credits_generic">
       <Key ID="STR_antistasi_credits_generic_author_text">
-        <Original>The Official Antistasi Community</Original>
-        <English>Antistasi Community</English>
-        <French>La Communauté Officielle d'Antistasi</French>
+        <Original>The Official Antistasi Community and Barbolani</Original>
+        <English>The Official Antistasi Community and Barbolani</English>
+        <French>La Communauté Officielle d'Antistasi et Barbolani</French>
         <Russian>Сообщество Antistasi</Russian>
       </Key>
       <Key ID="STR_antistasi_credits_generic_overview_text">

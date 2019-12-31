@@ -9452,7 +9452,7 @@ class Mission
 			{
 			};
 			id=1680;
-			type="Land_Circle_F";
+			type="Land_HelipadCircle_F";
 		};
 		class Item266
 		{

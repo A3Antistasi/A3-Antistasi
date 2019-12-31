@@ -10,21 +10,20 @@ params ["_base", "_target", ["_isAir", false], ["_bypass", false]];
 *     _unitsSend : ARRAY : The units in the correct format
 */
 
-private ["_maxUnitSend", "_unitsSend", "_reinf", "_side", "_currentSelected", "_seatCount", "_vehicle", "_allSeats", "_crewSeats", "_neededSpace", "_crewMember", "_crew", "_cargo", "_openSpace", "_abort", "_data", "_dataCrew", "_dataCargo", "_vehicleIsNeeded"];
 private _fileName = "fn_selectReinfUnits";
 
-_maxUnitSend = garrison getVariable [format ["%1_recruit", _base], 0];
+private _maxUnitSend = garrison getVariable [format ["%1_recruit", _base], 0];
 if(_maxUnitSend < 3 && {!_bypass}) exitWith
 {
     diag_log "Can't select units with less than 3 slots, would be an vehicle only with crew!";
     [];
 };
 
-_unitsSend = [];
+private _unitsSend = [];
 
 //Hard copy, need to work on this
-_reinf = +([_target] call A3A_fnc_getRequested);
-_side = sidesX getVariable [_base, sideUnknown];
+private _reinf = +([_target] call A3A_fnc_getRequested);
+private _side = sidesX getVariable [_base, sideUnknown];
 
 private _maxRequested = [_reinf, false] call A3A_fnc_countGarrison;
 private _maxCrewSpaceNeeded = _maxRequested select 1;
@@ -45,33 +44,30 @@ private _finishedSelection = false;
 
 while {_currentUnitCount < (_maxUnitSend - 2) && {[_reinf, true] call A3A_fnc_countGarrison != 0}} do
 {
-    private _remainingUnitsAvailable = _maxUnitSend - _currentUnitCount;
-    //Find vehicle to send
-    _currentSelected = "";
-    _seatCount = 0;
-    _vehicleIsNeeded = false;
-
+    private _currentSelected = "";
+    private _seatCount = 0;
     private _crewSeats = 0;
 
+    //Attempt to find suitable vehicle in requested list
     {
-        _vehicle = (_x select 0);
+        private _vehicle = (_x select 0);
         if(_vehicle != "") then
         {
-            _allSeats = [_vehicle, true] call BIS_fnc_crewCount;
-            _crewSeats = [_vehicle, false] call BIS_fnc_crewCount;
+            private _curSeatCount = [_vehicle, true] call BIS_fnc_crewCount;
+            private _curCrewSeats = [_vehicle, false] call BIS_fnc_crewCount;
 
             //TODO available check on the base, currently it is bypassing the economy
             //Check we don't overflow the max units we can send, if we get this vehicle and crew it.
             if
             (
-                (((_currentUnitCount + _crewSeats) + 1) <= _maxUnitSend) &&     //Already send units + crew + 1 for vehicle <= available units
-                {_allSeats > _seatCount &&                                      //Can send more then the last select vehicle
+                (((_currentUnitCount + _curCrewSeats) + 1) <= _maxUnitSend) &&     //Already send units + crew + 1 for vehicle <= available units
+                {_curSeatCount > _seatCount &&                                      //Can send more then the last select vehicle
                 {!_isAir ||	{_vehicle isKindOf "Air"}}}                         //Ensure air vehicle for air convoys
             ) then
             {
                 _currentSelected = _vehicle;
-                _seatCount = _allSeats;
-                _vehicleIsNeeded = true;
+                _seatCount = _curSeatCount;
+                _crewSeats = _curCrewSeats;
             };
         };
     } forEach _reinf;
@@ -95,6 +91,7 @@ while {_currentUnitCount < (_maxUnitSend - 2) && {[_reinf, true] call A3A_fnc_co
     {
         //Calculate the amount of units that we still need to send against the amount of units we still have available after substracting driver and vehicle
         //Save whatever number is smaller
+        private _remainingUnitsAvailable = _maxUnitSend - _currentUnitCount;
         private _neededCargoSpace = ((_maxCargoSpaceNeeded - _numberCargoUnitsSent) + (_maxCrewSpaceNeeded - _numberCrewUnitsSent)) min (_remainingUnitsAvailable - 2);
 
         if(_neededCargoSpace == 0) then
@@ -146,20 +143,20 @@ while {_currentUnitCount < (_maxUnitSend - 2) && {[_reinf, true] call A3A_fnc_co
     if(_currentSelected != "") then
     {
         //Assigning crew
-        _crewMember = if(_side == Occupants) then {NATOCrew} else {CSATCrew};
-        _crew = [_currentSelected, _crewMember] call A3A_fnc_getVehicleCrew;
+        private _crewMember = if(_side == Occupants) then {NATOCrew} else {CSATCrew};
+        private _crew = [_currentSelected, _crewMember] call A3A_fnc_getVehicleCrew;
         _currentUnitCount = _currentUnitCount + 1 + _crewSeats;
 
         //Assining cargo
-        _cargo = [];
-        _openSpace = _seatCount - _crewSeats;
-        _abort = false;
+        private _cargo = [];
+        private _openSpace = _seatCount - _crewSeats;
+        private _abort = false;
 
         for "_i" from 0 to ((count _reinf) - 1) do
         {
-            _data = _reinf select _i;
-            _dataCrew = _data select 1;
-            _dataCargo = _data select 2;
+            private _data = _reinf select _i;
+            private _dataCrew = _data select 1;
+            private _dataCargo = _data select 2;
 
             //Sending armed troups first
             while {count _dataCargo > 0} do

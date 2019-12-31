@@ -26,23 +26,21 @@ private _reinf = +([_target] call A3A_fnc_getRequested);
 private _side = sidesX getVariable [_base, sideUnknown];
 
 private _maxRequested = [_reinf, false] call A3A_fnc_countGarrison;
-private _maxCrewSpaceNeeded = _maxRequested select 1;
+private _maxVehiclesNeeded = _maxRequested select 0;
 private _maxCargoSpaceNeeded = _maxRequested select 2;
+private _currentUnitCount = 0;
 
 [
     3,
-    format ["Gathered data for unit selection, available are %1, %2 crew units needed, %3 cargo units needed", _maxUnitSend, _maxCrewSpaceNeeded, _maxCargoSpaceNeeded],
+    format ["Gathered data for unit selection, available are %1, %3 cargo units needed", _maxUnitSend, _maxCargoSpaceNeeded],
     _fileName
 ] call A3A_fnc_log;
 [_reinf, "Reinforcement"] call A3A_fnc_logArray;
 
-private _currentUnitCount = 0;
-private _numberCargoUnitsSent = 0;
-private _numberCrewUnitsSent = 0;
 
 private _finishedSelection = false;
 
-while {_currentUnitCount < (_maxUnitSend - 2) && {[_reinf, true] call A3A_fnc_countGarrison != 0}} do
+while {_currentUnitCount < (_maxUnitSend - 2) && {_maxCargoSpaceNeeded+_maxVehiclesNeeded > 0}} do
 {
     private _currentSelected = "";
     private _seatCount = 0;
@@ -75,10 +73,11 @@ while {_currentUnitCount < (_maxUnitSend - 2) && {[_reinf, true] call A3A_fnc_co
     //Delete vehicle if we selected one
     if(_currentSelected != "") then
     {
-        _index = _reinf findIf {(_x select 0) == _currentSelected};
+        private _index = _reinf findIf {(_x select 0) == _currentSelected};
         if(_index != -1) then
         {
             (_reinf select _index) set [0, ""];
+            _maxVehiclesNeeded = _maxVehiclesNeeded - 1;
         }
         else
         {
@@ -91,8 +90,7 @@ while {_currentUnitCount < (_maxUnitSend - 2) && {[_reinf, true] call A3A_fnc_co
     {
         //Calculate the amount of units that we still need to send against the amount of units we still have available after substracting driver and vehicle
         //Save whatever number is smaller
-        private _remainingUnitsAvailable = _maxUnitSend - _currentUnitCount;
-        private _neededCargoSpace = ((_maxCargoSpaceNeeded - _numberCargoUnitsSent) + (_maxCrewSpaceNeeded - _numberCrewUnitsSent)) min (_remainingUnitsAvailable - 2);
+        private _neededCargoSpace = _maxCargoSpaceNeeded min (_maxUnitSend - _currentUnitCount - 2);
 
         if(_neededCargoSpace == 0) then
         {
@@ -147,7 +145,7 @@ while {_currentUnitCount < (_maxUnitSend - 2) && {[_reinf, true] call A3A_fnc_co
         private _crew = [_currentSelected, _crewMember] call A3A_fnc_getVehicleCrew;
         _currentUnitCount = _currentUnitCount + 1 + _crewSeats;
 
-        //Assining cargo
+        //Assigning cargo
         private _cargo = [];
         private _openSpace = _seatCount - _crewSeats;
         private _abort = false;
@@ -155,10 +153,8 @@ while {_currentUnitCount < (_maxUnitSend - 2) && {[_reinf, true] call A3A_fnc_co
         for "_i" from 0 to ((count _reinf) - 1) do
         {
             private _data = _reinf select _i;
-            private _dataCrew = _data select 1;
             private _dataCargo = _data select 2;
 
-            //Sending armed troups first
             while {count _dataCargo > 0} do
             {
                 //If space is available and units are available, add them
@@ -166,26 +162,7 @@ while {_currentUnitCount < (_maxUnitSend - 2) && {[_reinf, true] call A3A_fnc_co
                 {
                     _cargo pushBack (_dataCargo deleteAt 0);
                     _currentUnitCount = _currentUnitCount + 1;
-                    _numberCargoUnitsSent = _numberCargoUnitsSent + 1;
-                    _openSpace = _openSpace - 1;
-                }
-                else
-                {
-                    //No space or units available, abort
-                    _abort = true;
-                };
-                if(_abort) exitWith {};
-            };
-
-            //Sending crew units with it
-            while {!_abort && {count _dataCrew > 0}} do
-            {
-                //If space is available and units are available, add them
-                if((_currentUnitCount < _maxUnitSend) && {_openSpace > 0}) then
-                {
-                    _cargo pushBack (_dataCrew deleteAt 0);
-                    _currentUnitCount = _currentUnitCount + 1;
-                    _numberCrewUnitsSent = _numberCrewUnitsSent + 1;
+                    _maxCargoSpaceNeeded = _maxCargoSpaceNeeded - 1;
                     _openSpace = _openSpace - 1;
                 }
                 else

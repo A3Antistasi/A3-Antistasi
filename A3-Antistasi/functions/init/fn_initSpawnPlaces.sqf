@@ -161,7 +161,7 @@ _vehicleSpawns = [];
 _heliSpawns = [];
 {
     _pos = getPos _x;
-    _pos set [2, ((_pos select 2) + 0.1) max 0.1];
+    _pos set [2, 0.1];
     if (!isMultiplayer) then
     {
       {

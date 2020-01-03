@@ -14,11 +14,10 @@ if (_ambient_sounds_al>0) then {[_ambient_sounds_al] execvm "AL_snowstorm\umblat
 if (_breath_vapors) then {["AL_snowstorm\snow_breath.sqf"] remoteExec ["execVM",0,true]};
 if (_unitsneeze) then {["AL_snowstorm\al_unit_seeze.sqf"] remoteExec ["execVM",0,true]};
 if (_snowfall) then {["AL_snowstorm\alias_snowfall_SFX.sqf"] remoteExec ["execVM",0,true]};
-if (_snow_burst>0) then {[_effect_on_objects] execvm "AL_snowstorm\rotocol_server.sqf"; interval_burst = _snow_burst; publicVariable "interval_burst"; sleep 10; [[_unitsneeze],"AL_snowstorm\rotocol_client.sqf"] remoteExec ["execVM",0,true]};
+if (_snow_burst>0.5) then {[_effect_on_objects] execvm "AL_snowstorm\rotocol_server.sqf"; interval_burst = _snow_burst; publicVariable "interval_burst"; sleep 10; [[_unitsneeze],"AL_snowstorm\rotocol_client.sqf"] remoteExec ["execVM",0,true]};
 if (_intensifywind) then {
 	["AL_snowstorm\intens_sound.sqf"] remoteExec ["execVM",0,true];
 	al_windlevel	= wind;	for "_i" from 1 to 5 step 0.2 do {setWind [(al_windlevel#0)*_i,(al_windlevel#1)*_i,true]; sleep 4};
 	waitUntil {sleep 60; !al_snowstorm_om};
 	al_windlevel	= wind;	for "_i" from 1 to 5 step 0.1 do {setWind [(al_windlevel#0)/_i,(al_windlevel#1)/_i,true]; sleep 4};
 };
-

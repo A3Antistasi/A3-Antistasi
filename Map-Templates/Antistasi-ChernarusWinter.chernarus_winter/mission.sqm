@@ -12,14 +12,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=35;
+		nextID=42;
 	};
 	class Camera
 	{
-		pos[]={8392.0996,329.60599,5976.27};
-		dir[]={0,-0.70710683,0.70710683};
-		up[]={0,0.70710677,0.70710677};
-		aside[]={0.99999994,0,-0};
+		pos[]={8397.6348,364.55566,5928.7485};
+		dir[]={0.10471021,-0.71442097,0.69185412};
+		up[]={0.10690976,0.69970715,0.70638883};
+		aside[]={0.9887526,-3.772584e-008,-0.1496447};
 	};
 };
 binarizationWanted=0;
@@ -145,6 +145,7 @@ class Mission
 {
 	class Intel
 	{
+		briefingName=$STR_antistasi_mission_info_chernawinter_mapname_text;
 		resistanceWest=0;
 		timeOfChanges=1800.0002;
 		startWeather=0.25;
@@ -3559,6 +3560,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
+						isPlayable=1;
 						class Inventory
 						{
 							map="ItemMap";
@@ -3579,6 +3581,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
+						isPlayable=1;
 						class Inventory
 						{
 							map="ItemMap";
@@ -3599,6 +3602,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
+						isPlayable=1;
 						class Inventory
 						{
 							map="ItemMap";
@@ -3619,6 +3623,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
+						isPlayable=1;
 						class Inventory
 						{
 							map="ItemMap";
@@ -3639,6 +3644,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
+						isPlayable=1;
 						class Inventory
 						{
 							map="ItemMap";
@@ -3659,6 +3665,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
+						isPlayable=1;
 						class Inventory
 						{
 							map="ItemMap";
@@ -3679,6 +3686,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
+						isPlayable=1;
 						class Inventory
 						{
 							map="ItemMap";
@@ -3699,6 +3707,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
+						isPlayable=1;
 						class Inventory
 						{
 							map="ItemMap";
@@ -3719,6 +3728,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
+						isPlayable=1;
 						class Inventory
 						{
 							map="ItemMap";
@@ -3738,6 +3748,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
+						isPlayable=1;
 						class Inventory
 						{
 							map="ItemMap";
@@ -5494,7 +5505,7 @@ class Mission
 					colorName="ColorGreen";
 					a=12.214;
 					b=20.924999;
-					angle=225.60687;
+					angle=225.60686;
 					id=159;
 				};
 				class Item31

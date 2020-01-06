@@ -1,8 +1,8 @@
 [//Loadout
 	[//Primary Weapon
-		"ARifle_SPAR_01_KHK_F",								//Weapon
+		"ARifle_SPAR_02_KHK_F",								//Weapon
 		"",													//Muzzle
-		"Acc_Pointer_IR",									//Rail
+		"",													//Rail
 		"Optic_HAMR_KHK_F",									//Sight
 		["30Rnd_556x45_Stanag_Red",30],						//Primary Magazine
 		[],													//Secondary Magazine
@@ -37,31 +37,22 @@
 
 	[//Vest
 		selectRandom										//Vest
-		["V_PlateCarrier1_TNA_F", "V_PlateCarrier2_TNA_F", "V_PlateCarrierSpec_TNA_F"],
+		["V_PlateCarrier1_TNA_F", "V_PlateCarrier2_TNA_F"],
 		[//Inventory
-			["NVGoggles_OpFor",1],
+			["NVGoggles_tna_F",1],
 			["SmokeShell",2,1],
 			["HandGrenade",1,1],
 			["16Rnd_9x21_Mag",2,17],
-			["30Rnd_556x45_Stanag_Red",3,30]
+			["30Rnd_556x45_Stanag_Red",6,30]
 		]
 		+ _aceFlashlight
 		+ _aceM84
 	],
 
-	[//Backpack
-		"B_AssaultPack_TNA_F",							//Backpack
-		[//Inventory
-            ["SmokeshellBlue",3,1],
-            ["SmokeshellRed",3,1],
-            ["SmokeshellYellow",3,1]
-		]
-		+ ([hasACE, ["ACE_Handflare_Red",2,1]] call _fnc_modItem)
-		+ ([hasACE, ["ACE_Chemlight_IR",15,1]] call _fnc_modItem)
-	],
+	[],
 
 		selectRandom										//Headgear
-		["H_BoonieHat_TNA_F", "H_MilCap_TNA_F", "H_HelmetB_TNA_F", "H_HelmetB_Light_TNA_F", "H_HelmetB_Enh_TNA_F"],
+		["H_BoonieHat_TNA_F", "H_MilCap_TNA_F", "H_HelmetB_Light_TNA_F", "H_HelmetB_TNA_F", "H_HelmetB_Enh_TNA_F"],
 		"",													//Facewear
 
 	[//Binocular

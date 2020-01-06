@@ -39,7 +39,7 @@
 		selectRandom										//Vest
 		["V_PlateCarrier1_TNA_F", "V_PlateCarrier2_TNA_F", "V_PlateCarrierSpec_TNA_F"],
 		[//Inventory
-			["NVGoggles_OpFor",1],
+			["NVGoggles_tna_F",1],
 			["SmokeShell",2,1],
 			["HandGrenade",1,1],
 			["16Rnd_9x21_Mag",2,17],
@@ -65,7 +65,7 @@
 		"",													//Facewear
 
 	[//Binocular
-		"Binocular",										//Binocular
+		"Rangefinder",										//Binocular
 		"",
 		"",
 		"",

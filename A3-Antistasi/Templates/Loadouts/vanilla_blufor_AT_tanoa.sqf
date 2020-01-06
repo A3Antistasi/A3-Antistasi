@@ -3,18 +3,18 @@
 		"ARifle_SPAR_01_KHK_F",								//Weapon
 		"",													//Muzzle
 		"Acc_Pointer_IR",									//Rail
-		"Optic_HAMR_KHK_F",									//Sight
+		"Optic_ACO",						    			//Sight
 		["30Rnd_556x45_Stanag_Red",30],						//Primary Magazine
 		[],													//Secondary Magazine
 		""													//Bipod
 	],
 
 	[//Launcher
-		"",													//Weapon
+		"launch_MRAWS_olive_rail_F",													//Weapon
 		"",													//Muzzle
 		"",													//Rail
 		"",													//Sight
-		[],													//Primary Magazine
+		["MRAWS_HEAT55_F",1],													//Primary Magazine
 		[],													//Secondary Magazine
 		""													//Bipod
 	],
@@ -37,9 +37,9 @@
 
 	[//Vest
 		selectRandom										//Vest
-		["V_PlateCarrier1_TNA_F", "V_PlateCarrier2_TNA_F", "V_PlateCarrierSpec_TNA_F"],
+		["V_PlateCarrier1_TNA_F", "V_PlateCarrier2_TNA_F"],
 		[//Inventory
-			["NVGoggles_OpFor",1],
+			["NVGoggles_tna_F",1],
 			["SmokeShell",2,1],
 			["HandGrenade",1,1],
 			["16Rnd_9x21_Mag",2,17],
@@ -49,15 +49,11 @@
 		+ _aceM84
 	],
 
-	[//Backpack
-		"B_AssaultPack_TNA_F",							//Backpack
+    [//Backpack
+		"B_AssaultPack_TNA_F",								//Backpack
 		[//Inventory
-            ["SmokeshellBlue",3,1],
-            ["SmokeshellRed",3,1],
-            ["SmokeshellYellow",3,1]
+			["MRAWS_HEAT55_F",1,1]
 		]
-		+ ([hasACE, ["ACE_Handflare_Red",2,1]] call _fnc_modItem)
-		+ ([hasACE, ["ACE_Chemlight_IR",15,1]] call _fnc_modItem)
 	],
 
 		selectRandom										//Headgear
@@ -75,11 +71,11 @@
 	],
 
 	[//Item
-		"ItemMap",											//Map
-		"ItemGPS",											//Terminal
+        "ItemMap",											//Map
+        "ItemGPS",											//Terminal
 		["TF_ANPRC152"] call _fnc_tfarRadio,				//Radio
-		"ItemCompass",										//Compass
-		"ItemWatch",										//Watch
-		""													//Goggles
+        "ItemCompass",										//Compass
+        "ItemWatch",										//Watch
+        ""													//Goggles
 	]
 ];

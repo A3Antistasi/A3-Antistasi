@@ -28,7 +28,7 @@ _nearest = objNull;
 			};
 		};
 	};
-} forEach playableUnits;
+} forEach (call A3A_fnc_playableUnits);
 
 //playableUnits;
 _nearest

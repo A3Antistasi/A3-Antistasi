@@ -100,7 +100,7 @@
 		_types set [IDC_RSCDISPLAYARSENAL_TAB_CARGOMAGALL,[]];\
 		_types set [IDC_RSCDISPLAYARSENAL_TAB_CARGOTHROW,[/*"Grenade","SmokeShell"*/]];\
 		_types set [IDC_RSCDISPLAYARSENAL_TAB_CARGOPUT,[/*"Mine","MineBounding","MineDirectional"*/]];\
-		_types set [IDC_RSCDISPLAYARSENAL_TAB_CARGOMISC,["FirstAidKit","Medikit","MineDetector","Toolkit"]];
+		_types set [IDC_RSCDISPLAYARSENAL_TAB_CARGOMISC,["FirstAidKit","Medikit","MineDetector","ToolKit"]];
 
 #define STATS_WEAPONS\
 	["reloadtime","dispersion","maxzeroing","hit","mass","initSpeed"],\
@@ -1735,7 +1735,7 @@ switch _mode do {
 			case IDC_RSCDISPLAYARSENAL_TAB_NVGS:{
 				_oldItem = hmd player;
 				if (_oldItem != _item) then {
-					player removeweapon _oldItem;
+					player removeWeaponGlobal _oldItem;
 					[_index, _oldItem] call jn_fnc_arsenal_addItem;
 					if (_item != "") then{
 						player addweapon _item;
@@ -1746,7 +1746,7 @@ switch _mode do {
 			case IDC_RSCDISPLAYARSENAL_TAB_BINOCULARS: {
 				_oldItem = binocular player;
 				if (_oldItem != _item) then {
-					player removeweapon _oldItem;
+					player removeWeaponGlobal _oldItem;
 					[_index,_oldItem] call jn_fnc_arsenal_addItem;
 					if (_item != "") then{
 						player addweapon _item;
@@ -1794,7 +1794,7 @@ switch _mode do {
 
 
 					//remove weapon
-					player removeweapon _oldItem;
+					player removeWeaponGlobal _oldItem;
 					[_index, _oldItem] call jn_fnc_arsenal_addItem;
 
 					//add new weapon
@@ -2617,22 +2617,13 @@ switch _mode do {
 		// unifrom
 		_itemsUnifrom = [];
 		if(hasACEMedical)then{
-
-			//ACE Basic medical system
-			if (ace_medical_level == 1) then{
-				_itemsUnifrom pushBack ["ACE_fieldDressing",4];
-				_itemsUnifrom pushBack ["ACE_morphine",2];
-				_itemsUnifrom pushBack ["ACE_epinephrine",1];
-			};
-
-			//ACE Advanced medical system
-			if (ace_medical_level == 2) then{
-				_itemsUnifrom pushBack ["ACE_elasticBandage",2];
-				_itemsUnifrom pushBack ["ACE_packingBandage",2];
-				_itemsUnifrom pushBack ["ACE_morphine",1];
-				_itemsUnifrom pushBack ["ACE_epinephrine",1];
-				_itemsUnifrom pushBack ["ACE_tourniquet",1];
-			};
+			_itemsUnifrom pushBack ["ACE_elasticBandage",2];
+			_itemsUnifrom pushBack ["ACE_packingBandage",2];
+			_itemsUnifrom pushBack ["ACE_morphine",1];
+			_itemsUnifrom pushBack ["ACE_epinephrine",1];
+			_itemsUnifrom pushBack ["ACE_adenosine", 1];
+			_itemsUnifrom pushBack ["ACE_tourniquet",1];
+			_itemsUnifrom pushBack ["ACE_splint", 1];
 		}else{
 			_itemsUnifrom pushBack ["FirstAidKit",2];
 			if(hasACE) then {
@@ -2675,41 +2666,34 @@ switch _mode do {
 		if([player] call A3A_fnc_isMedic)then{
 
 			if(hasACEMedical) then { //Medic equipment
-
-				if (ace_medical_level == 1) then{ //ACE Basic medical system for medic
-					_itemsBackpack pushBack ["ACE_fieldDressing",20];
-					_itemsBackpack pushBack ["ACE_morphine",10];
-					_itemsBackpack pushBack ["ACE_epinephrine",10];
-					_itemsBackpack pushBack ["ACE_bloodIV",6];
-				};
-				if (ace_medical_level == 2) then{ //ACE Advanced medical system for medic
-					_itemsBackpack pushBack ["ACE_elasticBandage",15];
-					_itemsBackpack pushBack ["ACE_packingBandage",7];
-					_itemsBackpack pushBack ["ACE_tourniquet",5];
-					_itemsBackpack pushBack ["ACE_personalAidKit",1];
-				};
-			} else { //Vanilla Medikit for medic
+				_itemsBackpack pushBack ["ACE_elasticBandage",15];
+				_itemsBackpack pushBack ["ACE_packingBandage",15];
+				_itemsBackpack pushBack ["ACE_tourniquet",5];
+				_itemsBackpack pushBack ["ACE_personalAidKit",1];
+				_itemsBackpack pushBack ["ACE_adenosine", 10];
+				_itemsBackpack pushBack ["ACE_morphine", 10];
+				_itemsBackpack pushBack ["ACE_epinephrine", 10];
+		} else { //Vanilla Medikit for medic
 				_itemsBackpack pushBack ["Medikit",1];
 				_itemsBackpack pushBack ["FirstAidKit",1];
 			};
 		} else {
 		 		if(hasACEMedical) then {
-					if (ace_medical_level == 1) then{ //ACE Basic medical system for soldiers
-						_itemsBackpack pushBack ["ACE_fieldDressing",10];
-						_itemsBackpack pushBack ["ACE_morphine",3];
-						_itemsBackpack pushBack ["ACE_epinephrine",2];
-					};
-					if (ace_medical_level == 2) then{ //ACE Advanced medical system for soldiers
-						_itemsBackpack pushBack ["ACE_elasticBandage",10];
-						_itemsBackpack pushBack ["ACE_tourniquet",2];
-					};
+					_itemsBackpack pushBack ["ACE_fieldDressing",5];
+					_itemsBackpack pushBack ["ACE_packingBandage",5];
+					_itemsBackpack pushBack ["ACE_elasticBandage",5];
+					_itemsBackpack pushBack ["ACE_morphine",3];
+					_itemsBackpack pushBack ["ACE_epinephrine",2];
+					_itemsBackpack pushBack ["ACE_adenosine", 2];
+					_itemsBackpack pushBack ["ACE_tourniquet",2];
+					_itemsBackpack pushBack ["ACE_splint", 2];
 			} else { //Vanilla FAK for soldiers
 				_itemsBackpack pushBack ["FirstAidKit",5];
 			};
 		};
 
 		if(player getUnitTrait "Engineer")then {
-					_itemsBackpack pushback ["Toolkit",1];
+					_itemsBackpack pushback ["ToolKit",1];
 					if(hasACE) then {
 						_itemsbackpack pushback ["ACE_Clacker",1];
 						_itemsbackpack pushback ["ACE_SpraypaintRed",4];

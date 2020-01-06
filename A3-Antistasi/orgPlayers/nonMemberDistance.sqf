@@ -3,7 +3,7 @@
 _countX = INITIAL_COUNT_TIME;
 while {!([player] call A3A_fnc_isMember)} do
 	{
-	_playerMembers = playableUnits select {([_x] call A3A_fnc_isMember) and (side group _x == teamPlayer)};
+	_playerMembers = (call A3A_fnc_playableUnits) select {([_x] call A3A_fnc_isMember) and (side group _x == teamPlayer)};
 	if !(_playerMembers isEqualTo []) then
 		{
 		if (player distance2D (getMarkerPos respawnTeamPlayer) > memberDistance) then

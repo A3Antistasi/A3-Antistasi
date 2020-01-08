@@ -4293,7 +4293,7 @@ class Mission
 					class Attributes
 					{
 						name="commanderX";
-						description="Default Commaner";
+						description="Default Commander";
 						isPlayer=1;
 						isPlayable=1;
 						class Inventory

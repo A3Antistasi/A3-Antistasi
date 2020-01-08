@@ -19,7 +19,7 @@ switch (_typeX) do
 	//case "B_G_Soldier_M_F":  {player setUnitTrait ["camouflageCoef",0.8]; player setUnitTrait ["loadCoef",1.2]; _textX = "Marksman role.\n\nMarksmen know well how to hide, but have less carry capacity."};
 
 	};
-/*
+
 if (isMultiPlayer) then
 	{
 	sleep 5;

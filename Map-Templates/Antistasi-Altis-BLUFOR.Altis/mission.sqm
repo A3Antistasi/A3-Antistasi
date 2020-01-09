@@ -538,7 +538,7 @@ class Mission
 						isPlayable=1;
 					};
 					id=1562;
-					type="I_Soldier_SL_F";
+					type="I_Soldier_TL_F";
 					atlOffset=1.1369991;
 					class CustomAttributes
 					{

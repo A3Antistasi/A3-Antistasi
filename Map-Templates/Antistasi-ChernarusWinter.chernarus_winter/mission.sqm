@@ -4019,7 +4019,7 @@ class Mission
 						};
 					};
 					id=309;
-					type="I_G_Soldier_TL_F";
+					type="I_G_Soldier_F";
 				};
 				class Item7
 				{
@@ -4039,7 +4039,7 @@ class Mission
 						};
 					};
 					id=310;
-					type="I_G_Soldier_TL_F";
+					type="I_G_Soldier_F";
 				};
 				class Item8
 				{

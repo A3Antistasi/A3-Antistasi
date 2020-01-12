@@ -9927,7 +9927,7 @@ class Mission
 						};
 					};
 					id=2971;
-					type="B_G_Soldier_TL_F";
+					type="B_G_Soldier_F";
 					atlOffset=-2.5749207e-005;
 				};
 				class Item7
@@ -9948,7 +9948,7 @@ class Mission
 						};
 					};
 					id=2972;
-					type="B_G_Soldier_TL_F";
+					type="B_G_Soldier_F";
 					atlOffset=-6.0081482e-005;
 				};
 				class Item8

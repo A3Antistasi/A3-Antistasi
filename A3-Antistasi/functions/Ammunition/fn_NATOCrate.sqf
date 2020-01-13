@@ -163,7 +163,7 @@ else
 	{
 		params ["_max"];
 		//Never have a greater than 50% chance of getting nothing
-		if (_max * _quantityScalingFactory < 1) then {
+		if (_max * _quantityScalingFactor < 1) then {
 			round random 1
 		} else {
 			round (random [1, floor (_max/2), _max] * _quantityScalingFactor)

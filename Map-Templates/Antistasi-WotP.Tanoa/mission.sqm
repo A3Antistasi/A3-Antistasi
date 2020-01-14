@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=338;
+		nextID=343;
 	};
 	class Camera
 	{
-		pos[]={9216.2598,271.90015,8692.502};
-		dir[]={-0.18412197,-0.74343204,0.64300436};
-		up[]={-0.2046586,0.66879123,0.71472174};
-		aside[]={0.96138626,-1.1124794e-006,0.27529016};
+		pos[]={2363.1646,98.648026,13077.162};
+		dir[]={-0.52608681,-0.62945706,0.57186168};
+		up[]={-0.42616853,0.77702999,0.46324876};
+		aside[]={0.73595208,-4.4936314e-008,0.67704064};
 	};
 };
 binarizationWanted=0;
@@ -32,13 +32,15 @@ addons[]=
 	"A3_Ui_F",
 	"A3_Weapons_F_Ammoboxes",
 	"A3_Structures_F_EPC_Civ_InfoBoards",
-	"A3_Characters_F_Exp",
-	"A3_Modules_F",
+					   
+				
 	"A3_Characters_F",
+	"A3_Modules_F",
 	"A3_Structures_F_Exp_Military_Flags",
 	"A3_Structures_F_Mil_Flags",
 	"A3_Ui_F_Exp",
 	"A3_Structures_F_Ind_Transmitter_Tower",
+	"A3_Characters_F_Exp",
 	"A3_Props_F_Enoch_Military_Camps",
 	"A3_Modules_F_Curator_Curator",
 	"A3_Structures_F_Mil_TentHangar",
@@ -78,8 +80,8 @@ class AddonsMetaData
 		};
 		class Item3
 		{
-			className="A3_Characters_F_Exp";
-			name="Arma 3 Apex - Characters and Clothing";
+			className="A3_Characters_F";
+			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
@@ -92,36 +94,43 @@ class AddonsMetaData
 		};
 		class Item5
 		{
-			className="A3_Characters_F";
-			name="Arma 3 Alpha - Characters and Clothing";
-			author="Bohemia Interactive";
-			url="https://www.arma3.com";
-		};
-		class Item6
-		{
+							   
+												 
+								
+							   
+	
+			 
+   
 			className="A3_Structures_F_Exp";
 			name="Arma 3 Apex - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item7
+		class Item6
 		{
 			className="A3_Structures_F_Mil";
 			name="Arma 3 - Military Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item8
+		class Item7
 		{
 			className="A3_Ui_F_Exp";
 			name="Arma 3 Apex - User Interface";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item9
+		class Item8
 		{
 			className="A3_Structures_F_Ind";
 			name="Arma 3 - Industrial Structures";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item9
+		{
+			className="A3_Characters_F_Exp";
+			name="Arma 3 Apex - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
@@ -3386,7 +3395,7 @@ class Mission
 				class Item1
 				{
 					dataType="Marker";
-					position[]={2308.5254,11.62353,13191.676};
+					position[]={2321,13.45,13334};
 					name="airp_1_vehicle";
 					markerType="RECTANGLE";
 					type="rectangle";
@@ -3399,16 +3408,16 @@ class Mission
 				class Item2
 				{
 					dataType="Marker";
-					position[]={2255.4504,11.599365,13196.549};
+					position[]={2166.5,12.422852,13215.5};
 					name="airp_1_vehicle_1";
 					markerType="RECTANGLE";
 					type="rectangle";
 					colorName="ColorGreen";
 					a=10.667797;
 					b=6;
-					angle=119.60728;
+					angle=139.59312;
 					id=738;
-					atlOffset=-0.94572163;
+					atlOffset=-1.0271482;
 				};
 				class Item3
 				{
@@ -3440,14 +3449,14 @@ class Mission
 				class Item5
 				{
 					dataType="Marker";
-					position[]={11579.28,6.9499998,13135.668};
+					position[]={11756,7.2300782,13160};
 					name="airp_2_vehicle_1";
 					markerType="RECTANGLE";
 					type="rectangle";
 					colorName="ColorGreen";
 					a=15.436396;
 					b=6;
-					angle=200.63635;
+					angle=197.55237;
 					id=746;
 				};
 				class Item6
@@ -3479,7 +3488,7 @@ class Mission
 				class Item8
 				{
 					dataType="Marker";
-					position[]={6817.563,2.6600001,7412.7202};
+					position[]={6929,2.6600001,7399.5};
 					name="airp_vehicle";
 					markerType="RECTANGLE";
 					type="rectangle";
@@ -3492,7 +3501,7 @@ class Mission
 				class Item9
 				{
 					dataType="Marker";
-					position[]={6852.8701,2.6600001,7407.5981};
+					position[]={7096.5,2.6600001,7418.5};
 					name="airp_vehicle_1";
 					markerType="RECTANGLE";
 					type="rectangle";
@@ -3668,12 +3677,12 @@ class Mission
 					colorName="ColorYellow";
 					a=8.2089996;
 					b=6.594471;
-					angle=349.46936;
+					angle=349.46933;
 					id=870;
 				};
 			};
 			id=764;
-			atlOffset=23.520565;
+			atlOffset=23.520412;
 		};
 		class Item182
 		{

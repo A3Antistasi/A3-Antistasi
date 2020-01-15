@@ -9729,7 +9729,7 @@ class Mission
 				init="if !(isMultiplayer) then {deleteVehicle this}";
 			};
 			id=2963;
-			type="Flag_Altis_F";
+			type="Flag_FIA_F";
 			atlOffset=9.5367432e-007;
 		};
 		class Item411

@@ -1791,7 +1791,7 @@ class Mission
 				name="flagX";
 			};
 			id=768;
-			type="Flag_Altis_F";
+			type="Flag_FIA_F";
 			class CustomAttributes
 			{
 				class Attribute0

@@ -5,7 +5,7 @@ if (worldName == "Tanoa") exitWith {call compile preProcessFileLineNumbers "Temp
 //       NAMES AND FLAGS         ///
 ////////////////////////////////////
 nameTeamPlayer = if (worldName == "Tanoa") then {"SDK"} else {"FIA"};
-SDKFlag = "Flag_Altis_F";
+SDKFlag = "Flag_FIA_F";
 SDKFlagTexture = "\A3\Data_F\Flags\Flag_Altis_CO.paa";
 typePetros = "I_G_officer_F";
 

@@ -4775,20 +4775,20 @@ class Mission
 				class Item22
 				{
 					dataType="Marker";
-					position[]={9097.1865,222.45056,21510.531};
+					position[]={9079.5029,222.45056,21521.654};
 					name="airport_5";
 					markerType="RECTANGLE";
 					type="Empty";
 					colorName="ColorEAST";
-					a=200;
-					b=100;
+					a=207.52794;
+					b=119.48747;
 					angle=143.29141;
 					id=2632;
-					atlOffset=205.85873;
+					atlOffset=206.73419;
 				};
 			};
 			id=2609;
-			atlOffset=181.23535;
+			atlOffset=180.78305;
 		};
 		class Item257
 		{

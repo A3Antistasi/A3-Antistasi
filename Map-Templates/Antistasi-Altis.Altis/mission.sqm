@@ -4772,20 +4772,20 @@ class Mission
 				class Item22
 				{
 					dataType="Marker";
-					position[]={9096.5146,15.348633,21508.184};
+					position[]={9084.4961,15.348633,21518.113};
 					name="airport_5";
 					markerType="RECTANGLE";
 					type="Empty";
 					colorName="ColorEAST";
-					a=200;
-					b=100;
+					a=203.69968;
+					b=115.14452;
 					angle=143.29141;
 					id=46;
-					atlOffset=-1.2858829;
+					atlOffset=-0.38585663;
 				};
 			};
 			id=1636;
-			atlOffset=-25.965174;
+			atlOffset=-26.1625;
 		};
 		class Item255
 		{
@@ -9614,15 +9614,15 @@ class Mission
 		class Item403
 		{
 			dataType="Marker";
-			position[]={9100.9619,16.686979,21505.963};
+				position[]={9083.5059,16.686979,21513.898};
 			name="detectPlayer_8";
 			markerType="RECTANGLE";
 			type="rectangle";
-			a=120.49665;
-			b=220.47403;
+			a=137.24051;
+			b=229.81824;
 			angle=53.608429;
 			id=2073;
-			atlOffset=0.051624298;
+			atlOffset=0.76835632;
 		};
 		class Item404
 		{

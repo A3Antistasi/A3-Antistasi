@@ -4635,7 +4635,6 @@ class Mission
 			};
 			id=993;
 			type="Land_Cargo_Patrol_V2_F";
-
 		};
 		class Item172
 		{
@@ -4702,7 +4701,6 @@ class Mission
 			};
 			id=997;
 			type="Land_Cargo_Patrol_V2_F";
-
 		};
 		class Item176
 		{
@@ -5436,58 +5434,10 @@ class Mission
 			type="Land_HBarrier_Big_F";
 		};
 		class Item218
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				position[]={9747.375,43.695,8516.625};
 				angles[]={0,4.2615461,0};
 			};

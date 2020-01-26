@@ -12507,24 +12507,6 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				position[]={7071.3203,97.361137,6741.7783};
 				angles[]={6.2647886,3.0450318,6.260788};
 			};

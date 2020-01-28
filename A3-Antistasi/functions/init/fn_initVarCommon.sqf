@@ -244,6 +244,16 @@ switch (toLower worldName) do {
 		//Roads DB
 		call compile preprocessFileLineNumbers "roadsDBanizay.sqf";
 	};
+	case "tem_kujari":
+	{
+		//Roads DB
+		call compile preprocessFileLineNumbers "roadsDBkujari.sqf";
+	};
+	case "vt7":
+	{
+		//Roads DB
+		call compile preprocessFileLineNumbers "roadsDBvirolahti.sqf";
+	};
 };
 
 [2,"initVarCommon completed",_fileName] call A3A_fnc_log;

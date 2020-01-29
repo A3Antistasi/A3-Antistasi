@@ -50,12 +50,12 @@ else {
 
 	private _mult = if (_interrogated) then { 0.5 } else { 1.0 };
 	if (_sideX == Occupants) then {
-		if (faction _unit == factionFIA) then { _modAggroOcc = -0.5*_mult }
-		else { _modAggroOcc = -1.0*_mult };
+		if (faction _unit == factionFIA) then { _modAggroOcc = -0.3*_mult }
+		else { _modAggroOcc = -0.6*_mult };
 	}
 	else {
-		if (faction _unit == factionFIA) then { _modAggroInv = -0.1*_mult }
-		else { _modAggroInv = -0.2*_mult };
+		if (faction _unit == factionFIA) then { _modAggroInv = -0.05*_mult }
+		else { _modAggroInv = -0.1*_mult };
 	};
 };
 

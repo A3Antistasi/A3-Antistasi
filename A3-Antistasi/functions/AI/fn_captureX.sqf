@@ -45,7 +45,7 @@ else {
 	_response = selectRandom [
 		"Okay, thank you. I owe you my life",
 		"Thank you. I swear you won't regret it!",
-		"Allah bless you!"
+		"Thank you, I won't forget this!"
 	];
 
 	private _mult = if (_interrogated) then { 0.5 } else { 1.0 };

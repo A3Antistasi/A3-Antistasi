@@ -107,4 +107,4 @@ initialRebelEquipment append ["V_Chestrig_blk","V_Chestrig_rgr","V_Chestrig_khk"
 initialRebelEquipment append ["Binocular","acc_flashlight"];
 //TFAR Unlocks
 if (hasTFAR) then {initialRebelEquipment append ["tf_microdagr","tf_anprc154"]};
-if (startLR) then {initialRebelEquipment pushBack "tf_anprc155"};
+if (hasTFAR && startWithLongRangeRadio) then {initialRebelEquipment pushBack "tf_anprc155"};

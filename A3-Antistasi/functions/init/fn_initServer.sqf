@@ -38,6 +38,7 @@ if (isMultiplayer) then {
 	memberDistance = "memberDistance" call BIS_fnc_getParamValue; publicVariable "memberDistance";
 	limitedFT = if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "limitedFT";
 	napalmEnabled = if ("napalmEnabled" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "napalmEnabled";
+	startWithLongRangeRadio = if ("startWithLongRangeRadio" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "startWithLongRangeRadio";
 	teamSwitchDelay = "teamSwitchDelay" call BIS_fnc_getParamValue;
 	playerMarkersEnabled = ("pMarkers" call BIS_fnc_getParamValue == 1); publicVariable "playerMarkersEnabled";
 	minPlayersRequiredforPVP = "minPlayersRequiredforPVP" call BIS_fnc_getParamValue; publicVariable "minPlayersRequiredforPVP";

@@ -156,7 +156,7 @@ class Params
           title = "[TFAR] Start with Long Range Radio?";
           values[] = {1,0};
           texts[] =  {"Yes","No"};
-          default = 0;
+          default = 1;
      };
      class Spacer10
      {

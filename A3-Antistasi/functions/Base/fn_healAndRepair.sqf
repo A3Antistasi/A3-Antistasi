@@ -12,15 +12,19 @@ boxX setVariable ["lastUsed", _time, true];
 
 {if ((side group _x == teamPlayer) and (_x distance _posHQ < 50)) then
 	{
+	if (!isNil "ace_advanced_fatigue_fnc_handlePlayerChanged") then {
+		// abuse the init/respawn function to reset ACE stamina
+		[_x, objNull] remoteExec ["ace_advanced_fatigue_fnc_handlePlayerChanged", _x];
+	};
 	if (hasACEMedical) then
 		{
 		[_x, _x] call ace_medical_treatment_fnc_fullHeal;
 		}
 	else
 		{
-		if (_x getVariable ["INCAPACITATED",false]) then {_x setVariable ["INCAPACITATED",false,true]};
 		_x setDamage 0;
 		};
+	_x setVariable ["INCAPACITATED",false,true];
 	_x setVariable ["compromised", 0, true];
 	}} forEach allUnits;
 {

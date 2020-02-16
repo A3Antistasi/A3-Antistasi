@@ -17,11 +17,8 @@ if (_part == "" && _dam > 0.1) then
 	// Player vs rebel TK check
 	if (isPlayer _instigator && _unit != _instigator && {side group _instigator == teamPlayer && side group _unit == teamPlayer}) then
 	{
-		// check if uniform is rebel-side or civilian. Should work for blufor too.
 		_uniform = uniform _unit;
-		_typeSoldier = getText (configfile >> "CfgWeapons" >> _uniform >> "ItemInfo" >> "uniformClass");
-		_sideType = getNumber (configfile >> "CfgVehicles" >> _typeSoldier >> "side");
-		if (_sideType == (teamPlayer call BIS_fnc_sideID) || _sideType == 3) then
+		if (_uniform in allRebelUniforms || {_uniform in allCivilianUniforms}) then
 		{
 			[_instigator, 20, (_dam min 0.34), _unit] remoteExec ["A3A_fnc_punishment",_instigator];
 			[format ["%1 was injured by %2 (UID: %3), %4m from HQ",name _unit,name _instigator,getPlayerUID _instigator,_unit distance2D posHQ]] remoteExec ["diag_log",2];

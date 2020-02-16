@@ -57,9 +57,7 @@ for "_i" from 0 to 2 do {
 private _backpack = backpack _unit;
 if (_backpack != "") then {
 	// because backpacks are often subclasses containing items
-	if (getNumber (ConfigFile >> "CfgVehicles" >> _backpack >> "scope") != 2) then {
-		_backpack = configName inheritsFrom (ConfigFile >> "CfgVehicles" >> _backpack);
-	};
+	_backpack = _backpack call A3A_fnc_basicBackpack;
 	_boxX addBackpackCargoGlobal [_backpack, 1];
 };
 _unit setUnitLoadout [ [], [], [], [uniform _unit, []], [], [], "", "", [], ["","","","","",""] ];

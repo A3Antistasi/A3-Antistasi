@@ -65,7 +65,6 @@ DECLARE_SERVER_VAR(smallCApos, []);
 DECLARE_SERVER_VAR(attackPos, []);
 DECLARE_SERVER_VAR(attackMrk, []);
 DECLARE_SERVER_VAR(airstrike, []);
-DECLARE_SERVER_VAR(convoyMarker, []);
 
 //Vehicles currently in the garage
 DECLARE_SERVER_VAR(vehInGarage, []);

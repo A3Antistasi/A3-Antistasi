@@ -1,5 +1,5 @@
 _handled = false;
-if (player getVariable ["INCAPACITATED",false]) exitWith {_handled};
+if (player getVariable ["incapacitated",false]) exitWith {_handled};
 if (player getVariable ["owner",player] != player) exitWith {_handled};
 _key = _this select 1;
 if (_key == 21) then

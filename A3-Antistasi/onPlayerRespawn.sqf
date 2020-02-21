@@ -10,8 +10,8 @@ waitUntil {alive player};
 _nul = [_oldUnit] spawn A3A_fnc_postmortem;
 if !(hasACEMedical) then
 	{
-	_oldUnit setVariable ["INCAPACITATED",false,true];
-	_newUnit setVariable ["INCAPACITATED",false,true];
+	_oldUnit setVariable ["incapacitated",false,true];
+	_newUnit setVariable ["incapacitated",false,true];
 	};
 if (side group player == teamPlayer) then
 	{

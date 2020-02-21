@@ -20,19 +20,22 @@ sleep 1;
 
 _stop = player addAction ["Deactivate convoy debug", {(_this select 0) setVariable ["convoyDebug", false]; (_this select 0) removeAction (_this select 2);}, nil, 0, false, false, "", "_originalTarget == _this"];
 
+private _allConvoyMarker = [];
 while {player getVariable ["convoyDebug", false]} do
 {
-  if(count convoyMarker != 0) then
-  {
+    _allConvoyMarker = server getVariable ["convoyMarker_Occupants", []];
+    _allConvoyMarker = _allConvoyMarker + (server getVariable ["convoyMarker_Invaders", []]);
+    if(count _allConvoyMarker != 0) then
     {
-        _x setMarkerAlphaLocal 1;
-    } forEach convoyMarker;
-  };
-  sleep 10;
+        {
+            _x setMarkerAlphaLocal 1;
+        } forEach _allConvoyMarker;
+    };
+    sleep 10;
 };
 
 player removeAction _stop;
 
 {
     _x setMarkerAlphaLocal 0;
-} forEach convoyMarker;
+} forEach _allConvoyMarker;

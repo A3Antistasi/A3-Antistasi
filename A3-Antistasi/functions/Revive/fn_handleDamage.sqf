@@ -16,9 +16,9 @@ if (_part == "") then
 		}
 		else
 		{
-			if !(_unit getVariable ["INCAPACITATED",false]) then
+			if !(_unit getVariable ["incapacitated",false]) then
 			{
-				_unit setVariable ["INCAPACITATED",true,true];
+				_unit setVariable ["incapacitated",true,true];
 				_unit setUnconscious true;
 				if (vehicle _unit != _unit) then
 				{
@@ -103,9 +103,9 @@ else
 				}
 				else
 				{
-					if !(_unit getVariable ["INCAPACITATED",false]) then
+					if !(_unit getVariable ["incapacitated",false]) then
 					{
-						_unit setVariable ["INCAPACITATED",true,true];
+						_unit setVariable ["incapacitated",true,true];
 						_unit setUnconscious true;
 						if (vehicle _unit != _unit) then
 						{
@@ -121,9 +121,9 @@ else
 			{
 				if (_part == "body") then
 				{
-					if !(_unit getVariable ["INCAPACITATED",false]) then
+					if !(_unit getVariable ["incapacitated",false]) then
 					{
-						_unit setVariable ["INCAPACITATED",true,true];
+						_unit setVariable ["incapacitated",true,true];
 						_unit setUnconscious true;
 						if (vehicle _unit != _unit) then
 						{

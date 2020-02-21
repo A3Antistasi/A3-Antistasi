@@ -110,7 +110,7 @@ if (count _positionTel > 0) then
 				}
 			else
 				{
-				if (!(_unit getVariable ["INCAPACITATED",false])) then
+				if (!(_unit getVariable ["incapacitated",false])) then
 					{
 					_positionX = _positionX findEmptyPosition [1,50,typeOf _unit];
 					_unit setPosATL _positionX;

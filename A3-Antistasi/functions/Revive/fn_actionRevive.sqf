@@ -46,7 +46,7 @@ if !(isNull attachedTo _cured) exitWith
 	if (_inPlayerGroup) then {_medicX groupChat format ["%1 is being carried or transported and I cannot heal him",name _cured]};
 	_healed
 	};
-if !(_cured getVariable ["INCAPACITATED",false]) exitWith
+if !(_cured getVariable ["incapacitated",false]) exitWith
 	{
 	if (_player) then {hint format ["%1 no longer needs your help",name _cured]};
 	if (_inPlayerGroup) then {_medicX groupChat format ["%1 no longer needs my help",name _cured]};
@@ -101,7 +101,7 @@ _medicX addEventHandler ["AnimDone",
 {
 	private _medicX = _this select 0;
 	private _cured = _medicX getVariable ["cured",objNull];
-	if (([_medicX] call A3A_fnc_canFight) and (time <= (_medicX getVariable ["timeToHeal",time])) and !(_medicX getVariable ["cancelRevive",false]) and (alive _cured) and (_cured getVariable ["INCAPACITATED",false]) and (_medicX == vehicle _medicX)) then
+	if (([_medicX] call A3A_fnc_canFight) and (time <= (_medicX getVariable ["timeToHeal",time])) and !(_medicX getVariable ["cancelRevive",false]) and (alive _cured) and (_cured getVariable ["incapacitated",false]) and (_medicX == vehicle _medicX)) then
 	{
 		_medicX playMoveNow selectRandom medicAnims;
 	}
@@ -111,10 +111,10 @@ _medicX addEventHandler ["AnimDone",
 		_medicX setVariable ["animsDone",true];
 		if (([_medicX] call A3A_fnc_canFight) and !(_medicX getVariable ["cancelRevive",false]) and (_medicX == vehicle _medicX) and (alive _cured)) then
 		{
-			if (_cured getVariable ["INCAPACITATED",false]) then
+			if (_cured getVariable ["incapacitated",false]) then
 			{
 				_medicX setVariable ["success",true];
-				//_cured setVariable ["INCAPACITATED",false,true];
+				//_cured setVariable ["incapacitated",false,true];
 				//_medicX action ["HealSoldier",_cured];
 				if ([_medicX] call A3A_fnc_isMedic) then {_cured setDamage 0.25} else {_cured setDamage 0.5};
                 if(!("Medikit" in (items _medicX))) then
@@ -165,7 +165,7 @@ if (_medicX getVariable ["success",true]) then
 		_cured setVariable ["surrendered",true,true];
 		sleep 2;
 		};
-	_cured setVariable ["INCAPACITATED",false,true];
+	_cured setVariable ["incapacitated",false,true];
 	_healed = true;
 	}
 else

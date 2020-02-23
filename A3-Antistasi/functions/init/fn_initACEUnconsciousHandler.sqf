@@ -7,11 +7,11 @@ private _fileName = "initACEUnconsciousHandler.sqf";
 	private _realSide = side group _unit;		// setUnconscious in ACE often breaks this otherwise
 	if (_knockout) exitWith {
 //		[3, format ["Unit type %1, side %2, realside %3, captive %4 knocked out", typeof _unit, side _unit, _realSide, str (captive _unit)], "ace_unconscious handler"] call A3A_fnc_log;
-		_unit setVariable ["INCAPACITATED", true, true];	// for canFight tests
+		_unit setVariable ["incapacitated", true, true];	// for canFight tests
 	};
 
 //	[3, format ["Unit type %1, side %2, realside %3, captive %4 waking up", typeof _unit, side _unit, _realSide, str (captive _unit)], "ace_unconscious handler"] call A3A_fnc_log;
-	_unit setVariable ["INCAPACITATED", false, true];
+	_unit setVariable ["incapacitated", false, true];
 
 	if (isPlayer _unit) exitWith {};					// don't force surrender with players
 	if (_realSide != Occupants && _realSide != Invaders) exitWith {};

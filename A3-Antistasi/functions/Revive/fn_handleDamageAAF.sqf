@@ -1,12 +1,12 @@
-// Damage handler for enemy (gov/inv) AIs
+// HandleDamage event handler for enemy (gov/inv) AIs
 
-params ["_unit","_part","_dam","_injurer","_projectile","_hitIndex","_instigator","_hitPoint"];
+params ["_unit","_part","_damage","_injurer","_projectile","_hitIndex","_instigator","_hitPoint"];
 
 // Functionality unrelated to Antistasi revive
 if (side _injurer == teamPlayer) then
 {
 	// Helmet popping: use _hitpoint rather than _part to work around ACE calling its fake hitpoint "head"
-	if (_dam >= 1 && {_hitPoint == "hithead"}) then
+	if (_damage >= 1 && {_hitPoint == "hithead"}) then
 	{
 		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 0) then
 		{
@@ -24,9 +24,9 @@ if (side _injurer == teamPlayer) then
 		};
 	};
 
-	if (_part == "" && _dam < 1) then 
+	if (_part == "" && _damage < 1) then 
 	{
-		if (_dam > 0.6) then {[_unit,_injurer] spawn A3A_fnc_unitGetToCover};
+		if (_damage > 0.6) then {[_unit,_injurer] spawn A3A_fnc_unitGetToCover};
 	};
 };
 
@@ -37,7 +37,7 @@ if (hasACEMedical) exitWith {};
 private _makeUnconscious =
 {
 	params ["_unit", "_injurer"];
-	_unit setVariable ["INCAPACITATED",true,true];
+	_unit setVariable ["incapacitated",true,true];
 	_unit setUnconscious true;
 	if (vehicle _unit != _unit) then
 	{
@@ -51,17 +51,17 @@ if (side _injurer == teamPlayer) then
 {
 	if (_part == "") then
 	{
-		if (_dam >= 1) then
+		if (_damage >= 1) then
 		{
-			if (!(_unit getVariable ["INCAPACITATED",false])) then
+			if (!(_unit getVariable ["incapacitated",false])) then
 			{
-				_dam = 0.9;
+				_damage = 0.9;
 				[_unit,_injurer] call _makeUnconscious;
 			}
 			else
 			{
 				// already unconscious, check whether we're pushed into death
-				_overall = (_unit getVariable ["overallDamage",0]) + (_dam - 1);
+				_overall = (_unit getVariable ["overallDamage",0]) + (_damage - 1);
 				if (_overall > 0.5) then
 				{
 					_unit removeAllEventHandlers "HandleDamage";
@@ -69,13 +69,16 @@ if (side _injurer == teamPlayer) then
 				else
 				{
 					_unit setVariable ["overallDamage",_overall];
-					_dam = 0.9;
+					_damage = 0.9;
+
 				};
 			};
 		}
 		else
 		{
-			if (_dam > 0.25) then
+
+            //Abort helping if hit too hard
+			if (_damage > 0.25) then
 			{
 				if (_unit getVariable ["helping",false]) then
 				{
@@ -86,21 +89,24 @@ if (side _injurer == teamPlayer) then
 	}
 	else
 	{
-		if (_dam >= 1) then
+		if (_damage >= 1) then
 		{
 			if !(_part in ["arms","hands","legs"]) then
 			{
-				_dam = 0.9;
-				// Why just these two?
+				_damage = 0.9;
+				// Don't trigger unconsciousness on sub-part hits (face/pelvis etc), only the container
 				if (_part in ["head","body"]) then
 				{
-					if !(_unit getVariable ["INCAPACITATED",false]) then
+					if !(_unit getVariable ["incapacitated",false]) then
 					{
 						[_unit,_injurer] call _makeUnconscious;
+
 					};
 				};
 			};
 		};
 	};
 };
-_dam
+
+_damage
+

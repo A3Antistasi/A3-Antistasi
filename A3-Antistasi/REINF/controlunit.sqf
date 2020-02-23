@@ -8,7 +8,7 @@ if (_unit == Petros) exitWith {hint "You cannot control Petros";};
 //if (captive player) exitWith {hint "You cannot control AI while on Undercover"};
 if (player != leader group player) exitWith {hint "You cannot control AI if you are not the squad leader"};
 if (isPlayer _unit) exitWith {hint "You cannot control another player"};
-if (!(alive _unit) or (_unit getVariable ["INCAPACITATED",false]))  exitWith {hint "You cannot control an unconscious, a dead unit"};
+if (!(alive _unit) or (_unit getVariable ["incapacitated",false]))  exitWith {hint "You cannot control an unconscious, a dead unit"};
 //if ((not(typeOf _unit in soldiersSDK)) and (typeOf _unit != "b_g_survivor_F")) exitWith {hint "You cannot control a unit which does not belong to FIA"};
 if (side _unit != teamPlayer) exitWith {hint format ["You cannot control a unit which does not belong to %1",nameTeamPlayer]};
 

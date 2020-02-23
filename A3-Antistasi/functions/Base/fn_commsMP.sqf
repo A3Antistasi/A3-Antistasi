@@ -13,6 +13,8 @@ if (_typeX == "sideChat") then
 	};
 if (_typeX == "hint") then {hint format ["%1",_textX]};
 if (_typeX == "hintCS") then {hintC format ["%1",_textX]};
+if (_typeX == "hintS") then {hintSilent format ["%1", _textX]};
+if (_typeX == "intelError") then {hint format ["Download error:\n%1",_textX]};
 if (_typeX == "globalChat") then
 	{
 	_unit globalChat format ["%1", _textX];

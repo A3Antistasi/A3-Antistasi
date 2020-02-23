@@ -1,10 +1,10 @@
-// Damage handler for rebels and PvPers
+// HandleDamage event handler for rebels and PvPers
 
-params ["_unit","_part","_dam","_injurer","_projectile","_hitIndex","_instigator","_hitPoint"];
+params ["_unit","_part","_damage","_injurer","_projectile","_hitIndex","_instigator","_hitPoint"];
 
 // Functionality unrelated to Antistasi revive
 // Helmet popping: use _hitpoint rather than _part to work around ACE calling its fake hitpoint "head"
-if (_dam >= 1 && {_hitPoint == "hithead"}) then
+if (_damage >= 1 && {_hitPoint == "hithead"}) then
 {
 	if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 0) then
 	{
@@ -12,7 +12,7 @@ if (_dam >= 1 && {_hitPoint == "hithead"}) then
 	};
 };
 
-if (_part == "" && _dam > 0.1) then
+if (_part == "" && _damage > 0.1) then
 {
 	// Player vs rebel TK check
 	if (isPlayer _instigator && _unit != _instigator && {side group _instigator == teamPlayer && side group _unit == teamPlayer}) then
@@ -20,7 +20,7 @@ if (_part == "" && _dam > 0.1) then
 		_uniform = uniform _unit;
 		if (_uniform in allRebelUniforms || {_uniform in allCivilianUniforms}) then
 		{
-			[_instigator, 20, (_dam min 0.34), _unit] remoteExec ["A3A_fnc_punishment",_instigator];
+			[_instigator, 20, (_damage min 0.34), _unit] remoteExec ["A3A_fnc_punishment",_instigator];
 			[format ["%1 was injured by %2 (UID: %3), %4m from HQ",name _unit,name _instigator,getPlayerUID _instigator,_unit distance2D posHQ]] remoteExec ["diag_log",2];
 		};
 	};
@@ -28,8 +28,8 @@ if (_part == "" && _dam > 0.1) then
 	// this will not work the same with ACE, as damage isn't accumulated
 	if (!isPlayer (leader group _unit) && dam < 1.0) then
 	{
-		//if (_dam > 0.6) then {[_unit,_unit,_injurer] spawn A3A_fnc_chargeWithSmoke};
-		if (_dam > 0.6) then {[_unit,_injurer] spawn A3A_fnc_unitGetToCover};
+		//if (_damage > 0.6) then {[_unit,_unit,_injurer] spawn A3A_fnc_chargeWithSmoke};
+		if (_damage > 0.6) then {[_unit,_injurer] spawn A3A_fnc_unitGetToCover};
 	};
 };
 
@@ -40,7 +40,7 @@ if (hasACEMedical) exitWith {};
 private _makeUnconscious =
 {
 	params ["_unit", "_injurer"];
-	_unit setVariable ["INCAPACITATED",true,true];
+	_unit setVariable ["incapacitated",true,true];
 	_unit setUnconscious true;
 	if (vehicle _unit != _unit) then
 	{
@@ -53,29 +53,29 @@ private _makeUnconscious =
 
 if (_part == "") then
 {
-	if (_dam >= 1) then
+	if (_damage >= 1) then
 	{
 		if (side _injurer == civilian) then
 		{
 			// apparently civilians are non-lethal
-			_dam = 0.9;
+			_damage = 0.9;
 		}
 		else
 		{
-			if !(_unit getVariable ["INCAPACITATED",false]) then
+			if !(_unit getVariable ["incapacitated",false]) then
 			{
-				_dam = 0.9;
+				_damage = 0.9;
 				[_unit, _injurer] call _makeUnconscious;
 			}
 			else
 			{
 				// already unconscious, check whether we're pushed into death
-				_overall = (_unit getVariable ["overallDamage",0]) + (_dam - 1);
+				_overall = (_unit getVariable ["overallDamage",0]) + (_damage - 1);
 				if (_overall > 1) then
 				{
 					if (isPlayer _unit) then
 					{
-						_dam = 0;
+						_damage = 0;
 						[_unit] spawn A3A_fnc_respawn;
 					}
 					else
@@ -86,14 +86,14 @@ if (_part == "") then
 				else
 				{
 					_unit setVariable ["overallDamage",_overall];
-					_dam = 0.9;
+					_damage = 0.9;
 				};
 			};
 		};
 	}
 	else
 	{
-		if (_dam > 0.25) then
+		if (_damage > 0.25) then
 		{
 			if (_unit getVariable ["helping",false]) then
 			{
@@ -112,14 +112,14 @@ if (_part == "") then
 }
 else
 {
-	if (_dam >= 1) then
+	if (_damage >= 1) then
 	{
 		if !(_part in ["arms","hands","legs"]) then
 		{
-			_dam = 0.9;
+			_damage = 0.9;
 			if (_part in ["head","body"]) then
 			{
-				if !(_unit getVariable ["INCAPACITATED",false]) then
+				if !(_unit getVariable ["incapacitated",false]) then
 				{
 					[_unit, _injurer] call _makeUnconscious;
 				};
@@ -127,4 +127,5 @@ else
 		};
 	};
 };
-_dam
+
+_damage

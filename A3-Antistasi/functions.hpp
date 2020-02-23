@@ -5,7 +5,7 @@ class A3A
 		//Main initialisation functions.
 		class initServer {};
 		class initClient {};
-		
+
 		//Other initialisation functions (generally called by the above)
 		class cityinfo {};
 		class credits {};
@@ -14,12 +14,12 @@ class A3A
 		class initGarrisons {};
 		class initGetMissionPath {};
 		class initSpawnPlaces {};
-		
+
 		class initVar {};
 		class initVarClient {};
 		class initVarCommon {};
 		class initVarServer {};
-		
+
 		class initZones {};
 		class modBlacklist {};
 		class playerMarkers {};
@@ -28,7 +28,7 @@ class A3A
 		class resourcecheck {};
 		class tags {};
 	};
-	
+
 	class Base
 	{
 		class addActionBreachVehicle {};
@@ -106,8 +106,6 @@ class A3A
 		class unlockVehicle {};
 		class zoneCheck {};
 	};
-
-
 
 	class AI
 	{
@@ -240,6 +238,7 @@ class A3A
 
 	class Dialogs
 	{
+
 		class buyVehicle {};
 		class buyVehicleCiv {};
 		class clearForest {};
@@ -302,6 +301,17 @@ class A3A
 		class updateReinfState {};
 		class updateVehicles {};
 	};
+
+    class Intel
+    {
+        class getVehicleIntel {};
+        class placeIntel {};
+        class searchIntelOnDocument {};
+        class searchIntelOnLaptop {};
+        class searchIntelOnLeader {};
+        class selectIntel {};
+        class showIntel {};
+    };
 
 	class Missions
 	{
@@ -439,6 +449,7 @@ class A3A
 
 	class Revive
 	{
+
 		class actionRevive {};
 		class carry {};
 		class fatalWound {};
@@ -485,6 +496,7 @@ class A3A
 		class basicBackpack {};
 		class createDataObject {};
 		class dateToTimeString {};
+		class generateRoadsDB {};
 		class log {};
 		class vehicleWillCollideAtPosition {};
 	};

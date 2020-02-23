@@ -27,7 +27,7 @@ if (isPlayer _unit) then
 		_handled = false;
 		if (_this select 1 == 19) then
 			{
-			if (player getVariable ["INCAPACITATED",false]) then
+			if (player getVariable ["incapacitated",false]) then
 				{
 				(findDisplay 46) displayRemoveEventHandler ["KeyDown", respawnMenu];
 				[player] spawn A3A_fnc_respawn;
@@ -93,7 +93,7 @@ if (_isPlayer) then
 	};
 
 
-while {(time < _bleedOut) and (_unit getVariable ["INCAPACITATED",false]) and (alive _unit) and (!(_unit getVariable ["respawning",false]))} do
+while {(time < _bleedOut) and (_unit getVariable ["incapacitated",false]) and (alive _unit) and (!(_unit getVariable ["respawning",false]))} do
 	{
 	if (random 10 < 1) then {playSound3D [(selectRandom injuredSounds),_unit,false, getPosASL _unit, 1, 1, 50];};
 	if (_isPlayer) then

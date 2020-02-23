@@ -2,12 +2,16 @@ if (player != theBoss) exitWith {hint "Only our Commander has access to this fun
 
 if ((count weaponCargo boxX >0) or (count magazineCargo boxX >0) or (count itemCargo boxX >0) or (count backpackCargo boxX >0)) exitWith {hint "You must first empty your Ammobox in order to move the HQ"};
 
+if !(isNull attachedTo petros) then { detach petros };		// in case someone is moving him
+
 petros enableAI "MOVE";
 petros enableAI "AUTOTARGET";
 
 [petros,"remove"] remoteExec ["A3A_fnc_flagaction",0,petros];
 //removeAllActions petros;
+private _groupPetros = group petros;
 [petros] join theBoss;
+deleteGroup _groupPetros;
 petros setBehaviour "AWARE";
 if (isMultiplayer) then
 	{

@@ -8,11 +8,10 @@ if (isNull _oldUnit) exitWith {};
 waitUntil {alive player};
 
 _nul = [_oldUnit] spawn A3A_fnc_postmortem;
-if !(hasACEMedical) then
-	{
-	_oldUnit setVariable ["incapacitated",false,true];
-	_newUnit setVariable ["incapacitated",false,true];
-	};
+
+_oldUnit setVariable ["incapacitated",false,true];
+_newUnit setVariable ["incapacitated",false,true];
+
 if (side group player == teamPlayer) then
 	{
 	_owner = _oldUnit getVariable ["owner",_oldUnit];
@@ -50,6 +49,7 @@ if (side group player == teamPlayer) then
     _newUnit addOwnedMine _x;
     } count (getAllOwnedMines (_oldUnit));
 
+	// don't reinit revive because damage handlers are respawn-persistent
 	//if (!hasACEMedical) then {[_newUnit] call A3A_fnc_initRevive};
 	disableUserInput false;
 	//_newUnit enableSimulation true;

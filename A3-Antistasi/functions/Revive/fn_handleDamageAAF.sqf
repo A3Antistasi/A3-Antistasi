@@ -1,45 +1,66 @@
-private _damage = _this select 2;
-private _injurer = _this select 3;
+// HandleDamage event handler for enemy (gov/inv) AIs
 
-/*  Handles the damage for AI units if hit by player
-*   Params:
-*       The HandleDamage EH params
-*
-*   Returns:
-*       _damage : NUMBER : The amount of damage dealt
-*/
+params ["_unit","_part","_damage","_injurer","_projectile","_hitIndex","_instigator","_hitPoint"];
 
-//This is only triggered by damage dealt by players? It is fine for going down, but maybe the AI stuff should be calculated for AI vs AI too
+// Functionality unrelated to Antistasi revive
 if (side _injurer == teamPlayer) then
 {
-	private _unit = _this select 0;
-	private _part = _this select 1;
-	private _group = group _unit;
-	if (time > _group getVariable ["movedToCover",0]) then
+	// Helmet popping: use _hitpoint rather than _part to work around ACE calling its fake hitpoint "head"
+	if (_damage >= 1 && {_hitPoint == "hithead"}) then
 	{
-		if ((behaviour leader _group != "COMBAT") and (behaviour leader _group != "STEALTH")) then
+		if (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 0) then
 		{
-			_group setVariable ["movedToCover",time + 120];
-			{
-                [_x,_injurer] call A3A_fnc_unitGetToCover
-            } forEach units _group;
+			removeHeadgear _unit;
 		};
 	};
+
+	private _groupX = group _unit;
+	if (time > _groupX getVariable ["movedToCover",0]) then
+	{
+		if ((behaviour leader _groupX != "COMBAT") and (behaviour leader _groupX != "STEALTH")) then
+		{
+			_groupX setVariable ["movedToCover",time + 120];
+			{[_x,_injurer] call A3A_fnc_unitGetToCover} forEach units _groupX;
+		};
+	};
+
+	if (_part == "" && _damage < 1) then 
+	{
+		if (_damage > 0.6) then {[_unit,_injurer] spawn A3A_fnc_unitGetToCover};
+	};
+};
+
+// Let ACE medical handle the rest (inc return value) if it's running
+if (hasACEMedical) exitWith {};
+
+
+private _makeUnconscious =
+{
+	params ["_unit", "_injurer"];
+	_unit setVariable ["incapacitated",true,true];
+	_unit setUnconscious true;
+	if (vehicle _unit != _unit) then
+	{
+		moveOut _unit;
+	};
+	if (isPlayer _unit) then {_unit allowDamage false};
+	[_unit,_injurer] spawn A3A_fnc_unconsciousAAF;
+};
+
+if (side _injurer == teamPlayer) then
+{
 	if (_part == "") then
 	{
 		if (_damage >= 1) then
 		{
 			if (!(_unit getVariable ["incapacitated",false])) then
 			{
-				_unit setVariable ["incapacitated",true,true];
-				_unit setUnconscious true;
 				_damage = 0.9;
-				[_unit,_injurer] spawn A3A_fnc_unconsciousAAF;
+				[_unit,_injurer] call _makeUnconscious;
 			}
 			else
 			{
-                //Not really getting this part here
-                //Maybe this is the reason why downed AI can take so much damage?
+				// already unconscious, check whether we're pushed into death
 				_overall = (_unit getVariable ["overallDamage",0]) + (_damage - 1);
 				if (_overall > 0.5) then
 				{
@@ -49,11 +70,13 @@ if (side _injurer == teamPlayer) then
 				{
 					_unit setVariable ["overallDamage",_overall];
 					_damage = 0.9;
+
 				};
 			};
 		}
 		else
 		{
+
             //Abort helping if hit too hard
 			if (_damage > 0.25) then
 			{
@@ -62,11 +85,6 @@ if (side _injurer == teamPlayer) then
 					_unit setVariable ["cancelRevive",true];
 				};
 			};
-            //Really big hit, seek cover
-			if (_damage > 0.6) then
-            {
-                [_unit,_injurer] spawn A3A_fnc_unitGetToCover
-            };
 		};
 	}
 	else
@@ -76,26 +94,13 @@ if (side _injurer == teamPlayer) then
 			if !(_part in ["arms","hands","legs"]) then
 			{
 				_damage = 0.9;
-				if (_part == "head" || _part == "body") then
+				// Don't trigger unconsciousness on sub-part hits (face/pelvis etc), only the container
+				if (_part in ["head","body"]) then
 				{
-                    if (!(_unit getVariable ["incapacitated",false])) then
-                    {
-                        _unit setVariable ["incapacitated",true,true];
-                        _unit setUnconscious true;
-                        if (vehicle _unit != _unit) then
-                        {
-                            moveOut _unit;
-                        };
-                        if (isPlayer _unit) then
-                        {
-                            _unit allowDamage false
-                        };
-                        [_unit,_injurer] spawn A3A_fnc_unconsciousAAF;
-                    };
-                    //Remove helmet if hit
-					if (_part == "head" && (getNumber (configfile >> "CfgWeapons" >> headgear _unit >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 0)) then
+					if !(_unit getVariable ["incapacitated",false]) then
 					{
-						removeHeadgear _unit;
+						[_unit,_injurer] call _makeUnconscious;
+
 					};
 				};
 			};
@@ -104,3 +109,4 @@ if (side _injurer == teamPlayer) then
 };
 
 _damage
+

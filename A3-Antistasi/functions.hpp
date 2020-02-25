@@ -167,6 +167,7 @@ class A3A
 
 	class Convoy
 	{
+        class cleanConvoyMarker {};
 		class convoyDebug {};
 		class convoyMovement {};
 		class createAIAction {};

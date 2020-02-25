@@ -79,13 +79,14 @@ if(_intelType == "Small") then
         case (CONVOY):
         {
             private _convoyMarker = "";
+            [] call A3A_fnc_cleanConvoyMarker;
             if(_side == Occupants) then
             {
                 _convoyMarker = selectRandom (server getVariable ["convoyMarker_Occupants", [""]]);
             }
             else
             {
-                _convoyMarker = selectRandom (server getVariable ["convoyMarker_Occupants", [""]]);
+                _convoyMarker = selectRandom (server getVariable ["convoyMarker_Invaders", [""]]);
             };
             if(_convoyMarker != "") then
             {
@@ -118,6 +119,7 @@ if(_intelType == "Medium") then
         };
         case (CONVOYS):
         {
+            [] call A3A_fnc_cleanConvoyMarker;
             private _convoyMarkers = [];
             if(_side == Occupants) then
             {

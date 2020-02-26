@@ -126,7 +126,8 @@ private _categoryOverrideTable = [
 ["LIB_GER_Gloves5",["NVGs","Items"]],
 */
 
-categoryOverrides = (group timer) createUnit ["logic", [0, 0], [], 0, "NONE"];
+//Create a local namespace. Should only run on the server.
+categoryOverrides = false call A3A_fnc_createNamespace;
 {
 	categoryOverrides setVariable [_x select 0, _x select 1];
 } forEach _categoryOverrideTable;

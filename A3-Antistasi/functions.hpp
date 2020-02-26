@@ -349,6 +349,7 @@ class A3A
 		class ACEpvpReDress {};
 		class ammunitionTransfer {};
 		class arsenalManage {};
+		class categoryOverrides {};
 		class checkRadiosUnlocked {};
 		class configSort {};
 		class crateLootParams {};

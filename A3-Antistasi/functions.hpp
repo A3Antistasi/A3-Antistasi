@@ -504,6 +504,7 @@ class A3A
 	{
 		class basicBackpack {};
 		class createDataObject {};
+		class createNamespace {};
 		class dateToTimeString {};
 		class generateRoadsDB {};
 		class log {};

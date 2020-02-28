@@ -248,10 +248,10 @@ if(_pointSum >= _neededPoints) then
 {
     _intel setObjectTextureGlobal [0, "Pictures\laptop_complete.paa"];
     private _intelText = ["Large", _side] call A3A_fnc_selectIntel;
+    [_intelText] remoteExec ["A3A_fnc_showIntel", [teamPlayer, civilian]];
     {
         [petros,"hint","You managed to download the intel!"] remoteExec ["A3A_fnc_commsMP",_x];
         [10,_x] call A3A_fnc_playerScoreAdd;
-        [_intelText] remoteExec ["A3A_fnc_showIntel", _x];
     } forEach ([50,0,_intel,teamPlayer] call A3A_fnc_distanceUnits);
     [5, theBoss] call A3A_fnc_playerScoreAdd;
 

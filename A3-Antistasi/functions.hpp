@@ -60,7 +60,6 @@ class A3A
 		class garrisonInfo {};
 		class healAndRepair {};
 		class initPetros {};
-		class intelFound {};
 		class isFrontline {};
 		class isTheSameIsland {};
 		class joinMultipleGroups {};

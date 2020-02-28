@@ -18,13 +18,13 @@
 
 params ["_intelType", "_side"];
 
-/*  Selects, creates and shows the intel text of the given type and side
+/*  Selects, creates and executes the intel of the given type and side
 *   Params:
 *       _intelType : STRING : One of "Small", "Medium" or "Large"
 *       _side : SIDE : The enemy side, which the intel belongs to
 *
 *   Returns:
-*       Nothing
+*       _text : STRING : The text of the selected intel
 */
 
 private _fileName = "selectIntel";
@@ -174,4 +174,5 @@ if(_intelType == "Large") then
         };
     };
 };
-[_text] call A3A_fnc_showIntel;
+
+_text;

@@ -82,11 +82,11 @@ if(_intelType == "Small") then
             [] call A3A_fnc_cleanConvoyMarker;
             if(_side == Occupants) then
             {
-                _convoyMarker = (server getVariable ["convoyMarker_Occupants", [""]]);
+                _convoyMarker = (server getVariable ["convoyMarker_Occupants", []]);
             }
             else
             {
-                _convoyMarker = (server getVariable ["convoyMarker_Invaders", [""]]);
+                _convoyMarker = (server getVariable ["convoyMarker_Invaders", []]);
             };
             if(count _convoyMarker != 0) then
             {

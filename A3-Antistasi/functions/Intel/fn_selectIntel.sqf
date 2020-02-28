@@ -82,15 +82,15 @@ if(_intelType == "Small") then
             [] call A3A_fnc_cleanConvoyMarker;
             if(_side == Occupants) then
             {
-                _convoyMarker = selectRandom (server getVariable ["convoyMarker_Occupants", [""]]);
+                _convoyMarker = (server getVariable ["convoyMarker_Occupants", [""]]);
             }
             else
             {
-                _convoyMarker = selectRandom (server getVariable ["convoyMarker_Invaders", [""]]);
+                _convoyMarker = (server getVariable ["convoyMarker_Invaders", [""]]);
             };
-            if(_convoyMarker != "") then
+            if(count _convoyMarker != 0) then
             {
-                _convoyMarker setMarkerAlpha 1;
+                (selectRandom _convoyMarker) setMarkerAlpha 1;
                 _text = format ["We found the tracking data for a %1 convoy.<br/>Convoy position marked on map!", _sideName];
             }
             else

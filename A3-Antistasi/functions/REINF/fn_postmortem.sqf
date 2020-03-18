@@ -1,3 +1,4 @@
+private _filename = "fn_postmortem";
 params ["_victim"];
 
 /*  Handles the despawn and cleanup of dead units
@@ -9,6 +10,10 @@ params ["_victim"];
 */
 
 private _group = group _victim;
+
+groupStr = format["Group for victim:%1 assigned:%2.",_victim, _group];
+[3,unitStr,_filename] call A3A_fnc_log;
+
 if (isNull _group) then
 {
 	if (_victim in staticsToSave) then

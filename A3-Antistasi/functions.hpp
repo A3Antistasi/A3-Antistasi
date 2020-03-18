@@ -494,7 +494,7 @@ class A3A
 		class rhsModCompat {};
 	};
 
-	class UI 
+	class UI
 	{
 		class customHint {};
 	};

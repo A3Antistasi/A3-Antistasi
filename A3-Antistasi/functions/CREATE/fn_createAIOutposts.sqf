@@ -111,6 +111,7 @@ if ((_frontierX) and (_markerX in outposts)) then
 		_unit = _groupX createUnit [_typeUnit, _positionX, [], 0, "NONE"];
 		[_unit,_markerX] call A3A_fnc_NATOinit;
 		_unit moveInGunner _veh;
+		_groups pushBack _groupX;
 		_soldiers pushBack _unit;
 		_vehiclesX pushBack _veh;
 		sleep 1;
@@ -121,6 +122,12 @@ _ret = [_markerX,_size,_sideX,_frontierX] call A3A_fnc_milBuildings;
 _groups pushBack (_ret select 0);
 _vehiclesX append (_ret select 1);
 _soldiers append (_ret select 2);
+
+if(random 100 < (40 + tierWar * 3)) then
+{
+	_large = (random 100 < (30 + tierWar * 2));
+	[_markerX, _large] spawn A3A_fnc_placeIntel;
+};
 
 _typeVehX = if (_sideX == Occupants) then {NATOFlag} else {CSATFlag};
 _flagX = createVehicle [_typeVehX, _positionX, [],0, "NONE"];

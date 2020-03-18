@@ -5,20 +5,21 @@ class A3A
 		//Main initialisation functions.
 		class initServer {};
 		class initClient {};
-		
+
 		//Other initialisation functions (generally called by the above)
 		class cityinfo {};
 		class credits {};
+		class initACEUnconsciousHandler {};
 		class initFuncs {};
 		class initGarrisons {};
 		class initGetMissionPath {};
 		class initSpawnPlaces {};
-		
+
 		class initVar {};
 		class initVarClient {};
 		class initVarCommon {};
 		class initVarServer {};
-		
+
 		class initZones {};
 		class modBlacklist {};
 		class playerMarkers {};
@@ -27,7 +28,7 @@ class A3A
 		class resourcecheck {};
 		class tags {};
 	};
-	
+
 	class Base
 	{
 		class addActionBreachVehicle {};
@@ -59,7 +60,6 @@ class A3A
 		class garrisonInfo {};
 		class healAndRepair {};
 		class initPetros {};
-		class intelFound {};
 		class isFrontline {};
 		class isTheSameIsland {};
 		class joinMultipleGroups {};
@@ -105,8 +105,6 @@ class A3A
 		class unlockVehicle {};
 		class zoneCheck {};
 	};
-
-
 
 	class AI
 	{
@@ -168,6 +166,7 @@ class A3A
 
 	class Convoy
 	{
+        class cleanConvoyMarker {};
 		class convoyDebug {};
 		class convoyMovement {};
 		class createAIAction {};
@@ -239,6 +238,7 @@ class A3A
 
 	class Dialogs
 	{
+
 		class buyVehicle {};
 		class buyVehicleCiv {};
 		class clearForest {};
@@ -302,6 +302,17 @@ class A3A
 		class updateVehicles {};
 	};
 
+    class Intel
+    {
+        class getVehicleIntel {};
+        class placeIntel {};
+        class searchIntelOnDocument {};
+        class searchIntelOnLaptop {};
+        class searchIntelOnLeader {};
+        class selectIntel {};
+        class showIntel {};
+    };
+
 	class Missions
 	{
 		class AS_Official {};
@@ -337,6 +348,7 @@ class A3A
 		class ACEpvpReDress {};
 		class ammunitionTransfer {};
 		class arsenalManage {};
+		class categoryOverrides {};
 		class checkRadiosUnlocked {};
 		class configSort {};
 		class crateLootParams {};
@@ -438,6 +450,7 @@ class A3A
 
 	class Revive
 	{
+
 		class actionRevive {};
 		class carry {};
 		class fatalWound {};
@@ -463,6 +476,14 @@ class A3A
 		class loadServer {};
 		class playerHasSave {};
 		class savePlayer {};
+		class getStatVariable {};
+		class loadStat {};
+		class retrievePlayerStat {};
+		class returnSavedStat {};
+		class savePlayerStat {};
+		class setStatVariable {};
+		class varNameToSaveName {};
+		class saveLoop {};
 	};
 
 	class Templates
@@ -471,6 +492,11 @@ class A3A
 		class getLoadout {};
 		class ifaModCompat {};
 		class rhsModCompat {};
+	};
+
+	class UI 
+	{
+		class customHint {};
 	};
 
 	class Undercover
@@ -483,8 +509,11 @@ class A3A
 	{
 		class basicBackpack {};
 		class createDataObject {};
+		class createNamespace {};
 		class dateToTimeString {};
+		class generateRoadsDB {};
 		class log {};
 		class vehicleWillCollideAtPosition {};
+		class getRoadDirection {};
 	};
 };

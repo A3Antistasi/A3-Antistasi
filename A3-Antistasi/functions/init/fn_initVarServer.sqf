@@ -39,8 +39,8 @@ DECLARE_SERVER_VAR(cleantime, 3600);
 DECLARE_SERVER_VAR(distanceSPWN, 1000);
 DECLARE_SERVER_VAR(distanceSPWN1, 1300);
 DECLARE_SERVER_VAR(distanceSPWN2, 500);
-//Quantity of Civs to spawn in
-DECLARE_SERVER_VAR(civPerc, 40);
+//Quantity of Civs to spawn in (most likely per client - Bob Murphy 26.01.2020)
+DECLARE_SERVER_VAR(civPerc, 5);
 //The furthest distance the AI can attack from using helicopters or planes
 DECLARE_SERVER_VAR(distanceForAirAttack, 10000);
 //The furthest distance the AI can attack from using trucks and armour
@@ -65,7 +65,6 @@ DECLARE_SERVER_VAR(smallCApos, []);
 DECLARE_SERVER_VAR(attackPos, []);
 DECLARE_SERVER_VAR(attackMrk, []);
 DECLARE_SERVER_VAR(airstrike, []);
-DECLARE_SERVER_VAR(convoyMarker, []);
 
 //Vehicles currently in the garage
 DECLARE_SERVER_VAR(vehInGarage, []);
@@ -131,7 +130,7 @@ playerHasBeenPvP = [];
 
 //We initialise a LOT of arrays based on the categories. Every category gets a 'allX' variables and an 'unlockedX' variable.
 
-private _unlockableCategories = allCategoriesExceptSpecial + ["AA", "AT", "GrenadeLaunchers", "ArmoredVests", "ArmoredHeadgear"];
+private _unlockableCategories = allCategoriesExceptSpecial + ["AA", "AT", "GrenadeLaunchers", "ArmoredVests", "ArmoredHeadgear", "BackpacksCargo"];
 
 //Build list of 'allX' variables, such as 'allWeapons'
 DECLARE_SERVER_VAR(allEquipmentArrayNames, allCategories apply {"all" + _x});
@@ -180,10 +179,8 @@ everyEquipmentRelatedArrayName = allEquipmentArrayNames + unlockedEquipmentArray
 [2,"Setting mod configs",_fileName] call A3A_fnc_log;
 
 //TFAR config
-DECLARE_SERVER_VAR(startLR, false);
 if (hasTFAR) then
 {
-	startLR = true;																			//set to true to start with LR radios unlocked.
 	if (isServer) then
 	{
 		[] spawn {
@@ -223,8 +220,8 @@ private _vehicleIsSpecial = {
 
 	   (getNumber (_vehConfig >> "transportRepair") > 0)
 	|| (getNumber (_vehConfig >> "transportAmmo") > 0)
-	|| (getNumber (_vehConfig >> "transportFuel") > 0)
-	|| (getNumber (_vehConfig >> "ace_refuel_fuelCargo") > 0)
+//	|| (getNumber (_vehConfig >> "transportFuel") > 0)
+//	|| (getNumber (_vehConfig >> "ace_refuel_fuelCargo") > 0)
 	|| (getNumber (_vehConfig >> "ace_repair_canRepair") > 0)
 	|| (getNumber (_vehConfig >> "ace_rearm_defaultSupply") > 0)
 		//Medical vehicle
@@ -544,6 +541,8 @@ DECLARE_SERVER_VAR(sniperGroups, _sniperGroups);
 //This is all very tightly coupled.
 //Beware when changing these, or doing anything with them, really.
 
+[2,"Initializing hardcoded categories",_fileName] call A3A_fnc_log;
+[] call A3A_fnc_categoryOverrides;
 [2,"Scanning config entries for items",_fileName] call A3A_fnc_log;
 [A3A_fnc_equipmentIsValidForCurrentModset] call A3A_fnc_configSort;
 [2,"Categorizing vehicle classes",_fileName] call A3A_fnc_log;
@@ -609,6 +608,18 @@ DECLARE_SERVER_VAR(vehUnlimited, _vehUnlimited);
 
 private _vehFIA = [vehSDKBike,vehSDKLightArmed,SDKMGStatic,vehSDKLightUnarmed,vehSDKTruck,vehSDKBoat,SDKMortar,staticATteamPlayer,staticAAteamPlayer,vehSDKRepair];
 DECLARE_SERVER_VAR(vehFIA, _vehFIA);
+
+// sanity check the lists to catch some serious problems early
+private _badVehs = [];
+{  
+    if !(isClass (configFile >> "CfgVehicles" >> _x)) then {
+        _badVehs pushBackUnique _x;
+    };
+} forEach (vehNormal + vehBoats + vehAttack + vehPlanes + vehAA + vehMRLS + vehUnlimited + vehFIA);
+
+if (count _badVehs > 0) then {
+	[1, format ["Missing vehicle classnames: %1", str _badVehs], _filename] call A3A_fnc_log;
+};
 
 ///////////////////////////
 //     MOD TEMPLATES    ///

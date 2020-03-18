@@ -1,39 +1,39 @@
 if (hasInterface) then {
-	if (!isNil "savingClient" && {savingClient}) exitWith {hint "Your personal stats are being saved"};
+	if (!isNil "savingClient" && {savingClient}) exitWith {["Save", "Your personal stats are being saved"] call A3A_fnc_customHint;};
 	[] call A3A_fnc_savePlayer;
 };
 
 //Server only from here on out.
 if (!isServer) exitWith {};
 
-if (savingServer) exitWith {"Server data save is still in progress" remoteExecCall ["hint",theBoss]};
+if (savingServer) exitWith {["Save Game", "Server data save is still in progress"] remoteExecCall ["A3A_fnc_customHint",theBoss]};
 savingServer = true;
 private ["_garrison"];
-["countCA", countCA] call fn_SaveStat;
-["gameMode", gameMode] call fn_SaveStat;
-["difficultyX", skillMult] call fn_SaveStat;
-["bombRuns", bombRuns] call fn_SaveStat;
-["smallCAmrk", smallCAmrk] call fn_SaveStat;
-["membersX", membersX] call fn_SaveStat;
+["countCA", countCA] call A3A_fnc_setStatVariable;
+["gameMode", gameMode] call A3A_fnc_setStatVariable;
+["difficultyX", skillMult] call A3A_fnc_setStatVariable;
+["bombRuns", bombRuns] call A3A_fnc_setStatVariable;
+["smallCAmrk", smallCAmrk] call A3A_fnc_setStatVariable;
+["membersX", membersX] call A3A_fnc_setStatVariable;
 private _antennasDeadPositions = [];
 { _antennasDeadPositions pushBack getPos _x; } forEach antennasDead;
-["antennas", _antennasDeadPositions] call fn_SaveStat;
-//["mrkNATO", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Occupants}] call fn_SaveStat;
-["mrkSDK", (markersX - controlsX - outpostsFIA) select {sidesX getVariable [_x,sideUnknown] == teamPlayer}] call fn_SaveStat;
-["mrkCSAT", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Invaders}] call fn_SaveStat;
-["posHQ", [getMarkerPos respawnTeamPlayer,getPos fireX,[getDir boxX,getPos boxX],[getDir mapX,getPos mapX],getPos flagX,[getDir vehicleBox,getPos vehicleBox]]] call fn_Savestat;
-["prestigeNATO", prestigeNATO] call fn_SaveStat;
-["prestigeCSAT", prestigeCSAT] call fn_SaveStat;
-["dateX", date] call fn_SaveStat;
-["skillFIA", skillFIA] call fn_SaveStat;
-["destroyedSites", destroyedSites] call fn_SaveStat;
-["distanceSPWN", distanceSPWN] call fn_SaveStat;
-["civPerc", civPerc] call fn_SaveStat;
-["chopForest", chopForest] call fn_SaveStat;
-["maxUnits", maxUnits] call fn_SaveStat;
-["nextTick", nextTick - time] call fn_SaveStat;
-["weather",[fogParams,rain]] call fn_SaveStat;
-["destroyedBuildings",destroyedBuildings] call fn_SaveStat;
+["antennas", _antennasDeadPositions] call A3A_fnc_setStatVariable;
+//["mrkNATO", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Occupants}] call A3A_fnc_setStatVariable;
+["mrkSDK", (markersX - controlsX - outpostsFIA) select {sidesX getVariable [_x,sideUnknown] == teamPlayer}] call A3A_fnc_setStatVariable;
+["mrkCSAT", (markersX - controlsX) select {sidesX getVariable [_x,sideUnknown] == Invaders}] call A3A_fnc_setStatVariable;
+["posHQ", [getMarkerPos respawnTeamPlayer,getPos fireX,[getDir boxX,getPos boxX],[getDir mapX,getPos mapX],getPos flagX,[getDir vehicleBox,getPos vehicleBox]]] call A3A_fnc_setStatVariable;
+["prestigeNATO", prestigeNATO] call A3A_fnc_setStatVariable;
+["prestigeCSAT", prestigeCSAT] call A3A_fnc_setStatVariable;
+["dateX", date] call A3A_fnc_setStatVariable;
+["skillFIA", skillFIA] call A3A_fnc_setStatVariable;
+["destroyedSites", destroyedSites] call A3A_fnc_setStatVariable;
+["distanceSPWN", distanceSPWN] call A3A_fnc_setStatVariable;
+["civPerc", civPerc] call A3A_fnc_setStatVariable;
+["chopForest", chopForest] call A3A_fnc_setStatVariable;
+["maxUnits", maxUnits] call A3A_fnc_setStatVariable;
+["nextTick", nextTick - time] call A3A_fnc_setStatVariable;
+["weather",[fogParams,rain]] call A3A_fnc_setStatVariable;
+["destroyedBuildings",destroyedBuildings] call A3A_fnc_setStatVariable;
 
 private ["_hrBackground","_resourcesBackground","_veh","_typeVehX","_weaponsX","_ammunition","_items","_backpcks","_containers","_arrayEst","_posVeh","_dierVeh","_prestigeOPFOR","_prestigeBLUFOR","_city","_dataX","_markersX","_garrison","_arrayMrkMF","_arrayOutpostsFIA","_positionOutpost","_typeMine","_posMine","_detected","_typesX","_exists","_friendX"];
 
@@ -74,19 +74,20 @@ _vehInGarage = _vehInGarage + vehInGarage;
 } forEach allUnits;
 
 
-["resourcesFIA", _resourcesBackground] call fn_SaveStat;
-["hr", _hrBackground] call fn_SaveStat;
-["vehInGarage", _vehInGarage] call fn_SaveStat;
+["resourcesFIA", _resourcesBackground] call A3A_fnc_setStatVariable;
+["hr", _hrBackground] call A3A_fnc_setStatVariable;
+["vehInGarage", _vehInGarage] call A3A_fnc_setStatVariable;
 
 _arrayEst = [];
 {
 	_veh = _x;
 	_typeVehX = typeOf _veh;
 	if ((_veh distance getMarkerPos respawnTeamPlayer < 50) and !(_veh in staticsToSave) and !(_typeVehX in ["ACE_SandbagObject","Land_PaperBox_01_open_boxes_F","Land_PaperBox_01_open_empty_F"])) then {
-		if (((not (_veh isKindOf "StaticWeapon")) and (not (_veh isKindOf "ReammoBox")) and (not (_veh isKindOf "FlagCarrier")) and (not(_veh isKindOf "Building"))) and (not (_typeVehX == "C_Van_01_box_F")) and (count attachedObjects _veh == 0) and (alive _veh) and ({(alive _x) and (!isPlayer _x)} count crew _veh == 0) and (not(_typeVehX == "WeaponHolderSimulated"))) then {
+		if (((not (_veh isKindOf "StaticWeapon")) and (not (_veh isKindOf "ReammoBox")) and (not (_veh isKindOf "ReammoBox_F")) and (not (_veh isKindOf "FlagCarrier")) and (not(_veh isKindOf "Building"))) and (not (_typeVehX == "C_Van_01_box_F")) and (count attachedObjects _veh == 0) and (alive _veh) and ({(alive _x) and (!isPlayer _x)} count crew _veh == 0) and (not(_typeVehX == "WeaponHolderSimulated"))) then {
 			_posVeh = getPos _veh;
-			_dirVeh = getDir _veh;
-			_arrayEst pushBack [_typeVehX,_posVeh,_dirVeh];
+			_xVectorUp = vectorUp _veh;
+			_xVectorDir = vectorDir _veh;
+			_arrayEst pushBack [_typeVehX,_posVeh,_xVectorUp,_xVectorDir];
 		};
 	};
 } forEach vehicles - [boxX,flagX,fireX,vehicleBox,mapX];
@@ -99,12 +100,12 @@ _sites = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
 	};
 } forEach staticsToSave;
 
-["staticsX", _arrayEst] call fn_SaveStat;
+["staticsX", _arrayEst] call A3A_fnc_setStatVariable;
 [] call A3A_fnc_arsenalManage;
 
 _jna_dataList = [];
 _jna_dataList = _jna_dataList + jna_dataList;
-["jna_dataList", _jna_dataList] call fn_SaveStat;
+["jna_dataList", _jna_dataList] call A3A_fnc_setStatVariable;
 
 _prestigeOPFOR = [];
 _prestigeBLUFOR = [];
@@ -116,8 +117,8 @@ _prestigeBLUFOR = [];
 	_prestigeBLUFOR = _prestigeBLUFOR + [_dataX select 3];
 } forEach citiesX;
 
-["prestigeOPFOR", _prestigeOPFOR] call fn_SaveStat;
-["prestigeBLUFOR", _prestigeBLUFOR] call fn_SaveStat;
+["prestigeOPFOR", _prestigeOPFOR] call A3A_fnc_setStatVariable;
+["prestigeBLUFOR", _prestigeBLUFOR] call A3A_fnc_setStatVariable;
 
 _markersX = markersX - outpostsFIA - controlsX;
 _garrison = [];
@@ -133,9 +134,9 @@ _wurzelGarrison = [];
 	];
 } forEach _markersX;
 
-["garrison",_garrison] call fn_SaveStat;
-["wurzelGarrison", _wurzelGarrison] call fn_SaveStat;
-["usesWurzelGarrison", true] call fn_SaveStat;
+["garrison",_garrison] call A3A_fnc_setStatVariable;
+["wurzelGarrison", _wurzelGarrison] call A3A_fnc_setStatVariable;
+["usesWurzelGarrison", true] call A3A_fnc_setStatVariable;
 
 _arrayMines = [];
 {
@@ -155,7 +156,7 @@ _arrayMines = [];
 	_arrayMines = _arrayMines + [[_typeMine,_posMine,_detected,_dirMine]];
 } forEach allMines;
 
-["minesX", _arrayMines] call fn_SaveStat;
+["minesX", _arrayMines] call A3A_fnc_setStatVariable;
 
 _arrayOutpostsFIA = [];
 
@@ -164,7 +165,7 @@ _arrayOutpostsFIA = [];
 	_arrayOutpostsFIA pushBack [_positionOutpost,garrison getVariable [_x,[]]];
 } forEach outpostsFIA;
 
-["outpostsFIA", _arrayOutpostsFIA] call fn_SaveStat;
+["outpostsFIA", _arrayOutpostsFIA] call A3A_fnc_setStatVariable;
 
 if (!isDedicated) then {
 	_typesX = [];
@@ -177,7 +178,7 @@ if (!isDedicated) then {
 		};
 	} forEach ["AS","CON","DES","LOG","RES","CONVOY","DEF_HQ","rebelAttack","invaderPunish"];
 
-	["tasks",_typesX] call fn_SaveStat;
+	["tasks",_typesX] call A3A_fnc_setStatVariable;
 };
 
 _dataX = [];
@@ -185,26 +186,26 @@ _dataX = [];
 	_dataX pushBack [_x,server getVariable _x];
 } forEach airportsX + outposts;
 
-["idlebases",_dataX] call fn_SaveStat;
+["idlebases",_dataX] call A3A_fnc_setStatVariable;
 
 _dataX = [];
 {
 	_dataX pushBack [_x,timer getVariable _x];
 } forEach (vehAttack + vehNATOAttackHelis + vehPlanes + vehCSATAttackHelis);
 
-["idleassets",_dataX] call fn_SaveStat;
+["idleassets",_dataX] call A3A_fnc_setStatVariable;
 
 _dataX = [];
 {
 	_dataX pushBack [_x,killZones getVariable [_x,[]]];
 } forEach airportsX + outposts;
 
-["killZones",_dataX] call fn_SaveStat;
+["killZones",_dataX] call A3A_fnc_setStatVariable;
 
 _controlsX = controlsX select {(sidesX getVariable [_x,sideUnknown] == teamPlayer) and (controlsX find _x < defaultControlIndex)};
-["controlsSDK",_controlsX] call fn_SaveStat;
+["controlsSDK",_controlsX] call A3A_fnc_setStatVariable;
 
 savingServer = false;
-_saveHintText = format ["Savegame Done.\n\nYou won't lose your stats in the event of a game update.\n\nRemember: if you want to preserve any vehicle, it must be near the HQ Flag with no AI inside.\nIf AI are inside, you will save the funds you spent on it.\n\nAI will be refunded\n\nStolen and purchased Static Weapons need to be ASSEMBLED in order to be saved. You can save disassembled Static Weapons in the ammo box.\n\nMounted Statics (Mortar/AA/AT squads) won't get saved, but you will be able to recover the cost.\n\nSame for assigned vehicles more than 50m away from HQ.\n\n%1 fund count:\nHR: %2\nMoney: %3 €",nameTeamPlayer,_hrBackground,_resourcesBackground];
-[petros,"hint",_saveHintText] remoteExecCall ["A3A_fnc_commsMP", 0];
+_saveHintText = format ["Savegame Done.<br/><br/>You won't lose your stats in the event of a game update.<br/><br/>Remember: if you want to preserve any vehicle, it must be near the HQ Flag with no AI inside.<br/>If AI are inside, you will save the funds you spent on it.<br/><br/>AI will be refunded<br/><br/>Stolen and purchased Static Weapons need to be ASSEMBLED in order to be saved. You can save disassembled Static Weapons in the ammo box.<br/><br/>Mounted Statics (Mortar/AA/AT squads) won't get saved, but you will be able to recover the cost.<br/><br/>Same for assigned vehicles more than 50m away from HQ.<br/><br/>%1 fund count:<br/>HR: %2<br/>Money: %3 €",nameTeamPlayer,_hrBackground,_resourcesBackground];
+[petros,"hint",_saveHintText, "Save"] remoteExec ["A3A_fnc_commsMP", 0];
 diag_log format ["%1: [Antistasi] | INFO | Persistent Save Completed.",servertime];

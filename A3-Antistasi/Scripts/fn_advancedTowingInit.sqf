@@ -412,6 +412,7 @@ SA_Pickup_Tow_Ropes = {
 			{
 				_attachedObj ropeDetach _x;
 			} forEach (_vehicle getVariable ["SA_Tow_Ropes",[]]);
+			detach _attachedObj;
 			deleteVehicle _attachedObj;
 		} forEach ropeAttachedObjects _vehicle;
 		_helper = "Land_Can_V2_F" createVehicle position _player;
@@ -719,7 +720,7 @@ SA_Hint = {
 			["Whoops", [_msg]] call ExileClient_gui_notification_event_addNotification;
 		};
     } else {
-        hint _msg;
+		["Advanced Towing", _msg] call A3A_fnc_customHint;
     };
 };
 

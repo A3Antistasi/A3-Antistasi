@@ -1,6 +1,8 @@
 //if ([0.5] call A3A_fnc_fogCheck) exitWith {};
 private ["_objectivesX","_markersX","_base","_objectiveX","_countX","_airportX","_dataX","_prestigeOPFOR","_scoreLand","_scoreAir","_analyzed","_garrison","_size","_staticsX","_leave"];
 
+params[["_getPos", false]];
+
 _objectivesX = [];
 _markersX = [];
 _countXFacil = 0;
@@ -90,27 +92,20 @@ if !(_tmpObjectives isEqualTo []) then
 	_isSDK = false;
 	_isTheSameIsland = [_x,_base] call A3A_fnc_isTheSameIsland;
 	if ([_x,true] call A3A_fnc_fogCheck >= 0.3) then
-		{
+	{
 		if (sidesX getVariable [_x,sideUnknown] == teamPlayer) then
-			{
-			_isSDK = true;
-			/*
-			_valueX = if (_baseNATO) then {prestigeNATO} else {prestigeCSAT};
-			if (random 100 > _valueX) then
-				{
-				_proceed = false
-				}
-			*/
-			};
-		if (!_isTheSameIsland and (not(_x in airportsX))) then
-			{
-			if (!_isSDK) then {_proceed = false};
-			};
-		}
-	else
 		{
-		_proceed = false;
+			_isSDK = true;
 		};
+		if (!_isTheSameIsland and (not(_x in airportsX))) then
+		{
+			if (!_isSDK) then {_proceed = false};
+		};
+	}
+	else
+	{
+		_proceed = false;
+	};
 	if (_proceed) then
 		{
 		if (!_isCity) then
@@ -296,10 +291,11 @@ if (count _easyX == 4) exitWith {};
 } forEach _airportsX;
 
 if (count _easyX == 4) exitWith
-	{
+{
 	{[[_x select 0,_x select 1,"",false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];sleep 30} forEach _easyX;
-	};
+};
 if (hasIFA and (sunOrMoon < 1)) exitWith {};
+if(_getPos) exitWith{_objectivesFinal};
 if ((count _objectivesFinal > 0) and (count _easyX < 3)) then
 	{
 	_arrayFinal = [];

@@ -1,12 +1,12 @@
 [//Loadout
 	[//Primary Weapon
-		"ARifle_SPAR_01_KHK_F",								//Weapon
+		"arifle_RPK12_F",								//Weapon
 		"",													//Muzzle
-		"Acc_Pointer_IR",									//Rail
-		"Optic_HAMR_KHK_F",									//Sight
-		["30Rnd_556x45_Stanag_Red",30],						//Primary Magazine
+		"",													//Rail
+		"optic_Holosight",							//Sight
+		["75rnd_762x39_AK12_Mag_F",75],			//Primary Magazine
 		[],													//Secondary Magazine
-		""													//Bipod
+		"Bipod_01_F_BLK"									//Bipod
 	],
 
 	[//Launcher
@@ -20,7 +20,7 @@
 	],
 
 	[//Secondary Weapon
-		"HGun_P07_KHK_F",									//Weapon
+		"hgun_Rook40_F",									//Weapon
 		"Muzzle_SNDS_L",									//Muzzle
 		"",													//Rail
 		"",													//Sight
@@ -30,42 +30,39 @@
 	],
 
 	[//Uniform
-		selectRandom										//Uniform
-		["U_B_T_Soldier_F", "U_B_T_Soldier_AR_F", "U_B_T_Soldier_SL_F"],
+
+		"U_O_R_Gorka_01_camo_F",
 		[] + _basicMedicalSupplies + _basicMiscItems
 	],
 
 	[//Vest
 		selectRandom										//Vest
-		["V_PlateCarrier1_TNA_F", "V_PlateCarrier2_TNA_F", "V_PlateCarrierSpec_TNA_F"],
+		["V_TacVest_oli", "V_Chestrig_oli"],
 		[//Inventory
-			["NVGoggles_OpFor",1],
+			["NVGoggles_OPFOR",1],
 			["SmokeShell",2,1],
 			["HandGrenade",1,1],
 			["16Rnd_9x21_Mag",2,17],
-			["30Rnd_556x45_Stanag_Red",3,30]
+			["75rnd_762x39_AK12_Mag_F",4,75]
+
 		]
 		+ _aceFlashlight
 		+ _aceM84
 	],
 
 	[//Backpack
-		"B_AssaultPack_TNA_F",							//Backpack
-		[//Inventory
-            ["SmokeshellBlue",3,1],
-            ["SmokeshellRed",3,1],
-            ["SmokeshellYellow",3,1]
-		]
-		+ ([hasACE, ["ACE_Handflare_Red",2,1]] call _fnc_modItem)
-		+ ([hasACE, ["ACE_Chemlight_IR",15,1]] call _fnc_modItem)
-	],
+	"B_FieldPack_taiga_F",								//Backpack
+	[//Inventory
+		["150Rnd_762x54_Box",2,75]
+	]
+],
 
 		selectRandom										//Headgear
-		["H_BoonieHat_TNA_F", "H_MilCap_TNA_F", "H_HelmetB_TNA_F", "H_HelmetB_Light_TNA_F", "H_HelmetB_Enh_TNA_F"],
+		["H_Booniehat_taiga", "H_MilCap_taiga", "H_HelmetLeaderO_ocamo", "H_HelmetAggressor_cover_taiga_F","H_HelmetAggressor_F"],
 		"",													//Facewear
 
 	[//Binocular
-		"Binocular",										//Binocular
+		"",													//Binocular
 		"",
 		"",
 		"",
@@ -76,8 +73,8 @@
 
 	[//Item
 		"ItemMap",											//Map
-		"ItemGPS",											//Terminal
-		["TF_ANPRC152"] call _fnc_tfarRadio,				//Radio
+		"",													//Terminal
+		["tf_fadak"] call _fnc_tfarRadio,				//Radio
 		"ItemCompass",										//Compass
 		"ItemWatch",										//Watch
 		""													//Goggles

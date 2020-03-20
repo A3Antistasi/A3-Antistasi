@@ -2,7 +2,7 @@ private _filename = "fn_surrenderAction";
 params ["_unit"];
 
 if (typeOf _unit == "Fin_random_F") exitWith {};		// dogs do not surrender?
-//https://forums.bohemia.net/forums/topic/107114-script-to-delete-units/
+
 // ACE sometimes calls the wakeup handler when units die
 // Safe code to prevent unit doing anything until we check that they're alive
 _unit stop true;

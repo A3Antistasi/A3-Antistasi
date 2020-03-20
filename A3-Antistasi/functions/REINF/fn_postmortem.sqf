@@ -11,7 +11,7 @@ private _filename = "fn_postmortem";
 private _group = group _victim;
 
 [3,"PostMortem Called",_filename] call A3A_fnc_log;
-if (isnull _victim)exitwith{[3,"Function failed called with null param.",_filename] call A3A_fnc_log;};
+if (isnull _victim)exitwith{[1,"Function failed called with null param.",_filename] call A3A_fnc_log;};
 
 if (isNull _group) then
 {

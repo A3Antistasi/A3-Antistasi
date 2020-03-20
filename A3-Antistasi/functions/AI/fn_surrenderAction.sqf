@@ -86,12 +86,10 @@ if (!isNil "_markerX") then
 	};
 
 // timed cleanup functions
-unitStr = format["Cleanup called for unit:%1",_unit];
-boxxStr = format["Cleanup called for boxx:%1",_boxX];
-[3,unitStr,_filename] call A3A_fnc_log;
+[3,format["Cleanup called for unit:%1",_unit],_filename] call A3A_fnc_log;
 [_unit] spawn A3A_fnc_postmortem;
 
-[3,boxXStr,_filename] call A3A_fnc_log;
+[3,format["Cleanup called for boxx:%1",_boxX],_filename] call A3A_fnc_log;
 [_boxX] spawn A3A_fnc_postmortem;
 
 sleep 3;

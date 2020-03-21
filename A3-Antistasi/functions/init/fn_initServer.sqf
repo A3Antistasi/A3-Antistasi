@@ -70,6 +70,7 @@ if (isMultiplayer) then {
 	playerMarkersEnabled = true;
 	minPlayersRequiredforPVP = 2;
 	helmetLossChance = 33;
+    startWithLongRangeRadio = true;
 };
 
 [] call A3A_fnc_crateLootParams;

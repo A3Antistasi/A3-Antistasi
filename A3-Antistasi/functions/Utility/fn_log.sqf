@@ -6,10 +6,16 @@
 		Log Message: string - Message to log
 		File (optional): string - File in which the log message originated
 		Log to server (optional): bool - true for logging to server RPT instead of client
+		The example below would output an error to the console.
+
+		private _filename = "fn_log";
+		[1, "Message", _filename] call A3A_fnc_log;
 **/
 
 params ["_level", "_message", ["_file", "No File Specified"], ["_toServer", false]];
+private _filename = "fn_log";
 
+//This ignores the log event if it's above the
 if (_level > LogLevel) exitwith {};
 
 // Sets up the actual log event.

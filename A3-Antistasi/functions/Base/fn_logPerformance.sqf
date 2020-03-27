@@ -28,6 +28,7 @@ private _countCiv = 0;
 	};
 } forEach allGroups;
 
+
 [2,
 format [
 	"%10 ServerFPS:%1, Players:%11, DeadUnits:%2, AllUnits:%3, UnitsAwareOfEnemies:%14, AllVehicles:%4, WreckedVehicles:%12, Entities:%13, GroupsRebels:%5, GroupsInvaders:%6, GroupsOccupants:%7, GroupsCiv:%8, GroupsTotal:%9, GroupsCombatBehaviour:%15"

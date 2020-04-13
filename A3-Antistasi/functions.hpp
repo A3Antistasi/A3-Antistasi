@@ -203,6 +203,7 @@ class A3A
 		class createFIAOutposts2 {};
 		class createSDKGarrisons {};
 		class createSDKgarrisonsTemp {};
+		class createUnit {};
 		class cycleSpawn {};
 		class FIAinitBases {};
 		class findSpawnPosition {};

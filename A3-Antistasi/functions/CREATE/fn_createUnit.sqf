@@ -30,7 +30,7 @@ if (_type isEqualType []) then {
 	};
 };
 
-private _unit = [_group, _type, _position, _markers, _placement, _special] call A3A_fnc_createUnit;
+private _unit = _group createUnit  [_type, _position, _markers, _placement, _special];
 
 if !(_unitLoadout isEqualTo []) then {
 	_unit setUnitLoadout _unitLoadout;

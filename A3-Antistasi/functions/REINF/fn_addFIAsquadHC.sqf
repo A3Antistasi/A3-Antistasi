@@ -123,7 +123,7 @@ if (_esinf) then {
 
 	if ((!activeGREF) and (_typeGroup == staticAAteamPlayer)) then {
 		_pos = position _road findEmptyPosition [10, 40, SDKMortar];
-		_morty = _groupX createUnit [staticCrewTeamPlayer, _pos, [],0, "NONE"];
+		_morty = [_groupX, staticCrewTeamPlayer, _pos, [],0, "NONE"] call A3A_fnc_createUnit;
 		_mortarX = _typeGroup createVehicle _pos;
 		[_mortarX] call A3A_fnc_AIVEHinit;
 		_mortarX attachTo [_truckX,[0,-1.5,0.2]];

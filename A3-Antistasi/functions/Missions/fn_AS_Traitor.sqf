@@ -44,11 +44,11 @@ _arrayAirports = airportsX select {sidesX getVariable [_x,sideUnknown] == Occupa
 _base = [_arrayAirports, _positionX] call BIS_Fnc_nearestPosition;
 _posBase = getMarkerPos _base;
 
-_traitor = _groupTraitor createUnit [NATOOfficer2, _posTraitor, [], 0, "NONE"];
+_traitor = [_groupTraitor, NATOOfficer2, _posTraitor, [], 0, "NONE"] call A3A_fnc_createUnit;
 _traitor allowDamage false;
 _traitor setPos _posTraitor;
-_sol1 = _groupTraitor createUnit [NATOBodyG, _posSol1, [], 0, "NONE"];
-_sol2 = _groupTraitor createUnit [NATOBodyG, _posSol2, [], 0, "NONE"];
+_sol1 = [_groupTraitor, NATOBodyG, _posSol1, [], 0, "NONE"] call A3A_fnc_createUnit;
+_sol2 = [_groupTraitor, NATOBodyG, _posSol2, [], 0, "NONE"] call A3A_fnc_createUnit;
 _groupTraitor selectLeader _traitor;
 
 _posTsk = (position _houseX) getPos [random 100, random 360];
@@ -106,7 +106,7 @@ _groupX = [_positionX,Occupants, NATOSquad] call A3A_fnc_spawnGroup;
 sleep 1;
 if (random 10 < 2.5) then
 	{
-	_dog = _groupX createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
+	_dog = [_groupX, "Fin_random_F",_positionX,[],0,"FORM"] call A3A_fnc_createUnit;
 	[_dog] spawn A3A_fnc_guardDog;
 	};
 _nul = [leader _groupX, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";

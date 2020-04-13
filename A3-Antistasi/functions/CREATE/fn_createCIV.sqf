@@ -108,7 +108,7 @@ if ((random 100 < ((prestigeNATO) + (prestigeCSAT))) and (spawner getVariable _m
 		};
 	_groupX = createGroup civilian;
 	_groups pushBack _groupX;
-	_civ = _groupX createUnit ["C_journalist_F", _pos, [],0, "NONE"];
+	_civ = [_groupX, "C_journalist_F", _pos, [],0, "NONE"] call A3A_fnc_createUnit;
 	_nul = [_civ] spawn A3A_fnc_CIVinit;
 	_civs pushBack _civ;
 	_nul = [_civ, _markerX, "SAFE", "SPAWNED","NOFOLLOW", "NOVEH2","NOSHARE","DoRelax"] execVM "scripts\UPSMON.sqf";//TODO need delete UPSMON link
@@ -153,7 +153,7 @@ if ([_markerX,false] call A3A_fnc_fogCheck > 0.2) then
 					//_veh forceFollowRoad true;
 					_vehPatrol = _vehPatrol + [_veh];
 					_typeCiv = selectRandom arrayCivs;
-					_civ = _groupP createUnit [_typeCiv, _p1, [],0, "NONE"];
+					_civ = [_groupP, _typeCiv, _p1, [],0, "NONE"] call A3A_fnc_createUnit;
 					_nul = [_civ] spawn A3A_fnc_CIVinit;
 					_civsPatrol = _civsPatrol + [_civ];
 					_civ moveInDriver _veh;

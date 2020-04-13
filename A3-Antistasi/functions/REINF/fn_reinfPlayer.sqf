@@ -21,7 +21,7 @@ if (_costs > _resourcesFIA) exitWith {["AI Recruitment", format ["You do not hav
 
 if ((count units group player) + (count units stragglers) > 9) exitWith {["AI Recruitment", "Your squad is full or you have too many scattered units with no radio contact"] call A3A_fnc_customHint;};
 
-private _unit = group player createUnit [_typeUnit, position player, [], 0, "NONE"];
+private _unit = [group player, _typeUnit, position player, [], 0, "NONE"] call A3A_fnc_createUnit;
 
 if (!isMultiPlayer) then {
 	_nul = [-1, - _costs] remoteExec ["A3A_fnc_resourcesFIA",2];

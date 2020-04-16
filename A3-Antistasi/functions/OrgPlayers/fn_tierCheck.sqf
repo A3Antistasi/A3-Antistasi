@@ -9,7 +9,7 @@ private _rebelPoints = 0;
 	_rebelPoints = _rebelPoints + call {
 		if (_x in citiesX) exitWith {1};
 		if (_x in outposts or {_x in resourcesX or _x in factories}) exitWith {2};
-		if (_x in seaports) exitWith (4);
+		if (_x in seaports) exitWith {4};
 		if (_x in airportsX) then {8} else {0};
 	}
 } forEach _rebelSites;

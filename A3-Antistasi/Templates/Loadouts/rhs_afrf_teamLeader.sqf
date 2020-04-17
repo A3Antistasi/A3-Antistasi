@@ -51,7 +51,6 @@
 		],
 
 		[//Backpack
-		"",
 		[//Inventory
 		[]
 		]

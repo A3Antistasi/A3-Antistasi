@@ -93,6 +93,7 @@ if (isMultiplayer) then
 	} forEach (units group _playerUnit) - [_playerUnit]; //Can't have player unit in here, as it'll get nulled out if called on disconnect.
 	[_playerId, "moneyX",_resourcesBackground] call A3A_fnc_savePlayerStat;
 	};
-	
+
+saveProfileNamespace;
 savingClient = false;
 true;

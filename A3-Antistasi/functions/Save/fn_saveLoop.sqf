@@ -1,10 +1,15 @@
 if (hasInterface) then {
 	if (!isNil "savingClient" && {savingClient}) exitWith {["Save", "Your personal stats are being saved"] call A3A_fnc_customHint;};
-	[] call A3A_fnc_savePlayer;
+	[getPlayerUID player, player] call A3A_fnc_savePlayer;
 };
 
 //Server only from here on out.
 if (!isServer) exitWith {};
+
+// Save each player with global flag
+{
+	[getPlayerUID _x, _x, true] call A3A_fnc_savePlayer;
+} forEach (call A3A_fnc_playableUnits);
 
 if (savingServer) exitWith {["Save Game", "Server data save is still in progress"] remoteExecCall ["A3A_fnc_customHint",theBoss]};
 savingServer = true;

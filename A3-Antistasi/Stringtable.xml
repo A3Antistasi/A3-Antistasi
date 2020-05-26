@@ -676,9 +676,8 @@
         <German>Weil nichts wichtiger ist als die Freiheit.</German>
       </Key>
       <Key ID="STR_antistasi_mission_info_virolahti_blurb_text">
-        <Original>Virolahti blurb stuff text thingy</Original>
-        <English>Virolahti blurb stuff text thingy</English>
-        <German />
+        <Original>VHunting in the woods</Original>
+        <English>VHunting in the woods</English>
       </Key>
       <Key ID="STR_antistasi_mission_info_stratis_blurb_text">
         <Original>Because nothing is more important than Freedom.</Original>

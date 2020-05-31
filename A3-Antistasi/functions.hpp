@@ -484,6 +484,7 @@ class A3A
 
 	class Save
 	{
+		class deleteSave {};
 		class loadPlayer {};
 		class loadPreviousSession {};
 		class loadServer {};

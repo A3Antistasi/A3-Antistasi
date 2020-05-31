@@ -129,6 +129,7 @@ markersChanging = [];
 
 playerHasBeenPvP = [];
 
+savedPlayers = [];
 destroyedBuildings = [];		// synced only on join, to avoid spam on change
 
 ///////////////////////////////////////////

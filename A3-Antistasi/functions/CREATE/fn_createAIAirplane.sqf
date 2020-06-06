@@ -327,11 +327,11 @@ private _ammoBox = _ammoBoxType createVehicle _positionX;
 _ammoBox call jn_fnc_logistics_addAction;
 _vehiclesX pushBack _ammoBox;
 
-[_veh] spawn {
+[_ammoBox] spawn {
   sleep 1;
-  _veh = _this select 0;
+  _ammoBox = _this select 0;
   {
-    _veh addItemCargoGlobal [_x, round random [5,15,15]];
+    _ammoBox addItemCargoGlobal [_x, round random [5,15,15]];
   }forEach flyGear;
 };
 

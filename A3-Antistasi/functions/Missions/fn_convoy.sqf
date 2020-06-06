@@ -62,8 +62,7 @@ else
 
 _typeConvoyX = selectRandom _typeConvoy;
 
-_timeLimit = if (_difficultX) then {0} else {round random 10};// timeX for the convoy to come out, we should put a random round 15
-_timeLimit = 0;
+_timeLimit = if (_difficultX) then {0} else { (round random 5)+5 }; // 0 or 5-10 minute limit - there's already good a chance for 0 seconds, why have a double chance (0-10)?
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 _dateLimit = numberToDate [date select 0, _dateLimitNum];//converts datenumber back to date array so that time formats correctly when put through the function

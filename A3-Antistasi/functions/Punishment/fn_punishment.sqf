@@ -47,11 +47,11 @@ private _depreciationCoef = 0.75;	// Modifies the drop-off curve of the punishme
 private _overheadPercent = 0.3;		// Percentage of _offenceAdded that does not get depreciated.
 
 //////////Fetches punishment values/////////
-private _keyPairs = [["timeTotal",0],["offenceTotal",0],["lastOffenceTime",0],["overhead",0]];
+private _currentTime = (floor serverTime);
+private _keyPairs = [["timeTotal",0],["offenceTotal",0],["lastOffenceTime",_currentTime],["overhead",0]];
 private _UID = getPlayerUID _instigator;
 private _data_instigator = [_UID,_keyPairs] call A3A_fnc_punishment_dataGet;
 _data_instigator params ["_timeTotal","_offenceTotal","_lastTime","_overhead"];
-private _currentTime = (floor serverTime);
 
 ///////////////Data validation//////////////
 _lastTime = (_lastTime max 1) min _currentTime;
@@ -67,7 +67,7 @@ _overhead = _overhead + _offenceAdded * _overheadPercent;
 _offenceTotal = _offenceTotal * (1-_depreciationCoef*(1-(_offenceTotal))) ^(_periodDelta/300); // Depreciation formula
 _offenceTotal = _offenceTotal + _offenceAdded;
 private _grandOffence = _offenceTotal + _overhead;
-_timeTotal = _timeTotal * (1-_depreciationCoef) ^(_periodDelta/300);       // Depreciation formula
+_timeTotal = _timeTotal * (1-_depreciationCoef) ^(_periodDelta/3000);       // Depreciation formula
 _timeTotal = _timeTotal + _timeAdded;
 
 //////////Saves data to instigator//////////

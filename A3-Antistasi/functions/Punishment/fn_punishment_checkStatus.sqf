@@ -20,6 +20,13 @@ Returns:
 Examples:
 	[_UID] remoteExec ["A3A_fnc_punishment_checkStatus",2,false];
 
+	// Unit Test
+	private _UID = getPlayerUID player;
+	private _keyPairs = [["timeTotal",10],["offenceTotal",1]];
+	private _data_instigator = [_UID,_keyPairs] call A3A_fnc_punishment_dataSet;
+	[_UID] remoteExec ["A3A_fnc_punishment_checkStatus",2,false];
+	[_UID] call A3A_fnc_punishment_dataGet;
+
 Author: Caleb Serafin
 Date Updated: 07 June 2020
 License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Community

@@ -55,12 +55,12 @@ if (hasACE) then {
 _unit addEventHandler ["Killed", {
 	params ["_unit", "_killer", "_instigator", "_useEffects"];
 	if (isNull _instigator && {isNull _killer}) exitWith {}; // A certain company that develops a specific game called ArmaIII hasn't mastered the EH yet. So it's full objNull if a hippo crosses a stream when the day is divisible by the second fortnight of the month during a full moon on a warm summers day while the mosquitoes bit down on Richard Parker as he struggles during the October revolution.
-	[[_instigator,_killer], 20, 0.4, _unit] remoteExec ["A3A_fnc_punishment_FF",[_instigator,_killer] select (isNull _instigator),false];
+	[[_instigator,_killer], 60, 0.4, _unit] remoteExec ["A3A_fnc_punishment_FF",[_instigator,_killer] select (isNull _instigator),false];
 }];
 _unit addEventHandler ["Hit", {
 	params ["_unit", "_source", "_damage", "_instigator"];
 	if (isNull _instigator && {isNull _source}) exitWith {};
-	[[_instigator,_source], 20, 0.4, _unit] remoteExec ["A3A_fnc_punishment_FF",[_instigator,_source] select (isNull _instigator),false];
+	[[_instigator,_source], 60, 0.4, _unit] remoteExec ["A3A_fnc_punishment_FF",[_instigator,_source] select (isNull _instigator),false];
 }];
 [getPlayerUID player] remoteExec ["A3A_fnc_punishment_checkStatus",2,false];
 [2,format["Punishment Event Handlers Added to: %1",name _unit],_fileName] call A3A_fnc_log;

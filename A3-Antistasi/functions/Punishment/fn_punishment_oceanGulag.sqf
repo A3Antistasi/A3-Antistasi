@@ -16,7 +16,7 @@ Parameters:
 	<STRING> The UID of the detainee being sent to Ocean Gulag.
 
 Returns:
-	<BOOLEAN> True if hasn't crashed; False is Invalid Params; nothing if it has crashed.
+	<BOOLEAN> true if it hasn't crashed; false if invalid params; nil if it has crashed.
 
 Examples:
 	[_detainee,"add"] call ["A3A_fnc_punishment_oceanGulag",2,false];

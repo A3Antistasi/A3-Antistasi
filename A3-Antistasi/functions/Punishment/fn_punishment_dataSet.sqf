@@ -16,7 +16,7 @@ Parameters:
 	<ARRAY<KEYPAIR>>  List of key pairs; KEYPAIR=[Name<STRING>,Value<ANY>].
 
 Returns:
-	<BOOLEAN> True if hasn't crashed; False is invalid params; nothing if it has crashed.
+	<BOOLEAN> true if it hasn't crashed; false is invalid params; nil if it has crashed.
 
 Examples:
 	private _keyPairs = [ ["test","frost"], ["420",69], ["bob","ban"] ];

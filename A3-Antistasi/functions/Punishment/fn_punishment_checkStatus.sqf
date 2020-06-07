@@ -15,7 +15,7 @@ Parameters:
 	<STRING> If adding EH to AI, passing a reference is required: Otherwise vanilla EH will be added to the machine it's local on.
 
 Returns:
-	<BOOLEAN> True if hasn't crashed; False if tkPunish is disabled; nothing if it has crashed.
+	<BOOLEAN> true if it hasn't crashed; false tkPunish if disabled; nil if it has crashed.
 
 Examples:
 	[_UID] remoteExec ["A3A_fnc_punishment_checkStatus",2,false];

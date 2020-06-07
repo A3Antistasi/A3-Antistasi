@@ -17,7 +17,7 @@ Parameters:
 	<OBJECT> Projectile.
 
 Returns:
-	<BOOLEAN> True if hasn't crashed; False if not near HQ; nothing if it has crashed.
+	<BOOLEAN> true if it hasn't crashed; false if not near HQ; nil if it has crashed.
 
 Examples Vanilla:
 	private _EH_fired = {

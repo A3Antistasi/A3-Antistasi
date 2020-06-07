@@ -18,7 +18,7 @@ Parameters:
 	<NUMBER> The time the detainee will be imprisoned.
 
 Returns:
-	<BOOLEAN> True if hasn't crashed; False is invalid params; nothing if it has crashed.
+	<BOOLEAN> true if it hasn't crashed; false if invalid params; nil if it has crashed.
 
 Examples:
 	[_detaineeUID,_timeTotal] remoteExec ["A3A_fnc_punishment_sentence_server",2,false];

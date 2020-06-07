@@ -21,7 +21,7 @@ Parameters 2:
 	<ARRAY> Empty array.
 
 Returns:
-	<BOOLEAN> True if hasn't crashed; False is invalid params; nothing if it has crashed.
+	<BOOLEAN> true if it hasn't crashed; false is invalid params; nil if it has crashed.
 
 Examples:
 	private _keys = ["test","420"];

@@ -15,7 +15,7 @@ Parameters:
 	<OBJECT> The detainee that that is mentioned in the message.
 
 Returns:
-	<BOOLEAN> True if hasn't crashed; nothing if it has crashed.
+	<BOOLEAN> true if it hasn't crashed; nil if it has crashed.
 
 Examples:
 	[_detainee] remoteExec ["A3A_fnc_punishment_notifyAdmin",0,false];

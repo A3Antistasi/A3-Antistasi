@@ -15,13 +15,13 @@ Parameters:
 	<STRING> If adding EH to AI, passing a reference is required: Otherwise vanilla EH will be added to the machine it's local on.
 
 Returns:
-	<BOOLEAN> true if it hasn't crashed; false tkPunish if disabled; nil if it has crashed.
+	<BOOLEAN> true if it hasn't crashed; false if something is wrong disabled; nil if it has crashed.
 
 Examples:
 	[_UID] remoteExec ["A3A_fnc_punishment_checkStatus",2,false];
 
 Author: Caleb Serafin
-Date Updated: 28 May 2020
+Date Updated: 07 June 2020
 License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Community
 */
 params [["_UID","",[""]]];
@@ -30,11 +30,10 @@ private _fileName = "fn_punishment_checkStatus.sqf";
 if (!tkPunish) exitWith {false;};
 
 if (!isServer) exitWith {
-	[[1, "NOT SERVER"], _filename] call A3A_fnc_log;
+	[1, "NOT SERVER", _filename] call A3A_fnc_log;
 	false;
 };
 if (_UID isEqualTo "") exitWith {
-	[[1, "NO UID SPECIFIED"], _filename] call A3A_fnc_log;
 	false;
 };
 

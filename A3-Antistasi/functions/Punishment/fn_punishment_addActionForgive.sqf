@@ -50,6 +50,9 @@ if ([] call BIS_fnc_admin > 0 || isServer && hasInterface) then {
 		format["[Forgive FF] ""%1""",name _detainee],
 		{
 			params ["_target", "_caller", "_actionId", "_arguments"];
+			if ((!isPlayer _arguments) || ([] call BIS_fnc_admin == 0)) exitWith {
+				player removeAction _actionId;
+			};
 			[_arguments,"forgive"] remoteExec ["A3A_fnc_punishment_release",2,false];
 		},
 		_detainee,

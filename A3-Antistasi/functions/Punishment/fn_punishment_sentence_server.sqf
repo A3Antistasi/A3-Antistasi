@@ -32,7 +32,7 @@ private _filename = "fn_punishment_sentence_server.sqf";
 scriptName "fn_punishment_sentence_server.sqf";
 
 if (!isServer) exitWith {
-	[[1, "NOT SERVER"], _filename] call A3A_fnc_log;
+	[1, "NOT SERVER", _filename] call A3A_fnc_log;
 	false;
 };
 

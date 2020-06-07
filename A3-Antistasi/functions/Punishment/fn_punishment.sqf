@@ -38,7 +38,7 @@ params ["_instigator","_timeAdded","_offenceAdded",["_victim",objNull]];
 private _filename = "fn_punishment.sqf";
 
 if (!isServer) exitWith {
-	[[1, "NOT SERVER"], _filename] call A3A_fnc_log;
+	[1, "NOT SERVER", _filename] call A3A_fnc_log;
 	"NOT SERVER";
 };
 

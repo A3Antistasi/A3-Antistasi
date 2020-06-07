@@ -30,7 +30,7 @@ params ["_detaineeUID",["_operation","add",[""]]];
 private _filename = "fn_punishment_oceanGulag.sqf";
 
 if (!isServer) exitWith {
-	[[1, "NOT SERVER"], _filename] call A3A_fnc_log;
+	[1, "NOT SERVER", _filename] call A3A_fnc_log;
 	false;
 };
 

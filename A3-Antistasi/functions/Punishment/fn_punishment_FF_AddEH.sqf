@@ -24,7 +24,7 @@ Examples:
 	[cursorObject] remoteExec ["A3A_fnc_punishment_FF_addEH",cursorObject,false];
 
 Author: Caleb Serafin
-Date Updated: 3 June 2020
+Date Updated: 07 June 2020
 License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Community
 */
 params [["_unit",objNull,[objNull]]];

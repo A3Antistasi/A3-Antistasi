@@ -71,7 +71,8 @@ switch (toLower _operation) do {
 	case ("remove"): {
 		if (!isNull _detainee && {_playerPos inArea [ [50,50], 100, 100 ,0, true, -1]}) then { // Slightly bigger, player can't swim 50m in 5 sec.
 			_detainee switchMove "";
-			if !(leader _detainee in [objNull, _detainee]) then {
+			private _leader = leader _detainee;
+			if (!(_leader in [objNull, _detainee]) && {_leader == vehicle _leader}) then {
 				_detainee setPos getPos leader _detainee;
 			} else {
 				_detainee setPos posHQ;

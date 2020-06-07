@@ -16,7 +16,7 @@ Parameters:
 	<NUMBER> The time left until detainee is released.
 
 Returns:
-	<BOOLEAN> True after 5 seconds if hasn't crashed; nothing if it has crashed.
+	<BOOLEAN> true after 5 seconds if it hasn't crashed; nil if it has crashed.
 
 Examples:
 	[_detainee,_timeLeft] remoteExec ["A3A_fnc_punishment_sentence_client",_detainee,false];

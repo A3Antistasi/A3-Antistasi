@@ -17,7 +17,7 @@ Parameters:
 	<OBJECT> If adding EH to AI, passing a reference is required: Otherwise vanilla EH will be added to the machine it's local on.
 
 Returns:
-	<BOOLEAN> True if hasn't crashed; False if tkPunish is disabled; nothing if it has crashed.
+	<BOOLEAN> true if it hasn't crashed; false if tkPunish is disabled; nil if it has crashed.
 
 Examples:
 	call A3A_fnc_punishment_FF_addEH; // Recommended to add to "onPlayerRespawn.sqf","initPlayerLocal.sqf"

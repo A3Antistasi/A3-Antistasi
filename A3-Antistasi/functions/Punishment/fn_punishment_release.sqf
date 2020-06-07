@@ -17,7 +17,7 @@ Parameters:
 	<STRING> Who is calling the function. All external calls should only use "forgive".
 
 Returns:
-	<BOOLEAN> True if hasn't crashed; False is Invalid Params; nothing if it has crashed.
+	<BOOLEAN> true if it hasn't crashed; false if invalid params; nil if it has crashed.
 
 Examples:
 	[cursorObject,"forgive"] remoteExec [A3A_fnc_punishment_release,2]; // Forgive all sins and release from Ocean Gulag.

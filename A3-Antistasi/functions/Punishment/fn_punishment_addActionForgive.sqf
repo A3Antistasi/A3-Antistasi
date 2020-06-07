@@ -16,7 +16,7 @@ Parameters:
 	<OBJECT> The detainee that the actions pertains to.
 
 Returns:
-	<BOOLEAN> True if hasn't crashed; False is detainee is free; nothing if it has crashed.
+	<BOOLEAN> true if it hasn't crashed; false if the detainee is free; nil if it has crashed.
 
 Examples:
 	[_detainee] remoteExec ["A3A_fnc_punishment_addActionForgive",0,false];

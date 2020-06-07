@@ -19,7 +19,7 @@ Parameters:
 	<OBJECT> [OPTIONAL] The victim of the player's FF.
 
 Returns:
-	<STRING> Either a exemption type or return from fn_punishment.sqf.
+	<STRING> Either an exemption type or a return from fn_punishment.sqf.
 
 Examples:
 	[_instigator,_timeAdded,_offenceAdded,_victim] remoteExec ["A3A_fnc_punishment",2,false]; // How it should be called from another A3A_fnc_punishment_FF.

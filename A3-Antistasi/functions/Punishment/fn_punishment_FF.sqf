@@ -43,7 +43,7 @@ Examples 2:
     [[objNull,player], 0, 0, cursorObject] call A3A_fnc_punishment_FF; // Test self with victim
 
 Author: Caleb Serafin
-Date Updated: 29 May 2020
+Date Updated: 07 June 2020
 License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Community
 */
 params [["_instigator",objNull,[objNull,[]]],"_timeAdded","_offenceAdded",["_victim",objNull]];
@@ -76,12 +76,12 @@ if (typeName _instigator == "ARRAY") then {
 };
 
 ///////////////Checks if is FF//////////////
-_exemption = switch (true) do {
+private _exemption = switch (true) do {
     case (!tkPunish):                                  {"FF PUNISH IS DISABLED"};
     case (isDedicated || isServer):                    {"FF BY SERVER"};
     case (!isMultiplayer):                             {"IS NOT MULTIPLAYER"};
     case (!isPlayer _instigator):                      {"NOT A PLAYER"};
-    case (_instigator != player):                      {"NOT INSTIGATOR"}; // Must be local for 'BIS_fnc_admin'
+    case (player != _instigator):                      {"NOT INSTIGATOR"}; // Must be local for 'BIS_fnc_admin'
     case (side _instigator in [Invaders, Occupants]):  {"NOT REBEL"};
     case (_victim == _instigator):                     {"SUICIDE"};
     default                                            {""};
@@ -97,7 +97,7 @@ _instigator setVariable ["punishment_coolDown", servertime + 1, true];
 
 ////////////////Logs if is FF///////////////
 if (_exemption !=  "") exitWith {
-    [format["NOT FF, %1", _exemption]] call _gotoExemption;
+    format["NOT FF, %1", _exemption];
 };
 
 /////////Checks for important roles/////////

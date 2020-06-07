@@ -76,11 +76,14 @@ private _keyPairs = [["timeTotal",_timeTotal],["offenceTotal",_offenceTotal],["l
 
 /////////Where punishment is issued/////////
 private _playerStats = format["Player: %1 [%2], _timeTotal: %3, _offenceTotal: %4, _offenceOverhead: %5, _timeAdded: %6, _offenceAdded: %7", name _instigator, _UID, str _timeTotal, str _offenceTotal, str 0, str _timeAdded, str _offenceAdded];
-if (isPlayer _victim) then {["FF Notification", format["%1 hurt you!",name _instigator]] remoteExec ["A3A_fnc_customHint", _victim, false];};
 if (_grandOffence < 1) exitWith {
 	["FF Warning", "Watch your fire!"] remoteExec ["A3A_fnc_customHint", _instigator, false];
 	[2, format ["WARNING | %1", _playerStats], _filename] call A3A_fnc_log;
 	"WARNED"
+};
+if (isPlayer _victim) then {
+	["FF Notification", format["%1 hurt you!",name _instigator]] remoteExec ["A3A_fnc_customHint", _victim, false];
+	[2, format ["VICTIM | Found Collateral: %1 [%2]", name _victim, getPlayerUID _victim], _filename] call A3A_fnc_log;
 };
 [2, format ["GUILTY | %1", _playerStats], _filename] call A3A_fnc_log;
 [getPlayerUID _instigator,_timeTotal] remoteExec ["A3A_fnc_punishment_sentence_server",2,false];

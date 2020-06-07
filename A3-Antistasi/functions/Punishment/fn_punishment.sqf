@@ -65,9 +65,9 @@ _timeTotal = _timeTotal max 0;
 private _periodDelta = _currentTime - _lastTime;
 _overhead = _overhead + _offenceAdded * _overheadPercent;
 _offenceTotal = _offenceTotal * (1-_depreciationCoef*(1-(_offenceTotal))) ^(_periodDelta/300); // Depreciation formula
-_offenceTotal = _offenceTotal + _offenceAdded;
+_offenceTotal = _offenceTotal + _offenceAdded * (1-_overheadPercent);                          // Subtracted so that it does not add the new offence plus extra.
 private _grandOffence = _offenceTotal + _overhead;
-_timeTotal = _timeTotal * (1-_depreciationCoef) ^(_periodDelta/3000);       // Depreciation formula
+_timeTotal = _timeTotal * (1-_depreciationCoef) ^(_periodDelta/3000);                          // Depreciation formula
 _timeTotal = _timeTotal + _timeAdded;
 
 //////////Saves data to instigator//////////
@@ -75,7 +75,7 @@ private _keyPairs = [["timeTotal",_timeTotal],["offenceTotal",_offenceTotal],["l
 [_UID,_keyPairs] call A3A_fnc_punishment_dataSet;
 
 /////////Where punishment is issued/////////
-private _playerStats = format["Player: %1 [%2], _timeTotal: %3, _offenceTotal: %4, _offenceOverhead: %5, _timeAdded: %6, _offenceAdded: %7", name _instigator, _UID, str _timeTotal, str _offenceTotal, str 0, str _timeAdded, str _offenceAdded];
+private _playerStats = format["Player: %1 [%2], _timeTotal: %3, _grandOffence: %4, _offenceOverhead: %5, _timeAdded: %6, _offenceAdded: %7", name _instigator, _UID, str _timeTotal, str _grandOffence, str 0, str _timeAdded, str _offenceAdded];
 if (_grandOffence < 1) exitWith {
 	["FF Warning", "Watch your fire!"] remoteExec ["A3A_fnc_customHint", _instigator, false];
 	[2, format ["WARNING | %1", _playerStats], _filename] call A3A_fnc_log;

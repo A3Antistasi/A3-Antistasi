@@ -60,8 +60,15 @@ private _notifyInstigator = {
 private _gotoExemption = {
     params ["_exemptionDetails"];
     _playerStats = format["Player: %1 [%2], _timeAdded: %3, _offenceAdded: %4", name _instigator, getPlayerUID _instigator,str _timeAdded, str _offenceAdded];
-    [2, format ["%1 | %2", _exemptionDetails, _playerStats], _filename] call A3A_fnc_log;
+    if (!(isNull _exemptionDetails) && !(isNull _playerStats)) then {
+        [2, format ["%1 | %2", _exemptionDetails, _playerStats], _filename] call A3A_fnc_log;
+    };
     _exemptionDetails;
+};
+private _logPvPKill = {
+    if (!isPlayer _victim) exitWith {};
+    _killStats = format ["PVPKILL | %1 killed by PvP: %2 [%3]", name _victim, name _instigator, getPlayerUID _instigator];
+    [2,_killStats,_filename] call A3A_fnc_log;
 };
 private _isCollision = false;
 
@@ -82,7 +89,7 @@ private _exemption = switch (true) do {
     case (!isMultiplayer):                             {"IS NOT MULTIPLAYER"};
     case (!isPlayer _instigator):                      {"NOT A PLAYER"};
     case (player != _instigator):                      {"NOT INSTIGATOR"}; // Must be local for 'BIS_fnc_admin'
-    case (side _instigator in [Invaders, Occupants]):  {"NOT REBEL"};
+    case (side _instigator in [Invaders, Occupants]):  {call _logPvPKill; "NOT REBEL"};
     case (_victim == _instigator):                     {"SUICIDE"};
     default                                            {""};
 };

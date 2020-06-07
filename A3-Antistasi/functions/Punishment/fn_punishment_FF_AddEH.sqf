@@ -63,5 +63,5 @@ _unit addEventHandler ["Hit", {
 	[[_instigator,_source], 20, 0.4, _unit] remoteExec ["A3A_fnc_punishment_FF",[_instigator,_source] select (isNull _instigator),false];
 }];
 [getPlayerUID player] remoteExec ["A3A_fnc_punishment_checkStatus",2,false];
-[2,"Punishment Event Handlers Added",_fileName] call A3A_fnc_log;
+[2,format["Punishment Event Handlers Added to: %1",name _unit],_fileName] call A3A_fnc_log;
 true;

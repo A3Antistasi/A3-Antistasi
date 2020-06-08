@@ -43,7 +43,7 @@ private _keyPairs = [["_sentenceEndTime",_sentenceEndTime],["timeTotal",_timeTot
 
 private _disconnectedCleanUp = {
 	params [["_name","Unknown at this time.",[ "" ]]];
-	_playerStats = format["Player: %1 [%2], _timeTotal: %3", _name, _detaineeUID,str timeTotal];
+	_playerStats = format["Player: %1 [%2], _timeTotal: %3", _name, _detaineeUID,str _timeTotal];
 	[2, format ["DISCONNECTED WHILE PUNISHED | %2", _playerStats], _filename] call A3A_fnc_log;
 	systemChat format["FF: %1[%2] disconnected while being punished.",_name,_detaineeUID];
 	[_UID,"remove"] call A3A_fnc_punishment_oceanGulag;

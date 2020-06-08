@@ -35,7 +35,7 @@ private _currentUnitCount = 0;
     format ["Gathered data for unit selection, available are %1, %3 cargo units needed", _maxUnitSend, _maxCargoSpaceNeeded],
     _fileName
 ] call A3A_fnc_log;
-[_reinf, "Reinforcement"] call A3A_fnc_logArray;
+[4, format ["Reinforcments: %1", _reinf], _fileName] call A3A_fnc_log;
 
 
 private _finishedSelection = false;
@@ -177,7 +177,7 @@ while {_currentUnitCount < (_maxUnitSend - 2) && {_maxCargoSpaceNeeded+_maxVehic
             if(_abort) exitWith {};
         };
         _unitsSend pushBack [_currentSelected, _crew, _cargo];
-        [4, format ["Units selected, crew is %1, cargo is %2", _crew, _cargo], _fileName] call A3A_fnc_log;
+        [3, format ["Units selected, Vehicle is %1, crew is %2, cargo is %3", _currentSelected, _crew, _cargo], _fileName] call A3A_fnc_log;
     }
     else
     {

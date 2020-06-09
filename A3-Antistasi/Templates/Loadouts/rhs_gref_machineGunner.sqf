@@ -1,12 +1,12 @@
 [																					  //Loadout
-	[																							//Primary Weapon
-		"rhs_weap_ak105_zenitco01",								    	//Weapon
-		"rhs_acc_dtk3",																	//Muzzle
-		"rhs_acc_perst3_2dp_h",													//Rail
-		"rhs_acc_pkas",																	//Sight
-		["rhs_30rnd_545x39_7n10_ak",30],								//Primary Magazine
-		[],																							//Secondary Magazine
-		""																							//Bipod
+	[																						  //Primary Weapon
+		"RHS_Weap_M249_PIP",													  //Weapon
+		"",																						  //Muzzle
+		"",																					    //Rail
+		"RHSUSF_Acc_Eotech_xps3",									    	//Sight
+		["RHSUSF_100Rnd_556x45_soft_pouch",100],		    //Primary Magazine
+		[],																						  //Secondary Magazine
+		"rhsusf_acc_saw_bipod"												  //Bipod
 	],
 
 	[																					    //Launcher
@@ -39,7 +39,7 @@
 		[																					    			//Inventory
 			["RHS_Mag_rgd5",2,1],
 			["RHS_mag_rdg2_white",2,1],
-			["rhs_30rnd_545x39_7n10_ak",5,30],
+			["RHSUSF_100Rnd_556x45_soft_pouch",2,100],
 			["rhs_mag_9x18_8_57n181s",1,8]
 		]
 		+ _aceFlashlight
@@ -56,7 +56,7 @@
 		"",																					//Facewear
 
 	[																					    //Binocular
-		"rhs_pdu4",																			//Binocular
+		"Binocular",																		//Binocular
 		"",
 		"",
 		"",
@@ -67,7 +67,7 @@
 
 	[																					    //Item
 		"ItemMap",																			//Map
-		"ItemGPS",																			//Terminal
+		"",																		         	//Terminal
 		["TF_anprc148jem"] call _fnc_tfarRadio,					//Radio
 		"ItemCompass",																	//Compass
 		_tfarMicroDAGRNoArray,													//Watch

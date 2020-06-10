@@ -4,7 +4,7 @@
 		"",													//Muzzle
 		"RHSUSF_Acc_ANPEQ15A",								//Rail
 		selectRandom										//Sight
-		["RHSUSF_Acc_Acog", "RHSUSF_Acc_Elcan"],
+		["RHSUSF_Acc_Acog", "rhsusf_acc_g33_xps3","rhsusf_acc_g33_T1"],
 		["RHS_Mag_30Rnd_556x45_M855A1_Stanag",30],			//Primary Magazine
 		[],													//Secondary Magazine
 		"RHSUSF_Acc_Grip3"									//Bipod

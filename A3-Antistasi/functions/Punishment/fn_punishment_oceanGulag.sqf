@@ -40,7 +40,7 @@ private _detainee = _UID call BIS_fnc_getUnitByUid;
 private _playerPos = [0,0,0];
 
 if (isNull _detainee) then {
-	[2, format ["DETAINEE MIA | UID:%1 matches no unit. Running without player.", _UID], _filename] call A3A_fnc_log;
+	[2, format ["DETAINEE MIA | UID:%1 matches no in-game player. Running without player.", _UID], _filename] call A3A_fnc_log;
 } else {
 	_playerPos = getPos _detainee;
 };

@@ -35,7 +35,8 @@
 	],
 
 	[																					    //Vest
-		"rhsgref_6b23_ttsko_mountain_rifleman",					//Vest
+		selectRandom
+		["rhsgref_6b23_ttsko_mountain_nco","rhsgref_6b23_ttsko_mountain_officer",],					//Vest
 		[																					    			//Inventory
 			["RHS_Mag_rgd5",2,1],
 			["RHS_mag_rdg2_white",2,1],
@@ -52,7 +53,7 @@
 			]
 	],
 
-		"rhsgref_6b27m_ttsko_mountain",							//Headgear
+		"rhsgref_ssh68_ttsko_mountain",							//Headgear
 		"",																					//Facewear
 
 	[																					    //Binocular

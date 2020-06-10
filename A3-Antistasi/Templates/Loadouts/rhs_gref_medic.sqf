@@ -51,7 +51,7 @@
 		[] + _medicSupplies
 	],
 
-		"rhsgref_6b27m_ttsko_mountain",							//Headgear
+		"rhsgref_ssh68_ttsko_mountain",							//Headgear
 		"",																					//Facewear
 
 	[																					    //Binocular

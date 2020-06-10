@@ -36,7 +36,7 @@
 
 	[																					    //Vest
 		selectRandom
-		["rhsgref_6b23_ttsko_mountain_nco","rhsgref_6b23_ttsko_mountain_officer",],					//Vest
+		["rhsgref_6b23_ttsko_mountain_nco","rhsgref_6b23_ttsko_mountain_officer"],					//Vest
 		[																					    			//Inventory
 			["RHS_Mag_rgd5",2,1],
 			["RHS_mag_rdg2_white",2,1],

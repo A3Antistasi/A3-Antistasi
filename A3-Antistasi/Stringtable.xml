@@ -537,7 +537,7 @@
       <Key ID="STR_antistasi_dialogs_vehicle_purchase_civie_tooltip">
         <Original>Civilian vehicles will allow you to travel in Undercover mode, while you stay close to roads and not entering bases, outposts and roadblocks.</Original>
         <English>Civilian vehicles will allow you to travel in Undercover mode, while you stay close to roads and not entering bases, outposts and roadblocks.</English>
-        <French>Les véhicules civils vous permettent de vous déplacer "Sous Couverture", tant que vous restez près des routes et ne pénétrez pas les bases, avant-postes et barrages routiers.</French>
+        <French>Les véhicules civils vous permettent de vous déplacer "Sous-couverture", tant que vous restez près des routes et ne pénétrez pas les bases, avant-postes et barrages routiers.</French>
         <Russian>Гражданская техника позволяет Вам передвигаться как гражданскому лицу, пока Вы движетесь по дорогам вдалеке от баз, опорных пунктов и блокпостов.</Russian>
         <German>Zivilfahrzeuge erlaube dir unentdeckt zu reisen, sofern du nahe der Straßen bleibst und in keine Basen, Außenposten oder Straßensperren einfährst.</German>
         <Czech>Civilní vozidla vám umožní cestovat v režimu "utajení", zatímco zůstanete v blízkosti silnic a ne v blízkosti základen a zátarasů.</Czech>
@@ -762,7 +762,7 @@
       <Key ID="STR_antistasi_mission_info_altis_blurb_text">
         <Original>Because nothing is more important than Freedom.</Original>
         <English>Because nothing is more important than Freedom.</English>
-        <French>Parce que rien n'est plus important que la liberté.</French>
+        <French>Parce que rien n'est plus important que la Liberté.</French>
         <German>Weil nichts wichtiger ist als die Freiheit.</German>
         <Czech>Protože nic není důležitější než svoboda.</Czech>
       </Key>
@@ -775,7 +775,7 @@
       <Key ID="STR_antistasi_mission_info_stratis_blurb_text">
         <Original>Because nothing is more important than Freedom.</Original>
         <English>Because nothing is more important than Freedom.</English>
-        <French>Parce que rien n'est plus important que la liberté.</French>
+        <French>Parce que rien n'est plus important que la Liberté.</French>
         <German>Weil nichts wichtiger ist als die Freiheit.</German>
         <Czech>Protože nic není důležitější než svoboda.</Czech>
       </Key>
@@ -1015,7 +1015,7 @@
       </Key>
       <Key ID="STR_antistasi_journal_entry_text_tutorial_1">
         <Original>Don't expect to be able to conquer anything in the early stages. First you have to gather enough resources (HR and Money) in order to be able to conquer and hold your positions. This mission tries to simulate real life guerilla situations. If in doubt, ask yourself what would you do in real life. Don't expect to win every time. Hit and Run is the basic manoeuvre here. Earn every resource, weapon and ammunition to gather enough assets in order to be a real challenge for the enemy. In the meantime, disturb its operations and gain support from the population.</Original>
-        <French>Ne vous attendez pas à pouvoir conquérir quoi que ce soit au début. Vous devez d'abord rassembler suffisamment de ressources (RH et Argent) pour pouvoir conquérir et conserver vos positions. Cette mission tente de simuler des situations de guérilla réelles. En cas de doute, demandez-vous ce que vous feriez dans la vraie vie. Ne vous attendez pas à gagner à chaque fois. Le Hit and Run est la manœuvre de base ici. Recupérez de l'argent, des armes et des munitions pour rassembler suffisamment de ressources afin d'être un véritable défi pour l'ennemi. En attendant, perturbez ses opérations et gagnez le soutien de la population.</French>
+        <French>Ne vous attendez pas à pouvoir conquérir quoi que ce soit au début. Vous devez d'abord rassembler suffisamment de ressources (HR et Argent) pour pouvoir conquérir et conserver vos positions. Cette mission tente de simuler des situations de guérilla réelles. En cas de doute, demandez-vous ce que vous feriez dans la vraie vie. Ne vous attendez pas à gagner à chaque fois. Le Hit and Run est la manœuvre de base ici. Recupérez de l'argent, des armes et des munitions pour rassembler suffisamment de ressources afin d'être un véritable défi pour l'ennemi. En attendant, perturbez ses opérations et gagnez le soutien de la population.</French>
         <English>Don't expect to be able to conquer anything in the early stages. First you have to gather enough resources (HR and Money) in order to be able to conquer and hold your positions. This mission tries to simulate real life guerilla situations. If in doubt, ask yourself what would you do in real life. Don't expect to win every time. Hit and Run is the basic manoeuvre here. Earn every resource, weapon and ammunition to gather enough assets in order to be a real challenge for the enemy. In the meantime, disturb its operations and gain support from the population.</English>
         <German>Erwarte nicht, dass du in der Lage sein wirst alles bereits zu Beginn erobern zu können. Zuallererst musst du genügend Ressourcen (Mannstärke und Geld) auftreiben müssen, um in der Lage zu sein etwas zu erobern und auch halten zu können. Diese Mission versucht reale Guerilla Situationen und Vorgehen zu simulieren. Wenn du unschlüssig bist, dann frage dich selbst, was du im echten Leben tun würdest. Erwarte nicht, dass du jedes Mal gewinnst. "Hit and Run" ist hier das übliche Vorgehen. Erbeute Ressourcen, Waffen und Munition, um letztlich genug Ausrüstung zusammen zu haben, damit du zu einer echten Bedrohung für den Feind werden kannst. Währenddessen störe die Bestrebungen des Feindes und verdiene dir die Unterstützung der Zivilbevölkerung.</German>
         <Czech>Neočekávejte, že v časných stádiích dokážete něco dobýt. Nejprve musíte shromáždit dostatek zdrojů (HR a peníze), abyste mohli dobýt a udržet své pozice. Tato mise se pokouší simulovat partyzánské situace v reálném životě. Pokud máte pochybnosti, zeptejte se sami sebe, co byste udělali v reálném životě. Nečekejte, že vyhrajete pokaždé. Udeřit a Utéct je zde základní manévr. Získejte všechny zdroje, zbraně a střelivo, abyste shromáždili dostatek prostředků, aby pro nepřítele představovali skutečnou výzvu. Mezitím narušit její činnost a získat podporu od obyvatelstva.</Czech>
@@ -1023,7 +1023,7 @@
       <Key ID="STR_antistasi_journal_entry_header_tutorial_2">
         <Original>Aggro Effects</Original>
         <English>Aggro Effects</English>
-        <French>Agressivité</French>
+        <French>Agressivité IA</French>
         <German>Aggression</German>
         <Czech>Agresivita</Czech>
       </Key>
@@ -1044,7 +1044,7 @@
       <Key ID="STR_antistasi_journal_entry_text_tutorial_3">
         <Original>Once you have a nice amount of resources, focus on enemy communications. If you disturb them enough, you won't have to face big counter-attacks.</Original>
         <English>Once you have a nice amount of resources, focus on enemy communications. If you disturb them enough, you won't have to face big counter-attacks.</English>
-        <French>Une fois que vous avez une bonne quantité de ressources, concentrez-vous sur les communications ennemies. Si vous les dérangez suffisamment, vous n'aurez pas à faire face à de grandes contre-attaques.</French>
+        <French>Une fois que vous avez une bonne quantité de ressources, concentrez-vous sur les communications ennemies. Si vous les perturbés suffisament, vous n'aurez pas à faire face à de grandes contre-attaques.</French>
         <German>Sobald du eine solide Menge and Ressourcen zusammen hast, konzentriere dich auf ihre Kommunikation. Störst du sie ausreichend, wirst du dich keinen größeren Gegenangriffen mehr stellen müssen.</German>
         <Czech>Jakmile budete mít pěkné množství zdrojů, zaměřte se na nepřátelskou komunikaci. Pokud je dostatečně vyrušíte, nebudete muset čelit velkým protiútokům.</Czech>
       </Key>
@@ -1106,7 +1106,7 @@
       </Key>
       <Key ID="STR_antistasi_journal_entry_header_commander_1">
         <Original>General</Original>
-        <French>Générale</French>
+        <French>Général</French>
         <German>Allgemein</German>
         <Czech>Generál</Czech>
       </Key>
@@ -1172,7 +1172,7 @@
       </Key>
       <Key ID="STR_antistasi_journal_entry_text_commander_6">
         <Original>Use the action menu on your HQ Camp-fire to rest for 8 hours.</Original>
-        <French>Utilisez le menu d'action de votre feu de camp au HQ pour vous reposer pendant 8 heures.</French>
+        <French>Utilisez le menu d'action de votre feu de camp au QG pour vous reposer pendant 8 heures.</French>
         <German>Mit dieser Aktion kannst du dich am Lagerfeuer des HQs für 8 Stunden ausruhen.</German>
         <Czech>Použijte možnost na vašem táborovém ohni, abyste si mohli odpočnou na 8 hodin</Czech>
       </Key>
@@ -1358,7 +1358,7 @@
       </Key>
       <Key ID="STR_antistasi_journal_entry_header_Features_2">
         <Original>Garage</Original>
-        <French>Mettre au garage</French>
+        <French>Garage</French>
         <German>Fuhrpark</German>
         <Czech>Garáž</Czech>
       </Key>
@@ -1466,7 +1466,7 @@
       </Key>
       <Key ID="STR_antistasi_journal_entry_header_Features_11">
         <Original>Fast Travel</Original>
-        <French>Voyage rapide</French>
+        <French>Téléportation</French>
         <German>Schnellreise</German>
         <Czech>Teleport</Czech>
       </Key>
@@ -1705,7 +1705,7 @@
       </Key>
       <Key ID="STR_antistasi_journal_entry_header_Options_7">
         <Original>Garbage Cleaner</Original>
-        <French>Nettoyeur de débris</French>
+        <French>Nettoyeur d'ordures</French>
         <German>Aufräumen</German>
         <Czech>Čistič odpadků</Czech>
       </Key>

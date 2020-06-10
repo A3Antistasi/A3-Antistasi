@@ -10,11 +10,11 @@
   ],
 
   [                                              //Launcher
-    "",                                              //Weapon
+    "rhs_weap_rpg7",                                //Weapon
     "",                                              //Muzzle
     "",                                              //Rail
     "",                                              //Sight
-    [],                                              //Primary Magazine
+    ["rhs_rpg7_PG7VL_mag",1],                        //Primary Magazine
     [],                                              //Secondary Magazine
     ""                                              //Bipod
   ],
@@ -35,7 +35,7 @@
   ],
 
   [                                              //Vest
-    "rhsgref_6b23_ttsko_mountain_rifleman",          //Vest
+    "rhsgref_6b23_ttsko_mountain",          //Vest
     [                                                    //Inventory
       ["RHS_Mag_rgd5",2,1],
       ["RHS_mag_rdg2_white",2,1],
@@ -47,8 +47,10 @@
   ],
 
   [                                              //Backpack
-    "rhs_medic_bag",                                //Backpack
-    [] + _medicSupplies
+    "rhs_rpg_empty",                                //Backpack
+    [                                                    //Inventory
+      ["rhs_rpg7_PG7VL_mag",1,1]
+    ]
   ],
 
     "rhsgref_ssh68_ttsko_mountain",              //Headgear

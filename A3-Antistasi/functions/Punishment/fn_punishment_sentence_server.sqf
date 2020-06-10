@@ -65,12 +65,12 @@ private _disconnected = false;
 
 _keyPairs = [ ["_sentenceEndTime",_sentenceEndTime] ];
 while {(ceil serverTime) < _sentenceEndTime-1} do { // ceil and -1 if something doesn't sync up
+	_countX = _sentenceEndTime - (floor serverTime);
 	if (isNull _detainee) exitWith {call _disconnectedCleanUp};
 	[_UID,_countX] remoteExec ["A3A_fnc_punishment_sentence_client",_detainee,false];
-	[_UID,"add"] remoteExecCall ["A3A_fnc_punishment_oceanGulag",2,false]; // Run in another thread so that time don't get too desynced.
-	_countX = _sentenceEndTime - (floor serverTime);
+	[_UID,"add"] remoteExecCall ["A3A_fnc_punishment_oceanGulag",2,false]; // Run in another thread so that time don't get too desynced. Keeps player locked up.
 	uiSleep 5;
-	_sentenceEndTime = ([_UID,_keyPairs] call A3A_fnc_punishment_dataGet) select 0; // Polls for updates
+	_sentenceEndTime = ([_UID,_keyPairs] call A3A_fnc_punishment_dataGet) select 0; // Polls for updates from admin forgive
 };
 if (_disconnected) exitWith {};
 if (_sentenceEndTime_old == _sentenceEndTime) then {

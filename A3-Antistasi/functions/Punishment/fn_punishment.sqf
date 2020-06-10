@@ -71,7 +71,7 @@ _timeTotal = _timeTotal * (1-_depreciationCoef) ^(_periodDelta/3000);           
 _timeTotal = _timeTotal + _timeAdded;
 
 //////////Saves data to instigator//////////
-private _keyPairs = [["timeTotal",_timeTotal],["offenceTotal",_offenceTotal],["lastOffenceTime",_currentTime],["overhead",_overhead]];
+private _keyPairs = [["timeTotal",_timeTotal],["offenceTotal",_offenceTotal],["lastOffenceTime",_currentTime],["overhead",_overhead],["name",name _instigator]];
 [_UID,_keyPairs] call A3A_fnc_punishment_dataSet;
 
 /////////Where punishment is issued/////////

@@ -59,7 +59,7 @@ private _notifyInstigator = {
 };
 private _gotoExemption = {
     params ["_exemptionDetails"];
-    _playerStats = format["Player: %1 [%2], _timeAdded: %3, _offenceAdded: %4", name _instigator, getPlayerUID _instigator,str _timeAdded, str _offenceAdded];
+    private _playerStats = format["Player: %1 [%2], _timeAdded: %3, _offenceAdded: %4", name _instigator, getPlayerUID _instigator,str _timeAdded, str _offenceAdded];
     if (!(isNull _exemptionDetails) && !(isNull _playerStats)) then {
         [2, format ["%1 | %2", _exemptionDetails, _playerStats], _filename] call A3A_fnc_log;
     };
@@ -67,7 +67,7 @@ private _gotoExemption = {
 };
 private _logPvPKill = {
     if (!isPlayer _victim) exitWith {};
-    _killStats = format ["PVPKILL | %1 killed by PvP: %2 [%3]", name _victim, name _instigator, getPlayerUID _instigator];
+    private _killStats = format ["PVPKILL | %1 killed by PvP: %2 [%3]", name _victim, name _instigator, getPlayerUID _instigator];
     [2,_killStats,_filename] call A3A_fnc_log;
 };
 private _isCollision = false;

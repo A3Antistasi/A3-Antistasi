@@ -54,19 +54,19 @@ private _data_instigator = [_UID,_keyPairs] call A3A_fnc_punishment_dataGet;
 _data_instigator params ["_timeTotal","_offenceTotal","_lastTime","_overhead"];
 
 ///////////////Data validation//////////////
-_lastTime = (_lastTime max 1) min _currentTime;
-_overhead = _overhead max 0;
-_offenceAdded = _offenceAdded max 0;
-_offenceTotal = _offenceTotal max 0;
-_timeAdded = _timeAdded max 0;
-_timeTotal = _timeTotal max 0;
+_lastTime = (0 max _lastTime) min _currentTime;
+_overhead = 0 max _overhead;
+_offenceAdded = 0 max _offenceAdded;
+_offenceTotal = (0 max _offenceTotal) min 1;
+_timeAdded = 0 max _timeAdded;
+_timeTotal = 0 max _timeTotal;
 
 //////////////FF score addition/////////////
 private _periodDelta = _currentTime - _lastTime;
 _overhead = _overhead + _offenceAdded * _overheadPercent;
 _offenceTotal = _offenceTotal * (1-_depreciationCoef*(1-(_offenceTotal))) ^(_periodDelta/300); // Depreciation formula
-_offenceTotal = _offenceTotal + _offenceAdded * (1-_overheadPercent);                          // Subtracted so that it does not add the new offence plus extra.
-private _grandOffence = _offenceTotal + _overhead;
+_offenceTotal = (_offenceTotal + _offenceAdded * (1-_overheadPercent)) min 1;                  // Subtracted so that it does not add the new offence plus extra.
+private _grandOffence = (_offenceTotal + _overhead) min 1;
 _timeTotal = _timeTotal * (1-_depreciationCoef) ^(_periodDelta/3000);                          // Depreciation formula
 _timeTotal = _timeTotal + _timeAdded;
 

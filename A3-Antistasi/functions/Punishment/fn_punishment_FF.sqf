@@ -58,7 +58,7 @@ private _notifyInstigator = {
     ["FF Notification", _message] remoteExec ["A3A_fnc_customHint", _instigator, false];
 };
 private _gotoExemption = {
-    params [["_exemptionDetails", "" ,[""]];
+    params [ ["_exemptionDetails", "" ,[""]] ];
     private _playerStats = format["Player: %1 [%2], _timeAdded: %3, _offenceAdded: %4", name _instigator, getPlayerUID _instigator,str _timeAdded, str _offenceAdded];
     [2, format ["%1 | %2", _exemptionDetails, _playerStats], _filename] remoteExecCall ["A3A_fnc_log",2,false];
     _exemptionDetails;

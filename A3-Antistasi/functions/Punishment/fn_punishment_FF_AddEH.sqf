@@ -34,7 +34,7 @@ private _fileName = "fn_punishment_FF_addEH.sqf";
 
 if (!tkPunish) exitWith {false};
 if (isNull _unit) exitWith {
-	[1,"No unit given",_fileName] call A3A_fnc_log;
+	[1,"No unit given",_fileName] remoteExecCall ["A3A_fnc_log",2,false];
 	false;
 };
 
@@ -72,5 +72,5 @@ if (hasACE) then {
 };
 
 [getPlayerUID player] remoteExec ["A3A_fnc_punishment_checkStatus",2,false];
-[3,format["Punishment Event Handlers Added to: %1",name _unit],_fileName] call A3A_fnc_log;
+[3,format["Punishment Event Handlers Added to: %1",name _unit],_fileName] remoteExecCall ["A3A_fnc_log",2,false];
 true;

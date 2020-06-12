@@ -60,13 +60,13 @@ private _notifyInstigator = {
 private _gotoExemption = {
     params [["_exemptionDetails", "" ,[""]];
     private _playerStats = format["Player: %1 [%2], _timeAdded: %3, _offenceAdded: %4", name _instigator, getPlayerUID _instigator,str _timeAdded, str _offenceAdded];
-    [2, format ["%1 | %2", _exemptionDetails, _playerStats], _filename] call A3A_fnc_log;
+    [2, format ["%1 | %2", _exemptionDetails, _playerStats], _filename] remoteExecCall ["A3A_fnc_log",2,false];
     _exemptionDetails;
 };
 private _logPvPKill = {
     if (!isPlayer _victim) exitWith {};
     private _killStats = format ["PVPKILL | %1 killed by PvP: %2 [%3]", name _victim, name _instigator, getPlayerUID _instigator];
-    [2,_killStats,_filename] call A3A_fnc_log;
+    [2,_killStats,_filename] remoteExecCall ["A3A_fnc_log",2,false];
 };
 private _isCollision = false;
 

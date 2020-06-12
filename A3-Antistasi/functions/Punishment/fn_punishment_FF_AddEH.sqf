@@ -20,7 +20,9 @@ Returns:
 	<BOOLEAN> true if it hasn't crashed; false if tkPunish is disabled or invalid params; nil if it has crashed.
 
 Examples:
-	call A3A_fnc_punishment_FF_addEH; // Recommended to add to "onPlayerRespawn.sqf"
+	if (hasInterface) then {
+		[player] call A3A_fnc_punishment_FF_addEH; // Recommended to add to "onPlayerRespawn.sqf"
+	};
 	[cursorObject] remoteExec ["A3A_fnc_punishment_FF_addEH",cursorObject,false];
 
 Author: Caleb Serafin

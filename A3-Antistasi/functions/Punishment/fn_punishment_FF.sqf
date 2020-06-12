@@ -58,11 +58,9 @@ private _notifyInstigator = {
     ["FF Notification", _message] remoteExec ["A3A_fnc_customHint", _instigator, false];
 };
 private _gotoExemption = {
-    params ["_exemptionDetails"];
+    params [["_exemptionDetails", "" ,[""]];
     private _playerStats = format["Player: %1 [%2], _timeAdded: %3, _offenceAdded: %4", name _instigator, getPlayerUID _instigator,str _timeAdded, str _offenceAdded];
-    if (!(isNull _exemptionDetails) && !(isNull _playerStats)) then {
-        [2, format ["%1 | %2", _exemptionDetails, _playerStats], _filename] call A3A_fnc_log;
-    };
+    [2, format ["%1 | %2", _exemptionDetails, _playerStats], _filename] call A3A_fnc_log;
     _exemptionDetails;
 };
 private _logPvPKill = {

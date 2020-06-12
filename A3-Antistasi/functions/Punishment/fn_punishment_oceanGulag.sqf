@@ -72,11 +72,13 @@ switch (toLower _operation) do {
 		if (!isNull _detainee && {_playerPos inArea [ [50,50], 100, 100 ,0, true, -1]}) then { // Slightly bigger, player can't swim 50m in 5 sec.
 			_detainee switchMove "";
 			private _leader = leader _detainee;
+			private _destination = [0,0,0];
 			if (!(_leader in [objNull, _detainee]) && {_leader == vehicle _leader}) then {
-				_detainee setPos getPos leader _detainee;
+				_destination = (getPosATl _leader) findEmptyPosition [1,50,typeOf _detainee];
 			} else {
-				_detainee setPos posHQ;
+				_destination = posHQ findEmptyPosition [1,50,typeOf _detainee];
 			};
+			_detainee setPosATL _destination;
 		};
 		if (!isNull _punishment_platform) then {
 			deleteVehicle _punishment_platform;

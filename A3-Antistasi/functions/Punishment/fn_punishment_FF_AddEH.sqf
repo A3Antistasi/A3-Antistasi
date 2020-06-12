@@ -49,7 +49,7 @@ _unit addEventHandler ["Hit", {
 	[[_instigator,_source], 60, 0.4, _unit] remoteExec ["A3A_fnc_punishment_FF",[_instigator,_source] select (isNull _instigator),false];
 }];
 
-if !(isPlayer _unit) exitWith {true}; // Because it finished successfully.
+if (!isPlayer _unit || !hasInterface) exitWith {true}; // Because it added killed handlers for Ai.
 if !(_unit isEqualTo player) exitWith {false}; // Needs to be local for ace, self punishment, and checkStatus.
 
 if (hasACE) then {

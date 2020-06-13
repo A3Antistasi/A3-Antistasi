@@ -20,10 +20,10 @@ Returns:
 	<BOOLEAN> true if it hasn't crashed; false if invalid params; nil if it has crashed.
 
 Examples:
-	[_UID,"forgive"] remoteExec [A3A_fnc_punishment_release,2]; // Forgive all sins and release from Ocean Gulag.
+	[_UID,"forgive"] remoteExec ["A3A_fnc_punishment_release",2]; // Forgive all sins and release from Ocean Gulag.
 
 Author: Caleb Serafin
-Date Updated: 10 June 2020
+Date Updated: 14 June 2020
 License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Community
 */
 params ["_UID",["_source",""]];

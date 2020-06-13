@@ -41,7 +41,7 @@ if (isNull _unit) exitWith {
 _unit addEventHandler ["Killed", {
 	params ["_unit", "_killer", "_instigator", "_useEffects"];
 	if (!isPlayer _instigator && {!isPlayer _killer}) exitWith {}; // A certain company that develops a specific game called ArmaIII hasn't mastered the EH yet. So it's full objNull if a hippo crosses a stream when the day is divisible by the second fortnight of the month during a full moon on a warm summers day while the mosquitoes bit down on Richard Parker as he struggles during the October revolution.
-	[[_instigator,_killer], 60, 0.4, _unit] remoteExec ["A3A_fnc_punishment_FF",[_source,_instigator] select (isPlayer _instigator),false];
+	[[_instigator,_killer], 60, 0.4, _unit] remoteExec ["A3A_fnc_punishment_FF",[_killer,_instigator] select (isPlayer _instigator),false];
 }];
 _unit addEventHandler ["Hit", {
 	params ["_unit", "_source", "_damage", "_instigator"];

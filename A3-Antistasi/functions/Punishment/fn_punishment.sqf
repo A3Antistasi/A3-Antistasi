@@ -31,7 +31,7 @@ Examples:
 	[cursorObject,"forgive"] remoteExec [A3A_fnc_punishment_release,2]; // Forgive all sins
 
 Author: Caleb Serafin
-Date Updated: 29 May 2020
+Date Updated: 14 June 2020
 License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Community
 */
 params ["_instigator","_timeAdded","_offenceAdded",["_victim",objNull]];
@@ -85,7 +85,7 @@ if (_offenceTotal < 1) exitWith {
 	[2, format ["WARNING | %1", _playerStats], _filename] call A3A_fnc_log;
 	"WARNED"
 };
-if (isPlayer _victim) then {
+if (_victim isKindOf "Man") then {
 	["FF Notification", format["%1 hurt you!",name _instigator]] remoteExec ["A3A_fnc_customHint", _victim, false];
 	[2, format ["VICTIM | Found Collateral: %1 [%2]", name _victim, getPlayerUID _victim], _filename] call A3A_fnc_log;
 };

@@ -33,7 +33,7 @@ params [["_unit",objNull,[objNull]]];
 private _fileName = "fn_punishment_FF_addEH.sqf";
 
 if (!tkPunish) exitWith {false};
-if (isNull _unit) exitWith {
+if (!(_unit isKindOf "Man")) exitWith {
 	[1,"No unit given",_fileName] remoteExecCall ["A3A_fnc_log",2,false];
 	false;
 };

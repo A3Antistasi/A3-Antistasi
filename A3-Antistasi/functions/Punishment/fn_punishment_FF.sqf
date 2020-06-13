@@ -43,7 +43,7 @@ Examples 2:
     [[objNull,player], 0, 0, cursorObject] call A3A_fnc_punishment_FF; // Test self with victim
 
 Author: Caleb Serafin
-Date Updated: 07 June 2020
+Date Updated: 14 June 2020
 License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Community
 */
 params [["_instigator",objNull,[objNull,[]]],"_timeAdded","_offenceAdded",["_victim",objNull]];
@@ -64,7 +64,7 @@ private _gotoExemption = {
     _exemptionDetails;
 };
 private _logPvPKill = {
-    if (!isPlayer _victim) exitWith {};
+    if (!(_victim isKindOf "Man")) exitWith {};
     private _killStats = format ["PVPKILL | %1 killed by PvP: %2 [%3]", name _victim, name _instigator, getPlayerUID _instigator];
     [2,_killStats,_filename] remoteExecCall ["A3A_fnc_log",2,false];
 };

@@ -33,7 +33,7 @@ private _keyPairs = [["offenceTotal",0],["name","NO NAME"]];
 if (_offenceTotal < 1) exitWith {false};
 
 private _detainee = [_UID] call BIS_fnc_getUnitByUid;
-if (!isNull _detainee) then {
+if (isPlayer _detainee) then {
 	private _addAction_parameters = [
 		"Refresh Admin Action",
 		{

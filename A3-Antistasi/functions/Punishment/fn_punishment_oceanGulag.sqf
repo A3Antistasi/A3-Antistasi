@@ -39,7 +39,7 @@ private _keyPairs = [ ["punishment_platform",objNull] ];
 private _detainee = _UID call BIS_fnc_getUnitByUid;
 private _playerPos = [0,0,0];
 
-if (isNull _detainee) then {
+if (!isPlayer _detainee) then { // Prevents punishing AI
 	[2, format ["DETAINEE MIA | UID:%1 matches no in-game player. Running without player.", _UID], _filename] call A3A_fnc_log;
 } else {
 	_playerPos = getPos _detainee;
@@ -63,13 +63,13 @@ switch (toLower _operation) do {
 
 		_punishment_platform setPos [_pos2D #0, _pos2D #1, -0.25];
 
-		if (!isNull _detainee) then {
+		if (isPlayer _detainee) then {
 			_detainee setPos [_pos2D #0, _pos2D #1, 0.25];
 		};
 		true;
 	};
 	case ("remove"): {
-		if (!isNull _detainee && {_playerPos inArea [ [50,50], 100, 100 ,0, true, -1]}) then { // Slightly bigger, player can't swim 50m in 5 sec.
+		if (isPlayer _detainee && {_playerPos inArea [ [50,50], 100, 100 ,0, true, -1]}) then { // Slightly bigger, player can't swim 50m in 5 sec.
 			_detainee switchMove "";
 			private _leader = leader _detainee;
 			private _destination = [0,0,0];

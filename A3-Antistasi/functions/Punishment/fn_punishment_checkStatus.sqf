@@ -49,7 +49,7 @@ private _keyPairs = [["offenceTotal",0]];
 
 if (_offenceTotal >= 1) then {
 	_instigator = [_UID] call BIS_fnc_getUnitByUid;
-	if (isNull _instigator) exitWith {};
+	if (!isPlayer _instigator) exitWith {};
 	private _keys = ["lastOffenceTime"];
 	[_UID,_keys] call A3A_fnc_punishment_dataRem;
 	[_instigator, 0, 0] remoteExec ["A3A_fnc_punishment",2,false];

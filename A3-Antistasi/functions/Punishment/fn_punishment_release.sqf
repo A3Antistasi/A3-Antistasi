@@ -56,7 +56,7 @@ switch (_source) do {
 		call _forgiveStats;
 		call _releaseFromSentence;
 		[2, format ["RELEASE | %1", _playerStats], _filename] call A3A_fnc_log;
-		if (!isNull _detainee) then {
+		if (isPlayer _detainee) then {
 			["FF Notification", "Enough then."] remoteExec ["A3A_fnc_customHint", _detainee, false];
 		};
 		true;
@@ -65,7 +65,7 @@ switch (_source) do {
 		call _forgiveStats;
 		call _releaseFromSentence;
 		[2, format ["FORGIVE | %1", _playerStats], _filename] call A3A_fnc_log;
-		if (!isNull _detainee) then {
+		if (isPlayer _detainee) then {
 			["FF Notification", "An admin looks with pity upon your soul.<br/>You have been forgiven."] remoteExec ["A3A_fnc_customHint", _detainee, false];
 		};
 		true;

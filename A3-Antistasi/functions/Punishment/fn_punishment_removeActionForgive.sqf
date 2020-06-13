@@ -28,7 +28,7 @@ License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Comm
 params ["_UID"];
 
 private _detainee = [_UID] call BIS_fnc_getUnitByUid;
-if (!isNull _detainee) then {
+if (isPlayer _detainee) then {
     private _actionsDetainee = actionIDs _detainee;
     if !(isNil "_actionsDetainee" || {count _actionsDetainee == 0}) then {
         {

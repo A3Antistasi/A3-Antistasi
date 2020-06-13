@@ -16,7 +16,7 @@ Parameters:
 	<NUMBER> The time left until detainee is released.
 
 Returns:
-	<BOOLEAN> true after 5 seconds if it hasn't crashed; false if the detainee disconnected; nil if it has crashed.
+	<BOOLEAN> true after 5 seconds if it hasn't crashed; false if the detainee disconnected or died; nil if it has crashed.
 
 Examples:
 	[_UID,_timeLeft] remoteExec ["A3A_fnc_punishment_sentence_client",_detainee,false];
@@ -33,7 +33,7 @@ if (_timeLeft < 5) then {_timeLeft = 5;}; // Sometimes something somewhere might
 
 for "_timeLeft" from _timeLeft to _timeLeft-4 step -1 do {
 	if (!isPlayer _detainee) exitWith {false};
-	["FF Notification", format ["Please do not teamkill. Play with the turtles for %1 more seconds.<br><br>Use Refresh Admin Action is the admin just logged in.",_timeLeft], true] remoteExec ["A3A_fnc_customHint", _detainee, false];
+	["FF Notification", format ["Please do not teamkill. Play with the turtles for %1 more seconds.<br/>Use Refresh Admin Action if the admin just logged in.<br/>Swimming in water may cause injury.",_timeLeft], true] remoteExec ["A3A_fnc_customHint", _detainee, false];
 	uiSleep 1;
 };
 true;

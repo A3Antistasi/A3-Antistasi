@@ -79,7 +79,7 @@ private _keyPairs = [["timeTotal",_timeTotal],["offenceTotal",_offenceTotal],["l
 [_UID,_keyPairs] call A3A_fnc_punishment_dataSet;
 
 /////////Where punishment is issued/////////
-private _playerStats = format["Player: %1 [%2], _timeTotal: %3, _offenceTotal: %4, _offenceOverhead: %5, _timeAdded: %6, _offenceAdded: %7", name _instigator, _UID, str _timeTotal, str _offenceTotal, str 0, str _timeAdded, str _offenceAdded];
+private _playerStats = format["Player: %1 [%2], _timeAdded: %3, _timeTotal: %4, _offenceAdded: %7, _overhead: %5, _offenceTotal: %6", name _instigator, _UID, str _timeAdded, str _timeTotal, str _offenceAdded, str _overhead, str _offenceTotal];
 if (_offenceTotal < 1) exitWith {
 	["FF Warning", "Watch your fire!"] remoteExec ["A3A_fnc_customHint", _instigator, false];
 	[2, format ["WARNING | %1", _playerStats], _filename] call A3A_fnc_log;

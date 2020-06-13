@@ -22,7 +22,7 @@ Examples:
 	[_UID] remoteExec ["A3A_fnc_punishment_addActionForgive",0,false];
 
 Author: Caleb Serafin
-Date Updated: 10 June 2020
+Date Updated: 13 June 2020
 License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Community
 */
 params ["_UID"];
@@ -33,13 +33,13 @@ private _keyPairs = [["offenceTotal",0],["name","NO NAME"]];
 if (_offenceTotal < 1) exitWith {false};
 
 private _detainee = [_UID] call BIS_fnc_getUnitByUid;
-if (isPlayer _detainee) then {
+if (player == _detainee) then {
 	private _addAction_parameters = [
 		"Refresh Admin Action",
 		{
 			params ["_target", "_caller", "_actionId", "_arguments"];
 			[_arguments] remoteExec ["A3A_fnc_punishment_removeActionForgive",0,false];
-			uiSleep 1;
+			uiSleep 5;
 			[_arguments] remoteExec ["A3A_fnc_punishment_addActionForgive",0,false];
 		},
 		_UID,

@@ -48,8 +48,8 @@ _data_instigator params ["_name"];
 
 private _disconnectedCleanUp = {
 	_playerStats = format["Player: %1 [%2], _timeTotal: %3", _name, _UID, str _timeTotal];
-	[2, format ["DISCONNECTED WHILE PUNISHED | %1", _playerStats], _filename] call A3A_fnc_log;
-	systemChat format["FF: %1 disconnected while being punished.",_name];
+	[2, format ["DISCONNECTED/DIED WHILE PUNISHED | %1", _playerStats], _filename] call A3A_fnc_log;
+	systemChat format["FF: %1 disconnected/died while being punished.",_name];
 	[_UID,"remove"] call A3A_fnc_punishment_oceanGulag;
 	_disconnected=true;
 	true;

@@ -55,19 +55,23 @@ _data_instigator params ["_timeTotal","_offenceTotal","_lastTime","_overhead"];
 
 ///////////////Data validation//////////////
 _lastTime = (0 max _lastTime) min _currentTime;
-_overhead = 0 max _overhead;
+_overhead = (0 max _overhead) min 1;
 _offenceAdded = 0 max _offenceAdded;
-_offenceTotal = (0 max _offenceTotal) min 1;
+_offenceTotal = (0 max _offenceTotal) min 2;
 _timeAdded = 0 max _timeAdded;
 _timeTotal = 0 max _timeTotal;
 
 //////////////FF score addition/////////////
 private _periodDelta = _currentTime - _lastTime;
-_overhead = _overhead + _offenceAdded * _overheadPercent;
-_offenceTotal = _offenceTotal * (1-_depreciationCoef*(1-(_offenceTotal))) ^(_periodDelta/300); // Depreciation formula
-_offenceTotal = (_offenceTotal + _offenceAdded * (1-_overheadPercent)) min 1;                  // Subtracted so that it does not add the new offence plus extra.
-private _grandOffence = (_offenceTotal + _overhead) min 1;
-_timeTotal = _timeTotal * (1-_depreciationCoef) ^(_periodDelta/3000);                          // Depreciation formula
+_offenceTotal = _offenceTotal - _overhead;
+_overhead = (_overhead + _offenceAdded * _overheadPercent) min 1;
+
+_offenceTotal = _offenceTotal * (1-_depreciationCoef*(1-(_offenceTotal))) ^(_periodDelta/300); // Depreciation formula, slow curve -> exponential drop -> slow curve ‾‾\__
+
+_offenceTotal = (_offenceTotal + _offenceAdded * (1-_overheadPercent)) min 1;                  // Added is subtracted so that it does not add the new offence plus extra.
+_offenceTotal = (_offenceTotal + _overhead) min 2;
+
+_timeTotal = _timeTotal * (1-_depreciationCoef) ^(_periodDelta/3000);                          // Simpler depreciation formula
 _timeTotal = _timeTotal + _timeAdded;
 
 //////////Saves data to instigator//////////
@@ -76,7 +80,7 @@ private _keyPairs = [["timeTotal",_timeTotal],["offenceTotal",_offenceTotal],["l
 
 /////////Where punishment is issued/////////
 private _playerStats = format["Player: %1 [%2], _timeTotal: %3, _grandOffence: %4, _offenceOverhead: %5, _timeAdded: %6, _offenceAdded: %7", name _instigator, _UID, str _timeTotal, str _grandOffence, str 0, str _timeAdded, str _offenceAdded];
-if (_grandOffence < 1) exitWith {
+if (_offenceTotal < 1) exitWith {
 	["FF Warning", "Watch your fire!"] remoteExec ["A3A_fnc_customHint", _instigator, false];
 	[2, format ["WARNING | %1", _playerStats], _filename] call A3A_fnc_log;
 	"WARNED"

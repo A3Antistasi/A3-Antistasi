@@ -55,7 +55,6 @@ if (_instigator != _instigatorHuman) then {
     (units group _instigatorHuman) joinSilent group _instigatorHuman;
     group _instigatorHuman selectLeader _instigatorHuman;
     ["Control Unit", "Returned to original Unit due to FF"] remoteExec ["A3A_fnc_customHint",_instigatorHuman,false];
-    _instigator = [_UID] call BIS_fnc_getUnitByUid;
 };
 
 //////////Fetches punishment values/////////
@@ -92,6 +91,7 @@ private _keyPairs = [["timeTotal",_timeTotal],["offenceTotal",_offenceTotal],["l
 /////////Where punishment is issued/////////
 private _playerStats = format["Player: %1 [%2], _timeAdded: %3, _timeTotal: %4, _offenceAdded: %7, _overhead: %5, _offenceTotal: %6", _name, _UID, str _timeAdded, str _timeTotal, str _offenceAdded, str _overhead, str _offenceTotal];
 if (_offenceTotal < 1) exitWith {
+    _instigator = [_UID] call BIS_fnc_getUnitByUid;
 	["FF Warning", "Watch your fire!"] remoteExec ["A3A_fnc_customHint", _instigator, false]; // This may or may not work for remoteControl depending on deSync.
 	[2, format ["WARNING | %1", _playerStats], _filename] call A3A_fnc_log;
 	"WARNED"
@@ -101,5 +101,17 @@ if (_victim isKindOf "Man") then {
 	[2, format ["VICTIM | Found Collateral: %1 [%2]", name _victim, getPlayerUID _victim], _filename] call A3A_fnc_log;
 };
 [2, format ["GUILTY | %1", _playerStats], _filename] call A3A_fnc_log;
-[_UID,_timeTotal] remoteExec ["A3A_fnc_punishment_sentence_server",2,false];
+[_UID,_timeTotal] spawn { // SteamingHotFixPatch Ghetto has just reached a new level
+	params ["_UID","_timeTotal"];
+	private _instigator = objNull;
+	private _instigatorHuman = objNull;
+	waitUntil {
+		_instigator = [_UID] call BIS_fnc_getUnitByUid;
+		_instigatorHuman = _instigator getVariable ["owner",_instigator];
+		if (_instigator isEqualTo _instigatorHuman) exitWith {true;};
+		uiSleep 1;
+		false;
+	};
+	[_UID,_timeTotal] remoteExec ["A3A_fnc_punishment_sentence_server",2,false];
+};
 "FOUND GUILTY";

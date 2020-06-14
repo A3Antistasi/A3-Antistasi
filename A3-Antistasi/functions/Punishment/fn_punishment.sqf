@@ -47,19 +47,20 @@ private _depreciationCoef = 0.75;	// Modifies the drop-off curve of the punishme
 private _overheadPercent = 0.3;		// Percentage of _offenceAdded that does not get depreciated.
 
 ////////Exit Remote Control (if any)////////
+private _UID = getPlayerUID _instigator; // Player still occupies this object.
+private _name = name _instigator;
 private _instigatorHuman = _instigator getVariable ["owner",_instigator]; // Refer to controlunit.sqf for source of this *function*
 if (_instigator != _instigatorHuman) then {
-    _instigator = _instigatorHuman;
     [_instigatorHuman] remoteExec ["selectPlayer",_instigatorHuman,false];
     (units group _instigatorHuman) joinSilent group _instigatorHuman;
     group _instigatorHuman selectLeader _instigatorHuman;
     ["Control Unit", "Returned to original Unit due to FF"] remoteExec ["A3A_fnc_customHint",_instigatorHuman,false];
+    _instigator = [_UID] call BIS_fnc_getUnitByUid;
 };
 
 //////////Fetches punishment values/////////
 private _currentTime = (floor serverTime);
 private _keyPairs = [["timeTotal",0],["offenceTotal",0],["lastOffenceTime",_currentTime],["overhead",0]];
-private _UID = getPlayerUID _instigator;
 private _data_instigator = [_UID,_keyPairs] call A3A_fnc_punishment_dataGet;
 _data_instigator params ["_timeTotal","_offenceTotal","_lastTime","_overhead"];
 
@@ -85,20 +86,20 @@ _timeTotal = _timeTotal * (1-_depreciationCoef) ^(_periodDelta/3000);           
 _timeTotal = _timeTotal + _timeAdded;
 
 //////////Saves data to instigator//////////
-private _keyPairs = [["timeTotal",_timeTotal],["offenceTotal",_offenceTotal],["lastOffenceTime",_currentTime],["overhead",_overhead],["name",name _instigator]];
+private _keyPairs = [["timeTotal",_timeTotal],["offenceTotal",_offenceTotal],["lastOffenceTime",_currentTime],["overhead",_overhead],["name",_name]];
 [_UID,_keyPairs] call A3A_fnc_punishment_dataSet;
 
 /////////Where punishment is issued/////////
-private _playerStats = format["Player: %1 [%2], _timeAdded: %3, _timeTotal: %4, _offenceAdded: %7, _overhead: %5, _offenceTotal: %6", name _instigator, _UID, str _timeAdded, str _timeTotal, str _offenceAdded, str _overhead, str _offenceTotal];
+private _playerStats = format["Player: %1 [%2], _timeAdded: %3, _timeTotal: %4, _offenceAdded: %7, _overhead: %5, _offenceTotal: %6", _name, _UID, str _timeAdded, str _timeTotal, str _offenceAdded, str _overhead, str _offenceTotal];
 if (_offenceTotal < 1) exitWith {
-	["FF Warning", "Watch your fire!"] remoteExec ["A3A_fnc_customHint", _instigator, false];
+	["FF Warning", "Watch your fire!"] remoteExec ["A3A_fnc_customHint", _instigator, false]; // This may or may not work for remoteControl depending on deSync.
 	[2, format ["WARNING | %1", _playerStats], _filename] call A3A_fnc_log;
 	"WARNED"
 };
 if (_victim isKindOf "Man") then {
-	["FF Notification", format["%1 hurt you!",name _instigator]] remoteExec ["A3A_fnc_customHint", _victim, false];
+	["FF Notification", format["%1 hurt you!",_name]] remoteExec ["A3A_fnc_customHint", _victim, false];
 	[2, format ["VICTIM | Found Collateral: %1 [%2]", name _victim, getPlayerUID _victim], _filename] call A3A_fnc_log;
 };
 [2, format ["GUILTY | %1", _playerStats], _filename] call A3A_fnc_log;
-[getPlayerUID _instigator,_timeTotal] remoteExec ["A3A_fnc_punishment_sentence_server",2,false];
+[_UID,_timeTotal] remoteExec ["A3A_fnc_punishment_sentence_server",2,false];
 "FOUND GUILTY";

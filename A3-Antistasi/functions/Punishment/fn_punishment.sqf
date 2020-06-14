@@ -46,6 +46,21 @@ if (!isServer) exitWith {
 private _depreciationCoef = 0.75;	// Modifies the drop-off curve of the punishment score; a higher number drops off quicker, a lower number lingers longer.
 private _overheadPercent = 0.3;		// Percentage of _offenceAdded that does not get depreciated.
 
+////////Exit Remote Control (if any)////////
+private _instigatorHuman = _instigator getVariable ["owner",objNull];
+if (_instigator != _instigatorHuman) then {
+    private _instigatorBot = _instigator;
+    _instigator = _instigatorHuman;
+
+    _instigatorBot removeAllEventHandlers "HandleDamage";   // Refer to controlunit.sqf for source of this *function*
+    _instigatorHuman removeAllEventHandlers "HandleDamage";
+    removeAllActions _instigatorBot;
+    selectPlayer _instigatorHuman;
+    (units group _instigatorHuman) joinSilent group _instigatorHuman;
+    group _instigatorHuman selectLeader _instigatorHuman;
+    ["Control Unit", "Returned to original Unit due to FF"] call A3A_fnc_customHint;
+};
+
 //////////Fetches punishment values/////////
 private _currentTime = (floor serverTime);
 private _keyPairs = [["timeTotal",0],["offenceTotal",0],["lastOffenceTime",_currentTime],["overhead",0]];

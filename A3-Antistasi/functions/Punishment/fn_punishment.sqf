@@ -47,18 +47,13 @@ private _depreciationCoef = 0.75;	// Modifies the drop-off curve of the punishme
 private _overheadPercent = 0.3;		// Percentage of _offenceAdded that does not get depreciated.
 
 ////////Exit Remote Control (if any)////////
-private _instigatorHuman = _instigator getVariable ["owner",objNull];
+private _instigatorHuman = _instigator getVariable ["owner",_instigator]; // Refer to controlunit.sqf for source of this *function*
 if (_instigator != _instigatorHuman) then {
-    private _instigatorBot = _instigator;
     _instigator = _instigatorHuman;
-
-    _instigatorBot removeAllEventHandlers "HandleDamage";   // Refer to controlunit.sqf for source of this *function*
-    _instigatorHuman removeAllEventHandlers "HandleDamage";
-    removeAllActions _instigatorBot;
-    selectPlayer _instigatorHuman;
+    [_instigatorHuman] remoteExec ["selectPlayer",_instigatorHuman,false];
     (units group _instigatorHuman) joinSilent group _instigatorHuman;
     group _instigatorHuman selectLeader _instigatorHuman;
-    ["Control Unit", "Returned to original Unit due to FF"] call A3A_fnc_customHint;
+    ["Control Unit", "Returned to original Unit due to FF"] remoteExec ["A3A_fnc_customHint",_instigatorHuman,false];
 };
 
 //////////Fetches punishment values/////////

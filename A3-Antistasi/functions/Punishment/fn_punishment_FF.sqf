@@ -140,6 +140,22 @@ if (_exemption != "") exitWith {
     [_exemption] call _gotoExemption;
 };
 
+////////Exit Remote Control (if any)////////
+private _instigatorHuman = _instigator getVariable ["owner",objNull];
+if (_instigator != _instigatorHuman) then {
+    private _instigatorBot = _instigator;
+    _instigator = _instigatorHuman;
+
+    _instigatorBot removeAllEventHandlers "HandleDamage";   // Refer to controlunit.sqf for source of this *function*
+    _instigatorHuman removeAllEventHandlers "HandleDamage";
+    removeAllActions _instigatorBot;
+    selectPlayer _instigatorHuman;
+    (units group _instigatorHuman) joinSilent group _instigatorHuman;
+    group _instigatorHuman selectLeader _instigatorHuman;
+    ["Control Unit", "Returned to original Unit due to FF"] call A3A_fnc_customHint;
+};
+
+///////////////Drop The Hammer//////////////
 [_instigator,_timeAdded,_offenceAdded,_victim] remoteExec ["A3A_fnc_punishment",2,false];
 "PROSECUTED";
 

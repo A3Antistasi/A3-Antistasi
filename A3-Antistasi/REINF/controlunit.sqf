@@ -12,7 +12,7 @@ if (!(alive _unit) or (_unit getVariable ["incapacitated",false]))  exitWith {["
 //if ((not(typeOf _unit in soldiersSDK)) and (typeOf _unit != "b_g_survivor_F")) exitWith {hint "You cannot control a unit which does not belong to FIA"};
 if (side _unit != teamPlayer) exitWith {["Control Unit", format ["You cannot control a unit which does not belong to %1",nameTeamPlayer]] call A3A_fnc_customHint;};
 private _punishmentoffenceTotal = [getPlayerUID player, [ ["offenceTotal",0] ]] call A3A_fnc_punishment_dataGet select 0;
-if (!isNil "_punishmentoffenceTotal" && {_punishmentoffenceTotal >= 1}) exitWith {["Control Unit", "Nope. Not happening."] call A3A_fnc_customHint;};
+if (_punishmentoffenceTotal >= 1) exitWith {["Control Unit", "Nope. Not happening."] call A3A_fnc_customHint;};
 
 _owner = player getVariable ["owner",player];
 if (_owner!=player) exitWith {["Control Unit", "You cannot control AI while you are controlling another AI"] call A3A_fnc_customHint;};

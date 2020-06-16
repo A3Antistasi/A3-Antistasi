@@ -46,6 +46,7 @@ private _keyPairs = [["name","NO NAME"]];
 private _data_instigator = [_UID,_keyPairs] call A3A_fnc_punishment_dataGet;
 _data_instigator params ["_name"];
 
+private _disconnected = false;
 private _disconnectedCleanUp = {
 	_playerStats = format["Player: %1 [%2], _timeTotal: %3", _name, _UID, str _timeTotal];
 	[2, format ["DISCONNECTED/DIED WHILE PUNISHED | %1", _playerStats], _filename] call A3A_fnc_log;
@@ -61,9 +62,8 @@ private _disconnectedCleanUp = {
 private _sentenceEndTime_old = _sentenceEndTime;
 private _countX = 0;
 private _detainee = _UID call BIS_fnc_getUnitByUid;
-private _disconnected = false;
 
-_keyPairs = [ ["_sentenceEndTime",_sentenceEndTime] ];
+_keyPairs = [ ["_sentenceEndTime",floor serverTime] ];
 while {(ceil serverTime) < _sentenceEndTime-1} do { // ceil and -1 if something doesn't sync up
 	_countX = _sentenceEndTime - (floor serverTime);
 	if (!isPlayer _detainee) exitWith {call _disconnectedCleanUp};

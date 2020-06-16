@@ -51,10 +51,10 @@ private _UID = getPlayerUID _instigator; // Player still occupies this object.
 private _name = name _instigator;
 private _instigatorHuman = _instigator getVariable ["owner",_instigator]; // Refer to controlunit.sqf for source of this *function*
 if (_instigator != _instigatorHuman) then {
-    [_instigatorHuman] remoteExec ["selectPlayer",_instigatorHuman,false];
     (units group _instigatorHuman) joinSilent group _instigatorHuman;
-    group _instigatorHuman selectLeader _instigatorHuman;
-    ["Control Unit", "Returned to original Unit due to FF"] remoteExec ["A3A_fnc_customHint",_instigatorHuman,false];
+    group _instigator selectLeader _instigatorHuman;
+    ["Control Unit", "Returned to original Unit due to FF"] remoteExec ["A3A_fnc_customHint",_instigator,false];
+    [_instigatorHuman] remoteExec ["selectPlayer",_instigator,false];
 };
 
 //////////Fetches punishment values/////////

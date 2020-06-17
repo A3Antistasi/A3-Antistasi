@@ -55,18 +55,18 @@ if !(_unit isEqualTo player) exitWith {false}; // Needs to be local for ace, sel
 if (hasACE) then {
 	["ace_firedPlayer", {
 		params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile"];
-		if (!isPlayer _unit) exitWith {};
+		if (!isPlayer _unit || {_unit isEqualTo player}) exitWith {};
 		[_unit,_weapon,_projectile] call A3A_fnc_punishment_FF_checkNearHQ;
 	}] call CBA_fnc_addEventHandler;
 	["ace_explosives_place", {
 		params ["_explosive","_dir","_pitch","_unit"];
-		if (!isPlayer _unit) exitWith {};
+		if (!isPlayer _unit || {_unit isEqualTo player}) exitWith {};
 		[_unit,"Put",_explosive] call A3A_fnc_punishment_FF_checkNearHQ;
 	}] call CBA_fnc_addEventHandler;
 } else {
 	_unit addEventHandler ["FiredMan", {
 		params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_vehicle"];
-		if (!isPlayer _unit) exitWith {};
+		if (!isPlayer _unit || {_unit isEqualTo player}) exitWith {};
 		[_unit,_weapon,_projectile] call A3A_fnc_punishment_FF_checkNearHQ;
 	}];
 };

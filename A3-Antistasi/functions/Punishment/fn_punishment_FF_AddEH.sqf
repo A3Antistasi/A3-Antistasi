@@ -64,8 +64,8 @@ if (hasACE) then {
 		[_unit,"Put",_explosive] call A3A_fnc_punishment_FF_checkNearHQ;
 	}] call CBA_fnc_addEventHandler;
 } else {
-	_unit addEventHandler ["Fired", {
-		params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
+	_unit addEventHandler ["FiredMan", {
+		params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_vehicle"];
 		if (!isPlayer _unit) exitWith {};
 		[_unit,_weapon,_projectile] call A3A_fnc_punishment_FF_checkNearHQ;
 	}];

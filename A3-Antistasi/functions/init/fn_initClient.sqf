@@ -23,6 +23,7 @@ if (!isServer) then {
 	call A3A_fnc_initVar;
 	if (!hasInterface) exitWith {
 		[2,format ["Headless client version: %1",localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;
+		call A3A_fnc_loadNavGrid;
 		[clientOwner] remoteExec ["A3A_fnc_addHC",2];
 	};
 	[2,format ["MP client version: %1",localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;

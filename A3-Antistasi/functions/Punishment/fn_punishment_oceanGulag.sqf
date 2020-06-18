@@ -48,6 +48,10 @@ if (!isPlayer _detainee) then { // Prevents punishing AI
 switch (toLower _operation) do {
 	case ("add"): {
 		if (_playerPos inArea [ [50,50], 50, 50 ,0, true, -1]) exitWith {};
+		private _initialPosAGLS = [0,0,0];
+		if !(_playerPos inArea [ [50,50], 100, 100 ,0, true, -1]) then { // Slightly bigger, player can't swim 50m in 5 sec.
+			_initialPosAGLS = _playerPos;
+		};
 		if (!isNull _punishment_platform) then {
 			deleteVehicle _punishment_platform;
 		};
@@ -58,7 +62,7 @@ switch (toLower _operation) do {
 		_punishment_platform enableSimulation false;
 		_punishment_platform allowDamage false;
 
-		_keyPairs = [ ["punishment_platform",_punishment_platform] ];
+		_keyPairs = [ ["punishment_platform",_punishment_platform], ["initialPosAGLS",_initialPosAGLS]];
 		[_UID,_keyPairs] call A3A_fnc_punishment_dataSet;
 
 		_punishment_platform setPos [_pos2D #0, _pos2D #1, -0.25];
@@ -71,19 +75,14 @@ switch (toLower _operation) do {
 	case ("remove"): {
 		if (isPlayer _detainee && {_playerPos inArea [ [50,50], 100, 100 ,0, true, -1]}) then { // Slightly bigger, player can't swim 50m in 5 sec.
 			_detainee switchMove "";
-			private _leader = leader _detainee;
-			private _destination = [0,0,0];
-			if (!(_leader in [objNull, _detainee]) && {_leader == vehicle _leader}) then {
-				_destination = (getPosATl _leader) findEmptyPosition [1,50,typeOf _detainee];
-			} else {
-				_destination = posHQ findEmptyPosition [1,50,typeOf _detainee];
-			};
-			_detainee setPosATL _destination;
+			private _keyPairs = [ ["initialPosAGLS",[0,0,0]] ];
+			([_UID,_keyPairs] call A3A_fnc_punishment_dataGet) params ["_initialPosAGLS"];
+			_detainee setPosATL ([_initialPosAGLS,posHQ findEmptyPosition [1,50,typeOf _detainee]] select (_initialPosAGLS isEqualTo [0,0,0]));
 		};
 		if (!isNull _punishment_platform) then {
 			deleteVehicle _punishment_platform;
 		};
-		[_UID,["punishment_platform","initialPosASL"]] call A3A_fnc_punishment_dataRem;
+		[_UID,["punishment_platform","initialPosAGLS"]] call A3A_fnc_punishment_dataRem;
 	};
 	default {
 		[1, format ["INVALID PARAMS | _operation=""%1""", _operation], _filename] call A3A_fnc_log;

@@ -38,7 +38,7 @@ if (!isServer) exitWith {
 
 _timeTotal = 5*(floor (_timeTotal/5)); // Rounds up so the loop lines up.
 private _sentenceEndTime = (floor serverTime) + _timeTotal;
-private _keyPairs = [["_sentenceEndTime",_sentenceEndTime],["timeTotal",_timeTotal],["offenceTotal",1]]; //,["name","NO NAME"]
+private _keyPairs = [["sentenceEndTime",_sentenceEndTime],["timeTotal",_timeTotal],["offenceTotal",1]]; //,["name","NO NAME"]
 [_UID,_keyPairs] call A3A_fnc_punishment_dataSet;
 
 
@@ -63,7 +63,7 @@ private _sentenceEndTime_old = _sentenceEndTime;
 private _countX = 0;
 private _detainee = _UID call BIS_fnc_getUnitByUid;
 
-_keyPairs = [ ["_sentenceEndTime",floor serverTime] ];
+_keyPairs = [ ["sentenceEndTime",floor serverTime] ];
 while {(ceil serverTime) < _sentenceEndTime-1} do { // ceil and -1 if something doesn't sync up
 	_countX = _sentenceEndTime - (floor serverTime);
 	if (!isPlayer _detainee) exitWith {call _disconnectedCleanUp};

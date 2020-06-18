@@ -120,8 +120,8 @@ groupsNATOGen = [policeOfficer,policeGrunt];
 //Military Vehicles
 //Lite
 vehNATOBike = "B_Quadbike_01_F";
-vehNATOLightArmed = ["rhsusf_m1025_w_s_m2","rhsusf_CGRCAT1A2_M2_usmc_wd","rhsusf_CGRCAT1A2_Mk19_usmc_wd","rhsusf_M1117_W","rhsusf_M1220_M2_usarmy_wd","rhsusf_M1237_M2_usarmy_wd","rhsusf_m1045_w_s","rhsusf_m1240a1_usmc_wd"];
-vehNATOLightUnarmed = ["rhsusf_m1025_w_s","rhsusf_m998_w_s_2dr","rhsusf_m998_w_s_2dr_fulltop","rhsusf_m998_w_s_4dr","rhsusf_CGRCAT1A2_usmc_wd","rhsusf_M1232_usarmy_wd","rhsusf_m1240a1_m2_usmc_wd","rhsusf_m1240a1_mk19_usmc_wd","rhsusf_m1240a1_m240_usmc_wd"];
+vehNATOLightArmed = ["rhsusf_m1025_w_s_m2","rhsusf_CGRCAT1A2_M2_usmc_wd","rhsusf_CGRCAT1A2_Mk19_usmc_wd","rhsusf_M1117_W","rhsusf_M1220_M2_usarmy_wd","rhsusf_M1237_M2_usarmy_wd","rhsusf_M1238A1_M2_socom_wd","rhsusf_m1045_w_s","rhsusf_m1240a1_m2_usmc_wd","rhsusf_m1240a1_mk19_usmc_wd","rhsusf_m1240a1_m240_usmc_wd"];
+vehNATOLightUnarmed = ["rhsusf_m1025_w_s","rhsusf_m998_w_s_2dr","rhsusf_m998_w_s_2dr_fulltop","rhsusf_m998_w_s_4dr","rhsusf_CGRCAT1A2_usmc_wd","rhsusf_M1232_usarmy_wd","rhsusf_m1240a1_usmc_wd"];
 vehNATOTrucks = ["rhsusf_M1078A1P2_WD_open_fmtv_usarmy","rhsusf_M1078A1P2_B_WD_fmtv_usarmy","rhsusf_M1078A1P2_B_WD_open_fmtv_usarmy","rhsusf_M1083A1P2_WD_fmtv_usarmy","rhsusf_M1083A1P2_B_M2_WD_fmtv_usarmy"];
 vehNATOCargoTrucks = [];
 vehNATOAmmoTruck = "rhsusf_M977A4_AMMO_BKIT_usarmy_wd";

@@ -9,7 +9,13 @@ if (isNil "logLevel") then { logLevel = 2 };scriptName "initClient.sqf";
 
 call A3A_fnc_installSchrodingersBuildingFix;
 
-if (!isServer) then { ["destroyedBuildings"] remoteExec ["A3A_fnc_requestDataFromServer", 2] };
+if (!isServer) then {
+	// get server to send us the current destroyedBuildings list, hide them locally
+	"destroyedBuildings" addPublicVariableEventHandler {
+		{ hideObject _x } forEach (_this select 1);
+	};
+	[clientOwner, "destroyedBuildings"] remoteExecCall ["publicVariableClient", 2];
+};
 
 if (hasInterface) then {
 	waitUntil {!isNull player};

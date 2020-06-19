@@ -336,7 +336,7 @@ private _vehiclePool = [];
         private _vehicleCount = count (_x select 0);
         if(_vehicleCount != 0) then
         {
-            _points = (_x select 1)/(count (_x select 0));
+            _points = (_x select 1)/_vehicleCount;
         }
         else
         {

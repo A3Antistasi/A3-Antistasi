@@ -14,7 +14,7 @@
 
 params ["_side", ["_filter", []]];
 
-private _fileName = "getVehiclePoolForQRFs"
+private _fileName = "getVehiclePoolForQRFs";
 private _vehicleSelection = [];
 
 [3, format ["Now searching for QRF vehicle pool for %1 with filter %2", _side, _filter], _fileName] call A3A_fnc_log;

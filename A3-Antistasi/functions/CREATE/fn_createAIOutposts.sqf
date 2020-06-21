@@ -170,7 +170,8 @@ if ((_markerX in seaports) and !hasIFA) then
 		};
 	};
 	{
-		_ammoBox addItemCargoGlobal [_x,2]
+		  sleep 1;
+		 _ammoBox addItemCargoGlobal [_x, round random [2,6,8]];
 	} forEach diveGear;
 }
 else
@@ -328,13 +329,6 @@ for "_i" from 0 to (count _array - 1) do
 	};
 };//TODO need delete UPSMON link
 
-
-if (_markerX in seaports) then
-	{
-	_ammoBox addItemCargo ["V_RebreatherIA",round random 5];
-	_ammoBox addItemCargo ["G_I_Diving",round random 5];
-	};
-
 waitUntil {sleep 1; (spawner getVariable _markerX == 2)};
 
 [_markerX] call A3A_fnc_freeSpawnPositions;
@@ -352,4 +346,3 @@ deleteMarker _mrk;
 		else { if !(_x isKindOf "StaticWeapon") then { [_x] spawn A3A_fnc_VEHdespawner } };
 	};
 } forEach _vehiclesX;
-

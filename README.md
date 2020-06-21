@@ -68,9 +68,9 @@ Unstable Branch: [![Build Status](https://travis-ci.com/official-antistasi-commu
 
 ## Features:
 
-- Playable in SP, MP, and persistent open server MP.
+- Playable in MP, and persistent open server MP.
 - Blufor vs Greenfor vs Redfor with dynamic battles, let Blufor and Redfor fight and strike them while they're busy, don't draw too much attention or the aggressivity against SDK will increase, causing heavy reactions. Be nice with their wounded instead; If healed they might think to join you!
-- Available in both Altis and Tanoa versions.
+- Supports most popular islands available for Arma 3.
 - AI Enemy Commander which reacts to your movements and manages his resources.
 - Around 18 possible Sidemissions: Assasination, Logistics, Destroy Assets, Rescue POWS, Conquer Missions with a wide variety for each type.
 - Possibility of Undercovered Operations, same as a Resistance soldier can do.

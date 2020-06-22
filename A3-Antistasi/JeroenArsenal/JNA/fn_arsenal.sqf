@@ -2158,6 +2158,7 @@ switch _mode do {
 
 					//save mags in list and remove them
 					_mags = magazinesAmmoCargo _container;
+					if (_mags findIf {(_x select 0) isEqualTo _item} == -1) exitWith {};
 					clearMagazineCargo _container;
 
 					//add back magazines exept the one that needs to be removed

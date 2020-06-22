@@ -67,11 +67,13 @@ if (_varName in specialVarLoads) then {
     {
         aggressionLevelOccupants = _varValue select 0;
         aggressionStackOccupants = +(_varValue select 1);
+        [true] spawn A3A_fnc_calculateAggression;
     };
     if (_varName == 'aggressionInvaders') then
     {
         aggressionLevelInvaders = _varValue select 0;
         aggressionStackInvaders = +(_varValue select 1);
+        [true] spawn A3A_fnc_calculateAggression;
     };
 	if (_varName == 'hr') then {server setVariable ["HR",_varValue,true]};
 	if (_varName == 'dateX') then {setDate _varValue};

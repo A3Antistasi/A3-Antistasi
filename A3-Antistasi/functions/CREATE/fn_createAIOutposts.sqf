@@ -169,8 +169,8 @@ if ((_markerX in seaports) and !hasIFA) then
 			diag_log format ["createAIOutposts: Could not find seaSpawn marker on %1!", _markerX];
 		};
 	};
+	sleep 1;
 	{
-		  sleep 1;
 		 _ammoBox addItemCargoGlobal [_x, round random [2,6,8]];
 	} forEach diveGear;
 }

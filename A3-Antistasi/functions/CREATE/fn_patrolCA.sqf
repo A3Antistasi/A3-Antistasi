@@ -247,6 +247,23 @@ if (_base != "") then
 	};
 
 	_vehPool = [_sideX] call A3A_fnc_getVehiclePoolForQRFs;
+    if(count _vehPool == 0) then
+    {
+        if(_sideX == Occupants) then
+        {
+            {
+                _vehPool pushBack _x;
+                _vehPool pushBack 1;
+            } forEach (vehNATOTrucks + vehNATOTransportHelis);
+        }
+        else
+        {
+            {
+                _vehPool pushBack _x;
+                _vehPool pushBack 1;
+            } forEach (vehCSATTrucks + vehCSATTransportHelis);
+        };
+    };
 	_road = [_posDestination] call A3A_fnc_findNearestGoodRoad;
 	_landPosBlacklist = [];
 	for "_i" from 1 to _vehicleCount do
@@ -389,6 +406,23 @@ else
 	_vehPool = [];
 	_typeVehX = "";
 	_vehPool = [_sideX, ["LandVehicle"]] call A3A_fnc_getVehiclePoolForQRFs;
+    if(count _vehPool == 0) then
+    {
+        if(_sideX == Occupants) then
+        {
+            {
+                _vehPool pushBack _x;
+                _vehPool pushBack 1;
+            } forEach vehNATOTransportHelis;
+        }
+        else
+        {
+            {
+                _vehPool pushBack _x;
+                _vehPool pushBack 1;
+            } forEach vehCSATTransportHelis;
+        };
+    };
 	for "_i" from 1 to _vehicleCount do
 	{
 		_typeVehX = selectRandomWeighted _vehPool;

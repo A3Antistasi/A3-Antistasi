@@ -75,7 +75,7 @@ if(_type == "Mixed") then {_markerType = "_armor"};
 _convoyMarker = createMarker [format ["convoy%1", _convoyID], _origin];
 _convoyMarker setMarkerShapeLocal "ICON";
 _convoyMarker setMarkerType format ["%1%2", _markerPrefix, _markerType];
-_convoyMarker setMarkerText (format ["%1 %2 Convoy [%3]: Simulated", _type, _convoyType, _convoyID]);
+_convoyMarker setMarkerText (format ["[GPS-%3] %1 %2 Convoy", _convoySide, _convoyType, _convoyID]);
 _convoyMarker setMarkerAlpha 0;
 
 if(_convoySide == Occupants) then

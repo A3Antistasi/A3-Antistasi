@@ -34,23 +34,24 @@ if (!isServer) exitWith {
 	false;
 };
 
-private _keyPairs = [ ["punishment_platform",objNull] ];
-([_UID,_keyPairs] call A3A_fnc_punishment_dataGet) params ["_punishment_platform"];
+private _keyPairs = [ ["punishment_platform",objNull], ["initialPosASL",[0,0,0]]];
+([_UID,_keyPairs] call A3A_fnc_punishment_dataGet) params ["_punishment_platform","_initialPosASL"];
 private _detainee = _UID call BIS_fnc_getUnitByUid;
 private _playerPos = [0,0,0];
 
 if (!isPlayer _detainee) then { // Prevents punishing AI
-	[2, format ["DETAINEE MIA | UID:%1 matches no in-game player. Running without player.", _UID], _filename] call A3A_fnc_log;
+	[2, format ["DETAINEE MIA | UID:%1 matches no in-game player. Cleaning up.", _UID], _filename] call A3A_fnc_log;
+	_operation = "remove";
 } else {
-	_playerPos = getPos _detainee;
+	_playerPos = getPosASL _detainee;
 };
 
 switch (toLower _operation) do {
 	case ("add"): {
 		if (_playerPos inArea [ [50,50], 50, 50 ,0, true, -1]) exitWith {};
-		private _initialPosAGLS = [0,0,0];
-		if !(_playerPos inArea [ [50,50], 100, 100 ,0, true, -1]) then { // Slightly bigger, player can't swim 50m in 5 sec.
-			_initialPosAGLS = _playerPos;
+		if (_initialPosASL isEqualTo [0,0,0]) then {
+			_keyPairs = [ ["initialPosASL",_playerPos] ];
+			[_UID,_keyPairs] call A3A_fnc_punishment_dataSet;
 		};
 		if (!isNull _punishment_platform) then {
 			deleteVehicle _punishment_platform;
@@ -62,27 +63,28 @@ switch (toLower _operation) do {
 		_punishment_platform enableSimulation false;
 		_punishment_platform allowDamage false;
 
-		_keyPairs = [ ["punishment_platform",_punishment_platform], ["initialPosAGLS",_initialPosAGLS]];
+		_keyPairs = [ ["punishment_platform",_punishment_platform] ];
 		[_UID,_keyPairs] call A3A_fnc_punishment_dataSet;
 
-		_punishment_platform setPos [_pos2D #0, _pos2D #1, -0.25];
+		_punishment_platform setPosASL [_pos2D #0, _pos2D #1, -0.25];
 
 		if (isPlayer _detainee) then {
-			_detainee setPos [_pos2D #0, _pos2D #1, 0.25];
+			_detainee setPosASL [_pos2D #0, _pos2D #1, 0.25];
 		};
 		true;
 	};
 	case ("remove"): {
 		if (isPlayer _detainee && {_playerPos inArea [ [50,50], 100, 100 ,0, true, -1]}) then { // Slightly bigger, player can't swim 50m in 5 sec.
 			_detainee switchMove "";
-			private _keyPairs = [ ["initialPosAGLS",[0,0,0]] ];
-			([_UID,_keyPairs] call A3A_fnc_punishment_dataGet) params ["_initialPosAGLS"];
-			_detainee setPosATL ([_initialPosAGLS,posHQ findEmptyPosition [1,50,typeOf _detainee]] select (_initialPosAGLS isEqualTo [0,0,0]));
+			private _keyPairs = [ ["initialPosASL",[0,0,0]] ];
+			([_UID,_keyPairs] call A3A_fnc_punishment_dataGet) params ["_initialPosASL"];
+			_detainee setPosASL ([_initialPosASL,posHQ findEmptyPosition [1,50,typeOf _detainee]] select (_initialPosASL isEqualTo [0,0,0]));
 		};
 		if (!isNull _punishment_platform) then {
 			deleteVehicle _punishment_platform;
 		};
-		[_UID,["punishment_platform","initialPosAGLS"]] call A3A_fnc_punishment_dataRem;
+		[_UID,["punishment_platform","initialPosASL"]] call A3A_fnc_punishment_dataRem;
+		true
 	};
 	default {
 		[1, format ["INVALID PARAMS | _operation=""%1""", _operation], _filename] call A3A_fnc_log;

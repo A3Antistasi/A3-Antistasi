@@ -66,10 +66,10 @@ switch (toLower _operation) do {
 		_keyPairs = [ ["punishment_platform",_punishment_platform] ];
 		[_UID,_keyPairs] call A3A_fnc_punishment_dataSet;
 
-		_punishment_platform setPosASL [_pos2D #0, _pos2D #1, -0.25];
+		_punishment_platform setPos [_pos2D #0, _pos2D #1, -0.25];
 
 		if (isPlayer _detainee) then {
-			_detainee setPosASL [_pos2D #0, _pos2D #1, 0.25];
+			_detainee setPos [_pos2D #0, _pos2D #1, 0.25];
 		};
 		true;
 	};

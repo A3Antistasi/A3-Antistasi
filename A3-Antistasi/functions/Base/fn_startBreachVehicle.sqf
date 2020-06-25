@@ -164,7 +164,7 @@ if
 //Remove the correct amount of explosives
 for "_count" from 1 to _explosiveCount do
 {
-    _caller removeMagazine _explosive;
+    _caller removeMagazineGlobal _explosive;
 };
 
 //Added as the vehicle might blow up. Best not to blow up in the player's face.

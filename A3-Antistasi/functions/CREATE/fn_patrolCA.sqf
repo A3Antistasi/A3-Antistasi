@@ -254,14 +254,14 @@ if (_base != "") then
             {
                 _vehPool pushBack _x;
                 _vehPool pushBack 1;
-            } forEach (vehNATOTrucks + [vehNATOPatrolHeli]);
+            } forEach (vehNATOTrucks + vehNATOLightArmed);
         }
         else
         {
             {
                 _vehPool pushBack _x;
                 _vehPool pushBack 1;
-            } forEach (vehCSATTrucks + [vehCSATPatrolHeli]);
+            } forEach (vehCSATTrucks + vehCSATLightArmed);
         };
     };
 	_road = [_posDestination] call A3A_fnc_findNearestGoodRoad;

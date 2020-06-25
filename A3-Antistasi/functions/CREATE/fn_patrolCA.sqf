@@ -246,7 +246,7 @@ if (_base != "") then
 		_dir = getDir _spawnPoint;
 	};
 
-	_vehPool = [_sideX] call A3A_fnc_getVehiclePoolForQRFs;
+	_vehPool = [_sideX, ["Air"]] call A3A_fnc_getVehiclePoolForQRFs;
     if(count _vehPool == 0) then
     {
         if(_sideX == Occupants) then
@@ -254,14 +254,14 @@ if (_base != "") then
             {
                 _vehPool pushBack _x;
                 _vehPool pushBack 1;
-            } forEach (vehNATOTrucks + vehNATOTransportHelis);
+            } forEach (vehNATOTrucks + [vehNATOPatrolHeli]);
         }
         else
         {
             {
                 _vehPool pushBack _x;
                 _vehPool pushBack 1;
-            } forEach (vehCSATTrucks + vehCSATTransportHelis);
+            } forEach (vehCSATTrucks + [vehCSATPatrolHeli]);
         };
     };
 	_road = [_posDestination] call A3A_fnc_findNearestGoodRoad;
@@ -413,14 +413,14 @@ else
             {
                 _vehPool pushBack _x;
                 _vehPool pushBack 1;
-            } forEach vehNATOTransportHelis;
+            } forEach vehNATOTransportHelis + [vehNATOPatrolHeli];
         }
         else
         {
             {
                 _vehPool pushBack _x;
                 _vehPool pushBack 1;
-            } forEach vehCSATTransportHelis;
+            } forEach vehCSATTransportHelis + [vehCSATPatrolHeli];
         };
     };
 	for "_i" from 1 to _vehicleCount do

@@ -127,14 +127,14 @@ while {(_waves > 0)} do
                 {
                     _vehPool pushBack _x;
                     _vehPool pushBack 1;
-                } forEach vehNATOTrucks;
+                } forEach vehNATOTrucks + vehNATOLightArmed;
             }
             else
             {
                 {
                     _vehPool pushBack _x;
                     _vehPool pushBack 1;
-                } forEach vehCSATTrucks;
+                } forEach vehCSATTrucks + vehCSATLightArmed;
             };
         };
 		_road = [_posDestination] call A3A_fnc_findNearestGoodRoad;

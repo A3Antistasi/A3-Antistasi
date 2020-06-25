@@ -120,6 +120,23 @@ while {(_waves > 0)} do
 	if !(_pos isEqualTo []) then
 	{
 		_vehPool = [_sideX, ["Air"]] call A3A_fnc_getVehiclePoolForAttacks;
+        if(count _vehPool == 0) then
+        {
+            if(_sideX == Occupants) then
+            {
+                {
+                    _vehPool pushBack _x;
+                    _vehPool pushBack 1;
+                } forEach vehNATOTrucks + vehNATOLightArmed;
+            }
+            else
+            {
+                {
+                    _vehPool pushBack _x;
+                    _vehPool pushBack 1;
+                } forEach vehCSATTrucks + vehCSATLightArmed;
+            };
+        };
 		_road = [_posDestination] call A3A_fnc_findNearestGoodRoad;
 		_countX = 1;
 		_landPosBlacklist = [];
@@ -414,8 +431,20 @@ while {(_waves > 0)} do
     _vehPool = [_sideX, ["LandVehicle"]] call A3A_fnc_getVehiclePoolForAttacks;
     if(count _vehPool == 0) then
     {
-        _vehPool = if (_sideX == Occupants) then {vehNATOTransportHelis + vehNATOTransportPlanes} else {vehCSATTransportHelis + vehCSATTransportPlanes};
-        _vehPool = _vehPool select {[_x] call A3A_fnc_vehAvailable};
+        if(_sideX == Occupants) then
+        {
+            {
+                _vehPool pushBack _x;
+                _vehPool pushBack 1;
+            } forEach vehNATOTransportHelis;
+        }
+        else
+        {
+            {
+                _vehPool pushBack _x;
+                _vehPool pushBack 1;
+            } forEach vehCSATTransportHelis;
+        };
     };
 	_countX = 1;
 	_pos = _posOrigin;
@@ -734,4 +763,3 @@ forcedSpawn = forcedSpawn - [_mrkDestination]; publicVariable "forcedSpawn";
 } forEach _groups;
 
 { [_x] spawn A3A_fnc_VEHdespawner } forEach _vehiclesX;
-

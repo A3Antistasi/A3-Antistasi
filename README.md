@@ -68,7 +68,7 @@ Unstable Branch: [![Build Status](https://travis-ci.com/official-antistasi-commu
 
 ## Features:
 
-- Playable in MP, and persistent open server MP.
+- Playable in SP, MP, and persistent open server MP.
 - Blufor vs Greenfor vs Redfor with dynamic battles, let Blufor and Redfor fight and strike them while they're busy, don't draw too much attention or the aggressivity against SDK will increase, causing heavy reactions. Be nice with their wounded instead; If healed they might think to join you!
 - Supports most popular islands available for Arma 3.
 - AI Enemy Commander which reacts to your movements and manages his resources.

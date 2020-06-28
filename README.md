@@ -82,13 +82,17 @@ Unstable Branch: [![Build Status](https://travis-ci.com/official-antistasi-commu
 - Up to 3 Headless Client supported.
 - Integrated Mods: [TFAR](https://steamcommunity.com/sharedfiles/filedetails/?id=620019431), [ACRE](https://steamcommunity.com/sharedfiles/filedetails/?id=751965892), [RHS: AFRF, USAF and GREF](https://steamcommunity.com/workshop/filedetails/?id=843770737), [FFAA](https://steamcommunity.com/sharedfiles/filedetails/?id=820994401), [ACE](https://steamcommunity.com/sharedfiles/filedetails/?id=463939057) or, to keep the unique features of AI that would be disabled with ACE medical system: [ACE no medical](https://steamcommunity.com/sharedfiles/filedetails/?id=1316471790). None of them mandatory.
 
-### How to build from GIT
+### How to build from GIT -PowerShell
 - Download ZIP file
 - Extract ZIP
 - Right click on `PrepareMissionsForPacking.ps1` and select 'Open with PowerShell'
 - The script will create a new folder called `PreparedMissions/`
 - Inside this folder you will find multiple subfolders, labeled `Antistasi-VersionNumber.MapName`
 - Use a PBO Packager to pack the any of these mission folders
+
+### Alternative: Build with Antistasi Dev Deploy
+- Download&Extract ZIP file or Clone Repository.
+- Follow [Getting Started](https://github.com/official-antistasi-community/A3-Antistasi/wiki/Build-With-ADD)
 
 ### Known Issues:
 For a list of known issues, please see the [Issues on Github](https://github.com/official-antistasi-community/A3-Antistasi/issues).

@@ -20,5 +20,8 @@ closes #XXXX
 1. [ ] No
 2. [ ] Yes (Please provide further detail below.)
 
+### How can the changes be tested?
+Steps: 
+
 ********************************************************
 Notes:

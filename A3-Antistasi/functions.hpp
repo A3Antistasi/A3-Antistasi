@@ -431,6 +431,7 @@ class A3A
 		class punishment_removeActionForgive {};
 		class punishment_sentence_client {};
 		class punishment_sentence_server {};
+		class punishment_notPlayer {};
 	};
 
 	class pvp

@@ -112,7 +112,7 @@ if(teamplayer != independent) then {//This section is for Altis Blufor ONLY!
       switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
         case (worldName == "Enoch"): {
           call compile preProcessFileLineNumbers "Templates\Vanilla_Reb_FIA_Enoch.sqf";
-          call compile preProcessFileLineNumbers "Templates\Vanilla_Occ_NATO_WDL.sqf";
+          call compile preProcessFileLineNumbers "Templates\Vanilla_Occ_NATO_Temp.sqf";
           call compile preProcessFileLineNumbers "Templates\Vanilla_Inv_CSAT_Enoch.sqf";
         };
         case (worldName == "Tanoa"): {

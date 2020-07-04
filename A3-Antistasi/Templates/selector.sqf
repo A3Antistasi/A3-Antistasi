@@ -61,18 +61,18 @@ if(teamplayer != independent) then {//This section is for Altis Blufor ONLY!
     case (hasRHS): {
       switch(true) do {
         case (worldName in arcticmaps): {
-          call compile preProcessFileLineNumbers "Templates\RHS_Reb_NAPA_Wdl.sqf";
-          call compile preProcessFileLineNumbers "Templates\RHS_Occ_USAF_Wdl.sqf";
+          call compile preProcessFileLineNumbers "Templates\RHS_Reb_NAPA_Temp.sqf";
+          call compile preProcessFileLineNumbers "Templates\RHS_Occ_USAF_Temp.sqf";
           call compile preProcessFileLineNumbers "Templates\RHS_Inv_AFRF_Temp.sqf";
         };
         case (worldName in temperatemaps): {
-          call compile preProcessFileLineNumbers "Templates\RHS_Reb_NAPA_Wdl.sqf";
-          call compile preProcessFileLineNumbers "Templates\RHS_Occ_USAF_Wdl.sqf";
+          call compile preProcessFileLineNumbers "Templates\RHS_Reb_NAPA_Temp.sqf";
+          call compile preProcessFileLineNumbers "Templates\RHS_Occ_USAF_Temp.sqf";
           call compile preProcessFileLineNumbers "Templates\RHS_Inv_AFRF_Temp.sqf";
         };
         case (worldName in tropicalmaps): {
-          call compile preProcessFileLineNumbers "Templates\RHS_Reb_NAPA_Wdl.sqf";
-          call compile preProcessFileLineNumbers "Templates\RHS_Occ_USAF_Wdl.sqf";
+          call compile preProcessFileLineNumbers "Templates\RHS_Reb_NAPA_Temp.sqf";
+          call compile preProcessFileLineNumbers "Templates\RHS_Occ_USAF_Temp.sqf";
           call compile preProcessFileLineNumbers "Templates\RHS_Inv_AFRF_Temp.sqf";
         };
         default {

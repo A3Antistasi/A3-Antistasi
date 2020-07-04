@@ -4,14 +4,14 @@
 */
 
 //Map checker
-private aridmaps = ["Altis","Kunduz","Malden","tem_anizay","Tembelan"];
-private tropicalmaps = ["Tanoa"];
-private temperatemaps = ["Enoch","chernarus_summer"];
-private arcticmaps = ["chernarus_winter"];
+aridmaps = ["Altis","Kunduz","Malden","tem_anizay","Tembelan"];
+tropicalmaps = ["Tanoa"];
+temperatemaps = ["Enoch","chernarus_summer","vt7"];
+arcticmaps = ["chernarus_winter"];
 //Mod selector
 
 if(teamplayer != independent){//This section is for Altis Blufor ONLY!
-  switch(true) do{
+  switch(true) do {
     case (has3CB): {
       call compile preProcessFileLineNumbers "Templates\3CB_Reb_TPGM_Arid.sqf";
       call compile preProcessFileLineNumbers "Templates\BAF_Occ_TKA_Arid.sqf";

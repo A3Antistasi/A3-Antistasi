@@ -444,7 +444,9 @@ private _templateVariables = [
 	ONLY_DECLARE_SERVER_VAR_FROM_VARIABLE(_x);
 } forEach _templateVariables;
 
+call compile preProcessFileLineNumbers "Templates\selector.sqf";
 
+/*
 if !(hasIFA) then {
 	//Rebel Templates
 	switch (true) do {
@@ -479,7 +481,7 @@ else {
 	call compile preProcessFileLineNumbers "Templates\IFA_Inv_SOV_Temp.sqf";
 	call compile preProcessFileLineNumbers "Templates\IFA_Occ_WEH_Temp.sqf";
 	call compile preProcessFileLineNumbers "Templates\IFA_Civ.sqf";
-};
+};*/
 
 ////////////////////////////////////
 //      CIVILIAN VEHICLES       ///

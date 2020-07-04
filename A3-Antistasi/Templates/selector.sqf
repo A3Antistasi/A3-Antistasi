@@ -109,16 +109,21 @@ if(teamplayer != independent) then {//This section is for Altis Blufor ONLY!
       call compile preProcessFileLineNumbers "Templates\IFA_Civ.sqf";
     };
     default {
-      switch(worldName) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
-        case ("Enoch"): {
+      switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
+        case (worldName == "Enoch"): {
           call compile preProcessFileLineNumbers "Templates\Vanilla_Reb_FIA_Enoch.sqf";
           call compile preProcessFileLineNumbers "Templates\Vanilla_Occ_NATO_WDL.sqf";
           call compile preProcessFileLineNumbers "Templates\Vanilla_Inv_CSAT_Enoch.sqf";
         };
-        case ("Tanoa"): {
+        case (worldName == "Tanoa"): {
           call compile preProcessFileLineNumbers "Templates\Vanilla_Reb_SDK_Tanoa.sqf";
           call compile preProcessFileLineNumbers "Templates\Vanilla_Occ_NATO_Tanoa.sqf";
           call compile preProcessFileLineNumbers "Templates\Vanilla_Inv_CSAT_Tanoa.sqf";
+        };
+        case (worldName in temperatemaps): {
+          call compile preProcessFileLineNumbers "Templates\Vanilla_Reb_FIA_Altis.sqf";
+          call compile preProcessFileLineNumbers "Templates\Vanilla_Occ_NATO_Temp.sqf";
+          call compile preProcessFileLineNumbers "Templates\Vanilla_Inv_CSAT_Altis.sqf";
         };
         default {
           call compile preProcessFileLineNumbers "Templates\Vanilla_Reb_FIA_Altis.sqf";

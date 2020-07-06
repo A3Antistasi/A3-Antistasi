@@ -15,6 +15,7 @@ Environment:
 
 Parameters:
 	<OBJECT> The Object that the Event Handlers are being added to.
+	<BOOLEAN> Whether it is intended to be added to AI.
 
 Returns:
 	<BOOLEAN> true if it hasn't crashed; false if tkPunish is disabled or invalid params; nil if it has crashed.
@@ -23,13 +24,13 @@ Examples:
 	if (hasInterface) then {
 		[player] call A3A_fnc_punishment_FF_addEH; // Recommended to add to "onPlayerRespawn.sqf"
 	};
-	[cursorObject] remoteExec ["A3A_fnc_punishment_FF_addEH",cursorObject,false];
+	[cursorObject,true] remoteExec ["A3A_fnc_punishment_FF_addEH",cursorObject,false];
 
 Author: Caleb Serafin
-Date Updated: 12 June 2020
+Date Updated: July 2020
 License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Community
 */
-params [["_unit",objNull,[objNull]]];
+params [ ["_unit",objNull,[objNull]], ["_addToAI",false,[false]] ];
 private _fileName = "fn_punishment_FF_addEH.sqf";
 
 if (!tkPunish) exitWith {false};
@@ -37,6 +38,10 @@ if (!(_unit isKindOf "Man")) exitWith {
 	[1,"No unit given",_fileName] remoteExecCall ["A3A_fnc_log",2,false];
 	false;
 };
+
+private _isAI = !isPlayer _unit || !hasInterface || {!(_unit isEqualTo player)}; // Avoiding adding fired handlers for Ai. Needs to be local for ace, self punishment, and checkStatus.
+
+if (_isAI && !_addToAI) exitWith {true};
 
 _unit addEventHandler ["Killed", {
 	params ["_unit", "_killer", "_instigator", "_useEffects"];
@@ -49,8 +54,7 @@ _unit addEventHandler ["Hit", {
 	[[_instigator,_source], 60, 0.4, _unit] remoteExec ["A3A_fnc_punishment_FF",[_source,_instigator] select (isPlayer _instigator),false];
 }];
 
-if (!isPlayer _unit || !hasInterface) exitWith {true}; // Because it added killed handlers for Ai.
-if !(_unit isEqualTo player) exitWith {false}; // Needs to be local for ace, self punishment, and checkStatus.
+if (_isAI) exitWith {true};
 
 if (hasACE) then {
 	["ace_firedPlayer", {

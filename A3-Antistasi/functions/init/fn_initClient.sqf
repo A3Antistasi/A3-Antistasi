@@ -423,10 +423,17 @@ gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",A3A_fnc_keys];
 
 //if ((!isServer) and (isMultiplayer)) then {boxX call jn_fnc_arsenal_init};
 
+
 if (hasACE) then
 {
+	if (isNil "ace_interact_menu_fnc_compileMenu" || isNil "ace_interact_menu_fnc_compileMenuSelfAction") exitWith {
+		[1, "ACE non-public functions have changed, rebel group join/leave actions will not be removed", _filename] call A3A_fnc_log;
+	};
 	// Remove group join action from all rebel unit types
+	// Need to compile the menus first, because ACE delays creating menus until a unit of that class is created
 	{
+		[_x] call ace_interact_menu_fnc_compileMenu;
+		[_x] call ace_interact_menu_fnc_compileMenuSelfAction;
 		[_x, 1,["ACE_SelfActions", "ACE_TeamManagement", "ACE_LeaveGroup"]] call ace_interact_menu_fnc_removeActionFromClass;
 		[_x, 0,["ACE_MainActions", "ACE_JoinGroup"]] call ace_interact_menu_fnc_removeActionFromClass;
 	} forEach ([typePetros, staticCrewTeamPlayer, SDKUnarmed] + SDKSniper + SDKATman + SDKMedic + SDKMG + SDKExp + SDKGL + SDKMil + SDKSL + SDKEng);

@@ -14,7 +14,7 @@ if(teamplayer != independent) then {//This section is for Altis Blufor ONLY!
   switch(true) do {
     case (has3CB): {
       call compile preProcessFileLineNumbers "Templates\3CB_Reb_TPGM_Arid.sqf";
-      call compile preProcessFileLineNumbers "Templates\BAF_Occ_TKA_Arid.sqf";
+      call compile preProcessFileLineNumbers "Templates\3CB_Occ_TKA_Arid.sqf";
       call compile preProcessFileLineNumbers "Templates\3CB_Inv_TKM_Arid.sqf";
       call compile preProcessFileLineNumbers "Templates\3CB_Civ.sqf";
     };

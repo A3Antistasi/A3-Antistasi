@@ -52,10 +52,6 @@ _unit addEventHandler ["Hit", {
 if (!isPlayer _unit || !hasInterface) exitWith {true}; // Because it added killed handlers for Ai.
 if !(_unit isEqualTo player) exitWith {false}; // Needs to be local for ace, self punishment, and checkStatus.
 
-private _verifyPlayer = {
-
-};
-
 if (hasACE) then {
 	["ace_firedPlayer", {
 		params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile"];

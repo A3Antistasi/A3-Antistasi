@@ -32,6 +32,6 @@ License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Comm
 params["_unknown"];
 private _fileName = "fn_notPlayer.sqf";
 
-if !(typeName _unknown isEqualTo "OBJECT") exitWith {true};
+if !(_unknown isEqualType objNull) exitWith {true};
 if !(isPlayer _unknown) exitWith {true};
 false;

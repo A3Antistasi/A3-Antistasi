@@ -14,7 +14,11 @@ if (!isServer) then {
 	"destroyedBuildings" addPublicVariableEventHandler {
 		{ hideObject _x } forEach (_this select 1);
 	};
-	[clientOwner, "destroyedBuildings"] remoteExecCall ["publicVariableClient", 2];
+	// need to wait until server has loaded the save
+	[] spawn {
+		waitUntil {(!isNil "serverInitDone")};
+		[clientOwner, "destroyedBuildings"] remoteExecCall ["publicVariableClient", 2];
+	};
 };
 
 if (hasInterface) then {

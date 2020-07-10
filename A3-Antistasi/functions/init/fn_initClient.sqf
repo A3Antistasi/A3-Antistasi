@@ -518,6 +518,7 @@ else
 		private _loadout = [getPlayerUID player, "loadoutPlayer"] call A3A_fnc_retrievePlayerStat;
 		if (!isNil "_loadout") then { player setUnitLoadout _loadout };
 	};
+	player setVariable ["canSave", true];
 };
 
 

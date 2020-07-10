@@ -109,6 +109,7 @@ server setVariable ["resourcesFIA",1000,true];
 //We shouldn't need to sync these.
 [2,"Setting server only variables",_fileName] call A3A_fnc_log;
 
+playerStartingMoney = 100;			// should probably be a parameter
 
 prestigeOPFOR = [75, 50] select cadetMode;												//Initial % support for NATO on each city
 prestigeBLUFOR = 0;																	//Initial % FIA support on each city

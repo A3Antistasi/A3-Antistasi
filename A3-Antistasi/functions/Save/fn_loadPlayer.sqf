@@ -29,7 +29,7 @@ if ([_unit] call A3A_fnc_isMember) then
 };
 
 private _money = [_playerId, "moneyX"] call A3A_fnc_retrievePlayerStat;
-if (isNil "_money" || {!(_money isEqualType 0)}) then {_money = 100};
+if (isNil "_money" || {!(_money isEqualType 0)}) then {_money = playerStartingMoney};
 
 private _garage = [_playerId, "personalGarage"] call A3A_fnc_retrievePlayerStat;
 if (isNil "_garage" || {!(_garage isEqualType [])}) then {_garage = []};

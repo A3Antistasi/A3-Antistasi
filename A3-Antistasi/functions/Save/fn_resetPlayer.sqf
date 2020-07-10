@@ -9,7 +9,7 @@ params ["_playerId", "_unit"];
 [2, format ["Resetting player data for ID %1, unit %2", _playerId, _unit], _filename] call A3A_fnc_log;
 
 // Don't restore more money than this player had previously
-private _money = 100;
+private _money = playerStartingMoney;
 if ([_playerId] call A3A_fnc_playerHasSave) then {
 	_money = _money min ([_playerId, "moneyX"] call A3A_fnc_retrievePlayerStat);
 };

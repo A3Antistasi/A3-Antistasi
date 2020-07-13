@@ -81,7 +81,7 @@ else {
 private ["_colourTeamPlayer", "_colorInvaders"];
 _colourTeamPlayer = teamPlayer call BIS_fnc_sideColor;
 _colorInvaders = Invaders call BIS_fnc_sideColor;
-_positionX = if (side player == side (group petros)) then {position petros} else {getMarkerPos "respawn_west"};
+_positionX = if (side player isEqualTo teamPlayer) then {position petros} else {getMarkerPos "respawn_west"};
 
 {
 	_x set [3, 0.33]

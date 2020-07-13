@@ -21,7 +21,7 @@ private _saveIndex = -1;
 
 // If not, append a new entry
 if (_saveIndex == -1) then {
-	private _gametype = if (side petros == independent) then {"Greenfor"} else {"Blufor"};
+	private _gametype = if (teamPlayer isEqualTo independent) then {"Greenfor"} else {"Blufor"};
 	_saveList pushBack [campaignID, worldName, _gametype];
 	profileNamespace setVariable ["antistasiSavedGames", _saveList];
 };

@@ -155,7 +155,6 @@ private _fnc_remUnitCount = {
 };
 
 private _airSupport = [];
-private _groupSupport = grpNull;
 private _uav = objNull;
 
 // First wave: half air support, half either air transports or ground vehicles.
@@ -203,9 +202,10 @@ while {(_waves > 0)} do
 			};
 		};
 	};
+	private _nVehLand = 0;
 	if !(_posOriginLand isEqualTo []) then
 	{
-		private _nVehLand = ceil (_nVeh / 2);			// spawn >half ground, <half air
+		_nVehLand = ceil (_nVeh / 2);			// spawn >half ground, <half air
 		_road = [_posDestination] call A3A_fnc_findNearestGoodRoad;
 		_countX = 1;
 		_landPosBlacklist = [];
@@ -487,15 +487,6 @@ while {(_waves > 0)} do
 		_waves = 0;
 	};
 
-	// Create group for air supports, if not already created
-	if (_groupSupport isEqualTo grpNull) then {
-		_groupSupport = createGroup _sideX;
-		_uwp0 = _groupSupport addWayPoint [_posDestination,0];
-		_uwp0 setWaypointBehaviour "AWARE";
-		_uwp0 setWaypointType "SAD";
-		_groups pushBack _groupSupport;
-	};
-
 	if !(canMove _uav) then
 	{
 		//75% chance to spawn a UAV, to give some variety.
@@ -508,7 +499,11 @@ while {(_waves > 0)} do
 		[_uav,_mrkDestination,_sideX] spawn A3A_fnc_VANTinfo;
 		createVehicleCrew _uav;
 		_pilots append (crew _uav);
-		(crew _uav) joinSilent _groupSupport;
+		_groupVeh = group driver _uav;
+		_groups pushBack _groupVeh;
+		_uwp0 = _groupVeh addWayPoint [_posDestination,0];
+		_uwp0 setWaypointBehaviour "AWARE";
+		_uwp0 setWaypointType "SAD";
 		{[_x] call A3A_fnc_NATOinit} forEach (crew _uav);
 		[_uav, _sideX] call A3A_fnc_AIVEHinit;
 		if (not(_mrkDestination in airportsX)) then {_uav removeMagazines "6Rnd_LG_scalpel"};
@@ -551,8 +546,10 @@ while {(_waves > 0)} do
 			if (not (_typeVehX in vehTransportAir)) then
 				{
 				_airSupport pushBack _veh;
-				(units _groupVeh) joinSilent _groupSupport;
-				deleteGroup _groupVeh;
+				_groups pushBack _groupVeh;
+				_uwp0 = _groupVeh addWayPoint [_posDestination,0];
+				_uwp0 setWaypointBehaviour "AWARE";
+				_uwp0 setWaypointType "SAD";
 				//[_veh,"Air Attack"] spawn A3A_fnc_inmuneConvoy;
 				}
 			else
@@ -634,6 +631,9 @@ while {(_waves > 0)} do
 		_pos = [_pos, 80,_ang] call BIS_fnc_relPos;
 		_countX = _countX + 1;
 		};
+
+	[2, format ["Spawn performed: %1 air vehicles inc. %2 supports, %3 land vehicles, %4 soldiers", _nVehAir, _countNewSupport, _nVehLand, count _soldiers], _filename] call A3A_fnc_log;
+
 	_plane = if (_sideX == Occupants) then {vehNATOPlane} else {vehCSATPlane};
 	if (_sideX == Occupants) then
 		{
@@ -706,7 +706,6 @@ while {(_waves > 0)} do
 	_solMax = round ((count _soldiers)*0.6);
 	_waves = _waves -1;
 	_firstWave = false;
-	[2, format ["Finished spawning attack wave %1. Vehicles: %2. Wave Units: %3. Total units: %4", _waves, count _vehiclesX, count _soldiers, count _soldiersTotal], _filename] call A3A_fnc_log;
 	if (sidesX getVariable [_mrkDestination,sideUnknown] != teamPlayer) then {_soldiers spawn A3A_fnc_remoteBattle};
 	if (_sideX == Occupants) then
 		{

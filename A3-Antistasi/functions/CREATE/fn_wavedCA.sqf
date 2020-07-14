@@ -458,7 +458,7 @@ while {(_waves > 0)} do
 
 	private _nVehAir = _nVeh;
 	if !(_posOriginLand isEqualTo []) then {
-		sleep ((_posOrigin distance _posDestination)/30);			// give land vehicles a head start
+		sleep ((_posOrigin distance _posDestination)/15);			// give land vehicles a head start
 		_nVehAir = floor (_nVeh / 2);								// fill out with air vehicles
 	};
 	_posGround = [_posOrigin select 0,_posOrigin select 1,0];

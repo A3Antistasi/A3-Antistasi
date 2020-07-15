@@ -19,7 +19,7 @@ debug = false;
 //     BEGIN SIDES AND COLORS    ///
 ////////////////////////////////////
 [2,"Generating sides",_fileName] call A3A_fnc_log;
-teamPlayer = side group petros;
+if (isNil "teamPlayer") then { teamPlayer = side group petros };
 if (teamPlayer == independent) then
 	{
 	Occupants = west;

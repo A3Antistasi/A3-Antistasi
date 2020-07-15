@@ -10,6 +10,7 @@ flagX allowDamage false;
 vehicleBox allowDamage false;
 fireX allowDamage false;
 mapX allowDamage false;
+teamPlayer = side group petros; 				// moved here because it must be initialized before accessing any saved vars
 
 //Load server id
 serverID = profileNameSpace getVariable ["ss_ServerID",nil];

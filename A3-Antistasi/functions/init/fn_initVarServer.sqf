@@ -360,13 +360,7 @@ private _templateVariables = [
 	"staticATOccupants",
 	"staticAAOccupants",
 	"NATOMortar",
-	"MGStaticNATOB",
-	"ATStaticNATOB",
-	"AAStaticNATOB",
-	"MortStaticNATOB",
-	"supportStaticNATOB",
-	"supportStaticNATOB2",
-	"supportStaticNATOB3",
+
 	//Invaders
 	"nameInvaders",
 	"factionMaleInvaders",
@@ -431,14 +425,7 @@ private _templateVariables = [
 	"CSATMG",
 	"staticATInvaders",
 	"staticAAInvaders",
-	"CSATMortar",
-	"MGStaticCSATB",
-	"ATStaticCSATB",
-	"AAStaticCSATB",
-	"MortStaticCSATB",
-	"supportStaticCSATB",
-	"supportStaticCSATB2",
-	"supportStaticCSATB3"
+	"CSATMortar"
 ];
 
 {

@@ -2,7 +2,7 @@
 //       NAMES AND FLAGS         ///
 ////////////////////////////////////
 nameTeamPlayer = "UN";
-SDKFlag = "Flag_CCM_B";
+SDKFlag = "Flag_TKM_B";
 SDKFlagTexture = "uk3cb_factions\addons\uk3cb_factions_ccm\flag\ccm_b_flag_co.paa";
 typePetros = "UK3CB_UN_B_OFF";
 

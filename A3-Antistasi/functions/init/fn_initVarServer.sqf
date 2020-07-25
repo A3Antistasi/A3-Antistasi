@@ -58,7 +58,6 @@ DECLARE_SERVER_VAR(difficultyCoef, if !(isMultiplayer) then {0} else {floor ((({
 //Mostly state variables, used by various parts of Antistasi.
 DECLARE_SERVER_VAR(bigAttackInProgress, false);
 DECLARE_SERVER_VAR(AAFpatrols,0);
-DECLARE_SERVER_VAR(reinfPatrols, 0);
 DECLARE_SERVER_VAR(smallCAmrk, []);
 DECLARE_SERVER_VAR(smallCApos, []);
 

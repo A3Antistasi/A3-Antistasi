@@ -1848,3 +1848,4 @@ Implemented Jeroen Nots Enhanced Debug Console
    
   =================  DISCLAIMER  =========================
   - Significant template changes are still underway. You might want to avoid making custom templates for a while! 
+  - Please note that this changelog may contain both spelling/grammatical errors and/or factual errors. Should any factual errors exist, we apologise but with the sheer number of changes made per version it can be easy to lose or mistake a change when writing up the changelog.

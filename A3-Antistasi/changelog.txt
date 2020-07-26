@@ -5,7 +5,7 @@
 
 0.1.1 24/04/2016 BETA
 
-- Fixed Persistent Save: It wont corrupt Altis saves.
+- Fixed Persistent Save: It won't corrupt Altis saves.
 - Corrected Maru respawning as Petros.
 - Corrected punishment if SDK player kills a NATO player.
 - Added an additional radio tower.
@@ -1684,7 +1684,7 @@ Introduced new Aggro and Warlevel system
 - Aggression is now displayed better, synched correctly and actual playable. Say goodbye to steady 100 aggression.
 
 Adapted QRFs and attacks
-- Adapted vehicle selection for QRFs and attacks. The heavier the unit, the later it will arrive in the game. No more tank responces at warlevel 1.
+- Adapted vehicle selection for QRFs. The heavier the unit, the later it will arrive in the game.
 - Adapted vehicle amount for QRFs and attacks. These are now heavily dependant on the aggression of the attacking faction. Doesn't mean you wont get overrun sometimes.
 
 Introduced a new Intel system

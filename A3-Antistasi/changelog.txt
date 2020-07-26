@@ -1668,7 +1668,7 @@ Changes from version 2.2 to 2.2.1 Antistasi Community Edition
   - CSAT outposts and airfields are set in fn_initGarrison.sqf now.
 
 
-2.3 - xxth xxxxx 2020
+2.3 - 26th July 2020
 
 Changes from version 2.2.1 to 2.3 Antistasi Community Edition
 

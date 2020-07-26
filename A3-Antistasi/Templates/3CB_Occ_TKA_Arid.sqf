@@ -7,7 +7,7 @@ nameOccupants = "TKA";
 //Police Faction
 factionGEN = "BLU_GEN_F";
 //SF Faction
-factionMaleOccupants = "UK3CB_BAF_Faction_Army_Desert";
+factionMaleOccupants = "UK3CB_TKA_I";
 //Miltia Faction
 if (gameMode != 4) then {factionFIA = "UK3CB_TKP_I"};
 
@@ -16,7 +16,7 @@ NATOFlag = "Flag_TKA_O_Army";
 NATOFlagTexture = "\UK3CB_Factions\addons\UK3CB_Factions_TKA\Flag\tka_o_army_co.paa";
 flagNATOmrk = "UK3CB_MARKER_TKA_O_Army";
 if (isServer) then {"NATO_carrier" setMarkerText "Takistani Carrier"};
-	
+
 //Loot Crate
 NATOAmmobox = "I_supplyCrate_F";
 
@@ -26,17 +26,17 @@ NATOAmmobox = "I_supplyCrate_F";
 //PvP Loadouts
 NATOPlayerLoadouts = [
 	//Team Leader
-	"UK3CB_TKA_B_SF_SL",
+	["3CB_TKA_Teamleader"] call A3A_fnc_getLoadout,
 	//Medic
-	"UK3CB_TKA_B_SF_MD",
+	["3CB_TKA_Medic"] call A3A_fnc_getLoadout,
 	//Autorifleman
-	"UK3CB_TKA_B_SF_AR",
+	["3CB_TKA_MachineGunner"] call A3A_fnc_getLoadout,
 	//Marksman
-	"UK3CB_TKA_B_SF_MK",
+	["3CB_TKA_Marksman"] call A3A_fnc_getLoadout,
 	//Anti-tank Scout
-	"UK3CB_TKA_B_SF_LAT",
+	["3CB_TKA_AT"] call A3A_fnc_getLoadout,
 	//AT2
-	"UK3CB_TKA_B_SF_LAT"
+	["3CB_TKA_AT2"] call A3A_fnc_getLoadout
 ];
 
 //PVP Player Vehicles
@@ -72,7 +72,7 @@ policeGrunt = "UK3CB_TKP_I_RIF_2";
 ////////////////////////////////////
 //Military Groups
 //Teams
-groupsNATOSentry = ["UK3CB_TKA_I_GL",NATOGrunt];
+groupsNATOSentry = ["UK3CB_TKA_I_MK",NATOGrunt];
 groupsNATOSniper = ["UK3CB_TKA_I_SF_SNI","UK3CB_TKA_I_SF_SPOT"];
 groupsNATOsmall = [groupsNATOSentry,groupsNATOSniper];
 //Fireteams
@@ -99,7 +99,7 @@ if (gameMode != 4) then
 		[
 		["UK3CB_TKP_I_STATIC_GUN_NSV","UK3CB_TKP_I_STATIC_TRI_NSV"],
 		["UK3CB_TKP_I_AT","UK3CB_TKP_I_RIF_2"],
-		["UK3CB_TKP_I_IFF","UK3CB_TKP_I_MK"]
+		["UK3CB_TKP_I_TL","UK3CB_TKP_I_MK"]
 		];
 	//Fireteams
 	groupsFIAMid =
@@ -122,7 +122,7 @@ groupsNATOGen = [policeOfficer,policeGrunt];
 ////////////////////////////////////
 //Military Vehicles
 //Lite
-vehNATOBike = "B_T_Quadbike_01_F";
+vehNATOBike = "I_G_Quadbike_01_F";
 vehNATOLightArmed = ["UK3CB_TKA_I_LR_M2","UK3CB_TKA_I_LR_AGS30","UK3CB_TKA_I_LR_SPG9","UK3CB_TKA_I_GAZ_Vodnik_PKT","UK3CB_TKA_I_LR_SF_M2","UK3CB_TKA_I_LR_SF_AGS30","UK3CB_TKA_I_BTR40_MG","UK3CB_TKA_I_BRDM2","UK3CB_TKA_I_BRDM2_ATGM"];
 vehNATOLightUnarmed = ["UK3CB_TKA_I_BTR40","UK3CB_TKA_I_GAZ_Vodnik","UK3CB_TKA_I_LR_Open","UK3CB_TKA_I_Hilux_Closed","UK3CB_TKA_I_BRDM2_HQ"];
 vehNATOTrucks = ["UK3CB_TKA_I_V3S_Closed","UK3CB_TKA_I_V3S_Open","UK3CB_TKA_I_V3S_Recovery"];
@@ -146,10 +146,10 @@ vehNATOTransportPlanes = [];
 //Heli
 vehNATOPatrolHeli = "UK3CB_TKA_I_UH1H_M240";
 vehNATOTransportHelis = ["UK3CB_TKA_I_Mi8","UK3CB_TKA_I_Mi8AMT",vehNATOPatrolHeli,"UK3CB_TKA_I_UH1H"];
-vehNATOAttackHelis = ["UK3CB_TKA_I_UH1H_M240","UK3CB_TKA_I_Mi_24P","UK3CB_TKA_I_Mi_24V","UK3CB_TKA_I_Mi8AMTSh"];
+vehNATOAttackHelis = ["UK3CB_TKA_I_Mi_24P","UK3CB_TKA_I_Mi_24V","UK3CB_TKA_I_Mi8AMTSh"];
 //UAV
-vehNATOUAV = "B_UAV_02_F";
-vehNATOUAVSmall = "B_UAV_01_F";
+vehNATOUAV = "I_UAV_02_F";
+vehNATOUAVSmall = "I_UAV_01_F";
 //Artillery
 vehNATOMRLS = "UK3CB_TKA_I_BM21";
 vehNATOMRLSMags = "rhs_mag_40Rnd_122mm_rockets";
@@ -161,7 +161,7 @@ vehNATOAir = vehNATOTransportHelis + vehNATOAttackHelis + [vehNATOPlane,vehNATOP
 if (gameMode != 4) then
 	{
     	vehFIAArmedCar = "UK3CB_TKP_I_Datsun_Pickup_PKM";
-    	vehFIATruck = "UK3CB_TKP_I_Hilux_Ipen";
+    	vehFIATruck = "UK3CB_TKP_I_Hilux_Open";
     	vehFIACar = "UK3CB_TKP_I_Lada_Police";
 	};
 
@@ -175,7 +175,7 @@ vehPoliceCar = "UK3CB_TKP_I_Lada_Police";
 NATOMG = "UK3CB_TKA_I_KORD_high";
 staticATOccupants = "UK3CB_TKA_I_Kornet";
 staticAAOccupants = "UK3CB_TKA_I_Igla_AA_pod";
-NATOMortar = "UK3CB_TKA_I_D30";
+NATOMortar = "UK3CB_TKA_I_2b14_82mm";
 
 //Static Weapon Bags
 MGStaticNATOB = "RHS_Kord_Gun_Bag";
@@ -187,4 +187,4 @@ supportStaticNATOB = "RHS_Kornet_Tripod_Bag";
 //Tall Support
 supportStaticNATOB2 = "RHS_Kord_Tripod_Bag";
 //Mortar Support
-supportStaticNATOB3 = "RHS_Podnos_Tripod_Bag";
+supportStaticNATOB3 = "RHS_Podnos_Bipod_Bag";

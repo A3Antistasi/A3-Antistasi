@@ -63,7 +63,7 @@ while {(spawner getVariable _markerX != 2) and (_countX < _num)} do
 		{
 		if (random 10 < 2.5) then
 			{
-			_dog = _groupX createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
+			_dog = [_groupX, "Fin_random_F",_positionX,[],0,"FORM"] call A3A_fnc_createUnit;
 			[_dog] spawn A3A_fnc_guardDog;
 			};
 		};
@@ -75,7 +75,8 @@ while {(spawner getVariable _markerX != 2) and (_countX < _num)} do
 if ((_esAAF) or (_markerX in destroyedSites)) then
 	{
 	{_grp = _x;
-	{[_x,""] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _grp;} forEach _groups;
+	// Forced non-spawner for performance and consistency with other garrison patrols
+	{[_x,"",false] call A3A_fnc_NATOinit; _soldiers pushBack _x} forEach units _grp;} forEach _groups;
 	}
 else
 	{

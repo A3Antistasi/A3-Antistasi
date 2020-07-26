@@ -1,9 +1,18 @@
+// Create a new rebel unit in a garrison that's already spawned
+
 _markerX = _this select 0;
 _typeX = _this select 1;
 _positionX = getMarkerPos _markerX;
 if (_typeX isEqualType "") then
 	{
-	_groups = if (_typeX == staticCrewTeamPlayer) then {[]} else {allGroups select {(leader _x getVariable ["markerX",""] == _markerX) and (count units _x < 8) and (vehicle (leader _x) == leader _x)}};
+	// Select a suitable group from the current garrison for this unit
+	_groups = if (_typeX == staticCrewTeamPlayer) then {[]} else {
+		allGroups select {
+			(leader _x getVariable ["markerX",""] == _markerX)
+			and (count units _x < 8) and (vehicle (leader _x) == leader _x)
+			and (side _x == teamPlayer)				// can happen with surrendered enemy garrison
+		};
+	};
 	_groupX = if (_groups isEqualTo []) then
 		{
 		createGroup teamPlayer
@@ -12,7 +21,7 @@ if (_typeX isEqualType "") then
 		{
 		_groups select 0;
 		};
-	_unit = _groupX createUnit [_typeX, _positionX, [], 0, "NONE"];
+	_unit = [_groupX, _typeX, _positionX, [], 0, "NONE"] call A3A_fnc_createUnit;
 	//if (_typeX in SDKSL) then {_groupX selectLeader _unit};
 	[_unit,_markerX] call A3A_fnc_FIAinitBases;
 	if (_typeX == staticCrewTeamPlayer) then
@@ -21,7 +30,7 @@ if (_typeX isEqualType "") then
 		_nul=[_veh] execVM "scripts\UPSMON\MON_artillery_add.sqf";//TODO need delete UPSMON link
 		_unit assignAsGunner _veh;
 		_unit moveInGunner _veh;
-		[_veh] call A3A_fnc_AIVEHinit;
+		[_veh, teamPlayer] call A3A_fnc_AIVEHinit;
 		};
 	if (_groups isEqualTo []) then
 		{

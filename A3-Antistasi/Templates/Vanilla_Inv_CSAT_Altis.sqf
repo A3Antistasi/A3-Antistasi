@@ -1,5 +1,3 @@
-//Call to Tanoa Invader Template
-if (worldName == "Tanoa") exitWith {call compile preProcessFileLineNumbers "Templates\Vanilla_Inv_CSAT_Tanoa.sqf"};
 ////////////////////////////////////
 //       NAMES AND FLAGS         ///
 ////////////////////////////////////
@@ -26,17 +24,17 @@ CSATAmmoBox = "O_supplyCrate_F";
 //PvP Loadouts
 CSATPlayerLoadouts = [
 	//Team Leader
-	"O_T_Recon_TL_F",
+	["vanilla_opfor_teamLeader_altis"] call A3A_fnc_getLoadout,
 	//Medic
-	"O_T_Recon_Medic_F",
+	["vanilla_opfor_medic_altis"] call A3A_fnc_getLoadout,
 	//Autorifleman
-	"O_Soldier_AR_F",
+	["vanilla_opfor_machineGunner_altis"] call A3A_fnc_getLoadout,
 	//Marksman
-	"O_T_Recon_M_F",
+	["vanilla_opfor_marksman_altis"] call A3A_fnc_getLoadout,
 	//Anti-tank Scout
-	"O_T_Recon_LAT_F",
+	["vanilla_opfor_AT_altis"] call A3A_fnc_getLoadout,
 	//AT2
-	"O_T_Recon_LAT_F"
+	["vanilla_opfor_AT2_altis"] call A3A_fnc_getLoadout
 ];
 
 //PVP Player Vehicles
@@ -47,10 +45,10 @@ vehCSATPVP = ["O_MRAP_02_F","O_LSV_02_unarmed_F","O_MRAP_02_hmg_F","O_LSV_02_arm
 ////////////////////////////////////
 //Military Units
 CSATGrunt = "O_Soldier_F";
-CSATOfficer = "O_Officer_F";
+CSATOfficer = "O_officer_F";
 CSATBodyG = "O_V_Soldier_hex_F";
-CSATCrew = "O_Crew_F";
-CSATMarksman = "O_Soldier_M_F";
+CSATCrew = "O_crew_F";
+CSATMarksman = "O_soldier_M_F";
 staticCrewInvaders = "O_support_MG_F";
 CSATPilot = "O_Pilot_F";
 
@@ -66,24 +64,24 @@ if (gameMode == 4) then
 ////////////////////////////////////
 //Military Groups
 //Teams
-groupsCSATSentry = ["O_soldier_GL_F","O_soldier_F"];
+groupsCSATSentry = ["O_Soldier_GL_F","O_Soldier_F"];
 groupsCSATSniper = ["O_sniper_F","O_spotter_F"];
 groupsCSATsmall = [groupsCSATSentry,["O_recon_M_F","O_recon_F"],groupsCSATSniper];
 //Fireteams
-groupsCSATAA = ["O_soldier_TL_F","O_soldier_AA_F","O_soldier_AA_F","O_soldier_AAA_F"];
-groupsCSATAT = ["O_soldier_TL_F","O_soldier_AT_F","O_soldier_AT_F","O_soldier_AAT_F"];
-groupsCSATmid = [["O_soldier_TL_F","O_soldier_AR_F","O_soldier_GL_F","O_soldier_LAT_F"],groupsCSATAA,groupsCSATAT];
+groupsCSATAA = ["O_Soldier_TL_F","O_Soldier_AA_F","O_Soldier_AA_F","O_Soldier_AAA_F"];
+groupsCSATAT = ["O_Soldier_TL_F","O_Soldier_AT_F","O_Soldier_AT_F","O_Soldier_AAT_F"];
+groupsCSATmid = [["O_Soldier_TL_F","O_Soldier_AR_F","O_Soldier_GL_F","O_Soldier_LAT_F"],groupsCSATAA,groupsCSATAT];
 //Squads
-CSATSquad = ["O_soldier_SL_F","O_soldier_F","O_soldier_LAT_F","O_soldier_M_F","O_soldier_TL_F","O_soldier_AR_F","O_soldier_A_F","O_medic_F"];
+CSATSquad = ["O_Soldier_SL_F","O_Soldier_F","O_Soldier_LAT_F","O_soldier_M_F","O_Soldier_TL_F","O_Soldier_AR_F","O_Soldier_A_F","O_medic_F"];
 CSATSpecOp = ["O_V_Soldier_TL_hex_F","O_V_Soldier_JTAC_hex_F","O_V_Soldier_M_hex_F","O_V_Soldier_Exp_hex_F","O_V_Soldier_LAT_hex_F","O_V_Soldier_Medic_hex_F"];
 groupsCSATSquad =
 	[
 	CSATSquad,
-	["O_soldier_SL_F","O_soldier_AR_F","O_soldier_GL_F","O_soldier_M_F","O_soldier_AT_F","O_soldier_AAT_F","O_soldier_A_F","O_medic_F"],
-	["O_soldier_SL_F","O_soldier_LAT_F","O_soldier_TL_F","O_soldier_AR_F","O_soldier_A_F","O_Support_Mort_F","O_Support_AMort_F","O_medic_F"],
-	["O_soldier_SL_F","O_soldier_LAT_F","O_soldier_TL_F","O_soldier_AR_F","O_soldier_A_F","O_Support_MG_F","O_Support_AMG_F","O_medic_F"],
-	["O_soldier_SL_F","O_soldier_LAT_F","O_soldier_TL_F","O_soldier_AR_F","O_soldier_A_F","O_soldier_AA_F","O_soldier_AAA_F","O_medic_F"],
-	["O_soldier_SL_F","O_soldier_LAT_F","O_soldier_TL_F","O_soldier_AR_F","O_soldier_A_F","O_engineer_F","O_engineer_F","O_medic_F"]
+	["O_Soldier_SL_F","O_Soldier_AR_F","O_Soldier_GL_F","O_soldier_M_F","O_Soldier_AT_F","O_Soldier_AAT_F","O_Soldier_A_F","O_medic_F"],
+	["O_Soldier_SL_F","O_Soldier_LAT_F","O_Soldier_TL_F","O_Soldier_AR_F","O_Soldier_A_F","O_support_Mort_F","O_support_AMort_F","O_medic_F"],
+	["O_Soldier_SL_F","O_Soldier_LAT_F","O_Soldier_TL_F","O_Soldier_AR_F","O_Soldier_A_F","O_support_MG_F","O_support_AMG_F","O_medic_F"],
+	["O_Soldier_SL_F","O_Soldier_LAT_F","O_Soldier_TL_F","O_Soldier_AR_F","O_Soldier_A_F","O_Soldier_AA_F","O_Soldier_AAA_F","O_medic_F"],
+	["O_Soldier_SL_F","O_Soldier_LAT_F","O_Soldier_TL_F","O_Soldier_AR_F","O_Soldier_A_F","O_engineer_F","O_engineer_F","O_medic_F"]
 	];
 
 //Militia Groups
@@ -122,6 +120,7 @@ vehCSATLightArmed = ["O_MRAP_02_hmg_F","O_MRAP_02_gmg_F","O_LSV_02_armed_F"];
 vehCSATLightUnarmed = ["O_MRAP_02_F","O_LSV_02_unarmed_F"];
 vehCSATTrucks = ["O_Truck_03_transport_F","O_Truck_03_covered_F"];
 vehCSATAmmoTruck = "O_Truck_03_ammo_F";
+vehCSATRepairTruck = "O_Truck_03_repair_F";
 vehCSATLight = vehCSATLightArmed + vehCSATLightUnarmed;
 //Armored
 vehCSATAPC = ["O_APC_Wheeled_02_rcws_v2_F","O_APC_Tracked_02_cannon_F"];
@@ -147,7 +146,7 @@ vehCSATUAVSmall = "O_UAV_01_F";
 vehCSATMRLS = "O_MBT_02_arty_F";
 vehCSATMRLSMags = "32Rnd_155mm_Mo_shells";
 //Combined Arrays
-vehCSATNormal = vehCSATLight + vehCSATTrucks + [vehCSATAmmoTruck, "O_Truck_03_fuel_F", "O_Truck_03_medical_F", "O_Truck_03_repair_F"];
+vehCSATNormal = vehCSATLight + vehCSATTrucks + [vehCSATAmmoTruck, vehCSATRepairTruck, "O_Truck_03_fuel_F", "O_Truck_03_medical_F"];
 vehCSATAir = vehCSATTransportHelis + vehCSATAttackHelis + [vehCSATPlane,vehCSATPlaneAA] + vehCSATTransportPlanes;
 
 //Militia Vehicles
@@ -162,19 +161,19 @@ if (gameMode == 4) then
 //        STATIC WEAPONS         ///
 ////////////////////////////////////
 //Assembled Statics
-CSATMG = "O_HMG_01_high_F";
+CSATMG = "I_G_HMG_02_high_F";
 staticATInvaders = "O_static_AT_F";
 staticAAInvaders = "O_static_AA_F";
 CSATMortar = "O_Mortar_01_F";
 
 //Static Weapon Bags
-MGStaticCSATB = "O_HMG_01_high_weapon_F";
+MGStaticCSATB = "I_G_HMG_02_high_weapon_F";
 ATStaticCSATB = "O_AT_01_weapon_F";
 AAStaticCSATB = "O_AA_01_weapon_F";
 MortStaticCSATB = "O_Mortar_01_weapon_F";
 //Short Support
-supportStaticCSATB = "O_HMG_01_support_F";
+supportStaticCSATB = "I_G_HMG_02_support_F";
 //Tall Support
-supportStaticCSATB2 = "O_HMG_01_support_high_F";
+supportStaticCSATB2 = "I_G_HMG_02_support_high_F";
 //Mortar Support
 supportStaticCSATB3 = "O_Mortar_01_support_F";

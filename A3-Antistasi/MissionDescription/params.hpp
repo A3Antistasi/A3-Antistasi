@@ -9,17 +9,24 @@ class Params
      };
      class gameMode
      {
-          title = "Game Mode";
+          title = "Game Mode - Do NOT change this mid mission";
           values[] = {1,2,3,4};
           texts[] = {"Reb vs Gov vs Inv","Reb vs Gov & Inv","Reb vs Gov","Reb vs Inv"};
           default = 1;
      };
      class autoSave
      {
-          title = "Enable Autosave (every hour)";
+          title = "Enable Autosave (every X minutes)";
           values[] = {1,0};
           texts[] = {"Yes","No"};
           default = 1;
+     };
+     class autoSaveInterval
+     {
+          title = "Time between autosaves (in minutes)";
+          values[] = {600,1200,1800,3600,5400};
+          texts[] = {"10","20","30","60","90"};
+          default = 3600;
      };
      class membership
      {
@@ -44,7 +51,7 @@ class Params
      };
      class mRadius
      {
-          title = "Distance from HQ for Sidemissions";
+          title = "Max distance from HQ for tasks";
           values[] = {2000,4000,6000,8000,10000,12000};
           default = 4000;
      };
@@ -71,7 +78,7 @@ class Params
      };
      class unlockItem
      {
-          title = "Number of the same weapons required to unlock";
+          title = "Number of the same item required to unlock";
           values[] = {15,25,40};
           default = 25;
      };
@@ -84,9 +91,9 @@ class Params
      class civTraffic
      {
           title = "Rate of Civ Traffic";
-          values[] = {0,1,2,3};
-          texts[] = {"None","Low","Medium","JAM"};
-          default = 1;
+          values[] = {0,1,2,4,};
+          texts[] = {"None","Low","Medium","High"};
+          default = 2;
      };
      class memberSlots
      {
@@ -109,11 +116,18 @@ class Params
           values[] = {1,0};
           default = 1;
      };
+     class personalGarageMax
+     {
+          title = "Max personal garage slots";
+          texts[] = {"Unlimited", "2", "5", "10"};
+          values[] = {0,2,5,10};
+          default = 2;
+     };
      class allowFT
      {
-          title = "Limited Fast Travel";
+          title = "Fast Travel Targets Allowed";
           values[] = {0,1};
-          texts[] = {"No","Yes"};
+          texts[] = {"Any friendly position","Only Airports & HQ"};
           default = 1;
      };
      class napalmEnabled
@@ -157,6 +171,13 @@ class Params
           values[] = {1,0};
           texts[] =  {"Yes","No"};
           default = 1;
+     };
+     class helmetLossChance
+     {
+          title = "Chance of helmet loss on headshots";
+          values[] = {0,33,66,100};
+          texts[] = {"Never","Sometimes","Often","Always"};
+          default = 33;
      };
      class Spacer10
      {

@@ -24,17 +24,17 @@ CSATAmmoBox = "O_supplyCrate_F";
 //PvP Loadouts
 CSATPlayerLoadouts = [
 	//Team Leader
-	"O_T_Recon_TL_F",
+	["vanilla_opfor_teamLeader_tanoa"] call A3A_fnc_getLoadout,
 	//Medic
-	"O_T_Recon_Medic_F",
+	["vanilla_opfor_medic_tanoa"] call A3A_fnc_getLoadout,
 	//Autorifleman
-	"O_Soldier_AR_F",
+	["vanilla_opfor_machineGunner_tanoa"] call A3A_fnc_getLoadout,
 	//Marksman
-	"O_T_Recon_M_F",
+	["vanilla_opfor_marksman_tanoa"] call A3A_fnc_getLoadout,
 	//Anti-tank Scout
-	"O_T_Recon_LAT_F",
+	["vanilla_opfor_AT_tanoa"] call A3A_fnc_getLoadout,
 	//AT2
-	"O_T_Recon_LAT_F"
+	["vanilla_opfor_AT2_tanoa"] call A3A_fnc_getLoadout
 ];
 
 //PVP Player Vehicles
@@ -49,7 +49,7 @@ CSATOfficer = "O_T_Officer_F";
 CSATBodyG = "O_V_Soldier_ghex_F";
 CSATCrew = "O_T_Crew_F";
 CSATMarksman = "O_T_Soldier_M_F";
-staticCrewInvaders = "O_T_support_MG_F";
+staticCrewInvaders = "O_T_Support_MG_F";
 CSATPilot = "O_T_Pilot_F";
 
 //Militia Units
@@ -64,24 +64,24 @@ if (gameMode == 4) then
 ////////////////////////////////////
 //Military Groups
 //Teams
-groupsCSATSentry = ["O_T_soldier_GL_F","O_T_soldier_F"];
-groupsCSATSniper = ["O_T_sniper_F","O_T_spotter_F"];
-groupsCSATsmall = [groupsCSATSentry,["O_T_recon_M_F","O_T_recon_F"],groupsCSATSniper];
+groupsCSATSentry = ["O_T_Soldier_GL_F","O_T_Soldier_F"];
+groupsCSATSniper = ["O_T_Sniper_F","O_T_Spotter_F"];
+groupsCSATsmall = [groupsCSATSentry,["O_T_Recon_M_F","O_T_Recon_F"],groupsCSATSniper];
 //Fireteams
-groupsCSATAA = ["O_T_soldier_TL_F","O_T_soldier_AA_F","O_T_soldier_AA_F","O_T_soldier_AAA_F"];
-groupsCSATAT = ["O_T_soldier_TL_F","O_T_soldier_AT_F","O_T_soldier_AT_F","O_T_soldier_AAT_F"];
-groupsCSATmid = [["O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_GL_F","O_T_soldier_LAT_F"],groupsCSATAA,groupsCSATAT];
+groupsCSATAA = ["O_T_Soldier_TL_F","O_T_Soldier_AA_F","O_T_Soldier_AA_F","O_T_Soldier_AAA_F"];
+groupsCSATAT = ["O_T_Soldier_TL_F","O_T_Soldier_AT_F","O_T_Soldier_AT_F","O_T_Soldier_AAT_F"];
+groupsCSATmid = [["O_T_Soldier_TL_F","O_T_Soldier_AR_F","O_T_Soldier_GL_F","O_T_Soldier_LAT_F"],groupsCSATAA,groupsCSATAT];
 //Squads
-CSATSquad = ["O_T_soldier_SL_F","O_T_soldier_F","O_T_soldier_LAT_F","O_T_soldier_M_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_medic_F"];
+CSATSquad = ["O_T_Soldier_SL_F","O_T_Soldier_F","O_T_Soldier_LAT_F","O_T_Soldier_M_F","O_T_Soldier_TL_F","O_T_Soldier_AR_F","O_T_Soldier_A_F","O_T_Medic_F"];
 CSATSpecOp = ["O_V_Soldier_TL_ghex_F","O_V_Soldier_JTAC_ghex_F","O_V_Soldier_M_ghex_F","O_V_Soldier_Exp_ghex_F","O_V_Soldier_LAT_ghex_F","O_V_Soldier_Medic_ghex_F"];
 groupsCSATSquad =
 	[
 	CSATSquad,
-	["O_T_soldier_SL_F","O_T_soldier_AR_F","O_T_soldier_GL_F","O_T_soldier_M_F","O_T_soldier_AT_F","O_T_soldier_AAT_F","O_T_soldier_A_F","O_T_medic_F"],
-	["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_Support_Mort_F","O_T_Support_AMort_F","O_T_medic_F"],
-	["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_Support_MG_F","O_T_Support_AMG_F","O_T_medic_F"],
-	["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_soldier_AA_F","O_T_soldier_AAA_F","O_T_medic_F"],
-	["O_T_soldier_SL_F","O_T_soldier_LAT_F","O_T_soldier_TL_F","O_T_soldier_AR_F","O_T_soldier_A_F","O_T_Engineer_F","O_T_Engineer_F","O_T_medic_F"]
+	["O_T_Soldier_SL_F","O_T_Soldier_AR_F","O_T_Soldier_GL_F","O_T_Soldier_M_F","O_T_Soldier_AT_F","O_T_Soldier_AAT_F","O_T_Soldier_A_F","O_T_Medic_F"],
+	["O_T_Soldier_SL_F","O_T_Soldier_LAT_F","O_T_Soldier_TL_F","O_T_Soldier_AR_F","O_T_Soldier_A_F","O_T_Support_Mort_F","O_T_Support_AMort_F","O_T_Medic_F"],
+	["O_T_Soldier_SL_F","O_T_Soldier_LAT_F","O_T_Soldier_TL_F","O_T_Soldier_AR_F","O_T_Soldier_A_F","O_T_Support_MG_F","O_T_Support_AMG_F","O_T_Medic_F"],
+	["O_T_Soldier_SL_F","O_T_Soldier_LAT_F","O_T_Soldier_TL_F","O_T_Soldier_AR_F","O_T_Soldier_A_F","O_T_Soldier_AA_F","O_T_Soldier_AAA_F","O_T_Medic_F"],
+	["O_T_Soldier_SL_F","O_T_Soldier_LAT_F","O_T_Soldier_TL_F","O_T_Soldier_AR_F","O_T_Soldier_A_F","O_T_Engineer_F","O_T_Engineer_F","O_T_Medic_F"]
 	];
 
 //Militia Groups
@@ -120,6 +120,7 @@ vehCSATLightArmed = ["O_T_MRAP_02_gmg_ghex_F","O_T_MRAP_02_hmg_ghex_F","O_T_LSV_
 vehCSATLightUnarmed = ["O_T_MRAP_02_ghex_F","O_T_LSV_02_unarmed_F"];
 vehCSATTrucks = ["O_T_Truck_03_transport_ghex_F","O_T_Truck_03_covered_ghex_F"];
 vehCSATAmmoTruck = "O_T_Truck_03_ammo_ghex_F";
+vehCSATRepairTruck = "O_T_Truck_03_repair_ghex_F";
 vehCSATLight = vehCSATLightArmed + vehCSATLightUnarmed;
 //Armored
 vehCSATAPC = ["O_T_APC_Wheeled_02_rcws_ghex_F","O_T_APC_Tracked_02_cannon_ghex_F"];
@@ -145,7 +146,7 @@ vehCSATUAVSmall = "O_UAV_01_F";
 vehCSATMRLS = "O_T_MBT_02_arty_ghex_F";
 vehCSATMRLSMags = "32Rnd_155mm_Mo_shells";
 //Combined Arrays
-vehCSATNormal = vehCSATLight + vehCSATTrucks + [vehCSATAmmoTruck, "O_T_Truck_03_fuel_ghex_F", "O_T_Truck_03_medical_ghex_F", "O_T_Truck_03_repair_ghex_F"];
+vehCSATNormal = vehCSATLight + vehCSATTrucks + [vehCSATAmmoTruck, vehCSATRepairTruck, "O_T_Truck_03_fuel_ghex_F", "O_T_Truck_03_medical_ghex_F"];
 vehCSATAir = vehCSATTransportHelis + vehCSATAttackHelis + [vehCSATPlane,vehCSATPlaneAA] + vehCSATTransportPlanes;
 
 //Militia Vehicles
@@ -160,19 +161,19 @@ if (gameMode == 4) then
 //        STATIC WEAPONS         ///
 ////////////////////////////////////
 //Assembled Statics
-CSATMG = "O_HMG_01_high_F";
-staticATInvaders = "O_T_static_AT_F";
+CSATMG = "I_G_HMG_02_high_F";
+staticATInvaders = "O_static_AT_F";
 staticAAInvaders = "O_static_AA_F";
 CSATMortar = "O_Mortar_01_F";
 
 //Static Weapon Bags
-MGStaticCSATB = "O_HMG_01_weapon_F";
+MGStaticCSATB = "I_G_HMG_02_high_weapon_F";
 ATStaticCSATB = "O_AT_01_weapon_F";
 AAStaticCSATB = "O_AA_01_weapon_F";
 MortStaticCSATB = "O_Mortar_01_weapon_F";
 //Short Support
-supportStaticCSATB = "O_HMG_01_support_F";
+supportStaticCSATB = "I_G_HMG_02_support_F";
 //Tall Support
-supportStaticCSATB2 = "O_HMG_01_support_high_F";
+supportStaticCSATB2 = "I_G_HMG_02_support_high_F";
 //Mortar Support
 supportStaticCSATB3 = "O_Mortar_01_support_F";

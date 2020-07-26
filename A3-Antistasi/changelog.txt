@@ -1763,7 +1763,7 @@ Implemented Jeroen Nots Enhanced Debug Console
   - Refactor of the hint system
   - Refactor of AIVEHinit
   - Refactor/recrite of patrolCA
-  - Rafactor/rewrite of wavedCA
+  - Refactor/rewrite of wavedCA
 
 ================ Bugfixes ========================
   - Money exploit regarding AI refunds
@@ -1777,7 +1777,7 @@ Implemented Jeroen Nots Enhanced Debug Console
   - More money exploits
   - Wrong message for end mission in some cases
   - Commander role vanishing
-  - Visibility of commander eligebility hitns
+  - Visibility of commander eligibility hints
   - Status bar breaking when controlling AIs
   - Give command to "cursor target" not working
   - IFA civ trucks not being recognized
@@ -1846,4 +1846,5 @@ Implemented Jeroen Nots Enhanced Debug Console
   =================  Code  =========================
   - Enhanced Travis for build checking
    
-*DISCLAIMER* - Significant template changes are still underway. You might want to avoid making custom templates for a while! 
+  =================  DISCLAIMER  =========================
+  - Significant template changes are still underway. You might want to avoid making custom templates for a while! 

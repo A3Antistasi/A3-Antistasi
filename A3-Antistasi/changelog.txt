@@ -1730,7 +1730,6 @@ Implemented Jeroen Nots Enhanced Debug Console
   - Added stamina reset to the heal box at HQ
   - Increased boat placement radius at HQ
   - Removed thermals from unlocking on Vanilla
-  - Added RDS Civilian Pack detection (Thank you, Mezcal)
   - Deactivated ACE options on the vehicleBox
   - Overhauled airstrikes to keep the sanity
   - Overhauled airport marker colours

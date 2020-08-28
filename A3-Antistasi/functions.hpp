@@ -91,6 +91,7 @@ class A3A
 		class rebuildAssets {};
 		class rebuildRadioTower {};
 		class relocateHQObjects {};
+		class remUnitCount {};
 		class repairRuinedBuilding {};
 		class resourceCheckSkipTime {};
 		class resourcesFIA {};

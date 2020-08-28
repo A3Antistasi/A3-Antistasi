@@ -343,7 +343,6 @@ class A3A
 		class LOG_Supplies {};
 		class LOG_Salvage {};
 		class missionRequest {};
-		class missionRequestAUTO {};
 		class REP_Antenna {};
 		class RES_Prisoners {};
 		class RES_Refugees {};

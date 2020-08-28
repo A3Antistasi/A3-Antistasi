@@ -525,6 +525,8 @@ class A3A
 	class UI
 	{
 		class customHint {};
+		class dismissHint {};
+		class renderHint {};
 	};
 
 	class Undercover

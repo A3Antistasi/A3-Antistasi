@@ -10,7 +10,14 @@
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","backpcks","ammunition","dateX", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
 
-specialVarLoads = [
+private _translateMarker = {
+	params ["_mrk"];
+	if (_mrk find "puesto" == 0) exitWith { "outpost" + (_mrk select [6]) };
+	if (_mrk find "puerto" == 0) exitWith { "seaport" + (_mrk select [6]) };
+	_mrk;
+};
+
+private _specialVarLoads = [
 	"outpostsFIA","minesX","staticsX","attackCountdownOccupants","antennas","mrkNATO","mrkSDK","prestigeNATO",
 	"prestigeCSAT","posHQ","hr","armas","items","backpcks","ammunition","dateX","prestigeOPFOR",
 	"prestigeBLUFOR","resourcesFIA","skillFIA","distanceSPWN","civPerc","maxUnits","destroyedSites",
@@ -20,10 +27,11 @@ specialVarLoads = [
 	"countCA", "attackCountdownInvaders", "testingTimerIsActive"
 ];
 
-_varName = _this select 0;
-_varValue = _this select 1;
+private _varName = _this select 0;
+private _varValue = _this select 1;
 if (isNil '_varValue') exitWith {};
-if (_varName in specialVarLoads) then {
+
+if (_varName in _specialVarLoads) then {
 	if (_varName == 'attackCountdownOccupants') then {attackCountdownOccupants = _varValue; publicVariable "attackCountdownOccupants"};
 	if (_varName == 'attackCountdownInvaders') then {attackCountdownInvaders = _varValue; publicVariable "attackCountdownInvaders"};
 	//Keep this for backwards compatiblity
@@ -50,9 +58,9 @@ if (_varName in specialVarLoads) then {
 	if (_varName == 'nextTick') then {nextTick = time + _varValue};
 	if (_varName == 'membersX') then {membersX = +_varValue; publicVariable "membersX"};
 	if (_varName == 'smallCAmrk') then {};		// Ignore. These are not persistent.
-	if (_varName == 'mrkNATO') then {{sidesX setVariable [_x,Occupants,true]} forEach _varValue;};
-	if (_varName == 'mrkCSAT') then {{sidesX setVariable [_x,Invaders,true]} forEach _varValue;};
-	if (_varName == 'mrkSDK') then {{sidesX setVariable [_x,teamPlayer,true]} forEach _varValue;};
+	if (_varName == 'mrkNATO') then {{sidesX setVariable [[_x] call _translateMarker,Occupants,true]} forEach _varValue;};
+	if (_varName == 'mrkCSAT') then {{sidesX setVariable [[_x] call _translateMarker,Invaders,true]} forEach _varValue;};
+	if (_varName == 'mrkSDK') then {{sidesX setVariable [[_x] call _translateMarker,teamPlayer,true]} forEach _varValue;};
 	if (_varName == 'controlsSDK') then {
 		{
 			sidesX setVariable [_x,teamPlayer,true]
@@ -140,7 +148,7 @@ if (_varName in specialVarLoads) then {
 	};
 	if (_varName == 'garrison') then {
 		//_markersX = markersX - outpostsFIA - controlsX - citiesX;
-		{garrison setVariable [_x select 0,_x select 1,true]} forEach _varvalue;
+		{garrison setVariable [[_x select 0] call _translateMarker,_x select 1,true]} forEach _varvalue;
 	};
 	if (_varName == 'wurzelGarrison') then {
 		{

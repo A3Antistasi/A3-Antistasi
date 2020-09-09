@@ -180,7 +180,8 @@ while {(_waves > 0)} do
 	{
 		//Attempt land attack if origin is an airport in range
 		_airportIndex = airportsX find _mrkOrigin;
-		if (_airportIndex >= 0 and (_posOrigin distance _posDestination < distanceForLandAttack)) then
+		if (_airportIndex >= 0 and (_posOrigin distance _posDestination < distanceForLandAttack)
+			and ([_posOrigin, _posDestination] call A3A_fnc_isTheSameIsland)) then
 		{
 			_spawnPoint = server getVariable (format ["spawn_%1", _mrkOrigin]);
 			_pos = getMarkerPos _spawnPoint;
@@ -190,7 +191,12 @@ while {(_waves > 0)} do
 		else
 		//Find an outpost we can attack from
 		{
-			_outposts = outposts select {(sidesX getVariable [_x,sideUnknown] == _sideX) and (getMarkerPos _x distance _posDestination < distanceForLandAttack)  and ([_x,false] call A3A_fnc_airportCanAttack)};
+			_outposts = outposts select {
+				(sidesX getVariable [_x,sideUnknown] == _sideX)
+				and (getMarkerPos _x distance _posDestination < distanceForLandAttack)
+				and {[_posDestination, getMarkerPos _x] call A3A_fnc_isTheSameIsland}
+				and {[_x,false] call A3A_fnc_airportCanAttack}			// checks idle, garrison size, spawndist2
+			};
 			if !(_outposts isEqualTo []) then
 			{
 				_outpost = selectRandom _outposts;

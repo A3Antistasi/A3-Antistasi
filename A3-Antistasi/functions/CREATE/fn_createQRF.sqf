@@ -424,9 +424,9 @@ else
 	else {waitUntil {sleep 5; (_timeX < time) or (call _fnc_lowStrength)}};
 	if (call _fnc_lowStrength) then
 	{
-		_markersX = resourcesX + factories + airportsX + outposts + seaports select {getMarkerPos _x distance _posDest < distanceSPWN};
+		private _nearMrk = [(resourcesX + factories + airportsX + outposts + seaports),_posDest] call BIS_fnc_nearestPosition;
 		_killZones = killZones getVariable [_source,[]];
-		_killZones append _markersX;
+		_killZones pushBack _nearMrk;
 		killZones setVariable [_source,_killZones,true];
 		[3, format ["QRF from %1 on position %2 defeated", _source, _target], _filename] call A3A_fnc_log;
 	}

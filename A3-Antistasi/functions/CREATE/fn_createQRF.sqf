@@ -377,7 +377,7 @@ else
 				};
 			};
 		};
-		sleep 30;
+		sleep 15;
 		[3, format ["QRF vehicle %1 sent with %2 soldiers", typeof _veh, count crew _veh], _filename] call A3A_fnc_log;
 
 		if (call _fnc_remUnitCount < 5) exitWith {

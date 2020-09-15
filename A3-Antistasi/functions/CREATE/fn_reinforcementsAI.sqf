@@ -1,27 +1,27 @@
 
-// Remove a random killzone if the aggression-based accumulator hits >1
-
-if (isNil "killZoneRemove") then {killZoneRemove = 0};
-killZoneRemove = killZoneRemove + 0.2 + 0.4 * (aggressionOccupants + aggressionInvaders) / 100;
-
-if (killZoneRemove >= 1) then
+// convert killzones into [base, target] array
+private _allKillzones = [];
 {
-	// convert killzones into [base, target] array
-	private _allKillzones = [];
-	{
-		private _base = _x;
-		private _kzlist = killZones getVariable [_base, []];
-		{ _allKillzones pushBack [_base, _x] } forEach _kzlist;
-	} forEach (outposts + airportsX);
+	private _base = _x;
+	private _kzlist = killZones getVariable [_base, []];
+	{ _allKillzones pushBack [_base, _x] } forEach _kzlist;
+} forEach (outposts + airportsX);
 
-	killZoneRemove = killZoneRemove - 1;
-	if (count _allKillzones == 0) exitWith {};
+// Remove random killzones if the aggression-based accumulator hits >1
+if (isNil "killZoneRemove") then {killZoneRemove = 0};
+private _kzAggroMult = 0.2 + 0.4 * (aggressionOccupants + aggressionInvaders) / 100;
+killZoneRemove = killZoneRemove + _kzAggroMult * (0.5 + 0.1 * count _allKillzones);
+if (count _allKillzones == 0) then { killZoneRemove = 0 };
 
-	// Remove a random killzone entry from the real killzones
+while {killZoneRemove >= 1} do
+{
+	// Remove a random killzone entry from the real killzones.
+	// May attempt to remove the same killzone multiple times. This is safe.
 	(selectRandom _allKillzones) params ["_base", "_target"];
 	private _kzlist = killZones getVariable [_base, []];
 	_kzlist deleteAt (_kzlist find _target);
 	killZones setVariable [_base, _kzlist, true];
+	killZoneRemove = killZoneRemove - 1;
 };
 
 // Handle the old reinforcements

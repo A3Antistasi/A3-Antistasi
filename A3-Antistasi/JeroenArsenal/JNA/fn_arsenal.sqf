@@ -1582,7 +1582,7 @@ switch _mode do {
 		private _ctrlListHandgun = _display displayctrl (IDC_RSCDISPLAYARSENAL_LIST + IDC_RSCDISPLAYARSENAL_TAB_HANDGUN);
 
 		// Prevent equipping item when there aren't any left
-		if (_amount == 0) exitWith{
+		if (_amount == 0 and _item != "") exitWith{
 			if(missionnamespace getvariable ["jna_reselect_item",true])then{//prefent loop when unavalable item was worn and a other unavalable item was selected
 				missionnamespace setvariable ["jna_reselect_item",false];
 				["ListSelectCurrent",[_display,_index]] call jn_fnc_arsenal;

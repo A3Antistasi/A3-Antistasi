@@ -196,15 +196,18 @@ do {
 				if (_typeX == civHeli) then {
 					_base = [_airportsX1, _player] call BIS_fnc_nearestPosition;
 					_size = [_base] call A3A_fnc_sizeMarker;
-					if ((_player distance2d getMarkerPos _base < _size * 3) and((sidesX getVariable[_base, sideUnknown] == Occupants) or(sidesX getVariable[_base, sideUnknown] == Invaders))) then {
+					if ((_player distance2d getMarkerPos _base < _size * 3) and((sidesX getVariable[_base, sideUnknown] == Occupants) or(sidesX getVariable[_base, sideUnknown] == Invaders))) exitWith {
 						_changeX = "NoFly";
+					};
+					_base = [outposts, _player] call BIS_fnc_nearestPosition;
+					if ((_player distance getMarkerPos _base < 100) and((sidesX getVariable[_base, sideUnknown] == Occupants) or(sidesX getVariable[_base, sideUnknown] == Invaders))) exitWith {
+						_changeX = "distanceX";
 					};
 				};
 			};
 		};
 	};
 };
-diag_log format["[Antistasi] Player detected in %1 (undercover.sqf)", _onDetectionMarker];
 
 if (captive _player) then {
 	[_player, false] remoteExec["setCaptive"];

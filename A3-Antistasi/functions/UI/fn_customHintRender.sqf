@@ -28,7 +28,6 @@ if (!hasInterface || !A3A_customHintEnable) exitWith {false;}; // Disabled for s
 
 if (count A3A_customHint_Queue isEqualTo 0) then {
     hintSilent "";
-    A3A_customHint_CanRender = false;
 } else{
     private _autoDismiss = 15; // seconds
     if (serverTime - A3A_customHint_LastDismiss > _autoDismiss) exitWith {

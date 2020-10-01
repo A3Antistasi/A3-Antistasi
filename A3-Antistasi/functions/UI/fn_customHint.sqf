@@ -42,8 +42,8 @@ Authors: Michael Phillips(original customHint), Caleb Serafin
 License: MIT License, Copyright (c) 2019 Barbolani & The Official AntiStasi Community
 */
 params [
-    ["_headerText", "", [""]],
-    ["_bodyText", "", ["",parseText""]],
+    ["_headerText", "headermissingno", [""]],
+    ["_bodyText", "bodymissingno", ["",parseText""]],
     ["_isSilent", false, [false]],
     ["_iconData", ["functions\UI\images\logo.paa",4], [ [] ], 2]
 ];
@@ -75,7 +75,6 @@ if (A3A_customHintEnable) then {
         A3A_customHint_Queue set [_index,[_headerText,_structuredText,_isSilent]];
     };
     if (A3A_customHint_Queue #0#0 isEqualTo _headerText) then {A3A_customHint_LastDismiss = serverTime;};
-    A3A_customHint_CanRender = true;
 } else {
     if (_isSilent) then {
         hintSilent _structuredText;
@@ -86,4 +85,3 @@ if (A3A_customHintEnable) then {
 true;
 
 // TODO: remove all `hintSilent ""` used in boot processes.
-// TODO: Get colour from Loaded Arma 3 profile (Might be done when actual GUI is designed)

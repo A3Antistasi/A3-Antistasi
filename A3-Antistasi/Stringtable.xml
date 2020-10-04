@@ -783,6 +783,16 @@
       </Key>
     </Container>
     <Container name="mission_info">
+      <Key ID="STR_antistasi_mission_info_altis_mapname_short_text">
+        <Original>Antistasi Altis</Original>
+        <English>Antistasi Altis</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_altis_mapname_text">
+        <Original>Antistasi - Liberation of Altis</Original>
+        <English>Antistasi - Liberation of Altis</English>
+        <French>Antistasi - Libération d'Altis</French>
+        <Korean>Antistasi - Altis 해방</Korean>
+      </Key>
       <Key ID="STR_antistasi_mission_info_altis_description_text">
         <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
         <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
@@ -792,14 +802,31 @@
         <Czech>Buďte vedoucím odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
         <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
       </Key>
-      <Key ID="STR_antistasi_mission_info_virolahti_description_text">
-        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
-        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
-        <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
-        <Russian>Стань лидером сопротивления. Сражайся против врага превосходящего в технологии, количистве, вооружении и технике. Используй партизанскую тактику в полностью динамическом мире.</Russian>
-        <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
-        <Czech>Buďte vedoucím odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
-        <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
+      <Key ID="STR_antistasi_mission_info_altis_blurb_text">
+        <Original>Because nothing is more important than Freedom.</Original>
+        <English>Because nothing is more important than Freedom.</English>
+        <French>Parce que rien n'est plus important que la Liberté.</French>
+        <German>Weil nichts wichtiger ist als die Freiheit.</German>
+        <Czech>Protože nic není důležitější než svoboda.</Czech>
+        <Korean>자유보다 중요한건 없기에.</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_altisB_mapname_short_text">
+        <Original>Antistasi Altis (BLUFOR)</Original>
+        <English>Antistasi Altis (BLUFOR)</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_altisB_mapname_text">
+        <Original>Antistasi - Liberation of Altis (BLUFOR)</Original>
+        <English>Antistasi - Liberation of Altis (BLUFOR)</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_stratis_mapname_short_text">
+        <Original>Antistasi Stratis</Original>
+        <English>Antistasi Stratis</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_stratis_mapname_text">
+        <Original>Antistasi - Liberation of Stratis</Original>
+        <English>Antistasi - Liberation of Stratis</English>
+        <French>Antistasi - Libération de Stratis</French>
+        <Korean>Antistasi - Stratis 해방</Korean>
       </Key>
       <Key ID="STR_antistasi_mission_info_stratis_description_text">
         <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
@@ -810,59 +837,6 @@
         <Czech>Buďte vedoucím odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
         <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
       </Key>
-      <Key ID="STR_antistasi_mission_info_altis_mapname_text">
-        <Original>Antistasi - Liberation of Altis</Original>
-        <English>Antistasi - Liberation of Altis</English>
-        <French>Antistasi - Libération d'Altis</French>
-        <Korean>Antistasi - Altis 해방</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_virolahti_mapname_text">
-        <Original>Antistasi - Liberation of Virolahti</Original>
-        <English>Antistasi - Liberation of Virolahti</English>
-        <French>Antistasi - Libération de Virolahti</French>
-        <Korean>Antistasi - Virolahti 해방</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_stratis_mapname_text">
-        <Original>Antistasi - Liberation of Stratis</Original>
-        <English>Antistasi - Liberation of Stratis</English>
-        <French>Antistasi - Libération de Stratis</French>
-        <Korean>Antistasi - Stratis 해방</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_altis_mapname_short_text">
-        <Original>Antistasi Altis</Original>
-        <English>Antistasi Altis</English>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_virolahti_mapname_short_text">
-        <Original>Antistasi Virolahti</Original>
-        <English>Antistasi Virolahti</English>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_stratis_mapname_short_text">
-        <Original>Antistasi Stratis</Original>
-        <English>Antistasi Stratis</English>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_altisB_mapname_text">
-        <Original>Antistasi - Liberation of Altis (BLUFOR)</Original>
-        <English>Antistasi - Liberation of Altis (BLUFOR)</English>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_altisB_mapname_short_text">
-        <Original>Antistasi Altis (BLUFOR)</Original>
-        <English>Antistasi Altis (BLUFOR)</English>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_altis_blurb_text">
-        <Original>Because nothing is more important than Freedom.</Original>
-        <English>Because nothing is more important than Freedom.</English>
-        <French>Parce que rien n'est plus important que la Liberté.</French>
-        <German>Weil nichts wichtiger ist als die Freiheit.</German>
-        <Czech>Protože nic není důležitější než svoboda.</Czech>
-        <Korean>자유보다 중요한건 없기에.</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_virolahti_blurb_text">
-        <Original>Hunting in the woods</Original>
-        <English>Hunting in the woods</English>
-        <French>Chasse dans les bois</French>
-        <Czech>Lov v lese</Czech>
-        <Korean>숲 속의 사냥</Korean>
-      </Key>
       <Key ID="STR_antistasi_mission_info_stratis_blurb_text">
         <Original>Because nothing is more important than Freedom.</Original>
         <English>Because nothing is more important than Freedom.</English>
@@ -870,106 +844,6 @@
         <German>Weil nichts wichtiger ist als die Freiheit.</German>
         <Czech>Protože nic není důležitější než svoboda.</Czech>
         <Korean>자유보다 중요한건 없기에.</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_tanoa_description_text">
-        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
-        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
-        <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
-        <Russian>Стань лидером сопротивления. Сражайся против врага превосходящего в технологии, количистве, вооружении и технике. Используй партизанскую тактику в полностью динамическом мире.</Russian>
-        <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
-        <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
-        <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_tanoa_mapname_text">
-        <Original>Antistasi - Warlords of the Pacific</Original>
-        <English>Antistasi - Warlords of the Pacific</English>
-        <French>Antistasi - Les Seigneurs de Guerre du Pacifique</French>
-        <Russian>Antistasi - Хозяева Тихого Океана</Russian>
-        <German>Antistasi - Warlords of the Pacific</German>
-        <Czech>Antistasi - Vojevůdci Pacifiku</Czech>
-        <Korean>안티스타시 - 태평양의 군벌</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_tanoa_mapname_short_text">
-        <Original>Antistasi Tanoa</Original>
-        <English>Antistasi Tanoa</English>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_tanoa_blurb_text">
-        <Original>Business and War...</Original>
-        <English>Business and War...</English>
-        <French>Les Affaires et la Guerre...</French>
-        <Russian>Бизнес и Война ...</Russian>
-        <German>Geschäft und Krieg...</German>
-        <Czech>Obchod a válka ...</Czech>
-        <Korean>사업과 전쟁</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_cherna_description_text">
-        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
-        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
-        <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
-        <Russian>Стань лидером сопротивления. Сражайся против врага превосходящего в технологии, количистве, вооружении и технике. Используй партизанскую тактику в полностью динамическом мире.</Russian>
-        <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
-        <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
-        <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_chernawinter_description_text">
-        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
-        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
-        <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
-        <Russian>Стань лидером сопротивления. Сражайся против врага превосходящего в технологии, количистве, вооружении и технике. Используй партизанскую тактику в полностью динамическом мире.</Russian>
-        <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
-        <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
-        <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_cherna_mapname_text">
-        <Original>Antistasi - Kolkhoz in revolt</Original>
-        <English>Antistasi - Kolkhoz in revolt</English>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_chernawinter_mapname_text">
-        <Original>Antistasi - Chilled revolt</Original>
-        <English>Antistasi - Chilled revolt</English>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_cherna_mapname_short_text">
-        <Original>Antistasi Chernarus</Original>
-        <English>Antistasi Chernarus</English>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_chernawinter_mapname_short_text">
-        <Original>Antistasi Chernarus Winter</Original>
-        <English>Antistasi Chernarus Winter</English>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_cherna_blurb_text">
-        <Original>Between the anvil and a steamroller.</Original>
-        <English>Between the anvil and a steamroller.</English>
-        <French>Entre l'enclume et un rouleau compresseur</French>
-        <Russian>Между катком и наковальней.</Russian>
-        <German>Zwischen einem Amboss und einer Dampfwalze.</German>
-        <Czech>Mezi kovadlinou a parním válcem.</Czech>
-        <Korean>모루와 강압기 사이</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_chernawinter_blurb_text">
-        <Original>Beware: Santa Claus is hunting you!</Original>
-        <English>Beware: Santa Claus is hunting you!</English>
-        <French>Attention: le Père Noël vous chasse!</French>
-        <German>Vorsicht: Der Weihnachtsmann jagd dich!</German>
-        <Czech>Pozor: Santa Claus tě loví!</Czech>
-        <Korean>경고: 산타 할아버지가 당신을 사냥하고 있습니다!</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_malden_description_text">
-        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
-        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
-        <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
-        <Russian>Стань лидером сопротивления. Сражайся против врага превосходящего в технологии, количистве, вооружении и технике. Используй партизанскую тактику в полностью динамическом мире.</Russian>
-        <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
-        <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
-        <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
-      </Key>
-      <Key ID="STR_antistasi_mission_info_malden_mapname_text">
-        <Original>Antistasi - Liberation of Malden</Original>
-        <English>Antistasi - Liberation of Malden</English>
-        <French>Antistasi - La Libération de Malden</French>
-        <Russian>Antistasi - Освобождение Мальдена</Russian>
-        <German>Antistasi - Liberation of Malden</German>
-        <Czech>Antistasi - Osvobození Maldenu</Czech>
-        <Korean>Antistasi - Malden 해방</Korean>
       </Key>
       <Key ID="STR_antistasi_mission_info_malden_mapname_short_text">
         <Original>Antistasi Malden</Original>
@@ -980,6 +854,24 @@
         <Czech>Antistasi Malden</Czech>
         <Korean>Antistasi Malden</Korean>
       </Key>
+      <Key ID="STR_antistasi_mission_info_malden_mapname_text">
+        <Original>Antistasi - Liberation of Malden</Original>
+        <English>Antistasi - Liberation of Malden</English>
+        <French>Antistasi - La Libération de Malden</French>
+        <Russian>Antistasi - Освобождение Мальдена</Russian>
+        <German>Antistasi - Liberation of Malden</German>
+        <Czech>Antistasi - Osvobození Maldenu</Czech>
+        <Korean>Antistasi - Malden 해방</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_malden_description_text">
+        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
+        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
+        <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
+        <Russian>Стань лидером сопротивления. Сражайся против врага превосходящего в технологии, количистве, вооружении и технике. Используй партизанскую тактику в полностью динамическом мире.</Russian>
+        <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
+        <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
+        <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
+      </Key>
       <Key ID="STR_antistasi_mission_info_malden_blurb_text">
         <Original>The island is small but packed with enemies. Look out!</Original>
         <English>The island is small but packed with enemies. Look out!</English>
@@ -989,7 +881,20 @@
         <Czech>Ostrov je malý, ale plný nepřátel. Pozor!</Czech>
         <Korean>섬은 작지만 적으로 가득합니다. 조심하십시오!</Korean>
       </Key>
-      <Key ID="STR_antistasi_mission_info_livonia_description_text">
+      <Key ID="STR_antistasi_mission_info_tanoa_mapname_short_text">
+        <Original>Antistasi Tanoa</Original>
+        <English>Antistasi Tanoa</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_tanoa_mapname_text">
+        <Original>Antistasi - Warlords of the Pacific</Original>
+        <English>Antistasi - Warlords of the Pacific</English>
+        <French>Antistasi - Les Seigneurs de Guerre du Pacifique</French>
+        <Russian>Antistasi - Хозяева Тихого Океана</Russian>
+        <German>Antistasi - Warlords of the Pacific</German>
+        <Czech>Antistasi - Vojevůdci Pacifiku</Czech>
+        <Korean>안티스타시 - 태평양의 군벌</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_tanoa_description_text">
         <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
         <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
         <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
@@ -997,6 +902,22 @@
         <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
         <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
         <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_tanoa_blurb_text">
+        <Original>Business and War...</Original>
+        <English>Business and War...</English>
+        <French>Les Affaires et la Guerre...</French>
+        <Russian>Бизнес и Война ...</Russian>
+        <German>Geschäft und Krieg...</German>
+        <Czech>Obchod a válka ...</Czech>
+        <Korean>사업과 전쟁</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_livonia_mapname_short_text">
+        <Original>Antistasi Livonia</Original>
+        <English>Antistasi Livonia</English>
+        <German>Antistasi Livonia</German>
+        <Czech>Antistasi Livonia</Czech>
+        <Korean>Antistasi Livonia</Korean>
       </Key>
       <Key ID="STR_antistasi_mission_info_livonia_mapname_text">
         <Original>Antistasi - The Baltic Revolution</Original>
@@ -1007,12 +928,14 @@
         <Czech>Antistasi - Baltská Revoluce</Czech>
         <Korean>Antistasi - 발틱 혁명</Korean>
       </Key>
-      <Key ID="STR_antistasi_mission_info_livonia_mapname_short_text">
-        <Original>Antistasi Livonia</Original>
-        <English>Antistasi Livonia</English>
-        <German>Antistasi Livonia</German>
-        <Czech>Antistasi Livonia</Czech>
-        <Korean>Antistasi Livonia</Korean>
+      <Key ID="STR_antistasi_mission_info_livonia_description_text">
+        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
+        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
+        <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
+        <Russian>Стань лидером сопротивления. Сражайся против врага превосходящего в технологии, количистве, вооружении и технике. Используй партизанскую тактику в полностью динамическом мире.</Russian>
+        <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
+        <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
+        <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
       </Key>
       <Key ID="STR_antistasi_mission_info_livonia_blurb_text">
         <Original>Stuck between two fronts.</Original>
@@ -1023,7 +946,41 @@
         <Czech>Uvízl mezi dvěma frontami.</Czech>
         <Korean>두 전선 사이에 갇히다.</Korean>
       </Key>
-      <Key ID="STR_antistasi_mission_info_kunduz_description_text">
+      <Key ID="STR_antistasi_mission_info_virolahti_mapname_short_text">
+        <Original>Antistasi Virolahti</Original>
+        <English>Antistasi Virolahti</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_virolahti_mapname_text">
+        <Original>Antistasi - Liberation of Virolahti</Original>
+        <English>Antistasi - Liberation of Virolahti</English>
+        <French>Antistasi - Libération de Virolahti</French>
+        <Korean>Antistasi - Virolahti 해방</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_virolahti_description_text">
+        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
+        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
+        <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
+        <Russian>Стань лидером сопротивления. Сражайся против врага превосходящего в технологии, количистве, вооружении и технике. Используй партизанскую тактику в полностью динамическом мире.</Russian>
+        <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
+        <Czech>Buďte vedoucím odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
+        <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_virolahti_blurb_text">
+        <Original>Hunting in the woods</Original>
+        <English>Hunting in the woods</English>
+        <French>Chasse dans les bois</French>
+        <Czech>Lov v lese</Czech>
+        <Korean>숲 속의 사냥</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_cherna_mapname_short_text">
+        <Original>Antistasi Chernarus</Original>
+        <English>Antistasi Chernarus</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_cherna_mapname_text">
+        <Original>Antistasi - Kolkhoz in revolt</Original>
+        <English>Antistasi - Kolkhoz in revolt</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_cherna_description_text">
         <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
         <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
         <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
@@ -1032,14 +989,39 @@
         <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
         <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
       </Key>
-      <Key ID="STR_antistasi_mission_info_kunduz_mapname_text">
-        <Original>Antistasi - Battle of Kunduz</Original>
-        <English>Antistasi - Battle of Kunduz</English>
-        <French>Antistasi - La Bataille de Kanduz</French>
-        <Russian>Antistasi - Битва за Кундуз</Russian>
-        <German>Antistasi - Battle of Kunduz</German>
-        <Czech>Antistasi - Bitva o Kunduz</Czech>
-        <Korean>Antistasi - Kunduz 전투</Korean>
+      <Key ID="STR_antistasi_mission_info_cherna_blurb_text">
+        <Original>Between the anvil and a steamroller.</Original>
+        <English>Between the anvil and a steamroller.</English>
+        <French>Entre l'enclume et un rouleau compresseur</French>
+        <Russian>Между катком и наковальней.</Russian>
+        <German>Zwischen einem Amboss und einer Dampfwalze.</German>
+        <Czech>Mezi kovadlinou a parním válcem.</Czech>
+        <Korean>모루와 강압기 사이</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_chernawinter_mapname_short_text">
+        <Original>Antistasi Chernarus Winter</Original>
+        <English>Antistasi Chernarus Winter</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_chernawinter_mapname_text">
+        <Original>Antistasi - Chilled revolt</Original>
+        <English>Antistasi - Chilled revolt</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_chernawinter_description_text">
+        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
+        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
+        <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
+        <Russian>Стань лидером сопротивления. Сражайся против врага превосходящего в технологии, количистве, вооружении и технике. Используй партизанскую тактику в полностью динамическом мире.</Russian>
+        <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
+        <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
+        <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_chernawinter_blurb_text">
+        <Original>Beware: Santa Claus is hunting you!</Original>
+        <English>Beware: Santa Claus is hunting you!</English>
+        <French>Attention: le Père Noël vous chasse!</French>
+        <German>Vorsicht: Der Weihnachtsmann jagd dich!</German>
+        <Czech>Pozor: Santa Claus tě loví!</Czech>
+        <Korean>경고: 산타 할아버지가 당신을 사냥하고 있습니다!</Korean>
       </Key>
       <Key ID="STR_antistasi_mission_info_kunduz_mapname_short_text">
         <Original>Antistasi Kunduz</Original>
@@ -1050,6 +1032,24 @@
         <Czech>Antistasi Kunduz</Czech>
         <Korean>Antistasi Kunduz</Korean>
       </Key>
+      <Key ID="STR_antistasi_mission_info_kunduz_mapname_text">
+        <Original>Antistasi - Battle of Kunduz</Original>
+        <English>Antistasi - Battle of Kunduz</English>
+        <French>Antistasi - La Bataille de Kanduz</French>
+        <Russian>Antistasi - Битва за Кундуз</Russian>
+        <German>Antistasi - Battle of Kunduz</German>
+        <Czech>Antistasi - Bitva o Kunduz</Czech>
+        <Korean>Antistasi - Kunduz 전투</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_kunduz_description_text">
+        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
+        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
+        <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
+        <Russian>Стань лидером сопротивления. Сражайся против врага превосходящего в технологии, количистве, вооружении и технике. Используй партизанскую тактику в полностью динамическом мире.</Russian>
+        <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
+        <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
+        <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
+      </Key>
       <Key ID="STR_antistasi_mission_info_kunduz_blurb_text">
         <Original>Sand and blood</Original>
         <English>Sand and blood</English>
@@ -1059,14 +1059,6 @@
         <Czech>Písek a krev</Czech>
         <Korean>모래와 피</Korean>
       </Key>
-      <Key ID="STR_antistasi_mission_info_tembelan_mapname_text">
-        <Original>Antistasi - Liberation of Tembelan Island</Original>
-        <English>Antistasi - Liberation of Tembelan Island</English>
-        <French>Antistasi - Liberation de l'ile de Tembelan</French>
-        <German>Antistasi - Liberation of Tembelan Island</German>
-        <Czech>Antistasi - Osvobození Ostrova Tembelan</Czech>
-        <Korean>Antistasi - Tembelan 섬 해방</Korean>
-      </Key>
       <Key ID="STR_antistasi_mission_info_tembelan_mapname_short_text">
         <Original>Antistasi Tembelan</Original>
         <English>Antistasi Tembelan</English>
@@ -1075,13 +1067,13 @@
         <Czech>Antistasi Tembelan</Czech>
         <Korean>Antistasi Tembelan</Korean>
       </Key>
-      <Key ID="STR_antistasi_mission_info_tembelan_blurb_text">
-        <Original>Beauty and destruction</Original>
-        <English>Beauty and destruction</English>
-        <French>Beauté et destruction</French>
-        <German>Schönheit und Zerstörung</German>
-        <Czech>Krása a destrukce</Czech>
-        <Korean>아름다움과 파괴</Korean>
+      <Key ID="STR_antistasi_mission_info_tembelan_mapname_text">
+        <Original>Antistasi - Liberation of Tembelan Island</Original>
+        <English>Antistasi - Liberation of Tembelan Island</English>
+        <French>Antistasi - Liberation de l'ile de Tembelan</French>
+        <German>Antistasi - Liberation of Tembelan Island</German>
+        <Czech>Antistasi - Osvobození Ostrova Tembelan</Czech>
+        <Korean>Antistasi - Tembelan 섬 해방</Korean>
       </Key>
       <Key ID="STR_antistasi_mission_info_tembelan_description_text">
         <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
@@ -1092,6 +1084,14 @@
         <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
         <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
       </Key>
+      <Key ID="STR_antistasi_mission_info_tembelan_blurb_text">
+        <Original>Beauty and destruction</Original>
+        <English>Beauty and destruction</English>
+        <French>Beauté et destruction</French>
+        <German>Schönheit und Zerstörung</German>
+        <Czech>Krása a destrukce</Czech>
+        <Korean>아름다움과 파괴</Korean>
+      </Key>
       <Key ID="STR_antistasi_mission_info_anizay_mapname_short_text">
         <Original>Antistasi Anizay</Original>
         <English>Antistasi Anizay</English>
@@ -1099,6 +1099,13 @@
         <German>Antistasi Anizay</German>
         <Czech>Antistasi Anizay</Czech>
         <Korean>Antistasi Anizay</Korean>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_anizay_mapname_text">
+        <Original>Antistasi - Liberation of Anizay</Original>
+        <English>Antistasi - Liberation of Anizay</English>
+        <German>Antistasi - Liberation of Anizay</German>
+        <Czech>Antistasi - Osvobození Anizay</Czech>
+        <Korean>Antistasi - Anizay 해방</Korean>
       </Key>
       <Key ID="STR_antistasi_mission_info_anizay_description_text">
         <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
@@ -1109,19 +1116,92 @@
         <Czech>Buďte vůdcem odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
         <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
       </Key>
-      <Key ID="STR_antistasi_mission_info_anizay_mapname_text">
-        <Original>Antistasi - Liberation of Anizay</Original>
-        <English>Antistasi - Liberation of Anizay</English>
-        <German>Antistasi - Liberation of Anizay</German>
-        <Czech>Antistasi - Osvobození Anizay</Czech>
-        <Korean>Antistasi - Anizay 해방</Korean>
-      </Key>
       <Key ID="STR_antistasi_mission_info_anizay_blurb_text">
         <Original>Fought on the camel's back</Original>
         <English>Fought on the camel's back</English>
         <German>Kampf auf dem Kamelrücken</German>
         <Czech>Bojovat na zádech velblouda</Czech>
         <Korean>낙타 등 위에서의 싸움</Korean>
+      </Key>
+	  <Key ID="STR_antistasi_mission_info_1_mapname_short_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_1_mapname_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_1_description_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_1_blurb_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+	  <Key ID="STR_antistasi_mission_info_2_mapname_short_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_2_mapname_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_2_description_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_2_blurb_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+	  <Key ID="STR_antistasi_mission_info_3_mapname_short_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_3_mapname_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_3_description_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_3_blurb_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+	  <Key ID="STR_antistasi_mission_info_4_mapname_short_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_4_mapname_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_4_description_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_4_blurb_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+	  <Key ID="STR_antistasi_mission_info_5_mapname_short_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_5_mapname_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_5_description_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
+      </Key>
+      <Key ID="STR_antistasi_mission_info_5_blurb_text">
+        <Original>Placeholder</Original>
+        <English>Placeholder</English>
       </Key>
     </Container>
     <Container name="journal_entries">

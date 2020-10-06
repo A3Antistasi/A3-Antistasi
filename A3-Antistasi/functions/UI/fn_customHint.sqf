@@ -12,7 +12,7 @@ Scope:
     <LOCAL> Execute on each player to add a global notification.
 
 Environment:
-    <UNSCHEDULED> Simultaneous modification may cause trampling of items in A3A_customHint_Queue.
+    <UNSCHEDULED> Simultaneous modification may cause trampling of items in A3A_customHint_MSGs.
 
 Parameters:
     <STRING> Heading of your notification.
@@ -68,13 +68,16 @@ if (_bodyText isEqualType parseText"") then {
 }; //
 
 if (A3A_customHintEnable) then {
-    private _index = A3A_customHint_Queue findIf {(_x #0) isEqualTo _headerText}; // Temporary solution until an programming-interface is added for counters and timers.
+    private _index = A3A_customHint_MSGs findIf {(_x #0) isEqualTo _headerText}; // Temporary solution until an programming-interface is added for counters and timers.
     if (_index isEqualTo -1) then {
-        A3A_customHint_Queue pushBack [_headerText,_structuredText,_isSilent];
+        A3A_customHint_MSGs pushBack [_headerText,_structuredText,_isSilent];
     } else {
-        A3A_customHint_Queue set [_index,[_headerText,_structuredText,_isSilent]];
+        A3A_customHint_MSGs set [_index,[_headerText,_structuredText,_isSilent]];
     };
-    if (A3A_customHint_Queue #0#0 isEqualTo _headerText) then {A3A_customHint_LastDismiss = serverTime;};
+    private _lastMSGIndex = count A3A_customHint_MSGs - 1;
+    if (A3A_customHint_MSGs #(_lastMSGIndex)#0 isEqualTo _headerText) then {
+        A3A_customHint_LastMSG = serverTime;
+    };
 } else {
     if (_isSilent) then {
         hintSilent _structuredText;

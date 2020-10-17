@@ -87,6 +87,7 @@ else
     //Select the side to attack and the remaining targets
     _targetSide = selectRandomWeighted [teamPlayer, (0.5 * _playersHoldRatio) + (0.5 * (_aggression/100)), _enemySide, _enemyAIHoldRatio];
     _possibleTargets = _possibleTargets select {sidesX getVariable [_x,sideUnknown] == _targetSide};
+    [3, format ["Selected target side is %1", _targetSide], _filename] call A3A_fnc_log;
 };
 
 //On low level remove cities from target list
@@ -286,6 +287,63 @@ if(count _easyTargets >= 4) then
     //In case of four small attacks have 90 minutes break
     [5400, _side] call A3A_fnc_timingCA;
 
+    private _attackerAggro = 0;
+    private _defenderAggro = 0;
+    if (_side == Occupants) then
+    {
+        _attackerAggro = aggressionOccupants;
+        _defenderAggro = aggressionInvaders;
+    }
+    else
+    {
+        _attackerAggro = aggressionInvaders;
+        _defenderAggro = aggressionOccupants;
+    };
+
+    private _aggroChange = (100 - _defenderAggro) - (100 - _attackerAggro);
+    private _loseChange = 50 - (_aggroChange/2);
+    private _winChange = 100 - _loseChange;
+    [3, format ["Counter attack change is %1, aggro of attacker %2, aggro of defender %3", _winChange, _attackerAggro, _defenderAggro], _filename] call A3A_fnc_log;
+
+    private _attackerWon = selectRandomWeighted [false, _loseChange, true, _winChange];
+    if !(_attackerWon) exitWith
+    {
+        [3, "Attack failed, starting counter attack again attacker", _filename] call A3A_fnc_log;
+        //Attack failed, execute counter attack
+        private _targets = (seaports + outposts) select
+        {
+            sidesX getVariable _x == _side &&   //Side of the enemy,
+            spawner getVariable _x != 2
+        };
+
+        if(count _targets == 0) exitWith {};
+
+        private _attackOrder = selectRandom _attackList;
+        private _origin = _attackOrder select 0;
+
+        private _counterAttack = [_targets, getMarkerPos _origin] call BIS_fnc_nearestPosition;
+        [_side, _counterAttack] spawn A3A_fnc_markerChange;
+        [_side, _counterAttacks] spawn
+        {
+            params ["_side", "_target"];
+            sleep 10;
+            private _squads = 2 + round (random 2);
+            private _soldiers = [];
+            for "_i" from 0 to _squads do
+            {
+                if (_side == Occupants) then
+                {
+                    _soldiers append (selectRandom (groupsNATOSquad + groupsNATOmid));
+                }
+                else
+                {
+                    _soldiers append (selectRandom (groupsCSATSquad + groupsCSATmid));
+                };
+            };
+            [_soldiers,_side,_target,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
+        };
+    };
+
     //Execute the attacks from the given bases to the targets
     {
         private _target = _x select 2;
@@ -392,6 +450,60 @@ else
     [3, format ["Selected target is %1!", _finalTarget], _fileName] call A3A_fnc_log;
 
     _finalTarget params ["_attackOrigin", "_attackPoints", "_attackTarget"];
+
+    private _attackerAggro = 0;
+    private _defenderAggro = 0;
+    if (_side == Occupants) then
+    {
+        _attackerAggro = aggressionOccupants;
+        _defenderAggro = aggressionInvaders;
+    }
+    else
+    {
+        _attackerAggro = aggressionInvaders;
+        _defenderAggro = aggressionOccupants;
+    };
+
+    private _aggroChange = (100 - _defenderAggro) - (100 - _attackerAggro);
+    private _loseChange = 50 - (_aggroChange/2);
+    private _winChange = 100 - _loseChange;
+    [3, format ["Counter attack change is %1, aggro of attacker %2, aggro of defender %3", _winChange, _attackerAggro, _defenderAggro], _filename] call A3A_fnc_log;
+
+    private _attackerWon = selectRandomWeighted [false, _loseChange, true, _winChange];
+    if !(_attackerWon) exitWith
+    {
+        [3, "Attack failed, starting counter attack again attacker", _filename] call A3A_fnc_log;
+        //Attack failed, execute counter attack
+        private _targets = (seaports + outposts + airportsX) select
+        {
+            sidesX getVariable _x == _side &&   //Side of the enemy,
+            spawner getVariable _x != 2
+        };
+
+        if(count _targets == 0) exitWith {};
+
+        private _counterAttack = [_targets, getMarkerPos _attackOrigin] call BIS_fnc_nearestPosition;
+        [_side, _counterAttack] spawn A3A_fnc_markerChange;
+        [_side, _counterAttacks] spawn
+        {
+            params ["_side", "_target"];
+            sleep 10;
+            private _squads = 4 + round (random 3);
+            private _soldiers = [];
+            for "_i" from 0 to _squads do
+            {
+                if (_side == Occupants) then
+                {
+                    _soldiers append (selectRandom (groupsNATOSquad + groupsNATOmid));
+                }
+                else
+                {
+                    _soldiers append (selectRandom (groupsCSATSquad + groupsCSATmid));
+                };
+            };
+            [_soldiers,_side,_target,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
+        };
+    };
 
     //Maybe have aggro play a role here?
     //Select the number of waves based on the points as higher points mean higher difficulty

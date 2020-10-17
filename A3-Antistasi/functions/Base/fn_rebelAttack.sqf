@@ -301,29 +301,34 @@ if(count _easyTargets >= 4) then
     };
 
     private _aggroChange = (100 - _defenderAggro) - (100 - _attackerAggro);
-    private _loseChange = 50 - (_aggroChange/2);
-    private _winChange = 100 - _loseChange;
-    [3, format ["Counter attack change is %1, aggro of attacker %2, aggro of defender %3", _winChange, _attackerAggro, _defenderAggro], _filename] call A3A_fnc_log;
+    private _winChange = 50 - (_aggroChange/2);
+    private _loseChange = 100 - _winChange;
+    [3, format ["Aggro change is %1, lose change %2, win change %3", _aggroChange, _loseChange, _winChange], _filename] call A3A_fnc_log;
+    [3, format ["Counter attack change is %1, aggro of attacker %2, aggro of defender %3", _loseChange, _attackerAggro, _defenderAggro], _filename] call A3A_fnc_log;
 
     private _attackerWon = selectRandomWeighted [false, _loseChange, true, _winChange];
+    [3, format ["Result was %1", _attackerWon], _filename] call A3A_fnc_log;
     if !(_attackerWon) exitWith
     {
         [3, "Attack failed, starting counter attack again attacker", _filename] call A3A_fnc_log;
         //Attack failed, execute counter attack
         private _targets = (seaports + outposts) select
         {
-            sidesX getVariable _x == _side &&   //Side of the enemy,
-            spawner getVariable _x != 2
+            sidesX getVariable _x == _side &&   //Side of the attacker
+            spawner getVariable _x == 2         //Not spawned in
         };
 
-        if(count _targets == 0) exitWith {};
+        if(count _targets == 0) exitWith
+        {
+            [3, "Found no target to counter attack, abort", _filename] call A3A_fnc_log;
+        };
 
         private _attackOrder = selectRandom _attackList;
         private _origin = _attackOrder select 0;
 
         private _counterAttack = [_targets, getMarkerPos _origin] call BIS_fnc_nearestPosition;
-        [_side, _counterAttack] spawn A3A_fnc_markerChange;
-        [_side, _counterAttacks] spawn
+        [_targetSide, _counterAttack] spawn A3A_fnc_markerChange;
+        [_targetSide, _counterAttack] spawn
         {
             params ["_side", "_target"];
             sleep 10;
@@ -492,26 +497,31 @@ else
             };
 
             private _aggroChange = (100 - _defenderAggro) - (100 - _attackerAggro);
-            private _loseChange = 50 - (_aggroChange/2);
-            private _winChange = 100 - _loseChange;
-            [3, format ["Counter attack change is %1, aggro of attacker %2, aggro of defender %3", _winChange, _attackerAggro, _defenderAggro], _filename] call A3A_fnc_log;
+            private _winChange = 50 - (_aggroChange/2);
+            private _loseChange = 100 - _winChange;
+            [3, format ["Aggro change is %1, lose change %2, win change %3", _aggroChange, _loseChange, _winChange], _filename] call A3A_fnc_log;
+            [3, format ["Counter attack change is %1, aggro of attacker %2, aggro of defender %3", _loseChange, _attackerAggro, _defenderAggro], _filename] call A3A_fnc_log;
 
             private _attackerWon = selectRandomWeighted [false, _loseChange, true, _winChange];
+            [3, format ["Result was %1", _attackerWon], _filename] call A3A_fnc_log;
             if !(_attackerWon) exitWith
             {
                 [3, "Attack failed, starting counter attack again attacker", _filename] call A3A_fnc_log;
                 //Attack failed, execute counter attack
                 private _targets = (seaports + outposts + airportsX) select
                 {
-                    sidesX getVariable _x == _side &&   //Side of the enemy,
-                    spawner getVariable _x != 2
+                    sidesX getVariable _x == _side &&   //Side of the attacker
+                    spawner getVariable _x == 2         //Not spawned in
                 };
 
-                if(count _targets == 0) exitWith {};
+                if(count _targets == 0) exitWith
+                {
+                    [3, "Found no target to counter attack, abort", _filename] call A3A_fnc_log;
+                };
 
                 private _counterAttack = [_targets, getMarkerPos _attackOrigin] call BIS_fnc_nearestPosition;
-                [_side, _counterAttack] spawn A3A_fnc_markerChange;
-                [_side, _counterAttacks] spawn
+                [_targetSide, _counterAttack] spawn A3A_fnc_markerChange;
+                [_targetSide, _counterAttack] spawn
                 {
                     params ["_side", "_target"];
                     sleep 10;

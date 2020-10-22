@@ -462,6 +462,7 @@ else
         if !(_attackerWon) then
         {
             [3, format ["Attack failed, starting counter attack again %1", _targetSide], _filename] call A3A_fnc_log;
+            [3600, _side] call A3A_fnc_timingCA;
 
             //Search for possible targets
             private _targets = (outposts + airportsX) select

@@ -1187,21 +1187,26 @@
         <Original>Placeholder</Original>
         <English>Placeholder</English>
       </Key>
-	  <Key ID="STR_antistasi_mission_info_5_mapname_short_text">
-        <Original>Placeholder</Original>
-        <English>Placeholder</English>
+	  <Key ID="STR_antistasi_mission_info_takistan_mapname_short_text">
+        <Original>Antistasi Takistan</Original>
+        <English>Antistasi Takistan</English>
       </Key>
-      <Key ID="STR_antistasi_mission_info_5_mapname_text">
-        <Original>Placeholder</Original>
-        <English>Placeholder</English>
+      <Key ID="STR_antistasi_mission_info_takistan_mapname_text">
+        <Original>Liberation of Takistan</Original>
+        <English>Liberation of Takistan</English>
       </Key>
-      <Key ID="STR_antistasi_mission_info_5_description_text">
-        <Original>Placeholder</Original>
-        <English>Placeholder</English>
+      <Key ID="STR_antistasi_mission_info_takistan_description_text">
+        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
+        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
+        <French>Devenez le Chef de la Résistance. Battez-vous contre un ennemi en surnombre et avec un niveau technologique supérieur. Utilisez les tactiques des Guerrillas dans un monde complétement dynamique, avec environ 18 missions. Quand vous voulez, où vous voulez, avec ce que vous voulez...</French>
+        <Russian>Стань лидером сопротивления. Сражайся против врага превосходящего в технологии, количистве, вооружении и технике. Используй партизанскую тактику в полностью динамическом мире.</Russian>
+        <German>Sei ein Anführer des Widerstands. Kämpfe gegen einen technologisch und zahlenmäßigen überlegenen Feind. Nutze Guerillataktiken in einer vollständig dynamischen Welt mit 18 möglichen Sekundärmissionen. Es könnte jederzeit und überall alles passieren...</German>
+        <Czech>Buďte vedoucím odboje. Bojujte proti nadřazenému nepříteli v technologii, počtu, majetku a vozidlech. Použijte partyzánskou taktiku ve zcela dynamickém světě, přibližně s 18 vedlejšími misemi, všude kdykoli a cokoli.</Czech>
+        <Korean>반군 지도자가 되십시오. 수적 그리고 질적으로 막강한 적과 싸우십시오. 18개의 서브 미션과 함께 언제 어디든지 게릴라 전술을 사용하십시오.</Korean>
       </Key>
-      <Key ID="STR_antistasi_mission_info_5_blurb_text">
-        <Original>Placeholder</Original>
-        <English>Placeholder</English>
+      <Key ID="STR_antistasi_mission_info_takistan_blurb_text">
+        <Original>In the Heat of the Takistani Dessert (Placeholder)</Original>
+        <English>In the Heat of the Takistani Dessert (Placeholder)</English>
       </Key>
     </Container>
     <Container name="journal_entries">

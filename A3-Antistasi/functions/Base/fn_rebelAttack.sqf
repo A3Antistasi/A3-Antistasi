@@ -268,16 +268,25 @@ private _fnc_flipMarker =
 
 private _attackerAggro = 0;
 private _defenderAggro = 0;
-if (_side == Occupants) then
+if(_targetSide != teamPlayer) then
 {
-    _attackerAggro = aggressionOccupants;
-    _defenderAggro = aggressionInvaders;
+    if (_side == Occupants) then
+    {
+        _attackerAggro = aggressionOccupants;
+        _defenderAggro = aggressionInvaders;
+    }
+    else
+    {
+        _attackerAggro = aggressionInvaders;
+        _defenderAggro = aggressionOccupants;
+    };
 }
 else
 {
-    _attackerAggro = aggressionInvaders;
-    _defenderAggro = aggressionOccupants;
+    _attackerAggro = 0;
+    _defenderAggro = 100;
 };
+
 
 private _aggroChange = (100 - _defenderAggro) - (100 - _attackerAggro);
 private _winChange = 50 - (_aggroChange/2);

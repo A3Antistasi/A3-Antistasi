@@ -263,6 +263,11 @@ switch (toLower worldName) do {
 		//Roads DB
 		call compile preprocessFileLineNumbers "Navigation\roadsDBstratis.sqf";
 	};
+	case "takistan":
+	{
+		//Roads DB
+		call compile preprocessFileLineNumbers "Navigation\roadsDBtakistan.sqf";
+	};
 };
 
 [2,"initVarCommon completed",_fileName] call A3A_fnc_log;

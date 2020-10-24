@@ -295,6 +295,11 @@ switch (toLower worldName) do {
 		_blackListPos = [];
 		antennas = [];
 	};
+	case "takistan"
+	_posAntennas =
+	[[4014.64,3089.66,0.150604], [5249.37,3709.48,-0.353882], [3126.7,8223.88,-0.649429], [8547.92,3897.03,-0.56073], [5578.24,9072.21,-0.842239], [2239.98,12630.7,-0.575844]];
+	_blacklistPos = [];
+  antennas = [];
 	default {
 		antennas = nearestObjects [[worldSize /2, worldSize/2], ["Land_TTowerBig_1_F", "Land_TTowerBig_2_F", "Land_Communication_F", "Land_Vysilac_FM","Land_A_TVTower_base", "Land_Telek1"], worldSize];
 

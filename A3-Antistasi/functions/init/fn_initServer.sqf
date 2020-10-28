@@ -45,6 +45,8 @@ if (isMultiplayer) then {
 	playerMarkersEnabled = ("pMarkers" call BIS_fnc_getParamValue == 1); publicVariable "playerMarkersEnabled";
 	minPlayersRequiredforPVP = "minPlayersRequiredforPVP" call BIS_fnc_getParamValue; publicVariable "minPlayersRequiredforPVP";
 	helmetLossChance = "helmetLossChance" call BIS_fnc_getParamValue; publicVariable "helmetLossChance";
+	LootToCrateEnabled = if ("EnableLootToCrate" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "LootToCrateEnabled";
+	LTCLootUnlocked = if ("LTCLootUnlocked" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "LTCLootUnlocked";
 } else {
 	[2, "Setting Singleplayer Params", _fileName] call A3A_fnc_log;
 	//These should be set in the set parameters dialog.
@@ -73,6 +75,9 @@ if (isMultiplayer) then {
 	minPlayersRequiredforPVP = 2;
 	helmetLossChance = 33;
 	startWithLongRangeRadio = true;
+	LootToCrateEnabled = true;
+	LTCLootUnlocked = false;
+    startWithLongRangeRadio = true;
 };
 
 [] call A3A_fnc_crateLootParams;

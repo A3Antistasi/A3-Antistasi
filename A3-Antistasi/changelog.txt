@@ -1,3 +1,17 @@
+Version 2.3.2 - 05th December 2020
+
+Changes from version 2.3.1 to 2.3.2 Antistasi Community Edition
+
+================ Bugfixes ========================
+
+- Fixed the rope issue in the salvage mission
+- Disabled two towns (Kuusela and Niemela) on the Virolahti map
+
+=================  Disclaimer  =========================
+ - Significant template changes are still underway. You might want to avoid making custom templates for a while!
+ - Please note that this changelog may contain both spelling/grammatical errors and/or factual errors. Should any factual errors exist, we apologise but with the sheer number of changes made per version it can be easy to lose or mistake a change when writing up the changelog.
+ 
+
 Version 2.3.1 - 16th October 2020
 
 Changes from version 2.3.0 to 2.3.1 Antistasi Community Edition
@@ -11,7 +25,7 @@ Changes from version 2.3.0 to 2.3.1 Antistasi Community Edition
   PARAMETER CHANGES
   - Removed "Reb vs Inv" option from gamemode parameter
 
-  MAP CHANGES 
+  MAP CHANGES
   - Altis - new position for initial HQ and other small changes
 
   OTHER CHANGES
@@ -26,7 +40,7 @@ Changes from version 2.3.0 to 2.3.1 Antistasi Community Edition
   - Added CUP/Enoch buildings for intel system and AA placements
 
 ================  Groundwork  ===================
-  - 
+  -
 
 ================ Refactor ========================
   - missionRequest refactor
@@ -50,12 +64,12 @@ Changes from version 2.3.0 to 2.3.1 Antistasi Community Edition
 
  =================  Code  =========================
   - Added bugfix branch to Travis
- 
+
  =================  Disclaimer  =========================
   - Significant template changes are still underway. You might want to avoid making custom templates for a while!
   - Please note that this changelog may contain both spelling/grammatical errors and/or factual errors. Should any factual errors exist, we apologise but with the sheer number of changes made per version it can be easy to lose or mistake a change when writing up the changelog.
-  
-  
+
+
 Version 2.3 - 26th July 2020
 
 Changes from version 2.2.1 to 2.3 Antistasi Community Edition
@@ -97,7 +111,7 @@ Implemented Jeroen Nots Enhanced Debug Console
   PARAMETER CHANGES
   - Introduced more understandable descriptions for unlockItem and allowFT
 
-  MAP CHANGES 
+  MAP CHANGES
   - Chernarus summer overhauled with added assets
   - Chernarus winter overhauled with added assets
   - Livonia overhaul with building adaptations
@@ -128,7 +142,7 @@ Implemented Jeroen Nots Enhanced Debug Console
   - Fixed mission dates so the first night has a full moon
   - Adapted QRFs and Heli responses so they are working with the new system and more reasonable/balanced
   - Vehicle mass changes when cargo is un/-loaded
-  - Added flight suits to airport crates 
+  - Added flight suits to airport crates
   - Improved static placement in milBuildings
   - Changed infinite personal garage to limited (including parameter)
   - Enhanced storing capabilities of faction garage
@@ -233,9 +247,9 @@ Implemented Jeroen Nots Enhanced Debug Console
 
  =================  Code  =========================
   - Enhanced Travis for build checking
-   
+
  =================  DISCLAIMER  =========================
-  - Significant template changes are still underway. You might want to avoid making custom templates for a while! 
+  - Significant template changes are still underway. You might want to avoid making custom templates for a while!
   - Please note that this changelog may contain both spelling/grammatical errors and/or factual errors. Should any factual errors exist, we apologise but with the sheer number of changes made per version it can be easy to lose or mistake a change when writing up the changelog.
 
 
@@ -255,7 +269,7 @@ Changes from version 2.2 to 2.2.1 Antistasi Community Edition
   - Added assets to positions like outposts on Chernarus Winter.
   - Changed vehicle placement on Tanoa positions.
   - Every map now only has 32 slots on the rebel side. Reason: Performance.
- 
+
 ==============  Minor  ========================
   - Disabled unlocked IEDs in Vanilla arsenal.
   - Changed playable Officer roles to TeamLead roles.
@@ -264,7 +278,7 @@ Changes from version 2.2 to 2.2.1 Antistasi Community Edition
 
 ================  Groundwork  ===================
    - Added building from CUP to be recognized as military buildings (also concerning 50. cal placements).
- 
+
 ================ Bugfixes ========================
   - Fixed an exploit where guests could grab certain gear using a loadout.
   - Fixed added aggro for hostages/surrenderes.
@@ -280,10 +294,10 @@ Changes from version 2.2 to 2.2.1 Antistasi Community Edition
   - Fixed Bob's forgotten D.
   - Fixed Zeus not being able to access all assets.
   - Fixed initVar spam.
- 
+
 =================  Code  =========================
 
-*DISCLAIMER* - Significant template changes are still underway. You might want to avoid making custom templates for a while! 
+*DISCLAIMER* - Significant template changes are still underway. You might want to avoid making custom templates for a while!
   - CSAT outposts and airfields are set in fn_initGarrison.sqf now.
 
 
@@ -411,7 +425,7 @@ Changes from version 2.1.2 to 2.2 Antistasi Community Edition
 
 =================  Known issues  ==========================
 
-*DISCLAIMER* - Significant template changes are still underway. You might want to avoid making custom templates for a while! 
+*DISCLAIMER* - Significant template changes are still underway. You might want to avoid making custom templates for a while!
   - (Destroy Heli Mission) If you manage to steal the truck while it is trying to transport the heli back, the mission will fail (The fix for this is WIP)
   - The updated ACE version 3.13.0 maybe has introduced new issues with ACRE. We are investigating and thankful for input.
 
@@ -965,7 +979,7 @@ Version 1.0.5 22/05/2018
 - AI wont decide to send reinforcements to areas under attack.
 - Ai wont pick unlocked things when looting.
 - Increased much more enemy distance for AI to decide get to cover instead of return fire.
-- Revive is far more reliable, more BIS alike. 
+- Revive is far more reliable, more BIS alike.
 - Fatal wounds now depend on body too, not only head.
 - Minor body parts can have "unlimited damage".
 - AI will cancel revive procedures if they get damage in the process.
@@ -1439,7 +1453,7 @@ Version 0.9.0 16/06/2017 ALPHA
 
 Version 0.8.2 08/06/2017 ALPHA
 
-- IMPORTANT: Made the whole spawning process on groups fps dependant. Groups will spawn with a minimum of one unit. 
+- IMPORTANT: Made the whole spawning process on groups fps dependant. Groups will spawn with a minimum of one unit.
 - RHS GREF: Added some default grenades, SMGs and vest. Players lose their vanilla vest on connection.
 - TFAR: Default greenfor radio unlocked.
 - XLA Fixed Arsenal: Integrated & Recommended
@@ -1705,7 +1719,7 @@ Version 0.4.1 08/09/2016 BETA
 - Some chance AI rebuilds a resource on each tick.
 - Replaced our mean old campfire by a modern camp lamp, which you can turn on and off.
 - Lights off when a city or it's nearby RT are destroyed.
-- Severe tweak of AI skills, as SDK was supposed to be equal than NATO/CSAT. 
+- Severe tweak of AI skills, as SDK was supposed to be equal than NATO/CSAT.
 - Corrected Interrogate script bug.
 - Corrected server init bug which made initialisation 2 minutes longer in MP
 - Disabled introshot as it is causing some issues.

@@ -123,7 +123,7 @@ groupsNATOGen = [policeOfficer,policeGrunt];
 //Lite
 vehNATOBike = "B_Quadbike_01_F";
 vehNATOLightArmed = ["UK3CB_BAF_LandRover_WMIK_HMG_FFR_Green_B_DPMT","UK3CB_BAF_LandRover_WMIK_GMG_FFR_Green_B_DPMT","UK3CB_BAF_LandRover_WMIK_Milan_FFR_Green_B_DPMT","UK3CB_BAF_Husky_Passenger_GMG_Green_DPMT","UK3CB_BAF_Husky_Passenger_GPMG_Green_DPMT","UK3CB_BAF_Husky_Passenger_HMG_Green_DPMT"];
-vehNATOLightUnarmed = ["UK3CB_BAF_MAN_HX60_Container_Servicing_Air_Green","UK3CB_BAF_LandRover_Hard_FFR_Green_B_DPMT","UK3CB_BAF_LandRover_Snatch_FFR_Green_A_DPMT","UK3CB_BAF_LandRover_Soft_FFR_Green_B_DPMT"];
+vehNATOLightUnarmed = ["UK3CB_BAF_LandRover_Hard_FFR_Green_B_DPMT","UK3CB_BAF_LandRover_Snatch_FFR_Green_A_DPMT","UK3CB_BAF_LandRover_Soft_FFR_Green_B_DPMT"];
 vehNATOTrucks = ["UK3CB_BAF_MAN_HX60_Transport_Green_DPMT","UK3CB_BAF_MAN_HX58_Transport_Green_DPMT"];
 vehNATOCargoTrucks = ["UK3CB_BAF_MAN_HX60_Cargo_Green_A_DPMT","UK3CB_BAF_MAN_HX58_Cargo_Green_A_DPMT"];
 vehNATOAmmoTruck = "rhsusf_M977A4_AMMO_usarmy_wd";

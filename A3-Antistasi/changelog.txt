@@ -5,6 +5,7 @@ Changes from version 2.3.1 to 2.3.2 Antistasi Community Edition
 ================ Bugfixes ========================
 
 - Fixed the rope issue in the salvage mission
+- Disabled two towns (Kuusela and Niemela) on the Virolahti map
 
 =================  Disclaimer  =========================
  - Significant template changes are still underway. You might want to avoid making custom templates for a while!

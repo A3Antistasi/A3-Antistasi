@@ -288,9 +288,11 @@ player addEventHandler ["WeaponAssembled", {
 		};
 		_markersX = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
 		_pos = position _veh;
+		[_veh] call A3A_fnc_logistics_addLoadAction;
 		if (_markersX findIf {_pos inArea _x} != -1) then {["Static Deployed", "Static weapon has been deployed for use in a nearby zone, and will be used by garrison militia if you leave it here the next time the zone spawns"] call A3A_fnc_customHint;};
 	};
 }];
+
 player addEventHandler ["WeaponDisassembled", {
 	private _bag1 = _this select 1;
 	private _bag2 = _this select 2;

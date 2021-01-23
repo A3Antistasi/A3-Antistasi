@@ -79,13 +79,6 @@ allCategories = allCategoriesExceptSpecial + specialCategories;
 allDLCMods = ["kart", "mark", "heli", "expansion", "jets", "orange", "tank", "globmob", "enoch", "officialmod", "tacops", "argo", "warlords"];
 
 //Mod detection is done locally to each client, in case some clients have different modsets for some reason.
-hasRHS = false;
-activeAFRF = false;
-activeUSAF = false;
-activeGREF = false;
-hasFFAA = false;
-hasIFA = false;
-has3CB = false;
 //Systems Mods
 hasACE = false;
 hasACEHearing = false;
@@ -101,23 +94,9 @@ hasACRE = isClass (configFile >> "cfgPatches" >> "acre_main");
 hasACE = (!isNil "ace_common_fnc_isModLoaded");
 hasACEHearing = isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak");
 hasACEMedical = isClass (configFile >> "CfgSounds" >> "ACE_heartbeat_fast_3");
-//IFA Detection
-//Deactivated for now, as IFA is having some IP problems (08.05.2020 european format)
-if isClass (configFile >> "CfgPatches" >> "LIB_Core") then
-{
-    //hasIFA = true;
-    //[2, "IFA Detected", _fileName] call A3A_fnc_log;
-    [1, "IFA detected, but it is no longer supported, please remove this mod", _fileName] call A3A_fnc_log;
-    ["modUnautorized",false,1,false,false] call BIS_fnc_endMission;
-};
-//RHS AFRF Detection
-if isClass (configFile >> "CfgFactionClasses" >> "rhs_faction_vdv") then {activeAFRF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS AFRF Detected.",servertime];};
-if isClass (configFile >> "CfgFactionClasses" >> "rhs_faction_usarmy") then {activeUSAF = true; hasRHS = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS USAF Detected.",servertime];};
-if (activeAFRF && activeUSAF && isClass (configFile >> "CfgFactionClasses" >> "rhsgref_faction_tla")) then {activeGREF = true; diag_log format ["%1: [Antistasi] | INFO | initVar | RHS GREF Detected.",servertime];};
-//3CB Detection
-if (activeAFRF && activeUSAF && activeGREF && isClass (configfile >> "CfgPatches" >> "UK3CB_BAF_Weapons")) then {has3CB = true; diag_log format ["%1: [Antistasi] | INFO | initVar | 3CB Detected.",servertime];};
-//FFAA Detection
-if (isClass (configfile >> "CfgPatches" >> "ffaa_armas")) then {hasFFAA = true; diag_log format ["%1: [Antistasi] | INFO | initVar | FFAA Detected.",servertime];};
+//Content Mods (Units, Vehicles, Weapons, Clothes etc.)
+//These are handled by a script in the Templates folder to keep integrators away from critical code.
+call compile preProcessFileLineNumbers "Templates\detector.sqf";
 
 ////////////////////////////////////
 //        BUILDINGS LISTS        ///
@@ -147,7 +126,7 @@ medicAnims = ["AinvPknlMstpSnonWnonDnon_medic_1","AinvPknlMstpSnonWnonDnon_medic
 //     ID LIST FOR UNIT NAMES    ///
 ////////////////////////////////////
 [2,"Creating unit identities",_fileName] call A3A_fnc_log;
-if !(hasIFA) then {
+if !(A3A_hasIFA) then {
 	arrayids = ["Anthis","Costa","Dimitirou","Elias","Gekas","Kouris","Leventis","Markos","Nikas","Nicolo","Panas","Rosi","Samaras","Thanos","Vega"];
 	if (isMultiplayer) then {arrayids = arrayids + ["protagonista"]};
 };

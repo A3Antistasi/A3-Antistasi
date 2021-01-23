@@ -30,7 +30,6 @@ if (isClass (configfile >> "CfgVehicles" >> _typeX >> "assembleInfo")) then {
 if (_exit) exitWith {["Airstrike", "Backpack drones cannot be used to increase Airstrike points"] call A3A_fnc_customHint;};
 
 
-//if (_typeX == vehSDKHeli) exitWith {hint "Syndikat Helicopters cannot be used to increase Airstrike points"};
 
 _pointsX = 2;
 

@@ -157,6 +157,7 @@ class A3A
         class mortyAI {};
         class napalm {};
         class napalmDamage {};
+        class napalmParticles {};
         class nearEnemy {};
         class rearmCall {};
         class recallGroup {};

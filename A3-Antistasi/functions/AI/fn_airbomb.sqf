@@ -45,10 +45,10 @@ for "_i" from 1 to _countX do
 					_pos = [];
 					while {!isNull _bomba} do
 					{
-						_pos = getPosASL _bomba;
+						_pos = getPos _bomba;
 						sleep 0.1;
 					};
-					[_pos] remoteExec  ["A3A_fnc_napalm"];
+					[_pos] remoteExec ["A3A_fnc_napalm",2];
 				};
 			};
 		};

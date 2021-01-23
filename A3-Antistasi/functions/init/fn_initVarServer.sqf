@@ -85,7 +85,6 @@ DECLARE_SERVER_VAR(tierWar, 1);
 DECLARE_SERVER_VAR(bombRuns, 0);
 //Should various units, such as patrols and convoys, be revealed.
 DECLARE_SERVER_VAR(revealX, false);
-DECLARE_SERVER_VAR(napalmCurrent, false);
 //Whether the players have Nightvision unlocked
 DECLARE_SERVER_VAR(haveNV, false);
 DECLARE_SERVER_VAR(missionsX, []);

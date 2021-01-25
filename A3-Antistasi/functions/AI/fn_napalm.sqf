@@ -45,6 +45,7 @@ if ((count _pos) isEqualTo 2) then {
 
 private _startTime = serverTime;
 private _endTime = _startTime + 90;
+private _napalmRadius = 30;
 
 private _napalmID = -2;
 private _storageNamespace = locationNull;
@@ -52,7 +53,7 @@ isNil {
     _napalmID = [localNamespace,"A3A_NapalmRegister","IDCounter",-1] call A3A_fnc_getNestedObject;
     _napalmID = _napalmID + 1;
     [localNamespace,"A3A_NapalmRegister","IDCounter",_napalmID] call A3A_fnc_setNestedObject;
-    _storageNamespace = [localNamespace,"A3A_NapalmRegister",_napalmID,"active",true] call A3A_fnc_setNestedObject;
+    _storageNamespace = [localNamespace,"A3A_NapalmRegister",str _napalmID,"active",true] call A3A_fnc_setNestedObject;
 };
 
 playSound3D ["a3\sounds_f\weapons\explosion\expl_big_3.wss",_pos, false, AGLToASL _pos, 5, 0.6, 3000];   // Isn't actually audible at 3km, by 500m it's competing with footsteps.

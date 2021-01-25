@@ -32,8 +32,7 @@ private _filename = "functions\AI\fn_napalmDamage.sqf";
 if (isNull _victim) exitWith {false};  // Silent, likely for script to find some null objects somehow.
 
 if (isNil {
-    if (!alive _victim || {(_victim getVariable ["A3A_napalm_processing",0]) < serverTime} || {!isDamageAllowed _victim}) exitWith {nil};
-    _victim setVariable ["A3A_napalm_processing",serverTime + 30];    // For 60 seconds they will not be processed again. I doubt this exploit could do anything meaningful with _overKill elongating the punishment to 30 sec.
+    if (!alive _victim || {!isDamageAllowed _victim}) exitWith {nil};
     1;
 }) exitWith {true};
 private _overKill = 5;  // In case the the unit starts getting healed.
@@ -103,18 +102,18 @@ switch (true) do {
             _fnc_init = _fnc_init + 'playSound3D ['+ str _sound +', _victim, false, getPosASL _victim, '+ str _volume +' + random 1, '+ str _pitch +' + random 0.1, '+ str _range +'];';
         };
     };
+    case (_victim isKindOf "GroundWeaponHolder"): {  // Is a building, therefore needs to be above buildings
+        _totalTicks = 1;
+        _fnc_final = _fnc_final + 'deleteVehicle _victim;';  // Items would be burnt to ashes.
+    };
     case (_victim isKindOf "Building"): {
         _totalTicks = _totalTicks/_overKill;  // Undo overkill
         _fnc_onTick = _fnc_onTick + '_victim setDamage [((damage _victim + ' + str _damagePerTick + ') min 0.5) max (damage _victim), true];';
     };
-    case (_victim isKindOf "ReammoBox"): {
+    case (_victim isKindOf "ReammoBox_F"): {
         _totalTicks = _totalTicks/_overKill;  // Undo overkill
         _fnc_onTick = _fnc_onTick + '_victim setDamage [(damage _victim + ' + str _damagePerTick + ') min 1, true];';
         _fnc_final = _fnc_final + 'deleteVehicle _victim;';
-    };
-    case (_victim isKindOf "GroundWeaponHolder"): {
-        _totalTicks = 1;
-        _fnc_final = _fnc_final + 'deleteVehicle _victim;';  // Items would be burnt to ashes.
     };
     default {_invalidVictim = true;};  // Exclude everything else. Safest & least laggy option, gameplay comes before realism.
 };

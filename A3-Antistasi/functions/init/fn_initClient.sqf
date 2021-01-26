@@ -53,7 +53,6 @@ if (isMultiplayer) then {
 		player setVariable ["eligible",true,true];
 	};
 	musicON = false;
-	//waitUntil {scriptdone _introshot};
 	disableUserInput true;
 	cutText ["Waiting for Players and Server Init","BLACK",0];
 	[2,"Waiting for server...",_fileName] call A3A_fnc_log;
@@ -77,31 +76,10 @@ else {
 	player hcSetGroup [group player];		// why?
 	player setUnitTrait ["medic", true];
 	player setUnitTrait ["engineer", true];
-	waitUntil {/*(scriptdone _introshot) and */(!isNil "serverInitDone")};
+	waitUntil {!isNil "serverInitDone"};
 };
 
 [] spawn A3A_fnc_ambientCivs;
-private ["_colourTeamPlayer", "_colorInvaders"];
-_colourTeamPlayer = teamPlayer call BIS_fnc_sideColor;
-_colorInvaders = Invaders call BIS_fnc_sideColor;
-_positionX = if (side player isEqualTo teamPlayer) then {position petros} else {getMarkerPos "respawn_west"};
-
-{
-	_x set [3, 0.33]
-} forEach [_colourTeamPlayer, _colorInvaders];
-
-_introShot = [
-	_positionX, // Target position
-	format ["%1",worldName], // SITREP text
-	50, //  altitude
-	50, //  radius
-	90, //  degrees viewing angle
-	0, // clockwise movement
-	[
-		["\a3\ui_f\data\map\markers\Nato\o_inf.paa", _colourTeamPlayer, markerPos "insertMrk", 1, 1, 0, "Insertion Point", 0],
-		["\a3\ui_f\data\map\markers\Nato\o_inf.paa", _colorInvaders, markerPos "towerBaseMrk", 1, 1, 0, "Radio Towers", 0]
-	]
-] spawn BIS_fnc_establishingShot;
 
 //Initialise membershipEnabled so we can do isMember checks.
 membershipEnabled = if (isMultiplayer && "membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
@@ -367,8 +345,6 @@ if !(isPlayer leader group player) then {
 
 [] remoteExec ["A3A_fnc_assignBossIfNone", 2];
 
-waitUntil { scriptDone _introshot };
-
 if (_isJip) then {
 	[2,"Joining In Progress (JIP)",_filename] call A3A_fnc_log;
 
@@ -399,41 +375,28 @@ else
 //Move this
 //HC_commanderX synchronizeObjectsAdd [player];
 //player synchronizeObjectsAdd [HC_commanderX];
+A3A_customHintEnable = true; // Was false in initVarCommon to allow debug progress  hints to flow in and overwrite each other.
 
-_textX = [];
+if (isServer || player isEqualTo theBoss || (call BIS_fnc_admin) > 0) then {  // Local Host || Commander || Dedicated Admin
+	private _modsAndLoadText = [
+		[hasTFAR,"TFAR","Players will use TFAR radios. Unconscious players' radios will be muted."],
+		[hasACRE,"ACRE","Players will use ACRE radios. Unconscious players' radios will be muted."],
+		[hasACE,"ACE 3","ACE items added to arsenal and ammo-boxes."],
+		[hasACEMedical,"ACE 3 Medical","Default revive system will be disabled"],
+		[A3A_hasRHS,"RHS","All factions will be replaced by RHS (AFRF &amp; USAF &amp; GREF)."],
+		[A3A_has3CB,"3CB","All factions will be replaced by 3CB and RHS."],
+		[A3A_hasFFAA,"FFAA","Occupant faction will be replaced by Spanish Armed Forces"],
+		[A3A_hasIvory,"Ivory Cars","Mod cars will be added to civilian car spawns."]
+	] select {_x#0};
 
-if ((hasTFAR) or (hasACRE)) then {
-	_textX = ["TFAR or ACRE Detected\n\nAntistasi detects TFAR or ACRE in the server config.\nAll players will start with addon default radios.\nDefault revive system will shut down radios while players are unconscious.\n\n"];
-};
-if (hasACE) then {
-	_textX = _textX + ["ACE 3 Detected\n\nAntistasi detects ACE modules in the server config.\nACE items added to arsenal and ammoboxes. Default AI control is disabled\nIf ACE Medical is used, default revive system will be disabled.\nIf ACE Hearing is used, default earplugs will be disabled."];
-};
-if (A3A_hasRHS) then {
-	_textX = _textX + ["RHS Detected\n\nAntistasi detects RHS in the server config.\nAll factions will be replaced by factions from the mod."];
-};
-if (A3A_has3CB) then {
-	_textX = _textX + ["3CB Detected\n\nAntistasi detects 3CB in the server config.\nAll factions will be replaced by factions from the mod."];
-};
-if (A3A_hasFFAA) then {
-	_textX = _textX + ["FFAA Detected\n\nAntistasi detects FFAA in the server config.\nOccupant faction will be replaced by Spanish Armed Forces"];
-};
-if (A3A_hasIvory) then {
-	_textX = _textX + ["Ivory Cars Detected\n\nAntistasi detects Ivory Cars in the server config.\nMod cars will be added to civilian car spawns."];
+	private _loadedTemplateInfoXML = A3A_loadedTemplateInfoXML apply {[true,_x#0,_x#1]};	// Remove and simplify when the list above is empty and can be deleted.
+	_modsAndLoadText append _loadedTemplateInfoXML;
+
+	if (count _modsAndLoadText isEqualTo 0) exitWith {};
+	private _textXML = "<t align='left'>" + ((_modsAndLoadText apply { "<t color='#f0d498'>" + _x#1 + ":</t>" + _x#2 }) joinString "<br/>") + "</t>";
+	["Loaded Mods",_textXML] call A3A_fnc_customHint;
 };
 
-if (hasTFAR or hasACE or A3A_hasRHS or hasACRE or A3A_hasFFAA or A3A_has3CB or A3A_hasIvory) then {
-	[_textX] spawn {
-		sleep 0.5;
-		_textX = _this select 0;
-		"Integrated Mods Detected" hintC _textX;
-		hintC_arr_EH = findDisplay 72 displayAddEventHandler ["unload", {
-			0 = _this spawn {
-				_this select 0 displayRemoveEventHandler ["unload", hintC_arr_EH];
-				hintSilent "";
-			};
-		}];
-	};
-};
 waituntil {!isnull (finddisplay 46)};
 gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",A3A_fnc_keys];
 //removeAllActions boxX;
@@ -530,11 +493,9 @@ if (isMultiplayer) then {
 }
 else
 {
-	if (loadLastSave) then {
-		// just do this directly, because playerHasSave doesn't work without moneyX
-		private _loadout = [getPlayerUID player, "loadoutPlayer"] call A3A_fnc_retrievePlayerStat;
-		if (!isNil "_loadout") then { player setUnitLoadout _loadout };
-	};
+	// just do this directly, because playerHasSave doesn't work without moneyX
+	private _loadout = [getPlayerUID player, "loadoutPlayer"] call A3A_fnc_retrievePlayerStat;
+	if (!isNil "_loadout") then { player setUnitLoadout _loadout };
 	player setVariable ["canSave", true];
 };
 
@@ -547,7 +508,6 @@ player setPos (getMarkerPos respawnTeamPlayer);
 enableEnvironment [false, true];
 
 [2,"initClient completed",_fileName] call A3A_fnc_log;
-A3A_customHintEnable = true; // Was false in initVarCommon to allow hints to flow in and overwrite each other.
 
 if(!isMultiplayer) then
 {

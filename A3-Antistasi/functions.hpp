@@ -12,7 +12,6 @@ class A3A
         class initACEUnconsciousHandler {};
         class initFuncs {};
         class initGarrisons {};
-        class initGetMissionPath {};
         class initSpawnPlaces {};
 
         class initVar {};

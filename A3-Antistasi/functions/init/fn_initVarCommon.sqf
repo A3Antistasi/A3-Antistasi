@@ -116,7 +116,11 @@ lamptypes = ["Lamps_Base_F", "PowerLines_base_F","Land_LampDecor_F","Land_LampHa
 //     SOUNDS AND ANIMATIONS     ///
 ////////////////////////////////////
 [2,"Compiling sounds and animations",_fileName] call A3A_fnc_log;
-ladridos = ["Music\dog_bark01.wss", "Music\dog_bark02.wss", "Music\dog_bark04.wss", "Music\dog_bark05.wss", "Music\dog_maul01.wss", "Music\dog_yelp02.wss"];
+
+private _missionRootPathNodes = str missionConfigFile splitString "\";
+A3A_missionRootPath = (_missionRootPathNodes select [0,count _missionRootPathNodes -1] joinString "\") + "\";
+
+A3A_sounds_dogBark = ["Music\dog_bark01.wss", "Music\dog_bark02.wss", "Music\dog_bark04.wss", "Music\dog_bark05.wss", "Music\dog_maul01.wss", "Music\dog_yelp02.wss"] apply {A3A_missionRootPath + _x};
 injuredSounds =  // Todo: migrate functions to A3A_sounds_callMedic
 [
 	"a3\sounds_f\characters\human-sfx\Person0\P0_moan_13_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_14_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_15_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_16_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_17_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_18_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_19_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_20_words.wss",
@@ -153,27 +157,6 @@ if !(A3A_hasIFA) then {
 	arrayids = ["Anthis","Costa","Dimitirou","Elias","Gekas","Kouris","Leventis","Markos","Nikas","Nicolo","Panas","Rosi","Samaras","Thanos","Vega"];
 	if (isMultiplayer) then {arrayids = arrayids + ["protagonista"]};
 };
-
-////////////////////////////////////
-//     MISSION PATH WARNING      ///
-////////////////////////////////////
-[2,"Checking mission path",_fileName] call A3A_fnc_log;
-private _getMissionPath = [] spawn A3A_fnc_initGetMissionPath;
-waitUntil
-{
-	if (scriptDone _getMissionPath) exitWith {true};
-	if (hasInterface) then {
-		["ERROR", "Stuck on compiling missionPath, re-launch the mission."] call A3A_fnc_customHint;
-	};
-	[1,"Stuck on compiling missionPath, re-launch the mission.",_fileName] call A3A_fnc_log;
-	false;
-};
-
-if (hasInterface) then {
-	["Server Information", "Done compiling missionPath"] call A3A_fnc_customHint;
-};
-[2,"Done compiling missionPath",_fileName] call A3A_fnc_log;
-
 
 ////////////////////////////////////
 //   MAP SETTINGS AND MARKERS    ///

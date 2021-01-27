@@ -26,7 +26,7 @@ scopeName "Main";
 
 private "_container";
 if (isNil "_override") then {
-    private _containers = nearestObjects [_target, ["Car", "Motorcycle", "Tank", "Air"], 10];
+    private _containers = (nearestObjects [_target, ["Car", "Motorcycle", "Tank", "Air"], 10]) select {alive _x};
     _container = _containers#0;
 } else {
     _container = _override;

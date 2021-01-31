@@ -39,6 +39,7 @@ if (A3A_hasRHS) then {
 	{ deleteVehicle _x } forEach (allMissionObjects "rhs_a10_acesII_seat");		// Ejection seat for A-10 and F-22
 	{ deleteVehicle _x } forEach (allMissionObjects "rhs_a10_canopy");			// other canopies delete on ground contact
 	{ deleteVehicle _x } forEach (allMissionObjects "rhs_k36d5_seat");			// AFRF ejection seat
+	{ deleteVehicle _x } forEach (allMissionObjects "rhs_vs1_seat");			// another dumb ejection seat
 };
 
 [petros,"hint","Garbage deleted", "Garbage Cleaner"] remoteExec ["A3A_fnc_commsMP", 0];

@@ -3260,12 +3260,12 @@
         <Original>Donate 100 € to player</Original>
         <Russian>Пожертвуйте 100 € игроку</Russian>
       </Key>
-      <Key ID="STR_antistasi_dialogs_player_money_donate_fraction">
-        <Original>Donate 100 € to Fraction</Original>
+      <Key ID="STR_antistasi_dialogs_player_money_donate_faction">
+        <Original>Donate 100 € to Faction</Original>
         <Russian>Пожертвовать 100 € фракции</Russian>
       </Key>
-      <Key ID="STR_antistasi_dialogs_player_money_donate_fraction_tooltip">
-        <Original>It will increase your prestige among your fraction</Original>
+      <Key ID="STR_antistasi_dialogs_player_money_donate_faction_tooltip">
+        <Original>It will increase your prestige among your faction</Original>
         <Russian>Это повысит ваш престиж среди вашей фракции</Russian>
       </Key>
     </Container>

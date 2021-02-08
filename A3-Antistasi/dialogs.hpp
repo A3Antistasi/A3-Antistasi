@@ -2275,12 +2275,12 @@ class player_money 			{
 		class HQ_button_AA: RscButton
 		{
 			idc = -1;
-			text = $STR_antistasi_dialogs_player_money_donate_fraction;
+			text = $STR_antistasi_dialogs_player_money_donate_faction;
 			x = 0.482498 * safezoneW + safezoneX;
 			y = 0.415981 * safezoneH + safezoneY;
 			w = 0.175015 * safezoneW;
 			h = 0.0560125 * safezoneH;
-			tooltip = $STR_antistasi_dialogs_player_money_donate_fraction_tooltip;
+			tooltip = $STR_antistasi_dialogs_player_money_donate_faction_tooltip;
 			action = "[] call A3A_fnc_donateMoney;";
 		};
 	};

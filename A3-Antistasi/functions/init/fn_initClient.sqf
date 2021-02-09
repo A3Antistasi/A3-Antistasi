@@ -461,7 +461,7 @@ mapX addAction ["Game Options", {["Game Options", format ["Antistasi - %2<br/><b
 mapX addAction ["Map Info", A3A_fnc_cityinfo,nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)", 4];
 mapX addAction ["Move this asset", A3A_fnc_moveHQObject,nil,0,false,true,"","(_this == theBoss)", 4];
 if (isMultiplayer) then {mapX addAction ["AI Load Info", { [] remoteExec ["A3A_fnc_AILoadInfo",2];},nil,0,false,true,"","((_this == theBoss) || (serverCommandAvailable ""#logout""))"]};
-_nul = [player] execVM "OrgPlayers\unitTraits.sqf";
+[] execVM "OrgPlayers\unitTraits.sqf";
 
 // only add petros actions if he's static
 if (petros == leader group petros) then {

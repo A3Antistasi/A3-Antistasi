@@ -28,7 +28,7 @@ Example:
 
 params
 [
-    ["_target", objNull, [objNull]],
+    "_target",
     ["_precision", 0, [0]],
     ["_supportTypes", [], [[]]],
     ["_side", sideEnemy, [sideEnemy]],

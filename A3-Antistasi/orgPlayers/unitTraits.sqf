@@ -22,7 +22,7 @@ Example:
 
 private _type = typeOf player;
 private _text = "";
-if(roleDescription player != "Default Commander") then
+if(roleDescription player == "Default Commander") then
 {
     //Same values as teamleader
     player setUnitTrait ["camouflageCoef",0.8];

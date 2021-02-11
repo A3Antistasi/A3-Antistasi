@@ -336,6 +336,10 @@ if (A3A_hasD3S) then {
   call compile preProcessFileLineNumbers "Templates\AddonVics\d3s_Civ.sqf";
   [2, "Using Addon D3S Cars Template", _filename] call A3A_fnc_log;
 };
+if (A3A_hasRDS) then {
+  call compile preProcessFileLineNumbers "Templates\AddonVics\rds_Civ.sqf";
+  [2, "Using Addon RDS Cars Template", _filename] call A3A_fnc_log;
+};
 
 //Logistics node loading is done here
 [2,"Reading Logistics Node files.",_fileName] call A3A_fnc_log;
@@ -345,3 +349,4 @@ if (A3A_has3CB) then {call compile preProcessFileLineNumbers "Templates\3CB\3CB_
 if (A3A_hasIFA) then {call compile preProcessFileLineNumbers "Templates\IFA\IFA_Logistics_Nodes.sqf"};
 if (A3A_hasFFAA) then {call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Logistics_Nodes.sqf"};
 if (A3A_hasD3S) then {call compile preProcessFileLineNumbers "Templates\AddonVics\d3s_Logi_Nodes.sqf";};
+if (A3A_hasRDS) then {call compile preProcessFileLineNumbers "Templates\AddonVics\rds_Logi_Nodes.sqf";};

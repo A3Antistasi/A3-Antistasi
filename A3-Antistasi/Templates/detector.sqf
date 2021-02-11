@@ -19,6 +19,7 @@ A3A_hasIvory = false;
 A3A_hasTCGM = false;
 A3A_hasADV = false;
 A3A_hasD3S = false;
+A3A_hasRDS = false;
 
 //Actual Detection
 //IFA Detection
@@ -56,9 +57,11 @@ if (isClass (configfile >> "CfgPatches" >> "TCGM_BikeBackpack")) then {A3A_hasTC
 //ADV-CPR Pike Edition detection
 if (hasACEMedical && isClass (configFile >> "CfgPatches" >> "adv_aceCPR")) then {A3A_hasADV = true; [2,"ADV Detected.",_fileName] call A3A_fnc_log;};
 
-
 //D3S Car Pack Detection !!!--- Currently using vehicle classname check. Needs config viewer to work to find cfgPatches. ---!!!
 if (isClass (configfile >> "CfgVehicles" >> "d3s_baumaschinen")) then {A3A_hasD3S = true; [2,"D3S Detected.",_fileName] call A3A_fnc_log;};
+
+//RDS Car Pack Detection
+if (isClass (configfile >> "CfgPatches" >> "rds_A2_Civilians")) then {A3A_hasRDS = true; [2,"RDS Cars Detected.",_fileName] call A3A_fnc_log;};
 
 //No Mods found logging
 if (!A3A_hasRHS && !A3A_hasFFAA && !A3A_hasIFA && !A3A_has3CB) then {[2,"No Side Replacement Mods Detected.",_fileName] call A3A_fnc_log;};

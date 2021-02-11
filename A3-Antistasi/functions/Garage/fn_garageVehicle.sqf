@@ -11,6 +11,8 @@ _veh = cursorTarget;
 
 if (isNull _veh) exitWith {["Garage", "You are not looking at a vehicle"] call A3A_fnc_customHint;};
 
+if !((_veh getVariable "SA_Tow_Ropes") isEqualTo objNull) exitWith {["Garage", "You can't garage a Vehicle with your Tow Rope out or a Vehicle attached"] call A3A_fnc_customHint;};
+
 if (!alive _veh) exitWith {["Garage", "You can't add destroyed vehicles to your garage"] call A3A_fnc_customHint;};
 _closeX = markersX select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
 _closeX = _closeX select {(player inArea _x) and (_veh inArea _x)};

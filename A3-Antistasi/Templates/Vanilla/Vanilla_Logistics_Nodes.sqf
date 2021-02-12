@@ -154,15 +154,15 @@ A3A_logistics_vehicleHardpoints = [
 //Offsets for adding new statics/boxes to the JNL script.
 A3A_logistics_attachmentOffset = [
     //weapons                                                                 //location                  //rotation                  //size    //recoil            //description
-    ["B_static_AT_F" call A3A_fnc_classNameToModel,                             [-0.5, 0.0, 1.05],          [1, 0, 0],                  2,      500],               //AT titan, facing to the right
-    ["B_static_AA_F" call A3A_fnc_classNameToModel,                             [-0.5, 0.0, 1.05],          [1, 0, 0],                  2,      500],               //AA titan, facing to the right
-    ["B_GMG_01_high_F" call A3A_fnc_classNameToModel,                           [0.2, -0.4, 1.7],           [0, 1, 0],                  2,      200],               //Static GMG High
-    ["B_HMG_01_high_F" call A3A_fnc_classNameToModel,                           [0.2, -0.4, 1.7],           [0, 1, 0],                  2,      200],               //Static HMG High
-    ["B_GMG_01_F" call A3A_fnc_classNameToModel,                                [0, 0, 1.19],               [0, -1, 0],                 4,      200],               //Static GMG
-    ["B_HMG_01_F" call A3A_fnc_classNameToModel,                                [0, 0, 1.19],               [0, -1, 0],                 4,      200],               //Static HMG
-    ["B_Mortar_01_F" call A3A_fnc_classNameToModel,                             [-0.1,-0.5,0.79],           [0, 1, 0],                  2,      4000],              //Mortar
-    ["B_HMG_02_high_F" call A3A_fnc_classNameToModel,                           [0.2, -0.5, 1.7],           [0, 1, 0],                  4,      200],               //M2 High
-    ["B_HMG_02_F" call A3A_fnc_classNameToModel,                                [-0.2, 0, 1.3],             [0, -1, 0],                 4,      200],               //M2
+    ["B_static_AT_F" call A3A_fnc_classNameToModel,                             [-0.5, 0.0, 1.05],          [1, 0, 0],                  2,      250],               //AT titan, facing to the right
+    ["B_static_AA_F" call A3A_fnc_classNameToModel,                             [-0.5, 0.0, 1.05],          [1, 0, 0],                  2,      250],               //AA titan, facing to the right
+    ["B_GMG_01_high_F" call A3A_fnc_classNameToModel,                           [0.2, -0.4, 1.7],           [0, 1, 0],                  2,      100],               //Static GMG High
+    ["B_HMG_01_high_F" call A3A_fnc_classNameToModel,                           [0.2, -0.4, 1.7],           [0, 1, 0],                  2,      100],               //Static HMG High
+    ["B_GMG_01_F" call A3A_fnc_classNameToModel,                                [0, 0, 1.19],               [0, -1, 0],                 4,      100],               //Static GMG
+    ["B_HMG_01_F" call A3A_fnc_classNameToModel,                                [0, 0, 1.19],               [0, -1, 0],                 4,      100],               //Static HMG
+    ["B_Mortar_01_F" call A3A_fnc_classNameToModel,                             [-0.1,-0.5,0.79],           [0, 1, 0],                  2,      2000],              //Mortar
+    ["B_HMG_02_high_F" call A3A_fnc_classNameToModel,                           [0.2, -0.5, 1.7],           [0, 1, 0],                  4,      100],               //M2 High
+    ["B_HMG_02_F" call A3A_fnc_classNameToModel,                                [-0.2, 0, 1.3],             [0, -1, 0],                 4,      100],               //M2
 
     //medium sized crates
     ["Box_NATO_AmmoVeh_F" call A3A_fnc_classNameToModel,                        [0,0,0.85],                 [1,0,0],                    2],                         //Vehicle ammo create

@@ -214,10 +214,6 @@ class CfgSounds
   // End Snow Script Sounds
 };
 
-#include "MissionDescription\params.hpp"
-
-#include "MissionDescription\CfgIdentities.hpp"
-
 class CfgDebriefing {
     #include "MissionDescription\CfgDebriefingContents.hpp"
 	class End1

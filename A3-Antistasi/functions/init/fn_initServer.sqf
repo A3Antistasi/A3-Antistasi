@@ -280,5 +280,4 @@ savingServer = false;
 		sleep _logPeriod;
 	};
 };
-execvm "functions\init\fn_initSnowFall.sqf";
 [2,"initServer completed",_fileName] call A3A_fnc_log;

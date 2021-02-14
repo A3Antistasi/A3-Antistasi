@@ -68,7 +68,7 @@ class A3A
 		class healAndRepair {};
 		class initPetros {};
 		class isFrontline {};
-		class isTheSameIsland {};
+		class arePositionsConnected {};
 		class joinMultipleGroups {};
 		class keys {};
 		class localizar {};

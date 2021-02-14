@@ -47,7 +47,7 @@ if (debug) then {
 //And weirdly, == is not case sensitive.
 //this comments has not an information about the code
 
-(seaMarkers + seaSpawn + seaAttackSpawn + spawnPoints + detectionAreas + islands) apply {_x setMarkerAlpha 0};
+(seaMarkers + seaSpawn + seaAttackSpawn + spawnPoints + detectionAreas) apply {_x setMarkerAlpha 0};
 defaultControlIndex = (count controlsX) - 1;
 outpostsFIA = [];
 destroyedSites = [];
@@ -446,7 +446,6 @@ publicVariable "seaSpawn";
 publicVariable "seaAttackSpawn";
 publicVariable "defaultControlIndex";
 publicVariable "detectionAreas";
-publicVariable "islands";
 publicVariable "roadsMrk";
 
 if (isMultiplayer) then {

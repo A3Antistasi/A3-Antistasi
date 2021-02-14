@@ -27,7 +27,7 @@ if (worldName == "Tanoa") then {
 	if (_mrkOrigin isEqualType "") then {
 		if ((_mrkOrigin != "airport") && (_mrkOrigin != "airport_2")) then { _exit = true; };
 	} else {
-		if (!([_mrkOrigin, "airport"] call A3A_fnc_isTheSameIsland)) then {
+		if (!([_mrkOrigin, "airport"] call A3A_fnc_arePositionsConnected)) then {
 			_exit = true;
 		} else {
 			if (_mrkOrigin distance2D (getMarkerPos "airport") < _mrkOrigin distance2D (getMarkerPos "airport_2")) then {

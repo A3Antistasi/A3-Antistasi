@@ -66,9 +66,11 @@ private _endNav = navGrid select _endNavIndex;
 
 [2, format ["Start %1 at %2 End %3 at %4", _startNav, str _startPos, _endNav, str _endPos], _fileName] call A3A_fnc_log;
 
+private _touchedNodes = [];
 //Blocking avoid elements
 {
     missionNamespace setVariable [format ["PF_%1", str (_x select 0)], WORKSTATE_AVOID_UNTOUCHED];
+    _touchedNodes pushBack (str (_x select 0));
 } forEach _avoid;
 
 //Start A* here
@@ -77,9 +79,8 @@ private _closedList = [];
 private _targetPos = _endNav select 0;
 private _startNavPos = _startNav select 0;
 private _maxDistance = 5 * ((_endNav select 0) distance (_startNav select 0));
-private _touchedNodes = [];
-
 private _lastNav = -1;
+
 _openList pushBack [_startNav, 0, [_startNav select 0, _endNav select 0] call A3A_fnc_calculateH, "Start"];
 missionNamespace setVariable [format ["PF_%1", str (_startNav select 0)], WORKSTATE_OPENED];
 _touchedNodes pushBack (str (_startNav select 0));

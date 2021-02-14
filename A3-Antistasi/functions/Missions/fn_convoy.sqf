@@ -132,10 +132,10 @@ else
 _posOrig = [[_posOrig] call A3A_fnc_findNearestNavPoint] call A3A_fnc_getNavPos;
 
 private _route = [_posOrig, _posDest] call A3A_fnc_findPath;
-if (_route isEqualTo []) then {
-	_route = [_posOrig, _posDest]
-} else {
-	_route deleteAt 0;		// origin will be doubled
+_route = [_route] call A3A_fnc_trimPath;
+if (_route isEqualTo []) then
+{
+	_route = [_posOrig, _posDest];
 };
 
 private _vecdir = (_route select 0) vectorFromTo (_route select 1);

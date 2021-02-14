@@ -45,5 +45,11 @@ if(_pathCount > 5) then
     };
 };
 
-private _simplifiedPath = _path select {_x select 1};
+private _simplifiedPath = [];
+{
+    if(_x select 1) then
+    {
+        _simplifiedPath pushBack (_x select 0);
+    };
+} forEach _path;
 _simplifiedPath;

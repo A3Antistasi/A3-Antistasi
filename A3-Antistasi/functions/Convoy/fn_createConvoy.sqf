@@ -50,7 +50,7 @@ _type = "";
 if(_hasAir && {!_hasLand}) then
 {
   //Convoy contains only air vehicles, can fly direct way
-  _route = [_origin, _origin vectorAdd [0,0,200], _destination vectorAdd [0,0,200], _destination];
+  _route = [[_origin, true], [_origin vectorAdd [0,0,200], false], [_destination vectorAdd [0,0,200], false], [_destination, true]];
   _type = "Air";
 }
 else

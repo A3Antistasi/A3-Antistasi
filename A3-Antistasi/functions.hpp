@@ -222,7 +222,6 @@ class A3A
         class createAttackVehicle {};
 		class createCIV {};
 		class createFIAOutposts2 {};
-		class createQRF {};
 		class createSDKGarrisons {};
 		class createSDKgarrisonsTemp {};
 		class createUnit {};

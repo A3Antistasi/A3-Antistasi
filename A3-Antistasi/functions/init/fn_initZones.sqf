@@ -132,7 +132,7 @@ configClasses (configfile >> "CfgWorlds" >> worldName >> "Names") apply {
 	_sizeY = getNumber (_x >> "radiusB");
 	_size = [_sizeY, _sizeX] select (_sizeX > _sizeY);
 	_pos = getArray (_x >> "position");
-	_size = [_size, 400] select (_size < 400);		// Different from generateRoadsDB. Maybe not good.
+	_size = [_size, 400] select (_size < 400);
 	_roads = [];
 	_numCiv = 0;
 
@@ -430,7 +430,6 @@ publicVariable "seaSpawn";
 publicVariable "seaAttackSpawn";
 publicVariable "defaultControlIndex";
 publicVariable "detectionAreas";
-publicVariable "roadsMrk";
 
 if (isMultiplayer) then {
 	[petros, "hint","Zones Init Completed"] remoteExec ["A3A_fnc_commsMP", -2]

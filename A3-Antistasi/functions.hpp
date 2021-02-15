@@ -650,7 +650,6 @@ class A3A
         class createDataObject {};
         class createNamespace {};
         class dateToTimeString {};
-        class generateRoadsDB {};
         class log {};
         class vehicleWillCollideAtPosition {};
         class getRoadDirection {};

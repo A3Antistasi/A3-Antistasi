@@ -147,13 +147,13 @@ if ([_markerX,false] call A3A_fnc_fogCheck > 0.2) then
 					_p2 = getPos (_roadcon select 0);
 					_dirveh = [_p1,_p2] call BIS_fnc_DirTo;
 					_typeVehX = selectRandomWeighted civVehiclesWeighted;
-					_veh = _typeVehX createVehicle _p1;
+					_veh = _typeVehX createVehicle (getPos _p1);
 					_veh setDir _dirveh;
 
 					//_veh forceFollowRoad true;
 					_vehPatrol = _vehPatrol + [_veh];
 					_typeCiv = selectRandom arrayCivs;
-					_civ = [_groupP, _typeCiv, _p1, [],0, "NONE"] call A3A_fnc_createUnit;
+					_civ = [_groupP, _typeCiv, (getPos _p1), [],0, "NONE"] call A3A_fnc_createUnit;
 					_nul = [_civ] spawn A3A_fnc_CIVinit;
 					_civsPatrol = _civsPatrol + [_civ];
 					_civ moveInDriver _veh;

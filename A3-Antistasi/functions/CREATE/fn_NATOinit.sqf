@@ -122,108 +122,102 @@ if !(A3A_hasIFA) then
 {
     if (sunOrMoon < 1) then
     {
-        if (!A3A_hasRHS) then
+        if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders) and (_unit != leader (group _unit))) then
         {
-            if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders) and (_unit != leader (group _unit))) then
+            if (_hmd != "") then
             {
-                if (_hmd != "") then
+                if ((random 5 > tierWar) and (!haveNV)) then
                 {
-                    if ((random 5 > tierWar) and (!haveNV)) then
-                    {
-                        _unit unassignItem _hmd;
-                        _unit removeItem _hmd;
-                        _hmd = "";
-                    };
-                };
-            };
-        }
-        else
-        {
-            private _arr = (allNVGs arrayIntersect (items _unit));
-            if (!(_arr isEqualTo []) or (_hmd != "")) then
-            {
-                if ((random 5 > tierWar) and (!haveNV) and (_unit != leader (group _unit))) then
-                {
-                    if (_hmd == "") then
-                    {
-                        _hmd = _arr select 0;
-                        _unit removeItem _hmd;
-                    }
-                    else
-                    {
-                        _unit unassignItem _hmd;
-                        _unit removeItem _hmd;
-                    };
+                    _unit unassignItem _hmd;
+                    _unit removeItem _hmd;
                     _hmd = "";
-                }
-                else
-                {
-                    _unit assignItem _hmd;
                 };
             };
-        };
-        private _weaponItems = primaryWeaponItems _unit;
-        if (_hmd != "") then
-        {
-            if (_weaponItems findIf {_x in allLaserAttachments} != -1) then
-            {
-                _unit action ["IRLaserOn", _unit];
-                _unit enableIRLasers true;
-            };
-        }
-        else
-        {
-            private _pointers = _weaponItems arrayIntersect allLaserAttachments;
-            if !(_pointers isEqualTo []) then
-            {
-                _unit removePrimaryWeaponItem (_pointers select 0);
-            };
-            private _lamp = "";
-            private _lamps = _weaponItems arrayIntersect allLightAttachments;
-            if (_lamps isEqualTo []) then
-            {
-                private _compatibleLamps = ((primaryWeapon _unit) call BIS_fnc_compatibleItems) arrayIntersect allLightAttachments;
-                if !(_compatibleLamps isEqualTo []) then
-                {
-                    _lamp = selectRandom _compatibleLamps;
-                    _unit addPrimaryWeaponItem _lamp;
-                    _unit assignItem _lamp;
-                };
-            }
-            else
-            {
-                _lamp = _lamps select 0;
-            };
-            if (_lamp != "") then
-            {
-                _unit enableGunLights "AUTO";
-            };
-            //Reduce their magical night-time spotting powers.
-            _unit setskill ["spotDistance", _skill * 0.7];
-            _unit setskill ["spotTime", _skill * 0.5];
         };
     }
     else
     {
-        if (!A3A_hasRHS) then
+        private _arr = (allNVGs arrayIntersect (items _unit));
+        if (!(_arr isEqualTo []) or (_hmd != "")) then
         {
-            if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders)) then
+            if ((random 5 > tierWar) and (!haveNV) and (_unit != leader (group _unit))) then
             {
-                if (_hmd != "") then
+                if (_hmd == "") then
+                {
+                    _hmd = _arr select 0;
+                    _unit removeItem _hmd;
+                }
+                else
                 {
                     _unit unassignItem _hmd;
                     _unit removeItem _hmd;
                 };
+                _hmd = "";
+            }
+            else
+            {
+                _unit assignItem _hmd;
+            };
+        };
+    };
+    private _weaponItems = primaryWeaponItems _unit;
+    if (_hmd != "") then
+    {
+        if (_weaponItems findIf {_x in allLaserAttachments} != -1) then
+        {
+            _unit action ["IRLaserOn", _unit];
+            _unit enableIRLasers true;
+        };
+    }
+    else
+    {
+        private _pointers = _weaponItems arrayIntersect allLaserAttachments;
+        if !(_pointers isEqualTo []) then
+        {
+            _unit removePrimaryWeaponItem (_pointers select 0);
+        };
+        private _lamp = "";
+        private _lamps = _weaponItems arrayIntersect allLightAttachments;
+        if (_lamps isEqualTo []) then
+        {
+            private _compatibleLamps = ((primaryWeapon _unit) call BIS_fnc_compatibleItems) arrayIntersect allLightAttachments;
+            if !(_compatibleLamps isEqualTo []) then
+            {
+                _lamp = selectRandom _compatibleLamps;
+                _unit addPrimaryWeaponItem _lamp;
+                _unit assignItem _lamp;
             };
         }
         else
         {
-            private _arr = (allNVGs arrayIntersect (items _unit));
-            if (count _arr > 0) then
+            _lamp = _lamps select 0;
+        };
+        if (_lamp != "") then
+        {
+            _unit enableGunLights "AUTO";
+        };
+        //Reduce their magical night-time spotting powers.
+        _unit setskill ["spotDistance", _skill * 0.7];
+        _unit setskill ["spotTime", _skill * 0.5];
+    };
+else
+    {
+        if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders)) then
+        {
+            if (_hmd != "") then
             {
-                _hmd = _arr select 0;
+                _unit unassignItem _hmd;
                 _unit removeItem _hmd;
             };
+        };
+    }
+    else
+    {
+        private _arr = (allNVGs arrayIntersect (items _unit));
+        if (count _arr > 0) then
+        {
+            _hmd = _arr select 0;
+            _unit removeItem _hmd;
         };
     };
 }

@@ -331,10 +331,10 @@ if (A3A_hasRDS) then {
 
 //Logistics node loading is done here
 [2,"Reading Logistics Node files.",_fileName] call A3A_fnc_log;
-call compile preProcessFileLineNumbers "Templates\Vanilla\Vanilla_Logistics_Nodes.sqf";//Always call vanilla as it initialises the arrays.
-if (A3A_hasRHS) then {call compile preProcessFileLineNumbers "Templates\RHS\RHS_Logistics_Nodes.sqf"};
-if (A3A_has3CB) then {call compile preProcessFileLineNumbers "Templates\3CB\3CB_Logistics_Nodes.sqf"};
+call compile preProcessFileLineNumbers "Templates\NewTemplates\Vanilla\Vanilla_Logistics_Nodes.sqf";//Always call vanilla as it initialises the arrays.
+if (A3A_hasRHS) then {call compile preProcessFileLineNumbers "Templates\NewTemplates\RHS\RHS_Logistics_Nodes.sqf"};
+if (A3A_has3CB) then {call compile preProcessFileLineNumbers "Templates\NewTemplates\3CB\3CB_Logistics_Nodes.sqf"};
 //if (A3A_hasIFA) then {call compile preProcessFileLineNumbers "Templates\IFA\IFA_Logistics_Nodes.sqf"};		//disabled until imtegrated
 //if (A3A_hasFFAA) then {call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Logistics_Nodes.sqf"};		//disabled until imtegrated
-//if (A3A_hasD3S) then {call compile preProcessFileLineNumbers "Templates\AddonVics\d3s_Logi_Nodes.sqf";};		//disabled until imtegrated
-//if (A3A_hasRDS) then {call compile preProcessFileLineNumbers "Templates\AddonVics\rds_Logi_Nodes.sqf";};		//disabled until imtegrated
+if (A3A_hasD3S) then {call compile preProcessFileLineNumbers "Templates\AddonVics\d3s_Logi_Nodes.sqf";};
+if (A3A_hasRDS) then {call compile preProcessFileLineNumbers "Templates\AddonVics\rds_Logi_Nodes.sqf";};

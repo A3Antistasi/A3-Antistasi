@@ -12,7 +12,7 @@ Dependencies:
 */
 private _filename = "selector.sqf";
 //Map checker
-aridmaps = ["Altis","Kunduz","Malden","tem_anizay","takistan"];
+aridmaps = ["Altis","Kunduz","Malden","tem_anizay","takistan","sara"];
 tropicalmaps = ["Tanoa"];
 temperatemaps = ["Enoch","chernarus_summer","vt7","Tembelan"];
 arcticmaps = ["Chernarus_Winter"];

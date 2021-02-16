@@ -239,7 +239,7 @@ while {(_waves > 0)} do
 					sleep 1;
 				};
 				if (count _pos == 0) then {_pos = getMarkerPos _spawnPoint};
-				_vehicle=[_pos, _dir,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
+				_vehicle=[_pos, _dir,_typeVehX, _sideX] call A3A_fnc_spawnVehicle;
 
 				_veh = _vehicle select 0;
 				_vehCrew = _vehicle select 1;
@@ -382,7 +382,7 @@ while {(_waves > 0)} do
 					};
 				if ((count _landPos > 0) and _proceed) then
 					{
-					_vehicle=[_pos, random 360,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
+					_vehicle=[_pos, random 360,_typeVehX, _sideX] call A3A_fnc_spawnVehicle;
 
 					_veh = _vehicle select 0;
 					_vehCrew = _vehicle select 1;
@@ -503,7 +503,7 @@ while {(_waves > 0)} do
 		_airSupport pushBack _uav;
 		//[_uav,"UAV"] spawn A3A_fnc_inmuneConvoy;
 		[_uav,_mrkDestination,_sideX] spawn A3A_fnc_VANTinfo;
-		createVehicleCrew _uav;
+		[_sideX, _uav] call A3A_fnc_createVehicleCrew;
 		_pilots append (crew _uav);
 		_groupVeh = group driver _uav;
 		_groups pushBack _groupVeh;
@@ -538,7 +538,7 @@ while {(_waves > 0)} do
 
 		if (true) then
 			{
-			_vehicle=[_pos, _ang + 90,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
+			_vehicle=[_pos, _ang + 90,_typeVehX, _sideX] call A3A_fnc_spawnVehicle;
 			_veh = _vehicle select 0;
 			if (_veh isKindOf "Plane") then {
 				_veh setVelocityModelSpace (velocityModelSpace _veh vectorAdd [0, 150, 50]);

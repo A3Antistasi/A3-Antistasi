@@ -19,7 +19,7 @@ for "_i" from 0 to ((count _unitObjects) - 1) do
 	{
 		if(alive _x) then
 		{
-			_cargoData pushBack (typeOf _x);
+			_cargoData pushBack (_x getVariable "unitType");
 			(group _x) deleteGroupWhenEmpty true;
 			deleteVehicle _x;
 		};
@@ -30,7 +30,7 @@ for "_i" from 0 to ((count _unitObjects) - 1) do
 	{
 		if(alive _x) then
 		{
-			_crewData pushBack (typeOf _x);
+			_crewData pushBack (_x getVariable "unitType");
 			(group _x) deleteGroupWhenEmpty true;
 			deleteVehicle _x;
 		};

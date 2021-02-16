@@ -41,7 +41,7 @@ for "_i" from 1 to _max do
 
 	if (_spawnParameter isEqualType []) then
 	{
-		_vehicle=[_spawnParameter select 0, _spawnParameter select 1,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
+		_vehicle=[_spawnParameter select 0, _spawnParameter select 1,_typeVehX, _sideX] call A3A_fnc_spawnVehicle;
 		_veh = _vehicle select 0;
 		_vehCrew = _vehicle select 1;
 		{[_x,_markerX] call A3A_fnc_NATOinit} forEach _vehCrew;

@@ -18,8 +18,13 @@ if ((isNil "_unit") || (isNull _unit)) exitWith
     [1, format ["Bad init parameter: %1", _this], _fileName] call A3A_fnc_log;
 };
 
-private _type = typeOf _unit;
+private _type = _unit getVariable "unitType";
 private _side = side (group _unit);
+
+if (isNil "_type") then {
+    [1, format ["Unit does not have a type assigned: %1, vehicle: %2", typeOf _unit, typeOf vehicle _unit], _fileName] call A3A_fnc_log;
+    _type = typeOf _unit;
+};
 
 if (_type == "Fin_random_F") exitWith {};
 

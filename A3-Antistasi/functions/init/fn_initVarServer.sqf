@@ -193,6 +193,9 @@ everyEquipmentRelatedArrayName = allEquipmentArrayNames + unlockedEquipmentArray
 	DECLARE_SERVER_VAR_FROM_VARIABLE(_x, []);
 } forEach everyEquipmentRelatedArrayName;
 
+//Create a global namespace for custom unit types.
+DECLARE_SERVER_VAR(customUnitTypes, [true] call A3A_fnc_createNamespace);
+
 ////////////////////////////////////
 //          MOD CONFIG           ///
 ////////////////////////////////////
@@ -306,6 +309,8 @@ private _templateVariables = [
 	"NATOFlagTexture",
 	"flagNATOmrk",
 	"NATOAmmobox",
+    "NATOSurrenderCrate",
+    "NATOEquipmentBox",
 	"NATOPlayerLoadouts",
 	"vehNATOPVP",
 	"NATOGrunt",
@@ -379,6 +384,8 @@ private _templateVariables = [
 	"CSATFlagTexture",
 	"flagCSATmrk",
 	"CSATAmmoBox",
+    "CSATSurrenderCrate",
+    "CSATEquipmentBox",
 	"CSATPlayerLoadouts",
 	"vehCSATPVP",
 	"CSATGrunt",

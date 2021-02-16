@@ -157,7 +157,7 @@ private _fnc_spawnConvoyVehicle = {
 	_veh allowDamage false;
 	_veh limitSpeed _speedLimit;
 
-	private _group = createVehicleCrew _veh;
+	private _group = [_sideX, _veh] call A3A_fnc_createVehicleCrew;
 	_group addVehicle _veh;
 	{
 		// probably don't want civilian drivers here, but it's a pain atm
@@ -404,7 +404,7 @@ if (_convoyType == "Reinforcements") then
 		if (sidesX getVariable [_mrkDest,sideUnknown] != teamPlayer) then
 		{
 			_typesX = [];
-			{_typesX pushBack (typeOf _x)} forEach (_reinforcementsX select {alive _x});
+			{_typesX pushBack (_x getVariable "unitType")} forEach (_reinforcementsX select {alive _x});
 			[_typesX,_sideX,_mrkDest,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
 		};
 	};

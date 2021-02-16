@@ -97,7 +97,7 @@ if (_landAttack) then
 			sleep 1;
 		};
 		if (count _pos == 0) then {_pos = if (_indexX == -1) then {getMarkerPos _spawnPoint} else {position _spawnPoint}};
-		_vehicle=[_pos, _dir,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
+		_vehicle=[_pos, _dir,_typeVehX, _sideX] call A3A_fnc_spawnVehicle;
 
 		_veh = _vehicle select 0;
 		_vehCrew = _vehicle select 1;
@@ -259,7 +259,7 @@ else
 			_pos = [_pos1, 5,_ang] call BIS_fnc_relPos;
 		};
 		if (count _pos == 0) then {_pos = _posOrigin};
-		_vehicle=[_pos, _ang + 90,_typeVehX, _sideX] call bis_fnc_spawnvehicle;
+		_vehicle=[_pos, _ang + 90,_typeVehX, _sideX] call A3A_fnc_spawnVehicle;
 		_veh = _vehicle select 0;
 		if (A3A_hasIFA) then {_veh setVelocityModelSpace [((velocityModelSpace _veh) select 0) + 0,((velocityModelSpace _veh) select 1) + 150,((velocityModelSpace _veh) select 2) + 50]};
 		_vehCrew = _vehicle select 1;

@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_pos","_markerX","_vehiclesX","_groups","_soldiers","_positionX","_busy","_buildings","_pos1","_pos2","_groupX","_countX","_typeVehX","_veh","_unit","_arrayVehAAF","_nVeh","_frontierX","_size","_ang","_mrk","_typeGroup","_flagX","_dog","_typeUnit","_garrison","_sideX","_cfg","_max","_vehicle","_vehCrew","_groupVeh","_roads","_dist","_road","_roadscon","_roadcon","_dirveh","_bunker","_typeGroup","_positionsX","_posMG","_posMort","_posTank"];
+private ["_pos","_markerX","_vehiclesX","_groups","_soldiers","_busy","_buildings","_pos1","_pos2","_groupX","_countX","_typeVehX","_veh","_unit","_arrayVehAAF","_nVeh","_frontierX","_size","_ang","_mrk","_typeGroup","_flagX","_dog","_typeUnit","_garrison","_sideX","_cfg","_max","_vehicle","_vehCrew","_groupVeh","_roads","_dist","_road","_roadscon","_roadcon","_dirveh","_bunker","_typeGroup"];
 _markerX = _this select 0;
 
 //Not sure if that ever happens, but it reduces redundance
@@ -23,13 +23,6 @@ _busy = if (dateToNumber date > server getVariable _markerX) then {false} else {
 _nVeh = round (_size/60);
 
 _sideX = sidesX getVariable [_markerX,sideUnknown];
-
-_positionsX = roadsX getVariable [_markerX,[]];
-_posMG = _positionsX select {(_x select 2) == "MG"};
-_posMort = _positionsX select {(_x select 2) == "Mort"};
-_posTank = _positionsX select {(_x select 2) == "Tank"};
-_posAA = _positionsX select {(_x select 2) == "AA"};
-_posAT = _positionsX select {(_x select 2) == "AT"};
 
 _typeVehX = if (_sideX == Occupants) then {vehNATOAA} else {vehCSATAA};
 _max = if (_frontierX && {[_typeVehX] call A3A_fnc_vehAvailable}) then {2} else {1};
@@ -162,84 +155,6 @@ while {_spawnParameter isEqualType []} do
 	_spawnParameter = [_markerX, "Mortar"] call A3A_fnc_findSpawnPosition;
 	sleep 1;
 };
-
-_typeVehX = if (_sideX == Occupants) then {NATOMG} else {CSATMG};
-{
-if (spawner getVariable _markerX != 2) then
-	{
-	_proceed = true;
-	if ((_x select 0) select 2 > 0.5) then
-		{
-		_bld = nearestBuilding (_x select 0);
-		if !(alive _bld) then {_proceed = false};
-		};
-	if (_proceed) then
-		{
-		_veh = _typeVehX createVehicle [0,0,1000];
-		_veh setDir (_x select 1);
-		_veh setPosATL (_x select 0);
-		_unit = [_groupX, _typeUnit, _positionX, [], 0, "NONE"] call A3A_fnc_createUnit;
-		[_unit,_markerX] call A3A_fnc_NATOinit;
-		_unit moveInGunner _veh;
-		_soldiers pushBack _unit;
-		_vehiclesX pushBack _veh;
-		[_veh, _sideX] call A3A_fnc_AIVEHinit;
-		sleep 1;
-		};
-	};
-} forEach _posMG;
-_typeVehX = if (_sideX == Occupants) then {staticAAOccupants} else {staticAAInvaders};
-{
-if (spawner getVariable _markerX != 2) then
-	{
-	if !([_typeVehX] call A3A_fnc_vehAvailable) exitWith {};
-	_proceed = true;
-	if ((_x select 0) select 2 > 0.5) then
-		{
-		_bld = nearestBuilding (_x select 0);
-		if !(alive _bld) then {_proceed = false};
-		};
-	if (_proceed) then
-		{
-		_veh = _typeVehX createVehicle [0,0,1000];
-		_veh setDir (_x select 1);
-		_veh setPosATL (_x select 0);
-		_unit = [_groupX, _typeUnit, _positionX, [], 0, "NONE"] call A3A_fnc_createUnit;
-		[_unit,_markerX] call A3A_fnc_NATOinit;
-		_unit moveInGunner _veh;
-		_soldiers pushBack _unit;
-		_vehiclesX pushBack _veh;
-		[_veh, _sideX] call A3A_fnc_AIVEHinit;
-		sleep 1;
-		};
-	};
-} forEach _posAA;
-_typeVehX = if (_sideX == Occupants) then {staticATOccupants} else {staticATInvaders};
-{
-if (spawner getVariable _markerX != 2) then
-	{
-	if !([_typeVehX] call A3A_fnc_vehAvailable) exitWith {};
-	_proceed = true;
-	if ((_x select 0) select 2 > 0.5) then
-		{
-		_bld = nearestBuilding (_x select 0);
-		if !(alive _bld) then {_proceed = false};
-		};
-	if (_proceed) then
-		{
-		_veh = _typeVehX createVehicle [0,0,1000];
-		_veh setDir (_x select 1);
-		_veh setPosATL (_x select 0);
-		_unit = [_groupX, _typeUnit, _positionX, [], 0, "NONE"] call A3A_fnc_createUnit;
-		[_unit,_markerX] call A3A_fnc_NATOinit;
-		_unit moveInGunner _veh;
-		_soldiers pushBack _unit;
-		_vehiclesX pushBack _veh;
-		[_veh, _sideX] call A3A_fnc_AIVEHinit;
-		sleep 1;
-		};
-	};
-} forEach _posAT;
 
 _ret = [_markerX,_size,_sideX,_frontierX] call A3A_fnc_milBuildings;
 _groups pushBack (_ret select 0);

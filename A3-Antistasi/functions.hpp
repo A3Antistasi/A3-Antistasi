@@ -68,7 +68,7 @@ class A3A
 		class healAndRepair {};
 		class initPetros {};
 		class isFrontline {};
-		class isTheSameIsland {};
+		class arePositionsConnected {};
 		class joinMultipleGroups {};
 		class keys {};
 		class localizar {};
@@ -222,7 +222,6 @@ class A3A
         class createAttackVehicle {};
 		class createCIV {};
 		class createFIAOutposts2 {};
-		class createQRF {};
 		class createSDKGarrisons {};
 		class createSDKgarrisonsTemp {};
 		class createUnit {};
@@ -486,19 +485,21 @@ class A3A
 
     class Pathfinding
     {
-        //Public API - Call these from anywhere
-        class findPath {};
-        class loadNavGrid {};
-
-
-        //Private API - Do NOT call these elsewhere
+        class areNodesConnected {};
         class calculateH {};
-        class findNearestNavPoint {};
-        class getClosestMainMarker {};
-        class getMainMarkers {};
-        class getNavConnections {};
-        class getNavPos {};
-        class setNavOnMarker {};
+        class drawGrid {};
+        class drawLine {};
+        class drawPath {};
+        class findNodesInDistance {};
+        class findPath {};
+        class findPathPrecheck {};
+        class getMainPositions {};
+        class getNearestNavPoint {};
+        class listInsert {};
+        class loadNavGrid {};
+        class markNode {};
+        class setNavData {};
+        class trimPath {};
     };
 
     class Punishment
@@ -681,7 +682,6 @@ class A3A
         class createNamespace {};
         class dateToTimeString {};
         class deleteNamespace {};
-        class generateRoadsDB {};
         class log {};
         class vehicleWillCollideAtPosition {};
         class getRoadDirection {};

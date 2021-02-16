@@ -27,7 +27,7 @@ _maxSpeed = _maxSpeed * 0.8; //Only drive with 80% of max speed
 private _isDebug = !(isNil "_debugObject");
 
 private _pointsCount = count _route;
-private _currentPos = _route select 0;
+private _currentPos = _route select 0 select 0;
 private _remainingRoute = +_route;
 _remainingRoute deleteAt 0;
 
@@ -40,8 +40,8 @@ if(_isDebug) then {_debugObject setPos _currentPos;};
 
 for "_i" from 1 to (_pointsCount - 1) do
 {
-  private _lastPoint = _route select (_i - 1);
-  private _nextPoint = _route select (_i);
+  private _lastPoint = _route select (_i - 1) select 0;
+  private _nextPoint = _route select (_i) select 0;
 
   private _movementVector = (_lastPoint vectorFromTo _nextPoint) vectorMultiply _maxSpeed;
   private _movementLength = _lastPoint vectorDistance _nextPoint;
@@ -121,7 +121,7 @@ if(!_isSimulated) exitWith {};
 
 diag_log format ["ConvoyMovement[%1]: Convoy arrived at destination!", _convoyID];
 
-[_convoyID, (_route select 0), (_route select (_pointsCount - 1)), _units, _convoySide, _convoyType] spawn A3A_fnc_onConvoyArrival;
+[_convoyID, (_route select 0) select 0, (_route select (_pointsCount - 1) select 0) , _units, _convoySide, _convoyType] spawn A3A_fnc_onConvoyArrival;
 
 sleep 10;
 deleteMarker _convoyMarker;

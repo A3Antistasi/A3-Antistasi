@@ -178,15 +178,15 @@ class A3A
         class vehicleMarkers {};
     };
 
-	class Collections
-	{
-		class getNestedObject {};
-		class remNestedObject {};
-		class setNestedObject {};
-	};
+    class Collections
+    {
+        class getNestedObject {};
+        class remNestedObject {};
+        class setNestedObject {};
+    };
 
-	class Convoy
-	{
+    class Convoy
+    {
         class cleanConvoyMarker {};
         class convoyDebug {};
         class convoyMovement {};
@@ -683,6 +683,7 @@ class A3A
         class dateToTimeString {};
         class deleteNamespace {};
         class log {};
+        class systemTime_format_G {};
         class vehicleWillCollideAtPosition {};
         class getRoadDirection {};
     };

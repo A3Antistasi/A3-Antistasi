@@ -45,6 +45,8 @@ if (isMultiplayer) then {
 	playerMarkersEnabled = ("pMarkers" call BIS_fnc_getParamValue == 1); publicVariable "playerMarkersEnabled";
 	minPlayersRequiredforPVP = "minPlayersRequiredforPVP" call BIS_fnc_getParamValue; publicVariable "minPlayersRequiredforPVP";
 	helmetLossChance = "helmetLossChance" call BIS_fnc_getParamValue; publicVariable "helmetLossChance";
+    allowUnfairSupports = [false, true] select ("allowUnfairSupports" call BIS_fnc_getParamValue);
+    allowFuturisticSupports = allowUnfairSupports && ([false, true] select ("allowFuturisticSupports" call BIS_fnc_getParamValue));
 	LootToCrateEnabled = if ("EnableLootToCrate" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "LootToCrateEnabled";
 	LTCLootUnlocked = if ("LTCLootUnlocked" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "LTCLootUnlocked";
 } else {
@@ -78,6 +80,9 @@ if (isMultiplayer) then {
 	LootToCrateEnabled = true;
 	LTCLootUnlocked = false;
     startWithLongRangeRadio = true;
+
+    allowUnfairSupports = false;
+    allowFuturisticSupports = false;
 };
 
 [] call A3A_fnc_crateLootParams;
@@ -128,6 +133,7 @@ call A3A_fnc_initFuncs;
 
 //Initialise variables needed by the mission.
 _nul = call A3A_fnc_initVar;
+call A3A_fnc_logistics_initNodes;
 
 savingServer = true;
 [2,format ["%1 server version: %2", ["SP","MP"] select isMultiplayer, localize "STR_antistasi_credits_generic_version_text"],_fileName] call A3A_fnc_log;
@@ -238,6 +244,7 @@ waitUntil {sleep 1;!(isNil "placementDone")};
 distanceXs = [] spawn A3A_fnc_distance;
 [] spawn A3A_fnc_resourcecheck;
 [] spawn A3A_fnc_aggressionUpdateLoop;
+[] spawn A3A_fnc_initSupportCooldowns;
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 savingServer = false;
 
@@ -273,5 +280,4 @@ savingServer = false;
 		sleep _logPeriod;
 	};
 };
-execvm "functions\init\fn_initSnowFall.sqf";
 [2,"initServer completed",_fileName] call A3A_fnc_log;

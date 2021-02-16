@@ -144,9 +144,9 @@ private _ammoBox = if (garrison getVariable [_markerX + "_lootCD", 0] == 0) then
 	// Otherwise when destroyed, ammoboxes sink 100m underground and are never cleared up
 	_ammoBox addEventHandler ["Killed", { [_this#0] spawn { sleep 10; deleteVehicle (_this#0) } }];
 	[_ammoBox] spawn A3A_fnc_fillLootCrate;
-	_ammoBox call jn_fnc_logistics_addAction;
+	[_ammoBox] call A3A_fnc_logistics_addLoadAction;
 
-	if ((_markerX in seaports) and !hasIFA) then {
+	if ((_markerX in seaports) and !A3A_hasIFA) then {
 		[_ammoBox] spawn {
 			sleep 1;    //make sure fillLootCrate finished clearing the crate
 			{
@@ -159,7 +159,7 @@ private _ammoBox = if (garrison getVariable [_markerX + "_lootCD", 0] == 0) then
 
 _roads = _positionX nearRoads _size;
 
-if ((_markerX in seaports) and !hasIFA) then
+if ((_markerX in seaports) and !A3A_hasIFA) then
 {
 	_typeVehX = if (_sideX == Occupants) then {vehNATOBoat} else {vehCSATBoat};
 	if ([_typeVehX] call A3A_fnc_vehAvailable) then

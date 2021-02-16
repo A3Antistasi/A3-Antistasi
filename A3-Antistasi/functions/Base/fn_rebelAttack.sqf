@@ -22,25 +22,13 @@ if (hasIFA and (sunOrMoon < 1)) exitWith
 };
 
 private _possibleTargets = markersX - controlsX - outpostsFIA - ["Synd_HQ","NATO_carrier","CSAT_carrier"] - destroyedSites;;
-private _possibleStartBases = airportsX select {([_x,false] call A3A_fnc_airportCanAttack) && (sidesX getVariable [_x,sideUnknown] == _side)};
-private _enemyCarrierMarker = "";
-
-if((_side == Occupants) && (gameMode != 4)) then
-{
-    _possibleStartBases pushBack "NATO_carrier";
-    _enemyCarrierMarker = "CSAT_carrier";
-};
-if((_side == Invaders) && (gameMode != 3)) then
-{
-    _possibleStartBases pushBack "CSAT_carrier";
-    _enemyCarrierMarker = "NATO_carrier";
-};
-
+private _possibleStartBases = airportsX select {([_x,false] call A3A_fnc_airportCanAttack)};
 private _targetSide = sideEnemy;
 //No AI vs AI, possible targets are only bases held by rebels
 if (gameMode != 1) then
 {
     _possibleTargets = _possibleTargets select {sidesX getVariable [_x,sideUnknown] == teamPlayer};
+    _possibleStartBases = _possibleStartBases select {sidesX getVariable [_x,sideUnknown] == _side};
     _targetSide = teamPlayer;
 }
 else
@@ -73,22 +61,52 @@ else
     private _playersHoldRatio = _playersHold / _allTargetsCount;
     private _enemyAIHoldRatio = _enemyAIHold / _allTargetsCount;
 
-    private _aggression = 0;
+    private _attackerAggro = 0;
+    private _defenderAggro = 0;
     private _enemySide = sideUnknown;
 
     if(_side == Occupants) then
     {
-        _aggression = aggressionOccupants;
+        _attackerAggro = aggressionOccupants;
+        _defenderAggro = aggressionInvaders;
         _enemySide = Invaders;
     }
     else
     {
-        _aggression = aggressionInvaders;
+        _attackerAggro = aggressionInvaders;
+        _defenderAggro = aggressionOccupants;
         _enemySide = Occupants;
     };
 
     //Select the side to attack and the remaining targets
-    _targetSide = selectRandomWeighted [teamPlayer, (0.5 * _playersHoldRatio) + (0.5 * (_aggression/100)), _enemySide, _enemyAIHoldRatio];
+    _targetSide = selectRandomWeighted [teamPlayer, (0.5 * _playersHoldRatio) + (0.5 * (_attackerAggro/100)), _enemySide, _enemyAIHoldRatio];
+
+    //Side selected, check for counter attack
+    if(_targetSide != teamPlayer) then
+    {
+        private _aggroChange = (100 - _defenderAggro) - (100 - _attackerAggro);
+        private _winChange = 50 - (_aggroChange/2);
+        private _loseChange = 100 - _winChange;
+        private _attackerWon = selectRandomWeighted [false, _loseChange, true, _winChange];
+        if(!_attackerWon) then
+        {
+            [3, format ["Attack from %1 got countered by %2, reversing attack sides", _side, _enemySide], _fileName] call A3A_fnc_log;
+            _targetSide = _side;
+            _side = _enemySide;
+        };
+    };
+
+    _possibleStartBases = _possibleStartBases select {sidesX getVariable [_x,sideUnknown] == _side};
+
+    if((_side == Occupants) && (gameMode != 4)) then
+    {
+        _possibleStartBases pushBack "NATO_carrier";
+    };
+    if((_side == Invaders) && (gameMode != 3)) then
+    {
+        _possibleStartBases pushBack "CSAT_carrier";
+    };
+
     _possibleTargets = _possibleTargets select {sidesX getVariable [_x,sideUnknown] == _targetSide};
     [3, format ["Selected target side is %1", _targetSide], _filename] call A3A_fnc_log;
 };
@@ -209,18 +227,10 @@ if (count _availableTargets == 0) exitWith
     };
     _targetPoints = 500 * (count _nearbyFriendlyMarkers);
 
-    if(count _nearbyFriendlyMarkers <= 3) then
-    {
-        //Thats a shitty method, it is better without it as airports are considered easy cause they are in the open ...
-        //Only a few of their friendly markers nearby, consider it an easy target
-        //[3, format ["%1 has only minimal friendly location around it, considering easy target", _target], _fileName] call A3A_fnc_log;
-        //_easyTargets pushBackUnique _target;
-    };
-
     //Adding points based on garrison and statics
     private _garrison = garrison getVariable [_target,[]];
     private _nearbyStatics = staticsToSave select {(_x distance2D (getMarkerPos _target)) < distanceSPWN};
-    _targetPoints = _targetPoints + (50 * (count _garrison) + (200 * (count _nearbyStatics)));
+    _targetPoints = _targetPoints + (10 * (count _garrison) + (50 * (count _nearbyStatics)));
 
     if((count _garrison <= 8) && {(count _nearbyStatics <= 2) && {!(_target in citiesX)}}) then
     {
@@ -265,34 +275,6 @@ private _fnc_flipMarker =
     [_soldiers,_side,_marker,0] remoteExec ["A3A_fnc_garrisonUpdate",2];
 };
 
-
-private _attackerAggro = 0;
-private _defenderAggro = 0;
-if(_targetSide != teamPlayer) then
-{
-    if (_side == Occupants) then
-    {
-        _attackerAggro = aggressionOccupants;
-        _defenderAggro = aggressionInvaders;
-    }
-    else
-    {
-        _attackerAggro = aggressionInvaders;
-        _defenderAggro = aggressionOccupants;
-    };
-}
-else
-{
-    _attackerAggro = 0;
-    _defenderAggro = 100;
-};
-
-
-private _aggroChange = (100 - _defenderAggro) - (100 - _attackerAggro);
-private _winChange = 50 - (_aggroChange/2);
-private _loseChange = 100 - _winChange;
-[3, format ["Aggro change is %1, lose change %2, win change %3", _aggroChange, _loseChange, _winChange], _filename] call A3A_fnc_log;
-[3, format ["Counter attack change is %1, aggro of attacker %2, aggro of defender %3", _loseChange, _attackerAggro, _defenderAggro], _filename] call A3A_fnc_log;
 
 if(count _easyTargets >= 4) then
 {
@@ -344,42 +326,17 @@ if(count _easyTargets >= 4) then
     //Execute the attacks from the given bases to the targets
     {
         private _target = _x select 2;
-        private _attackerWon = selectRandomWeighted [false, _loseChange, true, _winChange];
-        if!(_attackerWon) then
+        private _nearPlayers = allPlayers findIf {(getMarkerPos (_target) distance2D _x) < 1500};
+        if((_nearPlayers != -1) || ((spawner getVariable _target) != 2) || (sidesX getVariable _target == teamPlayer)) then
         {
-            [3, format ["Attack failed, starting counter attack again %1", _targetSide], _filename] call A3A_fnc_log;
-
-            //Search for possible targets
-            private _targets = (seaports + outposts + resourcesX + factories) select
-            {
-                sidesX getVariable _x == _side &&   //Side of the attacker
-                spawner getVariable _x == 2         //Not spawned in
-            };
-
-            if(count _targets == 0) then
-            {
-                [3, "Found no target to counter attack, abort", _filename] call A3A_fnc_log;
-            }
-            else
-            {
-                private _counterAttack = [_targets, getMarkerPos _enemyCarrierMarker] call BIS_fnc_nearestPosition;
-                [_targetSide, _counterAttack, 2, 2] spawn _fnc_flipMarker;
-            };
+            [2, format ["Starting single attack against %1 from %2", _target, _x select 0], _fileName] call A3A_fnc_log;
+            [[_target, _x select 0, "", false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
+            sleep 150;
         }
         else
         {
-            private _nearPlayers = allPlayers findIf {(getMarkerPos (_target) distance2D _x) < 1500};
-            if((_nearPlayers != -1) || ((spawner getVariable _target) != 2) || (sidesX getVariable _target == teamPlayer)) then
-            {
-                [2, format ["Starting single attack against %1 from %2", _target, _x select 0], _fileName] call A3A_fnc_log;
-                [[_target, _x select 0, "", false],"A3A_fnc_patrolCA"] remoteExec ["A3A_fnc_scheduler",2];
-                sleep 150;
-            }
-            else
-            {
-                private _side = sidesX getVariable (_x select 0);
-                [_side, _target, 2, 2] spawn _fnc_flipMarker;
-            };
+            private _side = sidesX getVariable (_x select 0);
+            [_side, _target, 2, 2] spawn _fnc_flipMarker;
         };
         sleep 3;
     } forEach _attackList;
@@ -453,13 +410,12 @@ else
 
     _finalTarget params ["_attackOrigin", "_attackPoints", "_attackTarget"];
 
-    //Maybe have aggro play a role here?
     //Select the number of waves based on the points as higher points mean higher difficulty
     private _waves =
 		_attackPoints / 2500
 		+ ([0, 1] select (_attackTarget in airportsX))
-		+ (count allPlayers / 40)
-		+ (tierWar / 10);
+		+ (count allPlayers / 20)
+		+ (tierWar / 5);
 
 	_waves = round _waves;
     if(_waves < 1) then {_waves = 1};
@@ -468,42 +424,17 @@ else
     if (sidesX getVariable [_attackOrigin, sideUnknown] == Occupants || {!(_attackTarget in citiesX)}) then
     {
         private _attackerWon = selectRandomWeighted [false, _loseChange, true, _winChange];
-        if !(_attackerWon) then
+        private _nearPlayers = allPlayers findIf {(getMarkerPos (_attackTarget) distance2D _x) < 1500};
+        if((_nearPlayers != -1) || ((spawner getVariable _attackTarget) != 2) || (sidesX getVariable _attackTarget == teamPlayer) || (_attackTarget in citiesX)) then
         {
-            [3, format ["Attack failed, starting counter attack again %1", _targetSide], _filename] call A3A_fnc_log;
-            [3600, _side] call A3A_fnc_timingCA;
-
-            //Search for possible targets
-            private _targets = (outposts + airportsX) select
-            {
-                sidesX getVariable _x == _side &&   //Side of the attacker
-                spawner getVariable _x == 2         //Not spawned in
-            };
-
-            if(count _targets == 0) then
-            {
-                [3, "Found no target to counter attack, abort", _filename] call A3A_fnc_log;
-            }
-            else
-            {
-                private _counterAttack = [_targets, getMarkerPos _enemyCarrierMarker] call BIS_fnc_nearestPosition;
-                [_targetSide, _counterAttack, 4, 3] spawn _fnc_flipMarker;
-            };
+            //Sending real attack, execute the fight
+            [2, format ["Starting waved attack with %1 waves from %2 to %3", _waves, _attackOrigin, _attackTarget], _fileName] call A3A_fnc_log;
+            [_attackTarget, _attackOrigin, _waves] spawn A3A_fnc_wavedCA;
         }
         else
         {
-            private _nearPlayers = allPlayers findIf {(getMarkerPos (_attackTarget) distance2D _x) < 1500};
-            if((_nearPlayers != -1) || ((spawner getVariable _attackTarget) != 2) || (sidesX getVariable _attackTarget == teamPlayer) || (_attackTarget in citiesX)) then
-            {
-                //Sending real attack, execute the fight
-                [2, format ["Starting waved attack with %1 waves from %2 to %3", _waves, _attackOrigin, _attackTarget], _fileName] call A3A_fnc_log;
-                [_attackTarget, _attackOrigin, _waves] spawn A3A_fnc_wavedCA;
-            }
-            else
-            {
-                [_side, _attackTarget, 4, 3] spawn _fnc_flipMarker;
-                [3600, _side] call A3A_fnc_timingCA;
-            };
+            [_side, _attackTarget, 4, 3] spawn _fnc_flipMarker;
+            [3600, _side] call A3A_fnc_timingCA;
         };
     }
     else

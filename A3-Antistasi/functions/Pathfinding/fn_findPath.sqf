@@ -23,8 +23,8 @@ Example:
 
 params
 [
-    ["_startPos", [], [[]]],
-    ["_endPos", [], [[]]],
+    ["_startPos", [0,0,0], [[]]],
+    ["_endPos", [0,0,0], [[]]],
     ["_avoid", [], [[]]]
 ];
 

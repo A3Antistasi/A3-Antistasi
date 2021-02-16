@@ -457,6 +457,7 @@ class A3A
     {
         class areNodesConnected {};
         class calculateH {};
+        class convoyTest {};
         class drawGrid {};
         class drawLine {};
         class drawPath {};

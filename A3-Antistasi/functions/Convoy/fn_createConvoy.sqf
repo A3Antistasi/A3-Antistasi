@@ -75,21 +75,20 @@ if(_type == "Mixed") then {_markerType = "_armor"};
 _convoyMarker = createMarker [format ["convoy%1", _convoyID], _origin];
 _convoyMarker setMarkerShapeLocal "ICON";
 _convoyMarker setMarkerType format ["%1%2", _markerPrefix, _markerType];
-
 _convoyMarker setMarkerAlpha 0;
 
 if(_convoySide == Occupants) then
 {
-    private _markerArray = server getVariable ["convoyMarker_Occupants", []];
-    _markerArray pushBack _convoyMarker;
-    server setVariable ["convoyMarker_Occupants", _markerArray, true];
+    private _convoyArray = server getVariable ["convoyMarker_Occupants", []];
+    _convoyArray pushBack _convoyMarker;
+    server setVariable ["convoyMarker_Occupants", _convoyArray, true];
     _convoyMarker setMarkerText (format ["[GPS-%3] %1 %2 Convoy", nameOccupants, _convoyType, _convoyID]);
 }
 else
 {
-    private _markerArray = server getVariable ["convoyMarker_Invaders", []];
-    _markerArray pushBack _convoyMarker;
-    server setVariable ["convoyMarker_Invaders", _markerArray, true];
+    private _convoyArray = server getVariable ["convoyMarker_Invaders", []];
+    _convoyArray pushBack _convoyMarker;
+    server setVariable ["convoyMarker_Invaders", _convoyArray, true];
     _convoyMarker setMarkerText (format ["[GPS-%3] %1 %2 Convoy", nameInvaders, _convoyType, _convoyID]);
 };
 

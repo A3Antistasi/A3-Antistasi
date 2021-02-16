@@ -129,7 +129,7 @@ else
 };
 
 // Shift to nearest nav point so that we don't drive backwards
-_posOrig = navGrid select ([_posOrig] call A3A_fnc_findNearestNavPoint]) select 0;
+_posOrig = navGrid select ([_posOrig] call A3A_fnc_findNearestNavPoint) select 0;
 
 private _route = [_posOrig, _posDest] call A3A_fnc_findPath;
 _route = [_route] call A3A_fnc_trimPath;

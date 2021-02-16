@@ -107,7 +107,7 @@ for "_i" from 1 to (_pointsCount - 1) do
     */
 
     //Currently only triggered by teamPlayer units!
-    if([distanceSPWN, 1, _currentPos, teamPlayer] call A3A_fnc_distanceUnits) then
+    if([distanceSPWN * 0.9, 1, _currentPos, teamPlayer] call A3A_fnc_distanceUnits) then
     {
       _isSimulated = false;
       [_convoyID, _units, _currentPos, [_remainingRoute] call A3A_fnc_trimPath, _markerArray, _convoySide, _convoyType, _maxSpeed, _isAir] call A3A_fnc_spawnConvoy;

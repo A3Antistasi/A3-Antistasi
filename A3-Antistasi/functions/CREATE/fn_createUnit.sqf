@@ -1,7 +1,7 @@
 /*
  * File: fn_createUnit.sqf
  * Description:
- *    To be used instead of 'createUnit' scripting command. 
+ *    To be used instead of 'createUnit' scripting command.
  *    Adds additional behaviour, including passing a loadout instead of a classname.
  * Params:
  *    _group - Group to add the AI: Group
@@ -23,9 +23,9 @@ private _unitDefinition = customUnitTypes getVariable [_type, []];
 if !(_unitDefinition isEqualTo []) exitWith {
 	_unitDefinition params ["_loadouts", "_traits"];
 	private _unitClass = switch (side _group) do {
-		case west: { "B_G_Soldier_universal_F" };
-		case east: { "O_G_Soldier_universal_F" };
-		case independent: { "I_G_Soldier_universal_F" };
+		case west: { "B_G_Soldier_F" };
+		case east: { "O_G_Soldier_F" };
+		case independent: { "I_G_SoldierF" };
 		case civilian: { "C_Man_1" };
 	};
 	private _unit = _group createUnit  [_unitClass, _position, _markers, _placement, _special];
@@ -33,7 +33,7 @@ if !(_unitDefinition isEqualTo []) exitWith {
 	_unit setVariable ["unitType", _type, true];
 	{
 		_unit setUnitTrait _x;
-	} forEach _traits;	
+	} forEach _traits;
 	_unit
 };
 

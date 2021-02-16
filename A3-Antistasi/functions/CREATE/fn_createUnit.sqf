@@ -13,7 +13,7 @@
  * Returns:
  *    Object - created unit
  * Example Usage:
- *    [group, position, markers, placement, special] call A3A_fnc_createUnit
+ *    [group, _type, position, markers, placement, special] call A3A_fnc_createUnit
  */
 
 params ["_group", "_type", "_position", ["_markers", []], ["_placement", 0], ["_special", "NONE"]];

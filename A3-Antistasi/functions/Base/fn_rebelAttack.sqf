@@ -87,6 +87,7 @@ else
         private _aggroChange = (100 - _defenderAggro) - (100 - _attackerAggro);
         private _winChange = 50 - (_aggroChange/2);
         private _loseChange = 100 - _winChange;
+        [3, format ["Attacker win chance is %1, counter chance is %2", _winChange, _loseChange], "_fileName"] call A3A_fnc_log;
         private _attackerWon = selectRandomWeighted [false, _loseChange, true, _winChange];
         if(!_attackerWon) then
         {
@@ -194,8 +195,8 @@ if (count _availableTargets == 0) exitWith
     [2, "Attack could not find available targets, aborting!", _fileName, true] call A3A_fnc_log;
 };
 
-[3, "Logging available targets for attack", _fileName] call A3A_fnc_log;
-[_availableTargets, "Available targets"] call A3A_fnc_logArray;
+//[3, "Logging available targets for attack", _fileName] call A3A_fnc_log;
+//[_availableTargets, "Available targets"] call A3A_fnc_logArray;
 
 {
     _x params ["_target", "_baseArray"];
@@ -243,8 +244,8 @@ if (count _availableTargets == 0) exitWith
     _baseArray = _baseArray apply {[_x select 0, ((_x select 1) + _targetPoints) * _targetMultiplier]};
 } forEach _availableTargets;
 
-[3, "Logging final target values for attack", _fileName] call A3A_fnc_log;
-[_availableTargets, "Target values"] call A3A_fnc_logArray;
+//[3, "Logging final target values for attack", _fileName] call A3A_fnc_log;
+//[_availableTargets, "Target values"] call A3A_fnc_logArray;
 
 /*
 All targets are now having values which airport can attack them how efficient
@@ -338,7 +339,7 @@ if(count _easyTargets >= 4) then
             private _side = sidesX getVariable (_x select 0);
             [_side, _target, 2, 2] spawn _fnc_flipMarker;
         };
-        sleep 3;
+        sleep 15;
     } forEach _attackList;
 }
 else
@@ -423,7 +424,6 @@ else
     //Send the actual attacks
     if (sidesX getVariable [_attackOrigin, sideUnknown] == Occupants || {!(_attackTarget in citiesX)}) then
     {
-        private _attackerWon = selectRandomWeighted [false, _loseChange, true, _winChange];
         private _nearPlayers = allPlayers findIf {(getMarkerPos (_attackTarget) distance2D _x) < 1500};
         if((_nearPlayers != -1) || ((spawner getVariable _attackTarget) != 2) || (sidesX getVariable _attackTarget == teamPlayer) || (_attackTarget in citiesX)) then
         {

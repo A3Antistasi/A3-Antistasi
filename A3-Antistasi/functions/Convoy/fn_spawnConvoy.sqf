@@ -27,6 +27,10 @@ if (!_isAir) then {
 //Spawn a bit above the ground
 _pos = _pos vectorAdd [0,0,0.1];
 _dir = _pos getDir (_route select 0);
+if(isNil "_dir") then
+{
+    _dir = 0;
+};
 private _targetDir = _pos vectorFromTo _targetPos;
 private _airOffset = (_targetDir vectorMultiply 200) vectorAdd [0,0,50];
 

@@ -25,7 +25,7 @@ if !(_unitDefinition isEqualTo []) exitWith {
 	private _unitClass = switch (side _group) do {
 		case west: { "B_G_Soldier_F" };
 		case east: { "O_G_Soldier_F" };
-		case independent: { "I_G_SoldierF" };
+		case independent: { "I_G_Soldier_F" };
 		case civilian: { "C_Man_1" };
 	};
 	private _unit = _group createUnit  [_unitClass, _position, _markers, _placement, _special];

@@ -65,7 +65,7 @@ private _initialRebelEquipment = [
 "acc_flashlight","acc_flashlight_smg_01","acc_flashlight_pistol"
 ];
 if (hasTFAR) then {_initialRebelEquipment append ["tf_microdagr","tf_anprc154"]};
-//if (hasTFAR && startWithLongRangeRadio) then {_initialRebelEquipment pushBack "LONG_RANGE_RADIO"};
+if (hasTFAR && startWithLongRangeRadio) then {_initialRebelEquipment pushBack "tf_anprc155"};
 
 ["initialRebelEquipment", _initialRebelEquipment] call _fnc_saveToTemplate;
 

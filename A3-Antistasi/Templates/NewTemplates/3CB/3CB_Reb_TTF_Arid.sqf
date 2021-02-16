@@ -49,9 +49,24 @@
 //  Rebel Starting Gear  //
 ///////////////////////////
 
-private _initialRebelEquipment = [];
-if (hasTFAR) then {initialRebelEquipment append ["tf_microdagr","tf_anprc154"]};
-//if (hasTFAR && startWithLongRangeRadio) then {initialRebelEquipment pushBack "LONG_RANGE_RADIO"};
+//Greenfor uniforms
+allRebelUniforms append ["U_IG_Guerilla1_1","U_IG_Guerilla2_1","U_IG_Guerilla2_2","U_IG_Guerilla2_3","U_IG_Guerilla3_1","U_IG_leader","U_IG_Guerrilla_6_1"];
+//TKM_B uniforms
+allRebelUniforms append ["UK3CB_TKM_I_U_01","UK3CB_TKM_I_U_01_B","UK3CB_TKM_I_U_01_C","UK3CB_TKM_I_U_03","UK3CB_TKM_I_U_03_B","UK3CB_TKM_I_U_03_C",
+"UK3CB_TKM_I_U_04","UK3CB_TKM_I_U_04_B","UK3CB_TKM_I_U_04_C","UK3CB_TKM_I_U_05","UK3CB_TKM_I_U_05_B","UK3CB_TKM_I_U_05_C","UK3CB_TKM_I_U_06",
+"UK3CB_TKM_I_U_06_B","UK3CB_TKM_I_U_06_C"];
+
+private _initialRebelEquipment = [
+"UK3CB_BAF_L9A1","UK3CB_BAF_L117A2",
+"UK3CB_Enfield","UK3CB_Enfield_Rail",
+"rhs_weap_rpg75",
+"UK3CB_BAF_9_13Rnd","UK3CB_BAF_9_15Rnd","UK3CB_Enfield_Mag","rhs_grenade_mkii_mag","rhs_grenade_mki_mag","rhs_mag_rdg2_black","rhs_grenade_m15_mag",
+"UK3CB_CHC_C_B_MED","UK3CB_B_Bedroll_Backpack","UK3CB_TKC_C_B_Sidor_MED","UK3CB_CW_SOV_O_LATE_B_Sidor_RIF","UK3CB_CW_SOV_O_EARLY_B_Sidor_RIF",
+"UK3CB_V_CW_Chestrig","UK3CB_V_CW_Chestrig_2_Small","UK3CB_V_Belt_KHK","UK3CB_V_Belt_Rig_KHK","UK3CB_V_Belt_Rig_Lite_KHK","UK3CB_V_Pouch","UK3CB_V_Chestrig_TKA_OLI","UK3CB_V_Chestrig_2_Small_OLI","UK3CB_V_Chestrig_TKA_BRUSH","UK3CB_V_Chestrig_Lite_KHK","UK3CB_V_Chestrig_Lite_2_Small_KHK",
+"rhs_acc_2dpZenit","Binocular","UK3CB_BAF_Flashlight_L105A1"
+];
+if (hasTFAR) then {_initialRebelEquipment append ["tf_microdagr","tf_anprc154"]};
+if (hasTFAR && startWithLongRangeRadio) then {_initialRebelEquipment pushBack "tf_anprc155_coyote"};
 
 ["initialRebelEquipment", _initialRebelEquipment] call _fnc_saveToTemplate;
 
@@ -105,10 +120,10 @@ _loadoutData setVariable ["longRangeRadios", []];
 _loadoutData setVariable ["helmets", []];
 
 //Item *set* definitions. These are added in their entirety to unit loadouts. No randomisation is applied.
-_loadoutData setVariable ["items_medical_basic", ["BASIC"] call A3A_fnc_itemset_medicalSupplies]; 
-_loadoutData setVariable ["items_medical_standard", ["STANDARD"] call A3A_fnc_itemset_medicalSupplies]; 
-_loadoutData setVariable ["items_medical_medic", ["MEDIC"] call A3A_fnc_itemset_medicalSupplies]; 
-_loadoutData setVariable ["items_miscEssentials", [] call A3A_fnc_itemset_miscEssentials]; 
+_loadoutData setVariable ["items_medical_basic", ["BASIC"] call A3A_fnc_itemset_medicalSupplies];
+_loadoutData setVariable ["items_medical_standard", ["STANDARD"] call A3A_fnc_itemset_medicalSupplies];
+_loadoutData setVariable ["items_medical_medic", ["MEDIC"] call A3A_fnc_itemset_medicalSupplies];
+_loadoutData setVariable ["items_miscEssentials", [] call A3A_fnc_itemset_miscEssentials];
 
 //Unit type specific item sets. Add or remove these, depending on the unit types in use.
 _loadoutData setVariable ["items_squadleader_extras", []];

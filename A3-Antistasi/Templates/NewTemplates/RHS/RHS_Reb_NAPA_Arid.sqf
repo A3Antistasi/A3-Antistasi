@@ -57,7 +57,7 @@ private _initialRebelEquipment = [
 "rhsgref_chestrig","rhsgref_chicom","rhs_vydra_3m","rhs_vest_pistol_holster","rhs_vest_commander","rhs_6sh46","rhsgref_alice_webbing",
 "rhs_acc_2dpZenit","Binocular"];
 if (hasTFAR) then {_initialRebelEquipment append ["tf_microdagr","tf_anprc154"]};
-//if (hasTFAR && startWithLongRangeRadio) then {_initialRebelEquipment pushBack "LONG_RANGE_RADIO"};
+if (hasTFAR && startWithLongRangeRadio) then {_initialRebelEquipment pushBack "tf_anprc155_coyote"};
 
 ["initialRebelEquipment", _initialRebelEquipment] call _fnc_saveToTemplate;
 

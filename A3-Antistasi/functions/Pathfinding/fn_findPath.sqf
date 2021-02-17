@@ -1,6 +1,7 @@
 /*
 Author: Wurzel0701
     Searches a path between two given points
+    Start and End position will always be part of the path and marked as junction if path is found
 
 Arguments:
     <POSITION> The position from which the search is starting

@@ -350,8 +350,8 @@ class A3A
         class itemset_medicalSupplies {};
         class itemset_miscEssentials {};
     };
-    
-    class Loadouts 
+
+    class Loadouts
 	{
 		file = "functions\Templates\Loadouts";
 		class loadout_setBackpack {};
@@ -487,6 +487,7 @@ class A3A
     {
         class areNodesConnected {};
         class calculateH {};
+        class convoyTest {};
         class drawGrid {};
         class drawLine {};
         class drawPath {};

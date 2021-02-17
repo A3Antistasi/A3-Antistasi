@@ -1,4 +1,14 @@
-params ["_convoyID", "_units", "_origin", "_destination", "_markerArray", "_convoyType", "_convoySide"];
+params
+
+[
+    ["_convoyID", -1 , [1]],
+    ["_units", [], [[]]],
+    ["_origin", [0,0,0], [[]]],
+    ["_destination", [0,0,0], [[]]],
+    ["_markerArray", ["", ""], [[]]],
+    ["_convoyType", "PATROL", [""]],
+    ["_convoySide", sideEnemy, [sideEnemy]]
+];
 
 /*  Creates a convoy for simulated movement
 *   Params:
@@ -16,6 +26,9 @@ if (isNil "_convoyID") exitWith {diag_log "CreateConvoy: No convoy ID given"};
 if (isNil "_units" || {count _units == 0}) exitWith {diag_log format ["CreateConvoy[%1]: No units given for convoy!", _convoyID]};
 if (isNil "_origin") exitWith {diag_log format ["CreateConvoy[%1]: No origin given for the convoy!", _convoyID]};
 if (isNil "_destination") exitWith {diag_log format ["CreateConvoy[%1]: No destination given for the convoy!", _convoyID]};
+
+private _fileName = "createConvoy";
+[3, format ["Input is %1", str _this], _fileName] call A3A_fnc_log;
 
 _hasAir = false;
 _hasLand = false;

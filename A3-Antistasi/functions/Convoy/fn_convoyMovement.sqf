@@ -1,4 +1,15 @@
-params ["_convoyID" ,"_route", "_markerArray", "_maxSpeed", "_units", "_convoySide", "_convoyType", "_isAir", ["_debugObject", nil]];
+params
+[
+    ["_convoyID", -1, [1]],
+    ["_route", [], [[]]],
+    ["_markerArray", ["", ""], [[]]],
+    ["_maxSpeed", 60, [0]],
+    ["_units", [], [[]]],
+    ["_convoySide", sideEnemy, [sideEnemy]],
+    ["_convoyType", "PATROL", [""]],
+    ["_isAir", false, [false]],
+    ["_debugObject", nil]
+];
 
 /*  Simulates the movement of the convoy
 *   Params:
@@ -13,6 +24,8 @@ params ["_convoyID" ,"_route", "_markerArray", "_maxSpeed", "_units", "_convoySi
 *   Returns:
       Nothing
 */
+private _fileName = "convoyMovements";
+
 private _convoyMarker = format ["convoy%1", _convoyID];
 
 if(!(_maxSpeed > 0)) exitWith
@@ -22,6 +35,12 @@ if(!(_maxSpeed > 0)) exitWith
 };
 
 _maxSpeed = _maxSpeed * 0.8; //Only drive with 80% of max speed
+
+if(count _road == 0 || {count (_road select 0) != 2}) exitWith
+{
+    [3, format ["Input was %1", str _this], _fileName] call A3A_fnc_log;
+    [3, "Path is broken", _fileName] call A3A_fnc_log;
+};
 
 
 private _isDebug = !(isNil "_debugObject");

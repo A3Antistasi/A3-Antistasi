@@ -25,7 +25,7 @@ for "_i" from 0 to ((count _unitObjects) - 1) do
 		};
 	} forEach (_data select 2);
 	_convoyLine set [2, _cargoData];
-	
+
 	private _crewData = [];
 	{
 		if(alive _x) then
@@ -36,11 +36,11 @@ for "_i" from 0 to ((count _unitObjects) - 1) do
 		};
 	} forEach (_data select 1);
 	_convoyLine set [1, _crewData];
-	
+
 	//Vehicle is alive, otherwise it would have been dropped from _unitObjects
 	_convoyLine set [0, typeOf _vehicle];
 	deleteVehicle _vehicle;
-	
+
 	_convoyData pushBack _convoyLine;
 };
 

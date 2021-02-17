@@ -36,7 +36,7 @@ if(!(_maxSpeed > 0)) exitWith
 
 _maxSpeed = _maxSpeed * 0.8; //Only drive with 80% of max speed
 
-if(count _road == 0 || {count (_road select 0) != 2}) exitWith
+if(count _route == 0 || {count (_route select 0) != 2}) exitWith
 {
     [3, format ["Input was %1", str _this], _fileName] call A3A_fnc_log;
     [3, "Path is broken", _fileName] call A3A_fnc_log;

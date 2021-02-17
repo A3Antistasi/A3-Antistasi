@@ -540,6 +540,7 @@ private _unitTypes = [
 	["Petros", _squadLeaderTemplate],
 	["SquadLeader", _squadLeaderTemplate],
 	["Rifleman", _riflemanTemplate],
+	["Staticcrew", _riflemanTemplate],
 	["Medic", _medicTemplate],
 	["Engineer", _engineerTemplate],
 	["ExplosivesExpert", _explosivesExpertTemplate],

@@ -426,7 +426,7 @@ if (_side isEqualTo independent) then {
 	SDKFlagTexture = _faction getVariable "flagTexture";
 	typePetros = "loadouts_rebel_militia_Petros";
 
-	staticCrewTeamPlayer = "loadouts_rebel_militia_Rifleman";
+	staticCrewTeamPlayer = "loadouts_rebel_militia_staticCrew";
 	SDKUnarmed = "loadouts_rebel_militia_Unarmed";
 	SDKSniper = ["loadouts_rebel_militia_sniper", "loadouts_rebel_militia_sniper"];
 	SDKATman = ["loadouts_rebel_militia_lat", "loadouts_rebel_militia_lat"];

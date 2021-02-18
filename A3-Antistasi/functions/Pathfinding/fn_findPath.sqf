@@ -176,7 +176,7 @@ while {(!(_lastNav isEqualType [])) && {count _openList > 0}} do
 };
 //A* finished, way found
 
-diag_log format ["Max Distance %1, Distance %2", _maxDistance, _lastNav select 1];
+
 
 //Create raw path out of data now
 private _wayPoints = [];
@@ -184,6 +184,7 @@ private _lastIndex = 0;
 if(_lastNav isEqualType []) then
 {
     //Way found, reverting way through path
+    [2, format ["Max Distance %1, Distance %2", _maxDistance, _lastNav select 1], _fileName] call A3A_fnc_log;
     _wayPoints = [[_endPos, true], [_targetPos, true]];
     while {_lastNav isEqualType []} do
     {
@@ -207,7 +208,7 @@ if(_lastNav isEqualType []) then
 else
 {
     _deltaTime = time - _deltaTime;
-    [1, format ["Could not find a way, search took %1 seconds, is the navgrid broken?", _deltaTime], _fileName] call A3A_fnc_log;
+    [1, format ["Could not find a way, search took %1 seconds, max distance reached", _deltaTime], _fileName] call A3A_fnc_log;
 };
 
 {

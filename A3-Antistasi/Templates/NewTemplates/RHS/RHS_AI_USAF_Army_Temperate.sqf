@@ -406,7 +406,7 @@ _militiaLoadoutData setVariable ["rifles", [ 					//this line determines rifles 
 _militiaLoadoutData setVariable ["carbines", [
 ["rhs_weap_m4a1_carryhandle", "", "rhsusf_acc_wmx_bk", "", [], [], ""]
 ]]; 					//this line determines carbines -- Example: ["arifle_MXC_F", "arifle_MXC_Holo_F"] -- Array, can contain multiple assets
-_militiaLoadoutData setVariable ["grenadeLaunchers", [", "
+_militiaLoadoutData setVariable ["grenadeLaunchers", [
 ["rhs_weap_m16a4_carryhandle_M203", "", "rhsusf_acc_wmx_bk", "", [], [], ""],
 ["rhs_weap_m4_carryhandle_m203", "", "rhsusf_acc_wmx_bk", "", [], [], ""]
 ]]; 			//this line determines grenade launchers -- Example: ["arifle_MX_GL_ACO_F","arifle_MX_GL_ACO_pointer_F"] -- Array, can contain multiple assets

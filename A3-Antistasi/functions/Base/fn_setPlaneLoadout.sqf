@@ -50,14 +50,14 @@ if (_type == "CAS") then
             _plane setVariable ["missileLauncher", ["rhs_weap_agm65d"]];
         };
         //RHS CDF
-        case ("rhs_l159_CDF"):
+        case ("rhs_l159_cdf_b_CDF"):
         {
             _loadout = ["rhs_mag_M151_7_USAF_LAU131","rhs_mag_agm65d","rhs_mag_agm65d","rhs_mag_zpl20_apit","rhs_mag_agm65d","rhs_mag_agm65d","rhs_mag_M151_7_USAF_LAU131","rhsusf_ANALE40_CMFlare_Chaff_Magazine_x2"];
             _plane setVariable ["mainGun", "RHS_weap_zpl20"];
             _plane setVariable ["rocketLauncher", ["rhs_weap_FFARLauncher"]];
             _plane setVariable ["missileLauncher", ["rhs_weap_agm65d"]];
         };
-        case ("RHS_Su25SM_CAS_vvs"):
+        case ("RHS_Su25SM_CAS_vvs" or "rhsgref_cdf_b_su25"):
         {
             _loadout = ["rhs_mag_kh29D","rhs_mag_kh29D","rhs_mag_kh25MTP","rhs_mag_kh25MTP","rhs_mag_kh25MTP","rhs_mag_kh25MTP","rhs_mag_b8m1_s8kom","rhs_mag_b8m1_s8kom","","","rhs_ASO2_CMFlare_Chaff_Magazine_x4"];
             _plane setVariable ["mainGun", "rhs_weap_gsh302"];
@@ -94,15 +94,18 @@ if (_type == "AA") then
         {
             _loadout = ["rhs_mag_Sidewinder_int","rhs_mag_aim120d_int","rhs_mag_aim120d_2_F22_l","rhs_mag_aim120d_2_F22_r","rhs_mag_aim120d_int","rhs_mag_Sidewinder_int","rhsusf_ANALE52_CMFlare_Chaff_Magazine_x4"];
         };
-        //RHS CDF Air superiority fighter
-        case ("rhsgref_cdf_mig29s"):
+        case ("rhs_l159_cdf_b_CDF_CAP"):
+        {
+            _loadout = ["rhs_mag_aim9m","rhs_mag_aim120","rhs_mag_aim120","rhs_mag_zpl20_mixed","rhs_mag_aim120","rhs_mag_aim120","rhs_mag_aim9m","rhsusf_ANALE40_CMFlare_Chaff_Magazine_x2"];
+        };
+        //RHS Russian Air superiority
+        case ("rhs_mig29s_vvs" or "rhsgref_cdf_b_mig29s"):
         {
             _loadout = ["rhs_mag_R73M_APU73","rhs_mag_R73M_APU73","rhs_mag_R73M_APU73","rhs_mag_R73M_APU73","rhs_mag_R77_AKU170_MIG29","rhs_mag_R77_AKU170_MIG29","","rhs_BVP3026_CMFlare_Chaff_Magazine_x2"];
         };
-        //RHS Russian Air superiority
-        case ("rhs_mig29s_vvs"):
+        case ("RHS_T50_vvs_generic_ext"):
         {
-            _loadout = ["rhs_mag_R73M_APU73","rhs_mag_R73M_APU73","rhs_mag_R73M_APU73","rhs_mag_R73M_APU73","rhs_mag_R77_AKU170_MIG29","rhs_mag_R77_AKU170_MIG29","","rhs_BVP3026_CMFlare_Chaff_Magazine_x2"];
+            _loadout = ["rhs_mag_R77M","rhs_mag_R77M","rhs_mag_R77M","rhs_mag_R77M","rhs_mag_R74M2_int","rhs_mag_R74M2_int","rhs_mag_R77M_AKU170","rhs_mag_R77M_AKU170","rhs_mag_R77M_AKU170","rhs_mag_R77M_AKU170","rhs_mag_R77M_AKU170","rhs_mag_R77M_AKU170"];
         };
         default
         {

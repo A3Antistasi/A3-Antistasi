@@ -43,13 +43,13 @@
 
 ["vehiclesHelisLight", ["RHS_MELB_MH6M"]] call _fnc_saveToTemplate; 		//this line determines light helis -- Example: ["vehiclesHelisLight", ["B_Heli_Light_01_F"]] -- Array, can contain multiple assets
 ["vehiclesHelisTransport", ["RHS_UH60M", "RHS_UH60M", "RHS_UH60M", "RHS_UH60M", "RHS_UH60M_ESSS2", "RHS_UH60M2", "RHS_CH_47F", "RHS_CH_47F", "RHS_CH_47F", "RHS_CH_47F"]] call _fnc_saveToTemplate; 	//this line determines transport helis -- Example: ["vehiclesHelisTransport", ["B_Heli_Transport_01_F"]] -- Array, can contain multiple assets
-["vehiclesHelisAttack", ["RHS_MELB_AH6M", "RHS_MELB_AH6M_M", "RHS_MELB_AH6M_H", "RHS_AH64D_wd", "RHS_AH64D_wd_CS", "RHS_AH64D_wd_AA"]] call _fnc_saveToTemplate; 		//this line determines attack helis -- Example: ["vehiclesHelisAttack", ["B_Heli_Attack_01_F"]] -- Array, can contain multiple assets
+["vehiclesHelisAttack", ["RHS_MELB_AH6M", "RHS_MELB_AH6M_M", "RHS_MELB_AH6M_H", "RHS_AH64D_wd", "RHS_AH64D_wd_CS", "RHS_AH64D_wd_AA", "RHS_AH64D_wd_GS"]] call _fnc_saveToTemplate; 		//this line determines attack helis -- Example: ["vehiclesHelisAttack", ["B_Heli_Attack_01_F"]] -- Array, can contain multiple assets
 
 ["vehiclesArtillery", [
-["RHS_M119_WD", ["RHS_mag_m1_he_12"]],
+["rhsusf_M142_usarmy_WD", ["rhs_mag_m26a1_6"]],//Cluster
 ["rhsusf_m109_usarmy", ["rhs_mag_155mm_m795_28"]],
 ["rhsusf_M142_usarmy_WD", ["rhs_mag_mgm168_block4_1"]], //500lb HE
-["rhsusf_M142_usarmy_WD", ["rhs_mag_m26a1_6"]],//Cluster
+["RHS_M119_WD", ["RHS_mag_m1_he_12"]],
 ["rhsusf_M142_usarmy_WD", ["rhs_mag_mgm140b_1"]] //69 Small HE Rockets
 ]] call _fnc_saveToTemplate; 		//this line determines artillery vehicles -- Example: ["vehiclesArtillery", [["B_MBT_01_arty_F", ["32Rnd_155mm_Mo_shells"]]]] -- Array, can contain multiple assets
 
@@ -270,7 +270,7 @@ _sfLoadoutData setVariable ["marksmanrifles", [
 ["rhs_weap_sr25_ec", "rhsusf_acc_aac_762sdn6_silencer", "rhsusf_acc_anpeq15side_bk", "rhsusf_acc_LEUPOLDMK4_2", ["rhsusf_20Rnd_762x51_SR25_m993_Mag"], [], "rhsusf_acc_harris_bipod"],
 ["rhs_weap_sr25_ec", "rhsusf_acc_aac_762sdn6_silencer", "rhsusf_acc_anpeq15side_bk", "rhsusf_acc_premier_mrds", ["rhsusf_20Rnd_762x51_SR25_m993_Mag"], [], "rhsusf_acc_harris_bipod"],
 ["rhs_weap_m14_socom_rail", "rhsusf_acc_aac_762sdn6_silencer", "", "rhsusf_acc_M8541", ["rhsusf_20Rnd_762x51_m993_Mag"], [], "rhsusf_acc_harris_bipod"],
-["rhs_weap_m14_socom_rail", "rhsusf_acc_aac_762sdn6_silencer", "", "rhsusf_acc_leupoldmk4", ["rhsusf_20Rnd_762x51_m993_Mag"], [], "rhsusf_acc_harris_bipod"],
+["rhs_weap_m14_socom_rail", "rhsusf_acc_aac_762sdn6_silencer", "", "rhsusf_acc_LEUPOLDMK4", ["rhsusf_20Rnd_762x51_m993_Mag"], [], "rhsusf_acc_harris_bipod"],
 ["rhs_weap_m14_socom_rail", "rhsusf_acc_aac_762sdn6_silencer", "", "rhsusf_acc_premier_mrds", ["rhsusf_20Rnd_762x51_m993_Mag"], [], "rhsusf_acc_harris_bipod"]
 ]];
 _sfLoadoutData setVariable ["sniperrifles", [

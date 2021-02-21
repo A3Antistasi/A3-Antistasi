@@ -453,7 +453,7 @@ if (_side isEqualTo independent) then {
 	soldiersSDK = sdkTier1 + sdkTier2 + sdkTier3;
 
 	vehSDKBike = _faction getVariable "vehicleBasic";
-	vehSDKLightArmed = _faction getVariable "vehicleLightUnarmed";
+	vehSDKLightArmed = _faction getVariable "vehicleLightArmed";
 	vehSDKAT = _faction getVariable "vehicleAT";
 	vehSDKAA = _faction getVariable "vehicleAA";
 	vehSDKLightUnarmed = _faction getVariable "vehicleLightUnarmed";

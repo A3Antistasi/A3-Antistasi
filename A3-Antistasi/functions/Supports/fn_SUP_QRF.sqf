@@ -127,6 +127,15 @@ for "_i" from 1 to _vehicleCount do
 
 [_side, _vehicles, _groups, _posDestination, _supportName] spawn A3A_fnc_SUP_QRFRoutine;
 
+_markerOrigin spawn
+{
+    sleep 60;
+    if(spawner getVariable _this == 2) then
+    {
+        [_this] call A3A_fnc_freeSpawnPositions;
+    };
+};
+
 private _distance = _posOrigin distance2D _posDestination;
 private _minTime = _distance / (300 / 3.6);
 private _maxTime = _distance / (25 / 3.6);

@@ -239,7 +239,7 @@ switch(true) do{
                 [2, "Using temperate AFRF Template", _filename] call A3A_fnc_log;
             };
             case (worldName in tropicalmaps): {
-                ["Templates\NewTemplates\RHS\RHS_AI_AFRF_Tropical.sqf", east] call A3A_fnc_compatabilityLoadFaction;
+                ["Templates\NewTemplates\RHS\RHS_AI_AFRF_Temperate.sqf", east] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using tropical AFRF Template", _filename] call A3A_fnc_log;
             };
             default {

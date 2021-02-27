@@ -43,7 +43,7 @@
 	,"C_Boat_Civil_01_F", 1.0
 	,"C_Rubberboat", 1.0					// rescue boat
 	,"C_Boat_Transport_02_F", 1.0			// RHIB
-	,"C_Scooter_Transport_01_F", 0.5		// jetski]] call _fnc_saveToTemplate; 			//this line determines civilian boats -- Example: ["vehiclesCivBoat", ["C_Boat_Civil_01_F"]] -- Array, can contain multiple assets
+	,"C_Scooter_Transport_01_F", 0.5]] call _fnc_saveToTemplate; 			//this line determines civilian boats -- Example: ["vehiclesCivBoat", ["C_Boat_Civil_01_F"]] -- Array, can contain multiple assets
 
 ["vehiclesCivRepair", ["UK3CB_TKC_C_Kamaz_Repair", 0.1
 	,"UK3CB_TKC_C_Ural_Repair", 0.1

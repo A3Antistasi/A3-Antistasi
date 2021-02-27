@@ -269,7 +269,7 @@ private _explosivesExpertTemplate = {
 	["handgun", 2] call _fnc_addMagazines;
 
 	["items_medical_standard"] call _fnc_addItemSet;
-	["items_grenadier_extras"] call _fnc_addItemSet;
+	["items_explosivesExpert_extras"] call _fnc_addItemSet;
 	["items_miscEssentials"] call _fnc_addItemSet;
 
 	["lightExplosives", 2] call _fnc_addItem;
@@ -544,7 +544,7 @@ private _unitTypes = [
 	["Petros", _squadLeaderTemplate],
 	["SquadLeader", _squadLeaderTemplate],
 	["Rifleman", _riflemanTemplate],
-	["Staticcrew", _riflemanTemplate],
+	["staticCrew", _riflemanTemplate],
 	["Medic", _medicTemplate],
 	["Engineer", _engineerTemplate],
 	["ExplosivesExpert", _explosivesExpertTemplate],

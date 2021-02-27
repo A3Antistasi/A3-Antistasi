@@ -50,8 +50,8 @@
 ///////////////////////////
 
 private _initialRebelEquipment = [];
-if (hasTFAR) then {initialRebelEquipment append ["tf_microdagr","tf_anprc154"]};
-//if (hasTFAR && startWithLongRangeRadio) then {initialRebelEquipment pushBack "LONG_RANGE_RADIO"};
+if (hasTFAR) then {_initialRebelEquipment append ["tf_microdagr","tf_anprc154"]};
+if (hasTFAR && startWithLongRangeRadio) then {_initialRebelEquipment pushBack "tf_anprc155"};
 
 ["initialRebelEquipment", _initialRebelEquipment] call _fnc_saveToTemplate;
 
@@ -105,10 +105,10 @@ _loadoutData setVariable ["longRangeRadios", []];
 _loadoutData setVariable ["helmets", []];
 
 //Item *set* definitions. These are added in their entirety to unit loadouts. No randomisation is applied.
-_loadoutData setVariable ["items_medical_basic", ["BASIC"] call A3A_fnc_itemset_medicalSupplies]; 
-_loadoutData setVariable ["items_medical_standard", ["STANDARD"] call A3A_fnc_itemset_medicalSupplies]; 
-_loadoutData setVariable ["items_medical_medic", ["MEDIC"] call A3A_fnc_itemset_medicalSupplies]; 
-_loadoutData setVariable ["items_miscEssentials", [] call A3A_fnc_itemset_miscEssentials]; 
+_loadoutData setVariable ["items_medical_basic", ["BASIC"] call A3A_fnc_itemset_medicalSupplies];
+_loadoutData setVariable ["items_medical_standard", ["STANDARD"] call A3A_fnc_itemset_medicalSupplies];
+_loadoutData setVariable ["items_medical_medic", ["MEDIC"] call A3A_fnc_itemset_medicalSupplies];
+_loadoutData setVariable ["items_miscEssentials", [] call A3A_fnc_itemset_miscEssentials];
 
 //Unit type specific item sets. Add or remove these, depending on the unit types in use.
 _loadoutData setVariable ["items_squadleader_extras", []];
@@ -529,6 +529,7 @@ private _unitTypes = [
 	["Petros", _squadLeaderTemplate],
 	["SquadLeader", _squadLeaderTemplate],
 	["Rifleman", _riflemanTemplate],
+	["staticCrew", _riflemanTemplate],
 	["Medic", _medicTemplate],
 	["Engineer", _engineerTemplate],
 	["ExplosivesExpert", _explosivesExpertTemplate],

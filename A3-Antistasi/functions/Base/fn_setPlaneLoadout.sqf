@@ -58,7 +58,8 @@ if (_type == "CAS") then
             _plane setVariable ["missileLauncher", ["rhs_weap_agm65d"]];
         };
         case "RHS_Su25SM_CAS_vvs";
-        case "rhsgref_cdf_b_su25":
+        case "rhsgref_cdf_b_su25";
+        case "UK3CB_TKA_B_Su25SM_CAS":
         {
             _loadout = ["rhs_mag_kh29D","rhs_mag_kh29D","rhs_mag_kh25MTP","rhs_mag_kh25MTP","rhs_mag_kh25MTP","rhs_mag_kh25MTP","rhs_mag_b8m1_s8kom","rhs_mag_b8m1_s8kom","rhs_mag_R60M","rhs_mag_R60M","rhs_ASO2_CMFlare_Chaff_Magazine_x4"];
             _plane setVariable ["mainGun", "rhs_weap_gsh302"];
@@ -101,13 +102,18 @@ if (_type == "AA") then
         };
         //RHS Russian Air superiority
         case "rhs_mig29s_vvs";
-        case "rhsgref_cdf_b_mig29s":
+        case "rhsgref_cdf_b_mig29s";
+        case "UK3CB_TKA_O_MIG29SM":
         {
             _loadout = ["rhs_mag_R73M_APU73","rhs_mag_R73M_APU73","rhs_mag_R73M_APU73","rhs_mag_R73M_APU73","rhs_mag_R77_AKU170_MIG29","rhs_mag_R77_AKU170_MIG29","","rhs_BVP3026_CMFlare_Chaff_Magazine_x2"];
         };
         case "RHS_T50_vvs_generic_ext":
         {
             _loadout = ["rhs_mag_R77M","rhs_mag_R77M","rhs_mag_R77M","rhs_mag_R77M","rhs_mag_R74M2_int","rhs_mag_R74M2_int","rhs_mag_R77M_AKU170","rhs_mag_R77M_AKU170","rhs_mag_R77M_AKU170","rhs_mag_R77M_AKU170","rhs_mag_R77M_AKU170","rhs_mag_R77M_AKU170"];
+        };
+        case "UK3CB_TKA_B_L39_PYLON":
+        {
+            _loadout = ["PylonRack_1Rnd_Missile_AA_04_F","PylonRack_1Rnd_AAA_missiles","PylonRack_1Rnd_AAA_missiles","PylonWeapon_300Rnd_20mm_shells","PylonRack_1Rnd_AAA_missiles","PylonRack_1Rnd_AAA_missiles","PylonRack_1Rnd_Missile_AA_04_F"];
         };
         default
         {

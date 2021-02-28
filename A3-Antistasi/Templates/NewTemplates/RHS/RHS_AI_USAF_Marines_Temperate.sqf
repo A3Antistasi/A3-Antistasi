@@ -46,8 +46,8 @@
 ["vehiclesHelisAttack", ["RHS_AH1Z_wd", "RHS_AH1Z_wd_CS", "RHS_AH1Z_wd_GS", "RHS_UH1Y", "RHS_UH1Y_FFAR", "RHS_UH1Y_GS"]] call _fnc_saveToTemplate; 		//this line determines attack helis -- Example: ["vehiclesHelisAttack", ["B_Heli_Attack_01_F"]] -- Array, can contain multiple assets
 
 ["vehiclesArtillery", [
-["rhsusf_M142_usarmy_WD", ["rhs_mag_m26a1_6"]],//Cluster
 ["rhsusf_m109_usarmy", ["rhs_mag_155mm_m795_28"]],
+["rhsusf_M142_usarmy_WD", ["rhs_mag_m26a1_6"]],//Cluster
 ["rhsusf_M142_usarmy_WD", ["rhs_mag_mgm168_block4_1"]], //500lb HE
 ["RHS_M119_WD", ["RHS_mag_m1_he_12"]],
 ["rhsusf_M142_usarmy_WD", ["rhs_mag_mgm140b_1"]] //69 Small HE Rockets
@@ -164,7 +164,7 @@ _loadoutData setVariable ["items_squadleader_extras", ["ACE_microDAGR", "ACE_DAG
 _loadoutData setVariable ["items_rifleman_extras", []];
 _loadoutData setVariable ["items_medic_extras", []];
 _loadoutData setVariable ["items_grenadier_extras", []];
-_loadoutData setVariable ["items_explosivesExpert_extras", ["Toolkit", "MineDetector", "ACE_Clacker","ACE_DefusalKit"]];
+_loadoutData setVariable ["items_explosivesExpert_extras", ["Toolkit", "MineDetector", "ACE_Clacker", "ACE_DefusalKit"]];
 _loadoutData setVariable ["items_engineer_extras", ["Toolkit", "MineDetector"]];
 _loadoutData setVariable ["items_lat_extras", []];
 _loadoutData setVariable ["items_at_extras", []];

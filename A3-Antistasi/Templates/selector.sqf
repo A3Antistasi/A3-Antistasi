@@ -20,19 +20,13 @@ arcticmaps = ["Chernarus_Winter"];
 
 //Reb Templates
 switch(true) do{
-    case (A3A_has3CB): {
+    case (A3A_has3CBFactions): {
         switch(true) do {
-            case (worldName in arcticmaps): {
-                ["Templates\NewTemplates\3CB\3CB_Reb_CNM_Temperate.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using arctic CNM Template", _filename] call A3A_fnc_log;
-            };
-            case (worldName in temperatemaps): {
-                ["Templates\NewTemplates\3CB\3CB_Reb_CNM_Temperate.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using temperate CNM Template", _filename] call A3A_fnc_log;
-            };
+            case (worldName in arcticmaps);
+            case (worldName in temperatemaps);
             case (worldName in tropicalmaps): {
-                ["Templates\NewTemplates\3CB\3CB_AI_CNM_Tropical.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using tropical CNM Template", _filename] call A3A_fnc_log;
+                ["Templates\NewTemplates\3CB\3CB_Reb_CNM_Temperate.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using Temperate CNM Template", _filename] call A3A_fnc_log;
             };
             default {
                 ["Templates\NewTemplates\3CB\3CB_Reb_TTF_Arid.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
@@ -42,17 +36,11 @@ switch(true) do{
     };
     case (A3A_hasRHS): {
         switch(true) do {
-            case (worldName in arcticmaps): {
-                ["Templates\NewTemplates\RHS\RHS_Reb_NAPA_Temperate.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using arctic Napa Template", _filename] call A3A_fnc_log;
-            };
-            case (worldName in temperatemaps): {
-                ["Templates\NewTemplates\RHS\RHS_Reb_NAPA_Temperate.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using temperate Napa Template", _filename] call A3A_fnc_log;
-            };
+            case (worldName in arcticmaps);
+            case (worldName in temperatemaps);
             case (worldName in tropicalmaps): {
                 ["Templates\NewTemplates\RHS\RHS_Reb_NAPA_Temperate.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using tropical Napa Template", _filename] call A3A_fnc_log;
+                [2, "Using Temperate Napa Template", _filename] call A3A_fnc_log;
             };
             default {
                 ["Templates\NewTemplates\RHS\RHS_Reb_NAPA_Arid.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
@@ -123,7 +111,7 @@ case (A3A_hasFFAA): {
     };
 };
 */
-    case (A3A_has3CB): {
+    case (A3A_has3CBBAF): {
         switch(true) do {
             case (worldName in arcticmaps): {
                 ["Templates\NewTemplates\3CB\3CB_AI_BAF_Arctic.sqf", west] call A3A_fnc_compatabilityLoadFaction;
@@ -143,19 +131,35 @@ case (A3A_hasFFAA): {
             };
         };
     };
-    case (A3A_hasRHS): {
+    case (A3A_has3CBFactions): {
         switch(true) do {
-            case (worldName in arcticmaps): {
-                ["Templates\NewTemplates\RHS\RHS_AI_USAF_Army_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using arctic USAF Template", _filename] call A3A_fnc_log;
-            };
+            case (worldName in arcticmaps);
             case (worldName in temperatemaps): {
-                ["Templates\NewTemplates\RHS\RHS_AI_USAF_Army_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using temperate USAF Template", _filename] call A3A_fnc_log;
+                ["Templates\NewTemplates\RHS\RHS_AI_USAF_Marines_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using Temperate US Marines Template as Placeholder", _filename] call A3A_fnc_log;
             };
             case (worldName in tropicalmaps): {
+                ["Templates\NewTemplates\RHS\RHS_AI_USAF_Marines_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using Temperate US Marines Template as Placeholder", _filename] call A3A_fnc_log;
+            };
+            default {
+                ["Templates\NewTemplates\3CB\3CB_AI_TKA_West.sqf", west] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using TKA_West Template", _filename] call A3A_fnc_log;
+            };
+        };
+    };
+    case (A3A_hasRHS): {
+        switch(true) do {
+            case (worldName == "chernarus_summer");
+            case (worldName == "Chernarus_Winter"): {
+                ["Templates\NewTemplates\RHS\RHS_AI_CDF_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using CDF Temperate Template", _filename] call A3A_fnc_log;
+            };
+            case (worldName in arcticmaps);
+            case (worldName in temperatemaps);
+            case (worldName in tropicalmaps): {
                 ["Templates\NewTemplates\RHS\RHS_AI_USAF_Army_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using tropical USAF Template", _filename] call A3A_fnc_log;
+                [2, "Using arctic USAF Template", _filename] call A3A_fnc_log;
             };
             default {
                 ["Templates\NewTemplates\RHS\RHS_AI_USAF_Army_Arid.sqf", west] call A3A_fnc_compatabilityLoadFaction;
@@ -195,7 +199,8 @@ case (A3A_hasIFA): {
                 ["Templates\NewTemplates\Vanilla\Vanilla_AI_NATO_Tropical.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using tropical NATO Templates", _filename] call A3A_fnc_log;
             };
-            case (worldName in temperatemaps): {
+            case (worldName in temperatemaps);
+            case (worldName in tropicalmaps): {
                 ["Templates\NewTemplates\Vanilla\Vanilla_AI_NATO_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using temperate NATO Template", _filename] call A3A_fnc_log;
             };
@@ -208,39 +213,30 @@ case (A3A_hasIFA): {
 };
 //Inv Templates
 switch(true) do{
-    case (A3A_has3CB): {
+    case (A3A_has3CBFactions): {
         switch(true) do {
-            case (worldName in arcticmaps): {
-                [2, "Using arctic SOV Template", _filename] call A3A_fnc_log;
-                ["Templates\NewTemplates\3CB\3CB_AI_SOV_Temperate.sqf", east] call A3A_fnc_compatabilityLoadFaction;
-            };
+            case (worldName in arcticmaps);
             case (worldName in temperatemaps): {
-                ["Templates\NewTemplates\3CB\3CB_AI_SOV_Temperate.sqf", east] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using temperate SOV Template", _filename] call A3A_fnc_log;
+                ["Templates\NewTemplates\RHS\RHS_AI_AFRF_Temperate.sqf", east] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using RHS AFRF as Placeholder Template", _filename] call A3A_fnc_log;
             };
             case (worldName in tropicalmaps): {
-                ["Templates\NewTemplates\3CB\3CB_AI_SOV_Temperate.sqf", east] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using tropical SOV Template", _filename] call A3A_fnc_log;
+                ["Templates\NewTemplates\RHS\RHS_AI_AFRF_Temperate.sqf", east] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using RHS AFRF as Placeholder Template", _filename] call A3A_fnc_log;
             };
             default {
-                ["Templates\NewTemplates\3CB\3CB_AI_TKM_Arid.sqf", east] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using arid TKM Template", _filename] call A3A_fnc_log;
+                ["Templates\NewTemplates\3CB\3CB_AI_TKA_East.sqf", east] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using TKA_East Template", _filename] call A3A_fnc_log;
             };
         };
     };
     case (A3A_hasRHS): {
         switch(true) do {
-            case (worldName in arcticmaps): {
-                ["Templates\NewTemplates\RHS\RHS_AI_AFRF_Temperate.sqf", east] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using arctic AFRF Template", _filename] call A3A_fnc_log;
-            };
-            case (worldName in temperatemaps): {
-                ["Templates\NewTemplates\RHS\RHS_AI_AFRF_Temperate.sqf", east] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using temperate AFRF Template", _filename] call A3A_fnc_log;
-            };
+            case (worldName in arcticmaps);
+            case (worldName in temperatemaps);
             case (worldName in tropicalmaps): {
                 ["Templates\NewTemplates\RHS\RHS_AI_AFRF_Temperate.sqf", east] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using tropical AFRF Template", _filename] call A3A_fnc_log;
+                [2, "Using temperate AFRF Template", _filename] call A3A_fnc_log;
             };
             default {
                 ["Templates\NewTemplates\RHS\RHS_AI_AFRF_Arid.sqf", east] call A3A_fnc_compatabilityLoadFaction;
@@ -289,7 +285,7 @@ case (A3A_hasIFA): {
 };
 //Civ Templates
 switch(true) do{
-    case (A3A_has3CB): {
+    case (A3A_has3CBFactions): {
         ["Templates\NewTemplates\3CB\3CB_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
         [2, "Using 3CB Civ Template", _filename] call A3A_fnc_log;
     };
@@ -333,8 +329,9 @@ if (A3A_hasRDS) then {
 [2,"Reading Logistics Node files.",_fileName] call A3A_fnc_log;
 call compile preProcessFileLineNumbers "Templates\NewTemplates\Vanilla\Vanilla_Logistics_Nodes.sqf";//Always call vanilla as it initialises the arrays.
 if (A3A_hasRHS) then {call compile preProcessFileLineNumbers "Templates\NewTemplates\RHS\RHS_Logistics_Nodes.sqf"};
-if (A3A_has3CB) then {call compile preProcessFileLineNumbers "Templates\NewTemplates\3CB\3CB_Logistics_Nodes.sqf"};
+if (A3A_has3CBFactions) then {call compile preProcessFileLineNumbers "Templates\NewTemplates\3CB\3CBFactions_Logistics_Nodes.sqf"};
+if (A3A_has3CBBAF) then {call compile preProcessFileLineNumbers "Templates\NewTemplates\3CB\3CBBAF_Logistics_Nodes.sqf"};
 //if (A3A_hasIFA) then {call compile preProcessFileLineNumbers "Templates\IFA\IFA_Logistics_Nodes.sqf"};		//disabled until imtegrated
 //if (A3A_hasFFAA) then {call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Logistics_Nodes.sqf"};		//disabled until imtegrated
-if (A3A_hasD3S) then {call compile preProcessFileLineNumbers "Templates\AddonVics\d3s_Logi_Nodes.sqf";};
-if (A3A_hasRDS) then {call compile preProcessFileLineNumbers "Templates\AddonVics\rds_Logi_Nodes.sqf";};
+//if (A3A_hasD3S) then {call compile preProcessFileLineNumbers "Templates\AddonVics\d3s_Logi_Nodes.sqf";};		//disabled until imtegrated
+//if (A3A_hasRDS) then {call compile preProcessFileLineNumbers "Templates\AddonVics\rds_Logi_Nodes.sqf";};		//disabled until imtegrated

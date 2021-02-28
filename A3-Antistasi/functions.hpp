@@ -20,6 +20,7 @@ class A3A
         class initVarCommon {};
         class initVarServer {};
 
+        class initVehClassToCrew {};
         class initZones {};
         class modBlacklist {};
         class playerMarkers {};

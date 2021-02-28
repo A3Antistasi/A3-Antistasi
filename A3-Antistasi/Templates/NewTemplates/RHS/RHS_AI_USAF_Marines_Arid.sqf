@@ -19,7 +19,7 @@
 
 ["vehiclesBasic", ["B_Quadbike_01_F"]] call _fnc_saveToTemplate; 			//this line determines basic vehicles, the lightest kind available. -- Example: ["vehiclesBasic", ["B_Quadbike_01_F"]] -- Array, can contain multiple assets
 ["vehiclesLightUnarmed", ["rhsusf_M1239_socom_d", "rhsusf_M1238A1_socom_d", "rhsusf_m1025_d_s", "rhsusf_m1043_d_s", "rhsusf_m998_d_s_2dr_fulltop", "rhsusf_m998_d_s_2dr_halftop", "rhsusf_m998_d_s_2dr", "rhsusf_m998_d_s_4dr_fulltop", "rhsusf_m998_d_s_4dr_halftop", "rhsusf_m998_d_s_4dr", "rhsusf_m1151_usmc_d", "rhsusf_m1165_usmc_d", "rhsusf_m1240a1_usmc_d"]] call _fnc_saveToTemplate; 		//this line determines light and unarmed vehicles. -- Example: ["vehiclesLightUnarmed", ["B_MRAP_01_F"]] -- Array, can contain multiple assets
-["vehiclesLightArmed", ["rhsusf_m1245_m2crows_socom_d", "rhsusf_M1078A1R_SOV_M2_D_fmtv_socom", "rhsusf_m1025_d_sm2", "rhsusf_m1043_d_sm2", "rhsusf_m1045_d", "rhsusf_m1151_m2crows_usmc_d", "rhsusf_m1151_m2_v3_usmc_d", "rhsusf_m1151_m240_v3_usmc_d", "rhsusf_m1151_m2_v3_usmc_d", "rhsusf_m1151_m240_v3_usmc_d", "rhsusf_M1232_MC_M2_usmc_d", "rhsusf_m1240a1_m2_usmc_d", "rhsusf_m1240a1_m240_usmc_d", "rhsusf_m1240a1_mk19_usmc_d", "rhsusf_m1240a1_m2crows_usmc_d"]] call _fnc_saveToTemplate; 		//this line determines light and armed vehicles -- Example: ["vehiclesLightArmed", ["B_MRAP_01_hmg_F", "B_MRAP_01_gmg_F"]] -- Array, can contain multiple assets
+["vehiclesLightArmed", ["rhsusf_m1245_m2crows_socom_d", "rhsusf_M1078A1R_SOV_M2_D_fmtv_socom", "rhsusf_m1025_d_s_m2", "rhsusf_m1043_d_s_m2", "rhsusf_m1045_d", "rhsusf_m1151_m2crows_usmc_d", "rhsusf_m1151_m2_v3_usmc_d", "rhsusf_m1151_m240_v3_usmc_d", "rhsusf_m1151_m2_v3_usmc_d", "rhsusf_m1151_m240_v3_usmc_d", "rhsusf_M1232_MC_M2_usmc_d", "rhsusf_m1240a1_m2_usmc_d", "rhsusf_m1240a1_m240_usmc_d", "rhsusf_m1240a1_mk19_usmc_d", "rhsusf_m1240a1_m2crows_usmc_d"]] call _fnc_saveToTemplate; 		//this line determines light and armed vehicles -- Example: ["vehiclesLightArmed", ["B_MRAP_01_hmg_F", "B_MRAP_01_gmg_F"]] -- Array, can contain multiple assets
 ["vehiclesTrucks", ["rhsusf_M1078A1P2_D_fmtv_usarmy", "rhsusf_M1078A1P2_B_D_fmtv_usarmy", "rhsusf_M1078A1P2_B_M2_D_fmtv_usarmy", "rhsusf_M1083A1P2_D_fmtv_usarmy", "rhsusf_M1083A1P2_B_D_fmtv_usarmy", "rhsusf_M1083A1P2_B_M2_D_fmtv_usarmy"]] call _fnc_saveToTemplate; 			//this line determines the trucks -- Example: ["vehiclesTrucks", ["B_Truck_01_transport_F", "B_Truck_01_covered_F"]] -- Array, can contain multiple assets
 ["vehiclesCargoTrucks", ["rhsusf_M1084A1R_SOV_M2_D_fmtv_socom", "rhsusf_M1078A1P2_D_flatbed_fmtv_usarmy", "rhsusf_M1078A1P2_B_D_flatbed_fmtv_usarmy", "rhsusf_M1078A1P2_B_M2_D_flatbed_fmtv_usarmy", "rhsusf_M1083A1P2_D_flatbed_fmtv_usarmy", "rhsusf_M1083A1P2_B_D_flatbed_fmtv_usarmy", "rhsusf_M1083A1P2_B_M2_D_flatbed_fmtv_usarmy", "rhsusf_M1084A1P2_D_fmtv_usarmy", "rhsusf_M1084A1P2_B_D_fmtv_usarmy", "rhsusf_M1084A1P2_B_M2_D_fmtv_usarmy", "rhsusf_M977A4_usarmy_d", "rhsusf_M977A4_BKIT_usarmy_d", "rhsusf_M977A4_BKIT_M2_usarmy_d"]] call _fnc_saveToTemplate; 		//this line determines cargo trucks -- Example: ["vehiclesCargoTrucks", ["B_Truck_01_transport_F", "B_Truck_01_covered_F"]] -- Array, can contain multiple assets
 ["vehiclesAmmoTrucks", ["rhsusf_M977A4_AMMO_usarmy_d", "rhsusf_M977A4_AMMO_BKIT_usarmy_d", "rhsusf_M977A4_AMMO_BKIT_M2_usarmy_d"]] call _fnc_saveToTemplate; 		//this line determines ammo trucks -- Example: ["vehiclesAmmoTrucks", ["B_Truck_01_ammo_F"]] -- Array, can contain multiple assets
@@ -46,8 +46,8 @@
 ["vehiclesHelisAttack", ["RHS_AH1Z", "RHS_AH1Z_CS", "RHS_AH1Z_GS", "RHS_UH1Y_d", "RHS_UH1Y_FFAR_d", "RHS_UH1Y_d_GS"]] call _fnc_saveToTemplate; 		//this line determines attack helis -- Example: ["vehiclesHelisAttack", ["B_Heli_Attack_01_F"]] -- Array, can contain multiple assets
 
 ["vehiclesArtillery", [
-["rhsusf_M142_usarmy_D", ["rhs_mag_m26a1_6"]],//Cluster
 ["rhsusf_m109_usarmy", ["rhs_mag_155mm_m795_28"]],
+["rhsusf_M142_usarmy_D", ["rhs_mag_m26a1_6"]],//Cluster
 ["rhsusf_M142_usarmy_D", ["rhs_mag_mgm168_block4_1"]], //500lb HE
 ["RHS_M119_D", ["RHS_mag_m1_he_12"]],
 ["rhsusf_M142_usarmy_D", ["rhs_mag_mgm140b_1"]] //69 Small HE Rockets
@@ -164,7 +164,7 @@ _loadoutData setVariable ["items_squadleader_extras", ["ACE_microDAGR", "ACE_DAG
 _loadoutData setVariable ["items_rifleman_extras", []];
 _loadoutData setVariable ["items_medic_extras", []];
 _loadoutData setVariable ["items_grenadier_extras", []];
-_loadoutData setVariable ["items_explosivesExpert_extras", ["Toolkit", "MineDetector", "ACE_Clacker","ACE_DefusalKit"]];
+_loadoutData setVariable ["items_explosivesExpert_extras", ["Toolkit", "MineDetector", "ACE_Clacker", "ACE_DefusalKit"]];
 _loadoutData setVariable ["items_engineer_extras", ["Toolkit", "MineDetector"]];
 _loadoutData setVariable ["items_lat_extras", []];
 _loadoutData setVariable ["items_at_extras", []];

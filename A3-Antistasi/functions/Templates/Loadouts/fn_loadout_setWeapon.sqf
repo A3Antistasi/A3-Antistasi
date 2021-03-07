@@ -7,7 +7,6 @@
  *    _loadout - Loadout to add backpack to
  *    _slot - "PRIMARY", "LAUNCHER" or "HANDGUN"
  *    _weapon - Weapon to add. Either a class "arifle_MXC_F" or an array ["arifle_MXC_F", "muzzle", "pointer", "optic", "bipod"]
- *    _magazineType - (Optional) - Type of magazine to load into the gun. Autodetected if not provided.
  * Returns:
  *    Modified loadout array
  * Example Usage:
@@ -15,21 +14,22 @@
  *    [_loadout, "PRIMARY", ["arifle_MXC_F", "", "", ""], "30Rnd_65x39_caseless_mag"] call A3A_fnc_addWeapon
  */
 
-params ["_loadout", "_slot", "_weapon", ["_magazineType", ""]];
+params ["_loadout", "_slot", "_weapon"];
 
 private _weaponArray = [];
 
 if (_weapon isEqualType []) then {
-	_weapon params ["_weaponClass", ["_muzzle", ""], ["_pointer", ""], ["_optic", ""], ["_bipod", ""]];
+	_weapon params ["_weaponClass", ["_muzzle", ""], ["_pointer", ""], ["_optic", ""], "_ignore", "_ignore2", ["_bipod", ""]];
 	_weaponArray = [_weaponClass, _muzzle, _pointer, _optic, [], [], _bipod];
 } else {
 	_weaponArray = [_weapon, "", "", "", [], [], ""];
 };
 
 //Find out which magazine we should add to the gun.
-private _mag = [_weaponArray select 0] call A3A_fnc_loadout_defaultWeaponMag;
-
-_weaponArray set [ 4, _mag ];
+if (_weaponArray select 4 isEqualTo []) then {
+	private _mag = [_weaponArray select 0] call A3A_fnc_loadout_defaultWeaponMag;
+	_weaponArray set [ 4, _mag ];
+};
 
 if (_slot == "PRIMARY") then {
 	_loadout set [ 0, _weaponArray ];

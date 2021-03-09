@@ -22,6 +22,82 @@ params ["_template", "_loadoutDataForTemplate"];
 
 private _finalLoadout = [] call A3A_fnc_loadout_createBase;
 
+////////////////////////////////////////////////////////////////////
+//  Private functions - not to be called from the loadout builder //
+////////////////////////////////////////////////////////////////////
+
+private _fnc_magClassToEntry = {
+	[_this, getNumber (configFile >> "CfgMagazines" >> _this >> "count")]
+};
+
+// Converts a weapon array that's valid in the builder to a weapon array valid in a loadout, extracting data in the process.
+// Magazines can be:
+// - A classname - Loads a full magazine into the weapon, uses only that magazine as an available mag.
+// - A normal loadout entry - [classname, bullet count] - remains unchanged.
+// - An array of classnames - Loads the first magazine into the weapon, and uses the whole array as a pool of available mags.
+// - An array of arrays in format [[numberOfMags, magClass]] 
+//    - Loads the first magazine into the weapon, and uses the whole array as a pool of available mags.
+//    - When giving magazines to the loadout, gives numberOfMags instead of only a single mag.
+private _fnc_parseWeaponFormat = {
+	params ["_class", ["_silencer",""], ["_pointer",""], ["_optic",""], ["_priMagInfo", []], ["_secMagInfo", []], ["_bipod",""]];
+
+	private _magsToUse = [["pri", _priMagInfo], ["sec", _secMagInfo]] apply {
+		_x params ["_muzzle", "_info"];
+
+		// String - mag classname
+		if (_info isEqualType "") then {
+			private _magData = _info call _fnc_magClassToEntry;
+			continueWith [
+				_magData,
+				[_info]
+			]
+		};
+
+		// Normal loadout entry [classname, bullet count]
+		if (_info isEqualType [] && {count _info == 2} && {_info select 1 isEqualType 0}) then {
+			continueWith [
+				_info,
+				// Use only classname.
+				[_info select 0]
+			]
+		};
+
+		// Array of classnames, or array of arrays of type [numberOfMags, magClass]
+		if (_info isEqualType [] && {count _info > 0}) then {
+			private _className = if (_info select 0 isEqualType []) then {_info select 0 select 1} else {_info select 0};
+			private _magData = _className call _fnc_magClassToEntry;
+			continueWith [
+				_magData,
+				_info
+			]
+		};
+
+		// Only for primary slot
+		if (_muzzle == "pri") then {
+			private _defaultMagData = [_class] call A3A_fnc_loadout_defaultWeaponMag; 
+			continueWith [
+				_defaultMagData,
+				[_defaultMagData select 0]
+			]
+		};
+
+		[
+			[],
+			[]
+		]
+	};
+
+	//String - Literal mag name
+
+	[
+		[_class, _silencer, _pointer, _optic, _magsToUse select 0 select 0, _magsToUse select 1 select 0, _bipod],
+		// Available primary mags
+		_magsToUse select 0 select 1,
+		// Available secondary mags
+		_magsToUse select 1 select 1
+	]
+};
+
 /////////////////////////////////////////////////////////////////
 //  Core Loadout functions - used to add items to the loadout  //
 /////////////////////////////////////////////////////////////////
@@ -62,47 +138,64 @@ private _fnc_setBackpack = {
 	[_finalLoadout, _backpack] call A3A_fnc_loadout_setBackpack
 };
 
+// Magazines that can be added to the loadout for the primary weapon.
+private _primaryPrimaryMags = [];
+private _primarySecondaryMags = [];
 //Adds a primary weapon to the loadout, selected at random from the category in loadout data.
 private _fnc_setPrimary = {
 	params ["_key"];
 	private _data = _loadoutDataForTemplate getVariable [_key, []];
 	if (_data isEqualTo []) exitWith {};
-	private _weapon = selectRandom _data;
-	[_finalLoadout, "PRIMARY", _weapon] call A3A_fnc_loadout_setWeapon;
+	private _weaponData = (selectRandom _data) call _fnc_parseWeaponFormat;
+	_primaryPrimaryMags = _weaponData # 1;
+	_primarySecondaryMags = _weaponData # 2;
+	[_finalLoadout, "PRIMARY", _weaponData # 0] call A3A_fnc_loadout_setWeapon;
 };
 
+// Magazines that can be added to the loadout for the launcher.
+private _launcherPrimaryMags = [];
+private _launcherSecondaryMags = [];
 //Adds a launcher to the loadout, selected at random from the category in loadout data.
 private _fnc_setLauncher = {
 	params ["_key"];
 	private _data = _loadoutDataForTemplate getVariable [_key, []];
 	if (_data isEqualTo []) exitWith {};
-	private _weapon = selectRandom _data;
-	[_finalLoadout, "LAUNCHER", _weapon] call A3A_fnc_loadout_setWeapon;
+	private _weaponData = (selectRandom _data) call _fnc_parseWeaponFormat;
+	_launcherPrimaryMags = _weaponData # 1;
+	_launcherSecondaryMags = _weaponData # 2;
+	[_finalLoadout, "LAUNCHER", _weaponData # 0] call A3A_fnc_loadout_setWeapon;
 };
 
+// Magazines that can be added to the loadout for the handgun weapon.
+private _handgunPrimaryMags = [];
+private _handgunSecondaryMags = [];
 //Adds a handgun to the loadout, selected at random from the category in loadout data.
 private _fnc_setHandgun = {
 	params ["_key"];
 	private _data = _loadoutDataForTemplate getVariable [_key, []];
 	if (_data isEqualTo []) exitWith {};
-	private _weapon = selectRandom _data;
-	[_finalLoadout, "HANDGUN", _weapon] call A3A_fnc_loadout_setWeapon;
+	private _weaponData = (selectRandom _data) call _fnc_parseWeaponFormat;
+	_handgunPrimaryMags = _weaponData # 1;
+	_handgunSecondaryMags = _weaponData # 2;
+	[_finalLoadout, "HANDGUN", _weaponData # 0] call A3A_fnc_loadout_setWeapon;
 };
 
 //We resolve the magazine requests later, in case the loadout templates have weapons added after magazines.
-private _magazinesToAdd = [];
+private _magazineCountForSlots = createHashMap;
 //Adds magazines to the loadout for the weapon in the specified slot.
 private _fnc_addMagazines = {
 	params ["_weaponSlot", "_quantity"];
-	_magazinesToAdd pushBack [_weaponSlot, _quantity];
+	private _currentCount = _magazineCountForSlots getOrDefault [toLower _weaponSlot, 0];
+	_magazineCountForSlots set [_weaponSlot, _currentCount + _quantity];
 };
 
 //We resolve the magazine requests later, in case the loadout templates have weapons added after magazines.
-private _additionalMuzzleMagazinesToAdd = [];
-//Adds magazines to the loadout for the alternate firemode/muzzles of the weapon in given slot (E.g Underslung grenades)
+private _secondaryMagazineCountForSlots = createHashMap;
+//Adds magazines to the loadout for the secondary muzzle of the weapon in given slot (E.g Underslung grenades)
 private _fnc_addAdditionalMuzzleMagazines = {
-	params ["_weaponSlot", "_quantity", ["_filter", { true }]];
-	_additionalMuzzleMagazinesToAdd pushBack [_weaponSlot, _quantity, _filter];
+	params ["_weaponSlot", "_quantity"];
+	private _currentCount = _secondaryMagazineCountForSlots getOrDefault [toLower _weaponSlot, 0];
+	_secondaryMagazineCountForSlots set [_weaponSlot, _currentCount + _quantity];
 };
 
 //We resolve these along with the rest of the items later, so we do it all in one call.
@@ -230,44 +323,37 @@ call _template;
 //Firstly - we need to resolve all the magazines we need, and add them to an item batch.
 private _magazineItems = [];
 
-//Go through all of the requests for magazines, figure out what mag to use, then add it to item list.
-{
-	_x params ["_weaponSlot", "_quantity"];
-	private _weaponIndex = [0,1,2] select (["primary", "launcher", "handgun"] find (toLower _weaponSlot));
-	private _weaponData = _finalLoadout select _weaponIndex;
-	if !(_weaponData isEqualTo []) then {
-		private _weaponClass = _weaponData select 0;
-		private _magInfo = [_weaponClass] call A3A_fnc_loadout_defaultWeaponMag;
-		if !(_magInfo isEqualTo []) then {
-			_magazineItems pushBack [_magInfo select 0, _quantity, _magInfo select 1];
-		};
-	};
-} forEach _magazinesToAdd;
+private _slotMagInfo = createHashMapFromArray [
+	["primary", [_finalLoadout select 0, _primaryPrimaryMags, _primarySecondaryMags]],
+	["launcher", [_finalLoadout select 1, _launcherPrimaryMags, _launcherSecondaryMags]],
+	["handgun", [_finalLoadout select 2, _handgunPrimaryMags, _handgunSecondaryMags]]
+];
 
 {
-	_x params ["_weaponSlot", "_quantity", "_filter"];
-	diag_log format ["Adding: %1", _x];
-	private _weaponIndex = [0,1,2] select (["primary", "launcher", "handgun"] find (toLower _weaponSlot));
-	private _weaponData = _finalLoadout select _weaponIndex;
-	if !(_weaponData isEqualTo []) then {
-		private _weaponClass = _weaponData select 0;
-		private _validMagsPerMuzzle = 
-			[_weaponClass] call A3A_fnc_loadout_additionalMuzzleMags 
-			apply {_x select {(_x # 0) call _filter}} 
-			select {!(_x isEqualTo [])};
-		diag_log format ["Valid: %1", _validMagsPerMuzzle];
-		if !(_validMagsPerMuzzle isEqualTo []) then {
-			//Default to first - hack to make sure most units start with HE.
-			private _magInfo = _validMagsPerMuzzle select 0 select 0;
-			while {_quantity > 0} do {
-				private _specificAmount = ceil (_quantity / 2);
-				_quantity = _quantity - _specificAmount;
-				_magazineItems pushBack [_magInfo select 0, _specificAmount, _magInfo select 1];
-				_magInfo = selectRandom selectRandom _validMagsPerMuzzle;
-			};
-		};
-	};
-} forEach _additionalMuzzleMagazinesToAdd;
+	private _weaponSlot = _x;
+	(_slotMagInfo get toLower _weaponSlot) params ["_weaponData", "_primaryMags", "_secondaryMags"];
+
+	if (_weaponData isEqualTo []) then { continue };
+	diag_log format ["Processing slot %1 - Weapon data %2, mags %3 and %4", _weaponSlot, _weaponData select 0, _primaryMags, _secondaryMags];
+
+	private _primaryMagQuantity = _magazineCountForSlots getOrDefault [_weaponSlot, 0];
+	private _secondaryMagQuantity = _secondaryMagazineCountForSlots getOrDefault [_weaponSlot, 0];
+
+	// Loop through every primary mag type, check how many times it would be added given _primaryMagQuantity, then add that many mags.
+	{
+		_x params ["_magTypes", "_magQuantity"];
+		{
+			private _magEntry = _x;
+			private _magType = if (_magEntry isEqualType []) then {_magEntry select 1} else {_magEntry};
+			private _magCount = if (_magEntry isEqualType []) then {_magEntry select 0} else {1};
+			// If we loop through the _primaryMags array _primaryMagQuantity times, this is how many times this entry would be used.
+			// This is an optimisation to reduce number of iterations.
+			private _entryVisitedCount = ceil ((_magQuantity - _forEachIndex) / count _magTypes);
+			diag_log format ["Mag type %1, count %2, visited %3", _magType, _magCount, _entryVisitedCount];
+			_magazineItems pushBack [_magType, _magCount * _entryVisitedCount, getNumber (configFile >> "CfgMagazines" >> _magType >> "count")];
+		} forEach _magTypes;
+	} forEach [[_primaryMags, _primaryMagQuantity], [_secondaryMags, _secondaryMagQuantity]];
+} forEach ["primary", "launcher", "handgun"];
 
 //Now magazines are resolved, we can add all the items.
 //Item batches are added in order, with least important last.

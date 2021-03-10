@@ -34,9 +34,6 @@ private _allLoadouts = _faction getVariable "loadouts";
 	[_loadoutsPrefix + _loadoutName, _loadouts] call A3A_fnc_registerUnitType;
 } forEach allVariables _allLoadouts;
 
-//Placeholders until they can be removed.
-factionMaleInvaders = "";
-
 if (_side isEqualTo east) then {
 	nameInvaders = _faction getVariable "name";
 

@@ -221,9 +221,6 @@ if (_side isEqualTo east) then {
 if (_side isEqualTo west) then {
 	nameOccupants = _faction getVariable "name";
 
-	//Militia faction (complete with weird mod compat)
-	if (gameMode != 4) then {factionFIA = ""};
-
 	//Flag images
 	NATOFlag = _faction getVariable "flag";
 	NATOFlagTexture = _faction getVariable "flagTexture";

@@ -303,7 +303,6 @@ private _templateVariables = [
 
 	//Occupants
 	"nameOccupants",
-	"factionFIA",
 	"NATOFlag",
 	"NATOFlagTexture",
 	"flagNATOmrk",
@@ -377,7 +376,6 @@ private _templateVariables = [
 
 	//Invaders
 	"nameInvaders",
-	"factionFIA",
 	"CSATFlag",
 	"CSATFlagTexture",
 	"flagCSATmrk",
@@ -456,7 +454,6 @@ call compile preProcessFileLineNumbers "Templates\selector.sqf";
 
 // modify these appropriately when adding new template vars
 private _nonClassVars = ["nameTeamPlayer", "SDKFlagTexture", "nameOccupants", "NATOPlayerLoadouts", "NATOFlagTexture", "flagNATOmrk", "nameInvaders", "CSATPlayerLoadouts", "CSATFlagTexture", "flagCSATmrk"];
-private _factionVars = ["factionFIA"];
 private _magazineVars = ["SDKMortarHEMag", "SDKMortarSmokeMag", "ATMineMag", "APERSMineMag", "vehNATOMRLSMags", "vehCSATMRLSMags", "breachingExplosivesAPC", "breachingExplosivesTank"];
 
 private _missingVars = [];
@@ -475,8 +472,7 @@ private _badCaseVars = [];
 			_var = _classes;
 		};
 
-		private _section = if (_x in _factionVars) then {"CfgFactionClasses"}
-			else { if (_x in _magazineVars) then {"CfgMagazines"} else {"CfgVehicles"} };
+		private _section = if (_x in _magazineVars) then {"CfgMagazines"} else {"CfgVehicles"};
 		{
 			if !(_x isEqualType "") exitWith { [1, "Bad template var " + _varName, _filename] call A3A_fnc_log };
 			if !(_x isEqualTo configName (configFile >> _section >> _x)) then

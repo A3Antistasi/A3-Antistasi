@@ -303,7 +303,6 @@ private _templateVariables = [
 
 	//Occupants
 	"nameOccupants",
-	"factionGEN",
 	"factionMaleOccupants",
 	"factionFIA",
 	"NATOFlag",
@@ -459,7 +458,7 @@ call compile preProcessFileLineNumbers "Templates\selector.sqf";
 
 // modify these appropriately when adding new template vars
 private _nonClassVars = ["nameTeamPlayer", "SDKFlagTexture", "nameOccupants", "NATOPlayerLoadouts", "NATOFlagTexture", "flagNATOmrk", "nameInvaders", "CSATPlayerLoadouts", "CSATFlagTexture", "flagCSATmrk"];
-private _factionVars = ["factionGEN", "factionMaleOccupants", "factionFIA", "factionMaleInvaders"];
+private _factionVars = ["factionMaleOccupants", "factionFIA", "factionMaleInvaders"];
 private _magazineVars = ["SDKMortarHEMag", "SDKMortarSmokeMag", "ATMineMag", "APERSMineMag", "vehNATOMRLSMags", "vehCSATMRLSMags", "breachingExplosivesAPC", "breachingExplosivesTank"];
 
 private _missingVars = [];

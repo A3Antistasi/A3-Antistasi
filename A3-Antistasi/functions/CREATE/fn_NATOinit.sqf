@@ -81,7 +81,7 @@ if (faction _unit isEqualTo factionFIA) then
 {
     _skill = _skill min (0.2 * skillMult);
 };
-if (faction _unit isEqualTo factionGEN) then
+if ("police" in (_unit getVariable "unitType")) then
 {
     _skill = _skill min (0.12 * skillMult);
     if (!A3A_hasIFA) then

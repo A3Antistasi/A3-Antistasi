@@ -35,7 +35,6 @@ private _allLoadouts = _faction getVariable "loadouts";
 } forEach allVariables _allLoadouts;
 
 //Placeholders until they can be removed.
-factionGEN = "";
 factionMaleInvaders = "";
 factionMaleOccupants = "";
 

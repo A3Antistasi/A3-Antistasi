@@ -334,7 +334,6 @@ private _slotMagInfo = createHashMapFromArray [
 	(_slotMagInfo get toLower _weaponSlot) params ["_weaponData", "_primaryMags", "_secondaryMags"];
 
 	if (_weaponData isEqualTo []) then { continue };
-	diag_log format ["Processing slot %1 - Weapon data %2, mags %3 and %4", _weaponSlot, _weaponData select 0, _primaryMags, _secondaryMags];
 
 	private _primaryMagQuantity = _magazineCountForSlots getOrDefault [_weaponSlot, 0];
 	private _secondaryMagQuantity = _secondaryMagazineCountForSlots getOrDefault [_weaponSlot, 0];
@@ -349,7 +348,6 @@ private _slotMagInfo = createHashMapFromArray [
 			// If we loop through the _primaryMags array _primaryMagQuantity times, this is how many times this entry would be used.
 			// This is an optimisation to reduce number of iterations.
 			private _entryVisitedCount = ceil ((_magQuantity - _forEachIndex) / count _magTypes);
-			diag_log format ["Mag type %1, count %2, visited %3", _magType, _magCount, _entryVisitedCount];
 			_magazineItems pushBack [_magType, _magCount * _entryVisitedCount, getNumber (configFile >> "CfgMagazines" >> _magType >> "count")];
 		} forEach _magTypes;
 	} forEach [[_primaryMags, _primaryMagQuantity], [_secondaryMags, _secondaryMagQuantity]];

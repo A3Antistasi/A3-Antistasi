@@ -124,7 +124,7 @@ if !(A3A_hasIFA) then
     {
         if (isServer) then
         {
-            if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders) and (_unit != leader (group _unit))) then
+            if (!("SF_" in (_unit getVariable "unitType")) and (_unit != leader (group _unit))) then
             {
                 if (_hmd != "") then
                 {
@@ -207,7 +207,7 @@ if !(A3A_hasIFA) then
     {
         if (isServer) then
         {
-            if ((faction _unit != factionMaleOccupants) and (faction _unit != factionMaleInvaders)) then
+            if !("SF_" in (_unit getVariable "unitType")) then
             {
                 if (_hmd != "") then
                 {

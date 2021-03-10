@@ -36,7 +36,6 @@ private _allLoadouts = _faction getVariable "loadouts";
 
 //Placeholders until they can be removed.
 factionMaleInvaders = "";
-factionMaleOccupants = "";
 
 if (_side isEqualTo east) then {
 	nameInvaders = _faction getVariable "name";

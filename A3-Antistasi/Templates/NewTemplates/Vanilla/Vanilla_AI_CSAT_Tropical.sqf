@@ -373,7 +373,7 @@ private _squadLeaderTemplate = {
 	[["Hvests", "vests"] call _fnc_fallback] call _fnc_setVest;
 	[["offuniforms", "uniforms"] call _fnc_fallback] call _fnc_setUniform;
 	//TODO - Long range radios
-	[["longRangeRadios", "ViperBP", "backpacks"] call _fnc_fallback] call _fnc_setBackpack;
+	[["ViperBP", "backpacks"] call _fnc_fallback] call _fnc_setBackpack;
 	[["grenadeLaunchers", "rifles", "smgs"] call _fnc_fallback] call _fnc_setPrimary;
 	["primary", 5] call _fnc_addMagazines;
 	["primary", 4] call _fnc_addAdditionalMuzzleMagazines;

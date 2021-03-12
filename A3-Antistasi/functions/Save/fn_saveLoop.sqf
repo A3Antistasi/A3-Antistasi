@@ -34,7 +34,7 @@ if (_saveIndex == -1) then {
 profileNamespace setVariable ["ss_campaignID", campaignID];
 
 // Save persistent global variables defined in initParam
-private _savedParams = paramTable apply { [_x#0, missionNameSpace getVariable _x#0] };
+private _savedParams = A3A_paramTable apply { [_x#0, missionNameSpace getVariable _x#0] };
 [3, format ["Saving params: %1", _savedParams], _filename] call A3A_fnc_log;
 ["params", _savedParams] call A3A_fnc_setStatVariable;
 

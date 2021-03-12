@@ -19,8 +19,8 @@ params ["_loadout", "_slot", "_weapon"];
 private _weaponArray = [];
 
 if (_weapon isEqualType []) then {
-	_weapon params ["_weaponClass", ["_muzzle", ""], ["_pointer", ""], ["_optic", ""], "_ignore", "_ignore2", ["_bipod", ""]];
-	_weaponArray = [_weaponClass, _muzzle, _pointer, _optic, [], [], _bipod];
+	_weapon params ["_weaponClass", ["_muzzle", ""], ["_pointer", ""], ["_optic", ""], ["_priMag", []], ["_secMag", []], ["_bipod", ""]];
+	_weaponArray = [_weaponClass, _muzzle, _pointer, _optic, _priMag, _secMag, _bipod];
 } else {
 	_weaponArray = [_weapon, "", "", "", [], [], ""];
 };

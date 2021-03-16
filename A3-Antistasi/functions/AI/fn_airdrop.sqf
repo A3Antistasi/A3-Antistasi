@@ -11,8 +11,8 @@ if (_markerX isEqualType "") then {_positionX = getMarkerPos _markerX};
 _groupPilot = group driver _veh;
 {_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _groupPilot;
 _dist = 500;
-_distEng = if (_veh isKindOf "Helicopter") then {1000} else {2000};
-_distExit = if (_veh isKindOf "Helicopter") then {400} else {1000};
+_distEng = if (_veh isKindOf "Helicopter") then {500} else {1000};
+_distExit = if (_veh isKindOf "Helicopter") then {200} else {500};
 _orig = getMarkerPos _originX;
 
 

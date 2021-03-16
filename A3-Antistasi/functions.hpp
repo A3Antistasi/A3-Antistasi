@@ -511,20 +511,14 @@ class A3A
         class punishment {};
         class punishment_addActionForgive {};
         class punishment_checkStatus {};
-        class punishment_dataGet {};
-        class punishment_dataRem {};
-        class punishment_dataSet {};
-        class punishment_dataNamespace {};
         class punishment_FF {};
         class punishment_FF_checkNearHQ {};
         class punishment_FF_addEH {};
-        class punishment_notifyAdmin {};
         class punishment_oceanGulag {};
         class punishment_release {};
         class punishment_removeActionForgive {};
         class punishment_sentence_client {};
         class punishment_sentence_server {};
-        class punishment_notPlayer {};
     };
 
     class pvp
@@ -685,6 +679,7 @@ class A3A
         class createNamespace {};
         class dateToTimeString {};
         class deleteNamespace {};
+        class getAdmin {};
         class log {};
         class systemTime_format_G {};
         class vehicleWillCollideAtPosition {};

@@ -59,7 +59,7 @@ if (_expectedCargo > 0) then
     private _maxUnitsSide = maxUnits;
     if (gameMode < 3) then
     {
-        _allUnitsSide = {(local _x) and (alive _x) and (side group _x == _sideX)} count allUnits;
+        _allUnitsSide = {(local _x) and (alive _x) and (side group _x == _side)} count allUnits;
         _maxUnitsSide = round (maxUnits * 0.7);
     };
 

@@ -157,8 +157,8 @@ for "_i" from 0 to (count _buildings) - 1 do
 //Spawning certain AIs on fixed buildingPos of chosen buildings
 
 private _fnc_spawnStaticUnit = {
-    params ["_type", "_pos", "_dir"];
-    private _unit = [_groupX, _typeUnit, _positionX, [], 0, "NONE"] call A3A_fnc_createUnit;
+	private _typeUnit = if (_sideX == Occupants) then {if (!_isFIA) then {NATOMarksman} else {FIAMarksman}} else {CSATMarksman};
+	private _unit = [_groupX, _typeUnit, _positionX, [], 0, "NONE"] call A3A_fnc_createUnit;
     if (!isNil "_dir") then { _unit setDir _dir };
     _unit disableAI "PATH"; //block moving
     _unit setUnitPos "UP"; //force standing

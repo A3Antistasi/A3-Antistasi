@@ -1,4 +1,4 @@
-private _filename = "fn_milBuildings"
+private _fileName = "milBuildings.sqf";
 private ["_positionX","_size","_buildings","_groupX","_typeUnit","_sideX","_building","_typeB","_frontierX","_typeVehX","_veh","_vehiclesX","_soldiers","_pos","_ang","_markerX","_unit","_return"];
 _markerX = _this select 0;
 _positionX = getMarkerPos _markerX;

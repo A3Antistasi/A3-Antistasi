@@ -1260,21 +1260,21 @@
         <Chinesesimp>在骆驼背上战斗</Chinesesimp>
         <Russian>Сражайся верхом на верблюде</Russian>
       </Key>
-      <Key ID="STR_antistasi_mission_info_1_mapname_short_text">
-        <Original>Placeholder</Original>
-        <English>Placeholder</English>
+      <Key ID="STR_antistasi_mission_info_camlaonam_mapname_short_text">
+        <Original>Antistasi Cam Lao Nam</Original>
+        <English>Antistasi Cam Lao Nam</English>
       </Key>
-      <Key ID="STR_antistasi_mission_info_1_mapname_text">
-        <Original>Placeholder</Original>
-        <English>Placeholder</English>
+      <Key ID="STR_antistasi_mission_info_camlaonam_mapname_text">
+        <Original>Antistasi - Liberation of Cam Lao Nam</Original>
+        <English>Antistasi - Liberation of Cam Lao Nam</English>
       </Key>
-      <Key ID="STR_antistasi_mission_info_1_description_text">
-        <Original>Placeholder</Original>
-        <English>Placeholder</English>
+      <Key ID="STR_antistasi_mission_info_camlaonam_description_text">
+        <Original>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</Original>
+        <English>Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.</English>
       </Key>
-      <Key ID="STR_antistasi_mission_info_1_blurb_text">
-        <Original>Placeholder</Original>
-        <English>Placeholder</English>
+      <Key ID="STR_antistasi_mission_info_camlaonam_blurb_text">
+        <Original>Tree? Which tree?!?</Original>
+        <English>Tree? Which tree?!?</English>
       </Key>
       <Key ID="STR_antistasi_mission_info_2_mapname_short_text">
         <Original>Placeholder</Original>

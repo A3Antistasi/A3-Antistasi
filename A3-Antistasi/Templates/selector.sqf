@@ -12,19 +12,19 @@ Dependencies:
 */
 private _filename = "selector.sqf";
 //Map checker
-aridmaps = ["Altis","Kunduz","Malden","tem_anizay","takistan","sara"];
-tropicalmaps = ["Tanoa","cam_lao_nam"];
-temperatemaps = ["Enoch","chernarus_summer","vt7","Tembelan"];
-arcticmaps = ["Chernarus_Winter"];
+aridmaps = ["altis","kunduz","malden","tem_anizay","takistan","sara"];
+tropicalmaps = ["tanoa","cam_lao_nam"];
+temperatemaps = ["enoch","chernarus_summer","vt7","tembelan"];
+arcticmaps = ["chernarus_winter"];
 //Mod selector
 
 //Reb Templates
 switch(true) do{
     case (A3A_has3CBFactions): {
         switch(true) do {
-            case (worldName in arcticmaps);
-            case (worldName in temperatemaps);
-            case (worldName in tropicalmaps): {
+            case (toLower worldName in arcticmaps);
+            case (toLower worldName in temperatemaps);
+            case (toLower worldName in tropicalmaps): {
                 ["Templates\NewTemplates\3CB\3CB_Reb_CNM_Temperate.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using Temperate CNM Template", _filename] call A3A_fnc_log;
             };
@@ -36,9 +36,9 @@ switch(true) do{
     };
     case (A3A_hasRHS): {
         switch(true) do {
-            case (worldName in arcticmaps);
-            case (worldName in temperatemaps);
-            case (worldName in tropicalmaps): {
+            case (toLower worldName in arcticmaps);
+            case (toLower worldName in temperatemaps);
+            case (toLower worldName in tropicalmaps): {
                 ["Templates\NewTemplates\RHS\RHS_Reb_NAPA_Temperate.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using Temperate Napa Template", _filename] call A3A_fnc_log;
             };
@@ -51,15 +51,15 @@ switch(true) do{
 /* disabled until imtegrated
     case (A3A_hasIFA): {
       switch(true) do {
-        case (worldName in arcticmaps): {
+        case (toLower worldName in arcticmaps): {
           call compile preProcessFileLineNumbers "Templates\IFA\IFA_Reb_POL_Arct.sqf";
           [2, "Using arctic POL Template", _filename] call A3A_fnc_log;
         };
-        case (worldName in temperatemaps): {
+        case (toLower worldName in temperatemaps): {
           call compile preProcessFileLineNumbers "Templates\IFA\IFA_Reb_POL_Temp.sqf";
           [2, "Using temperate POL Templates", _filename] call A3A_fnc_log;
         };
-        case (worldName in tropicalmaps): {
+        case (toLower worldName in tropicalmaps): {
           call compile preProcessFileLineNumbers "Templates\IFA\IFA_Reb_POL_Temp.sqf";
           [2, "Using tropical POL Templates", _filename] call A3A_fnc_log;
         };
@@ -72,11 +72,11 @@ switch(true) do{
 */
     default {
         switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
-            case (worldName == "Enoch"): {
+            case (toLower worldName == "enoch"): {
                 ["Templates\NewTemplates\Vanilla\Vanilla_Reb_FIA_Enoch.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using Enoch FIA Template", _filename] call A3A_fnc_log;
             };
-            case (worldName == "Tanoa"): {
+            case (toLower worldName == "tanoa"): {
                 ["Templates\NewTemplates\Vanilla\Vanilla_Reb_SDK_Tanoa.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using tanoa SDK Template", _filename] call A3A_fnc_log;
             };
@@ -92,15 +92,15 @@ switch(true) do{
 /* disabled until imtegrated
 case (A3A_hasFFAA): {
     switch(true) do {
-    case (worldName in arcticmaps): {
+    case (toLower worldName in arcticmaps): {
         call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Occ_FFAA_Temp.sqf";
         [2, "Using arctic FFAA Template", _filename] call A3A_fnc_log;
     };
-    case (worldName in temperatemaps): {
+    case (toLower worldName in temperatemaps): {
         call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Occ_FFAA_Temp.sqf";
         [2, "Using temperate FFAA Template", _filename] call A3A_fnc_log;
     };
-    case (worldName in tropicalmaps): {
+    case (toLower worldName in tropicalmaps): {
         call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Occ_FFAA_Temp.sqf";
         [2, "Using tropical FFAA Template", _filename] call A3A_fnc_log;
     };
@@ -113,15 +113,15 @@ case (A3A_hasFFAA): {
 */
     case (A3A_has3CBBAF): {
         switch(true) do {
-            case (worldName in arcticmaps): {
+            case (toLower worldName in arcticmaps): {
                 ["Templates\NewTemplates\3CB\3CB_AI_BAF_Arctic.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using arctic BAF Template", _filename] call A3A_fnc_log;
             };
-            case (worldName in temperatemaps): {
+            case (toLower worldName in temperatemaps): {
                 ["Templates\NewTemplates\3CB\3CB_AI_BAF_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using temperate BAF Template", _filename] call A3A_fnc_log;
             };
-            case (worldName in tropicalmaps): {
+            case (toLower worldName in tropicalmaps): {
                 ["Templates\NewTemplates\3CB\3CB_AI_BAF_Tropical.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using tropical BAF Template", _filename] call A3A_fnc_log;
             };
@@ -133,12 +133,12 @@ case (A3A_hasFFAA): {
     };
     case (A3A_has3CBFactions): {
         switch(true) do {
-            case (worldName in arcticmaps);
-            case (worldName in temperatemaps): {
+            case (toLower worldName in arcticmaps);
+            case (toLower worldName in temperatemaps): {
                 ["Templates\NewTemplates\RHS\RHS_AI_USAF_Marines_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using Temperate US Marines Template as Placeholder", _filename] call A3A_fnc_log;
             };
-            case (worldName in tropicalmaps): {
+            case (toLower worldName in tropicalmaps): {
                 ["Templates\NewTemplates\3CB\3CB_AI_CW_US.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using Coldwar US Template", _filename] call A3A_fnc_log;
             };
@@ -150,14 +150,14 @@ case (A3A_hasFFAA): {
     };
     case (A3A_hasRHS): {
         switch(true) do {
-            case (worldName == "chernarus_summer");
-            case (worldName == "Chernarus_Winter"): {
+            case (toLower worldName == "chernarus_summer");
+            case (toLower worldName == "chernarus_winter"): {
                 ["Templates\NewTemplates\RHS\RHS_AI_CDF_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using CDF Temperate Template", _filename] call A3A_fnc_log;
             };
-            case (worldName in arcticmaps);
-            case (worldName in temperatemaps);
-            case (worldName in tropicalmaps): {
+            case (toLower worldName in arcticmaps);
+            case (toLower worldName in temperatemaps);
+            case (toLower worldName in tropicalmaps): {
                 ["Templates\NewTemplates\RHS\RHS_AI_USAF_Army_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using arctic USAF Template", _filename] call A3A_fnc_log;
             };
@@ -170,15 +170,15 @@ case (A3A_hasFFAA): {
 /* disabled until imtegrated
 case (A3A_hasIFA): {
     switch(true) do {
-    case (worldName in arcticmaps): {
+    case (toLower worldName in arcticmaps): {
         call compile preProcessFileLineNumbers "Templates\IFA\IFA_Occ_WEH_Arct.sqf";
         [2, "Using arctic WEH Template", _filename] call A3A_fnc_log;
     };
-    case (worldName in temperatemaps): {
+    case (toLower worldName in temperatemaps): {
         call compile preProcessFileLineNumbers "Templates\IFA\IFA_Occ_WEH_Temp.sqf";
         [2, "Using temperate WEH Template", _filename] call A3A_fnc_log;
     };
-    case (worldName in tropicalmaps): {
+    case (toLower worldName in tropicalmaps): {
         call compile preProcessFileLineNumbers "Templates\IFA\IFA_Occ_WEH_Temp.sqf";
         [2, "Using tropical WEH Template", _filename] call A3A_fnc_log;
     };
@@ -191,16 +191,16 @@ case (A3A_hasIFA): {
 */
     default {
         switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
-            case (worldName == "Enoch"): {
+            case (toLower worldName == "enoch"): {
                 ["Templates\NewTemplates\Vanilla\Vanilla_AI_LDF_Enoch.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using Enoch LDF Template", _filename] call A3A_fnc_log;
             };
-            case (worldName == "Tanoa"): {
+            case (toLower worldName == "tanoa"): {
                 ["Templates\NewTemplates\Vanilla\Vanilla_AI_NATO_Tropical.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using tropical NATO Templates", _filename] call A3A_fnc_log;
             };
-            case (worldName in temperatemaps);
-            case (worldName in tropicalmaps): {
+            case (toLower worldName in temperatemaps);
+            case (toLower worldName in tropicalmaps): {
                 ["Templates\NewTemplates\Vanilla\Vanilla_AI_NATO_Temperate.sqf", west] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using temperate NATO Template", _filename] call A3A_fnc_log;
             };
@@ -215,12 +215,12 @@ case (A3A_hasIFA): {
 switch(true) do{
     case (A3A_has3CBFactions): {
         switch(true) do {
-            case (worldName in arcticmaps);
-            case (worldName in temperatemaps): {
+            case (toLower worldName in arcticmaps);
+            case (toLower worldName in temperatemaps): {
                 ["Templates\NewTemplates\RHS\RHS_AI_AFRF_Temperate.sqf", east] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using RHS AFRF as Placeholder Template", _filename] call A3A_fnc_log;
             };
-            case (worldName in tropicalmaps): {
+            case (toLower worldName in tropicalmaps): {
                 ["Templates\NewTemplates\3CB\3CB_AI_CW_SOV.sqf", east] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using Coldwar Soviets Template", _filename] call A3A_fnc_log;
             };
@@ -232,9 +232,9 @@ switch(true) do{
     };
     case (A3A_hasRHS): {
         switch(true) do {
-            case (worldName in arcticmaps);
-            case (worldName in temperatemaps);
-            case (worldName in tropicalmaps): {
+            case (toLower worldName in arcticmaps);
+            case (toLower worldName in temperatemaps);
+            case (toLower worldName in tropicalmaps): {
                 ["Templates\NewTemplates\RHS\RHS_AI_AFRF_Temperate.sqf", east] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using temperate AFRF Template", _filename] call A3A_fnc_log;
             };
@@ -247,15 +247,15 @@ switch(true) do{
 /* disabled until imtegrated
 case (A3A_hasIFA): {
     switch(true) do {
-    case (worldName in arcticmaps): {
+    case (toLower worldName in arcticmaps): {
         call compile preProcessFileLineNumbers "Templates\IFA\IFA_Inv_SOV_Arct.sqf";
         [2, "Using arctic SOV Template", _filename] call A3A_fnc_log;
     };
-    case (worldName in temperatemaps): {
+    case (toLower worldName in temperatemaps): {
         call compile preProcessFileLineNumbers "Templates\IFA\IFA_Inv_SOV_Temp.sqf";
         [2, "Using temperate SOV Template", _filename] call A3A_fnc_log;
     };
-    case (worldName in tropicalmaps): {
+    case (toLower worldName in tropicalmaps): {
         call compile preProcessFileLineNumbers "Templates\IFA\IFA_Inv_SOV_Temp.sqf";
         [2, "Using tropical SOV Template", _filename] call A3A_fnc_log;
     };
@@ -268,11 +268,11 @@ case (A3A_hasIFA): {
 */
     default {
         switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
-            case (worldName == "Enoch"): {
+            case (toLower worldName == "enoch"): {
                 ["Templates\NewTemplates\Vanilla\Vanilla_AI_CSAT_Enoch.sqf", east] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using Enoch CSAT Template", _filename] call A3A_fnc_log;
             };
-            case (worldName == "Tanoa"): {
+            case (toLower worldName == "tanoa"): {
                 ["Templates\NewTemplates\Vanilla\Vanilla_AI_CSAT_Tropical.sqf", east] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using tanoa CSAT Template", _filename] call A3A_fnc_log;
             };

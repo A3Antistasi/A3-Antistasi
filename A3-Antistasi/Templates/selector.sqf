@@ -13,7 +13,7 @@ Dependencies:
 private _filename = "selector.sqf";
 //Map checker
 aridmaps = ["Altis","Kunduz","Malden","tem_anizay","takistan","sara"];
-tropicalmaps = ["Tanoa"];
+tropicalmaps = ["Tanoa","cam_lao_nam"];
 temperatemaps = ["Enoch","chernarus_summer","vt7","Tembelan"];
 arcticmaps = ["Chernarus_Winter"];
 //Mod selector

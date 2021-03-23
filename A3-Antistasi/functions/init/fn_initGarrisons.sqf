@@ -154,6 +154,10 @@ if (gameMode == 1) then
 			_mrkCSAT = ["airport_1", "seaport_6", "outpost_22", "outpost_15", "resource_9", "outpost_19", "outpost_14", "resource_11"];
 			_controlsCSAT = ["control_28", "control_27"];
 		};
+		case "cam_lao_nam": {
+			_mrkCSAT = ["airport_2", "airport_3", "airport_4", "airport_6", "seaport_1", "seaport_4", "seaport_7", "outpost_9", "outpost_12", "outpost_13", "outpost_14", "outpost_17", "outpost_18", "outpost_19", "outpost_20", "outpost_25", "outpost_26", "outpost_27", "outpost_28", "outpost_29", "factory_1", "factory_2", "factory_4", "resource_1", "resource_10", "resource_11", "resource_12", "resource_13", "resource_15", "resource_16", "resource_17", "resource_18"];
+            _controlsCSAT = [];
+		}
 	};
     _controlsNATO = _controlsNATO - _controlsCSAT;
 	_mrkNATO = markersX - _mrkCSAT - ["Synd_HQ"];

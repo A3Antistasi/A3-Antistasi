@@ -240,7 +240,16 @@ A3A_logistics_attachmentOffset append [
 ];
 
 //all vehicles with jnl loading nodes where the nodes are not located in the open, this can be because its inside the vehicle or it has a cover over the loading plane.
-A3A_logistics_coveredVehicles append ["rhsgref_nat_ural_work", "rhs_kamaz5350", "rhs_zil131_base", "rhs_gaz66_vmf", "rhsusf_M1078A1P2_WD_fmtv_usarmy", "rhsusf_M1078A1P2_B_WD_fmtv_usarmy", "rhsusf_M1078A1P2_B_M2_WD_fmtv_usarmy", "rhsusf_M1083A1P2_WD_fmtv_usarmy"];
+A3A_logistics_coveredVehicles append [
+    "rhsgref_nat_ural_work" call A3A_fnc_classNameToModel
+    , "rhs_kamaz5350" call A3A_fnc_classNameToModel
+    , "rhs_zil131_base" call A3A_fnc_classNameToModel
+    , "rhs_gaz66_vmf" call A3A_fnc_classNameToModel
+    , "rhsusf_M1078A1P2_WD_fmtv_usarmy" call A3A_fnc_classNameToModel
+    , "rhsusf_M1078A1P2_B_WD_fmtv_usarmy" call A3A_fnc_classNameToModel
+    , "rhsusf_M1078A1P2_B_M2_WD_fmtv_usarmy" call A3A_fnc_classNameToModel
+    , "rhsusf_M1083A1P2_WD_fmtv_usarmy" call A3A_fnc_classNameToModel
+];
 
 //if you want a weapon to be loadable you need to add it to this as a array of [model, [blacklist specific vehicles]],
 //if the vehicle is in the coveredVehicles array dont add it to the blacklist in this array.

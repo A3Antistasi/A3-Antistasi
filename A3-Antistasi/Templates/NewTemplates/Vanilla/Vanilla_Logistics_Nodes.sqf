@@ -104,14 +104,14 @@ A3A_logistics_vehicleHardpoints = [
     ]],
 
     //Vanilla HEMTT Flatbed
-    ["B_Truck_01_flatbed_F" call A3A_fnc_classNameToModel,[
-        [1,             [0,0.6825,-0.88],       []],
-        [1,             [0,-0.1475,-0.88],      []],
-        [1,             [0,-0.9775,-0.88],      []],
-        [1,             [0,-1.8075,-0.88],      []],
-        [1,             [0,-2.6375,-0.88],      []],
-        [1,             [0,-3.4675,-0.88],      []],
-        [1,             [0,-4.2975,-0.88],      []]
+    ["a3\Soft_F_Gamma\Truck_01\Truck_01_flatbed_F.p3d", [
+        [1,[0,0.7,-0.8],[]]
+        ,[1,[0,-0.1,-0.8],[]]
+        ,[1,[0,-0.9,-0.8],[]]
+        ,[1,[0,-1.7,-0.8],[]]
+        ,[1,[0,-2.5,-0.8],[]]
+        ,[1,[0,-3.3,-0.8],[]]
+        ,[1,[0,-4.1,-0.8],[]]
     ]],
 
     //Vanilla HEMTT Cargo
@@ -176,11 +176,17 @@ A3A_logistics_attachmentOffset = [
 
     //small sized crates                                                      //location                  //rotation                  //size                        //description
     ["Box_NATO_Equip_F" call A3A_fnc_classNameToModel,                          [0,0,0.44],                 [1,0,0],                    1],                         //Equipment box
-    ["Box_NATO_Wps_F" call A3A_fnc_classNameToModel,                            [0,0,0.22],                 [0,0,0],                    1]                          //surrender crates
+    ["\A3\weapons_F\AmmoBoxes\WpnsBox_F",                                       [0,0,0.17],                 [0,1,0],                    1]                          //surrender crates
 ];
 
 //all vehicles with jnl loading nodes where the nodes are not located in the open, this can be because its inside the vehicle or it has a cover over the loading plane.
-A3A_logistics_coveredVehicles = ["C_Van_02_vehicle_F", "C_Van_02_transport_F", "B_Truck_01_covered_F", "O_Truck_03_covered_F", "I_Truck_02_covered_F"];
+A3A_logistics_coveredVehicles = [
+    "C_Van_02_vehicle_F" call A3A_fnc_classNameToModel
+    , "C_Van_02_transport_F" call A3A_fnc_classNameToModel
+    , "B_Truck_01_covered_F" call A3A_fnc_classNameToModel
+    , "O_Truck_03_covered_F" call A3A_fnc_classNameToModel
+    , "I_Truck_02_covered_F" call A3A_fnc_classNameToModel
+];
 
 //if you want a weapon to be loadable you need to add it to this as a array of [model, [blacklist specific vehicles]],
 //if the vehicle is in the coveredVehicles array dont add it to the blacklist in this array.

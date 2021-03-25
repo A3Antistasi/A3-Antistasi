@@ -167,7 +167,11 @@ A3A_logistics_vehicleHardpoints append [
 A3A_logistics_attachmentOffset append [];
 
 //all vehicles with jnl loading nodes where the nodes are not located in the open, this can be because its inside the vehicle or it has a cover over the loading plane.
-A3A_logistics_coveredVehicles append ["UK3CB_B_M939_Closed_HIDF", "UK3CB_B_MTVR_Closed_WDL", "UK3CB_C_V3S_Closed"];
+A3A_logistics_coveredVehicles append [
+    "UK3CB_B_M939_Closed_HIDF" call A3A_fnc_classNameToModel
+    , "UK3CB_B_MTVR_Closed_WDL" call A3A_fnc_classNameToModel
+    , "UK3CB_C_V3S_Closed" call A3A_fnc_classNameToModel
+];
 
 //if you want a weapon to be loadable you need to add it to this as a array of [model, [blacklist specific vehicles]],
 //if the vehicle is in the coveredVehicles array don't add it to the blacklist in this array.

@@ -526,7 +526,7 @@ while {(_waves > 0)} do
 		}
 		else {
 			if (count _vehPoolAirTransport == 0) then {
-				for "_i" from 1 to 10 do { vehPoolAirTransport pushBack _typePatrolHeli };
+				for "_i" from 1 to 10 do { _vehPoolAirTransport pushBack _typePatrolHeli };
                 Info("Attack ran out of air transports");
 				_waves = 0;
 			};

@@ -165,7 +165,7 @@ else
 			};
 		_groupX = [_positionX,_sideX, _cfg] call A3A_fnc_spawnGroup;
 		_nul = [leader _groupX, _markerX, "SAFE","SPAWNED","RANDOM","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";//TODO need delete UPSMON link
-		if !(A3A_hasIFA) then
+		if !(A3A_hasIFA || A3A_hasVN) then
 			{
 			sleep 1;
 			{_soldiers pushBack _x} forEach units _groupX;

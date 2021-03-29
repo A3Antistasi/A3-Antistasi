@@ -112,6 +112,13 @@ private _categoryOverrideTable = [
 ["LIB_PTRD", ["Unknown", "Weapons"]],
 ["LIB_M2_Flamethrower", ["Unknown", "Weapons"]],			// don't want these two being chosen randomly by AIs
 ["LIB_Bagpipes", ["Unknown","Weapons"]],					// wat
+//Flashlights
+["vn_mx991", ["Unknown","Weapons"]],
+["vn_mx991_red", ["Unknown","Weapons"]],
+["vn_fkb1_red", ["Unknown","Weapons"]],
+["vn_fkb1", ["Unknown","Weapons"]],
+["ACE_Flashlight_Maglite_ML300L", ["Unknown","Weapons"]],
+
 
 ["LIB_M2_Tripod", ["StaticWeaponParts","Items"]],
 ["LIB_Laffete_Tripod", ["StaticWeaponParts","Items"]],

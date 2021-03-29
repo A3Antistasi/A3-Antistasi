@@ -11517,7 +11517,7 @@ class Mission
 						name="flagX";
 					};
 					id=843;
-					type="Flag_Syndikat_F";
+					type="Flag_FIA_F";
 					atlOffset=-0.020004272;
 				};
 				class Item4
@@ -11636,7 +11636,7 @@ class Mission
 						name="vehicleBox";
 					};
 					id=834;
-					type="Box_East_AmmoVeh_F";
+					type="Land_CargoBox_V1_F";
 					atlOffset=-0.0017852783;
 					class CustomAttributes
 					{

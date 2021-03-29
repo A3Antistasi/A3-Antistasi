@@ -20,6 +20,10 @@ arcticmaps = ["chernarus_winter"];
 
 //Reb Templates
 switch(true) do{
+    case (A3A_hasVN): {
+                ["Templates\NewTemplates\VN\VN_Reb_POF.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using Pissed off Farmers Templates", _filename] call A3A_fnc_log;
+            };
     case (A3A_has3CBFactions): {
         switch(true) do {
             case (toLower worldName in arcticmaps);
@@ -111,6 +115,10 @@ case (A3A_hasFFAA): {
     };
 };
 */
+    case (A3A_hasVN): {
+                ["Templates\NewTemplates\VN\VN_PAVN.sqf", west] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using VN PAVN Templates", _filename] call A3A_fnc_log;
+            };
     case (A3A_has3CBBAF): {
         switch(true) do {
             case (toLower worldName in arcticmaps): {
@@ -213,6 +221,10 @@ case (A3A_hasIFA): {
 };
 //Inv Templates
 switch(true) do{
+    case (A3A_hasVN): {
+                ["Templates\NewTemplates\VN\VN_MACV.sqf", east] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using VN MACV Templates", _filename] call A3A_fnc_log;
+            };
     case (A3A_has3CBFactions): {
         switch(true) do {
             case (toLower worldName in arcticmaps);
@@ -285,6 +297,10 @@ case (A3A_hasIFA): {
 };
 //Civ Templates
 switch(true) do{
+    case (A3A_hasVN): {
+            ["Templates\NewTemplates\VN\VN_CIV.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
+            [2, "Using VN CIV Templates", _filename] call A3A_fnc_log;
+        };
     case (A3A_has3CBFactions): {
         ["Templates\NewTemplates\3CB\3CB_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
         [2, "Using 3CB Civ Template", _filename] call A3A_fnc_log;
@@ -331,7 +347,8 @@ call compile preProcessFileLineNumbers "Templates\NewTemplates\Vanilla\Vanilla_L
 if (A3A_hasRHS) then {call compile preProcessFileLineNumbers "Templates\NewTemplates\RHS\RHS_Logistics_Nodes.sqf"};
 if (A3A_has3CBFactions) then {call compile preProcessFileLineNumbers "Templates\NewTemplates\3CB\3CBFactions_Logistics_Nodes.sqf"};
 if (A3A_has3CBBAF) then {call compile preProcessFileLineNumbers "Templates\NewTemplates\3CB\3CBBAF_Logistics_Nodes.sqf"};
-if (/*A3A_hasVN*/true) then {call compile preprocessFileLineNumbers "Templates\NewTemplates\VN\VN_Logistics_Nodes.sqf"};
+if (A3A_hasVN) then {call compile preProcessFileLineNumbers "Templates\NewTemplates\VN\VN_Logistics_Nodes.sqf"};
+
 //if (A3A_hasIFA) then {call compile preProcessFileLineNumbers "Templates\IFA\IFA_Logistics_Nodes.sqf"};		//disabled until imtegrated
 //if (A3A_hasFFAA) then {call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Logistics_Nodes.sqf"};		//disabled until imtegrated
 //if (A3A_hasD3S) then {call compile preProcessFileLineNumbers "Templates\AddonVics\d3s_Logi_Nodes.sqf";};		//disabled until imtegrated

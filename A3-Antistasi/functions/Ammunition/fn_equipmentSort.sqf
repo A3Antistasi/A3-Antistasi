@@ -162,3 +162,14 @@ allUAVTerminals = allUAVTerminals select {
     private _encrypt = getNumber  (configFile >> "CfgWeapons" >> _x >> "ItemInfo" >> "side");
     (_encrypt isEqualTo "") or (_encrypt isEqualTo _encryptRebel);
 };
+
+//Remove Prop Food
+private _Propammo = ("FakeAmmo");
+private _props = [];
+{
+    private _Propa = getText (configFile >> "CfgMagazines" >> _x >> "ammo");
+    if (_Propa in _Propammo) then {_props pushBack _x};
+} forEach allMagBullet;
+
+
+allMagBullet = allMagBullet - _props;

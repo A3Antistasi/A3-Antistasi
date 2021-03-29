@@ -92,4 +92,42 @@ if (A3A_hasIFA && !_remove && {(_itemIsVanilla || _itemMod == "@ace" || _itemMod
 
 };
 
+if (A3A_hasVN && !_remove && {(_itemIsVanilla || _itemMod == "@ace")}) then {
+	switch (_categories select 0) do {
+		case "Item": {
+			switch (_categories select 1) do {
+				case "AccessoryMuzzle";
+				case "AccessoryPointer";
+				case "AccessorySights";
+				case "AccessoryBipod";
+				case "Binocular";
+				case "Compass";
+				case "GPS";
+				case "LaserDesignator";
+				case "MineDetector";
+				case "NVGoggles";
+				case "Radio";
+				case "UAVTerminal";
+				case "Unknown";
+				case "Watch": {
+					_remove = true;
+				};
+			};
+		};
+		case "Weapon": {
+			_remove = true;
+		};
+		case "Equipment": {
+			_remove = true;
+		};
+		case "Magazine": {
+			_remove = true;
+		};
+		case "Mine": {
+			_remove = true;
+		};
+	};
+
+};
+
 _remove;

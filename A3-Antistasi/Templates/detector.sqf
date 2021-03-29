@@ -16,6 +16,7 @@ A3A_hasFFAA = false;
 A3A_hasIFA = false;
 A3A_has3CBFactions = false;
 A3A_has3CBBAF = false;
+A3A_hasVN = false;
 A3A_hasIvory = false;
 A3A_hasTCGM = false;
 A3A_hasADV = false;
@@ -48,6 +49,9 @@ if (A3A_hasRHS && (
 
 //3CB Factions Detection
 if (isClass (configfile >> "CfgPatches" >> "UK3CB_Factions_Vehicles_SUV")) then {A3A_has3CBFactions = true; [2,"3CB Factions Detected.",_fileName] call A3A_fnc_log;};
+
+//VN Detection
+if (isClass (configFile >> "CfgPatches" >> "vn_weapons")) then {A3A_hasVN = true; [2,"VN Detected.",_fileName] call A3A_fnc_log;};
 
 //FFAA Detection
 if (isClass (configfile >> "CfgPatches" >> "ffaa_armas")) then {A3A_hasFFAA = true; [2,"FFAA Detected.",_fileName] call A3A_fnc_log;};

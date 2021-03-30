@@ -677,6 +677,7 @@ class A3A
     {
         class basicBackpack {};
         class classNameToModel {};
+        class countAttachedObjects {};
         class createDataObject {};
         class createNamespace {};
         class dateToTimeString {};

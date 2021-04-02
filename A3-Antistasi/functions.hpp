@@ -437,6 +437,7 @@ class A3A
     };
 
     class ModsAndDLC {
+        class darkMapFix {};
         class getModOfConfigClass {};
         class initDisabledMods {};
         class isModNameVanilla {};

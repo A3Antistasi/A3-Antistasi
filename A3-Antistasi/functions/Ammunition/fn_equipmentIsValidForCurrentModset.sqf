@@ -54,7 +54,11 @@ if (_itemIsVanilla && {A3A_hasRHS}) then {
 
 //IFA is stricter, remove all modern day stuff unless necessary (some ACE items)
 //Avoid listing all of the mods here.
-if (A3A_hasIFA && !_remove && {(_itemIsVanilla || _itemMod == "@ace" || _itemMod ==	"@task_force_radio")}) then {
+
+//we should find a Solution that is not bound to Foldernames
+private _acemods = ["@ace", "@ACE - No medical [Updated]", "@Automated Ace No Medical"];
+
+if (A3A_hasIFA && !_remove && {(_itemIsVanilla || _itemMod in _acemods || _itemMod == "@task_force_radio")}) then {
 	switch (_categories select 0) do {
 		case "Item": {
 			switch (_categories select 1) do {
@@ -91,8 +95,7 @@ if (A3A_hasIFA && !_remove && {(_itemIsVanilla || _itemMod == "@ace" || _itemMod
 	};
 
 };
-
-if (A3A_hasVN && !_remove && {(_itemIsVanilla || _itemMod == "@ace")}) then {
+if (A3A_hasVN && !_remove && {(_itemIsVanilla || _itemMod in _acemods || _itemMod == "@task_force_radio")}) then {
 	switch (_categories select 0) do {
 		case "Item": {
 			switch (_categories select 1) do {
@@ -127,7 +130,6 @@ if (A3A_hasVN && !_remove && {(_itemIsVanilla || _itemMod == "@ace")}) then {
 			_remove = true;
 		};
 	};
-
 };
 
 _remove;

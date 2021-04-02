@@ -4,6 +4,9 @@ _unit = _this select 0;
 
 _unit setSkill 0;
 _unit forceAddUniform (selectRandom allCivilianUniforms);
+removeHeadgear _unit;
+removeGoggles _unit;
+if (A3A_hasVN) then removeVest _unit;
 _unit disableAI "TARGET";
 _unit disableAI "AUTOTARGET";
 //Stops civilians from shouting out commands.

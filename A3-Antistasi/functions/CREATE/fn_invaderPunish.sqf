@@ -121,17 +121,16 @@ for "_i" from 0 to _numCiv do {
 		if (!surfaceIsWater _pos) exitWith {};
 	};
 	_civ = [_groupCivil, _typeUnit,_pos, [],0,"NONE"] call A3A_fnc_createUnit;
-	_civ forceAddUniform (selectRandom allCivilianUniforms);
+	[_civ] call A3A_fnc_civInit;
 	_rnd = random 100;
 	if (_rnd < 90) then {
 		if (_rnd < 25) then {
-			[_civ, "hgun_PDW2000_F", 5, 0] call BIS_fnc_addWeapon;
+			[_civ, selectrandom (unlockedweapons - allunknown - allhandguns), 6, 0] call BIS_fnc_addWeapon;
 		} else {
-			[_civ, "hgun_Pistol_heavy_02_F", 5, 0] call BIS_fnc_addWeapon;
+			[_civ, selectrandom (unlockedhandguns - allunknown), 5, 0] call BIS_fnc_addWeapon;
 		};
 	};
 	_civilians pushBack _civ;
-	[_civ] call A3A_fnc_civInit;
 	_civ setSkill 0.5;
 	sleep 0.5;
 };

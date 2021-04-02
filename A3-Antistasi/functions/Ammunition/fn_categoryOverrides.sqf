@@ -119,6 +119,7 @@ private _categoryOverrideTable = [
 ["vn_fkb1", ["Unknown","Weapons"]],
 ["ACE_Flashlight_Maglite_ML300L", ["Unknown","Weapons"]],
 
+["vn_default_helmetbase_09", ["Unknown","Headgear"]],	//Goat Hat
 
 ["LIB_M2_Tripod", ["StaticWeaponParts","Items"]],
 ["LIB_Laffete_Tripod", ["StaticWeaponParts","Items"]],

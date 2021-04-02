@@ -7,19 +7,21 @@ _loadout = switch _team do {
 	case Occupants: {
 		if (count NATOPlayerLoadouts > _unitLoadoutNumber) then {NATOPlayerLoadouts select _unitLoadoutNumber} else { [] };
 	};
-	
+
 	case Invaders: {
 		if (count CSATPlayerLoadouts > _unitLoadoutNumber) then {CSATPlayerLoadouts select _unitLoadoutNumber} else { [] };
 	};
-	
+
 	case teamPlayer: {
 		if (toLower worldName isEqualTo "enoch") then {
-			[[],[],[],[(selectRandom allRebelUniforms), []],[],[],"H_Hat_Tinfoil_F","",[],["ItemMap","","","","",""]];
+			[[],[],[],[selectRandom (allRebelUniforms + allCivilianUniforms), []],[],[],"H_Hat_Tinfoil_F","",[],
+			[(selectRandom unlockedmaps),"","",(selectRandom unlockedCompasses),(selectRandom unlockedwatches),""]];
 		} else {
-			[[],[],[],[(selectRandom allRebelUniforms), []],[],[],(selectRandom allCivilianHeadgear),"",[],["ItemMap","","","","",""]];
+			[[],[],[],[selectRandom (allRebelUniforms + allCivilianUniforms), []],[],[],(selectRandom allCivilianHeadgear),"",[],
+			[(selectRandom unlockedmaps),"","",(selectRandom unlockedCompasses),(selectRandom unlockedwatches),""]];
 		};
 	};
-	
+
 	default {
 		[];
 	};

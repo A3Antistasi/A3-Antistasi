@@ -38,7 +38,7 @@ private _listStaticTower = ["Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F",
 private _listStaticHQ = ["Land_Cargo_HQ_V1_F", "Land_Cargo_HQ_V2_F", "Land_Cargo_HQ_V3_F"];
 private _listEnochRadar = ["Land_Radar_01_HQ_F"];
 private _listvnbarracks06f = ["Land_vn_barracks_06_f"];
-private _listvncontroltower01F = ["Land_vn_controltower_01_F"];
+private _listvncontroltower01F = ["Land_vn_controltower_01_f"];
 private _listControlTower02F = ["Land_ControlTower_02_F"];
 private _listvnslum = ["Land_vn_slum_03_01_f","Land_vn_slum_03_f"];
 
@@ -71,6 +71,7 @@ private _spawnParameters = switch (true) do {
 		[_pos, 0]
 	}; //0 is table rotation
 };
+if (_spawnParameters isEqualType true) exitWith { [1, format ["No spawn parameters for building %1", typeOf _building], _fileName] call A3A_fnc_Log };
 
 if (A3A_hasVN) then {
 	private _desk = createVehicle ["Land_vn_us_common_table_01", [0, 0, 0], [], 0, "CAN_COLLIDE"];

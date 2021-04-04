@@ -227,6 +227,8 @@ mrkAntennas = [];
 private _posAntennas = [];
 private _blacklistPos = [];
 private _posBank = [];
+private _antennatypes = ["Land_TTowerBig_1_F", "Land_TTowerBig_2_F", "Land_Communication_F",
+"Land_Vysilac_FM","Land_A_TVTower_base","Land_Telek1", "Land_vn_tower_signal_01"];
 private ["_antenna", "_mrkFinal", "_antennaProv"];
 if (debug) then {
 diag_log format ["%1: [Antistasi] | DEBUG | initZones | Setting up Radio Towers.",servertime];
@@ -387,7 +389,7 @@ diag_log format ["%1: [Antistasi] | DEBUG | initZones | Finding broken Radio Tow
 };
 if (count _posAntennas > 0) then {
 	for "_i" from 0 to (count _posAntennas - 1) do {
-		_antennaProv = nearestObjects [_posAntennas select _i, ["Land_TTowerBig_1_F", "Land_TTowerBig_2_F", "Land_Communication_F", "Land_Vysilac_FM","Land_A_TVTower_base","Land_Telek1", "Land_vn_tower_signal_01"], 35];
+		_antennaProv = nearestObjects [_posAntennas select _i, _antennaTypes, 35];
 
 		if (count _antennaProv > 0) then {
 			_antenna = _antennaProv select 0;

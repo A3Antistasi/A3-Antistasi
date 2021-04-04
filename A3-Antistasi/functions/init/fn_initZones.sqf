@@ -227,6 +227,7 @@ mrkAntennas = [];
 private _posAntennas = [];
 private _blacklistPos = [];
 private _posBank = [];
+private _banktypes = ["Land_Offices_01_V1_F"];
 private _antennatypes = ["Land_TTowerBig_1_F", "Land_TTowerBig_2_F", "Land_Communication_F",
 "Land_Vysilac_FM","Land_A_TVTower_base","Land_Telek1", "Land_vn_tower_signal_01"];
 private ["_antenna", "_mrkFinal", "_antennaProv"];
@@ -343,9 +344,9 @@ switch (toLower worldName) do {
 		antennas = [];
 	};
 	default {
-		antennas = nearestObjects [[worldSize /2, worldSize/2], ["Land_TTowerBig_1_F", "Land_TTowerBig_2_F", "Land_Communication_F", "Land_Vysilac_FM","Land_A_TVTower_base", "Land_Telek1", "Land_vn_tower_signal_01"], worldSize];
+		antennas = nearestObjects [[worldSize /2, worldSize/2], _antennatypes, worldSize];
 
-		banks = nearestObjects [[worldSize /2, worldSize/2], ["Land_Offices_01_V1_F"], worldSize];
+		banks = nearestObjects [[worldSize /2, worldSize/2], _banktypes, worldSize];
 
 		private _replacedAntennas = [];
 		{ _replacedAntennas pushBack ([_x] call _replaceBadAntenna); } forEach antennas;
@@ -437,7 +438,7 @@ diag_log format ["%1: [Antistasi] | DEBUG | initZones | Broken Radio Towers iden
 };
 if (count _posBank > 0) then {
 	for "_i" from 0 to (count _posBank - 1) do {
-		_bankProv = nearestObjects [_posBank select _i, ["Land_Offices_01_V1_F"], 30];
+		_bankProv = nearestObjects [_posBank select _i, _banktypes, 30];
 
 		if (count _bankProv > 0) then {
 			private _banco = _bankProv select 0;

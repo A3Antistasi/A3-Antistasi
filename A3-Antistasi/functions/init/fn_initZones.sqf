@@ -154,6 +154,22 @@ configClasses (configfile >> "CfgWorlds" >> worldName >> "Names") apply {
 	_roads = [];
 	_numCiv = 0;
 
+	_roads = roadsX getVariable [_nameX, []];
+	if (count _roads == 0) then
+	{
+		[2, format ["No roads found for marker %1, generating...", _nameX], _fileName] call A3A_fnc_log;
+		_roadsProv = _pos nearRoads _size;
+		_roadsProv apply
+		{
+			_roadcon = roadsConnectedto _x;
+			if (count _roadcon == 2) then
+			{
+				_roads pushBack (getPosATL _x);
+			};
+		};
+		roadsX setVariable [_nameX, _roads, true];
+	};
+
 	if (_hardcodedPop) then
 	{
 		_numCiv = server getVariable _nameX;
@@ -303,15 +319,8 @@ switch (toLower worldName) do {
 		_blacklistPos = [];
 		antennas = [];
 	};
-	/* No Idea why it doesent work so its commented out for now,
-		case "cam_lao_nam": {
+	case "cam_lao_nam": {
 		_posAntennas =
-		[[2247.39,3986.44,0.00225067], [6918.17,5419.54,0], [11382.5,5747.82,8.39233e-005], [4898.78,13640.6,-0.121185],
-		[15266.2,4664.97,0.000167847], [13743.9,8425.6,-0.171967], [14864.6,6866.28,-0.00304413], [16101.4,3639.34,-0.115036],
-		[16074.1,7125.38,0.000450134], [16120.6,7510.5,0.00740814], [16798.7,6349.54,-0.134365], [17358.3,5560.4,-0.15237],
-		[16567.1,7649.92,0], [16915.2,7431.9,-9.53674e-006], [11481,14497.6,0.093338], [16704,9187.21,5.72205e-006],
-		[14135,12825.5,0.106886], [16193.1,10991.2,-0.0359497], [16956.7,10360.2,0], [18696.2,8463.42,-0.26639],
-		[20109.3,6538.61,9.53674e-007], [20062.7,7258.82,0.0105629], [14532.3,16441.8,-0.00198364], [14754.2,18335.2,0.000380516]];
 		[[2247.39,3986.44,0.00225067], [6918.17,5419.54,0], [11382.5,5747.82,8.39233e-005], [4898.78,13640.6,-0.121185],
 		[15266.2,4664.97,0.000167847], [13743.9,8425.6,-0.171967], [14864.6,6866.28,-0.00304413], [16101.4,3639.34,-0.115036],
 		[16074.1,7125.38,0.000450134], [16120.6,7510.5,0.00740814], [16798.7,6349.54,-0.134365], [17358.3,5560.4,-0.15237],
@@ -320,7 +329,7 @@ switch (toLower worldName) do {
 		[20109.3,6538.61,9.53674e-007], [20062.7,7258.82,0.0105629], [14532.3,16441.8,-0.00198364], [14754.2,18335.2,0.000380516]];
 		_blackListPos = [7, 10, 12, 15, 18, 21];
 		antennas = [];
-	}; */
+	};
 	case "sara": {
 		_posAntennas =
 		[[3142.96,2739.15,0.18647], [8514.74,7996.98,0.0240936], [11464.1,6307.43,-0.0322723], [11885.1,6210.11,-15.4125],
@@ -378,7 +387,7 @@ diag_log format ["%1: [Antistasi] | DEBUG | initZones | Finding broken Radio Tow
 };
 if (count _posAntennas > 0) then {
 	for "_i" from 0 to (count _posAntennas - 1) do {
-		_antennaProv = nearestObjects [_posAntennas select _i, ["Land_TTowerBig_1_F", "Land_TTowerBig_2_F", "Land_Communication_F", "Land_Vysilac_FM","Land_A_TVTower_base","Land_Telek1"], 35];
+		_antennaProv = nearestObjects [_posAntennas select _i, ["Land_TTowerBig_1_F", "Land_TTowerBig_2_F", "Land_Communication_F", "Land_Vysilac_FM","Land_A_TVTower_base","Land_Telek1", "Land_vn_tower_signal_01"], 35];
 
 		if (count _antennaProv > 0) then {
 			_antenna = _antennaProv select 0;

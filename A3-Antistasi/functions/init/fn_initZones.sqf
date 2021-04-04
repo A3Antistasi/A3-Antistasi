@@ -142,7 +142,7 @@ private ["_nameX", "_roads", "_numCiv", "_roadsProv", "_roadcon", "_dmrk", "_inf
 ""Kuusela"", ""Niemela"", ""fob4"", ""daumau"", ""fob1"", ""quanloi"", ""stagingarea"", ""fob2"", ""pleimei"", ""fob6"",
 ""berchtesgaden"", ""fob3"", ""khegio"", ""fob5"", ""thudridge"", ""halongnavybase"", ""plainofjars"", ""pleikuboatbase"",
 ""banhoang"", ""vinhau"", ""kechau"", ""quanbo"", ""huecitadel"", ""bimat"", ""danthemthem"", ""daophai"", ""phuquoc"",
-""dharmadocks"", ""dharma"", ""patmep"", ""phokham"", ""rungcung"", ""tiengtai"", ""vacang"", ""hanoi3""])"
+""dharmadocks"", ""dharma"", ""patmep"", ""phokham"", ""rungcung"", ""tiengtai"", ""vacang"", ""hanoi3"", ""saigonport""])"
 configClasses (configfile >> "CfgWorlds" >> worldName >> "Names") apply {
 
 	_nameX = configName _x;

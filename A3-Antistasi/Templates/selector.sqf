@@ -20,10 +20,11 @@ A3A_darkMaps = ["cam_lao_nam"]; //maps that are dark
 //Mod selector
 
 //Reb Templates
-switch(true) do{
+A3A_Reb_template = switch(true) do {
     case (A3A_hasVN): {
                 ["Templates\NewTemplates\VN\VN_Reb_POF.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
                 [2, "Using Pissed off Farmers Templates", _filename] call A3A_fnc_log;
+                "VN"
             };
     case (A3A_has3CBFactions): {
         switch(true) do {
@@ -38,6 +39,7 @@ switch(true) do{
                 [2, "Using arid TKM Templates", _filename] call A3A_fnc_log;
             };
         };
+        "3CBFactions"
     };
     case (A3A_hasRHS): {
         switch(true) do {
@@ -52,8 +54,9 @@ switch(true) do{
                 [2, "Using arid Napa Templates", _filename] call A3A_fnc_log;
             };
         };
+        "RHS"
     };
-/* disabled until imtegrated
+    /* disabled until imtegrated
     case (A3A_hasIFA): {
       switch(true) do {
         case (toLower worldName in arcticmaps): {
@@ -73,8 +76,9 @@ switch(true) do{
           [2, "Using arid POL Templates", _filename] call A3A_fnc_log;
         };
       };
+      "IFA"
     };
-*/
+    */
     default {
         switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
             case (toLower worldName == "enoch"): {
@@ -90,35 +94,38 @@ switch(true) do{
                 [2, "Using arid FIA Templates", _filename] call A3A_fnc_log;
             };
         };
+        "Vanilla"
     };
 };
   //Occ Templates
-switch(true) do{
-/* disabled until imtegrated
-case (A3A_hasFFAA): {
-    switch(true) do {
-    case (toLower worldName in arcticmaps): {
-        call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Occ_FFAA_Temp.sqf";
-        [2, "Using arctic FFAA Template", _filename] call A3A_fnc_log;
+A3A_Occ_template = switch(true) do {
+    /* disabled until imtegrated
+    case (A3A_hasFFAA): {
+        switch(true) do {
+        case (toLower worldName in arcticmaps): {
+            call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Occ_FFAA_Temp.sqf";
+            [2, "Using arctic FFAA Template", _filename] call A3A_fnc_log;
+        };
+        case (toLower worldName in temperatemaps): {
+            call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Occ_FFAA_Temp.sqf";
+            [2, "Using temperate FFAA Template", _filename] call A3A_fnc_log;
+        };
+        case (toLower worldName in tropicalmaps): {
+            call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Occ_FFAA_Temp.sqf";
+            [2, "Using tropical FFAA Template", _filename] call A3A_fnc_log;
+        };
+        default {
+            call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Occ_FFAA_Arid.sqf";
+            [2, "Using arid FFAA Template", _filename] call A3A_fnc_log;
+        };
+        };
+        "FFAA"
     };
-    case (toLower worldName in temperatemaps): {
-        call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Occ_FFAA_Temp.sqf";
-        [2, "Using temperate FFAA Template", _filename] call A3A_fnc_log;
-    };
-    case (toLower worldName in tropicalmaps): {
-        call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Occ_FFAA_Temp.sqf";
-        [2, "Using tropical FFAA Template", _filename] call A3A_fnc_log;
-    };
-    default {
-        call compile preProcessFileLineNumbers "Templates\FFAA\FFAA_Occ_FFAA_Arid.sqf";
-        [2, "Using arid FFAA Template", _filename] call A3A_fnc_log;
-    };
-    };
-};
-*/
+    */
     case (A3A_hasVN): {
-                ["Templates\NewTemplates\VN\VN_PAVN.sqf", west] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using VN PAVN Templates", _filename] call A3A_fnc_log;
+                ["Templates\NewTemplates\VN\VN_MACV.sqf", west] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using VN MACV Templates", _filename] call A3A_fnc_log;
+                "VN"
             };
     case (A3A_has3CBBAF): {
         switch(true) do {
@@ -139,6 +146,7 @@ case (A3A_hasFFAA): {
                 [2, "Using arid BAF Template", _filename] call A3A_fnc_log;
             };
         };
+        "3CBBAF"
     };
     case (A3A_has3CBFactions): {
         switch(true) do {
@@ -156,6 +164,7 @@ case (A3A_hasFFAA): {
                 [2, "Using TKA_West Template", _filename] call A3A_fnc_log;
             };
         };
+        "3CBFactions"
     };
     case (A3A_hasRHS): {
         switch(true) do {
@@ -175,29 +184,31 @@ case (A3A_hasFFAA): {
                 [2, "Using arid USAF Templates", _filename] call A3A_fnc_log;
             };
         };
+        "RHS"
     };
-/* disabled until imtegrated
-case (A3A_hasIFA): {
-    switch(true) do {
-    case (toLower worldName in arcticmaps): {
-        call compile preProcessFileLineNumbers "Templates\IFA\IFA_Occ_WEH_Arct.sqf";
-        [2, "Using arctic WEH Template", _filename] call A3A_fnc_log;
+    /* disabled until imtegrated
+    case (A3A_hasIFA): {
+        switch(true) do {
+        case (toLower worldName in arcticmaps): {
+            call compile preProcessFileLineNumbers "Templates\IFA\IFA_Occ_WEH_Arct.sqf";
+            [2, "Using arctic WEH Template", _filename] call A3A_fnc_log;
+        };
+        case (toLower worldName in temperatemaps): {
+            call compile preProcessFileLineNumbers "Templates\IFA\IFA_Occ_WEH_Temp.sqf";
+            [2, "Using temperate WEH Template", _filename] call A3A_fnc_log;
+        };
+        case (toLower worldName in tropicalmaps): {
+            call compile preProcessFileLineNumbers "Templates\IFA\IFA_Occ_WEH_Temp.sqf";
+            [2, "Using tropical WEH Template", _filename] call A3A_fnc_log;
+        };
+        default {
+            call compile preProcessFileLineNumbers "Templates\IFA\IFA_Occ_WEH_Arid.sqf";
+            [2, "Using arid WEH Templates", _filename] call A3A_fnc_log;
+        };
+        };
+        "IFA"
     };
-    case (toLower worldName in temperatemaps): {
-        call compile preProcessFileLineNumbers "Templates\IFA\IFA_Occ_WEH_Temp.sqf";
-        [2, "Using temperate WEH Template", _filename] call A3A_fnc_log;
-    };
-    case (toLower worldName in tropicalmaps): {
-        call compile preProcessFileLineNumbers "Templates\IFA\IFA_Occ_WEH_Temp.sqf";
-        [2, "Using tropical WEH Template", _filename] call A3A_fnc_log;
-    };
-    default {
-        call compile preProcessFileLineNumbers "Templates\IFA\IFA_Occ_WEH_Arid.sqf";
-        [2, "Using arid WEH Templates", _filename] call A3A_fnc_log;
-    };
-    };
-};
-*/
+    */
     default {
         switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
             case (toLower worldName == "enoch"): {
@@ -218,13 +229,15 @@ case (A3A_hasIFA): {
                 [2, "Using arid NATO Template", _filename] call A3A_fnc_log;
             };
         };
+        "Vanilla"
     };
 };
 //Inv Templates
-switch(true) do{
+A3A_Inv_template = switch(true) do {
     case (A3A_hasVN): {
-                ["Templates\NewTemplates\VN\VN_MACV.sqf", east] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using VN MACV Templates", _filename] call A3A_fnc_log;
+                ["Templates\NewTemplates\VN\VN_PAVN.sqf", east] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using VN PAVN Templates", _filename] call A3A_fnc_log;
+                "VN"
             };
     case (A3A_has3CBFactions): {
         switch(true) do {
@@ -242,6 +255,7 @@ switch(true) do{
                 [2, "Using TKA_East Template", _filename] call A3A_fnc_log;
             };
         };
+        "3CBFactions"
     };
     case (A3A_hasRHS): {
         switch(true) do {
@@ -256,29 +270,31 @@ switch(true) do{
                 [2, "Using arid AFRF Template", _filename] call A3A_fnc_log;
             };
         };
+        "RHS"
     };
-/* disabled until imtegrated
-case (A3A_hasIFA): {
-    switch(true) do {
-    case (toLower worldName in arcticmaps): {
-        call compile preProcessFileLineNumbers "Templates\IFA\IFA_Inv_SOV_Arct.sqf";
-        [2, "Using arctic SOV Template", _filename] call A3A_fnc_log;
+    /* disabled until imtegrated
+    case (A3A_hasIFA): {
+        switch(true) do {
+        case (toLower worldName in arcticmaps): {
+            call compile preProcessFileLineNumbers "Templates\IFA\IFA_Inv_SOV_Arct.sqf";
+            [2, "Using arctic SOV Template", _filename] call A3A_fnc_log;
+        };
+        case (toLower worldName in temperatemaps): {
+            call compile preProcessFileLineNumbers "Templates\IFA\IFA_Inv_SOV_Temp.sqf";
+            [2, "Using temperate SOV Template", _filename] call A3A_fnc_log;
+        };
+        case (toLower worldName in tropicalmaps): {
+            call compile preProcessFileLineNumbers "Templates\IFA\IFA_Inv_SOV_Temp.sqf";
+            [2, "Using tropical SOV Template", _filename] call A3A_fnc_log;
+        };
+        default {
+            call compile preProcessFileLineNumbers "Templates\IFA\IFA_Inv_SOV_Arid.sqf";
+            [2, "Using arid SOV Template", _filename] call A3A_fnc_log;
+        };
+        };
+        "IFA"
     };
-    case (toLower worldName in temperatemaps): {
-        call compile preProcessFileLineNumbers "Templates\IFA\IFA_Inv_SOV_Temp.sqf";
-        [2, "Using temperate SOV Template", _filename] call A3A_fnc_log;
-    };
-    case (toLower worldName in tropicalmaps): {
-        call compile preProcessFileLineNumbers "Templates\IFA\IFA_Inv_SOV_Temp.sqf";
-        [2, "Using tropical SOV Template", _filename] call A3A_fnc_log;
-    };
-    default {
-        call compile preProcessFileLineNumbers "Templates\IFA\IFA_Inv_SOV_Arid.sqf";
-        [2, "Using arid SOV Template", _filename] call A3A_fnc_log;
-    };
-    };
-};
-*/
+    */
     default {
         switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
             case (toLower worldName == "enoch"): {
@@ -294,31 +310,37 @@ case (A3A_hasIFA): {
                 [2, "Using arid CSAT Template", _filename] call A3A_fnc_log;
             };
         };
+        "Vanilla"
     };
 };
 //Civ Templates
-switch(true) do{
+A3A_Civ_template = switch(true) do {
     case (A3A_hasVN): {
             ["Templates\NewTemplates\VN\VN_CIV.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
             [2, "Using VN CIV Templates", _filename] call A3A_fnc_log;
+            "VN"
         };
     case (A3A_has3CBFactions): {
         ["Templates\NewTemplates\3CB\3CB_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
         [2, "Using 3CB Civ Template", _filename] call A3A_fnc_log;
+        "3CBFactions"
     };
     case (A3A_hasRHS): {
         ["Templates\NewTemplates\RHS\RHS_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
         [2, "Using RHS Civ Template", _filename] call A3A_fnc_log;
+        "RHS"
     };
     /* disabled until imtegrated
     case (A3A_hasIFA): {
         call compile preProcessFileLineNumbers "Templates\IFA\IFA_Civ.sqf";
         [2, "Using IFA Civ Template", _filename] call A3A_fnc_log;
+        "IFA"
     };
     */
     default {
         ["Templates\NewTemplates\Vanilla\Vanilla_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
         [2, "Using Vanilla Civ Template", _filename] call A3A_fnc_log;
+        "Vanilla"
     };
 };
 

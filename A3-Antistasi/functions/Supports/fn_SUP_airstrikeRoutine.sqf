@@ -1,3 +1,5 @@
+#include "..\..\Includes\common.inc"
+
 params ["_side", "_timerIndex", "_sleepTime", "_bombType", "_airport", "_targetPos", "_supportName"];
 
 private _fileName = "SUP_airstrikeRoutine";
@@ -14,12 +16,9 @@ private _crewUnits = if(_side == Occupants) then {NATOPilot} else {CSATPilot};
 
 private _spawnPos = (getMarkerPos _airport);
 private _strikePlane = createVehicle [_plane, _spawnPos, [], 0, "FLY"];
+private _isHelicopter = _strikePlane isKindOf "Helicopter";
 private _dir = _spawnPos getDir _targetPos;
 _strikePlane setDir _dir;
-
-//Put it in the sky
-_strikePlane setPosATL (_spawnPos vectorAdd [0, 0, 500]);
-
 _strikePlane setVelocityModelSpace (velocityModelSpace _strikePlane vectorAdd [0, 150, 0]);
 
 private _strikeGroup = createGroup _side;
@@ -137,6 +136,7 @@ if(_aggroValue > 30 && _aggroValue < 70) then
     _flightSpeed = "NORMAL";
     _bombCount = 6;
 };
+if (_isHelicopter) then {_flightSpeed = "FULL"};
 [2, format["Airstrike %1 will be carried out with %2 bombs at %3 speed", _supportName, _bombCount, toLower _flightSpeed], _fileName] call A3A_fnc_log;
 
 //Creating bombing parameters
@@ -170,3 +170,4 @@ _wp4 setWaypointStatements ["true", "[(objectParent this) getVariable 'supportNa
 
 _strikePlane hideObjectGlobal false;
 _strikePlane enableSimulation true;
+_strikePlane setPosATL (_spawnPos vectorAdd [0, 0, if (_isHelicopter) then {100} else {500}]); // need to set its pos after hideObjectGlobal

@@ -27,7 +27,7 @@ switch (_type) do {
 	case "AS": {
 		//find apropriate sites
 		_possibleMarkers = [airportsX + citiesX] call _findIfNearAndHostile;
-		_possibleMarkers = _possibleMarkers select {spawner getVariable _x == 2};
+		_possibleMarkers = _possibleMarkers select {spawner getVariable _x != 0};
 		//add controlsX not on roads and on the 'frontier'
 		private _controlsX = [controlsX] call _findIfNearAndHostile;
 		private _nearbyFriendlyMarkers = markersX select {
@@ -73,7 +73,7 @@ switch (_type) do {
 	case "DES": {
 		//find apropriate sites
 		_possibleMarkers = [airportsX] call _findIfNearAndHostile;
-		_possibleMarkers = _possibleMarkers select {spawner getVariable _x == 2};
+		_possibleMarkers = _possibleMarkers select {spawner getVariable _x != 0};
 		//append occupants antennas to list
 		{
 			private _nearbyMarker = [markersX, getPos _x] call BIS_fnc_nearestPosition;
@@ -90,14 +90,15 @@ switch (_type) do {
 			};
 		} else {
 			private _site = selectRandom _possibleMarkers;
-			if (_site in airportsX) then {if (random 10 < 8) then {[[_site],"A3A_fnc_DES_Vehicle"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_site],"A3A_fnc_DES_Heli"] remoteExec ["A3A_fnc_scheduler",2]}};
+			if (_site in airportsX) then {if (random 10 < 6) then {[[_site],"A3A_fnc_DES_Vehicle"] remoteExec ["A3A_fnc_scheduler",2]} else {[[_site],"A3A_fnc_DES_Heli"] remoteExec ["A3A_fnc_scheduler",2]}};
 			if (_site in antennas) then {[[_site],"A3A_fnc_DES_antenna"] remoteExec ["A3A_fnc_scheduler",2]}
 		};
 	};
 
 	case "LOG": {
-		//find apropriate sites
-		_possibleMarkers = [Seaports + outposts] call _findIfNearAndHostile;
+		//Add unspawned outposts for ammo trucks, and seaports for salvage
+		_possibleMarkers = [seaports + outposts] call _findIfNearAndHostile;
+		_possibleMarkers = _possibleMarkers select {(_x in seaports) or (spawner getVariable _x != 0)};
 
 		//append banks in hostile cities
 		if (random 100 < 20) then {
@@ -152,7 +153,7 @@ switch (_type) do {
 		_possibleMarkers = [citiesX] call _findIfNearAndHostile;
 		{
 			private _spawner = spawner getVariable _x;
-			if (_spawner == 2) then {_possibleMarkers pushBack _x};
+			if (_spawner != 0) then {_possibleMarkers pushBack _x};
 		} forEach ([airportsX + outposts] call _findIfNearAndHostile);
 
 		if (count _possibleMarkers == 0) then {

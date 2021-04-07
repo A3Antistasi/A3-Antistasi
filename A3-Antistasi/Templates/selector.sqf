@@ -123,8 +123,8 @@ A3A_Occ_template = switch(true) do {
     };
     */
     case (A3A_hasVN): {
-                ["Templates\NewTemplates\VN\VN_MACV.sqf", west] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using VN MACV Templates", _filename] call A3A_fnc_log;
+                ["Templates\NewTemplates\VN\VN_PAVN.sqf", west] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using VN PAVN Templates", _filename] call A3A_fnc_log;
                 "VN"
             };
     case (A3A_has3CBBAF): {
@@ -235,8 +235,8 @@ A3A_Occ_template = switch(true) do {
 //Inv Templates
 A3A_Inv_template = switch(true) do {
     case (A3A_hasVN): {
-                ["Templates\NewTemplates\VN\VN_PAVN.sqf", east] call A3A_fnc_compatabilityLoadFaction;
-                [2, "Using VN PAVN Templates", _filename] call A3A_fnc_log;
+                ["Templates\NewTemplates\VN\VN_MACV.sqf", east] call A3A_fnc_compatabilityLoadFaction;
+                [2, "Using VN MACV Templates", _filename] call A3A_fnc_log;
                 "VN"
             };
     case (A3A_has3CBFactions): {

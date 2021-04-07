@@ -2,6 +2,14 @@ private ["_cured","_medicX","_healed","_player","_timer","_sideX","_actionX"];
 
 _cured = _this select 0;
 _medicX = _this select 1;
+private _medkits = ["Medikit"];
+private _firstAidKits = ["FirstAidKit"];
+if (A3A_hasVN) then {
+    _medkits append ["vn_b_item_medikit_01"];
+    _firstAidKits append ["vn_o_item_firstaidkit", "vn_b_item_firstaidkit"];
+};
+_medicX setVariable ["A3A_medkits", _medkits];
+_medicX setVariable ["A3A_firstAidKits", _firstAidKits];
 _actionX = 0;
 _healed = false;
 _player = isPlayer _medicX;
@@ -19,16 +27,17 @@ if !(alive _cured) exitWith
     };
 if !([_medicX] call A3A_fnc_canFight) exitWith {if (_player) then {["Revive", "You are not able to revive anyone"] call A3A_fnc_customHint;};_healed};
 if  (
-        (!([_medicX] call A3A_fnc_isMedic && "Medikit" in (items _medicX))) &&
-        {(!("FirstAidKit" in (items _medicX))) &&
-        {(!("FirstAidKit" in (items _cured)))}}
+        (!([_medicX] call A3A_fnc_isMedic && (_medkits arrayIntersect (items _medicX)) isNotEqualTo [])) &&
+        {((_firstAidKits arrayIntersect (items _medicX)) isEqualTo []) && //medic dosnt have first aid kit
+        {(_firstAidKits arrayIntersect (items _cured)) isEqualTo [] }} // patient dosnt have first aid kit
     ) exitWith
 {
     if (_player) then {["Revive", format ["You or %1 need a First Aid Kit or Medikit to be able to revive",name _cured]] call A3A_fnc_customHint;};
     if (_inPlayerGroup) then {_medicX groupChat "I'm out of FA kits and I have no Medikit!"};
     _healed
 };
-if ((not("FirstAidKit" in (items _medicX))) and !(_medicX canAdd "FirstAidKit")) exitWith
+//medic dosnt have first aid kit and cant take one from patient
+if (((_firstAidKits arrayIntersect (items _medicX)) isEqualTo []) and !(_firstAidKits findIf {_medicX canAdd _x} > -1)) exitWith
     {
     if (_player) then {["Revive", format ["%1 has a First Aid Kit but you do not have enough space in your inventory to use it",name _cured]] call A3A_fnc_customHint;};
     if (_inPlayerGroup) then {_medicX groupChat "I'm out of FA kits!"};
@@ -57,13 +66,13 @@ if (_player) then
     _cured setVariable ["helped",_medicX,true];
     };
 _medicX setVariable ["helping",true];
-if  (
-        (!("FirstAidKit" in (items _medicX))) &&
-        {!("Medikit" in (items _medicX))}
+if  ( //medic dosnt have first aid kit or medkit
+        ((_firstAidKits arrayIntersect (items _medicX)) isEqualTo []) &&
+        { (_medkits arrayIntersect (items _medicX)) isEqualTo []}
     ) then
 {
-    _medicX addItem "FirstAidKit";
-    _cured removeItem "FirstAidKit";
+    _medicX addItem selectRandom _firstAidKits;
+    _cured removeItem selectRandom (_firstAidKits arrayIntersect (items _cured));
 };
 _timer = if ([_cured] call A3A_fnc_fatalWound) then
             {
@@ -100,6 +109,8 @@ _medicX addEventHandler ["AnimDone",
 {
     private _medicX = _this select 0;
     private _cured = _medicX getVariable ["cured",objNull];
+    private _medkits = _medicX getVariable ["A3A_medkits", []];
+    private _firstAidKits = _medicX getVariable ["A3A_firstAidKits", []];
     if (([_medicX] call A3A_fnc_canFight) and (time <= (_medicX getVariable ["timeToHeal",time])) and !(_medicX getVariable ["cancelRevive",false]) and (alive _cured) and (_cured getVariable ["incapacitated",false]) and (_medicX == vehicle _medicX)) then
     {
         _medicX playMoveNow selectRandom medicAnims;
@@ -116,9 +127,8 @@ _medicX addEventHandler ["AnimDone",
                 //_cured setVariable ["incapacitated",false,true];
                 //_medicX action ["HealSoldier",_cured];
                 if ([_medicX] call A3A_fnc_isMedic) then {_cured setDamage 0.25} else {_cured setDamage 0.5};
-                if(!("Medikit" in (items _medicX))) then
-                {
-                    _medicX removeItem "FirstAidKit";
+                if((_medkits arrayIntersect (items _medicX)) isEqualTo []) then {
+                    _medicX removeItem selectRandom (_firstAidKits arrayIntersect items _medicX);
                 };
             };
         };

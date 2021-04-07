@@ -76,14 +76,18 @@ if (_spawnParameters isEqualType true) exitWith { [1, format ["No spawn paramete
 if (A3A_hasVN) then {
 	private _desk = createVehicle ["Land_vn_us_common_table_01", [0, 0, 0], [], 0, "CAN_COLLIDE"];
 	_desk setDir (getDir _building + (_spawnParameters select 1));
-	_desk setPosATL (_spawnParameters select 0);
+    if (surfaceIsWater (_spawnParameters select 0)) then {
+        _desk setPosASLW (_spawnParameters select 0);
+    } else {
+	    _desk setPosATL (_spawnParameters select 0);
+    };
 	_desk setVelocity [0, 0, -1];
 
 	//Await until desk have hit the group, it tend to stuck in the air otherwise
 	sleep 5;
 	_desk enableSimulation false;
 
-	private _intelType = "Land_vn_filephotos_f";
+	private _intelType = if (_isLarge) then {"Land_vn_filephotos_f"} else {"Land_vn_file1_f"};
 	_spawnParameters = -25;
 
 	private _intel = createVehicle [_intelType, [0,0,0], [], 0, "CAN_COLLIDE"];
@@ -91,8 +95,10 @@ if (A3A_hasVN) then {
 	_intel enableSimulation false;
 	_intel allowDamage false;
 	_intel setVariable ["side", _side, true];
+    _intel setVariable ["marker", _marker, true];
 
-    [_intel, "Intel_Medium"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_intel];
+    private _intelSize = if (_isLarge) then {"Intel_Encrypted"} else {"Intel_Medium"};
+    [_intel, _intelSize] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_intel];
 
 	[_marker, _desk, _intel] spawn
 	{

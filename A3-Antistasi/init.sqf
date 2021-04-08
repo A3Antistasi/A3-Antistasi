@@ -16,7 +16,8 @@ if (!isMultiplayer) then {
 };
 
 enableSaving [false,false];
-mapX setObjectTexture [0,"Pictures\Mission\whiteboard.jpg"];
+if !(A3A_hasVN) then {mapX setObjectTexture [0,"Pictures\Mission\whiteboard.jpg"];}
+	else {};
 
 
 Info("Init Started");

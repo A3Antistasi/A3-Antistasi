@@ -136,14 +136,14 @@ allCivilianGlasses deleteAt (allCivilianGlasses find "LIB_Glasses");
 ////////////////
 //   Radios   //
 ////////////////
-If (hasTFAR) then {
-private _encryptRebel = if (teamPlayer == west) then { ["tf_west_radio_code"] } else { ["tf_guer_radio_code", "tf_independent_radio_code"] };
+If (A3A_hasTFAR || A3A_hasTFARBeta) then {
+private _encryptRebel = if (A3A_hasVN) then { ["tf_west_radio_code", "tf_east_radio_code"] } else { ["tf_guer_radio_code", "tf_independent_radio_code"] };
 allRadios = allRadios select {
     private _encrypt = getText (configFile >> "CfgWeapons" >> _x >> "tf_encryptionCode");
     (_encrypt in _encryptRebel);
 };
 
-private _encrypthostile = if (teamPlayer == west) then { ["tf_guer_radio_code", "tf_independent_radio_code", "tf_east_radio_code"] } else { ["tf_west_radio_code", "tf_east_radio_code"] };
+private _encrypthostile = if (A3A_hasVN) then { ["tf_guer_radio_code", "tf_independent_radio_code"] } else { ["tf_west_radio_code", "tf_east_radio_code"] };
 private _allHostileRadio = [];
 {
     private _encrypt = getText (configFile >> "CfgVehicles" >> _x >> "tf_encryptionCode");

@@ -62,7 +62,7 @@ if (isClass (configfile >> "CfgPatches" >> "Ivory_Data")) then {A3A_hasIvory = t
 //TCGM_BikeBackpack Detection
 if (isClass (configfile >> "CfgPatches" >> "TCGM_BikeBackpack")) then {A3A_hasTCGM = true; [2,"TCGM Detected.",_fileName] call A3A_fnc_log;};
 //ADV-CPR Pike Edition detection
-if (hasACEMedical && isClass (configFile >> "CfgPatches" >> "adv_aceCPR")) then {A3A_hasADV = true; [2,"ADV Detected.",_fileName] call A3A_fnc_log;};
+if (A3A_hasACEMedical && isClass (configFile >> "CfgPatches" >> "adv_aceCPR")) then {A3A_hasADV = true; [2,"ADV Detected.",_fileName] call A3A_fnc_log;};
 
 //D3S Car Pack Detection !!!--- Currently using vehicle classname check. Needs config viewer to work to find cfgPatches. ---!!!
 if (isClass (configfile >> "CfgVehicles" >> "d3s_baumaschinen")) then {A3A_hasD3S = true; [2,"D3S Detected.",_fileName] call A3A_fnc_log;};

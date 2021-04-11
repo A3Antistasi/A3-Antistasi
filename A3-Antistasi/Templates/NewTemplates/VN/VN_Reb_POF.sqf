@@ -52,15 +52,13 @@
 allCivilianUniforms append ["vn_o_uniform_vc_01_01", "vn_o_uniform_vc_01_02", "vn_o_uniform_vc_02_07", "vn_o_uniform_vc_03_02", "vn_o_uniform_vc_04_02", "vn_o_uniform_vc_05_01"];
 allRebelUniforms = allCivilianUniforms;
 private _initialRebelEquipment = [
-"vn_m712","vn_welrod","vn_izh54_shorty","vn_m38",
+"vn_p38s","vn_welrod",
 "vn_m38", "vn_b_m38",
-"vn_m712_mag","vn_welrod_mag","vn_izh54_mag","vn_m38_t_mag","vn_m38_mag","vn_t67_grenade_mag","vn_rdg2_mag","vn_molotov_grenade_mag",
-"vn_o_pack_04","cn_c_pack_02","cn_c_pack_01",
+"vn_m10_mag","vn_welrod_mag","vn_m38_t_mag","vn_m38_mag","vn_t67_grenade_mag","vn_rdg2_mag","vn_molotov_grenade_mag",
+"vn_c_pack_01",
 "vn_o_vest_05","vn_b_vest_usarmy_01",
 "vn_m19_binocs_grey","vn_mx991","vn_mx991_red"
 ];
-if (hasTFAR) then {_initialRebelEquipment append ["tf_microdagr","tf_anprc154"]};
-if (hasTFAR && startWithLongRangeRadio) then {_initialRebelEquipment pushBack "tf_anprc155"};
 
 ["initialRebelEquipment", _initialRebelEquipment] call _fnc_saveToTemplate;
 

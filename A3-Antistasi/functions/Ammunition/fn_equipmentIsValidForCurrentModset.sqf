@@ -58,7 +58,9 @@ if (_itemIsVanilla && {A3A_hasRHS}) then {
 //we should find a Solution that is not bound to Foldernames
 private _acemods = ["@ace", "@ACE - No medical [Updated]", "@Automated Ace No Medical"];
 
-if (A3A_hasIFA && !_remove && {(_itemIsVanilla || _itemMod in _acemods || _itemMod == "@task_force_radio")}) then {
+private _TFARmods = ["@task_force_radio", "@Task Force Arrowhead Radio (BETA!!!)"];
+
+if (A3A_hasIFA && !_remove && {(_itemIsVanilla || _itemMod in _acemods || _itemMod in _TFARmods)}) then {
 	switch (_categories select 0) do {
 		case "Item": {
 			switch (_categories select 1) do {
@@ -95,7 +97,7 @@ if (A3A_hasIFA && !_remove && {(_itemIsVanilla || _itemMod in _acemods || _itemM
 	};
 
 };
-if (A3A_hasVN && !_remove && {(_itemIsVanilla || _itemMod in _acemods || _itemMod == "@task_force_radio")}) then {
+if (A3A_hasVN && !_remove && {(_itemIsVanilla || _itemMod in _acemods || _itemMod in _TFARmods)}) then {
 	switch (_categories select 0) do {
 		case "Item": {
 			switch (_categories select 1) do {

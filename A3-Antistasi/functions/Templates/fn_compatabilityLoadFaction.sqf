@@ -57,6 +57,7 @@ if (_side isEqualTo east) then {
 	CSATOfficer = "loadouts_inv_other_Official";
 	CSATBodyG = "loadouts_inv_military_Rifleman";
 	CSATCrew = "loadouts_inv_other_Crew";
+	CSATUnarmed = "loadouts_inv_other_Unarmed";
 	CSATMarksman = "loadouts_inv_military_Marksman";
 	staticCrewInvaders = "loadouts_inv_military_Rifleman";
 	CSATPilot = "loadouts_inv_other_Pilot";
@@ -243,7 +244,7 @@ if (_side isEqualTo west) then {
 	NATOOfficer2 = "loadouts_occ_other_Traitor";
 	NATOBodyG = "loadouts_occ_military_Rifleman";
 	NATOCrew = "loadouts_occ_other_Crew";
-	NATOUnarmed = "loadouts_occ_Unarmed";
+	NATOUnarmed = "loadouts_occ_other_Unarmed";
 	NATOMarksman = "loadouts_occ_military_Marksman";
 	staticCrewOccupants = "loadouts_occ_military_Rifleman";
 	NATOPilot = "loadouts_occ_other_Pilot";

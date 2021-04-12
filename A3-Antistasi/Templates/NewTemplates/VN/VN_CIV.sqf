@@ -23,7 +23,7 @@
 	,"vn_c_boat_08_01", 0.3
 ]] call _fnc_saveToTemplate; 			//this line determines civilian boats -- Example: ["vehiclesCivBoat", ["C_Boat_Civil_01_F"]] -- Array, can contain multiple assets
 
-["vehiclesCivRepair", ["vn_b_wheeled_m54_fuel_airport", 0.3]] call _fnc_saveToTemplate;			//this line determines civilian repair vehicles
+["vehiclesCivRepair", ["vn_b_wheeled_m54_repair_airport", 0.3]] call _fnc_saveToTemplate;			//this line determines civilian repair vehicles
 
 ["vehiclesCivMedical", []] call _fnc_saveToTemplate;		//this line determines civilian medic vehicles
 

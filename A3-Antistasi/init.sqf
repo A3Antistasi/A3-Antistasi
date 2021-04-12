@@ -16,7 +16,7 @@ if (!isMultiplayer) then {
 };
 
 enableSaving [false,false];
-if !(A3A_hasVN) then {mapX setObjectTexture [0,"Pictures\Mission\whiteboard.jpg"];}
+if !(toLower worldName == "cam_lao_nam") then {mapX setObjectTexture [0,"Pictures\Mission\whiteboard.jpg"];}
 	else {};
 
 

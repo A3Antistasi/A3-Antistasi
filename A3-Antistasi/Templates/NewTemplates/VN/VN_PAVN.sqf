@@ -185,7 +185,7 @@ _sfLoadoutData setVariable ["SLrifles", [
 _sfLoadoutData setVariable ["SMGs", [
 ["vn_ppsh41", "", "", "", ["vn_ppsh41_35_mag", "vn_ppsh41_35_mag", "vn_ppsh41_35_t_mag"], [], ""],
 ["vn_ppsh41", "", "", "", ["vn_ppsh41_35_mag", "vn_ppsh41_35_mag", "vn_ppsh41_35_t_mag"], [], ""],
-["vn_pps43", "", "", "", ["vn_ppsh41_35_mag", "vn_ppsh41_35_mag", "vn_ppsh41_35_t_mag"], [], ""],
+["vn_pps43", "", "", "", ["vn_pps_mag", "vn_pps_mag", "vn_pps_t_mag"], [], ""],
 ["vn_mp40", "", "", "", ["vn_mp40_mag", "vn_mp40_mag", "vn_mp40_t_mag"], [], ""],
 ["vn_ppsh41", "", "", "", ["vn_ppsh41_71_mag", "vn_ppsh41_71_mag", "vn_ppsh41_71_t_mag"], [], ""]
 ]];
@@ -238,7 +238,7 @@ _militaryLoadoutData setVariable ["SLrifles", [
 _militaryLoadoutData setVariable ["SMGs", [
 ["vn_ppsh41", "", "", "", ["vn_ppsh41_35_mag", "vn_ppsh41_35_mag", "vn_ppsh41_35_t_mag"], [], ""],
 ["vn_ppsh41", "", "", "", ["vn_ppsh41_35_mag", "vn_ppsh41_35_mag", "vn_ppsh41_35_t_mag"], [], ""],
-["vn_pps43", "", "", "", ["vn_ppsh41_35_mag", "vn_ppsh41_35_mag", "vn_ppsh41_35_t_mag"], [], ""],
+["vn_pps43", "", "", "", ["vn_pps_mag", "vn_pps_mag", "vn_pps_t_mag"], [], ""],
 ["vn_mp40", "", "", "", ["vn_mp40_mag", "vn_mp40_mag", "vn_mp40_t_mag"], [], ""],
 ["vn_ppsh41", "", "", "", ["vn_ppsh41_71_mag", "vn_ppsh41_71_mag", "vn_ppsh41_71_t_mag"], [], ""]
 ]];
@@ -270,9 +270,9 @@ _militaryLoadoutData setVariable ["sidearms", [
 
 private _policeLoadoutData = _loadoutData call _fnc_copyLoadoutData;
 
-_policeLoadoutData setVariable ["uniforms", ["vn_o_uniform_nva_dc_13_08", "vn_o_uniform_nva_dc_14_04"]];
+_policeLoadoutData setVariable ["uniforms", ["vn_o_uniform_nva_army_02_01"]];
 _policeLoadoutData setVariable ["vests", ["vn_o_vest_07"]];
-_policeLoadoutData setVariable ["helmets", ["vn_c_conehat_02"]];
+_policeLoadoutData setVariable ["helmets", []];
 
 _policeLoadoutData setVariable ["rifles", [
 ["vn_sks", "", "", "", ["vn_sks_mag", "vn_sks_mag", "vn_sks_t_mag"], [], ""]
@@ -301,7 +301,7 @@ _militiaLoadoutData setVariable ["backpacks", ["vn_o_pack_04", "vn_o_pack_01", "
 _militiaLoadoutData setVariable ["SLbackpacks", ["vn_o_pack_t884_01"]];
 _militiaLoadoutData setVariable ["ATbackpacks", ["vn_o_pack_03"]];
 _militiaLoadoutData setVariable ["ENGbackpacks", ["vn_o_pack_05"]];
-_militiaLoadoutData setVariable ["helmets", ["vn_o_helmet_nva_06"]];
+_militiaLoadoutData setVariable ["helmets", ["vn_o_helmet_nva_01", "vn_o_helmet_nva_04", "vn_o_helmet_nva_03", "vn_o_helmet_nva_02"]];
 
 _militiaLoadoutData setVariable ["rifles", [
 ["vn_sks", "", "", "", ["vn_sks_mag", "vn_sks_mag", "vn_sks_t_mag"], [], ""],
@@ -315,7 +315,7 @@ _militiaLoadoutData setVariable ["SLrifles", [
 _militiaLoadoutData setVariable ["SMGs", [
 ["vn_ppsh41", "", "", "", ["vn_ppsh41_35_mag", "vn_ppsh41_35_mag", "vn_ppsh41_35_t_mag"], [], ""],
 ["vn_ppsh41", "", "", "", ["vn_ppsh41_35_mag", "vn_ppsh41_35_mag", "vn_ppsh41_35_t_mag"], [], ""],
-["vn_pps43", "", "", "", ["vn_ppsh41_35_mag", "vn_ppsh41_35_mag", "vn_ppsh41_35_t_mag"], [], ""],
+["vn_pps43", "", "", "", ["vn_pps_mag", "vn_pps_mag", "vn_pps_t_mag"], [], ""],
 ["vn_mp40", "", "", "", ["vn_mp40_mag", "vn_mp40_mag", "vn_mp40_t_mag"], [], ""],
 ["vn_ppsh41", "", "", "", ["vn_ppsh41_71_mag", "vn_ppsh41_71_mag", "vn_ppsh41_71_t_mag"], [], ""]
 ]];

@@ -12,9 +12,9 @@
 	Returns:
 		None
 **/
-
+#include "..\..\Includes\common.inc"
+FIX_LINE_NUMBERS()
 params ["_className", ["_dontAddToArsenal", false]];
-private _filename = "fn_unlockEquipment";
 
 private _categories = _className call A3A_fnc_equipmentClassToCategories;
 
@@ -22,7 +22,7 @@ if (!_dontAddToArsenal) then {
 	//Add the equipment to the arsenal.
 	private _arsenalTab = _className call jn_fnc_arsenal_itemType;
 	[_arsenalTab,_className,-1] call jn_fnc_arsenal_addItem;
-	if (!isNil "serverInitDone") then {[3, format ["Item unlocked: %1", _className], _filename] remoteExec ["A3A_fnc_log", 2]};
+	if (!isNil "serverInitDone") then {ServerDebug_1("Item unlocked: %1", _className)};
 };
 
 {

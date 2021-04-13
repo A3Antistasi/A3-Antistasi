@@ -12,7 +12,7 @@ params["_marker", "_isLarge"];
 FIX_LINE_NUMBERS()
 
 private _intelSize = if (_isLarge) then {"large"} else {"medium"};
-Debug_2("Spawning %2 intel on marker %1", _marker, _intelSize]);
+Debug_2("Spawning %2 intel on marker %1", _marker, _intelSize);
 
 //Catch invalid cases
 if(!(_marker  in airportsX || {_marker in outposts})) exitWith

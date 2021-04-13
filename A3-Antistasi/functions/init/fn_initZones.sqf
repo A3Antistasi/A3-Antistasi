@@ -159,7 +159,7 @@ configClasses (configfile >> "CfgWorlds" >> worldName >> "Names") apply {
 	_roads = roadsX getVariable [_nameX, []];
 	if (count _roads == 0) then
 	{
-		[2, format ["No roads found for marker %1, generating...", _nameX], _fileName] call A3A_fnc_log;
+        Info_1("No roads found for marker %1, generating...", _nameX);
 		_roadsProv = _pos nearRoads _size;
 		_roadsProv apply
 		{

@@ -1,8 +1,12 @@
-diag_log format ["%1: [Antistasi] | INFO | loadServer Starting.",servertime];
+#include "..\..\Includes\common.inc"
+FIX_LINE_NUMBERS()
+Info("loadServer Starting.");
 if (isServer) then {
-	diag_log format ["%1: [Antistasi] | INFO | Starting Persistent Load.",servertime];
+    Info("Starting Persistent Load.");
 	petros allowdamage false;
 
+	A3A_saveVersion = 0;
+	["version"] call A3A_fnc_getStatVariable;
 	["savedPlayers"] call A3A_fnc_getStatVariable;
 	["outpostsFIA"] call A3A_fnc_getStatVariable; publicVariable "outpostsFIA";
 	["mrkSDK"] call A3A_fnc_getStatVariable;
@@ -120,7 +124,7 @@ if (isServer) then {
 
 	if (isNil "usesWurzelGarrison") then {
 		//Create the garrison new
-		diag_log "No WurzelGarrison found, creating new!";
+        Info("No WurzelGarrison found, creating new!");
 		[airportsX, "Airport", [0,0,0]] spawn A3A_fnc_createGarrison;	//New system
 		[resourcesX, "Other", [0,0,0]] spawn A3A_fnc_createGarrison;	//New system
 		[factories, "Other", [0,0,0]] spawn A3A_fnc_createGarrison;
@@ -129,7 +133,7 @@ if (isServer) then {
 
 	} else {
 		//Garrison save in wurzelformat, load it
-		diag_log "WurzelGarrison found, loading it!";
+        Info("WurzelGarrison found, loading it!");
 		["wurzelGarrison"] call A3A_fnc_getStatVariable;
 	};
 
@@ -142,8 +146,8 @@ if (isServer) then {
 	clearBackpackCargoGlobal boxX;
 
 	[] remoteExec ["A3A_fnc_statistics",[teamPlayer,civilian]];
-	diag_log format ["%1: [Antistasi] | INFO | Persistent Load Completed.",servertime];
-	diag_log format ["%1: [Antistasi] | INFO | Generating Map Markers.",servertime];
+    Info("Persistent Load Completed.");
+    Info("Generating Map Markers.");
 	["tasks"] call A3A_fnc_getStatVariable;
 	if !(isMultiplayer) then {
 		{//Can't we go around this using the initMarker? And only switching marker?
@@ -207,4 +211,4 @@ if (isServer) then {
 	placementDone = true; publicVariable "placementDone";
 	petros allowdamage true;
 };
-diag_log format ["%1: [Antistasi] | INFO | loadServer Completed.",servertime];
+Info("loadServer Completed.");

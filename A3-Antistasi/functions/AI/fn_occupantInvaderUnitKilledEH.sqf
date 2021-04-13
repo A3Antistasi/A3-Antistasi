@@ -1,4 +1,6 @@
 params ["_victim", "_killer"];
+#include "..\..\Includes\common.inc"
+FIX_LINE_NUMBERS()
 
 //Stops the unit from spawning things
 if (_victim getVariable ["spawner",false]) then
@@ -47,33 +49,16 @@ if (side (group _killer) == teamPlayer) then
 	if (count weapons _victim < 1 && !(_victim getVariable ["isAnimal", false])) then
     {
         //This doesn't trigger for dogs, only for surrendered units
-        [
-            3,
-            "Rebels killed a surrendered unit",
-            "aggroEvent",
-            true
-        ] call A3A_fnc_log;
+        Debug(" aggroEvent | Rebels killed a surrendered unit");
 		if (_victimSide == Occupants) then
 		{
 			[0,-2,getPos _victim] remoteExec ["A3A_fnc_citySupportChange",2];
-			[[20, 30], [0, 0]] remoteExec ["A3A_fnc_prestige",2];
-		}
-		else
-		{
-			[[0, 0], [20, 30]] remoteExec ["A3A_fnc_prestige",2];
 		};
 	}
 	else
 	{
 		[-1,1,getPos _victim] remoteExec ["A3A_fnc_citySupportChange",2];
-		if (_victimSide == Occupants) then
-		{
-			[[0.5, 45], [0, 0]] remoteExec ["A3A_fnc_prestige",2];
-		}
-		else
-		{
-			[[0, 0], [0.5, 45]] remoteExec ["A3A_fnc_prestige",2];
-		};
+        [_victimSide, 0.5, 45] remoteExec ["A3A_fnc_addAggression", 2];
 	};
 }
 else

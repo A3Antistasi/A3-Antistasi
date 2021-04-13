@@ -51,4 +51,3 @@ if (!isNil "loadLastSave" && {!loadLastSave}) then {
 	waitUntil {!dialog};
 	if (isNil "gamemode") then {gamemode = 1};
 };
-

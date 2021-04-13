@@ -80,14 +80,9 @@
 
 if (isNil "LogLevel") then {LogLevel = 4};
 
-//time formating
-#define pad_2Digits(X) if (count X == 1) then {"0"+X} else {X}
-#define pad_3Digits(X) switch (count X) do {case 1: {"00"+X}; case 2: {"0"+X}; default {X}; }
-#define formatSystemTime(T) ((str (T select 0)) + "-" + (pad_2Digits(str (T select 1))) + "-" + (pad_2Digits(str (T select 2))) + " " + (pad_2Digits(str (T select 3))) + ":" + (pad_2Digits(str (T select 4))) + ":" + (pad_2Digits(str (T select 5))) + ":" + (pad_3Digits(str (T select 6))))
-
 //Log standard format
-#define LogMessage(Level, Message) diag_log text (formatSystemTime(systemTimeUTC) + " | " + _LOG_prefix + " | "+ Level +" | File: " + (__FILE__ select [count __FILE__ -(reverse __FILE__ find '\'),1e6]) + " | " + Message)
-#define LogServerMessage(Level, Message) if (isServer) then {LogMessage(Level, Message)} else {(formatSystemTime(systemTimeUTC) + " | " + _LOG_prefix + " | "+ Level +" | File: " + (__FILE__ select [count __FILE__ -(reverse __FILE__ find '\'),1e6]) + " | " + Message + format [" | Client: %1 [%2]", player, clientOwner]) remoteExec ["A3A_fnc_localLog", 2]}
+#define LogMessage(Level, Message) diag_log text ((systemTimeUTC call A3A_fnc_systemTime_format_S) + " | " + _LOG_prefix + " | "+ Level +" | File: " + (__FILE__ select [count __FILE__ -(reverse __FILE__ find '\'),1e6]) + " | " + Message)
+#define LogServerMessage(Level, Message) (if (isServer) then {LogMessage(Level,Message)} else {((systemTimeUTC call A3A_fnc_systemTime_format_S) + " | " + _LOG_prefix + " | "+ Level +" | File: " + (__FILE__ select [count __FILE__ -(reverse __FILE__ find '\'),1e6]) + " | " + Message + format [" | Client: %1 [%2]", player, clientOwner]) remoteExec ["A3A_fnc_localLog", 2]})
 
 //log macros
 #ifdef Log_Error

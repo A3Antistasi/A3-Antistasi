@@ -8,7 +8,7 @@ class EditorData
 	toggles=1025;
 	class ItemIDProvider
 	{
-		nextID=6289;
+		nextID=6291;
 	};
 	class MarkerIDProvider
 	{
@@ -16,18 +16,18 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=1981;
+		nextID=2064;
 	};
 	class Camera
 	{
-		pos[]={5279.4351,135.1326,16847.877};
-		dir[]={-1.2363449e-007,-0.70710683,0.70710683};
-		up[]={-1.2363449e-007,0.70710671,0.70710683};
-		aside[]={1,0,1.7484557e-007};
+		pos[]={4377.6357,173.30542,11711.908};
+		dir[]={0.038487688,-0.6651054,0.74576122};
+		up[]={0.034279488,0.74674779,0.66422445};
+		aside[]={0.99867529,-1.1523662e-007,-0.051540092};
 	};
 };
 binarizationWanted=0;
-sourceName="Antistasi-CamLaoNam-2-4";
+sourceName="Antistasi-CamLaoNam-2-4-1";
 addons[]=
 {
 	"A3_Modules_F",
@@ -45,13 +45,14 @@ addons[]=
 	"A3_Weapons_F",
 	"A3_Structures_F_Exp_Military_Flags",
 	"weapons_f_vietnam_c",
-	"A3_Props_F_Enoch_Military_Camps"
+	"A3_Props_F_Enoch_Military_Camps",
+	"modules_f_vietnam"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=15;
+		items=16;
 		class Item0
 		{
 			className="A3_Modules_F";
@@ -157,6 +158,13 @@ class AddonsMetaData
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
+		class Item15
+		{
+			className="modules_f_vietnam";
+			name="modules_f_vietnam";
+			author="Savage Game Design";
+			url="https://www.arma3.com";
+		};
 	};
 };
 dlcs[]=
@@ -190,7 +198,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=22;
+		items=23;
 		class Item0
 		{
 			dataType="Layer";
@@ -11842,11 +11850,11 @@ class Mission
 									};
 									id=6282;
 									type="Land_vn_tower_signal_01";
-									atlOffset=0.42939758;
+									atlOffset=0.42938995;
 								};
 							};
 							id=4994;
-							atlOffset=2.8110504;
+							atlOffset=2.8110428;
 						};
 						class Item21
 						{
@@ -34540,6 +34548,17 @@ class Mission
 				};
 				nAttributes=2;
 			};
+		};
+		class Item22
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={4371.4199,149.60858,11733.717};
+			};
+			id=6289;
+			type="vn_module_situationalawarenessmodule_disable";
+			atlOffset=-1.5258789e-005;
 		};
 	};
 	class Connections

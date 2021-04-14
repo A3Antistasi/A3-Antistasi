@@ -19,7 +19,8 @@
 #include "..\..\Includes\common.inc"
 if (!canSuspend) exitWith {Error("executed in non-suspendable environment")};
 
-if !(toLower worldName in A3A_darkMaps) exitWith {};
+_darkMaps = ["cam_lao_nam"];
+if !(toLower worldName in _darkMaps) exitWith {};
 if (!isNil "A3A_darkMapFixRunning" && {A3A_darkMapFixRunning}) exitWith {Error("Dark map fix is already running")};
 A3A_darkMapFixRunning = true;
 Info("Installing dark map fix");

@@ -17,7 +17,6 @@ aridmaps = ["altis","kunduz","malden","tem_anizay","takistan","sara"];
 tropicalmaps = ["tanoa","cam_lao_nam"];
 temperatemaps = ["enoch","chernarus_summer","vt7","tembelan"];
 arcticmaps = ["chernarus_winter"];
-A3A_darkMaps = ["cam_lao_nam"]; //maps that are dark
 //Mod selector
 
 //Reb Templates

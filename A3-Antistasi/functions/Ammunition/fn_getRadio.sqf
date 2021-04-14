@@ -11,11 +11,11 @@
 //Note: This file has been optimised. Avoid changing unless necessary.
 
 params ["_unit"];
- 
-private _items = assignedItems _unit; 
 
-private _radioPosition = _items findIf {_x == "ItemRadio" || {_x find "tf_" > -1} || {_x find "TFAR_" > -1} || {_x find "acre_" > -1} || {_x == "vn_o_item_radio_m252"} || {_x == "vn_b_item_radio_urc10"}}; 
- 
+private _items = assignedItems _unit;
+//in order: vanilla, tfar, acre, vn
+private _radioPosition = _items findIf {_x == "ItemRadio" || {_x find "tf_" > -1} || {"TFAR_" in _x} || {_x find "acre_" > -1} || {"item_radio" in _x}};
+
 if (_radioPosition > -1) then {
 	_items select _radioPosition;
 } else {

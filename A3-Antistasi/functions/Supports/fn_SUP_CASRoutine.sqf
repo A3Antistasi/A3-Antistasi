@@ -605,7 +605,7 @@ if (alive _strikePlane && [driver _strikePlane] call A3A_fnc_canFight) then
     _wpBase setWaypointType "MOVE";
     _wpBase setWaypointBehaviour "CARELESS";
     _wpBase setWaypointSpeed "FULL";
-    _wpBase setWaypointStatements ["", "deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
+    _wpBase setWaypointStatements ["true", "if !(local this) exitWith {}; deleteVehicle (vehicle this); {deleteVehicle _x} forEach thisList"];
     _strikeGroup setCurrentWaypoint _wpBase;
 
     waitUntil {sleep 0.5;_strikePlane distance2D (getMarkerPos _airport) < 100};

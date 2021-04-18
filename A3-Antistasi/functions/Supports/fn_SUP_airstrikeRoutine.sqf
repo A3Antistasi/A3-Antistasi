@@ -153,7 +153,5 @@ _wp3 setWaypointBehaviour "CARELESS";
 private _wp4 = _strikeGroup addWaypoint [_airportPos, 2];
 _wp4 setWaypointType "MOVE";
 _wp4 setWaypointSpeed "FULL";
-_wp4 setWaypointStatements ["true", "[(objectParent this) getVariable 'supportName', side (group this)] spawn A3A_fnc_endSupport; deleteVehicle (objectParent this); deleteVehicle this"];
+_wp4 setWaypointStatements ["true", "if !(isServer) exitWith {}; [(objectParent this) getVariable 'supportName', side (group this)] spawn A3A_fnc_endSupport; deleteVehicle (objectParent this); deleteVehicle this"];
 
-_strikePlane hideObjectGlobal false;
-_strikePlane enableSimulation true;

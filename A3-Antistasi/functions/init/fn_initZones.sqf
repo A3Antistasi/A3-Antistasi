@@ -156,22 +156,6 @@ configClasses (configfile >> "CfgWorlds" >> worldName >> "Names") apply {
 	_size = [_size, 400] select (_size < 400);
 	_numCiv = 0;
 
-	_roads = roadsX getVariable [_nameX, []];
-	if (count _roads == 0) then
-	{
-        Info_1("No roads found for marker %1, generating...", _nameX);
-		_roadsProv = _pos nearRoads _size;
-		_roadsProv apply
-		{
-			_roadcon = roadsConnectedto _x;
-			if (count _roadcon == 2) then
-			{
-				_roads pushBack (getPosATL _x);
-			};
-		};
-		roadsX setVariable [_nameX, _roads, true];
-	};
-
 	if (_hardcodedPop) then
 	{
 		_numCiv = server getVariable _nameX;

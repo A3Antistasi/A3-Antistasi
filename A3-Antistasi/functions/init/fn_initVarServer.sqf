@@ -248,6 +248,7 @@ private _templateVariables = [
 	"nameTeamPlayer",
 	"SDKFlag",
 	"SDKFlagTexture",
+	"SDKFlagMarkerType",
 	"typePetros",
 	"staticCrewTeamPlayer",
 	"SDKUnarmed",

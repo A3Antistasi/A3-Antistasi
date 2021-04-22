@@ -459,6 +459,7 @@ class A3A
         class equipmentSort {};
         class fillLootCrate {};
         class getRadio {};
+        class hasARadio {};
         class itemConfig {};
         class itemConfigMass {};
         class itemSort {};

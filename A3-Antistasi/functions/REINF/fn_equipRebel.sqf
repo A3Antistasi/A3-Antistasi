@@ -23,8 +23,8 @@ private _addWeaponAndMags = {
 // Clear everything except standard items and empty uniform
 // Actually fast, unlike a setUnitLoadout with a full loadout
 _unit setUnitLoadout [ [], [], [],    [uniform _unit, []], [], [],    "", "", [],
-	["ItemMap","","","ItemCompass","ItemWatch",""] ];		// no GPS, radio, NVG
-if (haveRadio) then {_unit linkItem "ItemRadio"};
+	[(selectRandom unlockedmaps),"","",(selectRandom unlockedCompasses),(selectRandom unlockedwatches),""]];		// no GPS, radio, NVG
+if (haveRadio) then {_unit linkItem selectrandom (unlockedRadios)};
 
 // Removed for the moment because I'm not sure what the intentions are for rebel uniforms
 // forceadd required for greenfor vanilla because allRebelUniforms has the blufor guerilla uniforms
@@ -113,11 +113,11 @@ switch (true) do {
 	// squad leaders and
 	case (_unitClass in squadLeaders): {
 		[_unit,unlockedRifles] call A3A_fnc_randomRifle;
-		if (_recruitType == 1) then {_unit linkItem "ItemRadio"};
+		if (_recruitType == 1) then {_unit linkItem selectrandom (unlockedRadios)};
 	};
  	case (_unitClass isEqualTo staticCrewTeamPlayer): {
 		[_unit,unlockedRifles] call A3A_fnc_randomRifle;
-		if (_recruitType == 1) then {_unit linkItem "ItemRadio"};
+		if (_recruitType == 1) then {_unit linkItem selectrandom (unlockedRadios)};
 	};
 	default {
 		[_unit,unlockedSMGs] call A3A_fnc_randomRifle;

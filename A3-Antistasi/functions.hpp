@@ -686,6 +686,7 @@ class A3A
         class log {};
         class setPos {};
         class systemTime_format_S {};
+        class vehicleTextureSync {};
         class vehicleWillCollideAtPosition {};
         class getRoadDirection {};
     };

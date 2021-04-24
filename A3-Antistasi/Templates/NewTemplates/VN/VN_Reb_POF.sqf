@@ -97,13 +97,11 @@ _loadoutData setVariable ["smokeGrenades", []]; 		//this line determines smoke g
 
 //Basic equipment. Shouldn't need touching most of the time.
 //Mods might override this, or certain mods might want items removed (No GPSs in WW2, for example)
-_loadoutData setVariable ["maps", ["ItemMap"]];
-_loadoutData setVariable ["watches", ["ItemWatch"]];
-_loadoutData setVariable ["compasses", ["ItemCompass"]];
-_loadoutData setVariable ["radios", ["ItemRadio"]];
-_loadoutData setVariable ["gpses", ["ItemGPS"]];
-_loadoutData setVariable ["NVGs", []]; //this line determines NVGs -- Array, can contain multiple assets
-_loadoutData setVariable ["binoculars", ["Binocular"]];
+_loadoutData setVariable ["maps", ["vn_b_item_map"]];
+_loadoutData setVariable ["watches", ["vn_b_item_watch"]];
+_loadoutData setVariable ["compasses", ["vn_b_item_compass"]];
+_loadoutData setVariable ["radios", []];
+_loadoutData setVariable ["binoculars", ["vn_m19_binocs_grey"]];
 
 _loadoutData setVariable ["uniforms", ["vn_o_uniform_vc_01_01", "vn_o_uniform_vc_01_02", "vn_o_uniform_vc_02_07", "vn_o_uniform_vc_03_02", "vn_o_uniform_vc_04_02", "vn_o_uniform_vc_05_01"]];
 _loadoutData setVariable ["vests", []];
@@ -122,14 +120,14 @@ _loadoutData setVariable ["items_squadleader_extras", []];
 _loadoutData setVariable ["items_rifleman_extras", []];
 _loadoutData setVariable ["items_medic_extras", []];
 _loadoutData setVariable ["items_grenadier_extras", []];
-_loadoutData setVariable ["items_explosivesExpert_extras", []];
-_loadoutData setVariable ["items_engineer_extras", ["Toolkit", "MineDetector"]];
+_loadoutData setVariable ["items_explosivesExpert_extras", ["vn_b_item_toolkit", "ACE_Clacker", "ACE_DefusalKit"]];
+_loadoutData setVariable ["items_engineer_extras", ["vn_b_item_toolkit"]];
 _loadoutData setVariable ["items_lat_extras", []];
 _loadoutData setVariable ["items_at_extras", []];
 _loadoutData setVariable ["items_aa_extras", []];
 _loadoutData setVariable ["items_machineGunner_extras", []];
-_loadoutData setVariable ["items_marksman_extras", []];
-_loadoutData setVariable ["items_sniper_extras", []];
+_loadoutData setVariable ["items_marksman_extras", ["ACE_RangeCard"]];
+_loadoutData setVariable ["items_sniper_extras", ["ACE_RangeCard"]];
 _loadoutData setVariable ["items_police_extras", []];
 _loadoutData setVariable ["items_crew_extras", []];
 _loadoutData setVariable ["items_unarmed_extras", []];

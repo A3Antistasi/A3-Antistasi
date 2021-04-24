@@ -164,6 +164,7 @@ allUAVTerminals = allUAVTerminals select {
 };
 
 //Remove Prop Food
+if (A3A_hasVN) then {
 private _Propammo = ("FakeAmmo");
 private _props = [];
 {
@@ -173,3 +174,8 @@ private _props = [];
 
 
 allMagBullet = allMagBullet - _props;
+//Remove Vanilla Items
+allMedikits deleteAt (allMedikits find "Medikit");
+allToolkits deleteAt (allToolkits find "ToolKit");
+allMaps deleteAt (allMaps find "ItemMap");
+};

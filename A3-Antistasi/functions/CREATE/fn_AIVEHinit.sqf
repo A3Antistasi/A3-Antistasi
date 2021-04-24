@@ -165,6 +165,11 @@ if (_side == civilian) then
 	}];
 };
 
+if(_typeX in vehMRLS + [CSATMortar, NATOMortar, SDKMortar]) then
+{
+    [_veh] call A3A_fnc_addArtilleryTrailEH;
+};
+
 // EH behaviour:
 // GetIn/GetOut/Dammaged: Runs where installed, regardless of locality
 // Local: Runs where installed if target was local before or after the transition

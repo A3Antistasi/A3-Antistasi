@@ -463,7 +463,7 @@ Info("Sanity-checking templates");
 
 // modify these appropriately when adding new template vars
 private _nonClassVars = ["nameTeamPlayer", "SDKFlagTexture", "nameOccupants", "NATOPlayerLoadouts", "NATOFlagTexture", "flagNATOmrk", "nameInvaders", "CSATPlayerLoadouts", "CSATFlagTexture", "flagCSATmrk"];
-private _magazineVars = ["SDKMortarHEMag", "SDKMortarSmokeMag", "ATMineMag", "APERSMineMag", "vehNATOMRLSMags", "vehCSATMRLSMags", "breachingExplosivesAPC", "breachingExplosivesTank"];
+private _magazineVars = ["SDKMortarHEMag", "SDKMortarSmokeMag", "ATMineMag", "APERSMineMag", "vehNATOMRLSMags", "vehCSATMRLSMags", "breachingExplosivesAPC", "breachingExplosivesTank", "NATOmortarMagazineHE", "CSATmortarMagazineHE"];
 
 private _missingVars = [];
 private _badCaseVars = [];
@@ -483,6 +483,8 @@ private _badCaseVars = [];
 
 		private _section = if (_x in _magazineVars) then {"CfgMagazines"} else {"CfgVehicles"};
 		{
+			if ("loadouts_" in _x) then {continue};
+			if ("not_supported" in _x) then {continue};
 			if !(_x isEqualType "") exitWith { Error("Bad template var " + _varName) };
 			if !(_x isEqualTo configName (configFile >> _section >> _x)) then
 			{

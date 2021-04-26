@@ -46,6 +46,8 @@ Changes from version 2.4.0 to 2.4.1 Antistasi Community Edition
   - fixed AI having no vanilla-med items with ACE-non-medical loaded
   - synchronised vehicle textures
   - fixed various locality and JIP issues with prisoners and refugee missions
+  - fixed QRF APCs and transport aircraft using the wrong behaviour
+  - fixed safeVehicleSpawn to spawn air vehicles in the air
 
 ================ Code ================
   - logs are now being created with logMacros

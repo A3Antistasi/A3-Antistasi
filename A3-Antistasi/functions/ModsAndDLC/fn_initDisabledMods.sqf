@@ -14,6 +14,7 @@ if (!allowDLCGlobMob) then {_disabledMods pushBack "globmob"};
 if (!allowDLCEnoch) then {_disabledMods pushBack "enoch"};
 if (!allowDLCOfficialMod) then {_disabledMods pushBack "officialmod"};
 if (!allowDLCAoW) then {_disabledMods pushBack "aow"};
+if (!allowDLCVN) then {_disabledMods pushBack "vn"};
 
 Info_1("Disabled DLC: %1",_disabledMods);
 

@@ -1,6 +1,6 @@
 params ["_side", "_timerIndex", "_sleepTime", "_bombType", "_airport", "_targetPos", "_supportName"];
-
-private _fileName = "SUP_airstrikeRoutine";
+#include "..\..\Includes\common.inc"
+FIX_LINE_NUMBERS()
 //Sleep to simulate preparetion time
 while {_sleepTime > 0} do
 {
@@ -12,15 +12,10 @@ while {_sleepTime > 0} do
 private _plane = if (_side == Occupants) then {vehNATOPlane} else {vehCSATPlane};
 private _crewUnits = if(_side == Occupants) then {NATOPilot} else {CSATPilot};
 
-private _spawnPos = (getMarkerPos _airport);
-private _strikePlane = createVehicle [_plane, _spawnPos, [], 0, "FLY"];
-private _dir = _spawnPos getDir _targetPos;
-_strikePlane setDir _dir;
-
-//Put it in the sky
-_strikePlane setPosATL (_spawnPos vectorAdd [0, 0, 500]);
-
-_strikePlane setVelocityModelSpace (velocityModelSpace _strikePlane vectorAdd [0, 150, 0]);
+private _spawnPos = (getMarkerPos _airport) vectorAdd [0, 0, 500];
+private _strikePlane = createVehicle [_plane, _spawnPos, [], 0, "NONE"];
+_strikePlane setDir (_spawnPos getDir _targetPos);
+_strikePlane setVelocityModelSpace [0, 100, 0];
 
 private _strikeGroup = createGroup _side;
 private _pilot = [_strikeGroup, _crewUnits, getPos _strikePlane] call A3A_fnc_createUnit;
@@ -44,22 +39,14 @@ _strikePlane addEventHandler
     "Killed",
     {
         params ["_strikePlane"];
-        [2, format ["Plane for %1 destroyed, airstrike aborted", _strikePlane getVariable "supportName"], "SUP_airstrike"] call A3A_fnc_log;
+        Info_1("Plane for %1 destroyed, airstrike aborted", _strikePlane getVariable "supportName");
         ["TaskSucceeded", ["", "Airstrike Vessel Destroyed"]] remoteExec ["BIS_fnc_showNotification", teamPlayer];
         private _timerArray = _strikePlane getVariable "TimerArray";
         private _timerIndex = _strikePlane getVariable "TimerIndex";
         _timerArray set [_timerIndex, (_timerArray select _timerIndex) + 3600];
         [_strikePlane getVariable "supportName", _strikePlane getVariable "side"] spawn A3A_fnc_endSupport;
         [_strikePlane] spawn A3A_fnc_postMortem;
-
-        if((_strikePlane getVariable "side") == Occupants) then
-        {
-            [[20, 45], [0, 0]] remoteExec ["A3A_fnc_prestige", 2];
-        }
-        else
-        {
-            [[0, 0], [20, 45]] remoteExec ["A3A_fnc_prestige", 2];
-        };
+        [(_strikePlane getVariable "side"), 20, 45] remoteExec ["A3A_fnc_addAggression", 2];
     }
 ];
 
@@ -71,7 +58,7 @@ _pilot addEventHandler
         params ["_unit"];
         ["TaskSucceeded", ["", "Airstrike crew killed"]] remoteExec ["BIS_fnc_showNotification", teamPlayer];
         private _strikePlane = _unit getVariable "Plane";
-        [2, format ["Crew for %1 killed, airstrike aborted", _strikePlane getVariable "supportName"], "SUP_airstrike"] call A3A_fnc_log;
+        Info_1("Crew for %1 killed, airstrike aborted", _strikePlane getVariable "supportName");
         private _timerArray = _strikePlane getVariable "TimerArray";
         private _timerIndex = _strikePlane getVariable "TimerIndex";
         _timerArray set [_timerIndex, (_timerArray select _timerIndex) + 1800];
@@ -137,7 +124,7 @@ if(_aggroValue > 30 && _aggroValue < 70) then
     _flightSpeed = "NORMAL";
     _bombCount = 6;
 };
-[2, format["Airstrike %1 will be carried out with %2 bombs at %3 speed", _supportName, _bombCount, toLower _flightSpeed], _fileName] call A3A_fnc_log;
+Info_3("Airstrike %1 will be carried out with %2 bombs at %3 speed", _supportName, _bombCount, toLower _flightSpeed);
 
 //Creating bombing parameters
 private _bombParams = [_strikePlane, _strikePlane getVariable "bombType", _bombCount, 200];
@@ -166,7 +153,5 @@ _wp3 setWaypointBehaviour "CARELESS";
 private _wp4 = _strikeGroup addWaypoint [_airportPos, 2];
 _wp4 setWaypointType "MOVE";
 _wp4 setWaypointSpeed "FULL";
-_wp4 setWaypointStatements ["true", "[(objectParent this) getVariable 'supportName', side (group this)] spawn A3A_fnc_endSupport; deleteVehicle (objectParent this); deleteVehicle this"];
+_wp4 setWaypointStatements ["true", "if !(isServer) exitWith {}; [(objectParent this) getVariable 'supportName', side (group this)] spawn A3A_fnc_endSupport; deleteVehicle (objectParent this); deleteVehicle this"];
 
-_strikePlane hideObjectGlobal false;
-_strikePlane enableSimulation true;

@@ -1,5 +1,7 @@
 if (!isServer and hasInterface) exitWith {};
 private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_groupX","_groups","_typeAirVehicle","_vehicle","_pilots","_rnd","_resourcesAAF","_nVeh","_radiusX","_roads","_Vwp1","_tanksX","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_groupX1","_uav","_groupUAV","_uwp0","_tsk","_vehicle","_soldierX","_pilot","_attackDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDestination","_missionExpireTime","_soldiersSpawned","_nul","_pos","_timeOut"];
+#include "..\..\Includes\common.inc"
+FIX_LINE_NUMBERS()
 _attackDestination = _this select 0;
 _attackOrigin = _this select 1;
 bigAttackInProgress = true;
@@ -12,10 +14,13 @@ _pilots = [];
 _vehiclesX = [];
 _civilians = [];
 
-diag_log format ["[Antistasi] Launching CSAT Punish Against %1 from %2 (CSATpunish.sqf)", _attackDestination, _attackOrigin];
+Info_2("Launching CSAT Punish Against %1 from %2", _attackDestination, _attackOrigin);
 
 _nameDestination = [_attackDestination] call A3A_fnc_localizar;
-[[teamPlayer,civilian,Occupants],"invaderPunish",[format ["%2 is attacking innocent civilians in %1! Defend the city at all costs",_nameDestination,nameInvaders],format ["%1 Punishment",nameInvaders],_attackDestination],getMarkerPos _attackDestination,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
+private _taskId = "invaderPunish" + str A3A_taskCount;
+[[teamPlayer,civilian,Occupants],_taskId,[format ["%2 is attacking innocent civilians in %1! Defend the city at all costs",_nameDestination,nameInvaders],format ["%1 Punishment",nameInvaders],_attackDestination],getMarkerPos _attackDestination,false,0,true,"Defend",true] call BIS_fnc_taskCreate;
+[_taskId, "invaderPunish", "CREATED"] remoteExecCall ["A3A_fnc_taskUpdate", 2];
+
 
 private _reveal = [_posDestination, Invaders] call A3A_fnc_calculateSupportCallReveal;
 [_posDestination, 4, ["MORTAR"], Invaders, _reveal] remoteExec ["A3A_fnc_sendSupport", 2];
@@ -121,17 +126,14 @@ for "_i" from 0 to _numCiv do {
 		if (!surfaceIsWater _pos) exitWith {};
 	};
 	_civ = [_groupCivil, _typeUnit,_pos, [],0,"NONE"] call A3A_fnc_createUnit;
-	_civ forceAddUniform (selectRandom allCivilianUniforms);
-	_rnd = random 100;
-	if (_rnd < 90) then {
-		if (_rnd < 25) then {
-			[_civ, "hgun_PDW2000_F", 5, 0] call BIS_fnc_addWeapon;
-		} else {
-			[_civ, "hgun_Pistol_heavy_02_F", 5, 0] call BIS_fnc_addWeapon;
-		};
-	};
-	_civilians pushBack _civ;
 	[_civ] call A3A_fnc_civInit;
+	_rnd = random 100; 
+  	if (_rnd < 75) then { 
+			[_civ, selectRandom (unlockedsniperrifles + unlockedshotguns + Unlockedrifles + unlockedsmgs), 5, 0] call BIS_fnc_addWeapon;  
+		} else {  
+			[_civ, selectRandom (unlockedmachineguns + unlockedshotguns + Unlockedrifles + unlockedsmgs), 5, 0] call BIS_fnc_addWeapon;   
+	}; 
+	_civilians pushBack _civ;
 	_civ setSkill 0.5;
 	sleep 0.5;
 };
@@ -153,16 +155,12 @@ waitUntil {sleep 5; (({not (captive _x)} count _soldiers) < ({captive _x} count 
 
 if ((({not (captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or ({alive _x} count _soldiers < round (_soldiersSpawned / 3)) or (time > _missionExpireTime)) then {
 	{_x doMove [0,0,0]} forEach _soldiers;
-	["invaderPunish",[format ["%2 is attacking innocent civilians in %1! Defend the city at all costs",_nameDestination,nameInvaders],format ["%1 Punishment",nameInvaders],_attackDestination],getMarkerPos _attackDestination,"SUCCEEDED"] call A3A_fnc_taskUpdate;
+	[_taskId, "invaderPunish", "SUCCEEDED"] call A3A_fnc_taskSetState;
 	if ({(side _x == teamPlayer) and (_x distance _posDestination < _size * 2)} count allUnits >= {(side _x == _sideTarget) and (_x distance _posDestination < _size * 2)} count allUnits) then {
 		if (sidesX getVariable [_attackDestination,sideUnknown] == Occupants) then {[-15,15,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]} else {[-5,15,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2]};
-        [
-            3,
-            "Rebels won a punishment mission",
-            "aggroEvent",
-            true
-        ] call A3A_fnc_log;
-        [[-10, 90], [40, 150]] remoteExec ["A3A_fnc_prestige",2];
+        Debug("aggroEvent | Rebels won a punishment mission");
+        [Occupants, -10, 90] remoteExec ["A3A_fnc_addAggression",2];
+        [Invaders, 40, 150] remoteExec ["A3A_fnc_addAggression",2];
 		{[-10,10,_x] remoteExec ["A3A_fnc_citySupportChange",2]} forEach citiesX;
 		{if (isPlayer _x) then {[10,_x] call A3A_fnc_playerScoreAdd}} forEach ([500,0,_posDestination,teamPlayer] call A3A_fnc_distanceUnits);
 		[10,theBoss] call A3A_fnc_playerScoreAdd;
@@ -171,7 +169,7 @@ if ((({not (captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or (
 		{[10,0,_x] remoteExec ["A3A_fnc_citySupportChange",2]} forEach citiesX;
 	};
 } else {
-	["invaderPunish",[format ["%2 is attacking innocent civilians in %1! Defend the city at all costs",_nameDestination,nameInvaders],format ["%1 Punishment",nameInvaders],_attackDestination],getMarkerPos _attackDestination,"FAILED"] call A3A_fnc_taskUpdate;
+	[_taskId, "invaderPunish", "FAILED"] call A3A_fnc_taskSetState;
 	[-20,-20,_posDestination] remoteExec ["A3A_fnc_citySupportChange",2];
 	{[-10,-10,_x] remoteExec ["A3A_fnc_citySupportChange",2]} forEach citiesX;
 	destroyedSites = destroyedSites + [_attackDestination];
@@ -184,7 +182,7 @@ if ((({not (captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or (
 };
 
 sleep 15;
-_nul = [0,"invaderPunish"] spawn A3A_fnc_deleteTask;
+[_taskId, "invaderPunish", 0] spawn A3A_fnc_taskDelete;
 [3600, Invaders] remoteExec ["A3A_fnc_timingCA", 2];
 
 bigAttackInProgress = false;

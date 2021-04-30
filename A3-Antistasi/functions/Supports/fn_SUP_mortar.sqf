@@ -15,10 +15,10 @@ params ["_side", "_timerIndex", "_supportPos", "_supportName"];
     Returns:
         The name of the marker, covering the whole support area
 */
-
-private _fileName = "SUP_mortar";
+#include "..\..\Includes\common.inc"
+FIX_LINE_NUMBERS()
 private _mortarType = if(_side == Occupants) then {NATOMortar} else {CSATMortar};
-private _shellType = SDKMortarHEMag;
+private _shellType = if(_side == Occupants) then {NATOmortarMagazineHE} else {CSATmortarMagazineHE};
 private _isMortar = true;
 
 //If war level between 6 and 8 there is a chance (25%/50%/75%) that it switches to a howitzer instead, above it howitzer is guaranteed
@@ -29,7 +29,7 @@ if((25 * (tierWar - 5)) > random 100) then
     _isMortar = false;
 };
 
-[2, format ["Mortar support %1 will be carried out by a %2 with %3 mags", _supportName, _mortarType, _shellType], _fileName] call A3A_fnc_log;
+Info_3("Mortar support %1 will be carried out by a %2 with %3 mags", _supportName, _mortarType, _shellType);
 
 private _mortar = objNull;
 private _spawnRadius = 5;
@@ -94,7 +94,7 @@ else
 
 if(_spawnPos isEqualTo []) exitWith
 {
-    [2, format ["Couldn't spawn in mortar %1, no suitable position found!", _supportName], _fileName] call A3A_fnc_log;
+    Info_1("Couldn't spawn in mortar %1, no suitable position found!", _supportName);
     ["", 0, 0];
 };
 
@@ -105,6 +105,7 @@ _mortar = [_mortarType, _spawnPos, _spawnRadius, 5, true] call A3A_fnc_safeVehic
 private _mortarGroup = [_side, _mortar] call A3A_fnc_createVehicleCrew;
 
 _mortar setVariable ["shellType", _shellType, true];
+[_mortar] call A3A_fnc_addArtilleryTrailEH;
 
 //Creates the marker which coveres the area in which the support can help
 private _coverageMarker = createMarker [format ["%1_coverage", _supportName], getPos _mortar];

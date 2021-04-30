@@ -9,7 +9,8 @@
 	"mrkSDK",
 	"prestigeNATO","prestigeCSAT", "hr","planesAAFcurrent","helisAAFcurrent","APCAAFcurrent","tanksAAFcurrent","armas","items","backpcks","ammunition","dateX", "WitemsPlayer","prestigeOPFOR","prestigeBLUFOR","resourcesAAF","resourcesFIA","skillFIA"];
 */
-
+#include "..\..\Includes\common.inc"
+FIX_LINE_NUMBERS()
 private _translateMarker = {
 	params ["_mrk"];
 	if (_mrk find "puesto" == 0) exitWith { "outpost" + (_mrk select [6]) };
@@ -24,7 +25,7 @@ private _specialVarLoads = [
 	"garrison","tasks","smallCAmrk","membersX","vehInGarage","destroyedBuildings","idlebases",
 	"idleassets","chopForest","weather","killZones","jna_dataList","controlsSDK","mrkCSAT","nextTick",
 	"bombRuns","wurzelGarrison","aggressionOccupants", "aggressionInvaders",
-	"countCA", "attackCountdownInvaders", "testingTimerIsActive"
+	"countCA", "attackCountdownInvaders", "testingTimerIsActive", "version"
 ];
 
 private _varName = _this select 0;
@@ -32,6 +33,13 @@ private _varValue = _this select 1;
 if (isNil '_varValue') exitWith {};
 
 if (_varName in _specialVarLoads) then {
+	if (_varName == 'version') then {
+		_s = _varValue splitString ".";
+		if (count _s < 2) exitWith {
+			Error_1("Bad version string: %1", _varValue);
+		};
+		A3A_saveVersion = 10000*parsenumber(_s#0) + 100*parseNumber(_s#1) + parseNumber(_s#2);
+	};
 	if (_varName == 'attackCountdownOccupants') then {attackCountdownOccupants = _varValue; publicVariable "attackCountdownOccupants"};
 	if (_varName == 'attackCountdownInvaders') then {attackCountdownInvaders = _varValue; publicVariable "attackCountdownInvaders"};
 	//Keep this for backwards compatiblity
@@ -51,8 +59,8 @@ if (_varName in _specialVarLoads) then {
 	if (_varName == 'chopForest') then {chopForest = _varValue; publicVariable "chopForest"};
 	if (_varName == 'jna_dataList') then {jna_dataList = +_varValue};
 	//Keeping these for older saves
-	if (_varName == 'prestigeNATO') then {[[_varValue, 120], [0, 0]] call A3A_fnc_prestige};
-	if (_varName == 'prestigeCSAT') then {[[0, 0], [_varValue, 120]] call A3A_fnc_prestige};
+	if (_varName == 'prestigeNATO') then {[Occupants, _varValue, 120] call A3A_fnc_addAggression};
+	if (_varName == 'prestigeCSAT') then {[Invaders, _varValue, 120] call A3A_fnc_addAggression};
 	if (_varName == 'aggressionOccupants') then
 	{
 		aggressionLevelOccupants = _varValue select 0;
@@ -92,12 +100,12 @@ if (_varName in _specialVarLoads) then {
 
 			private _building = nearestObjects [_x, ["House"], 1, true] select 0;
 			call {
-				if (isNil "_building") exitWith { diag_log format ["No building found at %1", _x] };
-				if (_building in antennas) exitWith { diag_log "Antenna in destroyed building list, ignoring" };
+				if (isNil "_building") exitWith { Error("No building found at %1", _x)};
+				if (_building in antennas) exitWith { Info("Antenna in destroyed building list, ignoring")};
 
 				private _ruin = [_building] call BIS_fnc_createRuin;
 				if (isNull _ruin) exitWith {
-					diag_log format ["Loading Destroyed Buildings: Unable to create ruin for %1", typeOf _building];
+					Error_1("Loading Destroyed Buildings: Unable to create ruin for %1", typeOf _building);
 				};
 
 				destroyedBuildings pushBack _building;
@@ -173,7 +181,7 @@ if (_varName in _specialVarLoads) then {
 				//JIP on the _ruin, as repairRuinedBuilding will delete the ruin.
 				[_antenna, true] remoteExec ["hideObject", 0, _ruin];
 			} else {
-				diag_log format ["Loading Antennas: Unable to create ruin for %1", typeOf _antenna];
+				Error("Loading Antennas: Unable to create ruin for %1", typeOf _antenna);
 			};
 
 			deleteMarker _mrk;
@@ -254,7 +262,7 @@ if (_varName in _specialVarLoads) then {
 			_posVeh = _varvalue select _i select 1;
 			_xVectorUp = _varvalue select _i select 2;
 			_xVectorDir = _varvalue select _i select 3;
-			private _veh = createVehicle [_typeVehX,[0,0,1000],[],0,"NONE"];
+			private _veh = createVehicle [_typeVehX,[0,0,1000],[],0,"CAN_COLLIDE"];
 			// This is only here to handle old save states. Could be removed after a few version itterations. -Hazey
 			if ((_varvalue select _i select 2) isEqualType 0) then { // We have to check number because old save state might still be using getDir. -Hazey
 				_dirVeh = _varvalue select _i select 2;
@@ -262,7 +270,7 @@ if (_varName in _specialVarLoads) then {
 				_veh setVectorUp surfaceNormal (_posVeh);
 				_veh setPosATL _posVeh;
 			} else {
-				_veh setPosATL _posVeh;
+				if (A3A_saveVersion >= 20401) then { _veh setPosWorld _posVeh } else { _veh setPosATL _posVeh };
 				_veh setVectorDirAndUp [_xVectorDir,_xVectorUp];
 			};
 			[_veh, teamPlayer] call A3A_fnc_AIVEHinit;

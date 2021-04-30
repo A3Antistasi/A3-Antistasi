@@ -26,15 +26,15 @@ params ["_intelType", "_side"];
 *   Returns:
 *       _text : STRING : The text of the selected intel
 */
-
-private _fileName = "selectIntel";
+#include "..\..\Includes\common.inc"
+FIX_LINE_NUMBERS()
 if(isNil "_intelType") exitWith
 {
-    [1, "No intel type given!", _fileName] call A3A_fnc_log;
+    Error("No intel type given!");
 };
 if(isNil "_side") exitWith
 {
-    [1, "No side given!", _fileName] call A3A_fnc_log;
+    Error("No side given!");
 };
 
 private _text = "";
@@ -160,7 +160,7 @@ if(_intelType == "Medium") then
 };
 if(_intelType == "Large") then
 {
-    if(["AS"] call BIS_fnc_taskExists) then
+    if("AS" in A3A_activeTasks) then
     {
         _intelContent = selectRandomWeighted [TRAITOR, 0.3, WEAPON, 0.3, MONEY, 0.4];
     }

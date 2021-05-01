@@ -12,7 +12,7 @@ while {_sleepTime > 0} do
 private _plane = if (_side == Occupants) then {vehNATOPlane} else {vehCSATPlane};
 private _crewUnits = if(_side == Occupants) then {NATOPilot} else {CSATPilot};
 
-private _spawnPos = (getMarkerPos _airport);
+private _spawnPos = (getMarkerPos _airport) vectorAdd [0, 0, 500];
 private _strikePlane = createVehicle [_plane, _spawnPos, [], 0, "FLY"];
 private _isHelicopter = _strikePlane isKindOf "Helicopter";
 private _dir = _spawnPos getDir _targetPos;
@@ -158,7 +158,7 @@ _wp3 setWaypointBehaviour "CARELESS";
 private _wp4 = _strikeGroup addWaypoint [_airportPos, 2];
 _wp4 setWaypointType "MOVE";
 _wp4 setWaypointSpeed "FULL";
-_wp4 setWaypointStatements ["true", "[(objectParent this) getVariable 'supportName', side (group this)] spawn A3A_fnc_endSupport; deleteVehicle (objectParent this); deleteVehicle this"];
+_wp4 setWaypointStatements ["true", "if !(isServer) exitWith {}; [(objectParent this) getVariable 'supportName', side (group this)] spawn A3A_fnc_endSupport; deleteVehicle (objectParent this); deleteVehicle this"];
 
 _strikePlane hideObjectGlobal false;
 _strikePlane enableSimulation true;

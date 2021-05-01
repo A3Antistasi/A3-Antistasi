@@ -117,7 +117,7 @@ if (player getVariable ["pvp",false]) exitWith {
 	gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown", {
 		_handled = FALSE;
 		if (_this select 1 == 207) then {
-			if (!A3A_hasACEHearing) then {
+			if (!A3A_hasACEhearing) then {
 				if (soundVolume <= 0.5) then {
 					0.5 fadeSound 1;
 					["Ear Plugs", "You've taken out your ear plugs.", true] call A3A_fnc_customHint;
@@ -424,6 +424,7 @@ if (A3A_hasACE) then
 boxX allowDamage false;
 boxX addAction ["Transfer Vehicle cargo to Ammobox", {[] spawn A3A_fnc_empty;}, 4];
 boxX addAction ["Move this asset", A3A_fnc_moveHQObject,nil,0,false,true,"","(_this == theBoss)", 4];
+if (A3A_hasACE) then { [boxX, boxX] call ace_common_fnc_claim;};	//Disables ALL Ace Interactions
 flagX setFlagTexture SDKFlagTexture;
 flagX allowDamage false;
 flagX addAction ["Unit Recruitment", {if ([player,300] call A3A_fnc_enemyNearCheck) then {["Recruit Unit", "You cannot recruit units while there are enemies near you"] call A3A_fnc_customHint;} else { [] spawn A3A_fnc_unit_recruit; }},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull]) and (side (group _this) == teamPlayer)"];

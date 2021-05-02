@@ -76,7 +76,7 @@ allCategories = allCategoriesExceptSpecial + specialCategories;
 ////////////////////////////////////
 //     BEGIN MOD DETECTION       ///
 ////////////////////////////////////
-[2,"Starting mod detection",_fileName] call A3A_fnc_log;
+Info("Starting mod detection");
 allDLCMods = ["kart", "mark", "heli", "expansion", "jets", "orange", "tank", "globmob", "enoch", "officialmod", "tacops", "argo", "warlords", "aow", "vn"];
 
 

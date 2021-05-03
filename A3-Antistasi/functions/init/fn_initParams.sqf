@@ -49,7 +49,7 @@ A3A_paramTable = [
     ["allowDLCEnoch", "Enoch", ["server"], false],
     ["allowDLCOfficialMod", "OfficialMod", ["server"], false],
     ["allowDLCAoW", "AoW", ["server"], false],
-    ["allowDLCVN", "VN", ["server"], false],
+    ["allowDLCVN", "VN", [], true],
 
     ["membershipEnabled", "membership", [], true],
     ["switchCom", "switchComm", ["server"], true],						// dead param

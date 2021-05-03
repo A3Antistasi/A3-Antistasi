@@ -11,14 +11,12 @@ while {_sleepTime > 0} do
 
 private _plane = if (_side == Occupants) then {vehNATOPlane} else {vehCSATPlane};
 private _crewUnits = if(_side == Occupants) then {NATOPilot} else {CSATPilot};
+private _isHelicopter = _plane isKindOf "Helicopter";
 
-private _spawnPos = (getMarkerPos _airport) vectorAdd [0, 0, 500];
+private _spawnPos = (getMarkerPos _airport) vectorAdd [0, 0, if (_isHelicopter) then {150} else {500}];
 private _strikePlane = createVehicle [_plane, _spawnPos, [], 0, "FLY"];
-private _isHelicopter = _strikePlane isKindOf "Helicopter";
-private _dir = _spawnPos getDir _targetPos;
-_strikePlane setDir _dir;
-
-_strikePlane setVelocityModelSpace (velocityModelSpace _strikePlane vectorAdd [0, 150, 0]);
+_strikePlane setDir (_spawnPos getDir _targetPos);
+_strikePlane setVelocityModelSpace [0, 100, 0];
 
 private _strikeGroup = createGroup _side;
 private _pilot = [_strikeGroup, _crewUnits, getPos _strikePlane] call A3A_fnc_createUnit;
@@ -102,8 +100,9 @@ _textMarker setMarkerAlpha 0;
 [_side, format ["%1_coverage", _supportName]] spawn A3A_fnc_clearTargetArea;
 
 _strikePlane flyInHeight 150;
-private _minAltASL = ATLToASL [_targetPos select 0, _targetPos select 1, 0];
-_strikePlane flyInHeightASL [(_minAltASL select 2) +150, (_minAltASL select 2) +150, (_minAltASL select 2) +150];
+private _minAltASL = (ATLToASL [_targetPos select 0, _targetPos select 1, 0])#2 +150;
+_strikePlane flyInHeightASL [_minAltASL, _minAltASL, _minAltASL];
+Debug_2("Fly height ASL: %1 | Target hight: %2", _minAltASL, _targetPos);
 
 private _airportPos = getMarkerPos _airport;
 private _dir = markerDir (format ["%1_coverage", _supportName]);
@@ -160,6 +159,4 @@ _wp4 setWaypointType "MOVE";
 _wp4 setWaypointSpeed "FULL";
 _wp4 setWaypointStatements ["true", "if !(isServer) exitWith {}; [(objectParent this) getVariable 'supportName', side (group this)] spawn A3A_fnc_endSupport; deleteVehicle (objectParent this); deleteVehicle this"];
 
-_strikePlane hideObjectGlobal false;
-_strikePlane enableSimulation true;
-_strikePlane setPosATL (_spawnPos vectorAdd [0, 0, if (_isHelicopter) then {100} else {500}]); // need to set its pos after hideObjectGlobal
+_strikePlane setPosATL _spawnPos;

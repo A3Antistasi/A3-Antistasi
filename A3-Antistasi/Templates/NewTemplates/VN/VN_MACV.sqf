@@ -61,10 +61,10 @@
 
 ["vehiclesPolice", ["vn_b_wheeled_m151_02_mp"]] call _fnc_saveToTemplate;
 
-["staticMGs", ["vn_b_sf_static_m2_high"]] call _fnc_saveToTemplate;
-["staticAT", ["vn_b_static_tow"]] call _fnc_saveToTemplate;
+["staticMGs", ["vn_b_army_static_m2_high"]] call _fnc_saveToTemplate;
+["staticAT", ["vn_b_army_static_tow"]] call _fnc_saveToTemplate;
 ["staticAA", ["vn_b_army_static_m45"]] call _fnc_saveToTemplate;
-["staticMortars", ["vn_b_static_mortar_m2"]] call _fnc_saveToTemplate;
+["staticMortars", ["vn_b_army_static_mortar_m2"]] call _fnc_saveToTemplate;
 
 ["mortarMagazineHE", "vn_mortar_m2_mag_he_x8"] call _fnc_saveToTemplate;
 ["mortarMagazineSmoke", "vn_mortar_m2_mag_wp_x8"] call _fnc_saveToTemplate;

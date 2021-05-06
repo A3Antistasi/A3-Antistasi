@@ -36,7 +36,7 @@ Changes from version 2.4.1 to 2.4.1.VN.01 Antistasi Community Edition
   - adaptation of FSMs from 3D to 2D nav grids.
 
 ================ Refactor ================
-  - none
+  - improved mod autodetection item sorting for VN
 
 ================ Bugfixes ================
   - fix for tree-hugging helis

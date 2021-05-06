@@ -56,9 +56,9 @@ if (_itemIsVanilla && {A3A_hasRHS}) then {
 //Avoid listing all of the mods here.
 
 //we should find a Solution that is not bound to Foldernames
-private _acemods = ["@ace", "@ACE - No medical [Updated]", "@Automated Ace No Medical"];
+private _acemods = ["@ace", "@ACE - No medical [Updated]", "@Automated Ace No Medical", "@ACENomedical"];
 
-private _TFARmods = ["@task_force_radio", "@Task Force Arrowhead Radio (BETA!!!)"];
+private _TFARmods = ["@task_force_radio", "@taskforceradio", "@Task Force Arrowhead Radio (BETA!!!)", "@TaskForceArrowheadRadioBETA"];
 
 if (A3A_hasIFA && !_remove && {(_itemIsVanilla || _itemMod in _acemods || _itemMod in _TFARmods)}) then {
 	switch (_categories select 0) do {

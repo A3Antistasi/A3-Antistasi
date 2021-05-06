@@ -77,7 +77,10 @@ allCategories = allCategoriesExceptSpecial + specialCategories;
 //     BEGIN MOD DETECTION       ///
 ////////////////////////////////////
 Info("Starting mod detection");
-allDLCMods = ["kart", "mark", "heli", "expansion", "jets", "orange", "tank", "globmob", "enoch", "officialmod", "tacops", "argo", "warlords", "aow", "vn"];
+private _modsInfo = getLoadedModsInfo;
+allDLCMods = _modsInfo select {_x#2};
+allCDLC = _modsInfo select { !(_x#2) && _x#3 };
+allmods = _modsInfo - allDLCMods - allCDLC;
 
 
 // Short Info of loaded mods needs to be added to this array. eg: `A3A_loadedTemplateInfoXML pushBack ["RHS","All factions will be replaced by RHS (AFRF &amp; USAF &amp; GREF)."];`

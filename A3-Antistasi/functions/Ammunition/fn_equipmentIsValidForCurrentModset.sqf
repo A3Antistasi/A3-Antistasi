@@ -113,7 +113,6 @@ if (A3A_hasVN && !_remove && {(_itemIsVanilla || _itemMod in _acemods || _itemMo
 				case "NVGoggles";
 				case "Radio";
 				case "UAVTerminal";
-				case "FirstAidKit";
 				case "Compasses";
 				case "Unknown";
 				case "Watch": {

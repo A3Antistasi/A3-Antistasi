@@ -456,6 +456,8 @@ private _templateVariables = [
 } forEach _templateVariables;
 
 call compile preProcessFileLineNumbers "Templates\selector.sqf";
+//Set SDKFlagTexture on FlagX
+if (local flagX) then { flagX setFlagTexture SDKFlagTexture } else { [flagX, SDKFlagTexture] remoteExec ["setFlagTexture", owner flagX] };
 
 ////////////////////////////////////
 //     TEMPLATE SANITY CHECK      //

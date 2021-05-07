@@ -10,4 +10,4 @@
 
 params ["_modName"];
 
-_modName == "" || {_modName in allDLCMods};
+_modName == "" || { _modName in (allDLCMods apply {_x#1}) };

@@ -178,4 +178,5 @@ allMagBullet = allMagBullet - _props;
 allMedikits deleteAt (allMedikits find "Medikit");
 allToolkits deleteAt (allToolkits find "ToolKit");
 allMaps deleteAt (allMaps find "ItemMap");
+allFirstAidKits deleteAt (allFirstAidKits find "FirstAidKit");
 };

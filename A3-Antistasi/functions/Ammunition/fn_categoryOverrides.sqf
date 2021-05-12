@@ -120,6 +120,28 @@ private _categoryOverrideTable = [
 ["ACE_Flashlight_Maglite_ML300L", ["Unknown","Weapons"]],
 
 ["vn_default_helmetbase_09", ["Unknown","Headgear"]],	//Goat Hat
+["vn_m1897", ["Shotguns","Weapons"]],
+["vn_izh54", ["Shotguns","Weapons"]],
+["vn_izh54_shorty", ["Shotguns","Weapons"]],
+["vn_pps52", ["SMGs","Weapons"]],
+["vn_pps43", ["SMGs","Weapons"]],
+["vn_mc10", ["SMGs","Weapons"]],
+["vn_ppsh41", ["SMGs","Weapons"]],
+["vn_k50m", ["SMGs","Weapons"]],
+["vn_mat49", ["SMGs","Weapons"]],
+["vn_mat49_f", ["SMGs","Weapons"]],
+["vn_mat49_vc", ["SMGs","Weapons"]],
+["vn_m3a1", ["SMGs","Weapons"]],
+["vn_sten", ["SMGs","Weapons"]],
+["vn_m79", ["GrenadeLaunchers","Weapons"]],
+["vn_sa7b", ["MissileLaunchers","Weapons"]],
+["vn_sa7", ["MissileLaunchers","Weapons"]],
+["vn_m4956_gl", ["GrenadeLaunchers","Weapons"]],
+["vn_m2carbine_gl", ["GrenadeLaunchers","Weapons"]],
+["vn_m1carbine_gl", ["GrenadeLaunchers","Weapons"]],
+["vn_sks_gl", ["GrenadeLaunchers","Weapons"]],
+["vn_type56", ["Rifles","Weapons"]],
+
 
 ["LIB_M2_Tripod", ["StaticWeaponParts","Items"]],
 ["LIB_Laffete_Tripod", ["StaticWeaponParts","Items"]],

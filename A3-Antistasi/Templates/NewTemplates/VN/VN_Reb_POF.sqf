@@ -49,12 +49,14 @@
 //  Rebel Starting Gear  //
 ///////////////////////////
 //Civ Uniforms
-allCivilianUniforms append ["vn_o_uniform_vc_01_01", "vn_o_uniform_vc_01_02", "vn_o_uniform_vc_02_07", "vn_o_uniform_vc_03_02", "vn_o_uniform_vc_04_02", "vn_o_uniform_vc_05_01"];
+allCivilianUniforms append ["vn_o_uniform_vc_01_01", "vn_o_uniform_vc_01_02", "vn_o_uniform_vc_02_07", "vn_o_uniform_vc_03_02", "vn_o_uniform_vc_04_02", "vn_o_uniform_vc_05_01", "vn_o_uniform_vc_02_05", "vn_o_uniform_vc_04_03", "vn_o_uniform_vc_03_03"];
 allRebelUniforms = allCivilianUniforms;
 private _initialRebelEquipment = [
 "vn_p38s","vn_welrod",
-"vn_m38", "vn_b_m38",
-"vn_m10_mag","vn_welrod_mag","vn_m38_t_mag","vn_m38_mag","vn_t67_grenade_mag","vn_rdg2_mag","vn_molotov_grenade_mag",
+"vn_m38",
+"vn_m_mk2_knife_01","vn_m_axe_01","vn_b_type56","vn_b_sks","vn_b_m38","vn_b_camo_m9130","vn_b_camo_m40a1","vn_b_camo_m14",
+"vn_m127",
+"vn_m10_mag","vn_welrod_mag","vn_m38_t_mag","vn_m38_mag","vn_t67_grenade_mag","vn_rdg2_mag","vn_molotov_grenade_mag","vn_m127_mag","vn_mine_punji_03_mag",
 "vn_c_pack_01",
 "vn_o_vest_05","vn_b_vest_usarmy_01",
 "vn_m19_binocs_grey","vn_mx991","vn_mx991_red"

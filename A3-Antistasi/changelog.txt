@@ -1,4 +1,4 @@
-Version 2.4.1.VN.02 - xxth May 2021
+Version 2.4.1.VN.02 - 15th May 2021
 
 Changes from version 2.4.1.VN.01 to 2.4.1.VN.02 Antistasi Community Edition
 

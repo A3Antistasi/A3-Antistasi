@@ -34,6 +34,7 @@ Changes from version 2.4.1.VN.01 to 2.4.1.VN.02 Antistasi Community Edition
   - for the time being changed loot boxes to plastic boxes from vanilla as the VN boxes have infinite inventory space
   - fixed AI medical functionality so it works with VN medic assets
   - adapted VN weapon category filtering
+  - fixed revive animation not stopping when cancelled
 
 ================ Code ================
   - none

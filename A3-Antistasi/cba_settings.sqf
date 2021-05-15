@@ -14,3 +14,4 @@ force TFAR_givePersonalRadioToRegularSoldier = false;
 //force tfar_radioCodesDisabled = false;
 force TFAR_SameLRFrequenciesForSide = false;
 force TFAR_SameSRFrequenciesForSide = false;
+

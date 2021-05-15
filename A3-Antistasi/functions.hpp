@@ -43,6 +43,7 @@ class A3A
 		class blackout {};
 		class buildHQ {};
         class calculateAggression {};
+        class canMoveHQ {};
         class chooseAttackType {};
 		class citiesToCivPatrol {};
 		class citySupportChange {};
@@ -678,8 +679,9 @@ class A3A
 
     class Undercover
     {
-        class initUndercover {};
+        class canGoUndercover {};
         class goUndercover {};
+        class initUndercover {};
     };
 
     class Utility

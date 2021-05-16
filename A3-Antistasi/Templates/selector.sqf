@@ -21,11 +21,6 @@ arcticmaps = ["chernarus_winter"];
 
 //Reb Templates
 A3A_Reb_template = switch(true) do {
-    case (A3A_hasVN): {
-                ["Templates\NewTemplates\VN\VN_Reb_POF.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
-                Info("Using Pissed off Farmers Templates");
-                "VN"
-            };
     case (A3A_has3CBFactions): {
         switch(true) do {
             case (toLower worldName in arcticmaps);
@@ -55,6 +50,11 @@ A3A_Reb_template = switch(true) do {
             };
         };
         "RHS"
+    };
+    case (A3A_hasVN): {
+        ["Templates\NewTemplates\VN\VN_Reb_POF.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
+        Info("Using Pissed off Farmers Templates");
+        "VN"
     };
     /* disabled until imtegrated
     case (A3A_hasIFA): {
@@ -122,11 +122,6 @@ A3A_Occ_template = switch(true) do {
         "FFAA"
     };
     */
-    case (A3A_hasVN): {
-                ["Templates\NewTemplates\VN\VN_PAVN.sqf", west] call A3A_fnc_compatabilityLoadFaction;
-                Info("Using VN PAVN Templates");
-                "VN"
-            };
     case (A3A_has3CBBAF): {
         switch(true) do {
             case (toLower worldName in arcticmaps): {
@@ -186,6 +181,11 @@ A3A_Occ_template = switch(true) do {
         };
         "RHS"
     };
+    case (A3A_hasVN): {
+        ["Templates\NewTemplates\VN\VN_PAVN.sqf", west] call A3A_fnc_compatabilityLoadFaction;
+        Info("Using VN PAVN Templates");
+        "VN"
+    };
     /* disabled until imtegrated
     case (A3A_hasIFA): {
         switch(true) do {
@@ -234,11 +234,6 @@ A3A_Occ_template = switch(true) do {
 };
 //Inv Templates
 A3A_Inv_template = switch(true) do {
-    case (A3A_hasVN): {
-                ["Templates\NewTemplates\VN\VN_MACV.sqf", east] call A3A_fnc_compatabilityLoadFaction;
-                Info("Using VN MACV Templates");
-                "VN"
-            };
     case (A3A_has3CBFactions): {
         switch(true) do {
             case (toLower worldName in arcticmaps);
@@ -271,6 +266,11 @@ A3A_Inv_template = switch(true) do {
             };
         };
         "RHS"
+    };
+    case (A3A_hasVN): {
+        ["Templates\NewTemplates\VN\VN_MACV.sqf", east] call A3A_fnc_compatabilityLoadFaction;
+        Info("Using VN MACV Templates");
+        "VN"
     };
     /* disabled until imtegrated
     case (A3A_hasIFA): {
@@ -315,11 +315,6 @@ A3A_Inv_template = switch(true) do {
 };
 //Civ Templates
 A3A_Civ_template = switch(true) do {
-    case (A3A_hasVN): {
-            ["Templates\NewTemplates\VN\VN_CIV.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
-            Info("Using VN CIV Templates");
-            "VN"
-        };
     case (A3A_has3CBFactions): {
         ["Templates\NewTemplates\3CB\3CB_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
         Info("Using 3CB Civ Template");
@@ -329,6 +324,11 @@ A3A_Civ_template = switch(true) do {
         ["Templates\NewTemplates\RHS\RHS_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
         Info("Using RHS Civ Template");
         "RHS"
+    };
+    case (A3A_hasVN): {
+        ["Templates\NewTemplates\VN\VN_CIV.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
+        Info("Using VN CIV Templates");
+        "VN"
     };
     /* disabled until imtegrated
     case (A3A_hasIFA): {

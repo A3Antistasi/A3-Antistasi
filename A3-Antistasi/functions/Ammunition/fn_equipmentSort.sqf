@@ -164,19 +164,11 @@ allUAVTerminals = allUAVTerminals select {
 };
 
 //Remove Prop Food
-if (A3A_hasVN) then {
-private _Propammo = ("FakeAmmo");
-private _props = [];
-{
-    private _Propa = getText (configFile >> "CfgMagazines" >> _x >> "ammo");
-    if (_Propa in _Propammo) then {_props pushBack _x};
-} forEach allMagBullet;
-
-
-allMagBullet = allMagBullet - _props;
-//Remove Vanilla Items
-allMedikits deleteAt (allMedikits find "Medikit");
-allToolkits deleteAt (allToolkits find "ToolKit");
-allMaps deleteAt (allMaps find "ItemMap");
-allFirstAidKits deleteAt (allFirstAidKits find "FirstAidKit");
+if (A3A_hasVN) then {  // can't we always run this?
+    allMagBullet = allMagBullet select { getText (configFile >> "CfgMagazines" >> _x >> "ammo") isNotEqualTo "FakeAmmo"; };
+    //Remove Vanilla Items
+    allMedikits deleteAt (allMedikits find "Medikit");
+    allToolkits deleteAt (allToolkits find "ToolKit");
+    allMaps deleteAt (allMaps find "ItemMap");
+    allFirstAidKits deleteAt (allFirstAidKits find "FirstAidKit");
 };

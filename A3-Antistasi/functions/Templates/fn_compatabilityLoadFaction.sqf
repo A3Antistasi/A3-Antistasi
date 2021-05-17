@@ -496,3 +496,5 @@ if (_side isEqualTo civilian) then {
 	civBoatData = _faction getVariable "vehiclesCivBoat";
 	civVehIndustrialData = _faction getVariable "vehiclesCivIndustrial";
 };
+
+_faction;

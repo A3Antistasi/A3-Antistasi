@@ -5,8 +5,8 @@ _unit = _this select 0;
 
 //dress unit
 _unit setUnitLoadout (configFile >> "EmptyLoadout");
-_unit forceAddUniform selectRandom (faction_civ getVariable "civilianUniforms")
-_unit addHeadgear selectRandom (faction_civ getVariable "civilianHeadgear")
+_unit forceAddUniform selectRandom (faction_civ getVariable "uniforms")
+_unit addHeadgear selectRandom (faction_civ getVariable "headgear")
 
 _unit setSkill 0;
 _unit disableAI "TARGET";

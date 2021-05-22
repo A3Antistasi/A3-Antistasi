@@ -63,8 +63,20 @@
 //  Rebel Starting Gear  //
 ///////////////////////////
 //Civ Uniforms
-allCivilianUniforms append ["vn_o_uniform_vc_01_01", "vn_o_uniform_vc_01_02", "vn_o_uniform_vc_02_07", "vn_o_uniform_vc_03_02", "vn_o_uniform_vc_04_02", "vn_o_uniform_vc_05_01", "vn_o_uniform_vc_02_05", "vn_o_uniform_vc_04_03", "vn_o_uniform_vc_03_03"];
-allRebelUniforms = allCivilianUniforms;
+["uniforms", [
+    "vn_o_uniform_vc_01_01",
+    "vn_o_uniform_vc_01_02",
+    "vn_o_uniform_vc_02_07",
+    "vn_o_uniform_vc_03_02",
+    "vn_o_uniform_vc_04_02",
+    "vn_o_uniform_vc_05_01",
+    "vn_o_uniform_vc_02_05",
+    "vn_o_uniform_vc_04_03",
+    "vn_o_uniform_vc_03_03"
+]] call _fnc_saveToTemplate;
+
+["headgear", [""]] call _fnc_saveToTemplate;
+
 private _initialRebelEquipment = [
 "vn_p38s","vn_welrod",
 "vn_m38",

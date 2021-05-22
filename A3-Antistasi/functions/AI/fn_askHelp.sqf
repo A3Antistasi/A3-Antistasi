@@ -11,7 +11,7 @@ private _enemy = _target findNearestEnemy _target;
 if (!isPlayer _target and (([objNull, "VIEW"] checkVisibility [eyePos _enemy, eyePos _target] > 0) or (_target distance _enemy < 100))) exitWith { objNull };
 
 private _firstAidKits = ["FirstAidKit"];
-if (A3A_hasVN) then { _firstAidKits append ["vn_o_item_firstaidkit", "vn_b_item_firstaidkit"] };
+private _firstAidKits = ["FirstAidKit"] + (A3A_Reb_factionData getVariable ["firstAidKits",[]]);
 private _unitNeedsFAK = count (_firstAidKits arrayIntersect items _target) == 0;
 
 private _units = units group _target;

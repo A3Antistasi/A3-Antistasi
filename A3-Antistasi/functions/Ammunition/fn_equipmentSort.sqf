@@ -163,13 +163,18 @@ allUAVTerminals = allUAVTerminals select {
     (_encrypt isEqualTo "") or (_encrypt isEqualTo _encryptRebel);
 };
 
+//Remove Prop Food
 allMagBullet = allMagBullet select { getText (configFile >> "CfgMagazines" >> _x >> "ammo") isNotEqualTo "FakeAmmo"; };
 
-//Remove Prop Food
-if (A3A_hasVN) then {  // can't we always run this?
-    //Remove Vanilla Items
-    allMedikits deleteAt (allMedikits find "Medikit");
-    allToolkits deleteAt (allToolkits find "ToolKit");
-    allMaps deleteAt (allMaps find "ItemMap");
-    allFirstAidKits deleteAt (allFirstAidKits find "FirstAidKit");
-};
+private _removableDefaultItems = [
+	[allFirstAidKits,"FirstAidKit","firstAidKits"],
+	[allMedikits,"Medikit","mediKits"],
+	[allToolkits,"ToolKit","toolKits"],
+	[allMaps,"ItemMap","itemMaps"]
+];
+{
+	_x params [_itemCategoryArray,_vanillaItem,_templateVariable];
+	if (count (A3A_Reb_factionData getVariable [_templateVariable,[]]) != 0) then {
+		_itemCategoryArray deleteAt (_itemCategoryArray find _vanillaItem);
+	};
+} forEach _removableDefaultItems;

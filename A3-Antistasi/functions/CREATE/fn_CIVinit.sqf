@@ -3,11 +3,12 @@ private ["_unit","_enemiesX"];
 FIX_LINE_NUMBERS()
 _unit = _this select 0;
 
+//dress unit
+_unit setUnitLoadout (configFile >> "EmptyLoadout");
+_unit forceAddUniform selectRandom (faction_civ getVariable "civilianUniforms")
+_unit addHeadgear selectRandom (faction_civ getVariable "civilianHeadgear")
+
 _unit setSkill 0;
-_unit forceAddUniform (selectRandom allCivilianUniforms);
-removeHeadgear _unit;
-removeGoggles _unit;
-if (A3A_hasVN) then removeVest _unit;
 _unit disableAI "TARGET";
 _unit disableAI "AUTOTARGET";
 //Stops civilians from shouting out commands.

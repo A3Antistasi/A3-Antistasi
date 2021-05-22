@@ -163,9 +163,10 @@ allUAVTerminals = allUAVTerminals select {
     (_encrypt isEqualTo "") or (_encrypt isEqualTo _encryptRebel);
 };
 
+allMagBullet = allMagBullet select { getText (configFile >> "CfgMagazines" >> _x >> "ammo") isNotEqualTo "FakeAmmo"; };
+
 //Remove Prop Food
 if (A3A_hasVN) then {  // can't we always run this?
-    allMagBullet = allMagBullet select { getText (configFile >> "CfgMagazines" >> _x >> "ammo") isNotEqualTo "FakeAmmo"; };
     //Remove Vanilla Items
     allMedikits deleteAt (allMedikits find "Medikit");
     allToolkits deleteAt (allToolkits find "ToolKit");

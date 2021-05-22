@@ -1,3 +1,4 @@
+#include "..\..\Includes\common.inc"
 ////////////////////////////////////
 //      Backpacks Sorting        ///
 ////////////////////////////////////
@@ -110,7 +111,7 @@ private _removableDefaultItems = [
 	[allMaps,"ItemMap","itemMaps"]
 ];
 {
-	_x params [_itemCategoryArray,_vanillaItem,_templateVariable];
+	_x params ["_itemCategoryArray","_vanillaItem","_templateVariable"];
 	if (count (A3A_Reb_factionData getVariable [_templateVariable,[]]) != 0) then {
 		_itemCategoryArray deleteAt (_itemCategoryArray find _vanillaItem);
 	};

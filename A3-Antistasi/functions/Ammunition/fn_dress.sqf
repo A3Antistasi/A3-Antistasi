@@ -17,7 +17,7 @@ _loadout = switch _team do {
 			[[],[],[],[selectRandom ((faction_civ getVariable "uniforms") + (faction_rebel getVariable "uniforms")), []],[],[],"H_Hat_Tinfoil_F","",[],
 			[(selectRandom unlockedmaps),"","",(selectRandom unlockedCompasses),(selectRandom unlockedwatches),""]];
 		} else {
-			[[],[],[],[selectRandom ((faction_civ getVariable "uniforms") + (faction_rebel getVariable "uniforms")), []],[],[],selectRandom faction_civ getVariable "headgear","",[],
+			[[],[],[],[selectRandom ((faction_civ getVariable "uniforms") + (faction_rebel getVariable "uniforms")), []],[],[],selectRandom (faction_civ getVariable "headgear"),"",[],
 			[(selectRandom unlockedmaps),"","",(selectRandom unlockedCompasses),(selectRandom unlockedwatches),""]];
 		};
 	};

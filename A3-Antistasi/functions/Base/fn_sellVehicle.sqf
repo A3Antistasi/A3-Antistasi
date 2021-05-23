@@ -37,7 +37,7 @@ FIX_LINE_NUMBERS()
 if (isNull _player) exitWith { Error("_player is null.") };
 if (isNull _veh) exitWith {["Sell Vehicle", "You are not looking at a vehicle."] remoteExecCall ["A3A_fnc_customHint",_player];};
 
-if (_veh distance getMarkerPos respawnTeamPlayer > 50) exitWith {["Sell Vehicle", "Vehicle must be closer than 50 meters to the flag marker."] remoteExecCall ["A3A_fnc_customHint",_player];};
+if (_veh distance getMarkerPos respawnTeamPlayer > 50) exitWith {["Sell Vehicle", "Vehicle must be closer than 50 meters to the headquarters marker."] remoteExecCall ["A3A_fnc_customHint",_player];};
 
 if ({isPlayer _x} count crew _veh > 0) exitWith {["Sell Vehicle", "In order to sell the vehicle, it must be empty."] remoteExecCall ["A3A_fnc_customHint",_player];};
 

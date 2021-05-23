@@ -75,22 +75,26 @@ allCivilianGlasses deleteAt (allCivilianGlasses find "LIB_Glasses");
 //   Radios   //
 ////////////////
 If (A3A_hasTFAR || A3A_hasTFARBeta) then {
-private _encryptRebel = if (A3A_hasVN) then { ["tf_west_radio_code", "tf_east_radio_code"] } else { ["tf_guer_radio_code", "tf_independent_radio_code"] };
-allRadios = allRadios select {
-    private _encrypt = getText (configFile >> "CfgWeapons" >> _x >> "tf_encryptionCode");
-    (_encrypt in _encryptRebel);
-};
+	private _allRadioItems = allRadios;
+	private _encryptRebel = ["tf_guer_radio_code", "tf_independent_radio_code"];  // tf_independent_radio_code may not exist. More investigation needed.
+	private _encryptEnemy = ["tf_west_radio_code", "tf_east_radio_code"];
 
-private _encrypthostile = if (A3A_hasVN) then { ["tf_guer_radio_code", "tf_independent_radio_code"] } else { ["tf_west_radio_code", "tf_east_radio_code"] };
-private _allHostileRadio = [];
-{
-    private _encrypt = getText (configFile >> "CfgVehicles" >> _x >> "tf_encryptionCode");
-  	if (_encrypt in _encryptRebel) then {allBackpacksRadio pushBack _x};
-    if (_encrypt in _encrypthostile) then {_allHostileRadio pushBack _x};
-} forEach allBackpacksEmpty;
+	allRadios = _allRadioItems select { getText (configFile >> "CfgWeapons" >> _x >> "tf_encryptionCode") in _encryptRebel };
+	if (count allRadios == 0) then { ["_encryptRebel","_encryptEnemy"] call BIS_fnc_swapVars };    // Fallback to east and west.
+	allRadios = _allRadioItems select { getText (configFile >> "CfgWeapons" >> _x >> "tf_encryptionCode") in _encryptRebel };
+	if (count allRadios == 0) then {
+		Error("No TFAR radios with matching encryption codes found. Recommendation is to remove TFAR from the mod-set, and use the vanilla radio channel system.");
+	};
 
-//Removes Radios from allBackpacksEmpty
-allBackpacksEmpty = allBackpacksEmpty - _allHostileRadio - allBackpacksRadio;
+	private _allHostileRadio = [];
+	private _backpacksToDelete = [];
+	{
+		private _encrypt = getText (configFile >> "CfgVehicles" >> _x >> "tf_encryptionCode");
+		if (_encrypt in _encryptRebel) then { allBackpacksRadio pushBack _x; _backpacksToDelete insert [0,_forEachIndex] } else {
+			if (_encrypt in _encryptEnemy) then { _allHostileRadio pushBack _x; _backpacksToDelete insert [0,_forEachIndex] };
+		};
+	} forEach allBackpacksEmpty;
+	{ allBackpacksEmpty deleteAt _x } forEach _backpacksToDelete;  // Removes Radios from allBackpacksEmpty
 };
 /////////////////
 // UAVTerminal //

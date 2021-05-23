@@ -12,7 +12,7 @@ Scope: Local
 Environment: Scheduled
 Public: Yes
 Dependencies:
-    <OBJECT> faction_civ
+    <OBJECT> A3A_faction_civ
     <ARRAY> reportedVehs
     <ARRAY> controlsX
     <ARRAY> airportsX
@@ -184,7 +184,7 @@ while {_reason == ""} do
                 _reason = "BadMedic";
             };
         };
-        if ((primaryWeapon player != "") || (secondaryWeapon player != "") || (handgunWeapon player != "") || (vest player != "") || (getNumber(configfile >> "CfgWeapons" >> headgear player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2) || (hmd player != "") || (!(uniform player in (faction_civ getVariable "uniforms")))) exitWith
+        if ((primaryWeapon player != "") || (secondaryWeapon player != "") || (handgunWeapon player != "") || (vest player != "") || (getNumber(configfile >> "CfgWeapons" >> headgear player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor") > 2) || (hmd player != "") || (!(uniform player in (A3A_faction_civ getVariable "uniforms")))) exitWith
         {
             if ({((side _x == Invaders) or (side _x == Occupants)) and ((_x knowsAbout player > 1.4) or (_x distance player < 350))} count allUnits > 0) then
             {

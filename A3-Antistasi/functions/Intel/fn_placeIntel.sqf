@@ -60,7 +60,7 @@ private _spawnParameters = switch (true) do {
 if (_spawnParameters isEqualType true) exitWith { [1, format ["No spawn parameters for building %1", typeOf _building], _fileName] call A3A_fnc_Log };
 
 
-private _factionData = [A3A_Occ_factionData,A3A_Inv_factionData] select (_side == east);
+private _factionData = [A3A_faction_occ,A3A_faction_inv] select (_side == east);
 (_factionData getVariable ["placeIntel_desk","Land_CampingTable_F"]) params ["_classname_desk","_azimuth"];
 private _desk = createVehicle [_classname_desk, [0, 0, 0], [], 0, "CAN_COLLIDE"];
 _desk setDir (getDir _building + (_spawnParameters select 1) + _azimuth);

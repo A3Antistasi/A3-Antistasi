@@ -35,8 +35,8 @@ if !(_cured getVariable ["incapacitated",false]) exitWith
     false
 };
 
-private _medkits = ["Medikit"] + (A3A_Reb_factionData getVariable ["mediKits",[]]);
-private _firstAidKits = ["FirstAidKit"] + (A3A_Reb_factionData getVariable ["firstAidKits",[]]);
+private _medkits = ["Medikit"] + (A3A_faction_reb getVariable ["mediKits",[]]);
+private _firstAidKits = ["FirstAidKit"] + (A3A_faction_reb getVariable ["firstAidKits",[]]);
 private _hasMedkit = (count (_medkits arrayIntersect items _medic) > 0);
 private _medicFAKs = if (!_hasMedkit) then { _firstAidKits arrayIntersect items _medic };
 private _curedFAKs = if (!_hasMedkit) then { _firstAidKits arrayIntersect items _cured };

@@ -19,12 +19,12 @@ Info_2("Compatibility loading template: '%1' as side %2", _file, _side);
 
 private _faction = [_file] call A3A_fnc_loadFaction;
 
-private _factionPrefix =
-	["occ", "inv", "rebel", "civ"]
+private _factionName =
+	["A3A_faction_occ", "A3A_faction_inv", "A3A_faction_reb", "A3A_faction_civ"]
 	select
 	([west, east, independent, civilian] find _side);
 
-missionNamespace setVariable ["faction_" + _factionPrefix, _faction, true];
+missionNamespace setVariable [_factionName, _faction, true];
 
 //Register loadouts globally.
 private _loadoutsPrefix = format ["loadouts_%1_", _factionPrefix];

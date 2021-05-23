@@ -36,8 +36,8 @@ if (_level == "MEDIC") exitWith {
 			]
 		};
 		default {
-			private _mediKits = A3A_Reb_factionData getVariable ["mediKits",["Medikit"]];
-			private _firstAidKits = A3A_Reb_factionData getVariable ["firstAidKits",["FirstAidKit"]];
+			private _mediKits = A3A_faction_reb getVariable ["mediKits",["Medikit"]];
+			private _firstAidKits = A3A_faction_reb getVariable ["firstAidKits",["FirstAidKit"]];
 			[
 				[_mediKits#0, 1],
 				[_firstAidKits#0,10]
@@ -62,7 +62,7 @@ if (_level == "MEDIC") exitWith {
 			]
 		};
 		default {
-			private _firstAidKits = A3A_Reb_factionData getVariable ["firstAidKits",["FirstAidKit"]];
+			private _firstAidKits = A3A_faction_reb getVariable ["firstAidKits",["FirstAidKit"]];
 			[
 				[_firstAidKits#0,3]
 			]
@@ -79,7 +79,7 @@ switch (true) do {
 		]
 	};
 	default {
-		private _firstAidKits = A3A_Reb_factionData getVariable ["firstAidKits",["FirstAidKit"]];
+		private _firstAidKits = A3A_faction_reb getVariable ["firstAidKits",["FirstAidKit"]];
 		[
 			[_firstAidKits#0,3]
 		]

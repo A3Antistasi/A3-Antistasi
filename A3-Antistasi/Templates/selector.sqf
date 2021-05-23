@@ -22,7 +22,7 @@ arcticmaps = ["chernarus_winter"];
 //Reb Templates
 A3A_Reb_template = switch(true) do {
     case (A3A_has3CBFactions): {
-        A3A_Reb_factionData = switch(true) do {
+        switch(true) do {
             case (toLower worldName in arcticmaps);
             case (toLower worldName in temperatemaps);
             case (toLower worldName in tropicalmaps): {
@@ -37,7 +37,7 @@ A3A_Reb_template = switch(true) do {
         "3CBFactions"
     };
     case (A3A_hasRHS): {
-        A3A_Reb_factionData = switch(true) do {
+        switch(true) do {
             case (toLower worldName in arcticmaps);
             case (toLower worldName in temperatemaps);
             case (toLower worldName in tropicalmaps): {
@@ -52,7 +52,7 @@ A3A_Reb_template = switch(true) do {
         "RHS"
     };
     case (A3A_hasVN): {
-        A3A_Reb_factionData = ["Templates\NewTemplates\VN\VN_Reb_POF.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
+        ["Templates\NewTemplates\VN\VN_Reb_POF.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
         Info("Using Pissed off Farmers Templates");
         "VN"
     };
@@ -80,7 +80,7 @@ A3A_Reb_template = switch(true) do {
     };
     */
     default {
-        A3A_Reb_factionData = switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
+        switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
             case (toLower worldName == "enoch"): {
                 Info("Using Enoch FIA Template");
                 ["Templates\NewTemplates\Vanilla\Vanilla_Reb_FIA_Enoch.sqf", independent] call A3A_fnc_compatabilityLoadFaction;
@@ -123,7 +123,7 @@ A3A_Occ_template = switch(true) do {
     };
     */
     case (A3A_has3CBBAF): {
-        A3A_Occ_factionData = switch(true) do {
+        switch(true) do {
             case (toLower worldName in arcticmaps): {
                 Info("Using arctic BAF Template");
                 ["Templates\NewTemplates\3CB\3CB_AI_BAF_Arctic.sqf", west] call A3A_fnc_compatabilityLoadFaction;
@@ -144,7 +144,7 @@ A3A_Occ_template = switch(true) do {
         "3CBBAF"
     };
     case (A3A_has3CBFactions): {
-        A3A_Occ_factionData = switch(true) do {
+        switch(true) do {
             case (toLower worldName in arcticmaps);
             case (toLower worldName in temperatemaps): {
                 Info("Using Temperate US Marines Template as Placeholder");
@@ -162,7 +162,7 @@ A3A_Occ_template = switch(true) do {
         "3CBFactions"
     };
     case (A3A_hasRHS): {
-        A3A_Occ_factionData = switch(true) do {
+        switch(true) do {
             case (toLower worldName == "chernarus_summer");
             case (toLower worldName == "chernarus_winter"): {
                 Info("Using CDF Temperate Template");
@@ -182,7 +182,7 @@ A3A_Occ_template = switch(true) do {
         "RHS"
     };
     case (A3A_hasVN): {
-        A3A_Occ_factionData = ["Templates\NewTemplates\VN\VN_PAVN.sqf", west] call A3A_fnc_compatabilityLoadFaction;
+        ["Templates\NewTemplates\VN\VN_PAVN.sqf", west] call A3A_fnc_compatabilityLoadFaction;
         Info("Using VN PAVN Templates");
         "VN"
     };
@@ -210,7 +210,7 @@ A3A_Occ_template = switch(true) do {
     };
     */
     default {
-        A3A_Occ_factionData = switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
+        switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
             case (toLower worldName == "enoch"): {
                 Info("Using Enoch LDF Template");
                 ["Templates\NewTemplates\Vanilla\Vanilla_AI_LDF_Enoch.sqf", west] call A3A_fnc_compatabilityLoadFaction;
@@ -235,7 +235,7 @@ A3A_Occ_template = switch(true) do {
 //Inv Templates
 A3A_Inv_template = switch(true) do {
     case (A3A_has3CBFactions): {
-        A3A_Inv_factionData = switch(true) do {
+        switch(true) do {
             case (toLower worldName in arcticmaps);
             case (toLower worldName in temperatemaps): {
                 Info("Using RHS AFRF as Placeholder Template");
@@ -253,7 +253,7 @@ A3A_Inv_template = switch(true) do {
         "3CBFactions"
     };
     case (A3A_hasRHS): {
-        A3A_Inv_factionData = switch(true) do {
+        switch(true) do {
             case (toLower worldName in arcticmaps);
             case (toLower worldName in temperatemaps);
             case (toLower worldName in tropicalmaps): {
@@ -268,7 +268,7 @@ A3A_Inv_template = switch(true) do {
         "RHS"
     };
     case (A3A_hasVN): {
-        A3A_Inv_factionData = ["Templates\NewTemplates\VN\VN_MACV.sqf", east] call A3A_fnc_compatabilityLoadFaction;
+        ["Templates\NewTemplates\VN\VN_MACV.sqf", east] call A3A_fnc_compatabilityLoadFaction;
         Info("Using VN MACV Templates");
         "VN"
     };
@@ -296,7 +296,7 @@ A3A_Inv_template = switch(true) do {
     };
     */
     default {
-        A3A_Inv_factionData = switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
+        switch(true) do {//This one (vanilla) works differently so that we don't get DLC kit on modded maps.
             case (toLower worldName == "enoch"): {
                 Info("Using Enoch CSAT Template");
                 ["Templates\NewTemplates\Vanilla\Vanilla_AI_CSAT_Enoch.sqf", east] call A3A_fnc_compatabilityLoadFaction;
@@ -316,17 +316,17 @@ A3A_Inv_template = switch(true) do {
 //Civ Templates
 A3A_Civ_template = switch(true) do {
     case (A3A_has3CBFactions): {
-        A3A_Civ_factionData = ["Templates\NewTemplates\3CB\3CB_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
+        ["Templates\NewTemplates\3CB\3CB_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
         Info("Using 3CB Civ Template");
         "3CBFactions"
     };
     case (A3A_hasRHS): {
-        A3A_Civ_factionData = ["Templates\NewTemplates\RHS\RHS_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
+        ["Templates\NewTemplates\RHS\RHS_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
         Info("Using RHS Civ Template");
         "RHS"
     };
     case (A3A_hasVN): {
-        A3A_Civ_factionData = ["Templates\NewTemplates\VN\VN_CIV.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
+        ["Templates\NewTemplates\VN\VN_CIV.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
         Info("Using VN CIV Templates");
         "VN"
     };
@@ -338,7 +338,7 @@ A3A_Civ_template = switch(true) do {
     };
     */
     default {
-        A3A_Civ_factionData = ["Templates\NewTemplates\Vanilla\Vanilla_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
+        ["Templates\NewTemplates\Vanilla\Vanilla_Civ.sqf", civilian] call A3A_fnc_compatabilityLoadFaction;
         Info("Using Vanilla Civ Template");
         "Vanilla"
     };

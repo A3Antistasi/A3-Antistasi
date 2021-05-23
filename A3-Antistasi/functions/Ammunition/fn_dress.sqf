@@ -14,10 +14,10 @@ _loadout = switch _team do {
 
 	case teamPlayer: {
 		if (toLower worldName isEqualTo "enoch") then {
-			[[],[],[],[selectRandom ((faction_civ getVariable "uniforms") + (faction_rebel getVariable "uniforms")), []],[],[],"H_Hat_Tinfoil_F","",[],
+			[[],[],[],[selectRandom ((A3A_faction_civ getVariable "uniforms") + (A3A_faction_reb getVariable "uniforms")), []],[],[],"H_Hat_Tinfoil_F","",[],
 			[(selectRandom unlockedmaps),"","",(selectRandom unlockedCompasses),(selectRandom unlockedwatches),""]];
 		} else {
-			[[],[],[],[selectRandom ((faction_civ getVariable "uniforms") + (faction_rebel getVariable "uniforms")), []],[],[],selectRandom (faction_civ getVariable "headgear"),"",[],
+			[[],[],[],[selectRandom ((A3A_faction_civ getVariable "uniforms") + (A3A_faction_reb getVariable "uniforms")), []],[],[],selectRandom (A3A_faction_civ getVariable "headgear"),"",[],
 			[(selectRandom unlockedmaps),"","",(selectRandom unlockedCompasses),(selectRandom unlockedwatches),""]];
 		};
 	};

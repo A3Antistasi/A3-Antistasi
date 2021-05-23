@@ -12,7 +12,7 @@ Scope: Local
 Environment: Any
 Public: Yes
 Dependencies:
-    <OBJECT> faction_civ
+    <OBJECT> A3A_faction_civ
     <ARRAY> controlsX
     <ARRAY> airportsX
     <ARRAY> outposts
@@ -94,7 +94,7 @@ else
         _result set [0, false];
         _result pushBack "NVG visible";
     };
-    if ((uniform player != "") && !(uniform player in (faction_civ getVariable "uniforms"))) then
+    if ((uniform player != "") && !(uniform player in (A3A_faction_civ getVariable "uniforms"))) then
     {
         _text = format ["%1<br/>Wearing a suspicious uniform", _text];
         _result set [0, false];

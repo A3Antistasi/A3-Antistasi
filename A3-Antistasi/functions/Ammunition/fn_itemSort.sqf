@@ -1,8 +1,8 @@
-if !(A3A_hasVN) then {
+if (A3A_Reb_factionData getVariable ["addDiveGear",true]) then {
 	diveGear append ["U_I_Wetsuit","V_RebreatherIA","G_Diving"];
 };
 
-if !(A3A_hasVN) then {
+if (A3A_Reb_factionData getVariable ["addFlightGear",true]) then {
 	flyGear pushBack "U_I_pilotCoveralls"
 };
 //Lights Vs Laser ID

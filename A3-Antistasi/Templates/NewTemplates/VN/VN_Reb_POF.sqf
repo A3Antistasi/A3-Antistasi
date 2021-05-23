@@ -18,6 +18,10 @@
 ["toolKits", ["vn_b_item_toolkit"]] call _fnc_saveToTemplate;  // Relies on autodetection.
 ["itemMaps", ["vn_b_item_map"]] call _fnc_saveToTemplate;  // Relies on autodetection.
 
+// This should be replaced by static loot lists.
+["addDiveGear",false] call _fnc_saveToTemplate;
+["addFlightGear",false] call _fnc_saveToTemplate;
+
 //////////////////////////
 //       Vehicles       //
 //////////////////////////

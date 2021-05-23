@@ -17,7 +17,10 @@ params ["_file", "_side"];
 
 Info_2("Compatibility loading template: '%1' as side %2", _file, _side);
 
-private _faction = [_file] call A3A_fnc_loadFaction;
+private _factionDefaultFile = ["EnemyDefaults.sqf","EnemyDefaults.sqf","RebelDefaults.sqf","CivilianDefaults.sqf"] #([west, east, independent, civilian] find _side);
+_factionDefaultFile = "Templates\NewTemplates\FactionDefualts\" + _factionDefault + ".sqf";
+
+private _faction = [[_factionDefaultFile,_file]] call A3A_fnc_loadFaction;
 
 private _factionName =
 	["A3A_faction_occ", "A3A_faction_inv", "A3A_faction_reb", "A3A_faction_civ"]

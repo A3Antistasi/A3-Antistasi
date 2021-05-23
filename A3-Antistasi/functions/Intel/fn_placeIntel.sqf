@@ -61,7 +61,7 @@ if (_spawnParameters isEqualType true) exitWith { [1, format ["No spawn paramete
 
 
 private _factionData = [A3A_faction_occ,A3A_faction_inv] select (_side == east);
-(_factionData getVariable ["placeIntel_desk","Land_CampingTable_F"]) params ["_classname_desk","_azimuth"];
+(_factionData getVariable "placeIntel_desk") params ["_classname_desk","_azimuth"];
 private _desk = createVehicle [_classname_desk, [0, 0, 0], [], 0, "CAN_COLLIDE"];
 _desk setDir (getDir _building + (_spawnParameters select 1) + _azimuth);
 if (surfaceIsWater (_spawnParameters select 0)) then {
@@ -75,11 +75,9 @@ _desk setVelocity [0, 0, -1];
 sleep 5;
 _desk enableSimulation false;
 
-(if (_isLarge) then {
-	_factionData getVariable ["placeIntel_itemLarge","Land_Laptop_unfolded_F"];
-} else {
-	_factionData getVariable ["placeIntel_itemMedium","Land_Document_01_F"];
-}) params ["_intelType","_azimuth","_isComputer"];
+(
+	_factionData getVariable (["placeIntel_itemMedium","placeIntel_itemLarge"] select _isLarge)
+) params ["_intelType","_azimuth","_isComputer"];
 
 private _intel = createVehicle [_intelType, [0,0,0], [], 0, "CAN_COLLIDE"];
 [_desk, _intel, [0.5, 0, 0.82], _azimuth] call BIS_fnc_relPosObject;

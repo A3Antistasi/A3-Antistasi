@@ -82,7 +82,7 @@ switch (true) do {
 		private _medItems = [];
 		{
 			for "_i" from 1 to (_x#1) do { _medItems pushBack (_x#0) };
-		} forEach (["MEDIC"] call A3A_fnc_itemset_medicalSupplies);
+		} forEach (["MEDIC",independent] call A3A_fnc_itemset_medicalSupplies);
 		{
 			_medItems deleteAt (_medItems find _x);
 		} forEach items _unit;

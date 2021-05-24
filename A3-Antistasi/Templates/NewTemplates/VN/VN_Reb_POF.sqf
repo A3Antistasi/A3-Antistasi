@@ -12,7 +12,6 @@
 //////////////////////////
 
 // All fo bellow are optional overrides.
-// The following are vanilla item overrides. If defined, the vanilla item is removed. Does not affect load-outs. Don't leave empty, ether define with items, or don't define.
 ["firstAidKits", ["vn_b_item_firstaidkit","vn_o_item_firstaidkit"]] call _fnc_saveToTemplate;  // Relies on autodetection. However, item is tested for for help and reviving.
 ["mediKits", ["vn_b_item_medikit_01"]] call _fnc_saveToTemplate;  // Relies on autodetection. However, item is tested for for help and reviving.
 ["toolKits", ["vn_b_item_toolkit"]] call _fnc_saveToTemplate;  // Relies on autodetection.

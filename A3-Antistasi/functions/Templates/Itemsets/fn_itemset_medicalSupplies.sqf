@@ -5,13 +5,22 @@
  *    Description goes here
  * Params:
  *    _level - Level of supplies to give - 'Minimal', 'Standard' or 'Medic'
+ *    _side - side of unit
  * Returns:
  *    Modified loadout
+ * Dependencies
+ *    <NAMESPACE> _dataStore is defined in compatibilityLoadFaction. Medical equipment is set in XXXDefaults or the template if overridden. "mediKits" and "firstAidKits" are required.
  * Example Usage:
  *    Example usage goes here
  */
 
- params ["_level"];
+ params ["_level",["_side",independent]];
+ private _factionData = objNull;
+ if !(isNil {_dataStore}) then {	// This is used in template loadout setting as well as rebel medic spawning. both are different environments.
+	 _factionData = _dataStore;
+ } else {
+	 _factionData = [A3A_faction_occ, A3A_faction_inv, A3A_faction_reb, A3A_faction_civ] #([west, east, independent, civilian] find _side);
+ };
 
 if (_level == "MEDIC") exitWith {
 	switch (true) do {
@@ -36,8 +45,8 @@ if (_level == "MEDIC") exitWith {
 			]
 		};
 		default {
-			private _mediKits = A3A_faction_reb getVariable "mediKits";
-			private _firstAidKits = A3A_faction_reb getVariable "firstAidKits";
+			private _mediKits = _factionData getVariable "mediKits";
+			private _firstAidKits = _factionData getVariable "firstAidKits";
 			[
 				[_mediKits#0, 1],
 				[_firstAidKits#0,10]
@@ -62,7 +71,7 @@ if (_level == "MEDIC") exitWith {
 			]
 		};
 		default {
-			private _firstAidKits = A3A_faction_reb getVariable "firstAidKits";
+			private _firstAidKits = _factionData getVariable "firstAidKits";
 			[
 				[_firstAidKits#0,3]
 			]
@@ -79,7 +88,7 @@ switch (true) do {
 		]
 	};
 	default {
-		private _firstAidKits = A3A_faction_reb getVariable "firstAidKits";
+		private _firstAidKits = _factionData getVariable "firstAidKits";
 		[
 			[_firstAidKits#0,3]
 		]

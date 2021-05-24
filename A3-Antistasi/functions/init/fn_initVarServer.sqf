@@ -199,7 +199,7 @@ everyEquipmentRelatedArrayName = allEquipmentArrayNames + unlockedEquipmentArray
 } forEach everyEquipmentRelatedArrayName;
 
 //Create a global namespace for custom unit types.
-DECLARE_SERVER_VAR(customUnitTypes, [true] call A3A_fnc_createNamespace);
+DECLARE_SERVER_VAR(A3A_customUnitTypes, [true] call A3A_fnc_createNamespace);
 
 ////////////////////////////////////
 //          MOD CONFIG           ///

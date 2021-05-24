@@ -81,9 +81,6 @@ private _fnc_generateAndSaveUnitsToTemplate = {
 	call compile preprocessFileLineNumbers _x;
 } forEach _filepaths;
 
-call compile preprocessFileLineNumbers "Templates\NewTemplates\FactionDefualts\RebelDefualts.sqf";
-
-
 //Clear up used loadout namespaces.
 {
 	[_x] call A3A_fnc_deleteNamespace;

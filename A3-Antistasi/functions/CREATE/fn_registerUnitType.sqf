@@ -7,4 +7,4 @@ if (!isServer) exitWith {};
 
 Debug_2("Registering unit %1 with %2 loadouts", _unitTypeName, count _unitLoadouts);
 
-customUnitTypes setVariable [_unitTypeName, _unitLoadouts, true];
+A3A_customUnitTypes setVariable [_unitTypeName, _unitLoadouts, true];

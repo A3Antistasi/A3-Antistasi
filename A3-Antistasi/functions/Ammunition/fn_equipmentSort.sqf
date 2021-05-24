@@ -90,8 +90,8 @@ If (A3A_hasTFAR || A3A_hasTFARBeta) then {
 	private _backpacksToDelete = [];
 	{
 		private _encrypt = getText (configFile >> "CfgVehicles" >> _x >> "tf_encryptionCode");
-		if (_encrypt in _encryptRebel) then { allBackpacksRadio pushBack _x; _backpacksToDelete insert [0,_forEachIndex] } else {
-			if (_encrypt in _encryptEnemy) then { _allHostileRadio pushBack _x; _backpacksToDelete insert [0,_forEachIndex] };
+		if (_encrypt in _encryptRebel) then { allBackpacksRadio pushBack _x; _backpacksToDelete insert [0,[_forEachIndex]] } else {
+			if (_encrypt in _encryptEnemy) then { _allHostileRadio pushBack _x; _backpacksToDelete insert [0,[_forEachIndex]] };
 		};
 	} forEach allBackpacksEmpty;
 	{ allBackpacksEmpty deleteAt _x } forEach _backpacksToDelete;  // Removes Radios from allBackpacksEmpty

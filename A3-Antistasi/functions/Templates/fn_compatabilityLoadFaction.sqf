@@ -26,14 +26,42 @@ private _factionPrefix =
 
 missionNamespace setVariable ["faction_" + _factionPrefix, _faction, true];
 
+private _baseUnitClass = switch (_side) do {
+	case west: { "B_G_Soldier_F" };
+	case east: { "O_G_Soldier_F" };
+	case independent: { "I_G_Soldier_F" };
+	case civilian: { "C_Man_1" };
+};
+
+private _unitClassMap = if (_side isNotEqualTo independent) then { createHashMap } else {
+	createHashMapFromArray [				// Cases matter. Lower case here because allVariables on namespace returns lowercase
+		["militia_unarmed", "I_G_Survivor_F"],
+		["militia_rifleman", "I_G_Soldier_F"],
+		["militia_staticcrew", "I_G_Soldier_F"],
+		["militia_medic", "I_G_medic_F"],
+		["militia_sniper", "I_G_Sharpshooter_F"],
+		["militia_marksman", "I_G_Soldier_M_F"],
+		["militia_lat", "I_G_Soldier_LAT_F"],
+		["militia_machinegunner", "I_G_Soldier_AR_F"],
+		["militia_explosivesexpert", "I_G_Soldier_exp_F"],
+		["militia_grenadier", "I_G_Soldier_GL_F"],
+		["militia_squadleader", "I_G_Soldier_SL_F"],
+		["militia_engineer", "I_G_engineer_F"],
+		["militia_at", "I_Soldier_AT_F"],
+		["militia_aa", "I_Soldier_AA_F"],
+		["militia_petros", "I_G_officer_F"]
+	]
+};
+
 //Register loadouts globally.
 private _loadoutsPrefix = format ["loadouts_%1_", _factionPrefix];
-private _allLoadouts = _faction getVariable "loadouts";
+private _allDefinitions = _faction getVariable "loadouts";
 {
 	private _loadoutName = _x;
-	private _loadouts = _allLoadouts getVariable _loadoutName;
-	[_loadoutsPrefix + _loadoutName, _loadouts] call A3A_fnc_registerUnitType;
-} forEach allVariables _allLoadouts;
+	private _definition = _allDefinitions getVariable _loadoutName;
+	private _unitClass = _unitClassMap getOrDefault [_loadoutName, _baseUnitClass];
+	[_loadoutsPrefix + _loadoutName, _definition + [_unitClass]] call A3A_fnc_registerUnitType;
+} forEach allVariables _allDefinitions;
 
 if (_side isEqualTo east) then {
 	nameInvaders = _faction getVariable "name";

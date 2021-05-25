@@ -5,7 +5,7 @@
  *    Description goes here
  * Params:
  *    _level - Level of supplies to give - 'Minimal', 'Standard' or 'Medic'
- *    _side - side of unit
+ *    _side - side of unit. Must not be provide in faction template. Must be provided after faction templates.
  * Returns:
  *    Modified loadout
  * Dependencies
@@ -14,13 +14,12 @@
  *    Example usage goes here
  */
 
- params ["_level",["_side",independent]];
- private _factionData = objNull;
- if !(isNil {_dataStore}) then {	// This is used in template loadout setting as well as rebel medic spawning. both are different environments.
-	 _factionData = _dataStore;
- } else {
-	 _factionData = [A3A_faction_occ, A3A_faction_inv, A3A_faction_reb, A3A_faction_civ] #([west, east, independent, civilian] find _side);
- };
+params ["_level",["_side",sideUnknown]];
+private _factionData = if (_side in [west, east, independent, civilian]) then {	// This is used in template loadout setting as well as rebel medic spawning. both are different environments.
+	[A3A_faction_occ, A3A_faction_inv, A3A_faction_reb, A3A_faction_civ] #([west, east, independent, civilian] find _side);
+} else {
+	_dataStore;
+};
 
 if (_level == "MEDIC") exitWith {
 	switch (true) do {

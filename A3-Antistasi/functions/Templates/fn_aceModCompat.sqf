@@ -72,7 +72,7 @@ if (A3A_hasADV) then {
 	initialRebelEquipment append advItems;
 };
 if !(A3A_hasVN) then {
-lootItem append ["ACE_acc_pointer_green_IR","ACE_Chemlight_Shield","ACE_VMH3","ACE_VMM3"];
+	lootItem append ["ACE_acc_pointer_green_IR","ACE_Chemlight_Shield","ACE_VMH3","ACE_VMM3"];
 };
 lootMagazine deleteAt (lootMagazine find "ACE_PreloadedMissileDummy");
 allLightAttachments deleteAt (allLightAttachments find "ACE_acc_pointer_green");

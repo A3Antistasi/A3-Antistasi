@@ -25,7 +25,6 @@ if (_itemIsVanilla && {A3A_hasRHS}) exitWith {
 				default { true };
 			};
 		};
-
 		case "Weapon": { false };
 		case "Equipment": {
 			switch (_categories select 1) do {

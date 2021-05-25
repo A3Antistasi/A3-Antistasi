@@ -1,5 +1,5 @@
 /*
- * File: fn_compatabilityLoadFaction.sqf
+ * File: fn_compatibilityLoadFaction.sqf
  * Author: Spoffy
  * Description:
  *    Loads a faction definition file, and transforms it into the old global variable system for sides.

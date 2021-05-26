@@ -129,6 +129,7 @@ A3A_Occ_template = switch(true) do {
                 ["Templates\NewTemplates\3CB\3CB_AI_BAF_Arctic.sqf", west] call A3A_fnc_compatibilityLoadFaction;
             };
             case (toLower worldName in temperatemaps): {
+
                 Info("Using temperate BAF Template");
                 ["Templates\NewTemplates\3CB\3CB_AI_BAF_Temperate.sqf", west] call A3A_fnc_compatibilityLoadFaction;
             };

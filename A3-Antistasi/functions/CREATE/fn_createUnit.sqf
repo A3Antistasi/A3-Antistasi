@@ -18,7 +18,7 @@
 
 params ["_group", "_type", "_position", ["_markers", []], ["_placement", 0], ["_special", "NONE"]];
 
-private _unitDefinition = customUnitTypes getVariable [_type, []];
+private _unitDefinition = A3A_customUnitTypes getVariable [_type, []];
 
 if !(_unitDefinition isEqualTo []) exitWith {
 	_unitDefinition params ["_loadouts", "_traits", "_unitClass"];

@@ -1,12 +1,28 @@
-//////////////////////////////
-//   Civilian Information   //
-//////////////////////////////
+//////////////////////////
+//       Loadout        //
+//////////////////////////
 
-["civilianUniforms", []] call _fnc_saveToTemplate;
+["uniforms", [
+    "vn_o_uniform_vc_01_01",
+    "vn_o_uniform_vc_01_02",
+    "vn_o_uniform_vc_02_07",
+    "vn_o_uniform_vc_03_02",
+    "vn_o_uniform_vc_04_02",
+    "vn_o_uniform_vc_05_01",
+    "vn_o_uniform_vc_02_05",
+    "vn_o_uniform_vc_04_03",
+    "vn_o_uniform_vc_03_03"
+]] call _fnc_saveToTemplate;
 
-["civilianHeadgear", []] call _fnc_saveToTemplate;
+["headgear", [""]] call _fnc_saveToTemplate;
 
+// All of bellow are optional overrides.
+["firstAidKits", ["vn_o_item_firstaidkit"]] call _fnc_saveToTemplate;  // Relies on autodetection. However, item is tested for for help and reviving.
+["mediKits", ["vn_o_item_medikit_01"]] call _fnc_saveToTemplate;  // Relies on autodetection. However, item is tested for for help and reviving.
 
+//////////////////////////
+//       Vehicles       //
+//////////////////////////
 
 ["vehiclesCivCar", [
 	"vn_c_wheeled_m151_02", 2

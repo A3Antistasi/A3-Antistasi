@@ -59,119 +59,85 @@ private _spawnParameters = switch (true) do {
 };
 if (_spawnParameters isEqualType true) exitWith { [1, format ["No spawn parameters for building %1", typeOf _building], _fileName] call A3A_fnc_Log };
 
-if (A3A_hasVN) then {
-	private _desk = createVehicle ["Land_vn_us_common_table_01", [0, 0, 0], [], 0, "CAN_COLLIDE"];
-	_desk setDir (getDir _building + (_spawnParameters select 1));
-    if (surfaceIsWater (_spawnParameters select 0)) then {
-        _desk setPosASLW (_spawnParameters select 0);
-    } else {
-	    _desk setPosATL (_spawnParameters select 0);
-    };
-	_desk setVelocity [0, 0, -1];
 
-	//Await until desk have hit the group, it tend to stuck in the air otherwise
-	sleep 5;
-	_desk enableSimulation false;
-
-	private _intelType = if (_isLarge) then {"Land_vn_filephotos_f"} else {"Land_vn_file1_f"};
-	_spawnParameters = -25;
-
-	private _intel = createVehicle [_intelType, [0,0,0], [], 0, "CAN_COLLIDE"];
-	[_desk, _intel, [0.5, 0, 0.82], _spawnParameters] call BIS_fnc_relPosObject;
-	_intel enableSimulation false;
-	_intel allowDamage false;
-	_intel setVariable ["side", _side, true];
-    _intel setVariable ["marker", _marker, true];
-
-    private _intelSize = if (_isLarge) then {"Intel_Encrypted"} else {"Intel_Medium"};
-    [_intel, _intelSize] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_intel];
-
-	[_marker, _desk, _intel] spawn
-	{
-	    waitUntil{sleep 10; (spawner getVariable (_this select 0) == 2)};
-	    deleteVehicle (_this select 1);
-	};
+private _factionData = [A3A_faction_occ,A3A_faction_inv] select (_side == east);
+(_factionData getVariable "placeIntel_desk") params ["_classname_desk","_azimuth"];
+private _desk = createVehicle [_classname_desk, [0, 0, 0], [], 0, "CAN_COLLIDE"];
+_desk setDir (getDir _building + (_spawnParameters select 1) + _azimuth);
+if (surfaceIsWater (_spawnParameters select 0)) then {
+	_desk setPosASLW (_spawnParameters select 0);
 } else {
-	private _desk = createVehicle ["Land_CampingTable_F", [0, 0, 0], [], 0, "CAN_COLLIDE"];
-	_desk setDir (getDir _building + (_spawnParameters select 1));
 	_desk setPosATL (_spawnParameters select 0);
-	_desk setVelocity [0, 0, -1];
+};
+_desk setVelocity [0, 0, -1];
 
-	//Await until desk have hit the group, it tend to stuck in the air otherwise
-	sleep 5;
-	_desk enableSimulation false;
+//Await until desk have hit the group, it tend to stuck in the air otherwise  // Let the desk to settle on the floor, otherwise it's likely that it will be floating.
+sleep 5;
+_desk enableSimulation false;
 
-	private _intelType = "";
-	if(_isLarge) then
+(
+	_factionData getVariable (["placeIntel_itemMedium","placeIntel_itemLarge"] select _isLarge)
+) params ["_intelType","_azimuth","_isComputer"];
+
+private _intel = createVehicle [_intelType, [0,0,0], [], 0, "CAN_COLLIDE"];
+[_desk, _intel, [0.5, 0, 0.82], _azimuth] call BIS_fnc_relPosObject;
+_intel enableSimulation false;
+_intel allowDamage false;
+_intel setVariable ["side", _side, true];
+_intel setVariable ["marker", _marker, true];
+
+private _intelSize = switch (true) do {
+	case (!_isLarge): { "Intel_Medium" };
+	case (!_isComputer): { "Intel_Encrypted" };
+	default { "Intel_Large" };	// isLarge and isComputer
+};
+[_intel, _intelSize] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_intel];
+
+if (_isLarge && _isComputer) then {
+	//Place light on laptop
+	private _light = "#lightpoint" createVehicle (getPos _intel);
+	_light setLightBrightness 1.0;
+	_light setLightAmbient [0.005, 0.05, 0.07];
+	_light setLightColor [0.05, 0.05, 0.07];
+	_light setLightAttenuation [1,90,90,85,0,1];
+	_light lightAttachObject [_intel, [0,0,0]];
+
+	private _isTrap = (random 100 < (20 + (4 * tierWar)));
+	if(_isTrap) then
 	{
-	    _intelType = "Land_Laptop_unfolded_F";
-	    _spawnParameters = -25;
-	}
-	else
-	{
-	    _intelType = "Land_Document_01_F";
-	    _spawnParameters = -155;
+		Debug_1("Large intel on %1 is selected as trap, spawning explosives", _marker);
+		private _bomb = "DemoCharge_F" createVehicle [0,0,0];
+		_bomb setVectorDirAndUp [(vectorDir _intel), [0,0,-1]];
+		_bomb setPosWorld ((getPosWorld _intel) vectorAdd [0,0,-0.2]);
+		_intel setVariable ["trapBomb", _bomb, true];
+		[
+			_bomb,
+			"Disarm bomb",
+			"\Orange\Addons\ui_f_orange\Data\CfgVehicleIcons\iconExplosiveUXO_ca.paa",
+			"\Orange\Addons\ui_f_orange\Data\CfgVehicleIcons\iconExplosiveUXO_ca.paa",
+			"(_this distance _target < 3) and (_this getUnitTrait 'engineer')",
+			"_caller distance _target < 3",
+			{},
+			{},
+			{ deleteVehicle _target },
+			{},
+			[],
+			12,
+			0,
+			true,
+			false
+		] remoteExec ["BIS_fnc_holdActionAdd", 0, _bomb];
 	};
+};
 
-	private _intel = createVehicle [_intelType, [0,0,0], [], 0, "CAN_COLLIDE"];
-	[_desk, _intel, [0.5, 0, 0.82], _spawnParameters] call BIS_fnc_relPosObject;
-	_intel enableSimulation false;
-	_intel allowDamage false;
-	_intel setVariable ["side", _side, true];
-
-	if(_isLarge) then
+[_marker, _desk, _intel] spawn
+{
+	waitUntil{sleep 10; (spawner getVariable (_this select 0) == 2)};
+	deleteVehicle (_this select 1);
+	if(!isNil {_this select 2}) then
 	{
-	    //Place light on laptop
-	    private _light = "#lightpoint" createVehicle (getPos _intel);
-	    _light setLightBrightness 1.0;
-	    _light setLightAmbient [0.005, 0.05, 0.07];
-	    _light setLightColor [0.05, 0.05, 0.07];
-	    _light setLightAttenuation [1,90,90,85,0,1];
-	    _light lightAttachObject [_intel, [0,0,0]];
-
-	    private _isTrap = (random 100 < (20 + (4 * tierWar)));
-	    if(_isTrap) then
-	    {
-	        Debug_1("Large intel on %1 is selected as trap, spawning explosives", _marker);
-	        private _bomb = "DemoCharge_F" createVehicle [0,0,0];
-	        _bomb setVectorDirAndUp [(vectorDir _intel), [0,0,-1]];
-	        _bomb setPosWorld ((getPosWorld _intel) vectorAdd [0,0,-0.2]);
-	        _intel setVariable ["trapBomb", _bomb, true];
-			[
-			    _bomb,
-			    "Disarm bomb",
-			    "\Orange\Addons\ui_f_orange\Data\CfgVehicleIcons\iconExplosiveUXO_ca.paa",
-				"\Orange\Addons\ui_f_orange\Data\CfgVehicleIcons\iconExplosiveUXO_ca.paa",
-			    "(_this distance _target < 3) and (_this getUnitTrait 'engineer')",
-			    "_caller distance _target < 3",
-			    {},
-			    {},
-			    { deleteVehicle _target },
-			    {},
-			    [],
-			    12,
-			    0,
-			    true,
-			    false
-			] remoteExec ["BIS_fnc_holdActionAdd", 0, _bomb];
-	    };
-	    _intel setVariable ["marker", _marker, true];
-	    [_intel, "Intel_Large"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian], _intel];
-	}
-	else
-	{
-	    [_intel, "Intel_Medium"] remoteExec ["A3A_fnc_flagaction",[teamPlayer,civilian],_intel];
-	};
-
-	[_marker, _desk, _intel] spawn
-	{
-	    waitUntil{sleep 10; (spawner getVariable (_this select 0) == 2)};
-	    deleteVehicle (_this select 1);
-	    if(!isNil {_this select 2}) then
-	    {
-	        _bomb = (_this select 2) getVariable ["trapBomb", objNull];
-	        deleteVehicle _bomb;
-	        deleteVehicle (_this select 2)
-	    };
+		_bomb = (_this select 2) getVariable ["trapBomb", objNull];
+		deleteVehicle _bomb;
+		deleteVehicle (_this select 2)
 	};
 };

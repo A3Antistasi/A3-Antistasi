@@ -35,12 +35,8 @@ if !(_cured getVariable ["incapacitated",false]) exitWith
     false
 };
 
-private _medkits = ["Medikit"];
-private _firstAidKits = ["FirstAidKit"];
-if (A3A_hasVN) then {
-    _medkits append ["vn_b_item_medikit_01"];
-    _firstAidKits append ["vn_o_item_firstaidkit", "vn_b_item_firstaidkit"];
-};
+private _medkits = ["Medikit"] + (A3A_faction_reb getVariable "mediKits");    // Medikit is kept in case a unit still got hold of it.
+private _firstAidKits = ["FirstAidKit"] + (A3A_faction_reb getVariable "firstAidKits");    // FirstAidKit is kept in case a unit still got hold of it.
 private _hasMedkit = (count (_medkits arrayIntersect items _medic) > 0);
 private _medicFAKs = if (!_hasMedkit) then { _firstAidKits arrayIntersect items _medic };
 private _curedFAKs = if (!_hasMedkit) then { _firstAidKits arrayIntersect items _cured };

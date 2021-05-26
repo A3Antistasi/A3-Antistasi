@@ -1,5 +1,6 @@
 /*
- * File: fn_compatibilityLoadFaction.sqf
+
+ * File: fn_compatabilityLoadFaction.sqf
  * Author: Spoffy
  * Description:
  *    Loads a faction definition file, and transforms it into the old global variable system for sides.
@@ -17,14 +18,12 @@ params ["_file", "_side"];
 
 Info_2("Compatibility loading template: '%1' as side %2", _file, _side);
 
-private _faction = [_file] call A3A_fnc_loadFaction;
+private _factionDefaultFile = ["EnemyDefaults","EnemyDefaults","RebelDefaults","CivilianDefaults"] #([west, east, independent, civilian] find _side);
+_factionDefaultFile = "Templates\NewTemplates\FactionDefaults\" + _factionDefaultFile + ".sqf";
 
-private _factionPrefix =
-	["occ", "inv", "rebel", "civ"]
-	select
-	([west, east, independent, civilian] find _side);
-
-missionNamespace setVariable ["faction_" + _factionPrefix, _faction, true];
+private _faction = [[_factionDefaultFile,_file]] call A3A_fnc_loadFaction;
+private _factionPrefix = ["occ", "inv", "reb", "civ"] #([west, east, independent, civilian] find _side);
+missionNamespace setVariable ["A3A_faction_" + _factionPrefix, _faction, true];  // ["A3A_faction_occ", "A3A_faction_inv", "A3A_faction_reb", "A3A_faction_civ"]
 
 private _baseUnitClass = switch (_side) do {
 	case west: { "B_G_Soldier_F" };
@@ -449,19 +448,20 @@ if (_side isEqualTo independent) then {
 	SDKFlag = _faction getVariable "flag";
 	SDKFlagTexture = _faction getVariable "flagTexture";
 	SDKFlagMarkerType = _faction getVariable "flagMarkerType";
-	typePetros = "loadouts_rebel_militia_Petros";
 
-	staticCrewTeamPlayer = "loadouts_rebel_militia_staticCrew";
-	SDKUnarmed = "loadouts_rebel_militia_Unarmed";
-	SDKSniper = ["loadouts_rebel_militia_sniper", "loadouts_rebel_militia_sniper"];
-	SDKATman = ["loadouts_rebel_militia_lat", "loadouts_rebel_militia_lat"];
-	SDKMedic = ["loadouts_rebel_militia_medic", "loadouts_rebel_militia_medic"];
-	SDKMG = ["loadouts_rebel_militia_MachineGunner", "loadouts_rebel_militia_MachineGunner"];
-	SDKExp = ["loadouts_rebel_militia_ExplosivesExpert", "loadouts_rebel_militia_ExplosivesExpert"];
-	SDKGL = ["loadouts_rebel_militia_Grenadier", "loadouts_rebel_militia_Grenadier"];
-	SDKMil = ["loadouts_rebel_militia_Rifleman", "loadouts_rebel_militia_Rifleman"];
-	SDKSL = ["loadouts_rebel_militia_SquadLeader", "loadouts_rebel_militia_SquadLeader"];
-	SDKEng = ["loadouts_rebel_militia_Engineer", "loadouts_rebel_militia_Engineer"];
+	typePetros = "loadouts_reb_militia_Petros";
+
+	staticCrewTeamPlayer = "loadouts_reb_militia_staticCrew";
+	SDKUnarmed = "loadouts_reb_militia_Unarmed";
+	SDKSniper = ["loadouts_reb_militia_sniper", "loadouts_reb_militia_sniper"];
+	SDKATman = ["loadouts_reb_militia_lat", "loadouts_reb_militia_lat"];
+	SDKMedic = ["loadouts_reb_militia_medic", "loadouts_reb_militia_medic"];
+	SDKMG = ["loadouts_reb_militia_MachineGunner", "loadouts_reb_militia_MachineGunner"];
+	SDKExp = ["loadouts_reb_militia_ExplosivesExpert", "loadouts_reb_militia_ExplosivesExpert"];
+	SDKGL = ["loadouts_reb_militia_Grenadier", "loadouts_reb_militia_Grenadier"];
+	SDKMil = ["loadouts_reb_militia_Rifleman", "loadouts_reb_militia_Rifleman"];
+	SDKSL = ["loadouts_reb_militia_SquadLeader", "loadouts_reb_militia_SquadLeader"];
+	SDKEng = ["loadouts_reb_militia_Engineer", "loadouts_reb_militia_Engineer"];
 
 	groupsSDKmid = [SDKSL,SDKGL,SDKMG,SDKMil];
 	groupsSDKAT = [SDKSL,SDKMG,SDKATman,SDKATman,SDKATman];
@@ -524,3 +524,5 @@ if (_side isEqualTo civilian) then {
 	civBoatData = _faction getVariable "vehiclesCivBoat";
 	civVehIndustrialData = _faction getVariable "vehiclesCivIndustrial";
 };
+
+_faction;

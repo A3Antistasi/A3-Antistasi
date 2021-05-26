@@ -48,8 +48,17 @@
 ///////////////////////////
 //  Rebel Starting Gear  //
 ///////////////////////////
-allRebelUniforms append ["U_IG_Guerilla1_1","U_IG_Guerilla2_1","U_IG_Guerilla2_2","U_IG_Guerilla2_3","U_IG_Guerilla3_1",
-"U_IG_leader","U_IG_Guerrilla_6_1"];
+["uniforms", [
+    "U_IG_Guerilla1_1"
+    ,"U_IG_Guerilla2_1"
+    ,"U_IG_Guerilla2_2"
+    ,"U_IG_Guerilla2_3"
+    ,"U_IG_Guerilla3_1"
+    ,"U_IG_leader"
+    ,"U_IG_Guerrilla_6_1"
+]] call _fnc_saveToTemplate;
+
+["headgear", [""]] call _fnc_saveToTemplate;
 
 private _initialRebelEquipment = [
 "hgun_Pistol_heavy_02_F","hgun_P07_F",

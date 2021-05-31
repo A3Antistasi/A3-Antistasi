@@ -106,7 +106,6 @@ else
 	{
 		if (_veh isKindOf "StaticWeapon") then
 		{
-			[_veh] call A3A_fnc_logistics_addLoadAction;
 			_veh setCenterOfMass [(getCenterOfMass _veh) vectorAdd [0, 0, -1], 0];
 
 			if !(_typeX isKindOf "StaticMortar") then {
@@ -255,8 +254,8 @@ _veh addEventHandler ["Dammaged", {
 	};
 }];
 
-//add JNL loading to quadbikes
-if(!A3A_hasIFA && typeOf _veh in [vehSDKBike,vehNATOBike,vehCSATBike]) then {[_veh] call A3A_fnc_logistics_addLoadAction;};
+//add logistics loading to loadable objects
+if([typeOf _veh] call A3A_fnc_logistics_isLoadable) then {[_veh] call A3A_fnc_logistics_addLoadAction;};
 
 // deletes vehicle if it exploded on spawn...
 [_veh] spawn A3A_fnc_cleanserVeh;

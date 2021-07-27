@@ -649,6 +649,11 @@ class A3A
         class saveLoop {};
     };
 
+    class String {
+        class pad_2Digits {};
+        class pad_3Digits {};
+    };
+
     class Templates
     {
         class aceModCompat {};
@@ -657,6 +662,13 @@ class A3A
 		class loadFaction {};
         class ifaModCompat {};
         class rhsModCompat {};
+    };
+
+    class Time {
+        class dateToTimeString {};
+        class secondsToTimeSpan {};
+        class systemTime_format_S {};
+        class timeSpan_format {};
     };
 
     class UI
@@ -682,13 +694,11 @@ class A3A
         class countAttachedObjects {};
         class createDataObject {};
         class createNamespace {};
-        class dateToTimeString {};
         class deleteNamespace {};
         class getAdmin {};
         class localLog {};
         class log {};
         class setPos {};
-        class systemTime_format_S {};
         class vehicleTextureSync {};
         class vehicleWillCollideAtPosition {};
         class getRoadDirection {};

@@ -4,17 +4,17 @@
     Date: 2020-11-27
     Last Update: 2020-11-27
     Public: No
-    
+
     Description:
         No description added yet.
-    
+
     Parameter(s):
         _template - Template to build [CODE]
 		_data - Loadout data to insert [NAMESPACE]
-    
+
     Returns:
         Function reached the end [BOOL]
-    
+
     Example(s):
         [parameter] call vn_fnc_myFunction
 */
@@ -35,7 +35,7 @@ private _fnc_magClassToEntry = {
 // - A classname - Loads a full magazine into the weapon, uses only that magazine as an available mag.
 // - A normal loadout entry - [classname, bullet count] - remains unchanged.
 // - An array of classnames - Loads the first magazine into the weapon, and uses the whole array as a pool of available mags.
-// - An array of arrays in format [[numberOfMags, magClass]] 
+// - An array of arrays in format [[numberOfMags, magClass]]
 //    - Loads the first magazine into the weapon, and uses the whole array as a pool of available mags.
 //    - When giving magazines to the loadout, gives numberOfMags instead of only a single mag.
 private _fnc_parseWeaponFormat = {
@@ -74,7 +74,16 @@ private _fnc_parseWeaponFormat = {
 
 		// Only for primary slot
 		if (_muzzle == "pri") then {
-			private _defaultMagData = [_class] call A3A_fnc_loadout_defaultWeaponMag; 
+			private _defaultMagData = [_class] call A3A_fnc_loadout_defaultWeaponMag;
+
+            //if it dosnt have any valid mags return nothing
+            if (_defaultMagData isEqualTo []) then {
+                continueWith [
+                    [],
+                    []
+                ];
+            };
+
 			continueWith [
 				_defaultMagData,
 				[_defaultMagData select 0]

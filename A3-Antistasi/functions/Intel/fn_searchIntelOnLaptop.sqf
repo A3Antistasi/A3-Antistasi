@@ -32,7 +32,7 @@ if(_isTrap) exitWith
 };
 
 private _marker = _intel getVariable "marker";
-private _side = sidesX getVariable _marker;
+private _side = _intel getVariable "side";
 private _isAirport = (_marker in airportsX);
 
 //Hack laptop to get intel

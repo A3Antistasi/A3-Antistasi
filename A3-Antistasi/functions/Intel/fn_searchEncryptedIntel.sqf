@@ -31,7 +31,7 @@ if (isNull _intel || _id isEqualTo -1) exitWith {Error_2("Invalid arguments | In
 } forEach ([200, 0, _intel, teamPlayer] call A3A_fnc_distanceUnits);
 
 private _marker = _intel getVariable "marker";
-private _side = sidesX getVariable _marker;
+private _side = _intel getVariable "side";
 private _isAirport = (_marker in airportsX);
 
 private _pointSum = 0;

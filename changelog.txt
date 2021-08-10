@@ -4,14 +4,16 @@ Changes from version 2.4.1 to 2.5.0 Antistasi Community Edition
 
 ================ Major ================
   - singleplayer is disabled for all the missions - please switch to local hosted multiplayer to continue your savegame
-  - implemented new Garage (under APL-ND license, not MIT) - explanation
+  - implemented new Garage (under APL-ND license, not MIT) - The new garage is a shared garage that replaces both the personal and faction garage.
+     It features full 3D inspection, vehicle state preservation, visual vehicle customisation, vehicle locking, vehicle services, and logistics integration.
+     Some CBA settings have also been added to let players and admins tweak the garage to their preference.
   - implemented Street Artist Navigation Grid Editor (tool for map porting) and changed all systems to work with new navGrids (under APL-ND license, not MIT)
   - fully implemented the SOG Prairie Fire (VN) release into the main repo
   - added new faction templates for 3CB mods
     -> MDF, New Default Occupants on Malden
     -> HIDF, New Default Occupants on Tanoa
     -> AAF, New Default Occupants on Altis
-    -> ANA, New Default Occupants on Kunduz (Since its Afganistan)
+    -> ANA, New Default Occupants on Kunduz (Since its Afghanistan)
     -> ADA, currently unused
   - adapted main license - please read when planning to rework and publish this mission
     

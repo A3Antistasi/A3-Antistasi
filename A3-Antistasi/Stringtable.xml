@@ -1879,6 +1879,14 @@
         <Korean>END키로 이어플러그 탈부착이 가능합니다. ACE모드에선 불가능.</Korean>
         <Russian>Нажмите END, чтобы включить/отключить беруши. Отключено при использовании ACE.</Russian>
       </Key>
+      <Key ID="STR_antistasi_journal_entry_header_SpecialK_6">
+        <Original>Toggle Info Bar Visibility</Original>
+        <Russian>Переключить видимость информ. строки</Russian>
+      </Key>
+      <Key ID="STR_antistasi_journal_entry_text_SpecialK_6">
+        <Original>Press ALT+HOME to show / hide information bar at the top of the screen.</Original>
+        <Russian>Нажмите ALT+HOME, чтобы отобразить/скрыть информационную строку в верхней части экрана.</Russian>
+      </Key>
       <Key ID="STR_antistasi_journal_entry_header_Features_1">
         <Original>Faction Leader</Original>
         <French>Chef de faction</French>
@@ -3435,6 +3443,18 @@
         <Original>It will increase your prestige among your faction</Original>
         <Chinesesimp>这将会提升你在我方阵营中的威望</Chinesesimp>
         <Russian>Это повысит ваш престиж среди вашей фракции</Russian>
+      </Key>
+      <Key ID="STR_antistasi_dialogs_toggle_info_bar_title">
+        <Original>Information Bar</Original>
+        <Russian>Информационная строка</Russian>
+      </Key>
+      <Key ID="STR_antistasi_dialogs_toggle_info_bar_body_off">
+        <Original>You've turned off top information bar. To enable it, press ALT+HOME.</Original>
+        <Russian>Вы выключили отображение информационной строки. Чтобы включить её снова, нажмите ALT+HOME.</Russian>
+      </Key>
+      <Key ID="STR_antistasi_dialogs_toggle_info_bar_body_on">
+        <Original>You've turned on top information bar. To disable it, press ALT+HOME.</Original>
+        <Russian>Вы включили отображение информационной строки. Чтобы выключить её, нажмите ALT+HOME.</Russian>
       </Key>
     </Container>
     <Container name="garage_sell">

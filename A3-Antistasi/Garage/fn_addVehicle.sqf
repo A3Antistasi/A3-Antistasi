@@ -127,7 +127,7 @@ private _vehUID = [] call HR_GRG_fnc_genVehUID;
 if (_sourceIndex != -1) then {
     (HR_GRG_Sources#_sourceIndex) pushBack _vehUID;
     [_sourceIndex] call HR_GRG_fnc_declairSources;
-    }; //register vehicle as a source
+}; //register vehicle as a source
 Info_6("By: %1 [%2] | Type: %3 | Vehicle ID: %4 | Lock: %5 | Source: %6", name _player, getPlayerUID _player, cfgDispName(_class), _vehUID, _locking, _sourceIndex);
 
 //refresh category for active users

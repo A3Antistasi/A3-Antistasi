@@ -1,4 +1,4 @@
-Version 2.5.1 - 29th June 2021
+Version 2.5.1 - xxth August 2021
 
 Changes from version 2.5.0 to 2.5.1 Antistasi Community Edition
 
@@ -11,7 +11,7 @@ Changes from version 2.5.0 to 2.5.1 Antistasi Community Edition
   - added buyable lightsource on the vehicle box for 25€
 
 ================ Groundwork ================
-  -  none
+  - none
 
 ================ Refactor ================
   - none
@@ -20,10 +20,6 @@ Changes from version 2.5.0 to 2.5.1 Antistasi Community Edition
   - fix addVehicleClass lacking source detection
   - updated feedback for vehicleBoxHeal
   - fixed missing remoteExec target causing RPT span in task delete
-  - 
-  - 
-  - 
-  - 
 
 ================ DISCLAIMER ================
   - Please note that this changelog may contain both spelling/grammatical errors and/or factual errors. Should any factual errors exist, we apologise but with the sheer number of changes made per version it can be easy to lose or mistake a change when writing up the changelog.

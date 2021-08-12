@@ -1,4 +1,4 @@
-Version 2.5.1 - xxth August 2021
+Version 2.5.1 - 12th August 2021
 
 Changes from version 2.5.0 to 2.5.1 Antistasi Community Edition
 
@@ -9,6 +9,7 @@ Changes from version 2.5.0 to 2.5.1 Antistasi Community Edition
   - blocked rebel auto capture - player needs to take the flag manually
   - ability to toggle on/off the the top bar by using ALT + Home plus disabling the top bar in the garage
   - added buyable lightsource on the vehicle box for 25€
+  - updated feedback for vehicleBoxHeal
 
 ================ Groundwork ================
   - none
@@ -17,10 +18,12 @@ Changes from version 2.5.0 to 2.5.1 Antistasi Community Edition
   - none
 
 ================ Bugfixes ================
-  - fix addVehicleClass lacking source detection
-  - updated feedback for vehicleBoxHeal
+  - fixed addVehicleClass lacking source detection
   - fixed missing remoteExec target causing RPT span in task delete
   - fixed missing time param in punishment
+  - fixed 2.4.x garrisons not being compatible with 2.5.x
+  - fixed loophole where fog can be broken
+  - fixed attackHQ transport planes
 
 ================ DISCLAIMER ================
   - Please note that this changelog may contain both spelling/grammatical errors and/or factual errors. Should any factual errors exist, we apologise but with the sheer number of changes made per version it can be easy to lose or mistake a change when writing up the changelog.

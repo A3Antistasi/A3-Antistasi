@@ -77,7 +77,9 @@ if (_varName in _specialVarLoads) then {
 	if (_varName == 'hr') then {server setVariable ["HR",_varValue,true]};
 	if (_varName == 'dateX') then {setDate _varValue};
 	if (_varName == 'weather') then {
-		0 setFog (_varValue select 0);
+		// Avoid persisting potentially-broken fog values
+		private _fogParams = _varValue select 0;
+		0 setFog [_fogParams#0, (_fogParams#1) max 0, (_fogParams#2) max 0];
 		0 setRain (_varValue select 1);
 		forceWeatherChange
 	};

@@ -17,7 +17,7 @@ private _side = _veh getVariable ["ownerSide", teamPlayer];			// default because
 if (_captured && (_side == _sideEnemy)) exitWith {};
 
 private _act = if (_captured) then {"captured"} else {"destroyed"};
-Debug_4("%1 of %2 %3 by %4", _type, _side, _act, _sideEnemy);
+ServerDebug_4("%1 of %2 %3 by %4", _type, _side, _act, _sideEnemy);
 
 if (_side == Occupants or _side == Invaders) then
 {
@@ -25,13 +25,12 @@ if (_side == Occupants or _side == Invaders) then
 	if (_sideEnemy != teamPlayer) exitWith {};
 
 	private _value = call {
-		if (_type in vehAPCs) exitWith {8};
-		if (_type in vehTanks) exitWith {15};
-		if (_type in vehAA or _type in vehMRLS) exitWith {15};
-		if (_type in vehAttackHelis) exitWith {15};
-		if (_type in vehTransportAir) exitWith {6};
-		if (_type in vehFixedWing) exitWith {15};		// transportAir must be before this
-		if (_type in vehBoats) exitWith {3};
+		if (_type in vehAPCs) exitWith {5};
+		if (_type in vehTanks) exitWith {10};
+		if (_type in vehAA or _type in vehMRLS) exitWith {10};
+		if (_type in vehAttackHelis) exitWith {10};
+		if (_type in vehTransportAir) exitWith {4};
+		if (_type in vehFixedWing) exitWith {10};		// transportAir must be before this
 		if (_type isKindOf "StaticWeapon") exitWith {1};
 		2;		// trucks, light attack, boats, UAV etc
 	};

@@ -182,6 +182,18 @@ addMissionEventHandler ["BuildingChanged", {
 	};
 }];
 
+addMissionEventHandler ["EntityKilled", {
+	params ["_victim", "_killer", "_instigator"];
+	private _killerSide = side group (if (isNull _instigator) then {_killer} else {_instigator});
+	Debug_2("%1 killed by %2", typeof _victim, _killerSide);
+
+	if !(isNil {_victim getVariable "ownerSide"}) then {
+		// Antistasi-created vehicle
+		[_victim, _killerSide, false] call A3A_fnc_vehKilledOrCaptured;
+		[_victim] spawn A3A_fnc_postmortem;
+	};
+}];
+
 serverInitDone = true; publicVariable "serverInitDone";
 Info("Setting serverInitDone as true");
 

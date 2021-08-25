@@ -25,6 +25,10 @@ params ["_cargo", "_vehicle", "_node", "_weapon", ["_instant", false, [true]]];
 if (_vehicle getVariable ["LoadingCargo", false]) exitWith {["Logistics", "Cargo is already being loaded into the vehicle"] remoteExec ["A3A_fnc_customHint", remoteExecutedOwner]; nil};
 _vehicle setVariable ["LoadingCargo",true,true];
 
+//object string for jip
+private _objStringCargo = str _cargo splitString ":" joinString "";
+private _objStringVehicle = str _vehicle splitString ":" joinString "";
+
 //update list of nodes on vehicle
 _updateList = {
     params ["_vehicle", "_node"];
@@ -77,8 +81,8 @@ private _yEnd = _location#1;
 _cargo setVariable ["AttachmentOffset", _location];
 
 //block seats
-[_cargo, true] remoteExec ["A3A_fnc_logistics_toggleLock", 0, _cargo];
-[_vehicle, true, _seats] remoteExecCall ["A3A_fnc_logistics_toggleLock", 0, _vehicle];
+[_cargo, true] remoteExec ["A3A_fnc_logistics_toggleLock", 0, "A3A_Logistics_toggleLock" + _objStringCargo];
+[_vehicle, true, _seats] remoteExecCall ["A3A_fnc_logistics_toggleLock", 0, "A3A_Logistics_toggleLock" + _objStringVehicle];
 _cargo engineOn false;
 
 //break undercover
@@ -115,10 +119,13 @@ _vehicle setVariable ["Cargo", _loadedCargo, true];
 //misc
 [_cargo] call A3A_fnc_logistics_toggleAceActions;
 [_vehicle, _cargo, nil, _instant] call A3A_fnc_logistics_addOrRemoveObjectMass;
+
 if (_weapon) then {
-    [_cargo, _vehicle] remoteExec ["A3A_fnc_logistics_addWeaponAction", 0, _cargo];
+    [_cargo, _vehicle, _jipKey] remoteExec ["A3A_fnc_logistics_addWeaponAction", 0, "A3A_Logistics_weaponAction_" + _objStringCargo];
 };
 
 _vehicle setVariable ["LoadingCargo",nil,true];
-[_vehicle, "unload"] remoteExec ["A3A_fnc_logistics_addAction", 0 ,_vehicle];
+
+[_vehicle, "unload", _jipKey] remoteExec ["A3A_fnc_logistics_addAction", 0 , "A3A_Logistics_unload_" + _objStringVehicle];
+
 nil

@@ -6,6 +6,7 @@
     Arguments:
     0. <Object> Object to add action to
     1. <String> Which action to add ("load"/"unload")
+    2. <String> Custom JIP key to prevent overwriting (usually build with object string of cargo)
 
     Return Value:
     <nil>
@@ -17,8 +18,11 @@
 
     Example: [_object , _action] remoteExec ["A3A_fnc_logistics_addAction", 0, _object];
 */
-params [["_object", objNull, [objNull]], "_action"];
-if (isNull _object) exitWith {};
+params [["_object", objNull, [objNull]], "_action", ["_jipKey", "", [""]]];
+if (isNull _object) exitWith {
+    remoteExec ["", _jipKey]; //clear custom JIP
+};
+
 private _actionNames = (actionIDs _object) apply {(_object actionParams _x)#0};
 private _loadText = format ["Load %1 into nearest vehicle", getText (configFile >> "CfgVehicles" >> typeOf _object >> "displayName")];
 

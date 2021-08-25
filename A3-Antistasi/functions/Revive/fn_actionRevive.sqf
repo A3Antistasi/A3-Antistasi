@@ -93,7 +93,7 @@ waitUntil {
     or !(alive _cured)
 };
 
-if (isNull _medic) exitWith {};
+if (isNull _medic) exitWith { false };
 
 _medic removeEventHandler ["AnimDone", _animHandler];
 _medic setVariable ["helping",false];

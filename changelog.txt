@@ -1,4 +1,4 @@
-Version 2.5.2 - 26th August 2021
+Version 2.5.2 - 27th August 2021
 
 Changes from version 2.5.1 to 2.5.2 Antistasi Community Edition
 

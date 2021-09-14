@@ -226,7 +226,7 @@ _dataX = [];
 _dataX = [];
 {
 	_dataX pushBack [_x,timer getVariable _x];
-} forEach (vehAttack + vehNATOAttackHelis + vehPlanes + vehCSATAttackHelis);
+} forEach (vehAttack + vehMRLS + vehAA + vehHelis + vehFixedWing + [vehNATOBoat, vehCSATBoat, staticATOccupants, staticAAOccupants, staticATInvaders, staticAAInvaders]);
 
 ["idleassets",_dataX] call A3A_fnc_setStatVariable;
 

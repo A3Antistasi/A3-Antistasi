@@ -177,7 +177,7 @@ _wurzelGarrison = [];
 ["usesWurzelGarrison", true] call A3A_fnc_setStatVariable;
 
 _arrayMines = [];
-private _mineChance = 500 / count allMines;
+private _mineChance = 500 / (500 max count allMines);
 {
 	// randomly discard mines down to ~500 to avoid ballooning saves
 	if (random 1 > _mineChance) then { continue };

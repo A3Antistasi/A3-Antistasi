@@ -1,18 +1,18 @@
 params ["_typeGroup", ["_withBackpck", ""]];
 
-if (player != theBoss) exitWith {["Recruit Squad", "Only the Commander has access to this function"] call A3A_fnc_customHint;};
-if (markerAlpha respawnTeamPlayer == 0) exitWith {["Recruit Squad", "You cannot recruit a new squad while you are moving your HQ"] call A3A_fnc_customHint;};
-if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(A3A_hasIFA) then {["Recruit Squad", "You need a radio in your inventory to be able to give orders to other squads"] call A3A_fnc_customHint;} else {["Recruit Squad", "You need a Radio Man in your group to be able to give orders to other squads"] call A3A_fnc_customHint;}};
+if (player != theBoss) exitWith {["Recruit Squad", "Only the Commander has access to this function."] call A3A_fnc_customHint;};
+if (markerAlpha respawnTeamPlayer == 0) exitWith {["Recruit Squad", "You cannot recruit a new squad while you are moving your HQ."] call A3A_fnc_customHint;};
+if (!([player] call A3A_fnc_hasRadio)) exitWith {if !(A3A_hasIFA) then {["Recruit Squad", "You need a radio in your inventory to be able to give orders to other squads."] call A3A_fnc_customHint;} else {["Recruit Squad", "You need a Radio Man in your group to be able to give orders to other squads"] call A3A_fnc_customHint;}};
 
 private _exit = false;
 {
 	if (((side _x == Invaders) or (side _x == Occupants)) and (_x distance petros < 500) and ([_x] call A3A_fnc_canFight) and !(isPlayer _x)) exitWith {_exit = true};
 } forEach allUnits;
-if (_exit) exitWith {["Recruit Squad", "You cannot recruit squads with enemies near your HQ"] call A3A_fnc_customHint;};
+if (_exit) exitWith {["Recruit Squad", "You cannot recruit squads with enemies near your HQ."] call A3A_fnc_customHint;};
 
 if (_typeGroup isEqualType "") then {
-	if (_typeGroup == "not_supported") then {_exit = true; ["Recruit Squad", "The group or vehicle type you requested is not supported in your modset"] call A3A_fnc_customHint;};
-	if (A3A_hasIFA and ((_typeGroup == SDKMortar) or (_typeGroup == SDKMGStatic)) and !debug) then {_exit = true; ["Recruit Squad", "The group or vehicle type you requested is not supported in your modset"] call A3A_fnc_customHint;};
+	if (_typeGroup == "not_supported") then {_exit = true; ["Recruit Squad", "The group or vehicle type you requested is not supported in your modset."] call A3A_fnc_customHint;};
+	if (A3A_hasIFA and ((_typeGroup == SDKMortar) or (_typeGroup == SDKMGStatic)) and !debug) then {_exit = true; ["Recruit Squad", "The group or vehicle type you requested is not supported in your modset."] call A3A_fnc_customHint;};
 };
 
 if (_exit) exitWith {};
@@ -46,11 +46,11 @@ if (_typeGroup isEqualType []) then {
 	_costs = _costs + ([vehSDKTruck] call A3A_fnc_vehiclePrice)
 };
 
-if ((_withBackpck != "") and A3A_hasIFA) exitWith {["Recruit Squad", "Your current modset doesn't support packing/unpacking static weapons"] call A3A_fnc_customHint;};
+if ((_withBackpck != "") and A3A_hasIFA) exitWith {["Recruit Squad", "Your current modset doesn't support packing/unpacking static weapons."] call A3A_fnc_customHint;};
 
-if (_hr < _costHR) then {_exit = true; ["Recruit Squad", format ["You do not have enough HR for this request (%1 required)",_costHR]] call A3A_fnc_customHint;};
+if (_hr < _costHR) then {_exit = true; ["Recruit Squad", format ["You do not have enough HR for this request (%1 required).",_costHR]] call A3A_fnc_customHint;};
 
-if (_resourcesFIA < _costs) then {_exit = true; ["Recruit Squad", format ["You do not have enough money for this request (%1 € required)",_costs]] call A3A_fnc_customHint;};
+if (_resourcesFIA < _costs) then {_exit = true; ["Recruit Squad", format ["You do not have enough money for this request (%1 € required).",_costs]] call A3A_fnc_customHint;};
 
 if (_exit) exitWith {};
 
@@ -111,7 +111,7 @@ if (!_isInfantry) exitWith { [_vehType, "HCSquadVehicle", [_formatX, _idFormat, 
 
 private _vehCost = [_vehType] call A3A_fnc_vehiclePrice;
 if ((_costs + _vehCost) > server getVariable "resourcesFIA") exitWith {
-    ["Recruit Squad", format ["You do not have enough money for this request (%1 € required)",_vehCost]] call A3A_fnc_customHint;
+    ["Recruit Squad", format ["You do not have enough money for this request (%1 € required).",_vehCost]] call A3A_fnc_customHint;
     [_formatX, _idFormat, _special, objNull] spawn A3A_fnc_spawnHCGroup;
 };
 
@@ -122,7 +122,7 @@ private _display = findDisplay 100;
 
 if (str (_display) != "no display") then {
 	private _ChildControl = _display displayCtrl 104;
-	_ChildControl  ctrlSetTooltip format ["Buy a vehicle for this squad for %1 €",_costs];
+	_ChildControl  ctrlSetTooltip format ["Buy a vehicle for this squad for %1 €.",_costs];
 	_ChildControl = _display displayCtrl 105;
 	_ChildControl  ctrlSetTooltip "Barefoot Infantry";
 };

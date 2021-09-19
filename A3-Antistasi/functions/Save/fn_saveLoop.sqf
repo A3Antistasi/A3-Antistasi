@@ -4,7 +4,7 @@ if (!isServer) exitWith {
     Error("Miscalled server-only function");
 };
 
-if (savingServer) exitWith {["Save Game", "Server data save is still in progress"] remoteExecCall ["A3A_fnc_customHint",theBoss]};
+if (savingServer) exitWith {["Save Game", "Server data save is still in progress..."] remoteExecCall ["A3A_fnc_customHint",theBoss]};
 savingServer = true;
 Info("Starting persistent save");
 ["Persistent Save","Starting persistent save..."] remoteExec ["A3A_fnc_customHint",0,false];

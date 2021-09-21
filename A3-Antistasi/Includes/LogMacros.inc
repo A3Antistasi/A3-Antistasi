@@ -85,19 +85,17 @@ if (isNil "LogLevel") then {LogLevel = 4};
 //line limit handler
 #define _LOG_breakUpLogLine(LOG_LINE) call { \
     if (count LOG_LINE < 1020) exitWith {[LOG_LINE]}; \
-    private _LOG_tempLine = ""; \
+    private _LOG_remLine = LOG_LINE; \
     private _LOG_outputArray = []; \
-    private _LOG_tempCount = 0; \
+    while { count _LOG_remLine >= 1020 } do \
     { \
-        _LOG_tempCount = _LOG_tempCount + count _x; \
-        _LOG_tempLine = _LOG_tempLine + _x; \
-        if (_LOG_tempCount > 980) then { /* Leave some room for exceading word limit and reduce cut off (limit 1023)*/\
-            _LOG_tempCount = 0; \
-            _LOG_outputArray pushBack _LOG_tempLine; \
-            _LOG_tempLine = _LOG_newLineIndicator; \
-        }; \
-    } forEach (LOG_LINE splitString " ,"); \
-    _LOG_outputArray pushBack _LOG_tempLine; \
+        private _LOG_cutPoint = _LOG_remLine find [" ", 980]; \
+        if (_LOG_cutPoint == -1 or _LOG_cutPoint > 1020) then { _LOG_cutPoint = _LOG_remLine find [",", 980] }; \
+        if (_LOG_cutPoint == -1 or _LOG_cutPoint > 1020) then { _LOG_cutPoint = 1020 }; \
+        _LOG_outputArray pushBack (_LOG_remLine select [0, _LOG_cutPoint+1]); \
+        _LOG_remLine = _LOG_newLineIndicator + (_LOG_remLine select [_LOG_cutPoint+1]); \
+    }; \
+    _LOG_outputArray pushBack _LOG_remLine; \
     _LOG_outputArray \
 }
 

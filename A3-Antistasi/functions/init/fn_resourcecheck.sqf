@@ -29,7 +29,7 @@ while {true} do
 		_cityData params ["_numCiv", "_numVeh", "_supportGov", "_supportReb"];
 
 		_popTotal = _popTotal + _numCiv;
-		if (_city in destroyedSites) exitWith { _popKilled = _popKilled + _numCiv };
+		if (_city in destroyedSites) then { _popKilled = _popKilled + _numCiv; continue };
 
 		_popReb = _popReb + (_numCiv * (_supportReb / 100));
 		_popGov = _popGov + (_numCiv * (_supportGov / 100));

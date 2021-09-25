@@ -27,12 +27,12 @@ private _posDestination = getMarkerPos _markerDestination;
 //Don't attempt unless we have enough units spare on this machine to make a worthwhile attack
 if ([_side] call A3A_fnc_remUnitCount < 16) exitWith
 {
-    Info_1("SingleAttack to %1 cancelled because maximum unit count reached", _markerDestination);
+    ServerInfo_1("SingleAttack to %1 cancelled because maximum unit count reached", _markerDestination);
 };
 
 if ([_posDestination,false] call A3A_fnc_fogCheck < 0.3) exitWith
 {
-    Info_1("SingleAttack to %1 cancelled due to heavy fog", _markerDestination);
+    ServerInfo_1("SingleAttack to %1 cancelled due to heavy fog", _markerDestination);
 };
 
 //Parameter is the starting base

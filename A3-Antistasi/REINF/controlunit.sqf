@@ -5,7 +5,7 @@ _units = _this select 0;
 _unit = _units select 0;
 
 if (_unit == Petros) exitWith {["Control Unit", "You cannot control Petros."] call A3A_fnc_customHint;};
-//if (captive player) exitWith {hint "You cannot control AI while on Undercover"};
+if (captive player) exitWith {["Control Unit", "You cannot control AI while undercover."] call A3A_fnc_customHint;};
 if (player != leader group player) exitWith {["Control Unit", "You cannot control AI if you are not the squad leader."] call A3A_fnc_customHint;};
 if (isPlayer _unit) exitWith {["Control Unit", "You cannot control another player."] call A3A_fnc_customHint;};
 if (!(alive _unit) or (_unit getVariable ["incapacitated",false]))  exitWith {["Control Unit", "You cannot control an unconscious, a dead unit."] call A3A_fnc_customHint;};

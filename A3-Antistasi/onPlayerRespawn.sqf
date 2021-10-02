@@ -19,6 +19,7 @@ if (isServer) then {
 	} ];
 };
 
+removeAllActions _oldUnit;
 _nul = [_oldUnit] spawn A3A_fnc_postmortem;
 
 _oldUnit setVariable ["incapacitated",false,true];
@@ -233,6 +234,7 @@ if (side group player == teamPlayer) then
 	[] execVM "OrgPlayers\unitTraits.sqf";
 	[] spawn A3A_fnc_statistics;
 	if (LootToCrateEnabled) then {call A3A_fnc_initLootToCrate};
+	call A3A_fnc_dropObject;
 	}
 else
 	{

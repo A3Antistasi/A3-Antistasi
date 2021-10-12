@@ -281,6 +281,8 @@ if (_varName in _specialVarLoads) then {
 			[_veh, teamPlayer] call A3A_fnc_AIVEHinit;
 			if ((_veh isKindOf "StaticWeapon") or (_veh isKindOf "Building")) then {
 				staticsToSave pushBack _veh;
+				//save performance by turning off simulations for buildings
+				_veh enableSimulationGlobal false;
 			}
 			else {
                 if (!isNil "_state") then {

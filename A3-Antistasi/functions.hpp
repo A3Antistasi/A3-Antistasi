@@ -13,6 +13,7 @@ class A3A
         class initFuncs {};
         class initGarrisons {};
         class initParams {};
+        class initPreJIP { preInit = 1; };
         class initSpawnPlaces {};
 
         class initVar {};
@@ -683,6 +684,15 @@ class A3A
         class shader_ratioToHex {};
         class updateInfoBarShown {};
         class disableInfoBar {};
+    };
+    class uintToHex
+    {
+        file = "functions\Utility\uintToHex";
+        class uint12ToHex {};
+        class uint16ToHex {};
+        class uint20ToHex {};
+        class uint24ToHex {};
+        class uintToHexGenTables {};
     };
 
     class Undercover

@@ -441,6 +441,7 @@ class A3A
     class Ammunition
     {
         class ACEpvpReDress {};
+        class allMagazines {};
         class ammunitionTransfer {};
         class arsenalManage {};
         class categoryOverrides {};

@@ -1,3 +1,5 @@
+#include "..\Includes\common.inc"
+FIX_LINE_NUMBERS()
 private ["_positionTel","_nearX","_thingX","_groupX","_unitsX","_leave"];
 if (!visibleMap) then {openMap true};
 positionTel = [];
@@ -18,7 +20,7 @@ _nearX = [markersX,_positionTel] call BIS_fnc_nearestPosition;
 
 if !(_positionTel inArea _nearX) exitWith {["Garrison", "You must click near a marked zone."] call A3A_fnc_customHint;};
 
-if (not(sidesX getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {["Garrison", format ["That zone does not belong to %1.",nameTeamPlayer]] call A3A_fnc_customHint;};
+if (not(sidesX getVariable [_nearX,sideUnknown] == teamPlayer)) exitWith {["Garrison", format ["That zone does not belong to %1.",FactionGet(reb,"name")]] call A3A_fnc_customHint;};
 
 if ((_nearX in outpostsFIA) and !(isOnRoad getMarkerPos _nearX)) exitWith {["Garrison", "You cannot manage garrisons on this kind of zone."] call A3A_fnc_customHint;};
 
@@ -53,10 +55,10 @@ if ((groupID _groupX == "MineF") or (groupID _groupX == "Post") or (isPlayer(lea
 } forEach _unitsX;
 if (_leave) exitWith {["Garrison", "Dead or player-controlled units cannot be added to any garrison."] call A3A_fnc_customHint;};
 
+private _bannedTypes = arrayCivs + [FactionGet(reb,"unitCrew"), FactionGet(reb,"unitUnarmed"), FactionGet(reb,"unitPetros")];
 {
 	private _unitType = _x getVariable "unitType";
-	if (isNil "_unitType") exitWith {_leave = true};
-	if ((_unitType == staticCrewTeamPlayer) or (_unitType == SDKUnarmed) or (_unitType == typePetros) or (_unitType in arrayCivs)) exitWith {_leave = true}
+	if (_unitType in _bannedTypes) exitWith {_leave = true};
 } forEach _unitsX;
 if (_leave) exitWith {["Garrison", "Static crewmen, prisoners, refugees, Petros or unknown units cannot be added to any garrison."] call A3A_fnc_customHint;};
 

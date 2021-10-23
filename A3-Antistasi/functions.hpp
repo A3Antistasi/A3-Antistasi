@@ -58,7 +58,6 @@ class A3A
         class distance {};
         class distanceUnits {};
         class economicsAI {};
-        class ejectPvPPlayerIfInvalidVehicle {};
         class FIAradio {};
         class findBaseForQRF {};
         class findBasesForConvoy {};
@@ -365,6 +364,14 @@ class A3A
         class loadout_itemLoad {};
     };
 
+    class TemplateVerification
+    {
+        file = "functions\Templates\Verification";
+        class TV_verifyLoadout {};
+        class TV_verifyLoadoutsData {};
+        class TV_verifyAssets {};
+    };
+
     class Logistics
     {
         class logistics_addLoadAction {};
@@ -551,7 +558,6 @@ class A3A
         class garrisonAdd {};
         class garrisonDialog {};
         class NATObomb {};
-        class NATOQuadbike {};
         class postmortem {};
         class reDress {};
         class reinfPlayer {};
@@ -663,9 +669,12 @@ class A3A
     {
         class aceModCompat {};
         class compatibilityLoadFaction {};
+        class compileGroups {};
+        class compileMissionAssets {};
         class getLoadout {};
         class loadFaction {};
         class ifaModCompat {};
+        class loadAddon {};
         class rhsModCompat {};
     };
 

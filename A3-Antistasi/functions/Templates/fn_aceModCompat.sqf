@@ -74,20 +74,20 @@ publicVariable "katMedItems";
 ////////////////////////////////////
 //   ACE ITEMS MODIFICATIONS     ///
 ////////////////////////////////////
-initialRebelEquipment append aceItems;
+FactionGet(reb,"initialRebelEquipment") append aceItems;
 
 
 //ACE medical starting items
 if (A3A_hasACEMedical) then {
-	initialRebelEquipment append aceMedItems;
+	FactionGet(reb,"initialRebelEquipment") append aceMedItems;
 };
 
 if (A3A_hasADV) then {
-	initialRebelEquipment append advItems;
+	FactionGet(reb,"initialRebelEquipment") append advItems;
 };
 
-if(A3A_hasKAT) then {
-	initialRebelEquipment append katMedItems;
+if (A3A_hasKAT) then {
+	FactionGet(reb,"initialRebelEquipment") append katMedItems;
 };
 
 if !(A3A_hasVN) then {

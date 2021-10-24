@@ -660,6 +660,13 @@ class A3A
         class saveLoop {};
     };
 
+    class ShortID {
+        file = "functions\Utility\ShortID";
+        class shortID_create {};
+        class shortID_format {};
+        class shortID_init {};
+    };
+
     class String {
         class pad_2Digits {};
         class pad_3Digits {};

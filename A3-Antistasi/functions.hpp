@@ -740,7 +740,7 @@ class A3A
         class carryItem {};
         class initMovableObject {};
         class rotateItem {};
-        class spawnLight {};
+        class buyItem {};
         class attachedObjects {};
         class dropObject {};
     };

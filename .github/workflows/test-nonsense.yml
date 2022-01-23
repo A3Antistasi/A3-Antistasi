@@ -16,7 +16,7 @@ jobs:
       pull-requests: write
     steps:
       uses: peter-evans/create-or-update-comment@v1
-        with:
-          comment-id: ${{ github.event.comment.id }}
-          reactions: confused
+      with:
+        comment-id: ${{ github.event.comment.id }}
+        reactions: confused
 

@@ -10,7 +10,9 @@ jobs:
     timeout-minutes: 1
     steps:
     - name: Checkout the code
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
+      with:
+        ref: 'unstable'
 
     - name: Build addons
       run: '.\tools\Builder\buildAddons.ps1 -metaFileName meta_dev.cpp'
@@ -19,11 +21,11 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: A3A
-        path: Build\A3A
+        path: build\A3A
         
   upload:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 1
     needs: [build]
     steps:
     - name: Download addon artifact
@@ -34,11 +36,11 @@ jobs:
 
     - name: Publish to Steam Workshop
       uses: arma-actions/workshop-upload@v1
-      with:
+      with: 
         appId: '107410'      # default
-        itemId: '2729074499' # https://steamcommunity.com/sharedfiles/filedetails/?id=2154322285
+        itemId: '2729074499' # https://steamcommunity.com/sharedfiles/filedetails/?id=2729074499
         contentPath: 'A3A'
-        changelog: ""
+        changelog: "Update to Branch: ${GITHUB_REF_NAME} Commit: ${GITHUB_SHA::6}"
       env:
         STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
         STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}

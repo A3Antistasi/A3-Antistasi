@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 1
     steps:
     - name: Checkout the code
-      uses: actions/checkout@unstable
+      uses: actions/checkout@master
 
     - name: Build addons
       run: '.\tools\Builder\buildAddons.ps1 -metaFileName meta_dev.cpp'

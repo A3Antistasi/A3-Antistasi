@@ -40,7 +40,7 @@ jobs:
         appId: '107410'      # default
         itemId: '2729074499' # https://steamcommunity.com/sharedfiles/filedetails/?id=2729074499
         contentPath: 'A3A'
-        changelog: 'Update to Branch: ${{GITHUB_REF_NAME}} Commit: ${{GITHUB_SHA::6}}'
+        changelog: 'Update to Branch: unstable Commit: ${{GITHUB_SHA::6}}'
       env:
         STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
         STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}

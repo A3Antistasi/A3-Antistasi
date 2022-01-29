@@ -34,17 +34,13 @@ jobs:
         name: A3A
         path: A3A
 
-    - name: Get short SHA
-        id: slug
-        run: echo "::set-output name=sha6::$(echo ${GITHUB_SHA} | cut -c1-6)"
-
     - name: Publish to Steam Workshop
       uses: arma-actions/workshop-upload@v1
       with: 
         appId: '107410'      # default
         itemId: '2729074499' # https://steamcommunity.com/sharedfiles/filedetails/?id=2729074499
         contentPath: 'A3A'
-        changelog: 'Update to Branch: ${{github.REF_NAME}} Commit: ${{steps.slug.outputs.sha6}}'
+        changelog: 'Update to Branch: ${{github.REF_NAME}} [url=https://github.com/official-antistasi-community/A3-Antistasi/commit/${{github.sha}}]commit[/url].'
       env:
         STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
         STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}

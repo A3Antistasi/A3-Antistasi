@@ -1,0 +1,44 @@
+on:
+  push:
+    branches:
+    - unstable
+
+jobs:
+      
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 1
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@unstable
+
+    - name: Build addons
+      run: '.\tools\Builder\buildAddons.ps1 -metaFileName meta_dev.cpp'
+
+    - name: Upload build addon artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: A3A
+        path: Build\A3A
+        
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [build]
+    steps:
+    - name: Download addon artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: A3A
+        path: A3A
+
+    - name: Publish to Steam Workshop
+      uses: arma-actions/workshop-upload@v1
+      with:
+        appId: '107410'      # default
+        itemId: '2729074499' # https://steamcommunity.com/sharedfiles/filedetails/?id=2154322285
+        contentPath: 'A3A'
+        changelog: ""
+      env:
+        STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+        STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}

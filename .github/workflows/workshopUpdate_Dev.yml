@@ -23,6 +23,11 @@ jobs:
       with:
         commit_message: "Automated version bump"
 
+    - name: Checkout the code with build number
+      uses: actions/checkout@v2
+      with:
+        ref: 'unstable'
+
     - name: Build addons
       run: '.\tools\Builder\buildAddons.ps1 -metaFileName meta_dev.cpp'
 

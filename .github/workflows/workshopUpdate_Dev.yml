@@ -21,6 +21,8 @@ jobs:
     - name: Committing new build number
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
+        add_options: '-A'
+        branch: unstable
         commit_message: "Automated version bump"
 
     - name: Checkout the code with build number

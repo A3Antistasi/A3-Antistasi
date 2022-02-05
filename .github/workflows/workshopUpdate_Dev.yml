@@ -16,7 +16,7 @@ jobs:
 
     - run: chmod +x ./Tools/incrementVersion.js
     - name: Update build number
-      run: ./Tools/incrementVersion.js -b ${{GITHUB_SHA}}
+      run: ./Tools/incrementVersion.js -b ${{github.sha}}
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Automated version bump"

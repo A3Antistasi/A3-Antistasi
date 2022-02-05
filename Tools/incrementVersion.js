@@ -86,7 +86,7 @@ let line = `#define MAJOR ${curMajor}\n#define MINOR ${curMinor}\n#define PATCHL
 fs.writeFileSync(pathScriptVersion,line)
 console.debug(line);
 
-
+/*
 gitAdd();
 gitCommit();
-
+*/

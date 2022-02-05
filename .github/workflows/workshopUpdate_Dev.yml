@@ -14,10 +14,12 @@ jobs:
       with:
         ref: 'unstable'
 
-    - run: chmod +x ./Tools/incrementVersion.js
+    - name: Giving file permissions
+      run: chmod +x ./Tools/incrementVersion.js
     - name: Update build number
       run: ./Tools/incrementVersion.js -b ${{github.sha}}
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - name: Committing new build number
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Automated version bump"
 

@@ -15,21 +15,15 @@ jobs:
         ref: 'unstable'
 
     - name: Giving file permissions
-      run: chmod +x ./Tools/incrementVersion.js
-    - name: Update build number
-      run: ./Tools/incrementVersion.js -b ${{github.sha}}
-    - name: Committing new build number
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        add_options: '-A'
-        branch: unstable
-        repository: 'D:\a\A3-Antistasi\A3-Antistasi'
-        commit_message: "Automated version bump"
+      run: chmod +x D:\a\A3-Antistasi\A3-Antistasi\Tools\incrementVersion.js
 
-    - name: Checkout the code with build number
-      uses: actions/checkout@v2
+    - name: Update build number
+      run: D:\a\A3-Antistasi\A3-Antistasi\Tools\incrementVersion.js -b ${{github.sha}}
+      
+    - name: Git Auto Commit
+      uses: stefanzweifel/git-auto-commit-action@v4.13.1
       with:
-        ref: 'unstable'
+        commit_message: 'Automatic version update'
 
     - name: Build addons
       run: '.\tools\Builder\buildAddons.ps1 -metaFileName meta_dev.cpp'

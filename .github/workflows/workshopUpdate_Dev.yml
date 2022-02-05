@@ -7,7 +7,7 @@ jobs:
       
   build:
     runs-on: windows-latest
-    timeout-minutes: 1
+    timeout-minutes: 5
     steps:
     - name: Checkout the code
       uses: actions/checkout@v2
@@ -25,7 +25,7 @@ jobs:
         
   upload:
     runs-on: ubuntu-latest
-    timeout-minutes: 1
+    timeout-minutes: 10
     needs: [build]
     steps:
     - name: Download addon artifact

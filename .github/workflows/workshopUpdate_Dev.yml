@@ -23,6 +23,7 @@ jobs:
       with:
         add_options: '-A'
         branch: unstable
+        repository: 'D:\a\A3-Antistasi\A3-Antistasi'
         commit_message: "Automated version bump"
 
     - name: Checkout the code with build number

@@ -4,25 +4,30 @@ on:
     - unstable
 
 jobs:
-      
+  version:
+    runs-on: windows-latest
+    timeout-minutes: 2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: unstable
+
+      - run: chmod +x ./tools/incrementVersion.js
+      - run: node ./tools/incrementVersion.js -b ${{github.sha}}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Automated version bump"
+
   build:
     runs-on: windows-latest
     timeout-minutes: 5
+    needs: [version]
     steps:
     - name: Checkout the code
       uses: actions/checkout@v2
       with:
         ref: 'unstable'
-
-    - name: Giving file permissions
-      run: chmod +x D:\a\A3-Antistasi\A3-Antistasi\Tools\incrementVersion.js
-    - name: Update build number
-      run: D:\a\A3-Antistasi\A3-Antistasi\Tools\incrementVersion.js -b ${{github.sha}}
-      
-    - name: Git Auto Commit
-      uses: stefanzweifel/git-auto-commit-action@v4.13.1
-      with:
-        commit_message: 'Automatic version update'
 
     - name: Build addons
       run: '.\tools\Builder\buildAddons.ps1 -metaFileName meta_dev.cpp'
@@ -32,7 +37,7 @@ jobs:
       with:
         name: A3A
         path: build\A3A
-        
+
   upload:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -46,7 +51,7 @@ jobs:
 
     - name: Publish to Steam Workshop
       uses: arma-actions/workshop-upload@v1
-      with: 
+      with:
         appId: '107410'      # default
         itemId: '2729074499' # https://steamcommunity.com/sharedfiles/filedetails/?id=2729074499
         contentPath: 'A3A'

@@ -4,7 +4,7 @@ const fs = require('fs');
 const { spawnSync } = require("child_process")
 
 //git actions
-const pathScriptVersion = '../A3A/addons/core/Includes/script_version.hpp';
+const pathScriptVersion = 'A3A/addons/core/Includes/script_version.hpp';
 const gitAdd = () => spawnSync("git", ["add", pathScriptVersion])
 const gitCommit = () => spawnSync("git", ["commit", `-m 'Automated version bump'`])
 const gitCurrCommit = () => spawnSync("git", ["rev-parse", "--short", "HEAD"]);

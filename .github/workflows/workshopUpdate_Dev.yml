@@ -11,6 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
+          token: ${{ secrets.BOB_PAT }}
           ref: unstable
 
       - run: chmod +x ./tools/incrementVersion.js

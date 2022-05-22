@@ -12,11 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Merge unstable -> steam-staging
+      - name: Merge unstable -> steam-staging-2
         uses: devmasx/merge-branch@master
         with:
           type: now
-          target_branch: steam-staging
+          target_branch: steam-staging-2
           github_token: ${{ github.token }}
     
   version:
@@ -27,7 +27,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: steam-staging
+          ref: steam-staging-2
 
       - run: chmod +x ./tools/incrementVersion.js
       - run: node ./tools/incrementVersion.js -b ${{github.sha}}
@@ -43,7 +43,7 @@ jobs:
     - name: Checkout the code
       uses: actions/checkout@v2
       with:
-        ref: 'steam-staging'
+        ref: 'steam-staging-2'
 
     - name: Build addons
       run: '.\tools\Builder\buildAddons.ps1 -metaFileName meta_dev.cpp'

@@ -1446,10 +1446,11 @@ Version 2.1.1
 .. note::
    31st August 2019
 
+.. attention::
+   To shorten the version number and to distinguish this version from 1.4 we changed the version to 2.1.1 instead of having 1.4c2.1.1.
 
-To shorten the version number and to distinguish this version from 1.4 we changed the version to 2.1.1 instead of having 1.4c2.1.1.
+.. rubric:: Improvements
 
-Improvements
 • Antistasi ported to Malden (beta) and Livonia (beta)
 • Resized and repositioned markers in all the maps
 • Moved HQ management from the flag to Petros
@@ -1511,8 +1512,6 @@ Version 1.4c1.01 through to 1.4c2.0 - 10th August 2019
 
 .. rubric:: Fixes
 
-
-
 * Vanilla police replaced with RHS police where appropriate
 * Players no longer start with guns appropriate to their role (No more free guns)
 * Bodies now vanish when players disconnect
@@ -1560,8 +1559,7 @@ Version 1.4c1.01 through to 1.4c2.0 - 10th August 2019
 * Several exploits
 * Several runtime errors
 * Probably more fixes we've missed.
-
-meter veh civiles IFA y rehacer lo relativo a JNL <-- I don't know where that comes from and where that belongs [Bob Murphy - 04.01.2020]
+* meter veh civiles IFA y rehacer lo relativo a JNL <-- I don't know where that comes from and where that belongs [Bob Murphy - 04.01.2020]
 
 
 
@@ -1574,12 +1572,14 @@ meter veh civiles IFA y rehacer lo relativo a JNL <-- I don't know where that co
 
 
 
-===============
+
 Version 1.4.0
 ===============
 
 .. note::
    25th October 0018
+
+.. rubric:: Changes
 
 
 * Rework of the spawning scripts, less CPU and bandwith compsuming.
@@ -1614,12 +1614,14 @@ Version 1.4.0
 
 
 
-===============
+
 Version 1.3.5
 ===============
 
 .. note::
    14th October 0018
+
+.. rubric:: Changes
 
 
 * NEW FEATURE: SP init options ported from MP: Difficulty settings affect several params, and Game Mode behaves the same. Want to fight only Redfor? Now you can!
@@ -1649,12 +1651,14 @@ Version 1.3.5
 
 
 
-===============
+
 Version 1.3.4
 ===============
 
 .. note::
    21st September 0018
+
+.. rubric:: Changes
 
 
 * Corrected reinf bug when the AI lacks of air transports to send big groups.
@@ -1681,12 +1685,14 @@ Version 1.3.4
 
 
 
-===============
+
 Version 1.3.3
 ===============
 
 .. note::
    5th September 0018
+
+.. rubric:: Changes
 
 
 * IMPORTANT: Removed and unauthorised ACE medical in SP to avoid the "I cannot respawn" false bug report flood.
@@ -1714,12 +1720,14 @@ Version 1.3.3
 
 
 
-===============
+
 Version 1.3.2
 ===============
 
 .. note::
    4th September 0018
+
+.. rubric:: Changes
 
 
 * NEW FEATURE: Total rework of economics for AI so there are now real economics (like old 1.8) but instead of money they will need time to replentish and maximum assets will depend on zone ownership. Example: Max Tanks for a faction is 1xAirbases belonging to them + you will never see more than that in the field.
@@ -1743,12 +1751,14 @@ Version 1.3.2
 
 
 
-===============
+
 Version 1.3.1
 ===============
 
 .. note::
    2nd September 0018
+
+.. rubric:: Changes
 
 
 * IFA: Replaced winter wehrmacht by Afrikakorps for Tier 2 troops. Requires mission restart to see them.
@@ -1777,12 +1787,14 @@ Version 1.3.1
 
 
 
-===============
+
 Version 1.3.0
 ===============
 
 .. note::
    16th August 2018
+
+.. rubric:: Changes
 
 
 * NEW IMPORTANT FEATURE IN MP: GAME MODE. In the lobby you may set 4 options: All vs All, Rebels vs All and other two on which rebels only fight one chosen faction (invaders or government).
@@ -1847,13 +1859,14 @@ Version 1.3.0
 
 
 
-================================
+
 Version 1.2.5 Holliday update!
 ================================
 
 .. note::
    30th July 2018
 
+.. rubric:: Changes
 
 * Seaport boat garrisons and patrols are subject to boat availability.
 * Fixed teammate disband.
@@ -1869,13 +1882,14 @@ Version 1.2.5 Holliday update!
 
 
 
-===============
+
 Version 1.2.4
 ===============
 
 .. note::
    29th July 2018
 
+.. rubric:: Changes
 
 * HR of AI squadmates is properly refunded when saving.
 * Enemy small vehicle patrols wont have only rebel HQ as reference but the whole frontier in SP and player presence in MP to simulate the whole island is being patrolled.
@@ -1897,13 +1911,14 @@ Version 1.2.4
 
 
 
-===============
+
 Version 1.2.3
 ===============
 
 .. note::
    28th July 2018
 
+.. rubric:: Changes
 
 * NEW FEATURE: MP param to monitor non member distance to the closest member or HQ. After some timeout they will be teleported. This can be customizable in the MP lobby but it is activated by default. The aim of this feature is to avoid randomers in open dedis make spawn senseless zones and not be collaborative with other players.
 * Extended AutoRearm to HC squads. If they are "easy" and not fighting, they will search for better weapons, vests etc.. same as AI squadmates when ordered.
@@ -1930,13 +1945,14 @@ Version 1.2.3
 
 
 
-===============
+
 Version 1.2.2
 ===============
 
 .. note::
    28th July 2018
 
+.. rubric:: Changes
 
 * Re enabled Headless Clients.
 * Commander auto assign on JiP fixed when there are PvP players present.
@@ -1955,13 +1971,14 @@ Version 1.2.2
 
 
 
-===============
+
 Version 1.2.1
 ===============
 
 .. note::
    27th July 2018
 
+.. rubric:: Changes
 
 * When rebels lose territory, there is a small chance depending on WL to be attacked on their HQ.
 * Corrected bug in ambient civilians.
@@ -1979,13 +1996,14 @@ Version 1.2.1
 
 
 
-===============
+
 Version 1.2.0
 ===============
 
 .. note::
    13th July 2018
 
+.. rubric:: Changes
 
 * IMPORTANT: Added enhaced AI features for the HC infantry squads (under testing).
 * IMPORTANT: Added CSAT as PvP faction.
@@ -2041,13 +2059,14 @@ Version 1.2.0
 
 
 
-===============
+
 Version 1.1.5
 ===============
 
 .. note::
    6th July 2018
 
+.. rubric:: Changes
 
 * ALTIS BLUFOR VERSION IS OUT ON STEAM: Play against a mix of militia SDK + AAF in Altis (or RHS alike config).
 * NEW FEATURE: Battle accelerator for battles very remote to players.
@@ -2085,13 +2104,14 @@ Version 1.1.5
 
 
 
-===============
+
 Version 1.1.4
 ===============
 
 .. note::
    21st June 2018
 
+.. rubric:: Changes
 
 * Solved bug when server is initialised by non members.
 * Solved bug on new match which prevented to be asked for placement selection.
@@ -2118,13 +2138,14 @@ Version 1.1.4
 
 
 
-===============
+
 Version 1.1.3
 ===============
 
 .. note::
    14th June 2018
 
+.. rubric:: Changes
 
 * Reworked a bit RT influence, different results from 4 possible status (from destroyed, no influence to no one, to CSAT, negative influence for everyone).
 * IMPORTANT: Availability of transports enabled, except the most basic ones on each faction.
@@ -2148,13 +2169,14 @@ Version 1.1.3
 
 
 
-===============
+
 Version 1.1.2
 ===============
 
 .. note::
    9th June 2018
 
+.. rubric:: Changes
 
 * NEW FEATURE: Any kind of destroyed building is persistent saved.
 * More save fixes and debug checks on the Save feature.
@@ -2172,13 +2194,14 @@ Version 1.1.2
 
 
 
-===============
+
 Version 1.1.1
 ===============
 
 .. note::
    9th June 2018
 
+.. rubric:: Changes
 
 * Several persistent save bugfixes.
 * Re enabled civilians being of the side which owns the city because setFriend command is not reliable during mission.
@@ -2195,13 +2218,14 @@ Version 1.1.1
 
 
 
-===============
+
 Version 1.1.0
 ===============
 
 .. note::
    3rd June 2018
 
+.. rubric:: Changes
 
 * NEW FEATURE: Major assault AI overhaul. Now AI sent on major attacks will perform the following:
 * Mortar assemble and mortar support.
@@ -2245,13 +2269,14 @@ Version 1.1.0
 
 
 
-===============
+
 Version 1.0.8
 ===============
 
 .. note::
    1st June 2018
 
+.. rubric:: Changes
 
 * Solved several undercover MP issues.
 * Re enabled player markers in MP.
@@ -2270,13 +2295,14 @@ Version 1.0.8
 
 
 
-===============
+
 Version 1.0.7
 ===============
 
 .. note::
    30th May 2018
 
+.. rubric:: Changes
 
 * Reverted Jeroen's modification because of bugs until we find a solution.
 * No area check for undercover AI
@@ -2297,13 +2323,14 @@ Version 1.0.7
 
 
 
-===============
+
 Version 1.0.6
 ===============
 
 .. note::
    28th May 2018
 
+.. rubric:: Changes
 
 * Jeroen Arsenal fix some leeks which allowed players select whatever equipment. Thanks to Jeroen
 * APCs and Tanks will pop smoke only once when damaged. Removed damage processess when killed.
@@ -2324,13 +2351,14 @@ Version 1.0.6
 
 
 
-===============
+
 Version 1.0.5
 ===============
 
 .. note::
    22nd May 2018
 
+.. rubric:: Changes
 
 * IMPORTANT: Conquer QRFs can be dispatched on AI vs AI factions. Instead of only send major attacks to eachother, we may find several qrfs dispatched on the same time, taking advantage of weaker garrisons.
 * IMPORTANT: CSAT intervention now starts with WL 2.
@@ -2369,13 +2397,14 @@ Version 1.0.5
 
 
 
-===============
+
 Version 1.0.4
 ===============
 
 .. note::
    21st May 2018
 
+.. rubric:: Changes
 
 * Fixed bugs that made convoy missions not launch.
 * Convoys in Altis work much better now, not with the cohesion from Tanoa but with more chances of arrival.
@@ -2402,13 +2431,14 @@ Version 1.0.4
 
 
 
-===============
+
 Version 1.0.3
 ===============
 
 .. note::
    20th May 2018
 
+.. rubric:: Changes
 
 * IMPORTANT: Early stages AI skill will be lowered, as there was some wrong calculation which made training beyond 5 skill level making AI Rambos.
 * Reverted no busy status because of QRF sent in airports, outposts will require more time to recover.
@@ -2442,13 +2472,14 @@ Version 1.0.3
 
 
 
-===============
+
 Version 1.0.2
 ===============
 
 .. note::
    16th May 2018
 
+.. rubric:: Changes
 
 * IMPORTANT: Reviving takes time, depending on the injuries received. Still has some glitches but gameplay improvement wotrth it.
 * Ambushed AI will react faster, trying to take cover when engaged, take deffensive positions, evaluate the situation and react.
@@ -2481,13 +2512,14 @@ Version 1.0.2
 
 
 
-===============
+
 Version 1.0.1
 ===============
 
 .. note::
    14th May 2018
 
+.. rubric:: Changes
 
 * Player won't be able to garage an air vehicle without being near an airport.
 * PvP players will be able to "steal" unarmed vehicles from their faction airbases and outposts.
@@ -2524,13 +2556,14 @@ Version 1.0.1
 
 
 
-===============
+
 Version 1.0.0
 ===============
 
 .. note::
    23rd April 2018
 
+.. rubric:: Changes
 
 * NEW FEATURE: When a garrison is under attack, all players will receive a notification about it with relevant info. PvP too. PvP mission experience should change A LOT.
 * NEW FEATURE: As visual aid, SDK markers for SDK players display the total garrison in map
@@ -2600,13 +2633,14 @@ Version 1.0.0
 
 
 
-======================
+
 Version 0.12.2 ALPHA
 ======================
 
 .. note::
    14th April 2018
 
+.. rubric:: Changes
 
 * NEW FEATURE: Now you may transport your wounded teammate to some truck / offroad to be healed by friendly medics or at HQ.
 * More bulletproofing of garrisonUpdate.sqf
@@ -2628,13 +2662,14 @@ Version 0.12.2 ALPHA
 
 
 
-======================
+
 Version 0.12.1 ALPHA
 ======================
 
 .. note::
    12th April 2018
 
+.. rubric:: Changes
 
 * Added new Tanks DLC SDK Armed cars (AT and LMG).
 * Purchased vehicles will have players name in the plate.
@@ -2657,13 +2692,14 @@ Version 0.12.1 ALPHA
 
 
 
-======================
+
 Version 0.12.0 ALPHA
 ======================
 
 .. note::
    5th April 2018
 
+.. rubric:: Changes
 
 * IMPORTANT: Added dynamic headless client resource assignation. Antistasi will try to balance the AI load on HC platforms so the idle-est one will spawn AI.
 * IMPORTANT: Added unlimited Headless Client support, default mission has 3 HCs but you may just edit the mission and add as many HCs as you have.
@@ -2691,13 +2727,14 @@ Version 0.12.0 ALPHA
 
 
 
-======================
+
 Version 0.11.3 ALPHA
 ======================
 
 .. note::
    26th March 2018
 
+.. rubric:: Changes
 
 * Workers wont get deleted on dedicated servers without HCs.
 * Reverted some autoload features to only official servers. Autosave will be enabled in dedicated servers.
@@ -2718,13 +2755,14 @@ Version 0.11.3 ALPHA
 
 
 
-======================
+
 Version 0.11.2 ALPHA
 ======================
 
 .. note::
    20th March 2018
 
+.. rubric:: Changes
 
 * IMPORTANT: Civ Spawn rework. Civvies everywhere! Now the Setting Civ Percentage means max amount of civilians. Plase NOTE: Civs are executed on clients in MP.
 * IMPORTANT: Added Jeroen Logistics to enemy garrison ammoboxes. No more transfers to trucks.
@@ -2755,13 +2793,14 @@ Version 0.11.2 ALPHA
 
 
 
-======================
+
 Version 0.11.1 ALPHA
 ======================
 
 .. note::
    6th March 2018
 
+.. rubric:: Changes
 
 * IMPORTANT: Undercover lose on roadblocks is affected by aggro. With low level, the soldiers wont recognise you and will allow you to pass.
 * Optimised a bit actions appearing on flags upon capture.
@@ -2785,13 +2824,14 @@ Version 0.11.1 ALPHA
 
 
 
-======================
+
 Version 0.11.0 ALPHA
 ======================
 
 .. note::
    25th February 2018
 
+.. rubric:: Changes
 
 * NEW FEATURE: Construct things. At last! Requires an engineer in your squad (or being player engineer). Trench classnames depend on the surroundings (urban, forest, field) and bunkers can be built for a price and in controlled zones. Bunkers wont despawn.
 * Players can buy civilian boats in HQ.
@@ -2827,13 +2867,14 @@ Version 0.11.0 ALPHA
 
 
 
-======================
+
 Version 0.10.4 ALPHA
 ======================
 
 .. note::
    20th February 2018
 
+.. rubric:: Changes
 
 * New Feature: Replaced Sentry squads with MG static squads. Managed by HC module, they will mount an MG when they reach their destination.
 * New feature: SDK Roadblocks can be managed as garrisons, have cache of units and get persistent saved.
@@ -2863,13 +2904,14 @@ Version 0.10.4 ALPHA
 
 
 
-======================
+
 Version 0.10.3 ALPHA
 ======================
 
 .. note::
    14th February 2018
 
+.. rubric:: Changes
 
 * NEW FEATURE: Player will be able to assign to garrison squadmates and HC controlled squads.
 * Increased A LOT, A REAL LOT convoy cohesion. Convoy experience is much better right now. Ai behaviour improved too.
@@ -2893,13 +2935,14 @@ Version 0.10.3 ALPHA
 
 
 
-======================
+
 Version 0.10.2 ALPHA
 ======================
 
 .. note::
    13th February 2018
 
+.. rubric:: Changes
 
 * Major improvements on departure, drills, waypoints and procedures on AI attacks.
 * Reverted no NATO attack on cities on early game.
@@ -2922,13 +2965,14 @@ Version 0.10.1 HOTFIX 11/02/2018 ALPHA
 
 
 
-======================
+
 Version 0.10.1 ALPHA
 ======================
 
 .. note::
    11th February 2018
 
+.. rubric:: Changes
 
 * Enabled AI control on mortar squads.
 * No more NATO assaults on cities until some War Level is reached.
@@ -2947,13 +2991,14 @@ Version 0.10.1 ALPHA
 
 
 
-======================
+
 Version 0.10.0 ALPHA
 ======================
 
 .. note::
    8th February 2018
 
+.. rubric:: Changes
 
 * IMPORTANT: Enemy QRF and major attacks affect garrison in departure zone. Hold an attack and decimate outpost / airport garrison.
 * NV is unlockable again.
@@ -2980,13 +3025,14 @@ Version 0.10.0 ALPHA
 
 
 
-=====================
+
 Version 0.9.8 ALPHA
 =====================
 
 .. note::
    25th January 2018
 
+.. rubric:: Changes
 
 * More usage of predefined positions on airports, so they become more challenging.
 * More reliable enemy dead because of bleadout effects.
@@ -3006,13 +3052,14 @@ Version 0.9.8 ALPHA
 
 
 
-=====================
+
 Version 0.9.7 ALPHA
 =====================
 
 .. note::
    25th January 2018
 
+.. rubric:: Changes
 
 * HOTFIX: Jeroen Arsenal now working as host MP.
 
@@ -3027,13 +3074,14 @@ Version 0.9.7 ALPHA
 
 
 
-=====================
+
 Version 0.9.6 ALPHA
 =====================
 
 .. note::
    25th January 2018
 
+.. rubric:: Changes
 
 * IMPORTANT: Small QRFs may be launched from nearby outposts.
 * IMPORTANT: Removed FPS limiter feature, as it was inconsistent and unreliable. Instead of that, Commanders will be able to set the aproximated max amount of AI he wants in the map. Careful with that, use it wisely.
@@ -3055,13 +3103,14 @@ Version 0.9.6 ALPHA
 
 
 
-=====================
+
 Version 0.9.5 ALPHA
 =====================
 
 .. note::
    21st January 2018
 
+.. rubric:: Changes
 
 * Traitor mission guards type depend on War Level.
 * Corrected BIG bug in AI recruiting and weapon check.
@@ -3083,13 +3132,14 @@ Version 0.9.5 ALPHA
 
 
 
-=====================
+
 Version 0.9.4 ALPHA
 =====================
 
 .. note::
    22nd August 2017
 
+.. rubric:: Changes
 
 * NEW FEATURE: Added JAS. The finest Inventory system around the scene, built in by Jeroen Not (Thanks!!!) for Antistasi and one of the things makes Antistasi special :)
 * NEW FEATURE: FPS monitor will dynamically adapt spawn distances smoothly to avoid serious drops. More Antistasi For All!!!
@@ -3113,13 +3163,14 @@ Version 0.9.4 ALPHA
 
 
 
-=====================
+
 Version 0.9.3 ALPHA
 =====================
 
 .. note::
    23rd June 2017
 
+.. rubric:: Changes
 
 * Hotfixed some garrisons not spawning.
 * While BIS does not fix HC Bar squad order options, squads will spawn in Aware stance.
@@ -3136,13 +3187,14 @@ Version 0.9.3 ALPHA
 
 
 
-=====================
+
 Version 0.9.2 ALPHA
 =====================
 
 .. note::
    23rd June 2017
 
+.. rubric:: Changes
 
 * Optimised mortar positioning routines.
 * Optimised fog checks.
@@ -3160,13 +3212,14 @@ Version 0.9.2 ALPHA
 
 
 
-=====================
+
 Version 0.9.1 ALPHA
 =====================
 
 .. note::
    18th June 2017
 
+.. rubric:: Changes
 
 * Hotfixed timeout for friendly AI bleedout.
 * When a HC disconnects, mission finishes to avoid malfunctions. A finer solution is WiP but wont be 100% perfect.
@@ -3188,13 +3241,14 @@ Version 0.9.1 ALPHA
 
 
 
-=====================
+
 Version 0.9.0 ALPHA
 =====================
 
 .. note::
    16th June 2017
 
+.. rubric:: Changes
 
 * NEW FEATURE: Real Garrisons Cache. Garrisons are now composed of combinations of types of soldiers and it works on cache mode (you kill an AT man, go to base, go back, that AT man no longer spawns). AI decides dynamically and with real units and vehicles to send reinforcements, if they reach their destination, they are added to the garrison.
 * NEW FEATURE: Killzone avoidance. AI will think twice to send reinforcements, QRFs, convoys etc. to some places which may have been proven as killzones.
@@ -3243,13 +3297,14 @@ Version 0.9.0 ALPHA
 
 
 
-=====================
+
 Version 0.8.2 ALPHA
 =====================
 
 .. note::
    8th June 2017
 
+.. rubric:: Changes
 
 * IMPORTANT: Made the whole spawning process on groups fps dependant. Groups will spawn with a minimum of one unit.
 * RHS GREF: Added some default grenades, SMGs and vest. Players lose their vanilla vest on connection.
@@ -3270,13 +3325,14 @@ Version 0.8.2 ALPHA
 
 
 
-=====================
+
 Version 0.8.1 ALPHA
 =====================
 
 .. note::
    5th June 2017
 
+.. rubric:: Changes
 
 * Fixed bug on dedi server when buying a civilian truck.
 * Spawn distance parameters correctly updated on persistent save.
@@ -3292,13 +3348,14 @@ Version 0.8.1 ALPHA
 
 
 
-=====================
+
 Version 0.8.0 ALPHA
 =====================
 
 .. note::
    4th June 2017
 
+.. rubric:: Changes
 
 * NEW FEATURE: Spawning system reworked, AI will spawn AI again under some limited conditions. More reliable, smoother game and more realistic. Under heavy testing, please report if you find any frozen soldier.
 * NEW FEATURE: Revive greatly reworked. Carry injured, AI compatible. Less insta kills.
@@ -3334,13 +3391,14 @@ Version 0.8.0 ALPHA
 
 
 
-=====================
+
 Version 0.7.2 ALPHA
 =====================
 
 .. note::
    23rd May 2017
 
+.. rubric:: Changes
 
 * NEW FEATURE: "I hate the fog" action on HQ lamp. It will remove the fog, that simple.
 * Fog checks are back and improved! AI will make decisions depending on fog status on target positions.
@@ -3358,13 +3416,14 @@ Version 0.7.2 ALPHA
 
 
 
-=====================
+
 Version 0.7.1 ALPHA
 =====================
 
 .. note::
    22nd May 2017
 
+.. rubric:: Changes
 
 * Improved garrison system, better, faster, smoother.
 * Corrected bugs on ACRE support.
@@ -3382,13 +3441,14 @@ Version 0.7.1 ALPHA
 
 
 
-=====================
+
 Version 0.7.0 ALPHA
 =====================
 
 .. note::
    11th May 2017
 
+.. rubric:: Changes
 
 * NEW FEATURE: Major attacks now may consist on several waves, converting them in authentic battles. The number of waves depends on several factors.
 * NEW FEATURE: Added ACRE compatibility. Radios are unlocked by default.
@@ -3437,12 +3497,15 @@ Version 0.7.0 ALPHA
 
 
 
-=====================
+
 Version 0.6.3 ALPHA
 =====================
 
 .. note::
    5th May 2017
+
+
+.. rubric:: Changes
 
 
 * NEW FEATURE: Autoloot. If you order Auto Rearm a man inside a vehicle, instead of picking new weapons he will scavenge corpses for weapons and place them in his vehicle until he finds nothing more. After that he will pick his old weapon.
@@ -3473,13 +3536,14 @@ Version 0.6.3 ALPHA
 
 
 
-=====================
+
 Version 0.6.2 ALPHA
 =====================
 
 .. note::
    4th May 2017
 
+.. rubric:: Changes
 
 * Non TFAR players won't lose Radio on Pers. Load if Radios are unlocked.
 * Corrected bug on QRF for CSAT
@@ -3500,13 +3564,14 @@ Version 0.6.2 ALPHA
 
 
 
-=====================
+
 Version 0.6.1 ALPHA
 =====================
 
 .. note::
    3rd May 2017
 
+.. rubric:: Changes
 
 * HOTFIX: SDK Garrisonws were not spawning.
 * Civ "patrol" cars won't go allways to city centres.
@@ -3522,13 +3587,14 @@ Version 0.6.1 ALPHA
 
 
 
-=====================
+
 Version 0.6.0 ALPHA
 =====================
 
 .. note::
    3rd May 2017
 
+.. rubric:: Changes
 
 * NEW FEATURE: SDK Cities are now garrisoneable, NATO will attack them. This will add an uncommon theatre of war in Antistasi.
 * IMPORTANT: As this is an Alpha I decided to "free" the mission to any open coop server, in its current state of development mission is playable and I don't have all the time I need to work on it.
@@ -3550,13 +3616,14 @@ Version 0.6.0 ALPHA
 
 
 
-====================
+
 Version 0.5.2 BETA
 ====================
 
 .. note::
    26th September 2016
 
+.. rubric:: Changes
 
 * Enemy AI Skill will have some limit on how good is doing Syndikat and not depending on Sydikat skill level.
 * When Maru dies no unlocked mags will be locked.
@@ -3579,13 +3646,14 @@ Version 0.5.2 BETA
 
 
 
-====================
+
 Version 0.5.1 BETA
 ====================
 
 .. note::
    26th September 2016
 
+.. rubric:: Changes
 
 * Tweaked Arsenal: Now requirements are constant, not affected by factories.
 * Added a message on mission init so newcomers have an introduction to the persistent save system.
@@ -3619,13 +3687,14 @@ Version 0.5.1 BETA
 
 
 
-====================
+
 Version 0.5.0 BETA
 ====================
 
 .. note::
    18th September 2016
 
+.. rubric:: Changes
 
 * NEW FEATURE: Tiered missions. As you progress in game some missions will require a contact in some city which will provide relevant info. Tier 2 missions will be harder and with some additional difficulties. Bonuses and penalties will be higher too. Those informants are treacherous, they may report you too...
 
@@ -3640,13 +3709,14 @@ Version 0.5.0 BETA
 
 
 
-====================
+
 Version 0.4.6 BETA
 ====================
 
 .. note::
    18th September 2016
 
+.. rubric:: Changes
 
 * Added markers on HQ placement selection for visual aid.
 * Tweaks and bugfixes on revive.
@@ -3671,13 +3741,14 @@ Version 0.4.6 BETA
 
 
 
-====================
+
 Version 0.4.5 BETA
 ====================
 
 .. note::
    16th September 2016
 
+.. rubric:: Changes
 
 * Attacking AI will be a bit more effective.
 * Removed LMG of default unlocked pool, changed by a cheap Sting but compatible with flashlights.
@@ -3703,13 +3774,14 @@ Version 0.4.5 BETA
 
 
 
-====================
+
 Version 0.4.4 BETA
 ====================
 
 .. note::
    13th September 2016
 
+.. rubric:: Changes
 
 * Optimised AI where to attack procedures. No more 99% chance the target will be the central airport.
 * Corrected bug in Outpost garrisons.
@@ -3731,13 +3803,14 @@ Version 0.4.4 BETA
 
 
 
-====================
+
 Version 0.4.3 BETA
 ====================
 
 .. note::
    13th September 2016
 
+.. rubric:: Changes
 
 * Killed a few more suspects of the lockup server bug.
 
@@ -3752,13 +3825,14 @@ Version 0.4.3 BETA
 
 
 
-====================
+
 Version 0.4.2 BETA
 ====================
 
 .. note::
    12th September 2016
 
+.. rubric:: Changes
 
 * Removed small bug to remove some mousewheel actions from the player
 * Corrected bug on AI attack target scripts.
@@ -3790,13 +3864,14 @@ Version 0.4.2 BETA
 
 
 
-====================
+
 Version 0.4.1 BETA
 ====================
 
 .. note::
    8th September 2016
 
+.. rubric:: Changes
 
 * IMPORTANT: REINFORCEMENT CONVOYS. AI will use them to boost their garrison reinforcements when needed.
 * Halved auto reinforcements on each tick.
@@ -3821,13 +3896,14 @@ Version 0.4.1 BETA
 
 
 
-====================
+
 Version 0.4.0 BETA
 ====================
 
 .. note::
    3rd September 2016
 
+.. rubric:: Changes
 
 * Land vehicles will try to use main roads!!!
 * Fixed skill for SDK nor getting saved and loaded.
@@ -3860,13 +3936,14 @@ Version 0.4.0 BETA
 
 
 
-===============
+
 Version 0.3.3
 ===============
 
 .. note::
    1st September 2016
 
+.. rubric:: Changes
 
 * IMPORTANT: In SP. 50 seconds timeout to get healed by AI for player, after that, if AI is stuck and trying to heal, player will be conscious again, but with heavy damage.
 * Corrected error when AI embarked a garrison vehicle
@@ -3900,13 +3977,14 @@ Version 0.3.3
 
 
 
-===============
+
 Version 0.3.2
 ===============
 
 .. note::
    30th August 2016
 
+.. rubric:: Changes
 
 * The ULTIMATE measures to improve FPS. If a player has issues, change config or... buy a new PC.
 * Really improved performance on distance spawn check script.
@@ -3935,13 +4013,14 @@ Version 0.3.2
 
 
 
-===============
+
 Version 0.3.1
 ===============
 
 .. note::
    28th August 2016
 
+.. rubric:: Changes
 
 * Greatly improved spawning garrisons with all the cache related.
 * Tasks on enemy or friendly major attacks no matter if you are the target or not.
@@ -3965,13 +4044,14 @@ Version 0.3.1
 
 
 
-===============
+
 Version 0.3.0
 ===============
 
 .. note::
    28th August 2016
 
+.. rubric:: Changes
 
 * IMPORTANT: jungles are no longer a sure safe position. SpecOp patrols cover the area if AI feels there is insurgency nearby. If SDK kills all the patrols, they will respawn in the same way roadblocks do. Sometimes, AI will decide to reinforce the area with mines.
 * Traits on engineers and medics applied to SDK AI too.
@@ -3987,7 +4067,13 @@ Version 0.3.0
 * Some anti lag measures when AI attacks an Airbase.
 
 
-Version 0.1.2.4 27/08/2016
+Version 0.1.2.4
+=================
+
+.. note::
+   27th August 2016
+
+.. rubric:: Changes
 
 * IMPORTANT: Loosing condition: 1/3 of the total population is massacred by CSAT. Number will be shown on "Map Info".
 * IMPORTANT: R key to respawn.
@@ -4010,7 +4096,13 @@ Version 0.1.2.4 27/08/2016
 * Fixed when commander disconnects and despawns his AI + vehicles despite he's got players in his group.
 
 
-Version 0.1.2.3 26/08/2016 BETA
+Version 0.1.2.3 BETA
+======================
+
+.. note::
+   26th August 2016
+
+.. rubric:: Changes
 
 * Tweaked here and there Undercover and Revive to prevent some bugs MP related.
 * Medics are now truly medics.
@@ -4035,13 +4127,14 @@ Version 0.1.2.3 26/08/2016 BETA
 
 
 
-====================
+
 Version 0.1.2 BETA
 ====================
 
 .. note::
    24th April 2016
 
+.. rubric:: Changes
 
 * NEW FEATURE: Commanders can clear the nearby forest in order to have more space for their vehicles. Persistent Save integrated.
 * Evac Refugees can happen in NATO cities with substantial differences between NATO and CSAT mission types.
@@ -4074,13 +4167,14 @@ Version 0.1.2 BETA
 
 
 
-====================
+
 Version 0.1.1 BETA
 ====================
 
 .. note::
    24th April 2016
 
+.. rubric:: Changes
 
 * Fixed Persistent Save: It wont corrupt Altis saves.
 * Corrected Maru respawning as Petros.
@@ -4124,12 +4218,13 @@ Version 0.1.1 BETA
 
 
 
-====================
+
 Version 0.1.0 BETA
 ====================
 
 .. note::
    24th April 2016
 
+.. rubric:: Changes
 
 * Initial release
